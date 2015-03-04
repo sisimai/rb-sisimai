@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "sisimai"
   spec.version       = Sisimai::VERSION
   spec.authors       = ["azumakuniyuki"]
-  spec.email         = ["azumakuniyuki@gmail.com"]
+  spec.email         = ["ruby-lang.org@azumakuniyuki.org"]
 
   if spec.respond_to?(:metadata)
     spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com' to prevent pushes to rubygems.org, or delete to allow pushes to any server."
