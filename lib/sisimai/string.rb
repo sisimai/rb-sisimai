@@ -26,7 +26,7 @@ module Sisimai::String
       # @Param <ref>  (String) String
       # @Return       false = ASCII Characters only
       #               true  = Including 8bit character
-      return nil unless argvs.kind_of?(String)
+      return argvs unless argvs.kind_of?(String)
       return true unless argvs =~ /\A[\x00-\x7f]+\z/
       return false
     end
@@ -35,10 +35,10 @@ module Sisimai::String
       # @Description  Clean the string out
       # @Param <ref>  (String) String
       # @Return       (String) String cleaned out
-      return nil unless argvs.kind_of?(String)
+      return argvs unless argvs.kind_of?(String)
 
       argvs = argvs.chomp
-      argvs = argvs.squeeze(' ','')
+      argvs = argvs.squeeze(' ')
       argvs = argvs.gsub( /\A /, '' )
       argvs = argvs.gsub( / \z/, '' )
       argvs = argvs.sub( / [-]{2,}.+\z/, '' )
