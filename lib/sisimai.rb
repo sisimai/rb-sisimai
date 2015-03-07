@@ -1,4 +1,4 @@
-require "sisimai/version"
+require 'sisimai/version'
 
 module Sisimai
   # Imported from p5-Sisimail/lib/Sisimai.pm
