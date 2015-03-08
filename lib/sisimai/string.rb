@@ -27,7 +27,7 @@ module Sisimai::String
       # @Return       false = ASCII Characters only
       #               true  = Including 8bit character
       return argvs unless argvs.kind_of?(String)
-      return true unless argvs =~ /\A[\x00-\x7f]+\z/
+      return true  unless argvs =~ /\A[\x00-\x7f]+\z/
       return false
     end
 
