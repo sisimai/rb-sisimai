@@ -382,29 +382,29 @@ module Sisimai::Time
       end # End of while()
 
       if v['T'] && afternoon1 > 0 then
-          # +12
-          t0 = v['T']
-          t1 = v['T'].split(':')
-          v['T'] = sprintf( "%02d:%02d:%02d", t1[0] + 12, t1[1], t1[2] )
-          v['T'] = t0 if t1[0].to_i > 12;
+        # +12
+        t0 = v['T']
+        t1 = v['T'].split(':')
+        v['T'] = sprintf( "%02d:%02d:%02d", t1[0] + 12, t1[1], t1[2] )
+        v['T'] = t0 if t1[0].to_i > 12;
       end
       v['a'] ||= 'Thu' # There is no day of week
 
       if ! v['Y'].nil? && v['Y'].to_i < 200 then
-          # 99 -> 1999, 102 -> 2002
-          v['Y'] += 1900
+        # 99 -> 1999, 102 -> 2002
+        v['Y'] += 1900
       end
       v['z'] ||= self.second2tz( DateTime.now().zone.tr(':','') )
 
       # Check each piece
       if v.has_value?(nil) then
-          warn sprintf( " ***warning: Strange date format [%s]", datestring )
-          return nil
+        warn sprintf( " ***warning: Strange date format [%s]", datestring )
+        return nil
       end
 
       if v['Y'].to_i < 1902 || v['Y'].to_i > 2037 then
-          # -(2^31) ~ (2^31)
-          return nil
+        # -(2^31) ~ (2^31)
+        return nil
       end
 
       # Build date string
@@ -423,8 +423,53 @@ module Sisimai::Time
       return @@TimeZoneAbbr[ argvs ]
     end
 
+    def tz2second( argvs )
+      # @Description  Convert to second
+      # @Param <str>  (String) Timezone string e.g) +0900
+      # @Return       (Integer) n  = seconds
+      #               (undef) invalid format
+      return nil unless argvs.kind_of?(String)
+      digit = {}
+      ztime = 0
 
+      if vm = argvs.match(/\A([-+])(\d)(\d)(\d{2})\z/) then
+        digit = {
+            'operator' => vm[0],
+            'hour-10'  => vm[1].to_i,
+            'hour-01'  => vm[2].to_i,
+            'minutes'  => vm[3].to_i,
+        }
+        ztime += ( digit['hour-10'] * 10 + digit['hour-01'] ) * 3600
+        ztime += ( digit['minutes'] * 60 )
+        ztime *= -1 if digit['operator'] == '-'
 
+        return nil if ztime.abs > TZ_OFFSET
+        return ztime
 
+      elsif argvs.match(/\A[A-Za-z]+\z/) then
+        return self.tz2second( @@TimeZoneAbbr[ argvs ] )
+
+      else
+        return nil
+      end
+
+    end
+
+    def second2tz( argvs )
+      # @Description  Convert to Timezone string
+      # @Param <int>  (Integer) Second
+      # @Return       (String) Timezone offset string
+      return '+0000' unless argvs.kind_of?(Number)
+      digit = { 'operator' => '+' }
+      timez = ''
+
+      return '' if argvs.abs() > TZ_OFFSET  # UTC+14 + 1(DST?)
+      digit['operator'] = '-' if argvs < 0
+      digit['hours']    = ( argvs.abs() / 3600 ).to_i
+      digit['minutes']  = ( ( argvs.abs() % 3600 ) / 60 ).to_i
+
+      timez = sprintf( "%s%02d%02d", digit['operator'], digit['hours'], digit['minutes'] )
+      return timez
+    end
   end
 end
