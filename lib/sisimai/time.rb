@@ -192,22 +192,25 @@ module Sisimai::Time
       # @Param <str>  (String) Digit and a unit of time
       # @Return       (Integer) n = seconds
       #               (Integer) 0 = 0 or invalid unit of time
+      return 0 unless argvs.kind_of?(String)
+
       getseconds = 0
       unitoftime = @@TimeUnit.keys
       mathconsts = @@MathematicalConstant.keys
 
       if vm = argvs.match(/\A(\d+|\d+[.]\d+)(#{unitoftime})?\z/) then
         # 1d, 1.5w
-        n = vm[0]
-        u = vm[1] || 'd'
-        getseconds = n * @@TimeUnit[ u ]
+        n = vm[1].to_f
+        u = vm[2] || 'd'
+        getseconds = n * @@TimeUnit[ u ].to_f
 
       elsif vm = argvs.match(/\A(\d+|\d+[.]\d+)?(#{mathconsts})(#{unitoftime})?\z/) then
         # 1pd, 1.5pw
-        n = vm[0] || 1
-        m = @@MathematicalConstant[ vm[1] ] || 0
-        u = vm[2] || 'd'
-        getseconds = n * m * @@TimeUnit[ u ]
+        n = vm[1].to_f || 1
+        n = 1 if n.to_i == 0
+        m = @@MathematicalConstant[ vm[2] ].to_f
+        u = vm[3] || 'd'
+        getseconds = n * m * @@TimeUnit[ u ].to_f
 
       else
         getseconds = 0
@@ -318,19 +321,19 @@ module Sisimai::Time
               vm = p.match(/\A(\d{1,2}):(\d{1,2}):(\d{1,2})\z/) then
           # Time; 12:34:56, 03:14:15, ...
 
-          if vm[0].to_i < 24 && vm[1].to_i < 60 && vm[2].to_i < 60 then
+          if vm[1].to_i < 24 && vm[2].to_i < 60 && vm[3].to_i < 60 then
             # Valid time format, maybe...
-            v['T'] = sprintf( "%02d:%02d:%02d", vm[0], vm[1], vm[2] )
+            v['T'] = sprintf( "%02d:%02d:%02d", vm[1], vm[2], vm[3] )
 
           elsif vm = p.match(/\A([0-2]\d):([0-5]\d)\z/) then
             # Time; 12:34 => 12:34:00
-            if vm[0].to_i < 24 && vm[1].to_i < 60 then
-                v['T'] = sprintf( "%02d:%02d:00", vm[0], vm[1] )
+            if vm[1].to_i < 24 && vm[2].to_i < 60 then
+                v['T'] = sprintf( "%02d:%02d:00", vm[1], vm[2] )
             end
 
           elsif vm = p.match(/\A(\d\d?):(\d\d?)\z/) then
             # Time: 1:4 => 01:04:00
-            v['T'] = sprintf( "%02d:%02d:00", vm[0], vm[1] )
+            v['T'] = sprintf( "%02d:%02d:00", vm[1], vm[2] )
 
           elsif p.match(/\A[APap][Mm]\z/) then
             # AM or PM
@@ -350,28 +353,28 @@ module Sisimai::Time
               # Other date format
               if vm = p.match(%r|\A(\d{4})[-/](\d{1,2})[-/](\d{1,2})\z|) then
                 # Mail.app(MacOS X)'s faked Bounce, Arrival-Date: 2010-06-18 17:17:52 +0900
-                v['Y'] = vm[0].to_i
-                v['M'] = @@MonthName['abbr'][ vm[1].to_i - 1 ]
-                v['d'] = vm[2].to_i
+                v['Y'] = vm[1].to_i
+                v['M'] = @@MonthName['abbr'][ vm[2].to_i - 1 ]
+                v['d'] = vm[3].to_i
 
               elsif vm = p.match(%r|\A(\d{4})[-/](\d{1,2})[-/](\d{1,2})T([0-2]\d):([0-5]\d):([0-5]\d)\z|) then
                 # ISO 8601; 2000-04-29T01:23:45
-                v['Y'] = vm[0].to_i
-                v['M'] = @@MonthName['abbr'][ vm[1].to_i - 1 ]
+                v['Y'] = vm[1].to_i
+                v['M'] = @@MonthName['abbr'][ vm[2].to_i - 1 ]
 
-                if vm[2].to_i < 32 then
-                  v['d'] = vm[2].to_i
+                if vm[3].to_i < 32 then
+                  v['d'] = vm[3].to_i
                 end
 
-                if vm[3].to_i < 24 && vm[4].to_i < 60 && vm[5].to_i < 60 then
-                  v['T'] = sprintf( "%02d:%02d:%02d", vm[3], vm[4], vm[6] )
+                if vm[4].to_i < 24 && vm[5].to_i < 60 && vm[6].to_i < 60 then
+                  v['T'] = sprintf( "%02d:%02d:%02d", vm[4], vm[5], vm[6] )
                 end
 
               elsif vm = p.match(%r|\A(\d{1,2})/(\d{1,2})/(\d{1,2})\z|) then
                 # 4/29/01 11:34:45 PM
-                v['M']  = @@MonthName['abbr'][ vm[0] - 1 ]
-                v['d']  = vm[1].to_i
-                v['Y']  = vm[2] + 2000
+                v['M']  = @@MonthName['abbr'][ vm[1] - 1 ]
+                v['d']  = vm[2].to_i
+                v['Y']  = vm[3] + 2000
                 v['Y'] -= 100 if v['Y'].to_i > DateTime.now().year + 1
               end
 
@@ -434,10 +437,10 @@ module Sisimai::Time
 
       if vm = argvs.match(/\A([-+])(\d)(\d)(\d{2})\z/) then
         digit = {
-            'operator' => vm[0],
-            'hour-10'  => vm[1].to_i,
-            'hour-01'  => vm[2].to_i,
-            'minutes'  => vm[3].to_i,
+            'operator' => vm[1],
+            'hour-10'  => vm[2].to_i,
+            'hour-01'  => vm[3].to_i,
+            'minutes'  => vm[4].to_i,
         }
         ztime += ( digit['hour-10'] * 10 + digit['hour-01'] ) * 3600
         ztime += ( digit['minutes'] * 60 )
@@ -472,4 +475,6 @@ module Sisimai::Time
       return timez
     end
   end
+
 end
+
