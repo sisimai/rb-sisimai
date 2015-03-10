@@ -195,16 +195,16 @@ module Sisimai::Time
       return 0 unless argvs.kind_of?(String)
 
       getseconds = 0
-      unitoftime = @@TimeUnit.keys
-      mathconsts = @@MathematicalConstant.keys
+      unitoftime = @@TimeUnit.keys.join
+      mathconsts = @@MathematicalConstant.keys.join
 
-      if vm = argvs.match(/\A(\d+|\d+[.]\d+)(#{unitoftime})?\z/) then
+      if vm = argvs.match(/\A(\d+|\d+[.]\d+)([#{unitoftime}])?\z/) then
         # 1d, 1.5w
         n = vm[1].to_f
         u = vm[2] || 'd'
         getseconds = n * @@TimeUnit[ u ].to_f
 
-      elsif vm = argvs.match(/\A(\d+|\d+[.]\d+)?(#{mathconsts})(#{unitoftime})?\z/) then
+      elsif vm = argvs.match(/\A(\d+|\d+[.]\d+)?([#{mathconsts}])([#{unitoftime}])?\z/) then
         # 1pd, 1.5pw
         n = vm[1].to_f || 1
         n = 1 if n.to_i == 0
