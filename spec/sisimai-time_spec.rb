@@ -99,8 +99,40 @@ describe 'Sisimai::Time' do
     end
   end
 
-
-
-
+  describe 'Sisimai::Time.dayofweek() method' do
+    dayofweek0=Sisimai::Time.dayofweek(0)
+    dayofweek1=Sisimai::Time.dayofweek(1)
+    it 'dayofweek(0) returns an array' do
+      expect(dayofweek0.kind_of?(Array)).to be_true
+    end
+    it 'dayofweek(1) returns an array' do
+      expect(dayofweek1.kind_of?(Array)).to be_true
+    end
+    context 'Returned data from the method' do
+      it 'dayofweek(0)->[0] returns "Sun"' do
+        expect(dayofweek0[0]).to eq 'Sun'
+      end
+      it 'dayofweek(0)->[3] returns "Wed"' do
+        expect(dayofweek0[3]).to eq 'Wed'
+      end
+      it 'dayofweek(1)->[1] returns "Monday"' do
+        expect(dayofweek1[1]).to eq 'Monday'
+      end
+      it 'dayofweek(1)->[4] returns "Thursday"' do
+        expect(dayofweek1[4]).to eq 'Thursday'
+      end
+    end
+    context 'Errors from the method' do
+      it 'dayofweek(x) raise an error: ArgumentError' do
+        expect { Sisimai::Time.dayofweek('x') }.to raise_error(ArgumentError)
+      end
+      it 'dayofweek(x,y) raise an error: ArgumentError' do
+        expect { Sisimai::Time.dayofweek('x','y') }.to raise_error(ArgumentError)
+      end
+      it 'dayofseek(x,y,z) raise an error: ArgumentError' do
+        expect { Sisimai::Time.dayofweek('x','y','z') }.to raise_error(ArgumentError)
+      end
+    end
+  end
 
 end
