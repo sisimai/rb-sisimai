@@ -135,4 +135,36 @@ describe 'Sisimai::Time' do
     end
   end
 
+  describe 'Sisimai::Time.hourname() method' do
+    hourname1=Sisimai::Time.hourname(1)
+    it 'hourname(1) returns an array' do
+      expect(hourname1.kind_of?(Array)).to be_true
+    end
+    context 'Returned data from the method' do
+      it 'hourname(1)->[0] returns "Midnight"' do
+        expect(hourname1[0]).to eq 'Midnight'
+      end
+      it 'hourname(1)->[6] returns "Morning"' do
+        expect(hourname1[6]).to eq 'Morning'
+      end
+      it 'hourname(1)->[12] returns "Noon"' do
+        expect(hourname1[12]).to eq 'Noon'
+      end
+      it 'hourname(1)->[18] returns "Evening"' do
+        expect(hourname1[18]).to eq 'Evening'
+      end
+    end
+    context 'Errors from the method' do
+      it 'hourname(x) raise an error: ArgumentError' do
+        expect { Sisimai::Time.hourname('x') }.to raise_error(ArgumentError)
+      end
+      it 'hourname(x,y) raise an error: ArgumentError' do
+        expect { Sisimai::Time.hourname('x','y') }.to raise_error(ArgumentError)
+      end
+      it 'hourname(x,y,z) raise an error: ArgumentError' do
+        expect { Sisimai::Time.hourname('x','y','z') }.to raise_error(ArgumentError)
+      end
+    end
+  end
+
 end
