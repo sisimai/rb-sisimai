@@ -323,7 +323,7 @@ module Sisimai::Time
 
           if vm[1].to_i < 24 && vm[2].to_i < 60 && vm[3].to_i < 60 then
             # Valid time format, maybe...
-            v['T'] = sprintf( "%02d:%02d:%02d", vm[1], vm[2], vm[3] )
+            v['T'] = sprintf( "%02d:%02d:%02d", vm[1].to_i, vm[2].to_i, vm[3].to_i )
 
           elsif vm = p.match(/\A([0-2]\d):([0-5]\d)\z/) then
             # Time; 12:34 => 12:34:00
@@ -395,9 +395,9 @@ module Sisimai::Time
 
       if ! v['Y'].nil? && v['Y'].to_i < 200 then
         # 99 -> 1999, 102 -> 2002
-        v['Y'] += 1900
+        v['Y'] = v['Y'].to_i + 1900
       end
-      v['z'] ||= self.second2tz( DateTime.now().zone.tr(':','') )
+      v['z'] ||= DateTime.now().zone.tr(':','')
 
       # Check each piece
       if v.has_value?(nil) then
