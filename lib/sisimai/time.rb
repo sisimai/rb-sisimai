@@ -275,8 +275,8 @@ module Sisimai::Time
       # @See          http://www.ietf.org/rfc/rfc3339.txt
       return nil unless argvs.kind_of?(String)
 
-      datestring =  argvs
-      datestring.sub(/[,](\d+)/, ', \1')  # Thu,13 -> Thu, 13
+      datestring = argvs
+      datestring = datestring.sub(/[,](\d+)/, ', \1')  # Thu,13 -> Thu, 13
       timetokens = datestring.split(' ')
       parseddate = ''   # (String) Canonified Date/Time string
       afternoon1 = 0    # (Integer) After noon flag
