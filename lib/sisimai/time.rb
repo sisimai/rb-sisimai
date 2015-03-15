@@ -324,71 +324,69 @@ module Sisimai::Time
           if vm[1].to_i < 24 && vm[2].to_i < 60 && vm[3].to_i < 60 then
             # Valid time format, maybe...
             v['T'] = sprintf( "%02d:%02d:%02d", vm[1].to_i, vm[2].to_i, vm[3].to_i )
+          end
 
-          elsif vm = p.match(/\A([0-2]\d):([0-5]\d)\z/) then
-            # Time; 12:34 => 12:34:00
-            if vm[1].to_i < 24 && vm[2].to_i < 60 then
-                v['T'] = sprintf( "%02d:%02d:00", vm[1], vm[2] )
-            end
+        elsif vm = p.match(/\A([0-2]\d):([0-5]\d)\z/) then
+          # Time; 12:34 => 12:34:00
+          if vm[1].to_i < 24 && vm[2].to_i < 60 then
+              v['T'] = sprintf( "%02d:%02d:00", vm[1], vm[2] )
+          end
 
-          elsif vm = p.match(/\A(\d\d?):(\d\d?)\z/) then
-            # Time: 1:4 => 01:04:00
-            v['T'] = sprintf( "%02d:%02d:00", vm[1], vm[2] )
+        elsif vm = p.match(/\A(\d\d?):(\d\d?)\z/) then
+          # Time: 1:4 => 01:04:00
+          v['T'] = sprintf( "%02d:%02d:00", vm[1], vm[2] )
 
-          elsif p.match(/\A[APap][Mm]\z/) then
-            # AM or PM
-            afternoon1 = 1
+        elsif p.match(/\A[APap][Mm]\z/) then
+          # AM or PM
+          afternoon1 = 1
+
+        else
+          # Timezone offset and others
+          if p.match(/\A[-+][01]\d{3}\z/) then
+            # Timezone offset; +0000, +0900, -1000, ...
+            v['z'] ||= p
+
+          elsif p.match(/\A[(]?[A-Z]{2,5}[)]?\z/) then
+            # Timezone abbreviation; JST, GMT, UTC, ...
+            v['z'] ||= self.abbr2tz(p) || '+0000'
 
           else
-            # Timezone offset and others
-            if p.match(/\A[-+][01]\d{3}\z/) then
-              # Timezone offset; +0000, +0900, -1000, ...
-              v['z'] ||= p
+            # Other date format
+            if vm = p.match(%r|\A(\d{4})[-/](\d{1,2})[-/](\d{1,2})\z|) then
+              # Mail.app(MacOS X)'s faked Bounce, Arrival-Date: 2010-06-18 17:17:52 +0900
+              v['Y'] = vm[1].to_i
+              v['M'] = @@MonthName['abbr'][ vm[2].to_i - 1 ]
+              v['d'] = vm[3].to_i
 
-            elsif p.match(/\A[(]?[A-Z]{2,5}[)]?\z/) then
-              # Timezone abbreviation; JST, GMT, UTC, ...
-              v['z'] ||= self.abbr2tz(p) || '+0000'
+            elsif vm = p.match(%r|\A(\d{4})[-/](\d{1,2})[-/](\d{1,2})T([0-2]\d):([0-5]\d):([0-5]\d)\z|) then
+              # ISO 8601; 2000-04-29T01:23:45
+              v['Y'] = vm[1].to_i
+              v['M'] = @@MonthName['abbr'][ vm[2].to_i - 1 ]
 
-            else
-              # Other date format
-              if vm = p.match(%r|\A(\d{4})[-/](\d{1,2})[-/](\d{1,2})\z|) then
-                # Mail.app(MacOS X)'s faked Bounce, Arrival-Date: 2010-06-18 17:17:52 +0900
-                v['Y'] = vm[1].to_i
-                v['M'] = @@MonthName['abbr'][ vm[2].to_i - 1 ]
+              if vm[3].to_i < 32 then
                 v['d'] = vm[3].to_i
-
-              elsif vm = p.match(%r|\A(\d{4})[-/](\d{1,2})[-/](\d{1,2})T([0-2]\d):([0-5]\d):([0-5]\d)\z|) then
-                # ISO 8601; 2000-04-29T01:23:45
-                v['Y'] = vm[1].to_i
-                v['M'] = @@MonthName['abbr'][ vm[2].to_i - 1 ]
-
-                if vm[3].to_i < 32 then
-                  v['d'] = vm[3].to_i
-                end
-
-                if vm[4].to_i < 24 && vm[5].to_i < 60 && vm[6].to_i < 60 then
-                  v['T'] = sprintf( "%02d:%02d:%02d", vm[4], vm[5], vm[6] )
-                end
-
-              elsif vm = p.match(%r|\A(\d{1,2})/(\d{1,2})/(\d{1,2})\z|) then
-                # 4/29/01 11:34:45 PM
-                v['M']  = @@MonthName['abbr'][ vm[1] - 1 ]
-                v['d']  = vm[2].to_i
-                v['Y']  = vm[3] + 2000
-                v['Y'] -= 100 if v['Y'].to_i > DateTime.now().year + 1
               end
 
+              if vm[4].to_i < 24 && vm[5].to_i < 60 && vm[6].to_i < 60 then
+                v['T'] = sprintf( "%02d:%02d:%02d", vm[4], vm[5], vm[6] )
+              end
+
+            elsif vm = p.match(%r|\A(\d{1,2})/(\d{1,2})/(\d{1,2})\z|) then
+                # 4/29/01 11:34:45 PM
+                v['M']  = @@MonthName['abbr'][ vm[1].to_i - 1 ]
+                v['d']  = vm[2].to_i
+                v['Y']  = vm[3].to_i + 2000
+                v['Y'] -= 100 if v['Y'].to_i > DateTime.now().year + 1
             end
           end
         end
-
       end # End of while()
 
       if v['T'] && afternoon1 > 0 then
         # +12
         t0 = v['T']
         t1 = v['T'].split(':')
-        v['T'] = sprintf( "%02d:%02d:%02d", t1[0] + 12, t1[1], t1[2] )
+        v['T'] = sprintf( "%02d:%02d:%02d", t1[0].to_i + 12, t1[1], t1[2] )
         v['T'] = t0 if t1[0].to_i > 12;
       end
       v['a'] ||= 'Thu' # There is no day of week
