@@ -167,4 +167,66 @@ describe 'Sisimai::Time' do
     end
   end
 
+  describe 'Sisimai::Time.parse() method' do
+    datestrings = [
+      'Mon, 2 Apr 2001 04:01:03 +0900 (JST)',
+      'Fri, 9 Apr 2004 04:01:03 +0000 (GMT)',
+      'Thu, 5 Apr 2007 04:01:03 -0000 (UTC)',
+      'Thu, 03 Mar 2010 12:46:23 +0900',
+      'Thu, 17 Jun 2010 01:43:33 +0900',
+      'Thu, 1 Apr 2010 20:51:58 +0900',
+      'Thu, 01 Apr 2010 16:25:40 +0900',
+      '27 Apr 2009 08:08:54 +0000',
+      'Fri,18 Oct 2002 16:03:06 PM',
+      '27 Sep 1998 00:51:27 -0400',
+      'Sat, 21 Nov 1998 16:38:02 -0500 (EST)',
+      'Sat, 21 Nov 1998 13:13:04 -0800 (PST)',
+      '    Sat, 21 Nov 1998 15:40:24 -0600',
+      'Thu, 19 Nov 98 06:53:46 +0100',
+      '03 Apr 1998 09:59:35 +0200',
+      '19 Mar 1998 20:55:10 +0100',
+      '2010-06-18 17:17:52 +0900',
+      '2010-06-18T17:17:52 +0900',
+      'Foo, 03 Mar 2010 12:46:23 +0900',
+      'Thu, 13 Mar 100 12:46:23 +0900',
+      'Thu, 03 Mar 2001 12:46:23 -9900',
+      'Thu, 03 Mar 2001 12:46:23 +9900',
+      'Sat, 21 Nov 1998 13:13:04 -0800 (PST)    ',
+      'Sat, 21 Nov 1998 13:13:04 -0800 (PST) JST',
+      'Sat, 21 Nov 1998 13:13:04 -0800 (PST) Hoge',
+      'Fri, 29 Apr 2013 02:31 +0900',
+      'Sun, 29 Apr 2014 1:2:3 +0900',
+      'Sun, 29 May 2014 1:2 +0900',
+      '4/29/01 11:34:45 PM',
+    ]
+    invaliddates = [
+      'Thu, 13 Cat 2000 22:22:22 +2222',
+      'Thu, 17 Apr 1192 12:46:23 +0900',
+      'Thu, 19 May 2600 14:51:10 +0900',
+      'Thu, 22 Jun 2001 32:40:29 +0900',
+      'Thu, 25 Jul 1995 00:86:00 +0900',
+      'Thu, 31 Aug 2013 11:22:73 +0900',
+      'Thu, 36 Sep 2009 11:22:33 +0900',
+    ]
+
+    for v in datestrings do
+      time = nil
+      text = Sisimai::Time.parse( v )
+      it 'parse() returns a text' do
+        expect(text.kind_of?(String)).to be_true
+      end
+      text = text.sub(/\s[-+]\d{4}\z/,'')
+      time = Time.strptime( text, '%a, %d %b %Y %T' )
+      it 'Kind of "time" object is "Time"' do
+        expect(time.kind_of?(Time)).to be_true 
+      end
+    end
+
+
+  end
+
 end
+
+
+
+
