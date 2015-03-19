@@ -208,21 +208,23 @@ describe 'Sisimai::Time' do
       'Thu, 31 Aug 2013 11:22:73 +0900',
       'Thu, 36 Sep 2009 11:22:33 +0900',
     ]
-
     for v in datestrings do
-      time = nil
       text = Sisimai::Time.parse( v )
       it 'parse() returns a text' do
         expect(text.kind_of?(String)).to be_true
       end
-      text = text.sub(/\s[-+]\d{4}\z/,'')
-      time = Time.strptime( text, '%a, %d %b %Y %T' )
+      date = text.sub(/\s[-+]\d{4}\z/,'')
+      time = Time.strptime( date, '%a, %d %b %Y %T' )
       it 'Kind of "time" object is "Time"' do
         expect(time.kind_of?(Time)).to be_true 
       end
     end
-
-
+    for v in invaliddates do
+      null = Sisimai::Time.parse( v )
+      it 'parse( ' + v + ') returns nil' do
+        expect(null).to be_nil
+      end
+    end
   end
 
 end
