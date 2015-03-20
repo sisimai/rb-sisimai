@@ -227,6 +227,25 @@ describe 'Sisimai::Time' do
     end
   end
 
+  describe 'Sisimai::Time.abbr2tz() method' do
+    tzmap = {
+      'GMT' => '+0000',
+      'UTC' => '-0000',
+      'JST' => '+0900',
+      'PDT' => '-0700',
+      'MST' => '-0700',
+      'CDT' => '-0500',
+      'EDT' => '-0400',
+      'HST' => '-1000',
+      'UT'  => '-0000',
+    }
+    tzmap.each do | x, y |
+      it 'abbr2tz(' + x + ') returns time zone offset value: ' + y do
+        expect(Sisimai::Time.abbr2tz( x )).to eq y
+      end
+    end
+  end
+
 end
 
 
