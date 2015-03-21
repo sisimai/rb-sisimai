@@ -261,7 +261,21 @@ describe 'Sisimai::Time' do
       end
     end
   end
-
+  describe 'Sisimai::Time.tz2second() methood' do
+    tzmap = {
+      '+0000' => 0,
+      '-0000' => 0,
+      '-0900' => -32400,
+      '+0900' => 32400,
+      '-1200' => -43200,
+      '+1200' => 43200,
+    }
+    tzmap.each do | x, y |
+      it 'tz2second(' + x + ') returns ' + y.to_s do
+        expect(Sisimai::Time.tz2second( x )).to eq y
+      end
+    end
+  end
 end
 
 
