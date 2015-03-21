@@ -244,6 +244,22 @@ describe 'Sisimai::Time' do
         expect(Sisimai::Time.abbr2tz( x )).to eq y
       end
     end
+    context 'nil from the method' do
+      it 'abbr2tz(0) returns nil' do
+        expect(Sisimai::Time.abbr2tz(0)).to be_nil
+      end
+      it 'abbr2tz("a") returns nil' do
+        expect(Sisimai::Time.abbr2tz("a")).to be_nil
+      end
+    end
+    context 'Errors from the method' do
+      it 'abbr2tz() raise an error: ArgumentError' do
+        expect { Sisimai::Time.abbr2tz() }.to raise_error(ArgumentError)
+      end
+      it 'abbr2tz(nil,nil) raise an error: ArgumentError' do
+        expect { Sisimai::Time.abbr2tz(nil,nil) }.to raise_error(ArgumentError)
+      end
+    end
   end
 
 end
