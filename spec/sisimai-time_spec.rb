@@ -275,6 +275,18 @@ describe 'Sisimai::Time' do
         expect(Sisimai::Time.tz2second( x )).to eq y
       end
     end
+    it 'tz2second(-1800) returns nil' do
+      expect(Sisimai::Time.tz2second('-1800')).to be_nil
+    end
+    it 'tz2second(+1800) returns nil' do
+      expect(Sisimai::Time.tz2second('+1800')).to be_nil
+    end
+    it 'tz2second("nil") returns nil' do
+      expect(Sisimai::Time.tz2second('nil')).to be_nil
+    end
+    it 'tz2second(nil) returns nil' do
+      expect(Sisimai::Time.tz2second(nil)).to be_nil
+    end
   end
 end
 
