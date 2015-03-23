@@ -287,9 +287,14 @@ describe 'Sisimai::Time' do
     it 'tz2second(nil) returns nil' do
       expect(Sisimai::Time.tz2second(nil)).to be_nil
     end
+    context 'Errors from the method' do
+      it 'tz2second() raise an error: ArgumentError' do
+        expect { Sisimai::Time.tz2second() }.to raise_error(ArgumentError)
+      end
+      it 'tz2second(nil,nil) raise an error: ArgumentError' do
+        expect { Sisimai::Time.tz2second(nil,nil) }.to raise_error(ArgumentError)
+      end
+    end
   end
 end
-
-
-
 
