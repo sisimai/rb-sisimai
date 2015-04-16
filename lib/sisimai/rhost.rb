@@ -25,6 +25,19 @@ module Sisimai::Rhost
       # @Description  Detect bounce reason from certain remote hosts
       # @Param <obj>  (Sisimai::Data) Parsed email object
       # @Return       (String) Bounce reason
+      return nil unless argvs.kind_of?(Sisimai::Data)
+      return argvs.reason if argvs.reason
+      return nil unless @@RhostClass[ argvs.downcase ]
+
+      reasontext = ''
+      modulename = 'Sisimai::Rhost::' + @@RhostClass[ argvs.downcase ]
+      rhostclass = modulename.gsub( '::', '/' )
+      rhostclass = rhostclass + @@RhostClass[ argvs.downcase ]
+      rhostcalss = rhostclass.downcase
+      require rhostclass
+
+      reasontext = modulename.get( argvs )
+      return reasontext
 
     end
   end
