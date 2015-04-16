@@ -3,9 +3,9 @@ require 'sisimai/string'
 
 describe 'Sisimai::String' do
   describe 'Sisimai::String.token() method' do
-    s = 'envelope-sender@example.jp';
-    r = 'envelope-recipient@example.org';
-    t = '239aa35547613b2fa94f40c7f35f4394e99fdd88';
+    s = 'envelope-sender@example.jp'
+    r = 'envelope-recipient@example.org'
+    t = '239aa35547613b2fa94f40c7f35f4394e99fdd88'
 
     it 'token(' + s + ',' + r + ',1) generates a token string' do
       expect(Sisimai::String.token(s,r,1)).to be_true
