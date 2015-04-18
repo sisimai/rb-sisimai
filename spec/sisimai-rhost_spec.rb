@@ -16,5 +16,7 @@ describe 'Sisimai::Rhost' do
       expect(Sisimai::Rhost.match('example.jp')).to be_false
     end
   end
+  describe 'Sisimai::Rhost.get() method' do
+  end
 end
 
