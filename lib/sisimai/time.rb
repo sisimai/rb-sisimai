@@ -318,8 +318,9 @@ module Sisimai::Time
           end
 
         elsif vm = p.match(/\A([0-2]\d):([0-5]\d):([0-5]\d)\z/) ||
-              vm = p.match(/\A(\d{1,2}):(\d{1,2}):(\d{1,2})\z/) then
+              vm = p.match(/\A(\d{1,2})[-:](\d{1,2})[-:](\d{1,2})\z/) then
           # Time; 12:34:56, 03:14:15, ...
+          # Arrival-Date: 2014-03-26 00-01-19
 
           if vm[1].to_i < 24 && vm[2].to_i < 60 && vm[3].to_i < 60 then
             # Valid time format, maybe...
@@ -399,6 +400,7 @@ module Sisimai::Time
 
       # Check each piece
       if v.has_value?(nil) then
+        # Strange date format
         warn sprintf( " ***warning: Strange date format [%s]", datestring )
         return nil
       end
