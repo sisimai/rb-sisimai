@@ -1,65 +1,65 @@
 require 'spec_helper'
-require 'sisimai/time'
+require 'sisimai/datetime'
 require 'date'
 
-describe 'Sisimai::Time' do
-  describe 'Sisimai::Time.to_second() method' do
+describe 'Sisimai::DateTime' do
+  describe 'Sisimai::DateTime.to_second() method' do
     it 'to_second(1d) returns 86400 seconds' do
-      expect(Sisimai::Time.to_second('1d')).to eq 86400
+      expect(Sisimai::DateTime.to_second('1d')).to eq 86400
     end
     it 'to_second(2w) returns ( 86400 * 7 * 2 ): 2 weeks' do
-      expect(Sisimai::Time.to_second('2w')).to eq ( 86400 * 7 * 2 )
+      expect(Sisimai::DateTime.to_second('2w')).to eq ( 86400 * 7 * 2 )
     end
     it 'to_second(3f) returns ( 86400 * 14 * 3 ): 3 fortnights' do
-      expect(Sisimai::Time.to_second('3f')).to eq ( 86400 * 14 * 3 )
+      expect(Sisimai::DateTime.to_second('3f')).to eq ( 86400 * 14 * 3 )
     end
     it 'to_second(4l) returns 10205771: 4 Lunar months' do
-      expect(Sisimai::Time.to_second('4l').to_i).to eq 10205771
+      expect(Sisimai::DateTime.to_second('4l').to_i).to eq 10205771
     end
     it 'to_second(5q) returns 39446190: 5 Quarters' do
-      expect(Sisimai::Time.to_second('5q').to_i).to eq 39446190
+      expect(Sisimai::DateTime.to_second('5q').to_i).to eq 39446190
     end
     it 'to_second(6y) returns 189341712: 6 Years' do
-      expect(Sisimai::Time.to_second('6y')).to eq 189341712
+      expect(Sisimai::DateTime.to_second('6y')).to eq 189341712
     end
     it 'to_second(7o) returns 883594656: 7 Olympiads' do
-      expect(Sisimai::Time.to_second('7o')).to eq 883594656
+      expect(Sisimai::DateTime.to_second('7o')).to eq 883594656
     end
     it 'to_second(gs) returns 23: 23.14(e^p) Seconds' do
-      expect(Sisimai::Time.to_second('gs').to_i).to eq 23
+      expect(Sisimai::DateTime.to_second('gs').to_i).to eq 23
     end
     it 'to_second(pm) returns 188: 3.14(PI) minutes' do
-      expect(Sisimai::Time.to_second('pm').to_i).to eq 188
+      expect(Sisimai::DateTime.to_second('pm').to_i).to eq 188
     end
     it 'to_second(pm) returns 9785: 2.718(e) hours' do
-      expect(Sisimai::Time.to_second('eh').to_i).to eq 9785
+      expect(Sisimai::DateTime.to_second('eh').to_i).to eq 9785
     end
     it 'to_second(-1) returns 0' do
-      expect(Sisimai::Time.to_second(-1)).to eq 0
+      expect(Sisimai::DateTime.to_second(-1)).to eq 0
     end
     it 'to_second(-4294967296) returns 0' do
-      expect(Sisimai::Time.to_second(-4294967296)).to eq 0
+      expect(Sisimai::DateTime.to_second(-4294967296)).to eq 0
     end
     it 'to_second(nil) returns 0' do
-      expect(Sisimai::Time.to_second(nil)).to eq 0
+      expect(Sisimai::DateTime.to_second(nil)).to eq 0
     end
     it 'to_second(1x) returns 0' do
-      expect(Sisimai::Time.to_second('1x')).to eq 0
+      expect(Sisimai::DateTime.to_second('1x')).to eq 0
     end
 
     context 'Errors from the method' do
       it 'to_second(x,y) raise an error: ArgumentError' do
-        expect { Sisimai::Time.to_second('x','y') }.to raise_error(ArgumentError)
+        expect { Sisimai::DateTime.to_second('x','y') }.to raise_error(ArgumentError)
       end
       it 'to_second(x,y,z) raise an error: ArgumentError' do
-        expect { Sisimai::Time.to_second('x','y','z') }.to raise_error(ArgumentError)
+        expect { Sisimai::DateTime.to_second('x','y','z') }.to raise_error(ArgumentError)
       end
     end
   end
 
-  describe 'Sisimai::Time.monthname() method' do
-    month0=Sisimai::Time.monthname(0)
-    month1=Sisimai::Time.monthname(1)
+  describe 'Sisimai::DateTime.monthname() method' do
+    month0=Sisimai::DateTime.monthname(0)
+    month1=Sisimai::DateTime.monthname(1)
     it 'monthname(0) returns an array' do
       expect(month0.kind_of?(Array)).to be_true
     end
@@ -88,20 +88,20 @@ describe 'Sisimai::Time' do
     end
     context 'Errors from the method' do
       it 'monthname(x) raise an error: ArgumentError' do
-        expect { Sisimai::Time.monthname('x') }.to raise_error(ArgumentError)
+        expect { Sisimai::DateTime.monthname('x') }.to raise_error(ArgumentError)
       end
       it 'monthname(x,y) raise an error: ArgumentError' do
-        expect { Sisimai::Time.monthname('x','y') }.to raise_error(ArgumentError)
+        expect { Sisimai::DateTime.monthname('x','y') }.to raise_error(ArgumentError)
       end
       it 'monthname(x,y,z) raise an error: ArgumentError' do
-        expect { Sisimai::Time.monthname('x','y','z') }.to raise_error(ArgumentError)
+        expect { Sisimai::DateTime.monthname('x','y','z') }.to raise_error(ArgumentError)
       end
     end
   end
 
-  describe 'Sisimai::Time.dayofweek() method' do
-    dayofweek0=Sisimai::Time.dayofweek(0)
-    dayofweek1=Sisimai::Time.dayofweek(1)
+  describe 'Sisimai::DateTime.dayofweek() method' do
+    dayofweek0=Sisimai::DateTime.dayofweek(0)
+    dayofweek1=Sisimai::DateTime.dayofweek(1)
     it 'dayofweek(0) returns an array' do
       expect(dayofweek0.kind_of?(Array)).to be_true
     end
@@ -124,19 +124,19 @@ describe 'Sisimai::Time' do
     end
     context 'Errors from the method' do
       it 'dayofweek(x) raise an error: ArgumentError' do
-        expect { Sisimai::Time.dayofweek('x') }.to raise_error(ArgumentError)
+        expect { Sisimai::DateTime.dayofweek('x') }.to raise_error(ArgumentError)
       end
       it 'dayofweek(x,y) raise an error: ArgumentError' do
-        expect { Sisimai::Time.dayofweek('x','y') }.to raise_error(ArgumentError)
+        expect { Sisimai::DateTime.dayofweek('x','y') }.to raise_error(ArgumentError)
       end
       it 'dayofseek(x,y,z) raise an error: ArgumentError' do
-        expect { Sisimai::Time.dayofweek('x','y','z') }.to raise_error(ArgumentError)
+        expect { Sisimai::DateTime.dayofweek('x','y','z') }.to raise_error(ArgumentError)
       end
     end
   end
 
-  describe 'Sisimai::Time.hourname() method' do
-    hourname1=Sisimai::Time.hourname(1)
+  describe 'Sisimai::DateTime.hourname() method' do
+    hourname1=Sisimai::DateTime.hourname(1)
     it 'hourname(1) returns an array' do
       expect(hourname1.kind_of?(Array)).to be_true
     end
@@ -156,18 +156,18 @@ describe 'Sisimai::Time' do
     end
     context 'Errors from the method' do
       it 'hourname(x) raise an error: ArgumentError' do
-        expect { Sisimai::Time.hourname('x') }.to raise_error(ArgumentError)
+        expect { Sisimai::DateTime.hourname('x') }.to raise_error(ArgumentError)
       end
       it 'hourname(x,y) raise an error: ArgumentError' do
-        expect { Sisimai::Time.hourname('x','y') }.to raise_error(ArgumentError)
+        expect { Sisimai::DateTime.hourname('x','y') }.to raise_error(ArgumentError)
       end
       it 'hourname(x,y,z) raise an error: ArgumentError' do
-        expect { Sisimai::Time.hourname('x','y','z') }.to raise_error(ArgumentError)
+        expect { Sisimai::DateTime.hourname('x','y','z') }.to raise_error(ArgumentError)
       end
     end
   end
 
-  describe 'Sisimai::Time.parse() method' do
+  describe 'Sisimai::DateTime.parse() method' do
     datestrings = [
       'Mon, 2 Apr 2001 04:01:03 +0900 (JST)',
       'Fri, 9 Apr 2004 04:01:03 +0000 (GMT)',
@@ -210,7 +210,7 @@ describe 'Sisimai::Time' do
       'Thu, 36 Sep 2009 11:22:33 +0900',
     ]
     for v in datestrings do
-      text = Sisimai::Time.parse( v )
+      text = Sisimai::DateTime.parse( v )
       it 'parse() returns a text' do
         expect(text.kind_of?(String)).to be_true
       end
@@ -221,14 +221,14 @@ describe 'Sisimai::Time' do
       end
     end
     for v in invaliddates do
-      null = Sisimai::Time.parse( v )
+      null = Sisimai::DateTime.parse( v )
       it 'parse( ' + v + ') returns nil' do
         expect(null).to be_nil
       end
     end
   end
 
-  describe 'Sisimai::Time.abbr2tz() method' do
+  describe 'Sisimai::DateTime.abbr2tz() method' do
     tzmap = {
       'GMT' => '+0000',
       'UTC' => '-0000',
@@ -242,27 +242,27 @@ describe 'Sisimai::Time' do
     }
     tzmap.each do | x, y |
       it 'abbr2tz(' + x + ') returns time zone offset value: ' + y do
-        expect(Sisimai::Time.abbr2tz( x )).to eq y
+        expect(Sisimai::DateTime.abbr2tz( x )).to eq y
       end
     end
     context 'nil from the method' do
       it 'abbr2tz(0) returns nil' do
-        expect(Sisimai::Time.abbr2tz(0)).to be_nil
+        expect(Sisimai::DateTime.abbr2tz(0)).to be_nil
       end
       it 'abbr2tz("a") returns nil' do
-        expect(Sisimai::Time.abbr2tz("a")).to be_nil
+        expect(Sisimai::DateTime.abbr2tz("a")).to be_nil
       end
     end
     context 'Errors from the method' do
       it 'abbr2tz() raise an error: ArgumentError' do
-        expect { Sisimai::Time.abbr2tz() }.to raise_error(ArgumentError)
+        expect { Sisimai::DateTime.abbr2tz() }.to raise_error(ArgumentError)
       end
       it 'abbr2tz(nil,nil) raise an error: ArgumentError' do
-        expect { Sisimai::Time.abbr2tz(nil,nil) }.to raise_error(ArgumentError)
+        expect { Sisimai::DateTime.abbr2tz(nil,nil) }.to raise_error(ArgumentError)
       end
     end
   end
-  describe 'Sisimai::Time.tz2second() methood' do
+  describe 'Sisimai::DateTime.tz2second() methood' do
     tzmap = {
       '+0000' => 0,
       '-0000' => 0,
@@ -273,27 +273,27 @@ describe 'Sisimai::Time' do
     }
     tzmap.each do | x, y |
       it 'tz2second(' + x + ') returns ' + y.to_s do
-        expect(Sisimai::Time.tz2second( x )).to eq y
+        expect(Sisimai::DateTime.tz2second( x )).to eq y
       end
     end
     it 'tz2second(-1800) returns nil' do
-      expect(Sisimai::Time.tz2second('-1800')).to be_nil
+      expect(Sisimai::DateTime.tz2second('-1800')).to be_nil
     end
     it 'tz2second(+1800) returns nil' do
-      expect(Sisimai::Time.tz2second('+1800')).to be_nil
+      expect(Sisimai::DateTime.tz2second('+1800')).to be_nil
     end
     it 'tz2second("nil") returns nil' do
-      expect(Sisimai::Time.tz2second('nil')).to be_nil
+      expect(Sisimai::DateTime.tz2second('nil')).to be_nil
     end
     it 'tz2second(nil) returns nil' do
-      expect(Sisimai::Time.tz2second(nil)).to be_nil
+      expect(Sisimai::DateTime.tz2second(nil)).to be_nil
     end
     context 'Errors from the method' do
       it 'tz2second() raise an error: ArgumentError' do
-        expect { Sisimai::Time.tz2second() }.to raise_error(ArgumentError)
+        expect { Sisimai::DateTime.tz2second() }.to raise_error(ArgumentError)
       end
       it 'tz2second(nil,nil) raise an error: ArgumentError' do
-        expect { Sisimai::Time.tz2second(nil,nil) }.to raise_error(ArgumentError)
+        expect { Sisimai::DateTime.tz2second(nil,nil) }.to raise_error(ArgumentError)
       end
     end
   end

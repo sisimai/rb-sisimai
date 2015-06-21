@@ -1,7 +1,7 @@
 require "date"
 
-module Sisimai::Time
-  # Imported from p5-Sisimail/lib/Sisimai/Time.pm
+module Sisimai::DateTime
+  # Imported from p5-Sisimail/lib/Sisimai/DateTime.pm
   class << self
     BASE_D = 86400    # 1 day = 86400 sec
     BASE_Y = 365.2425 # 1 year = 365.2425 days
@@ -373,11 +373,11 @@ module Sisimai::Time
               end
 
             elsif vm = p.match(%r|\A(\d{1,2})/(\d{1,2})/(\d{1,2})\z|) then
-                # 4/29/01 11:34:45 PM
-                v['M']  = @@MonthName['abbr'][ vm[1].to_i - 1 ]
-                v['d']  = vm[2].to_i
-                v['Y']  = vm[3].to_i + 2000
-                v['Y'] -= 100 if v['Y'].to_i > DateTime.now().year + 1
+              # 4/29/01 11:34:45 PM
+              v['M']  = @@MonthName['abbr'][ vm[1].to_i - 1 ]
+              v['d']  = vm[2].to_i
+              v['Y']  = vm[3].to_i + 2000
+              v['Y'] -= 100 if v['Y'].to_i > DateTime.now().year + 1
             end
           end
         end
