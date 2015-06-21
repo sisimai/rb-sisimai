@@ -39,6 +39,7 @@ module Sisimai::String
 
       argvs = argvs.chomp
       argvs = argvs.squeeze(' ')
+      argvs = argvs.gsub( /\t/, '' )
       argvs = argvs.gsub( /\A /, '' )
       argvs = argvs.gsub( / \z/, '' )
       argvs = argvs.sub( / [-]{2,}.+\z/, '' )
