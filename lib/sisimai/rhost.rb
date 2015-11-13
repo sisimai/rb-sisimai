@@ -5,26 +5,26 @@ module Sisimai::Rhost
       'aspmx.l.google.com' => 'GoogleApps',
     }
 
+    # Retrun the list of remote hosts Sisimai support
+    # @return   [Array] Remote host list
     def list()
-      # @Description  Retrun remote host list
-      # @Param        <None>
-      # @Return       (Array) List
       return [ @@RhostClass.keys ]
     end
 
+    # The value of "rhost" is listed in $RhostClass or not
+    # @param    [String] argvs  Remote host name
+    # @return   [Integer]       0: did not match
+    #                           1: match
     def match( argvs )
-      # @Description  The rhost is listed in $RhostClass or not
-      # @Param <str>  (String) Remote host name
-      # @Return       (Boolean) F = did not match, T = match
       return false unless argvs.kind_of?(String)
       return true if @@RhostClass.has_key?( argvs.downcase )
       return false
     end
 
+    # Detect the bounce reason from certain remote hosts
+    # @param    [Sisimai::Data] argvs   Parsed email object
+    # @return   [String]                The value of bounce reason
     def get( argvs )
-      # @Description  Detect bounce reason from certain remote hosts
-      # @Param <obj>  (Sisimai::Data) Parsed email object
-      # @Return       (String) Bounce reason
       return nil unless argvs.kind_of?(Sisimai::Data)
       return argvs.reason if argvs.reason
       return nil unless @@RhostClass[ argvs.downcase ]
