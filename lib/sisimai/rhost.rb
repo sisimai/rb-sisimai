@@ -13,8 +13,8 @@ module Sisimai::Rhost
 
     # The value of "rhost" is listed in $RhostClass or not
     # @param    [String] argvs  Remote host name
-    # @return   [Integer]       0: did not match
-    #                           1: match
+    # @return   [True,False]    True: matched
+    #                           False: did not match
     def match( argvs )
       return false unless argvs.kind_of?(String)
       return true if @@RhostClass.has_key?( argvs.downcase )
@@ -27,12 +27,11 @@ module Sisimai::Rhost
     def get( argvs )
       return nil unless argvs.kind_of?(Sisimai::Data)
       return argvs.reason if argvs.reason
-      return nil unless @@RhostClass[ argvs.downcase ]
 
       reasontext = ''
-      modulename = 'Sisimai::Rhost::' + @@RhostClass[ argvs.downcase ]
+      modulename = 'Sisimai::Rhost::' + @@RhostClass[ argvs['rhost'].downcase ]
       rhostclass = modulename.gsub( '::', '/' )
-      rhostclass = rhostclass + @@RhostClass[ argvs.downcase ]
+      rhostclass = rhostclass + @@RhostClass[ argvs['rhost'].downcase ]
       rhostcalss = rhostclass.downcase
       require rhostclass
 
