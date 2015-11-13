@@ -2,13 +2,21 @@ require 'spec_helper'
 require 'sisimai/string'
 
 describe 'Sisimai::String' do
+  describe 'Sisimai::String.EOM() method' do
+    v = '__END_OF_EMAIL_MESSAGE__'
+    it 'EOM() returns ' + v do
+      expect(Sisimai::String.EOM()).not_to be_empty
+      expect(Sisimai::String.EOM()).to eq v
+    end
+  end
+
   describe 'Sisimai::String.token() method' do
     s = 'envelope-sender@example.jp'
     r = 'envelope-recipient@example.org'
     t = '239aa35547613b2fa94f40c7f35f4394e99fdd88'
 
     it 'token(' + s + ',' + r + ',1) generates a token string' do
-      expect(Sisimai::String.token(s,r,1)).to be_true
+      expect(Sisimai::String.token(s,r,1)).not_to be_empty
     end
 
     it 'token(' + s + ',' + r + ',1) returns token: ' + t do
@@ -16,7 +24,7 @@ describe 'Sisimai::String' do
     end
 
     it 'token(' + s + ',' + r + ',0) generates a token string' do
-      expect(Sisimai::String.token(s,r,0)).to be_true
+      expect(Sisimai::String.token(s,r,0)).not_to be_empty
     end
 
     context 'Errors from the method' do
@@ -40,11 +48,11 @@ describe 'Sisimai::String' do
     end
 
     it 'is_8bit(neko) returns false' do
-      expect(Sisimai::String.is_8bit('neko')).to be_false
+      expect(Sisimai::String.is_8bit('neko')).to be false
 
     end
     it 'is_8bit(日本語) returns true' do
-      expect(Sisimai::String.is_8bit('日本語')).to be_true
+      expect(Sisimai::String.is_8bit('日本語')).to be true
     end
 
     context 'Errors from the method' do
