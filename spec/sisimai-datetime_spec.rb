@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'sisimai/datetime'
 require 'date'
+require 'time'
 
 describe 'Sisimai::DateTime' do
   describe 'Sisimai::DateTime.to_second() method' do
@@ -61,10 +62,10 @@ describe 'Sisimai::DateTime' do
     month0=Sisimai::DateTime.monthname(0)
     month1=Sisimai::DateTime.monthname(1)
     it 'monthname(0) returns an array' do
-      expect(month0.kind_of?(Array)).to be_true
+      expect(month0.kind_of?(Array)).to be true
     end
     it 'monthname(1) returns an array' do
-      expect(month1.kind_of?(Array)).to be_true
+      expect(month1.kind_of?(Array)).to be true
     end
     context 'Returned data from the method' do
       it 'monthname(0)->[0] returns "Jan"' do
@@ -103,10 +104,10 @@ describe 'Sisimai::DateTime' do
     dayofweek0=Sisimai::DateTime.dayofweek(0)
     dayofweek1=Sisimai::DateTime.dayofweek(1)
     it 'dayofweek(0) returns an array' do
-      expect(dayofweek0.kind_of?(Array)).to be_true
+      expect(dayofweek0.kind_of?(Array)).to be true
     end
     it 'dayofweek(1) returns an array' do
-      expect(dayofweek1.kind_of?(Array)).to be_true
+      expect(dayofweek1.kind_of?(Array)).to be true
     end
     context 'Returned data from the method' do
       it 'dayofweek(0)->[0] returns "Sun"' do
@@ -138,7 +139,7 @@ describe 'Sisimai::DateTime' do
   describe 'Sisimai::DateTime.hourname() method' do
     hourname1=Sisimai::DateTime.hourname(1)
     it 'hourname(1) returns an array' do
-      expect(hourname1.kind_of?(Array)).to be_true
+      expect(hourname1.kind_of?(Array)).to be true
     end
     context 'Returned data from the method' do
       it 'hourname(1)->[0] returns "Midnight"' do
@@ -212,12 +213,12 @@ describe 'Sisimai::DateTime' do
     for v in datestrings do
       text = Sisimai::DateTime.parse( v )
       it 'parse() returns a text' do
-        expect(text.kind_of?(String)).to be_true
+        expect(text.kind_of?(String)).to be true
       end
       date = text.sub(/\s[-+]\d{4}\z/,'')
       time = Time.strptime( date, '%a, %d %b %Y %T' )
       it 'Kind of "time" object is "Time"' do
-        expect(time.kind_of?(Time)).to be_true 
+        expect(time.kind_of?(Time)).to be true 
       end
     end
     for v in invaliddates do
