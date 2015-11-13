@@ -187,11 +187,14 @@ module Sisimai::DateTime
       #'YEKT' => '+0500', # Yekaterinburg Time                UTC+05:00
     }
 
+    # Convert to second
+    # @param    [String] argvs  Digit and a unit of time
+    # @return   [Integer]       n: seconds
+    #                           0: 0 or invalid unit of time
+    # @example  Get the value of seconds
+    #   to_second('1d') #=> 86400
+    #   to_second('2h') #=>  7200
     def to_second( argvs )
-      # @Description  Convert to second
-      # @Param <str>  (String) Digit and a unit of time
-      # @Return       (Integer) n = seconds
-      #               (Integer) 0 = 0 or invalid unit of time
       return 0 unless argvs.kind_of?(String)
 
       getseconds = 0
@@ -220,35 +223,47 @@ module Sisimai::DateTime
       return getseconds
     end
 
+    # Month name list
+    # @param    [Integer] argvs  Require full name or not
+    # @return   [Array, String]  Month name list or month name
+    # @example  Get the names of each month
+    #   monthname()  #=> [ 'Jan', 'Feb', ... ]
+    #   monthname(1) #=> [ 'January', 'February', 'March', ... ]
     def monthname( argvs=0 )
-      # @Description  Month name list
-      # @Param <flg>  (Integer) require full name
-      # @Return       (Array) Month name
       value = argvs > 0 ? 'full' : 'abbr'
       return @@MonthName[ value ]
     end
 
+    # List of day of week
+    # @param    [Integer] argvs Require full name
+    # @return   [Array, String] List of day of week or day of week
+    # @example  Get the names of each day of week
+    #   dayofweek()  #=> [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ]
+    #   dayofweek(1) #=> [ 'Sunday', 'Monday', 'Tuesday', ... ]
     def dayofweek( argvs=0 )
-      # @Description  List of day of week
-      # @Param <flg>  (Integer) require full name
-      # @Return       (Array) list of day of week
       value = argvs > 0 ? 'full' : 'abbr'
       return @@DayOfWeek[ value ]
     end
 
+    # Hour name list
+    # @param    [Integer] argvs Require full name
+    # @return   [Array, String] Month name
+    # @example  Get the names of each hour
+    #   hourname()  #=> [ 0, 1, 2, ... 23 ]
+    #   hourname(1) #=> [ 'Midnight', 1, 2, ... 'Morning', 7, ... 'Noon', ... 23 ]
     def hourname( argvs=1 )
-      # @Description  Hour name list
-      # @Param <flg>  (Integer) require full name
-      # @Return       (Array) Month name
       value = argvs > 0 ? 'full' : 'abbr'
       return @@HourName[ value ]
     end
 
+    # Convert from date offset to date string
+    # @param    [Integer] argv1 Offset of
+    # @param    [String]  argv2 Delimiter character: default is '-'
+    # @return   [String]        Date string
+    # @example  Get the value of n days before(today is 2015/11/04)
+    #   o2d(1)      #=> 2015-11-03
+    #   o2d(2,'/')  #=> 2015/11/02
     def o2d( argv1=0, argv2='-' )
-      # @Description  Convert from date offset to date string
-      # @Param <int>  (Integer) Offset
-      # @Param <del>  (Character) Delimiter
-      # @Return       (String) String
       piece = DateTime.now()
       epoch = 0
 
@@ -264,15 +279,17 @@ module Sisimai::DateTime
         epoch = 2 ** 31 - 1
       end
       return Time.at(epoch).strftime( "%Y" + argv2 + "%m" + argv2 + "%d" )
-
     end
 
+    # Parse date string; strptime() wrapper
+    # @param    [String] argvs  Date string
+    # @return   [String]        Converted date string
+    # @see      http://en.wikipedia.org/wiki/ISO_8601
+    # @see      http://www.ietf.org/rfc/rfc3339.txt
+    # @example  Parse date string and convert to generic format string
+    #   parse("2015-11-03T23:34:45 Tue")    #=> Tue, 3 Nov 2015 23:34:45 +0900
+    #   parse("Tue, Nov 3 2015 2:2:2")      #=> Tue, 3 Nov 2015 02:02:02 +0900
     def parse( argvs )
-      # @Description  Parse date string; strptime() wrapper
-      # @Param <str>  (String) Date string
-      # @Return       (String) Converted date string
-      # @See          http://en.wikipedia.org/wiki/ISO_8601
-      # @See          http://www.ietf.org/rfc/rfc3339.txt
       return nil unless argvs.kind_of?(String)
 
       datestring = argvs
@@ -417,20 +434,25 @@ module Sisimai::DateTime
       return parseddate;
     end
 
+    # Abbreviation -> Tiemzone
+    # @param    [String] argvs  Abbr. e.g.) JST, GMT, PDT
+    # @return   [String, Undef] +0900, +0000, -0600 or Undef if the argument is
+    #                           invalid format or not supported abbreviation
+    # @example  Get the timezone string of "JST"
+    #   abbr2tz('JST')  #=> '+0900'
     def abbr2tz( argvs )
-      # @Description  Abbreviation -> Tiemzone
-      # @Param <str>  (String) Abbr. e.g.) JST, GMT, PDT
-      # @Return       (String) +0900, +0000, -0600
-      #               (undef) invalid format
       return nil unless argvs.kind_of?(String)
       return @@TimeZoneAbbr[ argvs ]
     end
 
+    # Convert to second
+    # @param    [String] argvs  Timezone string e.g) +0900
+    # @return   [Integer,Undef] n: seconds or Undef it the argument is invalid
+    #                           format string
+    # @see      second2tz
+    # @example  Convert '+0900' to seconds
+    #   tz2second('+0900')  #=> 32400
     def tz2second( argvs )
-      # @Description  Convert to second
-      # @Param <str>  (String) Timezone string e.g) +0900
-      # @Return       (Integer) n  = seconds
-      #               (undef) invalid format
       return nil unless argvs.kind_of?(String)
       digit = {}
       ztime = 0
@@ -455,13 +477,15 @@ module Sisimai::DateTime
       else
         return nil
       end
-
     end
 
+    # Convert to Timezone string
+    # @param    [Integer] argvs Second to be converted
+    # @return   [String]        Timezone offset string
+    # @see      tz2second
+    # @example  Get timezone offset string of specified seconds
+    #   second2tz(12345)    #=> '+0325'
     def second2tz( argvs )
-      # @Description  Convert to Timezone string
-      # @Param <int>  (Integer) Second
-      # @Return       (String) Timezone offset string
       return '+0000' unless argvs.kind_of?(Number)
       digit = { 'operator' => '+' }
       timez = ''
