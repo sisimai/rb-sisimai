@@ -27,6 +27,18 @@ describe 'Sisimai::String' do
       expect(Sisimai::String.token(s,r,0)).not_to be_empty
     end
 
+    it 'token("","",0) returns empty string' do
+      expect(Sisimai::String.token("","",0)).to be_empty
+    end
+
+    it 'token('+ s + ',"",0) returns empty string' do
+      expect(Sisimai::String.token(s,"",0)).to be_empty
+    end
+
+    it 'token("", '+ r + ',0) returns empty string' do
+      expect(Sisimai::String.token("",r,0)).to be_empty
+    end
+
     context 'Errors from the method' do
       it 'token(nil) raise an error: ArgumentError' do
         expect { Sisimai::String.token(nil) }.to raise_error(ArgumentError)
