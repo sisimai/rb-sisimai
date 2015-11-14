@@ -201,18 +201,18 @@ module Sisimai::DateTime
       unitoftime = @@TimeUnit.keys.join
       mathconsts = @@MathematicalConstant.keys.join
 
-      if vm = argvs.match(/\A(\d+|\d+[.]\d+)([#{unitoftime}])?\z/) then
+      if cr = argvs.match(/\A(\d+|\d+[.]\d+)([#{unitoftime}])?\z/) then
         # 1d, 1.5w
-        n = vm[1].to_f
-        u = vm[2] || 'd'
+        n = cr[1].to_f
+        u = cr[2] || 'd'
         getseconds = n * @@TimeUnit[ u ].to_f
 
-      elsif vm = argvs.match(/\A(\d+|\d+[.]\d+)?([#{mathconsts}])([#{unitoftime}])?\z/) then
+      elsif cr = argvs.match(/\A(\d+|\d+[.]\d+)?([#{mathconsts}])([#{unitoftime}])?\z/) then
         # 1pd, 1.5pw
-        n = vm[1].to_f || 1
+        n = cr[1].to_f || 1
         n = 1 if n.to_i == 0
-        m = @@MathematicalConstant[ vm[2] ].to_f
-        u = vm[3] || 'd'
+        m = @@MathematicalConstant[ cr[2] ].to_f
+        u = cr[3] || 'd'
         getseconds = n * m * @@TimeUnit[ u ].to_f
 
       else
@@ -334,25 +334,25 @@ module Sisimai::DateTime
 
           end
 
-        elsif vm = p.match(/\A([0-2]\d):([0-5]\d):([0-5]\d)\z/) ||
-              vm = p.match(/\A(\d{1,2})[-:](\d{1,2})[-:](\d{1,2})\z/) then
+        elsif cr = p.match(/\A([0-2]\d):([0-5]\d):([0-5]\d)\z/) ||
+              cr = p.match(/\A(\d{1,2})[-:](\d{1,2})[-:](\d{1,2})\z/) then
           # Time; 12:34:56, 03:14:15, ...
           # Arrival-Date: 2014-03-26 00-01-19
 
-          if vm[1].to_i < 24 && vm[2].to_i < 60 && vm[3].to_i < 60 then
+          if cr[1].to_i < 24 && cr[2].to_i < 60 && cr[3].to_i < 60 then
             # Valid time format, maybe...
-            v['T'] = sprintf( "%02d:%02d:%02d", vm[1].to_i, vm[2].to_i, vm[3].to_i )
+            v['T'] = sprintf( "%02d:%02d:%02d", cr[1].to_i, cr[2].to_i, cr[3].to_i )
           end
 
-        elsif vm = p.match(/\A([0-2]\d):([0-5]\d)\z/) then
+        elsif cr = p.match(/\A([0-2]\d):([0-5]\d)\z/) then
           # Time; 12:34 => 12:34:00
-          if vm[1].to_i < 24 && vm[2].to_i < 60 then
-              v['T'] = sprintf( "%02d:%02d:00", vm[1], vm[2] )
+          if cr[1].to_i < 24 && cr[2].to_i < 60 then
+              v['T'] = sprintf( "%02d:%02d:00", cr[1], cr[2] )
           end
 
-        elsif vm = p.match(/\A(\d\d?):(\d\d?)\z/) then
+        elsif cr = p.match(/\A(\d\d?):(\d\d?)\z/) then
           # Time: 1:4 => 01:04:00
-          v['T'] = sprintf( "%02d:%02d:00", vm[1], vm[2] )
+          v['T'] = sprintf( "%02d:%02d:00", cr[1], cr[2] )
 
         elsif p.match(/\A[APap][Mm]\z/) then
           # AM or PM
@@ -370,30 +370,30 @@ module Sisimai::DateTime
 
           else
             # Other date format
-            if vm = p.match(%r|\A(\d{4})[-/](\d{1,2})[-/](\d{1,2})\z|) then
+            if cr = p.match(%r|\A(\d{4})[-/](\d{1,2})[-/](\d{1,2})\z|) then
               # Mail.app(MacOS X)'s faked Bounce, Arrival-Date: 2010-06-18 17:17:52 +0900
-              v['Y'] = vm[1].to_i
-              v['M'] = @@MonthName['abbr'][ vm[2].to_i - 1 ]
-              v['d'] = vm[3].to_i
+              v['Y'] = cr[1].to_i
+              v['M'] = @@MonthName['abbr'][ cr[2].to_i - 1 ]
+              v['d'] = cr[3].to_i
 
-            elsif vm = p.match(%r|\A(\d{4})[-/](\d{1,2})[-/](\d{1,2})T([0-2]\d):([0-5]\d):([0-5]\d)\z|) then
+            elsif cr = p.match(%r|\A(\d{4})[-/](\d{1,2})[-/](\d{1,2})T([0-2]\d):([0-5]\d):([0-5]\d)\z|) then
               # ISO 8601; 2000-04-29T01:23:45
-              v['Y'] = vm[1].to_i
-              v['M'] = @@MonthName['abbr'][ vm[2].to_i - 1 ]
+              v['Y'] = cr[1].to_i
+              v['M'] = @@MonthName['abbr'][ cr[2].to_i - 1 ]
 
-              if vm[3].to_i < 32 then
-                v['d'] = vm[3].to_i
+              if cr[3].to_i < 32 then
+                v['d'] = cr[3].to_i
               end
 
-              if vm[4].to_i < 24 && vm[5].to_i < 60 && vm[6].to_i < 60 then
-                v['T'] = sprintf( "%02d:%02d:%02d", vm[4], vm[5], vm[6] )
+              if cr[4].to_i < 24 && cr[5].to_i < 60 && cr[6].to_i < 60 then
+                v['T'] = sprintf( "%02d:%02d:%02d", cr[4], cr[5], cr[6] )
               end
 
-            elsif vm = p.match(%r|\A(\d{1,2})/(\d{1,2})/(\d{1,2})\z|) then
+            elsif cr = p.match(%r|\A(\d{1,2})/(\d{1,2})/(\d{1,2})\z|) then
               # 4/29/01 11:34:45 PM
-              v['M']  = @@MonthName['abbr'][ vm[1].to_i - 1 ]
-              v['d']  = vm[2].to_i
-              v['Y']  = vm[3].to_i + 2000
+              v['M']  = @@MonthName['abbr'][ cr[1].to_i - 1 ]
+              v['d']  = cr[2].to_i
+              v['Y']  = cr[3].to_i + 2000
               v['Y'] -= 100 if v['Y'].to_i > DateTime.now().year + 1
             end
           end
@@ -457,12 +457,12 @@ module Sisimai::DateTime
       digit = {}
       ztime = 0
 
-      if vm = argvs.match(/\A([-+])(\d)(\d)(\d{2})\z/) then
+      if cr = argvs.match(/\A([-+])(\d)(\d)(\d{2})\z/) then
         digit = {
-            'operator' => vm[1],
-            'hour-10'  => vm[2].to_i,
-            'hour-01'  => vm[3].to_i,
-            'minutes'  => vm[4].to_i,
+            'operator' => cr[1],
+            'hour-10'  => cr[2].to_i,
+            'hour-01'  => cr[3].to_i,
+            'minutes'  => cr[4].to_i,
         }
         ztime += ( digit['hour-10'] * 10 + digit['hour-01'] ) * 3600
         ztime += ( digit['minutes'] * 60 )
