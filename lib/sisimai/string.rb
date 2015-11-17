@@ -18,16 +18,16 @@ module Sisimai::String
     # @return [String]        Message token(MD5 hex digest)
     # @return [String]        Blank/failed to create token
     # @see    http://en.wikipedia.org/wiki/ASCII
-    def token( addr1, addr2, epoch )
+    def token(addr1, addr2, epoch)
       return '' unless addr1.kind_of?(String)
-      return '' unless addr1.size > 0
+      return '' unless addr1.length > 0
       return '' unless addr2.kind_of?(String)
-      return '' unless addr2.size > 0
+      return '' unless addr2.length > 0
       return '' unless epoch.is_a?(Integer)
 
       # Format: STX(0x02) Sender-Address RS(0x1e) Recipient-Address ETX(0x03)
       return Digest::SHA1.hexdigest(
-        sprintf( "\x02%s\x1e%s\x1e%d\x03", addr1.downcase, addr2.downcase, epoch )
+        sprintf("\x02%s\x1e%s\x1e%d\x03", addr1.downcase, addr2.downcase, epoch)
       )
     end
 
@@ -35,7 +35,7 @@ module Sisimai::String
     # @param    [String] argvs  Any string to be checked
     # @return   [True,False]    true:  ASCII Characters only
     #                           false: Including 8-bit character
-    def is_8bit( argvs )
+    def is_8bit(argvs)
       return argvs unless argvs.kind_of?(String)
       return true  unless argvs =~ /\A[\x00-\x7f]+\z/
       return false
@@ -46,15 +46,15 @@ module Sisimai::String
     # @return   [Scalar]        Cleaned out string
     # @example  Clean up text
     #   sweep('  neko ') #=> 'neko'
-    def sweep( argvs )
+    def sweep(argvs)
       return argvs unless argvs.kind_of?(String)
 
       argvs = argvs.chomp
       argvs = argvs.squeeze(' ')
-      argvs = argvs.gsub( /\t/, '' )
-      argvs = argvs.gsub( /\A /, '' )
-      argvs = argvs.gsub( / \z/, '' )
-      argvs = argvs.sub( / [-]{2,}.+\z/, '' )
+      argvs = argvs.gsub(/\t/, '')
+      argvs = argvs.gsub(/\A /, '')
+      argvs = argvs.gsub(/ \z/, '')
+      argvs = argvs.sub(/ [-]{2,}.+\z/, '')
 
       return argvs
     end

@@ -194,7 +194,7 @@ module Sisimai::DateTime
     # @example  Get the value of seconds
     #   to_second('1d') #=> 86400
     #   to_second('2h') #=>  7200
-    def to_second( argvs )
+    def to_second(argvs)
       return 0 unless argvs.kind_of?(String)
 
       getseconds = 0
@@ -211,9 +211,9 @@ module Sisimai::DateTime
         # 1pd, 1.5pw
         n = cr[1].to_f || 1
         n = 1 if n.to_i == 0
-        m = @@MathematicalConstant[ cr[2] ].to_f
+        m = @@MathematicalConstant[cr[2]].to_f
         u = cr[3] || 'd'
-        getseconds = n * m * @@TimeUnit[ u ].to_f
+        getseconds = n * m * @@TimeUnit[u].to_f
 
       else
         getseconds = 0
@@ -229,9 +229,9 @@ module Sisimai::DateTime
     # @example  Get the names of each month
     #   monthname()  #=> [ 'Jan', 'Feb', ... ]
     #   monthname(1) #=> [ 'January', 'February', 'March', ... ]
-    def monthname( argvs=0 )
+    def monthname(argvs=0)
       value = argvs > 0 ? 'full' : 'abbr'
-      return @@MonthName[ value ]
+      return @@MonthName[value]
     end
 
     # List of day of week
@@ -240,9 +240,9 @@ module Sisimai::DateTime
     # @example  Get the names of each day of week
     #   dayofweek()  #=> [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ]
     #   dayofweek(1) #=> [ 'Sunday', 'Monday', 'Tuesday', ... ]
-    def dayofweek( argvs=0 )
+    def dayofweek(argvs=0)
       value = argvs > 0 ? 'full' : 'abbr'
-      return @@DayOfWeek[ value ]
+      return @@DayOfWeek[value]
     end
 
     # Hour name list
@@ -251,9 +251,9 @@ module Sisimai::DateTime
     # @example  Get the names of each hour
     #   hourname()  #=> [ 0, 1, 2, ... 23 ]
     #   hourname(1) #=> [ 'Midnight', 1, 2, ... 'Morning', 7, ... 'Noon', ... 23 ]
-    def hourname( argvs=1 )
+    def hourname(argvs=1)
       value = argvs > 0 ? 'full' : 'abbr'
-      return @@HourName[ value ]
+      return @@HourName[value]
     end
 
     # Convert from date offset to date string
@@ -263,7 +263,7 @@ module Sisimai::DateTime
     # @example  Get the value of n days before(today is 2015/11/04)
     #   o2d(1)      #=> 2015-11-03
     #   o2d(2,'/')  #=> 2015/11/02
-    def o2d( argv1=0, argv2='-' )
+    def o2d(argv1=0, argv2='-')
       piece = DateTime.now()
       epoch = 0
 
@@ -278,7 +278,7 @@ module Sisimai::DateTime
         # See http://en.wikipedia.org/wiki/Year_2038_problem
         epoch = 2 ** 31 - 1
       end
-      return Time.at(epoch).strftime( "%Y" + argv2 + "%m" + argv2 + "%d" )
+      return Time.at(epoch).strftime("%Y" + argv2 + "%m" + argv2 + "%d")
     end
 
     # Parse date string; strptime() wrapper
@@ -289,7 +289,7 @@ module Sisimai::DateTime
     # @example  Parse date string and convert to generic format string
     #   parse("2015-11-03T23:34:45 Tue")    #=> Tue, 3 Nov 2015 23:34:45 +0900
     #   parse("Tue, Nov 3 2015 2:2:2")      #=> Tue, 3 Nov 2015 02:02:02 +0900
-    def parse( argvs )
+    def parse(argvs)
       return nil unless argvs.kind_of?(String)
 
       datestring = argvs
@@ -341,18 +341,18 @@ module Sisimai::DateTime
 
           if cr[1].to_i < 24 && cr[2].to_i < 60 && cr[3].to_i < 60 then
             # Valid time format, maybe...
-            v['T'] = sprintf( "%02d:%02d:%02d", cr[1].to_i, cr[2].to_i, cr[3].to_i )
+            v['T'] = sprintf("%02d:%02d:%02d", cr[1].to_i, cr[2].to_i, cr[3].to_i)
           end
 
         elsif cr = p.match(/\A([0-2]\d):([0-5]\d)\z/) then
           # Time; 12:34 => 12:34:00
           if cr[1].to_i < 24 && cr[2].to_i < 60 then
-              v['T'] = sprintf( "%02d:%02d:00", cr[1], cr[2] )
+              v['T'] = sprintf("%02d:%02d:00", cr[1], cr[2])
           end
 
         elsif cr = p.match(/\A(\d\d?):(\d\d?)\z/) then
           # Time: 1:4 => 01:04:00
-          v['T'] = sprintf( "%02d:%02d:00", cr[1], cr[2] )
+          v['T'] = sprintf("%02d:%02d:00", cr[1], cr[2])
 
         elsif p.match(/\A[APap][Mm]\z/) then
           # AM or PM
@@ -379,19 +379,19 @@ module Sisimai::DateTime
             elsif cr = p.match(%r|\A(\d{4})[-/](\d{1,2})[-/](\d{1,2})T([0-2]\d):([0-5]\d):([0-5]\d)\z|) then
               # ISO 8601; 2000-04-29T01:23:45
               v['Y'] = cr[1].to_i
-              v['M'] = @@MonthName['abbr'][ cr[2].to_i - 1 ]
+              v['M'] = @@MonthName['abbr'][cr[2].to_i - 1]
 
               if cr[3].to_i < 32 then
                 v['d'] = cr[3].to_i
               end
 
               if cr[4].to_i < 24 && cr[5].to_i < 60 && cr[6].to_i < 60 then
-                v['T'] = sprintf( "%02d:%02d:%02d", cr[4], cr[5], cr[6] )
+                v['T'] = sprintf("%02d:%02d:%02d", cr[4], cr[5], cr[6])
               end
 
             elsif cr = p.match(%r|\A(\d{1,2})/(\d{1,2})/(\d{1,2})\z|) then
               # 4/29/01 11:34:45 PM
-              v['M']  = @@MonthName['abbr'][ cr[1].to_i - 1 ]
+              v['M']  = @@MonthName['abbr'][cr[1].to_i - 1]
               v['d']  = cr[2].to_i
               v['Y']  = cr[3].to_i + 2000
               v['Y'] -= 100 if v['Y'].to_i > DateTime.now().year + 1
@@ -404,7 +404,7 @@ module Sisimai::DateTime
         # +12
         t0 = v['T']
         t1 = v['T'].split(':')
-        v['T'] = sprintf( "%02d:%02d:%02d", t1[0].to_i + 12, t1[1], t1[2] )
+        v['T'] = sprintf("%02d:%02d:%02d", t1[0].to_i + 12, t1[1], t1[2])
         v['T'] = t0 if t1[0].to_i > 12;
       end
       v['a'] ||= 'Thu' # There is no day of week
@@ -418,7 +418,7 @@ module Sisimai::DateTime
       # Check each piece
       if v.has_value?(nil) then
         # Strange date format
-        warn sprintf( " ***warning: Strange date format [%s]", datestring )
+        warn sprintf(" ***warning: Strange date format [%s]", datestring)
         return nil
       end
 
@@ -429,8 +429,7 @@ module Sisimai::DateTime
 
       # Build date string
       #   Thu, 29 Apr 2004 10:01:11 +0900
-      parseddate = sprintf( "%s, %d %s %d %s %s",
-                      v['a'], v['d'], v['M'], v['Y'], v['T'], v['z'] )
+      parseddate = sprintf("%s, %d %s %d %s %s", v['a'], v['d'], v['M'], v['Y'], v['T'], v['z'])
       return parseddate;
     end
 
@@ -440,9 +439,9 @@ module Sisimai::DateTime
     #                           invalid format or not supported abbreviation
     # @example  Get the timezone string of "JST"
     #   abbr2tz('JST')  #=> '+0900'
-    def abbr2tz( argvs )
+    def abbr2tz(argvs)
       return nil unless argvs.kind_of?(String)
-      return @@TimeZoneAbbr[ argvs ]
+      return @@TimeZoneAbbr[argvs]
     end
 
     # Convert to second
@@ -452,7 +451,7 @@ module Sisimai::DateTime
     # @see      second2tz
     # @example  Convert '+0900' to seconds
     #   tz2second('+0900')  #=> 32400
-    def tz2second( argvs )
+    def tz2second(argvs)
       return nil unless argvs.kind_of?(String)
       digit = {}
       ztime = 0
@@ -464,15 +463,15 @@ module Sisimai::DateTime
             'hour-01'  => cr[3].to_i,
             'minutes'  => cr[4].to_i,
         }
-        ztime += ( digit['hour-10'] * 10 + digit['hour-01'] ) * 3600
-        ztime += ( digit['minutes'] * 60 )
+        ztime += (digit['hour-10'] * 10 + digit['hour-01']) * 3600
+        ztime += (digit['minutes'] * 60)
         ztime *= -1 if digit['operator'] == '-'
 
         return nil if ztime.abs > TZ_OFFSET
         return ztime
 
       elsif argvs.match(/\A[A-Za-z]+\z/) then
-        return self.tz2second( @@TimeZoneAbbr[ argvs ] )
+        return self.tz2second(@@TimeZoneAbbr[argvs])
 
       else
         return nil
@@ -485,7 +484,7 @@ module Sisimai::DateTime
     # @see      tz2second
     # @example  Get timezone offset string of specified seconds
     #   second2tz(12345)    #=> '+0325'
-    def second2tz( argvs )
+    def second2tz(argvs)
       return '+0000' unless argvs.kind_of?(Number)
       digit = { 'operator' => '+' }
       timez = ''
@@ -495,7 +494,7 @@ module Sisimai::DateTime
       digit['hours']    = ( argvs.abs() / 3600 ).to_i
       digit['minutes']  = ( ( argvs.abs() % 3600 ) / 60 ).to_i
 
-      timez = sprintf( "%s%02d%02d", digit['operator'], digit['hours'], digit['minutes'] )
+      timez = sprintf("%s%02d%02d", digit['operator'], digit['hours'], digit['minutes'])
       return timez
     end
   end

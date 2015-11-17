@@ -15,27 +15,27 @@ module Sisimai::Rhost
     # @param    [String] argvs  Remote host name
     # @return   [True,False]    True: matched
     #                           False: did not match
-    def match( argvs )
+    def match(argvs)
       return false unless argvs.kind_of?(String)
-      return true if @@RhostClass.has_key?( argvs.downcase )
+      return true if @@RhostClass.has_key?(argvs.downcase)
       return false
     end
 
     # Detect the bounce reason from certain remote hosts
     # @param    [Sisimai::Data] argvs   Parsed email object
     # @return   [String]                The value of bounce reason
-    def get( argvs )
+    def get(argvs)
       return nil unless argvs.kind_of?(Sisimai::Data)
       return argvs.reason if argvs.reason
 
       reasontext = ''
-      modulename = 'Sisimai::Rhost::' + @@RhostClass[ argvs['rhost'].downcase ]
-      rhostclass = modulename.gsub( '::', '/' )
-      rhostclass = rhostclass + @@RhostClass[ argvs['rhost'].downcase ]
+      modulename = 'Sisimai::Rhost::' + @@RhostClass[argvs['rhost'].downcase]
+      rhostclass = modulename.gsub('::', '/')
+      rhostclass = rhostclass + @@RhostClass[argvs['rhost'].downcase]
       rhostcalss = rhostclass.downcase
       require rhostclass
 
-      reasontext = modulename.get( argvs )
+      reasontext = modulename.get(argvs)
       return reasontext
 
     end
