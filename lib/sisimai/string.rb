@@ -33,11 +33,12 @@ module Sisimai::String
 
     # The argument is 8-bit text or not
     # @param    [String] argvs  Any string to be checked
-    # @return   [True,False]    true:  ASCII Characters only
-    #                           false: Including 8-bit character
+    # @return   [True,False]    false: ASCII Characters only
+    #                           true:  Including 8-bit character
     def is_8bit(argvs)
-      return argvs unless argvs.kind_of?(String)
-      return true  unless argvs =~ /\A[\x00-\x7f]+\z/
+      v = argvs.to_s
+      return nil   if v.size == 0
+      return true  unless v =~ /\A[\x00-\x7f]*\z/
       return false
     end
 
