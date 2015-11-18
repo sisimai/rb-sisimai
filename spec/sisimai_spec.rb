@@ -1,23 +1,22 @@
 require 'spec_helper'
 
-describe 'Sisimai' do
-  describe 'Sisimai variables' do
-    it 'has a version number' do
-      expect(Sisimai::VERSION).not_to be nil
-    end
+describe Sisimai do
+  cn = Sisimai
+  v  = cn::VERSION
+  describe 'Sisimai::VERSION' do
+    it('has a version number')   { expect(cn::VERSION).not_to be nil }
+    it('version number is ' + v) { expect(cn::VERSION).to eq v }
   end
 
-  describe 'Sisimai methods' do
-    it 'does version() method' do
-      expect(Sisimai.version()).to eq(Sisimai::VERSION)
-    end
+  describe '.version' do
+    it('returns ' + v) { expect(cn.version()).to eq v }
+  end
 
-    it 'does sysname() method' do
-      expect(Sisimai.sysname()).to eq('bouncehammer')
-    end
+  describe '.sysname' do
+    it('returns "bouncehammer"') { expect(cn.sysname()).to eq 'bouncehammer' }
+  end
 
-    it 'does libname() method' do
-      expect(Sisimai.libname()).to eq('Sisimai')
-    end
+  describe '.libname' do
+    it('returns ' + cn.libname) { expect(cn.libname()).to eq 'Sisimai' }
   end
 end

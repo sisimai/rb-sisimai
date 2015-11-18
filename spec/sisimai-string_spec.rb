@@ -1,94 +1,66 @@
 require 'spec_helper'
 require 'sisimai/string'
 
-describe 'Sisimai::String' do
-  describe 'Sisimai::String.EOM() method' do
+describe Sisimai::String do
+  cn = Sisimai::String
+  describe '.EOM' do
     v = '__END_OF_EMAIL_MESSAGE__'
-    it 'EOM() returns ' + v do
-      expect(Sisimai::String.EOM()).not_to be_empty
-      expect(Sisimai::String.EOM()).to eq v
-    end
+    it('returns ' + v) { expect(cn.EOM()).to eq v }
   end
 
-  describe 'Sisimai::String.token() method' do
+  describe '.token' do
     s = 'envelope-sender@example.jp'
     r = 'envelope-recipient@example.org'
     t = '239aa35547613b2fa94f40c7f35f4394e99fdd88'
 
-    it 'token(' + s + ',' + r + ',1) generates a token string' do
-      expect(Sisimai::String.token(s,r,1)).not_to be_empty
+    context 'Valid Arguments' do
+      example("(#{s}, #{r}, 1) returns #{t}")    { expect(cn.token(s,r,1)).to eq t }
+      example("(#{s}, #{r}, 0) returns a token") { expect(cn.token(s,r,0)).not_to be_empty }
     end
 
-    it 'token(' + s + ',' + r + ',1) returns token: ' + t do
-      expect(Sisimai::String.token(s,r,1)).to eq t
+    context 'Invalid Arguments' do
+      example('("","",0) returns ""')     { expect(cn.token("","",0)).to be_empty }
+      example("(#{s}, '', 0) returns ''") { expect(cn.token(s,"",0)).to be_empty }
+      example("('', #{r}, 0) returns ''") { expect(cn.token("",r,0)).to be_empty }
     end
 
-    it 'token(' + s + ',' + r + ',0) generates a token string' do
-      expect(Sisimai::String.token(s,r,0)).not_to be_empty
-    end
-
-    it 'token("","",0) returns empty string' do
-      expect(Sisimai::String.token("","",0)).to be_empty
-    end
-
-    it 'token('+ s + ',"",0) returns empty string' do
-      expect(Sisimai::String.token(s,"",0)).to be_empty
-    end
-
-    it 'token("", '+ r + ',0) returns empty string' do
-      expect(Sisimai::String.token("",r,0)).to be_empty
-    end
-
-    context 'Errors from the method' do
-      it 'token(nil) raise an error: ArgumentError' do
-        expect { Sisimai::String.token(nil) }.to raise_error(ArgumentError)
-      end
-
-      it 'token(' + s + ') raise an error: ArgumentError' do
-        expect { Sisimai::String.token(s) }.to raise_error(ArgumentError)
-      end
-
-      it 'token(' + s + ',' + r + ') raise an error: ArgumentError' do
-        expect { Sisimai::String.token(s,r) }.to raise_error(ArgumentError)
-      end
+    context 'Wrong Number of Arguments' do
+      example('(nil) raises ArgumentError')       { expect { cn.token(nil) }.to raise_error(ArgumentError) }
+      example("(#{s}) raises ArgumenetError")     { expect { cn.token(s) }.to raise_error(ArgumentError) }
+      example("(#{s}, #{r}) raises ArgumentError"){ expect { cn.token(s,r) }.to raise_error(ArgumentError) }
     end
   end
 
-  describe 'Sisimai::String.is_8bit() method' do
-    it 'is_8bit(8) returns 8' do
-      expect(Sisimai::String.is_8bit(8)).to eq 8
+  describe '.is_8bit' do
+    example('(8) returns false')    { expect(cn.is_8bit(8)).to be false }
+    example('(neko) returns false') { expect(cn.is_8bit('neko')).to be false }
+    example('(nil) returns false')  { expect(cn.is_8bit(nil)).to be nil }
+
+    context '8-bit Strings' do
+      example('(八) returns true')  { expect(cn.is_8bit('八')).to be true }
+      example('(猫) returns true') { expect(cn.is_8bit('猫')).to be true }
     end
 
-    it 'is_8bit(neko) returns false' do
-      expect(Sisimai::String.is_8bit('neko')).to be false
-
-    end
-    it 'is_8bit(日本語) returns true' do
-      expect(Sisimai::String.is_8bit('日本語')).to be true
-    end
-
-    context 'Errors from the method' do
-      it 'is_8bit() raise an error: ArgumentError' do
-        expect { Sisimai::String.is_8bit() }.to raise_error(ArgumentError)
-      end
+    context 'Wrong number of Arguments' do
+      example('() raises ArgumentError') { expect { cn.is_8bit() }.to raise_error(ArgumentError) }
     end
   end
 
   describe 'Sisimai::String.sweep() method' do
-    it 'sweep(nil) returns nil' do
+    it '.sweep(nil) returns nil' do
       expect(Sisimai::String.sweep(nil)).to be_nil
     end
 
-    it 'sweep(" neko cat ") returns "neko cat"' do
+    it '.sweep(" neko cat ") returns "neko cat"' do
       expect(Sisimai::String.sweep(' neko cat ')).to eq 'neko cat'
     end
 
-    it 'sweep(" nyaa   !!") returns "nyaa !!"' do
+    it '.sweep(" nyaa   !!") returns "nyaa !!"' do
       expect(Sisimai::String.sweep(' nyaa   !!')).to eq 'nyaa !!'
     end
 
     context 'Errors from the method' do
-      it 'sweep() raise an error: ArgumentError' do
+      it '.sweep() raise an error: ArgumentError' do
         expect { Sisimai::String.sweep() }.to raise_error(ArgumentError)
       end
     end
