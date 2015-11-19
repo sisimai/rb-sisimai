@@ -32,9 +32,15 @@ describe Sisimai::String do
   end
 
   describe '.is_8bit' do
-    example('(8) returns false')    { expect(cn.is_8bit(8)).to be false }
-    example('(neko) returns false') { expect(cn.is_8bit('neko')).to be false }
-    example('(nil) returns false')  { expect(cn.is_8bit(nil)).to be nil }
+    context '7-bit Strings' do
+      example('(8) returns false')    { expect(cn.is_8bit(8)).to be false }
+      example('(neko) returns false') { expect(cn.is_8bit('neko')).to be false }
+    end
+
+    context 'Empty String or nil' do
+      example('(nil) returns nil')  { expect(cn.is_8bit(nil)).to be nil }
+      example('("")  returns nil')  { expect(cn.is_8bit("")).to be nil }
+    end
 
     context '8-bit Strings' do
       example('(八) returns true')  { expect(cn.is_8bit('八')).to be true }
@@ -43,26 +49,20 @@ describe Sisimai::String do
 
     context 'Wrong number of Arguments' do
       example('() raises ArgumentError') { expect { cn.is_8bit() }.to raise_error(ArgumentError) }
+      example('("x","y") raises ArgumentError') { expect { cn.is_8bit('x','y') }.to raise_error(ArgumentError) }
     end
   end
 
-  describe 'Sisimai::String.sweep() method' do
-    it '.sweep(nil) returns nil' do
-      expect(Sisimai::String.sweep(nil)).to be_nil
+  describe '.sweep' do
+    context 'Valid String or nil' do
+      example('(" neko cat ") returns "neko cat"')  { expect(cn.sweep(' neko cat ')).to eq 'neko cat' }
+      example('(" nyaa   !!") returns "nyaa !!"')   { expect(cn.sweep(' nyaa   !!')).to eq 'nyaa !!' }
+      example('(nil) returns nil')                  { expect(cn.sweep(nil)).to be nil }
     end
 
-    it '.sweep(" neko cat ") returns "neko cat"' do
-      expect(Sisimai::String.sweep(' neko cat ')).to eq 'neko cat'
-    end
-
-    it '.sweep(" nyaa   !!") returns "nyaa !!"' do
-      expect(Sisimai::String.sweep(' nyaa   !!')).to eq 'nyaa !!'
-    end
-
-    context 'Errors from the method' do
-      it '.sweep() raise an error: ArgumentError' do
-        expect { Sisimai::String.sweep() }.to raise_error(ArgumentError)
-      end
+    context 'Wrong Number of Arguments' do
+      example('() raises ArgumentError') { expect { cn.sweep() }.to raise_error(ArgumentError) }
+      example('("x","y") raises ArgumentError') { expect { cn.sweep("x","y") }.to raise_error(ArgumentError) }
     end
   end
 
