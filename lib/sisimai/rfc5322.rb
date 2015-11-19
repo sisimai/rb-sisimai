@@ -1,9 +1,7 @@
 module Sisimai::RFC5322
   # Imported from p5-Sisimail/lib/Sisimai/RFC5322.pm
   class << self
-    @@Rx          = BUILD_REGULAR_EXPRESSIONS
-    @@HEADERINDEX = BUILD_FLATTEN_RFC822HEADER_LIST
-    @@HEADERTABLE = {
+    @@HeaderTable = {
       'messageid' => [ 'Message-Id' ],
       'subject'   => [ 'Subject' ],
       'listid'    => [ 'List-Id' ],
@@ -18,7 +16,7 @@ module Sisimai::RFC5322
       ],
     }
 
-    def BUILD_REGULAR_EXPRESSIONS()
+    build_regular_expressions = lambda {
       # See http://www.ietf.org/rfc/rfc5322.txt
       #  or http://www.ex-parrot.com/pdw/Mail-RFC822-Address.html ...
       #   addr-spec       = local-part "@" domain
@@ -30,10 +28,11 @@ module Sisimai::RFC5322
       #                     %d33-90 /       ; The rest of the US-ASCII
       #                     %d94-126        ;  characters not including "[",
       #                                     ;  "]", or "\"
+      re             = { 'rfc5322' => nil, 'ignored' => nil, 'domain' => nil }
       atom           = %r([a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+)o
       quoted_string  = %r/"(?:\\[^\r\n]|[^\\"])*"/o
       domain_literal = %r/\[(?:\\[\x01-\x09\x0B-\x0c\x0e-\x7f]|[\x21-\x5a\x5e-\x7e])*\]/o
-      dot_atom       = %r/$atom(?:[.]$atom)*/o
+      dot_atom       = %r/#{atom}(?:[.]#{atom})*/o
       local_part     = %r/(?:#{dot_atom}|#{quoted_string})/o
       domain         = %r/(?:#{dot_atom}|#{domain_literal})/o
 
@@ -42,28 +41,32 @@ module Sisimai::RFC5322
       re['domain']   = %r/#{domain}/o
 
       return re
-    end
-    private :BUILD_REGULAR_EXPRESSIONS
+    }
 
-    def BUILD_FLATTEN_RFC822HEADER_LIST()
+    build_flatten_rfc822header_list = lambda {
       # Convert HEADER: structured hash table to flatten hash table for being
       # called from Sisimai::MTA::*
-      v = {}
-      @@HEADERTABLE.each_value |e| do
-        e.each |ee| do
-          v[ee.downcase] = 1
+      fv = {}
+      @@HeaderTable.each_value do |e|
+        e.each do |ee|
+          fv[ee.downcase] = 1
         end
       end
-    end
-    private :BUILD_FLATTEN_RFC822HEADER_LIST
+      return fv
+    }
+
+    @@Re          = build_regular_expressions.call
+    @@HeaderIndex = build_flatten_rfc822header_list.call
+
 
     # Grouped RFC822 headers
     # @param    [String] group  RFC822 Header group name
     # @return   [Array,Hash]    RFC822 Header list
-    def HEADERFIELDS(group)
-      return @@HEADERINDEX unless group.kind_of?(String)
-      return @@HEADERTABLE[group] if @@HEADERTABLE.has_key?(group)
-      return @@HEADERTABLE
+    def HEADERFIELDS(group='')
+      #return @@HeaderIndex unless group.kind_of?(String)
+      return @@HeaderIndex unless group.size > 0
+      return @@HeaderTable[group] if @@HeaderTable.has_key?(group)
+      return @@HeaderTable
     end
 
     # Fields that might be long
@@ -78,8 +81,8 @@ module Sisimai::RFC5322
     #                           false: is not an email address
     def is_emailaddress(email)
       return false unless email.kind_of?(String)
-      return false if email.match(%r/(?:[\x00-\x1f]|\x1f)/)
-      return true  if email.match(Re['ignored'])
+      return false if email =~ %r/(?:[\x00-\x1f]|\x1f)/
+      return true  if email =~ @@Re['ignored']
       return false
     end
 
@@ -89,10 +92,9 @@ module Sisimai::RFC5322
     #                           false: Not a valid domain part
     def is_domainpart(dpart)
       return false unless dpart.kind_of?(String)
-
       return false if dpart =~ /(?:[\x00-\x1f]|\x1f)/
       return false if dpart =~ /[@]/
-      return true  if dpart =~ Re['domain']
+      return true  if dpart =~ @@Re['domain']
       return false
     end
 
@@ -151,21 +153,21 @@ module Sisimai::RFC5322
         hostname = ''
         hostaddr = ''
 
-        received.each |e| do
+        received.each do |e|
           # Received: from [10.22.22.222] (smtp-gateway.kyoto.ocn.ne.jp [192.0.2.222])
-          if e =~ /\A[(\[]\d+[.]\d+[.]\d+[.]\d+[)\]]\z/ then
+          if e =~ /\A[\[(]\d+[.]\d+[.]\d+[.]\d+[)\]]\z/ then
             # [192.0.2.1] or (192.0.2.1)
-            e.gsub(/[]()/, '')
+            e = e.tr('[]()', '')
             addrlist << e
 
           else
             # hostname
-            e.gsub(/()/, '')
+            e = e.tr('[]()', '')
             namelist << e
           end
         end
 
-        namelist.each |e| do
+        namelist.each do |e|
           # 1. Hostname takes priority over all other IP addresses
           next unless e =~ /[.]/
           hostname = e
@@ -174,7 +176,7 @@ module Sisimai::RFC5322
 
         if hostname.length == 0 then 
           # 2. Use IP address as a remote host name
-          addrlist.each |e| do
+          addrlist.each do |e|
             # Skip if the address is a private address
             next if e =~ /\A(?:10|127)[.]/
             next if e =~ /\A172[.](?:1[6-9]|2[0-9]|3[0-1])[.]/
@@ -187,10 +189,10 @@ module Sisimai::RFC5322
         value['from'] = hostname || hostaddr || addrlist[-1]
       end
 
-      [ 'from', 'by' ].each |e| do
+      [ 'from', 'by' ].each do |e|
         # Copy entries into hosts
         next unless value[e].length > 0
-        value[e].gsub(/()[];?/, '')
+        value[e] = value[e].tr('[]();?', '')
         hosts << value[e]
       end
       return hosts
