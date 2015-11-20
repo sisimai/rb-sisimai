@@ -16,7 +16,7 @@ module Sisimai::RFC5322
       ],
     }
 
-    build_regular_expressions = lambda {
+    build_regular_expressions = lambda do
       # See http://www.ietf.org/rfc/rfc5322.txt
       #  or http://www.ex-parrot.com/pdw/Mail-RFC822-Address.html ...
       #   addr-spec       = local-part "@" domain
@@ -41,9 +41,9 @@ module Sisimai::RFC5322
       re['domain']   = %r/#{domain}/o
 
       return re
-    }
+    end
 
-    build_flatten_rfc822header_list = lambda {
+    build_flatten_rfc822header_list = lambda do
       # Convert HEADER: structured hash table to flatten hash table for being
       # called from Sisimai::MTA::*
       fv = {}
@@ -53,7 +53,7 @@ module Sisimai::RFC5322
         end
       end
       return fv
-    }
+    end
 
     @@Re          = build_regular_expressions.call
     @@HeaderIndex = build_flatten_rfc822header_list.call
