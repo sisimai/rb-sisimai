@@ -2,15 +2,15 @@ module Sisimai::RFC5322
   # Imported from p5-Sisimail/lib/Sisimai/RFC5322.pm
   class << self
     @@HeaderTable = {
-      'messageid' => [ 'Message-Id' ],
-      'subject'   => [ 'Subject' ],
-      'listid'    => [ 'List-Id' ],
-      'date'      => [ 'Date', 'Posted-Date', 'Posted', 'Resent-Date', ],
-      'addresser' => [ 
-        'From', 'Return-Path', 'Reply-To', 'Errors-To', 'Reverse-Path', 
+      'messageid' => ['Message-Id'],
+      'subject'   => ['Subject'],
+      'listid'    => ['List-Id'],
+      'date'      => ['Date', 'Posted-Date', 'Posted', 'Resent-Date'],
+      'addresser' => [
+        'From', 'Return-Path', 'Reply-To', 'Errors-To', 'Reverse-Path',
         'X-Postfix-Sender', 'Envelope-From', 'X-Envelope-From',
       ],
-      'recipient' => [ 
+      'recipient' => [
         'To', 'Delivered-To', 'Forward-Path', 'Envelope-To',
         'X-Envelope-To', 'Resent-To', 'Apparently-To'
       ],
@@ -62,7 +62,7 @@ module Sisimai::RFC5322
     # Grouped RFC822 headers
     # @param    [String] group  RFC822 Header group name
     # @return   [Array,Hash]    RFC822 Header list
-    def HEADERFIELDS(group='')
+    def HEADERFIELDS(group = '')
       #return @@HeaderIndex unless group.is_a?(String)
       return @@HeaderIndex unless group.size > 0
       return @@HeaderTable[group] if @@HeaderTable.key?(group)
@@ -71,7 +71,7 @@ module Sisimai::RFC5322
 
     # Fields that might be long
     # @return   [Hash] Long filed(email header) list
-    def LONGFIELDS()
+    def LONGFIELDS
       return { 'to' => 1, 'from' => 1, 'subject' => 1 }
     end
 
@@ -189,7 +189,7 @@ module Sisimai::RFC5322
         value['from'] = hostname || hostaddr || addrlist[-1]
       end
 
-      [ 'from', 'by' ].each do |e|
+      %w[from by].each do |e|
         # Copy entries into hosts
         next unless value[e].length > 0
         value[e] = value[e].tr('[]();?', '')
