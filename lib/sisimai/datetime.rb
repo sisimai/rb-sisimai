@@ -1,4 +1,4 @@
-require "date"
+require 'date'
 
 module Sisimai::DateTime
   # Imported from p5-Sisimail/lib/Sisimai/DateTime.pm
@@ -7,55 +7,46 @@ module Sisimai::DateTime
     BASE_Y = 365.2425 # 1 year = 365.2425 days
     BASE_L = 29.53059 # 1 lunar month = 29.53059 days
 
-    CONST_P = 4 * Math.atan2(1,1) # PI, 3.1415926535
-    CONST_E = Math.exp(1)         # e, Napier's constant
-    TZ_OFFSET = 54000             # Max time zone offset, 54000 seconds
+    CONST_P = 4 * Math.atan2(1, 1)  # PI, 3.1415926535
+    CONST_E = Math.exp(1)           # e, Napier's constant
+    TZ_OFFSET = 54000               # Max time zone offset, 54000 seconds
 
     @@TimeUnit = {
-      'o' => ( BASE_D * BASE_Y * 4 ), # Olympiad, 4 years
-      'y' => ( BASE_D * BASE_Y ),     # Year, Gregorian Calendar
-      'q' => ( BASE_D * BASE_Y / 4 ), # Quarter, year/4
-      'l' => ( BASE_D * BASE_L ),     # Lunar month
-      'f' => ( BASE_D * 14 ),         # Fortnight, 2 weeks
-      'w' => ( BASE_D * 7 ),          # Week, 604800 seconds
-      'd' => BASE_D,                  # Day
-      'h' => 3600,                    # Hour
-      'b' => 86.4,                    # Beat, Swatch internet time: 1000b = 1d
-      'm' => 60,                      # Minute,
-      's' => 1,                       # Second
+      'o' => (BASE_D * BASE_Y * 4), # Olympiad, 4 years
+      'y' => (BASE_D * BASE_Y),     # Year, Gregorian Calendar
+      'q' => (BASE_D * BASE_Y / 4), # Quarter, year/4
+      'l' => (BASE_D * BASE_L),     # Lunar month
+      'f' => (BASE_D * 14),         # Fortnight, 2 weeks
+      'w' => (BASE_D * 7),          # Week, 604800 seconds
+      'd' => BASE_D,                # Day
+      'h' => 3600,                  # Hour
+      'b' => 86.4,                  # Beat, Swatch internet time: 1000b = 1d
+      'm' => 60,                    # Minute,
+      's' => 1,                     # Second
     }
 
     @@MathematicalConstant = {
       'e' => CONST_E,
       'p' => CONST_P,
-      'g' => CONST_E ** CONST_P,
+      'g' => CONST_E**CONST_P,
     }
 
     @@MonthName = {
-      'full' => [ 
-        'January', 'February', 'March', 'April', 'May', 'June', 'July', 
-        'August', 'September', 'October', 'November', 'December',
-      ],
-      'abbr' => [ 
-        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-      ],
+      'full' => %w|January February March April May June July August September October November December|,
+      'abbr' => %w|Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec|,
     }
 
     @@DayOfWeek = {
-      'full' => [
-        'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
-        'Friday', 'Saturday',
-      ],
-      'abbr' => [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', ],
+      'full' => %w|Sunday Monday Tuesday Wednesday Thursday Friday Saturday|,
+      'abbr' => %w|Sun Mon Tue Wed Thu Fri Sat |,
     }
 
     @@HourName = {
-      'full' => [ 
-        'Midnight',1,2,3,4,5,'Morning',7,8,9,10,11,'Noon',
-        13,14,15,16,17,'Evening',19,20,21,22,23,
+      'full' => [
+        'Midnight', 1, 2, 3, 4, 5, 'Morning', 7, 8, 9, 10, 11,
+        'Noon', 13, 14, 15, 16, 17, 'Evening', 19, 20, 21, 22, 23,
       ],
-      'abbr' => [ 0..23 ],
+      'abbr' => [0..23],
     }
 
     @@TimeZoneAbbr = {
@@ -205,7 +196,7 @@ module Sisimai::DateTime
         # 1d, 1.5w
         n = cr[1].to_f
         u = cr[2] || 'd'
-        getseconds = n * @@TimeUnit[ u ].to_f
+        getseconds = n * @@TimeUnit[u].to_f
 
       elsif cr = argvs.match(/\A(\d+|\d+[.]\d+)?([#{mathconsts}])([#{unitoftime}])?\z/)
         # 1pd, 1.5pw
@@ -229,7 +220,7 @@ module Sisimai::DateTime
     # @example  Get the names of each month
     #   monthname()  #=> [ 'Jan', 'Feb', ... ]
     #   monthname(1) #=> [ 'January', 'February', 'March', ... ]
-    def monthname(argvs=0)
+    def monthname(argvs = 0)
       value = argvs > 0 ? 'full' : 'abbr'
       return @@MonthName[value]
     end
@@ -240,7 +231,7 @@ module Sisimai::DateTime
     # @example  Get the names of each day of week
     #   dayofweek()  #=> [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ]
     #   dayofweek(1) #=> [ 'Sunday', 'Monday', 'Tuesday', ... ]
-    def dayofweek(argvs=0)
+    def dayofweek(argvs = 0)
       value = argvs > 0 ? 'full' : 'abbr'
       return @@DayOfWeek[value]
     end
@@ -251,7 +242,7 @@ module Sisimai::DateTime
     # @example  Get the names of each hour
     #   hourname()  #=> [ 0, 1, 2, ... 23 ]
     #   hourname(1) #=> [ 'Midnight', 1, 2, ... 'Morning', 7, ... 'Noon', ... 23 ]
-    def hourname(argvs=1)
+    def hourname(argvs = 1)
       value = argvs > 0 ? 'full' : 'abbr'
       return @@HourName[value]
     end
@@ -263,11 +254,11 @@ module Sisimai::DateTime
     # @example  Get the value of n days before(today is 2015/11/04)
     #   o2d(1)      #=> 2015-11-03
     #   o2d(2,'/')  #=> 2015/11/02
-    def o2d(argv1=0, argv2='-')
-      piece = DateTime.now()
+    def o2d(argv1 = 0, argv2 = '-')
+      piece = DateTime.now
       epoch = 0
 
-      return piece.strftime("%Y/%m/%d") unless argv1 =~ /\A[-]?\d+\z/
+      return piece.strftime('%Y/%m/%d') unless argv1 =~ /\A[-]?\d+\z/
       epoch = piece.to_time.to_i - argv1 * 86400
 
       if epoch < 0
@@ -276,9 +267,9 @@ module Sisimai::DateTime
 
       elsif epoch >= 2**31
         # See http://en.wikipedia.org/wiki/Year_2038_problem
-        epoch = 2 ** 31 - 1
+        epoch = 2**31 - 1
       end
-      return Time.at(epoch).strftime("%Y" + argv2 + "%m" + argv2 + "%d")
+      return Time.at(epoch).strftime('%Y' + argv2 + '%m' + argv2 + '%d')
     end
 
     # Parse date string; strptime() wrapper
@@ -341,18 +332,18 @@ module Sisimai::DateTime
 
           if cr[1].to_i < 24 && cr[2].to_i < 60 && cr[3].to_i < 60
             # Valid time format, maybe...
-            v['T'] = sprintf("%02d:%02d:%02d", cr[1].to_i, cr[2].to_i, cr[3].to_i)
+            v['T'] = sprintf('%02d:%02d:%02d', cr[1].to_i, cr[2].to_i, cr[3].to_i)
           end
 
         elsif cr = p.match(/\A([0-2]\d):([0-5]\d)\z/)
           # Time; 12:34 => 12:34:00
           if cr[1].to_i < 24 && cr[2].to_i < 60
-              v['T'] = sprintf("%02d:%02d:00", cr[1], cr[2])
+            v['T'] = sprintf('%02d:%02d:00', cr[1], cr[2])
           end
 
         elsif cr = p.match(/\A(\d\d?):(\d\d?)\z/)
           # Time: 1:4 => 01:04:00
-          v['T'] = sprintf("%02d:%02d:00", cr[1], cr[2])
+          v['T'] = sprintf('%02d:%02d:00', cr[1], cr[2])
 
         elsif p =~ /\A[APap][Mm]\z/
           # AM or PM
@@ -366,14 +357,14 @@ module Sisimai::DateTime
 
           elsif p =~ /\A[(]?[A-Z]{2,5}[)]?\z/
             # Timezone abbreviation; JST, GMT, UTC, ...
-            v['z'] ||= self.abbr2tz(p) || '+0000'
+            v['z'] ||= abbr2tz(p) || '+0000'
 
           else
             # Other date format
             if cr = p.match(%r|\A(\d{4})[-/](\d{1,2})[-/](\d{1,2})\z|)
               # Mail.app(MacOS X)'s faked Bounce, Arrival-Date: 2010-06-18 17:17:52 +0900
               v['Y'] = cr[1].to_i
-              v['M'] = @@MonthName['abbr'][ cr[2].to_i - 1 ]
+              v['M'] = @@MonthName['abbr'][cr[2].to_i - 1]
               v['d'] = cr[3].to_i
 
             elsif cr = p.match(%r|\A(\d{4})[-/](\d{1,2})[-/](\d{1,2})T([0-2]\d):([0-5]\d):([0-5]\d)\z|)
@@ -386,7 +377,7 @@ module Sisimai::DateTime
               end
 
               if cr[4].to_i < 24 && cr[5].to_i < 60 && cr[6].to_i < 60
-                v['T'] = sprintf("%02d:%02d:%02d", cr[4], cr[5], cr[6])
+                v['T'] = sprintf('%02d:%02d:%02d', cr[4], cr[5], cr[6])
               end
 
             elsif cr = p.match(%r|\A(\d{1,2})/(\d{1,2})/(\d{1,2})\z|)
@@ -394,7 +385,7 @@ module Sisimai::DateTime
               v['M']  = @@MonthName['abbr'][cr[1].to_i - 1]
               v['d']  = cr[2].to_i
               v['Y']  = cr[3].to_i + 2000
-              v['Y'] -= 100 if v['Y'].to_i > DateTime.now().year + 1
+              v['Y'] -= 100 if v['Y'].to_i > DateTime.now.year + 1
             end
           end
         end
@@ -404,21 +395,21 @@ module Sisimai::DateTime
         # +12
         t0 = v['T']
         t1 = v['T'].split(':')
-        v['T'] = sprintf("%02d:%02d:%02d", t1[0].to_i + 12, t1[1], t1[2])
-        v['T'] = t0 if t1[0].to_i > 12;
+        v['T'] = sprintf('%02d:%02d:%02d', t1[0].to_i + 12, t1[1], t1[2])
+        v['T'] = t0 if t1[0].to_i > 12
       end
       v['a'] ||= 'Thu' # There is no day of week
 
-      if ! v['Y'].nil? && v['Y'].to_i < 200
+      if !v['Y'].nil? && v['Y'].to_i < 200
         # 99 -> 1999, 102 -> 2002
         v['Y'] = v['Y'].to_i + 1900
       end
-      v['z'] ||= DateTime.now().zone.tr(':','')
+      v['z'] ||= DateTime.now.zone.tr(':', '')
 
       # Check each piece
-      if v.has_value?(nil)
+      if v.value?(nil)
         # Strange date format
-        warn sprintf(" ***warning: Strange date format [%s]", datestring)
+        warn sprintf(' ***warning: Strange date format [%s]', datestring)
         return nil
       end
 
@@ -429,8 +420,8 @@ module Sisimai::DateTime
 
       # Build date string
       #   Thu, 29 Apr 2004 10:01:11 +0900
-      parseddate = sprintf("%s, %d %s %d %s %s", v['a'], v['d'], v['M'], v['Y'], v['T'], v['z'])
-      return parseddate;
+      parseddate = sprintf('%s, %d %s %d %s %s', v['a'], v['d'], v['M'], v['Y'], v['T'], v['z'])
+      return parseddate
     end
 
     # Abbreviation -> Tiemzone
@@ -458,10 +449,10 @@ module Sisimai::DateTime
 
       if cr = argvs.match(/\A([-+])(\d)(\d)(\d{2})\z/)
         digit = {
-            'operator' => cr[1],
-            'hour-10'  => cr[2].to_i,
-            'hour-01'  => cr[3].to_i,
-            'minutes'  => cr[4].to_i,
+          'operator' => cr[1],
+          'hour-10'  => cr[2].to_i,
+          'hour-01'  => cr[3].to_i,
+          'minutes'  => cr[4].to_i,
         }
         ztime += (digit['hour-10'] * 10 + digit['hour-01']) * 3600
         ztime += (digit['minutes'] * 60)
@@ -471,7 +462,7 @@ module Sisimai::DateTime
         return ztime
 
       elsif argvs =~ /\A[A-Za-z]+\z/
-        return self.tz2second(@@TimeZoneAbbr[argvs])
+        return tz2second(@@TimeZoneAbbr[argvs])
 
       else
         return nil
@@ -489,12 +480,12 @@ module Sisimai::DateTime
       digit = { 'operator' => '+' }
       timez = ''
 
-      return '' if argvs.abs() > TZ_OFFSET  # UTC+14 + 1(DST?)
+      return '' if argvs.abs > TZ_OFFSET  # UTC+14 + 1(DST?)
       digit['operator'] = '-' if argvs < 0
-      digit['hours']    = ( argvs.abs() / 3600 ).to_i
-      digit['minutes']  = ( ( argvs.abs() % 3600 ) / 60 ).to_i
+      digit['hours']    = (argvs.abs / 3600).to_i
+      digit['minutes']  = ((argvs.abs % 3600) / 60).to_i
 
-      timez = sprintf("%s%02d%02d", digit['operator'], digit['hours'], digit['minutes'])
+      timez = sprintf('%s%02d%02d', digit['operator'], digit['hours'], digit['minutes'])
       return timez
     end
   end
