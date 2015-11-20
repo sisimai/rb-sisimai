@@ -110,6 +110,7 @@ Style/TrailingBlankLines:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyleForMultiline, SupportedStyles.
 Style/TrailingComma:
+  Enabled: false
   EnforcedStyleForMultiline: comma
 
 # Configuration parameters: EnforcedStyle, SupportedStyles.
