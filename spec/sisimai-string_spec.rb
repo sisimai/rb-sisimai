@@ -18,17 +18,17 @@ describe Sisimai::String do
         it("returns #{t}") { expect(cn.token(s,r,1)).to eq t }
       end
       context "(#{s}, #{r}, 0)" do
-        it("returns a token") { expect(cn.token(s,r,0)).not_to be_empty }
+        it('returns a token') { expect(cn.token(s,r,0)).not_to be_empty }
       end
 
       context '("", "", 0)' do
-        it('returns ""') { expect(cn.token("","",0)).to be_empty }
+        it('returns ""') { expect(cn.token('', '', 0)).to be_empty }
       end
       context "(#{s}, '', 0)" do
-        it("returns ''") { expect(cn.token(s,"",0)).to be_empty }
+        it("returns ''") { expect(cn.token(s, '', 0)).to be_empty }
       end
       context "('', #{r}, 0)" do
-        it("returns ''") { expect(cn.token("",r,0)).to be_empty }
+        it("returns ''") { expect(cn.token('', r, 0)).to be_empty }
       end
     end
 
@@ -40,7 +40,7 @@ describe Sisimai::String do
         it('raises ArgumentError') { expect { cn.token(s) }.to raise_error(ArgumentError) }
       end
       context "(#{s}, #{r})" do
-        it('raises ArgumentError') { expect { cn.token(s,r) }.to raise_error(ArgumentError) }
+        it('raises ArgumentError') { expect { cn.token(s, r) }.to raise_error(ArgumentError) }
       end
     end
   end
@@ -60,7 +60,7 @@ describe Sisimai::String do
         it('returns nil') { expect(cn.is_8bit(nil)).to be nil }
       end
       context '("")' do
-        it('returns nil') { expect(cn.is_8bit("")).to be nil }
+        it('returns nil') { expect(cn.is_8bit('')).to be nil }
       end
     end
 
@@ -75,10 +75,10 @@ describe Sisimai::String do
 
     describe 'Wrong number of Arguments' do
       context '()' do
-        it('raises ArgumentError') { expect { cn.is_8bit() }.to raise_error(ArgumentError) }
+        it('raises ArgumentError') { expect { cn.is_8bit }.to raise_error(ArgumentError) }
       end
       context '("x","y")' do
-        it('raises ArgumentError') { expect { cn.is_8bit('x','y') }.to raise_error(ArgumentError) }
+        it('raises ArgumentError') { expect { cn.is_8bit('x', 'y') }.to raise_error(ArgumentError) }
       end
     end
   end
@@ -98,10 +98,10 @@ describe Sisimai::String do
 
     describe 'Wrong Number of Arguments' do
       context '()' do
-        it('raises ArgumentError') { expect { cn.sweep() }.to raise_error(ArgumentError) }
+        it('raises ArgumentError') { expect { cn.sweep }.to raise_error(ArgumentError) }
       end
       context '("x","y")' do
-        it('raises ArgumentError') { expect { cn.sweep("x","y") }.to raise_error(ArgumentError) }
+        it('raises ArgumentError') { expect { cn.sweep('x', 'y') }.to raise_error(ArgumentError) }
       end
     end
   end
