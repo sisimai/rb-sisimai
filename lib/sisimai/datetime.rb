@@ -308,7 +308,7 @@ module Sisimai::DateTime
 
       while p = timetokens.shift do
         # Parse each piece of time
-        if p.match(/\A[A-Z][a-z]{2}[,]?\z/)
+        if p =~ /\A[A-Z][a-z]{2}[,]?\z/
           # Day of week or Day of week; Thu, Apr, ...
           p.chop if p.length == 4 # Thu, -> Thu
 
@@ -322,7 +322,7 @@ module Sisimai::DateTime
 
           end
 
-        elsif p.match(/\A\d{1,4}\z/)
+        elsif p =~ /\A\d{1,4}\z/
           # Year or Day; 2005, 31, 04,  1, ...
           if p.to_i > 31
             # The piece is the value of an year
@@ -354,17 +354,17 @@ module Sisimai::DateTime
           # Time: 1:4 => 01:04:00
           v['T'] = sprintf("%02d:%02d:00", cr[1], cr[2])
 
-        elsif p.match(/\A[APap][Mm]\z/)
+        elsif p =~ /\A[APap][Mm]\z/
           # AM or PM
           afternoon1 = 1
 
         else
           # Timezone offset and others
-          if p.match(/\A[-+][01]\d{3}\z/)
+          if p =~ /\A[-+][01]\d{3}\z/
             # Timezone offset; +0000, +0900, -1000, ...
             v['z'] ||= p
 
-          elsif p.match(/\A[(]?[A-Z]{2,5}[)]?\z/)
+          elsif p =~ /\A[(]?[A-Z]{2,5}[)]?\z/
             # Timezone abbreviation; JST, GMT, UTC, ...
             v['z'] ||= self.abbr2tz(p) || '+0000'
 
@@ -470,7 +470,7 @@ module Sisimai::DateTime
         return nil if ztime.abs > TZ_OFFSET
         return ztime
 
-      elsif argvs.match(/\A[A-Za-z]+\z/)
+      elsif argvs =~ /\A[A-Za-z]+\z/
         return self.tz2second(@@TimeZoneAbbr[argvs])
 
       else
