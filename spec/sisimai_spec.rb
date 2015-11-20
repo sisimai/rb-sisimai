@@ -9,14 +9,14 @@ describe Sisimai do
   end
 
   describe '.version' do
-    it('returns ' + v) { expect(cn.version()).to eq v }
+    it('returns ' + v) { expect(cn.version).to eq v }
   end
 
   describe '.sysname' do
-    it('returns "bouncehammer"') { expect(cn.sysname()).to eq 'bouncehammer' }
+    it('returns "bouncehammer"') { expect(cn.sysname).to eq 'bouncehammer' }
   end
 
   describe '.libname' do
-    it('returns ' + cn.libname) { expect(cn.libname()).to eq 'Sisimai' }
+    it('returns ' + cn.libname) { expect(cn.libname).to eq 'Sisimai' }
   end
 end
