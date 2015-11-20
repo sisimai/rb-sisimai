@@ -7,11 +7,11 @@ describe Sisimai::Rhost do
     context '()' do
       v = cn.list
       it 'returns Array' do
-        expect(v.kind_of?(Array)).to be true
+        expect(v.is_a?(Array)).to be true
       end
       v.each do |e|
         describe e do
-          it('is a String')       { expect(e.kind_of?(String)).to be true }
+          it('is a String')       { expect(e.is_a?(String)).to be true }
           it('is valid hostname') { expect(e).to match(/\A[-.a-z0-9]+\z/) }
         end
       end
