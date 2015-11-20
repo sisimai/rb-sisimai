@@ -2,7 +2,6 @@ AllCops:
   DisplayCopNames: true
   Exclude:
     - "bin/*"
-    - "spec/*"
     - "tmp/*"
 
 # Configuration parameters: AllowURI, URISchemes.
@@ -57,6 +56,11 @@ Style/EmptyLinesAroundModuleBody:
 # Configuration parameters: AllowForAlignment.
 Style/ExtraSpacing:
   Enabled: false
+
+# Configuration parameters: Exclude.
+Style/FileName:
+  Exclude:
+    - 'spec/*_spec.rb'
 
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/FormatString:
