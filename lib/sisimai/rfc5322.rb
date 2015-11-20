@@ -128,21 +128,21 @@ module Sisimai::RFC5322
       # Received: (qmail 10000 invoked by uid 999); 24 Apr 2013 00:00:00 +0900
       return [] if argvs =~ /qmail\s+.+invoked\s+/
 
-      if cr = argvs.match(/\Afrom\s+(.+)\s+by\s+([^ ]+)/) then
+      if cr = argvs.match(/\Afrom\s+(.+)\s+by\s+([^ ]+)/)
         # Received: from localhost (localhost)
         #   by nijo.example.jp (V8/cf) id s1QB5ma0018057;
         #   Wed, 26 Feb 2014 06:05:48 -0500
         value['from'] = cr[1]
         value['by']   = cr[2]
 
-      elsif cr = argvs.match(/\bby\s+([^ ]+)(.+)/) then
+      elsif cr = argvs.match(/\bby\s+([^ ]+)(.+)/)
         # Received: by 10.70.22.98 with SMTP id c2mr1838265pdf.3; Fri, 18 Jul 2014
         #   00:31:02 -0700 (PDT)
         value['from'] = cr[1] + cr[2]
         value['by']   = cr[1]
       end
 
-      if value['from'] =~ / / then
+      if value['from'] =~ / /
         # Received: from [10.22.22.222] (smtp-gateway.kyoto.ocn.ne.jp [192.0.2.222])
         #   (authenticated bits=0)
         #   by nijo.example.jp (V8/cf) with ESMTP id s1QB5ka0018055;
@@ -155,7 +155,7 @@ module Sisimai::RFC5322
 
         received.each do |e|
           # Received: from [10.22.22.222] (smtp-gateway.kyoto.ocn.ne.jp [192.0.2.222])
-          if e =~ /\A[\[(]\d+[.]\d+[.]\d+[.]\d+[)\]]\z/ then
+          if e =~ /\A[\[(]\d+[.]\d+[.]\d+[.]\d+[)\]]\z/
             # [192.0.2.1] or (192.0.2.1)
             e = e.tr('[]()', '')
             addrlist << e
@@ -174,7 +174,7 @@ module Sisimai::RFC5322
           break
         end
 
-        if hostname.length == 0 then 
+        if hostname.length == 0
           # 2. Use IP address as a remote host name
           addrlist.each do |e|
             # Skip if the address is a private address
