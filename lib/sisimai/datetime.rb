@@ -1,5 +1,6 @@
 require 'date'
 
+# Sisimai::Tie provide methods for dealing date and time.
 module Sisimai::DateTime
   # Imported from p5-Sisimail/lib/Sisimai/DateTime.pm
   class << self
