@@ -65,7 +65,7 @@ module Sisimai::RFC5322
     def HEADERFIELDS(group='')
       #return @@HeaderIndex unless group.is_a?(String)
       return @@HeaderIndex unless group.size > 0
-      return @@HeaderTable[group] if @@HeaderTable.has_key?(group)
+      return @@HeaderTable[group] if @@HeaderTable.key?(group)
       return @@HeaderTable
     end
 

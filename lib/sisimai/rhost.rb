@@ -17,7 +17,7 @@ module Sisimai::Rhost
     #                           False: did not match
     def match(argvs)
       return false unless argvs.is_a?(String)
-      return true if @@RhostClass.has_key?(argvs.downcase)
+      return true if @@RhostClass.key?(argvs.downcase)
       return false
     end
 
