@@ -195,7 +195,7 @@ module Sisimai::DateTime
     #   to_second('1d') #=> 86400
     #   to_second('2h') #=>  7200
     def to_second(argvs)
-      return 0 unless argvs.kind_of?(String)
+      return 0 unless argvs.is_a?(String)
 
       getseconds = 0
       unitoftime = @@TimeUnit.keys.join
@@ -290,7 +290,7 @@ module Sisimai::DateTime
     #   parse("2015-11-03T23:34:45 Tue")    #=> Tue, 3 Nov 2015 23:34:45 +0900
     #   parse("Tue, Nov 3 2015 2:2:2")      #=> Tue, 3 Nov 2015 02:02:02 +0900
     def parse(argvs)
-      return nil unless argvs.kind_of?(String)
+      return nil unless argvs.is_a?(String)
 
       datestring = argvs
       datestring = datestring.sub(/[,](\d+)/, ', \1')  # Thu,13 -> Thu, 13
@@ -440,7 +440,7 @@ module Sisimai::DateTime
     # @example  Get the timezone string of "JST"
     #   abbr2tz('JST')  #=> '+0900'
     def abbr2tz(argvs)
-      return nil unless argvs.kind_of?(String)
+      return nil unless argvs.is_a?(String)
       return @@TimeZoneAbbr[argvs]
     end
 
@@ -452,7 +452,7 @@ module Sisimai::DateTime
     # @example  Convert '+0900' to seconds
     #   tz2second('+0900')  #=> 32400
     def tz2second(argvs)
-      return nil unless argvs.kind_of?(String)
+      return nil unless argvs.is_a?(String)
       digit = {}
       ztime = 0
 
@@ -485,7 +485,7 @@ module Sisimai::DateTime
     # @example  Get timezone offset string of specified seconds
     #   second2tz(12345)    #=> '+0325'
     def second2tz(argvs)
-      return '+0000' unless argvs.kind_of?(Number)
+      return '+0000' unless argvs.is_a?(Number)
       digit = { 'operator' => '+' }
       timez = ''
 

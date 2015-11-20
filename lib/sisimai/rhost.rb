@@ -16,7 +16,7 @@ module Sisimai::Rhost
     # @return   [True,False]    True: matched
     #                           False: did not match
     def match(argvs)
-      return false unless argvs.kind_of?(String)
+      return false unless argvs.is_a?(String)
       return true if @@RhostClass.has_key?(argvs.downcase)
       return false
     end
@@ -25,7 +25,7 @@ module Sisimai::Rhost
     # @param    [Sisimai::Data] argvs   Parsed email object
     # @return   [String]                The value of bounce reason
     def get(argvs)
-      return nil unless argvs.kind_of?(Sisimai::Data)
+      return nil unless argvs.is_a?(Sisimai::Data)
       return argvs.reason if argvs.reason
 
       reasontext = ''

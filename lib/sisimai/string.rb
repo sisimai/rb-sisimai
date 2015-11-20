@@ -19,9 +19,9 @@ module Sisimai::String
     # @return [String]        Blank/failed to create token
     # @see    http://en.wikipedia.org/wiki/ASCII
     def token(addr1, addr2, epoch)
-      return '' unless addr1.kind_of?(String)
+      return '' unless addr1.is_a?(String)
       return '' unless addr1.length > 0
-      return '' unless addr2.kind_of?(String)
+      return '' unless addr2.is_a?(String)
       return '' unless addr2.length > 0
       return '' unless epoch.is_a?(Integer)
 
@@ -48,7 +48,7 @@ module Sisimai::String
     # @example  Clean up text
     #   sweep('  neko ') #=> 'neko'
     def sweep(argvs)
-      return argvs unless argvs.kind_of?(String)
+      return argvs unless argvs.is_a?(String)
 
       argvs = argvs.chomp
       argvs = argvs.squeeze(' ')

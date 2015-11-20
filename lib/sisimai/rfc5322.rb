@@ -63,7 +63,7 @@ module Sisimai::RFC5322
     # @param    [String] group  RFC822 Header group name
     # @return   [Array,Hash]    RFC822 Header list
     def HEADERFIELDS(group='')
-      #return @@HeaderIndex unless group.kind_of?(String)
+      #return @@HeaderIndex unless group.is_a?(String)
       return @@HeaderIndex unless group.size > 0
       return @@HeaderTable[group] if @@HeaderTable.has_key?(group)
       return @@HeaderTable
@@ -80,7 +80,7 @@ module Sisimai::RFC5322
     # @return   [True,False]    true: is a email address
     #                           false: is not an email address
     def is_emailaddress(email)
-      return false unless email.kind_of?(String)
+      return false unless email.is_a?(String)
       return false if email =~ %r/(?:[\x00-\x1f]|\x1f)/
       return true  if email =~ @@Re['ignored']
       return false
@@ -91,7 +91,7 @@ module Sisimai::RFC5322
     # @return   [True,False]    true: Valid domain part
     #                           false: Not a valid domain part
     def is_domainpart(dpart)
-      return false unless dpart.kind_of?(String)
+      return false unless dpart.is_a?(String)
       return false if dpart =~ /(?:[\x00-\x1f]|\x1f)/
       return false if dpart =~ /[@]/
       return true  if dpart =~ @@Re['domain']
@@ -103,7 +103,7 @@ module Sisimai::RFC5322
     # @return   [True,False]    true: mailer-daemon
     #                           false: Not mailer-daemon
     def is_mailerdaemon(email)
-      return false unless email.kind_of?(String)
+      return false unless email.is_a?(String)
 
       re = %r/(?:
              mailer-daemon[@]
@@ -120,7 +120,7 @@ module Sisimai::RFC5322
     # @param    [String] argvs  Received header
     # @return   [Array]         Received header as a structured data
     def received(argvs)
-      return [] unless argvs.kind_of?(String)
+      return [] unless argvs.is_a?(String)
 
       hosts = []
       value = { 'from' => '', 'by' => '' }
