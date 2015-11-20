@@ -1,0 +1,89 @@
+AllCops:
+  DisplayCopNames: true
+  Exclude:
+    - "bin/*"
+    - "spec/*"
+    - "tmp/*"
+
+# Configuration parameters: AllowURI, URISchemes.
+Metrics/LineLength:
+  Max: 144
+  Exclude:
+    - "spec/*"
+
+# Configuration parameters: CountComments.
+Metrics/MethodLength:
+  Enabled: false
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+# Cop supports --auto-correct.
+# Configuration parameters: AllowAdjacentOneLineDefs.
+Style/EmptyLineBetweenDefs:
+  Exclude:
+    - 'lib/sisimai.rb'
+    - 'lib/sisimai/mta.rb'
+    - 'lib/sisimai/msp.rb'
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/EmptyLinesAroundClassBody:
+  Enabled: false
+
+# Cop supports --auto-correct.
+Style/EmptyLinesAroundMethodBody:
+  Enabled: false
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+# Cop supports --auto-correct.
+Style/LeadingCommentSpace:
+  Enabled: false
+
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/MethodName:
+  Enabled: false
+
+# Cop supports --auto-correct.
+Style/NumericLiterals:
+  Enabled: false
+
+# Configuration parameters: NamePrefix, NamePrefixBlacklist, NameWhitelist.
+Style/PredicateName:
+  Enabled: false
+
+# Cop supports --auto-correct.
+# Configuration parameters: AllowMultipleReturnValues.
+Style/RedundantReturn:
+  Enabled: false
+
+# Cop supports --auto-correct.
+# Configuration parameters: AllowIfMethodIsEmpty.
+Style/SingleLineMethods:
+  AllowIfMethodIsEmpty: true
+  Exclude:
+    - 'lib/sisimai.rb'
+    - 'lib/sisimai/mta.rb'
+    - 'lib/sisimai/msp.rb'
+
+# Cop supports --auto-correct.
+Style/SpaceAfterComma:
+  Exclude:
+    - "spec/*"
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/TrailingBlankLines:
+  Enabled: false
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyleForMultiline, SupportedStyles.
+Style/TrailingComma:
+  EnforcedStyleForMultiline: comma
+
