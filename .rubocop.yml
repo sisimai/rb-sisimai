@@ -50,6 +50,10 @@ Style/EmptyLinesAroundModuleBody:
 Style/ExtraSpacing:
   Enabled: false
 
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/FormatString:
+  EnforcedStyle: sprintf
+
 # Cop supports --auto-correct.
 Style/LeadingCommentSpace:
   Enabled: false
