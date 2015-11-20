@@ -1,3 +1,4 @@
+# Sisimai::RFC5322 provide methods for checking email address.
 module Sisimai::RFC5322
   # Imported from p5-Sisimail/lib/Sisimai/RFC5322.pm
   class << self
@@ -57,7 +58,6 @@ module Sisimai::RFC5322
 
     @@Re          = build_regular_expressions.call
     @@HeaderIndex = build_flatten_rfc822header_list.call
-
 
     # Grouped RFC822 headers
     # @param    [String] group  RFC822 Header group name
