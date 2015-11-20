@@ -19,6 +19,10 @@ Metrics/MethodLength:
 Metrics/ModuleLength:
   Max: 512
 
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/ClassAndModuleChildren:
+    EnforcedStyle: compact
+
 Style/ClassVars:
   Enabled: false
 
