@@ -1,5 +1,6 @@
 require 'digest/sha1'
 
+# Sisimai::String provide utilities for dealing string
 module Sisimai::String
   # Imported from p5-Sisimail/lib/Sisimai/String.pm
   class << self
@@ -7,8 +8,8 @@ module Sisimai::String
     # End of email message as a sentinel for parsing bounce messages
     # @private
     # @return   [String] Fixed length string like a constant
-    def EOM()
-      return '__END_OF_EMAIL_MESSAGE__';
+    def EOM
+      return '__END_OF_EMAIL_MESSAGE__'
     end
 
     # Create message token from addresser and recipient
