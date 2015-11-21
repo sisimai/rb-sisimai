@@ -54,7 +54,7 @@
 #            response, "No SMTP service here")
 #       555  MAIL FROM/RCPT TO parameters not recognized or not implemented
 #
-# Sisimai::RFC5321 is utilities for getting SMTP Reply Code value from error 
+# Sisimai::RFC5321 is utilities for getting SMTP Reply Code value from error
 # message text.
 module Sisimai::RFC5321
   # Imported from p5-Sisimail/lib/Sisimai/RFC5322.pm
