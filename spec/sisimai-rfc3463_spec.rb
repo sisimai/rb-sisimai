@@ -42,20 +42,20 @@ describe 'Sisimai::RFC3463' do
 
   describe '.status' do
     describe 'Valid Reason String' do
-      ['permanent', 'temporary'].each do |e|
+      %w[permanent temporary].each do |e|
         b = e[0, 1]
 
         standards[e].each_key do |f|
           v = cn.status(f, b, 's')
           context "(#{f}, #{b}, s)" do
-            it('returns DSN value: ' + v ) { expect(v).to match(/\A[45][.]\d[.]\d/) }
+            it('returns DSN value: ' + v) { expect(v).to match(/\A[45][.]\d[.]\d/) }
           end
         end
 
         internals[e].each_key do |f|
           v = cn.status(f, b, 'i')
           context "(#{f}, #{b}, i)" do
-            it('returns DSN value: ' + v ) { expect(v).to match(/\A[45][.]\d[.]\d+/) }
+            it('returns DSN value: ' + v) { expect(v).to match(/\A[45][.]\d[.]\d+/) }
           end
         end
       end
@@ -97,7 +97,7 @@ describe 'Sisimai::RFC3463' do
 
   describe '.reason' do
     describe 'Valid DSN Value String' do
-      ['permanent', 'temporary'].each do |e|
+      %w[permanent temporary].each do |e|
         standards[e].each_key do |f|
           standards[e][f].each do |g|
             v = cn.reason(g)
