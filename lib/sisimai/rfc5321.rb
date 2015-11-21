@@ -57,7 +57,7 @@
 # Sisimai::RFC5321 is utilities for getting SMTP Reply Code value from error
 # message text.
 module Sisimai::RFC5321
-  # Imported from p5-Sisimail/lib/Sisimai/RFC5322.pm
+  # Imported from p5-Sisimail/lib/Sisimai/RFC5321.pm
   class << self
     # Get SMTP Reply Code from the given string
     # @param    [String] rtext  String including SMTP Reply Code like 550
