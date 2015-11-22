@@ -37,6 +37,7 @@ Style/EmptyLineBetweenDefs:
     - 'lib/sisimai.rb'
     - 'lib/sisimai/mta.rb'
     - 'lib/sisimai/msp.rb'
+    - 'lib/sisimai/rfc3463.rb'
 
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
@@ -108,6 +109,7 @@ Style/SingleLineMethods:
     - 'lib/sisimai.rb'
     - 'lib/sisimai/mta.rb'
     - 'lib/sisimai/msp.rb'
+    - 'lib/sisimai/rfc3463.rb'
 
 # Cop supports --auto-correct.
 Style/SpaceAfterComma:
@@ -128,4 +130,9 @@ Style/TrailingComma:
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/VariableName:
   Enabled: false
+
+# Cop supports --auto-correct.
+Style/UnneededPercentQ:
+  Exclude:
+    - 'spec/*'
 
