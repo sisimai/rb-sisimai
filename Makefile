@@ -24,6 +24,9 @@ test: user-test
 user-test:
 	$(RSPEC) spec/
 
+rubocop-test:
+	rubocop lib spec
+
 $(REPOS_TARGETS):
 	$(MAKE) -f Repository.mk $@
 
