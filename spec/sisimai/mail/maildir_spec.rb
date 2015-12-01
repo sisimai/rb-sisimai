@@ -50,12 +50,12 @@ describe Sisimai::Mail::Maildir do
     describe '#path' do
       subject { mailobj.path }
       it('returns String')   { is_expected.to be_a(String) }
-      it('matches *-01.eml') { is_expected.to match(/#{samples}.+[-]01[.]eml\z/) }
+      it('matches directory') { is_expected.to match(%r|#{samples}/.+|) }
     end
     describe '#file' do
       subject { mailobj.file }
       it('returns String')   { is_expected.to be_a(String) }
-      it('returns filename') { is_expected.to match(/[-]01[.]eml\z/) }
+      it('returns filename') { is_expected.to match(/.+[.].+/) }
     end
     describe '#size' do
       subject { mailobj.size }
