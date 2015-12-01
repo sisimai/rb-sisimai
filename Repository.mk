@@ -8,6 +8,7 @@
 # -----------------------------------------------------------------------------
 SHELL := /bin/sh
 GIT   := /usr/bin/git
+SRC   := ../p5-Sisimai
 B      = master
 V      = neko
 
@@ -51,6 +52,12 @@ git-rm-cached:
 
 git-reset-soft:
 	$(GIT) reset --soft HEAD^
+
+sync-distribution-files:
+	@for v in eg; do \
+		/bin/cp -vRp $(SRC)/$$v ./; \
+	done
+
 
 clean:
 
