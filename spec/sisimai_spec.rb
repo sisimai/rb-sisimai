@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'sisimai'
 
 describe Sisimai do
   cn = Sisimai
