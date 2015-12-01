@@ -9,6 +9,7 @@ SHELL := /bin/sh
 TIME  := $(shell date '+%s')
 NAME  := Sisimai
 RUBY  := ruby
+RAKE  := rake
 MKDIR := mkdir -p
 RSPEC := rspec -Ilib -f progress
 CP    := cp
@@ -22,7 +23,7 @@ REPOS_TARGETS = git-status git-push git-commit-amend git-tag-list git-diff \
 .PHONY: clean
 test: user-test
 user-test:
-	$(RSPEC) spec/
+	$(RAKE) spec
 
 rubocop-test:
 	rubocop lib spec
