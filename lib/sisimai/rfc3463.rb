@@ -264,200 +264,202 @@
 #      Submitter:          Jiankang YAO
 #      Change controller:  IESG.
 #
-# Sisimai::RFC3463 is utilities for getting D.S.N. value from error reason text,
-# getting the reason from D.S.N. value, and getting D.S.N. from the text including
-# D.S.N.
-module Sisimai::RFC3463
-  # Imported from p5-Sisimail/lib/Sisimai/RFC3463.pm
-  class << self
-    @@StandardCode = {
-      'temporary' => {
-        # 'undefined'   => ['4.0.0'],
-        'hasmoved'      => ['4.1.6'],
-        'rejected'      => ['4.1.8'],
-        'mailboxfull'   => ['4.2.2'],
-        'exceedlimit'   => ['4.2.3'],
-        'systemfull'    => ['4.3.1'],
-        'notaccept'     => ['4.3.2'],
-        'systemerror'   => ['4.3.5'],
-        'networkerror'  => ['4.4.2', '4.4.4', '4.4.6'],
-        'toomanyconn'   => ['4.4.5'],
-        'expired'       => ['4.4.7', '4.4.1'],
-      },
-      'permanent' => {
-        # 'undefined'   => ['5.0.0', '5.5.1', '5.5.2', '5.5.3', '5.5.4', '5.5.5'],
-        'userunknown'   => ['5.1.1', '5.1.0', '5.1.3'], # 5.1.3 ?
-        'hostunknown'   => ['5.1.2'],
-        'hasmoved'      => ['5.1.6'],
-        'rejected'      => ['5.1.8', '5.1.7'],
-        'filtered'      => ['5.2.1', '5.2.0'],
-        'mailboxfull'   => ['5.2.2'],
-        'exceedlimit'   => ['5.2.3'],
-        'systemfull'    => ['5.3.1'],
-        'notaccept'     => ['5.3.2'],
-        'mesgtoobig'    => ['5.3.4'],
-        'systemerror'   => ['5.3.5', '5.3.0', '5.4.1', '5.4.3', '5.4.5'],
-        'networkerror'  => ['5.4.0', '5.4.2', '5.4.4', '5.4.6'],
-        'expired'       => ['5.4.7'],
-        'mailererror'   => ['5.2.4'],
-        'contenterror'  => ['5.6.0'],
-        'securityerror' => ['5.7.0'],
-        'blocked'       => ['5.7.1'],
-      },
-    }
+module Sisimai
+  # Sisimai::RFC3463 is utilities for getting D.S.N. value from error reason text,
+  # getting the reason from D.S.N. value, and getting D.S.N. from the text including
+  # D.S.N.
+  module RFC3463
+    # Imported from p5-Sisimail/lib/Sisimai/RFC3463.pm
+    class << self
+      @@StandardCode = {
+        'temporary' => {
+          # 'undefined'   => ['4.0.0'],
+          'hasmoved'      => ['4.1.6'],
+          'rejected'      => ['4.1.8'],
+          'mailboxfull'   => ['4.2.2'],
+          'exceedlimit'   => ['4.2.3'],
+          'systemfull'    => ['4.3.1'],
+          'notaccept'     => ['4.3.2'],
+          'systemerror'   => ['4.3.5'],
+          'networkerror'  => ['4.4.2', '4.4.4', '4.4.6'],
+          'toomanyconn'   => ['4.4.5'],
+          'expired'       => ['4.4.7', '4.4.1'],
+        },
+        'permanent' => {
+          # 'undefined'   => ['5.0.0', '5.5.1', '5.5.2', '5.5.3', '5.5.4', '5.5.5'],
+          'userunknown'   => ['5.1.1', '5.1.0', '5.1.3'], # 5.1.3 ?
+          'hostunknown'   => ['5.1.2'],
+          'hasmoved'      => ['5.1.6'],
+          'rejected'      => ['5.1.8', '5.1.7'],
+          'filtered'      => ['5.2.1', '5.2.0'],
+          'mailboxfull'   => ['5.2.2'],
+          'exceedlimit'   => ['5.2.3'],
+          'systemfull'    => ['5.3.1'],
+          'notaccept'     => ['5.3.2'],
+          'mesgtoobig'    => ['5.3.4'],
+          'systemerror'   => ['5.3.5', '5.3.0', '5.4.1', '5.4.3', '5.4.5'],
+          'networkerror'  => ['5.4.0', '5.4.2', '5.4.4', '5.4.6'],
+          'expired'       => ['5.4.7'],
+          'mailererror'   => ['5.2.4'],
+          'contenterror'  => ['5.6.0'],
+          'securityerror' => ['5.7.0'],
+          'blocked'       => ['5.7.1'],
+        },
+      }
 
-    @@InternalCode = {
-      'temporary' => {
-        'undefined'     => ['4.0.900'],
-        'hasmoved'      => ['4.0.916'],
-        'mailboxfull'   => ['4.0.922'],
-        'exceedlimit'   => ['4.0.923'],
-        'systemfull'    => ['4.0.931'],
-        'systemerror'   => ['4.0.935'],
-        'toomanyconn'   => ['4.0.945'],
-        'expired'       => ['4.0.947'],
-        'suspend'       => ['4.0.990'],
-      },
-      'permanent' => {
-        'undefined'     => ['5.0.900'],
-        'userunknown'   => ['5.0.911'],
-        'hostunknown'   => ['5.0.912'],
-        'hasmoved'      => ['5.0.916'],
-        'rejected'      => ['5.0.918'],
-        'filtered'      => ['5.0.921'],
-        'mailboxfull'   => ['5.0.922'],
-        'exceedlimit'   => ['5.0.923'],
-        'systemfull'    => ['5.0.931'],
-        'notaccept'     => ['5.0.932'],
-        'mesgtoobig'    => ['5.0.934'],
-        'systemerror'   => ['5.0.935'],
-        'toomanyconn'   => ['5.0.942'],
-        'networkerror'  => ['5.0.946'],
-        'expired'       => ['5.0.947'],
-        'contenterror'  => ['5.0.960'],
-        'securityerror' => ['5.0.970'],
-        'blocked'       => ['5.0.971'],
-        'spamdetected'  => ['5.0.972'],
-        'suspend'       => ['5.0.990'],
-        'mailererror'   => ['5.0.991'],
-        'norelaying'    => ['5.0.992'],
-        'onhold'        => ['5.0.999'],
-      },
-    }
+      @@InternalCode = {
+        'temporary' => {
+          'undefined'     => ['4.0.900'],
+          'hasmoved'      => ['4.0.916'],
+          'mailboxfull'   => ['4.0.922'],
+          'exceedlimit'   => ['4.0.923'],
+          'systemfull'    => ['4.0.931'],
+          'systemerror'   => ['4.0.935'],
+          'toomanyconn'   => ['4.0.945'],
+          'expired'       => ['4.0.947'],
+          'suspend'       => ['4.0.990'],
+        },
+        'permanent' => {
+          'undefined'     => ['5.0.900'],
+          'userunknown'   => ['5.0.911'],
+          'hostunknown'   => ['5.0.912'],
+          'hasmoved'      => ['5.0.916'],
+          'rejected'      => ['5.0.918'],
+          'filtered'      => ['5.0.921'],
+          'mailboxfull'   => ['5.0.922'],
+          'exceedlimit'   => ['5.0.923'],
+          'systemfull'    => ['5.0.931'],
+          'notaccept'     => ['5.0.932'],
+          'mesgtoobig'    => ['5.0.934'],
+          'systemerror'   => ['5.0.935'],
+          'toomanyconn'   => ['5.0.942'],
+          'networkerror'  => ['5.0.946'],
+          'expired'       => ['5.0.947'],
+          'contenterror'  => ['5.0.960'],
+          'securityerror' => ['5.0.970'],
+          'blocked'       => ['5.0.971'],
+          'spamdetected'  => ['5.0.972'],
+          'suspend'       => ['5.0.990'],
+          'mailererror'   => ['5.0.991'],
+          'norelaying'    => ['5.0.992'],
+          'onhold'        => ['5.0.999'],
+        },
+      }
 
-    def standardcode; return @@StandardCode; end
-    def internalcode; return @@InternalCode; end
+      def standardcode; return @@StandardCode; end
+      def internalcode; return @@InternalCode; end
 
-    # Convert from the reason string to the status code
-    # @param    [String] rname  Reason name
-    # @param    [String] btype  Character of error types
-    #                           't': Temporary error
-    #                           'p': Permanent error (default)
-    # @param    [String] ctype  Character for code(D.S.N.) types
-    #                           'i': Internal code
-    #                           's': Standard code(default)
-    # @return   [String]        D.S.N. or empty if the 1st argument is missing
-    # @see      reason
-    def status(rname = '', btype = 'p', ctype = 's')
-      return '' unless rname
-      return '' unless rname.size > 0
+      # Convert from the reason string to the status code
+      # @param    [String] rname  Reason name
+      # @param    [String] btype  Character of error types
+      #                           't': Temporary error
+      #                           'p': Permanent error (default)
+      # @param    [String] ctype  Character for code(D.S.N.) types
+      #                           'i': Internal code
+      #                           's': Standard code(default)
+      # @return   [String]        D.S.N. or empty if the 1st argument is missing
+      # @see      reason
+      def status(rname = '', btype = 'p', ctype = 's')
+        return '' unless rname
+        return '' unless rname.size > 0
 
-      btype = btype == 't' ? 'temporary' : 'permanent'
-      codes = ctype == 'i' ? @@InternalCode : @@StandardCode
-      return codes[btype][rname][0] if codes[btype].key?(rname)
-      return ''
-    end
-
-    # Convert from the status code to the reason string
-    # @param    [String] state  Status code(DSN)
-    # @return   [String]        Reason name or empty if the first argument did
-    #                           not match with values in Sisimai's reason list
-    def reason(state = '')
-      return '' unless state
-      return '' unless state.size > 0
-      return '' unless state =~ /\A[45][.]\d[.]\d+\z/
-
-      reasonname = ''
-      softorhard = state[0, 1].to_i == 4 ? 'temporary' : 'permanent'
-      mappedcode = state[4, 3].to_i > 800 ? @@InternalCode[softorhard] : @@StandardCode[softorhard]
-
-      mappedcode.each_key do |r|
-        # Search the status code
-        next unless mappedcode[r].grep(state)
-        reasonname = r
-        break
-      end
-      return reasonname
-    end
-
-    # Get D.S.N. code value from given string including D.S.N.
-    # @param    [String] rtext  String including D.S.N.
-    # @return   [String]        D.S.N. or empty string if the first agument did
-    #                           not include D.S.N.
-    def getdsn(rtext = '')
-      return '' unless rtext
-      return '' unless rtext.size > 0
-
-      deliverysn = ''
-      regularexp = [
-        %r/[ ]?[(][#]([45][.]\d[.]\d+)[)]?[ ]?/,    # #5.5.1
-        %r/\b\d{3}[-\s][#]?([45][.]\d[.]\d+)\b/,    # 550-5.1.1 OR 550 5.5.1
-        %r/\b([45][.]\d[.]\d+)\b/,                  # 5.5.1
-      ]
-
-      regularexp.each do |e|
-        # Get the value of D.S.N. in the text
-        next unless r = rtext.match(e)
-        deliverysn = r[1]
-        break
+        btype = btype == 't' ? 'temporary' : 'permanent'
+        codes = ctype == 'i' ? @@InternalCode : @@StandardCode
+        return codes[btype][rname][0] if codes[btype].key?(rname)
+        return ''
       end
 
-      return deliverysn
-    end
+      # Convert from the status code to the reason string
+      # @param    [String] state  Status code(DSN)
+      # @return   [String]        Reason name or empty if the first argument did
+      #                           not match with values in Sisimai's reason list
+      def reason(state = '')
+        return '' unless state
+        return '' unless state.size > 0
+        return '' unless state =~ /\A[45][.]\d[.]\d+\z/
 
-    # Check softbounce or not
-    # @param    [String] argvs  String including SMTP Status code
-    # @return   [Integer]       true:  Soft bounce
-    #                           false: Hard bounce
-    #                           nil: May not be bounce ?
-    def is_softbounce(argvs = '')
-      return nil unless argvs
-      return nil unless argvs.size > 0
+        reasonname = ''
+        softorhard = state[0, 1].to_i == 4 ? 'temporary' : 'permanent'
+        mappedcode = state[4, 3].to_i > 800 ? @@InternalCode[softorhard] : @@StandardCode[softorhard]
 
-      value = nil
-      first = -1
-
-      if cv = argvs.match(/\b([245])\d\d\b/)
-        # Valid SMTP reply code
-        first = cv[1].to_i
-      elsif cv = argvs.match(/\b([245])[.][0-9][.]\d+\b/)
-        # DSN value
-        first = cv[1].to_i
-      end
-
-      if first == 4
-        # Soft bounce
-        value = true
-      elsif first == 5
-        # Hard bounce
-        value = false
-      else
-        # Check with regular expression
-        if argvs =~ /temporar/i
-          # Temporary failure
-          value = true
-
-        elsif argvs =~ /permanent/i
-          # Permanently failure
-          value = false
-
-        else
-          # Did not decide
-          value = nil
+        mappedcode.each_key do |r|
+          # Search the status code
+          next unless mappedcode[r].grep(state)
+          reasonname = r
+          break
         end
+        return reasonname
       end
 
-      return value
+      # Get D.S.N. code value from given string including D.S.N.
+      # @param    [String] rtext  String including D.S.N.
+      # @return   [String]        D.S.N. or empty string if the first agument did
+      #                           not include D.S.N.
+      def getdsn(rtext = '')
+        return '' unless rtext
+        return '' unless rtext.size > 0
+
+        deliverysn = ''
+        regularexp = [
+          %r/[ ]?[(][#]([45][.]\d[.]\d+)[)]?[ ]?/,    # #5.5.1
+          %r/\b\d{3}[-\s][#]?([45][.]\d[.]\d+)\b/,    # 550-5.1.1 OR 550 5.5.1
+          %r/\b([45][.]\d[.]\d+)\b/,                  # 5.5.1
+        ]
+
+        regularexp.each do |e|
+          # Get the value of D.S.N. in the text
+          next unless r = rtext.match(e)
+          deliverysn = r[1]
+          break
+        end
+
+        return deliverysn
+      end
+
+      # Check softbounce or not
+      # @param    [String] argvs  String including SMTP Status code
+      # @return   [Integer]       true:  Soft bounce
+      #                           false: Hard bounce
+      #                           nil: May not be bounce ?
+      def is_softbounce(argvs = '')
+        return nil unless argvs
+        return nil unless argvs.size > 0
+
+        value = nil
+        first = -1
+
+        if cv = argvs.match(/\b([245])\d\d\b/)
+          # Valid SMTP reply code
+          first = cv[1].to_i
+        elsif cv = argvs.match(/\b([245])[.][0-9][.]\d+\b/)
+          # DSN value
+          first = cv[1].to_i
+        end
+
+        if first == 4
+          # Soft bounce
+          value = true
+        elsif first == 5
+          # Hard bounce
+          value = false
+        else
+          # Check with regular expression
+          if argvs =~ /temporar/i
+            # Temporary failure
+            value = true
+
+          elsif argvs =~ /permanent/i
+            # Permanently failure
+            value = false
+
+          else
+            # Did not decide
+            value = nil
+          end
+        end
+
+        return value
+      end
     end
   end
 end

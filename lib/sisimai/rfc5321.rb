@@ -54,23 +54,25 @@
 #            response, "No SMTP service here")
 #       555  MAIL FROM/RCPT TO parameters not recognized or not implemented
 #
-# Sisimai::RFC5321 is utilities for getting SMTP Reply Code value from error
-# message text.
-module Sisimai::RFC5321
-  # Imported from p5-Sisimail/lib/Sisimai/RFC5321.pm
-  class << self
-    # Get SMTP Reply Code from the given string
-    # @param    [String] rtext  String including SMTP Reply Code like 550
-    # @return   [String]        SMTP Reply Code or empty if the first argument
-    #                           did not include SMTP Reply Code value
-    def getrc(rtext = '')
-      return '' unless rtext
-      return '' unless rtext.size > 0
-      return '' if rtext =~ /X-Unix;/i
+module Sisimai
+  # Sisimai::RFC5321 is utilities for getting SMTP Reply Code value from error
+  # message text.
+  module RFC5321
+    # Imported from p5-Sisimail/lib/Sisimai/RFC5321.pm
+    class << self
+      # Get SMTP Reply Code from the given string
+      # @param    [String] rtext  String including SMTP Reply Code like 550
+      # @return   [String]        SMTP Reply Code or empty if the first argument
+      #                           did not include SMTP Reply Code value
+      def getrc(rtext = '')
+        return '' unless rtext
+        return '' unless rtext.size > 0
+        return '' if rtext =~ /X-Unix;/i
 
-      rcode = rtext.match(/\b([45][0-5][0-9])\b/)
-      return rcode[1] if rcode
-      return ''
+        rcode = rtext.match(/\b([45][0-5][0-9])\b/)
+        return rcode[1] if rcode
+        return ''
+      end
     end
   end
 end
