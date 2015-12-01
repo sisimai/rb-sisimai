@@ -13,6 +13,7 @@ describe Sisimai::Mail::Maildir do
         let(:samples) { sf }
         subject { mailobj }
         it("returns #{cn} object") { is_expected.to be_a(cn) }
+        it('returns String') { expect(mailobj.read).to be_a(String) }
       end
 
       context 'directory does not exist' do
