@@ -4,7 +4,7 @@ require 'sisimai/mail'
 describe Sisimai::Mail do
   cn = Sisimai::Mail
   sf = './eg/mbox-as-a-sample'
-  sd = './eg/maildir-as-a-sample/new'
+  sd = './eg/maildir-as-a-sample/cur'
   let(:mailobj) { cn.new(samples) }
   let(:mailbox) { cn.new(samples) }
   let(:maildir) { cn.new(samples) }
@@ -149,18 +149,18 @@ describe Sisimai::Mail do
       describe '#path' do
         subject { maildir.mail.path }
         it('returns String')   { is_expected.to be_a(String) }
-        it('matches *-01.eml') { is_expected.to match(/#{samples}.+[-]01[.]eml\z/) }
+        it('matches *-01.eml') { is_expected.to match(/#{samples}.+[.]eml\z/) }
       end
       describe '#file' do
         subject { maildir.mail.file }
         it('returns String')   { is_expected.to be_a(String) }
-        it('returns filename') { is_expected.to match(/[-]01[.]eml\z/) }
+        it('returns filename') { is_expected.to match(/make-test[.].+[.]eml\z/) }
       end
       describe '#size' do
         subject { maildir.mail.size }
         it('returns Integer') { is_expected.to be_a(Integer) }
         it 'returns the number of files in the direcotry' do
-          is_expected.to be > 255
+          is_expected.to be > 37
         end
       end
       describe '#handle' do
@@ -191,7 +191,7 @@ describe Sisimai::Mail do
           subject { mailtxt }
 
           it 'is reading ' + mdirobj.mail.file do
-            expect(mdirobj.mail.file).to match(/\A[a-z0-9]+[-]\d\d[.]eml\z/)
+            expect(mdirobj.mail.file).to match(/\A.+[.]eml\z/)
           end
           it('returns String') { is_expected.to be_a(String) }
           it('matches /From /'){ is_expected.to match(/Subject:\s*/) }
