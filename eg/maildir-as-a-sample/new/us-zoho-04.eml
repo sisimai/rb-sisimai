@@ -1,0 +1,47 @@
+Delivered-To: shironeko@zoho.example.com
+Received: from mail.zoho.com by mx.zohomail.com
+    with SMTP id 1418384998133136.34553510826618; Fri, 12 Dec 2014 03:49:58 -0800 (PST)
+Date: Fri, 12 Dec 2014 03:49:58 -0800
+From: mailer-daemon@mail.zoho.com
+To: shironeko@zoho.example.com
+Message-ID: <14a3e557ec8.cc5b10c6521251802.-8795066362223423466@zohomail.com>
+Subject: Mail Delivery Status Notification (Delay)
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+    boundary="----=_Part_2353_2119764107.1418384998087"
+User-Agent: Zoho Mail
+X-Mailer: Zoho Mail
+X-ZohoMail: Si CHF_MF_NL SS_10 UW48 UB48 FMWL UW48 UB48 SGR3_1_09124_50
+X-Zoho-Virus-Status: 2
+
+
+------=_Part_2353_2119764107.1418384998087
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+
+This message was created automatically by mail delivery system.
+
+THIS IS A WARNING MESSAGE ONLY.
+
+YOU DO NOT NEED TO RESEND YOUR MESSAGE.
+
+The original message was received at Fri, 12 Dec 2014 03:49:58 -0800
+from shironeko@zoho.example.com [shironeko@zoho.example.com] 
+
+----- The following addresses had fatal errors ----- 
+[Status: Error, Address: <kijitora@6kaku.example.co.jp>, ResponseCode 421, , Host not reachable.]
+
+Message will be retried for 4 more day(s)
+
+----- Transcript of session follows ----- 
+
+Received:from mail.zoho.com by mx.zohomail.com
+    with SMTP id 1418381459307794.7899025594404; Fri, 12 Dec 2014 02:50:59 -0800 (PST)
+Message-ID:<14a3e1f7f3c.110ef7cb910716.7530578479836940184@zoho.example.com>
+Date:Fri, 12 Dec 2014 10:50:59 +0000
+From:"zoho.com" <shironeko@zoho.example.com>
+User-Agent:Zoho Mail
+To:<kijitora@6kaku.example.co.jp>
+Subject:Nyaaaan
+Content-Type:text/plain; charset="UTF-8"
+------=_Part_2353_2119764107.1418384998087--

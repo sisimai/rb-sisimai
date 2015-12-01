@@ -1,0 +1,64 @@
+Return-Path: <MAILER-DAEMON@mx44.example.com>
+Received: from mx12.example.com (mx12.example.com [192.0.2.136])
+	by mx44.example.com (8.13.1/8.13.1) with ESMTP id k0000000000000
+	for <shironeko@example.org>; Thu, 29 Apr 2006 23:34:45 +0900
+Received: from r4.example.com (r4.example.com [192.0.2.136])
+	by mx12.example.com (Postfix) with ESMTP id 00000000000
+	for <shironeko@example.org>; Thu, 29 Apr 2006 23:34:45 +0900 (JST)
+Date: Thu, 29 Apr 2006 23:34:45 +0900
+From: Mail Delivery System <Mail.Delivery.System@mx44.example.com>
+To: shironeko@example.org
+Subject: Delivery status notification
+MIME-Version: 1.0
+Content-Type: multipart/report;
+	boundary="------------0000000000000000_000000000000"
+Message-Id: <20060000000000000000@mx12.example.com>
+
+This is a multi-part message in MIME format.
+
+--------------0000000000000000_000000000000
+Content-Type: text/plain; charset=UTF-8;
+Content-Transfer-Encoding: 8bit
+
+============================================================================
+      This is an automatically generated Delivery Status Notification.      
+
+Delevery to the following recipients was aborted after 5.0 hour(s):
+
+  * kijitora@example.co.jp
+
+
+============================================================================
+                             Technical details:                             
+
+Routing: Could not find a gateway for kijitora@example.co.jp
+
+
+============================================================================
+
+
+--------------0000000000000000_000000000000
+Content-Type: message/rfc822; charset=UFT-8;
+Content-Transfer-Encoding: 8bit
+Content-Disposition: attachment
+
+
+Received: from mx44.example.com ([192.0.2.34])
+	by r4.example.com id 0000000000000000000000
+	for kijitora@example.co.jp; Thu, 29 Apr 2006 23:34:45 +0900
+Received: from mx44.example.com (mx44.example.com [127.0.0.1])
+	by mx44.example.com (8.13.1/8.13.1) with ESMTP id k0000000000000
+	for <kijitora@example.co.jp>; Wed, 18 Oct 2006 23:34:45 +0900
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Subject: Nyaaaaaan
+From: shironeko@example.org
+Message-ID: <00000000000000000000000000000000@example.org>
+Date: Wed, 18 Oct 2006 23:34:45 +0900
+To: kijitora@example.co.jp
+
+Nyaaan
+
+--------------0000000000000000_000000000000--
+

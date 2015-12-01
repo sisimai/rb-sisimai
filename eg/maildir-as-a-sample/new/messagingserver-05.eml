@@ -1,0 +1,98 @@
+Return-path: <>
+Received: from mr21p30im-asmtp001.me.example.com ([17.111.174.64])
+ by ms30511.mac.example.com (Oracle Communications Messaging Server 7u4-27.08
+ (7.0.4.27.7) 64bit (built Aug 22 2013))
+ with ESMTP id <0NFC00BTHMNKS000@ms30511.mac.example.com> for shironeko@me.example.com; Thu,
+ 20 Nov 2014 17:45:20 +0000 (GMT)
+Original-recipient: rfc822;shironeko@me.example.com
+Received: from process-daemon.mr21p30im-asmtp001.me.example.com by
+ mr21p30im-asmtp001.me.example.com
+ (Oracle Communications Messaging Server 7.0.5.33.0 64bit (built Aug 27 2014))
+ id <0NFC00500LO7IH00@mr21p30im-asmtp001.me.example.com> for shironeko@me.example.com
+ (ORCPT shironeko@me.example.com); Thu, 20 Nov 2014 17:45:20 +0000 (GMT)
+X-Proofpoint-Virus-Version: vendor=fsecure
+ engine=2.50.10432:5.13.68,1.0.28,0.0.0000
+ definitions=2014-11-20_08:2014-11-20,2014-11-20,1970-01-01 signatures=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ ndrscore=0 suspectscore=3 adjustscore=0 phishscore=0 adultscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=7.0.1-1408290000
+ definitions=main-1411200139
+Received: from mr21p30im-asmtp001.me.example.com
+ (Oracle Communications Messaging Server 7.0.5.33.0 64bit (built Aug 27 2014))
+ id <0NFC0064CMNIUB00@mr21p30im-asmtp001.me.example.com>; Thu,
+ 20 Nov 2014 17:45:19 +0000 (GMT)
+Date: Thu, 20 Nov 2014 17:45:19 +0000 (GMT)
+From: postmaster@mac.example.com
+Subject: Delivery Notification: Delivery has failed
+In-reply-to: <4B60FBC6-2C6D-4D45-8E6D-B154266224A8@me.example.com>
+To: shironeko@me.example.com
+Message-id: <0NFC0064EMNJUB00@mr21p30im-asmtp001.me.example.com>
+MIME-version: 1.0
+Content-type: multipart/report; report-type=delivery-status;
+ boundary="Boundary_(ID_7hQzEdSXieZd+FlerdPjEw)"
+References: <4B60FBC6-2C6D-4D45-8E6D-B154266224A8@me.example.com>
+
+
+--Boundary_(ID_7hQzEdSXieZd+FlerdPjEw)
+Content-type: text/plain; charset=us-ascii
+Content-language: en-US
+
+This report relates to a message you sent with the following header fields:
+
+  Message-id: <4B60FBC6-2C6D-4D45-8E6D-B154266224A8@me.example.com>
+  Date: Fri, 21 Nov 2014 02:45:15 +0900
+  From: Shironeko <shironeko@me.example.com>
+  To: kijitora@example.jp
+  Subject: Nyaaaa
+
+Your message cannot be delivered to the following recipients:
+
+  Recipient address: kijitora@example.jp
+  Reason: Illegal host/domain name found
+
+
+--Boundary_(ID_7hQzEdSXieZd+FlerdPjEw)
+Content-type: message/delivery-status
+
+Original-envelope-id: 0NFC00LXUMNGMH40@mr21p30im-asmtp001.me.example.com
+Reporting-MTA: dns;mr21p30im-asmtp001.me.example.com (tcp-daemon)
+Arrival-date: Thu, 20 Nov 2014 17:45:18 +0000 (GMT)
+
+Original-recipient: rfc822;kijitora@example.jp
+Final-recipient: rfc822;kijitora@example.jp
+Action: failed
+Status: 5.4.4 (Illegal host/domain name found)
+
+--Boundary_(ID_7hQzEdSXieZd+FlerdPjEw)
+Content-type: message/rfc822
+
+Return-path: <shironeko@me.example.com>
+Received: from tcp-daemon.mr21p30im-asmtp001.me.example.com by
+ mr21p30im-asmtp001.me.example.com
+ (Oracle Communications Messaging Server 7.0.5.33.0 64bit (built Aug 27 2014))
+ id <0NFC0064CMNIUB00@mr21p30im-asmtp001.me.example.com>; Thu,
+ 20 Nov 2014 17:45:19 +0000 (GMT)
+Received: from [192.0.2.3] (c135.kyoto.example.ne.jp [192.0.2.135])
+ by mr21p30im-asmtp001.me.example.com
+ (Oracle Communications Messaging Server 7.0.5.33.0 64bit (built Aug 27 2014))
+ with ESMTPSA id <0NFC00LXQMNFMH40@mr21p30im-asmtp001.me.example.com> for
+ kijitora@example.jp; Thu, 20 Nov 2014 17:45:18 +0000 (GMT)
+Date: Fri, 21 Nov 2014 02:45:15 +0900
+From: Shironeko <shironeko@me.example.com>
+Subject: Nyaaaa
+To: kijitora@example.jp
+Message-id: <4B60FBC6-2C6D-4D45-8E6D-B154266224A8@me.example.com>
+MIME-version: 1.0 (Mac OS X Mail 7.3 \(1878.6\))
+X-Mailer: Apple Mail (2.1878.6)
+Content-type: text/plain; charset=us-ascii
+Content-transfer-encoding: 7bit
+X-Proofpoint-Virus-Version: vendor=fsecure
+ engine=2.50.10432:5.13.68,1.0.28,0.0.0000
+ definitions=2014-11-20_08:2014-11-20,2014-11-20,1970-01-01 signatures=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ suspectscore=1 phishscore=0 adultscore=0 bulkscore=0 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=7.0.1-1408290000 definitions=main-1411200139
+
+Nyaaaaaaaaaan
+
+--Boundary_(ID_7hQzEdSXieZd+FlerdPjEw)--

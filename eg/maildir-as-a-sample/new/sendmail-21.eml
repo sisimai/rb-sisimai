@@ -1,0 +1,69 @@
+Return-Path: <>
+Received: from mta005.example.jp (mta005.example.jp [192.0.2.4])
+	by 9jo.example.co.jp (V8/cf) with ESMTP id f000000000000
+	for <azuma@example.co.jp>; Thu, 20 Jan 2015 23:34:45 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 9jo.example.co.jp f000000000000
+Authentication-Results: 9jo.example.co.jp; sender-id=none header.from=MAILER-DAEMON@mta005.example.jp
+Received: from localhost (localhost)
+	by mta005.example.jp (V8/cf) id f00000000000;
+	Thu, 20 Jan 2015 23:34:45 +0900
+Date: Thu, 20 Jan 2015 23:34:45 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON@mta005.example.jp>
+Message-Id: <201501200802.f00000000000@mta005.example.jp>
+To: postmaster@mta005.example.jp
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="f00000000000.0000000000/mta005.example.jp"
+Subject: Postmaster notify: see transcript for details
+Auto-Submitted: auto-generated (postmaster-notification)
+
+This is a MIME-encapsulated message
+
+--f00000000000.0000000000/mta005.example.jp
+
+The original message was received at Thu, 20 Jan 2015 23:34:45 +0900
+from localhost [127.0.0.1]
+with id f000000010414
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora@cat.example.ne.jp>
+
+   ----- Transcript of session follows -----
+<kijitora@cat.example.ne.jp>... Deferred: Connection refused by mx.example.ne.jp.
+Message could not be delivered for 8 hours
+Message will be deleted from queue
+
+--f00000000000.0000000000/mta005.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mta005.example.jp
+Arrival-Date: Thu, 20 Jan 2015 23:34:45 +0900
+
+Final-Recipient: RFC822; kijitora@cat.example.ne.jp
+Action: failed
+Status: 4.4.7
+Remote-MTA: DNS; mx.example.ne.jp
+Last-Attempt-Date: Thu, 20 Jan 2015 23:34:45 +0900
+
+--f00000000000.0000000000/mta005.example.jp
+Content-Type: text/rfc822-headers
+
+Return-Path: <postmaster@example.ad.jp>
+Received: from mta005.example.jp (localhost [127.0.0.1])
+	by mta005.example.jp (V8/cf) with ESMTP id f000000010414;
+	Thu, 20 Jan 2015 23:34:45 +0900
+Received: (from apache@localhost)
+	by mta005.example.jp (8.15.1/8.15.1/Submit) id f00000000023;
+	Thu, 20 Jan 2015 23:34:45 +0900
+Message-Id: <201501200001.F0000000010413@mta005.example.jp>
+MIME-Version: 1.0
+To: Kijitora <kijitora@cat.example.ne.jp>
+Subject: Nyaaaan
+From: Postmaster <postmaster@example.ad.jp>
+Reply-To: postmaster@example.ad.jp
+Date: Thu, 20 Jan 2015 23:34:45 +0900
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="ISO-2022-JP"
+
+--f00000000000.0000000000/mta005.example.jp--
+

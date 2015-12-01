@@ -1,0 +1,49 @@
+Return-Path: <postmaster@example.co.jp>
+X-Original-To: shironeko@example.jp
+Delivered-To: shironeko@example.jp
+Received: from interscan.example.co.jp (interscan.example.co.jp [192.0.2.3])
+    by mx.example.jp (Postfix) with ESMTP id 0000000000
+    for <shironeko@example.jp>; Thu, 29 Apr 2011 23:34:45 +0900 (JST)
+Received: from interscan.example.co.jp by localhost.example.co.jp (sendmail)
+    with ESMTP id 00000000000000 for <shironeko@example.jp>;
+    Thu, 29 Apr 2011 23:34:45 +0900
+Message-Id: <201104290000.00000000000000@mx.example.co.jp>
+Date: Thu, 29 Apr 2011 23:34:45 +0900
+From: "InterScan MSS" <postmaster@example.co.jp>
+To: <shironeko@example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/mixed;
+ boundary="------------InterScan_NT_MIME_Boundary"
+Subject: メッセージを配信できません。
+
+
+--------------InterScan_NT_MIME_Boundary
+Content-type: text/plain
+
+...
+
+
+Sent <<< RCPT TO:<kijitora@example.co.jp>
+Received >>> 550 5.1.1 <kijitora@example.co.jp>... user unknown
+
+...
+
+************************     End of message     **********************
+
+--------------InterScan_NT_MIME_Boundary
+Content-type: message/rfc822
+
+Received: from mx.example.co.jp ([192.0.2.80]) by smtp5.example.co.jp 
+    with SMTP id 0000000.00000000; Thu, 29 Apr 2011 23:34:45 +0900
+Received: (qmail 10000 invoked from network); 29 Apr 2011 23:34:45 -0000
+Message-ID: <00000000000.000000000000@e3.example.co.jp>
+Date: Thu, 29 Apr 2011 23:34:45 +0900 (JST)
+From: Shironeko <shironeko@example.jp>
+Subject: Nyaaan
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ISO-2022-JP
+Content-Transfer-Encoding: 7bit
+To: kijitora@example.co.jp
+
+Nyaan
+

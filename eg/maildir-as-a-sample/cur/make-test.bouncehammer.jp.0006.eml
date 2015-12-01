@@ -1,0 +1,118 @@
+Return-Path: <MAILER-DAEMON>
+Received: from ezweb.ne.jp (wmflb12na02.ezweb.ne.jp [222.15.69.197])
+	by mta-245.smtp-out.example.co.jp (8.13.4/8.11.1) with ESMTP id mB824vTi032144
+	for <user@example.co.jp>; Mon, 8 Dec 2008 11:04:57 +0900
+Received: by lsean.ezweb.ne.jp (EZweb Mail)
+	id 98AA111; Mon,  8 Dec 2008 11:04:57 +0900 (JST)
+Date: Mon,  8 Dec 2008 11:04:57 +0900 (JST)
+From: Mail Administrator <Postmaster@ezweb.ne.jp>
+Subject: Mail System Error - Returned Mail
+To: user@example.co.jp
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="11AABBC.1165197897/lsean.ezweb.ne.jp"
+Message-Id: <20081208020457.98AA111@lsean.ezweb.ne.jp>
+Status:   
+
+This is a MIME-encapsulated message.
+
+--11AABBC.1165197897/lsean.ezweb.ne.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=iso-2022-jp
+Content-Transfer-Encoding: 7bit
+
+次のあて先へのメッセージはエラーのため送信できませんでした。
+
+送信先メールアドレスが見つかりませんでした。
+メールアドレスをご確認の上、再送信してください。
+
+The user(s) account is disabled.
+
+
+<this-user-does-not-exist-on-the-server@ezweb.ne.jp>: user unknown
+
+--11AABBC.1165197897/lsean.ezweb.ne.jp
+Content-Description: Delivery error report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; lsean.ezweb.ne.jp
+Arrival-Date: Mon,  8 Dec 2008 11:04:57 +0900 (JST)
+
+Final-Recipient: rfc822; this-user-does-not-exist-on-the-server@ezweb.ne.jp
+Action: failed
+Status: 5.0.0
+
+--11AABBC.1165197897/lsean.ezweb.ne.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Received: from mta-245.smtp-out.example.co.jp (mta-245.smtp-out.example.co.jp [192.0.2.245])
+	by lsean.ezweb.ne.jp (EZweb Mail) with ESMTP id 11AABBC
+	for <this-user-does-not-exist-on-the-server@ezweb.ne.jp>; Mon,  8 Dec 2008 11:04:57 +0900 (JST)
+Mime-Version: 1.0 (Apple Message framework v752.2)
+Content-Transfer-Encoding: 7bit
+Message-Id: <E29EC22A-F8FB-4F3E-9925-AF88359CECC6@example.co.jp>
+Content-Type: text/plain
+To: this-user-does-not-exist-on-the-server@ezweb.ne.jp
+From: user <user@example.co.jp>
+Subject: TEST
+Date: Mon, 8 Dec 2008 11:05:00 +0900
+X-Mailer: Apple Mail (2.752.2)
+
+
+
+--11AABBC.1165197897/lsean.ezweb.ne.jp--
+
+Delivered-To: test@example.org
+Received: by 10.231.195.34 with SMTP id ea34cs105842ibb;
+        Tue, 15 Jun 2010 21:57:48 -0700 (PDT)
+Received: by 10.141.105.20 with SMTP id h20mr6613320rvm.163.1276664268395;
+        Tue, 15 Jun 2010 21:57:48 -0700 (PDT)
+MIME-Version: 1.0
+Return-Path: <>
+Received: by 10.141.105.20 with SMTP id h20mr8803801rvm.163; Tue, 15 Jun 2010 
+	21:57:48 -0700 (PDT)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+To: test@example.org
+X-Failed-Recipients: text/plain; charset=ISO-
+Subject: Delivery Status Notification (Failure)
+Message-ID: <000e0cd13b1637145e04891e9067@google.com>
+Date: Wed, 16 Jun 2010 04:57:48 +0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+Delivery to the following recipient failed permanently:
+
+     userunknown@cubicroot.jp
+
+Technical details of permanent failure:=20
+Google tried to deliver your message, but it was rejected by the recipient =
+domain. We recommend contacting the other email provider for further inform=
+ation about the cause of this error. The error that the other server return=
+ed was: 550 550 5.1.1 <userunknown@cubicroot.jp>... User Unknown (state 14)=
+.
+
+----- Original message -----
+
+Received: by 10.141.105.20 with SMTP id h20mr6613300rvm.163.1276664266943;
+        Tue, 15 Jun 2010 21:57:46 -0700 (PDT)
+Return-Path: <test@example.org>
+Received: from [10.11.12.13] by mx.google.com with ESMTPS id 
+	i19sm6559194rvn.11.2010.06.15.21.57.45
+        (version=3DTLSv1/SSLv3 cipher=3DRC4-MD5);
+        Tue, 15 Jun 2010 21:57:46 -0700 (PDT)
+Message-Id: <55FE89E5-D269-4DDF-82E9-6F9D8CD6A67C@gmail.com>
+From: test <test@example.org>
+To: userunknown@cubicroot.jp
+Content-Type: text/plain; charset=3DUS-ASCII; format=3Dflowed
+Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Apple Message framework v936)
+Subject: TEST2
+Date: Wed, 16 Jun 2010 13:57:43 +0900
+X-Mailer: Apple Mail (2.936)
+
+test2
+
+
+
+

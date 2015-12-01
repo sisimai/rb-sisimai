@@ -1,0 +1,53 @@
+Mime-Version: 1.0
+References: <200904160826.n368QV7r016666@smtp.example.jp>
+Content-Type: text/plain
+Message-Id: <290019D9-D222-4AE6-88F5-284599074462@example.jp>
+Content-Transfer-Encoding: 7bit
+From: original-sender@example.jp 
+Subject: Fwd: Returned mail: see transcript for details
+Date: Fri, 17 Apr 2009 07:54:16 +0900
+To: professor@example.ac.jp
+
+
+
+Begin forwarded message:
+
+> From: Mail Delivery Subsystem <MAILER-DAEMON>
+> Date: Thu, 16 May 2009 17:19:03 +0900
+> To: <original-sender@example.jp>
+> Subject: Returned mail: see transcript for details
+> Return-Path: <MAILER-DAEMON>
+> Message-Id: <200704060826.n888ba7x019999@smtp.example.jp>
+>
+> The original message was received at Thu, 16 Apr 2009 17:26:31 +0900
+> from smpt.example.jp [127.0.0.1]
+>
+>    ----- The following addresses had permanent fatal errors -----
+> <non-existent-user-address-of-ntt-docomo@docomo.ne.jp>
+>     (reason: 550 Unknown user non-existent-user-address-of-ntt-docomo@docomo.ne.jp)
+>
+>    ----- Transcript of session follows -----
+> ... while talking to mfsmax.docomo.ne.jp.:
+>>>> DATA
+> <<< 550 Unknown user non-existent-user-address-of-ntt-docomo@docomo.ne.jp
+> 554 5.0.0 Service unavailable
+> Reporting-MTA: dns; smtp.example.jp
+> Received-From-MTA: DNS; smtp.example.jp
+> Arrival-Date: Thu, 16 Apr 2009 17:26:31 +0900
+>
+> Final-Recipient: RFC822; non-existent-user-address-of-ntt-docomo@docomo.ne.jp
+> Action: failed
+> Status: 5.2.0
+> Remote-MTA: DNS; mfsmax.docomo.ne.jp
+> Diagnostic-Code: SMTP; 550 Unknown user non-existent-user-address-of-ntt-docomo@docomo.ne.jp
+> Last-Attempt-Date: Thu, 16 Apr 2009 17:26:31 +0900
+>
+> From: original-sender@example.jp
+> Date: Thu, 16 Apr 2009 17:26:30 +0900
+> To: non-existent-user-address-of-ntt-docomo@docomo.ne.jp
+> Subject: TEST
+>
+> TEST
+>
+
+

@@ -1,0 +1,1171 @@
+Content-Type: multipart/report; report-type=delivery-status;
+ boundary="----------=_1395189126-24245-767319"
+Content-Transfer-Encoding: binary
+MIME-Version: 1.0
+X-Mailer: MIME-tools 5.504 (Entity 5.504)
+From: MAILER-DAEMON
+To: foobar@moneyliving.pgoamedia.com
+Subject: Undelivered Mail Returned to Sender
+
+This is a multi-part message in MIME format...
+
+------------=_1395189126-24245-767319
+Content-Type: text/plain
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
+Content-Description: Notification
+
+This is an automatically generated message from SendGrid.
+
+I'm sorry to have to tell you that your message was not able to be
+delivered to one of its intended recipients.
+
+If you require assistance with this, please contact SendGrid support.
+
+pgoa-moneyliving:884638:<foobar@comcast.net> : 192.254.113.140 : mx2.comcast.net:[76.96.40.147] : 554 imta14.emeryville.ca.mail.comcast.net comcast 192.254.113.140 Comcast block for spam.  Please see http://postmaster.comcast.net/smtp-error-codes.php#BL000000  in Handshake
+
+------------=_1395189126-24245-767319
+Content-Type: message/delivery-status
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
+Content-Description: Delivery Report
+
+X-SendGrid-QueueID: 154695696
+X-SendGrid-Sender: <bounces+884638-8598-foobar@moneyliving.pgoamedia.com>
+Arrival-Date: 2014-03-19 00-32-06
+
+Final-Recipient: rfc822; foobar@comcast.net
+Original-Recipient: rfc822; foobar@comcast.net
+Action: failed
+Status: 
+Diagnostic-Code: 554 imta14.emeryville.ca.mail.comcast.net comcast 192.254.113.140 Comcast block for spam.  Please see http://postmaster.comcast.net/smtp-error-codes.php#BL000000 
+
+------------=_1395189126-24245-767319
+Content-Type: message/rfc822; name="154695696"
+Content-Disposition: inline; filename="154695696"
+Content-Transfer-Encoding: binary
+Content-Description: Undelivered Message
+
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; 
+	d=moneyliving.pgoamedia.com; 
+	h=content-type:mime-version:from:to:reply-to:subject:list-unsubscribe; 
+	s=smtpapi; bh=UHZfdnS75cU30Jx7dP/ldLieTck=; b=Iwa1J1ZIfJL9T4pneL
+	HcqBFUPUHQaF2bQ5FFpyiDtGS4gVHNDErw/pTxXC0B/5fW1UlKOAJcxf45wAfcY/
+	9KGoazCRfG7LOhb6ShLPwrAXXxY/z+y8/eFNHsWBYDOcIZXFuEoumsUV9sy/+t8O
+	RqxwU7sHFdoU5QmIidy8dH0Lo=
+DomainKey-Signature: a=rsa-sha1; c=nofws; 
+	d=moneyliving.pgoamedia.com; 
+	h=content-type:mime-version:from:to:reply-to:subject:list-unsubscribe; 
+	q=dns; s=smtpapi; b=n+JM+HVAWeSsCglXZPVflHvBdpIq8PBPzX2evco0zuCg
+	ihmB44G1HY7ibhKdofpIEc5W/dICxwGq0Js1T7MrQ8IvlMpZ4gstj8UV/xdop4yy
+	ds7f2+RxKvg/BYVi9akiS3Lwil1U+cCwaIbqvsP3oTH8WY3yCxs5h1rXQAS4hLk=
+Received: by filter-151.sjc1.sendgrid.net with SMTP id filter-151.21331.5328E584A
+        Wed, 19 Mar 2014 00:32:04 +0000 (UTC)
+Received: from ODg0NjM4 (unknown [10.42.83.122])
+	by localhost.localdomain (SG) with HTTP id 144d7c08eeb.132e5.d673f3
+	for <foobar@moneyliving.pgoamedia.com>; Wed, 19 Mar 2014 00:32:04 +0000 (GMT)
+Content-Type: multipart/alternative;
+	boundary="===============0915156192462505999=="
+MIME-Version: 1.0
+From: "SmartyCents.com \(Formerly Money Living\)"
+	<foobar@moneyliving.pgoamedia.com>
+To: foobar@comcast.net
+Reply-To: foobar@moneyliving.pgoamedia.com
+Subject: Tax Season Continues + Tackling Wedding Expenses
+Message-ID: <144d7c08eeb.132e5.d673f3@localhost.localdomain>
+Date: Wed, 19 Mar 2014 00:32:04 +0000 (UTC)
+List-Unsubscribe: <http://moneyliving.pgoamedia.com/wf/unsubscribe?upn=1-2B2i4NJ0yu0cCUcR-2FYNSSe7yGzeiS38odIme2gGGUgSK9HUk8EiAqsw9omFQqnB3J7xmuonE779rHGJkqhlp4YZxVv21HsORmlYU-2FmdlfzjSXbnSvff50QhAU5zyZZxQxwS-2FJJDhQO-2FYrWOqGzn3gWbbSj-2Bq2Wbqzks4yA4XMZzWw3-2FWeZIMqUS4qoJJcl3EUkuU1D-2B9iVCBcbevDufWTgVcK99quJbebyXqmx6WVxU4PwF8kXOkFdHVqRqWlYYKMDTPYgkE7KB8G8m2-2Bja0vx8V0f2kn5Smfn6qV42s47C0tb-2FvRZmMTszNruIxDvdSQ0Qrot80Jru2buWWn3HGl45zo3-2B82rfRpF54LTxq9Ezymk5HLiv2qlXpcZs0JbNT4vZLRgIJK5-2BVb6RMeVHe9A-3D-3D>, <mailto:foobar@moneyliving.pgoamedia.com?subject=http://moneyliving.pgoamedia.com/wf/unsubscribe*q*upn=1-2B2i4NJ0yu0cCUcR-2FYNSSe7yGzeiS38odIme2gGGUgSK9HUk8EiAqsw9omFQqnB3J7xmuonE779rHGJkqhlp4YZxVv21HsORmlYU-2FmdlfzjSXbnSvff50QhAU5zyZZxQxwS-2FJJDhQO-2FYrWOqGzn3gWbbSj-2Bq2Wbqzks4yA4XMZzWw3-2FWeZIMqUS4qoJJcl3EUkuU1D-2B9iVCBcbevDufWTgVcK99quJbebyXqmx6WVxU4PwF8kXOkFdHVqRqWlYYKMDTPYgkE7KB8G8m2-2Bja0vx8V0f2kn5Smfn6qV42s47C0tb-2FvRZmMTszNruIxDvdSQ0Qrot80Jru2buWWn3HGl45zo3-2B82rfRpF54LTxq9Ezymk5HLiv2qlXpcZs0JbNT4vZLRgIJK5-2BVb6RMeVHe9A-3D-3D>
+X-SendGrid-Contentd-ID: {"test_id":"1395189125"}
+X-SG-EID: waGEhkpZxV8IH7ICWJsN3/WIqYFZkCvD8951tFpbdJM+yztND7TGPYpxz0C+Qp46PwFhVrrGCsoHZm+GiwgdlxMqpBys+LM2O0VH+VLREbILQLRXmpZI5ImeoC7/a8CFV7xW+roUITdlXyGlQ5SXmp4vwXimGB7a4VpUfeTXHUY=
+X-SG-ID: VPWZYjw6GOzHdwkwPeoX9QiEbzQXX/gF9P8njHP5+LDKR9nTCP6NLyuQ3np/dg8VGo0rUlgFbj26jJOsaIloLfVdJo0/gbQMpuqk09CJW1qe/aN8R2juRKKP/HB2foAZtaKjGVkcp3+ODP80BcOlXg7ki70h0i5s8UDZqGtMNmYNcrBr9xGbYVz0w5FGKRXs
+
+--===============0915156192462505999==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+
+Don't see images? Go here ( %%webversion%% ) to read this email as a webpag=
+e.   ( # )Newsletter         ( http://smartycents.com/article/expenses-for-=
+wedding/ )   Be Our Guest ( http://smartycents.com/article/expenses-for-wed=
+ding/ )=C2=A0=C2=A0So, you=E2=80=99re invited to a wedding. Finance expert =
+Pete the Planner shares tips for being a gracious guest=E2=80=94without blo=
+wing your savings.How to Tackle the Expense of Attending a Wedding ( http:/=
+/smartycents.com/article/expenses-for-wedding/ )How to Give Without Breakin=
+g the Bank ( http://smartycents.com/article/gift-giving-on-a-budget/ )10 Bu=
+y One, Give One Companies Worth Supporting ( http://smartycents.com/article=
+/10-one-for-one-companies/ )                                               =
+                                               =C2=A0               ( http:=
+//www.anrdoezrs.net/click-7410754-11716531 )              Advertisement
+                                                                           =
+                it's tax time!  ( http://smartycents.com/article/maximize-t=
+ax-return-2013/ ) Expert Tax-Filing Tips ( http://smartycents.com/article/m=
+aximize-tax-return-2013/ )The tax experts at H&R Block share essential tax =
+tips for DIY filers=E2=80=94plus a list of common filing mistakes that coul=
+d be costing you money.Maximize Your Return ( http://smartycents.com/articl=
+e/maximize-tax-return-2013/ )    all that glitters  ( http://smartycents.co=
+m/article/invest-gold-silver/ ) Should You Invest in a Pot of Gold? ( http:=
+//smartycents.com/article/invest-gold-silver/ )=C2=A0=C2=A0Consider the ben=
+efits and drawbacks associated with the yellow brick road=E2=80=94and how t=
+o get started investing in precious metals.Going for Gold ( http://smartyce=
+nts.com/article/invest-gold-silver/ )expert Q&A  ( http://smartycents.com/a=
+rticle/expert-tax-shelters/ ) What to Know About Tax Shelters ( http://smar=
+tycents.com/article/expert-tax-shelters/ )=C2=A0=C2=A0Explore different typ=
+es of tax shelters, and consider which type of shelter could benefit you th=
+e most.Ask an Expert ( http://smartycents.com/article/expert-tax-shelters/ =
+) the bottom line  ( http://smartycents.com/article/how-to-negotiate-lower-=
+prices/ ) How to Negotiate Prices on Almost Anything ( http://smartycents.c=
+om/article/how-to-negotiate-lower-prices/ )=C2=A0=C2=A0Unexpected areas whe=
+re the bottom line is up for negotiation, plus tips for making your best ca=
+se for a mark-down.Haggle This! ( http://smartycents.com/article/how-to-neg=
+otiate-lower-prices/ )      ( http://www.facebook.com/moneyliving )  ( http=
+s://twitter.com/Money_Living )  ( http://pinterest.com/moneyliving/ )    Un=
+subscribe ( http://moneyliving.pgoamedia.com/wf/unsubscribe?upn=3D1-2B2i4NJ=
+0yu0cCUcR-2FYNSSe7yGzeiS38odIme2gGGUgSK9HUk8EiAqsw9omFQqnB3J7xmuonE779rHGJk=
+qhlp4bofAeYxLOaGktjxL0ND2lr67olLT-2FRuJvOUnimGi0IwiJq11OZqz1TYLPi-2BTgpo-2F=
+ON5ABFUZs372gdqAVIVvXww8Dcv6FBm2RJJH8JmRheNSsSK3UmCqBT33-2BKhoFswuyNqRE1xjh=
+Yc2oozGkIbVmmo3jH-2BHsXToynrSRpLuSGDTm6HHHhC6qCL-2FEOhpJ5i1wpLf3CD5ZejMV2ep=
+yFvUU9ufnCik40BPaA6zTmIwF-2B1JeH-2FNST22B93kpQOupfjIC0iaoRE30Y2RhF-2BC-2BAN=
+VmKtS5QkVHFg9yu4rycHKl58s2-2Bz2tJiXwoL37s6CwNHoQ-3D-3D )=C2=A0=E2=80=A2=C2=
+=A0 Privacy Policy ( http://moneyliving.com/privacy-guidelines/ )=C2=A0=E2=
+=80=A2=C2=A0 Visitor Agreement ( http://moneyliving.com/terms-of-service/ )
+ This email was sent to %%emailaddress%%.=20
+ Copyright =C2=A92013 PGOA Media. 341 Cool Springs Blvd. Suite 400, Frankli=
+n, TN 37067. All Rights Reserved=
+
+--===============0915156192462505999==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+
+<html><head></head><body><meta http-equiv=3D"Content-Type" content=3D"text/=
+html; charset=3DUTF-8" />
+<title>MoneyLiving.com Weekly Newsletter</title>
+<!--  Subject Lines Version A:   Version B:   Version C:   Version D:   -->=
+=20
+<meta name=3D"viewport" content=3D"width=3Ddevice-width" />
+<style type=3D"text/css"><!--
+table {
+	border-collapse: collapse;
+}
+ @media only screen and (max-device-width: 480px) {
+table#width-320px:not(.om-views-messagepane) {
+	width: 320px !important;
+	align: center !important;
+}
+img#width-320px:not(.om-views-messagepane) {
+	width: 320px !important;
+	align: center !important;
+}
+table#width-300px:not(.om-views-messagepane) {
+	width: 300px !important;
+	align: center !important;
+}
+table#width-292px:not(.om-views-messagepane) {
+	width: 292px !important;
+	align: center !important;
+	clear: left;
+	margin-top: 10px;
+}
+table#width-266px:not(.om-views-messagepane) {
+	width: 266px !important;
+	align: center !important;
+}
+table#width-231px:not(.om-views-messagepane) {
+	width: 238px !important;
+}
+table#width-200px:not(.om-views-messagepane) {
+	width: 200px !important;
+}
+table#width-100px:not(.om-views-messagepane) {
+	width: 100px !important;
+	height: 68px !important;
+}
+table#width-161px:not(.om-views-messagepane) {
+	width: 161px !important;
+}
+table#width-151px:not(.om-views-messagepane) {
+	width: 151px !important;
+	align: center !important;
+	clear: left;
+	margin-top: 10px;
+}
+td#width-50px:not(.om-views-messagepane) {
+	width: 70px !important;
+}
+#img-292px:not(.om-views-messagepane) {
+	width: 292px !important;
+	height: 219px !important;
+}
+#img-266px:not(.om-views-messagepane) {
+	width: 266px !important;
+	height: 200px !important;
+}
+#img-100px:not(.om-views-messagepane) {
+	width: 100px !important;
+	height: 68px !important;
+}
+#img-46px:not(.om-views-messagepane) {
+	width: 46px !important;
+	height: 34px !important;
+}
+#img-42px:not(.om-views-messagepane) {
+	width: 151px !important;
+	height: 42px !important;
+}
+#img-59px:not(.om-views-messagepane) {
+	width: 62px !important;
+	height: 34px !important;
+}
+#img-85px:not(.om-views-messagepane) {
+	width: 82px !important;
+	height: 34px !important;
+}
+#img-82px:not(.om-views-messagepane) {
+	width: 80px !important;
+	height: 34px !important;
+}
+#display-none:not(.om-views-messagepane) {
+	display: none !important;
+}
+#margintop-15px:not(.om-views-messagepane) {
+	margin-top: 15px !important;
+}
+#marginbottom-15px:not(.om-views-messagepane) {
+	margin-bottom: 15px !important;
+}
+#marginbottom-10px:not(.om-views-messagepane) {
+	margin-bottom: 10px !important;
+}
+#paddingleft-85px:not(.om-views-messagepane) {
+	padding-left: 85px !important;
+}
+#paddingleft-5px:not(.om-views-messagepane) {
+	padding-left: 5px !important;
+}
+#paddingleft-14px:not(.om-views-messagepane) {
+	padding-left: 14px !important;
+}
+#align-center:not(.om-views-messagepane) {
+	align: center !important;
+}
+#align-left:not(.om-views-messagepane) {
+	align: left !important;
+}
+#align-right:not(.om-views-messagepane) {
+	align: right !important;
+}
+#clear-left:not(.om-views-messagepane) {
+	clear: left;
+	margin-top: 10px;
+}
+#mobilehide:not(.om-views-messagepane) {
+	display: none !important;
+	visibility:hidden !important;
+}
+#mobile_ad_show {
+	display: block !important;
+}
+#font14:not(.om-views-messagepane) {
+	font-size:14px !important;
+}
+}
+#font20:not(.om-views-messagepane) {
+	font-size:14px !important;
+}
+#logo75:not(.om-views-messagepane) {
+	width: 136px !important;
+	height: 42px !important;
+}
+#logo50:not(.om-views-messagepane) {
+	width: 91px !important;
+	height: 28px !important;
+}
+#logo60:not(.om-views-messagepane) {
+	width: 109px !important;
+	height: 34px !important;
+}
+#padding14px:not(.om-views-messagepane) {
+	padding-left:14px !important;
+}
+}
+div,
+p,
+a,
+li,
+td {
+	-webkit-text-size-adjust: none;
+}
+--></style>
+<center> <!-- PRE HEADER -->=20
+<table id=3D"width-320px" width=3D"100%" height=3D"50" align=3D"center" cel=
+lpadding=3D"0" cellspacing=3D"0">
+<tbody>
+<tr style=3D"font-family: Helvetica, Arial, sans-serif; font-size: 11px; co=
+lor: #484744; margin: 0;">
+<td height=3D"50" style=3D"font-family: Helvetica, Arial, sans-serif; font-=
+size: 11px; text-align: center; color: #484744; margin: 0; background-color=
+: #f7f7f7; padding: 0 10px;">Don't see images? Go <a href=3D"%%webversion%%=
+" style=3D"font-family: Helvetica, Arial, sans-serif; font-size: 11px; colo=
+r: #a8c500; text-decoration: none;" linkname=3D"View In Browser">here</a> t=
+o read this email as a webpage.</td>
+</tr>
+</tbody>
+</table>
+<!-- END OF PRE HEADER --> <!-- LOGO -->=20
+<table id=3D"width-320px" width=3D"644" align=3D"center" cellpadding=3D"0" =
+cellspacing=3D"0">
+<tbody>
+<tr>
+<td colspan=3D"3"><img width=3D"1" height=3D"7" src=3D"http://pgoamedia.com=
+/wp-content/uploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr style=3D"font-family: Helvetica, Arial, sans-serif; font-size: 11px; co=
+lor: #484744; margin: 0;">
+<td width=3D"14"><img width=3D"14" height=3D"1" src=3D"http://pgoamedia.com=
+/wp-content/uploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+<td style=3D"font-family: Helvetica, Arial, sans-serif; font-size: 14px; co=
+lor: #484744; margin: 0;" align=3D"center"><a style=3D"font-family: Helveti=
+ca, Arial, sans-serif; font-size: 11px; color: #a8c500; text-decoration: no=
+ne;" href=3D"#" linkname=3D"Relish.com Logo"><img title=3D"ap-logo-300w.gif=
+" src=3D"http://cdn.smartycents.com/wp-content/uploads/2014/02/smarty-cents=
+-logo-color.png" alt=3D"ap-logo-300w.gif" border=3D"0" style=3D"border: 0; =
+text-align: center;" align=3D"left" width=3D"201" height=3D"56" id=3D"img-4=
+2px" /></a></td>
+<td valign=3D"bottom" style=3D"font-family: Helvetica, Arial, sans-serif; f=
+ont-size: 20px; color: #484744; margin: 0; text-align: right;"><span style=
+=3D"padding: 0; text-align: right; vertical-align: bottom; text-transform: =
+uppercase; font-size: 20px;" id=3D"font20">Newsletter</span></td>
+<td width=3D"14"><img width=3D"14" height=3D"1" src=3D"http://pgoamedia.com=
+/wp-content/uploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+</tbody>
+</table>
+<!-- /LOGO --> <!-- Line Break -->=20
+<table id=3D"width-320px" width=3D"644" align=3D"center" cellpadding=3D"0" =
+cellspacing=3D"0">
+<tbody>
+<tr>
+<td><img width=3D"1" height=3D"7" src=3D"http://pgoamedia.com/wp-content/up=
+loads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr style=3D"font-family: Helvetica, Arial, sans-serif; font-size: 20px; co=
+lor: #a8c500; margin: 0;">
+<td style=3D"font-family: Helvetica, Arial, sans-serif; font-size: 20px; te=
+xt-align: center; color: #a8c500; margin: 0;"><img src=3D"http://pgoamedia.=
+com/wp-content/uploads/2013/08/ml-divider.gif" alt=3D"Line break" id=3D"wid=
+th-320px" style=3D"display: block;" /></td>
+</tr>
+<tr>
+<td><img width=3D"1" height=3D"14" src=3D"http://pgoamedia.com/wp-content/u=
+ploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+</tbody>
+</table>
+<!-- /Line Break --> <!-- main wrapper -->=20
+<table width=3D"644" id=3D"width-320px" align=3D"center" cellpadding=3D"0" =
+cellspacing=3D"0">
+<tbody>
+<tr>
+<td><!-- Feature -->=20
+<table width=3D"644" id=3D"width-320px" align=3D"center" cellpadding=3D"0" =
+cellspacing=3D"0">
+<tbody>
+<tr>
+<td><!--feat img -->=20
+<table width=3D"414" align=3D"left" style=3D"font-family: Helvetica, Arial,=
+ sans-serif; font-size: 14px; color: #000; margin: 0;" cellpadding=3D"0" ce=
+llspacing=3D"0" id=3D"width-320px">
+<tbody>
+<tr>
+<td width=3D"14"><img width=3D"14" height=3D"1" src=3D"http://pgoamedia.com=
+/wp-content/uploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+<td><!-- if feat landing url is filled in --> <a style=3D"font-family: Helv=
+etica, Arial, sans-serif; font-size: 14px; color: #a8c500; text-decoration:=
+ none;" target=3D"_blank" href=3D"http://moneyliving.pgoamedia.com/wf/click=
+?upn=3D0OmjnBxG7LxFBM0VftFjmadCZEzWlfXJDKJVxidGt3qNK6tMiMNiOK8OOhjXc5jh2nNo=
+nV4UyeQVq2wknVx5mg-3D-3D_1-2B2i4NJ0yu0cCUcR-2FYNSSe7yGzeiS38odIme2gGGUgSK9H=
+Uk8EiAqsw9omFQqnB3J7xmuonE779rHGJkqhlp4UJmwBFQAgCqNIiSIn3u2c6bH0oCdZvGto1DZ=
+RgFV2yo09BcdsegYQ1izC8A8FGgtf71N7BENPBAHUSEizypIu0mmEL1durJh5Ilr8QNmLTk8hRk=
+649Z8t4oOE3jpNlEoFi9mYY5UKJ2LRUix1hHI0B4fxTTi8X-2F4fDsi6z1aAeq0vOqNHy0fE943=
+scUW0up7BEsXWFxMwIhGOhcwd8KOqiPq-2FJQ-2Fvm-2B-2BYE-2FptP0SGh6jWCVOJTDYu-2BJ=
+wmzqJTkj2XAPy4YnaIP6WzcOIZa1ahaPEb-2Bmip2msswy-2FX0MRqGDFo4IkzAPm-2F6lLy0fi=
+FlF6g-3D-3D"> <img title=3D"wedding400x300.jpg" width=3D"400" height=3D"300=
+" style=3D"border: none; padding: 0; margin: 0; display: block;" alt=3D"wed=
+ding400x300.jpg" src=3D"http://newsletter.pubgroup.com/admin/temp/newslette=
+rs/1980/wedding400x300.jpg" id=3D"img-292px" /></a> <!-- if feat landing ur=
+l is blank --></td>
+</tr>
+</tbody>
+</table>
+<!-- /feat img -->=20
+<table width=3D"216" border=3D"0" align=3D"center" id=3D"width-292px" cellp=
+adding=3D"0" cellspacing=3D"0">
+<tbody>
+<tr>
+<td valign=3D"top"><!-- feature text section -->=20
+<table width=3D"212" border=3D"0" align=3D"right" style=3D"text-align: left=
+;" id=3D"width-292px" cellpadding=3D"0" cellspacing=3D"0">
+<tbody>
+<tr>
+<td valign=3D"top" align=3D"left" style=3D"font-family: Helvetica, Arial, s=
+ans-serif; font-size: 17.5px; line-height: 21px; text-align: left;"><a href=
+=3D"http://moneyliving.pgoamedia.com/wf/click?upn=3D0OmjnBxG7LxFBM0VftFjmad=
+CZEzWlfXJDKJVxidGt3qNK6tMiMNiOK8OOhjXc5jh2nNonV4UyeQVq2wknVx5mg-3D-3D_1-2B2=
+i4NJ0yu0cCUcR-2FYNSSe7yGzeiS38odIme2gGGUgSK9HUk8EiAqsw9omFQqnB3J7xmuonE779r=
+HGJkqhlp4ZN8FhVk6GnDg30G-2FrHa5uCurc-2B-2BhVifGkxcPlrGH5JgD04OcMa4GxLAiQK-2=
+FU53-2FLFqOVXGP8VSsytuYfQ5-2FY7cbAzQX9ci57ek6QDfM35oc-2Fu9-2Bjru8DoOGpFPpfq=
+DUo-2F0WSSd07cT9-2BKiDtwnq-2Fj53FoBk2lpi6Q9BNaol53CPlFOpwiMVIGEVDo87e0YypAj=
+zlLl-2BPf1uQQRoZCl-2Bsr26-2BanVHa8gK6sQp1aiHyTR5hlFR5jnzKv74NaL5IKN9AU77S5N=
+AxX1v85KbqnlZq5UeJUZWmmsaNt-2B3GbIJ3lQxpP8nAzzToSpuB0UssKk6g-3D-3D" target=
+=3D"_blank" style=3D"font-family: Helvetica, Arial, sans-serif; font-weight=
+: normal; font-size: 21px; color: #252421; line-height: 28px; text-align: l=
+eft; text-decoration: none;">Be Our Guest</a>=C2=A0<span style=3D"text-alig=
+n: left; font-family: Helvetica, Arial, sans-serif; font-size: 15px; color:=
+ #3d3d3d; padding-bottom: 5px;">=C2=A0</span></td>
+</tr>
+<tr>
+<td colspan=3D"2"><img width=3D"1" height=3D"7" src=3D"http://pgoamedia.com=
+/wp-content/uploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr valign=3D"top">
+<!-- feature copy -->
+<td align=3D"left" style=3D"font-family: Helvetica, Arial, sans-serif; font=
+-size: 14px; margin: 0; line-height: 21px; padding-bottom: 3px;" colspan=3D=
+"2"><span>So, you=E2=80=99re invited to a wedding. Finance expert Pete the =
+Planner shares tips for being a gracious guest=E2=80=94without blowing your=
+ savings</span>.</td>
+</tr>
+<tr>
+<td colspan=3D"2"><img width=3D"1" height=3D"10" src=3D"http://pgoamedia.co=
+m/wp-content/uploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr valign=3D"top">
+<!-- URL 1 -->
+<td align=3D"left" colspan=3D"2"><a style=3D"font-family: Helvetica, Arial,=
+ sans-serif; font-size: 14px; color: #a8c500; text-decoration: none; font-w=
+eight: bold;" target=3D"_blank" href=3D"http://moneyliving.pgoamedia.com/wf=
+/click?upn=3D0OmjnBxG7LxFBM0VftFjmadCZEzWlfXJDKJVxidGt3qNK6tMiMNiOK8OOhjXc5=
+jh2nNonV4UyeQVq2wknVx5mg-3D-3D_1-2B2i4NJ0yu0cCUcR-2FYNSSe7yGzeiS38odIme2gGG=
+UgSK9HUk8EiAqsw9omFQqnB3J7xmuonE779rHGJkqhlp4WmICeTQBu-2Bd1K4ObjblCz205uNqb=
+7xT-2B6SQU8ZFhARv-2FNmiXKTht-2F3s-2FUpMKivjqwg-2Bw9qJMIz3zs-2BiMYJpQx4yZoOD=
+de3kRFYvfn7zvjJD6DPlJI66JVSK7GPoHHn3DiDpkQpXzXOZ74mpOxbg-2BqHYU8K6ZKH40bwhH=
+qyKsSSaH-2FAnD-2BPf9Uge1F2uVcUkN6Lo220EwczdJ7MOo7Uq8tgnK00jlB45bFHAscroTRAN=
+kvOvna5IqVybEqx-2BNvV1j2o19v8ywGg-2FEhEYxBlPkcyPklMOCIjILr8CgS8W8z2qpooZRv7=
+y4VTvIlMQi-2FZqKw-3D-3D">How to Tackle the Expense of Attending a Wedding</=
+a></td>
+</tr>
+<tr>
+<td colspan=3D"2"><img width=3D"1" height=3D"14" src=3D"http://pgoamedia.co=
+m/wp-content/uploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr valign=3D"top">
+<!-- URL 2 -->
+<td align=3D"left" colspan=3D"2"><a style=3D"font-family: Helvetica, Arial,=
+ sans-serif; font-size: 14px; color: #a8c500; text-decoration: none; font-w=
+eight: bold;" target=3D"_blank" href=3D"http://moneyliving.pgoamedia.com/wf=
+/click?upn=3D0OmjnBxG7LxFBM0VftFjmadCZEzWlfXJDKJVxidGt3rh-2ByRhtgD0Jrg5Ad6Y=
+UPsiFNVsypYx7KAfyGI-2FUfwE-2BQ-3D-3D_1-2B2i4NJ0yu0cCUcR-2FYNSSe7yGzeiS38odI=
+me2gGGUgSK9HUk8EiAqsw9omFQqnB3J7xmuonE779rHGJkqhlp4etDut6DrVqebKBikh-2BWVtF=
+oCkzsKj5Rt2fen66ciVbcfZMbuPsnrt8Adq-2BEW-2BntiKNXIGvml3ULomY6LA2eMFIK9e0Z4L=
+zgNt5ho8aBtkimvsABTCVihms6GZ4vl2pixFu-2F6nKH7-2BSQRsMUwEEpClcUORbsQ82NO9UcK=
+36iUEGfBzb8LR0ajq4tgZ3iGwG1Vph-2BGEqKye4tHan6LGN8ccLYHeW-2BHJSNyOD4GcsA2yZM=
+DWgo7ysL3JxOcVDvuVqLEALOEz4888wh7NW7sTOCZOTOE034x1TnTHVLRPhBJZQftydL21NuIUW=
+DBaSfhhHt4Q-3D-3D">How to Give Without Breaking the Bank</a></td>
+</tr>
+<tr>
+<td colspan=3D"2"><img width=3D"1" height=3D"14" src=3D"http://pgoamedia.co=
+m/wp-content/uploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr valign=3D"top">
+<!-- URL 3 -->
+<td align=3D"left" colspan=3D"2"><a style=3D"font-family: Helvetica, Arial,=
+ sans-serif; font-size: 14px; color: #a8c500; text-decoration: none; font-w=
+eight: bold;" target=3D"_blank" href=3D"http://moneyliving.pgoamedia.com/wf=
+/click?upn=3D0OmjnBxG7LxFBM0VftFjmadCZEzWlfXJDKJVxidGt3q2Mt6dqAkFk5wgAle0fr=
+zOailWoXg-2B755tZQ5eNhkGJQ-3D-3D_1-2B2i4NJ0yu0cCUcR-2FYNSSe7yGzeiS38odIme2g=
+GGUgSK9HUk8EiAqsw9omFQqnB3J7xmuonE779rHGJkqhlp4THwjJizIRnUvRYjdRYXdf7KkF3NX=
+4GvJkgoYlmyDvU1mo7tzXcayOQFPtI16oHI1lO6HEVrXXX9QjCq6fQ35ZPjoZNsg6gNEpAmepqJ=
+uNguQyqzA2UZHRj4QPxexblbh1eCQPsAipeIXzRNrXScg88lbxMPV5uliKA02NUchOOfZkvFAa-=
+2Bggm8lISP03HFUCJNX3pz0iuggqSvozODfJN8BgsljeBFccfroYeymB-2FKMIhaoc53fofu3vX=
+Pi1E49bkHI-2FN1Rlct-2BFLDOn-2BlijBvgRdeiI3VR2mu1-2B75V2Ced4E-2FZNiGD63IKK85=
+zlEye3A-3D-3D">10 Buy One, Give One Companies Worth Supporting</a></td>
+</tr>
+</tbody>
+</table>
+<!-- /feature text section --></td>
+</tr>
+</tbody>
+</table>
+<!--  --></td>
+</tr>
+<tr>
+<td><img width=3D"1" height=3D"14" src=3D"http://pgoamedia.com/wp-content/u=
+ploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+</tbody>
+</table>
+<!-- /Feature --></td>
+</tr>
+</tbody>
+</table>
+<!--/main wrapper --> <!-- Box Ad -->
+=20
+  <table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"644" bgc=
+olor=3D"#F7F7F7" align=3D"center" id=3D"width-320px" style=3D"">
+    <tr valign=3D"top">
+      <td><table id=3D"width-320px" width=3D"644" height=3D"7" align=3D"cen=
+ter" cellpadding=3D"0" cellspacing=3D"0" bgcolor=3D"#ffffff" >
+          <tbody>
+            <tr>
+              <td style=3D"border-top:1px #ddd dotted;"><img width=3D"1" he=
+ight=3D"5" src=3D"http://pgoamedia.com/wp-content/uploads/2013/08/spacer.gi=
+f" style=3D"display:block;"></td>
+            </tr>
+          </tbody>
+        </table></td>
+    </tr>
+    <tr valign=3D"top">
+      <td align=3D"center" valign=3D"top" style=3D"font-size:11px; line-hei=
+ght:14px; text-align:center;font-family: Helvetica, Arial, sans-serif;">=C2=
+=A0</td>
+    </tr>
+    <tr>
+      <td align=3D"center" ><a href=3D"http://moneyliving.pgoamedia.com/wf/=
+click?upn=3Dq88NBHGj6Y9s-2BFPp8uoGrgUOt73g5nzx-2BfwOGeRcNZ1kf2xd3-2Fx6yVBgd=
+NkK4TCBXLvJzPqJxgoJEpXUSYdO0g-3D-3D_1-2B2i4NJ0yu0cCUcR-2FYNSSe7yGzeiS38odIm=
+e2gGGUgSK9HUk8EiAqsw9omFQqnB3J7xmuonE779rHGJkqhlp4WfvzrjR20hsItpZiD-2Fhopj3=
+QS9ROw0Fz159loGsDrW94pMKfnctSAKTxh9RFe5SydWIzucdsPtTrn0XC8eidG2KloiRz5Z86pU=
+9iH5-2B1RIusJI59790sT8GdaTpUz4CZt5RLdi4vp1gEozQNM72C1Y86oevSBUgNEH9Z2kp2f-2=
+FHOIYplI-2BWo78wmbxR1-2B1VDS9PFa-2FTCBKDrVvKnnPiic90sbDKw8h7n65s5WNDFgghFmD=
+f-2F6SNE0AEsLKzhHJArihcJf8MrnHmWLQRJDewlxsHV22NjjL6bRioLtI-2FlmPkREr1FUpDJK=
+T-2FAudQ30xXHg-3D-3D" target=3D"_top">
+<img src=3D"http://www.ftjcfx.com/image-7410754-11716531" width=3D"300" hei=
+ght=3D"250" alt=3D"" border=3D"0"/></a></td>
+    </tr>
+    <tr valign=3D"top">
+      <td align=3D"center" valign=3D"top" style=3D"font-size:11px; line-hei=
+ght:26px; text-align:center;font-family: Arial, Helvetica, sans-serif;">Adv=
+ertisement<br /></td>
+    </tr>
+    <tr>
+      <td><table id=3D"width-320px" width=3D"644" height=3D"7" align=3D"cen=
+ter" cellpadding=3D"0" cellspacing=3D"0" bgcolor=3D"#ffffff" >
+          <tbody>
+            <tr>
+              <td style=3D"border-bottom:1px #ddd dotted;"><img width=3D"1"=
+ height=3D"5" src=3D"http://pgoamedia.com/wp-content/uploads/2013/08/spacer=
+..gif" style=3D"display:block;"></td>
+            </tr>
+          </tbody>
+        </table></td>
+    </tr>
+  </table>
+=20
+  <!-- /box ad --> <!-- subfeature 1 places -->=20
+<table width=3D"644" cellpadding=3D"0" cellspacing=3D"0" border=3D"0" align=
+=3D"center" style=3D"text-align: left;" id=3D"width-266px">
+<tbody>
+<tr>
+<td colspan=3D"2"><img width=3D"1" height=3D"14" src=3D"http://pgoamedia.co=
+m/wp-content/uploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr>
+<td id=3D"display-none" width=3D"14"><img width=3D"14" height=3D"1" src=3D"=
+http://pgoamedia.com/wp-content/uploads/2013/08/spacer.gif" style=3D"displa=
+y: block;" /></td>
+<td width=3D"644" valign=3D"top" align=3D"left" style=3D"font-family: Helve=
+tica, Arial, sans-serif; font-size: 17.5px; line-height: 21px; text-align: =
+left; text-transform: uppercase;">it's tax time!</td>
+</tr>
+<tr>
+<td colspan=3D"2"><img width=3D"1" height=3D"14" src=3D"http://pgoamedia.co=
+m/wp-content/uploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+</tbody>
+</table>
+<table width=3D"644" id=3D"width-266px" align=3D"center" cellpadding=3D"0" =
+cellspacing=3D"0">
+<tbody>
+<tr>
+<td>
+<table width=3D"266" height=3D"200" align=3D"left" style=3D"font-family: He=
+lvetica, Arial, sans-serif; font-size: 14px; color: #000; margin: 0; text-a=
+lign: center;" id=3D"width-266px" cellpadding=3D"0" cellspacing=3D"0">
+<tbody>
+<tr>
+<td width=3D"14" id=3D"display-none"><img width=3D"14" height=3D"1" src=3D"=
+http://pgoamedia.com/wp-content/uploads/2013/08/spacer.gif" style=3D"displa=
+y: block;" /></td>
+<td colspan=3D"4" style=3D"border-bottom: solid; border-bottom-color: #fff;=
+ border-bottom-width: 1px;"><a style=3D"font-family: Helvetica, Arial, sans=
+-serif; font-size: 14px; color: #a8c500; text-decoration: none;" target=3D"=
+_blank" href=3D"http://moneyliving.pgoamedia.com/wf/click?upn=3D0OmjnBxG7Lx=
+FBM0VftFjmadCZEzWlfXJDKJVxidGt3rhrnfnLvyNNsg-2FvbMKs2OPmJrKaB8RRslM1K417INO=
+MA-3D-3D_1-2B2i4NJ0yu0cCUcR-2FYNSSe7yGzeiS38odIme2gGGUgSK9HUk8EiAqsw9omFQqn=
+B3J7xmuonE779rHGJkqhlp4SFS1u4bAtirVLHvkiGt-2FDFAJhJkH3Tyag7kmh-2FgOHR70qT7L=
+1P2YNbI9rd0CWoT4-2B9wplUjM5eXlgHcjR69IHmWn5tLOli2e0aDBVpSamsz1mXxZLrHn3VbIx=
+6yUbA-2BDX-2Biprx8Vw9RUjVRYwoOQZwKkvbmmk-2F4u6ulKGfEz73jmA6gvfT4IG42eOGiunW=
+JMj95-2FR1hvCYBumklG8utv-2BFFGF1ANXK4Wk3yGvNLSDrr3zs0GdUf1JuGwRODQpNAeofvtU=
+mhwK4Bhff2H8WZj3AofhUaROtdEmdrUPW7cqJzsDX0AFMhFRuu0REX7QJ2Jw-3D-3D"> <img t=
+itle=3D"calculator266x200.jpg" width=3D"266" height=3D"200" style=3D"border=
+: none; padding: 0; margin: 0; display: block;" alt=3D"calculator266x200.jp=
+g" src=3D"http://newsletter.pubgroup.com/admin/temp/newsletters/1980/calcul=
+ator266x200.jpg" /></a></td>
+</tr>
+</tbody>
+</table>
+<!-- copy -->=20
+<table width=3D"350" border=3D"0" align=3D"right" style=3D"text-align: left=
+;" id=3D"width-266px" cellpadding=3D"0" cellspacing=3D"0">
+<tbody>
+<tr>
+<td colspan=3D"2"><img width=3D"1" height=3D"14" src=3D"http://pgoamedia.co=
+m/wp-content/uploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+<td rowspan=3D"6"><img width=3D"14" height=3D"1" src=3D"http://pgoamedia.co=
+m/wp-content/uploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr>
+<td width=3D"350" valign=3D"top" align=3D"left" style=3D"font-family: Helve=
+tica, Arial, sans-serif; font-size: 17.5px; line-height: 21px; text-align: =
+left;"><a id=3D"font14" href=3D"http://moneyliving.pgoamedia.com/wf/click?u=
+pn=3D0OmjnBxG7LxFBM0VftFjmadCZEzWlfXJDKJVxidGt3rhrnfnLvyNNsg-2FvbMKs2OPmJrK=
+aB8RRslM1K417INOMA-3D-3D_1-2B2i4NJ0yu0cCUcR-2FYNSSe7yGzeiS38odIme2gGGUgSK9H=
+Uk8EiAqsw9omFQqnB3J7xmuonE779rHGJkqhlp4YZJpkj-2BMv15A50wjXAcCb96vCNqHZC46gy=
+t2I4kwRymhHGOIRcUq3PVWZxd5dMArSwEPBK3Mf98oJRdWwyRhjRsctM996Iuk3UXnKyYUwn0fO=
+rrL5lCbROM2c3PgkGoTnd3Lk3GpC12pgAm-2B9Gc8hVNRNzJvkD6DkYREx7bjUq0O9ttlTzDeCL=
+lpjSkY8fUsnla2Kf2fWZk0kz-2F8BoiUtueS-2FkBvim8wNI-2FhGrJ1NMrEtLOEjAbTnjBEj8o=
+QexFF3-2FfQDzFG-2BJ5SxNu5PmnUSV9yFKYoY7M509tiAB8bklPj440kibzdC9Volp8NLa60A-=
+3D-3D" target=3D"_blank" style=3D"font-family: Helvetica, Arial, sans-serif=
+; font-weight: normal; font-size: 17.5px; color: #a8c500; line-height: 21px=
+; text-align: left; text-decoration: none;">Expert Tax-Filing Tips</a></td>
+</tr>
+<tr>
+<td><img width=3D"1" height=3D"7" src=3D"http://pgoamedia.com/wp-content/up=
+loads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr valign=3D"top">
+<!-- feature copy -->
+<td width=3D"350" align=3D"left" style=3D"font-family: Helvetica, Arial, sa=
+ns-serif; font-size: 14px; margin: 0; line-height: 21px; padding-bottom: 3p=
+x;" colspan=3D"2"><span>The tax experts at H&R Block share essential tax ti=
+ps for DIY filers=E2=80=94plus a list of common filing mistakes that could =
+be costing you money.</span></td>
+</tr>
+<tr>
+<td colspan=3D"2"><img width=3D"1" height=3D"10" src=3D"http://pgoamedia.co=
+m/wp-content/uploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr>
+<td style=3D"font-family: Helvetica, Arial, sans-serif; font-size: 14px; li=
+ne-height: 14px;"><a target=3D"_blank" style=3D"font-family: Helvetica, Ari=
+al, sans-serif; font-size: 14px; color: #a8c500; text-decoration: none; fon=
+t-weight: bold;" href=3D"http://moneyliving.pgoamedia.com/wf/click?upn=3D0O=
+mjnBxG7LxFBM0VftFjmadCZEzWlfXJDKJVxidGt3rhrnfnLvyNNsg-2FvbMKs2OPmJrKaB8RRsl=
+M1K417INOMA-3D-3D_1-2B2i4NJ0yu0cCUcR-2FYNSSe7yGzeiS38odIme2gGGUgSK9HUk8EiAq=
+sw9omFQqnB3J7xmuonE779rHGJkqhlp4V2NFdHB7SZp3KBM2cvCVQbzKy2twOWJNvqJZeNr8pWx=
+IBsR-2FFdIJV0vO-2FLU8H1qqVWTyVnjJZLrMPdJpvpZkgweQGu9d0x1yVs56p5EA-2BHzPSRzy=
+XQPcVqIMWwge6cZQRSbWLhjqoSM3ALF1tvKiHN4LTUqE55eoKQhxRS3rTBsbZigNjpJ95CDQ-2B=
+WBtdwg8LuU1nzxYZXoP-2FFPKu-2ByA6Nwuq9BU2NjAacxcc9dEl-2BeptvFMyADwW4Inu1jiUt=
+FqVmfuYf5-2Fc4AT4KjmGUFgqQQXq8G6jlGXAQp-2Fina8QW9LmW1cLr-2B4e3YSi605G5tmQ-3=
+D-3D">Maximize Your Return</a></td>
+</tr>
+</tbody>
+</table>
+<!-- /copy --></td>
+</tr>
+</tbody>
+</table>
+<!-- Line Break -->=20
+<table id=3D"width-320px" width=3D"644" height=3D"7" align=3D"center" cellp=
+adding=3D"0" cellspacing=3D"0">
+<tbody>
+<tr>
+<td><img width=3D"1" height=3D"14" src=3D"http://pgoamedia.com/wp-content/u=
+ploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr>
+<td style=3D"border-top: 1px #ddd dotted; border-bottom: 1px #ddd dotted;">=
+<img width=3D"1" height=3D"5" src=3D"http://pgoamedia.com/wp-content/upload=
+s/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr>
+<td><img width=3D"1" height=3D"14" src=3D"http://pgoamedia.com/wp-content/u=
+ploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+</tbody>
+</table>
+<!-- /Line Break --> <!-- /subfeature 1 places --> <!-- more features -->=
+=20
+<table id=3D"width-320px" width=3D"644" align=3D"center" cellpadding=3D"0" =
+cellspacing=3D"0" bgcolor=3D"#ffffff" style=3D"background-color: #ffffff;">
+<tbody>
+<tr>
+<td width=3D"14" id=3D"display-none"><img width=3D"14" height=3D"1" src=3D"=
+http://pgoamedia.com/wp-content/uploads/2013/08/spacer.gif" style=3D"displa=
+y: block;" /></td>
+<td>
+<table width=3D"630" cellpadding=3D"0" cellspacing=3D"0" border=3D"0" align=
+=3D"center" style=3D"text-align: left; background-color: #ffffff;" id=3D"wi=
+dth-266px" bgcolor=3D"#ffffff">
+<tbody>
+<tr>
+<td width=3D"630" valign=3D"top" align=3D"left" style=3D"font-family: Helve=
+tica, Arial, sans-serif; font-size: 14px; color: #000; line-height: 21px; t=
+ext-align: left; text-transform: uppercase;">all that glitters</td>
+</tr>
+<tr>
+<td><img width=3D"1" height=3D"10" src=3D"http://pgoamedia.com/wp-content/u=
+ploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+</tbody>
+</table>
+<table width=3D"630" id=3D"width-266px" align=3D"center" cellpadding=3D"0" =
+cellspacing=3D"0" bgcolor=3D"#ffffff" style=3D"background-color: #ffffff;">
+<tbody>
+<tr>
+<td>
+<table width=3D"160" height=3D"120" align=3D"left" style=3D"font-family: He=
+lvetica, Arial, sans-serif; font-size: 14px; color: #000; margin: 0; text-a=
+lign: center;" id=3D"align-center" cellpadding=3D"0" cellspacing=3D"0">
+<tbody>
+<tr>
+<td><a style=3D"font-family: Helvetica, Arial, sans-serif; font-size: 14px;=
+ color: #a8c500; text-decoration: none;" target=3D"_blank" href=3D"http://m=
+oneyliving.pgoamedia.com/wf/click?upn=3D0OmjnBxG7LxFBM0VftFjmadCZEzWlfXJDKJ=
+VxidGt3qC5wKn06z0mJVMWA9V0pkb58ujk1SXOgUNc6sPfkhBDQ-3D-3D_1-2B2i4NJ0yu0cCUc=
+R-2FYNSSe7yGzeiS38odIme2gGGUgSK9HUk8EiAqsw9omFQqnB3J7xmuonE779rHGJkqhlp4dnv=
+9k5SM3Ex1uuFIwI721BJEP3brCPgqOsFmagkTms-2FUxeEUokcjft66xI2ofXBokchQEGLj2cyP=
+ibBZE7j6LqX0sAIS9xGMhE7zQaVOfkjqsLJNX8JMT8e7v9pDRT1nRxcNOYUtYQgRQl6pJTeD1Lv=
+oA0jKclNjsE0KshMkcohbYDQMvkob1nohFan7PIFLMO41tghMxy3IWQ7sGAsFcV7gUO3JMsD4Td=
+bq0hOsPB6MbkyfJfCHV-2B7fOohNxrkMp3S0bXFpfDVetY0f9oPBI-2FSkZex94qnIHZQ9ti0R5=
+zTA6q5-2Bxdvu53x9txhZ1GhGg-3D-3D"> <img title=3D"gold266x200.jpg" width=3D"=
+160" height=3D"120" style=3D"border: none; padding: 0; margin: 0; display: =
+block;" alt=3D"gold266x200.jpg" src=3D"http://newsletter.pubgroup.com/admin=
+/temp/newsletters/1980/gold266x200.jpg" id=3D"img-266px" /></a></td>
+</tr>
+</tbody>
+</table>
+<!-- copy -->=20
+<table width=3D"450" border=3D"0" align=3D"right" style=3D"text-align: left=
+;" id=3D"width-266px" cellpadding=3D"0" cellspacing=3D"0">
+<tbody>
+<tr>
+<td><img width=3D"1" height=3D"14" src=3D"http://pgoamedia.com/wp-content/u=
+ploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+<td rowspan=3D"6" width=3D"14"><img width=3D"14" height=3D"1" src=3D"http:/=
+/pgoamedia.com/wp-content/uploads/2013/08/spacer.gif" style=3D"display: blo=
+ck;" /></td>
+</tr>
+<tr>
+<td valign=3D"top" align=3D"left" style=3D"font-family: Helvetica, Arial, s=
+ans-serif; font-size: 17.5px; line-height: 21px; text-align: left;"><a id=
+=3D"font14" href=3D"http://moneyliving.pgoamedia.com/wf/click?upn=3D0OmjnBx=
+G7LxFBM0VftFjmadCZEzWlfXJDKJVxidGt3qC5wKn06z0mJVMWA9V0pkb58ujk1SXOgUNc6sPfk=
+hBDQ-3D-3D_1-2B2i4NJ0yu0cCUcR-2FYNSSe7yGzeiS38odIme2gGGUgSK9HUk8EiAqsw9omFQ=
+qnB3J7xmuonE779rHGJkqhlp4fHC1uSidGe0HCScSkZ3iCzqI1Fw9IDlTKE7KPsdwq2TnlSIkyA=
+P1BpE9lnGyzpqlDnXsm9RzuglErs1M0Ts2RFNwYcjo0suFQls1SzYS8fZKClsgXrwWG4t57kDXA=
+m-2FhkvkRe3dd-2FQ6u4eIxM3ZvNHv8KaYH7hGj66iKmxP4eLu0b4mVcpMYWdtO1kzM1RGNY8VV=
+YlTtQ4LzpV2wD3SJxC6-2Fdw8-2FKqMu955fLmefuj5vJz3qSMzZt9j8OuqVthSDP1hSpQ7-2BZ=
+AdZv1uJwnzOHJ5ivRHnh-2FIO7zdGMBLN-2FLUAT7hpEkgNDhdYHa7n3xwYA-3D-3D" target=
+=3D"_blank" style=3D"font-family: Helvetica, Arial, sans-serif; font-weight=
+: bold; font-size: 17.5px; color: #252421; line-height: 21px; text-align: l=
+eft; text-decoration: none;">Should You Invest in a Pot of Gold?</a>=C2=A0<=
+span style=3D"text-align: left; font-family: Helvetica, Arial, sans-serif; =
+font-size: 14px; font-weight: bold; color: #bbb; padding-bottom: 5px;">=C2=
+=A0</span></td>
+</tr>
+<tr>
+<td><img width=3D"1" height=3D"7" src=3D"http://pgoamedia.com/wp-content/up=
+loads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr valign=3D"top">
+<!-- feature copy -->
+<td align=3D"left" style=3D"font-family: Helvetica, Arial, sans-serif; font=
+-size: 14px; margin: 0; line-height: 21px; padding-bottom: 3px;" colspan=3D=
+"2"><span>Consider the benefits and drawbacks associated with the yellow br=
+ick road=E2=80=94and how to get started investing in precious metals.</span=
+></td>
+</tr>
+<tr>
+<td colspan=3D"2"><img width=3D"1" height=3D"10" src=3D"http://pgoamedia.co=
+m/wp-content/uploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr>
+<td style=3D"font-family: Helvetica, Arial, sans-serif; font-size: 14px; li=
+ne-height: 21px;"><a target=3D"_blank" style=3D"font-family: Helvetica, Ari=
+al, sans-serif; font-size: 14px; color: #a8c500; text-decoration: none; fon=
+t-weight: bold;" href=3D"http://moneyliving.pgoamedia.com/wf/click?upn=3D0O=
+mjnBxG7LxFBM0VftFjmadCZEzWlfXJDKJVxidGt3qC5wKn06z0mJVMWA9V0pkb58ujk1SXOgUNc=
+6sPfkhBDQ-3D-3D_1-2B2i4NJ0yu0cCUcR-2FYNSSe7yGzeiS38odIme2gGGUgSK9HUk8EiAqsw=
+9omFQqnB3J7xmuonE779rHGJkqhlp4dsQhoWORiWT3BGalp7xyZZXAgmd0odvrbzo86X4gPtGAo=
+5lzp5FTKMXdWwCMQCbsy9bM302jFe1sktgZAQDkKpP66h3-2B6nGugN-2BkOzVrVMhcPcKrib7I=
+OUOWtiYgn9b-2Fptl1VTWr1Oa-2Bau9eyKPuujey-2Bqf4Tmm8KxQNX1vVdY-2Bh1hxs3zmspyG=
+WEu4S2Ch1dcfvTflGDQ8jQ-2BvR9rkOFNuI-2BwLcl1mPqpoxG6mOVb0ZmFzNYMDN4sTFnMHIrC=
+XCyEIQiOpafsV-2B39gtIt9MSGzPpTGvTPmtIg9uVRCgfEwDD4VdoCmhxnL5-2FMvqGflvA-3D-=
+3D">Going for Gold</a></td>
+</tr>
+</tbody>
+</table>
+<!-- /copy --></td>
+</tr>
+<tr>
+<td><img width=3D"1" height=3D"14" src=3D"http://pgoamedia.com/wp-content/u=
+ploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr>
+<td style=3D"border-bottom: 1px #ddd dotted;"><img width=3D"1" height=3D"5"=
+ src=3D"http://pgoamedia.com/wp-content/uploads/2013/08/spacer.gif" style=
+=3D"display: block;" /></td>
+</tr>
+<tr>
+<td><img width=3D"1" height=3D"10" src=3D"http://pgoamedia.com/wp-content/u=
+ploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+</tbody>
+</table>
+<table width=3D"630" id=3D"width-266px" align=3D"center" cellpadding=3D"0" =
+cellspacing=3D"0" bgcolor=3D"#ffffff" style=3D"background-color: #ffffff;">
+<tbody>
+<tr>
+<td width=3D"630" valign=3D"top" align=3D"left" style=3D"font-family: Helve=
+tica, Arial, sans-serif; font-size: 14px; color: #000; line-height: 21px; t=
+ext-align: left; text-transform: uppercase;">expert Q&A</td>
+</tr>
+<tr>
+<td><img width=3D"1" height=3D"10" src=3D"http://pgoamedia.com/wp-content/u=
+ploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr>
+<td>
+<table width=3D"160" height=3D"120" align=3D"left" style=3D"font-family: He=
+lvetica, Arial, sans-serif; font-size: 14px; color: #000; margin: 0; text-a=
+lign: center;" id=3D"align-center" cellpadding=3D"0" cellspacing=3D"0">
+<tbody>
+<tr>
+<td><a style=3D"font-family: Helvetica, Arial, sans-serif; font-size: 14px;=
+ color: #a8c500; text-decoration: none;" target=3D"_blank" href=3D"http://m=
+oneyliving.pgoamedia.com/wf/click?upn=3D0OmjnBxG7LxFBM0VftFjmadCZEzWlfXJDKJ=
+VxidGt3r5uIv5sb6s5bUhSMARhRfRkP1NJgLYdOLjqNcOx7UiMw-3D-3D_1-2B2i4NJ0yu0cCUc=
+R-2FYNSSe7yGzeiS38odIme2gGGUgSK9HUk8EiAqsw9omFQqnB3J7xmuonE779rHGJkqhlp4URR=
+7OcOFKIjBoAR6JqoBepS0DbRFFRnTDE-2FqVrm0zoFoF-2BproqCL3pq56KbXwYI-2BXT9VVYEB=
+Da6jn2w-2BD5DmA0nBtf-2Fx1FEZ-2B9CWtQlgHY2QMuZknolq5djQzgYRvg8FcNNFi4QNC6DQ8=
+OeDa-2BIK2eb3JkFs1P-2B-2BPMoccmD5N-2BTyM4NnX66M8eg1QeU5pyUTCMgya07oxRZmRsll=
+93CzRYcWrh3-2FFGT9T8nAXPUrx-2BtOaSjfPMqmnEWrcyAg89VkPBuTO7VIdOJ7FntmLaHPNq-=
+2BBqH-2F0gHSEha1X-2FvkumMvG4veOteeYE8oC3N2Cyuu1Q-3D-3D"> <img title=3D"shel=
+ter266x200.jpg" width=3D"160" height=3D"120" style=3D"border: none; padding=
+: 0; margin: 0; display: block;" alt=3D"shelter266x200.jpg" src=3D"http://n=
+ewsletter.pubgroup.com/admin/temp/newsletters/1980/shelter266x200.jpg" id=
+=3D"img-266px" /></a></td>
+</tr>
+</tbody>
+</table>
+<!-- copy -->=20
+<table width=3D"450" border=3D"0" align=3D"right" style=3D"text-align: left=
+;" id=3D"width-266px" cellpadding=3D"0" cellspacing=3D"0">
+<tbody>
+<tr>
+<td><img width=3D"1" height=3D"14" src=3D"http://pgoamedia.com/wp-content/u=
+ploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+<td rowspan=3D"6" width=3D"14"><img width=3D"14" height=3D"1" src=3D"http:/=
+/pgoamedia.com/wp-content/uploads/2013/08/spacer.gif" style=3D"display: blo=
+ck;" /></td>
+</tr>
+<tr>
+<td valign=3D"top" align=3D"left" style=3D"font-family: Helvetica, Arial, s=
+ans-serif; font-size: 17.5px; line-height: 21px; text-align: left;"><a id=
+=3D"font14" href=3D"http://moneyliving.pgoamedia.com/wf/click?upn=3D0OmjnBx=
+G7LxFBM0VftFjmadCZEzWlfXJDKJVxidGt3r5uIv5sb6s5bUhSMARhRfRkP1NJgLYdOLjqNcOx7=
+UiMw-3D-3D_1-2B2i4NJ0yu0cCUcR-2FYNSSe7yGzeiS38odIme2gGGUgSK9HUk8EiAqsw9omFQ=
+qnB3J7xmuonE779rHGJkqhlp4XOFjr54FrnoXvDwQnIszVqv8GY4AQN-2F4z2Bdlq9Ej-2FbsHZ=
+vydxDo3yQduFF9KqLA6QPMneYBMtJZOuTvlPviBZDFsAnD5fNRXBECMv-2B42U4vp6dQN1loVDc=
+vmuAcg8VwuyrQqv5yu2MQ3-2BSqJGfKU6J-2F-2Fs7lTftFuhEV-2BkCsHB7c1UAFZ26f87w99n=
+FqSPl6UAw-2B4yEKu-2BKtLqAguOcXDCrwaVchpaPX37UWMscVxnhroCQFBC6Ko5ROu01rKQYxp=
+9e-2FfuvJli6Zl8vROF8gZC8qGAa2vOPOrRYPfLU87L6G-2BrF1c6smaMkLlaHbxv0Fw-3D-3D"=
+ target=3D"_blank" style=3D"font-family: Helvetica, Arial, sans-serif; font=
+-weight: bold; font-size: 17.5px; color: #252421; line-height: 21px; text-a=
+lign: left; text-decoration: none;">What to Know About Tax Shelters</a>=C2=
+=A0<span style=3D"text-align: left; font-family: Helvetica, Arial, sans-ser=
+if; font-size: 14px; font-weight: bold; color: #bbb; padding-bottom: 5px;">=
+=C2=A0</span></td>
+</tr>
+<tr>
+<td><img width=3D"1" height=3D"7" src=3D"http://pgoamedia.com/wp-content/up=
+loads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr valign=3D"top">
+<!-- feature copy -->
+<td align=3D"left" style=3D"font-family: Helvetica, Arial, sans-serif; font=
+-size: 14px; margin: 0; line-height: 21px; padding-bottom: 3px;" colspan=3D=
+"2"><span>Explore different types of tax shelters, and consider which type =
+of shelter could benefit you the most.</span></td>
+</tr>
+<tr>
+<td colspan=3D"2"><img width=3D"1" height=3D"10" src=3D"http://pgoamedia.co=
+m/wp-content/uploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr>
+<td style=3D"font-family: Helvetica, Arial, sans-serif; font-size: 14px; li=
+ne-height: 21px;"><a target=3D"_blank" style=3D"font-family: Helvetica, Ari=
+al, sans-serif; font-size: 14px; color: #a8c500; text-decoration: none; fon=
+t-weight: bold;" href=3D"http://moneyliving.pgoamedia.com/wf/click?upn=3D0O=
+mjnBxG7LxFBM0VftFjmadCZEzWlfXJDKJVxidGt3r5uIv5sb6s5bUhSMARhRfRkP1NJgLYdOLjq=
+NcOx7UiMw-3D-3D_1-2B2i4NJ0yu0cCUcR-2FYNSSe7yGzeiS38odIme2gGGUgSK9HUk8EiAqsw=
+9omFQqnB3J7xmuonE779rHGJkqhlp4TAQV4saLTCixuL0xzq7EWjqtSJS1fPLdpIIwBOhyn2Omc=
+nXIwDOKW2IIaiS1jhr7krhmilcWDpIakrxqISHnnHsvIEtAEVbT8prcCZ8puRR38AIwTLfFUG-2=
+FIO6VOCOtoduxt6QMdtgJllCQI-2FLSWlsRWM5GQ7zmDEFzKRz9pi4lgqpSp3hjna3GHWYKKaKN=
+DkMetSuGxUEtw-2BdX1RlvbL3eW-2BwUvLJLDRS-2FxEWiR8RKPmIuHmVtQTI-2BvpKRf-2B2we=
+SHPR30lEJkVL-2Fg8nfNnnMQ4zOKZ6Zxlt3UbSSkx-2BfVisCQP8wwtVDk3Ywz9HwdrYA-3D-3D=
+">Ask an Expert</a></td>
+</tr>
+</tbody>
+</table>
+<!-- /copy --></td>
+</tr>
+<tr>
+<td><img width=3D"1" height=3D"14" src=3D"http://pgoamedia.com/wp-content/u=
+ploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr>
+<td style=3D"border-bottom: 1px #ddd dotted;"><img width=3D"1" height=3D"5"=
+ src=3D"http://pgoamedia.com/wp-content/uploads/2013/08/spacer.gif" style=
+=3D"display: block;" /></td>
+</tr>
+<tr>
+<td><img width=3D"1" height=3D"10" src=3D"http://pgoamedia.com/wp-content/u=
+ploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+</tbody>
+</table>
+<table width=3D"630" id=3D"width-266px" align=3D"center" cellpadding=3D"0" =
+cellspacing=3D"0" bgcolor=3D"#ffffff" style=3D"background-color: #ffffff;">
+<tbody>
+<tr>
+<td width=3D"630" valign=3D"top" align=3D"left" style=3D"font-family: Helve=
+tica, Arial, sans-serif; font-size: 14px; color: #000; line-height: 21px; t=
+ext-align: left; text-transform: uppercase;"><!-- subfeature headline --> t=
+he bottom line</td>
+</tr>
+<tr>
+<td><img width=3D"1" height=3D"10" src=3D"http://pgoamedia.com/wp-content/u=
+ploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr>
+<td>
+<table width=3D"160" height=3D"120" align=3D"left" style=3D"font-family: He=
+lvetica, Arial, sans-serif; font-size: 14px; color: #000; margin: 0; text-a=
+lign: center;" id=3D"align-center" cellpadding=3D"0" cellspacing=3D"0">
+<tbody>
+<tr>
+<td><a style=3D"font-family: Helvetica, Arial, sans-serif; font-size: 14px;=
+ color: #a8c500; text-decoration: none;" target=3D"_blank" href=3D"http://m=
+oneyliving.pgoamedia.com/wf/click?upn=3D0OmjnBxG7LxFBM0VftFjmadCZEzWlfXJDKJ=
+VxidGt3qyPI9ze4xWnwWW3XA9xjJOMM-2B265D48A-2BtocLxQeKMjG7f0FRguE84qtJWqX4Hwn=
+M-3D_1-2B2i4NJ0yu0cCUcR-2FYNSSe7yGzeiS38odIme2gGGUgSK9HUk8EiAqsw9omFQqnB3J7=
+xmuonE779rHGJkqhlp4V5Cqa3Ta52twIOyjG-2FwcwwIUynTFPgfFUJjGnTpIi6IaLfiJohMFun=
+8QsJKuoVD2dyg6plLsmUjJsN4OK9JOGstlOgDy-2BjVpRnIL8XoYNOkoEamvBbM73ZPQaa2ot4k=
+L96XB3eGV-2Fm90O0yoqZf6gzKxQ5y3i5cSJ0J2zDau4kjl5QC14t4M75xlgbliL2YK8m-2BwxC=
+oeNONHUUGPcZOlTHoLYLR9Z5f-2BBPiOtcdonUyFqerp-2F-2BCMy-2F1aobzo1JQRnby6ItUn7=
+ld-2F6Isz4yFSSrfE33OvsTpPNNaVxP0e-2BNQy4o9nuzdp1DdCF-2BRATMqMA-3D-3D"> <img=
+ title=3D"haggle266x200.jpg" width=3D"160" height=3D"120" style=3D"border: =
+none; padding: 0; margin: 0; display: block;" alt=3D"haggle266x200.jpg" src=
+=3D"http://newsletter.pubgroup.com/admin/temp/newsletters/1980/haggle266x20=
+0.jpg" id=3D"img-266px" /></a></td>
+</tr>
+</tbody>
+</table>
+<!-- copy -->=20
+<table width=3D"450" border=3D"0" align=3D"right" style=3D"text-align: left=
+;" id=3D"width-266px" cellpadding=3D"0" cellspacing=3D"0">
+<tbody>
+<tr>
+<td><img width=3D"1" height=3D"14" src=3D"http://pgoamedia.com/wp-content/u=
+ploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+<td rowspan=3D"6" width=3D"14"><img width=3D"14" height=3D"1" src=3D"http:/=
+/pgoamedia.com/wp-content/uploads/2013/08/spacer.gif" style=3D"display: blo=
+ck;" /></td>
+</tr>
+<tr>
+<td valign=3D"top" align=3D"left" style=3D"font-family: Helvetica, Arial, s=
+ans-serif; font-size: 17.5px; line-height: 21px; text-align: left;"><a id=
+=3D"font14" href=3D"http://moneyliving.pgoamedia.com/wf/click?upn=3D0OmjnBx=
+G7LxFBM0VftFjmadCZEzWlfXJDKJVxidGt3qyPI9ze4xWnwWW3XA9xjJOMM-2B265D48A-2Btoc=
+LxQeKMjG7f0FRguE84qtJWqX4HwnM-3D_1-2B2i4NJ0yu0cCUcR-2FYNSSe7yGzeiS38odIme2g=
+GGUgSK9HUk8EiAqsw9omFQqnB3J7xmuonE779rHGJkqhlp4fdTcArF6c-2B-2BcJpZFu2mGdHqD=
+fkIAefOzvOal01jGDwKDbiF3Xh4Pj-2FiIFQIEnD4v8n40SeDpsMXHbCnRPx51phkWS7p9IwHRR=
+-2FJK7eIMwrdfkzloJfqCEemITTvhu9g8861YxvgTCLWlr1aYEGOk-2F7JDrTlwAcRkYOHqmhEU=
+gxl-2FL3wG2A2PaZvzj4Y04I3AdeyuuISDVG1jWtZs1rjo0HPwz0R0fyLizXWBAlit9OQz5g69X=
+rtQu-2FyQPYqt4iY8M4mXt9NEH-2F9KEPMMmPEX1r4nqBdffTsIvv2n0mSoNjKBToBrXfkBTJqH=
+VthPskWpg-3D-3D" target=3D"_blank" style=3D"font-family: Helvetica, Arial, =
+sans-serif; font-weight: bold; font-size: 17.5px; color: #252421; line-heig=
+ht: 21px; text-align: left; text-decoration: none;">How to Negotiate Prices=
+ on Almost Anything</a>=C2=A0<span style=3D"text-align: left; font-family: =
+Helvetica, Arial, sans-serif; font-size: 14px; font-weight: bold; color: #b=
+bb; padding-bottom: 5px;">=C2=A0</span></td>
+</tr>
+<tr>
+<td><img width=3D"1" height=3D"7" src=3D"http://pgoamedia.com/wp-content/up=
+loads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr valign=3D"top">
+<!-- feature copy -->
+<td align=3D"left" style=3D"font-family: Helvetica, Arial, sans-serif; font=
+-size: 14px; margin: 0; line-height: 21px; padding-bottom: 3px;" colspan=3D=
+"2"><span>Unexpected areas where the bottom line is up for negotiation, plu=
+s tips for making your best case for a mark-down.</span></td>
+</tr>
+<tr>
+<td colspan=3D"2"><img width=3D"1" height=3D"10" src=3D"http://pgoamedia.co=
+m/wp-content/uploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr>
+<td style=3D"font-family: Helvetica, Arial, sans-serif; font-size: 14px; li=
+ne-height: 21px;"><a target=3D"_blank" style=3D"font-family: Helvetica, Ari=
+al, sans-serif; font-size: 14px; color: #a8c500; text-decoration: none; fon=
+t-weight: bold;" href=3D"http://moneyliving.pgoamedia.com/wf/click?upn=3D0O=
+mjnBxG7LxFBM0VftFjmadCZEzWlfXJDKJVxidGt3qyPI9ze4xWnwWW3XA9xjJOMM-2B265D48A-=
+2BtocLxQeKMjG7f0FRguE84qtJWqX4HwnM-3D_1-2B2i4NJ0yu0cCUcR-2FYNSSe7yGzeiS38od=
+Ime2gGGUgSK9HUk8EiAqsw9omFQqnB3J7xmuonE779rHGJkqhlp4RmMUpfILicIZuO49yhMJcid=
+wqlwo4dYZF5BoLwvHiGauzTs10E17vVYVWPQ7r-2F7Ucte1TyEc-2BbGQe6RKEk8Vg0JMuGOfj2=
+7UgJcZ9kd7BjMP811i1-2Fuj3EjHKm1i0unKrZWhrGRzX6G96y5f3zDPnSvm1q-2B6kACrvREVy=
+6VrOAHK6BT5J4MFiaWNOpnyCuKX92z5fo9mlLQjnBKtve9AotNlOxcW7qYGM1rJ0ZOaE3FkPQj6=
+q3HWNTjYXLAdWGmdCRZ0v-2FksnkABytkdBigDpjAtrWabPVxJzKDZ6s-2B3kxLhdfuMwqSE9w1=
+oPtFiMk0Cw-3D-3D">Haggle This!</a></td>
+</tr>
+</tbody>
+</table>
+<!-- /copy --></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- /more features --> <!-- Line Break -->=20
+<table id=3D"width-320px" width=3D"644" height=3D"7" align=3D"center" cellp=
+adding=3D"0" cellspacing=3D"0">
+<tbody>
+<tr>
+<td><img width=3D"1" height=3D"14" src=3D"http://pgoamedia.com/wp-content/u=
+ploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr>
+<td style=3D"border-top: 1px #ddd dotted; border-bottom: 1px #ddd dotted;">=
+<img width=3D"1" height=3D"5" src=3D"http://pgoamedia.com/wp-content/upload=
+s/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+<tr>
+<td><img width=3D"1" height=3D"14" src=3D"http://pgoamedia.com/wp-content/u=
+ploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+</tbody>
+</table>
+<!-- /Line Break --> <!-- social -->=20
+<table id=3D"width-151px" width=3D"644" align=3D"center" cellpadding=3D"0" =
+cellspacing=3D"0" bgcolor=3D"#ffffff" style=3D"background-color: #ffffff;">
+<tbody>
+<tr>
+<td>
+<table cellspacing=3D"0" cellpadding=3D"0" border=3D"0" width=3D"620" id=3D=
+"width-292px" align=3D"center" margin=3D"0" padding=3D"0" bgcolor=3D"#fffff=
+f" style=3D"background-color: #ffffff;">
+<tbody>
+<tr>
+<td width=3D"78" id=3D"width-50px"></td>
+<td align=3D"center" style=3D"display: inline;"><!--fb-->=20
+<table cellspacing=3D"0" cellpadding=3D"0" border=3D"0" id=3D"width-151px" =
+align=3D"left" margin=3D"0" padding=3D"0" height=3D"50" style=3D"display: i=
+nline;">
+<tbody>
+<tr height=3D"50">
+<td height=3D"50" align=3D"left" style=3D"border-right-width: 4px; border-r=
+ight-style: solid; border-right-color: #fff; margin: 0; height: 50px; paddi=
+ng: 0; line-height: 0px; font-size: 0px;"><a href=3D"http://moneyliving.pgo=
+amedia.com/wf/click?upn=3Dq88NBHGj6Y9s-2BFPp8uoGrpMnmQfOJAzmW0x7LGh89w-2F-2=
+B8o8r8mj3UwOOSKM-2FCDF6_1-2B2i4NJ0yu0cCUcR-2FYNSSe7yGzeiS38odIme2gGGUgSK9HU=
+k8EiAqsw9omFQqnB3J7xmuonE779rHGJkqhlp4Xtj-2BqWDgFlFsYqsQKowcIBHE5D64mEkYPNd=
+vZXRxczm6k3ek1ve5i64G8GP-2FrGhj2P-2Bas9AYk4kYFD69mrvymxnIz8yP1RsM-2BAE8uouE=
+-2Ff1W9-2FJrS4ORbBaSA3-2FHwnaNSYgHkT5Lm6jnYaozUHJxcfQvb5irlmuMdx3XHNbueKvht=
+xBnqkn1KAdTtJQuaSIxnTb0nqP3439-2FL91XOkVPcwGeryevi332N-2F9YNqJ4MHMqhW7JdgOD=
+8MEvR9LZGHQQX4cF4jQ3K5AWZ5mfKbS-2FFnRse8lShxPJW0WvMVqVHoF40gFMQYRRVzE0i9j-2=
+BxguMA-3D-3D"><img width=3D"150" height=3D"50" src=3D"http://pgoamedia.com/=
+wp-content/uploads/2013/08/social-button-facebook.gif" alt=3D"facebook" bor=
+der=3D"0" style=3D"display: block;" id=3D"align-center" /></a></td>
+</tr>
+</tbody>
+</table>
+<!--twitter-->=20
+<table cellspacing=3D"0" cellpadding=3D"0" border=3D"0" id=3D"width-151px" =
+align=3D"left" margin=3D"0" padding=3D"0" height=3D"50" style=3D"display: i=
+nline;">
+<tbody>
+<tr height=3D"50">
+<td height=3D"50" align=3D"left" style=3D"border-right-width: 4px; border-r=
+ight-style: solid; border-right-color: #fff; margin: 0; height: 50px; paddi=
+ng: 0; line-height: 0px; font-size: 0px;"><a href=3D"http://moneyliving.pgo=
+amedia.com/wf/click?upn=3DzZLeb7wfApEn5bJwZJmXt1EDXe7c3rHaV3hNW0cXskPVtqB-2=
+FKgpVES4wIX-2BrDduh_1-2B2i4NJ0yu0cCUcR-2FYNSSe7yGzeiS38odIme2gGGUgSK9HUk8Ei=
+Aqsw9omFQqnB3J7xmuonE779rHGJkqhlp4a2MaWWmhd-2Ba2SJ4P3wBxXlWdOCizp5udC3CT7vk=
+kZnFq-2F0XKXCB1of33zzcBo8ZwfaUVwT3wyL0FI1cpReWQTYrzHP1NAkPprGBpQqtrxonIM8ye=
+3Iu-2F13HggP1mCqvynESzKw6tbXBYimi2eRucun8cdySpgYIFuY7HTbWS6-2BIf4oZpmdkcWkn=
+eBWMqwkloluIvtwAnoHTGO2QRHfh9nv4dh4W-2FzkTBTWS0S4R3ccEVE6-2Fsra-2F4loeLMQoH=
+-2FlwBsKT3LeYgB2DSuLqdJWpkQ-2BmWtWzt-2FZL0B1Mx392okEvGfvb8zEuGWrVtX97zsTgMA=
+-3D-3D"><img width=3D"150" height=3D"50" src=3D"http://pgoamedia.com/wp-con=
+tent/uploads/2013/08/social-button-twitter.gif" alt=3D"twitter" border=3D"0=
+" style=3D"display: block;" id=3D"align-center" /></a></td>
+</tr>
+</tbody>
+</table>
+<!--pin-->=20
+<table cellspacing=3D"0" cellpadding=3D"0" border=3D"0" id=3D"width-151px" =
+align=3D"left" margin=3D"0" padding=3D"0" height=3D"50" style=3D"display: i=
+nline;">
+<tbody>
+<tr height=3D"50">
+<td height=3D"50" align=3D"left" style=3D"margin: 0; height: 50px; padding:=
+ 0; line-height: 0px; font-size: 0px;"><a href=3D"http://moneyliving.pgoame=
+dia.com/wf/click?upn=3Dj5BXvpfG9OGXdDs9iwnf2zt9xDm7KmcEnEO8FsyzN1287Dn2W2JS=
+sLDOyBAKfFtD_1-2B2i4NJ0yu0cCUcR-2FYNSSe7yGzeiS38odIme2gGGUgSK9HUk8EiAqsw9om=
+FQqnB3J7xmuonE779rHGJkqhlp4bl3RFmFYhBPojv7naeUR5h8Y472J9hxZObWpyQCkpPp0sx0-=
+2B8jFb0j6OSfPIOESzLWT0Sas6s-2BYFcr7IYxROCB2zciqrn-2Bch3Yu6LWn4lvxyU2-2BVZxp=
+ZrktPjkLm7umVB-2Fr4xk-2Bt9LfRayqjqh3tdM-2BtcaGMrJzKQqlf4lxQuh9GvJu6IulpzaZm=
+FusjJhsgZyRUMVgGFQj-2FqCtO-2BUY-2BsDC-2BdEISuwFSlNHMJjEl74-2FUeb0-2B4ejX9ST=
+BGg0qmfyQ2iS7RqxPlbMJG7BaqG7mvbToB41oqGsAXKvdT3kk-2BOe2248LT8LC-2FllqxeLai7=
+9Hw-3D-3D"><img width=3D"150" height=3D"50" src=3D"http://pgoamedia.com/wp-=
+content/uploads/2013/08/social-button-pin.gif" alt=3D"pinterest" border=3D"=
+0" style=3D"display: block;" id=3D"align-center" /></a></td>
+</tr>
+</tbody>
+</table>
+</td>
+<td width=3D"50"></td>
+</tr>
+</tbody>
+</table>
+<!-- /social --> <!-- cross promo unit -->=20
+<table width=3D"644" align=3D"center" cellpadding=3D"0" cellspacing=3D"0" i=
+d=3D"width-292px" bgcolor=3D"#ffffff" style=3D"background-color: #ffffff;">
+<tbody>
+<tr>
+<td width=3D"616"><img width=3D"1" height=3D"14" src=3D"http://pgoamedia.co=
+m/wp-content/uploads/2013/08/spacer.gif" style=3D"display: block;" /></td>
+</tr>
+</tbody>
+</table>
+<!-- /cross promo unit --> <!-- footer -->=20
+<table id=3D"width-320px" width=3D"100%" height=3D"50" align=3D"center" cel=
+lpadding=3D"0" cellspacing=3D"0" style=3D"border-top: solid; border-top-col=
+or: #EAE9E4; border-top-width: 2px; background-color: #f7f7f7;">
+<tbody>
+</tbody>
+</table>
+<!-- /footer --></td>
+</tr>
+</tbody>
+</table>
+</center>
+</body></html>
+
+--===============0915156192462505999==--
+
+------------=_1395189126-24245-767319--

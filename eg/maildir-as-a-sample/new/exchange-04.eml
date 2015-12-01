@@ -1,0 +1,28 @@
+Return-Path: <>
+Received: from mx8.example.com ([192.0.2.87])
+    by relay9.example.ne.jp (Post.Office MTA v3.1.2 release (PO203-101c)
+    ID# 0-00000000000000000) with SMTP id 00000000for <shironeko@example.jp>;
+    Thu, 29 Apr 2001 23:34:45 +0900
+Received: by mx8.example.com with SMTP 
+    (Microsoft Exchange Server Internet Mail Connector Version 4.0.994.63)
+    id <00000000.00000000@mx8.example.com>; Thu, 29 Apr 2001 23:34:45 +0900
+Message-ID: <00000000.00000000@mx8.example.com>
+From: System Administrator <postmaster@example.com>
+To:  <shironeko@example.jp>
+Subject: Undeliverable: Nyaan
+Date: Thu, 29 Apr 2001 23:34:45 +0900
+X-Mailer:  Microsoft Exchange Server Internet Mail Connector Version 4.0.994.63
+
+
+Your message did not reach some or all of the intended recipients.
+
+      To:	shironeko@example.jp
+      Subject:	Nyaan
+      Sent:	4/29/01 11:34:45 PM
+
+The following recipient(s) could not be reached:
+
+      kijitora@example.com on 4/29/01 11:34:45 PM
+            Recipient Not Found
+            MSEXCH:IMC:NEKO:KIJITORA:CAT
+

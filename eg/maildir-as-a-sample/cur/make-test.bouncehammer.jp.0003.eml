@@ -1,0 +1,64 @@
+Received: from localhost (localhost)
+        by mx.example.jp (8.14.3/8.14.3) id n24LSDot026083;
+        Thu, 5 Mar 2009 06:28:13 +0900 (JST)
+Date: Thu, 5 Mar 2009 06:28:13 +0900 (JST)
+From: Mail Delivery Subsystem <MAILER-DAEMON>
+Message-Id: <200903042128.n24LSDot026083@mx.example.jp>
+To: <user3@example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+        boundary="n24LSDot026083.1236202093/mx.example.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--n24LSDot026083.1236202093/mx.example.jp
+
+The original message was received at Thu, 5 Mar 2009 06:28:12 +0900 (JST)
+from host-x43-x56-x22.smtp.example.jp [192.0.2.199]
+
+   ----- The following addresses had permanent fatal errors -----
+<recipient-mailbox-is-full@docomo.ne.jp>
+    (reason: 552 Too much mail data recipient-mailbox-is-full@docomo.ne.jp)
+
+   ----- Transcript of session follows -----
+... while talking to mfsmax.docomo.ne.jp.:
+>>> DATA
+<<< 552 Too much mail data recipient-mailbox-is-full@docomo.ne.jp
+554 5.0.0 Service unavailable
+
+--n24LSDot026083.1236202093/mx.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx.example.jp
+Received-From-MTA: DNS; host-x43-x56-x22.smtp.example.jp
+Arrival-Date: Thu, 5 Mar 2009 06:28:12 +0900 (JST)
+
+Final-Recipient: RFC822; recipient-mailbox-is-full@docomo.ne.jp
+Action: failed
+Status: 5.2.2
+Remote-MTA: DNS; mfsmax.docomo.ne.jp
+Diagnostic-Code: SMTP; 552 Too much mail data recipient-mailbox-is-full@docomo.ne.jp
+Last-Attempt-Date: Thu, 5 Mar 2009 06:28:13 +0900 (JST)
+
+--n24LSDot026083.1236202093/mx.example.jp
+Content-Type: text/rfc822-headers
+
+Return-Path: <user3@example.jp>
+Mime-Version: 1.0 (Apple Message framework v753.1)
+Content-Transfer-Encoding: 7bit
+Message-Id: <18726744-DE21-43A8-92B6-91B47AE35DC7@example.jp>
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+To: recipient-mailbox-is-full@docomo.ne.jp
+From: "User3, For Example" <user3@example.jp>
+Subject: TEST
+Date: Thu, 5 Mar 2009 06:28:14 +0900
+X-Mailer: Apple Mail (2.753.1)
+X-Virus-Scanned: ClamAV version 0.94.2, clamav-milter version 0.94.2 on 192.0.2.252
+X-Virus-Status: Clean
+
+--n24LSDot026083.1236202093/mx.example.jp--
+
+
+

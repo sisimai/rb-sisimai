@@ -1,0 +1,65 @@
+Return-Path: <MAILER-DAEMON>
+Received: from ezweb.ne.jp (wmflb12na02.ezweb.ne.jp [222.15.69.197])
+	by mx1.example.co.jp (R8/cf) with ESMTP id x00000000000
+	for <abuse@example.jp>; Thu, 29 Apr 2011 23:45:02 +0900
+Received: from lsean.ezweb.ne.jp (wsmtp134-b0 [172.24.0.242])
+	by wsmtpr24.ezweb.ne.jp (EZweb Mail) with ESMTP id FFFFFFFFF
+	for <abuse@example.jp>; Thu, 29 Apr 2011 23:45:06 +0900 (JST)
+Received: by lsean.ezweb.ne.jp (EZweb Mail)
+	id FFFFFFF1; Thu, 29 Apr 2011 23:45:06 +0900 (JST)
+Date: Thu,  29 Apr 2011 23:45:06 +0900 (JST)
+From: Mail Administrator <Postmaster@ezweb.ne.jp>
+Subject: Mail System Error - Returned Mail
+To: abuse@example.jp
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="F000000.00000000000/lsean.ezweb.ne.jp"
+Message-Id: <20110901083506.FFFFFFF1@lsean.ezweb.ne.jp>
+
+This is a MIME-encapsulated message.
+
+--F000000.00000000000/lsean.ezweb.ne.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=iso-2022-jp
+Content-Transfer-Encoding: 7bit
+
+次のあて先へのメッセージはエラーのため送信できませんでした。
+
+送信先メールアドレスが見つかりませんでした。
+メールアドレスをご確認の上、再送信してください。
+
+The user(s) account is disabled.
+
+
+<this-local-part-does-not-exist-on-the-server@ezweb.ne.jp>: 550 user unknown (in reply to RCPT TO command)
+
+--F000000.00000000000/lsean.ezweb.ne.jp
+Content-Description: Delivery error report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; lsean.ezweb.ne.jp
+Arrival-Date: Thu, 29 Apr 2011 23:45:05 +0900 (JST)
+
+Final-Recipient: rfc822; this-local-part-does-not-exist-on-the-server@ezweb.ne.jp
+Action: failed
+Status: 5.0.0
+
+--F000000.00000000000/lsean.ezweb.ne.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Received-SPF: Neutral (lsean.ezweb.ne.jp: 192.0.2.11 is neither permitted nor denied by domain of example.jp) client-ip=192.0.2.45; envelope-from=<abuse@example.jp>; helo=localhost;
+Received: from x.example.ne.jp (unknown [192.0.2.45])
+	by lsean.ezweb.ne.jp (EZweb Mail) with SMTP id F000000
+	for <this-local-part-does-not-exist-on-the-server@ezweb.ne.jp>; Thu,  29 Apr 2011 23:45:05 +0900 (JST)
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-2022-JP
+Content-Transfer-Encoding: 7bit
+Subject: Message
+Message-Id: <20110000000000.F000000@lsean.ezweb.ne.jp>
+Date: Thu,  29 Apr 2011 23:45:05 +0900 (JST)
+X-SPF-AUTH: Neutral (lsean.ezweb.ne.jp: 192.0.2.11 is neither permitted nor denied by domain of example.jp) client-ip=192.0.2.45; envelope-from=<abuse@example.jp>; helo=x.example.ne.jp; domain=example.jp; txt=v=spf1 ; auth=v1;
+From: abuse@example.jp
+To: this-local-part-does-not-exist-on-the-server@ezweb.ne.jp
+
+message

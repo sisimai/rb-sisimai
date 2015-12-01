@@ -1,0 +1,44 @@
+Return-path: <>
+Envelope-to: shironeko@mail.example.net
+Delivery-date: Thu, 29 Apr 2008 23:34:45 -0300
+Received: from mail by mail.example.net with local (Exim 4.60)
+    id 000000-000000-FF
+    for shironeko@mail.example.net; Thu, 29 Apr 2008 23:34:45 -0300
+X-Failed-Recipients: kijitora@example.com
+Auto-Submitted: auto-replied
+From: Mail Delivery System <Mailer-Daemon@mail.example.net>
+To: shironeko@mail.example.net
+Subject: Mail delivery failed: returning message to sender
+Message-Id: <000000Y-000000-FF@mail.example.net>
+Date: Thu, 29 Apr 2008 23:34:45 -0300
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  kijitora@example.com
+    retry timeout exceeded
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <shironeko@mail.example.net>
+Received: from shironeko by mail.example.net with local (Exim 4.60)
+    (envelope-from <shironeko@mail.example.net>)
+    id 000000-000000-FF
+    for kijitora@example.com; Thu, 29 Apr 2008 23:34:45 -0300
+To: kijitora@example.com
+Subject: Nyaaan
+Received: from mx.example.org by localhost.localdomain with local (Mail);
+    Thu, 29 Apr 2008 23:34:45 -0300
+Date: Thu, 29 Apr 2008 23:34:45 -0300
+From: Shironeko <shironeko@example.org>
+Message-ID: <00000000000000000000000000000000@mx.example.org>
+X-Priority: 3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/html; charset="utf-8"
+Sender:  <shironeko@mail.example.net>
+
+Nyaan
+

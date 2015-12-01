@@ -1,0 +1,78 @@
+Return-Path: <>
+X-Spam-Checker-Version: SpamAssassin 3.2.5 (2008-06-10) on mail.example.co.jp
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,NORMAL_HTTP_TO_IP
+	autolearn=ham version=3.2.5
+X-Original-To: shironeko@example.co.jp
+Delivered-To: shironeko@example.co.jp
+Received: from v1.example.com (v1.example.com [192.0.2.90])
+	by mail.example.co.jp (Postfix) with ESMTP id F0000FFFFF
+	for <shironeko@example.co.jp>; Thu, 22 Feb 2012 23:45:16 +1000 (EST)
+Received: by v1.example.com (Postfix)
+	id FFFFFFFFF00; Thu, 22 Feb 2012 20:50:02 +0800 (WST)
+Date: Thu, 22 Feb 2012 20:50:02 +0800 (WST)
+From: MAILER-DAEMON@example.com (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: shironeko@example.co.jp
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="FFFFFFF000000.00000000000/v1.example.com"
+Message-Id: <00000000000000.FFFFFFFFFFF@v1.example.com>
+
+This is a MIME-encapsulated message.
+
+--FFFFFFF000000.00000000000/v1.example.com
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host v1.example.com.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@example.org>: host mx.example.org[192.0.2.4] said: 450
+    4.1.1 <kijitora@example.org>: Recipient address rejected: User unknown in
+    virtual alias table (in reply to RCPT TO command)
+
+--FFFFFFF000000.00000000000/v1.example.com
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; v1.example.com
+X-Postfix-Queue-ID: FFFFFFFFFFF
+X-Postfix-Sender: rfc822; shironeko@example.co.jp
+Arrival-Date: Thu, 17 Feb 2012 23:45:46 +0800 (WST)
+
+Final-Recipient: rfc822; kijitora@example.org
+Original-Recipient: rfc822;kijitora@example.org
+Action: failed
+Status: 4.1.1
+Remote-MTA: dns; excalibur.example.org
+Diagnostic-Code: smtp; 450 4.1.1 <kijitora@example.org>: Recipient address
+    rejected: User unknown in virtual alias table
+
+--FFFFFFF000000.00000000000/v1.example.com
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Received: from sv1-1.aanet.com.au (mail.aanet.com.au [203.24.100.34])
+	by v1.example.com (Postfix) with ESMTP id CC990173ACF
+	for <kijitora@example.org>; Thu, 17 Feb 2012 23:45:46 +0800 (WST)
+Message-ID: <FFFFFFFF.0000000@example.co.jp>
+Date: Thu, 17 Feb 2012 23:45:53 +1000
+From: Shironeko Nyanko <shironeko@example.co.jp>
+MIME-Version: 1.0
+To: kijitora@example.org
+Subject: Nyaaaaaaaaaaaaaaan
+Content-Type: text/plain
+
+Nyaan
+

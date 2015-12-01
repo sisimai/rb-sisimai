@@ -1,0 +1,76 @@
+Return-Path: <>
+Received: from mx2.example.net (dh1920.example.com [192.0.2.19])
+	by mail0.example.co.jp (V8/cf) with ESMTP id s5L6lSDw015737
+	for <@example.co.jp>; Sat, 21 Jun 2014 23:34:45 +0900
+Received: from localhost (localhost)
+	by mx2.example.net (V8/cf) id s5L6lSa5008411;
+	Sat, 21 Jun 2014 23:34:45 +0900
+Date: Sat, 21 Jun 2014 23:34:45 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON@mx2.example.net>
+Message-Id: <201406210647.s5L6lSa5008411@mx2.example.net>
+To: <kijitora@example.co.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="s5L6lSa5008411.1403333248/mx2.example.net"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--s5L6lSa5008411.1403333248/mx2.example.net
+
+The original message was received at Sat, 21 Jun 2014 23:34:45 +0900
+from mail0.example.co.jp [192.0.2.153]
+
+   ----- The following addresses had permanent fatal errors -----
+userunknown@example.co.jp
+    (reason: 550 5.1.1 <userunknown@example.co.jp>... User Unknown)
+    (expanded from: <bounce0@example.org>)
+
+   ----- Transcript of session follows -----
+... while talking to mx.example.co.jp.:
+>>> DATA
+<<< 550 5.1.1 <userunknown@example.co.jp>... User Unknown
+550 5.1.1 userunknown@example.co.jp... User unknown
+<<< 503 5.0.0 Need RCPT (recipient)
+
+--s5L6lSa5008411.1403333248/mx2.example.net
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx2.example.net
+Received-From-MTA: DNS; mail0.example.co.jp
+Arrival-Date: Sat, 21 Jun 2014 23:34:45 +0900
+
+Final-Recipient: RFC822; bounce0@example.org
+X-Actual-Recipient: RFC822; userunknown@example.co.jp
+Action: failed
+Status: 5.1.1
+Remote-MTA: DNS; mx.example.co.jp
+Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.co.jp>... User Unknown
+Last-Attempt-Date: Sat, 21 Jun 2014 23:34:45 +0900
+
+--s5L6lSa5008411.1403333248/mx2.example.net
+Content-Type: message/rfc822
+
+Return-Path: <kijitora@example.co.jp>
+Received: from mail0.example.co.jp (mail0.example.co.jp [192.0.2.153])
+	by mx2.example.net (V8/cf) with ESMTP id s5L6lRa5008410
+	for <bounce0@example.org>; Sat, 21 Jun 2014 23:34:45 +0900
+Received: from [192.0.2.202] (c90135.kyoto.example.ne.jp [192.0.2.135])
+	(authenticated bits=0)
+	by mail0.example.co.jp (V8/cf) with ESMTP id s5L6lQkx015733
+	for <bounce0@example.org>; Sat, 21 Jun 2014 23:34:45 +0900
+From: "kijitora, straycat" <kijitora@example.co.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Subject: test 4
+Message-Id: <2459BC68-A7A5-4FCD-99FE-8CE9335880BF@example.co.jp>
+Date: Sat, 21 Jun 2014 23:34:45 +0900
+To: bounce0@example.org
+Mime-Version: 1.0 (Mac OS X Mail 7.3 \(1878.2\))
+X-Mailer: Apple Mail (2.1878.2)
+
+test
+
+--s5L6lSa5008411.1403333248/mx2.example.net--
+

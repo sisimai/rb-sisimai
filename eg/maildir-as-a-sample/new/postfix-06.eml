@@ -1,0 +1,72 @@
+Return-Path: <>
+Received: from vagrant-centos65.vagrantup.com (c135.kyoto.example.ne.jp [192.0.2.135])
+	by 6jo.example.jp (V8/cf) with ESMTP id s9OAl7Je007954
+	for <shironeko@example.jp>; Fri, 24 Oct 2014 19:47:07 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 6jo.example.jp s9OAl7Je007954
+Authentication-Results: 6jo.example.jp; sender-id=fail (DomainDoesNotExist) header.from=MAILER-DAEMON@vagrant-centos65.vagrantup.com
+Received: by vagrant-centos65.vagrantup.com (Postfix)
+	id C6BBB22040; Fri, 24 Oct 2014 10:47:05 +0000 (UTC)
+Date: Fri, 24 Oct 2014 10:47:05 +0000 (UTC)
+From: MAILER-DAEMON@vagrant-centos65.vagrantup.com (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: shironeko@example.jp
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="9C81E2203D.1414147625/vagrant-centos65.vagrantup.com"
+Message-Id: <20141024104705.C6BBB22040@vagrant-centos65.vagrantup.com>
+
+This is a MIME-encapsulated message.
+
+--9C81E2203D.1414147625/vagrant-centos65.vagrantup.com
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host vagrant-centos65.vagrantup.com.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@neko.example.jp>: Host or domain name not found. Name service error
+    for name=neko.example.jp type=AAAA: Host not found
+
+--9C81E2203D.1414147625/vagrant-centos65.vagrantup.com
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; vagrant-centos65.vagrantup.com
+X-Postfix-Queue-ID: 9C81E2203D
+X-Postfix-Sender: rfc822; shironeko@example.jp
+Arrival-Date: Fri, 24 Oct 2014 10:46:18 +0000 (UTC)
+
+Final-Recipient: rfc822; kijitora@neko.example.jp
+Original-Recipient: rfc822;kijitora@neko.example.jp
+Action: failed
+Status: 5.4.4
+Diagnostic-Code: X-Postfix; Host or domain name not found. Name service error
+    for name=neko.example.jp type=AAAA: Host not found
+
+--9C81E2203D.1414147625/vagrant-centos65.vagrantup.com
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <shironeko@example.jp>
+Received: from [127.0.0.1] (localhost [IPv6:::1])
+	by vagrant-centos65.vagrantup.com (Postfix) with ESMTP id 9C81E2203D
+	for <kijitora@neko.example.jp>; Fri, 24 Oct 2014 10:46:18 +0000 (UTC)
+Subject: TEST
+From: "Shironeko, Nyanko" <shironeko@example.jp>
+To: kijitora@neko.example.jp
+Message-Id: <20141024104625.9C81E2203D@vagrant-centos65.vagrantup.com>
+Date: Fri, 24 Oct 2014 10:46:18 +0000 (UTC)
+
+TEST
+
+--9C81E2203D.1414147625/vagrant-centos65.vagrantup.com--

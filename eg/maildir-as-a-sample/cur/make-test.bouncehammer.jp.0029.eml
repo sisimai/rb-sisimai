@@ -1,0 +1,68 @@
+Return-Path: <mailer-daemon>
+Received: from localhost (localhost)
+        by mta-788.smtp.example.jp (8.13.8/8.13.8) id n3I1njBM002978;
+        Sat, 18 Apr 2009 10:49:45 +0900
+Date: Sat, 18 Apr 2009 10:49:45 +0900
+From: Mail Delivery Subsystem <mailer-daemon>
+Message-Id: <200904180149.n3I1njBM002978@mta-788.smtp.example.jp>
+To: root
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+        boundary="n3I1njBM002978.1240019385/mta-788.smtp.example.jp"
+Subject: Postmaster notify: see transcript for details
+Auto-Submitted: auto-generated (postmaster-notification)
+
+This is a MIME-encapsulated message
+
+--n3I1njBM002978.1240019385/mta-788.smtp.example.jp
+
+The original message was received at Sat, 18 Apr 2009 10:49:44 +0900
+from localhost.example.jp [127.0.0.1]
+with id n3I1niBL002976
+
+   ----- The following addresses had permanent fatal errors -----
+<bad-recipient-address-this-is@bad-is-bad.example.net>
+    (reason: 553 sorry, your envelope recipient is in my badrcptto list (#5.7.1))
+
+   ----- Transcript of session follows -----
+... while talking to mail.mx.bad-is-bad.example.net.:
+>>> DATA
+<<< 553 sorry, your envelope recipient is in my badrcptto list (#5.7.1)
+550 5.1.1 <bad-recipient-address-this-is@bad-is-bad.example.net>... User unknown
+<<< 503 Start afresh from MAIL(#5.5.1)
+
+--n3I1njBM002978.1240019385/mta-788.smtp.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mta-788.smtp.example.jp
+Received-From-MTA: DNS; dns1.example.jp
+Arrival-Date: Sat, 18 Apr 2009 10:49:44 +0900
+
+Final-Recipient: RFC822; bad-recipient-address-this-is@bad-is-bad.example.net
+Action: failed
+Status: 5.1.3
+Remote-MTA: DNS; mail.mx.bad-is-bad.example.net
+Diagnostic-Code: SMTP; 553 sorry, your envelope recipient is in my badrcptto list (#5.7.1)
+Last-Attempt-Date: Sat, 18 Apr 2009 10:49:45 +0900
+
+--n3I1njBM002978.1240019385/mta-788.smtp.example.jp
+Content-Type: text/rfc822-headers
+
+Return-Path: <nobody@example.jp>
+Received: from ns.example.jp (dns1.example.jp [127.0.0.1])
+        by mta-788.smtp.example.jp (8.13.8/8.13.8) with ESMTP id n3I1niBL002976
+        for <bad-recipient-address-this-is@bad-is-bad.example.net>; Sat, 18 Apr 2009 10:49:44 +0900
+Received: (from nobody@localhost)
+        by ns.example.jp (8.13.8/8.12.8/Submit) id n3I1niaj002975
+        for bad-recipient-address-this-is@bad-is-bad.example.net; Sat, 18 Apr 2009 10:49:44 +0900
+Date: Sat, 18 Apr 2009 10:49:44 +0900
+Message-Id: <200904180149.n3I1niaj002975@example.jp>
+To: bad-recipient-address-this-is@bad-is-bad.example.net
+From: nobody@example.jp
+Subject: TEST
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+
+--n3I1njBM002978.1240019385/mta-788.smtp.example.jp--
+
+

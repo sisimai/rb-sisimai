@@ -1,0 +1,50 @@
+Return-Path: <>
+Received: from mailx-53.neko.example.edu ([192.0.2.90]) 
+    by kyoto1.pop.example.net (Post.Office MTA v3.1.2 release (PO203-101c) 
+    ID# 0-00000000000000000) with ESMTP id 0000000 for <shironeko@example.com>;
+    Thu, 29 Apr 1999 23:34:45 -0700
+Received: from localhost (localhost)
+    by mailx-53.neko.example.edu (8.8.8/8.8.8) with internal id 00000000;
+    Thu, 29 Apr 1999 23:34:45 -0500 (CDT)
+Date: Thu, 29 Apr 1999 23:34:45 -0500 (CDT)
+From: Mail Delivery Subsystem <MAILER-DAEMON@neko.example.edu>
+Message-Id: <199904292334.00000000@mailx-53.neko.example.edu>
+To: <shironeko@example.com>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+    boundary="FFFFF000.0000000000/mailx-53.neko.example.edu"
+Subject: Returned mail: Service unavailable
+Auto-Submitted: auto-generated (failure)
+
+The original message was received at Thu, 29 Apr 1999 23:34:45 -0500 (CDT)
+from [192.0.2.64]
+
+   ----- The following addresses had permanent fatal errors -----
+"|IFS=' ' && exec /usr/local/bin/procmail -f- || exit 75 #kijitora"
+    (expanded from: <kijitora@neko.example.edu>)
+
+   ----- Transcript of session follows -----
+554 "|IFS=' ' && exec /usr/local/bin/procmail -f- || exit 75 #kijitora"... Service unavailable
+
+Reporting-MTA: dns; mailx-53.neko.example.edu
+Received-From-MTA: DNS; [192.0.2.64]
+Arrival-Date: Thu, 29 Apr 1999 23:34:45 -0500 (CDT)
+
+Final-Recipient: RFC822; kijitora@mailx-53.neko.example.edu
+X-Actual-Recipient: RFC822; |IFS=' ' && exec /usr/local/bin/procmail -f- || exit 75 #kijitora@mailx-53.neko.example.edu
+Action: failed
+Status: 5.5.0
+Last-Attempt-Date: Thu, 29 Apr 1999 23:34:45 -0500 (CDT)
+
+Return-Path: <shironeko@example.com>
+Received: from mx4.example.co.jp ([192.0.2.68])
+    by mailx-53.neko.example.edu (8.8.8/8.8.8) with SMTP id 00000000
+    for <kijitora@neko.example.edu>; Thu, 29 Apr 1999 23:34:45 -0500 (CDT)
+From: shironeko@example.com
+Date: Wed, 29 Apr 1999 23:34:45 +0900
+Message-Id: <00000000000.000000@mx4.example.co.jp>
+To: kijitora@neko.example.edu
+Subject: Nyaaan
+
+Nyaan
+

@@ -1,0 +1,23 @@
+From MAILER-DAEMON  Mon Jan 1 00:00:00 2015
+Return-Path: <>
+X-Original-To: shironeko@example.ad.jp
+Delivered-To:shironeko@example.ad.jp
+Received: from mta.example.jp
+    by mx.example.jp (Postfix) with SMTP id ffffffff
+    for <shironeko@example.ad.jp>; Mon, 1 Jan 2015 00:00:00 +0900 (JST)
+Received: (qmail 7120 invoked for bounce); 1 Jan 2015 00:00:00 +0900
+Date: 1 Jan 2015 00:00:00 +0900
+From: MAILER-DAEMON@example.ad.jp
+To: shironeko@example.ad.jp
+Subject: failure notice
+
+Hi. This is the qmail-send program at example.ad.jp.
+I'm afraid I wasn't able to deliver your message to the following addresses.
+This is a permanent error; I've given up. Sorry it didn't work out.
+
+<shironeko@example.ad.jp>:
+192.0.2.1 does not like recipient.
+Remote host said: 552 Error: disk quota exceeded
+Giving up on 192.0.2.20.
+
+--- Below this line is a copy of the message.

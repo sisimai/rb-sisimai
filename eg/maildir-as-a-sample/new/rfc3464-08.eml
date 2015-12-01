@@ -1,0 +1,70 @@
+Return-Path: <>
+Received: by mx.example.org ([192.0.2.22]) with SMTP id 000000000000;
+    Thu, 9 Apr 2008 23:34:45 +0900 (JST)
+Received: by g4.example.org ([192.0.2.14]) with SMTP id 000000000000;
+    Thu, 09 Apr 2008 23:34:45 +0900 (JST)
+Received: from relay90.example.com (relay90.example.com [192.0.2.80])
+    by mx.google.com with SMTP id 000000000000fff.2008.04.09.23.34.45;
+    Thu, 09 Apr 2008 23:34:45 +0900 (JST)
+Received-SPF: pass (google.com: best guess record for domain of relay90.example.com designates 192.0.2.80 as permitted sender) client-ip=192.0.2.9;
+MIME-Version: 1.0
+From: Barracuda Spam Firewall <postmaster@example.com>
+Message-Id: <000000000000000000000000000000@mx.example.com>
+Subject: **Message you sent blocked by our bulk email filter**
+Content-Type: multipart/report; report-type=delivery-status;
+    charset=utf-8;
+    boundary="----------=_000000000-00000-000"
+To: shironeko@example.co.jp
+Date: Thu, 9 Apr 2008 23:34:45 +0900 (JST)
+
+This is a multi-part message in MIME format...
+
+------------=_000000000-00000-000
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: base64
+
+000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000
+0000
+
+------------=_000000000-00000-000
+Content-Type: message/delivery-status
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
+Content-Description: Delivery error report
+
+Reporting-MTA: dns; barracuda1.example.com
+Received-From-MTA: smtp; barracuda1.example.com ([127.0.0.1])
+Arrival-Date: Thu, 9 Apr 2008 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; kijitora@example.net
+Action: failed
+Status: 5.7.1
+Diagnostic-Code: smtp; 550 5.7.1 Message content rejected, UBE, id=00000-00-000
+Last-Attempt-Date: Thu, 9 Apr 2008 23:34:45 +0900 (JST)
+
+------------=_000000000-00000-000
+Content-Type: text/rfc822-headers
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
+Content-Description: Undelivered-message headers
+
+Received: from lx.dyn.example.or.jp (unknown [192.0.2.55])
+    by barracuda1.example.com (Spam Firewall) with ESMTP id 000000000000
+    for <kijitora@example.net>; Thu, 9 Apr 2008 23:34:45 +0900 (JST)
+Received: from [192.0.2.230] by relay4.example.com; 
+    Thu, 09 Apr 2008 23:34:45 +0000
+Message-ID: <000000000000000000000000000000@mx.example.or.jp>
+From: "Shironeko" <shironeko@example.co.jp>
+To: <kijitora@example.net>
+Subject: Nyaaaaaaaan
+Date: Thu, 09 Apr 2005 23:34:45 +0000
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_000_0004_00000FFF.FFFFFF00"
+X-Priority: 3
+
+------------=_000000000-00000-000--

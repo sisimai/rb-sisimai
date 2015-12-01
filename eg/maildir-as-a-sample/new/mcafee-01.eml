@@ -1,0 +1,63 @@
+Return-Path: <MAILER-DAEMON@smtp6.example.ne.jp>
+Delivered-To: shironeko@example.jp
+Received: (qmail 000 invoked from network); 29 Apr 2010 23:45:10 +0900
+Received: from unknown (HELO mx2.example.jp) (192.0.2.88)
+  by 192.0.2.19 with SMTP; 29 Apr 2010 23:45:10 +0900
+Received: from smtp6.example.ne.jp (HELO smtp6.example.ne.jp) ([192.0.2.233])
+	by mx2.example.jp (MOS 4.1.8-GA FastPath queued)
+	with SMTP id 00000000;
+	Wed, 29 Apr 2010 23:45:10 +0900 (JST)
+Date: Wed, 29 Apr 2010 23:45:10 +0900
+To: <shironeko@example.jp>
+From: <MAILER-DAEMON@smtp6.example.ne.jp>
+MIME-Version: 1.0
+Content-Type: Multipart/Mixed;
+  boundary="------------Boundary-00=_000000000000000000000"
+X-NAI-Header: Modified by McAfee Email and Web Security Appliance (3300)
+Subject: Delivery Status
+Message-Id: <201004292345.00000000@mx2.example.jp>
+X-Junkmail-Status: score=11/100, host=mx2.example.jp
+X-Junkmail-SD-Raw: score=unknown,
+	refid=no connection,
+	ip=192.0.2.76,
+	so=2010-04-29 23:45:10,
+	dmn=2010-04-29 23:45:10,
+	mode=single engine
+
+--------------Boundary-00=_000000000000000000000
+Content-Type: text/plain; name="deliveryproblems.txt"
+
+    --- The following addresses had delivery problems ---
+
+<kijitora@example.co.jp>   (Unknown user kijitora@example.co.jp)
+
+--------------Boundary-00=_000000000000000000000
+Content-Type: message/delivery-status; name="deliverystatus.txt"
+
+Original-Recipient: <kijitora@example.co.jp>
+Action: failed
+Diagnostic-Code: smtp; 550 Unknown user kijitora@example.co.jp
+Remote-MTA: 192.0.2.192
+
+
+--------------Boundary-00=_000000000000000000000
+Content-Type: message/rfc822
+Content-Disposition: attachment
+
+Received: from (smtp-gw1.example.ne.jp [192.0.2.90]) by smtp6.example.ne.jp with smtp
+	 id 0000000000000; Wed, 29 Apr 2010 23:45:10 +0900
+Received: from unknown (HELO smtp9.example.jp) (192.0.2.209)  
+    by 192.0.2.1 with SMTP; 29 Apr 2010 23:45:10 +0900
+Message-ID: <000000000000000000000.shironeko@example.jp>
+From: "Shironeko, Nyanko" <shironeko@example.jp>
+Reply-To: Nekochan <shironeko@example.co.jp>
+To: Kijitora <kijitora@example.co.jp>
+Subject: Nyaaaaan
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-2022-jp
+Content-Transfer-Encoding: 7bit
+Date: Wed, 29 Apr 2010 23:45:10 +0900 (JST)
+
+
+--------------Boundary-00=_000000000000000000000--
+

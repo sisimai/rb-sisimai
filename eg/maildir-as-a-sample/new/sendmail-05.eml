@@ -1,0 +1,64 @@
+Received: from localhost (localhost)
+	by mx.example.jp (8.14.3/8.14.3) id fffffffffffff;
+	Tue, 29 Apr 2012 23:45:43 +0900 (JST)
+Date: Tue, 29 Apr 2012 23:45:43 +0900 (JST)
+From: Mail Delivery Subsystem <MAILER-DAEMON>
+Message-Id: <00000000000.fffffffffffff@mx.example.jp>
+To: postmaster
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="fffffffffffff.00000000000/mx.example.jp"
+Subject: Postmaster notify: see transcript for details
+Auto-Submitted: auto-generated (postmaster-notification)
+
+This is a MIME-encapsulated message
+
+--fffffffffffff.00000000000/mx.example.jp
+
+The original message was received at Tue, 29 Apr 2012 23:45:23 +0900 (JST)
+from [192.0.2.31]
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora@example.org>
+    (reason: 552 5.2.3 Message size exceeds fixed maximum message size (10485760))
+
+   ----- Transcript of session follows -----
+... while talking to mx.example.org.:
+>>> MAIL From:<kijitora@example.co.jp> SIZE=16600348
+<<< 552 5.2.3 Message size exceeds fixed maximum message size (10485760)
+554 5.0.0 Service unavailable
+
+--fffffffffffff.00000000000/mx.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx.example.jp
+Received-From-MTA: DNS; [192.0.2.31]
+Arrival-Date: Tue, 29 Apr 2012 23:45:23 +0900 (JST)
+
+Final-Recipient: RFC822; kijitora@example.org
+Action: failed
+Status: 5.2.3
+Diagnostic-Code: SMTP; 552 5.2.3 Message size exceeds fixed maximum message size (10485760)
+Last-Attempt-Date: Tue, 29 Apr 2012 23:45:43 +0900 (JST)
+
+--fffffffffffff.00000000000/mx.example.jp
+Content-Type: text/rfc822-headers
+
+Return-Path: <kijitora@example.co.jp>
+Received: from [192.0.2.31] ([192.0.2.31])
+	(authenticated bits=0)
+	by mx.example.jp (8.14.3/8.14.3) with ESMTP id p00000000000
+	for <kijitora@example.org>; Tue, 29 Apr 2012 23:45:23 +0900 (JST)
+Mime-Version: 1.0
+To: kijitora@example.org
+Message-Id: <000000B2-9997-8888-8999-000000000356@example.co.jp>
+Content-Type: multipart/mixed; boundary=Apple-Mail-8-583695011
+From: "Kijitora Cat" <kijitora@example.co.jp>
+Subject: TEST
+Date: Tue, 29 Apr 2012 23:45:18 +0900
+X-Mailer: Apple Mail (2.753.1)
+X-Virus-Scanned: ClamAV version 0.94.2, clamav-milter version 0.94.2 on 192.0.2.252
+X-Virus-Status: Clean
+
+--fffffffffffff.00000000000/mx.example.jp--
+

@@ -1,0 +1,62 @@
+Return-path: <>
+Received: from mail by smtp22.mail.ru with local id 1XsaRY-0002nh-LV
+	for shironeko@mail.example.ru; Sun, 23 Nov 2014 19:55:24 +0300
+X-Failed-Recipients: mikeneko@example.jp,
+  sabineko@example.jp
+Auto-Submitted: auto-replied
+From: mailer-daemon@corp.mail.ru
+To: shironeko@mail.example.ru
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Subject: =?UTF-8?B?0JLQsNGI0LUg0YHQvtC+0LHRidC10L3QuNC1INC90LUg0LTQvtGB0YLQsNCy0LvQtdC90L4=?=. Mail failure.
+Message-Id: <E1XsaRY-0002nh-LV@smtp22.mail.ru>
+Date: Sun, 23 Nov 2014 19:55:24 +0300
+
+Это письмо создано автоматически сервером Mail.Ru, отвечать на него не нужно.
+
+К сожалению, Ваше письмо не может быть доставлено одному или нескольким получателям:
+
+  mikeneko@example.jp
+    SMTP error from remote mail server after RCPT TO:<mikeneko@example.jp>:
+    host mx.example.jp [192.0.2.12]: 550 5.2.2 <mikeneko@example.jp>... Mailbox Full
+  sabineko@example.jp
+    SMTP error from remote mail server after RCPT TO:<sabineko@example.jp>:
+    host mx.example.jp [192.0.2.12]: 550 5.2.1 <sabineko@example.jp>... User Unknown
+
+Рекомендуем Вам проверить корректность указания адресов получателей.
+
+**********************
+
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  mikeneko@example.jp
+    SMTP error from remote mail server after RCPT TO:<mikeneko@example.jp>:
+    host mx.example.jp [192.0.2.12]: 550 5.2.2 <mikeneko@example.jp>... Mailbox Full
+  sabineko@example.jp
+    SMTP error from remote mail server after RCPT TO:<sabineko@example.jp>:
+    host mx.example.jp [192.0.2.12]: 550 5.2.1 <sabineko@example.jp>... User Unknown
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <shironeko@mail.example.ru>
+Received: from [192.0.2.135] (port=51714 helo=[192.0.2.3])
+	by smtp22.mail.ru with esmtpa (envelope-from <shironeko@mail.example.ru>)
+	id 1XsaRW-0002Yv-Dz; Sun, 23 Nov 2014 19:55:23 +0300
+From: Shironeko <shironeko@mail.example.ru>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-Id: <520967C8-075C-4B93-929C-E0EEAD268A25@mail.example.ru>
+Date: Mon, 24 Nov 2014 01:55:20 +0900
+To: sabineko@example.jp,
+ mikeneko@example.jp
+Mime-Version: 1.0 (Mac OS X Mail 7.3 \(1878.6\))
+X-Mailer: Apple Mail (2.1878.6)
+X-Spam: Not detected
+X-Mras: Ok
+Subject: Nyaaan
+
+Nyaaan

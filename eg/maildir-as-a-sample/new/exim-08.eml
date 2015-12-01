@@ -1,0 +1,42 @@
+Return-Path: <>
+Received: from mx9.example.jp (mx9.example.jp [192.0.2.9])
+    by mx.google.com with ESMTP id ffffff; Thu, 20 Apr 2011 23:34:45 +0900 (JST)
+Received: from mail by mx9.example.jp with host
+    id 1Nu3PW-0004hr-Lq for shironeko@example.jp; Thu, 20 Apr 2011 23:34:45 +0900
+X-Failed-Recipients: kijitora@example.org
+From: Mail Delivery System <Mailer-Daemon@example.jp>
+To: shironeko@example.jp
+Subject: Mail delivery failed
+Message-Id: <FFFFFFF0000000@mx9.example.jp>
+Date: Thu, 20 Apr 2011 23:34:45 +0900
+
+This message was created automatically by mail delivery software.
+
+A message sent by
+
+  <shironeko@email.example.com>
+
+could not be delivered to one or more of its recipients. The following
+address(es) failed:
+
+  kijitora@example.org
+    (ultimately generated from nekochan@example.org)
+    all hosts have been failing for a long time and were last tried after this message arrived
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <shironeko@email.example.com>
+Received: from host5.example.org ([192.0.2.124]:00000)
+	by mx9.example.jp with esmtp id fff
+	for nekochan@example.org; Thu, 20 Apr 2011 23:34:45 +0900
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+Date: Thu, 20 Apr 2011 23:34:45 +0900
+From: Neko <shironeko@example.jp>
+Subject: Nyaaaan
+Message-Id: <000000000000000000000000xx@host5.example.org>
+To: kijitora@example.org
+
+Nyaaan
+

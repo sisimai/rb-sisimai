@@ -1,0 +1,59 @@
+Return-Path: <MAILER-DAEMON@mx7x.example.com>
+Received: from mx15w.example.com (mx15w.example.com [192.0.2.240])
+	by mx7x.example.com (8.13.1/8.13.1) with ESMTP id k9999999999999
+	for <shironeko@example.org>; Thu, 29 Apr 2006 23:34:45 +0900
+Received: from r45.example.com (r45.example.com [192.0.2.240])
+	by mx15w.example.com (Postfix) with ESMTP id 0000000000
+	for <shironeko@example.org>; Thu, 29 Apr 2006 23:34:45 +0900 (JST)
+Date: Thu, 29 Apr 2006 23:34:45 +0900
+From: Mail Delivery System <Mail.Delivery.System@mx7x.example.com>
+To: shironeko@example.org
+Subject: Delivery status notification
+MIME-Version: 1.0
+Content-Type: multipart/report;
+	boundary="------------000000900_93ru89ad9g8ag"
+Message-Id: <1111111111111111111111111111111@example.com>
+
+This is a multi-part message in MIME format.
+
+--------------000000900_93ru89ad9g8ag
+Content-Type: text/plain; charset=UTF-8;
+Content-Transfer-Encoding: 8bit
+
+============================================================================
+      This is an automatically generated Delivery Status Notification.      
+
+Delevery to the following recipients failed permanently:
+
+   * kijitora@example.co.jp
+
+
+============================================================================
+                             Technical details:                             
+
+SMTP:RCPT host 192.0.2.233: 553 5.3.0 <kijitora@example.co.jp>... No such user here
+
+
+============================================================================
+
+
+--------------000000900_93ru89ad9g8ag
+Content-Type: message/rfc822; charset=UFT-8;
+Content-Transfer-Encoding: 8bit
+Content-Disposition: attachment
+
+
+Received: from mx7x.example.com (mx7x.example.com [127.0.0.1])
+	by mx7x.example.com (8.13.1/8.13.1) with ESMTP id k0000000000000
+	for <kijitora@example.co.jp>; Thu, 29 Apr 2006 23:34:45 +0900
+Subject: Nyaaaaan
+From: shironeko@example.org
+To: kijitora@example.co.jp
+MIME-Version: 1.0
+Content-Type: text/plain
+Message-ID: <00000000000000000000000000000000@example.org>
+Date: Thu, 29 Apr 2006 23:34:45 +0900
+
+--------------000000900_93ru89ad9g8ag--
+
+

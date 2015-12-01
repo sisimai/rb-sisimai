@@ -1,0 +1,129 @@
+Return-path: <>
+Received: from mr21p30im-asmtp001.me.example.com ([17.111.174.64])
+ by ms30511.mac.example.com (Oracle Communications Messaging Server 7u4-27.08
+ (7.0.4.27.7) 64bit (built Aug 22 2013))
+ with ESMTP id <0NFF002X803SJ320@ms30511.mac.example.com> for shironeko@me.example.com; Sat,
+ 22 Nov 2014 00:31:04 +0000 (GMT)
+Original-recipient: rfc822;shironeko@me.example.com
+Received: from process-daemon.mr21p30im-asmtp001.me.example.com by
+ mr21p30im-asmtp001.me.example.com
+ (Oracle Communications Messaging Server 7.0.5.33.0 64bit (built Aug 27 2014))
+ id <0NFF00J000251C00@mr21p30im-asmtp001.me.example.com> for shironeko@me.example.com
+ (ORCPT shironeko@me.example.com); Sat, 22 Nov 2014 00:31:04 +0000 (GMT)
+X-Proofpoint-Virus-Version: vendor=fsecure
+ engine=2.50.10432:5.13.68,1.0.28,0.0.0000
+ definitions=2014-11-22_01:2014-11-21,2014-11-21,1970-01-01 signatures=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ ndrscore=0 suspectscore=3 adjustscore=0 phishscore=0 adultscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=7.0.1-1408290000
+ definitions=main-1411220003
+Received: from mr21p30im-asmtp001.me.example.com
+ (Oracle Communications Messaging Server 7.0.5.33.0 64bit (built Aug 27 2014))
+ id <0NFF00JPZ02E0Z00@mr21p30im-asmtp001.me.example.com>; Sat,
+ 22 Nov 2014 00:30:14 +0000 (GMT)
+Date: Sat, 22 Nov 2014 00:30:14 +0000 (GMT)
+From: Internet Mail Delivery <postmaster@mr21p30im-asmtp001.me.example.com>
+Subject: Delivery Notification: Delivery has been delayed
+In-reply-to: <170CB973-A398-4674-8523-87D8FECB9378@me.example.com>
+To: shironeko@me.example.com
+Message-id: <0NFF00JQ102E0Z00@mr21p30im-asmtp001.me.example.com>
+MIME-version: 1.0
+Content-type: multipart/report; report-type=delivery-status;
+ boundary="Boundary_(ID_EIVpI81MDZioRLqYayS7tQ)"
+References: <170CB973-A398-4674-8523-87D8FECB9378@me.example.com>
+
+
+--Boundary_(ID_EIVpI81MDZioRLqYayS7tQ)
+Content-type: text/plain; charset=us-ascii
+Content-language: en-US
+
+This report relates to a message you sent with the following header fields:
+
+  Message-id: <170CB973-A398-4674-8523-87D8FECB9378@me.example.com>
+  Date: Fri, 21 Nov 2014 02:52:05 +0900
+  From: maybestraycats <shironeko@me.example.com>
+  To: kijitora@2jo.example.jp
+  Subject: Nyaaaaaaan
+
+Your message has been enqueued and undeliverable for 1 day
+to the following recipients:
+
+  Recipient address: kijitora@2jo.example.jp
+  Reason: unable to deliver this message after 1 day
+
+
+Delivery attempt history for your mail:
+
+Fri, 21 Nov 2014 19:17:37 +0000 (GMT)
+TCP active open: Failed connect() to TCP port 25 of 192.0.2.240    Error: Connection timed out
+
+Fri, 21 Nov 2014 11:14:26 +0000 (GMT)
+TCP active open: Failed connect() to TCP port 25 of 192.0.2.240    Error: Connection timed out
+
+Fri, 21 Nov 2014 07:11:15 +0000 (GMT)
+TCP active open: Failed connect() to TCP port 25 of 192.0.2.240    Error: Connection timed out
+
+Fri, 21 Nov 2014 03:08:04 +0000 (GMT)
+TCP active open: Failed connect() to TCP port 25 of 192.0.2.240    Error: Connection timed out
+
+Thu, 20 Nov 2014 23:04:53 +0000 (GMT)
+TCP active open: Failed connect() to TCP port 25 of 192.0.2.240    Error: Connection timed out
+
+Thu, 20 Nov 2014 21:01:42 +0000 (GMT)
+TCP active open: Failed connect() to TCP port 25 of 192.0.2.240    Error: Connection timed out
+
+Thu, 20 Nov 2014 18:58:31 +0000 (GMT)
+TCP active open: Failed connect() to TCP port 25 of 192.0.2.240    Error: Connection timed out
+
+Thu, 20 Nov 2014 17:55:20 +0000 (GMT)
+TCP active open: Failed connect() to TCP port 25 of 192.0.2.240    Error: Connection timed out
+
+The mail system will continue to try to deliver your message
+for an additional 3 days.
+
+
+--Boundary_(ID_EIVpI81MDZioRLqYayS7tQ)
+Content-type: message/delivery-status
+
+Original-envelope-id: 0NFC00L6QMYVMH50@mr21p30im-asmtp001.me.example.com
+Reporting-MTA: dns;mr21p30im-asmtp001.me.example.com (tcp-daemon)
+Arrival-date: Thu, 20 Nov 2014 17:52:09 +0000 (GMT)
+
+Original-recipient: rfc822;kijitora@2jo.example.jp
+Final-recipient: rfc822;kijitora@2jo.example.jp
+Action: delayed
+Status: 4.4.7 (unable to deliver this message after 1 day)
+
+--Boundary_(ID_EIVpI81MDZioRLqYayS7tQ)
+Content-type: text/plain
+
+Return-path: <shironeko@me.example.com>
+Received: from tcp-daemon.mr21p30im-asmtp001.me.example.com by
+ mr21p30im-asmtp001.me.example.com
+ (Oracle Communications Messaging Server 7.0.5.33.0 64bit (built Aug 27 2014))
+ id <0NFF00JPZ02E0Z00@mr21p30im-asmtp001.me.example.com>; Sat,
+ 22 Nov 2014 00:30:14 +0000 (GMT)
+Received: from [192.0.2.21] (c135.kyoto.example.ne.jp [192.0.2.240])
+ by mr21p30im-asmtp001.me.example.com
+ (Oracle Communications Messaging Server 7.0.5.33.0 64bit (built Aug 27 2014))
+ with ESMTPSA id <0NFC00L6OMYTMH50@mr21p30im-asmtp001.me.example.com> for
+ kijitora@2jo.example.jp; Thu, 20 Nov 2014 17:52:09 +0000 (GMT)
+Date: Fri, 21 Nov 2014 02:52:05 +0900
+From: Shironeko <shironeko@me.example.com>
+Subject: Nyaaaaaaan
+To: kijitora@2jo.example.jp
+Message-id: <170CB973-A398-4674-8523-87D8FECB9378@me.example.com>
+MIME-version: 1.0 (Mac OS X Mail 7.3 \(1878.6\))
+X-Mailer: Apple Mail (2.1878.6)
+Content-type: text/plain; charset=us-ascii
+Content-transfer-encoding: 7bit
+X-Proofpoint-Virus-Version: vendor=fsecure
+ engine=2.50.10432:5.13.68,1.0.28,0.0.0000
+ definitions=2014-11-20_08:2014-11-20,2014-11-20,1970-01-01 signatures=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ suspectscore=1 phishscore=0 adultscore=0 bulkscore=0 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=7.0.1-1408290000 definitions=main-1411200140
+
+Nyaaaan
+
+--Boundary_(ID_EIVpI81MDZioRLqYayS7tQ)--

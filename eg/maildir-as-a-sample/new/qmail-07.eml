@@ -1,0 +1,22 @@
+From MAILER-DAEMON Fri Jan 1 00:0:00 2015
+Return-Path: <>
+X-Original-To: shironeko@example.ad.jp
+Delivered-To: shironeko@example.ad.jp
+Received: from host (mta1)
+    by mta.example.jp (Postfix) with SMTP id F00000
+    for shironeko@example.ad.jp; Fri, 1 Jan 2015 00:00:00 +0900 (JST)
+Received: (qmail host invoked for bounce); 1 Jan 2015 00:00:00 +0900
+Date: 1 Jan 2015 00:00:00 +0900
+From: MAILER-DAEMON@example.jp
+To: shironeko@example.ad.jp
+Subject: failure notice
+
+Hi. This is the qmail-send program at MTA.
+I'm afraid I wasn't able to deliver your message to the following addresses.
+This is a permanent error; I've given up. Sorry it didn't work out.
+
+<kijitora@example.jp>:
+Sorry, I wasn't able to establish an SMTP connection. (#4.4.1)
+I'm not going to try again; this message has been in the queue too long.
+
+--- Below this line is a copy of the message.

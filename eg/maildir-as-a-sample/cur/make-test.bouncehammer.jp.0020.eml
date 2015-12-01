@@ -1,0 +1,67 @@
+Received: from as05.bis.ap.blackberry.com (mail.bis.ap.blackberry.com.247.9.216.in-addr.arpa [216.9.247.4] (may be forged))
+	by mail-676.smtp.example.ne.jp (8.14.3/8.14.3) with ESMTP id n3R88s6c008068
+	for <webmaster@example.ne.jp>; Mon, 27 Apr 2009 17:08:56 +0900 (JST)
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 mail-676.smtp.example.ne.jp n3R88s6c008068
+Authentication-Results: mail-676.smtp.example.ne.jp; sender-id=none header.from=MAILER-DAEMON@mail.bis.ap.blackberry.com
+Message-Id: <200904270808.n3R88s6c008068@mail-676.smtp.example.ne.jp>
+Received: from localhost by as05.bis.ap.blackberry.com;
+  27 Apr 2009 08:08:54 +0000
+Date: 27 Apr 2009 08:08:54 +0000
+To: webmaster@example.ne.jp
+From: "Mail Delivery System" <MAILER-DAEMON@mail.bis.ap.blackberry.com>
+Subject: Delivery Status Notification (Failure)
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status; boundary="6NX0j.4Q8JRUrE3.Hw1XJ.3jVjV+i"
+X-Virus-Scanned: ClamAV version 0.94.2, clamav-milter version 0.94.2 on 192.0.2.252
+X-Virus-Status: Clean
+
+--6NX0j.4Q8JRUrE3.Hw1XJ.3jVjV+i
+content-type: text/plain;
+    charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+The following message to <non-existent-blackberry-user-addr@docomo.blackber=
+ry.com> was undeliverable.
+The reason for the problem:
+5.1.0 - Unknown address error 550-'5.1.1 <non-existent-blackberry-user-addr=
+@docomo.blackberry.com>: Recipient address rejected: User unknown in virtua=
+l alias table'
+
+--6NX0j.4Q8JRUrE3.Hw1XJ.3jVjV+i
+content-type: message/delivery-status
+
+Reporting-MTA: dns; as05.bis.ap.blackberry.com
+
+Final-Recipient: rfc822;non-existent-blackberry-user-addr@docomo.blackberry.com
+Action: failed
+Status: 5.0.0 (permanent failure)
+Remote-MTA: dns; [172.22.192.16]
+Diagnostic-Code: smtp; 5.1.0 - Unknown address error 550-'5.1.1 <non-existent-blackberry-user-addr@docomo.blackberry.com>: Recipient address rejected: User unknown in virtual alias table' (delivery attempts: 0)
+
+--6NX0j.4Q8JRUrE3.Hw1XJ.3jVjV+i
+content-type: message/rfc822
+
+Received: from [192.0.2.31] ([192.0.2.31])
+	(authenticated bits=0)
+	by mail-676.smtp.example.ne.jp (8.14.3/8.14.3) with ESMTP id n3R88oVM007179
+	for <non-existent-blackberry-user-addr@docomo.blackberry.com>; Mon, 27 Apr 2009 17:08:50 +0900 (JST)
+Mime-Version: 1.0 (Apple Message framework v753.1)
+Content-Transfer-Encoding: 7bit
+Message-Id: <0637E472-E4E4-4871-A2C5-8A2C708EC57E@example.ne.jp>
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+To: non-existent-blackberry-user-addr@docomo.blackberry.com
+From: Webmaster <webmaster@example.ne.jp>
+Subject: TEST
+Date: Mon, 27 Apr 2009 17:08:53 +0900
+X-Mailer: Apple Mail (2.753.1)
+X-Virus-Scanned: ClamAV version 0.94.2, clamav-milter version 0.94.2 on 192.0.2.252
+X-Virus-Status: Clean
+
+test to a blackberry.
+
+
+--6NX0j.4Q8JRUrE3.Hw1XJ.3jVjV+i--
+
+
+
+

@@ -1,0 +1,25 @@
+Return-Path: <shironeko@example.com>
+Received: from haineko.example.jp (c135.kyoto.example.ne.jp. [192.0.2.135])
+    by mx.example.com with ESMTPSA id uj1sm5989012pac.21.2013.07.15.13.16.37
+    for <kijitora@example.jp>
+    (version=TLSv1 cipher=RC4-SHA bits=128/128);
+    Mon, 15 Jul 2013 13:16:38 -0700 (PDT)
+Received: from [127.0.0.1] ([127.0.0.1]) by haineko.example.jp with HTTP id
+    r6G5GZa04810SOeg; Tue, 16 Jul 2013 05:16:35 JST
+To: kijitora@example.jp
+Subject: =?UTF-8?B?44Gr44KD44KT44GT?=
+X-SMTP-Engine: Haineko 0.0.1
+X-Originating-IP: 127.0.0.1
+X-Mailer: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4
+    OpenSSL/0.9.8x zlib/1.2.5
+Reply-to: mikeneko@example.org
+X-HTTP-Referer: 
+Date: Mon, 15 Jul 2013 13:16:38 -0700 (PDT)
+Message-Id: <51e458a6.21eb420a.5f83.4ce2@mx.example.com>
+From: Kijitora <shironeko@example.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+
+にゃーーーーーーーーーーー
+

@@ -1,0 +1,87 @@
+Received: by 10.231.12.11 with SMTP id v11cs114356ibv;
+        Fri, 10 Dec 2010 09:07:13 -0800 (PST)
+Received: by 10.42.241.200 with SMTP id lf8mr692068icb.494.1292000832529;
+        Fri, 10 Dec 2010 09:07:12 -0800 (PST)
+Return-Path: <>
+Received: from mx.example.org (c182.example.net [192.0.2.128])
+        by mx.google.com with ESMTP id m4si4107937vcr.71.2010.12.10.09.07.08;
+        Fri, 10 Dec 2010 09:07:09 -0800 (PST)
+Received-SPF: neutral (google.com: 192.0.2.128 is neither permitted nor denied by best guess record for domain of mx.example.org) client-ip=192.0.2.128;
+Authentication-Results: mx.google.com; spf=neutral (google.com: 192.0.2.128 is neither permitted nor denied by best guess record for domain of mx.example.org) smtp.mail=
+Received: from localhost (localhost [127.0.0.1])
+  (ftp://ftp.isi.edu/in-notes/rfc1894.txt)
+  by 5jo.example.org with dsn; Sat, 11 Dec 2010 02:07:06 +0900
+  id 0F1BC0E0.4D025E3A.00001792
+From: postmaster@example.org
+To: shironeko@example.jp
+Subject: NOTICE: mail delivery status.
+Mime-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+    boundary="=_courier_0"
+Content-Transfer-Encoding: 7bit
+Message-ID: <courier.4D025E3A.00001792@5jo.example.org>
+Date: Sat, 11 Dec 2010 02:07:06 +0900
+
+This is a MIME-formatted message.  If you see this text it means that your
+E-mail software does not support MIME-formatted messages.
+
+--=_courier_0
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+
+
+This is a delivery status notification from 5jo.example.org,
+running the Courier mail server, version 0.65.2.
+
+The original message was received on Sat, 11 Dec 2010 02:07:06 +0900
+from mx.example.co.jp (c135.kyoto.example.ne.jp [192.0.2.135])
+
+---------------------------------------------------------------------------
+
+                           UNDELIVERABLE MAIL
+
+Your message to the following recipients cannot be delivered:
+
+<kijitora@example.cat>:
+<<< No such domain.
+
+---------------------------------------------------------------------------
+
+If your message was also sent to additional recipients, their delivery
+status is not included in this report.  You may or may not receive
+other delivery status notifications for additional recipients.
+
+The original message follows as a separate attachment.
+
+
+--=_courier_0
+Content-Type: message/delivery-status
+Content-Transfer-Encoding: 7bit
+
+Reporting-MTA: dns; 5jo.example.org
+Arrival-Date: Sat, 11 Dec 2010 02:07:06 +0900
+Received-From-MTA: dns; mx.example.co.jp (c135.kyoto.example.ne.jp [192.0.2.135])
+
+Final-Recipient: rfc822; kijitora@example.cat
+Action: failed
+Status: 5.0.0
+Diagnostic-Code: unknown; No such domain.
+
+--=_courier_0
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 7bit
+
+Received: from mx.example.co.jp (c135.kyoto.example.ne.jp [192.0.2.135])
+  by 5jo.example.org with ESMTP; Sat, 11 Dec 2010 02:07:06 +0900
+  id 0F1BC0DD.4D025E3A.00001786
+Received: from [127.0.0.1] (localhost.example.co.jp [127.0.0.1])
+	by mx.example.co.jp (8.14.4/8.14.4) with SMTP id oBAH5rXu026630
+	for <kijitora@example.org>; Sat, 11 Dec 2010 02:06:30 +0900 (JST)
+Date: Sat, 11 Dec 2010 02:05:53 +0900 (JST)
+From: shironeko@example.jp
+Message-Id: <201012101706.oBAH5rXu026630@mx.example.co.jp>
+Subject: test
+To: undisclosed-recipients: ;
+
+
+--=_courier_0--

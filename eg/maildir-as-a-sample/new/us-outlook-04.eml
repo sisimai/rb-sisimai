@@ -1,0 +1,79 @@
+x-store-info:D6taffyBScEUZsL+ZXbbDoZx0yi5SZys1eYEToP0rSM/bCVLqYrYYCvSWjNvmELua9FHP+r2G/qC3lXTKg5U/5j7HMg9GTuqcV6lHbw5fgUocJxvj1i8PLlMqIGjqOxM80Nep68NNIw=
+Authentication-Results: o.example.com; spf=none (sender IP is 65.55.116.95; identity alignment result is pass and alignment mode is relaxed) smtp.helo=BLU004-OMC3S20.o.example.com; dkim=none (identity alignment result is pass and alignment mode is relaxed) header.d=mail.o.example.com; x-hmca=none header.id=postmaster@mail.o.example.com
+X-SID-PRA: postmaster@mail.o.example.com
+X-AUTH-Result: NONE
+X-SID-Result: NONE
+X-Message-Delivery: Vj0xLjE7RD0wO0dEPTA7U0NMPTk7bD0xO3VzPTE=
+X-Message-Info: AuEzbeVr9u5fkDpn2vR5iCu5wb6HBeY4iruBjnutBzpStnUabbM/X3OHG1tkHI7a3kMiU15mwZkdItk0fkPUd26iJME4hbgAI/g6pso0Zyh7O0XVOq5g8hCf8Efy9J5lKkdwprP9EhP7RM0PyiUzXHkNE5r5dNzX
+Received: from BLU004-OMC3S20.o.example.com ([65.55.116.95]) by COL004-MC4F26.o.example.com over TLS secured channel with Microsoft SMTPSVC(7.5.7601.22751);
+	 Fri, 21 Nov 2014 14:24:52 -0800
+From: postmaster@mail.o.example.com
+To: shironeko@o.example.com
+Date: Fri, 21 Nov 2014 14:24:36 -0800
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="9B095B5ADSN=_01D00055350EF16E0005FAABBLU004?OMC3S20.h"
+X-DSNContext: 7ce717b1 - 1196 - 00000002 - 00000000
+Message-ID: <Z4xo1MfFN0000cf93@BLU004-OMC3S20.o.example.com>
+Subject: Delivery Status Notification (Failure)
+Return-Path: <>
+X-OriginalArrivalTime: 21 Nov 2014 22:24:52.0596 (UTC) FILETIME=[F852C340:01D005D9]
+
+This is a MIME-formatted message.  
+Portions of this message may be unreadable without a MIME-capable mail program.
+
+--9B095B5ADSN=_01D00055350EF16E0005FAABBLU004?OMC3S20.h
+Content-Type: text/plain; charset=unicode-1-1-utf-7
+
+This is an automatically generated Delivery Status Notification.
+
+Delivery to the following recipients failed.
+
+       sabineko@example.co.jp
+       mikeneko@example.co.jp
+
+
+
+
+--9B095B5ADSN=_01D00055350EF16E0005FAABBLU004?OMC3S20.h
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns;BLU004-OMC3S20.o.example.com
+Received-From-MTA: dns;BLU436-SMTP69
+Arrival-Date: Fri, 21 Nov 2014 14:24:35 -0800
+
+Final-Recipient: rfc822;sabineko@example.co.jp
+Action: failed
+Status: 5.1.1
+Diagnostic-Code: smtp;550 5.1.1 <sabineko@example.co.jp>... User Unknown
+
+Final-Recipient: rfc822;mikeneko@example.co.jp
+Action: failed
+Status: 5.2.2
+Diagnostic-Code: smtp;550 5.2.2 <mikeneko@example.co.jp>... Mailbox Full
+
+--9B095B5ADSN=_01D00055350EF16E0005FAABBLU004?OMC3S20.h
+Content-Type: message/rfc822
+
+Received: from BLU436-SMTP69 ([65.55.116.74]) by BLU004-OMC3S20.o.example.com over TLS secured channel with Microsoft SMTPSVC(7.5.7601.22751);
+	 Fri, 21 Nov 2014 14:24:35 -0800
+X-TMN: [oH1G/6zXyVMAvS7zD2GWcRzEacA0QkU5]
+X-Originating-Email: [shironeko@o.example.com]
+Message-ID: <BLU436-SMTP695D62048105F50EF3A1B8BA770@phx.gbl>
+Return-Path: shironeko@o.example.com
+From: "Shironeko, Nyanko" <shironeko@o.example.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Date: Sat, 22 Nov 2014 07:24:29 +0900
+To: sabineko@example.co.jp,
+ mikeneko@example.co.jp
+MIME-Version: 1.0 (Mac OS X Mail 7.3 \(1878.6\))
+X-Mailer: Apple Mail (2.1878.6)
+X-OriginalArrivalTime: 21 Nov 2014 22:24:34.0505 (UTC) FILETIME=[ED8A4B90:01D005D9]
+Subject: Nyaaaaaa
+
+Nyaaaaaaa
+
+
+--9B095B5ADSN=_01D00055350EF16E0005FAABBLU004?OMC3S20.h--
+

@@ -1,0 +1,56 @@
+Delivered-To: this-local-part-does-not-exist-on-google-mail@gmail.com
+Received: by 10.231.195.34 with SMTP id ea34cs162068ibb;
+    Thu, 17 Jun 2010 11:07:52 -0700 (PDT)
+Received: by 10.140.58.5 with SMTP id g5mr8593556rva.157.1276798071819;
+    Thu, 17 Jun 2010 11:07:51 -0700 (PDT)
+MIME-Version: 1.0
+Return-Path: <>
+Received: by 10.140.58.5 with SMTP id g5mr11395807rva.157; Thu, 17 Jun 2010 
+    11:07:51 -0700 (PDT)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+To: this-local-part-does-not-exist-on-google-mail@gmail.com
+Subject: Delivery Status Notification (Delay)
+Message-ID: <001636b2ad2a854c6b04893db72b@google.com>
+Date: Thu, 17 Jun 2010 18:07:51 +0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+This is an automatically generated Delivery Status Notification
+
+THIS IS A WARNING MESSAGE ONLY.
+
+YOU DO NOT NEED TO RESEND YOUR MESSAGE.
+
+Delivery to the following recipient has been delayed:
+
+     kijitora@example.jp
+
+Message will be retried for 2 more day(s)
+
+Technical details of temporary failure:=20
+Google tried to deliver your message, but it was rejected by the recipient =
+domain. We recommend contacting the other email provider for further inform=
+ation about the cause of this error. The error that the other server return=
+ed was: 450 450 4.2.2 <kijitora@example.jp>... Mailbox Full (state 14)=
+.
+
+----- Original message -----
+
+Received: by 10.140.58.5 with SMTP id g5mr7256001rva.157.1276706619294;
+    Wed, 16 Jun 2010 09:43:39 -0700 (PDT)
+Return-Path: <this-local-part-does-not-exist-on-google-mail@gmail.com>
+Received: from [192.168.0.3] (c982.c3.example.ne.jp [192.0.2.138])
+    by mx.google.com with ESMTPS id o38sm7145512rvp.14.2010.06.16.09.43.36
+        (version=3DTLSv1/SSLv3 cipher=3DRC4-MD5);
+        Wed, 16 Jun 2010 09:43:37 -0700 (PDT)
+Message-Id: <A4D6026C-0699-460F-9F86-C2A5CB4BE6CE@gmail.com>
+From: this-local-part-does-not-exist-on-google-mail <this-local-part-does-not-exist-on-google-mail@gmail.com>
+To: kijitora@example.jp
+Content-Type: text/plain; charset=3DUS-ASCII; format=3Dflowed
+Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Apple Message framework v936)
+Subject: TEST 3
+Date: Thu, 17 Jun 2010 01:43:33 +0900
+X-Mailer: Apple Mail (2.936)
+
+test

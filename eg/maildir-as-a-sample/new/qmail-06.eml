@@ -1,0 +1,39 @@
+X-Apparently-To: shironeko@example.co.jp via 192.0.2.59; Thu, 01 Apr 2010 23:59:45 +0900
+X-Originating-IP: [192.0.2.68]
+Received: from 192.0.2.68  (HELO smtp05.relay-4.example.co.jp) (192.0.2.68)
+  by mx317.relay-9.example.co.jp with SMTP; Thu, 01 Apr 2010 23:59:45 +0900
+Received: (qmail 10000 invoked for bounce); 1 Apr 2010 14:59:45 -0000
+Date: 1 Apr 2010 14:59:45 -0000
+From: MAILER-DAEMON@example.co.jp
+To: shironeko@example.co.jp
+Subject: failure notice
+
+Hi. This is the qmail-send program at example.co.jp.
+I'm afraid I wasn't able to deliver your message to the following addresses.
+This is a permanent error; I've given up. Sorry it didn't work out.
+
+<kijitora@example.jp>:
+192.0.2.135 does not like recipient.
+Remote host said: 450 4.2.2 <kijitora@example.jp>... Mailbox Full
+Giving up on 192.0.2.135.
+I'm not going to try again; this message has been in the queue too long.
+
+--- Below this line is a copy of the message.
+
+Return-Path: <shironeko@example.co.jp>
+Received: (qmail 10000 invoked by alias); 31 Mar 2010 13:59:43 -0000
+Received: from unknown (HELO ?192.0.2.129?) (shironeko@192.0.2.199 with plain)
+  by smtp05.relay-4.example.co.jp with SMTP; 31 Mar 2010 13:59:43 -0000
+X-Apparently-From: <shironeko@example.co.jp>
+Message-Id: <57D03121-12F7-4801-B30F-9E44B15E56DC@example.co.jp>
+From: Shironeko <shironeko@example.co.jp>
+To: kijitora@example.jp
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Apple Message framework v936)
+Subject: Nyaaan
+Date: Wed, 31 Mar 2010 22:59:43 +0900
+X-Mailer: Apple Mail (2.936)
+
+Nyaan
+

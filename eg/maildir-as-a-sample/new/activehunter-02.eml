@@ -1,0 +1,53 @@
+Return-Path: <>
+X-Original-To: shironeko@example.or.jp
+Delivered-To: shironeko@example.or.jp
+Received: from mx4.example.ed.jp (ah4.example.ed.jp [192.0.2.7])
+    by mx.example.or.jp (Postfix) with SMTP id 0000000000
+    for <shironeko@example.or.jp>; Thu, 29 Apr 2011 23:34:45 +0900 (JST)
+From: "MAILER-DAEMON" <MAILER-DAEMON@example.ed.jp>
+To: <shironeko@example.or.jp>
+Subject: FAILURE NOTICE : Nyaan
+Date: Thu, 29 Apr 2011 23:34:45 +0900
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="----=_Active!Hunter_20110429T233445+0900-00000-0000"
+X-AHMAILID: 20110429T233445+0900-00000-0000-ff
+
+This is a MIME-encapsulated message
+
+------=_Active!Hunter_20110429T233445+0900-00000-0000
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+
+The original message was received at Thu, 29 Apr 2011 23:34:45 +0900
+from example.or.jp
+
+  ----- The following addresses had permanent fatal errors -----
+
+>>> kijitora@example.ed.jp <kijitora@example.ed.jp>
+
+  ----- Transcript of session follows -----
+550 <kijitora@example.ed.jp>: Recipient address rejected: User unknown in local recipient table
+
+
+
+
+------=_Active!Hunter_20110429T233445+0900-00000-0000
+Content-type: message/rfc822
+
+Received: from mx1.example.ed.jp ([192.0.2.9]) 
+    (envelope sender: <shironeko@example.or.jp>) by mx4.example.ed.jp
+    with Active!Hunter esmtp server; Thu, 29 Apr 2011 23:34:45 +0900
+Received: from a1.example.ed.jp (192.0.2.78) by 0 with SMTP; 
+    29 Apr 2011 23:34:45 -0000
+Message-ID: <0000000000.0000000000000@x2.example.ed.jp>
+Date: Thu, 29 Apr 2011 23:34:45 +0900 (JST)
+To: kijitora@example.ed.jp
+Subject: Nyaan
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ISO-2022-JP
+Content-Transfer-Encoding: 7bit
+From: Shironeko <shironeko@example.or.jp>
+
+Nyaaaaaaan
+

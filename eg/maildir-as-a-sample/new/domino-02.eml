@@ -1,0 +1,83 @@
+Return-Path: <MAILER-DAEMON@mail9.example.ne.jp>
+Received: from relay.example.net (gw.example.net [192.0.2.1]) by 
+    mail9.example.ne.jp with ESMTP id 00000000000000 for <kijitora@example.jp>; Thu, 8 Jul 2012 00:00:00 +0900 (JST)
+Received: from mx0.smtp.example.net (mx0.in.example.net [192.0.2.4])
+	by relay03.in.example.net (Postfix) with ESMTP id 00000000000
+	for <kijitora@example.jp>; Thu,  8 Jul 2012 00:00:00 +0900 (JST)
+Received: from mail2.example.co.jp (mail2.example.co.jp [192.0.2.127])
+	by mx0.smtp.example.net (Postfix) with ESMTP id 00000000000
+	for <kijitora@example.org>; Thu,  8 Jul 2012 00:00:00 +0900 (JST)
+Received: from mail2.example.co.jp (localhost [127.0.0.1])
+	by localhost.example.co.jp (Postfix) with ESMTP id 000000000
+	for <kijitora@example.org>; Thu,  8 Jul 2012 00:00:00 +0900 (JST)
+Received: from mailgw.example.co.jp (mx [192.0.2.98])
+	by mail2.example.co.jp (Postfix) with ESMTP id 000000000
+	for <kijitora@example.org>; Thu,  8 Jul 2012 00:00:00 +0900 (JST)
+From: Postmaster@example.co.jp
+To: "Neko" <kijitora@example.org>
+Subject: DELIVERY FAILURE: 
+ ユーザー Neko (kijitora@example.co.jp) は Domino ディレクトリには見つかりません。
+Date: Thu, 08 Jul 2012 00:03:54 +0800
+MIME-Version: 1.0
+X-Priority: 3 (Normal)
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook Express 6.00.2900.3028
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.3028
+Message-ID: <0000000000.00000000-0000000000.00000000-00000000.00000000@example.co.jp>
+Content-Type: multipart/report; report-type=delivery-status; boundary="==0000000000000000000000"
+
+--==0000000000000000000000
+Content-Type: text/plain; charset=ISO-2022-JP
+Content-Transfer-Encoding: 7bit
+
+Your message
+
+  Subject: Nyaaaaaaaaan
+
+was not delivered to:
+
+  kijitora@example.co.jp
+
+because:
+
+  ユーザー Neko (kijitora@example.co.jp) は Domino ディレクトリには見つかりません。
+
+
+--==0000000000000000000000
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns;mx.example.co.jp
+
+Final-Recipient: rfc822;kijitora@example.co.jp
+Action: failed
+Status: 5.0.0
+Diagnostic-Code: X-Notes; ユーザー ka (kijitora@example.co.jp) は Domino ディレクトリ
+ には見つかりません。
+ 
+--==0000000000000000000000
+Content-Type: message/rfc822
+
+Received: from mail2.example.co.jp ([192.0.2.8])
+          by mx.example.co.jp (Lotus Domino Release 7.0.1)
+          with ESMTP id 2012070800000000-000000 ;
+          Thu, 8 Jul 2012 00:00:00 +0900 
+Received: from mail2.example.co.jp (localhost [127.0.0.1])
+	by localhost.example.co.jp (Postfix) with ESMTP id 000000000
+	for <kijitora@example.co.jp>; Thu,  8 Jul 2012 00:00:00 +0900 (JST)
+Received: from mx.g1.example.com (unknown [192.0.2.2])
+	by mail2.example.co.jp (Postfix) with ESMTP id 000000000
+	for <kijitora@example.co.jp>; Thu,  8 Jul 2012 00:00:00 +0900 (JST)
+Received: from nyanko ([192.0.2.13])
+	by mx.g1.example.com (8.13.4/8.13.4) with SMTP id 0000000000000000000000000
+	for <kijitora@example.co.jp>; Sat, 07 Jul 2012 00:00:00 -0300 (CDT)
+	(envelope-from kijitora@example.org)
+To: <kijitora@example.co.jp>
+Subject: Nyaaaaaaaaaaan
+Date: Thu, 08 Jul 2012 00:00:00 +0800
+MIME-Version: 1.0
+Message-ID: <0000000000.00000000-0000000000.00000000-00000000.00000000@example.co.jp>
+Content-Type: text/plain;
+From: "Neko" <kijitora@example.org>
+
+Nyaa
+

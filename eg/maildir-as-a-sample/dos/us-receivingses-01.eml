@@ -1,0 +1,74 @@
+Return-Path: <>
+Received: from a27-7.smtp-out.us-west-2.amazonses.com (a27-7.smtp-out.us-west-2.amazonses.com [54.240.27.7])
+	by nyaan.example.co.jp (V8/cf) with ESMTP id t91DmwSR004448
+	for <shironeko@example.co.jp>; Thu, 1 Oct 2015 22:48:59 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 nyaan.example.co.jp t91DmwSR004448
+Authentication-Results: nyaan.example.co.jp; sender-id=none header.from=postmaster@neko.example.jp
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=7v7vs6w47njt4pimodk5mmttbegzsi6n; d=amazonses.com; t=1443707338;
+	h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type:Feedback-ID;
+	bh=roLoAT9MkFBLeTM7VSyVvNfTSXwV9vWdNiz6lMneggk=;
+	b=U3ppxKmrv4cvv78BNw7HO0sn0lpjPZKlTtyamrLRRPffmQsHdLGZ/jOVFevOnzOA
+	0V1Xds4LTBT8UD6V7wMHlJaZbQYwt3YDT3YuX3mt3Js3IR7kjQnrYJ7yfDWMIvWc41e
+	zbqH4fpWPYMa3OE77gdNpDvTAhF/lK5P4fkSEaz4=
+Date: Thu, 1 Oct 2015 13:48:58 +0000
+From: postmaster@neko.example.jp
+To: shironeko@example.co.jp
+Message-ID: <0000015023a9bde3-50e76a13-a681-4aff-9ef3-63360127adc0-000000@us-west-2.amazonses.com>
+Subject: Delivery Status Notification (Failure)
+MIME-Version: 1.0
+Content-Type: multipart/report; 
+	boundary="----=_Part_0_1984813963.1443707337938"; 
+	report-type=delivery-status
+X-SES-Outgoing: 2015.10.01-54.240.27.7
+Feedback-ID: 1.us-west-2.HX6/J9OVlHTadQhEu1+wdF9DBj6n6Pa9sW5Y/0pSOi8=:AmazonSES
+
+------=_Part_0_1984813963.1443707337938
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Description: Notification
+
+This message could not be delivered.
+------=_Part_0_1984813963.1443707337938
+Content-Type: message/delivery-status
+Content-Transfer-Encoding: 7bit
+Content-Description: Delivery Status Notification
+
+Reporting-MTA: dns; inbound-smtp.us-west-2.amazonaws.com
+Arrival-Date: Thu, 01 Oct 15 13:48:54 UTC
+
+Action: failed
+Final-Recipient: rfc822; userunknown@neko.example.jp
+Original-Recipient: rfc822; userunknown@neko.example.jp
+Diagnostic-Code: smtp; 550 5.1.1 Mailbox does not exist
+Status: 5.1.1
+
+
+------=_Part_0_1984813963.1443707337938
+Content-Type: text/rfc822-headers
+Content-Transfer-Encoding: 7bit
+Content-Description: Undelivered Message
+
+Return-Path: <shironeko@example.co.jp>
+Received: from nyaan.example.co.jp (nyaan.example.co.jp [192.0.2.22])
+ by inbound-smtp.us-west-2.amazonaws.com with SMTP id m8udbiboi34u53ubdet5bhftamqdgt0mmr8k4v01
+ for userunknown@neko.example.jp;
+ Thu, 01 Oct 2015 13:48:54 +0000 (UTC)
+Received: from [192.0.2.43] (c-2252.kyoto.example.ne.jp [192.0.2.78])
+ (authenticated bits=0)
+ by nyaan.example.co.jp (V8/cf) with ESMTP id t91DmqSR004439
+ for <userunknown@neko.example.jp>; Thu, 1 Oct 2015 22:48:53 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 nyaan.example.co.jp t91DmqSR004439
+Authentication-Results: nyaan.example.co.jp; sender-id=pass header.from=shironeko@example.co.jp; auth=pass (CRAM-MD5); spf=pass smtp.mfrom=shironeko@example.co.jp
+From: "Shironeko, Nyaaan" <shironeko@example.co.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Subject: Nyaaaaaaan
+Message-Id: <DCB08CC1-D236-48E2-9A8D-2492DACE50E2@example.co.jp>
+Date: Thu, 1 Oct 2015 22:48:49 +0900
+To: userunknown@neko.example.jp
+Mime-Version: 1.0 (Mac OS X Mail 7.3 \(1878.6\))
+X-Mailer: Apple Mail (2.1878.6)
+
+
+------=_Part_0_1984813963.1443707337938--

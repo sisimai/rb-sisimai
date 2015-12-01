@@ -1,0 +1,69 @@
+Received: from localhost (localhost)
+	by mail.example.ed.jp (8.14.3/8.14.3) id n3R8kZiq009858;
+	Mon, 27 Apr 2009 17:46:35 +0900 (JST)
+Date: Mon, 27 Apr 2009 17:46:35 +0900 (JST)
+From: Mail Delivery Subsystem <MAILER-DAEMON>
+Message-Id: <200904270846.n3R8kZiq009858@mail.example.ed.jp>
+To: <teacher@example.ed.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="n3R8kZiq009858.1240821995/mail.example.ed.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--n3R8kZiq009858.1240821995/mail.example.ed.jp
+
+The original message was received at Mon, 27 Apr 2009 17:46:34 +0900 (JST)
+from [192.0.2.31]
+
+   ----- The following addresses had permanent fatal errors -----
+<this-user-does-not-exist-on-the-server@k.vodafone.ne.jp>
+    (reason: 550 Invalid recipient: <this-user-does-not-exist-on-the-server@k.vodafone.ne.jp>)
+
+   ----- Transcript of session follows -----
+... while talking to mx.k.vodafone.ne.jp.:
+>>> DATA
+<<< 550 Invalid recipient: <this-user-does-not-exist-on-the-server@k.vodafone.ne.jp>
+550 5.1.1 <this-user-does-not-exist-on-the-server@k.vodafone.ne.jp>... User unknown
+<<< 503 No recipients specified
+
+--n3R8kZiq009858.1240821995/mail.example.ed.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mail.example.ed.jp
+Received-From-MTA: DNS; [192.0.2.31]
+Arrival-Date: Mon, 27 Apr 2009 17:46:34 +0900 (JST)
+
+Final-Recipient: RFC822; this-user-does-not-exist-on-the-server@k.vodafone.ne.jp
+Action: failed
+Status: 5.1.1
+Remote-MTA: DNS; mx.k.vodafone.ne.jp
+Diagnostic-Code: SMTP; 550 Invalid recipient: <this-user-does-not-exist-on-the-server@k.vodafone.ne.jp>
+Last-Attempt-Date: Mon, 27 Apr 2009 17:46:35 +0900 (JST)
+
+--n3R8kZiq009858.1240821995/mail.example.ed.jp
+Content-Type: text/rfc822-headers
+
+Return-Path: <teacher@example.ed.jp>
+Received: from [192.0.2.31] ([192.0.2.31])
+	(authenticated bits=0)
+	by mx.example.ed.jp (8.14.3/8.14.3) with ESMTP id n3R8kXiq006111
+	for <this-user-does-not-exist-on-the-server@k.vodafone.ne.jp>; Mon, 27 Apr 2009 17:46:34 +0900 (JST)
+Mime-Version: 1.0 (Apple Message framework v753.1)
+Content-Transfer-Encoding: 7bit
+Message-Id: <EAA08CBD-1601-4E40-9ED4-A882113E5BBE@example.ed.jp>
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+To: this-user-does-not-exist-on-the-server@k.vodafone.ne.jp
+From: "teacher, the great" <teacher@example.ed.jp>
+Subject: TEST 
+Date: Mon, 27 Apr 2009 17:46:36 +0900
+X-Mailer: Apple Mail (2.753.1)
+X-Virus-Scanned: ClamAV version 0.94.2, clamav-milter version 0.94.2 on 192.0.2.252
+X-Virus-Status: Clean
+
+--n3R8kZiq009858.1240821995/mail.example.ed.jp--
+
+
+

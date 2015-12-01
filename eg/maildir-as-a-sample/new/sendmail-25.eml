@@ -1,0 +1,70 @@
+Return-Path: <MAILER-DAEMON@aneyakoji.example.jp>
+Received: from localhost (localhost)
+	by aneyakoji.example.jp (V8/cf) id t5EKkFJv020295;
+	Mon, 15 Jun 2015 05:46:15 +0900
+Date: Mon, 15 Jun 2015 05:46:15 +0900
+From: Mail Delivery Subsystem <poostmaster@example.jp>
+Message-Id: <201506142046.t5EKkFJv020295@aneyakoji.example.jp>
+To: <kijitora@example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="t5EKkFJv020295.1434314775/aneyakoji.example.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--t5EKkFJv020295.1434314775/aneyakoji.example.jp
+
+The original message was received at Mon, 15 Jun 2015 05:46:14 +0900
+from p0120-fxp0002kyoto.kyoto.example.ne.jp [192.0.2.222]
+
+   ----- The following addresses had permanent fatal errors -----
+<=?utf-8?B?8J+QiPCfkIg=?=@example.org>
+    (reason: 550 5.1.1 <=?utf-8?B?8J+QiPCfkIg=?=@example.org>... User unknown)
+
+   ----- Transcript of session follows -----
+... while talking to mx.example.org.:
+>>> DATA
+<<< 550 5.1.1 <=?utf-8?B?8J+QiPCfkIg=?=@example.org>... User unknown
+550 5.1.1 <=?utf-8?B?8J+QiPCfkIg=?=@example.org>... User unknown
+<<< 503 5.0.0 Need RCPT (recipient)
+
+--t5EKkFJv020295.1434314775/aneyakoji.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; aneyakoji.example.jp
+Received-From-MTA: DNS; p0120-fxp0002kyoto.kyoto.example.ne.jp
+Arrival-Date: Mon, 15 Jun 2015 05:46:14 +0900
+
+Final-Recipient: RFC822; =?utf-8?B?8J+QiPCfkIg=?=@example.org
+Action: failed
+Status: 5.1.1
+Remote-MTA: DNS; mx.example.org
+Diagnostic-Code: SMTP; 550 5.1.1 <=?utf-8?B?8J+QiPCfkIg=?=@example.org>... User unknown
+Last-Attempt-Date: Mon, 15 Jun 2015 05:46:14 +0900
+
+--t5EKkFJv020295.1434314775/aneyakoji.example.jp
+Content-Type: message/rfc822
+
+Return-Path: <kijitora@example.jp>
+Received: from [10.64.19.206] (p0120-fxp0002kyoto.kyoto.example.ne.jp [192.0.2.222])
+	(authenticated bits=0)
+	by aneyakoji.example.jp (V8/cf) with ESMTP id t5EKjXJw020258
+	for <=?utf-8?B?8J+QiPCfkIg=?=@example.org>; Mon, 15 Jun 2015 05:46:14 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 aneyakoji.example.jp t5EKjXJw020258
+Authentication-Results: aneyakoji.example.jp; sender-id=pass header.from=kijitora@example.jp; auth=pass (CRAM-MD5); spf=pass smtp.mfrom=kijitora@example.jp
+From: "kijitora, kuniyuki" <kijitora@example.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?Q?test_for_bounce=28=F0=9F=90=88=F0=9F=90=88=29?=
+Message-Id: <D69C17C3-6073-4B65-BD2C-52F3AE169C0F@example.jp>
+Date: Mon, 15 Jun 2015 05:46:13 +0900
+To: =?utf-8?B?8J+QiPCfkIg=?=@example.org
+Mime-Version: 1.0 (Mac OS X Mail 7.3 \(1878.6\))
+X-Mailer: Apple Mail (2.1878.6)
+
+Nyaaan
+
+--t5EKkFJv020295.1434314775/aneyakoji.example.jp--
+

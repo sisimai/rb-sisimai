@@ -1,0 +1,71 @@
+Return-Path: <MAILER-DAEMON@nekochan.example.co.jp>
+Received: from localhost (localhost)
+	by nekochan.example.co.jp (V8/cf) id t91JdvZJ007206;
+	Fri, 2 Oct 2015 04:39:57 +0900
+Date: Fri, 2 Oct 2015 04:39:57 +0900
+From: Mail Delivery Subsystem <poostmaster@example.co.jp>
+Message-Id: <201510011939.t91JdvZJ007206@nekochan.example.co.jp>
+To: <shironeko@example.co.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="t91JdvZJ007206.1443728397/nekochan.example.co.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--t91JdvZJ007206.1443728397/nekochan.example.co.jp
+
+The original message was received at Fri, 2 Oct 2015 04:39:57 +0900
+from c2254.kyoto.example.ne.jp [192.0.2.222]
+
+   ----- The following addresses had permanent fatal errors -----
+<mailboxfull@neko.example.org>
+    (reason: 550 5.7.1 IP address blacklisted by recipient)
+
+   ----- Transcript of session follows -----
+... while talking to inbound-smtp.us-west-2.amazonaws.com.:
+>>> RCPT To:<mailboxfull@neko.example.org>
+<<< 550 5.7.1 IP address blacklisted by recipient
+550 5.1.1 <mailboxfull@neko.example.org>... User unknown
+>>> DATA
+<<< 503 Error: need RCPT command
+
+--t91JdvZJ007206.1443728397/nekochan.example.co.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; nekochan.example.co.jp
+Received-From-MTA: DNS; c2254.kyoto.example.ne.jp
+Arrival-Date: Fri, 2 Oct 2015 04:39:57 +0900
+
+Final-Recipient: RFC822; mailboxfull@neko.example.org
+Action: failed
+Status: 5.1.1
+Remote-MTA: DNS; inbound-smtp.us-west-2.amazonaws.com
+Diagnostic-Code: SMTP; 550 5.7.1 IP address blacklisted by recipient
+Last-Attempt-Date: Fri, 2 Oct 2015 04:39:57 +0900
+
+--t91JdvZJ007206.1443728397/nekochan.example.co.jp
+Content-Type: message/rfc822
+
+Return-Path: <shironeko@example.co.jp>
+Received: from [192.0.2.54] (c2254.kyoto.example.ne.jp [192.0.2.222])
+	(authenticated bits=0)
+	by nekochan.example.co.jp (V8/cf) with ESMTP id t91JduZJ007197
+	for <mailboxfull@neko.example.org>; Fri, 2 Oct 2015 04:39:57 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 nekochan.example.co.jp t91JduZJ007197
+Authentication-Results: nekochan.example.co.jp; sender-id=pass header.from=shironeko@example.co.jp; auth=pass (CRAM-MD5); spf=pass smtp.mfrom=shironeko@example.co.jp
+From: "Shironeko, Nyanko" <shironeko@example.co.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Subject: Nyaaan
+Message-Id: <2692944D-AC25-449C-A645-16567FFF9158@example.co.jp>
+Date: Fri, 2 Oct 2015 04:39:55 +0900
+To: mailboxfull@neko.example.org
+Mime-Version: 1.0 (Mac OS X Mail 7.3 \(1878.6\))
+X-Mailer: Apple Mail (2.1878.6)
+
+nyaaan
+
+--t91JdvZJ007206.1443728397/nekochan.example.co.jp--
+

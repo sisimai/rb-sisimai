@@ -1,0 +1,113 @@
+Received: from mxback2h.mail.yandex.net ([127.0.0.1])
+	by mxback2h.mail.yandex.net with LMTP id OZ2agPR2
+	for <shironeko@yandex.example.com>; Sat, 6 Dec 2014 20:24:35 +0300
+Received: from forward1h.mail.yandex.net (forward1h.mail.yandex.net [84.201.187.146])
+	by mxback2h.mail.yandex.net (nwsmtp/Yandex) with ESMTP id WkOZmTEans-OZMCH1wn;
+	Sat,  6 Dec 2014 20:24:35 +0300
+X-Yandex-Front: mxback2h.mail.yandex.net
+X-Yandex-TimeMark: 1417886675
+X-Yandex-Uniq: 0768ab8c-b595-4b83-96ef-bcf1dc06c94a
+X-Yandex-Spam: 1
+Received: by forward1h.mail.yandex.net (Yandex)
+	id 925BE9E1F3B; Sat,  6 Dec 2014 20:24:34 +0300 (MSK)
+Date: Sat,  6 Dec 2014 20:24:34 +0300 (MSK)
+From: mailer-daemon@yandex.ru
+Subject: =?UTF-8?B?0J3QtdC00L7RgdGC0LDQstC70LXQvdC90L7QtSDRgdC+0L7QsdGJ0LXQvdC40LU=?=
+To: shironeko@yandex.example.com
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="D08769E1045.1417886674/forward1h.mail.yandex.net"
+Message-Id: <20141206172434.925BE9E1F3B@forward1h.mail.yandex.net>
+Return-Path: <>
+X-Yandex-Forward: 10104c00ad0726da5f37374723b1e0c8
+
+This is a MIME-encapsulated message.
+
+--D08769E1045.1417886674/forward1h.mail.yandex.net
+Content-Description: Notification
+Content-Type: text/plain; charset=utf-8
+
+              **********
+
+Это письмо отправлено почтовым сервером yandex.ru.
+
+К сожалению, мы вынуждены сообщить Вам о том, что Ваше письмо не может
+быть отправлено одному или нескольким адресатам. Причины указаны ниже.
+
+Пожалуйста, не отвечайте на это сообщение. 
+
+              **********
+
+This is the mail system at host yandex.ru.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+Please, do not reply to this message.
+
+
+<mikeneko@example.jp>: host mx.example.jp[192.0.2.153] said: 550 5.2.1
+    <mikeneko@example.jp>... User Unknown (in reply to RCPT TO command)
+
+<sabineko@example.jp>: host mx.example.jp[192.0.2.153] said: 550
+    5.2.2 <sabineko@example.jp>... Mailbox Full (in reply to RCPT TO
+    command)
+
+--D08769E1045.1417886674/forward1h.mail.yandex.net
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; forward1h.mail.yandex.net
+X-Yandex-Queue-ID: D08769E1045
+X-Yandex-Sender: rfc822; shironeko@yandex.example.com
+Arrival-Date: Sat,  6 Dec 2014 20:24:30 +0300 (MSK)
+
+Final-Recipient: rfc822; mikeneko@example.jp
+Original-Recipient: rfc822;mikeneko@example.jp
+Action: failed
+Status: 5.2.1
+Remote-MTA: dns; mx.example.jp
+Diagnostic-Code: smtp; 550 5.2.1 <mikeneko@example.jp>... User Unknown
+
+Final-Recipient: rfc822; sabineko@example.jp
+Original-Recipient: rfc822;sabineko@example.jp
+Action: failed
+Status: 5.2.2
+Remote-MTA: dns; mx.example.jp
+Diagnostic-Code: smtp; 550 5.2.2 <sabineko@example.jp>... Mailbox Full
+
+--D08769E1045.1417886674/forward1h.mail.yandex.net
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <shironeko@yandex.example.com>
+Received: from web21h.yandex.ru (web21h.yandex.ru [84.201.187.155])
+	by forward1h.mail.yandex.net (Yandex) with ESMTP id D08769E1045;
+	Sat,  6 Dec 2014 20:24:30 +0300 (MSK)
+Received: from 127.0.0.1 (localhost [127.0.0.1])
+	by web21h.yandex.ru (Yandex) with ESMTP id 2AA481360057;
+	Sat,  6 Dec 2014 20:24:30 +0300 (MSK)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1417886670; bh=lQiEEhvilnBXuRI35RZE+4cacGCJcWRgTdWHWwOA2RE=;
+	h=From:To:Subject:Date;
+	b=AS6fGWXk/G7aFIbr8Sv1+AapdtjHVMHXeE5N1hjHwWhc6u1sQIbtN0y2NuazlnaSs
+	 1ItBH3N8XaiwCOsQ1bffBxNUfTSm1Ba1w45/gml6iQfLh9alEYLNFhTg/VRZL+sarl
+	 i5A1Ybt+QubI80+Mor6O+woIkqy+Y2U9sMRPyL6s=
+Received: from 192-0-2-206f1.kyt1.example.ne.jp (192-0-2-206f1.kyt1.example.ne.jp [192.0.2.206]) by web20h.yandex.ru with HTTP;
+	Sat, 06 Dec 2014 20:12:26 +0300
+From: Shironeko Nyanko <shironeko@yandex.example.com>
+Envelope-From: shironeko@yandex.example.com
+To: sabineko@example.jp,
+	mikeneko@example.jp
+Subject: Nyaaaaaaaaaaan
+MIME-Version: 1.0
+Message-Id: <28011417886669@web21h.yandex.ru>
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Sun, 07 Dec 2014 02:24:29 +0900
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+
+Nyaaaaaan
+
+--D08769E1045.1417886674/forward1h.mail.yandex.net--

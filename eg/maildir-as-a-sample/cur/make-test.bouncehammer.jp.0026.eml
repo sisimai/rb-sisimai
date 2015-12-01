@@ -1,0 +1,69 @@
+Received: from localhost (localhost)
+	by mx.example.jp (8.14.3/8.14.3) id n3S2AcIG006316;
+	Tue, 28 Apr 2009 11:10:38 +0900 (JST)
+Date: Tue, 28 Apr 2009 11:10:38 +0900 (JST)
+From: Mail Delivery Subsystem <MAILER-DAEMON>
+Message-Id: <200904280210.n3S2AcIG006316@mx.example.jp>
+To: <who@example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="n3S2AcIG006316.1240884638/mx.example.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--n3S2AcIG006316.1240884638/mx.example.jp
+
+The original message was received at Tue, 28 Apr 2009 11:10:37 +0900 (JST)
+from [192.0.2.31]
+
+   ----- The following addresses had permanent fatal errors -----
+<this-address-does-not-exist@pc.example.or.jp>
+    (reason: 550 5.1.1 <this-address-does-not-exist@pc.example.or.jp>... User unknown)
+
+   ----- Transcript of session follows -----
+... while talking to mx.pc.example.or.jp.:
+>>> DATA
+<<< 550 5.1.1 <this-address-does-not-exist@pc.example.or.jp>... User unknown
+550 5.1.1 <this-address-does-not-exist@pc.example.or.jp>... User unknown
+<<< 503 5.0.0 Need RCPT (recipient)
+
+--n3S2AcIG006316.1240884638/mx.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx.example.jp
+Received-From-MTA: DNS; [192.0.2.31]
+Arrival-Date: Tue, 28 Apr 2009 11:10:37 +0900 (JST)
+
+Final-Recipient: RFC822; this-address-does-not-exist@pc.example.or.jp
+Action: failed
+Status: 5.1.1
+Remote-MTA: DNS; mx.pc.example.or.jp
+Diagnostic-Code: SMTP; 550 5.1.1 <this-address-does-not-exist@pc.example.or.jp>... User unknown
+Last-Attempt-Date: Tue, 28 Apr 2009 11:10:38 +0900 (JST)
+
+--n3S2AcIG006316.1240884638/mx.example.jp
+Content-Type: text/rfc822-headers
+
+Return-Path: <who@example.jp>
+Received: from [192.0.2.31] ([192.0.2.31])
+	(authenticated bits=0)
+	by mx.example.jp (8.14.3/8.14.3) with ESMTP id n3S2AbIG029209
+	for <this-address-does-not-exist@pc.example.or.jp>; Tue, 28 Apr 2009 11:10:37 +0900 (JST)
+Mime-Version: 1.0 (Apple Message framework v753.1)
+Content-Transfer-Encoding: 7bit
+Message-Id: <6D736808-04A1-47D3-92BD-44388ABFCCE4@example.jp>
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+To: this-address-does-not-exist@pc.example.or.jp
+From: "who, is this" <who@example.jp>
+Subject: TEST
+Date: Tue, 28 Apr 2009 11:10:35 +0900
+X-Mailer: Apple Mail (2.753.1)
+X-Virus-Scanned: ClamAV version 0.94.2, clamav-milter version 0.94.2 on 192.0.2.252
+X-Virus-Status: Clean
+
+--n3S2AcIG006316.1240884638/mx.example.jp--
+
+
+

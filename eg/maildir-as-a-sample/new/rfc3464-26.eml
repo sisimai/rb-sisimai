@@ -1,0 +1,98 @@
+Return-Path: <>
+Received: from mx.example.co.jp (www.example.ne.jp [192.0.2.10])
+	by aneyakoji.example.jp (V8/cf) with ESMTP id s0000000000000
+	for <postmaster@example.jp>; Mon, 1 Sep 2014 23:45:56 +0900
+From: postmaster@mx451r0.example.com
+To: Postmaster@example.or.jp
+Date: Sun, 31 Aug 2014 23:45:56 +0900
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="0000000000-FFFFFFFFFexample.net"
+Message-ID: <f00000000000000000@example.net>
+Subject: Delivery Status Notification (Failure)
+
+This is a MIME-formatted message.  
+Portions of this message may be unreadable without a MIME-capable mail program.
+
+--0000000000-FFFFFFFFFexample.net
+Content-Type: text/plain; charset=unicode-1-1-utf-7
+
+This is an automatically generated Delivery Status Notification.
+
+Delivery to the following recipients failed.
+
+       kijitora@example.or.jp
+
+
+
+
+--0000000000-FFFFFFFFFexample.net
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns;example.net
+Received-From-MTA: dns;mx451r0.example.com
+Arrival-Date: Sun, 31 Aug 2014 23:45:56 +0900
+
+Final-Recipient: rfc822;kijitora@example.or.jp
+Action: failed
+Status: 5.1.1
+Diagnostic-Code: smtp;550 5.1.1 <kijitora@example.or.jp>... User unknown
+
+--0000000000-FFFFFFFFFexample.net
+Content-Type: message/rfc822
+
+Received: from mail pickup service by example.net with Microsoft SMTPSVC;
+	 Sun, 31 Aug 2014 23:45:56 +0900
+Return-path: <Postmaster@example.or.jp>
+From:  <Postmaster@example.or.jp>
+To: <kijitora@example.or.jp>
+Subject: Delivery Failure
+Date: Sun, 31 Aug 2014 23:45:56 +0900
+Content-Type: multipart/mixed;
+	boundary="ffffff-00000-eefff"
+Content-Transfer-Encoding: 7bit
+Importance: high
+Priority: high
+Message-ID: <ALSMTP02OCIIZS2TRqf0001e76b@example.net>
+X-OriginalArrivalTime: 31 Aug 2014 23:45:56.0258 (UTC) FILETIME=[8E980420:01CFC54B]
+
+This is a multi-part message in MIME format.
+
+--ffffff-00000-eefff
+Content-Type: text/html
+Content-Transfer-Encoding: 7bit
+
+Message delivery failed to the following address
+abermudez@example.com
+Reason: Mailbox <abermudez@example.com> does not exist
+
+--ffffff-00000-eefff
+Content-Type: message/rfc822
+
+ResentFrom: neko@example.com
+Return-Path: <kijitora@example.or.jp>
+Received: from 192.0.2.90 ([192.0.2.90]) by mx451r0.example.com with ESMTP; 
+	Sun, 31 Aug 2014 23:45:56 +0900
+Received: from [192.0.2.166] ([192.0.2.166:0318] helo=PC)
+	by 00000000 (envelope-from <kijitora@example.or.jp>) with ESMTP
+	id 00/00-00000-00000000; Mon, 01 Sep 2014 23:45:56 +0900
+Date: Mon, 01 Sep 2014 23:45:56 +0900
+From: Neko <kijitora@example.or.jp>
+Reply-To: <kijitora@example.or.jp>
+To: neko@example.com
+Message-ID: <00000000000000000000000000000000@email.example.or.jp>
+Subject: Nyaaan
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="----=b2100000000-0000"
+
+------=b2100000000-0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+
+--ffffff-00000-eefff--
+
+
+
+--0000000000-FFFFFFFFFexample.net--

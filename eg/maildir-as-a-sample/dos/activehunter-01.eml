@@ -1,0 +1,54 @@
+Return-Path: <>
+X-Original-To: shironeko@example.co.jp
+Delivered-To: shironeko@example.co.jp
+Received: from ah3.example.net (ah3.example.net [192.0.2.5])
+    by mx.example.co.jp (Postfix) with SMTP id 0000000000
+    for <shironeko@example.co.jp>; Thu, 29 Apr 2011 23:34:45 +0900 (JST)
+Date: Thu, 29 Apr 2011 23:34:45 +0900
+From: "MAILER-DAEMON" <MAILER-DAEMON@example.org>
+To: <shironeko@example.co.jp>
+Subject: FAILURE NOTICE : Nyaan
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+        boundary="----=_Active!Hunter_20110429T233445+0900-0000-0000"
+X-AHMAILID: 20110429T233445+0900-0000-0000D0-AAA-FF
+
+This is a MIME-encapsulated message
+
+------=_Active!Hunter_20110429T233445+0900-0000-0000
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+
+The original message was received at Thu, 29 Apr 2011 23:34:45 +0900
+from example.co.jp
+
+  ----- The following addresses had permanent fatal errors -----
+
+>>> kijitora@example.org <kijitora@example.org>
+
+  ----- Transcript of session follows -----
+550 sorry, no mailbox here by that name (#5.1.1 - chkusr)
+
+
+
+
+------=_Active!Hunter_20110429T233445+0900-0000-0000
+Content-type: message/rfc822
+
+Received: from mx1.example.org ([192.0.2.90]) 
+    (envelope sender: <shironeko@example.co.jp>)
+    by ah3.example.net with Active!Hunter esmtp server;
+    Thu, 29 Apr 2011 23:34:45 +0900
+Received: from mx.example.org (192.0.2.3) by 0 with SMTP; 
+    29 Apr 2011 23:34:45 -0000
+Message-ID: <0000000000.00000000000@mx4.example.org>
+Date: Thu, 29 Apr 2011 23:34:45 +0900 (JST)
+From: Shironeko <shironeko@example.co.jp>
+To: kijitora@example.org
+Subject: Nyaan
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ISO-2022-JP
+Content-Transfer-Encoding: 7bit
+
+Nyaan
+

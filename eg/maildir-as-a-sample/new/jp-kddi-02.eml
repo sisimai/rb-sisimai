@@ -1,0 +1,54 @@
+Return-Path: <>
+X-Original-To: kijitora@cat.example.jp
+Delivered-To: kijitora@cat.example.jp
+Received: from localhost (unknown [192.0.2.1])
+        by mx.cat.example.jp (Postfix) with SMTP id 00000000000
+        for <kijitora@cat.example.jp>; Thu,  29 Apr 2013 00:00:00 +0900 (JST)
+Message-ID:<0000000000000000@cat.example.jp>
+X-NNN-Message-ID:<0000000000000000@cat.example.jp>
+Received: from nmomta.auone-net.jp ([192.0.2.72]) by cat.example.jp ([192.0.2.1]) 
+    with SMTP (STRAY CATS SMTP SERVER 22.2) id 0000000000000000 ;
+    Thu, 29 Apr 2013 00:00:00 +0900
+To: <kijitora@cat.example.jp>
+From: no-reply@00000000000000.dion.ne.jp
+Message-ID: <2010040809274742596100030xAA@nm03lds033.auone-net.jp>
+Date: Thu, 29 Apr 2013 00:00:00 +0900
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="==_0xAA/0xFFFFFFFFFFFF=/0xB"
+Subject: Mail
+Reply-To: no-reply@app.auone-net.jp
+
+
+This message is in MIME format.Since your mail reader does not understand this format, some or all of the message may not be legible
+
+--==_0xAA/0xFFFFFFFFFFFF=/0xB
+Content-Type: text/plain; charset="ISO-2022-JP"
+Content-Transfer-Encoding: 7bit
+
+Your mail sent on: Thu, 29 Apr 2013 00:00:00 +0900 
+     Could not be delivered to: <kijitora@00000000000000.dion.ne.jp> 
+     As their mailbox is full.
+
+--==_0xAA/0xFFFFFFFFFFFF=/0xB
+Content-Type: message/rfc822
+Content-Description: Original message
+
+Return-Path: <kijitora@cat.example.jp>
+Received: from mail-gw.auone-net.jp ([192.0.2.1]) by nm03mta.auone-net.jp id 
+        <00000000000000000.FFFF.1111111@0000000.auone-net.jp>;
+        Thu, 29 Apr 2013 00:00:00 +0900
+Received-SPF: None (mail-gw.auone-net.jp: 192.0.2.33 is neither 
+        permitted nor denied by domain of cat.example.jp) client-ip=192.0.2.22; 
+        envelope-from=<kijitora@cat.example.jp>; helo=neko.cat.example.jp;
+Message-ID: <00000000.000000000000000@exampe.cat>
+Date: Thu, 29 Apr 2013 00:00:00 +0900 (JST)
+From: Kijitora <kijitora@cat.example.jp>
+To: <kijitora@00000000000000.dion.ne.jp>
+Subject: Message
+Mime-Version: 1.0
+Content-Type: text/plain;
+        charset="iso-2022-jp"
+Content-Transfer-Encoding: 7bit
+
+
+--==_0xAA/0xFFFFFFFFFFFF=/0xB--

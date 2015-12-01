@@ -1,0 +1,70 @@
+Delivered-To: the-local-part-of-google-mail-address@gmail.com
+Received: by 10.194.5.104 with SMTP id r8csp190892wjr;
+        Fri, 18 Jul 2014 00:31:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20120113;
+        h=mime-version:from:to:subject:message-id:date:content-type;
+        bh=XmODsVpAGl5aM2KEfa/3jRes/isHrQHD/XOShQsUAN0=;
+        b=Msdrdiy5rgIknlq95t+rMYMBSYOukg05OZTeYJEilMmE80mMvvH65+L31ZzmA0SLhE
+         Y1FzJVpASoT5vawFO74ek6e1q+P9dtKGtAMgCGtl0GDDhpVS9jIwxEVlZllF92XG7CEj
+         pl13Gssc5oX9ZNrcbyetLgNL0rWd05kMAYfeefSA3tbDj3fYXIhGCpdHqtSKFm5vuQNp
+         lgNuhteyak2/jBT21Ao7i6z+uh4cPAEBImcNCd9IlvvawlcH3aE8zL0plYmbFg8Yc/rM
+         iSIGFYsJ/Ni+t9IWD2E4zCjBWL2dvGVSxUzmEeTEGCn7Y/SBzlgUUBstpONOgYMw4GwA
+         oTUA==
+X-Received: by 10.70.22.98 with SMTP id c2mr2502083pdf.3.1405668662757;
+        Fri, 18 Jul 2014 00:31:02 -0700 (PDT)
+MIME-Version: 1.0
+Return-Path: <>
+Received: by 10.70.22.98 with SMTP id c2mr1838265pdf.3; Fri, 18 Jul 2014
+ 00:31:02 -0700 (PDT)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+To: the-local-part-of-google-mail-address@gmail.com
+X-Failed-Recipients: userunknown@example.jp
+Subject: Delivery Status Notification (Failure)
+Message-ID: <047d7bdca0c250c6c004fe72bd32@google.com>
+Date: Fri, 18 Jul 2014 07:31:02 +0000
+Content-Type: text/plain; charset=ISO-8859-1
+
+Delivery to the following recipient failed permanently:
+
+     userunknown@example.jp
+
+Technical details of permanent failure: 
+Google tried to deliver your message, but it was rejected by the server for the recipient domain example.jp by mx.example.jp. [192.0.2.153].
+
+The error that the other server returned was:
+550 5.1.1 <userunknown@example.jp>... User Unknown
+
+----- Original message -----
+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20120113;
+        h=from:content-type:content-transfer-encoding:subject:message-id:date
+         :to:mime-version;
+        bh=g3zLYH4xKxcPrHOD18z9YfpQcnk/GaJedfustWU5uGs=;
+        b=ZSIhPzjFyoLb8+kZOXuUNiwIbQV+/L/DUxKWPWRkYf4Y75EkmgRHPI+FpUqrJDhIcc
+         CyESI8sAru7lsEP42/YxT425H4v6dNgWvvKTtq8VnVuNu/YLvZ6i6yVc9egwLQ+xSn+t
+         CxD7I4ayVnHhjJIM5WwboD/9qmJIIfVY1gFmno8ZEG2JjyriJXiHfNcBI/tpidI7dk9c
+         PoGQmArJ+tzlGT3K3AAtnDA/+Z3L7FoQ15NDa9QLu98pFZAFMXTSnGrzHtHnyLqHWVeN
+         7FMfMV/AcRfjdEZTiY6SOQyT2Zz52Ts8ac5wAFGs4gmx7bF0lu1pTFtvN48280FolcZC
+         U2Fw==
+X-Received: by 10.70.22.98 with SMTP id c2mr2502018pdf.3.1405668662058;
+        Fri, 18 Jul 2014 00:31:02 -0700 (PDT)
+Return-Path: <the-local-part-of-google-mail-address@gmail.com>
+Received: from [192.0.2.202] (c213502.kyoto.example.ne.jp. [192.0.2.135])
+        by mx.google.com with ESMTPSA id nw13sm19667002pab.37.2014.07.18.00.31.00
+        for <multiple recipients>
+        (version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+        Fri, 18 Jul 2014 00:31:01 -0700 (PDT)
+From: the-local-part-of-google-mail-address <the-local-part-of-google-mail-address@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Subject: TEST FROM GMAIL.COM
+Message-Id: <D992C2C3-F175-4C4D-97E2-53A90E4E5BF5@gmail.com>
+Date: Fri, 18 Jul 2014 16:30:58 +0900
+To: mailboxfull@example.jp,
+ userunknown@example.jp
+Mime-Version: 1.0 (Mac OS X Mail 7.3 \(1878.2\))
+X-Mailer: Apple Mail (2.1878.2)
+
+test

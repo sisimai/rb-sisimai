@@ -1,0 +1,54 @@
+Return-path: <>
+Received: from mail by smtp23.mail.ru with local id 1XsaNj-0006ay-9N
+	for shironeko@mail.example.ru; Sun, 23 Nov 2014 19:51:27 +0300
+X-Failed-Recipients: kijitora@example.jp
+Auto-Submitted: auto-replied
+From: mailer-daemon@corp.mail.ru
+To: shironeko@mail.example.ru
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Subject: Ваше сообщение не доставлено. Mail failure.
+Message-Id: <E1XsaNj-0006ay-9N@smtp23.mail.ru>
+Date: Sun, 23 Nov 2014 19:51:27 +0300
+
+Это письмо создано автоматически сервером Mail.Ru, отвечать на него не нужно.
+
+К сожалению, Ваше письмо не может быть доставлено одному или нескольким получателям:
+
+  kijitora@example.jp
+    SMTP error from remote mail server after RCPT TO:<kijitora@example.jp>:
+    host mx.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
+
+Рекомендуем Вам проверить корректность указания адресов получателей.
+
+**********************
+
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  kijitora@example.jp
+    SMTP error from remote mail server after RCPT TO:<kijitora@example.jp>:
+    host mx.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <shironeko@mail.example.ru>
+Received: from [192.0.2.135] (port=51580 helo=[192.0.2.203])
+	by smtp23.mail.ru with esmtpa (envelope-from <shironeko@mail.example.ru>)
+	id 1XsaNd-0006Vx-TV
+	for kijitora@example.jp; Sun, 23 Nov 2014 19:51:25 +0300
+From: shironeko <shironeko@mail.example.ru>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Subject: Nyaaaan
+Message-Id: <8F3CE2D8-D60E-48C3-B9AF-BED628EE2CA5@mail.example.ru>
+Date: Mon, 24 Nov 2014 01:51:12 +0900
+To: kijitora@example.jp
+Mime-Version: 1.0 (Mac OS X Mail 7.3 \(1878.6\))
+X-Mailer: Apple Mail (2.1878.6)
+X-Mras: Ok
+
+Nyaaan

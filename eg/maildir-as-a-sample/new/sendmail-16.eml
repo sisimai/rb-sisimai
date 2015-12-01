@@ -1,0 +1,69 @@
+Return-Path: <MAILER-DAEMON@7jo.example.jp>
+Received: from localhost (localhost)
+	by 7jo.example.jp (V8/cf) id s0000000000;
+	Thu, 29 Apr 2014 23:45:10 +0900
+Date: Thu, 29 Apr 2014 23:45:10 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON@7jo.example.jp>
+Message-Id: <201404292345.s0000000000@7jo.example.jp>
+To: <shironeko@example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="s0000000000.000000000/7jo.example.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--s0000000000.000000000/7jo.example.jp
+
+The original message was received at Thu, 29 Apr 2014 23:45:10 +0900
+from c135.kyoto.example.ne.jp [192.0.2.77]
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora@example.org>
+    (reason: 554 IP=192.0.2.254 - A problem occurred. (Ask your postmaster for help or to contact neko@example.org to clarify.) (BL))
+
+   ----- Transcript of session follows -----
+... while talking to mx03.example.org.:
+<<< 554 IP=192.0.2.254 - A problem occurred. (Ask your postmaster for help or to contact neko@example.org to clarify.) (BL)
+... while talking to mx02.example.org.:
+<<< 554 IP=192.0.2.254 - A problem occurred. (Ask your postmaster for help or to contact neko@example.org to clarify.) (BL)
+554 5.0.0 Service unavailable
+
+--s0000000000.000000000/7jo.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; 7jo.example.jp
+Received-From-MTA: DNS; p2135-ipbfpfx02kyoto.kyoto.ocn.ne.jp
+Arrival-Date: Thu, 29 Apr 2014 23:45:10 +0900
+
+Final-Recipient: RFC822; aoduigoadiugoaiugaodiugao@example.org
+Action: failed
+Status: 5.5.0
+Diagnostic-Code: SMTP; 554 IP=192.0.2.254 - A problem occurred. (Ask your postmaster for help or to contact neko@example.org to clarify.) (BL)
+Last-Attempt-Date: Thu, 29 Apr 2014 23:45:10 +0900
+
+--s0000000000.000000000/7jo.example.jp
+Content-Type: message/rfc822
+
+Return-Path: <shironeko@example.jp>
+Received: from [192.0.2.178] (c135.kyoto.example.ne.jp [192.0.2.90])
+	(authenticated bits=0)
+	by 7jo.example.jp (V8/cf) with ESMTP id s00000ff00
+	for <kijitora@example.org>; Thu, 29 Apr 2014 23:45:10 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 7jo.example.jp s00000ff00
+Authentication-Results: 7jo.example.jp; sender-id=pass header.from=shironeko@example.jp; auth=pass (CRAM-MD5); spf=pass smtp.mfrom=shironeko@example.jp
+From: "shironeko, nyanko" <shironeko@example.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Subject: test for bounce
+Message-Id: <2CA08EF8-9CF5-4634-A20A-41650DDE4D6D@example.jp>
+Date: Thu, 29 Apr 2014 23:45:10 +0900
+To: kijitora@example.org
+Mime-Version: 1.0 (Mac OS X Mail 7.3 \(1878.6\))
+X-Mailer: Apple Mail (2.1878.6)
+
+test
+
+--s0000000000.000000000/7jo.example.jp--
+

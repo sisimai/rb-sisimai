@@ -1,0 +1,64 @@
+Return-Path: <MAILER-DAEMON>
+Received: from localhost (localhost)
+        by smtp-out-78.example.jp (8.14.3/8.13.2) id m8HDPeKU007223;
+        Wed, 17 Sep 2008 22:25:40 +0900
+Date: Wed, 17 Sep 2008 22:25:40 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON>
+Message-Id: <200809171325.m8HDPeKU007223@smtp-out-78.example.jp>
+To: postmaster
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+        boundary="m8HDPeKU007223.1221657940/smtp-out-78.example.jp"
+Subject: Postmaster notify: see transcript for details
+Auto-Submitted: auto-generated (postmaster-notification)
+
+This is a MIME-encapsulated message
+
+--m8HDPeKU007223.1221657940/smtp-out-78.example.jp
+
+The original message was received at Wed, 17 Sep 2008 22:25:40 +0900
+from localhost.localdomain [127.0.0.1]
+
+   ----- The following addresses had permanent fatal errors -----
+<message-is-rejected-by-the-domain-fileters@docomo.ne.jp>
+    (reason: 550 Unknown user message-is-rejected-by-the-domain-fileters@docomo.ne.jp)
+
+   ----- Transcript of session follows -----
+... while talking to mfsmax.docomo.ne.jp.:
+>>> DATA
+<<< 550 Unknown user message-is-rejected-by-the-domain-fileters@docomo.ne.jp
+554 5.0.0 Service unavailable
+
+--m8HDPeKU007223.1221657940/smtp-out-78.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; smtp-out-78.example.jp
+Received-From-MTA: DNS; smtp-out-78.example.jp
+Arrival-Date: Wed, 17 Sep 2008 22:25:40 +0900
+
+Final-Recipient: RFC822; message-is-rejected-by-the-domain-fileters@docomo.ne.jp
+Action: failed
+Status: 5.2.0
+Remote-MTA: DNS; mfsmax.docomo.ne.jp
+Diagnostic-Code: SMTP; 550 Unknown user message-is-rejected-by-the-domain-fileters@docomo.ne.jp
+Last-Attempt-Date: Wed, 17 Sep 2008 22:25:40 +0900
+
+--m8HDPeKU007223.1221657940/smtp-out-78.example.jp
+Content-Type: text/rfc822-headers
+
+Return-Path: <user4@example.jp>
+Received: from smtp-out-78.example.jp (localhost.example.jp [127.0.0.1])
+        by smtp-out-78.example.jp (8.14.3/8.13.3) with ESMTP id m8HDPeKT007221
+        for <rimu-.-ossa@docomo.ne.jp>; Wed, 17 Sep 2008 22:25:40 +0900
+Date: Wed, 17 Sep 2008 22:25:40 +0900
+Message-Id: <200809171325.m8HDPeKT007221@smtp-out-78.example.jp>
+From: user4@example.jp
+To: message-is-rejected-by-the-domain-fileters@docomo.ne.jp
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-2022-JP
+Content-Transfer-Encoding: 7bit
+Subject: TEST
+
+--m8HDPeKU007223.1221657940/smtp-out-78.example.jp--
+
+

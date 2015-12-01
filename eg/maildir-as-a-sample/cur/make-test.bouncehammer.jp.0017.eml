@@ -1,0 +1,68 @@
+Received: from localhost (localhost)
+	by mta-55.example.gr.jp (8.14.3/8.14.3) id n3R8Y4U1026025;
+	Mon, 27 Apr 2009 17:34:04 +0900 (JST)
+Date: Mon, 27 Apr 2009 17:34:04 +0900 (JST)
+From: Mail Delivery Subsystem <MAILER-DAEMON>
+Message-Id: <200904270834.n3R8Y4U1026025@mta-55.example.gr.jp>
+To: <leader2@example.gr.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="n3R8Y4U1026025.1240821244/mta-55.example.gr.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--n3R8Y4U1026025.1240821244/mta-55.example.gr.jp
+
+The original message was received at Mon, 27 Apr 2009 17:34:03 +0900 (JST)
+from [192.0.2.31]
+
+   ----- The following addresses had permanent fatal errors -----
+<this-air-edge-user-does-not-exist-wm2@wm.pdx.ne.jp>
+    (reason: 550 <this-air-edge-user-does-not-exist-wm2@wm.pdx.ne.jp>: Recipient address rejected: User unknown)
+
+   ----- Transcript of session follows -----
+... while talking to mail2.pdx.ne.jp.:
+>>> DATA
+<<< 550 <this-air-edge-user-does-not-exist-wm2@wm.pdx.ne.jp>: Recipient address rejected: User unknown
+550 5.1.1 <this-air-edge-user-does-not-exist-wm2@wm.pdx.ne.jp>... User unknown
+<<< 503 No recipients specified
+
+--n3R8Y4U1026025.1240821244/mta-55.example.gr.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mta-55.example.gr.jp
+Received-From-MTA: DNS; [192.0.2.31]
+Arrival-Date: Mon, 27 Apr 2009 17:34:03 +0900 (JST)
+
+Final-Recipient: RFC822; this-air-edge-user-does-not-exist-wm2@wm.pdx.ne.jp
+Action: failed
+Status: 5.1.1
+Remote-MTA: DNS; mail2.pdx.ne.jp
+Diagnostic-Code: SMTP; 550 <this-air-edge-user-does-not-exist-wm2@wm.pdx.ne.jp>: Recipient address rejected: User unknown
+Last-Attempt-Date: Mon, 27 Apr 2009 17:34:03 +0900 (JST)
+
+--n3R8Y4U1026025.1240821244/mta-55.example.gr.jp
+Content-Type: text/rfc822-headers
+
+Return-Path: <leader2@example.gr.jp>
+Received: from [192.0.2.31] ([192.0.2.31])
+	(authenticated bits=0)
+	by mta-55.example.gr.jp (8.14.3/8.14.3) with ESMTP id n3R8Y2U1005712
+	for <aoghoeruygorhbhjgaojugohrj@wm.pdx.ne.jp>; Mon, 27 Apr 2009 17:34:03 +0900 (JST)
+Mime-Version: 1.0 (Apple Message framework v753.1)
+Content-Transfer-Encoding: 7bit
+Message-Id: <EBF6DB9C-F176-4C0B-913D-7ACC1078F822@example.gr.jp>
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+To: this-air-edge-user-does-not-exist-wm2@wm.pdx.ne.jp
+From: "Leader2 of the group" <leader2@example.gr.jp>
+Subject: TEST
+Date: Mon, 27 Apr 2009 17:34:06 +0900
+X-Mailer: Apple Mail (2.753.1)
+X-Virus-Scanned: ClamAV version 0.94.2, clamav-milter version 0.94.2 on 192.0.2.252
+X-Virus-Status: Clean
+
+--n3R8Y4U1026025.1240821244/mta-55.example.gr.jp--
+
+

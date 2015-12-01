@@ -1,0 +1,70 @@
+Return-Path: <mailer-daemon>
+Received: from localhost (localhost)
+        by outgoing-smtp-mta-1.example.com (8.13.8/8.13.8) id n1AAoV6u009857;
+        Tue, 10 Feb 2009 19:50:31 +0900
+Date: Tue, 10 Feb 2009 19:50:31 +0900
+From: Mail Delivery Subsystem <mailer-daemon>
+Message-Id: <200902101050.n1AAoV6u009857@outgoing-smtp-mta-1.example.com>
+To: root
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+        boundary="n1AAoV6u009857.1234263031/outgoing-smtp-mta-1.example.com"
+Subject: Postmaster notify: see transcript for details
+Auto-Submitted: auto-generated (postmaster-notification)
+
+This is a MIME-encapsulated message
+
+--n1AAoV6u009857.1234263031/outgoing-smtp-mta-1.example.com
+
+The original message was received at Tue, 10 Feb 2009 19:50:30 +0900
+from mta.example.com [127.0.0.1]
+with id n1AAoU6t009855
+
+   ----- The following addresses had permanent fatal errors -----
+<recipient-does-not-exist-in-hotmail@hotmail.com>
+    (reason: 550 Requested action not taken: mailbox unavailable)
+
+   ----- Transcript of session follows -----
+... while talking to mx4.hotmail.com.:
+>>> DATA
+<<< 550 Requested action not taken: mailbox unavailable
+550 5.1.1 <recipient-does-not-exist-in-hotmail@hotmail.com>... User unknown
+<<< 503 Need Rcpt command.
+
+--n1AAoV6u009857.1234263031/outgoing-smtp-mta-1.example.com
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; outgoing-smtp-mta-1.example.com
+Received-From-MTA: DNS; dns1.example.com
+Arrival-Date: Tue, 10 Feb 2009 19:50:30 +0900
+
+Final-Recipient: RFC822; recipient-does-not-exist-in-hotmail@hotmail.com
+Action: failed
+Status: 5.1.1
+Remote-MTA: DNS; mx4.hotmail.com
+Diagnostic-Code: SMTP; 550 Requested action not taken: mailbox unavailable
+Last-Attempt-Date: Tue, 10 Feb 2009 19:50:31 +0900
+
+--n1AAoV6u009857.1234263031/outgoing-smtp-mta-1.example.com
+Content-Type: text/rfc822-headers
+
+Return-Path: <nobody@example.com>
+Received: from example.com (dns1.example.com [127.0.0.1])
+        by outgoing-smtp-mta-1.example.com (8.13.8/8.13.8) with ESMTP id n1AAoU6t009855
+        for <recipient-does-not-exist-in-hotmail@hotmail.com>; Tue, 10 Feb 2009 19:50:30 +0900
+Received: (from nobody@localhost)
+        by example.com (8.13.8/8.12.8/Submit) id n1AAoUbK009853
+        for recipient-does-not-exist-in-hotmail@hotmail.com; Tue, 10 Feb 2009 19:50:30 +0900
+Date: Tue, 10 Feb 2009 19:50:30 +0900
+Message-Id: <200902101050.n1AAoUbK009853@example.com>
+To: recipient-does-not-exist-in-hotmail@hotmail.com
+From: nobody@example.com
+Subject: TEST
+MIME-Version: 1.0
+Content-type: text/plain; charset=ISO-2022-JP
+Content-Transfer-Encoding: 7bit
+
+--n1AAoV6u009857.1234263031/outgoing-smtp-mta-1.example.com--
+
+
+

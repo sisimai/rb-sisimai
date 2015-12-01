@@ -1,0 +1,67 @@
+Received: from e.example.com ([192.0.2.128])
+	by email-g1.example.jp (8.14.4/8.14.4) with ESMTP id z000000000000
+	for <postmaster@example.jp>; Thu, 29 Apr 2012 23:45:44 +0900 (JST)
+Authentication-Results: email-g1.example.jp; sender-id=none header.from=MAILER-DAEMON@e.example.com
+Date: Thu, 29 Apr 2012 23:45:28 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON@e.example.com>
+Message-Id: <201204291613.z00000000012401@e.example.com>
+To: postmaster@e.example.com
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="z00000000012401.00000000/e.example.com"
+Content-Transfer-Encoding: 8bit
+Subject: Postmaster notify: see transcript for details
+Auto-Submitted: auto-generated (postmaster-notification)
+X-Virus-Scanned: ClamAV version 0.94.2, clamav-milter version 0.94.2 on sx.example.jp
+X-Virus-Status: Clean
+
+This is a MIME-encapsulated message
+
+--z00000000012401.00000000/e.example.com
+
+The original message was received at Thu, 29 Apr 2012 23:45:27 +0900
+from localhost [127.0.0.1]
+with id a000000000000
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora@example.org>
+    (reason: 550 5.6.9 improper use of 8-bit data in message header)
+
+   ----- Transcript of session follows -----
+... while talking to g5.example.net.:
+>>> DATA
+<<< 550 5.6.9 improper use of 8-bit data in message header
+554 5.0.0 Service unavailable
+
+--z00000000012401.00000000/e.example.com
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; e.example.com
+Received-From-MTA: DNS; localhost
+Arrival-Date: Thu, 29 Apr 2012 23:45:27 +0900
+
+Final-Recipient: RFC822; kijitora@example.org
+Action: failed
+Status: 5.6.9
+Remote-MTA: DNS; g5.example.net
+Diagnostic-Code: SMTP; 550 5.6.9 improper use of 8-bit data in message header
+Last-Attempt-Date: Thu, 29 Apr 2012 23:45:28 +0900
+
+--z00000000012401.00000000/e.example.com
+Content-Type: text/rfc822-headers
+Content-Transfer-Encoding: 8bit
+
+Return-Path: <root@e.example.com>
+Received: (from root@localhost)
+	by e.example.com (8.14.4/8.12.8/Submit) id y00000000012398
+	for kijitora@example.org; Thu, 29 Apr 2012 23:45:26 +0900
+Date: Thu, 29 Apr 2012 23:45:26 +0900
+Message-Id: <201204290000.y00000000000000@e.example.com>
+To: kijitora@example.org
+From: shironeko@example.co.jp
+Subject: Message
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+
+--z00000000012401.00000000/e.example.com--
+

@@ -1,0 +1,68 @@
+Delivered-To: shironeko@google.example.com
+Received: by 10.194.16.169 with SMTP id h9csp621468wjd;
+        Wed, 26 Nov 2014 12:21:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20120113;
+        h=mime-version:from:to:subject:message-id:date:content-type;
+        bh=It5BwcTJgwnmdxfFKhKZLLpZqQ5bFh5t3jW3DHIeeTE=;
+        b=Cg94f37HavOPU8mdEg50ZxP/hgi1rx7rI110GtwqNjbnGW+XcyQfp4dTA3xw6NUmx+
+         op3kxaVa3PZz0kgyRhqe+9UwSOqzNYcGrpkX0rKkN0vJmdbAzxlX5TDqf2jwCEshc4JM
+         PVtz5MJqXmNUEziENWdXkilv72zlLqIVfWl4f60x4B4ADpRerTwSsoTy/R/sLO7nDGBv
+         XwaPx6dNhwMYSrwfD2V3MWxLrdFhJ2tAD0A7ZO3kvOjwLACBlQkwdp0RoRfaT5Tm0x3h
+         sOQFIFTqEENH8POm8icZb0f4nMeiS66BlnNhQ0thm6Ju2WpRNs53OYyJ8mp8KcYuhx0r
+         7wpQ==
+X-Received: by 10.68.57.225 with SMTP id l1mr55413327pbq.87.1417033301091;
+        Wed, 26 Nov 2014 12:21:41 -0800 (PST)
+MIME-Version: 1.0
+Return-Path: <>
+Received: by 10.68.57.225 with SMTP id l1mr35312310pbq.87; Wed, 26 Nov 2014
+ 12:21:41 -0800 (PST)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+To: shironeko@google.example.com
+X-Failed-Recipients: kijitora@example.com
+Subject: Delivery Status Notification (Failure)
+Message-ID: <001a113836268be1b80508c8c606@google.com>
+Date: Wed, 26 Nov 2014 20:21:41 +0000
+Content-Type: text/plain; charset=UTF-8
+
+Delivery to the following recipient failed permanently:
+
+     kijitora@example.com
+
+Technical details of permanent failure: 
+The recipient server did not accept our requests to connect. Learn more at http://support.google.com/mail/bin/answer.py?answer=7720 
+[(0) example.com. [2606:2800:220:6d:26bf:1447:1097:aa7]:25: socket error]
+[(0) example.com. [93.184.216.119]:25: socket error]
+
+----- Original message -----
+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20120113;
+        h=from:content-type:content-transfer-encoding:subject:message-id:date
+         :to:mime-version;
+        bh=N5PTi9MU4qUab1Bd8tN/anJND14r7vjbMQak8/3OJos=;
+        b=0FQuwHQ5ugAL79DRq8qphUcw1Dieriy6wnWPaJgTcOMKXJgshSB/VPbz00AOUptdyf
+         r31cSPV7OUpGQgLfUYmoxyEtlLnu+uMZIjFB8Nrwtzu9Yf77RdIYuOV0xWHSbFpU8Gb5
+         8aRgUgyylWpWHwzTlHF+G+7ZIVzglCyU2wHJEFrHfvtCqed9NohTSGRjFi1nmhCr8EUy
+         OeJ6Cus5jBTcRq/+LNZ/ZhI0XXJMKlM5U40vXLI/WuIrXOOnkE76+Wof0lJCiAn420nI
+         Apl3U3jSHy98zi/In57oQnRb6HMlr5hhBZfwhAt9cDpiCPKmJRz7GL1k5aQeigbm2MVH
+         itoA==
+X-Received: by 10.68.57.225 with SMTP id l1mr24542571pbq.87.1416760974274;
+        Sun, 23 Nov 2014 08:42:54 -0800 (PST)
+Return-Path: <shironeko@google.example.com>
+Received: from [192.0.2.203] (c135.kyoto.example.ne.jp. [192.0.2.222])
+        by mx.google.com with ESMTPSA id ae4sm10225009pad.16.2014.11.23.08.42.52
+        for <kijitora@example.com>
+        (version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+        Sun, 23 Nov 2014 08:42:53 -0800 (PST)
+From: shironeko <shironeko@google.example.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Subject: Nyaaaaan
+Message-Id: <AA6C0062-22D4-4D7E-8766-4494D07205C1@google.example.com>
+Date: Mon, 24 Nov 2014 01:38:43 +0900
+To: kijitora@example.com
+Mime-Version: 1.0 (Mac OS X Mail 7.3 \(1878.6\))
+X-Mailer: Apple Mail (2.1878.6)
+
+Nyaaan

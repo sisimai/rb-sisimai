@@ -1,0 +1,64 @@
+Return-Path: <MAILER-DAEMON>
+Received: from tgmsmtkn14sc3.softbank.ne.jp (tgmsmtkn14sc3.softbank.ne.jp [210.146.60.253])
+	by mx1.example.ad.jp (8.14.1/8.14.1) with ESMTP id m7SBAEwX007296
+	for <admin@example.ad.jp>; Thu, 28 Aug 2008 20:10:14 +0900
+From: <MAILER-DAEMON@softbank.ne.jp>
+To: admin@example.ad.jp
+Subject: Non Delivery Notification
+Date: Thu, 28 Aug 2008 20:10:20 +0900
+Message-ID: <20080828111020150.BWWS.27238@tgmsmtkn14sc3.softbank.ne.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report;
+		report-type=delivery-status;
+		Boundary="===========================_ _= 1083374(27238)1219921820"
+X-UID: 421                                       
+Content-Length: 216
+Status: RO
+
+
+--===========================_ _= 1083374(27238)1219921820
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-2022-jp"
+
+送信先のサーバーメールボックスが一杯で
+お届けできませんでした。
+<this-destination-mailbox-is-full@d.vodafone.ne.jp>
+
+--===========================_ _= 1083374(27238)1219921820
+Content-Type: message/delivery-status
+Content-Transfer-Encoding: 7bit
+
+Reporting-MTA: dns; mmta14.softbank.ne.jp
+Arrival-Date: Thu, 28 Aug 2008 20:10:20 +0900
+Received-From-MTA: dns; tgmsbbky42sb.softbank.ne.jp (172.26.9.110)
+
+Final-Recipient: RFC822; <this-destination-mailbox-is-full@d.vodafone.ne.jp>
+Action: failed
+Status: 4.2.2
+
+--===========================_ _= 1083374(27238)1219921820
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 7bit
+
+Received: from tgmsbbky42sb.softbank.ne.jp ([172.26.9.110])
+          by tgmsmtkn14sc3.softbank.ne.jp with ESMTP
+          id <20080828111020002.BWWO.27238@tgmsmtkn14sc3.softbank.ne.jp>
+          for <this-destination-mailbox-is-full@d.vodafone.ne.jp>;
+          Thu, 28 Aug 2008 20:10:20 +0900
+Return-Path: admin@example.ad.jp
+X-ORCPT-TO: this-destination-mailbox-is-full@d.vodafone.ne.jp
+X-HSIZE: 221
+From: admin@example.ad.jp
+To: this-destination-mailbox-is-full@d.vodafone.ne.jp
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-2022-JP
+Content-Transfer-Encoding: 7bit
+Subject: TEST
+Message-Id: <20080828111019688.TNQR.8636@tgmsbbky42sb.softbank.ne.jp>
+Date: Thu, 28 Aug 2008 20:10:19 +0900
+X-BMTA-TYPE-ISP: 
+
+--===========================_ _= 1083374(27238)1219921820--
+
+
+

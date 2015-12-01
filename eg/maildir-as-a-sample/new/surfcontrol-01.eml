@@ -1,0 +1,79 @@
+Return-Path: <>
+X-Original-To: shironeko@example.jp
+Delivered-To: shironeko@example.jp
+Received: from localhost (localhost [127.0.0.1])
+    by mx4.example.co.jp (Postfix) with ESMTP id 00000000000
+    for <shironeko@example.jp>; Thu 29 Apr 2010 23:34:45 +0900 (JST)
+Received: from mx4.example.co.jp ([127.0.0.1])
+    by localhost (example.jp [127.0.0.1]) (amavisd-new, port 10000)
+    with ESMTP id 000000000000 for <shironeko@example.jp>;
+    Thu 29 Apr 2010 23:34:45 +0900 (JST)
+Received: from mx4.example.com (mx4.example.com [192.0.2.80])
+    by mx4.example.co.jp (Postfix) with ESMTP id 00000000000
+    for <shironeko@example.jp>; Thu 29 Apr 2010 23:34:45 +0900 (JST)
+From: <MAILER-DAEMON@example.com>
+To: <shironeko@example.jp>
+Date: Thu 29 Apr 2010 23:34:45 +0900
+Subject: Nyaaan
+X-Mailer: SurfControl E-mail Filter
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="--=_NextPart_XX_23_34_45_Thursday_April_29_2010_00000"
+X-SEF-0000000-0000-0000-0000-000000000000: 1
+X-SEF-NDR-0000000-0000-0000-0000-000000000000: 1
+X-SEF-ZeroHour-RefID: fgs=000000000
+X-SEF-Processed: 0_0_0_000__2010_04_29_23_34_45
+Message-Id: <20100429233445.00000000000@mx4.example.co.jp>
+
+
+----=_NextPart_XX_23_34_45_Thursday_April_29_2010_00000
+Content-Type: text/plain;
+
+Your message could not be sent.
+A transcript of the attempts to send the message follows.
+The number of attempts made: 1
+Addressed To: kijitora@example.com
+
+Thu 29 Apr 2010 23:34:45 +0900
+Failed to send to identified host,
+kijitora@example.com: [192.0.2.5], 550 kijitora@example.com... No such user
+--- Message non-deliverable.
+
+
+
+----=_NextPart_XX_23_34_45_Thursday_April_29_2010_00000
+Content-Type: message/delivery-status;
+
+
+Action: failed
+Final-Recipient: rfc822;kijitora@example.com
+Diagnostic-Code: smtp; 550 kijitora@example.com... No such user
+Status: 5.0.0
+
+
+
+
+----=_NextPart_XX_23_34_45_Thursday_April_29_2010_00000
+Content-Type: message/rfc822;
+
+Received: from Unknown [192.0.2.54] by mx4.example.com - SurfControl E-mail Filter (6.0.1); 
+    Thu 29 Apr 2010 23:34:45 +0900
+Received: from localhost (localhost [127.0.0.1])
+    by mx4.example.co.jp (Postfix) with ESMTP id 00000000000
+    for <kijitora@example.com>; Thu 29 Apr 2010 23:34:45 +0900 (JST)
+Received: by mx4.example.co.jp (Postfix, from userid 525)
+    id 00000000000; Thu 29 Apr 2010 23:34:45 +0900 (JST)
+To: <kijitora@example.com>
+Subject: Nyaaan
+From: "Shironeko" <shironeko@example.jp>
+Date: Thu 29 Apr 2010 23:34:45 +0900
+Content-Type: text/plain; charset="utf-8";
+MIME-Version: 1.0
+Message-Id: <20100429233445.00000000000@mx4.example.co.jp>
+X-SEF-0000000-0000-0000-0000-000000000000: 1
+X-SEF-ZeroHour-RefID: fgs=0
+X-SEF-Processed: 0_0_0_000__2010_04_29_23_34_45
+
+Nyaaa
+----=_NextPart_XX_23_34_45_Thursday_April_29_2010_00000--
+

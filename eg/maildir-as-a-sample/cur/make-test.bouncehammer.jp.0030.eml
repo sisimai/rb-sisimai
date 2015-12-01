@@ -1,0 +1,68 @@
+Return-Path: <mailer-daemon>
+Received: from localhost (localhost)
+        by mx.grand.example.ed.jp (8.13.8/8.13.8) id n0A0obcL020016;
+        Sat, 10 Jan 2009 09:50:37 +0900
+Date: Sat, 10 Jan 2009 09:50:37 +0900
+From: Mail Delivery Subsystem <mailer-daemon>
+Message-Id: <200901100050.n0A0obcL020016@mx.grand.example.ed.jp>
+To: root
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+        boundary="n0A0obcL020016.1231548637/mx.grand.example.ed.jp"
+Subject: Postmaster notify: see transcript for details
+Auto-Submitted: auto-generated (postmaster-notification)
+
+This is a MIME-encapsulated message
+
+--n0A0obcL020016.1231548637/mx.grand.example.ed.jp
+
+The original message was received at Sat, 10 Jan 2009 09:50:36 +0900
+from dns1.grand.example.ed.jp [127.0.0.1]
+with id n0A0oacK020014
+
+   ----- The following addresses had permanent fatal errors -----
+<this-user-does-not-have-goo-id@mail.goo.ne.jp>
+    (reason: 550 #5.1.0 Address rejected this-user-does-not-have-goo-id@mail.goo.ne.jp)
+
+   ----- Transcript of session follows -----
+... while talking to mx01.mail.goo.ne.jp.:
+>>> RCPT To:<this-user-does-not-have-goo-id@mail.goo.ne.jp>
+<<< 550 #5.1.0 Address rejected asayan3124@mail.goo.ne.jp
+550 5.1.1 <this-user-does-not-have-goo-id@mail.goo.ne.jp>... User unknown
+
+--n0A0obcL020016.1231548637/mx.grand.example.ed.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx.grand.example.ed.jp
+Received-From-MTA: DNS; dns1.grand.example.ed.jp
+Arrival-Date: Sat, 10 Jan 2009 09:50:36 +0900
+
+Final-Recipient: RFC822; this-user-does-not-have-goo-id@mail.goo.ne.jp
+Action: failed
+Status: 5.1.1
+Remote-MTA: DNS; mx01.mail.goo.ne.jp
+Diagnostic-Code: SMTP; 550 #5.1.0 Address rejected this-user-does-not-have-goo-id@mail.goo.ne.jp
+Last-Attempt-Date: Sat, 10 Jan 2009 09:50:37 +0900
+
+--n0A0obcL020016.1231548637/mx.grand.example.ed.jp
+Content-Type: text/rfc822-headers
+
+Return-Path: <nobody@grand.example.ed.jp>
+Received: from grand.example.ed.jp (mta.grand.example.ed.jp [127.0.0.1])
+        by mx.grand.example.ed.jp (8.13.8/8.13.8) with ESMTP id n0A0oacK020014
+        for <this-user-does-not-have-goo-id@mail.goo.ne.jp>; Sat, 10 Jan 2009 09:50:36 +0900
+Received: (from nobody@localhost)
+        by ns.grand.example.ed.jp (8.13.8/8.12.8/Submit) id n0A0oabZ020013;
+        Sat, 10 Jan 2009 09:50:36 +0900
+Date: Sat, 10 Jan 2009 09:50:36 +0900
+Message-Id: <200901100050.n0A0oabZ020013@grand.example.ed.jp>
+To: this-user-does-not-have-goo-id@mail.goo.ne.jp
+From: nobody@grand.example.ed.jp
+Subject: TEST
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-2022-jp
+
+--n0A0obcL020016.1231548637/mx.grand.example.ed.jp--
+
+
+

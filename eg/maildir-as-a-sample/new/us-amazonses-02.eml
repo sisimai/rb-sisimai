@@ -1,0 +1,177 @@
+Return-Path: <>
+Received: from a192-13.smtp-out.amazonses.com (a192-13.smtp-out.amazonses.com [199.255.192.13])
+	by 3jo.example.jp (V8/cf) with ESMTP id p983Gkqb006703
+	for <shironeko@example.jp>; Sat, 8 Oct 2011 12:16:46 +0900
+X-Original-To: 00000132e188591e-2882d710-aacc-49e9-bfac-5400b02ffb9b-000000@email-bounces.amazonses.com
+Delivered-To: 00000132e188591e-2882d710-aacc-49e9-bfac-5400b02ffb9b-000000@email-bounces.amazonses.com
+Message-Id: <00000132e18869c0-f2f2c897-f15b-11e0-abc0-17dd0736b394-000000@email.amazonses.com>
+Date: Sat, 8 Oct 2011 03:16:46 +0000
+To: shironeko@example.jp
+From: MAILER-DAEMON@email-bounces.amazonses.com
+Subject: Delivery Status Notification (Failure)
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status; boundary="QPlGA.4hi2fg4GM.1JoJoP.3UxabUS"
+X-AWS-Outgoing: 199.255.192.13
+
+--QPlGA.4hi2fg4GM.1JoJoP.3UxabUS
+content-type: text/plain;
+    charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+The following message to <this-local-part-does-not-exist-on-the-server@docomo.ne.jp> was undeliverable.
+The reason for the problem:
+5.3.0 - Other mail system problem 550-'Unknown user this-local-part-does-not-exist-on-the-server@docomo.=
+ne.jp'
+
+--QPlGA.4hi2fg4GM.1JoJoP.3UxabUS
+content-type: message/delivery-status
+
+Reporting-MTA: dns; a192-79.smtp-out.amazonses.com
+
+Final-Recipient: rfc822;this-local-part-does-not-exist-on-the-server@docomo.ne.jp
+Action: failed
+Status: 5.0.0 (permanent failure)
+Remote-MTA: dns; [203.138.181.240]
+Diagnostic-Code: smtp; 5.3.0 - Other mail system problem 550-'Unknown user this-local-part-does-not-exist-on-the-server@docomo.ne.jp' (delivery attempts: 0)
+
+--QPlGA.4hi2fg4GM.1JoJoP.3UxabUS
+content-type: message/rfc822
+
+Received: from unknown (HELO aws-bacon-dlvr-svc-na-i-68075b08.us-east-1.amazon.com) ([10.13.204.161])
+  by na-mm-outgoing-6102-bacon.iad6.amazon.com with ESMTP; 08 Oct 2011 02:53:28 +0000
+Return-Path: 00000132e188591e-2882d710-aacc-49e9-bfac-5400b02ffb9b-000000@email-bounces.amazonses.com
+From: shironeko@example.jp
+To: this-local-part-does-not-exist-on-the-server@docomo.ne.jp
+Subject: TEST
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Date: Sat, 8 Oct 2011 03:16:41 +0000
+Message-ID: <00000132e188591e-2882d710-aacc-49e9-bfac-5400b02ffb9b-000000@email.amazonses.com>
+X-AWS-Outgoing: 199.255.192.79
+
+These are sample scripts that show how to use Amazon Simple Email Service 
+(Amazon SES) from the command line.  To learn more about these scripts, see 
+the Amazon SES Developer Guide. 
+
+PREREQUISITES
+-------------
+Before running these scripts, you must fulfill the following prerequisites:
+
+* You must have an Amazon Web Services account, and must also sign up for 
+  Amazon SES.  See the Amazon SES Getting Started Guide 
+  for more information.
+
+* You must install Perl version 5.6.0 or later.  If you already have Perl 
+  installed, you can determine your version number by typing
+
+      perl -v
+
+  at the command prompt.  If you do not have Perl installed, go to 
+  http://www.perl.org for more information.
+
+* Depending on the version of Perl that you are using, you may need to install
+  some additional Perl modules.  To install these modules, run the following
+  commands:
+
+      perl -MCPAN -e 'install Digest::SHA'
+      perl -MCPAN -e 'install URI::Escape'
+      perl -MCPAN -e 'install Bundle::LWP'
+      perl -MCPAN -e 'install LWP::Protocol::https'
+      perl -MCPAN -e 'install MIME::Base64'
+      perl -MCPAN -e 'install Crypt::SSLeay'
+      perl -MCPAN -e 'install XML::LibXML'
+
+  Please ensure that you are using the latest versions of these modules.
+
+INSTALLATION
+------------
+To install these scripts, copy them to a directory of your choice.  We suggest 
+that you copy them to /opt/third-party/amazon/ses.  You might need 
+administrative privileges to do this.
+
+Help is available for these scripts - simply run one of them with the "--help"
+parameter.  Here is an example:
+
+      ses-get-stats.pl --help
+      Usage:
+         ses-get-stats.pl [--help] [-e URL] [-k FILE] [--verbose] -s | -q
+
+For more information, please refer to the Amazon SES Developer Guide.
+
+AWS CREDENTIALS FILE
+--------------------
+Each of these Amazon SES scripts requires an AWS credentials file.  To prepare 
+an AWS credentials file, follow these instructions:
+
+* Create a new text file.  In our example, we call it "aws-credentials".
+
+* Go to http://aws.amazon.com and look up your AWS credentials:  Click on 
+Account, and then Security Credentials.
+
+* Copy your Access Key ID and Secret Access Key into the "aws-credentials" file.
+
+* Change the permissions on the file so that only you have read/write access.
+(This step is *very* important, because no one else should see your Secret 
+Access Key.)
+
+* Your credentials file should look similar to the following:
+AWSAccessKeyId=022QF06E7MXBSH9DHM02
+AWSSecretKey=kWcrlUX5JEDGM/LtmEENI/aVmYvHNif5zB+d9+ct
+
+You can now use this AWS credentials file with the "-k" parameter when running
+any of the Amazon SES scripts.  For example:
+
+      ses-get-stats.pl -k aws-credentials -s
+
+TROUBLESHOOTING
+---------------
+
+* Command not found:
+
+      This means that your command line interpreter (or shell) cannot find the 
+      script.  Try running it again with a fully qualified path name, such as:
+
+         /opt/third-party/amazon/ses/bin/ses-send-email.pl 
+
+      If you change your current working directory to this location, you can 
+      run the script as follows:
+
+         ./ses-send-email.pl
+
+      Alternatively, you can include your current working directory in your 
+      PATH variable, so that you can run the script without prepending "./". 
+
+* /usr/bin/perl: bad interpreter: No such file or directory:
+
+      By default, these scripts expect the Perl interpreter to be located at 
+      "/usr/bin/perl".  If the Perl interpreter is installed elsewhere, or not
+      installed at all, you will receive the error message printed above.  
+
+      To correct this, you can edit the first line in the script so that it
+      refers to your Perl installation (for example, /opt/third-party/bin/perl).
+      You can also specify your Perl interpreter on the command line:
+
+         /opt/third-party/bin/perl ./ses-send-email.pl
+
+* Can't locate SES.pm in @INC:
+
+      Each of the Amazon SES scripts require the "SES.pm" Perl module.  This
+      error means that Perl could not find SES.pm in the list of directories 
+      where Perl modules are located.  By default, the Amazon SES scripts 
+      expect SES.pm to reside in the same directory as the scripts themselves.
+      To correct this error, try one of the following:
+
+      1) Before running the script, set the PERL5LIB variable to the directory
+      where SES.pm is located.  For example:
+         export PERL5LIB=/opt/third-party/amazon/ses
+
+      2) Modify the scripts so that they can find SES.pm in the correct
+      directory:
+         use lib '/opt/third-party/amazon/ses';
+
+      3) Use the "-I" command line switch to add the specified search path to 
+      Perl's list of module directories:
+         perl -I/opt/third-party/amazon/ses ./ses-send-email.pl 
+
+--QPlGA.4hi2fg4GM.1JoJoP.3UxabUS--

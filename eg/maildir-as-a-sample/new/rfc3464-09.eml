@@ -1,0 +1,93 @@
+From: "Mail Delivery System" <MAILER-DAEMON@mx4.gr3.example.jp>
+To: <shironeko@example.org>
+Subject: Delayed Mail (still being retried)
+Date: Thu, 9 May 2009 23:34:45 +0900
+Message-ID: <20090509233455.00000000000@mx4.gr3.example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="----=_bb_0000_fffff_00"
+
+This is a multipart message in MIME format.
+
+------=_bb_0000_fffff_00
+Content-Type: text/plain;
+	report-type=delivery-status;
+	boundary="X000000000.DFF0000/mx4.gr3.example.jp";
+	charset="US-ASCII"
+Content-Transfer-Encoding: 7bit
+
+This is the mail system at host mx4.gr3.example.jp.
+
+####################################################################
+# THIS IS A WARNING ONLY.  YOU DO NOT NEED TO RESEND YOUR MESSAGE. #
+####################################################################
+
+Your message could not be delivered for more than 15 minutes.
+It will be retried until it is 24 hours old.
+
+For further assistance, please contact your postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora-cat@mx4.gr3.example.jp> (expanded from
+    <kijitora@mx4.gr3.example.jp>): temporary failure. Command output:
+Quota
+    exceeded message delivery failed to /var/mail/box/00/f/kijitora/INBOX
+
+------=_bb_0000_fffff_00
+Content-Type: message/delivery-status;
+	name="details.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="details.txt"
+
+Reporting-MTA: dns; mx4.gr3.example.jp
+X-Postfix-Queue-ID: F0000000000
+X-Postfix-Sender: rfc822; shironeko@example.org
+Arrival-Date: Thu,  9 May 2009 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; kijitora-cat@mx4.gr3.example.jp
+Original-Recipient: rfc822;kijitora-nyaaaaaan@example.co.jp
+Action: delayed
+Status: 4.3.0
+Diagnostic-Code: x-unix; Quota exceeded message delivery failed to
+	/var/mail/box/u/00/f/kijitora/INBOX
+Will-Retry-Until: Mon,  5 May 2009 23:34:45 +0900 (JST)
+
+------=_bb_0000_fffff_00
+Content-Type: text/rfc822-headers;
+	name="Undelivered Message Headers.txt"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+	filename="Undelivered Message Headers.txt"
+
+Received: from mx34.mail.example.jp (mx34.mail.example.jp [192.0.2.21])
+	by mx4.gr3.example.jp (Postfix) with ESMTP id F0000000000
+	for <kijitora@mx4.gr3.example.jp>; Thu,  9 May 2009 23:34:45 +0900 (JST)
+Received: from example.org (example.org [192.0.2.64])
+	by mx34.mail.example.jp (Postfix) with ESMTP id E1111111111
+	for <kijitora-nyaaaaaan@example.co.jp>; Thu,  9 May 2009 23:34:45 +0900 (JST)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by example.org (Postfix) with ESMTP id 00000000000
+	for <kijitora-nyaaaaaan@example.co.jp>; Sat,  3 May 2009 23:34:45 +0900 (JST)
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: shironeko@example.org
+To: kijitora-nyaaaaaan@example.co.jp
+Subject: Nyaaaan
+Reply-To: shironeko@example.org
+Message-ID: <00000000000000000000000000000000000000000@example.org>
+Date: Sat, 03 May 2009 23:34:45 -0600
+Precedence: bulk
+X-BeenThere: nyaaaanz@example.org
+X-Mailman-Version: 2.1.5
+List-Id: neko.example.org
+Sender: shironeko@example.org
+Errors-To: shironeko@example.org
+
+Nyaaaaan
+------=_bb_0000_fffff_00--

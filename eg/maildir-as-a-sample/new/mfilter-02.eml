@@ -1,0 +1,48 @@
+Return-Path: <postmaster@example.co.jp>
+X-Original-To: shironeko@example.jp
+Delivered-To: shironeko@example.jp
+Received: from smtp2.example.co.jp (smtp1.example.co.jp [192.0.2.80])
+    by mx.example.jp (Postfix) with ESMTP id 0000000000
+    for <shironeko@example.jp>; Thu, 29 Apr 2011 23:34:45 +0900 (JST)
+Received: from 127.0.0.1 (127.0.0.1) by m-FILTER with ESMTP;
+    Thu, 29 Apr 2011 23:34:45 +0900
+X-Mailer: m-FILTER
+Message-Id: <0000000000000@example.co.jp>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="ISO-2022-JP"
+Content-Transfer-Encoding: 7bit
+From: POSTMASTER <postmaster@example.co.jp>
+To: shironeko@example.jp
+Date: Thu, 29 Apr 2011 23:34:45 +0900
+Subject: failure notice
+
+このメールは「m-FILTER」が自動的に生成して送信しています。
+メールサーバーとの通信中、下記の理由により
+このメールは送信できませんでした。
+
+以下のメールアドレスへの送信に失敗しました。
+kijitora@example.co.jp
+
+
+-------server message
+550 5.1.1 <kijitora@example.co.jp>: Recipient address rejected: User unknown in local recipient table
+
+-------SMTP command
+DATA
+
+-------original message
+Received: from 192.0.2.224 (192.0.2.224) by m-FILTER with ESMTP; 
+    Thu, 29 Apr 2011 23:34:45 +0900
+Received: from unknown (HELO mx.example.jp) (192.0.2.4)  by 0 with SMTP; 
+    29 Apr 2011 23:34:45 -0000
+Message-ID: <000000000000@exmaple.jp>
+Date: Thu, 29 Apr 2011 23:34:45 +0900 (JST)
+To: kijitora@example.co.jp
+Subject: Nyaan
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ISO-2022-JP
+Content-Transfer-Encoding: 7bit
+From: Shironeko <shironeko@example.jp>
+
+Nyaan
+

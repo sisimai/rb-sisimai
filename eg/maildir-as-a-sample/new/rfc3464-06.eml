@@ -1,0 +1,48 @@
+Return-Path: <>
+Received: from mxr45.example.net ([192.0.2.56])
+    by relay-4.pop.example.ne.jp (Post.Office MTA v3.1.2 release (PO203-101c) 
+    ID# 0-00000000000000000) with ESMTP id 0000000 
+    for <shironeko@example.co.jp>; Thu, 29 Apr 2000 23:34:45 +0900
+Received: from localhost (localhost)
+    by mxr45.example.net (8.8.8/8.8.8) with internal id 00000000;
+    Thu, 29 Apr 2000 23:34:45 +0900 (JST)
+Date: Thu, 29 Apr 2000 23:34:45 +0900 (JST)
+From: Mail Delivery Subsystem <MAILER-DAEMON@mxr45.example.net>
+Message-Id: <200004290452.AAA00901@mxr45.example.net>
+To: <shironeko@example.co.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+    boundary="FFFFFF00.00000/mxr45.example.net"
+Subject: Returned mail: Service unavailable
+Auto-Submitted: auto-generated (failure)
+
+The original message was received at Thu, 29 Apr 2000 23:34:45 +0900 (JST)
+from [192.0.2.230]
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora@example.net>
+
+   ----- Transcript of session follows -----
+mail.local: unknown user: kijitora
+554 <kijitora@example.net>... Service unavailable
+
+Reporting-MTA: dns; mxr45.example.net
+Received-From-MTA: DNS; [192.0.2.231]
+Arrival-Date: Thu, 29 Apr 2000 23:34:45 +0900 (JST)
+
+Final-Recipient: RFC822; <kijitora@example.net>
+Action: failed
+Status: 5.5.0
+Last-Attempt-Date: Thu, 29 Apr 2000 23:34:45 +0900 (JST)
+
+Return-Path: <shironeko@example.co.jp>
+Received: from mail52.example.com ([192.0.2.90])
+	by mxr45.example.net (8.8.8/8.8.8) with SMTP id 00000000;
+	Thu, 29 Apr 2000 23:34:45 +0900 (JST)
+From: shironeko@example.co.jp
+Subject: Nyaaan
+Date: Wed, 29 Apr 2000 23:34:45 +0900
+Message-Id: <0000000000.0000000@mail.example.com>
+To: shironeko@example.co.jp
+
+Nyaan

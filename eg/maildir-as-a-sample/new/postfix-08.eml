@@ -1,0 +1,78 @@
+Received: by fallback7.mail.ru (mPOP.Fallback_MX)
+	id 8572B11F987B1; Mon, 24 Nov 2014 14:23:04 +0300 (MSK)
+Date: Mon, 24 Nov 2014 14:23:04 +0300 (MSK)
+From: MAILER-DAEMON@fallback7.mail.ru (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: shironeko@example.jp
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="E7A8811F76121.1416828184/fallback7.mail.ru"
+Message-Id: <20141124112304.8572B11F987B1@fallback7.mail.ru>
+
+This is a MIME-encapsulated message.
+
+--E7A8811F76121.1416828184/fallback7.mail.ru
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host fallback7.mail.ru.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to <postmaster>
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@example.com>: connect to example.com[93.184.216.119]: Connection
+    timed out
+
+--E7A8811F76121.1416828184/fallback7.mail.ru
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; fallback7.mail.ru
+X-mPOP-Fallback_MX-Queue-ID: E7A8811F76121
+X-mPOP-Fallback_MX-Sender: rfc822; shironeko@example.jp
+Arrival-Date: Sun, 23 Nov 2014 19:55:16 +0300 (MSK)
+
+Final-Recipient: rfc822; kijitora@example.com
+Original-Recipient: rfc822;kijitora@example.com
+Action: failed
+Status: 4.4.1
+Diagnostic-Code: X-mPOP-Fallback_MX; connect to example.com[93.184.216.119]:
+    Connection timed out
+
+--E7A8811F76121.1416828184/fallback7.mail.ru
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Received: from smtp22.mail.ru (smtp22.mail.ru [94.100.181.177])
+	by fallback7.mail.ru (mPOP.Fallback_MX) with ESMTP id E7A8811F76121
+	for <kijitora@example.com>; Sun, 23 Nov 2014 19:55:16 +0300 (MSK)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru; s=mail2;
+	h=Mime-Version:To:Date:Message-Id:Subject:Content-Transfer-Encoding:Content-Type:From; bh=dVgkGaHJTdXVhsSCNJpT8s4E/3wGsF3X4fa/DqIslLk=;
+	b=KBNkUCIEyZiT8cmlJDb79/CiW2hEQc1NVWj2JApH40H6Qcdn5PnIkUO4idHMIWz9Y6EGnzJbnMa9fXp4S8lNLrf1k+xAXI7O9mnZFMaNqqL3jqCKUd1hb6wTV2l7w6NhcNwzTtBJ8e6Jw9xVHUWRMqmwo2ssN2NC2WfQxXTktNI=;
+Received: from [125.174.90.135] (port=51714 helo=[10.64.19.203])
+	by smtp22.mail.ru with esmtpa (envelope-from <shironeko@example.jp>)
+	id 1XsaRG-0002Yv-54
+	for kijitora@example.com; Sun, 23 Nov 2014 19:55:06 +0300
+From: shironeko <shironeko@example.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Subject: Nyaaan
+Message-Id: <143E20AB-3911-4809-8B49-BB1A17513571@mail.ru>
+Date: Mon, 24 Nov 2014 01:54:57 +0900
+To: kijitora@example.com
+Mime-Version: 1.0 (Mac OS X Mail 7.3 \(1878.6\))
+X-Mailer: Apple Mail (2.1878.6)
+X-Spam: Not detected
+X-Mras: Ok
+
+nyaan
+
+--E7A8811F76121.1416828184/fallback7.mail.ru--

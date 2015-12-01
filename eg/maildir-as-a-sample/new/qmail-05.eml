@@ -1,0 +1,31 @@
+Received: (qmail 1111 invoked for bounce); 29 Apr 2010 00:00:00 -0000
+Date: 29 Apr 2010 00:00:00 -0000
+From: MAILER-DAEMON@nijo.example.jp
+To: root@nijo.example.jp
+Subject: failure notice
+
+Hi. This is the qmail-send program at mx.example.jp.
+I'm afraid I wasn't able to deliver your message to the following addresses. 
+This is a permanent error; I've given up. Sorry it didn't work out. 
+
+<kijitora@example.net>: 
+Unable to contact LDAP server. (#4.4.3)I'm not going to try again; this
+message has been in the queue too long.
+
+--- Below this line is a copy of the message. 
+
+Return-Path: <postmaster@example.jp> 
+Received: (qmail 0000 invoked from network); 29 Apr 2010 23:45:43 -0000 
+Received: from unknown (HELO example.jp) (192.0.2.24) 
+  by mx.example.jp with SMTP; 29 Apr 2010 23:45:43 -0000 
+Message-ID: <00000000.000000000@example.jp> 
+Date: Thu, 29 Apr 2010 23:45:40 +0900 
+From: Shironeko <shironeko@example.org> 
+MIME-Version: 1.0 
+To: "Kijitora Cat" <kijitora@example.net> 
+Subject: Nyaaaaaaaaaaaaaaaaaaaaaaaaaaan
+Content-Type: text/plain; charset=us-ascii; format=flowed 
+Content-Transfer-Encoding: 7bit 
+
+Nyaa
+

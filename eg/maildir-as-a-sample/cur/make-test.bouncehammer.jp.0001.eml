@@ -1,0 +1,70 @@
+Received: from localhost (localhost)
+	by mta-smtp-out-24.example.jp (8.14.1/8.14.1) id m8I8s45D007047;
+	Thu, 18 Sep 2008 17:54:04 +0900 (JST)
+Date: Thu, 18 Sep 2008 17:54:04 +0900 (JST)
+From: Mail Delivery Subsystem <MAILER-DAEMON>
+Message-Id: <200809180854.m8I8s45D007047@mta-smtp-out-24.example.jp>
+To: postmaster
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="m8I8s45D007047.1221728044/mta-smtp-out-24.example.jp"
+Subject: Postmaster notify: see transcript for details
+Auto-Submitted: auto-generated (postmaster-notification)
+
+This is a MIME-encapsulated message
+
+--m8I8s45D007047.1221728044/mta-smtp-out-24.example.jp
+
+The original message was received at Thu, 18 Sep 2008 17:54:04 +0900 (JST)
+from [192.0.2.97]
+
+   ----- The following addresses had permanent fatal errors -----
+<domain-does-not-exist@example.gov>
+    (reason: 550 Host unknown)
+
+   ----- Transcript of session follows -----
+550 5.1.2 <domain-does-not-exist@example.gov>... Host unknown (Name server: example.gov.: host not found)
+
+--m8I8s45D007047.1221728044/mta-smtp-out-24.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mta-smtp-out-24.example.jp
+Received-From-MTA: DNS; [192.0.2.97]
+Arrival-Date: Thu, 18 Sep 2008 17:54:04 +0900 (JST)
+
+Final-Recipient: RFC822; domain-does-not-exist@example.gov
+Action: failed
+Status: 5.1.2
+Remote-MTA: DNS; example.gov
+Diagnostic-Code: SMTP; 550 Host unknown
+Last-Attempt-Date: Thu, 18 Sep 2008 17:54:04 +0900 (JST)
+
+--m8I8s45D007047.1221728044/mta-smtp-out-24.example.jp
+Content-Type: text/rfc822-headers
+
+Return-Path: <domain-does-not-exist@example.jp>
+Received: from USER-PC97 ([192.0.2.97])
+ (authenticated bits=0)
+ by mta-smtp-out-24.example.jp (8.14.1/8.14.1) with ESMTP id m8I8s45C006868
+ for <domain-does-not-exist@example.gov>; 
+ Thu, 18 Sep 2008 17:54:04 +0900 (JST)
+Message-ID: <AA406E7E18714AB2927DAACC24B47C4A@USER-PC97>
+From: "User1, For Example" <user1@example.jp>
+To: <domain-does-not-exist@example.gov>
+Subject: =?utf-8?B?44Kt44K444OI44Op?=
+Date: Thu, 18 Sep 2008 17:53:55 +0900
+MIME-Version: 1.0
+Content-Type: text/plain;
+ format=flowed;
+ charset="iso-2022-jp";
+ reply-type=original
+Content-Transfer-Encoding: 7bit
+X-Priority: 3
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook Express 6.00.2900.5512
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.5579
+
+--m8I8s45D007047.1221728044/mta-smtp-out-24.example.jp--
+
+
+

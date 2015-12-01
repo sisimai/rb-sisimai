@@ -1,0 +1,42 @@
+Received: from marutamachi.example.org (c182.example.net [192.2.0.128])
+	by mx.example.jp (8.14.4/8.14.4) with ESMTP id o91ASuvs025298
+	for <shironeko@example.jp>; Fri, 1 Oct 2010 19:28:57 +0900 (JST)
+X-Virus-Status: Clean
+X-Virus-Scanned: clamav-milter 0.96 at 6kaku.example.jp
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 mx.example.jp o91ASuvs025298
+Authentication-Results: mx.example.jp; sender-id=none header.from=Mailer-Daemon@marutamachi.example.org
+Received: from mail by marutamachi.example.org with local (Exim 4.72)
+	id 1P1crI-0001W9-OO
+	for shironeko@example.jp; Fri, 01 Oct 2010 19:28:56 +0900
+Date: Fri, 01 Oct 2010 19:28:56 +0900
+Message-Id: <E1P1crI-0001W9-OO@marutamachi.example.org>
+X-Failed-Recipients: kijitora@example.jp
+Auto-Submitted: auto-replied
+From: Mail Delivery System <Mailer-Daemon@marutamachi.example.org>
+To: shironeko@example.jp
+Subject: Mail delivery failed: returning message to sender
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  kijitora@example.or.jp
+    SMTP error from remote mail server after end of data:
+    host mx.example.jp [192.0.2.20]: 554 5.7.0 Header error
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <shironeko@example.jp>
+Received: from localhost ([127.0.0.1])
+	by marutamachi.example.org with smtp (Exim 4.72)
+	(envelope-from <shironeko@example.jp>)
+	id 1P1cqy-0001Tl-9p
+	for kijitora@example.jp; Fri, 01 Oct 2010 19:28:55 +0900
+Date: Fri, 01 Oct 2010 19:28:54 +0900
+Message-Id: <hogeuoiuadogalhg.dg9i09@example.jp>
+From: shironeko@example.jp
+To: kijitora@example.or.jp
+Subject: Nyaaan
+
+Nyaaan

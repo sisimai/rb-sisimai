@@ -1,0 +1,85 @@
+Return-Path: <MAILER-DAEMON@e5-fbp.mx.example.ne.jp>
+Received: from r.mx.example.ne.jp (r-fbp.mx.example.ne.jp [192.0.2.126]) 
+    by e5-fbp.mx.example.ne.jp (3.10pn) with ESMTP id oBA4LLJd001809 for 
+    <shironeko@x.example.ne.jp>; Fri, 10 Dec 2010 13:21:21 +0900 (JST)
+Received: from mx.example.org (v182.example.net [192.0.2.128]) 
+    by r.mx.example.ne.jp (3.11g) with ESMTP id oBA4LLQE019906 for 
+    <shironeko@x.example.ne.jp>; Fri, 10 Dec 2010 13:21:21 +0900 (JST)
+From: postmaster@example.org
+To: shironeko@1jo.example.org
+Subject: NOTICE: mail delivery status.
+Mime-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+    boundary="=_courier_0"
+Content-Transfer-Encoding: 7bit
+Message-ID: <courier.4D01AAC1.0000A42F@1jo.example.org>
+Date: Fri, 10 Dec 2010 13:21:21 +0900
+
+This is a MIME-formatted message.  If you see this text it means that your
+E-mail software does not support MIME-formatted messages.
+
+--=_courier_0
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+
+
+This is a delivery status notification from 1jo.example.org,
+running the Courier mail server, version 0.65.2.
+
+The original message was received on Fri, 10 Dec 2010 13:21:19 +0900
+from 1jo.example.org (localhost [127.0.0.1])
+
+---------------------------------------------------------------------------
+
+                           UNDELIVERABLE MAIL
+
+Your message to the following recipients cannot be delivered:
+
+<kijitora@example.jp>:
+    mfsmax.example.jp [192.0.2.45]:
+>>> DATA
+<<< 550 5.7.1 can't determine Purported Responsible Address
+
+---------------------------------------------------------------------------
+
+If your message was also sent to additional recipients, their delivery
+status is not included in this report.  You may or may not receive
+other delivery status notifications for additional recipients.
+
+The original message follows as a separate attachment.
+
+
+--=_courier_0
+Content-Type: message/delivery-status
+Content-Transfer-Encoding: 7bit
+
+Reporting-MTA: dns; 1jo.example.org
+Arrival-Date: Fri, 10 Dec 2010 13:21:19 +0900
+Received-From-MTA: dns; 1jo.example.org (localhost [127.0.0.1])
+
+Final-Recipient: rfc822; kijitora@example.jp
+Action: failed
+Status: 5.0.0
+Remote-MTA: dns; mfsmax.example.jp [203.138.181.112]
+Diagnostic-Code: smtp; 550 5.7.1 can't determine Purported 
+    Responsible Address
+
+--=_courier_0
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 7bit
+
+Received: from 1jo.example.org (localhost [127.0.0.1])
+  by 1jo.example.org with ESMTP; Fri, 10 Dec 2010 13:21:19 +0900
+  id 0EFD1EE6.4D01AABF.0000A424
+Received: (from shironeko@localhost)
+	by 1jo.example.org (8.14.4/8.14.4/Submit) id oBA4LJFU042012
+	for kijitora@example.jp; Fri, 10 Dec 2010 13:21:19 +0900
+Date: Fri, 10 Dec 2010 13:21:19 +0900
+From: shironeko@1jo.example.org
+Message-Id: <201012100421.oBA4LJFU042012@1jo.example.org>
+To: kijitora@example.jp
+Subject: Nyaaaaan
+
+nyaaan
+
+

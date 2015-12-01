@@ -1,0 +1,49 @@
+Return-Path: <postmaster@example.com>
+X-Original-To: shironeko@example.jp
+Delivered-To: shironeko@example.jp
+Received: from mx12.example.com (mx12.example.com [192.0.2.90])
+    by mx.example.jp (Postfix) with SMTP id 0000000000
+	for <shironeko@example.jp>; Thu, 29 Apr 2011 23:34:45 +0900 (JST)
+Received: from mf1.example.com [192.0.2.4] by mx90.example.com (SMTPD-10.00)
+    id 00000000; Thu, 29 Apr 2011 23:34:45 +0900
+Received: from 127.0.0.1 (127.0.0.1) by m-FILTER with ESMTP; 
+    Thu, 29 Apr 2011 23:34:45 +0900
+X-Mailer: m-FILTER
+Message-Id: <000000000000000000@example.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="ISO-2022-JP"
+Content-Transfer-Encoding: 7bit
+From: POSTMASTER <postmaster@example.com>
+To: shironeko@example.jp
+Date: Thu, 29 Apr 2011 23:34:45 +0900
+Subject: failure notice
+
+このメールは「m-FILTER」が自動的に生成して送信しています。
+メールサーバーとの通信中、下記の理由により
+このメールは送信できませんでした。
+
+以下のメールアドレスへの送信に失敗しました。
+kijitora@example.com
+
+
+-------server message
+550 unknown user <kijitora@example.com>
+
+-------SMTP command
+DATA
+
+-------original message
+Received: from 192.0.2.54 (192.0.2.54) by m-FILTER with ESMTP; 
+    Thu, 29 Apr 2011 23:34:45 +0900
+Received: (qmail 1000 invoked from network); 29 Apr 2011 23:34:45 -0000
+Message-ID: <000000000000000@exmaple.com>
+Date: Thu, 29 Apr 2011 23:34:45 +0900 (JST)
+From: Shironeko <shironeko@example.jp>
+To: kijitora@example.com
+Subject: Nyaaan
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ISO-2022-JP
+Content-Transfer-Encoding: 7bit
+
+Nyaan
+

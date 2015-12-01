@@ -1,0 +1,37 @@
+Delivered-To: shironeko@zoho.example.com
+Received: from mail.zoho.com by mx.zohomail.com
+    with SMTP id 1418381367218712.0482915907297; Fri, 12 Dec 2014 02:49:27 -0800 (PST)
+Date: Fri, 12 Dec 2014 02:49:27 -0800
+From: mailer-daemon@mail.zoho.com
+To: shironeko@zoho.example.com
+Message-ID: <14a3e1e1785.10e032042-1827262923.18851293078035029@zohomail.com>
+Subject: Undelivered Mail Returned to Sender
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+    boundary="----=_Part_873_1744249839.1418381367173"
+User-Agent: Zoho Mail
+X-Mailer: Zoho Mail
+X-ZohoMail: Si CHF_MF_NL SS_10 UW48 UB48 FMWL UW48 UB48 SGR3_1_09124_45
+X-Zoho-Virus-Status: 2
+
+
+------=_Part_873_1744249839.1418381367173
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+
+This message was created automatically by mail delivery software.
+A message that you sent could not be delivered to one or more of its recipients. This is a permanent error. 
+
+shironeko@example.org Invalid Address, ERROR_CODE :550, ERROR_CODE :Requested action not taken: mailbox unavailable
+
+
+Received:from mail.zoho.com by mx.zohomail.com
+    with SMTP id 1418381365566172.6749913299642; Fri, 12 Dec 2014 02:49:25 -0800 (PST)
+Message-ID:<14a3e1e110a.b4fa4ce310535.5193856207448782548@zoho.example.com>
+Date:Fri, 12 Dec 2014 10:49:25 +0000
+From:Neko <shironeko@zoho.example.com>
+User-Agent:Zoho Mail
+Subject:TEST FOR BOUNCE
+Content-Type:text/plain; charset="UTF-8"
+To:<shironeko@example.org>
+------=_Part_873_1744249839.1418381367173--

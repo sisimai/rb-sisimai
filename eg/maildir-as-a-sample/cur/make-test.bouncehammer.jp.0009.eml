@@ -1,0 +1,55 @@
+Return-Path: <MAILER-DAEMON>
+Received: from mmrky005p01c.softbank.ne.jp (mmrky005p01c.softbank.ne.jp [202.179.204.64])
+	by outgoing-smtp-4.example.co.jp (8.13.9/8.13.4) with SMTP id n159dSk4005497
+	for <user@example.co.jp>; Thu, 5 Feb 2009 18:39:28 +0900
+Content-Type: multipart/report;report-type="delivery-status";
+	boundary="dsn_3515f7bf_7322_4156_955a_79f259d066b4"
+Date: Thu, 05 Feb 2009 18:39:28 +0900
+Sender: MAILER-DAEMON@softbank.ne.jp
+From: MAILER-DAEMON@softbank.ne.jp
+To: user@example.co.jp
+Subject: Non Delivery Notification
+Message-ID: <20090205183928119774.1ded@000E0C53C14F>
+X-Priority: 3
+Mime-Version: 1.0
+Status:   
+
+
+--dsn_3515f7bf_7322_4156_955a_79f259d066b4
+Content-Type: text/plain;charset=ISO-2022-JP
+Content-Transfer-Encoding: 7bit
+
+指定された送信先はエラーのためお届けできませんでした。
+--dsn_3515f7bf_7322_4156_955a_79f259d066b4
+Content-Type: message/delivery-status
+
+Reporting-MTA:DNS;MAILER-DAEMON@softbank.ne.jp
+Final-Recipient:rfc822;the-recipient-does-not-exist-on-the-host@k.vodafone.ne.jp
+Action:failed
+Status:5.2.0
+
+
+--dsn_3515f7bf_7322_4156_955a_79f259d066b4
+Content-Type: message/rfc822
+
+Received: from outgoing-smtp-4.example.co.jp ([192.0.2.4])
+          by tgmsbbky07sb.k.vodafone.ne.jp with ESMTP
+          id <20090205093927623.SPDA.29172@tgmsbbky07sb.k.vodafone.ne.jp>
+          for <the-recipient-does-not-exist-on-the-host@k.vodafone.ne.jp>; 
+	  Thu, 5 Feb 2009 18:39:27 +0900
+X-BMTA-TYPE-ISP: 
+X-Mailer: Apple Mail (2.752.2)
+Date: Thu, 5 Feb 2009 18:39:26 +0900
+Subject: =?utf-8?B?44Ko44Op44O8?=
+From: user <user@example.co.jp>
+To: the-recipient-does-not-exist-on-the-host@k.vodafone.ne.jp
+Content-Type: text/plain;charset=US-ASCII;format=flowed
+Message-ID: <ED749469-6E55-447D-85D1-A04064647FC2@example.co.jp>
+Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Apple Message framework v752.2)
+
+TEST
+--dsn_3515f7bf_7322_4156_955a_79f259d066b4--
+
+
+

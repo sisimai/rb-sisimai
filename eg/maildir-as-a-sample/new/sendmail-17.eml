@@ -1,0 +1,68 @@
+Return-Path: <MAILER-DAEMON@example.com>
+Received: from example.com (example.com [192.0.2.115])
+	by example.com (8.13.1/8.13.1) with ESMTP id n0000000001111
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO)
+	for <shironeko@example.com>; Thu, 29 Apr 2009 23:45:10 -0000
+Date: Thu, 29 Apr 2009 23:45:10 -0000
+From: Mail Delivery Subsystem <MAILER-DAEMON@example.com>
+Message-Id: <200904292345.00000000000000@example.com>
+To: <shironeko@example.com>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="n00000000000000000/example.com"
+Content-Transfer-Encoding: binary
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--n00000000000000000/example.com
+
+The original message was received at Thu, 29 Apr 2009 23:45:10 -0000
+from localhost [127.0.0.1]
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora@example.net>
+    (reason: 551 not our user)
+
+   ----- Transcript of session follows -----
+... while talking to gateway-a.example.net.:
+<<< 450 busy - please try later
+... while talking to smtp45.example.net.:
+>>> DATA
+<<< 551 not our user
+550 5.1.1 <kijitora@example.net>... User unknown
+<<< 503 need RCPT command [data]
+
+--n00000000000000000/example.com
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; example.com
+Received-From-MTA: DNS; localhost
+Arrival-Date: Thu, 29 Apr 2009 23:45:10 -0000
+
+Final-Recipient: RFC822; kijitora@example.net
+Action: failed
+Status: 5.1.6
+Remote-MTA: DNS; smtp45.example.net
+Diagnostic-Code: SMTP; 551 not our user
+Last-Attempt-Date: Thu, 29 Apr 2009 23:45:10 -0000
+
+--n00000000000000000/example.com
+Content-Type: message/rfc822
+Content-Transfer-Encoding: binary
+
+Return-Path: <shironeko@example.com>
+Received: from example.com (localhost [127.0.0.1])
+	by example.com (8.13.1/8.13.1) with ESMTP id n0000000000000
+	for <kijitora@example.net>; Thu, 29 Apr 2009 23:45:10 -0000
+Date: Thu, 29 Apr 2009 10:45:12 -0000
+Message-Id: <200904292345.00000000000000@example.com>
+Content-Type: text/plain
+Content-Transfer-Encoding: binary
+MIME-Version: 1.0
+Subject: Nyaaan
+From: Shironeko <shironeko@example.com>
+To: Kijitora <kijitora@example.com>
+
+nyaaa

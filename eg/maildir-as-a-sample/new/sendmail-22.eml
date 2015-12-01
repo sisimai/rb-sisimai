@@ -1,0 +1,73 @@
+Return-Path: <MAILER-DAEMON@mx.example.co.jp>
+Received: from mx.example.co.jp (mx.example.co.jp [192.0.2.127])
+	by mx.example.co.jp (8.13.9/8.13.1) with ESMTP id fffff00000000
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO)
+	for <shironeko@mx.example.co.jp>; Thu, 9 Apr 2014 23:34:45 +0900
+Received: from localhost (localhost) by mx.example.co.jp (8.13.9/8.13.1) 
+    id fffffff00000000; Thu, 9 Apr 2014 23:34:45 +0900
+Date: Thu, 9 Apr 2014 23:34:45 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON@mx.example.co.jp>
+Message-Id: <00000000000.fffffff00000000@mx.example.co.jp>
+To: <shironeko@mx.example.co.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="fffffff00000000.00000000000/mx.example.co.jp"
+Content-Transfer-Encoding: binary
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--fffffff00000000.00000000000/mx.example.co.jp
+
+The original message was received at Thu, 9 Apr 2014 23:34:45 +0900
+from localhost [127.0.0.1]
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora@example.net>
+    (reason: 551 not our customer)
+
+   ----- Transcript of session follows -----
+... while talking to mx-0.neko.example.jp.:
+<<< 450 busy - please try later
+... while talking to mx-1.neko.example.jp.:
+>>> DATA
+<<< 551 not our customer
+550 5.1.1 <kijitora@example.net>... User unknown
+<<< 503 need RCPT command [data]
+
+--fffffff00000000.00000000000/mx.example.co.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx.example.co.jp
+Received-From-MTA: DNS; localhost
+Arrival-Date: Thu, 9 Apr 2014 23:34:45 +0900
+
+Final-Recipient: RFC822; kijitora@example.net
+Action: failed
+Status: 5.1.6
+Remote-MTA: DNS; mx-s.neko.example.jp
+Diagnostic-Code: SMTP; 551 not our customer
+Last-Attempt-Date: Thu, 9 Apr 2014 23:34:45 +0900
+
+--fffffff00000000.00000000000/mx.example.co.jp
+Content-Type: message/rfc822
+Content-Transfer-Encoding: binary
+
+Return-Path: <shironeko@mx.example.co.jp>
+Received: from mx.example.co.jp (localhost [127.0.0.1])
+	by mx.example.co.jp (8.13.9/8.13.1) with ESMTP id fffff000000001
+	for <kijitora@example.net>; Thu, 9 Apr 2014 23:34:45 +0900
+Received: (from shironeko@localhost)
+	by mx.example.co.jp (8.13.9/8.13.1/Submit) id fff0000000003
+	for kijitora@example.net; Thu, 9 Apr 2014 23:34:45 +0900
+Date: Thu, 9 Apr 2014 23:34:45 +0900
+Message-Id: <0000000011111.fff0000000003@mx.example.co.jp>
+Content-Type: text/plain
+MIME-Version: 1.0
+From: Shironeko <shironeko@example.co.jp>
+To: Kijitora <shironeko@example.co.jp>
+Subject: Nyaaaan
+
+Nyaaan
+

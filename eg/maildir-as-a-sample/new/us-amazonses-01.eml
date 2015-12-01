@@ -1,0 +1,59 @@
+Return-Path: <>
+Received: from a192-156.smtp-out.amazonses.com (a192-156.smtp-out.amazonses.com [199.255.192.156])
+	by nijo.example.jp (V8/cf) with ESMTP id p7V3i843003008
+	for <kijitora@example.jp>; Wed, 31 Aug 2011 12:44:08 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 nijo.example.jp p7V3i843003008
+Authentication-Results: nijo.example.jp; sender-id=pass header.from=MAILER-DAEMON@email-bounces.amazonses.com
+X-Original-To: 000001321defbd2a-788e31c8-2be1-422f-a8d4-cf7765cc9ed7-000000@email-bounces.amazonses.com
+Delivered-To: 000001321defbd2a-788e31c8-2be1-422f-a8d4-cf7765cc9ed7-000000@email-bounces.amazonses.com
+Message-Id: <000001321defcde6-79aad533-d383-11e0-ba2a-37b595feadb9-000000@email.amazonses.com>
+Date: Wed, 31 Aug 2011 03:44:07 +0000
+To: kijitora@example.jp
+From: MAILER-DAEMON@email-bounces.amazonses.com
+Subject: Delivery Status Notification (Failure)
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status; boundary="JuU8e.4gyIcCrxq.1RFbQY.3Vu7Hs+"
+X-AWS-Outgoing: 199.255.192.156
+
+--JuU8e.4gyIcCrxq.1RFbQY.3Vu7Hs+
+content-type: text/plain;
+    charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+The following message to <shironeko@example.co.jp> was undeliverable.
+The reason for the problem:
+5.1.0 - Unknown address error 550-'5.7.1 <000001321defbd2a-788e31c8-2be1-42=
+2f-a8d4-cf7765cc9ed7-000000@email-bounces.amazonses.com>... Access denied'
+
+--JuU8e.4gyIcCrxq.1RFbQY.3Vu7Hs+
+content-type: message/delivery-status
+
+Reporting-MTA: dns; a192-79.smtp-out.amazonses.com
+
+Final-Recipient: rfc822;shironeko@example.co.jp
+Action: failed
+Status: 5.0.0 (permanent failure)
+Remote-MTA: dns; [192.0.2.222]
+Diagnostic-Code: smtp; 5.1.0 - Unknown address error 550-'5.7.1 <000001321defbd2a-788e31c8-2be1-422f-a8d4-cf7765cc9ed7-000000@email-bounces.amazonses.com>... Access denied' (delivery attempts: 0)
+
+--JuU8e.4gyIcCrxq.1RFbQY.3Vu7Hs+
+content-type: message/rfc822
+
+Received: from unknown (HELO aws-bacon-dlvr-svc-na-i-8dc23dec.us-east-1.amazon.com) ([10.13.146.206])
+  by na-mm-outgoing-6102-bacon.iad6.amazon.com with ESMTP; 31 Aug 2011 03:23:15 +0000
+Return-Path: 000001321defbd2a-788e31c8-2be1-422f-a8d4-cf7765cc9ed7-000000@email-bounces.amazonses.com
+From: kijitora@example.jp
+To: shironeko@example.co.jp
+Subject: TEST
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Date: Wed, 31 Aug 2011 03:44:03 +0000
+Message-ID: <000001321defbd2a-788e31c8-2be1-422f-a8d4-cf7765cc9ed7-000000@email.amazonses.com>
+X-AWS-Outgoing: 199.255.192.79
+
+These are sample scripts that show how to use Amazon Simple Email Service 
+(Amazon SES) from the command line.  To learn more about these scripts, see 
+the Amazon SES Developer Guide. 
+
+--JuU8e.4gyIcCrxq.1RFbQY.3Vu7Hs+--

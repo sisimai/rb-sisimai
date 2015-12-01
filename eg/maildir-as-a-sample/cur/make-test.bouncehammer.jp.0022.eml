@@ -1,0 +1,66 @@
+Received: from localhost (localhost)
+        by mail-989.block-34.smtp.example.mil (8.14.1/8.14.1) id m8JJKru8000299;
+        Sat, 20 Sep 2008 04:20:53 +0900 (JST)
+Date: Sat, 20 Sep 2008 04:20:53 +0900 (JST)
+From: Mail Delivery Subsystem <MAILER-DAEMON>
+Message-Id: <200809191920.m8JJKru8000299@mail-989.block-34.smtp.example.mil>
+To: <general@example.mil>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+        boundary="m8JJKru8000299.1221852053/mail-989.block-34.smtp.example.mil"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--m8JJKru8000299.1221852053/mail-989.block-34.smtp.example.mil
+
+The original message was received at Sat, 20 Sep 2008 04:20:32 +0900 (JST)
+from [192.0.2.1]
+
+   ----- The following addresses had permanent fatal errors -----
+<this-is-not-a-yahoo-user-address@yahoo.com>
+    (reason: 554 delivery error: dd This user doesn't have a yahoo.com account (this-is-not-a-yahoo-user-address@yahoo.com) [0] - mta107.mail.re1.yahoo.com)
+
+   ----- Transcript of session follows -----
+... while talking to d.mx.mail.yahoo.com.:
+>>> DATA
+<<< 554 delivery error: dd This user doesn't have a yahoo.com account (this-is-not-a-yahoo-user-address@yahoo.com) [0] - mta107.mail.re1.yahoo.com
+554 5.0.0 Service unavailable
+
+--m8JJKru8000299.1221852053/mail-989.block-34.smtp.example.mil
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mail-989.block-34.smtp.example.mil
+Received-From-MTA: DNS; mta00.example.mil
+Arrival-Date: Sat, 20 Sep 2008 04:20:32 +0900 (JST)
+
+Final-Recipient: RFC822; this-is-not-a-yahoo-user-address@yahoo.com
+Action: failed
+Status: 5.0.0
+Remote-MTA: DNS; d.mx.mail.yahoo.com
+Diagnostic-Code: SMTP; 554 delivery error: dd This user doesn't have a yahoo.com account (this-is-not-a-yahoo-user-address@yahoo.com) [0] - mta107.mail.re1.yahoo.com
+Last-Attempt-Date: Sat, 20 Sep 2008 04:20:53 +0900 (JST)
+
+--m8JJKru8000299.1221852053/mail-989.block-34.smtp.example.mil
+Content-Type: text/rfc822-headers
+
+Return-Path: <general@example.mil>
+Received: from [192.0.2.1] (mta00.example.mil [192.0.2.1])
+        (authenticated bits=0)
+        by mail-989.block-34.smtp.example.mil (8.14.1/8.14.1) with ESMTP id m8JJKWu8026224
+        for <this-is-not-a-yahoo-user-address@yahoo.com>; Sat, 20 Sep 2008 04:20:32 +0900 (JST)
+Mime-Version: 1.0 (Apple Message framework v753.1)
+Content-Transfer-Encoding: 7bit
+Message-Id: <18A46BD5-7420-43B5-B988-03C0633E169B@example.mil>
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+To: this-is-not-a-yahoo-user-address@yahoo.com
+From: General <general@example.mil>
+Subject: TEST
+Date: Sat, 20 Sep 2008 04:20:31 +0900
+X-Mailer: Apple Mail (2.753.1)
+
+--m8JJKru8000299.1221852053/mail-989.block-34.smtp.example.mil--
+
+
+

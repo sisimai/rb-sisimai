@@ -1,0 +1,66 @@
+Received: from localhost (localhost)
+	by smtp-out-45.example.jp (8.14.3/8.14.3) id n3RNcwAR019967;
+	Tue, 28 Apr 2009 08:38:58 +0900 (JST)
+Date: Tue, 28 Apr 2009 08:38:58 +0900 (JST)
+From: Mail Delivery Subsystem <MAILER-DAEMON>
+Message-Id: <200904272338.n3RNcwAR019967@smtp-out-45.example.jp>
+To: <user5@example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="n3RNcwAR019967.1240875538/smtp-out-45.example.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--n3RNcwAR019967.1240875538/smtp-out-45.example.jp
+
+The original message was received at Tue, 28 Apr 2009 08:38:49 +0900 (JST)
+from [192.0.2.34]
+
+   ----- The following addresses had permanent fatal errors -----
+<this-message-excees-limit-5000kb@docomo.ne.jp>
+    (reason: 552 Message size exceeds maximum value)
+
+   ----- Transcript of session follows -----
+... while talking to mfsmax.docomo.ne.jp.:
+>>> MAIL From:<user5@example.jp> SIZE=6917278
+<<< 552 Message size exceeds maximum value
+554 5.0.0 Service unavailable
+
+--n3RNcwAR019967.1240875538/smtp-out-45.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; smtp-out-45.example.jp
+Received-From-MTA: DNS; [192.0.2.34]
+Arrival-Date: Tue, 28 Apr 2009 08:38:49 +0900 (JST)
+
+Final-Recipient: RFC822; this-message-excees-limit-5000kb@docomo.ne.jp
+Action: failed
+Status: 5.3.4
+Diagnostic-Code: SMTP; 552 Message size exceeds maximum value
+Last-Attempt-Date: Tue, 28 Apr 2009 08:38:58 +0900 (JST)
+
+--n3RNcwAR019967.1240875538/smtp-out-45.example.jp
+Content-Type: text/rfc822-headers
+
+Return-Path: <user5@example.jp>
+Received: from [192.0.2.34] ([192.0.2.34])
+	(authenticated bits=0)
+	by smtp-out-45.example.jp (8.14.3/8.14.3) with ESMTP id n3RNcnAR002829
+	for <this-message-excees-limit-5000kb@docomo.ne.jp>; 
+	Tue, 28 Apr 2009 08:38:49 +0900 (JST)
+Mime-Version: 1.0 (Apple Message framework v753.1)
+To: this-message-excees-limit-5000kb@docomo.ne.jp
+Message-Id: <BF90A7AB-3564-4624-B9CD-F9C0416EBD28@example.jp>
+Content-Type: multipart/mixed; boundary=Apple-Mail-1-575321817
+From: "User5, For Example" <user5@example.jp>
+Subject: TEST
+Date: Tue, 28 Apr 2009 08:38:45 +0900
+X-Mailer: Apple Mail (2.753.1)
+X-Virus-Scanned: ClamAV version 0.94.2, clamav-milter version 0.94.2 on 192.0.2.252
+X-Virus-Status: Clean
+
+--n3RNcwAR019967.1240875538/smtp-out-45.example.jp--
+
+

@@ -1,0 +1,37 @@
+From: <neko@example.com>
+Date: Thu, 9 Apr 2006 23:34:45 JST
+Subject: FW: Nyaaan
+To: <abuse@example.net>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=feedback-report; boundary="fffffff_000.000000000_b"
+
+--fffffff_000.000000000_b
+Content-Type: text/plain; charset="US-ASCII"
+Content-Transfer-Encoding: 7bit
+
+This is an email abuse report for an email message received from IP 192.0.2.2 on Thu, 9 Apr 2006 23:34:45 JST.
+For more information about this format please see http://www.example.org/arf/.
+
+--fffffff_000.000000000_b
+Content-Type: message/feedback-report
+
+Feedback-Type: abuse
+User-Agent: ARF-Agent/1.0
+Version: 0.1
+
+--fffffff_000.000000000_b
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+From: <shironeko@example.net>
+Received: from mx53.example.net (mx53.example.net [192.0.2.2])
+    by example.com with ESMTP id 00000000000fff; Thu, 09 Apr 2006 23:34:45 +0900
+To: <Undisclosed Recipients>
+Subject: Nyaaan
+MIME-Version: 1.0
+Content-type: text/plain
+Message-ID: ffffffffffffffffffffffffff0000000000@example.net
+Date: Thu, 09 Apr 2006 23:34:45 +0900
+
+Nyaaaaaaaaan
+--fffffff_000.000000000_b--

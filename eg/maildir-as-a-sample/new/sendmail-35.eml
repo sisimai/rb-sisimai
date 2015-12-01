@@ -1,0 +1,70 @@
+Return-Path: <MAILER-DAEMON@aneyakoji.nyaan.example.co.jp>
+Received: from localhost (localhost)
+	by aneyakoji.nyaan.example.co.jp (V8/cf) id tASBbDc2030855;
+	Sat, 28 Nov 2015 20:37:13 +0900
+Date: Sat, 28 Nov 2015 20:37:13 +0900
+From: Mail Delivery Subsystem <poostmaster@nyaan.example.co.jp>
+Message-Id: <201511281137.tASBbDc2030855@aneyakoji.nyaan.example.co.jp>
+To: <shironeko@nyaan.example.co.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="tASBbDc2030855.1448710633/aneyakoji.nyaan.example.co.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--tASBbDc2030855.1448710633/aneyakoji.nyaan.example.co.jp
+
+The original message was received at Sat, 28 Nov 2015 20:37:11 +0900
+from c135.kyoto.example.ne.jp [192.0.2.79]
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora@example.org>
+    (reason: 525 5.7.13 Disabled recipient address)
+
+   ----- Transcript of session follows -----
+... while talking to mail.example.org.:
+>>> DATA
+<<< 525 5.7.13 Disabled recipient address
+554 5.0.0 Service unavailable
+<<< 503 5.0.0 Need RCPT (recipient)
+
+--tASBbDc2030855.1448710633/aneyakoji.nyaan.example.co.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; aneyakoji.nyaan.example.co.jp
+Received-From-MTA: DNS; c135.kyoto.example.ne.jp
+Arrival-Date: Sat, 28 Nov 2015 20:37:11 +0900
+
+Final-Recipient: RFC822; kijitora@example.org
+Action: failed
+Status: 5.7.13
+Remote-MTA: DNS; mail.example.org
+Diagnostic-Code: SMTP; 525 5.7.13 Disabled recipient address
+Last-Attempt-Date: Sat, 28 Nov 2015 20:37:13 +0900
+
+--tASBbDc2030855.1448710633/aneyakoji.nyaan.example.co.jp
+Content-Type: message/rfc822
+
+Return-Path: <shironeko@nyaan.example.co.jp>
+Received: from [192.0.2.222] (c135.kyoto.example.ne.jp [192.0.2.79])
+	(authenticated bits=0)
+	by aneyakoji.nyaan.example.co.jp (V8/cf) with ESMTP id tASBbAc2030852
+	for <kijitora@example.org>; Sat, 28 Nov 2015 20:37:11 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 aneyakoji.nyaan.example.co.jp tASBbAc2030852
+Authentication-Results: aneyakoji.nyaan.example.co.jp; sender-id=pass header.from=shironeko@nyaan.example.co.jp; auth=pass (CRAM-MD5); spf=pass smtp.mfrom=shironeko@nyaan.example.co.jp
+From: "shironeko, nyaan" <shironeko@nyaan.example.co.jp>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: test
+Message-Id: <F8B07F6B-E1C6-43A7-BE54-71B1F71ADC8B@nyaan.example.co.jp>
+Date: Sat, 28 Nov 2015 20:37:08 +0900
+To: kijitora@example.org
+Mime-Version: 1.0 (Mac OS X Mail 7.3 \(1878.6\))
+X-Mailer: Apple Mail (2.1878.6)
+
+Nyaan
+
+--tASBbDc2030855.1448710633/aneyakoji.nyaan.example.co.jp--
+

@@ -1,0 +1,467 @@
+Received: by mx-001.sjc1.sendgrid.net with SMTP id IeUhgPEzUZ
+        Wed, 26 Mar 2014 00:14:37 +0000 (GMT)
+Received: from o7463194126.static.reverse.sendgrid.net (o7463194126.static.reverse.sendgrid.net [74.63.194.126])
+	by mx-001.sjc1.sendgrid.net (Postfix) with SMTP id E2A0F4C09E1
+	for <foobar@foobar.com>; Wed, 26 Mar 2014 00:14:36 +0000 (GMT)
+Content-Type: multipart/report; report-type=delivery-status;
+ boundary="----------=_1395792079-24137-58419"
+MIME-Version: 1.0
+X-Mailer: MIME-tools 5.504 (Entity 5.504)
+From: MAILER-DAEMON
+To: foobar@foobar.com
+Subject: Undelivered Mail Returned to Sender
+Content-Transfer-Encoding: 7bit
+
+This is a multi-part message in MIME format...
+
+------------=_1395792079-24137-58419
+Content-Type: text/plain
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
+Content-Description: Notification
+
+This is an automatically generated message from SendGrid.
+
+I'm sorry to have to tell you that your message was not able to be
+delivered to one of its intended recipients.
+
+If you require assistance with this, please contact SendGrid support.
+
+nuzzel:205357:<foobar@foobar.com> : 198.37.152.34 : mx03.mail.goo.ne.jp:[210.165.10.1] : 550 5.1.1 sid=i01K1n00l0kn1Em01 Address rejected foobar@foobar.com. [code=28]  in RCPT TO
+
+------------=_1395792079-24137-58419
+Content-Type: message/delivery-status
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
+Content-Description: Delivery Report
+Action: failed
+Status: 5.1.1
+
+X-SendGrid-QueueID: 189844630
+X-SendGrid-Sender: <bounces+205357-c893-foobar@foobar.com>
+Arrival-Date: 2014-03-26 00-01-19
+
+Final-Recipient: rfc822; foobar@foobar.com
+Original-Recipient: rfc822; foobar@foobar.com
+Action: failed
+Status: 5.1.1
+Diagnostic-Code: 550 5.1.1 sid=i01K1n00l0kn1Em01 Address rejected foobar@foobar.com. [code=28] 
+
+------------=_1395792079-24137-58419
+Content-Type: message/rfc822; name="189844630"
+Content-Disposition: inline; filename="189844630"
+Content-Description: Undelivered Message
+Content-Transfer-Encoding: 7bit
+
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=mail.nuzzel.com; 
+	h=from:to:subject:mime-version:content-type; s=smtpapi; 
+	bh=yhtUlNOt+OsIRW1TJfeKartqj/A=; b=hPD/jxHpbISNZxw+xmQdX8h3QCjkt
+	XIxmSkErGgzKsDX3efXWYpYybelWeB3pv7X4Kbe6Y7Ea4+mE/tWMkaXWYOiRovLU
+	pGfuoQ+y1ejO7JdXhcYvCCIWXm2TP3pbqLhn6S0UZ6ZD/q5ACILqK8lfqWhD7jMG
+	veyxrjy7XJktmE=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=mail.nuzzel.com; 
+	h=from:to:subject:mime-version:content-type; q=dns; s=smtpapi; b
+	=EeT4PcEPTWUe16FtsVE2iIPdjwCpQ4/VxPMSKLasFdZQBDpKdjw+b7EhxSf/cn2
+	rdVr4Z/Djp3Fv7s5lFoJVWICcMRo1CUSa0t6GKUUvFTgeFn6ZVOJJVGZtXQk1U10
+	+jXcqOLkXszShpD2QEzlCKkGmYg4nEVi+7sW3qB2vALw=
+Received: by filter-167.sjc1.sendgrid.net with SMTP id filter-167.20802.533218CE9
+        Wed, 26 Mar 2014 00:01:18 +0000 (UTC)
+Received: from worker21 (unknown [23.253.96.242])
+	by ismtpd-020 (SG) with ESMTP id 144fbb0e773.5991.175684b
+	for <foobar@foobar.com>; Wed, 26 Mar 2014 00:01:18 +0000 (GMT)
+Date: Tue, 25 Mar 2014 17:01:18 -0700 (PDT)
+From: Nuzzel <foobar@foobar.com>
+To: foobar@foobar.com
+Message-ID: <139110140.3801395792078533@mail.nuzzel.com>
+Subject: =?UTF-8?Q?"=E5=AD=90=E3=81=A9=E3=82=82=E3=81=8C=E3=81=84=E3=82=8B?=
+ =?UTF-8?Q?=E4=BA=BA=E3=81=AF=E4=B8=87=E5=86=86?=
+ =?UTF-8?Q?=E3=82=92=E3=82=82=E3=82=89=E3=81=8A?=
+ =?UTF-8?Q?=E3=81=86=E3=80=8E=E5=AD=90=E8=82=B2&#1239"_-_Nu?=
+ =?UTF-8?Q?zzel_News_Digest_for_Wed,_Mar_26?=
+MIME-Version: 1.0
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_364_68809158.1395792078220"
+X-SG-EID: WbCHFIQXGhVf+F4Q/YtKeaz0my2z0qOukQwwzKGIbZYkcLq9ohF7Jf5hN/aq8l4DDR0WUM3Na7OGh7X7GfuMXWbaHUccTUFwX8R2tiqjE+eF5ejS7UTsp+4MHoIJp/GlemQ3Qlfp2t0GWV3Z/Zc6BIrJmcAz7dG8KF+AKYLy707bQRI6Ux42rv2X9SpxB2M5
+X-SG-ID: gnwugAPEk90ONPODfP9Nu5olyGYoOHr4G6wVBy6kfLXmjnlDMHK4qunTxw2Ft51XC0SMf2dsNxekQ9Unawqs+/C7HU8BAZDPcpchq/xFxrx6bUiZddMqFmkoXc3rpU5Nf88ixBP/GVBngt8SeIYZFfZWNb2HochusV5hvyGTh178cGEkOKBegIAk2omzQiWkD7J0g60u+gsjU6ryhTjThZtHrccwtFDvDbZJ/j+Et5oiMDGQDAwilFTCZRHJhcmnjx3QM2jdPng/4vbil8CHA3SfMSk2PiE8H2stWc9pD5crtFwrqGoH9UGheK1qONOQ73eBSnibbSjLswFE45CrxxebooyeYEkk5+tKNLh8jkcivaGDzirt3BwUELrVh23RMQS+GAT7kx4yJUoP+46ND9KT9sgv22b18W9pTTkhf0sF4nQNneRgG1YBrqR/kyNosD6RpLsYwvDUbyn9aP5s0kx05F+BE2/5DVJElj3+gO3djTjqbGy1GrHMw+tcFfCQoEWFMR/63r/53oNo2BisHIxs+xdhLZkW/DuaV9vQvMU=
+
+------=_Part_364_68809158.1395792078220
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+
+Please open this email in an email client that supports HTML.
+------=_Part_364_68809158.1395792078220
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+<head>
+<style type="text/css">
+..header a { color: #F0F0F0 !important; text-decoration: none !important; }
+..storyDetails a { color: #666 !important; text-decoration: none !important; }
+</style>
+</head>
+<body style="padding: 0px; margin: 0px;">
+<table border="0" cellspacing="0" cellpadding="0" width="100%" bgcolor="#F4F4F4">
+<tr>
+<td style="padding: 20px;">
+<table border="0" cellspacing="0" cellpadding="0" width="700" align="center">
+<tr>
+<td width="650" bgcolor="#FFFFFF" style="font-family: arial, helvetica, sans-serif;">
+<table cellspacing="0" cellpadding="0" width="100%" bgcolor="#333333" style="border-top: 1px solid #CCCCCC;
+-webkit-border-top-left-radius: 8px; -webkit-border-top-right-radius: 8px;
+-moz-border-radius-topleft: 8px; -moz-border-radius-topright: 8px;
+border-top-left-radius: 8px; border-top-right-radius: 8px;">
+<tr>
+<td style="padding: 12px 27px;">
+<a href="http://nuzzel.com/"><img border="0" width="120" height="28"
+src="http://nuzzel.com/static/images/nuzzel_logo_small_with_hedgehog.png" alt="Nuzzel Logo"/></a>
+</td>
+<td align="right" style="padding: 12px 27px;">
+<span class="header" style="margin-left: 10px; font-size: 20px; color: #F0F0F0; font-family: arial, helvetica, sans-serif;">News Digest for Wed, Mar 26</span>
+</td>
+</tr>
+</table>
+<div style="padding: 25px; border-left: 1px solid #CCC;  border-right: 1px solid #CCC;  border-bottom: 1px solid #CCC;">
+<div style="margin-bottom: 30px; padding-bottom: 10px; border-bottom: 1px solid #CCC;">
+<table cellspacing="0" cellpadding="0" width="100%">
+<tr valign="bottom">
+<td style="font-size: 16px; font-family: arial, helvetica, sans-serif;">Your top stories from the past 24 hours:</td>
+<td align="right" style="font-size: 13px; font-family: arial, helvetica, sans-serif;"><a href="http://nuzzel.com/" style="color: #004276; text-decoration: none; ">View all stories</a></td>
+</tr>
+</table>
+</div>
+<table border="0" cellspacing="0" cellpadding="0" style="margin-bottom: 30px;">
+<tr valign="top">
+<td>
+<table border="0" cellspacing="0" cellpadding="0" style="text-align: center; width: 55px;">
+<tr>
+<td style="padding: 4px 0px; color: #333; background-color: #E8E8E8;
+border-left: 1px solid #D2D2D2; border-right: 1px solid #D2D2D2; border-top: 1px solid #D2D2D2;
+border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;">
+<div style="font-size: 20px; font-weight: bold; font-family: arial, helvetica, sans-serif;">4</div>
+<span style="font-size: 12px; font-family: arial, helvetica, sans-serif;">friends</span>
+</td>
+</tr>
+<tr>
+<td>
+<div style="margin-left: 8px; height: 5px;"><img style="display: block;" width="7" height="7" src="http://nuzzel.com/static/images/corner.gif" alt=""/></div>
+</td>
+</tr>
+</table>
+<div style="margin-top: 5px;">
+<a href="http://nuzzel.com/digestmore/03242014/bylines.news.yahoo.co/#fbshare" style="color: #004276; text-decoration: none; "><img src="http://nuzzel.com/static/images/facebook_share.png" border="0" width="55" height="18" alt="Share"/></a>
+</div>
+</td>
+<td style="padding-left: 20px; font-size: 13px; font-family: arial, helvetica, sans-serif;">
+<div style="font-size: 18px; font-weight: bold; margin: 0px 0px 3px 0px;"><a href="http://nuzzel.com/digeststory/03242014/bylines.news.yahoo.co/" style="color: #004276; text-decoration: none; ">&#23376;&#12393;&#12418;&#12364;&#12356;&#12427;&#20154;&#12399;&#19975;&#20870;&#12434;&#12418;&#12425;&#12362;&#12358;&#12302;&#23376;&#32946;&#1239</a></div>
+<div style="line-height: 1.4em;">
+<span style="color: #666;">
+<b>Yahoo!&#12491;&#12517;&#12540;&#12473;</b>
+</span>
+<span style="color: #333;">
+&ndash; &#x3082;&#x3046;&#x3059;&#x3050;&#xff14;&#x6708;&#x3002;&#x65b0;&#x5b66;&#x671f;&#x304c;&#x59cb;&#x307e;&#x308b;&#x3002;&#8230;
+</span>
+</div>
+<table cellspacing="0" style="margin-top: 10px;">
+<tr>
+<td style="padding-right: 6px;"><a href="http://nuzzel.com/digestmore/03242014/bylines.news.yahoo.co/" style="color: #004276; text-decoration: none; "><img width="25" height="25" style="display: block; border: 1px solid #E2E2F2;" border="0" src="http://graph.facebook.com/100000671393726/picture?type=square" alt="t.energy.bic.shibata"/></a></td>
+<td style="padding-right: 6px;"><a href="http://nuzzel.com/digestmore/03242014/bylines.news.yahoo.co/" style="color: #004276; text-decoration: none; "><img width="25" height="25" style="display: block; border: 1px solid #E2E2F2;" border="0" src="http://graph.facebook.com/749109496/picture?type=square" alt="triforce.ocot"/></a></td>
+<td style="padding-right: 6px;"><a href="http://nuzzel.com/digestmore/03242014/bylines.news.yahoo.co/" style="color: #004276; text-decoration: none; "><img width="25" height="25" style="display: block; border: 1px solid #E2E2F2;" border="0" src="http://graph.facebook.com/100001869699687/picture?type=square" alt="djkeiki"/></a></td>
+<td style="padding-right: 6px;"><a href="http://nuzzel.com/digestmore/03242014/bylines.news.yahoo.co/" style="color: #004276; text-decoration: none; "><img width="25" height="25" style="display: block; border: 1px solid #E2E2F2;" border="0" src="http://graph.facebook.com/100000799604361/picture?type=square" alt="hitomi.bambi"/></a></td>
+</tr>
+</table>
+<div style="margin-top: 10px; font-size: 13px; font-weight: bold;">
+<a href="http://nuzzel.com/digestmore/03242014/bylines.news.yahoo.co/" style="color: #004276; text-decoration: none; ">More info...</a>
+</div>
+</td>
+<td>
+<div style="margin-left: 20px;">
+<div style="height: 80px; width: 80px; overflow: hidden;
+background-color: #FFFFFF;
+border-top: 1px solid #E2E2F2;
+border-left: 1px solid #E2E2F2;
+border-right: 1px solid #C2C2D2;
+border-bottom: 1px solid #C2C2D2;
+-moz-box-shadow: 2px 2px 5px 0px #D2D2D2;
+-webkit-box-shadow: 1px 1px 2px 0px #B2B2C2;
+-box-shadow: inset 1px 1px 2px 0px #B2B2C2;">
+<a href="http://nuzzel.com/digeststory/03242014/bylines.news.yahoo.co/"><img style="display: block;" border="0" width="80" src="http://rpr.c.yimg.jp/im_siggh7_V9tUx2GdloGMW_sm0xA---x200-y200/yn/rpr/fujitatakanori/profile-1392944853.jpeg"
+alt="Image not available"/></a>
+</div>
+</div>
+</td>
+</tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="0" style="margin-bottom: 30px;">
+<tr valign="top">
+<td>
+<table border="0" cellspacing="0" cellpadding="0" style="text-align: center; width: 55px;">
+<tr>
+<td style="padding: 4px 0px; color: #333; background-color: #E8E8E8;
+border-left: 1px solid #D2D2D2; border-right: 1px solid #D2D2D2; border-top: 1px solid #D2D2D2;
+border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;">
+<div style="font-size: 20px; font-weight: bold; font-family: arial, helvetica, sans-serif;">3</div>
+<span style="font-size: 12px; font-family: arial, helvetica, sans-serif;">friends</span>
+</td>
+</tr>
+<tr>
+<td>
+<div style="margin-left: 8px; height: 5px;"><img style="display: block;" width="7" height="7" src="http://nuzzel.com/static/images/corner.gif" alt=""/></div>
+</td>
+</tr>
+</table>
+<div style="margin-top: 5px;">
+<a href="http://nuzzel.com/digestmore/03252014/timecode.bandcamp/wild_side_ep_timecode_ep013_by_str3tch#fbshare" style="color: #004276; text-decoration: none; "><img src="http://nuzzel.com/static/images/facebook_share.png" border="0" width="55" height="18" alt="Share"/></a>
+</div>
+</td>
+<td style="padding-left: 20px; font-size: 13px; font-family: arial, helvetica, sans-serif;">
+<div style="font-size: 18px; font-weight: bold; margin: 0px 0px 3px 0px;"><a href="http://nuzzel.com/digeststory/03252014/timecode.bandcamp/wild_side_ep_timecode_ep013_by_str3tch" style="color: #004276; text-decoration: none; ">Wild Side EP (Timecode EP013), by Str3tch</a></div>
+<div style="line-height: 1.4em;">
+<span style="color: #666;">
+<b>timecode.bandcamp.com</b>
+</span>
+<span style="color: #333;">
+&ndash; Immediate download of 3-track album in the high-quality format of your choice (MP3, FLAC, and more), plus unlimited mobile access using the free Bandcamp listening app. Timecode strikes back with a new series of EPs. Str3tch aka Julian Novski, also&#8230;
+</span>
+</div>
+<table cellspacing="0" style="margin-top: 10px;">
+<tr>
+<td style="padding-right: 6px;"><a href="http://nuzzel.com/digestmore/03252014/timecode.bandcamp/wild_side_ep_timecode_ep013_by_str3tch" style="color: #004276; text-decoration: none; "><img width="25" height="25" style="display: block; border: 1px solid #E2E2F2;" border="0" src="http://graph.facebook.com/191847994195632/picture?type=square" alt="Timecodesa"/></a></td>
+<td style="padding-right: 6px;"><a href="http://nuzzel.com/digestmore/03252014/timecode.bandcamp/wild_side_ep_timecode_ep013_by_str3tch" style="color: #004276; text-decoration: none; "><img width="25" height="25" style="display: block; border: 1px solid #E2E2F2;" border="0" src="http://graph.facebook.com/100000263271272/picture?type=square" alt="Buzz.Japan.Doof.Rec"/></a></td>
+<td style="padding-right: 6px;"><a href="http://nuzzel.com/digestmore/03252014/timecode.bandcamp/wild_side_ep_timecode_ep013_by_str3tch" style="color: #004276; text-decoration: none; "><img width="25" height="25" style="display: block; border: 1px solid #E2E2F2;" border="0" src="http://graph.facebook.com/179389802265269/picture?type=square" alt=""/></a></td>
+</tr>
+</table>
+<div style="margin-top: 10px; font-size: 13px; font-weight: bold;">
+<a href="http://nuzzel.com/digestmore/03252014/timecode.bandcamp/wild_side_ep_timecode_ep013_by_str3tch" style="color: #004276; text-decoration: none; ">More info...</a>
+</div>
+</td>
+<td>
+<div style="margin-left: 20px;">
+<div style="height: 80px; width: 80px; overflow: hidden;
+background-color: #FFFFFF;
+border-top: 1px solid #E2E2F2;
+border-left: 1px solid #E2E2F2;
+border-right: 1px solid #C2C2D2;
+border-bottom: 1px solid #C2C2D2;
+-moz-box-shadow: 2px 2px 5px 0px #D2D2D2;
+-webkit-box-shadow: 1px 1px 2px 0px #B2B2C2;
+-box-shadow: inset 1px 1px 2px 0px #B2B2C2;">
+<a href="http://nuzzel.com/digeststory/03252014/timecode.bandcamp/wild_side_ep_timecode_ep013_by_str3tch"><img style="display: block;" border="0" width="80" src="http://f0.bcbits.com/img/a4118748273_2.jpg"
+alt="Image not available"/></a>
+</div>
+</div>
+</td>
+</tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="0" style="margin-bottom: 30px;">
+<tr valign="top">
+<td>
+<table border="0" cellspacing="0" cellpadding="0" style="text-align: center; width: 55px;">
+<tr>
+<td style="padding: 4px 0px; color: #333; background-color: #E8E8E8;
+border-left: 1px solid #D2D2D2; border-right: 1px solid #D2D2D2; border-top: 1px solid #D2D2D2;
+border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;">
+<div style="font-size: 20px; font-weight: bold; font-family: arial, helvetica, sans-serif;">3</div>
+<span style="font-size: 12px; font-family: arial, helvetica, sans-serif;">friends</span>
+</td>
+</tr>
+<tr>
+<td>
+<div style="margin-left: 8px; height: 5px;"><img style="display: block;" width="7" height="7" src="http://nuzzel.com/static/images/corner.gif" alt=""/></div>
+</td>
+</tr>
+</table>
+<div style="margin-top: 5px;">
+<a href="http://nuzzel.com/digestmore/03252014/psyshop/str3tch_wild_side_ep_download_mp3_wav_timecode_records#fbshare" style="color: #004276; text-decoration: none; "><img src="http://nuzzel.com/static/images/facebook_share.png" border="0" width="55" height="18" alt="Share"/></a>
+</div>
+</td>
+<td style="padding-left: 20px; font-size: 13px; font-family: arial, helvetica, sans-serif;">
+<div style="font-size: 18px; font-weight: bold; margin: 0px 0px 3px 0px;"><a href="http://nuzzel.com/digeststory/03252014/psyshop/str3tch_wild_side_ep_download_mp3_wav_timecode_records" style="color: #004276; text-decoration: none; ">Str3tch: Wild Side EP (Download MP3 WAV) - Timecode Records</a></div>
+<div style="line-height: 1.4em;">
+<span style="color: #666;">
+<b>Psyshop</b>
+</span>
+<span style="color: #333;">
+&ndash; Str3tch aka Julian Novski, also known for his projects Digital Talk, Mindcore and Droidsect, takes us to the wild side on a hypnotic twisted ride. OTHER RELEASES FROM: Str3tch Perfect material for trancedance training sessions and groovy dancefloor&#8230;
+</span>
+</div>
+<table cellspacing="0" style="margin-top: 10px;">
+<tr>
+<td style="padding-right: 6px;"><a href="http://nuzzel.com/digestmore/03252014/psyshop/str3tch_wild_side_ep_download_mp3_wav_timecode_records" style="color: #004276; text-decoration: none; "><img width="25" height="25" style="display: block; border: 1px solid #E2E2F2;" border="0" src="http://graph.facebook.com/191847994195632/picture?type=square" alt="Timecodesa"/></a></td>
+<td style="padding-right: 6px;"><a href="http://nuzzel.com/digestmore/03252014/psyshop/str3tch_wild_side_ep_download_mp3_wav_timecode_records" style="color: #004276; text-decoration: none; "><img width="25" height="25" style="display: block; border: 1px solid #E2E2F2;" border="0" src="http://graph.facebook.com/100000263271272/picture?type=square" alt="Buzz.Japan.Doof.Rec"/></a></td>
+<td style="padding-right: 6px;"><a href="http://nuzzel.com/digestmore/03252014/psyshop/str3tch_wild_side_ep_download_mp3_wav_timecode_records" style="color: #004276; text-decoration: none; "><img width="25" height="25" style="display: block; border: 1px solid #E2E2F2;" border="0" src="http://graph.facebook.com/179389802265269/picture?type=square" alt=""/></a></td>
+</tr>
+</table>
+<div style="margin-top: 10px; font-size: 13px; font-weight: bold;">
+<a href="http://nuzzel.com/digestmore/03252014/psyshop/str3tch_wild_side_ep_download_mp3_wav_timecode_records" style="color: #004276; text-decoration: none; ">More info...</a>
+</div>
+</td>
+<td>
+<div style="margin-left: 20px;">
+<div style="height: 80px; width: 80px; overflow: hidden;
+background-color: #FFFFFF;
+border-top: 1px solid #E2E2F2;
+border-left: 1px solid #E2E2F2;
+border-right: 1px solid #C2C2D2;
+border-bottom: 1px solid #C2C2D2;
+-moz-box-shadow: 2px 2px 5px 0px #D2D2D2;
+-webkit-box-shadow: 1px 1px 2px 0px #B2B2C2;
+-box-shadow: inset 1px 1px 2px 0px #B2B2C2;">
+<a href="http://nuzzel.com/digeststory/03252014/psyshop/str3tch_wild_side_ep_download_mp3_wav_timecode_records"><img style="display: block;" border="0" width="80" src="http://217.160.138.169/pic/tcc1dw013.jpg"
+alt="Image not available"/></a>
+</div>
+</div>
+</td>
+</tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="0" style="margin-bottom: 30px;">
+<tr valign="top">
+<td>
+<table border="0" cellspacing="0" cellpadding="0" style="text-align: center; width: 55px;">
+<tr>
+<td style="padding: 4px 0px; color: #333; background-color: #E8E8E8;
+border-left: 1px solid #D2D2D2; border-right: 1px solid #D2D2D2; border-top: 1px solid #D2D2D2;
+border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;">
+<div style="font-size: 20px; font-weight: bold; font-family: arial, helvetica, sans-serif;">2</div>
+<span style="font-size: 12px; font-family: arial, helvetica, sans-serif;">friends</span>
+</td>
+</tr>
+<tr>
+<td>
+<div style="margin-left: 8px; height: 5px;"><img style="display: block;" width="7" height="7" src="http://nuzzel.com/static/images/corner.gif" alt=""/></div>
+</td>
+</tr>
+</table>
+<div style="margin-top: 5px;">
+<a href="http://nuzzel.com/digestmore/03252014/itmedia.co/facebookhmdoculus20#fbshare" style="color: #004276; text-decoration: none; "><img src="http://nuzzel.com/static/images/facebook_share.png" border="0" width="55" height="18" alt="Share"/></a>
+</div>
+</td>
+<td style="padding-left: 20px; font-size: 13px; font-family: arial, helvetica, sans-serif;">
+<div style="font-size: 18px; font-weight: bold; margin: 0px 0px 3px 0px;"><a href="http://nuzzel.com/digeststory/03252014/itmedia.co/facebookhmdoculus20" style="color: #004276; text-decoration: none; ">Facebook&#12289;HMD&#12513;&#12540;&#12459;&#12540;&#12398;Oculus&#12434;20&#20740;&#12489;&#12523;&#12391;&#36023;&#21454;</a></div>
+<div style="line-height: 1.4em;">
+<span style="color: #666;">
+<b>itmedia.co.jp</b>
+</span>
+<span style="color: #333;">
+&ndash; 2014&#x5e74;03&#x6708;26&#x65e5; 07&#x6642;41&#x5206; UPDATE&#8230;
+</span>
+</div>
+<table cellspacing="0" style="margin-top: 10px;">
+<tr>
+<td style="padding-right: 6px;"><a href="http://nuzzel.com/digestmore/03252014/itmedia.co/facebookhmdoculus20" style="color: #004276; text-decoration: none; "><img width="25" height="25" style="display: block; border: 1px solid #E2E2F2;" border="0" src="http://graph.facebook.com/167829266577725/picture?type=square" alt="ITmediaNews"/></a></td>
+<td style="padding-right: 6px;"><a href="http://nuzzel.com/digestmore/03252014/itmedia.co/facebookhmdoculus20" style="color: #004276; text-decoration: none; "><img width="25" height="25" style="display: block; border: 1px solid #E2E2F2;" border="0" src="http://graph.facebook.com/121920571201551/picture?type=square" alt="ITmediaKaigaisokuho"/></a></td>
+</tr>
+</table>
+<div style="margin-top: 10px; font-size: 13px; font-weight: bold;">
+<a href="http://nuzzel.com/digestmore/03252014/itmedia.co/facebookhmdoculus20" style="color: #004276; text-decoration: none; ">More info...</a>
+</div>
+</td>
+<td>
+<div style="margin-left: 20px;">
+<div style="width: 80px; overflow: hidden;
+background-color: #FFFFFF;
+border-top: 1px solid #E2E2F2;
+border-left: 1px solid #E2E2F2;
+border-right: 1px solid #C2C2D2;
+border-bottom: 1px solid #C2C2D2;
+-moz-box-shadow: 2px 2px 5px 0px #D2D2D2;
+-webkit-box-shadow: 1px 1px 2px 0px #B2B2C2;
+-box-shadow: inset 1px 1px 2px 0px #B2B2C2;">
+<a href="http://nuzzel.com/digeststory/03252014/itmedia.co/facebookhmdoculus20"><img style="display: block;" border="0" height="80" src="http://image.itmedia.co.jp/news/articles/1403/26/yu_oculus1.jpg"
+alt="Image not available"/></a>
+</div>
+</div>
+</td>
+</tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="0" style="margin-bottom: 30px;">
+<tr valign="top">
+<td>
+<table border="0" cellspacing="0" cellpadding="0" style="text-align: center; width: 55px;">
+<tr>
+<td style="padding: 4px 0px; color: #333; background-color: #E8E8E8;
+border-left: 1px solid #D2D2D2; border-right: 1px solid #D2D2D2; border-top: 1px solid #D2D2D2;
+border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;">
+<div style="font-size: 20px; font-weight: bold; font-family: arial, helvetica, sans-serif;">2</div>
+<span style="font-size: 12px; font-family: arial, helvetica, sans-serif;">friends</span>
+</td>
+</tr>
+<tr>
+<td>
+<div style="margin-left: 8px; height: 5px;"><img style="display: block;" width="7" height="7" src="http://nuzzel.com/static/images/corner.gif" alt=""/></div>
+</td>
+</tr>
+</table>
+<div style="margin-top: 5px;">
+<a href="http://nuzzel.com/digestmore/03252014/itmedia.co/microsoftwindows_azuremicrosoft_azure#fbshare" style="color: #004276; text-decoration: none; "><img src="http://nuzzel.com/static/images/facebook_share.png" border="0" width="55" height="18" alt="Share"/></a>
+</div>
+</td>
+<td style="padding-left: 20px; font-size: 13px; font-family: arial, helvetica, sans-serif;">
+<div style="font-size: 18px; font-weight: bold; margin: 0px 0px 3px 0px;"><a href="http://nuzzel.com/digeststory/03252014/itmedia.co/microsoftwindows_azuremicrosoft_azure" style="color: #004276; text-decoration: none; ">Microsoft&#12289;&#12300;Windows Azure&#12301;&#12434;&#12300;Microsoft Azure&#12301;&#12395;&#25913;&#31216;</a></div>
+<div style="line-height: 1.4em;">
+<span style="color: #666;">
+<b>itmedia.co.jp</b>
+</span>
+<span style="color: #333;">
+&ndash; 2014&#x5e74;03&#x6708;26&#x65e5; 06&#x6642;47&#x5206; UPDATE&#8230;
+</span>
+</div>
+<table cellspacing="0" style="margin-top: 10px;">
+<tr>
+<td style="padding-right: 6px;"><a href="http://nuzzel.com/digestmore/03252014/itmedia.co/microsoftwindows_azuremicrosoft_azure" style="color: #004276; text-decoration: none; "><img width="25" height="25" style="display: block; border: 1px solid #E2E2F2;" border="0" src="http://graph.facebook.com/167829266577725/picture?type=square" alt="ITmediaNews"/></a></td>
+<td style="padding-right: 6px;"><a href="http://nuzzel.com/digestmore/03252014/itmedia.co/microsoftwindows_azuremicrosoft_azure" style="color: #004276; text-decoration: none; "><img width="25" height="25" style="display: block; border: 1px solid #E2E2F2;" border="0" src="http://graph.facebook.com/121920571201551/picture?type=square" alt="ITmediaKaigaisokuho"/></a></td>
+</tr>
+</table>
+<div style="margin-top: 10px; font-size: 13px; font-weight: bold;">
+<a href="http://nuzzel.com/digestmore/03252014/itmedia.co/microsoftwindows_azuremicrosoft_azure" style="color: #004276; text-decoration: none; ">More info...</a>
+</div>
+</td>
+<td>
+<div style="margin-left: 20px;">
+<div style="width: 80px; overflow: hidden;
+background-color: #FFFFFF;
+border-top: 1px solid #E2E2F2;
+border-left: 1px solid #E2E2F2;
+border-right: 1px solid #C2C2D2;
+border-bottom: 1px solid #C2C2D2;
+-moz-box-shadow: 2px 2px 5px 0px #D2D2D2;
+-webkit-box-shadow: 1px 1px 2px 0px #B2B2C2;
+-box-shadow: inset 1px 1px 2px 0px #B2B2C2;">
+<a href="http://nuzzel.com/digeststory/03252014/itmedia.co/microsoftwindows_azuremicrosoft_azure"><img style="display: block;" border="0" height="80" src="http://image.itmedia.co.jp/news/articles/1403/26/yu_azure.jpg"
+alt="Image not available"/></a>
+</div>
+</div>
+</td>
+</tr>
+</table>
+<div style="margin-left: 75px; margin-right: 100px; padding: 3px 10px; border: 1px solid #AABBCC; font-size: 14px;
+border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px;">
+<b><a href="http://nuzzel.com/" style="color: #004276; text-decoration: none; ">More stories from your friends...</a></b>
+</div>
+</div>
+</td>
+</tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="0" width="700" align="center">
+<tr>
+<td align="right" style="padding-top: 5px; color: #777777; font-size: 11px; font-family: arial, helvetica, sans-serif;">
+<div>
+Sent to foobar@foobar.com.
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+
+<img src="http://mail.nuzzel.com/wf/open?upn=ICeTrckre5WgKlKqQSk-2F-2FtAHdsi-2Bm7i8jTgO2w6gQrkb-2Fu66X-2BbdkNnNFOJhrOn60spfNf8n2W5YGgX2LtXrJXTtAxqeFL0uelemjcQS1Bn-2BsViDESBfyUE8CP8DxZFk-2BNJ2BveZV7VD4X-2BKYEQxSmbB3J9KQKx2V-2FTJCd9he3E4xpTdKMk8wz0XQIi2DKY63y-2BoaUvOWqOVLAnxYQ10OVQJniVTXw8peQG4-2B5SGTL-2FZRrGfArU6WL3BzVisrfXUtoEaxTg2jaBSYcbtInvfvazeBfcR3GpjT7bWEnHdC-2FFlq6fG3uzE3gIpHv1N357icm3BT-2FrpVYb9eLl3S-2FwP1CyzA3cPEXrrLutgZXMbdi8HKhmbRCPxK76QJNKDaW5WBTPp-2BjXxwbVSDu9G5IdMIRfuzXn8p9FzM9BfGApIldMQKfJ6bAk-2Fad9xZJN-2F6kkFdMEX-2F0h8dJmxK6eGCBCskb0sCCTdg93dmg39xITKV5u-2B1oYEs9uZ0c37GRxD2-2FKrD8QPWZVt2vwdjKdFl6zF1fC60M4Yn4DYtPT6DjJKOPXY-2Bj5fuIabqEIEz30VbGHjB6euHPiprCbSzAZCZ8LJQdMCvp6hrPmeMUypiuB-2F4mh1QWPMMbe6G8juVwThcL7X24iUVAcBDs-2FTUY19SvmJP3CDRahUr3ZZC9G6120i-2FfN4s31yeGU2mR2RSbmnPCoZJEfsASQOxXN4k-2BZki82-2B-2FaugTClpgzI-2BQajNoPVe4fJcJ2Wk15wAulBHSVnB2C2O" alt="" width="1" height="1" border="0" style="height:1px !important;width:1px !important;border-width:0 !important;margin-top
+ :0 !important;margin-bottom:0 !important;margin-right:0 !important;margin-left:0 !important;padding-top:0 !important;padding-bottom:0 !important;padding-right:0 !important;padding-left:0 !important;"/>
+</body>
+</html>
+
+
+------=_Part_364_68809158.1395792078220--
+
+
+------------=_1395792079-24137-58419--

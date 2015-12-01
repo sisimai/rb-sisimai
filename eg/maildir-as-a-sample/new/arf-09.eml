@@ -1,0 +1,104 @@
+Return-Path: opendmarc@example.net
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=example.net;
+	s=2012a; t=1417117584;
+	bh=OmIu7fPEeyCSLPTfQWDKssJb3/N/TZKNFufWVbkO2C8=;
+	h=From:To:Date:Subject:From;
+	b=BRBH3Dd7eXnoVHRLFocqggjBUluUBGhc0/FTHFUYXL/V/6c08y5ASsN9zW9UuGItF
+	 YUG6HxPiX/TRkswkrHE68ZBikrbmjjNUcRGWwZozll2aAdpZ6Dz6xslaW0t8BMTy2z
+	 NkzSbM+t6Q5iHqbaFBkjkqbEmhZWifX6XcB0BbiQ=
+From: OpenDMARC Filter <opendmarc@example.net>
+To: dmarc@example.net
+Date: Thu, 27 Nov 2014 14:46:24 -0500 (EST)
+Subject: [dmarc-ietf] DMARC test message
+MIME-Version: 1.0
+Content-Type: multipart/report;
+	report-type=feedback-report;
+	boundary="example.net:435FE40094"
+Message-Id: <20141127194624.B23F74011C@example.net>
+
+--example.net:435FE40094
+Content-Type: text/plain
+
+This is an authentication failure report for an email message received from IP
+192.168.0.255 on Thu, 27 Nov 2014 14:46:24 -0500 (EST).
+
+--example.net:435FE40094
+Content-Type: message/feedback-report
+
+Feedback-Type: auth-failure
+Version: 1
+User-Agent: OpenDMARC-Filter/1.3.0
+Auth-Failure: dmarc
+Authentication-Results: example.net; dmarc=fail header.from=example.net
+Original-Envelope-Id: 435FE40094
+Original-Mail-From: dmarc-bounces@ietf.org
+Source-IP: 192.168.0.255
+Reported-Domain: example.net
+
+--example.net:435FE40094
+Content-Type: text/rfc822-headers
+
+Received-SPF: Pass (sender SPF authorized) identity=mailfrom; client-ip=192.168.0.255; helo=mail.ietf.org; envelope-from=dmarc-bounces@ietf.org; receiver=ietf@example.net 
+Authentication-Results: example.net;
+	dkim=pass (1024-bit key; unprotected) header.d=ietf.org header.i=@ietf.org header.b=HfqPrYPz;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=example.net header.i=@example.net header.b=i3stzaeS;
+	dkim-adsp=none (unprotected policy); dkim-atps=neutral
+Received: from ietfa.amsl.com (localhost [IPv6:::1])
+	by ietfa.amsl.com (Postfix) with ESMTP id 2FD1A1A013B;
+	Thu, 27 Nov 2014 11:46:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ietf.org; s=ietf1;
+	t=1417117582; bh=NAF7FpoPrpNGZwiH91hktlqr+vG3t6XRtXZ4cjPPG1w=;
+	h=Date:From:To:Message-ID:In-Reply-To:References:MIME-Version:Cc:
+	 Subject:List-Id:List-Unsubscribe:List-Archive:List-Post:List-Help:
+	 List-Subscribe:Content-Type:Sender;
+	b=HfqPrYPzHNMYib9SY5qVdr9//vWEy4OTOhhtsWV8pLH+MeCxWIwIo4RViipbYUUo3
+	 TTG+t3xUPxHPHLNJoD87RFp7QFt77oavpmtUnuFB5IbadiFMg5x+6wF/PzamsWaAW6
+	 V00RLpoSKZ8uxmQ5tQowk44d34FK/CMSWJuv4H2Q=
+X-Original-To: dmarc@ietfa.amsl.com
+Delivered-To: dmarc@ietfa.amsl.com
+Received: from localhost (ietfa.amsl.com [127.0.0.1])
+ by ietfa.amsl.com (Postfix) with ESMTP id 670801A00A9
+ for <dmarc@ietfa.amsl.com>; Thu, 27 Nov 2014 11:46:20 -0800 (PST)
+X-Virus-Scanned: amavisd-new at amsl.com
+X-Spam-Flag: NO
+X-Spam-Score: -3.41
+X-Spam-Level: 
+X-Spam-Status: No, score=-3.41 tagged_above=-999 required=5
+ tests=[BAYES_00=-1.9, DKIM_SIGNED=0.1, DKIM_VALID=-0.1,
+ DKIM_VALID_AU=-0.1, HTML_MESSAGE=0.001, J_CHICKENPOX_44=0.6,
+ MIME_8BIT_HEADER=0.3, RCVD_IN_DNSWL_MED=-2.3, SPF_PASS=-0.001,
+ T_RP_MATCHES_RCVD=-0.01] autolearn=ham
+Received: from mail.ietf.org ([192.168.0.255])
+ by localhost (ietfa.amsl.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id ssc4T2PBR Wg1for <dmarc@ietfa.amsl.com>;
+ Thu, 27 Nov 2014 11:46:17 -0800 (PST)
+Received: from smtp.example.net (smtp.example.net [192.0.2.45])
+ (using TLSv1.1 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by ietfa.amsl.com (Postfix) with ESMTPS id 04FEF1A013B
+ for <dmarc@ietf.org>; Thu, 27 Nov 2014 11:46:16 -0800 (PST)
+Date: Thu, 27 Nov 2014 19:46:13 +0000 (WET)
+From: <fake.sender@example.net>
+To: <fake.recipient@example.org>
+Message-ID: <asdjhi9ldn14@example.net>
+MIME-Version: 1.0
+Archived-At: http://mailarchive.ietf.org/arch/msg/dmarc/
+Cc: dmarc@ietf.org
+Subject: [dmarc-ietf] DMARC test message
+X-BeenThere: dmarc@ietf.org
+X-Mailman-Version: 2.1.15
+Precedence: list
+List-Id: "Domain-based Message Authentication, Reporting,
+ and Compliance \(DMARC\)" <dmarc.ietf.org>
+List-Unsubscribe: <https://www.ietf.org/mailman/options/dmarc>,
+ <mailto:dmarc-request@ietf.org?subject=unsubscribe>
+List-Archive: <http://www.ietf.org/mail-archive/web/dmarc/>
+List-Post: <mailto:dmarc@ietf.org>
+List-Help: <mailto:dmarc-request@ietf.org?subject=help>
+List-Subscribe: <https://www.ietf.org/mailman/listinfo/dmarc>,
+ <mailto:dmarc-request@ietf.org?subject=subscribe>
+Content-Type: multipart/mixed; boundary="===============9204957237915899297=="
+Errors-To: dmarc-bounces@ietf.org
+Sender: "dmarc" <dmarc-bounces@ietf.org>
+
+--example.net:435FE40094--

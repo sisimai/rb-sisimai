@@ -1,0 +1,38 @@
+Return-Path: <>
+Delivered-To: shironeko@example.jp
+Received: (qmail 10000 invoked from network); 1 Apr 2013 23:34:45 +0900
+Received: from mail103.ezweb.ne.jp (HELO ezweb.ne.jp) ([192.0.2.99])
+    by mx.example.jp with SMTP id 00000000;
+    Thu, 01 Apr 2013 23:45:34 +0900 (JST)
+To: <shironeko@example.jp>
+From: Postmaster@ezweb.ne.jp
+Message-ID: <2013040100000000000000000000@nm11lds01a.ezweb.ne.jp>
+Date: Thu, 1 Apr 2013 23:34:45 +0900
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="==_FF00/000000000/FFF"
+Reply-To: Mail Administrator <Postmaster@ezweb.ne.jp>
+Subject: Mail System Error - Returned Mail
+
+This message is in MIME format.Since your mail reader does not understand this format, some or all of the message may not be legible
+
+--==_FF00/000000000/FFF
+Content-Type: text/plain; charset="ISO-2022-JP"
+Content-Transfer-Encoding: 7bit
+
+次のあて先へのメッセージはエラーのため送信できませんでした。
+
+送信先メールアドレスが見つからないか、
+送信先メールサーバの事由により送信できませんでした。
+メールアドレスをご確認の上、再送信してください。
+
+Each of the following recipients was rejected by a remote
+mail server.
+
+    Recipient: <this-local-part-does-not-exist-on-the-server@ezweb.ne.jp>
+    >>> RCPT TO:<this-local-part-does-not-exist-on-the-server@ezweb.ne.jp>
+    <<< 550 <this-local-part-does-not-exist-on-the-server@ezweb.ne.jp>: User unknown
+
+
+
+--==_FF00/000000000/FFF--
+

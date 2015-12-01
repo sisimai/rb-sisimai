@@ -1,0 +1,66 @@
+Received: from localhost (localhost)
+	by mx.example.lg.jp (8.14.3/8.14.3) id n3S0S5lh008592;
+	Tue, 28 Apr 2009 09:28:05 +0900 (JST)
+Date: Tue, 28 Apr 2009 09:28:05 +0900 (JST)
+From: Mail Delivery Subsystem <MAILER-DAEMON>
+Message-Id: <200904280028.n3S0S5lh008592@mx.example.lg.jp>
+To: <tax@example.lg.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="n3S0S5lh008592.1240878485/mx.example.lg.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--n3S0S5lh008592.1240878485/mx.example.lg.jp
+
+The original message was received at Tue, 28 Apr 2009 09:27:56 +0900 (JST)
+from [192.0.2.31]
+
+   ----- The following addresses had permanent fatal errors -----
+<sent-message-is-too-big-for-the-mail-server@i.softbank.jp>
+    (reason: 552 Message size exceeds fixed maximum message size: 1048576 bytes)
+
+   ----- Transcript of session follows -----
+... while talking to mx.mailsv.softbank.jp.:
+>>> MAIL From:<tax@example.lg.jp> SIZE=6917169
+<<< 552 Message size exceeds fixed maximum message size: 1048576 bytes
+554 5.0.0 Service unavailable
+
+--n3S0S5lh008592.1240878485/mx.example.lg.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx.example.lg.jp
+Received-From-MTA: DNS; [192.0.2.31]
+Arrival-Date: Tue, 28 Apr 2009 09:27:56 +0900 (JST)
+
+Final-Recipient: RFC822; sent-message-is-too-big-for-the-mail-server@i.softbank.jp
+Action: failed
+Status: 5.3.4
+Diagnostic-Code: SMTP; 552 Message size exceeds fixed maximum message size: 1048576 bytes
+Last-Attempt-Date: Tue, 28 Apr 2009 09:28:05 +0900 (JST)
+
+--n3S0S5lh008592.1240878485/mx.example.lg.jp
+Content-Type: text/rfc822-headers
+
+Return-Path: <tax@example.lg.jp>
+Received: from [192.0.2.31] ([192.0.2.31])
+	(authenticated bits=0)
+	by mx.example.lg.jp (8.14.3/8.14.3) with ESMTP id n3S0Rtlh002188
+	for <sent-message-is-too-big-for-the-mail-server@i.softbank.jp>; Tue, 28 Apr 2009 09:27:56 +0900 (JST)
+Mime-Version: 1.0 (Apple Message framework v753.1)
+To: sent-message-is-too-big-for-the-mail-server@i.softbank.jp
+Message-Id: <BC17CD12-64A9-4A17-A203-D0F6BB788E44@example.lg.jp>
+Content-Type: multipart/mixed; boundary=Apple-Mail-3-578268020
+From: "Tax Division" <tax@example.lg.jp>
+Subject: TEST
+Date: Tue, 28 Apr 2009 09:27:52 +0900
+X-Mailer: Apple Mail (2.753.1)
+X-Virus-Scanned: ClamAV version 0.94.2, clamav-milter version 0.94.2 on 192.0.2.252
+X-Virus-Status: Clean
+
+--n3S0S5lh008592.1240878485/mx.example.lg.jp--
+
+
+

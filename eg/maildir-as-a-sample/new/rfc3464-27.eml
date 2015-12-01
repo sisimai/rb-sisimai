@@ -1,0 +1,180 @@
+Return-Path: <>
+X-Original-To: donotreply@testsender.com
+Delivered-To: donotreply@testsender.com
+Received: from mail28.testreceiver.com (mail28.testreceiver.com [200.190.180.70])
+	by testsender.com (Postfix) with ESMTP id BACAF707FE
+	for <donotreply@testsender.com>; Sun,  2 Aug 2009 05:15:49 +0000 (UTC)
+X-IronPort-AV: E=Sophos;i="4.43,308,1246852800"; 
+   d="scan'208,217";a="65437680"
+From: postmaster@ctv.local
+To: donotreply@testsender.com
+Date: Sun, 2 Aug 2009 01:25:02 -0400
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="9B095B5ADSN=_01C95DDEA7FEA09800163DBAABC002.corp.c"
+X-DSNContext: 335a7efd - 2430 - 00000002 - C00402CD
+Message-ID: <lmZNZKFcP000627a1@ABC002.corp.testreceiver.com>
+Subject: Delivery Status Notification (Failure)
+
+This is a MIME-formatted message.  
+Portions of this message may be unreadable without a MIME-capable mail program.
+
+--9B095B5ADSN=_01C95DDEA7FEA09800163DBAABC002.corp.c
+Content-Type: text/plain; charset=unicode-1-1-utf-7
+
+This is an automatically generated Delivery Status Notification.
+
+Unable to deliver message to the following recipients, because the message was forwarded more than the maximum allowed times. This could indicate a mail loop.
+
+       forwarding_loop@mail.testreceiver.com
+
+
+
+
+--9B095B5ADSN=_01C95DDEA7FEA09800163DBAABC002.corp.c
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns;ABC002.corp.testreceiver.com
+Received-From-MTA: dns;DEF001.chum.chumltd.net
+Arrival-Date: Sun, 2 Aug 2009 01:25:02 -0400
+
+Final-Recipient: rfc822;forwarding_loop@mail.testreceiver.com
+Action: failed
+Status: 4.4.6
+
+--9B095B5ADSN=_01C95DDEA7FEA09800163DBAABC002.corp.c
+Content-Type: message/rfc822
+
+Received: from DEF001.chum.chumltd.net ([10.100.20.20]) by ABC002.corp.testreceiver.com with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sun, 2 Aug 2009 01:25:02 -0400
+Received: from ABC001.corp.testreceiver.com ([10.1.10.100.]) by DEF001.chum.chumltd.net with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sun, 2 Aug 2009 01:14:24 -0400
+Received: from DEF001.chum.chumltd.net ([10.100.20.20]) by ABC001.corp.testreceiver.com with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sun, 2 Aug 2009 01:03:57 -0400
+Received: from ABC001.corp.testreceiver.com ([10.1.10.100.]) by DEF001.chum.chumltd.net with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sun, 2 Aug 2009 00:53:29 -0400
+Received: from DEF001.chum.chumltd.net ([10.100.20.20]) by ABC001.corp.testreceiver.com with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sun, 2 Aug 2009 00:42:51 -0400
+Received: from ABC001.corp.testreceiver.com ([10.1.10.100.]) by DEF001.chum.chumltd.net with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sun, 2 Aug 2009 00:32:19 -0400
+Received: from DEF001.chum.chumltd.net ([10.100.20.20]) by ABC001.corp.testreceiver.com with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sun, 2 Aug 2009 00:21:46 -0400
+Received: from ABC002.corp.testreceiver.com ([10.1.37.17]) by DEF001.chum.chumltd.net with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sun, 2 Aug 2009 00:10:49 -0400
+Received: from DEF001.chum.chumltd.net ([10.100.20.20]) by ABC002.corp.testreceiver.com with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sun, 2 Aug 2009 00:00:43 -0400
+Received: from ABC001.corp.testreceiver.com ([10.1.10.100.]) by DEF001.chum.chumltd.net with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sat, 1 Aug 2009 23:50:05 -0400
+Received: from DEF001.chum.chumltd.net ([10.100.20.20]) by ABC001.corp.testreceiver.com with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sat, 1 Aug 2009 23:39:39 -0400
+Received: from ABC002.corp.testreceiver.com ([10.1.37.17]) by DEF001.chum.chumltd.net with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sat, 1 Aug 2009 23:29:26 -0400
+Received: from DEF001.chum.chumltd.net ([10.100.20.20]) by ABC002.corp.testreceiver.com with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sat, 1 Aug 2009 23:18:35 -0400
+Received: from ABC002.corp.testreceiver.com ([10.1.37.17]) by DEF001.chum.chumltd.net with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sat, 1 Aug 2009 23:08:14 -0400
+Received: from DEF001.chum.chumltd.net ([10.100.20.20]) by ABC002.corp.testreceiver.com with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sat, 1 Aug 2009 22:57:31 -0400
+Received: from ABC001.corp.testreceiver.com ([10.1.10.100.]) by DEF001.chum.chumltd.net with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sat, 1 Aug 2009 22:46:45 -0400
+Received: from DEF001.chum.chumltd.net ([10.100.20.20]) by ABC001.corp.testreceiver.com with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sat, 1 Aug 2009 22:35:26 -0400
+Received: from ABC002.corp.testreceiver.com ([10.1.37.17]) by DEF001.chum.chumltd.net with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sat, 1 Aug 2009 22:25:24 -0400
+Received: from DEF001.chum.chumltd.net ([10.100.20.20]) by ABC002.corp.testreceiver.com with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sat, 1 Aug 2009 22:25:24 -0400
+Received: from ABC001.corp.testreceiver.com ([10.1.10.100.]) by DEF001.chum.chumltd.net with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sat, 1 Aug 2009 22:15:15 -0400
+Received: from DEF001.chum.chumltd.net ([10.100.20.20]) by ABC001.corp.testreceiver.com with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sat, 1 Aug 2009 22:04:19 -0400
+Received: from ABC001.corp.testreceiver.com ([10.1.10.100.]) by DEF001.chum.chumltd.net with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sat, 1 Aug 2009 21:53:31 -0400
+Received: from DEF001.chum.chumltd.net ([10.100.20.20]) by ABC001.corp.testreceiver.com with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sat, 1 Aug 2009 21:53:10 -0400
+Received: from ABC001.corp.testreceiver.com ([10.1.10.100.]) by DEF001.chum.chumltd.net with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sat, 1 Aug 2009 21:53:10 -0400
+Received: from DEF001.chum.chumltd.net ([10.100.20.20]) by ABC001.corp.testreceiver.com with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sat, 1 Aug 2009 21:53:09 -0400
+Received: from ABC002.corp.testreceiver.com ([10.1.37.17]) by DEF001.chum.chumltd.net with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sat, 1 Aug 2009 21:53:10 -0400
+Received: from DEF002.chum.chumltd.net ([10.14.38.20]) by ABC002.corp.testreceiver.com with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sat, 1 Aug 2009 21:52:48 -0400
+Received: from qsexbh001.corp.testreceiver.com ([10.14.37.20]) by DEF002.chum.chumltd.net with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sat, 1 Aug 2009 21:52:48 -0400
+Received: from qs.testreceiver.com ([10.14.3.166]) by qsexbh001.corp.testreceiver.com with Microsoft SMTPSVC(6.0.3790.3959);
+	 Sat, 1 Aug 2009 21:52:48 -0400
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: Aq4DAJaOdEpKMjBKl2dsb2JhbACCIQctjH0BikwBAQEBAQgVB7ZfhBgF
+X-IronPort-AV: E=Sophos;i="4.43,308,1246852800"; 
+   d="scan'208,217";a="59795824"
+X-XBRS: 5.1
+Received: from testsender.com ([74.50.48.74])
+  by qs.testreceiver.com with ESMTP; 01 Aug 2009 21:52:47 -0400
+Received: from testsender.com (localhost [127.0.0.1])
+	by testsender.com (Postfix) with ESMTP id 1E361707FE
+	for <forwarding_loop@mail.testreceiver.com>; Sun,  2 Aug 2009 01:43:06 +0000 (UTC)
+Date: Sun, 2 Aug 2009 01:43:06 +0000
+From: Emergency and AMBER Alert Feeds <donotreply@testsender.com>
+To: forwarding_loop@mail.testreceiver.com
+Message-Id: <4a74ef2a18b45_eae..fdbd40c822272@testhost.com>
+Subject: Test of Emergency Alert Feed
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary=mimepart_4a74ef2a1be53_eae..fdbd40c82236d
+Return-Path: donotreply@testsender.com
+X-OriginalArrivalTime: 02 Aug 2009 01:52:48.0726 (UTC) FILETIME=[F01D9F60:01CA1313]
+
+
+
+--mimepart_4a74ef2a1be53_eae..fdbd40c82236d
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: Quoted-printable
+Content-Disposition: inline
+
+Thank you
+
+--mimepart_4a74ef2a1be53_eae..fdbd40c82236d
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: Quoted-printable
+Content-Disposition: inline
+
+<HTML>
+
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8">=
+
+<style>
+<!-- in case incoming feed has no style -->
+body { background-color: #ffffff; color: #333333; }
+
+body, p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size:   14px;
+  line-height: 18px;
+}
+
+pre {
+  background-color: #eeeeee;
+  padding: 10px;
+  font-size: 12px;
+}
+
+a { color: #000; }
+a:visited { color: #666; }
+a:hover { color: #fff; background-color:#000; }
+</style>
+</head>
+
+<body>
+<div style=3D"margin-bottom: 10px; background-color: #BB8888; color: #FFF=
+FFF; border: 1px solid #EECCCC; padding: 5px;">
+  Thank you
+</div>
+</body></HTML>
+
+
+
+--mimepart_4a74ef2a1be53_eae..fdbd40c82236d--
+
+
+--9B095B5ADSN=_01C95DDEA7FEA09800163DBAABC002.corp.c--

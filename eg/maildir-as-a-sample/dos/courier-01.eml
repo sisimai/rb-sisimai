@@ -1,0 +1,79 @@
+Received: from mx.example.org (c182128.example.net [192.0.2.128])
+	by mx.example.jp (8.14.4/8.14.4) with ESMTP id oBB3JxRJ022484
+	for <shironeko@example.jp>; Sat, 11 Dec 2010 12:20:00 +0900 (JST)
+X-Virus-Status: Clean
+X-Virus-Scanned: clamav-milter 0.96 at 6kaku.example.jp
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 mx.example.jp oBB3JxRJ022484
+Authentication-Results: mx.example.jp; sender-id=pass header.from=postmaster@example.org
+Received: from localhost (localhost [127.0.0.1])
+  (ftp://ftp.isi.edu/in-notes/rfc1894.txt)
+  by marutamachi.example.org with dsn; Sat, 11 Dec 2010 12:19:59 +0900
+  id 0EFECD52.4D02EDDF.0000C65A
+From: postmaster@example.org
+To: shironeko@example.jp
+Subject: NOTICE: mail delivery status.
+Mime-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+    boundary="=_courier_0"
+Content-Transfer-Encoding: 7bit
+Message-ID: <courier.4D02EDDF.0000C65A@marutamachi.example.org>
+Date: Sat, 11 Dec 2010 12:19:59 +0900
+
+This is a MIME-formatted message.  If you see this text it means that your
+E-mail software does not support MIME-formatted messages.
+
+--=_courier_0
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+
+
+This is a delivery status notification from marutamachi.example.org,
+running the Courier mail server, version 0.65.2.
+
+The original message was received on Sat, 11 Dec 2010 12:19:57 +0900
+from [127.0.0.1] (c10920.example.com [192.0.2.20])
+
+---------------------------------------------------------------------------
+
+                           UNDELIVERABLE MAIL
+
+Your message to the following recipients cannot be delivered:
+
+<kijitora@example.co.jp>:
+    mx.example.co.jp [74.207.247.95]:
+>>> RCPT TO:<kijitora@example.co.jp>
+<<< 550 5.1.1 <kijitora@example.co.jp>... User Unknown
+
+---------------------------------------------------------------------------
+
+If your message was also sent to additional recipients, their delivery
+status is not included in this report.  You may or may not receive
+other delivery status notifications for additional recipients.
+
+The original message follows as a separate attachment.
+
+
+--=_courier_0
+Content-Type: message/delivery-status
+Content-Transfer-Encoding: 7bit
+
+Reporting-MTA: dns; marutamachi.example.org
+Arrival-Date: Sat, 11 Dec 2010 12:19:57 +0900
+Received-From-MTA: dns; [127.0.0.1] (c10920.example.com [192.0.2.20])
+
+Final-Recipient: rfc822; kijitora@example.co.jp
+Action: failed
+Status: 5.0.0
+Remote-MTA: dns; mx.example.co.jp [192.0.2.95]
+Diagnostic-Code: smtp; 550 5.1.1 <kijitora@example.co.jp>... User Unknown
+
+--=_courier_0
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 7bit
+
+Received: from [127.0.0.1] (c10920.example.com [192.0.2.20])
+  by marutamachi.example.org with SMTP; Sat, 11 Dec 2010 12:19:17 +0900
+  id 0EFECD4E.4D02EDD9.0000C5BA
+To: undisclosed-recipients: ;
+
+--=_courier_0--

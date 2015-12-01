@@ -1,0 +1,102 @@
+Received: from mxback1h.mail.yandex.net ([127.0.0.1])
+	by mxback1h.mail.yandex.net with LMTP id CTvKB0Pc
+	for <shironeko@yandex.example.com>; Sat, 6 Dec 2014 20:12:29 +0300
+Received: from forward1h.mail.yandex.net (forward1h.mail.yandex.net [84.201.187.146])
+	by mxback1h.mail.yandex.net (nwsmtp/Yandex) with ESMTP id 5AY3JsL5XW-CSdqOshM;
+	Sat,  6 Dec 2014 20:12:28 +0300
+X-Yandex-Front: mxback1h.mail.yandex.net
+X-Yandex-TimeMark: 1417885948
+X-Yandex-Uniq: 92309766-f1c8-4bd4-92bc-657c75766587
+X-Yandex-Spam: 1
+Received: by forward1h.mail.yandex.net (Yandex)
+	id AFAB29E13A0; Sat,  6 Dec 2014 20:12:28 +0300 (MSK)
+Date: Sat,  6 Dec 2014 20:12:28 +0300 (MSK)
+From: mailer-daemon@yandex.ru
+Subject: Недоставленное сообщение
+To: shironeko@yandex.example.com
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="367D79E130D.1417885948/forward1h.mail.yandex.net"
+Message-Id: <20141206171228.AFAB29E13A0@forward1h.mail.yandex.net>
+Return-Path: <>
+X-Yandex-Forward: 10104c00ad0726da5f37374723b1e0c8
+
+This is a MIME-encapsulated message.
+
+--367D79E130D.1417885948/forward1h.mail.yandex.net
+Content-Description: Notification
+Content-Type: text/plain; charset=utf-8
+
+              **********
+
+Это письмо отправлено почтовым сервером yandex.ru.
+
+К сожалению, мы вынуждены сообщить Вам о том, что Ваше письмо не может
+быть отправлено одному или нескольким адресатам. Причины указаны ниже.
+
+Пожалуйста, не отвечайте на это сообщение. 
+
+              **********
+
+This is the mail system at host yandex.ru.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+Please, do not reply to this message.
+
+
+<kijitora@example.jp>: host mx.example.jp[192.0.2.153] said: 550
+    5.1.1 <kijitora@example.jp>... User Unknown (in reply to RCPT TO
+    command)
+
+--367D79E130D.1417885948/forward1h.mail.yandex.net
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; forward1h.mail.yandex.net
+X-Yandex-Queue-ID: 367D79E130D
+X-Yandex-Sender: rfc822; shironeko@yandex.example.com
+Arrival-Date: Sat,  6 Dec 2014 20:12:27 +0300 (MSK)
+
+Final-Recipient: rfc822; kijitora@example.jp
+Original-Recipient: rfc822;kijitora@example.jp
+Action: failed
+Status: 5.1.1
+Remote-MTA: dns; mx.example.jp
+Diagnostic-Code: smtp; 550 5.1.1 <kijitora@example.jp>... User Unknown
+
+--367D79E130D.1417885948/forward1h.mail.yandex.net
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <shironeko@yandex.example.com>
+Received: from web20h.yandex.ru (web20h.yandex.ru [84.201.186.49])
+	by forward1h.mail.yandex.net (Yandex) with ESMTP id 367D79E130D
+	for <kijitora@example.jp>; Sat,  6 Dec 2014 20:12:27 +0300 (MSK)
+Received: from 127.0.0.1 (localhost [127.0.0.1])
+	by web20h.yandex.ru (Yandex) with ESMTP id A7E0E1320B28;
+	Sat,  6 Dec 2014 20:12:26 +0300 (MSK)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1417885946; bh=t4RTq0wP7XXMOD4/Vy94p2VuCD+sZaGyZxAADhrV9sU=;
+	h=From:To:Subject:Date;
+	b=oV60giSvo2kaSBSuprSdsFMcZKhvZCkfh2rNLARC3Cmv+/NgZ+fwMWx6+xZogXMPI
+	 +MAFfoF/HgZG57t4IOETa+cFLv/ZSrIagvuiUajZfEYxf+Mgwpd4CrVck/OnS2YwM/
+	 wKLqMVh/lh7g1oIlfXHGW9eFgEGiTtyeDx/ojo2k=
+Received: from 192-0-2-206f1.kyt1.example.ne.jp (192-0-2-206f1.kyt1.example.ne.jp [192.0.2.206]) by web20h.yandex.ru with HTTP;
+	Sat, 06 Dec 2014 20:12:26 +0300
+From: Shironeko Nyanko <shironeko@yandex.example.com>
+Envelope-From: shironeko@yandex.example.com
+To: kijitora@example.jp
+Subject: Nyaaaaan
+MIME-Version: 1.0
+Message-Id: <446281417885946@web20h.yandex.ru>
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Sun, 07 Dec 2014 02:12:26 +0900
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+
+Nyaaaan
+
+--367D79E130D.1417885948/forward1h.mail.yandex.net--

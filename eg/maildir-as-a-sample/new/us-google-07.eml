@@ -1,0 +1,42 @@
+Delivered-To: shironeko@example.com
+Received-SPF: neutral (google.com: 192.0.2.200 is neither permitted nor denied by best guess record for domain of MAILER-DAEMON) client-ip=192.0.2.192;
+Received: by 10.190.4.196 with POP3 id 4mf308372yxp.131;
+        Thu, 29 Apr 2010 23:34:45 +0900 (JST)
+Return-Path: <MAILER-DAEMON>
+Received: from mx5.example.ne.jp (neko.example.ne.jp [192.0.2.192])
+    by nyan22.example.co.jp (8.13.6/8.13.6) with ESMTP id 00000000000000
+    for <nekochan@example.ne.jp>; Thu, 29 Apr 2010 23:34:45 +0900
+Received: by 10.224.95.150 with SMTP id 000000000000000.000.0000000000000;
+    Thu, 29 Apr 2010 23:34:45 +0900 (JST)
+MIME-Version: 1.0
+X-Gmail-Fetch-Info: shironeko@example.com 1 pop3.example.ne.jp 110 nekochan
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+To: shironeko@example.com
+X-Failed-Recipients: kijitora@example.ed.jp
+Subject: Delivery Status Notification (Failure)
+Message-ID: <0000000000000000000000000000@google.com>
+Date: Thu, 29 Apr 2010 23:34:45 +0000
+Content-Type: text/plain; charset=ISO-8859-1
+
+Delivery to the following recipient failed permanently:
+
+     kijitora@example.ed.jp
+
+Technical details of permanent failure: 
+Google tried to deliver your message, but it was rejected by the recipient domain. We recommend contacting the other email provider for further information about the cause of this error. The error that the other server returned was: 500 Remote server does not support TLS (state 6).
+
+----- Original message -----
+
+Received: by 192.0.2.29 with SMTP id 000000000000000.000.0000000000000; 
+	Thu, 29 Apr 2010 23:34:45 +0900 (JST)
+MIME-Version: 1.0
+Received: by 192.0.2.22 with HTTP; Thu, 29 Apr 2010 23:34:45 +0900 (JST)
+Date: Thu, 29 Apr 2010 23:34:45 +0900
+Message-ID: <000000000000000000000000000000000@mail.example.com>
+Subject: Nyaan
+To: Kijitora <kijitora@example.ed.jp>
+Content-Type: text/plain;
+From: Shironeko <shironeko@example.com>
+
+Nyaan
+

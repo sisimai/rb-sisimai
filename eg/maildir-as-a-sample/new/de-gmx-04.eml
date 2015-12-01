@@ -1,0 +1,51 @@
+Return-Path: 
+Received: from mout-bounce.gmx.com ([74.208.4.221]) by mx-ha.gmx.net (mxgmxus003) with ESMTPS (Nemesis) id 0MFLpC-1XhfTV3T3U-00EPTp for <shironeko@mail.example.com>; Wed, 03 Dec 2014 02:33:09 +0100
+Received: from mda by mogmxus001.server.lan id 0MMkLB-1Xo1OM22D1-008ahB Wed, 03 Dec 2014 02:33:09 +0100
+Date: Wed, 03 Dec 2014 02:33:09 +0100
+From: MAILER-DAEMON@mail.gmx.com
+To: shironeko@mail.example.com
+Subject: Mail delivery failed: returning message to sender
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-UI-Out-Filterresults: unknown:0;
+Envelope-To: <shironeko@mail.example.com>
+X-GMX-Antispam: 0 (Mail was not recognized as spam); Detail=V3;
+X-GMX-Antivirus: 0 (no virus found)
+X-UI-Filterresults: notjunk:1;V01:K0:SEq/6FZ314M=:PCcjbEeCVosEJfTJdTz7ed8OvC 0wysYmqfpwDJaTl6pb+2dYZHmClSKnKloOd0w2ZQ32UObEVJ63UGIp5XVoj6m1HCAFJ/2rfzS GlyyqxIQTEqf6IMaNTJtMRampW3N4Wuic58pURol+2GLiRePGTySD/4D0OBzBGqrcWIf8Os6V jxlPqaAAkWRMkZFPiCNpTrryLHJR42L5Bj4gdbQOdWej4r/k7dfd7gDAlqV14EM8Vqe0FIXXb P4Q1A5LeJjlYndxlTx44wQW+rzH85/iv42nYMISZeu4T5P0etE99615e0o49JswWYC0BGLFWT fsBo3MWjiMkkLpLASATFvw0gAr3Zs3GrbGIogeXYOcA5o/U0j3jQvQrjietUQg7AyZlR9pPOY tbwECh048QDaEyFX2JIJPXfyJqLcO0kRbAVnaKpeVrcj9Kr4Das4KNA37AO4ceTwDjfRKBayb 9oPwa36HtiPnLXQHT+TRhMWwmtd5D/QACCq6Z79Y9Z6w7T8Zum/GGqx+PWFx75zG3aih9jCnc fv3tXCZj+mo23lqTlZzYRc1bABtL7hMHWeo4f+s5oU4lyRh9VMmA6hUJHQh0r20vMkpJaiV+x U9FBki0x8YjhfxuUyfgsIpW0sqjv7YYjaz8v6an+7yo3meWmyFJHwl1fp1K2fgSf4XqvuRcOB P6s4k8Q820giHXBZZdk2j3IMy1OUwgzsQS4Pz66ckpvddT6ic7PHQFiC+bFRCX5g50d7dqjcN brdykPwa0XYbytPPVNX2r/Guiql1vcXYV3IIf1he23Ymj+Lb1H5BAr3RBF4OD1yV0H+c68Ow4 58VngMzIfhwq00gC5B5dqbXoA2AygjoEpLLJIPTWiaEjwoeiZ1UP7TcQR4JGy4oNXgeKbUsI7 r1P/Fv9L+1MDs1NQEqR/GfDjVZwQqbepajrNc/uNUnA8i47TSjuWbRNj9T7nP5TYZ7+txNvuu KvLcDDK7LHPAJb2Oqd2h5EEwvi6gQPl86B08IudeHMjIB06FTzvwNDwL8Yj9l695UcPugTtxN hdcGJUVmnA+sJ8eMazk+/fo51FsZYCZkdyHoxPaKW6J5unew7okyHp7kzIMOB8XDHFh9gwcRf 3QiSaNaIIuY13PgaL/71PykmDj4Y9DFoncuOkl3t8U8/SJqaxmUaw==
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of
+its recipients. This is a permanent error. The following address
+failed:
+
+<kijitora@6jo.example.co.jp>
+
+Reason:
+delivery retry timeout exceeded
+
+
+--- The header of the original message is following. ---
+
+Received: from [192.0.2.135] by 3capp-mailcom-lxa02.server.lan (via
+HTTP); Sat, 29 Nov 2014 00:33:08 +0100
+MIME-Version: 1.0
+Message-ID: <trinity-8bc3e11d-b17c-4641-8692-498e8a19f323-1417217587540@3capp-mailcom-lxa02>
+From: Shironeko <shironeko@mail.example.com>
+To: kijitora@6jo.example.co.jp
+Subject: Nyaaaaaan
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 29 Nov 2014 00:33:08 +0100
+Importance: normal
+Sensitivity: Normal
+X-Priority: 3
+X-Provags-ID: V03:K0:lTW0uYfQ01/oV7U9YeY3uZ8Mdl+M6upWa9+5N7BJ/Tk
+    mwx4XTUY+3Hm+d61krDH39RUg0aH22cFalupDFIhobwsHkDgiY
+    5haFp3HwhDoQFriHIzS+mErRUsz+frxmQQbarnlKm+qYVMLKaF
+    BDTko8TNWTpYcmjgr4TRo+oU4CEOuBjKoWb0EdsGNM5s4f6waK
+    s1SheBPjncXCymJImjwriOfL7BKJiwZvgOTaokSKBPfSJJLwxH
+    jXJmVIMv8gtW4MGjWEMtrqVN2SXwlfbMHhUOdgOgMjhYycrKNU
+    wwg4c/w6KsTfkG0Ztl/O2Aqzz0f
+
+Nyaaan

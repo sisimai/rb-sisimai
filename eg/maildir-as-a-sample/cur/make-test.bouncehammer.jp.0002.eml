@@ -1,0 +1,70 @@
+Received: from localhost (localhost)
+	by smtp-out-34.example.jp (8.14.3/8.14.3) id n3RNHmqg024671;
+	Tue, 28 Apr 2009 08:17:48 +0900 (JST)
+Date: Tue, 28 Apr 2009 08:17:48 +0900 (JST)
+From: Mail Delivery Subsystem <MAILER-DAEMON>
+Message-Id: <200904272317.n3RNHmqg024671@smtp-out-34.example.jp>
+To: <user1@example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="n3RNHmqg024671.1240874268/smtp-out-34.example.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--n3RNHmqg024671.1240874268/smtp-out-34.example.jp
+
+The original message was received at Tue, 28 Apr 2009 08:17:47 +0900 (JST)
+from [192.0.2.31]
+
+   ----- The following addresses had permanent fatal errors -----
+<recipient-address-does-not-exist@docomo.ne.jp>
+    (reason: 550 Unknown user recipient-address-does-not-exist@docomo.ne.jp)
+
+   ----- Transcript of session follows -----
+... while talking to mfsmax.docomo.ne.jp.:
+>>> RCPT To:<recipient-address-does-not-exist@docomo.ne.jp>
+<<< 550 Unknown user recipient-address-does-not-exist@docomo.ne.jp
+550 5.1.1 <recipient-address-does-not-exist@docomo.ne.jp>... User unknown
+>>> DATA
+<<< 503 Bad sequence of commands
+
+--n3RNHmqg024671.1240874268/smtp-out-34.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; smtp-out-34.example.jp
+Received-From-MTA: DNS; [192.0.2.31]
+Arrival-Date: Tue, 28 Apr 2009 08:17:47 +0900 (JST)
+
+Final-Recipient: RFC822; recipient-address-does-not-exist@docomo.ne.jp
+Action: failed
+Status: 5.1.1
+Remote-MTA: DNS; mfsmax.docomo.ne.jp
+Diagnostic-Code: SMTP; 550 Unknown user recipient-address-does-not-exist@docomo.ne.jp
+Last-Attempt-Date: Tue, 28 Apr 2009 08:17:48 +0900 (JST)
+
+--n3RNHmqg024671.1240874268/smtp-out-34.example.jp
+Content-Type: text/rfc822-headers
+
+Return-Path: <user2@example.jp>
+Received: from [192.0.2.31] ([192.0.2.31])
+	(authenticated bits=0)
+	by smtp-out-34.example.jp (8.14.3/8.14.3) with ESMTP id n3RNHkqg008345
+	for <recipient-address-does-not-exist@docomo.ne.jp>; Tue, 28 Apr 2009 08:17:47 +0900 (JST)
+Mime-Version: 1.0 (Apple Message framework v753.1)
+Content-Transfer-Encoding: 7bit
+Message-Id: <E9E9449A-4918-4B8B-8589-435230D67AC7@example.jp>
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+To: recipient-address-does-not-exist@docomo.ne.jp
+From: "User2, For Example" <user2@example.jp>
+Subject: =?utf-8?B?44Kt44K444OI44Op?=
+Date: Tue, 28 Apr 2009 08:17:45 +0900
+X-Mailer: Apple Mail (2.753.1)
+X-Virus-Scanned: ClamAV version 0.94.2, clamav-milter version 0.94.2 on 192.0.2.252
+X-Virus-Status: Clean
+
+--n3RNHmqg024671.1240874268/smtp-out-34.example.jp--
+
+
+

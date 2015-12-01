@@ -1,0 +1,67 @@
+Received: from localhost (localhost)
+	by mx9.example.jp (8.14.3/8.14.3) id n3RA7CQU024741;
+	Mon, 27 Apr 2009 19:07:12 +0900 (JST)
+Date: Mon, 27 Apr 2009 19:07:12 +0900 (JST)
+From: Mail Delivery Subsystem <MAILER-DAEMON>
+Message-Id: <200904271007.n3RA7CQU024741@mx9.example.jp>
+To: <user6@example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="n3RA7CQU024741.1240826832/mx9.example.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--n3RA7CQU024741.1240826832/mx9.example.jp
+
+The original message was received at Mon, 27 Apr 2009 19:06:56 +0900 (JST)
+from [192.0.2.31]
+
+   ----- The following addresses had permanent fatal errors -----
+<this-message-is-too-big-for-the-host@ezweb.ne.jp>
+    (reason: 552 Message size exceeds fixed limit)
+
+   ----- Transcript of session follows -----
+... while talking to lsean.ezweb.ne.jp.:
+>>> MAIL From:<user6@example.jp> SIZE=11067049
+<<< 552 Message size exceeds fixed limit
+554 5.0.0 Service unavailable
+
+--n3RA7CQU024741.1240826832/mx9.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx9.example.jp
+Received-From-MTA: DNS; [192.0.2.31]
+Arrival-Date: Mon, 27 Apr 2009 19:06:56 +0900 (JST)
+
+Final-Recipient: RFC822; this-message-is-too-big-for-the-host@ezweb.ne.jp
+Action: failed
+Status: 5.3.4
+Diagnostic-Code: SMTP; 552 Message size exceeds fixed limit
+Last-Attempt-Date: Mon, 27 Apr 2009 19:07:12 +0900 (JST)
+
+--n3RA7CQU024741.1240826832/mx9.example.jp
+Content-Type: text/rfc822-headers
+
+Return-Path: <user6@example.jp>
+Received: from [192.0.2.31] ([192.0.2.31])
+	(authenticated bits=0)
+	by mx9.example.jp (8.14.3/8.14.3) with ESMTP id n3RA6uQU026739
+	for <this-message-is-too-big-for-the-host@ezweb.ne.jp>; Mon, 27 Apr 2009 19:06:56 +0900 (JST)
+Mime-Version: 1.0 (Apple Message framework v753.1)
+To: this-message-is-too-big-for-the-host@ezweb.ne.jp
+Message-Id: <2AC9955F-BF73-42A2-AD69-31A5D4DCC2FE@example.jp>
+Content-Type: multipart/mixed; boundary=Apple-Mail-1-526612466
+From: "User6, For Example" <user6@example.jp>
+Subject: TEST
+Date: Mon, 27 Apr 2009 19:06:56 +0900
+X-Mailer: Apple Mail (2.753.1)
+X-Virus-Scanned: ClamAV version 0.94.2, clamav-milter version 0.94.2 on 192.0.2.252
+X-Virus-Status: Clean
+
+--n3RA7CQU024741.1240826832/mx9.example.jp--
+
+
+
+

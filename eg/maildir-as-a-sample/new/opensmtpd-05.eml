@@ -1,0 +1,36 @@
+Return-Path: <>
+Received: from vagrant-centos65.vagrantup.com (c135.kyoto.example.ne.jp [192.0.2.135])
+	by 6jo.example.co.jp (V8/cf) with ESMTP id sB1HmVgA025751
+	for <shironeko@example.co.jp>; Tue, 2 Dec 2014 02:48:32 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 6jo.example.co.jp sB1HmVgA025751
+Authentication-Results: 6jo.example.co.jp; sender-id=fail (MalformedDomain) header.from=MAILER-DAEMON@localhost
+Message-Id: <201412011748.sB1HmVgA025751@6jo.example.co.jp>
+Received: from localhost (localhost [local]);
+	by localhost (OpenSMTPD) with ESMTPA id df97d8e0;
+	for <shironeko@example.co.jp>;
+	Mon, 1 Dec 2014 17:48:29 +0000 (UTC)
+Subject: Delivery status notification: error
+From: Mailer Daemon <poostmaster@example.co.jp>
+To: shironeko@example.co.jp
+Date: Mon, 1 Dec 2014 17:48:29 +0000 (UTC)
+
+    Hi!
+
+    This is the MAILER-DAEMON, please DO NOT REPLY to this e-mail.
+
+    An error has occurred while attempting to deliver a message for
+    the following list of recipients:
+
+kijitora@mail.example.co.jp: Envelope expired
+
+    Below is a copy of the original message:
+
+Received: from [127.0.0.1] (localhost [127.0.0.1]);
+	by localhost (OpenSMTPD) with ESMTP id 74009b37;
+	for <kijitora@mail.example.co.jp>;
+	Fri, 24 Oct 2014 12:24:05 +0000 (UTC)
+Subject: Nyaaaan
+From: Shironeko <shironeko@example.co.jp>
+To: <kijitora@mail.example.co.jp>
+
+Nyaaaaaa

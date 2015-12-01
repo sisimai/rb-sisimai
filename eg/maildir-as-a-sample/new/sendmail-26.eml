@@ -1,0 +1,71 @@
+Return-Path: <MAILER-DAEMON@shironeko.example.org>
+Received: from localhost (localhost)
+	by shironeko.example.org (V8/cf) id t8CHwZxs011896;
+	Sun, 13 Sep 2015 02:58:35 +0900
+Date: Sun, 13 Sep 2015 02:58:35 +0900
+From: Mail Delivery Subsystem <poostmaster@example.org>
+Message-Id: <201509121758.t8CHwZxs011896@shironeko.example.org>
+To: postmaster@shironeko.example.org
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="t8CHwZxs011896.1442080715/shironeko.example.org"
+Subject: Postmaster notify: see transcript for details
+Auto-Submitted: auto-generated (postmaster-notification)
+
+This is a MIME-encapsulated message
+
+--t8CHwZxs011896.1442080715/shironeko.example.org
+
+The original message was received at Sun, 13 Sep 2015 02:58:30 +0900
+from c135.kyoto.example.ne.jp [192.0.2.222]
+with id t8CHwKxr011887
+
+   ----- The following addresses had permanent fatal errors -----
+<this-local-part-does-not-exist-on-the-system@gol.com>
+    (reason: 550 unknown user)
+
+   ----- Transcript of session follows -----
+... while talking to mx.mail.gol.com.:
+>>> DATA
+<<< 550 unknown user
+550 5.1.1 <this-local-part-does-not-exist-on-the-system@gol.com>... User unknown
+<<< 503-All RCPT commands were rejected with this error:
+<<< 503-unknown user
+<<< 503 Valid RCPT command must precede DATA
+
+--t8CHwZxs011896.1442080715/shironeko.example.org
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; shironeko.example.org
+Received-From-MTA: DNS; c135.kyoto.example.ne.jp
+Arrival-Date: Sun, 13 Sep 2015 02:58:30 +0900
+
+Final-Recipient: RFC822; this-local-part-does-not-exist-on-the-system@gol.com
+Action: failed
+Status: 5.1.1
+Remote-MTA: DNS; mx.mail.gol.com
+Diagnostic-Code: SMTP; 550 unknown user
+Last-Attempt-Date: Sun, 13 Sep 2015 02:58:35 +0900
+
+--t8CHwZxs011896.1442080715/shironeko.example.org
+Content-Type: text/rfc822-headers
+
+Return-Path: <kijitora@example.org>
+Received: from [192.0.2.6] (c135.kyoto.example.ne.jp [192.0.2.222])
+	(authenticated bits=0)
+	by shironeko.example.org (V8/cf) with ESMTP id t8CHwKxr011887
+	for <this-local-part-does-not-exist-on-the-system@gol.com>; Sun, 13 Sep 2015 02:58:30 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 shironeko.example.org t8CHwKxr011887
+Authentication-Results: shironeko.example.org; sender-id=pass header.from=kijitora@example.org; auth=pass (CRAM-MD5); spf=pass smtp.mfrom=kijitora@example.org
+From: Kijitora <kijitora@example.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Subject: Nyaaaaaaan
+Message-Id: <0400551B-27D1-4BE9-BDC8-A7C65147AFC9@example.org>
+Date: Sun, 13 Sep 2015 02:58:20 +0900
+To: this-local-part-does-not-exist-on-the-system@gol.com
+Mime-Version: 1.0 (Mac OS X Mail 7.3 \(1878.6\))
+X-Mailer: Apple Mail (2.1878.6)
+
+--t8CHwZxs011896.1442080715/shironeko.example.org--
+

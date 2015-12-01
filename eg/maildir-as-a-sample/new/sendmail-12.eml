@@ -1,0 +1,62 @@
+Received: from mx.example.com ([192.0.2.45])
+	by mx.example.jp (8.14.4/8.14.4) with ESMTP id q3pK02Wt021110
+	for <postmaster@example.jp>; Thu, 29 Apr 2012 05:00:00 +0900 (JST)
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 mx.example.jp q3pK02Wt021110
+Authentication-Results: mx.example.jp; sender-id=none header.from=MAILER-DAEMON@mx.example.com
+Date: Thu, 29 Apr 2012 05:00:00 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON@mx.example.com>
+Message-Id: <201204292000.q3pK0000000000@mx.example.com>
+To: postmaster@mx.example.com
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="q3pK00yy0000000.00000000000/mx.example.com"
+Content-Transfer-Encoding: 8bit
+Subject: Postmaster notify: see transcript for details
+Auto-Submitted: auto-generated (postmaster-notification)
+X-Virus-Scanned: ClamAV version 0.94.2, clamav-milter version 0.94.2 on g1.example.jp
+X-Virus-Status: Clean
+
+This is a MIME-encapsulated message
+
+--q3pK00yy0000000.00000000000/mx.example.com
+
+The original message was received at Thu, 29 Apr 2012 00:00:00 +0900
+from localhost [127.0.0.1]
+with id q3pFrqqD000000
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora@example.org>
+
+   ----- Transcript of session follows -----
+Message could not be delivered for too long
+Message will be deleted from queue
+
+--q3pK00yy0000000.00000000000/mx.example.com
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx.example.com
+Arrival-Date: Thu, 29 Apr 2012 00:00:00 +0900
+
+Final-Recipient: RFC822; kijitora@example.org
+Action: failed
+Status: 4.4.7
+Last-Attempt-Date: Thu, 29 Apr 2012 05:00:00 +0900
+
+--q3pK00yy0000000.00000000000/mx.example.com
+Content-Type: text/rfc822-headers
+Content-Transfer-Encoding: 8bit
+
+Return-Path: <daemon@mx.example.com>
+Received: (from daemon@localhost)
+	by mx.example.com (8.14.4/8.12.8/Submit) id q3pFrqn0000000
+	for kijitora@example.org; Thu, 29 Apr 2012 00:00:00 +0900
+Date: Thu, 29 Apr 2012 00:00:00 +0900
+Message-Id: <201204290000.q3pF0000000000@mx.example.com>
+To: kijitora@example.org
+From: shironeko@example.ne.jp
+Subject: Nyaaaaaaaan
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+
+--q3pK00yy0000000.00000000000/mx.example.com--
+

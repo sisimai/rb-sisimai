@@ -1,0 +1,29 @@
+Return-Path: <MAILER-DAEMON@example.com>
+Received: from mx8.example.com ([192.0.2.55])
+    by mx6.example.com (Post.Office MTA v3.1.2
+    release (FF000+0900) ID# 0+09000000000000000) with SMTP id 0000000
+    for <shironeko@example.org>;
+    Thu, 29 Apr 1999 23:34:45 +0900
+Received: by mx8.example.com; (5.65/1.37) id 0000000; 
+    Thu, 29 Apr 1999 23:34:45 +0900
+Date: Thu, 29 Apr 1999 23:34:45 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON@example.com>
+Subject: Returned mail: Deferred: Host Name Lookup Failure
+Message-Id: <0000000000.0000000@mx8.example.com>
+To: shironeko@example.org
+
+   ----- Transcript of session follows -----
+550 example.ed.jp (smtp)... 550 Host unknown
+554 <kijitora@example.ed.jp>... 550 Host unknown (Authoritative answer from name server)
+550 example.ac.jp (smtp)... 550 Host unknown
+554 <mikeneko@example.ac.jp>... 550 Host unknown (Authoritative answer from name server)
+250 example.ad.jp (smtp)... 250 Deferred
+
+   ----- Unsent message follows -----
+Received: by mx8.example.com; (5.65/1.36) id 0000000; 
+    Thu, 29 Apr 1999 23:34:45 +0900
+From: shironeko@example.org
+To: kijitora@example.ed.jp
+Subject: Nyaaaaaan
+
+Nyaaan

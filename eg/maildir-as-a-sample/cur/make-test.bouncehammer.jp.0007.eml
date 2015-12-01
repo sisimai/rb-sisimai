@@ -1,0 +1,26 @@
+Received: (qmail 3622 invoked for bounce); 30 Mar 2009 08:18:21 -0000
+Date: 30 Mar 2009 08:18:21 -0000
+From: MAILER-DAEMON@example.co.jp
+To: root@psuketarozaemon.jp
+Subject: failure notice
+
+Hi. This is the qmail-send program at mta.example.co.jp
+I'm afraid I wasn't able to deliver your message to the following addresses.
+This is a permanent error; I've given up. Sorry it didn't work out.
+
+<userunknown@example.com>:
+192.0.2.135 does not like recipient.
+Remote host said: 550 5.1.1 <userunknown@example.com>... User Unknown
+Giving up on 192.0.2.135.
+
+--- Below this line is a copy of the message.
+
+Return-Path: <root@example.co.jp>
+Received: (qmail 3620 invoked by uid 0); 30 Mar 2009 08:18:19 -0000
+Date: 30 Mar 2009 08:18:19 -0000
+Message-ID: <20090330081819.3619.qmail@mta.example.co.jp>
+From: root@example.co.jp
+to: userunknown@example.com
+
+
+

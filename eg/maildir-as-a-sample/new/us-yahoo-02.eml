@@ -1,0 +1,79 @@
+X-Apparently-To: shironeko@y.example.co.jp via 182.22.66.39; Sat, 22 Nov 2014 07:23:30 +0900
+X-YahooFilteredBulk: 183.79.56.197
+X-YMailISG: kMIl1aUWLDsMnrU8bZDaa2fE56a1EjIYTviRozFbY8GuJRkI
+ KHW0IFJTADKX9Je2oaAFoxDHKMCkE0aVvopz3KVA2XfYMX7ZKiZN0.i1w9JD
+ w9OEy1AmKktn7GQ2bzzVHPMVO1dkRYe5w0Z_G975GbXKNyNl8OxWw63RNwaF
+ p1fAJbv5_hlSkM_KYhR0GW3ukATstS3MHPeL08M9J1cMls.3BZeq41iNmGZ6
+ dbnPI9jown0zj4B6zsWxeXNDB9TvIDAr6msjEcgcbo2nziLHyikvcJXGWvGs
+ ZEToewEunz6WLPXWVFC7n5xFQPnE2Uak50n6vCW6SIqnETJKkyUfI5zJA8YP
+ rv0ACtrchfHHsuO0o7Ahae2uJ.wS41DGqNV9oIYipnDMZVgqCaV5YaBpkGuH
+ OpaEo.lAFxqMq7eDqkp1xm9er38Zmn76un25JHHuQY7tIaC7cqO.dfyPh_.4
+ Irw4Lp0zUWzHsEbjjGXWgD3qK5WodMOy0Q2k6ztSnPYhEGzy2o.z4Cx1ew_a
+ m_GKkE_4km43qkEj2D0iUbAQ8PNK4Mxd6M0CE9u9gjte_j5ATtX2Ek6pqume
+ 0vFVMMC6lDFBbICLfhdOjuFYvqsWZ5Tez6aHRH5ohrR8YqbbY1YgY5ekbD2Q
+ x96JNE2ExoXQpjP7a5c0o6plVLQD.IVM2or46KDbNo2K4iS88K1leAmgcqCj
+ wyd97ZWr7F19f9eEtTg9EhokOaZJaGH2K2o7X90BdUuIcKe_sxuW8pZ6ClkD
+ uNyRXG27VpBc9RWZUi6gbJFVSXrkcA_lkslYjNwCgm_GyEJ6Biv7x5i3xZvC
+ FO0tG3RzRTMmXtoEz0zIYTUG1v2MDN9JibGIYu8NyWKFbC2gKuhVrwhbFJlz
+ 9rQH.O54ChQHysmiWbpIufS97T4qFCxbOMGD9Yvwmc8g9Jmkp978hqvSmYfX
+ wJry9PqvHk9B5TTUUxVJdCRtan3DMB.MYmaL8Js_r6xjJiT4rZ7jI7_u_A9w
+ zSFQOzj1GwFwlD6nTRhvS.W40aXxTDogeM0lm2.VeIEQpZmUHyy6C5PJhRll
+ adH7WxN4LTNvHJ.ZOD11QR9QtxTS6KQCvPedknmkyDbB0L1EOc_q_tfNk3.c
+ u0QnoV_xhn2osJE6IWArnicUEX224IhUI3qNMWlahghsG5te7dTbtg--
+X-Originating-IP: [183.79.56.197]
+Received-SPF: none (nh503-vm11.bullet.mail.kks.y.example.co.jp: domain of nh503-vm11.bullet.mail.kks.y.example.co.jp does not designate permitted sender hosts)
+Authentication-Results: mta514.mail.kks.y.example.co.jp  from=y.example.co.jp; domainkeys=pass (ok); dkim=pass (ok); header.i=@y.example.co.jp
+Received: from 183.79.56.197  (EHLO nh503-vm11.bullet.mail.kks.y.example.co.jp) (183.79.56.197)
+  by mta514.mail.kks.y.example.co.jp with SMTP; Sat, 22 Nov 2014 07:23:30 +0900
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=y.example.co.jp; s=yj20110701; t=1416608610; bh=yhH6DvEukfzhRkQDlfph3QhP/2PAlFa4y0tYE2J1yT4=; h=From:To:Date:Subject:X-Yahoo-Newman-Property; b=VIXBSffIGAx7jKQzlD/lecF2ExLrXSA+gff1Cb/niR5bHATrXkYYvHlTmLHDHT3ccyhxWlqrxK+TtSQP44px71ZzC4PK58eeYC//CseWElnbsjdE1LdjtKN3vQTd0SnyeA3jVvnAfkgLPlVJ7ioJLUBT4MyWy6b4Aa4977+EMiQ=
+DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=yj20110701; d=y.example.co.jp;
+	b=uixH7JLHcoB9PnqStOtWuiwu4AuKpVWd3iDl3PouaBFt1zoKhPxQ40hXiZRYxO+v4F+3NQfH63s+hNphgyQWzzmBMkOBbNVQ0vqDBWY4TBWJCfBDs4iVfzIbXn2AoW/KFUOaqJ4q168c8OtVFdXp0k4X+wuF8fY4BCqeRHsZ/yg=;
+From: MAILER-DAEMON@y.example.co.jp
+To: shironeko@y.example.co.jp
+Date: Fri, 21 Nov 2014 22:23:30 -0000
+Subject: Failure Notice
+
+Sorry, we were unable to deliver your message to the following address.
+
+<kijitora@example.ed.jp>:
+Remote host said: 550 5.2.2 <kijitora@example.ed.jp>... Mailbox Full [RCPT_TO]
+
+--- Below this line is a copy of the message.
+
+Received: from [183.79.100.138] by nh503.bullet.mail.kks.y.example.co.jp with NNFMP; 21 Nov 2014 22:23:29 -0000
+Received: from [183.79.100.134] by t501.bullet.mail.kks.y.example.co.jp with NNFMP; 21 Nov 2014 22:23:29 -0000
+Received: from [127.0.0.1] by omp503.mail.kks.y.example.co.jp with NNFMP; 21 Nov 2014 22:23:29 -0000
+X-Yahoo-Newman-Property: ymail-3
+X-Yahoo-Newman-Id: 169798.94330.bm@omp503.mail.kks.y.example.co.jp
+Received: (qmail 30892 invoked by alias); 21 Nov 2014 22:23:29 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=y.example.co.jp; s=yj20110701; t=1416608609; bh=OXnJSZZHMURLg7srttfhZDg/08xL/3vXSZDyc5x/dNk=; h=Received:X-YMail-JAS:X-Apparently-From:X-YMail-OSG:From:Content-Type:Content-Transfer-Encoding:Subject:Message-Id:Date:To:Mime-Version:X-Mailer; b=HjcHaCkTXM3uazrTqrOcFRF/BzYk4PV1yq9rq8htwlOZe3SQlQAPKBUz5td3Er0rE8rkPno7AIlLP5UUzLz8y23pjJArUCXFTp7PK41Ci7Fm/y2WhFG5z5kuxeg6UnczUwyszxjjxU2Qx+FKUhjGXi+6sPgZKi6Al50na/I0f0w=
+DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws;
+  s=yj20110701; d=y.example.co.jp;
+  h=Received:X-YMail-JAS:X-Apparently-From:X-YMail-OSG:From:Content-Type:Content-Transfer-Encoding:Subject:Message-Id:Date:To:Mime-Version:X-Mailer;
+  b=qB3j5QZpDHIkjPSpAU9rQhz3mLKA+etkAlR5wPriKfSGum1gcazhBrttmWogAqhcXC6g9G/mlKbJsh49LLGA5uWj0Lk6eiOHcxfJbkALN/6ZxNLcINhG6zCR6t7uMdNLlPYCUueg9TTCfZYIvHxB6BDL9lJnuxcMGgKFBxYxGf0=  ;
+Received: from unknown (HELO ?192.0.2.3?) (192.0.2.135 with plain)
+  by applesmtp522.mail.kks.y.example.co.jp with SMTP; 21 Nov 2014 22:23:28 -0000
+X-YMail-JAS: 9jKIRUIVM1n0VWuJvpQqiZt4fgR_rtMwQIywl9.kstMKNSkYvFmrTlZcnh1AE.8dVt191viBAw9rEM_tRfmpVHLTzJMAoHka5jpXcEhZ2gyb10qCJjnfkNTFsCQ5m.OHku7Iqll_
+X-Apparently-From: <shironeko@y.example.co.jp>
+X-YMail-OSG: .JRdE1wVM1kIprLHsflXWZycxJbMTcLOwf5YVPEjmMZgePm
+ KLZcUvyQxLY9OmwraS7VCOYDubvJM6y7Lxe_mpDxTzVP8Q..0t6_7Z4TLtM3
+ HMTLdBM_puCI1pLfjcFs26hKU7CujHyAxGA2f_oAlAHhZsmjxLwPaTdpiigS
+ ioSDe1Lv6vuW1wbzotAn6ChxIEPLVbPLnVRO1ANYGJxCU2fnag7wm4huu6Qe
+ 8JTv1V752HJ2yI6slFl1EnIz7F9dqoWmpoztiaTPcFD8ZoRFPa45sy0dDAnV
+ 8e5vAJDn7z7Fpv7Z9NCxfCn.Ei7VNp57Hkxjt5Nq2K2R1ZCx2kz4iEWpadEi
+ wa1E7RChtw_v5eIbN1UNdzndC6uLSL_mMtrJeYpTUQnNetAWTS7.FNvskTLI
+ D4IsUqe0tJBJMLpk8sbRk1TBDroNqXXvW2Tfc4aA8JFiZ.q.g1fHn7kmJotR
+ DU7Aybf530SIMI8P2T3IkcFAcTHLWtNYqPGyPQuQzeDdATp7sT3zNM4WOJWh
+ 68D9GaGwUy7LOrxS.3As-
+From: Shironeko <shironeko@y.example.co.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-Id: <3C1693EF-7886-4E59-BBF9-D3DF3B74820F@y.example.co.jp>
+Date: Sat, 22 Nov 2014 07:23:23 +0900
+To: userunknown@example.ed.jp,
+ kijitora@example.ed.jp
+Mime-Version: 1.0 (Mac OS X Mail 7.3 \(1878.6\))
+X-Mailer: Apple Mail (2.1878.6)
+Subject: Nyaaaan
+
+Nyaaaa

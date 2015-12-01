@@ -1,0 +1,35 @@
+Return-Path: <>
+Received: from vagrant-centos65.vagrantup.com (c135.kyoto.example.ne.jp [192.0.2.135])
+	by 4jo.example.jp (V8/cf) with SMTP id s618UuEP009055
+	for <kijitora@example.jp>; Tue, 1 Jul 2014 17:30:57 +0900
+Message-Id: <201407010830.s618UuEP009055@4jo.example.jp>
+Received: (qmail 18904 invoked for bounce); 1 Jul 2014 08:30:56 -0000
+Date: 1 Jul 2014 08:30:56 -0000
+From: MAILER-DAEMON@vagrant-centos65.vagrantup.com
+To: kijitora@example.jp
+Subject: failure notice
+
+Hi. This is the qmail-send program at vagrant-centos65.vagrantup.com.
+I'm afraid I wasn't able to deliver your message to the following addresses.
+This is a permanent error; I've given up. Sorry it didn't work out.
+
+<userunknown@example.jp>:
+192.0.2.153 does not like recipient.
+Remote host said: 550 5.1.1 <userunknown@example.jp>... User Unknown
+Giving up on 192.0.2.153.
+
+<filtered@example.jp>:
+192.0.2.153 does not like recipient.
+Remote host said: 550 5.2.1 <filtered@example.jp>... User Unknown
+Giving up on 192.0.2.153.
+
+--- Below this line is a copy of the message.
+
+Return-Path: <shironeko@example.jp>
+Received: (qmail 18901 invoked by uid 0); 1 Jul 2014 08:30:40 -0000
+Received: from unknown (HELO ?127.0.0.1?) (172.25.73.1)
+  by 172.25.73.144 with SMTP; 1 Jul 2014 08:30:40 -0000
+Subject: TEST #4
+From: shironeko@example.jp
+
+TEST

@@ -1,0 +1,38 @@
+Return-Path: <>
+Received: from mx451.example.co.jp ([192.0.2.145])
+    by smtp-gw5601.g1.example.ne.jp (Post.Office MTA v3.1.2
+    release (PO203-101c) ID# 0-00000000000000000) with ESMTP
+    id 0000000 for <shironeko@example.com>;
+    Thu, 29 Apr 1999 23:45:10 +0900
+Received: from smtp-gw1.example.com (c135.example.com [192.0.2.98] 
+    (may be forged)) by mx451.example.co.jp with SMTP id 00000000
+    for <shironeko@example.com>; Thu, 29 Apr 1999 23:45:10 +0900 (JST)
+Message-Id: <199904290000.00000000@mx451.example.co.jp>
+From: POSTMASTER@smtp-gw6-01.example.com
+To: shironeko@example.com
+Date: Thu, 29 Apr 1999 23:45:00 +0900
+Subject: Undeliverable message
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+
+------- Failure Reasons  --------
+
+User  not listed in public Name & Address Book
+kijitora@example.com
+
+
+------- Returned Message --------
+Received: from mx450.example.co.jp ([192.0.2.231]) by 
+    smtp-gw6.example.com (Lotus SMTP MTA v4.6.1
+    (569.2 2-6-1999)) with SMTP id 00000000.00000000;
+    Thu, 29 Apr 1999 23:45:00 +0900
+Received: from mx8.example.or.jp ([192.0.2.190]) by mx450.example.co.jp 
+    with SMTP id 00000000 for <kijitora@example.com>;
+    Thu, 29 Apr 1999 23:45:00 +0900 (JST)
+From: shironeko@example.com
+Date: Thu, 29 Apr 1999 23:45:00 +0900
+Message-Id: <0000000000.0000000@mx12.example.or.jp>
+To: shironeko@example.com
+Subject: Nyaaaan
+
+Nyaan

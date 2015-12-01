@@ -1,0 +1,49 @@
+Received: from localhost (smtp-90.example.co.jp) [127.0.0.1] 
+    by mx4.example.org with esmtp (Exim 2.05 #1 (Debian))
+    id ffffff-000000-00; Thu, 29 Apr 1999 23:34:45 +0900
+Received: from mail by mx4.example.org with local (Exim 2.05 #1 (Debian))
+    id ffffff-000000-00; Thu, 29 Apr 1999 23:34:45 +0900
+X-Failed-Recipients: kijitora@neko.example.co.jp
+From: Mail Delivery System <Mailer-Daemon@example.org>
+To: shironeko@example.org
+Subject: Mail delivery failed: returning message to sender
+Message-Id: <fffffff-000000-00@mx4.example.org>
+Date: Thu, 29 Apr 1999 23:34:45 +0900
+Content-Length: 222
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to all of its recipients. The
+following address(es) failed:
+
+  kijitora@neko.example.co.jp:
+    SMTP error from remote mailer after RCPT TO:
+    <kijitora@neko.example.co.jp>:
+    host mx49.neko.example.co.jp [192.0.2.82]:
+    553 5.1.1 unknown or illegal user:
+    kijitora@neko.example.co.jp
+
+----- This is a copy of the message, including all the headers. ------
+
+Return-path: <shironeko@example.org>
+Received: from localhost (smtp-90.example.co.jp) [127.0.0.1] 
+    by mx4.example.org with esmtp (Exim 2.05 #1 (Debian))
+    id eeeeee-000000-00; Thu, 29 Apr 1999 23:34:45 +0900
+Received: from relay13.example.org by mx4.example.org 
+    with local (Exim 2.05 #1 (Debian)) id ffffff-000000-00; 
+    Thu, 29 Apr 1999 23:34:45 +0900
+Date: Thu, 29 Apr 1999 23:34:45 +0900
+From: Shironeko <shironeko@example.org>
+To: kijitora@example.org
+Message-ID: <19990429233445.000000@mx4.example.org>
+Reply-To: neko@example.jp
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Subject: Nyaaan
+Sender: shironeko@example.org
+Errors-To: shironeko@example.org
+X-Mailman-Version: 1.0rc2
+Precedence: bulk
+
+Nyaan
+

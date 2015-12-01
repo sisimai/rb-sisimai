@@ -1,0 +1,40 @@
+Return-Path: <>
+Received: from vagrant-centos65.vagrantup.com (c135.kyoto.example.ne.jp [192.0.2.135])
+	by 6jo.example.jp (V8/cf) with ESMTP id s9OCUk6P029335
+	for <shironeko@example.jp>; Fri, 24 Oct 2014 21:30:47 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 6jo.example.jp s9OCUk6P029335
+Authentication-Results: 6jo.example.jp; sender-id=fail (MalformedDomain) header.from=MAILER-DAEMON@localhost
+Message-Id: <201410241230.s9OCUk6P029335@6jo.example.jp>
+Received: from localhost (localhost [local]);
+	by localhost (OpenSMTPD) with ESMTPA id b945e617;
+	for <shironeko@example.jp>;
+	Fri, 24 Oct 2014 12:30:45 +0000 (UTC)
+Subject: Delivery status notification: warning
+From: Mailer Daemon <MAILER-DAEMON@6jo.example.jp>
+To: shironeko@example.jp
+Date: Fri, 24 Oct 2014 12:30:45 +0000 (UTC)
+
+    Hi!
+
+    This is the MAILER-DAEMON, please DO NOT REPLY to this e-mail.
+
+    A message is delayed for more than 10 minutes for the following
+    list of recipients:
+
+kijitora@neko.example.jp: Network error on destination MXs
+
+    Please note that this is only a temporary failure report.
+    The message is kept in the queue for up to 4 days.
+    You DO NOT NEED to re-send the message to these recipients.
+
+    Below is a copy of the original message:
+
+Received: from [127.0.0.1] (localhost [127.0.0.1]);
+	by localhost (OpenSMTPD) with ESMTP id 74009b37;
+	for <kijitora@neko.example.jp>;
+	Fri, 24 Oct 2014 12:24:05 +0000 (UTC)
+Subject: TEST
+From: Shironeko <shironeko@example.jp>
+To: <kijitora@neko.example.jp>
+
+TEST

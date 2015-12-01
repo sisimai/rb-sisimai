@@ -1,0 +1,155 @@
+Return-Path: <MAILER-DAEMON@example.co.jp>
+Delivered-To: main-shironeko@cat.example.co.jp
+Received: from 192.0.2.172 [192.0.2.172]
+	by host-022.example.com with POP3 (fetchmail-6.3.17)
+	for <nekobatch@localhost> (single-drop); Thu, 15 Oct 2015 15:22:22 +0900 (JST)
+Received: (qmail 2222 invoked from network); 15 Oct 2015 06:22:22 -0000
+Received: from unknown (HELO re-2335g.example.net) (192.0.2.61)
+  by ksdc2288sv02 with SMTP; 15 Oct 2015 06:22:22 -0000
+Received: from unknown (HELO vs-002.example.co.jp) (192.0.2.62)
+  by 0 with SMTP; 15 Oct 2015 15:22:22 +0900
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: 44OO44Op44OL44Oj44O844Oz44K6ISEK
+Received: from post.email.example.net (HELO post-3.email.example.net) ([192.0.2.61])
+  by vs-002.example.co.jp with ESMTP; 15 Oct 2015 15:22:22 +0900
+Received: from ip-005.email.example.net (vss-024 [192.0.2.10])
+	by post03.email.example.net (Postfix) with ESMTP id FF00FFFFFF
+	for <shironeko@cat.example.co.jp>; Thu, 15 Oct 2015 15:22:22 +0900 (JST)
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: 44OO44Op44OL44Oj44O844Oz44K6ISEK
+Received: from mx05.example.co.jp ([192.0.2.61])
+  by ip-005.email.example.net with ESMTP; 15 Oct 2015 15:22:22 +0900
+Received: from unknown (HELO mpps-022.int.example.co.jp) ([192.0.2.172])
+  by mx05.example.co.jp with SMTP; 15 Oct 2015 15:22:22 +0900
+Received: from (unknown [192.0.2.4]) by mpps-022.int.example.co.jp with smtp
+	 id ffff_0000_eeeeeeee_2222_0000_0000_000000000000;
+	Thu, 15 Oct 2015 15:22:22 +0900
+Received: from localhost (localhost [127.0.0.1])
+	by postfix.vss-002 (Postfix) with SMTP id 0000000000
+	for <shironeko@cat.example.co.jp>; Thu, 15 Oct 2015 15:22:22 +0900 (JST)
+From: "=?iso-2022-jp?B?TWFpbCBEZWxpdmVyeSBTdWJzeXN0ZW0=?=" <MAILER-DAEMON@example.co.jp>
+Content-Type: multipart/mixed;
+	charset="iso-2022-jp";
+	boundary="TMMSG_FFFFFFFF_0000_2222_2222_000000000000"
+Subject: =?iso-2022-jp?B?UmV0dXJuZWQgbWFpbDogVXNlciB1bmtub3du?=
+Date: Thu, 15 Oct 2015 15:22:22 +0900
+MIME-Version: 1.0
+To: "NotificationRecipients" <NotificationRecipients@mpvss-002.int.example.co.jp>
+X-TM-AS-MML: No
+Message-Id: <20151015000000.fffffffffffffff@mpvss-002.int.example.co.jp>
+
+This is a multi-part message in MIME format.
+
+
+--TMMSG_FFFFFFFF_0000_2222_2222_000000000000
+Content-Type: text/plain;
+	charset="iso-2022-jp"
+Content-Transfer-Encoding: 7bit
+
+The original message was received at Thu Oct 13 15:22:22 2015
+
+----- The following addresses had permanent delivery errors -----
+
+
+--TMMSG_FFFFFFFF_0000_2222_2222_000000000000
+Content-Type: message/rfc822
+
+Received: from vrrr-22.int.example.co.jp (unknown [192.0.2.16])
+	by mpvss-002.int.example.co.jp (Postfix) with ESMTP id 0000000000
+	for <shironeko@cat.example.co.jp>; Thu, 15 Oct 2015 15:22:22 +0900 (JST)
+Received: from localhost (localhost)
+	by vrrr-22.int.example.co.jp (MOS 4.4.4b-GA)
+	with internal id FFFFFFFF;
+	Thu, 15 Oct 2015 15:22:22 +0900
+Date: Thu, 15 Oct 2015 15:22:22 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON@vrrr-22.int.example.co.jp>
+Message-Id: <201510150656.CAT22222@vrrr-22.int.example.co.jp>
+To: shironeko@cat.example.co.jp
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="CAT22222.022222000/vrrr-22.int.example.co.jp"
+Subject: Returned mail: User unknown
+Auto-Submitted: auto-generated (failure)
+X-TM-AS-MML: No
+
+This is a MIME-encapsulated message
+
+--CAT22222.022222000/vrrr-22.int.example.co.jp
+
+The original message was received at Thu, 15 Oct 2015 15:22:22 +0900
+from 192.0.2.4 [192.0.2.4]
+
+   ----- The following addresses had permanent delivery errors -----
+kijitora@neko.example.org
+
+
+--CAT22222.022222000/vrrr-22.int.example.co.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; vrrr-22.int.example.co.jp
+Arrival-Date: Thu, 15 Oct 2015 15:22:22 +0900
+
+Original-Recipient: rfc822;kijitora@neko.example.org
+Final-Recipient: RFC822; kijitora@neko.example.org
+Action: failed
+Status: 5.1.1
+Remote-MTA: X-Unix; mirapoint
+Diagnostic-Code: smtp; 550 5.1.1 User unknown
+Last-Attempt-Date: Thu, 15 Oct 2015 15:22:22 +0900
+
+--CAT22222.022222000/vrrr-22.int.example.co.jp
+Content-Type: message/rfc822
+
+Received: from 192.0.2.4 (EHLO mpvss-002.int.example.co.jp) ([192.0.2.4])
+	by vrrr-22.int.example.co.jp (MOS 4.4.4b-GA FastPath queued)
+	with ESMTP id CAT22222;
+	Thu, 15 Oct 2015 15:22:22 +0900 (JST)
+Received: from mpvss-002.int.example.co.jp (localhost [127.0.0.1])
+	by postfix.vss-002 (Postfix) with ESMTP id 2222222222
+	for <kijitora@neko.example.org>; Thu, 15 Oct 2015 15:22:22 +0900 (JST)
+Received: from mpps-022.int.example.co.jp (unknown [192.0.2.100])
+	by mpvss-002.int.example.co.jp (Postfix) with SMTP id 2222222222
+	for <kijitora@neko.example.org>; Thu, 15 Oct 2015 15:22:22 +0900 (JST)
+Received: from (unknown [192.0.2.172]) by mpps-022.int.example.co.jp with smtp
+	 id 2222_0000_4444cccc_cccc_8888_2222_000000000000;
+	Thu, 15 Oct 2015 15:22:22 +0900
+Received-SPF: None (mx05.example.co.jp: no sender authenticity
+  information available from domain of shironeko@cat.example.co.jp)
+  identity=mailfrom; client-ip=192.0.2.61;
+  receiver=mx05.example.co.jp;
+  envelope-from="shironeko@cat.example.co.jp";
+  x-sender="shironeko@cat.example.co.jp"; x-conformance=spf_only
+Received: from post.email.example.net (HELO post02.email.example.net) ([192.0.2.61])
+  by mx05.example.co.jp with ESMTP; 15 Oct 2015 15:22:22 +0900
+Received: from iron03.email.example.net (vss-002 [192.0.2.10])
+	by post02.email.example.net (Postfix) with ESMTP id CCCCCCCCCCC
+	for <kijitora@neko.example.org>; Thu, 15 Oct 2015 15:22:22 +0900 (JST)
+Received: from 192.0.2.61.email.example.net (HELO guard04.email.example.net) ([192.0.2.61])
+  by iron03v.email.example.net with ESMTP; 15 Oct 2015 15:22:22 +0900
+Received: from 192.0.2.61.email.example.net (HELO re-2335g.example.net) ([192.0.2.61])
+  by guard04.email.example.net with SMTP; 15 Oct 2015 15:22:22 +0900
+Received: from unknown (HELO mx02.example.co.jp.) (61.114.186.97)
+  by 0 with SMTP; 15 Oct 2015 15:22:22 +0900
+Received: (qmail 2022 invoked from network); 15 Oct 2015 06:22:22 -0000
+Received: from unknown (HELO host-022.example.com) (192.0.2.10.105)
+  by cccccccccccc with SMTP; 15 Oct 2015 06:22:22 -0000
+Received: from cat2222.in.nyan.example.com (cat2222.in.nyan.example.com [192.0.2.10.107])
+	by host-022.example.com (Postfix) with ESMTP id CCCCCCCC2
+	for <kijitora@neko.example.org>; Thu, 15 Oct 2015 15:22:22 +0900 (JST)
+Received: from cat2222.in.nyan.example.com (localhost.localdomain [127.0.0.1])
+	by cat2222.in.nyan.example.com (Postfix) with ESMTP id CCCCCCCCC22
+	for <kijitora@neko.example.org>; Thu, 15 Oct 2015 15:22:22 +0900 (JST)
+Message-ID: <2222222222.0000000000002.JavaMail.nekogate@cat.example.jp>
+Date: Thu, 15 Oct 2015 15:22:22 +0900 (JST)
+From: =?ISO-2022-JP?B?GyRCJSIlSSVsJTkzTkcnIWMbKEJGSUtUGyRCIWQbKEI=?= <shironeko@cat.example.co.jp>
+To: kijitora@neko.example.org
+Subject: =?ISO-2022-JP?B?GyRCIVobKEJURVNUGyRCIVslYSE8JWslIiVJJWwlOSROM05HJxsoQg==?=
+X-TM-AS-MML: No
+
+
+
+--CAT22222.022222000/vrrr-22.int.example.co.jp--
+--TMMSG_FFFFFFFF_0000_2222_2222_000000000000--
+
+
+

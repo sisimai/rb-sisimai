@@ -1,0 +1,89 @@
+Return-Path: <>
+Received: from mfgw229.ocn.ad.jp (mfgw229.ocn.ad.jp [122.1.235.148])
+	by example.ne.jp (Postfix) with ESMTP id A810A2671
+	for <shironeko@example.ne.jp>; Mon, 24 May 2010 19:06:50 +0900 (JST)
+Received: from mv-osn-hcb007.ocn.ad.jp (mv-osn-hcb007.ocn.ad.jp [118.23.180.69])
+	by mfgw229.ocn.ad.jp (Postfix) with ESMTP id 9697B548263
+	for <shironeko@example.ne.jp>; Mon, 24 May 2010 19:06:50 +0900 (JST)
+Received: by mv-osn-hcb007.ocn.ad.jp (Postfix)
+	id 7FE851AC10D; Mon, 24 May 2010 19:06:50 +0900 (JST)
+Date: Mon, 24 May 2010 19:06:50 +0900 (JST)
+From: MAILER-DAEMON@mv-osn-hcb007.ocn.ad.jp (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: shironeko@example.ne.jp
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="6265E1AC124.1274695610/mv-osn-hcb007.ocn.ad.jp"
+Message-Id: <20100524100650.7FE851AC10D@mv-osn-hcb007.ocn.ad.jp>
+
+This is a MIME-encapsulated message.
+
+--6265E1AC124.1274695610/mv-osn-hcb007.ocn.ad.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=ISO-2022-JP
+
+This is the mail system at host mv-osn-hcb007.ocn.ad.jp.
+
+このメールと共に返信されているメールは一つ以上の宛先に対
+して配信できませんでした。
+
+I'm sorry to have to inform you that the message returned
+below could not be delivered to one or more destinations.
+
+何か質問がございましたら、<support@ocn.ad.jp>へご連絡ください。
+
+For further assistance, please contact <support@ocn.ad.jp>
+
+ご質問の際には、この障害レポートを一緒にお送りください。
+このメールに添付されているあなたの元のメールは削除しても
+構いません
+
+If you do so, please include this problem report. You can
+delete your own text from the message returned below.
+
+
+<kijitora@example.co.jp>: host mx01.example.co.jp[192.0.2.8] said:
+    550 5.1.1 Address rejected kijitora@example.co.jp (in reply to
+    RCPT TO command)
+
+--6265E1AC124.1274695610/mv-osn-hcb007.ocn.ad.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mv-osn-hcb007.ocn.ad.jp
+X-Postfix-Queue-ID: 6265E1AC124
+X-Postfix-Sender: rfc822; shironeko@example.ne.jp
+Arrival-Date: Mon, 24 May 2010 19:06:50 +0900 (JST)
+
+Final-Recipient: rfc822; kijitora@example.co.jp
+Original-Recipient: rfc822;kijitora@example.co.jp
+Action: failed
+Status: 5.1.1
+Remote-MTA: dns; mx01.example.co.jp
+Diagnostic-Code: smtp; 550 5.1.1 Address rejected
+    kijitora@example.co.jp
+
+--6265E1AC124.1274695610/mv-osn-hcb007.ocn.ad.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Received: from r.example.ne.jp (mv-osn-hcb007 [118.23.180.69])
+	by mv-osn-hcb007.ocn.ad.jp (Postfix) with ESMTP id 6265E1AC124
+	for <kijitora@example.co.jp>; Mon, 24 May 2010 19:06:50 +0900 (JST)
+Received: from [192.0.2.31] (c135.kyoto.ocn.ne.jp [192.0.2.135])
+	by r.example.ne.jp (Postfix) with ESMTP
+	for <kijitora@example.co.jp>; Mon, 24 May 2010 19:06:50 +0900 (JST)
+Message-Id: <A8F82EDD-E518-4F5C-8C70-BC4EFF24AB9F@example.ne.jp>
+From: shironeko <shironeko@example.ne.jp>
+To: kijitora@example.co.jp
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Apple Message framework v936)
+Subject: TEST
+Date: Mon, 24 May 2010 19:06:49 +0900
+X-Mailer: Apple Mail (2.936)
+
+test
+
+--6265E1AC124.1274695610/mv-osn-hcb007.ocn.ad.jp--

@@ -1,0 +1,82 @@
+Delivered-To: this-local-part-does-not-exist-on-google-mail@gmail.com
+Received: by 10.66.159.39 with SMTP id wz7csp399375pab;
+        Tue, 30 Oct 2012 02:29:36 -0700 (PDT)
+Received-SPF: pass (google.com: domain of  designates 10.68.220.169 as permitted sender) client-ip=10.68.220.169
+Authentication-Results: mr.google.com; spf=pass (google.com: domain of  designates 10.68.220.169 as permitted sender) smtp.mail=; dkim=pass header.i=
+Received: from mr.google.com ([10.68.220.169])
+        by 10.68.220.169 with SMTP id px9mr102490972pbc.14.1351589375945 (num_hops = 1);
+        Tue, 30 Oct 2012 02:29:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20120113;
+        h=mime-version:from:to:x-failed-recipients:subject:message-id:date
+         :content-type:content-transfer-encoding;
+        bh=81jYmiJOr7Mm4WeiGCPdZfjiVpskaVPCq/8xviYRXZI=;
+        b=cz3+rpdNHtySvWPxC7tlEfmwqiLO8TfUtMj2ICe21wvGVmEmFStRsQQ1idN2ME1PKi
+         k7pKblCb3slrClMnXJb0xEGmF1ZN5qBgLIEB/f42VEwb+X5ENw8DRrHggC8hym8Lv3jn
+         jIGwuxbU6lLRMZlhiXh9sQc68BdNapeyBEp+ZOOFbsjBt9bMdH6n1+9Z2hNhCdRfhpFf
+         4qvNHVhC4hkAsT1bRWdyviHTXpCvzLgdJ36ckEK4ydO5lPB5Y+5iq0Jlq9/5d8zrjdwI
+         jof8fC3zwwFR6KaswWBZpo+3nbVbvn2ER4gHXQQsAQY52FI2NbAQWn6ARQGxnX8Do7z6
+         dLMQ==
+Received: by 10.68.220.169 with SMTP id px9mr102490972pbc.14.1351589375943;
+        Tue, 30 Oct 2012 02:29:35 -0700 (PDT)
+MIME-Version: 1.0
+Return-Path: <>
+Received: by 10.68.220.169 with SMTP id px9mr121742121pbc.14; Tue, 30 Oct 2012
+ 02:29:35 -0700 (PDT)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+To: this-local-part-does-not-exist-on-google-mail@gmail.com
+X-Failed-Recipients: kijitora@example.com
+Subject: Delivery Status Notification (Failure)
+Message-ID: <047d7b10cc4fa2a12704cd436c2f@google.com>
+Date: Tue, 30 Oct 2012 09:29:35 +0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+Delivery to the following recipient failed permanently:
+
+     kijitora@example.com
+
+Technical details of permanent failure:=20
+Google tried to deliver your message, but it was rejected by the recipient =
+domain. We recommend contacting the other email provider for further inform=
+ation about the cause of this error. The error that the other server return=
+ed was: 554 554 5.7.1 Service unavailable; Client host [192.0.2.49] bloc=
+ked using cbl.abuseat.org (state 13).
+
+----- Original message -----
+
+DKIM-Signature: v=3D1; a=3Drsa-sha256; c=3Drelaxed/relaxed;
+        d=3Dgmail.com; s=3D20120113;
+        h=3Dmime-version:sender:in-reply-to:references:from:date
+         :x-google-sender-auth:message-id:subject:to:content-type;
+        bh=3DuuCsZQsQ8/ZZ839D3GJXiUEDOcygkKaIrrtK4dBDqc8=3D;
+        b=3Dz526Eb4xIUlMKE9NrWmQuFrATYZF4GHkVjaVyRI6EWGw/mL3dnnksVa45PuAZtb=
+wdF
+         umOTNEPFSm1p83T0vzMKIwNHfILnZToyO2fG6oy6N1zmT0omXU3FxLGeefQKPX9Yvp=
+Hs
+         set5UxPoayPJth9beI/M0rsCewm70wUAlUPVImMODluuXkWoQ7iJr0YcFfIJcnnk4/=
+d5
+         IGw2qvND1nGfrNJSRGNN+mjSGlEKFVWc7jmkDDrXQ/9TjRUkmBUyJnZGuyvqInaaLb=
+0F
+         UMwV374yYNc5R2w+gMV+lnfRBXryqQ2c/K3AL+L+puny7Rl7ukrg0+A/g+5iLU6TG6=
+az
+         UpwQ=3D=3D
+Received: by 10.68.220.169 with SMTP id px9mr102488661pbc.14.1351589352048;
+ Tue, 30 Oct 2012 02:29:12 -0700 (PDT)
+MIME-Version: 1.0
+Sender: this-local-part-does-not-exist-on-google-mail@gmail.com
+Received: by 10.66.159.39 with HTTP; Tue, 30 Oct 2012 02:28:41 -0700 (PDT)
+In-Reply-To: <201210191936.q9JJajf2025845@aneyakoji.example.co.jp>
+References: <201210191936.q9JJajf2025845@aneyakoji.example.co.jp>
+From: "Shironeko" <shironeko@example.co.jp>
+Date: Tue, 30 Oct 2012 18:28:41 +0900
+X-Google-Sender-Auth: FvgcdnokE2OgUN96Iv8Ay4eolJ0
+Message-ID: <CAJYcEwW7ghrwjbwmwK3GKRG98qSVTKhGBvnkbVH1RdwFJwHWFQ@mail.gmail=
+.com>
+Subject: =3D?UTF-8?B?UmU6IFvjgrXjgqTjg4jjgYvjgonjga7jgYrllY/lkIjjgZtdOiDjgZ=
+3jga7ku5YvYm91bg=3D=3D?=3D
+	=3D?UTF-8?B?Y2VoYW1tZXI=3D?=3D
+To: Arie <kijitora@example.com>
+Content-Type: text/plain; charset=3DUTF-8
+
+Message

@@ -1,0 +1,68 @@
+Return-Path: <>
+Received: from mx20.example.jp (mx20.example.jp [192.0.2.20])
+    by mx.google.com with ESMTP id fffffffff; Thu, 20 Apr 2011 23:34:45 +0900 (JST)
+Received: by mx20.example.jp (Postfix) id ffffffff; Thu, 20 Apr 2011 23:34:45 +0900 (JST)
+Date: Thu, 20 Apr 2011 23:34:45 +0900 (JST)
+From: MAILER-DAEMON@mx20.example.jp (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: shironeko@m0.example.co.jp
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="fffffff.0000000/mx20.example.jp"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20110420233445.ffff@mx20.example.jp>
+
+This is a MIME-encapsulated message.
+
+--fffffff.0000000/mx20.example.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host mx20.example.jp.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to <postmaster>
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@example.org>: Name service error for name=example.org
+    type=MX: Malformed or unexpected name server reply
+
+--fffffff.0000000/mx20.example.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx20.example.jp
+X-Postfix-Queue-ID: FFFFFFFFFFFF
+X-Postfix-Sender: rfc822; shironeko@m0.example.co.jp
+Arrival-Date: Thu, 20 Apr 2011 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; kijitora@example.org
+Action: failed
+Status: 5.4.4
+Diagnostic-Code: X-Postfix; Name service error for name=example.org
+    type=MX: Malformed or unexpected name server reply
+
+--fffffff.0000000/mx20.example.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 8bit
+
+Received: by mx20.example.jp (Postfix, from userid 525)
+	id FFFFFFFFFFFF; Thu, 20 Apr 2011 23:34:45 +0900 (JST)
+MIME-Version: 1.0
+Content-Transfer-Encoding: binary
+Content-Type: text/plain
+Date: Thu, 20 Apr 2011 23:34:45 +0900
+Subject: Nyaaan
+From: Shironeko <shironeko@example.co.jp>
+To: kijitora@example.org
+Message-Id: <20110420233445.EEEEEEEEEEEE@mx20.example.jp>
+
+Nyaaaan
+

@@ -1,0 +1,66 @@
+Received: from localhost (localhost)
+	by mx.sp.example.jp (8.14.3/8.14.3) id n3S2pwhW005501;
+	Tue, 28 Apr 2009 11:51:58 +0900 (JST)
+Date: Tue, 28 Apr 2009 11:51:58 +0900 (JST)
+From: Mail Delivery Subsystem <MAILER-DAEMON>
+Message-Id: <200904280251.n3S2pwhW005501@mx.sp.example.jp>
+To: <administrator@sp.example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="n3S2pwhW005501.1240887118/mx.sp.example.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--n3S2pwhW005501.1240887118/mx.sp.example.jp
+
+The original message was received at Tue, 28 Apr 2009 11:51:39 +0900 (JST)
+from [192.0.2.31]
+
+   ----- The following addresses had permanent fatal errors -----
+<very-very-big-message-to-you@mopera.ne.jp>
+    (reason: 552 Message size exceeds fixed maximum message size: 5242880 bytes)
+
+   ----- Transcript of session follows -----
+... while talking to exmta.mopera.net.:
+>>> MAIL From:<administrator@sp.example.jp> SIZE=16600374
+<<< 552 Message size exceeds fixed maximum message size: 5242880 bytes
+554 5.0.0 Service unavailable
+
+--n3S2pwhW005501.1240887118/mx.sp.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx.sp.example.jp
+Received-From-MTA: DNS; [192.0.2.31]
+Arrival-Date: Tue, 28 Apr 2009 11:51:39 +0900 (JST)
+
+Final-Recipient: RFC822; very-very-big-message-to-you@mopera.ne.jp
+Action: failed
+Status: 5.3.4
+Diagnostic-Code: SMTP; 552 Message size exceeds fixed maximum message size: 5242880 bytes
+Last-Attempt-Date: Tue, 28 Apr 2009 11:51:58 +0900 (JST)
+
+--n3S2pwhW005501.1240887118/mx.sp.example.jp
+Content-Type: text/rfc822-headers
+
+Return-Path: <administrator@sp.example.jp>
+Received: from [192.0.2.31] ([192.0.2.31])
+	(authenticated bits=0)
+	by mx.sp.example.jp (8.14.3/8.14.3) with ESMTP id n3S2p1hX022695
+	for <very-very-big-message-to-you@mopera.ne.jp>; Tue, 28 Apr 2009 11:51:39 +0900 (JST)
+Mime-Version: 1.0 (Apple Message framework v753.1)
+To: very-very-big-message-to-you@mopera.ne.jp
+Message-Id: <1019AE39-59A7-4283-A4C4-38238266DA2E@sp.example.jp>
+Content-Type: multipart/mixed; boundary=Apple-Mail-10-586889508
+From: "administrator of the site" <administrator@sp.example.jp>
+Subject: TEST
+Date: Tue, 28 Apr 2009 11:51:32 +0900
+X-Mailer: Apple Mail (2.753.1)
+X-Virus-Scanned: ClamAV version 0.94.2, clamav-milter version 0.94.2 on 192.0.2.252
+X-Virus-Status: Clean
+
+--n3S2pwhW005501.1240887118/mx.sp.example.jp--
+
+
+

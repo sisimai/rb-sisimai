@@ -1,0 +1,100 @@
+Return-Path: <apps@sendgrid.net>
+Received: from o7463194126.static.reverse.sendgrid.net (o7463194126.static.reverse.sendgrid.net [74.63.194.126])
+	by nijo.example.ed.jp (V8/cf) with SMTP id r68IL19U001066
+	for <postmaster@example.ed.jp>; Mon, 8 Jul 2013 23:34:45 -0400
+Date: Mon, 8 Jul 2013 23:34:45 -0400
+Message-Id: <201307081821.r68IL19U001066@nijo.example.ed.jp>
+Content-Type: multipart/report; report-type=delivery-status;
+ boundary="----------=_1373307661-18489-143530"
+Content-Transfer-Encoding: binary
+MIME-Version: 1.0
+X-Mailer: MIME-tools 5.502 (Entity 5.502)
+From: MAILER-DAEMON@nijo.example.ed.jp
+To: kijitora@example.ed.jp
+Subject: Undelivered Mail Returned to Sender
+
+This is a multi-part message in MIME format...
+
+------------=_1373307661-18489-143530
+Content-Type: text/plain
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
+Content-Description: Notification
+
+This is an automatically generated message from SendGrid.
+
+I'm sorry to have to tell you that your message was not able to be
+delivered to one of its intended recipients.
+
+If you require assistance with this, please contact SendGrid support.
+
+kijitora:00000:<kijitora@example.org> : Connection timed out in connect
+
+------------=_1373307661-18489-143530
+Content-Type: message/delivery-status
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
+Content-Description: Delivery Report
+
+X-SendGrid-QueueID: 515172155
+X-SendGrid-Sender: 
+Arrival-Date: 2013-07-08 18-21-01
+
+Final-Recipient: rfc822; kijitora@example.org
+Original-Recipient: rfc822; kijitora@example.org
+Action: expired
+Status: 
+Diagnostic-Code: Connection timed out
+
+------------=_1373307661-18489-143530
+Content-Type: message/rfc822; name="515172155"
+Content-Disposition: inline; filename="515172155"
+Content-Transfer-Encoding: binary
+Content-Description: Undelivered Message
+
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=sendgrid.info; h=
+	content-type:mime-version:content-transfer-encoding:from:to
+	:subject:sender:list-unsubscribe; s=smtpapi; bh=u/Ul0H/ralIepLJp
+	TtV37bNuUN8=; b=VfEMcGRYBb4zhfI5zehhR3KL8aHwo2PhYAK4b8Ysz5Z9OSr4
+	VJ4YJ2Grgf/gLGi7nTf/fal5W0kAj9lNybhew1VnsBmKaw3YEywKaDYo2JHKE/Na
+	4r11BLBo3jyahPqWyH7Vf9AtP5d42AIvbnCDbq3J27rwC4Pi7M0221ixI8g=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=sendgrid.info; h=
+	content-type:mime-version:content-transfer-encoding:from:to
+	:subject:sender:list-unsubscribe; q=dns; s=smtpapi; b=PguEv/P6L4
+	iarDs7E7mL2wHcrdDHEOVyAoHGhbjxzy17r5sbPEzJHkI5scKmzINAKGkvMf8UgM
+	z1jRXVz6pdKEUdBB83bISrU5GP8Ah3F/JOnB+n8mrcE5EdZzDakSWSp1jnkG862s
+	OR7bN5ZObtjQBS7+H9JP3o5XjYvt8bKBI=
+Received: by 10.8.49.76 with SMTP id mf36.18138.51D70DE17
+        Fri, 05 Jul 2013 23:34:45 +0000 (UTC)
+Received: from neko (c135.kyoto.example.ne.jp [192.0.2.135])
+	by mi1.sendgrid.net (SG) with HTTP id 13fb00e37eb.1e71.117b798
+	for <kijitora@example.org>; Fri, 05 Jul 2013 23:34:45 -0500 (CST)
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+From: "kijitora@example.ed.jp" <kijitora@example.ed.jp>
+To: kijitora@example.org
+Date: Sat, 06 Jul 2013 23:34:45 JST
+X-Haineko-Message-Id: r663I8I031170EbogAmI9iOM.3117.1373048288.043@haineko.example.jp
+X-HTTP-Referer: 
+X-SMTP-Engine: Haineko 0.0.1
+X-Haineko-QueueId: r663I8I031170EbogAmI9iOM.3117.1373048288.043
+X-Mailer: Mozilla/5.0 (Macintosh;
+	Intel Mac OS X 10_7_5) AppleWebKit/537.36 (KHTML, like Gecko)
+	Chrome/27.0.1453.116 Safari/537.36
+X-Originating-IP: 127.0.0.1
+Message-ID: <1373048289.4959893235684211@mf36.sendgrid.net>
+X-SG-EID: 3JWaw2xJI1qb1O+i096vbtTNT/lqQyagTg2L/e2Ikqz8esNdnACCm1opA1oDFoLgkmhrdk2wosJmy0SKEk33rTIdPocNndrqNQ39pZbLreCYYTauhKjI6lwHE0CJ78X4
+X-SG-ID: VBBc+h2RCWslIKsMPQULhxeFOrAUyzBQOrLxPeJ0AGFz7e7ecsC2ocehMqSt05i8CfEJpgcIrLTtr1M7ilXkLzpX+gdP4c+QIxb3lvYYi6w=
+Sender: kijitora@example.Jp <kijitora=example.ed.jp@sendgrid.info>
+List-Unsubscribe: <http://u00000.sendgrid.org/wf/unsubscribe?upn=c2XvhmdlwFNZzrpICz3vLbjzSAqaJa54l4f0h6yEr5WkugehmE1-2BUIc1M6MgWuGYcwk7UvpKnzF0RFKlVthnEnCyYXoC3e6MIdQGOtImBiNUIxz1-2B4G5uXN52Xa6ZHZdC9GcaDfUOiJIHBtT3ODzvMG7FoNMV-2FXfCo43e8exFuZ92EFv8hR-2B8MxV2Z6AfAB03gRQZrv7DPaODkcQSCVyt5i-2B1IUZyfYZlC7BI7P55o7kdSsHzyHIccr78qkGOQGi>, <mailto:unsubscribe@sendgrid.info?subject=http://u00000.sendgrid.org/wf/unsubscribe*q*upn=c2XvhmdlwFNZzrpICz3vLbjzSAqaJa54l4f0h6yEr5WkugehmE1-2BUIc1M6MgWuGYcwk7UvpKnzF0RFKlVthnEnCyYXoC3e6MIdQGOtImBiNUIxz1-2B4G5uXN52Xa6ZHZdC9GcaDfUOiJIHBtT3ODzvMG7FoNMV-2FXfCo43e8exFuZ92EFv8hR-2B8MxV2Z6AfAB03gRQZrv7DPaODkcQSCVyt5i-2B1IUZyfYZlC7BI7P55o7kdSsHzyHIccr78qkGOQGi>
+Subject: =?UTF-8?B?54yr44Gh44KD44KT?=
+
+If you'd like to unsubscribe and stop receiving these emails click here: ht=
+tp://u00000.sendgrid.org/wf/unsubscribe?upn=3Dc2XvhmdlwFNZzrpICz3vLbjzSAqaJ=
+a54l4f0h6yEr5WkugehmE1-2BUIc1M6MgWuGYcwk7UvpKnzF0RFKlVthnEnCyYXoC3e6MIdQGOt=
+ImBiNUIxz1-2B4G5uXN52Xa6ZHZdC9GcaDfUOiJIHBtT3ODzvLCRIwp7WxlA95cBQYh1IR-2FQW=
+9B7CMRkcX-2BIc-2FNDcS8NLhLrr1dUcrcxk8gJqVAfpRQXXZT4zL2ePErvBngWcbgt1-2FavhO=
+rS-2Bkk1K0CVrSLk.
+
+------------=_1373307661-18489-143530--

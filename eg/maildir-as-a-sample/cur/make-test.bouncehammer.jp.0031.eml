@@ -1,0 +1,80 @@
+Received: from mapsmtag2.mopera.net (mailx.mopera.net [211.14.126.4])
+	by mx.sp.example.jp (8.14.3/8.14.3) with ESMTP id n3S2p3Ox004381
+	for <admin@sp.example.jp>; Tue, 28 Apr 2009 11:51:04 +0900 (JST)
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 mx.sp.example.jp n3S2p3Ox004381
+Authentication-Results: mx.sp.example.jp; sender-id=pass header.from=Postmaster@mopera.net
+To: admin@sp.example.jp
+From: Mail Administrator <Postmaster@mopera.net>
+Reply-To: Mail Administrator <Postmaster@mopera.net>
+Subject: =?ISO-2022-JP?B?GyRCJWEhPCVrQXc/LiUoJWkhPBsoQiAoRXJyb3IgbWVzc2FnZSkA?=
+Date: Tue, 28 Apr 2009 11:51:03 +0900
+Message-ID: <20090428025103.QPTX17287.mapsmtag2.mopera.net@mapsmtag2>
+MIME-Version: 1.0
+Content-Type: multipart/report;
+		report-type=delivery-status;
+		Boundary="===========================_ _= 3641052(17287)1240887063"
+X-Virus-Scanned: ClamAV version 0.94.2, clamav-milter version 0.94.2 on 192.0.2.252
+X-Virus-Status: Clean
+
+
+--===========================_ _= 3641052(17287)1240887063
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+	charset="ISO-2022-JP"
+
+このメールに添付されているメッセージは、送信できませんでした。
+
+宛先がみつかりませんでした。
+下記メールアドレス宛にメールを送信することができませんでした。
+user unknown
+The following recipients did not receive this message
+
+<this-recipient-address-is-not-mopera-user@mopera.ne.jp>
+
+＜ご注意＞
+・本メールには返信できません。
+
+株式会社NTTドコモ
+
+--===========================_ _= 3641052(17287)1240887063
+Content-Type: message/delivery-status
+Content-Transfer-Encoding: 7bit
+
+Reporting-MTA: dns; nsaehmtb.mopera.net
+Arrival-Date: Tue, 28 Apr 2009 11:51:03 +0900
+Received-From-MTA: dns; mx.sp.example.jp (192.0.2.135)
+
+Final-Recipient: RFC822; this-recipient-address-is-not-mopera-user@mopera.ne.jp>
+Action: failed
+Status: 5.1.1
+
+--===========================_ _= 3641052(17287)1240887063
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 7bit
+
+Received: from mx.sp.example.jp by mapsmtag2.mopera.net with ESMTP
+          id <20090428025103.QPTQ17287.mapsmtag2.mopera.net@mx.sp.example.jp>
+          for <this-recipient-address-is-not-mopera-user@mopera.ne.jp>;
+          Tue, 28 Apr 2009 11:51:03 +0900
+Received: from [192.0.2.31] ([192.0.2.31])
+	(authenticated bits=0)
+	by mx.sp.example.jp (8.14.3/8.14.3) with ESMTP id n3S2p1hW022695
+	for <this-recipient-address-is-not-mopera-user@mopera.ne.jp>; Tue, 28 Apr 2009 11:51:02 +0900 (JST)
+Mime-Version: 1.0 (Apple Message framework v753.1)
+Content-Transfer-Encoding: 7bit
+Message-Id: <FC5F91B0-477A-408A-B36F-6EA8B768457F@sp.example.jp>
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+To: this-recipient-address-is-not-mopera-user@mopera.ne.jp
+From: "admin of the site" <admin@sp.example.jp>
+Subject: TEST
+Date: Tue, 28 Apr 2009 11:51:00 +0900
+X-Mailer: Apple Mail (2.753.1)
+X-Virus-Scanned: ClamAV version 0.94.2, clamav-milter version 0.94.2 on 192.0.2.252
+X-Virus-Status: Clean
+
+test
+
+--===========================_ _= 3641052(17287)1240887063--
+
+
+
