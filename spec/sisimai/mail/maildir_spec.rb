@@ -72,7 +72,7 @@ describe Sisimai::Mail::Maildir do
     describe '#offset' do
       subject { mailobj.offset }
       it('returns Integer') { is_expected.to be_a(Integer) }
-      it('is equals to 3')  { is_expected.to be == 3 }
+      it('is larger than 0')  { is_expected.to be > 0 }
       it('is smaller than size') { is_expected.to be < mailobj.size }
     end
     describe '#inodes' do
