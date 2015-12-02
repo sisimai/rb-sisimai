@@ -100,7 +100,7 @@ describe Sisimai::SMTP::Reply do
       it('returns empty string') { expect(cn.find).to be_empty }
     end
 
-    describe 'Wrong Number of Arguments' do
+    context 'wrong number of arguments' do
       context '("x","y")' do
         it('raises ArgumentError') { expect { cn.find('x', 'y') }.to raise_error(ArgumentError) }
       end

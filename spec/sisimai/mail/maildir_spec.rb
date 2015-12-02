@@ -7,7 +7,7 @@ describe Sisimai::Mail::Maildir do
   let(:mailobj) { cn.new(samples) }
   let(:mockobj) { cn.new(invalid) }
 
-  describe 'Class method' do
+  describe 'class method' do
     describe '.new' do
       context 'Maildir/ exists' do
         let(:samples) { sf }
@@ -21,7 +21,7 @@ describe Sisimai::Mail::Maildir do
         it('raises Errno::ENOENT') { expect { mockobj }.to raise_error(Errno::ENOENT) }
       end
 
-      describe 'argument is not a directory' do
+      context 'argument is not a directory' do
         let(:invalid) { '/etc/resolv.conf' }
         it('raises Errno::ENOTDIR') { expect { mockobj }.to raise_error(Errno::ENOTDIR) }
       end
@@ -37,7 +37,7 @@ describe Sisimai::Mail::Maildir do
     end
   end
 
-  describe 'Instance method' do
+  describe 'instance method' do
     let(:samples) { sf }
     before do
       mailobj.read

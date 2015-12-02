@@ -7,7 +7,7 @@ describe Sisimai::Mail::STDIN do
   let(:mailobj) { cn.new(samples) }
   let(:mockobj) { cn.new(invalid) }
 
-  describe 'Class method' do
+  describe 'class method' do
     describe '.new' do
       context '$stdin' do
         let(:samples) { $stdin }
@@ -20,7 +20,7 @@ describe Sisimai::Mail::STDIN do
         it('raises RuntimeError') { expect { mockobj }.to raise_error(RuntimeError) }
       end
 
-      describe 'wrong number of arguments' do
+      context 'wrong number of arguments' do
         it 'raises ArgumentError' do
           expect { cn.new(nil, nil) }.to raise_error(ArgumentError)
         end
@@ -28,7 +28,7 @@ describe Sisimai::Mail::STDIN do
     end
   end
 
-  describe 'Instance method' do
+  describe 'instance method' do
     let(:samples) { $stdin }
     describe '#path' do
       subject { mailobj.path }

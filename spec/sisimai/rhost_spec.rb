@@ -17,7 +17,7 @@ describe Sisimai::Rhost do
       end
     end
 
-    describe 'Wrong Number of Arguments' do
+    context 'wrong number of arguments' do
       context '(nil)' do
         it('raises ArgumentError') { expect { cn.list(nil) }.to raise_error(ArgumentError) }
       end
@@ -28,7 +28,7 @@ describe Sisimai::Rhost do
   end
 
   describe '.match' do
-    describe 'Valid Argument String' do
+    context 'valid argument string' do
       v = ['aspmx.l.google.com']
       v.each do |e|
         context "(#{e})" do
@@ -40,7 +40,7 @@ describe Sisimai::Rhost do
       end
     end
 
-    describe 'Wrong Number of Arguments' do
+    context 'wrong number of arguments' do
       context '(nil,nil)' do
         it('raises ArgumentError') { expect { cn.match(nil, nil) }.to raise_error(ArgumentError) }
       end

@@ -7,7 +7,7 @@ describe Sisimai::Mail::Mbox do
   let(:mailobj) { Sisimai::Mail::Mbox.new(samples) }
   let(:mockobj) { Sisimai::Mail::Mbox.new(invalid) }
 
-  describe 'Class method' do
+  describe 'class method' do
     describe '.new' do
       context 'mbox file exists' do
         let(:samples) { sf }
@@ -25,7 +25,7 @@ describe Sisimai::Mail::Mbox do
         it('raises RuntimeError') { expect { mockobj }.to raise_error(RuntimeError) }
       end
 
-      describe 'wrong number of arguments' do
+      context 'wrong number of arguments' do
         it 'raises ArgumentError' do
           expect { cn.new }.to raise_error(ArgumentError)
         end
@@ -36,7 +36,7 @@ describe Sisimai::Mail::Mbox do
     end
   end
 
-  describe 'Instance method' do
+  describe 'instance method' do
     let(:samples) { sf }
     before do
       mailobj.read

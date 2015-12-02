@@ -10,7 +10,7 @@ describe Sisimai::Mail do
   let(:maildir) { cn.new(samples) }
   let(:mockobj) { cn.new(invalid) }
 
-  describe 'Class method' do
+  describe 'class method' do
     describe '.new' do
       context 'mbox file exists' do
         let(:samples) { sf }
@@ -30,7 +30,7 @@ describe Sisimai::Mail do
         it("returns #{cn} object"){ is_expected.to be_a(cn) }
       end
 
-      describe 'wrong number of arguments' do
+      context 'wrong number of arguments' do
         it 'raises ArgumentError' do
           expect { cn.new }.to raise_error(ArgumentError)
         end
@@ -41,7 +41,7 @@ describe Sisimai::Mail do
     end
   end
 
-  describe 'Instance method' do
+  describe 'instance method' do
     describe 'Mailbox' do
       let(:samples) { sf }
       before do
