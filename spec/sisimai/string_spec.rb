@@ -62,6 +62,4 @@ describe Sisimai::String do
       it('raises ArgumentError') { expect { cn.sweep('x', 'y') }.to raise_error(ArgumentError) }
     end
   end
-
 end
-
