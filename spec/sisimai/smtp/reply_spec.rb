@@ -1,9 +1,9 @@
 require 'spec_helper'
-require 'sisimai/rfc5321'
+require 'sisimai/smtp/reply'
 
-describe Sisimai::RFC5321 do
-  cn = Sisimai::RFC5321
-  msglist = [
+describe Sisimai::SMTP::Reply do
+  cn = Sisimai::SMTP::Reply
+  smtperrors = [
     %q|smtp; 550 5.1.1 <kijitora@example.co.jp>... User Unknown|,
     %q|smtp; 550 Unknown user kijitora@example.jp|,
     %q|smtp; 550 5.7.1 can't determine Purported |,
@@ -80,29 +80,29 @@ describe Sisimai::RFC5321 do
     %q|550 5.1.1 <kijitora@example.jp>... User Unknown |,
     %q|550 5.1.1 <this-local-part-does-not-exist-on-the-server@example.jp>... |,
   ]
-  describe '.getrc' do
-    msglist.each do |e|
-      v = cn.getrc(e)
+  describe '.find' do
+    smtperrors.each do |e|
+      v = cn.find(e)
       context "(#{e})" do
         it('returns SMTP Reply Code') { expect(v).to match(/\A[2345][0-5][0-9]\z/) }
       end
     end
     context '("neko")' do
-      it('returns empty string') { expect(cn.getrc('neko')).to be_empty }
+      it('returns empty string') { expect(cn.find('neko')).to be_empty }
     end
     context '("")' do
-      it('returns empty string') { expect(cn.getrc('')).to be_empty }
+      it('returns empty string') { expect(cn.find('')).to be_empty }
     end
     context '(nil)' do
-      it('returns empty string') { expect(cn.getrc(nil)).to be_empty }
+      it('returns empty string') { expect(cn.find(nil)).to be_empty }
     end
     context '()' do
-      it('returns empty string') { expect(cn.getrc).to be_empty }
+      it('returns empty string') { expect(cn.find).to be_empty }
     end
 
     describe 'Wrong Number of Arguments' do
       context '("x","y")' do
-        it('raises ArgumentError') { expect { cn.getrc('x', 'y') }.to raise_error(ArgumentError) }
+        it('raises ArgumentError') { expect { cn.find('x', 'y') }.to raise_error(ArgumentError) }
       end
     end
   end
