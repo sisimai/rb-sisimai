@@ -14,8 +14,8 @@ module Sisimai
     @@rwaccessors.each { |e| attr_accessor e }
 
     # Constructor of Sisimai::Mail
-    # @param    [String] argv1         Path to mbox or Maildir/
-    # @return   [Sisimai::Mail, Undef] Object or Undef if the argument was wrong
+    # @param    [String] argv1        Path to mbox or Maildir/
+    # @return   [Sisimai::Mail, Nil]  Object or Undef if the argument was wrong
     def initialize(argv1)
       classname = nil
       parameter = { 'path' => argv1, 'type' => nil, 'mail' => nil }
