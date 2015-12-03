@@ -2,6 +2,7 @@ module Sisimai
   # Sisimai::MTA - Base class for Sisimai::MTA::*
   module MTA
     class << self
+      # Imported from p5-Sisimail/lib/Sisimai/MTA.pm
       require 'sisimai/rfc5322'
 
       # Flags for position variable for
