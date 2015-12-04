@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'sisimai/rfc5322'
 
-describe 'Sisimai::RFC5322' do
+describe Sisimai::RFC5322 do
   cn = Sisimai::RFC5322
   describe '.HEADERFIELDS' do
     context '()' do
