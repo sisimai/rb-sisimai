@@ -91,7 +91,7 @@ module Sisimai
         haveloaded = 0  # (Integer) The number of lines loaded from message body
         blanklines = 0  # (Integer) Counter for countinuous blank lines
         v = dscontents[-1]
-p v
+
         # RECIPIENT_ADDRESS
         ['from', 'return-path'].each do |e|
           # Try to get the address of the recipient
