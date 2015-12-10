@@ -81,15 +81,15 @@ module Sisimai
         readcursor = 0    # (Integer) Points the current cursor position
         recipients = 0    # (Integer) The number of 'Final-Recipient' header
         connheader = {
-          'date'  => nil,  # The value of Arrival-Date header
-          'rhost' => nil,  # The value of Reporting-MTA header
-          'lhost' => nil# The value of Received-From-MTA header
+          'date'  => nil, # The value of Arrival-Date header
+          'rhost' => nil, # The value of Reporting-MTA header
+          'lhost' => nil, # The value of Received-From-MTA header
         }
         v = nil
 
         hasdivided.each do |e|
           # Save the current line for the next loop
-          havepassed << e; p = havepasswd[-2]
+          havepassed << e; p = havepassed[-2]
 
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
@@ -99,7 +99,7 @@ module Sisimai
             end
           end
 
-          if readcursor & @@Indicators['message-rfc822']
+          if readcursor & @@Indicators['message-rfc822'] > 0
             # Beginning of the original message part
             if e =~ @@Re1['rfc822']
               readcursor |= @@Indicators['message-rfc822']
@@ -107,17 +107,15 @@ module Sisimai
             end
           end
 
-          if reascursor & @@Indicators['message-rfc822']
+          if reascursor & @@Indicators['message-rfc822'] > 0
             # After "message/rfc822"
             if cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*.+\z/)
               # Get required headers only
-              lhs = cv[1]
-              whs = lhs.downcase
-
+              lhs = cv[1].downcase
               previousfn = '';
-              next unless @@RFC822Head.key?(whs)
+              next unless @@RFC822Head.key?(lhs)
 
-              previousfn  = lhs.downcase
+              previousfn  = lhs
               rfc822part += e + "\n"
 
             elsif e =~ /\A\s+/
@@ -134,7 +132,7 @@ module Sisimai
 
           else
             # Before "message/rfc822"
-            next unless readcursor & @@Indicators['deliverystatus']
+            next unless readcursor & @@Indicators['deliverystatus'] > 0
             next unless e.size > 0
 
             v = dscontents[-1]
@@ -447,7 +445,7 @@ module Sisimai
 
         dscontents.map! do |e|
           # Set default values if each value is empty.
-          connheader.each { |a| e[a] ||= connheader[a] || '' }
+          connheader.each_key { |a| e[a] ||= connheader[a] || '' }
 
           if e.key?('alterrors') && e['alterrors'].size > 0
             # Copy alternative error message
