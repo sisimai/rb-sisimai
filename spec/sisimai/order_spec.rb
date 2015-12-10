@@ -8,7 +8,7 @@ describe Sisimai::Order do
     subject { default }
     it('returns Array') { is_expected.to be_a Array }
     it 'have values' do
-      pending 'Sisimai::MTA::* and Sisimai::MSP::* are not implemented yet'
+      # pending 'Sisimai::MTA::* and Sisimai::MSP::* are not implemented yet'
       expect(default.size).to be > 0
     end
   end
