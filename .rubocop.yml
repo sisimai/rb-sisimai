@@ -20,7 +20,7 @@ Metrics/ModuleLength:
 
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/ClassAndModuleChildren:
-    EnforcedStyle: compact
+    EnforcedStyle: nested
 
 Style/ClassVars:
   Enabled: false
