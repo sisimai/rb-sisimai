@@ -4,7 +4,7 @@ module Sisimai
     # This class is called only Sisimai::Reason class.
     #
     # This is the error that delivery time has expired due to connection failure
-    # or network error and the message you sent has been in the queue for long 
+    # or network error and the message you sent has been in the queue for long
     # time.
     module Expired
       # Imported from p5-Sisimail/lib/Sisimai/Reason/Expired.pm
@@ -36,7 +36,14 @@ module Sisimai
           return false
         end
 
-        def true; return nil; end
+        # Delivery expired due to connection failure or network error
+        # @param    [Sisimai::Data] argvs   Object to be detected the reason
+        # @return   [True,False]            true: is expired
+        #                                   false: is not expired
+        # @see      http://www.ietf.org/rfc/rfc2822.txt
+        def true(_argvs)
+          return nil
+        end
 
       end
     end
