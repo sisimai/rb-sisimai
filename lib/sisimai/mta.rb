@@ -33,7 +33,7 @@ module Sisimai
           'diagnosis'    => nil,  # The value of Diagnostic-Code header
           'recipient'    => nil,  # The value of Final-Recipient header
           'softbounce'   => nil,  # Soft bounce or not
-          'feedbacktype' => nil,  # FeedBack Type
+          'feedbacktype' => nil,  # Feedback Type
         }
       end
 
