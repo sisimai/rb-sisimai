@@ -1,10 +1,28 @@
 require 'spec_helper'
 require 'sisimai/mail'
+require 'sisimai/arf'
 require 'sisimai/rfc3464'
 require 'sisimai/rfc3834'
 
 X = /\A(?:RFC3464|dovecot|mail[.]local|procmail|maildrop|vpopmail|vmailmgr)/
 R = {
+  'ARF' => {
+    '01' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /abuse/ },
+    '02' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /abuse/ },
+    '03' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /abuse/ },
+    '04' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /abuse/ },
+    '05' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /abuse/ },
+    '06' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /abuse/ },
+    '07' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /auth-failure/ },
+    '08' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /auth-failure/ },
+    '09' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /auth-failure/ },
+    '10' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /abuse/ },
+    '11' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /abuse/ },
+    '12' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /opt-out/ },
+    '13' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /abuse/ },
+    '14' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /auth-failure/ },
+    '15' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /abuse/ },
+  },
   'RFC3464' => {
     '01' => { 'status' => /\A5[.]1[.]1\z/, 'reason' => /mailboxfull/, 'agent' => /dovecot/ },
     '02' => { 'status' => /\A[45][.]0[.]\d+\z/, 'reason' => /(?:undefined|filtered|expired)/, 'agent' => /RFC3464/ },
