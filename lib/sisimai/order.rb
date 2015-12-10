@@ -148,8 +148,8 @@ module Sisimai
         # Make default order of MTA/MSP modules to be loaded
         rv = []
         begin
-          rv.concat(Sisimai::MTA.index.map {|e| Module.const_get('Sisimai::MTA::' + e) })
-          rv.concat(Sisimai::MSP.index.map {|e| Module.const_get('Sisimai::MSP::' + e) })
+          rv.concat(Sisimai::MTA.index.map {|e| 'Sisimai::MTA::' + e })
+          rv.concat(Sisimai::MSP.index.map {|e| 'Sisimai::MSP::' + e })
         rescue
           # Failed to load MTA/MSP module
         end
@@ -169,12 +169,14 @@ module Sisimai
       # Make default order of MTA/MSP modules to be loaded
       # @return   [Array] Default order list of MTA/MSP modules
       def default
+        return [ 'Sisimai::MTA::Sendmail' ]
         return @@DefaultOrder
       end
 
       # Make MTA/MSP module list as a spare
       # @return   [Array] Ordered module list
       def another
+        return [ 'Sisimai::MTA::Sendmail' ]
         rv = []
         rv.concat(@@AnotherList1)
         rv.concat(@@AnotherList2)
@@ -194,13 +196,17 @@ module Sisimai
         order.each do |e|
           # Load email headers from each MTA,MSP module
           begin
-            require e.to_s.gusb('::','/').downcase
+            require e.gsub('::','/').downcase
+          rescue LoadError
+            warn '***warning: Failed to load ' + e
+            next
           end
-          e.headerlist do |v|
+
+          Module.const_get(e).headerlist do |v|
             # Get header name which required each MTA/MSP module
             q = v.downcase
             next if skips.key?(q)
-            table[q][e.to_s] = 1
+            table[q][e] = 1
           end
         end
         return table
