@@ -1,6 +1,6 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::Blocked checks the bounce reason is "blocked" or not. 
+    # Sisimai::Reason::Blocked checks the bounce reason is "blocked" or not.
     # This class is called only Sisimai::Reason class.
     #
     # This is the error that SMTP connection was rejected due to a client IP address
@@ -79,25 +79,23 @@ module Sisimai
         def true(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
-          return true if argvs.reason == self.text
+          return true if argvs.reason == Sisimai::Reason::Blocked.text
 
           require 'sisimai/smtp/status'
           statuscode = argvs.deliverystatus || ''
-          reasontext = self.text
-          tempreason = ''
-          diagnostic = ''
-          v = false
-
-          tempreason = Sisimai::SMTP::Status.name(statuscode) if statuscode.size > 0
+          reasontext = Sisimai::Reason::Blocked.text
+          tempreason = Sisimai::SMTP::Status.name(statuscode)
           diagnostic = argvs.diagnosticcode || ''
+          v = false
 
           if tempreason == reasontext
             # Delivery status code points "blocked".
             v = true
           else
             # Matched with a pattern in this class
-            v = true if self.match(diagnostic)
+            v = true if Sisimai::Reason::Blocked.match(diagnostic)
           end
+
           return v
         end
 
