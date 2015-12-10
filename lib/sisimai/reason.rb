@@ -5,13 +5,12 @@ module Sisimai
   module Reason
     # Imported from p5-Sisimail/lib/Sisimai/Reason.pm
     class << self
-      @@RetryReasons = self.retry
-
       # Reason list better to retry detecting an error reason
       # @return   [Array] Reason list
       def retry
         return ['undefined', 'onhold', 'systemerror', 'securityerror', 'networkerror']
       end
+      @@RetryReasons = Sisimai::Reason.retry
 
       # All the error reason list Sisimai support
       # @return   [Array] Reason list
