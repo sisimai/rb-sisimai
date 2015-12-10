@@ -1,11 +1,11 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::ContentError checks the bounce reason is "contenterror" 
+    # Sisimai::Reason::ContentError checks the bounce reason is "contenterror"
     # or not This class is called only Sisimai::Reason class.
     #
-    # This is the error that a destination mail server has rejected email due to 
+    # This is the error that a destination mail server has rejected email due to
     # header format of the email like the following. Sisimai will set "contenterror"
-    # to the reason of email bounce if the value of Status: field in a bounce email 
+    # to the reason of email bounce if the value of Status: field in a bounce email
     # is "5.6.*".
     module ContentError
       # Imported from p5-Sisimail/lib/Sisimai/Reason/ContentError.pm
@@ -37,7 +37,14 @@ module Sisimai
           return false
         end
 
-        def true; return nil; end
+        # Rejected email due to header format of the email
+        # @param    [Sisimai::Data] argvs   Object to be detected the reason
+        # @return   [True,False]            true: is blocked
+        #                                   false: is not blocked by the client
+        # @see      http://www.ietf.org/rfc/rfc2822.txt
+        def true(argvs)
+          return nil
+        end
 
       end
     end
