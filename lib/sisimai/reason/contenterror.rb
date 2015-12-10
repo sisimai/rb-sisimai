@@ -39,8 +39,8 @@ module Sisimai
 
         # Rejected email due to header format of the email
         # @param    [Sisimai::Data] argvs   Object to be detected the reason
-        # @return   [True,False]            true: is blocked
-        #                                   false: is not blocked by the client
+        # @return   [True,False]            true: rejected due to content error
+        #                                   false: is not content error
         # @see      http://www.ietf.org/rfc/rfc2822.txt
         def true(_argvs)
           return nil
