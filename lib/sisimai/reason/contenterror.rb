@@ -42,7 +42,7 @@ module Sisimai
         # @return   [True,False]            true: is blocked
         #                                   false: is not blocked by the client
         # @see      http://www.ietf.org/rfc/rfc2822.txt
-        def true(argvs)
+        def true(_argvs)
           return nil
         end
 
