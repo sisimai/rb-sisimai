@@ -35,7 +35,7 @@ module Sisimai
           return true if argvs.reason == Sisimai::Reason::ExceedLimit.text
 
           require 'sisimai/smtp/status'
-          statuscode = argvs.deliverystatus || ''
+          statuscode = argvs.deliverystatus
           reasontext = Sisimai::Reason::ExceedLimit.text
           diagnostic = argvs.diagnosticcode || ''
           v = false
