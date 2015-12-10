@@ -181,26 +181,26 @@ module Sisimai
       }
 
       # Convert to second
-      # @param    [String] argvs  Digit and a unit of time
+      # @param    [String] argv1  Digit and a unit of time
       # @return   [Integer]       n: seconds
       #                           0: 0 or invalid unit of time
       # @example  Get the value of seconds
       #   to_second('1d') #=> 86400
       #   to_second('2h') #=>  7200
-      def to_second(argvs)
-        return 0 unless argvs.is_a?(::String)
+      def to_second(argv1)
+        return 0 unless argv1.is_a?(::String)
 
         getseconds = 0
         unitoftime = @@TimeUnit.keys.join
         mathconsts = @@MathematicalConstant.keys.join
 
-        if cr = argvs.match(/\A(\d+|\d+[.]\d+)([#{unitoftime}])?\z/)
+        if cr = argv1.match(/\A(\d+|\d+[.]\d+)([#{unitoftime}])?\z/)
           # 1d, 1.5w
           n = cr[1].to_f
           u = cr[2] || 'd'
           getseconds = n * @@TimeUnit[u].to_f
 
-        elsif cr = argvs.match(/\A(\d+|\d+[.]\d+)?([#{mathconsts}])([#{unitoftime}])?\z/)
+        elsif cr = argv1.match(/\A(\d+|\d+[.]\d+)?([#{mathconsts}])([#{unitoftime}])?\z/)
           # 1pd, 1.5pw
           n = cr[1].to_f || 1
           n = 1 if n.to_i == 0
@@ -217,35 +217,35 @@ module Sisimai
       end
 
       # Month name list
-      # @param    [Integer] argvs  Require full name or not
+      # @param    [Integer] argv1  Require full name or not
       # @return   [Array, String]  Month name list or month name
       # @example  Get the names of each month
       #   monthname()  #=> [ 'Jan', 'Feb', ... ]
       #   monthname(1) #=> [ 'January', 'February', 'March', ... ]
-      def monthname(argvs = 0)
-        value = argvs > 0 ? 'full' : 'abbr'
+      def monthname(argv1 = 0)
+        value = argv1 > 0 ? 'full' : 'abbr'
         return @@MonthName[value]
       end
 
       # List of day of week
-      # @param    [Integer] argvs Require full name
+      # @param    [Integer] argv1 Require full name
       # @return   [Array, String] List of day of week or day of week
       # @example  Get the names of each day of week
       #   dayofweek()  #=> [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ]
       #   dayofweek(1) #=> [ 'Sunday', 'Monday', 'Tuesday', ... ]
-      def dayofweek(argvs = 0)
-        value = argvs > 0 ? 'full' : 'abbr'
+      def dayofweek(argv1 = 0)
+        value = argv1 > 0 ? 'full' : 'abbr'
         return @@DayOfWeek[value]
       end
 
       # Hour name list
-      # @param    [Integer] argvs Require full name
+      # @param    [Integer] argv1 Require full name
       # @return   [Array, String] Month name
       # @example  Get the names of each hour
       #   hourname()  #=> [ 0, 1, 2, ... 23 ]
       #   hourname(1) #=> [ 'Midnight', 1, 2, ... 'Morning', 7, ... 'Noon', ... 23 ]
-      def hourname(argvs = 1)
-        value = argvs > 0 ? 'full' : 'abbr'
+      def hourname(argv1 = 1)
+        value = argv1 > 0 ? 'full' : 'abbr'
         return @@HourName[value]
       end
 
@@ -275,18 +275,19 @@ module Sisimai
       end
 
       # Parse date string; strptime() wrapper
-      # @param    [String] argvs  Date string
+      # @param    [String] argv1  Date string
       # @return   [String]        Converted date string
       # @see      http://en.wikipedia.org/wiki/ISO_8601
       # @see      http://www.ietf.org/rfc/rfc3339.txt
       # @example  Parse date string and convert to generic format string
       #   parse("2015-11-03T23:34:45 Tue")    #=> Tue, 3 Nov 2015 23:34:45 +0900
       #   parse("Tue, Nov 3 2015 2:2:2")      #=> Tue, 3 Nov 2015 02:02:02 +0900
-      def parse(argvs)
-        return nil unless argvs.is_a?(::String)
+      def parse(argv1)
+        return nil unless argv1.is_a?(::String)
 
-        datestring = argvs
+        datestring = argv1
         datestring = datestring.sub(/[,](\d+)/, ', \1')  # Thu,13 -> Thu, 13
+        datestring = datestring.sub(/(\d{1,2}),/, '\1')  # Apr,29 -> Apr 29
         timetokens = datestring.split(' ')
         parseddate = ''   # (String) Canonified Date/Time string
         afternoon1 = 0    # (Integer) After noon flag
@@ -427,29 +428,29 @@ module Sisimai
       end
 
       # Abbreviation -> Tiemzone
-      # @param    [String] argvs  Abbr. e.g.) JST, GMT, PDT
+      # @param    [String] argv1  Abbr. e.g.) JST, GMT, PDT
       # @return   [String, Undef] +0900, +0000, -0600 or Undef if the argument is
       #                           invalid format or not supported abbreviation
       # @example  Get the timezone string of "JST"
       #   abbr2tz('JST')  #=> '+0900'
-      def abbr2tz(argvs)
-        return nil unless argvs.is_a?(::String)
-        return @@TimeZoneAbbr[argvs]
+      def abbr2tz(argv1)
+        return nil unless argv1.is_a?(::String)
+        return @@TimeZoneAbbr[argv1]
       end
 
       # Convert to second
-      # @param    [String] argvs  Timezone string e.g) +0900
+      # @param    [String] argv1  Timezone string e.g) +0900
       # @return   [Integer,Undef] n: seconds or Undef it the argument is invalid
       #                           format string
       # @see      second2tz
       # @example  Convert '+0900' to seconds
       #   tz2second('+0900')  #=> 32400
-      def tz2second(argvs)
-        return nil unless argvs.is_a?(::String)
+      def tz2second(argv1)
+        return nil unless argv1.is_a?(::String)
         digit = {}
         ztime = 0
 
-        if cr = argvs.match(/\A([-+])(\d)(\d)(\d{2})\z/)
+        if cr = argv1.match(/\A([-+])(\d)(\d)(\d{2})\z/)
           digit = {
             'operator' => cr[1],
             'hour-10'  => cr[2].to_i,
@@ -463,8 +464,8 @@ module Sisimai
           return nil if ztime.abs > TZ_OFFSET
           return ztime
 
-        elsif argvs =~ /\A[A-Za-z]+\z/
-          return tz2second(@@TimeZoneAbbr[argvs])
+        elsif argv1 =~ /\A[A-Za-z]+\z/
+          return tz2second(@@TimeZoneAbbr[argv1])
 
         else
           return nil
@@ -472,20 +473,20 @@ module Sisimai
       end
 
       # Convert to Timezone string
-      # @param    [Integer] argvs Second to be converted
+      # @param    [Integer] argv1 Second to be converted
       # @return   [String]        Timezone offset string
       # @see      tz2second
       # @example  Get timezone offset string of specified seconds
       #   second2tz(12345)    #=> '+0325'
-      def second2tz(argvs)
-        return '+0000' unless argvs.is_a?(Number)
+      def second2tz(argv1)
+        return '+0000' unless argv1.is_a?(Number)
         digit = { 'operator' => '+' }
         timez = ''
 
-        return '' if argvs.abs > TZ_OFFSET  # UTC+14 + 1(DST?)
-        digit['operator'] = '-' if argvs < 0
-        digit['hours']    = (argvs.abs / 3600).to_i
-        digit['minutes']  = ((argvs.abs % 3600) / 60).to_i
+        return '' if argv1.abs > TZ_OFFSET  # UTC+14 + 1(DST?)
+        digit['operator'] = '-' if argv1 < 0
+        digit['hours']    = (argv1.abs / 3600).to_i
+        digit['minutes']  = ((argv1.abs % 3600) / 60).to_i
 
         timez = sprintf('%s%02d%02d', digit['operator'], digit['hours'], digit['minutes'])
         return timez
