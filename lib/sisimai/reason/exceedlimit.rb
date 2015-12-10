@@ -4,7 +4,7 @@ module Sisimai
     # not. This class is called only Sisimai::Reason class.
     #
     # This is the error that a message was rejected due to an email exceeded the
-    # limit. The value of D.S.N. is 5.2.3. This reason is almost the same as 
+    # limit. The value of D.S.N. is 5.2.3. This reason is almost the same as
     # "MesgTooBig", we think.
     module ExceedLimit
       # Imported from p5-Sisimail/lib/Sisimai/Reason/ExceedLimit.pm
@@ -31,14 +31,12 @@ module Sisimai
         def true(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
-
-          statuscode = argvs.deliverystatus || ''
-          reasontext = self.text
-
-          return nil unless statuscode.size > 0
-          return true if argvs.reason == reasontext
+          return nil unless argvs.deliverystatus.size > 0
+          return true if argvs.reason == Sisimai::Reason::ExceedLimit.text
 
           require 'sisimai/smtp/status'
+          statuscode = argvs.deliverystatus || ''
+          reasontext = Sisimai::Reason::ExceedLimit.text
           diagnostic = argvs.diagnosticcode || ''
           v = false
 
@@ -49,8 +47,9 @@ module Sisimai
             v = true
           else
             # Check the value of Diagnosic-Code: header with patterns
-            v = true if self.match(diagnostic)
+            v = true if Sisimai::Reason::ExceedLimit.match(diagnostic)
           end
+
           return v
         end
 
