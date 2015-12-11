@@ -17,7 +17,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          regex = %r/message too large/
+          regex = %r/message too large/i
 
           return true if argv1 =~ regex
           return false
