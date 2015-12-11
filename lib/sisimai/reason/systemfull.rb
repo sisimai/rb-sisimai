@@ -6,7 +6,7 @@ module Sisimai
     # This is the error that a destination mail server's disk (or spool) is full.
     # Sisimai will set C<systemfull> to the reason of email bounce if the value
     # of Status: field in a bounce email is "4.3.1" or "5.3.1".
-    module Filtered
+    module SystemFull
       # Imported from p5-Sisimail/lib/Sisimai/Reason/SystemFull.pm
       class << self
         def text; return 'systemfull'; end
