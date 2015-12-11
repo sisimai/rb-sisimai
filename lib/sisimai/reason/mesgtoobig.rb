@@ -41,17 +41,14 @@ module Sisimai
         def true(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
-          return true if argvs.reason == self.text
+          return true if argvs.reason == Sisimai::Reason::MesgTooBig.text
 
           require 'sisimai/smtp/status'
           statuscode = argvs.deliverystatus || ''
-          reasontext = self.text
-          tempreason = ''
-          diagnostic = ''
-          v = false
-
           diagnostic = argvs.diagnosticcode || ''
-          tempreason = Sisimai::SMTP::Status.name(statuscode) if statuscode.size > 0
+          reasontext = Sisimai::Reason::MesgTooBig.text
+          tempreason = Sisimai::SMTP::Status.name(statuscode)
+          v = false
 
           if tempreason == reasontext
             # Delivery status code points "mesgtoobig".
@@ -64,9 +61,10 @@ module Sisimai
               v = false
             else
               # Check the value of Diagnosic-Code: header with patterns
-              v = true if self.match(diagnostic)
+              v = true if Sisimai::Reason::MesgTooBig.match(diagnostic)
             end
           end
+
           return v
         end
 
