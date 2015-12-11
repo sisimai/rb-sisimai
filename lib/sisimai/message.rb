@@ -475,7 +475,7 @@ module Sisimai
           break if scannedset
 
           # Try to parse the message as auto reply message defined in RFC3834
-          require Sisimai::RFC3834;
+          require 'sisimai/rfc3834'
           scannedset = Sisimai::RFC3834.scan(mailheader, bodystring)
           break if scannedset
 
