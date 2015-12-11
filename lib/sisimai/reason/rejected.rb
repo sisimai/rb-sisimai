@@ -69,16 +69,13 @@ module Sisimai
         def true(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
-          return true if argvs.reason == self.text
-
-          statuscode = argvs.deliverystatus || ''
-          reasontext = self.text
-
-          return nil unless statuscode.size > 0
-          return true if argvs.reason == reasontext
+          return nil unless argvs.deliverystatus.size > 0
+          return true if argvs.reason == Sisimai::Reason::Rejected.text
 
           require 'sisimai/smtp/status'
+          statuscode = argvs.deliverystatus || ''
           diagnostic = argvs.diagnosticcode || ''
+          reasontext = Sisimai::Reason::Rejected.text
           v = false
 
           if Sisimai::SMTP::Status.name(statuscode) == reasontext
@@ -88,11 +85,11 @@ module Sisimai
             # Check the value of Diagnosic-Code: header with patterns
             if argvs.smtpcommand == 'MAIL'
               # Matched with a pattern in this class
-              v = true if self.match(diagnostic)
+              v = true if Sisimai::Reason::Rejected.match(diagnostic)
             end
           end
-          return v
 
+          return v
         end
 
       end
