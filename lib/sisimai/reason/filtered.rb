@@ -73,7 +73,7 @@ module Sisimai
             end
           else
             # Check the value of Diagnostic-Code and the last SMTP command
-            if commandtxt != 'RCPT' && commantxt != 'MAIL'
+            if commandtxt != 'RCPT' && commandtxt != 'MAIL'
               # Check the last SMTP command of the session. 
               if Sisimai::Reason::Filtered.match(diagnostic)
                 # Matched with a pattern in this class
