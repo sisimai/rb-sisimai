@@ -82,10 +82,10 @@ module Sisimai
           return true if argvs.reason == Sisimai::Reason::Blocked.text
 
           require 'sisimai/smtp/status'
-          statuscode = argvs.deliverystatus || ''
-          reasontext = Sisimai::Reason::Blocked.text
-          tempreason = Sisimai::SMTP::Status.name(statuscode)
           diagnostic = argvs.diagnosticcode || ''
+          statuscode = argvs.deliverystatus || ''
+          tempreason = Sisimai::SMTP::Status.name(statuscode)
+          reasontext = Sisimai::Reason::Blocked.text
           v = false
 
           if tempreason == reasontext

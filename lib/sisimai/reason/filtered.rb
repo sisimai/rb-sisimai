@@ -56,11 +56,11 @@ module Sisimai
 
           require 'sisimai/smtp/status'
           require 'sisimai/reason/userunknown'
-          statuscode = argvs.deliverystatus || ''
           commandtxt = argvs.smtpcommand || ''
-          reasontext = Sisimai::Reason::Filtered.text
+          statuscode = argvs.deliverystatus || ''
           diagnostic = argvs.diagnosticcode || '';
           tempreason = Sisimai::SMTP::Status.name(statuscode)
+          reasontext = Sisimai::Reason::Filtered.text
           v = false
 
           return false if tempreason == 'suspend'
