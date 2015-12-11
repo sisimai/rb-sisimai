@@ -45,15 +45,9 @@ module Sisimai
         def true(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
-          return true if argvs.reason == self.text
-
-          statuscode = argvs.deliverystatus || ''
-          reasontext = self.text
-          diagnostic = argvs.diagnosticcode || ''
-
-          return nil unless statuscode.size > 0
-          return true if argvs.reason == reasontext
-          return true if self.match(diagnostic)
+          return nil unless argvs.deliverystatus.size > 0
+          return true if argvs.reason == Sisimai::Reason::Suspend.text
+          return true if Sisimai::Reason::Suspend.match(argvs.diagnosticcode)
           return false
         end
 
