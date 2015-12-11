@@ -31,8 +31,8 @@ module Sisimai
         def true(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
-          return true if argvs.reason == self.text
-          return true if self.match(argvs.diagnosticcode)
+          return true if argvs.reason == Sisimai::Reason::HasMoved.text
+          return true if Sisimai::Reason::HasMoved.match(argvs.diagnosticcode)
           return false
         end
 
