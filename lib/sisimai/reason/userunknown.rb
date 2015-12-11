@@ -140,7 +140,7 @@ module Sisimai
           matchother = false
           statuscode = argvs.deliverystatus || ''
           diagnostic = argvs.diagnosticcode || ''
-          reasontext = Sisiami::Reason::UserUnknown.text
+          reasontext = Sisimai::Reason::UserUnknown.text
           tempreason = Sisimai::SMTP::Status.name(statuscode)
           v = false
 
