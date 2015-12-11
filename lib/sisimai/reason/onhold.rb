@@ -34,6 +34,7 @@ module Sisimai
 
           require 'sisimai/smtp/status'
           return true if Sisimai::SMTP::Status.name(statuscode) == reasontext
+          return false
         end
       end
     end
