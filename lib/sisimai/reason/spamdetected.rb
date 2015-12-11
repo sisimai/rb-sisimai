@@ -1,5 +1,18 @@
 module Sisimai
   module Reason
+    # Sisimai::Reason::SpamDetected checks the bounce reason is "spamdetected" 
+    # due to Spam content in the message or not. This class is called only 
+    # Sisimai::Reason class.
+    #
+    # This is the error that the message you sent was rejected by "spam filter"
+    # which is running on the remote host.
+    # This reason has added in Sisimai 4.1.25 and does not exist in any version
+    # of bounceHammer.
+    #
+    #    Action: failed
+    #    Status: 5.7.1
+    #    Diagnostic-Code: smtp; 550 5.7.1 Message content rejected, UBE, id=00000-00-000
+    #    Last-Attempt-Date: Thu, 9 Apr 2008 23:34:45 +0900 (JST)
     module SpamDetected
       # Imported from p5-Sisimail/lib/Sisimai/Reason/SpamDetected.pm
       class << self
@@ -120,49 +133,32 @@ module Sisimai
           return false
         end
 
-        # Rejected by domain or address filter ?
+        # Rejected due to spam content in the message
         # @param    [Sisimai::Data] argvs   Object to be detected the reason
-        # @return   [True,False]            true: is filtered
-        #                                   false: is not filtered
+        # @return   [True,False]            true: rejected due to spam
+        #                                   false: is not rejected due to spam
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
-          return true if argvs.reason == self.text
+          return nil unless argvs.deliverystatus.size > 0
+          return true if argvs.reason == Sisimai::Reason::SpamDetected.text
 
           require 'sisimai/smtp/status'
-          require 'sisimai/reason/userunknown'
           statuscode = argvs.deliverystatus || ''
-          commandtxt = argvs.smtpcommand || ''
-          reasontext = self.text
-          tempreason = ''
-          diagnostic = ''
+          diagnostic = argvs.diagnosticcode || '';
+          reasontext = Sisimai::Reason::SpamDetected.text
           v = false
 
-          diagnostic = argvs.diagnosticcode || '';
-          tempreason = Sisimai::SMTP::Status.name(statuscode)
-          return false if tempreason == 'suspend'
+          if Sisimai::SMTP::Status.name(statuscode) == reasontext
+            # Delivery status code points "spamdetected".
+            v = false
 
-          if tempreason == reasontext
-            # Delivery status code points "filtered".
-            if Sisimai::Reason::UserUnknown.match(diagnostic) || self.match(diagnostic)
-                v = true
-            end
           else
-            # Check the value of Diagnostic-Code and the last SMTP command
-            if commandtxt != 'RCPT' && commantxt != 'MAIL'
-              # Check the last SMTP command of the session. 
-              if self.match(diagnostic)
-                # Matched with a pattern in this class
-                v = true
-
-              else
-                # Did not match with patterns in this class,
-                # Check the value of "Diagnostic-Code" with other error patterns.
-                v = true if Sisimai::Reason::UserUnknown.match(diagnostic)
-              end
-            end
+            # Matched with a pattern in this class
+            v = true if Sisimai::Reason::SpamDetected.match(diagnostic)
           end
+
           return v
         end
 
