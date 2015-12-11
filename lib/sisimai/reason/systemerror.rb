@@ -3,10 +3,10 @@ module Sisimai
     # Sisimai::Reason::SystemError checks the bounce reason is "systemerror" or
     # not. This class is called only Sisimai::Reason class.
     #
-    # This is the error that an email has bounced due to system error on the 
+    # This is the error that an email has bounced due to system error on the
     # remote host such as LDAP connection failure or other internal system error.
     #
-    #   <kijitora@example.net>: 
+    #   <kijitora@example.net>:
     #   Unable to contact LDAP server. (#4.4.3)I'm not going to try again; this
     #   message has been in the queue too long.
     module SystemError
@@ -51,7 +51,14 @@ module Sisimai
           return false
         end
 
-        def true; return nil; end
+        # The bounce reason is system error or not
+        # @param    [Sisimai::Data] argvs   Object to be detected the reason
+        # @return   [True,False]            true: is system error
+        #                                   false: is not system error
+        # @see http://www.ietf.org/rfc/rfc2822.txt
+        def true(_argvs)
+          return nil
+        end
 
       end
     end
