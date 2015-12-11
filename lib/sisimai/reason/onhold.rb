@@ -9,7 +9,14 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/OnHold.pm
       class << self
         def text; return 'onhold'; end
-        def match; return false; end
+
+        # Try to match that the given text and regular expressions
+        # @param    [String] argv1  String to be matched with regular expressions
+        # @return   [True,False]    false: Did not match
+        #                           true: Matched
+        def match(_argv1)
+          return false
+        end
 
         # On hold, Could not decide the bounce reason...
         # @param    [Sisimai::Data] argvs   Object to be detected the reason
@@ -20,10 +27,10 @@ module Sisimai
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
           return nil unless argvs.deliverystatus.size > 0
-          return true if argvs.reason == self.text
+          return true if argvs.reason == Sisimai::Reason::OnHold.text
 
           statuscode = argvs.deliverystatus || ''
-          reasontext = self.text
+          reasontext = Sisimai::Reason::OnHold.text
 
           require 'sisimai/smtp/status'
           return true if Sisimai::SMTP::Status.name(statuscode) == reasontext
