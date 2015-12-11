@@ -1,7 +1,7 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::SpamDetected checks the bounce reason is "spamdetected" 
-    # due to Spam content in the message or not. This class is called only 
+    # Sisimai::Reason::SpamDetected checks the bounce reason is "spamdetected"
+    # due to Spam content in the message or not. This class is called only
     # Sisimai::Reason class.
     #
     # This is the error that the message you sent was rejected by "spam filter"
@@ -75,7 +75,7 @@ module Sisimai
               |[ ]by[ ].+[ ][(]spam[)]
               |[ ]due[ ]to[ ]spam[ ]content
               )
-            |rejecting[ ]banned[ ]content 
+            |rejecting[ ]banned[ ]content
             |related[ ]to[ ]content[ ]with[ ]spam[-]like[ ]characteristics
             |rule[ ]imposed[ ]as[ ].+is[ ]blacklisted[ ]on              # Mailmarshal RBLs
             |sending[ ]address[ ]not[ ]accepted[ ]due[ ]to[ ]spam[ ]filter
@@ -146,7 +146,7 @@ module Sisimai
 
           require 'sisimai/smtp/status'
           statuscode = argvs.deliverystatus || ''
-          diagnostic = argvs.diagnosticcode || '';
+          diagnostic = argvs.diagnosticcode || ''
           reasontext = Sisimai::Reason::SpamDetected.text
           v = false
 
