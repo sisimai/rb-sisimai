@@ -4,8 +4,8 @@ module Sisimai
     # or not. This class is called only Sisimai::Reason class.
     #
     # This is the error that a security violation was detected on a destination
-    # mail server. Depends on the security policy on the server, there is any 
-    # virus in the email, a sender's email address is camouflaged address. 
+    # mail server. Depends on the security policy on the server, there is any
+    # virus in the email, a sender's email address is camouflaged address.
     # Sisimai will set "securityerror" to the reason of email bounce if the value
     # of Status: field in a bounce email is "5.7.*".
     #   Status: 5.7.0
@@ -47,13 +47,21 @@ module Sisimai
             |TLS[ ]required[ ]but[ ]not[ ]supported # SendGrid
             |You[ ]have[ ]exceeded[ ]the[ ]the[ ]allowable[ ]number[ ]of[ ]posts[ ]without[ ]solving[ ]a[ ]captcha
             |verification[ ]failure
-            )                     
+            )
           }ix
 
           return true if argv1 =~ regex
           return false
         end
-        def true; return nil; end
+
+        # The bounce reason is security error or not
+        # @param    [Sisimai::Data] argvs   Object to be detected the reason
+        # @return   [True,False]            true: is security error
+        #                                   false: is not security error
+        # @see http://www.ietf.org/rfc/rfc2822.txt
+        def true(_argvs)
+          return nil
+        end
 
       end
     end
