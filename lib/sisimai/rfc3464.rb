@@ -71,7 +71,7 @@ module Sisimai
         require 'sisimai/mda'
         require 'sisimai/address'
 
-        dscontents = []; $dscontents << Sisimai::MTA.DELIVERYSTATUS
+        dscontents = []; dscontents << Sisimai::MTA.DELIVERYSTATUS
         hasdivided = mbody.split("\n")
         havepassed = [''];
         scannedset = Sisimai::MDA.scan(mhead, mbody)
@@ -107,7 +107,7 @@ module Sisimai
             end
           end
 
-          if reascursor & @@Indicators['message-rfc822'] > 0
+          if readcursor & @@Indicators['message-rfc822'] > 0
             # After "message/rfc822"
             if cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*.+\z/)
               # Get required headers only
