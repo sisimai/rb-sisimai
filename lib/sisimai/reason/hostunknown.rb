@@ -44,17 +44,14 @@ module Sisimai
         def true(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
-          return true if argvs.reason == self.text
+          return true if argvs.reason == Sisimai::Reason::HostUnknown.text
 
           require 'sisimai/smtp/status'
-          statuscode = argvs.deliverystatus || ''
-          reasontext = self.text
-          tempreason = ''
-          diagnostic = ''
-          v = false
-
-          tempreason = Sisimai::SMTP::Status.name(statuscode) if statuscode.size > 0
           diagnostic = argvs.diagnosticcode || ''
+          statuscode = argvs.deliverystatus || ''
+          tempreason = Sisimai::SMTP::Status.name(statuscode)
+          reasontext = Sisimai::Reason::HostUnknown.text
+          v = false
 
           if tempreason == reasontext
             # Status: 5.1.2
@@ -62,8 +59,9 @@ module Sisimai
             v = true
           else
             # Check the value of Diagnosic-Code: header with patterns
-            v = true if self.match(diagnostic)
+            v = true if Sisimai::Reason::HostUnknown.match(diagnostic)
           end
+
           return v
         end
 
