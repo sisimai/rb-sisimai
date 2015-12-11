@@ -26,7 +26,7 @@ module Sisimai
             |no[ ]IPs[ ]available[ ][-][ ].+[ ]exceeds[ ]per[-]domain[ ]connection[ ]limit[ ]for
             |Too[ ]many[ ](?:
                connections
-              |connections[ ]from[ ]your[ ]host[.]    # Microsoft 
+              |connections[ ]from[ ]your[ ]host[.]    # Microsoft
               |concurrent[ ]SMTP[ ]connections        # Microsoft
               |SMTP[ ]sessions[ ]for[ ]this[ ]host    # Sendmail(daemon.c)
               )
@@ -45,24 +45,21 @@ module Sisimai
         def true(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
-          return true if argvs.reason == self.text
+          return true if argvs.reason == Sisimai::Reason::TooManyConn.text
 
           require 'sisimai/smtp/status'
           statuscode = argvs.deliverystatus || ''
-          reasontext = self.text
-          tempreason = ''
-          diagnostic = ''
-          v = false
-
-          tempreason = Sisimai::SMTP::Status.name(statuscode) if statuscode.size > 0
           diagnostic = argvs.diagnosticcode || ''
+          reasontext = Sisimai::Reason::TooManyConn.text
+          tempreason = Sisimai::SMTP::Status.name(statuscode)
+          v = false
 
           if tempreason == reasontext
             # Delivery status code points "blocked".
             v = true
           else
             # Matched with a pattern in this class
-            v = true if self.match(diagnostic)
+            v = true if Sisimai::Reason::TooManyConn.match(diagnostic)
           end
           return v
         end
