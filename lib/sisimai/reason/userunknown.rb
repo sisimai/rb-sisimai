@@ -133,19 +133,17 @@ module Sisimai
         def true(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
-          return true if argvs.reason == self.text
+          return true if argvs.reason == Sisimai::Reason::UserUnknown.text
 
           require 'sisimai/smtp/status'
           prematches = ['NoRelaying', 'Blocked', 'MailboxFull', 'HasMoved']
           matchother = false
           statuscode = argvs.deliverystatus || ''
-          reasontext = self.text
-          tempreason = ''
-          diagnostic = ''
+          diagnostic = argvs.diagnosticcode || ''
+          reasontext = Sisiami::Reason::UserUnknown.text
+          tempreason = Sisimai::SMTP::Status.name(statuscode)
           v = false
 
-          tempreason = Sisimai::SMTP::Status.name(statuscode) if statuscode.size > 0
-          diagnostic = argvs.diagnosticcode || ''
           return false if tempreason == 'suspend'
 
           if tempreason == reasontext
@@ -176,13 +174,14 @@ module Sisimai
             v = true unless matchother
 
           else
-            # Check the last SMTP command of the session. 
+            # Check the last SMTP command of the session.
             if argvs.smtpcommand == 'RCPT'
               # When the SMTP command is not "RCPT", the session rejected by other
               # reason, maybe.
-              v = true if self.match(diagnostic)
+              v = true if Sisimai::Reason::UserUnknown.match(diagnostic)
             end
           end
+
           return v
         end
 
