@@ -52,31 +52,30 @@ module Sisimai
         def true(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
-          return true if argvs.reason == self.text
+          return true if argvs.reason == Sisimai::Reason::Filtered.text
 
           require 'sisimai/smtp/status'
           require 'sisimai/reason/userunknown'
           statuscode = argvs.deliverystatus || ''
           commandtxt = argvs.smtpcommand || ''
-          reasontext = self.text
-          tempreason = ''
-          diagnostic = ''
-          v = false
-
+          reasontext = Sisimai::Reason::Filtered.text
           diagnostic = argvs.diagnosticcode || '';
           tempreason = Sisimai::SMTP::Status.name(statuscode)
+          v = false
+
           return false if tempreason == 'suspend'
 
           if tempreason == reasontext
             # Delivery status code points "filtered".
-            if Sisimai::Reason::UserUnknown.match(diagnostic) || self.match(diagnostic)
+            if Sisimai::Reason::UserUnknown.match(diagnostic) || 
+               Sisimai::Reason::Filtered.match(diagnostic)
                 v = true
             end
           else
             # Check the value of Diagnostic-Code and the last SMTP command
             if commandtxt != 'RCPT' && commantxt != 'MAIL'
               # Check the last SMTP command of the session. 
-              if self.match(diagnostic)
+              if Sisimai::Reason::Filtered.match(diagnostic)
                 # Matched with a pattern in this class
                 v = true
 
@@ -87,6 +86,7 @@ module Sisimai
               end
             end
           end
+
           return v
         end
 
