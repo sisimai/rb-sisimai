@@ -61,26 +61,26 @@ module Sisimai
 
       if x0.is_a? Array
           v0 = Sisimai::Address.new(x0.shift)
-          if v0.is_a Sisimai::Address
-            @@addresser = v0
-            @@senderdomain = v0.host
+          if v0.is_a? Sisimai::Address
+            @addresser = v0
+            @senderdomain = v0.host
           end
       end
 
       if y0.is_a? Array
         v0 = Sisimai::Address.new(y0.shift)
         if v0.is_a? Sisimai::Address
-          @@recipient = v0
-          @@destination = v0.host
-          @@alias = argvs['alias']
+          @recipient = v0
+          @destination = v0.host
+          @alias = argvs['alias']
         end
       end
-      return nil unless @@recipient.is_a? Sisimai::Address
-      return nil unless @@addresser.is_a? Sisimai::Address
+      return nil unless @recipient.is_a? Sisimai::Address
+      return nil unless @addresser.is_a? Sisimai::Address
 
-      @@token = Sisimai::String.token( @@addresser.address, @@recipient.address, argvs['timestamp'] )
-      @@timestamp = Sisimai::Time.new(Time.at(argvs['timestamp']).to_s)
-      @@timezoneoffset = argvs['timezoneoffset'] || '+0000'
+      @token = Sisimai::String.token(@addresser.address, @recipient.address, argvs['timestamp'])
+      @timestamp = Sisimai::Time.parse(::Time.at(argvs['timestamp']).to_s)
+      @timezoneoffset = argvs['timezoneoffset'] || '+0000'
 
       v1 = [ 
         'listid', 'subject', 'messageid', 'smtpagent', 'diagnosticcode',
@@ -88,26 +88,27 @@ module Sisimai
         'smtpcommand', 'feedbacktype', 'action', 'softbounce',
       ]
       v1.each { |e| thing[e] = argvs[e] || '' }
-      @@lhost          = argvs['lhost']          || ''
-      @@rhost          = argvs['rhost']          || ''
-      @@reason         = argvs['reason']         || ''
-      @@listid         = argvs['listid']         || ''
-      @@subject        = argvs['subject']        || ''
-      @@messageid      = argvs['messageid']      || ''
-      @@smtpagent      = argvs['smtpagent']      || ''
-      @@diagnosticcode = argvs['diagnosticcode'] || ''
-      @@deliverystatus = argvs['deliverystatus'] || ''
-      @@smtpcommand    = argvs['smtpcommand']    || ''
-      @@feedbacktype   = argvs['feedbacktype']   || ''
-      @@action         = argvs['action']         || ''
-      @@replycode      = Sisimai::SMTP::Reply.find(argvs['diagnosticcode'])
+      @lhost          = argvs['lhost']          || ''
+      @rhost          = argvs['rhost']          || ''
+      @reason         = argvs['reason']         || ''
+      @listid         = argvs['listid']         || ''
+      @subject        = argvs['subject']        || ''
+      @messageid      = argvs['messageid']      || ''
+      @smtpagent      = argvs['smtpagent']      || ''
+      @diagnosticcode = argvs['diagnosticcode'] || ''
+      @diagnostictype = argvs['diagnostictype'] || ''
+      @deliverystatus = argvs['deliverystatus'] || ''
+      @smtpcommand    = argvs['smtpcommand']    || ''
+      @feedbacktype   = argvs['feedbacktype']   || ''
+      @action         = argvs['action']         || ''
+      @replycode      = Sisimai::SMTP::Reply.find(argvs['diagnosticcode'])
 
-      if @@replycode[0,1] == 4
-        @@softbounce = 1 
-      elsif @@replycode[0,1] == 5
-        @@softbounce = 0
+      if @replycode[0,1] == 4
+        @softbounce = 1 
+      elsif @replycode[0,1] == 5
+        @softbounce = 0
       else
-        @@softbounce = -1
+        @softbounce = -1
       end
     end
 
@@ -125,14 +126,14 @@ module Sisimai
       fieldorder = { 'recipient' => [], 'addresser' => [] }
       objectlist = []
       rxcommands = %r/\A(?:EHLO|HELO|MAIL|RCPT|DATA|QUIT)\z/
-      givenorder = argvs['order'] ? argvs['order'] : {}
+      givenorder = argvs['order'] || {}
 
       return nil unless messageobj.ds
       return nil unless messageobj.rfc822
       require 'sisimai/smtp'
 
       # Decide the order of email headers: user specified or system default.
-      if givenorder.is_a? Hash && givenorder.keys.size > 0
+      if givenorder.is_a?(Hash) && givenorder.keys.size > 0
         # If the order of headers for searching is specified, use the order
         # for detecting an email address.
         fieldorder.each_key do |e|
