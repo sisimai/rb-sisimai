@@ -67,7 +67,7 @@ module Sisimai
           leave = 1
           break
         end
-        return nil if reave > 0
+        return nil if leave > 0
 
         # DETECT_AUTO_REPLY_MESSAGE
         @@Re0.each_key do |e|
