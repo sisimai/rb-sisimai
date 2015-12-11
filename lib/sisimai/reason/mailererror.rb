@@ -1,6 +1,6 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::MailerError checks the bounce reason is C<mailererror> or not.
+    # Sisimai::Reason::MailerError checks the bounce reason is "mailererror" or not.
     # This class is called only Sisimai::Reason class.
     #
     # This is the error that a mailer program has not exited successfully or exited
@@ -37,7 +37,14 @@ module Sisimai
           return false
         end
 
-        def true; return nil; end
+        # The bounce reason is mailer error or not
+        # @param    [Sisimai::Data] argvs   Object to be detected the reason
+        # @return   [True,False]            true: is mailer error
+        #                                   false: is not mailer error
+        # @see http://www.ietf.org/rfc/rfc2822.txt
+        def true(_argvs)
+          return nil
+        end
 
       end
     end
