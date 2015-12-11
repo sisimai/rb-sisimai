@@ -1,5 +1,15 @@
 module Sisimai
   module Reason
+    # Sisimai::Reason::NoRelaying checks the bounce reason is "norelaying" or not.
+    # This class is called only Sisimai::Reason class.
+    #
+    # This is the error that SMTP connection rejected with error message "Relaying
+    # Denied". This reason does not exist in any version of bounceHammer.
+    #
+    #    ... while talking to mailin-01.mx.example.com.:
+    #    >>> RCPT To:<kijitora@example.org>
+    #    <<< 554 5.7.1 <kijitora@example.org>: Relay access denied
+    #    554 5.0.0 Service unavailable
     module NoRelaying
       # Imported from p5-Sisimail/lib/Sisimai/Reason/NoRelaying.pm
       class << self
@@ -14,7 +24,7 @@ module Sisimai
           regex = %r{(?>
              Insecure[ ]Mail[ ]Relay
             |mail[ ]server[ ]requires[ ]authentication[ ]when[ ]attempting[ ]to[ ]
-              send[ ]to[ ]a[ ]non-local[ ]e-mail[ ]address    # MailEnable 
+              send[ ]to[ ]a[ ]non-local[ ]e-mail[ ]address    # MailEnable
             |not[ ]allowed[ ]to[ ]relay[ ]through[ ]this[ ]machine
             |relay[ ](?:
                access[ ]denied
@@ -39,15 +49,16 @@ module Sisimai
         def true(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
+
           currreason = argvs.reason || ''
+          reexcludes = %r/\A(?:securityerror|systemerror|undefined)\z/
 
           if currreason
             # Do not overwrite the reason
-            rxnr = %r/\A(?:securityerror|systemerror|undefined)\z/
-            return false if currreason =~ rxnr
+            return false if currreason =~ reexcludes
           else
             # Check the value of Diagnosic-Code: header with patterns
-            return true if self.match(argvs.diagnosticcode)
+            return true if Sisimai::Reason::NoRelaying.match(argvs.diagnosticcode)
           end
         end
 
