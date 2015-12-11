@@ -55,7 +55,7 @@ module Sisimai
           v = false
 
           if tempreason == reasontext
-            # Delivery status code points "blocked".
+            # Delivery status code points "toomanyconn".
             v = true
           else
             # Matched with a pattern in this class
