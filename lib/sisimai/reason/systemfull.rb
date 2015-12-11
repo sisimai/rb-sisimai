@@ -27,7 +27,14 @@ module Sisimai
           return false
         end
 
-        def true; return nil; end
+        # The bounce reason is system full or not
+        # @param    [Sisimai::Data] argvs   Object to be detected the reason
+        # @return   [True,False]            true: is system full
+        #                                   false: is not system full
+        # @see http://www.ietf.org/rfc/rfc2822.txt
+        def true(_argvs)
+          return nil
+        end
 
       end
     end
