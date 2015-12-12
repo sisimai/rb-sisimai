@@ -241,7 +241,7 @@ module Sisimai
           t = Sisimai::Time.strptime(datestring, '%a, %d %b %Y %T')
           p['timestamp'] = ( t.to_time.to_i - zoneoffset ) || nil
         rescue
-          warn 'Failed to get date'
+          warn '***warning: Failed to strptime ' + datestring
         end
         next unless p['timestamp']
 
@@ -355,20 +355,19 @@ module Sisimai
         stringdata = %w[
           token lhost rhost listid alias reason subject messageid smtpagent 
           smtpcommand destination diagnosticcode senderdomain deliverystatus
-          timezoneoffset feedbacktype diagnostictype action replycode
-          softbounce
+          timezoneoffset feedbacktype diagnostictype action replycode softbounce
         ]
 
         stringdata.each do |e|
           # Copy string data
-          v[e] = self.e || ''
+          v[e] = self.send(e) || ''
         end
         v['addresser'] = self.addresser.address
         v['recipient'] = self.recipient.address
         v['timestamp'] = self.timestamp.to_time.to_i
         data = v
       rescue
-        warn 'failed to damn'
+        warn '***warning: Failed to damn()'
       end
       return data
     end
@@ -385,8 +384,9 @@ module Sisimai
       begin
         require referclass.downcase.gsub('::', '/')
       rescue
-        warn 'Failed to load ' + referclass
+        warn '***warning: Failed to load' + referclass
       end
+
       dumpeddata = Module.const_get(referclass).dump(self)
       return dumpeddata
     end
