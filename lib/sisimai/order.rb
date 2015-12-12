@@ -152,6 +152,7 @@ module Sisimai
           rv.concat(Sisimai::MSP.index.map {|e| 'Sisimai::MSP::' + e })
         rescue
           # Failed to load MTA/MSP module
+          next
         end
         return rv
       end
