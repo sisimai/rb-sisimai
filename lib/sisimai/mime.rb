@@ -12,7 +12,7 @@ module Sisimai
       def is_mimeencoded(argv1)
         return false unless argv1
 
-        argv1 = argv1.tr('"', '')
+        argv1 = argv1.delete('"')
         return true if argv1 =~ /[\s\t]*=[?][-_0-9A-Za-z]+[?][BbQq][?].+[?]=\s*\z/
         return false
       end
@@ -34,7 +34,7 @@ module Sisimai
           # Check and decode each element
           e = e.gsub(/\A\s+/, '')
           e = e.gsub(/\s+\z/, '')
-          e = e.tr('"', '')
+          e = e.delete('"')
 
           if self.is_mimeencoded(e)
             # MIME Encoded string
@@ -115,7 +115,7 @@ module Sisimai
           # Content-Type: multipart/report; report-type=delivery-status;
           #    boundary="n6H9lKZh014511.1247824040/mx.example.jp"
           value = cv[1]
-          value = value.tr(%q|'"|, '')
+          value = value.delete(%q|'"|)
         end
 
         value = sprintf( '--%s', value ) if start > -1
