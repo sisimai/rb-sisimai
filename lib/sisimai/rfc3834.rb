@@ -4,7 +4,7 @@ module Sisimai
     # Imported from p5-Sisimail/lib/Sisimai/RFC3834.pm
     class << self
       # http://tools.ietf.org/html/rfc3834
-      @@Re0 = {
+      Re0 = {
         # http://www.iana.org/assignments/auto-submitted-keywords/auto-submitted-keywords.xhtml
         'auto-submitted' => %r/\Aauto-(?:generated|replied|notified)/i,
         # https://msdn.microsoft.com/en-us/library/ee219609(v=exchg.80).aspx
@@ -16,8 +16,8 @@ module Sisimai
           )
         /xi,
       }
-      @@Re1 = { 'endof'  => %r/\A__END_OF_EMAIL_MESSAGE__\z/ }
-      @@Re2 = {
+      Re1 = { 'endof'  => %r/\A__END_OF_EMAIL_MESSAGE__\z/ }
+      Re2 = {
         'subject' => %r/(?:
              SECURITY[ ]information[ ]for  # sudo
             |Mail[ ]failure[ ][-]          # Exim
@@ -29,7 +29,7 @@ module Sisimai
 
       def description; 'Detector for auto replied message'; end
       def smtpagent;   'RFC3834'; end
-      def pattern;     return @@Re0; end
+      def pattern;     return Re0; end
       def headerlist
         return [
           'Auto-Submitted',
@@ -59,22 +59,22 @@ module Sisimai
         match = 0
 
         # DETECT_EXCLUSION_MESSAGE
-        @@Re2.each_key do |e|
+        Re2.each_key do |e|
           # Exclude message from root@
           next unless mhead.key?(e)
           next unless mhead[e]
-          next unless mhead[e] =~ @@Re2[e]
+          next unless mhead[e] =~ Re2[e]
           leave = 1
           break
         end
         return nil if leave > 0
 
         # DETECT_AUTO_REPLY_MESSAGE
-        @@Re0.each_key do |e|
+        Re0.each_key do |e|
           # RFC3834 Auto-Submitted and other headers
           next unless mhead.key?(e)
           next unless mhead[e]
-          next unless mhead[e] =~ @@Re0[e]
+          next unless mhead[e] =~ Re0[e]
           match += 1
           break
         end
