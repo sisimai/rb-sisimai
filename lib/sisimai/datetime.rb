@@ -13,7 +13,7 @@ module Sisimai
       CONST_E = Math.exp(1)           # e, Napier's constant
       TZ_OFFSET = 54000               # Max time zone offset, 54000 seconds
 
-      @@TimeUnit = {
+      TimeUnit = {
         'o' => (BASE_D * BASE_Y * 4), # Olympiad, 4 years
         'y' => (BASE_D * BASE_Y),     # Year, Gregorian Calendar
         'q' => (BASE_D * BASE_Y / 4), # Quarter, year/4
@@ -27,23 +27,23 @@ module Sisimai
         's' => 1,                     # Second
       }
 
-      @@MathematicalConstant = {
+      MathematicalConstant = {
         'e' => CONST_E,
         'p' => CONST_P,
         'g' => CONST_E**CONST_P,
       }
 
-      @@MonthName = {
+      MonthName = {
         'full' => %w|January February March April May June July August September October November December|,
         'abbr' => %w|Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec|,
       }
 
-      @@DayOfWeek = {
+      DayOfWeek = {
         'full' => %w|Sunday Monday Tuesday Wednesday Thursday Friday Saturday|,
         'abbr' => %w|Sun Mon Tue Wed Thu Fri Sat |,
       }
 
-      @@HourName = {
+      HourName = {
         'full' => [
           'Midnight', 1, 2, 3, 4, 5, 'Morning', 7, 8, 9, 10, 11,
           'Noon', 13, 14, 15, 16, 17, 'Evening', 19, 20, 21, 22, 23,
@@ -51,7 +51,7 @@ module Sisimai
         'abbr' => [0..23],
       }
 
-      @@TimeZoneAbbr = {
+      TimeZoneAbbr = {
         # http://en.wikipedia.org/wiki/List_of_time_zone_abbreviations
         #'ACDT' => '+1030', # Australian Central Daylight Time  UTC+10:30
         #'ACST' => '+0930', # Australian Central Standard Time  UTC+09:30
@@ -191,22 +191,22 @@ module Sisimai
         return 0 unless argv1.is_a?(::String)
 
         getseconds = 0
-        unitoftime = @@TimeUnit.keys.join
-        mathconsts = @@MathematicalConstant.keys.join
+        unitoftime = TimeUnit.keys.join
+        mathconsts = MathematicalConstant.keys.join
 
         if cr = argv1.match(/\A(\d+|\d+[.]\d+)([#{unitoftime}])?\z/)
           # 1d, 1.5w
           n = cr[1].to_f
           u = cr[2] || 'd'
-          getseconds = n * @@TimeUnit[u].to_f
+          getseconds = n * TimeUnit[u].to_f
 
         elsif cr = argv1.match(/\A(\d+|\d+[.]\d+)?([#{mathconsts}])([#{unitoftime}])?\z/)
           # 1pd, 1.5pw
           n = cr[1].to_f || 1
           n = 1 if n.to_i == 0
-          m = @@MathematicalConstant[cr[2]].to_f
+          m = MathematicalConstant[cr[2]].to_f
           u = cr[3] || 'd'
-          getseconds = n * m * @@TimeUnit[u].to_f
+          getseconds = n * m * TimeUnit[u].to_f
 
         else
           getseconds = 0
@@ -224,7 +224,7 @@ module Sisimai
       #   monthname(1) #=> [ 'January', 'February', 'March', ... ]
       def monthname(argv1 = 0)
         value = argv1 > 0 ? 'full' : 'abbr'
-        return @@MonthName[value]
+        return MonthName[value]
       end
 
       # List of day of week
@@ -235,7 +235,7 @@ module Sisimai
       #   dayofweek(1) #=> [ 'Sunday', 'Monday', 'Tuesday', ... ]
       def dayofweek(argv1 = 0)
         value = argv1 > 0 ? 'full' : 'abbr'
-        return @@DayOfWeek[value]
+        return DayOfWeek[value]
       end
 
       # Hour name list
@@ -246,7 +246,7 @@ module Sisimai
       #   hourname(1) #=> [ 'Midnight', 1, 2, ... 'Morning', 7, ... 'Noon', ... 23 ]
       def hourname(argv1 = 1)
         value = argv1 > 0 ? 'full' : 'abbr'
-        return @@HourName[value]
+        return HourName[value]
       end
 
       # Convert from date offset to date string
@@ -306,11 +306,11 @@ module Sisimai
             # Day of week or Day of week; Thu, Apr, ...
             p.chop if p.length == 4 # Thu, -> Thu
 
-            if @@DayOfWeek['abbr'].include?(p)
+            if DayOfWeek['abbr'].include?(p)
               # Day of week; Mon, Thu, Sun,...
               v['a'] = p
 
-            elsif @@MonthName['abbr'].include?(p)
+            elsif MonthName['abbr'].include?(p)
               # Month name abbr.; Apr, May, ...
               v['M'] = p
 
@@ -367,13 +367,13 @@ module Sisimai
               if cr = p.match(%r|\A(\d{4})[-/](\d{1,2})[-/](\d{1,2})\z|)
                 # Mail.app(MacOS X)'s faked Bounce, Arrival-Date: 2010-06-18 17:17:52 +0900
                 v['Y'] = cr[1].to_i
-                v['M'] = @@MonthName['abbr'][cr[2].to_i - 1]
+                v['M'] = MonthName['abbr'][cr[2].to_i - 1]
                 v['d'] = cr[3].to_i
 
               elsif cr = p.match(%r|\A(\d{4})[-/](\d{1,2})[-/](\d{1,2})T([0-2]\d):([0-5]\d):([0-5]\d)\z|)
                 # ISO 8601; 2000-04-29T01:23:45
                 v['Y'] = cr[1].to_i
-                v['M'] = @@MonthName['abbr'][cr[2].to_i - 1]
+                v['M'] = MonthName['abbr'][cr[2].to_i - 1]
 
                 if cr[3].to_i < 32
                   v['d'] = cr[3].to_i
@@ -385,7 +385,7 @@ module Sisimai
 
               elsif cr = p.match(%r|\A(\d{1,2})/(\d{1,2})/(\d{1,2})\z|)
                 # 4/29/01 11:34:45 PM
-                v['M']  = @@MonthName['abbr'][cr[1].to_i - 1]
+                v['M']  = MonthName['abbr'][cr[1].to_i - 1]
                 v['d']  = cr[2].to_i
                 v['Y']  = cr[3].to_i + 2000
                 v['Y'] -= 100 if v['Y'].to_i > ::DateTime.now.year + 1
@@ -435,7 +435,7 @@ module Sisimai
       #   abbr2tz('JST')  #=> '+0900'
       def abbr2tz(argv1)
         return nil unless argv1.is_a?(::String)
-        return @@TimeZoneAbbr[argv1]
+        return TimeZoneAbbr[argv1]
       end
 
       # Convert to second
@@ -465,7 +465,7 @@ module Sisimai
           return ztime
 
         elsif argv1 =~ /\A[A-Za-z]+\z/
-          return tz2second(@@TimeZoneAbbr[argv1])
+          return tz2second(TimeZoneAbbr[argv1])
 
         else
           return nil
