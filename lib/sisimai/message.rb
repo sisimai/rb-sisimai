@@ -30,8 +30,8 @@ module Sisimai
     MultiHeads = { 'received' => true }
     IgnoreList = { 'dkim-signature' => true }
     Indicators = {
-      'begin' => ( 1 << 1 ),
-      'endof' => ( 1 << 2 ),
+      :begin => ( 1 << 1 ),
+      :endof => ( 1 << 2 ),
     }
     @@DefaultSet = Sisimai::Order.another
     @@PatternSet = Sisimai::Order.by('subject')
@@ -170,7 +170,7 @@ module Sisimai
         e = e.gsub(/\A[ \t]+\z/, '')
         e = e.gsub(/[ \t]+\z/, '')
 
-        if readcursor & Indicators['endof'] > 0
+        if readcursor & Indicators[:endof] > 0
           # The body part of the email
           aftersplit['body'] += e + "\n"
 
@@ -179,12 +179,12 @@ module Sisimai
           # appeare yet.
           if e.empty?
             # Blank line, it is a boundary of headers and a body part
-            readcursor |= Indicators['endof'] if readcursor & Indicators['begin'] > 0
+            readcursor |= Indicators[:endof] if readcursor & Indicators[:begin] > 0
 
           else
             # The header part of the email
             aftersplit['header'] += e + "\n"
-            readcursor |= Indicators['begin']
+            readcursor |= Indicators[:begin]
           end
         end
       end
