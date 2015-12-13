@@ -3,7 +3,7 @@ module Sisimai
   module RFC5322
     # Imported from p5-Sisimail/lib/Sisimai/RFC5322.pm
     class << self
-      @@HeaderTable = {
+      HeaderTable = {
         'messageid' => ['Message-Id'],
         'subject'   => ['Subject'],
         'listid'    => ['List-Id'],
@@ -49,7 +49,7 @@ module Sisimai
         # Convert HEADER: structured hash table to flatten hash table for being
         # called from Sisimai::MTA::*
         fv = {}
-        @@HeaderTable.each_value do |e|
+        HeaderTable.each_value do |e|
           e.each do |ee|
             fv[ee.downcase] = 1
           end
@@ -57,17 +57,16 @@ module Sisimai
         return fv
       end
 
-      @@Re          = build_regular_expressions.call
-      @@HeaderIndex = build_flatten_rfc822header_list.call
+      Re          = build_regular_expressions.call
+      HeaderIndex = build_flatten_rfc822header_list.call
 
       # Grouped RFC822 headers
       # @param    [String] group  RFC822 Header group name
       # @return   [Array,Hash]    RFC822 Header list
       def HEADERFIELDS(group = '')
-        #return @@HeaderIndex unless group.is_a?(String)
-        return @@HeaderIndex unless group.size > 0
-        return @@HeaderTable[group] if @@HeaderTable.key?(group)
-        return @@HeaderTable
+        return HeaderIndex unless group.size > 0
+        return HeaderTable[group] if HeaderTable.key?(group)
+        return HeaderTable
       end
 
       # Fields that might be long
@@ -83,7 +82,7 @@ module Sisimai
       def is_emailaddress(email)
         return false unless email.is_a?(::String)
         return false if email =~ %r/(?:[\x00-\x1f]|\x1f)/
-        return true  if email =~ @@Re['ignored']
+        return true  if email =~ Re['ignored']
         return false
       end
 
@@ -95,7 +94,7 @@ module Sisimai
         return false unless dpart.is_a?(::String)
         return false if dpart =~ /(?:[\x00-\x1f]|\x1f)/
         return false if dpart =~ /[@]/
-        return true  if dpart =~ @@Re['domain']
+        return true  if dpart =~ Re['domain']
         return false
       end
 
