@@ -20,24 +20,24 @@ module Sisimai
     ]
     @@rwaccessors.each { |e| attr_accessor e }
 
-    @@EndOfEmail = Sisimai::String.EOM
+    EndOfEmail = Sisimai::String.EOM
+    RFC822Head = Sisimai::RFC5322.HEADERFIELDS
+    RFC3834Set = Sisimai::RFC3834.headerlist.map { |e| e.downcase }
+    HeaderList = [ 
+      'from', 'to', 'date', 'subject', 'content-type', 'reply-to', 'message-id',
+      'received', 'content-transfer-encoding', 'return-path', 'x-mailer',
+    ]
+    MultiHeads = { 'received' => true }
+    IgnoreList = { 'dkim-signature' => true }
+    Indicators = {
+      'begin' => ( 1 << 1 ),
+      'endof' => ( 1 << 2 ),
+    }
     @@DefaultSet = Sisimai::Order.another
     @@PatternSet = Sisimai::Order.by('subject')
     @@ExtHeaders = Sisimai::Order.headers
     @@ToBeLoaded = []
     @@TryOnFirst = []
-    @@RFC822Head = Sisimai::RFC5322.HEADERFIELDS
-    @@RFC3834Set = Sisimai::RFC3834.headerlist.map { |e| e.downcase }
-    @@HeaderList = [ 
-      'from', 'to', 'date', 'subject', 'content-type', 'reply-to', 'message-id',
-      'received', 'content-transfer-encoding', 'return-path', 'x-mailer',
-    ]
-    @@MultiHeads = { 'received' => true }
-    @@IgnoreList = { 'dkim-signature' => true }
-    @@Indicators = {
-      'begin' => ( 1 << 1 ),
-      'endof' => ( 1 << 2 ),
-    }
 
     # Constructor of Sisimai::Message
     # @param         [Hash] argvs       Email text data
@@ -170,7 +170,7 @@ module Sisimai
         e = e.gsub(/\A[ \t]+\z/, '')
         e = e.gsub(/[ \t]+\z/, '')
 
-        if readcursor & @@Indicators['endof'] > 0
+        if readcursor & Indicators['endof'] > 0
           # The body part of the email
           aftersplit['body'] += e + "\n"
 
@@ -179,12 +179,12 @@ module Sisimai
           # appeare yet.
           if e.empty?
             # Blank line, it is a boundary of headers and a body part
-            readcursor |= @@Indicators['endof'] if readcursor & @@Indicators['begin'] > 0
+            readcursor |= Indicators['endof'] if readcursor & Indicators['begin'] > 0
 
           else
             # The header part of the email
             aftersplit['header'] += e + "\n"
-            readcursor |= @@Indicators['begin']
+            readcursor |= Indicators['begin']
           end
         end
       end
@@ -205,11 +205,11 @@ module Sisimai
       allheaders = {}
       structured = {}
 
+      HeaderList.each { |e| structured[e] = nil  }
+      HeaderList.each { |e| allheaders[e] = true }
+      RFC3834Set.each { |e| allheaders[e] = true }
+      MultiHeads.each_key { |e| structured[e.downcase] = [] }
       @@ExtHeaders.each_key { |e| allheaders[e] = true }
-      @@RFC3834Set.each     { |e| allheaders[e] = true }
-      @@HeaderList.each     { |e| allheaders[e] = true }
-      @@HeaderList.each     { |e| structured[e] = nil  }
-      @@MultiHeads.each_key { |e| structured[e.downcase] = [] }
 
       heads.split("\n").each do |e|
         # Convert email headers to hash
@@ -221,7 +221,7 @@ module Sisimai
           currheader = lhs.downcase
           next unless allheaders.key?(currheader)
 
-          if @@MultiHeads.key?(currheader)
+          if MultiHeads.key?(currheader)
             # Such as 'Received' header, there are multiple headers in a single
             # email message.
             rhs = rhs.tr("\t", ' ')
@@ -239,7 +239,7 @@ module Sisimai
 
         elsif cv = e.match(/\A\s+(.+?)\z/)
           # Ignore header?
-          next if @@IgnoreList[currheader]
+          next if IgnoreList[currheader]
 
           # Header line continued from the previous line
           if structured[currheader].is_a? Array
@@ -298,7 +298,7 @@ module Sisimai
           rhs = cv[2]
           previousfn = ''
 
-          next unless @@RFC822Head.key?(lhs)
+          next unless RFC822Head.key?(lhs)
           previousfn = lhs
           takenapart[previousfn] = rhs unless takenapart[previousfn]
 
@@ -411,7 +411,7 @@ module Sisimai
         bodystring = gsub(/^[>]+[ ]/m, '')
         bodystring = gsub(/^[>]$/m, '')
       end
-      bodystring += @@EndOfEmail
+      bodystring += EndOfEmail
       haveloaded = {}
       scannedset = nil
 
