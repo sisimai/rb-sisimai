@@ -10,7 +10,7 @@ module Sisimai
       def retry
         return ['undefined', 'onhold', 'systemerror', 'securityerror', 'networkerror']
       end
-      @@RetryReasons = Sisimai::Reason.retry
+      RetryReasons = Sisimai::Reason.retry
 
       # All the error reason list Sisimai support
       # @return   [Array] Reason list
@@ -32,7 +32,7 @@ module Sisimai
         return nil unless argvs
         return nil unless argvs.is_a? Sisimai::Data
 
-        unless @@RetryReasons.index(argvs.reason)
+        unless RetryReasons.index(argvs.reason)
           # Return reason text already decided except reason match with the 
           # regular expression of ->retry() method.
           return argvs.reason if argvs.reason.size > 0
@@ -56,7 +56,7 @@ module Sisimai
               require p.downcase.gsub('::', '/')
               r = Module.const_get(p)
             rescue
-              warn '***warning: Failed to load ' + p
+              warn ' ***warning: Failed to load ' + p
               next
             end
             next unless r.true(argvs)
@@ -75,7 +75,7 @@ module Sisimai
               r = Module.const_get(p)
               reasontext = r.text if r.true(argvs)
             rescue
-              warn '***warning: Failed to load ' + p
+              warn ' ***warning: Failed to load ' + p
             end
             break if reasontext.size > 0
 
@@ -117,7 +117,7 @@ module Sisimai
         require 'sisimai/smtp/status'
         reasontext = Sisimai::SMTP::Status.name(statuscode)
 
-        if reasontext.empty? || reasontext == 'userunknown' || @@RetryReasons.index(reasontext)
+        if reasontext.empty? || reasontext == 'userunknown' || RetryReasons.index(reasontext)
           # Could not decide the reason by the value of Status:
           classorder.each do |e|
             # Trying to match with other patterns in Sisimai::Reason::* classes
@@ -127,7 +127,7 @@ module Sisimai
               require p.downcase.gsub('::', '/')
               r = Module.const_get(p)
             rescue
-              warn '***warning: Failed to load ' + p
+              warn ' ***warning: Failed to load ' + p
               next
             end
 
@@ -204,7 +204,7 @@ module Sisimai
             require p.downcase.gsub('::', '/')
             r = Module.const_get(p)
           rescue
-            warn '***warning: Failed to load ' + p
+            warn ' ***warning: Failed to load ' + p
             next
           end
 
