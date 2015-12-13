@@ -208,7 +208,6 @@ module Sisimai
           ],
         }
 
-        
         # Detect bounce reason from Google Apps
         # @param    [Sisimai::Data] argvs   Parsed email object
         # @return   [String]                The bounce reason for Google Apps
@@ -227,7 +226,7 @@ module Sisimai
             # Try to match
             next unless e['regexp'].find { |a| statusmesg =~ a }
             reasontext = e['reason']
-            break
+            break if reasontext.size > 0
           end
           return reasontext
         end
