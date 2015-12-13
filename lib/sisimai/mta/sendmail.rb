@@ -8,7 +8,7 @@ module Sisimai
         require 'sisimai/mta'
         require 'sisimai/rfc5322'
 
-        @@Re0 = {
+        Re0 = {
           'from'    => %r/\AMail Delivery Subsystem/,
           'subject' => %r/(?:see transcript for details\z|\AWarning: )/,
         }
@@ -17,20 +17,20 @@ module Sisimai
         #   savemail.c:1041|          mci))
         #   savemail.c:1042|  goto writeerr;
         #
-        @@Re1 = {
+        Re1 = {
           'begin'   => %r/\A\s+[-]+ Transcript of session follows [-]+\z/,
           'error'   => %r/\A[.]+ while talking to .+[:]\z/,
           'rfc822'  => %r{\AContent-Type:[ ]*(?:message/rfc822|text/rfc822-headers)\z},
           'endof'   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
-        @@Indicators = Sisimai::MTA.INDICATORS
-        @@LongFields = Sisimai::RFC5322.LONGFIELDS
-        @@RFC822Head = Sisimai::RFC5322.HEADERFIELDS
+        Indicators = Sisimai::MTA.INDICATORS
+        LongFields = Sisimai::RFC5322.LONGFIELDS
+        RFC822Head = Sisimai::RFC5322.HEADERFIELDS
 
         def description; return 'V8Sendmail: /usr/sbin/sendmail'; end
         def smtpagent;   return 'Sendmail'; end
         def headerlist;  return []; end
-        def pattern;     return @@Re0; end
+        def pattern;     return Re0; end
 
         # Detect an error from Sendmail
         # @param         [Hash] mhead       Message header of a bounce email
@@ -46,12 +46,12 @@ module Sisimai
         def scan(mhead, mbody)
           return nil unless mhead
           return nil unless mbody
-          return nil unless mhead['subject'] =~ @@Re0['subject']
+          return nil unless mhead['subject'] =~ Re0['subject']
 
           unless mhead['subject'] =~ /\A\s*Fwd?:/i
             # Fwd: Returned mail: see transcript for details
             # Do not execute this code if the bounce mail is a forwarded message.
-            return nil unless mhead['from'] =~ @@Re0['from']
+            return nil unless mhead['from'] =~ Re0['from']
           end
 
           dscontents = []; dscontents << Sisimai::MTA.DELIVERYSTATUS
@@ -79,27 +79,27 @@ module Sisimai
 
             if readcursor == 0
               # Beginning of the bounce message or delivery status part
-              if e =~ @@Re1['begin']
-                readcursor |= @@Indicators['deliverystatus']
+              if e =~ Re1['begin']
+                readcursor |= Indicators['deliverystatus']
                 next
               end
             end
 
-            if readcursor & @@Indicators['message-rfc822'] == 0
+            if readcursor & Indicators['message-rfc822'] == 0
               # Beginning of the original message part
-              if e =~ @@Re1['rfc822']
-                readcursor |= @@Indicators['message-rfc822']
+              if e =~ Re1['rfc822']
+                readcursor |= Indicators['message-rfc822']
                 next
               end
             end
 
-            if readcursor & @@Indicators['message-rfc822'] > 0
+            if readcursor & Indicators['message-rfc822'] > 0
               # After "message/rfc822"
               if cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*.+\z/)
                 # Get required headers only
                 lhs = cv[1].downcase
                 previousfn = '';
-                next unless @@RFC822Head.key?(lhs)
+                next unless RFC822Head.key?(lhs)
 
                 previousfn  = lhs
                 rfc822part += e + "\n"
@@ -107,18 +107,18 @@ module Sisimai
               elsif e =~ /\A\s+/
                 # Continued line from the previous line
                 next if rfc822next[previousfn]
-                rfc822part += e + "\n" if @@LongFields.key?(previousfn)
+                rfc822part += e + "\n" if LongFields.key?(previousfn)
 
               else
                 # Check the end of headers in rfc822 part
-                next unless @@LongFields.key?(previousfn)
+                next unless LongFields.key?(previousfn)
                 next unless e.empty?
                 rfc822next[previousfn] = true
               end
 
             else
               # Before "message/rfc822"
-              next if readcursor & @@Indicators['deliverystatus'] == 0
+              next if readcursor & Indicators['deliverystatus'] == 0
               next if e.empty?
 
               if connvalues == connheader.keys.size
@@ -217,7 +217,7 @@ module Sisimai
                 else
                   # Detect SMTP session error or connection error
                   next if sessionerr
-                  if e =~ @@Re1['error']
+                  if e =~ Re1['error']
                     # ----- Transcript of session follows -----
                     # ... while talking to mta.example.org.:
                     sessionerr = true
