@@ -4,7 +4,7 @@ module Sisimai
     # Imported from p5-Sisimail/lib/Sisimai/MDA.pm
     class << self
       Re0 = {
-        'from' => %r/\A(?:Mail Delivery Subsystem|MAILER-DAEMON|postmaster)/i,
+        :from => %r/\A(?:Mail Delivery Subsystem|MAILER-DAEMON|postmaster)/i,
       }
       Re1 = {
         # dovecot/src/deliver/deliver.c
@@ -97,7 +97,7 @@ module Sisimai
         return nil if mhead.keys.size == 0
         return nil if mbody.size == 0
 
-        return nil unless mhead['from'] =~ Re0['from']
+        return nil unless mhead['from'] =~ Re0[:from]
 
         agentname0 = ''   # [String] MDA name
         reasonname = ''   # [String] Error reason
