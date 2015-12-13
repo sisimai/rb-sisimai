@@ -3,10 +3,10 @@ module Sisimai
   module MDA
     # Imported from p5-Sisimail/lib/Sisimai/MDA.pm
     class << self
-      @@Re0 = {
+      Re0 = {
         'from' => %r/\A(?:Mail Delivery Subsystem|MAILER-DAEMON|postmaster)/i,
       }
-      @@Re1 = {
+      Re1 = {
         # dovecot/src/deliver/deliver.c
         # 11: #define DEFAULT_MAIL_REJECTION_HUMAN_REASON \
         # 12: "Your message to <%t> was automatically rejected:%n%r"
@@ -17,14 +17,14 @@ module Sisimai
         'vpopmail'   => %r/\Avdelivermail: /,
         'vmailmgr'   => %r/\Avdeliver: /,
       }
-      @@Re2 = %r{\A(?>
+      Re2 = %r{\A(?>
          Your[ ]message[ ]to[ ].+[ ]was[ ]automatically[ ]rejected:\z
         |(?:mail[.]local|procmail|maildrop|vdelivermail|vdeliver):[ ]
         )
       }x
 
       # dovecot/src/deliver/mail-send.c:94
-      @@ReFailure = {
+      ReFailure = {
         'dovecot' => {
           'userunknown' => %r/\AMailbox doesn't exist: /i,
           'mailboxfull' => %r{\A(?:
@@ -97,7 +97,7 @@ module Sisimai
         return nil if mhead.keys.size == 0
         return nil if mbody.size == 0
 
-        return nil unless mhead['from'] =~ @@Re0['from']
+        return nil unless mhead['from'] =~ Re0['from']
 
         agentname0 = ''   # [String] MDA name
         reasonname = ''   # [String] Error reason
@@ -110,11 +110,11 @@ module Sisimai
           if agentname0 == ''
             # Try to match with each regular expression
             next unless e.size > 0;
-            next unless e =~ @@Re2
+            next unless e =~ Re2
 
-            @@Re1.each_key do |f|
+            Re1.each_key do |f|
               # Detect the agent name from the line
-              next unless e =~ @@Re1[f]
+              next unless e =~ Re1[f]
               agentname0 = f
               break
             end
@@ -128,11 +128,11 @@ module Sisimai
         return nil unless agentname0.size > 0
         return nil unless linebuffer.size > 0
 
-        @@ReFailure[agentname0].each_key do |e|
+        ReFailure[agentname0].each_key do |e|
           # Detect an error reason from message patterns of the MDA.
           linebuffer.each do |f|
             # Try to match with each regular expression
-            next unless f =~ @@ReFailure[agentname0][e]
+            next unless f =~ ReFailure[agentname0][e]
             reasonname = e
             bouncemesg = f
             break
