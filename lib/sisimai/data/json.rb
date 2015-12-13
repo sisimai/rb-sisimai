@@ -22,7 +22,7 @@ module Sisimai
           begin
             jsonoption.space = ' '
             jsonoption.object_nl = ' '
-            jsonstring = ::JSON.generate(damneddata )
+            jsonstring = ::JSON.generate(damneddata, jsonoption)
           rescue
             warn '***warning: Failed to JSON.generate'
           end
