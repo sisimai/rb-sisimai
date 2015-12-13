@@ -1,12 +1,16 @@
 require 'spec_helper'
-require 'sisimai/rhost/googleapps'
 require 'sisimai/mail'
+require 'sisimai/data'
 require 'sisimai/message'
+require 'sisimai/rhost/googleapps'
 
 describe Sisimai::Rhost::GoogleApps do
   cn = Sisimai::Rhost::GoogleApps
+  rs = {
+    '01' => { 'status' => %r/\A5[.]2[.]1\z/, 'reason' => %r/suspend/ },
+  }
   describe 'bounce mail from GoogleApps' do
-    (1..20).each do |n|
+    rs.each_key.each do |n|
       emailfn = sprintf('./eg/maildir-as-a-sample/new/google-apps-%02d.eml', n)
       next unless File.exist?(emailfn)
 
@@ -36,6 +40,12 @@ describe Sisimai::Rhost::GoogleApps do
           example('rhost is ' + mtahost) { expect(e['rhost']).to be == mtahost }
           example('alias is nil') { expect(e['alias']).to be nil }
           example('agent is Sendmail') { expect(e['agent']).to be == 'Sendmail' }
+        end
+
+        v = Sisimai::Data.make( { 'data' => p } )
+        v.each do |e|
+          example('reason is String') { expect(e.reason.size).to be > 0 }
+          example('reason matches') { expect(e.reason).to match(rs[n]['reason']) }
         end
       end
     end
