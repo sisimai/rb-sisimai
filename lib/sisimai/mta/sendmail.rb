@@ -9,8 +9,8 @@ module Sisimai
         require 'sisimai/rfc5322'
 
         Re0 = {
-          'from'    => %r/\AMail Delivery Subsystem/,
-          'subject' => %r/(?:see transcript for details\z|\AWarning: )/,
+          :from    => %r/\AMail Delivery Subsystem/,
+          :subject => %r/(?:see transcript for details\z|\AWarning: )/,
         }
         # Error text regular expressions which defined in sendmail/savemail.c
         #   savemail.c:1040|if (printheader && !putline("   ----- Transcript of session follows -----\n",
@@ -18,10 +18,10 @@ module Sisimai
         #   savemail.c:1042|  goto writeerr;
         #
         Re1 = {
-          'begin'   => %r/\A\s+[-]+ Transcript of session follows [-]+\z/,
-          'error'   => %r/\A[.]+ while talking to .+[:]\z/,
-          'rfc822'  => %r{\AContent-Type:[ ]*(?:message/rfc822|text/rfc822-headers)\z},
-          'endof'   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
+          :begin   => %r/\A\s+[-]+ Transcript of session follows [-]+\z/,
+          :error   => %r/\A[.]+ while talking to .+[:]\z/,
+          :rfc822  => %r{\AContent-Type:[ ]*(?:message/rfc822|text/rfc822-headers)\z},
+          :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
         Indicators = Sisimai::MTA.INDICATORS
         LongFields = Sisimai::RFC5322.LONGFIELDS
@@ -46,12 +46,12 @@ module Sisimai
         def scan(mhead, mbody)
           return nil unless mhead
           return nil unless mbody
-          return nil unless mhead['subject'] =~ Re0['subject']
+          return nil unless mhead['subject'] =~ Re0[:subject]
 
           unless mhead['subject'] =~ /\A\s*Fwd?:/i
             # Fwd: Returned mail: see transcript for details
             # Do not execute this code if the bounce mail is a forwarded message.
-            return nil unless mhead['from'] =~ Re0['from']
+            return nil unless mhead['from'] =~ Re0[:from]
           end
 
           dscontents = []; dscontents << Sisimai::MTA.DELIVERYSTATUS
@@ -79,7 +79,7 @@ module Sisimai
 
             if readcursor == 0
               # Beginning of the bounce message or delivery status part
-              if e =~ Re1['begin']
+              if e =~ Re1[:begin]
                 readcursor |= Indicators[:'deliverystatus']
                 next
               end
@@ -87,7 +87,7 @@ module Sisimai
 
             if readcursor & Indicators[:'message-rfc822'] == 0
               # Beginning of the original message part
-              if e =~ Re1['rfc822']
+              if e =~ Re1[:rfc822]
                 readcursor |= Indicators[:'message-rfc822']
                 next
               end
@@ -217,7 +217,7 @@ module Sisimai
                 else
                   # Detect SMTP session error or connection error
                   next if sessionerr
-                  if e =~ Re1['error']
+                  if e =~ Re1[:error]
                     # ----- Transcript of session follows -----
                     # ... while talking to mta.example.org.:
                     sessionerr = true
