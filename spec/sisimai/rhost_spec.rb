@@ -50,9 +50,8 @@ describe Sisimai::Rhost do
   describe 'get' do
     v = nil
     context '(nil)' do
-      it 'returns reason text' do
-        pending 'Tests will be added after implementation of Sisimai::Data class'
-        expect(cn.get(v)).not_to be nil
+      it 'returns nil' do
+        expect(cn.get(v)).to be nil
       end
     end
   end
