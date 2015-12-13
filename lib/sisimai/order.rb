@@ -8,19 +8,19 @@ module Sisimai
       require 'sisimai/mta'
       require 'sisimai/msp'
 
-      @@AnotherList1 = [
+      AnotherList1 = [
         # These modules have many subject patterns or have MIME encoded subjects
         # which is hard to code as regular expression
         'Sisimai::MTA::Exim',
         'Sisimai::MTA::Exchange',
       ]
-      @@AnotherList2 = [
+      AnotherList2 = [
         # These modules have no MTA specific header and did not listed in the 
         # following subject header based regular expressions.
         'Sisimai::MSP::US::Facebook',
         'Sisimai::MSP::JP::KDDI',
       ]
-      @@AnotherList3 = [
+      AnotherList3 = [
         # These modules have no MTA specific header but listed in the following
         # subject header based regular expressions.
         'Sisimai::MTA::qmail',
@@ -38,7 +38,7 @@ module Sisimai
         'Sisimai::MSP::US::Bigfoot',
         'Sisimai::MTA::X4',
       ]
-      @@AnotherList4 = [
+      AnotherList4 = [
         # These modules have no MTA specific headers and there are few samples or
         # too old MTA
         'Sisimai::MSP::US::Verizon',
@@ -53,7 +53,7 @@ module Sisimai
         'Sisimai::MTA::X1',
         'Sisimai::MTA::V5sendmail',
       ]
-      @@AnotherList5 = [
+      AnotherList5 = [
         # These modules have one or more MTA specific headers but other headers
         # also required for detecting MTA name
         'Sisimai::MSP::US::Google',
@@ -63,7 +63,7 @@ module Sisimai
         'Sisimai::MTA::MailMarshalSMTP',
         'Sisimai::MTA::mFILTER',
       ]
-      @@AnotherList9 = [
+      AnotherList9 = [
         # These modules have one or more MTA specific headers
         'Sisimai::MSP::US::Aol',
         'Sisimai::MSP::US::Yahoo',
@@ -79,7 +79,7 @@ module Sisimai
 
       # This variable don't hold MTA/MSP name which have one or more MTA specific
       # header such as X-AWS-Outgoing, X-Yandex-Uniq.
-      @@PatternTable = {
+      PatternTable = {
         'subject' => {
           %r/delivery/i => [
             'Sisimai::MTA::Exim',
@@ -156,14 +156,14 @@ module Sisimai
         end
         return rv
       end
-      @@DefaultOrder = make_default_order.call
+      DefaultOrder = make_default_order.call
 
       # Get regular expression patterns for specified field
       # @param    [String] group  Group name for "ORDER BY"
       # @return   [Hash]          Pattern table for the group
       def by(group='')
         return {} unless group.size > 0
-        return @@PatternTable[group] if @@PatternTable.key?(group)
+        return PatternTable[group] if PatternTable.key?(group)
         return {}
       end
 
@@ -171,7 +171,7 @@ module Sisimai
       # @return   [Array] Default order list of MTA/MSP modules
       def default
         return [ 'Sisimai::MTA::Sendmail' ]
-        return @@DefaultOrder
+        return DefaultOrder
       end
 
       # Make MTA/MSP module list as a spare
@@ -179,11 +179,11 @@ module Sisimai
       def another
         return [ 'Sisimai::MTA::Sendmail' ]
         rv = []
-        rv.concat(@@AnotherList1)
-        rv.concat(@@AnotherList2)
-        rv.concat(@@AnotherList3)
-        rv.concat(@@AnotherList4)
-        rv.concat(@@AnotherList5)
+        rv.concat(AnotherList1)
+        rv.concat(AnotherList2)
+        rv.concat(AnotherList3)
+        rv.concat(AnotherList4)
+        rv.concat(AnotherList5)
         return rv
       end
 
