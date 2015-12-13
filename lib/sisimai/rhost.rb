@@ -32,15 +32,14 @@ module Sisimai
       def get(argvs)
         return nil unless argvs
         return nil unless argvs.is_a? Sisimai::Data
-        return argvs.reason if argvs.reason
+        return argvs.reason if argvs.reason.size > 0
 
-        modulename  = 'Sisimai::Rhost::' + RhostClass[argvs['rhost'].downcase]
-        rhostclass  = modulename.gsub('::', '/')
-        rhostclass += RhostClass[data['rhost'].downcase]
-        rhostclass  = rhostclass.downcase
+        remotehost  = argvs.rhost.downcase
+        modulename  = 'Sisimai::Rhost::' + RhostClass[remotehost]
+        rhostclass  = modulename.gsub('::', '/').downcase
         require rhostclass
 
-        reasontext = modulename.get(data)
+        reasontext = Module.const_get(modulename).get(argvs)
         return reasontext
       end
     end
