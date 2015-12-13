@@ -4,16 +4,16 @@ module Sisimai
   # is listed in the results of Sisimai::Rhost->list method.
   # This class is called only Sisimai::Data class.
   module Rhost
-    # Imported from p5-Sisimail/lib/Sisimai/Rhost.pm
     class << self
-      @@RhostClass = {
+      # Imported from p5-Sisimail/lib/Sisimai/Rhost.pm
+      RhostClass = {
         'aspmx.l.google.com' => 'GoogleApps',
       }
 
       # Retrun the list of remote hosts Sisimai support
       # @return   [Array] Remote host list
       def list
-        return @@RhostClass.keys
+        return RhostClass.keys
       end
 
       # The value of "rhost" is listed in $RhostClass or not
@@ -21,21 +21,22 @@ module Sisimai
       # @return   [True,False]    True: matched
       #                           False: did not match
       def match(host)
-        return false unless host.is_a?(::String)
-        return true  if @@RhostClass.key?(host.downcase)
+        return false unless host.is_a? ::String
+        return true  if RhostClass.key?(host.downcase)
         return false
       end
 
       # Detect the bounce reason from certain remote hosts
       # @param    [Sisimai::Data] argvs   Parsed email object
       # @return   [String]                The value of bounce reason
-      def get(data)
-        return nil unless data.is_a?(Sisimai::Data)
-        return data.reason if data.reason
+      def get(argvs)
+        return nil unless argvs
+        return nil unless argvs.is_a? Sisimai::Data
+        return argvs.reason if argvs.reason
 
-        modulename  = 'Sisimai::Rhost::' + @@RhostClass[data['rhost'].downcase]
+        modulename  = 'Sisimai::Rhost::' + RhostClass[argvs['rhost'].downcase]
         rhostclass  = modulename.gsub('::', '/')
-        rhostclass += @@RhostClass[data['rhost'].downcase]
+        rhostclass += RhostClass[data['rhost'].downcase]
         rhostclass  = rhostclass.downcase
         require rhostclass
 
