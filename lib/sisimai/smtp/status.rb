@@ -528,7 +528,7 @@ module Sisimai
     module Status
       # Imported from p5-Sisimail/lib/Sisimai/SMTP/Status.pm
       class << self
-        @@StandardCode = {
+        StandardCode = {
           '4.1.6'  => 'hasmoved',     # Destination mailbox has moved, No forwarding address
           '4.1.7'  => 'rejected',     # Bad sender's mailbox address syntax
           '4.1.8'  => 'rejected',     # Bad sender's system address
@@ -632,7 +632,7 @@ module Sisimai
           '5.7.27' => 'rejected',     # Sender address has null MX
         }
 
-        @@InternalCode = {
+        InternalCode = {
           'temporary' => {
             'blocked'      => '4.0.971',
             'contenterror' => '4.0.960',
@@ -695,8 +695,8 @@ module Sisimai
           return '' unless argv1
           return '' unless argv1.size > 0
 
-          table = argv2 ? @@InternalCode['temporary'] : @@InternalCode['permanent']
-          code0 = table[argv1] || @@InternalCode['permanent'][argv1] || ''
+          table = argv2 ? InternalCode['temporary'] : InternalCode['permanent']
+          code0 = table[argv1] || InternalCode['permanent'][argv1] || ''
           return code0
         end
 
@@ -709,7 +709,7 @@ module Sisimai
           return '' unless argv1
           return '' unless argv1.size > 0
           return '' unless argv1 =~ /\A[45][.]\d[.]\d+\z/
-          return @@StandardCode[argv1] || ''
+          return StandardCode[argv1] || ''
         end
 
         # Get a DSN code value from given string including DSN
