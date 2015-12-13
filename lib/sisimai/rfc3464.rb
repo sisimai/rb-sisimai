@@ -7,7 +7,7 @@ module Sisimai
       require 'sisimai/rfc5322'
 
       # http://tools.ietf.org/html/rfc3464
-      @@Re0 = {
+      Re0 = {
         'from'        => %r/\b(?:postmaster|mailer-daemon|root)[@]/i,
         'return-path' => %r/(?:[<][>]|mailer-daemon)/i,
         'subject'     => %r{(?>
@@ -21,7 +21,7 @@ module Sisimai
           )
         }xi,
       }
-      @@Re1 = {
+      Re1 = {
         'begin' => %r{\A(?>
            Content-Type:[ ]*(?:
              message/delivery-status
@@ -43,13 +43,13 @@ module Sisimai
         'command'=> %r/[ ](RCPT|MAIL|DATA)[ ]+command\b/,
       }
 
-      @@Indicators = Sisimai::MTA.INDICATORS
-      @@LongFields = Sisimai::RFC5322.LONGFIELDS
-      @@RFC822Head = Sisimai::RFC5322.HEADERFIELDS
+      Indicators = Sisimai::MTA.INDICATORS
+      LongFields = Sisimai::RFC5322.LONGFIELDS
+      RFC822Head = Sisimai::RFC5322.HEADERFIELDS
 
       def description; 'Fallback Module for MTAs'; end
       def smtpagent;   'RFC3464'; end
-      def pattern;     return @@Re0; end
+      def pattern;     return Re0; end
       def headerlist;  return []; end
 
       # Detect an error for RFC3464
@@ -93,27 +93,27 @@ module Sisimai
 
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            if e =~ @@Re1['begin']
-              readcursor |= @@Indicators['deliverystatus']
+            if e =~ Re1['begin']
+              readcursor |= Indicators['deliverystatus']
               next
             end
           end
 
-          if readcursor & @@Indicators['message-rfc822'] > 0
+          if readcursor & Indicators['message-rfc822'] > 0
             # Beginning of the original message part
-            if e =~ @@Re1['rfc822']
-              readcursor |= @@Indicators['message-rfc822']
+            if e =~ Re1['rfc822']
+              readcursor |= Indicators['message-rfc822']
               next
             end
           end
 
-          if readcursor & @@Indicators['message-rfc822'] > 0
+          if readcursor & Indicators['message-rfc822'] > 0
             # After "message/rfc822"
             if cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*.+\z/)
               # Get required headers only
               lhs = cv[1].downcase
               previousfn = '';
-              next unless @@RFC822Head.key?(lhs)
+              next unless RFC822Head.key?(lhs)
 
               previousfn  = lhs
               rfc822part += e + "\n"
@@ -121,18 +121,18 @@ module Sisimai
             elsif e =~ /\A\s+/
               # Continued line from the previous line
               next if rfc822next[previousfn]
-              rfc822part += e + "\n" if @@LongFields.key?(previousfn)
+              rfc822part += e + "\n" if LongFields.key?(previousfn)
 
             else
               # Check the end of headers in rfc822 part
-              next unless @@LongFields.key?(previousfn)
+              next unless LongFields.key?(previousfn)
               next if e.size > 0
               rfc822next[previousfn] = true
             end
 
           else
             # Before "message/rfc822"
-            next unless readcursor & @@Indicators['deliverystatus'] > 0
+            next unless readcursor & Indicators['deliverystatus'] > 0
             next unless e.size > 0
 
             v = dscontents[-1]
@@ -315,7 +315,7 @@ module Sisimai
                 else
                   # Get error message
                   next if e =~ /\A[ -]+/
-                  next unless e =~ @@Re1['error']
+                  next unless e =~ Re1['error']
 
                   # 500 User Unknown
                   # <kijitora@example.jp> Unknown
@@ -333,12 +333,12 @@ module Sisimai
           match = 0
 
           # Failed to get a recipient address at code above
-          match += 1 if mhead['from']    =~ @@Re0['from']
-          match += 1 if mhead['subject'] =~ @@Re0['subject']
+          match += 1 if mhead['from']    =~ Re0['from']
+          match += 1 if mhead['subject'] =~ Re0['subject']
 
           if mhead['return-path']
             # Check the value of Return-Path of the message
-            match += 1 if mhead['return-path'] =~ @@Re0['return-path']
+            match += 1 if mhead['return-path'] =~ Re0['return-path']
           end
           break unless match > 0
 
@@ -407,8 +407,8 @@ module Sisimai
           b = dscontents[-1]
           mbody.split("\n").each do |e|
             # Get the recipient's email address and error messages.
-            break if e =~ @@Re1['endof']
-            break if e =~ @@Re1['rfc822']
+            break if e =~ Re1['endof']
+            break if e =~ Re1['rfc822']
             break if e =~ re_stop
 
             next if e.size == 0
@@ -470,7 +470,7 @@ module Sisimai
             e['agent'] = self.smtpagent
           end
           e['status'] ||= Sisimai::SMTP::Status.find(e['diagnosis'])
-          if cv = e['diagnosis'].match(@@Re1['command'])
+          if cv = e['diagnosis'].match(Re1['command'])
             e['command'] = cv[1]
           end
 
