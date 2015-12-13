@@ -17,11 +17,14 @@ module Sisimai
 
           damneddata = argvs.damn
           jsonstring = nil
+          jsonoption = ::JSON::state.new
 
           begin
-            jsonstring = ::JSON.generate(damneddata)
+            jsonoption.space = ' '
+            jsonoption.object_nl = ' '
+            jsonstring = ::JSON.generate(damneddata )
           rescue
-            warn '***warning: Failed to JSON.generate' + damneddata
+            warn '***warning: Failed to JSON.generate'
           end
 
           return jsonstring
