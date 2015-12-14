@@ -188,7 +188,7 @@ module Sisimai
 
         # Fallback: Get the sender address from the header of the bounced
         # email if the address is not set at loop above.
-        p['addresser'] ||= messageobj['header']['to'] 
+        p['addresser'] ||= messageobj.header['to'] 
 
         if p['alias'] && Sisimai::RFC5322.is_emailaddress(p['alias'])
           # Alias address should be the value of "recipient", Replace the
@@ -216,7 +216,7 @@ module Sisimai
 
         if datevalues.size < 2
           # Set "date" getting from the value of "Date" in the bounce message
-          datevalues << messageobj['header']['date']
+          datevalues << messageobj.header['date']
         end
 
         datevalues.each do |v|
