@@ -151,7 +151,7 @@ module Sisimai
             end
           end
 
-          if reascursor & Indicators[:'message-rfc822'] > 0
+          if readcursor & Indicators[:'message-rfc822'] > 0
             # After "message/rfc822"
             if cv = e.match(/X-HmXmrOriginalRecipient:[ ]*(.+)\z/)
               # Microsoft ARF: original recipient.
@@ -303,7 +303,7 @@ module Sisimai
             e['recipient'] = Sisimai::Address.s3s4(rcptintext)
           end
           arfheaders.each_key { |a| e[a] ||= arfheaders[a] || '' }
-          e['diagnosis'] = commondata['diagnosis'] if e['diagnosis'].empty?
+          e['diagnosis'] = commondata['diagnosis'] unless e['diagnosis']
           e['date'] = mhead['date'] if e['date'].empty?
 
           if e['rhost'].empty?
@@ -322,8 +322,8 @@ module Sisimai
           if mhead['received'].size > 0
             # Get localhost and remote host name from Received header.
             r = mhead['received']
-            e['lhost'] = Sisimai::RFC5322.received(r[0]).shift if e['lhost'].empty?
-            e['rhost'] = Sisimai::RFC5322.received(r[-1]).pop if e['rhost'].empty?
+            e['lhost'] = Sisimai::RFC5322.received(r[0]).shift unless e['lhost']
+            e['rhost'] = Sisimai::RFC5322.received(r[-1]).pop  unless e['rhost']
           end
 
           e['spec']    = 'SMTP'
