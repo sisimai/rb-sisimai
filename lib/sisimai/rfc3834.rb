@@ -117,9 +117,10 @@ module Sisimai
             break if blanklines > 1
             next
           end
-
           next unless e =~ / /
-          v['diagnosis'] += e + ' '
+
+          v['diagnosis'] ||= ''
+          v['diagnosis']  += e + ' '
           haveloaded += 1
           break if haveloaded >= maxmsgline
         end
