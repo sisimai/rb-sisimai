@@ -247,7 +247,8 @@ module Sisimai
             structured[currheader][-1] += ' ' + cv[1]
 
           else
-            structured[currheader] += ' ' + cv[1]
+            structured[currheader] ||= ''
+            structured[currheader]  += ' ' + cv[1]
           end
         end
       end
@@ -317,7 +318,6 @@ module Sisimai
             else
               # Is not Subject header
               takenapart[previousfn] += e
-
             end
             mimeborder[previousfn] = true
 
@@ -408,8 +408,8 @@ module Sisimai
       # Get the original text when the subject begins from 'fwd:' or 'fw:'
       if mailheader['subject'] =~ /\A\s*fwd?:/i
         # Delete quoted strings, quote symbols(>)
-        bodystring = gsub(/^[>]+[ ]/m, '')
-        bodystring = gsub(/^[>]$/m, '')
+        bodystring = bodystring.gsub(/^[>]+[ ]/m, '')
+        bodystring = bodystring.gsub(/^[>]$/m, '')
       end
       bodystring += EndOfEmail
       haveloaded = {}
