@@ -319,7 +319,8 @@ module Sisimai
 
                   # 500 User Unknown
                   # <kijitora@example.jp> Unknown
-                  v['alterrors'] += ' ' + e
+                  v['alterrors'] ||= ' '
+                  v['alterrors']  += ' ' + e
                 end
               end
             end
@@ -433,8 +434,9 @@ module Sisimai
               # (expanded from: neko@example.jp)
               b['alias'] = Sisimai::Address.s3s4(cv[1])
             end
-            b['diagnosis'] += ' ' + e
-          end 
+            b['diagnosis'] ||= ''
+            b['diagnosis']  += ' ' + e
+          end
 
           break
         end
@@ -456,7 +458,7 @@ module Sisimai
             end
             e.delete('alterrors')
           end
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
 
           if scannedset
             # Make bounce data by the values returned from Sisimai::MDA->scan()
@@ -469,6 +471,7 @@ module Sisimai
             # Set the value of smtpagent
             e['agent'] = self.smtpagent
           end
+
           e['status'] ||= Sisimai::SMTP::Status.find(e['diagnosis'])
           if cv = e['diagnosis'].match(Re1[:command])
             e['command'] = cv[1]
