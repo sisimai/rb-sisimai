@@ -32,7 +32,7 @@ module Sisimai
         def headerlist;  return []; end
         def pattern;     return Re0; end
 
-        # Detect an error from Sendmail
+        # Parse bounce messages from Sendmail
         # @param         [Hash] mhead       Message header of a bounce email
         # @options mhead [String] from      From header
         # @options mhead [String] date      Date header
@@ -271,7 +271,7 @@ module Sisimai
             end
 
             e['spec']    ||= 'SMTP'
-            e['agent']     = self.smtpagent
+            e['agent']     = Sisimai::MTA::Sendmail.smtpagent
             e['command'] ||= commandtxt || ''
             e['command'] ||= 'EHLO' if esmtpreply.size > 0
 
