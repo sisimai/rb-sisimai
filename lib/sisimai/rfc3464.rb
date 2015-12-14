@@ -445,7 +445,7 @@ module Sisimai
         require 'sisimai/string'
         require 'sisimai/smtp/status'
 
-        dscontents.map! do |e|
+        dscontents.map do |e|
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
 
