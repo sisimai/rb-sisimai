@@ -143,7 +143,7 @@ module Sisimai
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] > 0
+          if readcursor & Indicators[:'message-rfc822'] == 0
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -176,7 +176,7 @@ module Sisimai
               rhs = cv[2]
 
               previousfn = ''
-              next unless RFC822Head.key?[lhs]
+              next unless RFC822Head.key?(lhs)
 
               previousfn  = lhs
               rfc822part += e + "\n"
@@ -184,7 +184,7 @@ module Sisimai
 
             elsif e =~ /\A\s+/
               # Continued line from the previous line
-              rfc822part += e + "\n" if LongFields.key?[previousfn]
+              rfc822part += e + "\n" if LongFields.key?(previousfn)
               next if e.size > 0
               rcptintext += e if previousfn == 'to'
             end
@@ -297,7 +297,7 @@ module Sisimai
             arfheaders['rhost'], mhead['date'])
         end
 
-        dscontents.map! do |e|
+        dscontents.map do |e|
           if e['recipient'] =~ /\A[^ ]+[@]\z/
             # AOL = http://forums.cpanel.net/f43/aol-brutal-work-71473.html
             e['recipient'] = Sisimai::Address.s3s4(rcptintext)
