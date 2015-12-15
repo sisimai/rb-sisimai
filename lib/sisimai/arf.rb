@@ -88,7 +88,7 @@ module Sisimai
         require 'sisimai/address'
         dscontents = []; dscontents << Sisimai::MTA.DELIVERYSTATUS
         hasdivided = mbody.split("\n")
-        havepassed = [''];
+        havepassed = ['']
         rfc822next = { 'from' => false, 'to' => false, 'subject' => false }
         rfc822part = ''   # (String) message/rfc822-headers part
         previousfn = ''   # (String) Previous field name
@@ -285,7 +285,7 @@ module Sisimai
           # There is no "From:" header in the original message
           if commondata['from'].size > 0
             # Append the value of "Original-Mail-From" value as a sender address.
-            rfc822part += sprintf('From: %s\n', commondata['from'])
+            rfc822part += sprintf("From: %s\n", commondata['from'])
           end
         end
 
@@ -303,8 +303,11 @@ module Sisimai
             e['recipient'] = Sisimai::Address.s3s4(rcptintext)
           end
           arfheaders.each_key { |a| e[a] ||= arfheaders[a] || '' }
-          e['diagnosis'] = commondata['diagnosis'] unless e['diagnosis']
-          e['date'] = mhead['date'] if e['date'].empty?
+          e.delete('authres')
+
+          e['softbounce'] = -1
+          e['diagnosis']  = commondata['diagnosis'] unless e['diagnosis']
+          e['date']       = mhead['date'] if e['date'].empty?
 
           if e['rhost'].empty?
             # Get the remote IP address from the message body
@@ -330,9 +333,10 @@ module Sisimai
           e['action']  = 'failed'
           e['reason']  = 'feedback'
           e['command'] = ''
+          e['status']  = ''
+          e['alias']   = ''
           e['agent']   = self.smtpagent if e['agent'].empty?
         end
-
         return { 'ds' => dscontents, 'rfc822' => rfc822part }
       end
     end
