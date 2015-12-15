@@ -60,7 +60,7 @@ module Sisimai
         methodargv[e] = argvs[e]
       end
 
-      parameters = self.resolve(methodargv)
+      parameters = Sisimai::Message.resolve(methodargv)
       return nil unless parameters
       return nil unless parameters.key?('ds')
 
@@ -74,7 +74,7 @@ module Sisimai
     # @param         [Hash] argvs   Email data
     # @options argvs [String] data  Entire email message
     # @return        [Hash]         Resolved data structure
-    def resolve(argvs)
+    def self.resolve(argvs)
       email = argvs['data']
 
       processing = { 'from' => '', 'header' => {}, 'rfc822' => '', 'ds' => [] }
@@ -95,7 +95,7 @@ module Sisimai
           begin
             require v.to_s.gsub('::','/').downcase
           rescue LoadError
-            warn '***warning: Failed to load ' + v
+            warn ' ***warning: Failed to load ' + v
             next
           end
 
@@ -114,7 +114,7 @@ module Sisimai
       end
 
       # 0. Split email data to headers and a body part.
-      aftersplit = self.divideup(email)
+      aftersplit = Sisimai::Message.divideup(email)
       return nil if aftersplit.empty?
 
       # 1. Initialize variables for setting the value of each email header.
@@ -122,16 +122,16 @@ module Sisimai
 
       # 2. Convert email headers from text to hash reference
       processing['from']   = aftersplit['from']
-      processing['header'] = self.headers(aftersplit['header'])
+      processing['header'] = Sisimai::Message.headers(aftersplit['header'])
 
       # 3. Check headers for detecting MTA/MSP module
       if @@TryOnFirst.empty?
-        @@TryOnFirst.concat(self.makeorder(processing['header']))
+        @@TryOnFirst.concat(Sisimai::Message.makeorder(processing['header']))
       end
 
       # 4. Rewrite message body for detecting the bounce reason
       methodargv = { 'mail' => processing, 'body' => aftersplit['body'] }
-      bouncedata = self.rewrite(methodargv)
+      bouncedata = Sisimai::Message.rewrite(methodargv)
 
       return nil unless bouncedata
       return nil if bouncedata.empty?
@@ -139,7 +139,7 @@ module Sisimai
 
       # 5. Rewrite headers of the original message in the body part
       rfc822part = bouncedata['rfc822'] || aftersplit['body']
-      processing['rfc822'] = self.takeapart(rfc822part)
+      processing['rfc822'] = Sisimai::Message.takeapart(rfc822part)
 
       return processing
     end
@@ -147,7 +147,7 @@ module Sisimai
     # Divide email data up headers and a body part.
     # @param         [String] email  Email data
     # @return        [Hash]          Email data after split
-    def divideup(email)
+    def self.divideup(email)
       return {} if email.empty?
 
       hasdivided = email.split("\n")
@@ -198,7 +198,7 @@ module Sisimai
     # Convert email headers from text to hash reference
     # @param         [String] heads  Email header data
     # @return        [Hash]          Structured email header data
-    def headers(heads)
+    def self.headers(heads)
       return nil unless heads
 
       currheader = ''
@@ -258,7 +258,7 @@ module Sisimai
     # Check headers for detecting MTA/MSP module and returns the order of modules
     # @param         [Hash] heads   Email header data
     # @return        [Array]        Order of MTA/MSP modules
-    def makeorder(heads)
+    def self.makeorder(heads)
       return [] unless heads
       return [] if heads['subject'].empty?
       order = []
@@ -279,7 +279,7 @@ module Sisimai
     # Take each email header in the original message apart
     # @param         [String] heads The original message header
     # @return        [Hash]         Structured message headers
-    def takeapart(heads)
+    def self.takeapart(heads)
       return {} unless heads
 
       # Convert from string to hash reference
@@ -323,7 +323,7 @@ module Sisimai
 
           else
             # ASCII Characters only: Not MIME-Encoded
-            takenapart[previousfn] += e
+            takenapart[previousfn]  += e
             mimeborder[previousfn] ||= false
           end
         end
@@ -368,7 +368,7 @@ module Sisimai
     # @param options argvs [String] body   Email message body
     # @param options argvs [Array] load    MTA/MSP module list to load on first
     # @return              [Hash]          Parsed and structured bounce mails
-    def rewrite(argvs)
+    def self.rewrite(argvs)
       mesgentity = argvs['mail']
       bodystring = argvs['body']
       mailheader = mesgentity['header']
@@ -377,7 +377,7 @@ module Sisimai
       return nil unless argvs['body']
 
       # PRECHECK_EACH_HEADER:
-      # Set empty string if the value is undefined
+      # Set empty string if the value is nil
       mailheader['from']         ||= ''
       mailheader['subject']      ||= ''
       mailheader['content-type'] ||= ''
@@ -412,8 +412,8 @@ module Sisimai
         bodystring = bodystring.gsub(/^[>]$/m, '')
       end
       bodystring += EndOfEmail
-      haveloaded = {}
-      scannedset = nil
+      haveloaded  = {}
+      scannedset  = nil
 
       catch :SCANNER do
         loop do
@@ -436,7 +436,7 @@ module Sisimai
             begin
               require r.gsub('::','/').downcase
             rescue LoadError
-              warn '***warning: Failed to load ' + r
+              warn ' ***warning: Failed to load ' + r
               next
             end
             scannedset = Module.const_get(r).scan(mailheader, bodystring)
@@ -451,7 +451,7 @@ module Sisimai
             begin
               require r.gsub('::','/').downcase
             rescue LoadError
-              warn '***warning: Failed to load ' + r
+              warn ' ***warning: Failed to load ' + r
               next
             end
             scannedset = Module.const_get(r).scan(mailheader, bodystring)
