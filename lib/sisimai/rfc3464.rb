@@ -486,8 +486,8 @@ module Sisimai
 
           e['date'] ||= mhead['date']
           e['spec'] ||= 'SMTP'
+          e.each_key { |a| e[a] ||= '' }
         end
-
         return { 'ds' => dscontents, 'rfc822' => rfc822part }
       end
 
