@@ -6,8 +6,8 @@ require 'sisimai/arf'
 require 'sisimai/rfc3464'
 require 'sisimai/rfc3834'
 
-X = /\A(?:RFC3464|dovecot|mail[.]local|procmail|maildrop|vpopmail|vmailmgr)/
-R = {
+MDAPatterns = /\A(?:RFC3464|dovecot|mail[.]local|procmail|maildrop|vpopmail|vmailmgr)/
+MTARelative = {
   'ARF' => {
     '01' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /abuse/ },
     '02' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /abuse/ },
@@ -61,7 +61,7 @@ R = {
   },
 }
 
-R.each_key do |x|
+MTARelative.each_key do |x|
   cn = Module.const_get('Sisimai::' + x)
 
   describe cn do
@@ -77,7 +77,7 @@ R.each_key do |x|
       it('returns nil') { expect(cn.scan(nil,nil)).to be nil }
     end
 
-    (1 .. R[x].keys.size).each do |i|
+    (1 .. MTARelative[x].keys.size).each do |i|
       emailfn = sprintf('./eg/maildir-as-a-sample/new/%s-%02d.eml', x.downcase, i)
       mailbox = Sisimai::Mail.new(emailfn)
       mailtxt = nil
@@ -122,14 +122,14 @@ R.each_key do |x|
 
           if x == 'ARF'
             example sprintf('[%s] %s[feedbacktype] = %s', n, x, e['feedbacktype']) do
-              expect(e['feedbacktype']).to match(R['ARF'][n]['feedbacktype'])
+              expect(e['feedbacktype']).to match(MTARelative['ARF'][n]['feedbacktype'])
             end
           end
 
           unless x == 'mFILTER'
             if x == 'RFC3464'
               example sprintf('[%s] %s[agent] = %s', n, x, e['agent']) do
-                expect(e['agent']).to match(X)
+                expect(e['agent']).to match(MDAPatterns)
               end
             else
               example sprintf('[%s] %s[agent] = %s', n, x, e['agent']) do
@@ -235,11 +235,11 @@ R.each_key do |x|
           end
 
           example sprintf('[%s] %s#deliverystatus = %s', n, x, e.deliverystatus) do
-            expect(e.deliverystatus).to match(R[x][n]['status'])
+            expect(e.deliverystatus).to match(MTARelative[x][n]['status'])
           end
 
           example sprintf('[%s] %s#reason = %s', n, x, e.reason) do
-            expect(e.reason).to match(R[x][n]['reason'])
+            expect(e.reason).to match(MTARelative[x][n]['reason'])
           end
 
           example sprintf('[%s] %s#token = %s', n, x, e.token) do
@@ -248,7 +248,7 @@ R.each_key do |x|
 
           if x == 'ARF'
             example sprintf('[%s] %s#feedbacktype = %s', n, x, e.feedbacktype) do
-              expect(e.feedbacktype).to match(R['ARF'][n]['feedbacktype'])
+              expect(e.feedbacktype).to match(MTARelative['ARF'][n]['feedbacktype'])
             end
           end
 
