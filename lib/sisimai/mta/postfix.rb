@@ -72,7 +72,7 @@ module Sisimai
           connvalues = 0      # (Integer) Flag, 1 if all the value of $connheader have been set
           connheader = {
             'date'  => '',    # The value of Arrival-Date header
-            'rhost' => '',    # The value of Reporting-MTA header
+            'lhost' => '',    # The value of Received-From-MTA header
           }
           anotherset = {}     # Another error information
           v = nil
@@ -279,6 +279,7 @@ module Sisimai
             end
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
             e['spec']    ||= 'SMTP' if e['diagnosis'] =~ /host .+ said:/
+            e['status']  ||= ''
 
             if mhead['received'].size > 0
               # Get localhost and remote host name from Received header.
