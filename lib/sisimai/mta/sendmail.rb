@@ -302,7 +302,7 @@ module Sisimai
                 e['recipient'] = cv[1]
               end
             end
-
+            e.each_key { |a| e[a] ||= '' }
           end
           return { 'ds' => dscontents, 'rfc822' => rfc822part }
 
