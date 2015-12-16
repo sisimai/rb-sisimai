@@ -170,14 +170,13 @@ module Sisimai
       # Make default order of MTA/MSP modules to be loaded
       # @return   [Array] Default order list of MTA/MSP modules
       def default
-        return [ 'Sisimai::MTA::Sendmail' ]
         return DefaultOrder
       end
 
       # Make MTA/MSP module list as a spare
       # @return   [Array] Ordered module list
       def another
-        return [ 'Sisimai::MTA::Sendmail' ]
+        return [ 'Sisimai::MTA::Sendmail', 'Sisimai::MTA::Postfix' ]
         rv = []
         rv.concat(AnotherList1)
         rv.concat(AnotherList2)
@@ -199,7 +198,7 @@ module Sisimai
           begin
             require e.gsub('::','/').downcase
           rescue LoadError
-            warn '***warning: Failed to load ' + e
+            warn ' ***warning: Failed to load ' + e
             next
           end
 
