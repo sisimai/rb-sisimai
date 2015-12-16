@@ -139,6 +139,8 @@ module Sisimai
           v['lhost'] ||= Sisimai::RFC5322.received(r[0]).shift
           v['rhost'] ||= Sisimai::RFC5322.received(r[-1]).pop
         end
+
+        v.each_key { |a| v[a] ||= '' }
         return { 'ds' => dscontents, 'rfc822' => '' }
       end
 
