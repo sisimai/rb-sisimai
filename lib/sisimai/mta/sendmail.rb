@@ -272,8 +272,10 @@ module Sisimai
 
             e['spec']    ||= 'SMTP'
             e['agent']     = Sisimai::MTA::Sendmail.smtpagent
-            e['command'] ||= commandtxt || ''
-            e['command'] ||= 'EHLO' if esmtpreply.size > 0
+            e['command'] ||= commandtxt
+            if e['command'].empty?
+              e['command'] = 'EHLO' if esmtpreply.size > 0
+            end
 
             if anotherset['diagnosis']
               # Copy alternative error message
