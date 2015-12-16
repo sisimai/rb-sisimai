@@ -60,11 +60,11 @@ module Sisimai
       v1 = []
 
       if x0.is_a? Array
-          v0 = Sisimai::Address.new(x0.shift)
-          if v0.is_a? Sisimai::Address
-            @addresser = v0
-            @senderdomain = v0.host
-          end
+        v0 = Sisimai::Address.new(x0.shift)
+        if v0.is_a? Sisimai::Address
+          @addresser = v0
+          @senderdomain = v0.host
+        end
       end
 
       if y0.is_a? Array
@@ -72,7 +72,7 @@ module Sisimai
         if v0.is_a? Sisimai::Address
           @recipient = v0
           @destination = v0.host
-          @alias = argvs['alias']
+          @alias = argvs['alias'] || ''
         end
       end
       return nil unless @recipient.is_a? Sisimai::Address
@@ -81,13 +81,6 @@ module Sisimai
       @token = Sisimai::String.token(@addresser.address, @recipient.address, argvs['timestamp'])
       @timestamp = Sisimai::Time.parse(::Time.at(argvs['timestamp']).to_s)
       @timezoneoffset = argvs['timezoneoffset'] || '+0000'
-
-      v1 = [ 
-        'listid', 'subject', 'messageid', 'smtpagent', 'diagnosticcode',
-        'diagnostictype', 'deliverystatus', 'reason', 'lhost', 'rhost', 
-        'smtpcommand', 'feedbacktype', 'action', 'softbounce',
-      ]
-      v1.each { |e| thing[e] = argvs[e] || '' }
       @lhost          = argvs['lhost']          || ''
       @rhost          = argvs['rhost']          || ''
       @reason         = argvs['reason']         || ''
@@ -102,14 +95,8 @@ module Sisimai
       @feedbacktype   = argvs['feedbacktype']   || ''
       @action         = argvs['action']         || ''
       @replycode      = Sisimai::SMTP::Reply.find(argvs['diagnosticcode'])
-
-      if @replycode[0,1] == 4
-        @softbounce = 1 
-      elsif @replycode[0,1] == 5
-        @softbounce = 0
-      else
-        @softbounce = -1
-      end
+      @softbounce     = argvs['softbounce']     || ''
+      @softbounce     = 1 if @replycode =~ /\A4/
     end
 
     # Another constructor of Sisimai::Data
@@ -188,7 +175,8 @@ module Sisimai
 
         # Fallback: Get the sender address from the header of the bounced
         # email if the address is not set at loop above.
-        p['addresser'] ||= messageobj.header['to'] 
+        p['addresser'] ||= ''
+        p['addresser']   = messageobj.header['to'] if p['addresser'].empty?
 
         if p['alias'] && Sisimai::RFC5322.is_emailaddress(p['alias'])
           # Alias address should be the value of "recipient", Replace the
@@ -241,7 +229,7 @@ module Sisimai
           t = Sisimai::Time.strptime(datestring, '%a, %d %b %Y %T')
           p['timestamp'] = ( t.to_time.to_i - zoneoffset ) || nil
         rescue
-          warn '***warning: Failed to strptime ' + datestring
+          warn ' ***warning: Failed to strptime ' + datestring
         end
         next unless p['timestamp']
 
@@ -298,14 +286,15 @@ module Sisimai
         o = Sisimai::Data.new(p)
         next unless o
 
-        if o.reason == '' || RetryIndex.index(o.reason)
+        if o.reason.empty? || RetryIndex.index(o.reason)
           # Decide the reason of email bounce
+          r = ''
           if Sisimai::Rhost.match(o.rhost)
             # Remote host dependent error
             r = Sisimai::Rhost.get(o)
           end
-          r ||= Sisimai::Reason.get(o)
-          r ||= 'undefined'
+          r = Sisimai::Reason.get(o) if r.empty?
+          r = 'undefined' if r.empty?
           o.reason = r
         end
 
@@ -317,7 +306,12 @@ module Sisimai
             ['deliverystatus', 'diagnosticcode'].each do |v|
               # Set the value of softbounce
               next unless p[v].size > 0
-              o.softbounce = Sisimai::SMTP.is_softbounce(p[v])
+              r = Sisimai::SMTP.is_softbounce(p[v])
+              if r.nil?
+                o.softbounce = -1 
+              else
+                o.softbounce = r ? 1 : 0
+              end
               break if o.softbounce > -1
             end
             o.softbounce = -1 if o.softbounce.to_s.empty?
@@ -328,13 +322,21 @@ module Sisimai
             pdsv = nil  # Pseudo delivery status value
             torp = nil  # Temporary or Permanent
 
-            torp = o.softbounce == 1 ? 1 : 0
+            torp = o.softbounce == 1 ? true : false
             pdsv = Sisimai::SMTP::Status.code(o.reason, torp)
 
             if pdsv.size > 0
               # Set the value of "deliverystatus" and "softbounce".
               o.deliverystatus = pdsv
-              o.softbounce = Sisimai::SMTP.is_softbounce(pdsv) if o.softbounce < 0
+              if o.softbounce == -1
+                # Check the value of "softbounce" again
+                torp = Sisimai::SMTP.is_softbounce(pdsv)
+                if torp.nil?
+                  o.softbounce = -1
+                else
+                  o.softbounce = torp ? 1 : 0
+                end
+              end
             end
           end 
         else
