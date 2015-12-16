@@ -53,7 +53,7 @@ module Sisimai
           currreason = argvs.reason || ''
           reexcludes = %r/\A(?:securityerror|systemerror|undefined)\z/
 
-          if currreason
+          if currreason.size > 0
             # Do not overwrite the reason
             return false if currreason =~ reexcludes
           else
