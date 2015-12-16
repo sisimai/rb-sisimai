@@ -38,7 +38,7 @@ describe Sisimai::Rhost::GoogleApps do
           example('diagnosis is not empty') { expect(e['diagnosis']).not_to be_empty }
           example('action is not empty') { expect(e['action']).not_to be_empty }
           example('rhost is ' + mtahost) { expect(e['rhost']).to be == mtahost }
-          example('alias is nil') { expect(e['alias']).to be nil }
+          example('alias is ""') { expect(e['alias']).to be_empty }
           example('agent is Sendmail') { expect(e['agent']).to be == 'Sendmail' }
         end
 
