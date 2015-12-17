@@ -325,8 +325,9 @@ module Sisimai
           if mhead['received'].size > 0
             # Get localhost and remote host name from Received header.
             r = mhead['received']
-            e['lhost'] = Sisimai::RFC5322.received(r[0]).shift unless e['lhost']
-            e['rhost'] = Sisimai::RFC5322.received(r[-1]).pop  unless e['rhost']
+            ['lhost', 'rhost'].each { |a| e[a] ||= '' }
+            e['lhost'] = Sisimai::RFC5322.received(r[0]).shift if e['lhost'].empty?
+            e['rhost'] = Sisimai::RFC5322.received(r[-1]).pop  if e['rhost'].empty?
           end
 
           e['spec']    = 'SMTP'
