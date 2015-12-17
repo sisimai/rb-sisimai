@@ -41,7 +41,7 @@ module Sisimai
       # @return   [Array] MTA list with order
       def index
         return [
-          'Sendmail', 'Postfix', 'qmail', 'Exim', 'Courier', 'OpenSMTPD',
+          'Sendmail', 'Postfix', 'Qmail', 'Exim', 'Courier', 'OpenSMTPD',
           'Exchange', 'MessagingServer', 'Domino', 'Notes', 'ApacheJames',
           'McAfee', 'MXLogic', 'MailFoundry', 'IMailServer', 'mFILTER',
           'Activehunter', 'InterScanMSS', 'SurfControl', 'MailMarshalSMTP',
