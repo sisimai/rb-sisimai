@@ -23,7 +23,7 @@ module Sisimai
       AnotherList3 = [
         # These modules have no MTA specific header but listed in the following
         # subject header based regular expressions.
-        'Sisimai::MTA::qmail',
+        'Sisimai::MTA::Qmail',
         'Sisimai::MTA::Notes',
         'Sisimai::MTA::MessagingServer',
         'Sisimai::MTA::Domino',
@@ -96,7 +96,7 @@ module Sisimai
             'Sisimai::MTA::X2',
           ],
           %r/noti(?:ce|fi)/i => [
-            'Sisimai::MTA::qmail',
+            'Sisimai::MTA::Qmail',
             'Sisimai::MTA::Sendmail',
             'Sisimai::MSP::US::Google',
             'Sisimai::MSP::US::Outlook',
@@ -127,7 +127,7 @@ module Sisimai
             'Sisimai::MTA::MailMarshalSMTP',
           ],
           %r/failure/i => [ 
-            'Sisimai::MTA::qmail',
+            'Sisimai::MTA::Qmail',
             'Sisimai::MTA::Domino',
             'Sisimai::MSP::US::Google',
             'Sisimai::MSP::US::Outlook',
@@ -176,7 +176,9 @@ module Sisimai
       # Make MTA/MSP module list as a spare
       # @return   [Array] Ordered module list
       def another
-        return [ 'Sisimai::MTA::Sendmail', 'Sisimai::MTA::Postfix' ]
+        return [ 
+          'Sisimai::MTA::Sendmail', 'Sisimai::MTA::Postfix', 'Sisimai::MTA::Qmail',
+        ]
         rv = []
         rv.concat(AnotherList1)
         rv.concat(AnotherList2)
