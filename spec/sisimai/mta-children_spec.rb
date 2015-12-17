@@ -64,6 +64,18 @@ MTAChildren = {
     '20' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/onhold/ },
     '21' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/networkerror/ },
   },
+  'Qmail' => {
+    '01' => { 'status' => %r/\A5[.]5[.]0\z/, 'reason' => %r/userunknown/ },
+    '02' => { 'status' => %r/\A5[.][12][.]1\z/, 'reason' => %r/(?:userunknown|filtered)/ },
+    '03' => { 'status' => %r/\A5[.]7[.]1\z/, 'reason' => %r/rejected/ },
+    '04' => { 'status' => %r/\A5[.]0[.]0\z/, 'reason' => %r/blocked/ },
+    '05' => { 'status' => %r/\A4[.]4[.]3\z/, 'reason' => %r/systemerror/ },
+    '06' => { 'status' => %r/\A4[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
+    '07' => { 'status' => %r/\A4[.]4[.]1\z/, 'reason' => %r/networkerror/ },
+    '08' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mailboxfull/ },
+    '09' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/undefined/ },
+  },
+  
 }
 
 MTAChildren.each_key do |x|
@@ -132,6 +144,10 @@ MTAChildren.each_key do |x|
           elsif x == 'X4'
             example sprintf('[%s] %s[agent] = %s', n, x, e['agent']) do
               expect(e['agent']).to match(/(?:qmail|X4)/)
+            end
+          elsif x == 'Qmail'
+            example sprintf('[%s] %s[agent] = %s', n, x, e['agent']) do
+              expect(e['agent']).to be == 'qmail'
             end
           else
             example sprintf('[%s] %s[agent] = %s', n, x, e['agent']) do
