@@ -178,6 +178,7 @@ module Sisimai
       def another
         return [ 
           'Sisimai::MTA::Sendmail', 'Sisimai::MTA::Postfix', 'Sisimai::MTA::Qmail',
+          'Sisimai::MTA::OpenSMTPD', 'Sisimai::MTA::Exim',
         ]
         rv = []
         rv.concat(AnotherList1)
@@ -204,10 +205,11 @@ module Sisimai
             next
           end
 
-          Module.const_get(e).headerlist do |v|
+          Module.const_get(e).headerlist.each do |v|
             # Get header name which required each MTA/MSP module
             q = v.downcase
             next if skips.key?(q)
+            table[q]  ||= {}
             table[q][e] = 1
           end
         end
