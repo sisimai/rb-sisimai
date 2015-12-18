@@ -48,7 +48,29 @@ module Sisimai
       email = argvs['data'] || ''
       return nil if email.empty?
 
-      email = email.gsub("\r\n", "\n")
+      begin
+        email.force_encoding('UTF-8')
+        email = email.gsub("\r\n", "\n")
+      rescue => ce
+        warn ' ***warning: Failed to gsub: ' + ce.to_s
+        if RUBY_VERSION < '2.1.0'
+          if require 'string/scrub'
+            candoscrub = true
+          end
+        else
+          candoscrub = true
+        end
+
+        if candoscrub
+          email = email.scrub('?')
+          email = email.gsub("\r\n", "\n")
+        else
+          warn ' ***warning: string-scrub is not installed'
+        end
+      end
+
+
+
       methodargv = { 'data' => email }
       parameters = nil
 
