@@ -457,7 +457,7 @@ module Sisimai
             next if haveloaded[r]
             begin
               require r.gsub('::','/').downcase
-            rescue LoadError
+            rescue LoadError => ce
               warn ' ***warning: Failed to load ' + r
               next
             end
@@ -472,8 +472,8 @@ module Sisimai
             next if haveloaded.key?(r)
             begin
               require r.gsub('::','/').downcase
-            rescue LoadError
-              warn ' ***warning: Failed to load ' + r
+            rescue LoadError => ce
+              warn ' ***warning: ' + ce.to_s
               next
             end
             scannedset = Module.const_get(r).scan(mailheader, bodystring)
@@ -485,9 +485,15 @@ module Sisimai
             # MTA/MSP modules which does not have MTA specific header and did
             # not match with any regular expressions of Subject header.
             next if haveloaded.key?(r)
-            scannedset = Module.const_get(r).scan(mailheader, bodystring)
-            haveloaded[r] = true
-            throw :SCANNER if scannedset
+            begin
+              scannedset = Module.const_get(r).scan(mailheader, bodystring)
+              haveloaded[r] = true
+              throw :SCANNER if scannedset
+            rescue => ce
+              warn ' ***warning: ' + ce.to_s
+              next
+            end
+
           end
 
           # When the all of Sisimai::MTA::* modules did not return bounce data,
