@@ -150,7 +150,29 @@ module Sisimai
     def self.divideup(email)
       return {} if email.empty?
 
-      hasdivided = email.split("\n")
+      hasdivided = []
+      candoscrub = false
+
+      email.force_encoding('UTF-8')
+      begin
+        hasdivided = email.split("\n")
+      rescue => ce
+        warn ' ***warning: Failed to split: ' + ce.to_s
+        if RUBY_VERSION < '2.1.0'
+          if require 'string/scrub'
+            candoscrub = true
+          end
+        else
+          candoscrub = true
+        end
+
+        if candoscrub
+          email = email.scrub('?')
+          hasdivided = email.split("\n")
+        else
+          warn ' ***warning: string-scrub is not installed'
+        end
+      end
       return {} if hasdivided.empty?
 
       readcursor = 0
