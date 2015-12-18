@@ -176,10 +176,6 @@ module Sisimai
       # Make MTA/MSP module list as a spare
       # @return   [Array] Ordered module list
       def another
-        return [ 
-          'Sisimai::MTA::Sendmail', 'Sisimai::MTA::Postfix', 'Sisimai::MTA::Qmail',
-          'Sisimai::MTA::OpenSMTPD', 'Sisimai::MTA::Exim',
-        ]
         rv = []
         rv.concat(AnotherList1)
         rv.concat(AnotherList2)
