@@ -41,6 +41,13 @@ MTAChildren = {
     '34' => { 'status' => %r/\A5[.]7[.]0\z/, 'reason' => %r/securityerror/ },
     '35' => { 'status' => %r/\A5[.]7[.]13\z/, 'reason' => %r/suspend/ },
   },
+  'OpenSMTPD' => {
+    '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+    '02' => { 'status' => %r/\A5[.][12][.][12]\z/, 'reason' => %r/(?:userunknown|mailboxfull)/ },
+    '03' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/hostunknown/ },
+    '04' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/networkerror/ },
+    '05' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+  },
   'Postfix' => {
     '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/mailererror/ },
     '02' => { 'status' => %r/\A5[.][12][.]1\z/, 'reason' => %r/(?:filtered|userunknown)/ },
@@ -75,7 +82,35 @@ MTAChildren = {
     '08' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mailboxfull/ },
     '09' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/undefined/ },
   },
-  
+  'Exim' => {
+    '01' => { 'status' => %r/\A5[.]7[.]0\z/, 'reason' => %r/blocked/ },
+    '02' => { 'status' => %r/\A5[.][12][.]1\z/, 'reason' => %r/userunknown/ },
+    '03' => { 'status' => %r/\A5[.]7[.]0\z/, 'reason' => %r/securityerror/ },
+    '04' => { 'status' => %r/\A5[.]7[.]0\z/, 'reason' => %r/blocked/ },
+    '05' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+    '06' => { 'status' => %r/\A4[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+    '07' => { 'status' => %r/\A4[.]0[.]\d+\z/, 'reason' => %r/mailboxfull/ },
+    '08' => { 'status' => %r/\A4[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+    '09' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/hostunknown/ },
+    '10' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/suspend/ },
+    '11' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/onhold/ },
+    '12' => { 'status' => %r/\A[45][.]0[.]\d+\z/, 'reason' => %r/(?:hostunknown|expired|undefined)/ },
+    '13' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/(?:onhold|undefined|mailererror)/ },
+    '14' => { 'status' => %r/\A4[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+    '15' => { 'status' => %r/\A5[.]4[.]3\z/, 'reason' => %r/systemerror/ },
+    '16' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/systemerror/ },
+    '17' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mailboxfull/ },
+    '18' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/hostunknown/ },
+    '19' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/networkerror/ },
+    '20' => { 'status' => %r/\A4[.]0[.]\d+\z/, 'reason' => %r/(?:expired|systemerror)/ },
+    '21' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+    '23' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
+    '24' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/filtered/ },
+    '25' => { 'status' => %r/\A4[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+    '26' => { 'status' => %r/\A5[.]0[.]0\z/, 'reason' => %r/mailererror/ },
+    '27' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/blocked/ },
+    '28' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mailererror/ },
+  },
 }
 
 MTAChildren.each_key do |x|
@@ -101,6 +136,7 @@ MTAChildren.each_key do |x|
 
       n = sprintf('%02d', i)
       next unless mailbox.path
+      next unless MTAChildren[x][n]
 
       example sprintf('[%s] %s/mail = %s', n, cn, emailfn) do
         expect(File.exist?(emailfn)).to be true
