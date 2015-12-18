@@ -3,6 +3,7 @@ require 'sisimai/data'
 require 'sisimai/mail'
 require 'sisimai/message'
 
+DebugOnlyTo = ''
 MTAChildren = {
   'Sendmail' => {
     '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
@@ -111,6 +112,12 @@ MTAChildren = {
     '27' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/blocked/ },
     '28' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mailererror/ },
   },
+  'Courier' => {
+    '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+    '02' => { 'status' => %r/\A5[.]0[.]0\z/, 'reason' => %r/filtered/ },
+    '03' => { 'status' => %r/\A5[.]7[.]1\z/, 'reason' => %r/blocked/ },
+    '04' => { 'status' => %r/\A5[.]0[.]0\z/, 'reason' => %r/hostunknown/ },
+  },
 }
 
 MTAChildren.each_key do |x|
@@ -130,6 +137,10 @@ MTAChildren.each_key do |x|
     end
 
     (1 .. MTAChildren[x].keys.size).each do |i|
+      if DebugOnlyTo.size > 0
+        next unless DebugOnlyTo == sprintf( "%s-%02d", x.downcase, i)
+      end
+
       emailfn = sprintf('./eg/maildir-as-a-sample/new/%s-%02d.eml', x.downcase, i)
       mailbox = Sisimai::Mail.new(emailfn)
       mailtxt = nil
