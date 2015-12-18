@@ -253,7 +253,6 @@ module Sisimai
                 end
               end
             end
-
           end
 
           return nil unless recipients > 0
