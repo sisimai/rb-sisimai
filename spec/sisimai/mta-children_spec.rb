@@ -11,6 +11,14 @@ MTAChildren = {
     '03' => { 'status' => %r/\A5[.]7[.]1\z/, 'reason' => %r/blocked/ },
     '04' => { 'status' => %r/\A5[.]0[.]0\z/, 'reason' => %r/hostunknown/ },
   },
+  'Exchange' => {
+    '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
+    '02' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
+    '03' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
+    '04' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/filtered/ },
+    '05' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
+    '06' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
+  },
   'Exim' => {
     '01' => { 'status' => %r/\A5[.]7[.]0\z/, 'reason' => %r/blocked/ },
     '02' => { 'status' => %r/\A5[.][12][.]1\z/, 'reason' => %r/userunknown/ },
