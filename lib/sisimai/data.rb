@@ -62,21 +62,27 @@ module Sisimai
       if x0.is_a? Array
         v0 = Sisimai::Address.new(x0.shift)
         if v0.is_a? Sisimai::Address
-          @addresser = v0
-          @senderdomain = v0.host
+          thing['addresser'] = v0
+          thing['senderdomain'] = v0.host
         end
       end
 
       if y0.is_a? Array
         v0 = Sisimai::Address.new(y0.shift)
         if v0.is_a? Sisimai::Address
-          @recipient = v0
-          @destination = v0.host
-          @alias = argvs['alias'] || ''
+          thing['recipient'] = v0
+          thing['destination'] = v0.host
+          thing['alias'] = argvs['alias'] || ''
         end
       end
-      return nil unless @recipient.is_a? Sisimai::Address
-      return nil unless @addresser.is_a? Sisimai::Address
+      return nil unless thing['recipient'].is_a? Sisimai::Address
+      return nil unless thing['addresser'].is_a? Sisimai::Address
+
+      @addresser    = thing['addresser']
+      @senderdomain = thing['senderdomain']
+      @recipient    = thing['recipient']
+      @destination  = thing['destination']
+      @alias        = thing['alias']
 
       @token = Sisimai::String.token(@addresser.address, @recipient.address, argvs['timestamp'])
       @timestamp = Sisimai::Time.parse(::Time.at(argvs['timestamp']).to_s)
@@ -284,7 +290,7 @@ module Sisimai
         p['smtpcommand'] = '' unless p['smtpcommand'] =~ rxcommands
 
         o = Sisimai::Data.new(p)
-        next unless o
+        next unless o.recipient
 
         if o.reason.empty? || RetryIndex.index(o.reason)
           # Decide the reason of email bounce
