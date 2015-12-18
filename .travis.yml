@@ -1,11 +1,11 @@
 language: ruby
 rvm:
-  - 2.0.0
   - 2.1.1
+  - 2.2.2
+  - 2.2.4
 # - jruby-19mode
 before_install:
   - gem update bundler
-  - gem install string-scrub
 script:
   - bundle exec rake spec
 sudo: false
