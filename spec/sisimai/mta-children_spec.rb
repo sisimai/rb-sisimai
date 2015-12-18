@@ -11,6 +11,10 @@ MTAChildren = {
     '03' => { 'status' => %r/\A5[.]7[.]1\z/, 'reason' => %r/blocked/ },
     '04' => { 'status' => %r/\A5[.]0[.]0\z/, 'reason' => %r/hostunknown/ },
   },
+  'Domino' => {
+    '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
+    '02' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
+  },
   'Exchange' => {
     '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
     '02' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
