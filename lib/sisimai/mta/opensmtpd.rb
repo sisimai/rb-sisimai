@@ -88,7 +88,7 @@ module Sisimai
         def headerlist;  return []; end
         def pattern;     return Re0; end
 
-        # Parse bounce messages from Sendmail
+        # Parse bounce messages from OpenSMTPD
         # @param         [Hash] mhead       Message header of a bounce email
         # @options mhead [String] from      From header
         # @options mhead [String] date      Date header
