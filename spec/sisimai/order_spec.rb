@@ -29,7 +29,7 @@ describe Sisimai::Order do
     headers.each_key do |e|
       it('has a Hash') { expect(headers[e]).to be_a Hash }
       it 'have some header names' do
-        expect(headers[e].key.size).to be > 0
+        expect(headers[e].keys.size).to be > 0
       end
       headers[e].each_key do |f|
         it('has a value(1)') { expect(headers[e][f]).to be == 1 }
