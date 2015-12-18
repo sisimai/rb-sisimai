@@ -84,6 +84,7 @@ MTARelative.each_key do |x|
 
       n = sprintf('%02d', i)
       next unless mailbox.path
+      next unless MTARelative[x][n]
 
       example sprintf('[%s] %s/mail = %s', n, cn, emailfn) do
         expect(File.exist?(emailfn)).to be true
