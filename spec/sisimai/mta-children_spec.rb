@@ -5,6 +5,10 @@ require 'sisimai/message'
 
 DebugOnlyTo = ''
 MTAChildren = {
+  'Activehunter' => {
+    '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+    '02' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/filtered/ },
+  },
   'Courier' => {
     '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
     '02' => { 'status' => %r/\A5[.]0[.]0\z/, 'reason' => %r/filtered/ },
