@@ -52,6 +52,11 @@ MTAChildren = {
     '27' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/blocked/ },
     '28' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mailererror/ },
   },
+  'McAfee' => {
+    '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
+    '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+    '03' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+  },
   'OpenSMTPD' => {
     '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
     '02' => { 'status' => %r/\A5[.][12][.][12]\z/, 'reason' => %r/(?:userunknown|mailboxfull)/ },
