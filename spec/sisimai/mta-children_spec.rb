@@ -66,6 +66,10 @@ MTAChildren = {
     '04' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
     '05' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/undefined/ },
   },
+  'InterScanMSS' => {
+    '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+    '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+  },
   'McAfee' => {
     '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
     '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
