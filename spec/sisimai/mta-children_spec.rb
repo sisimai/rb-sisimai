@@ -87,6 +87,15 @@ MTAChildren = {
     '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
     '03' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/filtered/ },
   },
+  'MessagingServer' => {
+    '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+    '02' => { 'status' => %r/\A5[.]2[.]0\z/, 'reason' => %r/mailboxfull/ },
+    '03' => { 'status' => %r/\A5[.]7[.]1\z/, 'reason' => %r/filtered/ },
+    '04' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
+    '05' => { 'status' => %r/\A5[.]4[.]4\z/, 'reason' => %r/hostunknown/ },
+    '06' => { 'status' => %r/\A5[.]2[.]1\z/, 'reason' => %r/filtered/ },
+    '07' => { 'status' => %r/\A4[.]4[.]7\z/, 'reason' => %r/expired/ },
+  },
   'OpenSMTPD' => {
     '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
     '02' => { 'status' => %r/\A5[.][12][.][12]\z/, 'reason' => %r/(?:userunknown|mailboxfull)/ },
