@@ -74,6 +74,9 @@ MTAChildren = {
     '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/filtered/ },
     '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/mailboxfull/ },
   },
+  'MailMarshalSMTP' => {
+    '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+  },
   'McAfee' => {
     '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
     '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
