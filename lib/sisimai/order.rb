@@ -61,7 +61,7 @@ module Sisimai
         'Sisimai::MSP::RU::MailRu',
         'Sisimai::MSP::UK::MessageLabs',
         'Sisimai::MTA::MailMarshalSMTP',
-        'Sisimai::MTA::mFILTER',
+        'Sisimai::MTA::MFILTER',
       ]
       AnotherList9 = [
         # These modules have one or more MTA specific headers
@@ -105,7 +105,7 @@ module Sisimai
             'Sisimai::MTA::OpenSMTPD',
             'Sisimai::MTA::X4',
             'Sisimai::MTA::X3',
-            'Sisimai::MTA::mFILTER',
+            'Sisimai::MTA::MFILTER',
           ],
           %r/return/i => [ 
             'Sisimai::MTA::Postfix',
@@ -134,7 +134,7 @@ module Sisimai
             'Sisimai::MSP::RU::MailRu',
             'Sisimai::MTA::X4',
             'Sisimai::MTA::X2',
-            'Sisimai::MTA::mFILTER',
+            'Sisimai::MTA::MFILTER',
           ],
           %r/warning/i => [
             'Sisimai::MTA::Postfix',
