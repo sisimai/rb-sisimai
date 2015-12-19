@@ -139,7 +139,7 @@ module Sisimai
                 end
               end
             end
-          end # loop
+          end
 
           return nil if recipients == 0
           require 'sisimai/string'
