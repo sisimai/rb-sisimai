@@ -96,6 +96,11 @@ MTAChildren = {
     '06' => { 'status' => %r/\A5[.]2[.]1\z/, 'reason' => %r/filtered/ },
     '07' => { 'status' => %r/\A4[.]4[.]7\z/, 'reason' => %r/expired/ },
   },
+  'MFILTER' => {
+    '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/filtered/ },
+    '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+    '03' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/filtered/ },
+  },
   'OpenSMTPD' => {
     '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
     '02' => { 'status' => %r/\A5[.][12][.][12]\z/, 'reason' => %r/(?:userunknown|mailboxfull)/ },
@@ -240,7 +245,7 @@ MTAChildren.each_key do |x|
             end
           end
 
-          if x == 'mFILTER'
+          if x == 'MFILTER'
             example sprintf('[%s] %s[agent] = %s', n, x, e['agent']) do
               expect(e['agent']).to be == 'm-FILTER'
             end
