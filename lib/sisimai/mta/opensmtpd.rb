@@ -195,7 +195,6 @@ module Sisimai
           require 'sisimai/smtp/status'
 
           dscontents.map do |e|
-            # Set default values if each value is empty.
             e['agent'] = Sisimai::MTA::OpenSMTPD.smtpagent
 
             if mhead['received'].size > 0
@@ -219,6 +218,7 @@ module Sisimai
             e['action'] = 'failed' if e['status'] =~ /\A[45]/
             e.each_key { |a| e[a] ||= '' }
           end
+
           return { 'ds' => dscontents, 'rfc822' => rfc822part }
         end
 
