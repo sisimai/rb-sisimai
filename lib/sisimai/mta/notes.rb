@@ -157,7 +157,7 @@ module Sisimai
                 end
               end
             end
-          end # loop
+          end
 
           if recipients == 0
             # Fallback: Get the recpient address from RFC822 part
