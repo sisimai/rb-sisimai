@@ -225,6 +225,9 @@ MTAChildren = {
     '06' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mailboxfull/ },
     '07' => { 'status' => %r/\A4[.]4[.]1\z/, 'reason' => %r/networkerror/ },
   },
+  'X5' => {
+    '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+  }
 }
 
 MTAChildren.each_key do |x|
