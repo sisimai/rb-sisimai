@@ -185,6 +185,12 @@ MTAChildren = {
     '34' => { 'status' => %r/\A5[.]7[.]0\z/, 'reason' => %r/securityerror/ },
     '35' => { 'status' => %r/\A5[.]7[.]13\z/, 'reason' => %r/suspend/ },
   },
+  'SurfControl' => {
+    '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/filtered/ },
+    '02' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/systemerror/ },
+    '03' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/systemerror/ },
+  },
+  
 }
 
 MTAChildren.each_key do |x|
