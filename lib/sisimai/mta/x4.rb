@@ -1,16 +1,19 @@
 module Sisimai
   module MTA
-    # Sisimai::MTA::Qmail parses a bounce email which created by qmail. Methods
-    # in the module are called from only Sisimai::Message.
-    module Qmail
-      # Imported from p5-Sisimail/lib/Sisimai/MTA/qmail.pm
+    # Sisimai::MTA::X4 parses a bounce email which created by some qmail clone.
+    # Methods in the module are called from only Sisimai::Message.
+    module X4
+      # Imported from p5-Sisimail/lib/Sisimai/MTA/X4.pm
       class << self
         require 'sisimai/mta'
         require 'sisimai/rfc5322'
-
         Re0 = {
-          :subject  => %r/\Afailure notice/i,
-          :received => %r/\A[(]qmail[ ]+\d+[ ]+invoked[ ]+(?:for[ ]+bounce|from[ ]+network)[)]/,
+          :subject  => %r{\A(?:
+             failure[ ]notice
+            |Permanent[ ]Delivery[ ]Failure
+            )
+          }xi,
+          :received => %r/\A[(]qmail[ ]+\d+[ ]+invoked[ ]+for[ ]+bounce[)]/,
         }
         #  qmail-remote.c:248|    if (code >= 500) {
         #  qmail-remote.c:249|      out("h"); outhost(); out(" does not like recipient.\n");
@@ -19,9 +22,32 @@ module Sisimai
         #
         # Characters: K,Z,D in qmail-qmqpc.c, qmail-send.c, qmail-rspawn.c
         #  K = success, Z = temporary error, D = permanent error
+        #
+        # MTA module for qmail clones
         Re1 = {
-          :begin  => %r/\AHi[.] This is the qmail/,
-          :rfc822 => %r/\A--- Below this line is a copy of the message[.]\z/,
+          :begin  => %r{\A(?>
+             He/Her[ ]is[ ]not.+[ ]user
+            |Hi[.][ ].+[ ]unable[ ]to[ ]deliver[ ]your[ ]message[ ]to[ ]
+              the[ ]following[ ]addresses
+            |Su[ ]mensaje[ ]no[ ]pudo[ ]ser[ ]entregado
+            |This[ ]is[ ]the[ ](?:
+               machine[ ]generated[ ]message[ ]from[ ]mail[ ]service
+              |mail[ ]delivery[ ]agent[ ]at
+              )
+            |Unable[ ]to[ ]deliver[ ]message[ ]to[ ]the[ ]following[ ]address
+            |Unfortunately,[ ]your[ ]mail[ ]was[ ]not[ ]delivered[ ]to[ ]the[ ]following[ ]address:
+            |Your[ ](?:
+               mail[ ]message[ ]to[ ]the[ ]following[ ]address
+              |message[ ]to[ ]the[ ]following[ ]addresses
+              )
+            |We're[ ]sorry[.]
+            )
+          }ix,
+          :rfc822 => %r{\A(?:
+             ---[ ]Below[ ]this[ ]line[ ]is[ ]a[ ]copy[ ]of[ ]the[ ]message[.]
+            |---[ ]Original[ ]message[ ]follows[.]
+            )
+          }xi,
           :error  => %r/\ARemote host said:/,
           :sorry  => %r/\A[Ss]orry[,.][ ]/,
           :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
@@ -29,21 +55,21 @@ module Sisimai
         ReSMTP = {
           # Error text regular expressions which defined in qmail-remote.c
           # qmail-remote.c:225|  if (smtpcode() != 220) quit("ZConnected to "," but greeting failed");
-          'conn' => %r/(?:Error:)?Connected[ ]to[ ].+[ ]but[ ]greeting[ ]failed[.]/x,
+          'conn'  => %r/(?:Error:)?Connected[ ]to[ ].+[ ]but[ ]greeting[ ]failed[.]/x,
           # qmail-remote.c:231|  if (smtpcode() != 250) quit("ZConnected to "," but my name was rejected");
-          'ehlo' => %r/(?:Error:)?Connected[ ]to[ ].+[ ]but[ ]my[ ]name[ ]was[ ]rejected[.]/x,
+          'ehlo'  => %r/(?:Error:)?Connected[ ]to[ ].+[ ]but[ ]my[ ]name[ ]was[ ]rejected[.]/x,
           # qmail-remote.c:238|  if (code >= 500) quit("DConnected to "," but sender was rejected");
           # reason = rejected
-          'mail' => %r/(?:Error:)?Connected[ ]to[ ].+[ ]but[ ]sender[ ]was[ ]rejected[.]/x,
+          'mail'  => %r/(?:Error:)?Connected[ ]to[ ].+[ ]but[ ]sender[ ]was[ ]rejected[.]/x,
           # qmail-remote.c:249|  out("h"); outhost(); out(" does not like recipient.\n");
           # qmail-remote.c:253|  out("s"); outhost(); out(" does not like recipient.\n");
           # reason = userunknown
-          'rcpt' => %r/(?:Error:)?.+[ ]does[ ]not[ ]like[ ]recipient[.]/x,
+          'rcpt'  => %r/(?:Error:)?.+[ ]does[ ]not[ ]like[ ]recipient[.]/x,
           # qmail-remote.c:265|  if (code >= 500) quit("D"," failed on DATA command");
           # qmail-remote.c:266|  if (code >= 400) quit("Z"," failed on DATA command");
           # qmail-remote.c:271|  if (code >= 500) quit("D"," failed after I sent the message");
           # qmail-remote.c:272|  if (code >= 400) quit("Z"," failed after I sent the message");
-          'data' => %r{(?:
+          'data'  => %r{(?:
              (?:Error:)?.+[ ]failed[ ]on[ ]DATA[ ]command[.]
             |(?:Error:)?.+[ ]failed[ ]after[ ]I[ ]sent[ ]the[ ]message[.]
             )
@@ -56,8 +82,8 @@ module Sisimai
           |remote[ ]host[ ]([-0-9a-zA-Z.]+[0-9a-zA-Z])[ ]said:
           )
         }x
+        # qmail-ldap-1.03-20040101.patch:19817 - 19866
         ReLDAP = {
-          # qmail-ldap-1.03-20040101.patch:19817 - 19866
           'suspend'     => %r/Mailaddress is administrative?le?y disabled/,            # 5.2.1
           'userunknown' => %r/[Ss]orry, no mailbox here by that name/,                 # 5.1.1
           'exceedlimit' => %r/The message exeeded the maximum size the user accepts/,  # 5.2.3
@@ -98,7 +124,7 @@ module Sisimai
           'mailboxfull' => %r/disk[ ]quota[ ]exceeded/x,
           # qmail-qmtpd.c:233| ... result = "Dsorry, that message size exceeds my databytes limit (#5.3.4)";
           # qmail-smtpd.c:391| ... out("552 sorry, that message size exceeds my databytes limit (#5.3.4)\r\n"); return;
-          'mesgtoobig' => %r/Message[ ]size[ ]exceeds[ ]fixed[ ]maximum[ ]message[ ]size:/x,
+          'mesgtoobig'  => %r/Message[ ]size[ ]exceeds[ ]fixed[ ]maximum[ ]message[ ]size:/x,
           # qmail-remote.c:68|  Sorry, I couldn't find any host by that name. (#4.1.2)\n"); zerodie();
           # qmail-remote.c:78|  Sorry, I couldn't find any host named ");
           'hostunknown' => %r/\ASorry[,][ ]I[ ]couldn[']t[ ]find[ ]any[ ]host[ ]/x,
@@ -111,25 +137,25 @@ module Sisimai
           'networkerror' => %r{Sorry(?:
              [,][ ]I[ ]wasn[']t[ ]able[ ]to[ ]establish[ ]an[ ]SMTP[ ]connection
             |[,][ ]I[ ]couldn[']t[ ]find[ ]a[ ]mail[ ]exchanger[ ]or[ ]IP[ ]address
-            |[.][ ]Although[ ]I[']m[ ]listed[ ]as[ ]a[ ]best[-]preference[ ]MX[ ]
-                or[ ]A[ ]for[ ]that[ ]host
+            |[.][ ]Although[ ]I[']m[ ]listed[ ]as[ ]a[ ]best[-]preference[ ]MX[ ]or[ ]A[ ]for[ ]that[ ]host
             )
           }x,
           'systemfull' => %r/Requested action not taken: mailbox unavailable [(]not enough free space[)]/,
         }
+
         # qmail-send.c:922| ... (&dline[c],"I'm not going to try again; this message has been in the queue too long.\n")) nomem();
-        ReDelayed  = %r/this[ ]message[ ]has[ ]been[ ]in[ ]the[ ]queue[ ]too[ ]long[.]\z/x
+        ReDelayed = %r/this[ ]message[ ]has[ ]been[ ]in[ ]the[ ]queue[ ]too[ ]long[.]\z/x
 
         Indicators = Sisimai::MTA.INDICATORS
         LongFields = Sisimai::RFC5322.LONGFIELDS
         RFC822Head = Sisimai::RFC5322.HEADERFIELDS
 
-        def description; return 'qmail'; end
-        def smtpagent;   return 'qmail'; end
+        def description; return 'Unknown MTA #4'; end
+        def smtpagent;   return 'X4'; end
         def headerlist;  return []; end
         def pattern;     return Re0; end
 
-        # Parse bounce messages from qmail
+        # Parse bounce messages from Unknown MTA #4
         # @param         [Hash] mhead       Message header of a bounce email
         # @options mhead [String] from      From header
         # @options mhead [String] date      Date header
@@ -155,18 +181,15 @@ module Sisimai
 
           dscontents = []; dscontents << Sisimai::MTA.DELIVERYSTATUS
           hasdivided = mbody.split("\n")
-          havepassed = [''];
           rfc822next = { 'from' => false, 'to' => false, 'subject' => false }
           rfc822part = ''     # (String) message/rfc822-headers part
           previousfn = ''     # (String) Previous field name
           readcursor = 0      # (Integer) Points the current cursor position
           recipients = 0      # (Integer) The number of 'Final-Recipient' header
+          datestring = ''     # (String) Date string
           v = nil
 
           hasdivided.each do |e|
-            # Save the current line for the next loop
-            havepassed << e; p = havepassed[-2]
-
             if readcursor == 0
               # Beginning of the bounce message or delivery status part
               if e =~ Re1[:begin]
@@ -217,7 +240,11 @@ module Sisimai
               # Giving up on 192.0.2.153.
               v = dscontents[-1]
 
-              if cv = e.match(/\A(?:To[ ]*:)?[<](.+[@].+)[>]:\s*\z/)
+              if cv = e.match(/\AThis is a permanent error;/)
+                # This is a permanent error; I've given up. Sorry it didn't work out.
+                v['softbounce'] = 0
+
+              elsif cv = e.match(/\A(?:To[ ]*:)?[<](.+[@].+)[>]:\s*\z/)
                 # <kijitora@example.jp>:
                 if v['recipient']
                   # There are multiple recipient addresses in the message body.
@@ -240,15 +267,15 @@ module Sisimai
                 end
               end
             end
-          end
-          return nil if recipients == 0
 
+          end
+
+          return nil if recipients == 0
           require 'sisimai/string'
           require 'sisimai/smtp/status'
 
           dscontents.map do |e|
-            # Set default values if each value is empty.
-            e['agent'] = Sisimai::MTA::Qmail.smtpagent
+            e['agent'] = Sisimai::MTA::X4.smtpagent
 
             if mhead['received'].size > 0
               # Get localhost and remote host name from Received header.
@@ -257,7 +284,7 @@ module Sisimai
               e['lhost'] = Sisimai::RFC5322.received(r0[0]).shift if e['lhost'].empty?
               e['rhost'] = Sisimai::RFC5322.received(r0[-1]).pop  if e['rhost'].empty?
             end
-            e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
+            e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
             unless e['command']
               # Get the SMTP command name for the session
@@ -323,11 +350,12 @@ module Sisimai
               end
             end
 
-            e['status'] = Sisimai::SMTP::Status.find(e['diagnosis'])
-            e['spec']   = e['reason'] == 'mailererror' ? 'X-UNIX' : 'SMTP'
-            e['action'] = 'failed' if e['status'] =~ /\A[45]/
+            e['status']    = Sisimai::SMTP::Status.find(e['diagnosis'])
+            e['spec']      = e['reason'] == 'mailererror' ? 'X-UNIX' : 'SMTP'
+            e['action']    = 'failed' if e['status'] =~ /\A[45]/
             e.each_key { |a| e[a] ||= '' }
           end
+
           return { 'ds' => dscontents, 'rfc822' => rfc822part }
         end
 
