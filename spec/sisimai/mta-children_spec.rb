@@ -101,6 +101,12 @@ MTAChildren = {
     '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
     '03' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/filtered/ },
   },
+  'Notes' => {
+    '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/onhold/ },
+    '02' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
+    '03' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
+    '04' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/networkerror/ },
+  },
   'OpenSMTPD' => {
     '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
     '02' => { 'status' => %r/\A5[.][12][.][12]\z/, 'reason' => %r/(?:userunknown|mailboxfull)/ },
