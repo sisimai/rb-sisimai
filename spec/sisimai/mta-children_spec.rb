@@ -190,6 +190,16 @@ MTAChildren = {
     '02' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/systemerror/ },
     '03' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/systemerror/ },
   },
+  'V5sendmail' => {
+    '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+    '02' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/hostunknown/ },
+    '03' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
+    '04' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/hostunknown/ },
+    '05' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/(?:hostunknown|blocked|userunknown)/ },
+    '06' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/norelaying/ },
+    '07' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/(?:hostunknown|blocked|userunknown)/ },
+  },
+  
   
 }
 
