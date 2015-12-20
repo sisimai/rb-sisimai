@@ -199,8 +199,10 @@ MTAChildren = {
     '06' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/norelaying/ },
     '07' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/(?:hostunknown|blocked|userunknown)/ },
   },
-  
-  
+  'X1' => {
+    '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/filtered/ },
+    '02' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/filtered/ },
+  },
 }
 
 MTAChildren.each_key do |x|
