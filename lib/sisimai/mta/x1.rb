@@ -148,6 +148,7 @@ module Sisimai
 
           return { 'ds' => dscontents, 'rfc822' => rfc822part }
         end
+
       end
     end
   end

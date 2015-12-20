@@ -307,6 +307,7 @@ module Sisimai
             rfc822part += sprintf("Date: %s\n", connheader['date'])
             rfc822part += sprintf("Subject: %s\n", connheader['subject'])
           end
+
           return { 'ds' => dscontents, 'rfc822' => rfc822part }
         end
 

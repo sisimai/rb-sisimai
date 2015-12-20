@@ -163,7 +163,7 @@ module Sisimai
                 end
               end
             end
-          end # loop
+          end
 
           return nil if recipients == 0
           require 'sisimai/string'
@@ -183,9 +183,10 @@ module Sisimai
             e['status']    = Sisimai::SMTP::Status.find(e['diagnosis'])
             e.each_key { |a| e[a] ||= '' }
           end
-          return { 'ds' => dscontents, 'rfc822' => rfc822part }
 
-        end # method
+          return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        end
+
       end
     end
   end

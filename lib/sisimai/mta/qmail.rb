@@ -328,6 +328,7 @@ module Sisimai
             e['action'] = 'failed' if e['status'] =~ /\A[45]/
             e.each_key { |a| e[a] ||= '' }
           end
+
           return { 'ds' => dscontents, 'rfc822' => rfc822part }
         end
 

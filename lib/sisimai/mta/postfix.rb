@@ -296,10 +296,9 @@ module Sisimai
             end
             e.each_key { |a| e[a] ||= '' }
           end
+
           return { 'ds' => dscontents, 'rfc822' => rfc822part }
-
         end
-
 
       end
     end
