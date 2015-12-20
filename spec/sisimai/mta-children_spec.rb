@@ -210,6 +210,12 @@ MTAChildren = {
     '04' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mailboxfull/ },
     '05' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/suspend/ },
   },
+  'X3' => {
+    '01' => { 'status' => %r/\A5[.]3[.]0\z/, 'reason' => %r/userunknown/ },
+    '02' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+    '03' => { 'status' => %r/\A5[.]3[.]0\z/, 'reason' => %r/userunknown/ },
+    '04' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/undefined/ },
+  },
 }
 
 MTAChildren.each_key do |x|
