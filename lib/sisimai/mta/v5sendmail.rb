@@ -174,7 +174,7 @@ module Sisimai
               end
             end
           end
-          return unless readcursor & Indicators[:'message-rfc822']
+          return nil if readcursor & Indicators[:'message-rfc822'] == 0
 
           if recipients == 0
             # Get the recipient address from the original message
