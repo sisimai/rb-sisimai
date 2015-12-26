@@ -61,7 +61,7 @@ module Sisimai
         methodargv[e] = argvs[e]
       end
 
-      parameters = Sisimai::Message.resolve(methodargv)
+      parameters = Sisimai::Message.make(methodargv)
       return nil unless parameters
       return nil unless parameters.key?('ds')
 
@@ -71,11 +71,11 @@ module Sisimai
       @rfc822 = parameters['rfc822']
     end
 
-    # Resolve the email message into data structure: a body part and headers
+    # Make data structure from the email message(a body part and headers)
     # @param         [Hash] argvs   Email data
     # @options argvs [String] data  Entire email message
     # @return        [Hash]         Resolved data structure
-    def self.resolve(argvs)
+    def self.make(argvs)
       email = argvs['data']
 
       processing = { 'from' => '', 'header' => {}, 'rfc822' => '', 'ds' => [] }
@@ -132,7 +132,7 @@ module Sisimai
 
       # 4. Rewrite message body for detecting the bounce reason
       methodargv = { 'mail' => processing, 'body' => aftersplit['body'] }
-      bouncedata = Sisimai::Message.rewrite(methodargv)
+      bouncedata = Sisimai::Message.parse(methodargv)
 
       return nil unless bouncedata
       return nil if bouncedata.empty?
@@ -360,7 +360,7 @@ module Sisimai
       return takenapart
     end
 
-    # Break the header of the message, and return its body
+    # Parse bounce mail with each MTA/MSP module
     # @param               [Hash] argvs    Processing message entity.
     # @param options argvs [Hash] mail     Email message entity
     # @param options mail  [String] from   From line of mbox
@@ -370,7 +370,7 @@ module Sisimai
     # @param options argvs [String] body   Email message body
     # @param options argvs [Array] load    MTA/MSP module list to load on first
     # @return              [Hash]          Parsed and structured bounce mails
-    def self.rewrite(argvs)
+    def self.parse(argvs)
       mesgentity = argvs['mail']
       bodystring = argvs['body']
       mailheader = mesgentity['header']
