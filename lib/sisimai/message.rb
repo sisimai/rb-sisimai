@@ -152,6 +152,8 @@ module Sisimai
       return {} if email.empty?
 
       email = email.scrub('?')
+      email = email.gsub(/[ \t]+$/,'')
+      email = email.gsub(/^[ \t]+$/,'')
       hasdivided = email.split("\n")
       return {} if hasdivided.empty?
 
@@ -167,10 +169,8 @@ module Sisimai
 
       # Split email data to headers and a body part.
       hasdivided.each do |e|
-        # use split() instead of regular expression.
+        # Split email data to headers and a body part.
         e = e.delete("\r").delete("\n")
-        e = e.gsub(/\A[ \t]+\z/, '')
-        e = e.gsub(/[ \t]+\z/, '')
 
         if readcursor & Indicators[:endof] > 0
           # The body part of the email
@@ -239,7 +239,7 @@ module Sisimai
             structured[currheader] = rhs
           end
 
-        elsif cv = e.match(/\A\s+(.+?)\z/)
+        elsif cv = e.match(/\A[ \t]+(.+?)\z/)
           # Ignore header?
           next if IgnoreList[currheader]
 
@@ -408,7 +408,7 @@ module Sisimai
       # Check whether or not the message is a bounce mail.
       # Pre-Process email body if it is a forwarded bounce message.
       # Get the original text when the subject begins from 'fwd:' or 'fw:'
-      if mailheader['subject'] =~ /\A\s*fwd?:/i
+      if mailheader['subject'] =~ /\A[ \t]*fwd?:/i
         # Delete quoted strings, quote symbols(>)
         bodystring = bodystring.gsub(/^[>]+[ ]/m, '')
         bodystring = bodystring.gsub(/^[>]$/m, '')
