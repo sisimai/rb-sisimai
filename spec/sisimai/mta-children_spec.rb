@@ -423,14 +423,14 @@ MTAChildren.each_key do |x|
           %w[deliverystatus diagnostictype smtpcommand lhost rhost alias listid
             action messageid]. each do |ee|
             example sprintf('[%s] %s#%s = %s', n, x, ee, e.send(ee)) do
-              expect(e.send(ee)).not_to match(/[ ]/)
+              expect(e.send(ee)).not_to match(/[ \r]/)
             end
           end
 
           %w[addresser recipient].each do |ee|
             %w[user host verp alias].each do |eee|
               example sprintf('[%s] %s#%s#%s = %s', n, x, ee, eee, e.send(ee).send(eee)) do
-                expect(e.send(ee).send(eee)).not_to match(/[ ]/)
+                expect(e.send(ee).send(eee)).not_to match(/[ \r]/)
               end
             end
           end
