@@ -8,9 +8,11 @@
 # -----------------------------------------------------------------------------
 SHELL := /bin/sh
 GIT   := /usr/bin/git
-SRC   := ../p5-Sisimai
+CP    := cp
 B      = master
 V      = neko
+EMAILS = set-of-emails
+
 
 .DEFAULT_GOAL = git-status
 
@@ -53,11 +55,11 @@ git-rm-cached:
 git-reset-soft:
 	$(GIT) reset --soft HEAD^
 
-sync-distribution-files:
-	@for v in eg; do \
-		/bin/cp -vRp $(SRC)/$$v ./; \
-	done
-
+import-set-of-emails:
+	test -d $(EMAILS)
+	$(CP) -vRp ../$(EMAILS)/mailbox/* ./$(EMAILS)/mailbox/
+	$(CP) -vRp ../$(EMAILS)/maildir/* ./$(EMAILS)/maildir/
+	$(CP) -vRp ../$(EMAILS)/to-be-debugged-because/* ./$(EMAILS)/to-be-debugged-because/
 
 clean:
 
