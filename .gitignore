@@ -5,6 +5,7 @@
 /coverage/
 /doc/
 /pkg/
+/sbin
 /spec/reports/
 /tmp/
 .rubocop_todo.yml
