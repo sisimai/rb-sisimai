@@ -262,6 +262,7 @@ module Sisimai
     # @return        [Array]        Order of MTA/MSP modules
     def self.makeorder(heads)
       return [] unless heads
+      return [] unless heads['subject']
       return [] if heads['subject'].empty?
       order = []
 
