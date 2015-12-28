@@ -7,7 +7,7 @@ require 'sisimai/message'
 
 describe Sisimai::Data::YAML do
   cn = Sisimai::Data::YAML
-  sf = './eg/maildir-as-a-sample/new/sendmail-02.eml'
+  sf = './set-of-emails/maildir/bsd/sendmail-02.eml'
   mail = Sisimai::Mail.new(sf)
   list = %w[
     token lhost rhost alias listid reason subject replycode messageid smtpagent

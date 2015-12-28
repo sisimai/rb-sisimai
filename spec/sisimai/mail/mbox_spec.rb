@@ -3,7 +3,7 @@ require 'sisimai/mail/mbox'
 
 describe Sisimai::Mail::Mbox do
   cn = Sisimai::Mail::Mbox
-  sf = './eg/mbox-as-a-sample'
+  sf = './set-of-emails/mailbox/mbox-0'
   let(:mailobj) { Sisimai::Mail::Mbox.new(samples) }
   let(:mockobj) { Sisimai::Mail::Mbox.new(invalid) }
 
@@ -44,7 +44,7 @@ describe Sisimai::Mail::Mbox do
     describe '#dir' do
       subject { mailobj.dir }
       it('returns String') { is_expected.to be_a(String) }
-      it('includes ./eg')  { is_expected.to match(%r|/eg|) }
+      it('includes ./set-of-emails')  { is_expected.to match(%r|/set-of-emails|) }
     end
     describe '#path' do
       subject { mailobj.path }

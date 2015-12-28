@@ -15,7 +15,7 @@ describe Sisimai::Data do
   list = nil
 
   describe 'without orders of email address headers' do
-    mail = Sisimai::Mail.new('./eg/maildir-as-a-sample/new/sendmail-03.eml')
+    mail = Sisimai::Mail.new('./set-of-emails/maildir/bsd/sendmail-03.eml')
 
     while r = mail.read do
       #let(:text) { r }
@@ -122,7 +122,7 @@ describe Sisimai::Data do
   end
 
   describe 'with orders of email address headers' do
-    file = './eg/maildir-as-a-sample/new/sendmail-04.eml'
+    file = './set-of-emails/maildir/bsd/sendmail-04.eml'
     mail = Sisimai::Mail.new(file)
 
     while r = mail.read do
@@ -238,7 +238,7 @@ describe Sisimai::Data do
   end
 
   describe 'is not bounce mail' do
-    file = './eg/maildir-as-a-sample/tmp/is-not-bounce-01.eml'
+    file = './set-of-emails/maildir/not/is-not-bounce-01.eml'
     mail = Sisimai::Mail.new(file)
     while r = mail.read do
       mesg = Sisimai::Message.new( { 'data' => r } )

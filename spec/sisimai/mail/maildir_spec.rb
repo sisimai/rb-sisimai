@@ -3,7 +3,7 @@ require 'sisimai/mail/maildir'
 
 describe Sisimai::Mail::Maildir do
   cn = Sisimai::Mail::Maildir
-  sf = './eg/maildir-as-a-sample/new'
+  sf = './set-of-emails/maildir/bsd'
   let(:mailobj) { cn.new(samples) }
   let(:mockobj) { cn.new(invalid) }
 

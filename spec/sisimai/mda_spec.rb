@@ -13,7 +13,7 @@ describe Sisimai::MDA do
     'vdelivermail: user is over quota',
     'vdeliver: Delivery failed due to system quota violation',
   ]
-  emailfn = './eg/maildir-as-a-sample/new/rfc3464-01.eml'
+  emailfn = './set-of-emails/maildir/bsd/rfc3464-01.eml'
   mailbox = Sisimai::Mail.new(emailfn)
   message = nil
   headers = { 'from' => 'Mail Delivery Subsystem' }

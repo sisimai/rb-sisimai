@@ -78,7 +78,7 @@ MTARelative.each_key do |x|
     end
 
     (1 .. MTARelative[x].keys.size).each do |i|
-      emailfn = sprintf('./eg/maildir-as-a-sample/new/%s-%02d.eml', x.downcase, i)
+      emailfn = sprintf('./set-of-emails/maildir/bsd/%s-%02d.eml', x.downcase, i)
       mailbox = Sisimai::Mail.new(emailfn)
       mailtxt = nil
 

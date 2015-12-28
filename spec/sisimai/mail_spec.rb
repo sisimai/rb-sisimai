@@ -3,8 +3,8 @@ require 'sisimai/mail'
 
 describe Sisimai::Mail do
   cn = Sisimai::Mail
-  sf = './eg/mbox-as-a-sample'
-  sd = './eg/maildir-as-a-sample/cur'
+  sf = './set-of-emails/mailbox/mbox-0'
+  sd = './set-of-emails/maildir/err'
   let(:mailobj) { cn.new(samples) }
   let(:mailbox) { cn.new(samples) }
   let(:maildir) { cn.new(samples) }
@@ -62,7 +62,7 @@ describe Sisimai::Mail do
       describe '#dir' do
         subject { mailbox.mail.dir }
         it('returns String') { is_expected.to be_a(String) }
-        it('includes ./eg')  { is_expected.to match(%r|/eg|) }
+        it('includes ./set-of-emails')  { is_expected.to match(%r|/set-of-emails|) }
       end
       describe '#path' do
         subject { mailbox.mail.path }
@@ -154,7 +154,7 @@ describe Sisimai::Mail do
       describe '#file' do
         subject { maildir.mail.file }
         it('returns String')   { is_expected.to be_a(String) }
-        it('returns filename') { is_expected.to match(/make-test[.].+[.]eml\z/) }
+        it('returns filename') { is_expected.to match(/make-test[-].+[.]eml\z/) }
       end
       describe '#size' do
         subject { maildir.mail.size }

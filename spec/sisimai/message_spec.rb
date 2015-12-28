@@ -3,7 +3,7 @@ require 'sisimai/message'
 
 describe Sisimai::Message do
   cn = Sisimai::Message
-  sf = './eg/mbox-as-a-sample'
+  sf = './set-of-emails/mailbox/mbox-0'
 
   mailastext = File.open(sf).read
   methodargv = { 'data' => mailastext }
