@@ -188,7 +188,11 @@ module Sisimai
 
             if e['alterrors'] && e['alterrors'].size > 0
               # Copy alternative error message
-              e['diagnosis'] = e['alterrors'] + ' ' + e['diagnosis']
+              if e['diagnosis']
+                e['diagnosis'] = e['alterrors'] + ' ' + e['diagnosis']
+              else
+                e['diagnosis'] = e['alterrors']
+              end
               e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
               e.delete('alterrors')
             end
