@@ -1,0 +1,68 @@
+Return-Path: <MAILER-DAEMON@nekochan.example.co.jp>
+Received: from localhost (localhost)
+	by nekochan.example.co.jp (V8/cf) id s639mN1o018543;
+	Thu, 3 Jul 2014 18:48:23 +0900
+Date: Thu, 3 Jul 2014 18:48:23 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON@nekochan.example.co.jp>
+Message-Id: <201407030948.s639mN1o018543@nekochan.example.co.jp>
+To: <kijitora@example.co.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="s639mN1o018543.1404380903/nekochan.example.co.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--s639mN1o018543.1404380903/nekochan.example.co.jp
+
+The original message was received at Thu, 3 Jul 2014 18:48:22 +0900
+from c0135-kyoto.example.ne.jp [192.0.2.222]
+
+   ----- The following addresses had permanent fatal errors -----
+<=?utf-8?B?8J+QiA==?=@example.org>
+    (reason: 550 5.1.1 <=?utf-8?B?8J+QiA==?=@example.org>... User unknown)
+
+   ----- Transcript of session follows -----
+... while talking to mx.example.org.:
+>>> DATA
+<<< 550 5.1.1 <=?utf-8?B?8J+QiA==?=@example.org>... User unknown
+550 5.1.1 <=?utf-8?B?8J+QiA==?=@example.org>... User unknown
+<<< 503 5.0.0 Need RCPT (recipient)
+
+--s639mN1o018543.1404380903/nekochan.example.co.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; nekochan.example.co.jp
+Received-From-MTA: DNS; c0135-kyoto.example.ne.jp
+Arrival-Date: Thu, 3 Jul 2014 18:48:22 +0900
+
+Final-Recipient: RFC822; =?utf-8?B?8J+QiA==?=@example.org
+Action: failed
+Status: 5.1.1
+Remote-MTA: DNS; mx.example.org
+Diagnostic-Code: SMTP; 550 5.1.1 <=?utf-8?B?8J+QiA==?=@example.org>... User unknown
+Last-Attempt-Date: Thu, 3 Jul 2014 18:48:22 +0900
+
+--s639mN1o018543.1404380903/nekochan.example.co.jp
+Content-Type: message/rfc822
+
+Return-Path: <kijitora@example.co.jp>
+Received: from [10.2.22.222] (c0135-kyoto.example.ne.jp [192.0.2.222])
+	(authenticated bits=0)
+	by nekochan.example.co.jp (V8/cf) with ESMTP id s639mL1o018540
+	for <=?utf-8?B?8J+QiA==?=@example.org>; Thu, 3 Jul 2014 18:48:22 +0900
+From: Kijitora <kijitora@example.co.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Subject: test
+Message-Id: <88528973-85BE-4648-BE77-61845839BD51@example.co.jp>
+Date: Thu, 3 Jul 2014 18:48:19 +0900
+To: =?utf-8?B?8J+QiA==?=@example.org
+Mime-Version: 1.0 (Mac OS X Mail 7.3 \(1878.2\))
+X-Mailer: Apple Mail (2.1878.2)
+
+test
+
+--s639mN1o018543.1404380903/nekochan.example.co.jp--
+

@@ -1,4 +1,4 @@
-About Sample Emails in eg/maildir-as-a-sample/new Directory
+About Sample Emails in set-of-emails/maildir/bsd Directory
 ===========================================================
 
 Sisimai::ARF

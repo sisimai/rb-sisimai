@@ -1,0 +1,79 @@
+Delivered-To: kijitora@example.com
+Received: by 10.194.5.104 with SMTP id r8csp38443wjr;
+        Wed, 6 Aug 2014 01:51:12 -0700 (PDT)
+Received-SPF: pass (google.com: domain of  designates 10.180.73.115 as permitted sender) client-ip=10.180.73.115
+Authentication-Results: mr.google.com;
+       spf=pass (google.com: domain of  designates 10.180.73.115 as permitted sender) smtp.mail=;
+       dkim=pass header.i=@googlemail.com
+X-Received: from mr.google.com ([10.180.73.115])
+        by 10.180.73.115 with SMTP id k19mr14444020wiv.35.1407315072086 (num_hops = 1);
+        Wed, 06 Aug 2014 01:51:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20120113;
+        h=mime-version:from:to:subject:message-id:date:content-type
+         :content-transfer-encoding;
+        bh=NWLI8z88/miVTCIcu0bj0xfpsU65ypu3o0C2h6eJ9RM=;
+        b=XEN1yCeP6NaU2EJRqTojV4QVosbqC9WvV2fRi6td80y6B8UXWwucLuZvv9tQE9Hfab
+         ZaoRtmcMcVP5lOKuCIspaZwUnx1i5CPcUt/uadhRp0Q2nmQDHXginaBKir0jmJ+GnXX/
+         xOQOfptyjI2TWKDX55X0npwMykAIjIM2Z1bk97giMmMauSk25JYO0wEQTU+tHFbJBrLB
+         0xksPg+37kiUvLx5vVludtiNzD0F9IIUDOKCT2B6InzzAvXJfEZn41KxtuGcxJpfM1no
+         Szyt0X7vnHvlthfWkD40VTkVIMzgkuzFmkgNJDDv7/bqIR9kFo/30PqIMhqiIaFkNme8
+         Ehmg==
+X-Received: by 10.180.73.115 with SMTP id k19mr14444020wiv.35.1407315072083;
+        Wed, 06 Aug 2014 01:51:12 -0700 (PDT)
+MIME-Version: 1.0
+Return-Path: <>
+Received: by 10.180.73.115 with SMTP id k19mr7999890wiv.35; Wed, 06 Aug 2014
+ 01:51:12 -0700 (PDT)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+To: kijitora@example.com
+X-Failed-Recipients: =?UTF-8?B?8J+QiEBhenVtYWt1bml5dWtpLm9yZw==?=
+Subject: Delivery Status Notification (Failure)
+Message-ID: <f46d043749cbf564e804fff212be@google.com>
+Date: Wed, 06 Aug 2014 08:51:12 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Delivery to the following recipient failed permanently:
+
+     =F0=9F=90=88@example.nyaan.jp
+
+Technical details of permanent failure:=20
+ local-part of envelope contains utf8 but remote  server did not offer SMTP=
+UTF8
+
+----- Original message -----
+
+DKIM-Signature: v=3D1; a=3Drsa-sha256; c=3Drelaxed/relaxed;
+        d=3Dgmail.com; s=3D20120113;
+        h=3Dmime-version:from:date:message-id:subject:to:content-type;
+        bh=3DkjAwl0972SW2kQHCxr/PJMYSZ5gfQhdGmINTETdY8Uk=3D;
+        b=3DOXcPBc3xdOxf74QoHbdzMNSpS+lBmaiTYw74VqX/aHr9Q9gnr5yIu9unrpQMFZa=
+PKF
+         EYXk++xoxyuX3Sl9VtxsqMhH9fEGVY/bgecxLeRwQPQM7F+UAuyj94wmk/Tseg+ugv=
+mH
+         fhOFSzAGZgdeQxvjb8xQcvQs+bjTfNSVbiWk6E6gK50RnGA18v+6YlqV8se8K+p4b2=
+X1
+         D0d6xYw3RvZ8XfBjiZ7YJWb2VyvQy6wtUE2MpuVauO7Z7NF7Sg/z+51qofE2X7505k=
+B9
+         wJZkPGnwr3fGG+PqoXsNRfU21XL/o5UQ27r/3n/8crNX7dYIhnR+HpnK1cyHyUcZbK=
+ux
+         gptw=3D=3D
+X-Received: by 10.180.73.115 with SMTP id k19mr14442752wiv.35.1407315060382=
+;
+ Wed, 06 Aug 2014 01:51:00 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.194.5.104 with HTTP; Wed, 6 Aug 2014 01:50:40 -0700 (PDT)
+From: kijitora <kijitora@example.com>
+Date: Wed, 6 Aug 2014 17:50:40 +0900
+Message-ID: <CAByYQsFLLQf6cYpkkFueozn+BWWn3uKxp0+rMZ3r_NQ9hWx=3DBA@mail.gma=
+il.com>
+Subject: =E3=81=AB=E3=82=83=E3=83=BC=E3=82=93
+To: "=F0=9F=90=88@example.nyaan.jp" <=F0=9F=90=88@example.nyaan.jp>
+Content-Type: multipart/alternative; boundary=3Df46d043749cb42fd9d04fff212c=
+c
+
+=E3=81=AD=E3=81=93
+
+--=20
+

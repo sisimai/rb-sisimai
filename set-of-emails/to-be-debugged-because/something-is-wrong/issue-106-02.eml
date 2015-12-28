@@ -1,0 +1,72 @@
+Return-Path: <MAILER-DAEMON@example.nyaan.jp>
+Received: from localhost (localhost)
+	by example.nyaan.jp (V8/cf) id s764gYZe021334;
+	Wed, 6 Aug 2014 00:42:34 -0400
+Date: Wed, 6 Aug 2014 00:42:34 -0400
+From: Mail Delivery Subsystem <MAILER-DAEMON@example.nyaan.jp>
+Message-Id: <201408060442.s764gYZe021334@example.nyaan.jp>
+To: <shironeko@example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="s764gYZe021334.1407300154/example.nyaan.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--s764gYZe021334.1407300154/example.nyaan.jp
+
+The original message was received at Wed, 6 Aug 2014 00:42:33 -0400
+from c0135-kyoto.example.ne.jp [192.0.2.222]
+
+   ----- The following addresses had permanent fatal errors -----
+<=?utf-8?Q?azumakuniyuki+=F0=9F=90=88?=@gmail.com>
+    (reason: 550-5.1.1 The email account that you tried to reach does not exist. Please try)
+
+   ----- Transcript of session follows -----
+... while talking to gmail-smtp-in.l.google.com.:
+>>> RCPT To:<=?utf-8?Q?azumakuniyuki+=F0=9F=90=88?=@gmail.com>
+<<< 550-5.1.1 The email account that you tried to reach does not exist. Please try
+<<< 550-5.1.1 double-checking the recipient's email address for typos or
+<<< 550-5.1.1 unnecessary spaces. Learn more at
+<<< 550 5.1.1 http://support.google.com/mail/bin/answer.py?answer=6596 o3si8455341oem.103 - gsmtp
+550 5.1.1 <=?utf-8?Q?azumakuniyuki+=F0=9F=90=88?=@gmail.com>... User unknown
+>>> DATA
+<<< 503 5.5.1 RCPT first. o3si8455341oem.103 - gsmtp
+
+--s764gYZe021334.1407300154/example.nyaan.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; example.nyaan.jp
+Received-From-MTA: DNS; c0135-kyoto.example.ne.jp
+Arrival-Date: Wed, 6 Aug 2014 00:42:33 -0400
+
+Final-Recipient: RFC822; =?utf-8?Q?azumakuniyuki+=F0=9F=90=88?=@gmail.com
+Action: failed
+Status: 5.1.1
+Remote-MTA: DNS; gmail-smtp-in.l.google.com
+Diagnostic-Code: SMTP; 550-5.1.1 The email account that you tried to reach does not exist. Please try
+Last-Attempt-Date: Wed, 6 Aug 2014 00:42:34 -0400
+
+--s764gYZe021334.1407300154/example.nyaan.jp
+Content-Type: message/rfc822
+
+Return-Path: <shironeko@example.jp>
+Received: from [10.2.22.222] (c0135-kyoto.example.ne.jp [192.0.2.222])
+	(authenticated bits=0)
+	by example.nyaan.jp (V8/cf) with ESMTP id s764gWZe021332
+	for <=?utf-8?Q?azumakuniyuki+=F0=9F=90=88?=@gmail.com>; Wed, 6 Aug 2014 00:42:33 -0400
+From: Neko <shironeko@example.jp>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+Subject: =?utf-8?B?54yr44OG44K544OI?=
+Message-Id: <23F3F687-F5C9-4E85-89C0-1C23923A7C88@example.nyaan.jp>
+Date: Wed, 6 Aug 2014 13:42:32 +0900
+To: =?utf-8?Q?azumakuniyuki+=F0=9F=90=88?=@gmail.com
+Mime-Version: 1.0 (Mac OS X Mail 7.3 \(1878.6\))
+X-Mailer: Apple Mail (2.1878.6)
+
+44Gr44KD44O844KT
+
+--s764gYZe021334.1407300154/example.nyaan.jp--
+
