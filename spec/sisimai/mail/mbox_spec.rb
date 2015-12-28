@@ -91,7 +91,7 @@ describe Sisimai::Mail::Mbox do
           expect(mailbox.file).to be == File.basename(sf)
         end
         it('returns String') { is_expected.to be_a(String) }
-        it('matches /From /'){ is_expected.to match(/Subject:\s*/) }
+        it('matches /From:/'){ is_expected.to match(/From:\s*/) }
         it "is #{mailtxt.size} bytes file" do
           expect(mailtxt.size).to be > 0
         end
