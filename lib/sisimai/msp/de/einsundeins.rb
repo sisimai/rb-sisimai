@@ -19,9 +19,7 @@ module Sisimai
           :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
         ReFailure = {
-          'mesgtoobig' => %r{
-              Mail[ ]size[ ]limit[ ]exceeded
-          }x,
+          'mesgtoobig' => %r/Mail[ ]size[ ]limit[ ]exceeded/x,
         }
         Indicators = Sisimai::MSP.INDICATORS
         LongFields = Sisimai::RFC5322.LONGFIELDS
