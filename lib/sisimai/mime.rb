@@ -13,7 +13,7 @@ module Sisimai
         return false unless argv1
 
         argv1 = argv1.delete('"')
-        return true if argv1 =~ /[\s\t]*=[?][-_0-9A-Za-z]+[?][BbQq][?].+[?]=\s*\z/
+        return true if argv1 =~ /[ \t]*=[?][-_0-9A-Za-z]+[?][BbQq][?].+[?]=[ \t]*\z/
         return false
       end
 
