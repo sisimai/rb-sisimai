@@ -8,6 +8,12 @@ MSPChildren = {
   'DE::EinsUndEins' => {
       '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mesgtoobig/ },
   },
+  'DE::GMX' => {
+      '01' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
+      '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+      '03' => { 'status' => %r/\A5[.][12][.][12]\z/, 'reason' => %r/(?:userunknown|mailboxfull)/ },
+      '04' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+  },
 }
 
 MSPChildren.each_key do |x|
@@ -107,7 +113,7 @@ MSPChildren.each_key do |x|
             end
           end
 
-          if e['action'].size > 0
+          if e['action']
             example sprintf('[%s] %s[action] = %s', n, x, e['action']) do
               expect(e['action']).to match(/\A(?:fail.+|delayed|expired)\z/)
             end
