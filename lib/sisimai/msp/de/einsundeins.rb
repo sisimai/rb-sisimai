@@ -160,9 +160,7 @@ module Sisimai
 
             e['status'] = Sisimai::SMTP::Status.find(e['diagnosis'])
             e['spec']   = 'SMTP'
-            e['action'] = 'failed'
             e['agent']  = Sisimai::MSP::DE::EinsUndEins.smtpagent
-
           end
 
           return { 'ds' => dscontents, 'rfc822' => rfc822part }
