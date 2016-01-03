@@ -14,6 +14,9 @@ MSPChildren = {
       '03' => { 'status' => %r/\A5[.][12][.][12]\z/, 'reason' => %r/(?:userunknown|mailboxfull)/ },
       '04' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
   },
+  'JP::Biglobe' => {
+      '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mailboxfull/ },
+  },
 }
 
 MSPChildren.each_key do |x|
