@@ -17,6 +17,13 @@ MSPChildren = {
   'JP::Biglobe' => {
       '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mailboxfull/ },
   },
+  'JP::EZweb' => {
+      '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/filtered/ },
+      '02' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/(?:suspend|undefined)/ },
+      '03' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/suspend/ },
+      '04' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
+      '05' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+  },
 }
 
 MSPChildren.each_key do |x|
