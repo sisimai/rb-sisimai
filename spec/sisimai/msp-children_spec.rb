@@ -6,23 +6,23 @@ require 'sisimai/message'
 DebugOnlyTo = ''
 MSPChildren = {
   'DE::EinsUndEins' => {
-      '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mesgtoobig/ },
+    '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mesgtoobig/ },
   },
   'DE::GMX' => {
-      '01' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
-      '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
-      '03' => { 'status' => %r/\A5[.][12][.][12]\z/, 'reason' => %r/(?:userunknown|mailboxfull)/ },
-      '04' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+    '01' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
+    '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+    '03' => { 'status' => %r/\A5[.][12][.][12]\z/, 'reason' => %r/(?:userunknown|mailboxfull)/ },
+    '04' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
   },
   'JP::Biglobe' => {
-      '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mailboxfull/ },
+    '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mailboxfull/ },
   },
   'JP::EZweb' => {
-      '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/filtered/ },
-      '02' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/(?:suspend|undefined)/ },
-      '03' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/suspend/ },
-      '04' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
-      '05' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+    '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/filtered/ },
+    '02' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/(?:suspend|undefined)/ },
+    '03' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/suspend/ },
+    '04' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
+    '05' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
   },
 }
 
