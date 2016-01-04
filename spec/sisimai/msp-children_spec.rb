@@ -29,6 +29,12 @@ MSPChildren = {
     '02' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mailboxfull/ },
     '03' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mailboxfull/ },
   },
+  'RU::MailRu' => {
+    '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+    '02' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
+    '03' => { 'status' => %r/\A5[.][12][.][12]\z/, 'reason' => %r/(?:userunknown|mailboxfull)/ },
+    '04' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+  },
 }
 
 MSPChildren.each_key do |x|
@@ -137,7 +143,7 @@ MSPChildren.each_key do |x|
           ['rhost', 'lhost'].each do |ee|
             next unless e[ee]
             next unless e[ee].size > 0
-            next if x =~ /\A(?:qmail|Exim|Exchange|X4)\z/
+            next if x =~ /\ARU::MailRu\z/
             example sprintf('[%s] %s[%s] = %s', n, x, ee, e[ee]) do
               expect(e[ee]).to match(/\A(?:localhost|.+[.].+)\z/)
             end
