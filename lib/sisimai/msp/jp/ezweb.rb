@@ -70,7 +70,7 @@ module Sisimai
           return nil unless mhead
           return nil unless mbody
 
-          match = 0
+          match  = 0
           match += 1 if mhead['from']    =~ Re0[:from]
           match += 1 if mhead['subject'] =~ Re0[:subject]
           match += 1 if mhead['received'].find { |a| a =~ Re0[:received] }
@@ -249,7 +249,6 @@ module Sisimai
                 # set "userunknown" when the remote server rejected after RCPT
                 # command.
                 e['reason'] = 'userunknown'
-
               else
                 # SMTP command is not RCPT
                 catch :SESSION do
@@ -263,6 +262,7 @@ module Sisimai
                     end
                   end
                 end
+
               end
             end
 
