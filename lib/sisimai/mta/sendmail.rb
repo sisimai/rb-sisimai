@@ -18,7 +18,7 @@ module Sisimai
         #   savemail.c:1042|  goto writeerr;
         #
         Re1 = {
-          :begin   => %r/\A\s+[-]+ Transcript of session follows [-]+\z/,
+          :begin   => %r/\A[ \t]+[-]+ Transcript of session follows [-]+\z/,
           :error   => %r/\A[.]+ while talking to .+[:]\z/,
           :rfc822  => %r{\AContent-Type:[ ]*(?:message/rfc822|text/rfc822-headers)\z},
           :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
@@ -48,7 +48,7 @@ module Sisimai
           return nil unless mbody
           return nil unless mhead['subject'] =~ Re0[:subject]
 
-          unless mhead['subject'] =~ /\A\s*Fwd?:/i
+          unless mhead['subject'] =~ /\A[ \t]*Fwd?:/i
             # Fwd: Returned mail: see transcript for details
             # Do not execute this code if the bounce mail is a forwarded message.
             return nil unless mhead['from'] =~ Re0[:from]
@@ -101,7 +101,7 @@ module Sisimai
                 previousfn  = lhs
                 rfc822part += e + "\n"
 
-              elsif e =~ /\A\s+/
+              elsif e =~ /\A[ \t]+/
                 # Continued line from the previous line
                 next if rfc822next[previousfn]
                 rfc822part += e + "\n" if LongFields.key?(previousfn)
@@ -166,7 +166,7 @@ module Sisimai
                     v['spec'] = cv[1].upcase
                     v['diagnosis'] = cv[2]
 
-                  elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A\s+(.+)\z/)
+                  elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A[ \t]+(.+)\z/)
                     # Continued line of the value of Diagnostic-Code header
                     v['diagnosis'] ||= ''
                     v['diagnosis']  += ' ' + cv[1]
@@ -230,8 +230,8 @@ module Sisimai
                     # ----- Transcript of session follows -----
                     # Message could not be delivered for too long
                     # Message will be deleted from queue
-                    next if e =~ /\A\s*[-]+/
-                    if cv = e.match(/\A[45]\d\d\s([45][.]\d[.]\d)\s.+/)
+                    next if e =~ /\A[ \t]*[-]+/
+                    if cv = e.match(/\A[45]\d\d[ \t]([45][.]\d[.]\d)[ \t].+/)
                       # 550 5.1.2 <kijitora@example.org>... Message
                       #
                       # DBI connect('dbname=...')
@@ -276,7 +276,7 @@ module Sisimai
 
             if anotherset['diagnosis']
               # Copy alternative error message
-              e['diagnosis'] = anotherset['diagnosis'] if e['diagnosis'] =~ /\A\s+\z/
+              e['diagnosis'] = anotherset['diagnosis'] if e['diagnosis'] =~ /\A[ \t]+\z/
               e['diagnosis'] = anotherset['diagnosis'] unless e['diagnosis']
 
               if e['diagnosis'] =~ /\A\d+\z/
