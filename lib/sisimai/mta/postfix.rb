@@ -182,7 +182,7 @@ module Sisimai
                     v['diagnosis'] = cv[2]
                     v['spec'] = 'SMTP' if v['spec'] == 'X-POSTFIX'
 
-                  elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A\s+(.+)\z/)
+                  elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A[ \t]+(.+)\z/)
                     # Continued line of the value of Diagnostic-Code header
                     v['diagnosis'] ||= ''
                     v['diagnosis']  += ' ' + cv[1]
