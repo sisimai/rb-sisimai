@@ -125,7 +125,7 @@ module Sisimai
                 previousfn  = lhs
                 rfc822part += e + "\n"
 
-              elsif e =~ /\A\s+/
+              elsif e =~ /\A[ \t]+/
                 # Continued line from the previous line
                 next if rfc822next[previousfn]
                 rfc822part += e + "\n" if LongFields.key?(previousfn)
@@ -238,7 +238,7 @@ module Sisimai
 
             if !e['rhost']
               # Get the remote host name
-              if cv = e['diagnosis'].match(/host\s+([^\s]+)\s\[.+\]:\s/)
+              if cv = e['diagnosis'].match(/host[ ]+([^ \t]+)[ ]\[.+\]:[ ]/)
                 # host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
                 e['rhost'] = cv[1]
               end
