@@ -40,6 +40,9 @@ MSPChildren = {
     '02' => { 'status' => %r/\A5[.][12][.][12]\z/, 'reason' => %r/(?:userunknown|mailboxfull)/ },
     '03' => { 'status' => %r/\A4[.]4[.]1\z/, 'reason' => %r/expired/ },
   },
+  'UK::MessageLabs' => {
+    '01' => { 'status' => %r/\A5[.]0[.]0\z/, 'reason' => %r/userunknown/ },
+  },
 }
 
 MSPChildren.each_key do |x|
