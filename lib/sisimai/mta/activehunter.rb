@@ -53,7 +53,6 @@ module Sisimai
           v = nil
 
           hasdivided.each do |e|
-
             if readcursor == 0
               # Beginning of the bounce message or delivery status part
               if e =~ Re1[:begin]
@@ -81,7 +80,7 @@ module Sisimai
                 previousfn  = lhs
                 rfc822part += e + "\n"
 
-              elsif e =~ /\A\s+/
+              elsif e =~ /\A[ \t]+/
                 # Continued line from the previous line
                 next if rfc822next[previousfn]
                 rfc822part += e + "\n" if LongFields.key?(previousfn)
@@ -106,7 +105,7 @@ module Sisimai
               # 550 sorry, no mailbox here by that name (#5.1.1 - chkusr)
               v = dscontents[-1]
 
-              if cv = e.match(/\A[>]{3}\s+.+[<]([^ ]+?[@][^ ]+?)[>]\z/)
+              if cv = e.match(/\A[>]{3}[ \t]+.+[<]([^ ]+?[@][^ ]+?)[>]\z/)
                 # >>> kijitora@example.org <kijitora@example.org>
                 if v['recipient']
                   # There are multiple recipient addresses in the message body.

@@ -102,7 +102,7 @@ module Sisimai
                 previousfn  = lhs
                 rfc822part += e + "\n"
 
-              elsif e =~ /\A\s+/
+              elsif e =~ /\A[ \t]+/
                 # Continued line from the previous line
                 next if rfc822next[previousfn]
                 rfc822part += e + "\n" if LongFields.key?(previousfn)
@@ -142,7 +142,7 @@ module Sisimai
                 v['recipient'] ||= e
                 recipients += 1
 
-              elsif cv = e.match(/\A\s\s([^ ]+[@][^ ]+)\z/)
+              elsif cv = e.match(/\A[ ][ ]([^ ]+[@][^ ]+)\z/)
                 # Continued from the line "was not delivered to:"
                 #   kijitora@example.net
                 v['recipient'] = Sisimai::Address.s3s4(cv[1])
@@ -157,7 +157,7 @@ module Sisimai
                   # Error message, continued from the line "because:"
                   v['diagnosis'] = e
 
-                elsif cv = e.match(/\A\s\sSubject: (.+)\z/)
+                elsif cv = e.match(/\A[ ][ ]Subject: (.+)\z/)
                   #   Subject: Nyaa
                   subjecttxt = cv[1]
                 end

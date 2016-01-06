@@ -130,7 +130,7 @@ module Sisimai
                 previousfn  = lhs
                 rfc822part += e + "\n"
 
-              elsif e =~ /\A\s+/
+              elsif e =~ /\A[ \t]+/
                 # Continued line from the previous line
                 next if rfc822next[previousfn]
                 rfc822part += e + "\n" if LongFields.key?(previousfn)
@@ -197,7 +197,7 @@ module Sisimai
                     v['spec'] = cv[1].upcase
                     v['diagnosis'] = cv[2]
 
-                  elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A\s+(.+)\z/)
+                  elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A[ \t]+(.+)\z/)
                     # Continued line of the value of Diagnostic-Code header
                     v['diagnosis'] ||= ''
                     v['diagnosis']  += ' ' + cv[1]

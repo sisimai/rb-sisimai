@@ -21,8 +21,8 @@ module Sisimai
                 |on[ ].+[ ]program\z    # The Postfix on <os name> program
                 )
               |\w+[ ]Postfix[ ]program\z  # The <name> Postfix program
-              |mail\ssystem\z             # The mail system
-              |\w+\sprogram\z             # The <custmized-name> program
+              |mail[ \t]system\z             # The mail system
+              |\w+[ \t]program\z             # The <custmized-name> program
               )
             |This[ ]is[ ]the[ ](?:
                Postfix[ ]program          # This is the Postfix program
@@ -32,7 +32,7 @@ module Sisimai
               )
             )
           }x,
-          :rfc822 => %r!\AContent-Type:\s*(?:message/rfc822|text/rfc822-headers)\z!x,
+          :rfc822 => %r!\AContent-Type:[ \t]*(?:message/rfc822|text/rfc822-headers)\z!x,
           :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
         Indicators = Sisimai::MTA.INDICATORS
@@ -108,7 +108,7 @@ module Sisimai
                 previousfn  = lhs
                 rfc822part += e + "\n"
 
-              elsif e =~ /\A\s+/
+              elsif e =~ /\A[ \t]+/
                 # Continued line from the previous line
                 next if rfc822next[previousfn]
                 rfc822part += e + "\n" if LongFields.key?(previousfn)
@@ -199,11 +199,11 @@ module Sisimai
                 # <userunknown@example.co.jp>: host mx.example.co.jp[192.0.2.153] said: 550
                 # 5.1.1 <userunknown@example.co.jp>... User Unknown (in reply to RCPT TO
                 # command)
-                if cv = e.match(/\s[(]in reply to ([A-Z]{4}).*/)
+                if cv = e.match(/[ \t][(]in reply to ([A-Z]{4}).*/)
                   # 5.1.1 <userunknown@example.co.jp>... User Unknown (in reply to RCPT TO
                   commandset << cv[1]
 
-                elsif cv = e.match(/([A-Z]{4})\s*.*command[)]\z/)
+                elsif cv = e.match(/([A-Z]{4})[ \t]*.*command[)]\z/)
                   # to MAIL command)
                   commandset << cv[1]
 
@@ -226,7 +226,7 @@ module Sisimai
 
                   else
                     # Alternative error message and recipient
-                    if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>] [(]expanded from [<](.+)[>][)]:\s*(.+)\z/)
+                    if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>] [(]expanded from [<](.+)[>][)]:[ \t]*(.+)\z/)
                       # <r@example.ne.jp> (expanded from <kijitora@example.org>): user ...
                       anotherset['recipient'] = cv[1]
                       anotherset['alias']     = cv[2]
@@ -240,7 +240,7 @@ module Sisimai
                     else
                       # Get error message continued from the previous line
                       next unless anotherset['diagnosis']
-                      if e =~ /\A\s{4}(.+)\z/
+                      if e =~ /\A[ \t]{4}(.+)\z/
                         #    host mx.example.jp said:...
                         anotherset['diagnosis'] += ' ' + e
                       end

@@ -156,7 +156,7 @@ module Sisimai
                 previousfn  = lhs
                 rfc822part += e + "\n"
 
-              elsif e =~ /\A\s+/
+              elsif e =~ /\A[ \t]+/
                 # Continued line from the previous line
                 next if rfc822next[previousfn]
                 rfc822part += e + "\n" if LongFields.key?(previousfn)
@@ -188,8 +188,8 @@ module Sisimai
                 #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
                 v = dscontents[-1]
 
-                if cv = e.match(/\A\s*([^ ]+[@][^ ]+) on\s*.*\z/) ||
-                   cv = e.match(/\A\s*.+(?:SMTP|smtp)=([^ ]+[@][^ ]+) on\s*.*\z/)
+                if cv = e.match(/\A[ \t]*([^ ]+[@][^ ]+) on[ \t]*.*\z/) ||
+                   cv = e.match(/\A[ \t]*.+(?:SMTP|smtp)=([^ ]+[@][^ ]+) on[ \t]*.*\z/)
                   # kijitora@example.co.jp on Thu, 29 Apr 2007 16:51:51 -0500
                   #   kijitora@example.com on 4/29/99 9:19:59 AM
                   if v['recipient']
@@ -201,7 +201,7 @@ module Sisimai
                   v['msexch'] = false
                   recipients += 1
 
-                elsif cv = e.match(/\A\s+(MSEXCH:.+)\z/)
+                elsif cv = e.match(/\A[ \t]+(MSEXCH:.+)\z/)
                   #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
                   v['diagnosis'] ||= ''
                   v['diagnosis']  += cv[1]
@@ -229,20 +229,20 @@ module Sisimai
                 #  Subject: ...
                 #  Sent:    Thu, 29 Apr 2010 18:14:35 +0000
                 #
-                if cv = e.match(/\A\s+To:\s+(.+)\z/)
+                if cv = e.match(/\A[ \t]+To:[ \t]+(.+)\z/)
                   #  To:      shironeko@example.jp
                   next if connheader['to'].size > 0
                   connheader['to'] = cv[1]
                   connvalues += 1
 
-                elsif cv = e.match(/\A\s+Subject:\s+(.+)\z/)
+                elsif cv = e.match(/\A[ \t]+Subject:[ \t]+(.+)\z/)
                   #  Subject: ...
                   next if connheader['subject'].size > 0
                   connheader['subject'] = cv[1]
                   connvalues += 1
 
-                elsif cv = e.match(%r|\A\s+Sent:\s+([A-Z][a-z]{2},.+[-+]\d{4})\z|) ||
-                      cv = e.match(%r|\A\s+Sent:\s+(\d+[/]\d+[/]\d+\s+\d+:\d+:\d+\s.+)|)
+                elsif cv = e.match(%r|\A[ \t]+Sent:[ \t]+([A-Z][a-z]{2},.+[-+]\d{4})\z|) ||
+                      cv = e.match(%r|\A[ \t]+Sent:[ \t]+(\d+[/]\d+[/]\d+[ \t]+\d+:\d+:\d+[ \t].+)|)
                   #  Sent:    Thu, 29 Apr 2010 18:14:35 +0000
                   #  Sent:    4/29/99 9:19:59 AM
                   next if connheader['date'].size > 0
@@ -267,7 +267,7 @@ module Sisimai
             end
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
-            if cv = e['diagnosis'].match(/\AMSEXCH:.+\s*[(]([0-9A-F]{8})[)]\s*(.*)\z/)
+            if cv = e['diagnosis'].match(/\AMSEXCH:.+[ \t]*[(]([0-9A-F]{8})[)][ \t]*(.*)\z/)
               #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
               capturedcode = cv[1]
               errormessage = cv[2]
