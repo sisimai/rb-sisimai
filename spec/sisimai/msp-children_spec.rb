@@ -35,6 +35,11 @@ MSPChildren = {
     '03' => { 'status' => %r/\A5[.][12][.][12]\z/, 'reason' => %r/(?:userunknown|mailboxfull)/ },
     '04' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
   },
+  'RU::Yandex' => {
+    '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+    '02' => { 'status' => %r/\A5[.][12][.][12]\z/, 'reason' => %r/(?:userunknown|mailboxfull)/ },
+    '03' => { 'status' => %r/\A4[.]4[.]1\z/, 'reason' => %r/expired/ },
+  },
 }
 
 MSPChildren.each_key do |x|
