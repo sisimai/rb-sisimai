@@ -99,7 +99,7 @@ module Sisimai
                 previousfn  = lhs
                 rfc822part += e + "\n"
 
-              elsif e =~ /\A\s+/
+              elsif e =~ /\A[ \t]+/
                 # Continued line from the previous line
                 next if rfc822next[previousfn]
                 rfc822part += e + "\n" if LongFields.key?(previousfn)
@@ -127,7 +127,7 @@ module Sisimai
               # --- Message non-deliverable.
               v = dscontents[-1]
 
-              if cv = e.match(/\AAddressed To:\s*([^ ]+?[@][^ ]+?)\z/)
+              if cv = e.match(/\AAddressed To:[ ]*([^ ]+?[@][^ ]+?)\z/)
                 # Addressed To: kijitora@example.com
                 if v['recipient']
                   # There are multiple recipient addresses in the message body.
@@ -137,11 +137,11 @@ module Sisimai
                 v['recipient'] = cv[1]
                 recipients += 1
 
-              elsif e =~ /\A(?:Sun|Mon|Tue|Wed|Thu|Fri|Sat)[\s,]/
+              elsif e =~ /\A(?:Sun|Mon|Tue|Wed|Thu|Fri|Sat)[ ,]/
                 # Thu 29 Apr 2010 23:34:45 +0900
                 v['date'] = e
 
-              elsif cv = e.match(/\A[^ ]+[@][^ ]+:\s*\[(\d+[.]\d+[.]\d+[.]\d)\],\s*(.+)\z/)
+              elsif cv = e.match(/\A[^ ]+[@][^ ]+:[ ]*\[(\d+[.]\d+[.]\d+[.]\d)\],[ ]*(.+)\z/)
                 # kijitora@example.com: [192.0.2.5], 550 kijitora@example.com... No such user
                 v['rhost'] = cv[1]
                 v['diagnosis'] = cv[2]
@@ -153,7 +153,7 @@ module Sisimai
                   v['spec'] = cv[1].upcase
                   v['diagnosis'] = cv[2]
 
-                elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A\s+(.+)\z/)
+                elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A[ ]+(.+)\z/)
                   # Continued line of the value of Diagnostic-Code header
                   v['diagnosis'] ||= ''
                   v['diagnosis']  += ' ' + cv[1]

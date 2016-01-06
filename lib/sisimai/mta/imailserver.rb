@@ -117,7 +117,7 @@ module Sisimai
                 previousfn  = lhs
                 rfc822part += e + "\n"
 
-              elsif e =~ /\A\s+/
+              elsif e =~ /\A[ \t]+/
                 # Continued line from the previous line
                 next if rfc822next[previousfn]
                 rfc822part += e + "\n" if LongFields.key?(previousfn)
@@ -138,7 +138,7 @@ module Sisimai
               # Original message follows.
               v = dscontents[-1]
 
-              if cv = e.match(/\A(.+)[ ](.+)[:]\s*([^ ]+[@][^ ]+)\z/)
+              if cv = e.match(/\A(.+)[ ](.+)[:][ \t]*([^ ]+[@][^ ]+)\z/)
                 # Unknown user: kijitora@example.com
                 if v['recipient']
                   # There are multiple recipient addresses in the message body.

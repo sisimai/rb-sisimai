@@ -39,8 +39,8 @@ module Sisimai
         #   bounce.c/338:    "    Your message was relayed to these recipients.\n\n";
         #   bounce.c/339:
         Re1 = {
-          :begin  => %r/\A\s*This is the MAILER-DAEMON, please DO NOT REPLY to this e-mail[.]\z/,
-          :rfc822 => %r/\A\s*Below is a copy of the original message:\z/,
+          :begin  => %r/\A[ \t]*This is the MAILER-DAEMON, please DO NOT REPLY to this e-mail[.]\z/,
+          :rfc822 => %r/\A[ \t]*Below is a copy of the original message:\z/,
           :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
         ReFailure = {
@@ -147,7 +147,7 @@ module Sisimai
                 previousfn  = lhs
                 rfc822part += e + "\n"
 
-              elsif e =~ /\A\s+/
+              elsif e =~ /\A[ \t]+/
                 # Continued line from the previous line
                 next if rfc822next[previousfn]
                 rfc822part += e + "\n" if LongFields.key?(previousfn)

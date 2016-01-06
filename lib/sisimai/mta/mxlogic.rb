@@ -144,7 +144,7 @@ module Sisimai
                 previousfn  = lhs
                 rfc822part += e + "\n"
 
-              elsif e =~ /\A\s+/
+              elsif e =~ /\A[ \t]+/
                 # Continued line from the previous line
                 next if rfc822next[previousfn]
                 rfc822part += e + "\n" if LongFields.key?(previousfn)
@@ -171,11 +171,11 @@ module Sisimai
               #    host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
               v = dscontents[-1]
 
-              if e =~ /\s*This is a permanent error[.]\s*/
+              if e =~ /[ \t]*This is a permanent error[.][ \t]*/
                 # deliver.c:6811|  "recipients. This is a permanent error. The following address(es) failed:\n");
                 v['softbounce'] = 0
 
-              elsif cv = e.match(/\A\s*[<]([^ ]+[@][^ ]+)[>]:(.+)\z/)
+              elsif cv = e.match(/\A[ \t]*[<]([^ ]+[@][^ ]+)[>]:(.+)\z/)
                 # A message that you have sent could not be delivered to one or more
                 # recipients.  This is a permanent error.  The following address failed:
                 #
@@ -202,7 +202,7 @@ module Sisimai
           if mhead['received'].size > 0
             # Get the name of local MTA
             # Received: from marutamachi.example.org (c192128.example.net [192.0.2.128])
-            if cv = mhead['received'][-1].match(/from\s([^ ]+) /)
+            if cv = mhead['received'][-1].match(/from[ ]([^ ]+) /)
               localhost0 = cv[1]
             end
           end
@@ -219,7 +219,7 @@ module Sisimai
 
             if !e['rhost']
               # Get the remote host name
-              if cv = e['diagnosis'].match(/host\s+([^\s]+)\s\[.+\]:\s/)
+              if cv = e['diagnosis'].match(/host[ ]+([^ \t]+)[ ]\[.+\]:[ ]/)
                 # host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
                 e['rhost'] = cv[1]
               end

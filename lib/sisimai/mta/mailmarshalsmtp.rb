@@ -59,7 +59,7 @@ module Sisimai
 
           boundary00 = Sisimai::MIME.boundary(mhead['content-type'])
           regularexp = %r/\A[-]{2}#{boundary00}[-]{2}\z/ if boundary00.size > 0
-          regularexp = %r/\A\s*[+]+\s*\z/ unless regularexp
+          regularexp = %r/\A[ \t]*[+]+[ \t]*\z/ unless regularexp
 
           hasdivided.each do |e|
             if readcursor == 0
@@ -89,7 +89,7 @@ module Sisimai
                 previousfn  = lhs
                 rfc822part += e + "\n"
 
-              elsif e =~ /\A\s+/
+              elsif e =~ /\A[ \t]+/
                 # Continued line from the previous line
                 next if rfc822next[previousfn]
                 rfc822part += e + "\n" if LongFields.key?(previousfn)
@@ -118,7 +118,7 @@ module Sisimai
               #    dummyuser@blabla.xxxxxxxxxxxx.com
               v = dscontents[-1]
 
-              if cv = e.match(/\A\s{4}([^ ]+[@][^ ]+)\z/)
+              if cv = e.match(/\A[ ]{4}([^ ]+[@][^ ]+)\z/)
                 # The following recipients were affected: 
                 #    dummyuser@blabla.xxxxxxxxxxxx.com
                 if v['recipient']
@@ -152,17 +152,17 @@ module Sisimai
                   # Reporting-MTA:      <relay.xxxxxxxxxxxx.com>
                   # MessageName:        <B549996730000.000000000001.0003.mml>
                   # Last-Attempt-Date:  <16:21:07 seg, 22 Dezembro 2014>
-                  if cv = e.match(/\AOriginal Sender:\s+[<](.+)[>]\z/)
+                  if cv = e.match(/\AOriginal Sender:[ \t]+[<](.+)[>]\z/)
                     # Original Sender:    <originalsender@example.com>
                     # Use this line instead of "From" header of the original
                     # message.
                     rfc822part += sprintf("From: %s\n", cv[1])
 
-                  elsif cv = e.match(/\ASender-MTA:\s+[<](.+)[>]\z/)
+                  elsif cv = e.match(/\ASender-MTA:[ \t]+[<](.+)[>]\z/)
                     # Sender-MTA:         <10.11.12.13>
                     v['lhost'] = cv[1]
 
-                  elsif cv = e.match(/\AReporting-MTA:\s+[<](.+)[>]\z/)
+                  elsif cv = e.match(/\AReporting-MTA:[ \t]+[<](.+)[>]\z/)
                     # Reporting-MTA:      <relay.xxxxxxxxxxxx.com>
                     v['rhost'] = cv[1]
                   end

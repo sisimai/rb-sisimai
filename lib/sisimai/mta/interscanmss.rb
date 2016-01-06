@@ -91,7 +91,7 @@ module Sisimai
                 previousfn  = lhs
                 rfc822part += e + "\n"
 
-              elsif e =~ /\A\s+/
+              elsif e =~ /\A[ \t]+/
                 # Continued line from the previous line
                 next if rfc822next[previousfn]
                 rfc822part += e + "\n" if LongFields.key?(previousfn)
@@ -112,8 +112,8 @@ module Sisimai
               # Received >>> 550 5.1.1 <kijitora@example.co.jp>... user unknown
               v = dscontents[-1]
 
-              if cv = e.match(/\A.+[<>]{3}\s+.+[<]([^ ]+[@][^ ]+)[>]\z/) ||
-                 cv = e.match(/\A.+[<>]{3}\s+.+[<]([^ ]+[@][^ ]+)[>]/)
+              if cv = e.match(/\A.+[<>]{3}[ \t]+.+[<]([^ ]+[@][^ ]+)[>]\z/) ||
+                 cv = e.match(/\A.+[<>]{3}[ \t]+.+[<]([^ ]+[@][^ ]+)[>]/)
                 # Sent <<< RCPT TO:<kijitora@example.co.jp>
                 # Received >>> 550 5.1.1 <kijitora@example.co.jp>... user unknown
                 cr = cv[1]
@@ -126,11 +126,11 @@ module Sisimai
                 recipients = dscontents.size
               end
 
-              if cv = e.match(/\ASent\s+[<]{3}\s+([A-Z]{4})\s/)
+              if cv = e.match(/\ASent[ ]+[<]{3}[ ]+([A-Z]{4})[ ]/)
                 # Sent <<< RCPT TO:<kijitora@example.co.jp>
                 v['command'] = cv[1]
 
-              elsif cv = e.match(/\AReceived\s+[>]{3}\s+(\d{3}\s+.+)\z/)
+              elsif cv = e.match(/\AReceived[ ]+[>]{3}[ ]+(\d{3}[ ]+.+)\z/)
                 # Received >>> 550 5.1.1 <kijitora@example.co.jp>... user unknown
                 v['diagnosis'] = cv[1]
               end

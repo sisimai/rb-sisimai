@@ -109,7 +109,7 @@ module Sisimai
           }x,
         }
         # userunknown + expired
-        ReOnHold  = %r/\A[^ ]+ does not like recipient[.]\s+.+this message has been in the queue too long[.]\z/
+        ReOnHold  = %r/\A[^ ]+ does not like recipient[.][ ]+.+this message has been in the queue too long[.]\z/
         # qmail-remote-fallback.patch
         ReCommand = %r/Sorry,[ ]no[ ]SMTP[ ]connection[ ]got[ ]far[ ]enough;[ ]most[ ]progress[ ]was[ ]([A-Z]{4})[ ]/x
         ReFailure = {
@@ -217,7 +217,7 @@ module Sisimai
                 previousfn  = lhs
                 rfc822part += e + "\n"
 
-              elsif e =~ /\A\s+/
+              elsif e =~ /\A[ \t]+/
                 # Continued line from the previous line
                 next if rfc822next[previousfn]
                 rfc822part += e + "\n" if LongFields.key?(previousfn)
@@ -244,7 +244,7 @@ module Sisimai
                 # This is a permanent error; I've given up. Sorry it didn't work out.
                 v['softbounce'] = 0
 
-              elsif cv = e.match(/\A(?:To[ ]*:)?[<](.+[@].+)[>]:\s*\z/)
+              elsif cv = e.match(/\A(?:To[ ]*:)?[<](.+[@].+)[>]:[ ]*\z/)
                 # <kijitora@example.jp>:
                 if v['recipient']
                   # There are multiple recipient addresses in the message body.

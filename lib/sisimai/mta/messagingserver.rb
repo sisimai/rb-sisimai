@@ -17,7 +17,7 @@ module Sisimai
         Re1 = {
           :begin  => %r/\AThis report relates to a message you sent with the following header fields:/,
           :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-          :rfc822 => %r!\A(?:Content-type:\s*message/rfc822|Return-path:\s*)!x,
+          :rfc822 => %r!\A(?:Content-type:[ ]*message/rfc822|Return-path:[ ]*)!x,
         }
         ReFailure = {
           'hostunknown' => %r{Illegal[ ]host/domain[ ]name[ ]found}x,
@@ -89,7 +89,7 @@ module Sisimai
                 previousfn  = lhs
                 rfc822part += e + "\n"
 
-              elsif e =~ /\A\s+/
+              elsif e =~ /\A[ \t]+/
                 # Continued line from the previous line
                 next if rfc822next[previousfn]
                 rfc822part += e + "\n" if LongFields.key?(previousfn)
@@ -126,7 +126,7 @@ module Sisimai
               #   Remote system: dns;mx.example.jp (TCP|17.111.174.67|47323|192.0.2.225|25) (6jo.example.jp ESMTP SENDMAIL-VM)
               v = dscontents[-1]
 
-              if cv = e.match(/\A\s+Recipient address:\s*([^ ]+[@][^ ]+)\z/)
+              if cv = e.match(/\A[ \t]+Recipient address:[ \t]*([^ ]+[@][^ ]+)\z/)
                 #   Recipient address: kijitora@example.jp
                 if v['recipient']
                   # There are multiple recipient addresses in the message body.
@@ -136,24 +136,24 @@ module Sisimai
                 v['recipient'] = Sisimai::Address.s3s4(cv[1])
                 recipients += 1
 
-              elsif cv = e.match(/\A\s+Original address:\s*([^ ]+[@][^ ]+)\z/)
+              elsif cv = e.match(/\A[ \t]+Original address:[ \t]*([^ ]+[@][^ ]+)\z/)
                 #   Original address: kijitora@example.jp
                 v['recipient'] = Sisimai::Address.s3s4(cv[1])
 
-              elsif cv = e.match(/\A\s+Date:\s*(.+)\z/)
+              elsif cv = e.match(/\A[ \t]+Date:[ \t]*(.+)\z/)
                 #   Date: Fri, 21 Nov 2014 23:34:45 +0900
                 v['date'] = cv[1]
 
-              elsif cv = e.match(/\A\s+Reason:\s*(.+)\z/)
+              elsif cv = e.match(/\A[ \t]+Reason:[ \t]*(.+)\z/)
                 #   Reason: Remote SMTP server has rejected address
                 v['diagnosis'] = cv[1]
 
-              elsif cv = e.match(/\A\s+Diagnostic code:\s*([^ ]+);(.+)\z/)
+              elsif cv = e.match(/\A[ \t]+Diagnostic code:[ \t]*([^ ]+);(.+)\z/)
                 #   Diagnostic code: smtp;550 5.1.1 <kijitora@example.jp>... User Unknown
                 v['spec'] = cv[1].upcase
                 v['diagnosis'] = cv[2]
 
-              elsif cv = e.match(/\A\s+Remote system:\s*dns;([^ ]+)\s*([^ ]+)\s*.+\z/)
+              elsif cv = e.match(/\A[ \t]+Remote system:[ ]*dns;([^ ]+)[ ]*([^ ]+)[ ]*.+\z/)
                 #   Remote system: dns;mx.example.jp (TCP|17.111.174.67|47323|192.0.2.225|25)
                 #     (6jo.example.jp ESMTP SENDMAIL-VM)
                 remotehost = cv[1]  # remote host
@@ -180,7 +180,7 @@ module Sisimai
                 #  (6jo.example.jp ESMTP SENDMAIL-VM)
                 # Diagnostic-code: smtp;550 5.1.1 <kijitora@example.jp>... User Unknown
                 #
-                if cv = e.match(/\A[Ss]tatus:\s*(\d[.]\d[.]\d)\s*[(](.+)[)]\z/)
+                if cv = e.match(/\A[Ss]tatus:[ ]*(\d[.]\d[.]\d)[ ]*[(](.+)[)]\z/)
                   # Status: 5.1.1 (Remote SMTP server has rejected address)
                   v['status'] = cv[1]
                   v['diagnosis'] ||= cv[2]

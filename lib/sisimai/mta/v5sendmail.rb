@@ -29,12 +29,12 @@ module Sisimai
         #   savemail.c:498|       putline(buf, fp, m);
         #   savemail.c:499|   (void) fclose(xfile);
         Re1 = {
-          :begin  => %r/\A\s+[-]+ Transcript of session follows [-]+\z/,
+          :begin  => %r/\A[ \t]+[-]+ Transcript of session follows [-]+\z/,
           :error  => %r/\A[.]+ while talking to .+[:]\z/,
-          :rfc822 => %r{\A\s+-----\s(?:
+          :rfc822 => %r{\A[ \t]+-----[ ](?:
              Unsent[ ]message[ ]follows
             |No[ ]message[ ]was[ ]collected
-            )\s-----
+            )[ ]-----
           }x,
           :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
@@ -104,7 +104,7 @@ module Sisimai
                 previousfn  = lhs
                 rfc822part += e + "\n"
 
-              elsif e =~ /\A\s+/
+              elsif e =~ /\A[ \t]+/
                 # Continued line from the previous line
                 next if rfc822next[previousfn]
                 rfc822part += e + "\n" if LongFields.key?(previousfn)
@@ -129,7 +129,7 @@ module Sisimai
               # 421 example.org (smtp)... Deferred: Connection timed out during user open with example.org
               v = dscontents[-1]
 
-              if cv = e.match(/\A\d{3}\s+[<]([^ ]+[@][^ ]+)[>][.]{3}\s*(.+)\z/)
+              if cv = e.match(/\A\d{3}[ ]+[<]([^ ]+[@][^ ]+)[>][.]{3}[ ]*(.+)\z/)
                 # 550 <kijitora@example.org>... User unknown
                 if v['recipient']
                   # There are multiple recipient addresses in the message body.
@@ -146,7 +146,7 @@ module Sisimai
                 end
                 recipients += 1
 
-              elsif cv = e.match(/\A[>]{3}\s*([A-Z]{4})\s*/)
+              elsif cv = e.match(/\A[>]{3}[ ]*([A-Z]{4})[ ]*/)
                 # >>> RCPT To:<kijitora@example.org>
                 commandset[recipients] = cv[1]
 
@@ -167,7 +167,7 @@ module Sisimai
                   next
                 end
 
-                if cv = e.match(/\A\d{3}\s+.+[.]{3}\s*(.+)\z/)
+                if cv = e.match(/\A\d{3}[ ]+.+[.]{3}[ \t]*(.+)\z/)
                   # 421 example.org (smtp)... Deferred: Connection timed out during user open with example.org
                   anotherset['diagnosis'] = cv[1]
                 end

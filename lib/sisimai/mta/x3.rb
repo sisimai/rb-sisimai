@@ -13,7 +13,7 @@ module Sisimai
           :subject => %r/\ADelivery status notification/,
         }
         Re1 = {
-          :begin  => %r/\A\s+This is an automatically generated Delivery Status Notification/,
+          :begin  => %r/\A[ \t]+This is an automatically generated Delivery Status Notification/,
           :rfc822 => %r|\AContent-Type: message/rfc822|,
           :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
@@ -80,7 +80,7 @@ module Sisimai
                 previousfn  = lhs
                 rfc822part += e + "\n"
 
-              elsif e =~ /\A\s+/
+              elsif e =~ /\A[ \t]+/
                 # Continued line from the previous line
                 next if rfc822next[previousfn]
                 rfc822part += e + "\n" if LongFields.key?(previousfn)
@@ -114,7 +114,7 @@ module Sisimai
               # ============================================================================
               v = dscontents[-1]
 
-              if cv = e.match(/\A\s+[*]\s([^ ]+[@][^ ]+)\z/)
+              if cv = e.match(/\A[ \t]+[*][ ]([^ ]+[@][^ ]+)\z/)
                 #   * kijitora@example.com
                 if v['recipient']
                   # There are multiple recipient addresses in the message body.
@@ -126,7 +126,7 @@ module Sisimai
 
               else
                 # Detect error message
-                if cv = e.match(/\ASMTP:([^ ]+)\s(.+)\z/)
+                if cv = e.match(/\ASMTP:([^ ]+)[ ](.+)\z/)
                   # SMTP:RCPT host 192.0.2.8: 553 5.3.0 <kijitora@example.com>... No such user here
                   v['command'] = cv[1].upcase
                   v['diagnosis'] = cv[2]
