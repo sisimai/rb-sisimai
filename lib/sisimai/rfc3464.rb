@@ -359,10 +359,10 @@ module Sisimai
              \AContent-Type:[ ]message/delivery-status
             |\AHere[ ]is[ ]a[ ]copy[ ]of[ ]the[ ]first[ ]part[ ]of[ ]the[ ]message
             |\AThe[ ]non-delivered[ ]message[ ]is[ ]attached[ ]to[ ]this[ ]message.
-            |\AReceived:\s*
-            |\AReceived-From-MTA:\s*
-            |\AReporting-MTA:\s*
-            |\AReturn-Path:\s*
+            |\AReceived:[ \t]*
+            |\AReceived-From-MTA:[ \t]*
+            |\AReporting-MTA:[ \t]*
+            |\AReturn-Path:[ \t]*
             |\AA[ ]copy[ ]of[ ]the[ ]original[ ]message[ ]below[ ]this[ ]line:
             |Attachment[ ]is[ ]a[ ]copy[ ]of[ ]the[ ]message
             |Below[ ]is[ ]a[ ]copy[ ]of[ ]the[ ]original[ ]message:
@@ -379,7 +379,7 @@ module Sisimai
           re_addr = %r{(?:
              \A\s*
             |\A["].+["]\s*
-            |\A\s*Recipient:\s*
+            |\A[ \t]*Recipient:[ \t]*
             |\A[ ]*Address:[ ]
             |addressed[ ]to[ ]
             |Could[ ]not[ ]be[ ]delivered[ ]to:[ ]
@@ -402,7 +402,7 @@ module Sisimai
             |You[ ]sent[ ]mail[ ]to[ ]
             |Your[ ]message[ ]to[ ]
             )
-            ['"]?[<]?([^\s@=]+[@][-.0-9A-Za-z]+[.][0-9A-Za-z]+)[>]?['"]?
+            ['"]?[<]?([^\s\n\r@=]+[@][-.0-9A-Za-z]+[.][0-9A-Za-z]+)[>]?['"]?
           }xi;
 
           b = dscontents[-1]
