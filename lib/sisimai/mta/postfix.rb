@@ -99,7 +99,7 @@ module Sisimai
 
             if readcursor & Indicators[:'message-rfc822'] > 0
               # After "message/rfc822"
-              if cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*.+\z/)
+              if cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*.*\z/)
                 # Get required headers only
                 lhs = cv[1].downcase
                 previousfn = '';

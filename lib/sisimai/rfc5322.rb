@@ -72,7 +72,7 @@ module Sisimai
       # Fields that might be long
       # @return   [Hash] Long filed(email header) list
       def LONGFIELDS
-        return { 'to' => 1, 'from' => 1, 'subject' => 1 }
+        return { 'to' => 1, 'from' => 1, 'subject' => 1, 'message-id' => 1 }
       end
 
       # Check that the argument is an email address or not

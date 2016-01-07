@@ -296,7 +296,7 @@ module Sisimai
 
       hasdivided.each do |e|
         # Header name as a key, The value of header as a value
-        if cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*(.+)\z/)
+        if cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*(.*)\z/)
           # Header
           lhs = cv[1].downcase
           rhs = cv[2]
@@ -326,6 +326,7 @@ module Sisimai
 
           else
             # ASCII Characters only: Not MIME-Encoded
+            e = e.lstrip
             takenapart[previousfn]  += e
             mimeborder[previousfn] ||= false
           end
