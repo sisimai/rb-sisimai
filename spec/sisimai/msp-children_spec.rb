@@ -43,6 +43,12 @@ MSPChildren = {
   'UK::MessageLabs' => {
     '01' => { 'status' => %r/\A5[.]0[.]0\z/, 'reason' => %r/userunknown/ },
   },
+  'US::AmazonSES' => {
+    '01' => { 'status' => %r/\A5[.]7[.]1\z/, 'reason' => %r/blocked/ },
+    '02' => { 'status' => %r/\A5[.]3[.]0\z/, 'reason' => %r/filtered/ },
+    '03' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
+    '04' => { 'status' => %r/\A5[.]4[.]7\z/, 'reason' => %r/expired/ },
+  },
 }
 
 MSPChildren.each_key do |x|
