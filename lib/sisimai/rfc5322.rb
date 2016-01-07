@@ -126,16 +126,16 @@ module Sisimai
         value = { 'from' => '', 'by' => '' }
 
         # Received: (qmail 10000 invoked by uid 999); 24 Apr 2013 00:00:00 +0900
-        return [] if argvs =~ /qmail\s+.+invoked\s+/
+        return [] if argvs =~ /qmail[ ]+.+invoked[ ]+/
 
-        if cr = argvs.match(/\Afrom\s+(.+)\s+by\s+([^ ]+)/)
+        if cr = argvs.match(/\Afrom[ ]+(.+)[ ]+by[ ]+([^ ]+)/)
           # Received: from localhost (localhost)
           #   by nijo.example.jp (V8/cf) id s1QB5ma0018057;
           #   Wed, 26 Feb 2014 06:05:48 -0500
           value['from'] = cr[1]
           value['by']   = cr[2]
 
-        elsif cr = argvs.match(/\bby\s+([^ ]+)(.+)/)
+        elsif cr = argvs.match(/\bby[ ]+([^ ]+)(.+)/)
           # Received: by 10.70.22.98 with SMTP id c2mr1838265pdf.3; Fri, 18 Jul 2014
           #   00:31:02 -0700 (PDT)
           value['from'] = cr[1] + cr[2]

@@ -308,7 +308,7 @@ module Sisimai
 
         else
           # Continued line from the previous line
-          next unless e =~ /\A\s+/
+          next unless e =~ /\A[ \t]+/
           next if previousfn.empty?
 
           # Concatenate the line if it is the value of required header

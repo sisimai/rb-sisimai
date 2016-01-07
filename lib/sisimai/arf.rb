@@ -182,7 +182,7 @@ module Sisimai
               rfc822part += e + "\n"
               rcptintext  = rhs if lhs == 'to'
 
-            elsif e =~ /\A\s+/
+            elsif e =~ /\A[ \t]+/
               # Continued line from the previous line
               rfc822part += e + "\n" if LongFields.key?(previousfn)
               next if e.size > 0

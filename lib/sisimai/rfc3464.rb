@@ -39,7 +39,7 @@ module Sisimai
           |Return-Path:[ ]*[<].+[>]\z
           )\z
         }xi,
-        :error   => %r/\A(?:[45]\d\d\s+|[<][^@]+[@][^@]+[>]:?\s+)/i,
+        :error   => %r/\A(?:[45]\d\d[ \t]+|[<][^@]+[@][^@]+[>]:?[ \t]+)/i,
         :command => %r/[ ](RCPT|MAIL|DATA)[ ]+command\b/,
       }
 
@@ -118,7 +118,7 @@ module Sisimai
               previousfn  = lhs
               rfc822part += e + "\n"
 
-            elsif e =~ /\A\s+/
+            elsif e =~ /\A[ \t]+/
               # Continued line from the previous line
               next if rfc822next[previousfn]
               rfc822part += e + "\n" if LongFields.key?(previousfn)
@@ -169,7 +169,7 @@ module Sisimai
 
             elsif cv = e.match(/\A[Xx]-[Aa]ctual-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
               # X-Actual-Recipient: 
-              if cv[1] =~ /\s+/
+              if cv[1] =~ /[ \t]+/
                 # X-Actual-Recipient: RFC822; |IFS=' ' && exec procmail -f- || exit 75 ...
 
               else
@@ -265,7 +265,7 @@ module Sisimai
                 # Diagnostic-Code: 554 ...
                 v['diagnosis'] = cv[1]
 
-              elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A\s+(.+)\z/)
+              elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A[ \t]+(.+)\z/)
                 # Continued line of the value of Diagnostic-Code header
                 v['diagnosis'] += ' ' + cv[1]
                 e = 'Diagnostic-Code: ' + e

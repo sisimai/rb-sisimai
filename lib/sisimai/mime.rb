@@ -32,8 +32,7 @@ module Sisimai
 
         argvs.each do |e|
           # Check and decode each element
-          e = e.gsub(/\A\s+/, '')
-          e = e.gsub(/\s+\z/, '')
+          e = e.lstrip.rstrip
           e = e.delete('"')
 
           if self.is_mimeencoded(e)
