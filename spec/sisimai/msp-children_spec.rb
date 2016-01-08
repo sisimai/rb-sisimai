@@ -58,6 +58,10 @@ MSPChildren = {
   'US::Bigfoot' => {
     '01' => { 'status' => %r/\A5[.]7[.]1\z/, 'reason' => %r/userunknown/ },
   },
+  'US::Facebook' => {
+    '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/filtered/ },
+    '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+  },
 }
 
 MSPChildren.each_key do |x|
