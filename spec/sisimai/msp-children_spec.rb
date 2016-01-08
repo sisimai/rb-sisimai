@@ -78,6 +78,15 @@ MSPChildren = {
     '13' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
     '14' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
   },
+  'US::Outlook' => {
+    '01' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
+    '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+    '03' => { 'status' => %r/\A5[.]5[.]0\z/, 'reason' => %r/hostunknown/ },
+    '04' => { 'status' => %r/\A5[.][12][.][12]\z/, 'reason' => %r/(?:mailboxfull|userunknown)/ },
+    '05' => { 'status' => %r/\A5[.]5[.]0\z/, 'reason' => %r/userunknown/ },
+    '06' => { 'status' => %r/\A4[.]4[.]7\z/, 'reason' => %r/expired/ },
+    '07' => { 'status' => %r/\A4[.]4[.]7\z/, 'reason' => %r/expired/ },
+  },
 }
 
 MSPChildren.each_key do |x|
