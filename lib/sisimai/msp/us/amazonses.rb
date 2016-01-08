@@ -73,7 +73,7 @@ module Sisimai
               # Beginning of the bounce message or delivery status part
               if e =~ Re1[:begin]
                 readcursor |= Indicators[:'deliverystatus']
-                next unless e =~ Re1[:frozen]
+                next
               end
             end
 
