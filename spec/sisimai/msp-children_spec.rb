@@ -96,6 +96,11 @@ MSPChildren = {
     '06' => { 'status' => %r/\A5[.]6[.]1\z/, 'reason' => %r/contenterror/ },
     '07' => { 'status' => %r/\A5[.]2[.]0\z/, 'reason' => %r/filtered/ },
   },
+  'US::SendGrid' => {
+    '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+    '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+    '03' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+  },
 }
 
 MSPChildren.each_key do |x|
