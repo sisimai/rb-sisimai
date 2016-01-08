@@ -27,7 +27,7 @@ module Sisimai
         def headerlist;  return []; end
         def pattern;     return Re0; end
 
-        # Parse bounce messages from au by Bigfoot
+        # Parse bounce messages from Bigfoot
         # @param         [Hash] mhead       Message header of a bounce email
         # @options mhead [String] from      From header
         # @options mhead [String] date      Date header

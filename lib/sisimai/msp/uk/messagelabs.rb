@@ -37,7 +37,7 @@ module Sisimai
         def headerlist;  return ['X-Msg-Ref']; end
         def pattern;     return Re0; end
 
-        # Parse bounce messages from au by Symantec.cloud(MessageLabs)
+        # Parse bounce messages from Symantec.cloud(MessageLabs)
         # @param         [Hash] mhead       Message header of a bounce email
         # @options mhead [String] from      From header
         # @options mhead [String] date      Date header

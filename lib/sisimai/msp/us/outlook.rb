@@ -35,7 +35,7 @@ module Sisimai
         def headerlist;  return ['X-Message-Delivery', 'X-Message-Info']; end
         def pattern;     return Re0; end
 
-        # Parse bounce messages from au by Microsoft Outlook.com
+        # Parse bounce messages from Microsoft Outlook.com
         # @param         [Hash] mhead       Message header of a bounce email
         # @options mhead [String] from      From header
         # @options mhead [String] date      Date header

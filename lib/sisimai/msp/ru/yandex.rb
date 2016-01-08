@@ -33,7 +33,7 @@ module Sisimai
         def headerlist;  return ['X-Yandex-Uniq']; end
         def pattern;     return Re0; end
 
-        # Parse bounce messages from au by Yandex.Mail
+        # Parse bounce messages from Yandex.Mail
         # @param         [Hash] mhead       Message header of a bounce email
         # @options mhead [String] from      From header
         # @options mhead [String] date      Date header
