@@ -87,6 +87,15 @@ MSPChildren = {
     '06' => { 'status' => %r/\A4[.]4[.]7\z/, 'reason' => %r/expired/ },
     '07' => { 'status' => %r/\A4[.]4[.]7\z/, 'reason' => %r/expired/ },
   },
+  'US::ReceivingSES' => {
+    '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/filtered/ },
+    '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/filtered/ },
+    '03' => { 'status' => %r/\A4[.]0[.]0\z/, 'reason' => %r/onhold/ },
+    '04' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
+    '05' => { 'status' => %r/\A5[.]3[.]4\z/, 'reason' => %r/mesgtoobig/ },
+    '06' => { 'status' => %r/\A5[.]6[.]1\z/, 'reason' => %r/contenterror/ },
+    '07' => { 'status' => %r/\A5[.]2[.]0\z/, 'reason' => %r/filtered/ },
+  },
 }
 
 MSPChildren.each_key do |x|
