@@ -62,6 +62,22 @@ MSPChildren = {
     '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/filtered/ },
     '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
   },
+  'US::Google' => {
+    '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+    '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+    '03' => { 'status' => %r/\A5[.]7[.]0\z/, 'reason' => %r/filtered/ },
+    '04' => { 'status' => %r/\A5[.]7[.]1\z/, 'reason' => %r/blocked/ },
+    '05' => { 'status' => %r/\A5[.]7[.]1\z/, 'reason' => %r/blocked/ },
+    '06' => { 'status' => %r/\A4[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
+    '07' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/systemerror/ },
+    '08' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+    '09' => { 'status' => %r/\A4[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+    '10' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+    '11' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+    '12' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/onhold/ },
+    '13' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+    '14' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+  },
 }
 
 MSPChildren.each_key do |x|
