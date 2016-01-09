@@ -3,7 +3,7 @@ require 'sisimai/data'
 require 'sisimai/mail'
 require 'sisimai/message'
 
-DebugOnlyTo = ''
+debugOnlyTo = ''
 MSPChildren = {
   'DE::EinsUndEins' => {
     '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mesgtoobig/ },
@@ -123,8 +123,8 @@ MSPChildren.each_key do |x|
     end
 
     (1 .. MSPChildren[x].keys.size).each do |i|
-      if DebugOnlyTo.size > 0
-        next unless DebugOnlyTo == sprintf( "%s-%02d", x.downcase, i)
+      if debugOnlyTo.size > 0
+        next unless debugOnlyTo == sprintf( "%s-%02d", x.downcase, i)
       end
 
       emailfn = sprintf('./set-of-emails/maildir/bsd/%s-%02d.eml', x.downcase.gsub('::', '-'), i)

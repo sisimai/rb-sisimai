@@ -3,7 +3,7 @@ require 'sisimai/data'
 require 'sisimai/mail'
 require 'sisimai/message'
 
-DebugOnlyTo = ''
+debugOnlyTo = ''
 MTAChildren = {
   'Activehunter' => {
     '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
@@ -247,8 +247,8 @@ MTAChildren.each_key do |x|
     end
 
     (1 .. MTAChildren[x].keys.size).each do |i|
-      if DebugOnlyTo.size > 0
-        next unless DebugOnlyTo == sprintf( "%s-%02d", x.downcase, i)
+      if debugOnlyTo.size > 0
+        next unless debugOnlyTo == sprintf( "%s-%02d", x.downcase, i)
       end
 
       emailfn = sprintf('./set-of-emails/maildir/bsd/%s-%02d.eml', x.downcase, i)
