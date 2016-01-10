@@ -111,6 +111,13 @@ MSPChildren = {
     '04' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
     '05' => { 'status' => %r/\A5[.]2[.]1\z/, 'reason' => %r/filtered/ },
   },
+  'US::Zoho' => {
+    '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+    '02' => { 'status' => %r/\A5[.]2[.][12]\z/, 'reason' => %r/(?:mailboxfull|filtered)/ },
+    '03' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/filtered/ },
+    '04' => { 'status' => %r/\A4[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+    '05' => { 'status' => %r/\A4[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+  },
 }
 
 MSPChildren.each_key do |x|
