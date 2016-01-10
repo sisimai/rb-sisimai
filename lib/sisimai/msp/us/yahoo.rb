@@ -7,6 +7,7 @@ module Sisimai
       class << self
         require 'sisimai/msp'
         require 'sisimai/rfc5322'
+
         Re0 = {
           :subject => %r/\AFailure Notice\z/,
         }
