@@ -104,6 +104,13 @@ MSPChildren = {
   'US::Verizon' => {
     '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
   },
+  'US::Yahoo' => {
+    '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+    '02' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
+    '03' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+    '04' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
+    '05' => { 'status' => %r/\A5[.]2[.]1\z/, 'reason' => %r/filtered/ },
+  },
 }
 
 MSPChildren.each_key do |x|
