@@ -140,6 +140,10 @@ describe Sisimai::Address do
       end
       example('#verp returns nil') { expect(v.verp).to be nil }
       example('#alias returns nil') { expect(v.alias).to be nil }
+
+      require 'json'
+      example('#to_json returns String') { expect(v.to_json).to be_a String }
+      example('#to_json returns address') { expect(v.to_json).to be v.address }
     end
   end
 
