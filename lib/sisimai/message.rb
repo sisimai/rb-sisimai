@@ -40,14 +40,15 @@ module Sisimai
     @@TryOnFirst = []
 
     # Constructor of Sisimai::Message
-    # @param         [Hash] argvs       Email text data
+    # @param         [String] data      Email text data
+    # @param         [Hash] argvs       Module to be loaded
     # @options argvs [String] data      Entire email message
     # @return        [Sisimai::Message] Structured email data or Undef if each
     #                                   value of the arguments are missing
-    def initialize(argvs)
-      email = argvs['data'] || ''
-      return nil if email.empty?
+    def initialize(data: '', **argvs)
+      return nil if data.empty?
 
+      email = data
       email = email.scrub('?')
       email = email.gsub("\r\n", "\n")
       methodargv = { 'data' => email }
