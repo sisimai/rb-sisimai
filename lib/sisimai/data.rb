@@ -110,11 +110,11 @@ module Sisimai
     # @option argvs [Sisimai::Message] Data Object
     # @return       [Array, Undef]     List of Sisimai::Data or Undef if the 
     #                                  argument is not Sisimai::Message object
-    def self.make(argvs)
-      return nil unless argvs.key?('data')
-      return nil unless argvs['data'].is_a? Sisimai::Message
+    def self.make(data: nil, **argvs)
+      return nil unless data
+      return nil unless data.is_a? Sisimai::Message
 
-      messageobj = argvs['data']
+      messageobj = data
       rfc822data = messageobj.rfc822
       fieldorder = { 'recipient' => [], 'addresser' => [] }
       objectlist = []
