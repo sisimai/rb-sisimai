@@ -6,8 +6,7 @@ describe Sisimai::Message do
   sf = './set-of-emails/mailbox/mbox-0'
 
   mailastext = File.open(sf).read
-  methodargv = { 'data' => mailastext }
-  messageobj = cn.new(methodargv)
+  messageobj = cn.new(data: mailastext)
 
   describe 'class method' do
     describe '.new' do

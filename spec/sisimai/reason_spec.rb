@@ -133,8 +133,8 @@ describe Sisimai::Reason do
   describe '.true' do
     mailboxobj = Sisimai::Mail.new('./set-of-emails/maildir/bsd/sendmail-01.eml')
     while r = mailboxobj.read do
-      o = Sisimai::Message.new( { 'data' => r } )
-      v = Sisimai::Data.make( { 'data' => o } )
+      o = Sisimai::Message.new( data: r )
+      v = Sisimai::Data.make( data: o )
       it('returns Array') { expect(v).to be_a Array }
 
       v.each do |e|

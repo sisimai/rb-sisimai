@@ -93,7 +93,7 @@ MTARelative.each_key do |x|
       while r = mailbox.read do
         mailtxt = r
         it('returns String') { expect(mailtxt).to be_a String }
-        p = Sisimai::Message.new( { 'data' => r } )
+        p = Sisimai::Message.new( data: r )
 
         it('returns Sisimai::Message object') { expect(p).to be_a Sisimai::Message }
         example('Array in ds accessor') { expect(p.ds).to be_a Array }
@@ -170,7 +170,7 @@ MTARelative.each_key do |x|
           end
         end
 
-        o = Sisimai::Data.make( { 'data' => p } )
+        o = Sisimai::Data.make( data: p )
         it 'returns Array' do
           expect(o).to be_a Array
           expect(o.size).to be > 0

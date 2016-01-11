@@ -19,7 +19,7 @@ describe Sisimai::Rhost::GoogleApps do
       next unless mailbox
 
       while r = mailbox.read do
-        p = Sisimai::Message.new( { 'data' => r } )
+        p = Sisimai::Message.new( data: r )
         subject { p }
         it('is Sisimai::Message object') { is_expected.to be_a Sisimai::Message }
         it('has array in "ds" accessor' ) { expect(p.ds).to be_a Array }
@@ -42,7 +42,7 @@ describe Sisimai::Rhost::GoogleApps do
           example('agent is Sendmail') { expect(e['agent']).to be == 'Sendmail' }
         end
 
-        v = Sisimai::Data.make( { 'data' => p } )
+        v = Sisimai::Data.make( data: p )
         v.each do |e|
           example('reason is String') { expect(e.reason.size).to be > 0 }
           example('reason matches') { expect(e.reason).to match(rs[n]['reason']) }

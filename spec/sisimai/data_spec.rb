@@ -5,13 +5,6 @@ require 'sisimai/message'
 
 describe Sisimai::Data do
   cn = Sisimai::Data
-  #let(:mail) { Sisimai::Mail.new(file) }
-  #let(:mesg) { Sisimai::Message.new( { 'data' => text } ) }
-  #let(:data) { Sisimai::Data.make( { 'data' => mesg } ) }
-
-  #mail = nil
-  #mesg = nil
-  #data = nil
   list = nil
 
   describe 'without orders of email address headers' do
@@ -20,8 +13,8 @@ describe Sisimai::Data do
     while r = mail.read do
       #let(:text) { r }
       #let(:mesg) { mesg }
-      mesg = Sisimai::Message.new( { 'data' => r } )
-      data = Sisimai::Data.make( { 'data' => mesg } )
+      mesg = Sisimai::Message.new( data: r )
+      data = Sisimai::Data.make( data: mesg )
       example 'Sisimai::Data.make returns Array' do
         expect(data).to be_a Array
       end
@@ -126,12 +119,12 @@ describe Sisimai::Data do
     mail = Sisimai::Mail.new(file)
 
     while r = mail.read do
-      mesg = Sisimai::Message.new( { 'data' => r } )
+      mesg = Sisimai::Message.new( data: r )
       list = { 
         'recipient' => [ 'X-Failed-Recipient', 'To' ],
         'addresser' => [ 'Return-Path', 'From', 'X-Envelope-From' ],
       }
-      data = Sisimai::Data.make( { 'data' => mesg, 'order' => list } )
+      data = Sisimai::Data.make( data: mesg, order: list )
       example 'Sisimai::Data.make returns Array' do
         expect(data).to be_a Array
       end
@@ -241,8 +234,8 @@ describe Sisimai::Data do
     file = './set-of-emails/maildir/not/is-not-bounce-01.eml'
     mail = Sisimai::Mail.new(file)
     while r = mail.read do
-      mesg = Sisimai::Message.new( { 'data' => r } )
-      data = Sisimai::Data.make( { 'data' => mesg } )
+      mesg = Sisimai::Message.new( data: r )
+      data = Sisimai::Data.make( data: mesg )
       it('returns Sisimai::Message') { expect(mesg).to be_a Sisimai::Message }
       it('returns nil') { expect(data).to be nil }
     end

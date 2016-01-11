@@ -16,8 +16,8 @@ describe Sisimai::Data::JSON do
   ]
 
   while r = mail.read do
-    mesg = Sisimai::Message.new( { 'data' => r } )
-    data = Sisimai::Data.make( { 'data' => mesg } )
+    mesg = Sisimai::Message.new( data: r )
+    data = Sisimai::Data.make( data: mesg )
     it('returns Array') { expect(data).to be_a Array }
 
     describe '#dump' do
