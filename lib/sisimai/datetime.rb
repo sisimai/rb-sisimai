@@ -292,6 +292,7 @@ module Sisimai
         timetokens = datestring.split(' ')
         parseddate = ''   # (String) Canonified Date/Time string
         afternoon1 = 0    # (Integer) After noon flag
+        altervalue = {}   # (Hash) To store alternative values
         v = {
           'Y' => nil,   # (Integer) Year
           'M' => nil,   # (String) Month Abbr.
@@ -325,8 +326,13 @@ module Sisimai
 
             else
               # The piece is the value of a day
-              v['d'] ||= p
-
+              if v['d']
+                # 2-digit year?
+                altervalue['Y'] = p unless v['Y']
+              else
+                # The value is "day"
+                v['d'] = p
+              end
             end
 
           elsif cr = p.match(/\A([0-2]\d):([0-5]\d):([0-5]\d)\z/) ||
@@ -409,6 +415,18 @@ module Sisimai
           v['Y'] = v['Y'].to_i + 1900
         end
         v['z'] ||= ::DateTime.now.zone.tr(':', '')
+
+        # Adjust 2-digit Year
+        if altervalue['Y'] && !v['Y']
+          # Check alternative value(Year)
+          if altervalue['Y'].to_i >= 82
+            # SMTP was born in 1982
+            v['Y'] ||= 1900 + altervalue['Y'].to_i
+          else
+            # 20XX
+            v['Y'] ||= 2000 + altervalue['Y'].to_i
+          end
+        end
 
         # Check each piece
         if v.value?(nil)
