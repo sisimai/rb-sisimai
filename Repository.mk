@@ -59,6 +59,7 @@ import-set-of-emails:
 	test -d $(EMAILS)
 	$(CP) -vRp ../$(EMAILS)/mailbox/* ./$(EMAILS)/mailbox/
 	$(CP) -vRp ../$(EMAILS)/maildir/* ./$(EMAILS)/maildir/
+	$(CP) -vRp ../$(EMAILS)/private/* ./$(EMAILS)/private/
 	$(CP) -vRp ../$(EMAILS)/to-be-debugged-because/* ./$(EMAILS)/to-be-debugged-because/
 
 clean:
