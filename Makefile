@@ -25,8 +25,8 @@ test: user-test
 user-test:
 	$(RAKE) spec
 
-rubocop-test:
-	rubocop lib spec
+patrol:
+	rubocop -fp --display-cop-names --display-style-guide --no-color lib
 
 $(REPOS_TARGETS):
 	$(MAKE) -f Repository.mk $@
