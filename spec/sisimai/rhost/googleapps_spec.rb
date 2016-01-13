@@ -19,15 +19,14 @@ describe Sisimai::Rhost::GoogleApps do
       next unless mailbox
 
       while r = mailbox.read do
-        p = Sisimai::Message.new( data: r )
-        subject { p }
-        it('is Sisimai::Message object') { is_expected.to be_a Sisimai::Message }
-        it('has array in "ds" accessor' ) { expect(p.ds).to be_a Array }
-        it('has hash in "header" accessor' ) { expect(p.header).to be_a Hash }
-        it('has hash in "rfc822" accessor' ) { expect(p.rfc822).to be_a Hash }
-        it('has From line in "from" accessor' ) { expect(p.from.size).to be > 0 }
+        mesg = Sisimai::Message.new(data: r)
+        it('is Sisimai::Message object') { expect(mesg).to be_a Sisimai::Message }
+        it('has array in "ds" accessor' ) { expect(mesg.ds).to be_a Array }
+        it('has hash in "header" accessor' ) { expect(mesg.header).to be_a Hash }
+        it('has hash in "rfc822" accessor' ) { expect(mesg.rfc822).to be_a Hash }
+        it('has From line in "from" accessor' ) { expect(mesg.from.size).to be > 0 }
 
-        p.ds.each do |e|
+        mesg.ds.each do |e|
           example('spec is "SMTP"') { expect(e['spec']).to be == 'SMTP' }
           example 'recipient is email address' do
             expect(e['recipient']).to match(/\A.+[@].+[.].+\z/)
@@ -42,8 +41,8 @@ describe Sisimai::Rhost::GoogleApps do
           example('agent is Sendmail') { expect(e['agent']).to be == 'Sendmail' }
         end
 
-        v = Sisimai::Data.make( data: p )
-        v.each do |e|
+        data = Sisimai::Data.make(data: mesg)
+        data.each do |e|
           example('reason is String') { expect(e.reason.size).to be > 0 }
           example('reason matches') { expect(e.reason).to match(rs[n]['reason']) }
         end
