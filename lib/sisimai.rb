@@ -41,6 +41,22 @@ module Sisimai
       return nil if list.size == 0
       return list
     end
+
+    # Wrapper method to parse mailbox/Maildir and dump as JSON
+    # @param        [String] path Path to mbox or Maildir/
+    # @return       [String]      Parsed data as JSON text
+    def dump(path)
+      return nil unless path
+
+      require 'json'
+      parseddata = Sisimai.make(path) || []
+      jsonoption = ::JSON::state.new
+
+      jsonoption.space = ' '
+      jsonoption.object_nl = ' '
+
+      return JSON.generate(parseddata, jsonoption)
+    end
   end
 
 end
