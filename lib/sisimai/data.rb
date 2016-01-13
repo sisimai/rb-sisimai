@@ -403,5 +403,12 @@ module Sisimai
       return dumpeddata
     end
 
+    # JSON handler
+    # @param    [JSON::State] argv  JSON::Ext::Generator::State object
+    # @return   [String]            JSON string converted from Sisimai::Data
+    def to_json(argv)
+      return self.dump('json')
+    end
+
   end
 end
