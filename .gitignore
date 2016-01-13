@@ -7,5 +7,6 @@
 /pkg/
 /sbin
 /spec/reports/
+/set-of-emails/private/
 /tmp/
 .rubocop_todo.yml
