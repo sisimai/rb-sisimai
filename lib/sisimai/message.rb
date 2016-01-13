@@ -54,12 +54,12 @@ module Sisimai
       methodargv = { 'data' => email }
       parameters = nil
 
-      ['load','order'].each do |e|
+      [:'load', :'order'].each do |e|
         # Order of MTA, MSP modules
         next unless argvs.key?(e)
         next unless argvs[e].is_a? Array
         next if argvs[e].empty?
-        methodargv[e] = argvs[e]
+        methodargv[e.to_s] = argvs[e]
       end
 
       parameters = Sisimai::Message.make(methodargv)
@@ -103,6 +103,7 @@ module Sisimai
 
           Module.const_get(v).headerlist.each do |w|
             # Get header name which required user defined MTA module
+            @@ExtHeaders[w]  ||= {}
             @@ExtHeaders[w][v] = 1
           end
           @@ToBeLoaded << v
