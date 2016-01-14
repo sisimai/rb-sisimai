@@ -1,0 +1,71 @@
+Return-Path: <MAILER-DAEMON@neko.example.jp>
+Received: from localhost (localhost)
+	by neko.example.jp (V8/cf) id u0E7Zrct009261;
+	Thu, 14 Jan 2016 16:35:53 +0900
+Date: Thu, 14 Jan 2016 16:35:53 +0900
+From: Mail Delivery Subsystem <poostmaster@example.jp>
+Message-Id: <201601140735.u0E7Zrct009261@neko.example.jp>
+To: <shironeko@example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="u0E7Zrct009261.1452756953/neko.example.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--u0E7Zrct009261.1452756953/neko.example.jp
+
+The original message was received at Thu, 14 Jan 2016 16:35:52 +0900
+from c135.example.ne.jp [192.0.2.222]
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora@nyaan.example.com>
+    (reason: 550 5.1.1 Requested action not taken: mailbox unavailable)
+
+   ----- Transcript of session follows -----
+... while talking to inbound-smtp.us-west-2.amazonaws.com.:
+>>> RCPT To:<kijitora@nyaan.example.com>
+<<< 550 5.1.1 Requested action not taken: mailbox unavailable
+550 5.1.1 <kijitora@nyaan.example.com>... User unknown
+>>> DATA
+<<< 503 Error: need RCPT command
+
+--u0E7Zrct009261.1452756953/neko.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; neko.example.jp
+Received-From-MTA: DNS; c135.example.ne.jp
+Arrival-Date: Thu, 14 Jan 2016 16:35:52 +0900
+
+Final-Recipient: RFC822; kijitora@nyaan.example.com
+Action: failed
+Status: 5.1.1
+Remote-MTA: DNS; inbound-smtp.us-west-2.amazonaws.com
+Diagnostic-Code: SMTP; 550 5.1.1 Requested action not taken: mailbox unavailable
+Last-Attempt-Date: Thu, 14 Jan 2016 16:35:53 +0900
+
+--u0E7Zrct009261.1452756953/neko.example.jp
+Content-Type: message/rfc822
+
+Return-Path: <shironeko@example.jp>
+Received: from [192.0.2.2] (c135.example.ne.jp [192.0.2.222])
+	(authenticated bits=0)
+	by neko.example.jp (V8/cf) with ESMTP id u0E7Zpct009258
+	for <kijitora@nyaan.example.com>; Thu, 14 Jan 2016 16:35:52 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 neko.example.jp u0E7Zpct009258
+Authentication-Results: neko.example.jp; sender-id=pass header.from=shironeko@example.jp; auth=pass (CRAM-MD5); spf=pass smtp.mfrom=shironeko@example.jp
+From: "Shironeko, Nyaans" <shironeko@example.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Subject: Nyaaaaaan
+Message-Id: <792B14FF-0B1A-4127-B644-0A876D88A36C@example.jp>
+Date: Thu, 14 Jan 2016 16:35:50 +0900
+To: kijitora@nyaan.example.com
+Mime-Version: 1.0 (Mac OS X Mail 7.3 \(1878.6\))
+X-Mailer: Apple Mail (2.1878.6)
+
+Nyaaaaan
+
+--u0E7Zrct009261.1452756953/neko.example.jp--
+
