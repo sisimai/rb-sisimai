@@ -4,24 +4,19 @@ require 'sisimai/mail'
 require 'sisimai/message'
 
 describe Sisimai::Data do
-  cn = Sisimai::Data
-  list = nil
-
-  describe 'without orders of email address headers' do
+  context 'without orders of email address headers' do
     mail = Sisimai::Mail.new('./set-of-emails/maildir/bsd/sendmail-03.eml')
 
     while r = mail.read do
-      #let(:text) { r }
-      #let(:mesg) { mesg }
-      mesg = Sisimai::Message.new( data: r )
-      data = Sisimai::Data.make( data: mesg )
+      mesg = Sisimai::Message.new(data: r)
+      data = Sisimai::Data.make(data: mesg)
       example 'Sisimai::Data.make returns Array' do
         expect(data).to be_a Array
       end
 
       data.each do |e|
         subject { e }
-        it('is Sisimai::Data object') { is_expected.to be_a cn }
+        it('is Sisimai::Data object') { is_expected.to be_a Sisimai::Data }
         example('#token returns String') { expect(e.token).to be_a String }
         example('#lhost returns String') { expect(e.lhost).to be_a String }
         example('#rhost returns String') { expect(e.rhost).to be_a String }
@@ -109,29 +104,29 @@ describe Sisimai::Data do
 
         example('#feedbacktype is String') { expect(e.feedbacktype).to be_a String }
         example('#feedbacktype is empty') { expect(e.feedbacktype).to be_empty }
-
       end
     end
   end
 
-  describe 'with orders of email address headers' do
+  context 'with orders of email address headers' do
     file = './set-of-emails/maildir/bsd/sendmail-04.eml'
     mail = Sisimai::Mail.new(file)
+    list = {}
 
     while r = mail.read do
-      mesg = Sisimai::Message.new( data: r )
+      mesg = Sisimai::Message.new(data: r)
       list = { 
-        'recipient' => [ 'X-Failed-Recipient', 'To' ],
-        'addresser' => [ 'Return-Path', 'From', 'X-Envelope-From' ],
+        'recipient' => ['X-Failed-Recipient', 'To'],
+        'addresser' => ['Return-Path', 'From', 'X-Envelope-From'],
       }
-      data = Sisimai::Data.make( data: mesg, order: list )
+      data = Sisimai::Data.make(data: mesg, order: list)
       example 'Sisimai::Data.make returns Array' do
         expect(data).to be_a Array
       end
 
       data.each do |e|
         subject { e }
-        it('is Sisimai::Data object') { is_expected.to be_a cn }
+        it('is Sisimai::Data object') { is_expected.to be_a Sisimai::Data }
         example('#token returns String') { expect(e.token).to be_a String }
         example('#lhost returns String') { expect(e.lhost).to be_a String }
         example '#lhost does not include " "' do
@@ -225,12 +220,11 @@ describe Sisimai::Data do
 
         example('#feedbacktype is String') { expect(e.feedbacktype).to be_a String }
         example('#feedbacktype is empty') { expect(e.feedbacktype).to be_empty }
-
       end
     end
   end
 
-  describe 'is not bounce mail' do
+  context 'not bounce mail' do
     file = './set-of-emails/maildir/not/is-not-bounce-01.eml'
     mail = Sisimai::Mail.new(file)
     while r = mail.read do
@@ -239,6 +233,5 @@ describe Sisimai::Data do
       it('returns Sisimai::Message') { expect(mesg).to be_a Sisimai::Message }
       it('returns nil') { expect(data).to be nil }
     end
-
   end
 end
