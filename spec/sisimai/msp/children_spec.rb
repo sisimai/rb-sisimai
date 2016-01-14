@@ -24,6 +24,7 @@ describe 'Sisimai::MSP::*' do
       '03' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/suspend/ },
       '04' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
       '05' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+      '06' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
     },
     'JP::KDDI' => {
       '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mailboxfull/ },
