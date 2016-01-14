@@ -89,7 +89,10 @@ module Sisimai
             }
             rfc822next = { 'from' => 0, 'to' => 0, 'subject' => 0 }
             boundary00 = Sisimai::MIME.boundary(mhead['content-type'])
-            re1['rfc822'] = %r/\A[-]{2}#{boundary00}[-]{2}\z/ if boundary00.size > 0
+            if boundary00.size > 0
+              # Convert to regular expression
+              re1['rfc822'] = Regexp.new('\A' + Regexp.escape('--' + boundary00 + '--') + '\z')
+            end
 
             hasdivided.each do |e|
               if readcursor == 0
@@ -182,7 +185,10 @@ module Sisimai
             }
             rfc822next = { 'from' => 0, 'to' => 0, 'subject' => 0 }
             boundary00 = Sisimai::MIME.boundary(mhead['content-type'])
-            re1['rfc822'] = %r/\A[-]{2}#{boundary00}[-]{2}\z/ if boundary00.size > 0
+            if boundary00.size > 0
+              # Convert to regular expression
+              re1['rfc822'] = Regexp.new('\A' + Regexp.escape('--' + boundary00 + '--') + '\z')
+            end
 
             hasdivided.each do |e|
               if readcursor == 0

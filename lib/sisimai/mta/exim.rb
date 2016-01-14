@@ -174,7 +174,10 @@ module Sisimai
             # the boundary string.
             require 'sisimai/mime'
             boundary00 = Sisimai::MIME.boundary(mhead['content-type']) || ''
-            rxboundary = %r/\A[-]{2}#{boundary00}\z/ if boundary00.size > 0
+            if boundary00.size > 0
+              # Convert to regular expression
+              rxboundary = Regexp.new('\A' + Regexp.escape('--' + boundary00) + '\z')
+            end
           end
 
           hasdivided.each do |e|

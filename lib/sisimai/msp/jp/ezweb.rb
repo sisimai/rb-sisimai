@@ -81,7 +81,6 @@ module Sisimai
 
           require 'sisimai/string'
           require 'sisimai/address'
-
           dscontents = []; dscontents << Sisimai::MSP.DELIVERYSTATUS
           hasdivided = mbody.split("\n")
           rfc822next = { 'from' => false, 'to' => false, 'subject' => false }
@@ -97,7 +96,10 @@ module Sisimai
             # the boundary string.
             require 'sisimai/mime'
             b0 = Sisimai::MIME.boundary(mhead['content-type'], 1)
-            rxboundary = %r|\A#{b0}\z| if b0.size > 0
+            if b0.size > 0
+              # Convert to regular expression
+              rxboundary = Regexp.new('\A' + Regexp.escape(b0) + '\z')
+            end
           end
           rxmessages = []
           ReFailure.each_key { |a| rxmessages.concat(ReFailure[a]) }

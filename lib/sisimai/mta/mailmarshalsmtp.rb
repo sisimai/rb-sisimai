@@ -58,8 +58,12 @@ module Sisimai
           v = nil
 
           boundary00 = Sisimai::MIME.boundary(mhead['content-type'])
-          regularexp = %r/\A[-]{2}#{boundary00}[-]{2}\z/ if boundary00.size > 0
-          regularexp = %r/\A[ \t]*[+]+[ \t]*\z/ unless regularexp
+          if boundary00.size > 0
+            # Convert to regular expression
+            regularexp = Regexp.new('\A' + Regexp.escape('--' + boundary00 + '--') + '\z')
+          else
+            regularexp = %r/\A[ \t]*[+]+[ \t]*\z/
+          end
 
           hasdivided.each do |e|
             if readcursor == 0
