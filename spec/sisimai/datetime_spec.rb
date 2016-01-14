@@ -3,106 +3,133 @@ require 'sisimai/datetime'
 require 'time'
 
 describe Sisimai::DateTime do
-  cn = Sisimai::DateTime
   describe '.to_second' do
     context 'integer + supported unit string' do
-      example('"1d" returns 86400 seconds')            { expect(cn.to_second('1d')).to eq 86400 }
-      example('"2w" returns 1209600(2 weeks)')         { expect(cn.to_second('2w')).to eq 86400 * 7 * 2 }
-      example('"3f" returns 3628800(3 fortnights)')    { expect(cn.to_second('3f')).to eq 86400 * 14 * 3 }
-      example('"4l" returns 10205771(4 Lunar months)') { expect(cn.to_second('4l').to_i).to eq 10205771 }
-      example('"5q" returns 39446190(5 Quarters)')     { expect(cn.to_second('5q').to_i).to eq 39446190 }
-      example('"6y" returns 189341712(6 Years)')       { expect(cn.to_second('6y')).to eq 189341712 }
-      example('"7o" returns 883594656(7 Olympiads)')   { expect(cn.to_second('7o')).to eq 883594656 }
+      it 'returns converted seconds value' do
+        expect(Sisimai::DateTime.to_second('1d')).to be == 86400
+        expect(Sisimai::DateTime.to_second('2w')).to be == 86400 * 7 * 2
+        expect(Sisimai::DateTime.to_second('3f')).to be == 86400 * 14 * 3
+        expect(Sisimai::DateTime.to_second('4l').to_i).to be == 10205771
+        expect(Sisimai::DateTime.to_second('5q').to_i).to be == 39446190
+        expect(Sisimai::DateTime.to_second('6y')).to be == 189341712
+        expect(Sisimai::DateTime.to_second('7o')).to be == 883594656
+      end
     end
 
     context 'integer alias string + supported unit string' do
-      example('"gs" returns 23(23.14(e^p))')  { expect(cn.to_second('gs').to_i).to eq 23 }
-      example('"pm" returns 188(3.14(PI))')   { expect(cn.to_second('pm').to_i).to eq 188 }
-      example('"pm" returns 9785(2.718(e))')  { expect(cn.to_second('eh').to_i).to eq 9785 }
+      it 'returns converted seconds value' do
+        expect(Sisimai::DateTime.to_second('gs').to_i).to be == 23
+        expect(Sisimai::DateTime.to_second('pm').to_i).to be == 188
+        expect(Sisimai::DateTime.to_second('eh').to_i).to be == 9785
+      end
     end
 
     context 'negative integer OR unsupported unit string' do
-      example('-1 returns 0')           { expect(cn.to_second(-1)).to eq 0 }
-      example('-4294967296 returns 0')  { expect(cn.to_second(-4294967296)).to eq 0 }
-      example('"1x" returns 0')         { expect(cn.to_second('1x')).to eq 0 }
-      example('nil returns 0')          { expect(cn.to_second(nil)).to eq 0 }
+      it 'always returns 0' do
+        expect(Sisimai::DateTime.to_second(-1)).to be ==  0
+        expect(Sisimai::DateTime.to_second(-4294967296)).to be ==  0
+        expect(Sisimai::DateTime.to_second('1x')).to be == 0
+        expect(Sisimai::DateTime.to_second(nil)).to be == 0
+      end
     end
 
     context 'wrong number of arguments' do
-      example('"x","y" raises ArgumentError')     { expect { cn.to_second('x', 'y') }.to raise_error(ArgumentError) }
-      example('"x","y","z" raises ArgumentError') { expect { cn.to_second('x', 'y', 'z') }.to raise_error(ArgumentError) }
+      it 'raises ArgumentError' do
+        expect { Sisimai::DateTime.to_second('x', 'y') }.to raise_error(ArgumentError)
+        expect { Sisimai::DateTime.to_second('x', 'y', 'z') }.to raise_error(ArgumentError)
+      end
     end
   end
 
   describe '.monthname' do
-    month0 = cn.monthname(0)
-    month1 = cn.monthname(1)
+    month0 = Sisimai::DateTime.monthname(0)
+    month1 = Sisimai::DateTime.monthname(1)
 
     context 'integer' do
-      example('(0) returns Array') { expect(month0.is_a?(Array)).to be true }
-      example('(1) returns Array') { expect(month1.is_a?(Array)).to be true }
-
-      describe month0 do
-        example('[0] is "Jan"') { expect(month0[0]).to eq 'Jan' }
-        example('[3] is "Apr"') { expect(month0[3]).to eq 'Apr' }
-        example('[6] is "Jul"') { expect(month0[6]).to eq 'Jul' }
+      it 'returns Array' do
+        expect(month0).to be_a Array
+        expect(month1).to be_a Array
       end
 
-      describe month1 do
-        example('[1] is "February"') { expect(month1[1]).to eq 'February' }
-        example('[4] is "May"')      { expect(month1[4]).to eq 'May' }
-        example('[7] is "August"')   { expect(month1[7]).to eq 'August' }
+      context '(0)' do
+        it 'returns short month name' do
+          expect(month0[0]).to be == 'Jan'
+          expect(month0[3]).to be == 'Apr'
+          expect(month0[6]).to be == 'Jul'
+        end
+      end
+
+      describe '(1)' do
+        it 'returns month name' do
+          expect(month1[1]).to be == 'February'
+          expect(month1[4]).to be == 'May'
+          expect(month1[7]).to be == 'August'
+        end
       end
     end
 
     context 'wrong number of arguments' do
-      example('"x" raises ArgumentError')     { expect { cn.monthname('x') }.to raise_error(ArgumentError) }
-      example('"x","y" raises ArgumentError') { expect { cn.monthname('x','y') }.to raise_error(ArgumentError) }
+      it 'raises ArgumentError' do
+        expect { Sisimai::DateTime.monthname('x') }.to raise_error(ArgumentError)
+        expect { Sisimai::DateTime.monthname('x','y') }.to raise_error(ArgumentError)
+      end
     end
   end
 
   describe '.dayofweek' do
-    dayofweek0 = cn.dayofweek(0)
-    dayofweek1 = cn.dayofweek(1)
+    dayofweek0 = Sisimai::DateTime.dayofweek(0)
+    dayofweek1 = Sisimai::DateTime.dayofweek(1)
 
     context 'integer' do
-      example('0 returns Array') { expect(dayofweek0.is_a?(Array)).to be true }
-      example('1 returns Array') { expect(dayofweek1.is_a?(Array)).to be true }
+      it 'returns Array' do
+        expect(dayofweek0).to be_a Array
+        expect(dayofweek1).to be_a Array
+      end
     end
 
-    context dayofweek0 do
-      it('[0] is "Sun"')  { expect(dayofweek0[0]).to eq 'Sun' }
-      it('[3] is "Wed"')  { expect(dayofweek0[3]).to eq 'Wed' }
+    context '(0)' do
+      it 'returns short day name' do
+        expect(dayofweek0[0]).to be == 'Sun'
+        expect(dayofweek0[3]).to be == 'Wed'
+      end
     end
 
-    context dayofweek1 do
-      it('[1] is "Monday"')   { expect(dayofweek1[1]).to eq 'Monday' }
-      it('[4] is "Thursday"') { expect(dayofweek1[4]).to eq 'Thursday' }
-    end
-
-    context 'wrong number of arguments' do
-      example('"x" raises ArgumentError')     { expect { cn.dayofweek('x') }.to raise_error(ArgumentError) }
-      example('"x","y" raises ArgumentError') { expect { cn.dayofweek('x', 'y') }.to raise_error(ArgumentError) }
-    end
-  end
-
-  describe '.hourname' do
-    hourname1 = cn.hourname(1)
-
-    context 'integer' do
-      example('1 returns Array') { expect(hourname1.is_a?(Array)).to be true }
-
-      describe hourname1 do
-        it('[0] is "Midnight"') { expect(hourname1[0]).to eq 'Midnight' }
-        it('[6] is "Morning"')  { expect(hourname1[6]).to eq 'Morning' }
-        it('[12] is "Noon"')    { expect(hourname1[12]).to eq 'Noon' }
-        it('[18] is "Evening"') { expect(hourname1[18]).to eq 'Evening' }
+    context '(1)' do
+      it 'returns day name' do
+        expect(dayofweek1[1]).to be == 'Monday'
+        expect(dayofweek1[4]).to be == 'Thursday'
       end
     end
 
     context 'wrong number of arguments' do
-      example('"x" raises ArgumentError')     { expect { cn.hourname('x') }.to raise_error(ArgumentError) }
-      example('"x","y" raises ArgumentError') { expect { cn.hourname('x', 'y') }.to raise_error(ArgumentError) }
+      it 'raises ArgumentError' do
+        expect { Sisimai::DateTime.dayofweek('x') }.to raise_error(ArgumentError)
+        expect { Sisimai::DateTime.dayofweek('x', 'y') }.to raise_error(ArgumentError)
+      end
+    end
+  end
+
+  describe '.hourname' do
+    hourname1 = Sisimai::DateTime.hourname(1)
+
+    context 'integer' do
+      example('1 returns Array') { expect(hourname1.is_a?(Array)).to be true }
+
+      describe '(1)' do
+        it 'returns hour name' do
+          expect(hourname1[0]).to be == 'Midnight'
+          expect(hourname1[6]).to be == 'Morning'
+          expect(hourname1[12]).to be == 'Noon'
+          expect(hourname1[18]).to be == 'Evening'
+        end
+      end
+    end
+
+    context 'wrong number of arguments' do
+      it 'raises ArgumentError' do
+        expect { Sisimai::DateTime.hourname('x') }.to raise_error(ArgumentError)
+        expect { Sisimai::DateTime.hourname('x', 'y') }.to raise_error(ArgumentError)
+      end
     end
   end
 
@@ -142,15 +169,24 @@ describe Sisimai::DateTime do
       ]
 
       datestrings.each do |e|
-        text = cn.parse(e)
+        text = Sisimai::DateTime.parse(e)
         date = text.sub(/\s[-+]\d{4}\z/,'')
         time = Time.strptime(date, '%a, %d %b %Y %T')
 
         describe e do
-          it { expect(text).to eq text }
-          it { expect(text.is_a?(String)).to be true }
-          it { expect(date.is_a?(String)).to be true }
-          it { expect(time.is_a?(Time)).to be true }
+          it 'returns parsed date string with timestamp' do
+            expect(text).to be_a String
+            expect(text.size).to be > 0
+          end
+
+          it 'returns parsed date string' do
+            expect(date).to be_a String
+            expect(date.size).to be > 0
+          end
+
+          it 'could be converted to Time object' do
+            expect(time).to be_a Time
+          end
         end
       end
     end
@@ -166,9 +202,11 @@ describe Sisimai::DateTime do
         'Thu, 36 Sep 2009 11:22:33 +0900',
       ]
       invaliddates.each do |e|
-        text = cn.parse(e)
+        text = Sisimai::DateTime.parse(e)
         describe e do
-          it { expect(text).to be nil }
+          it 'always returns nil' do
+            expect(text).to be nil
+          end
         end
       end
     end
@@ -189,19 +227,25 @@ describe Sisimai::DateTime do
         'UT'  => '-0000',
       }
 
-      tzmap.each do |x,y|
-        example(x + ' returns ' + y) { expect(cn.abbr2tz(x)).to eq y }
+      it 'returns timezone offset value' do
+        tzmap.each do |x,y|
+          expect(Sisimai::DateTime.abbr2tz(x)).to be == y
+        end
       end
     end
 
     context 'invalid argument' do
-      example('0 returns nil')   { expect(cn.abbr2tz(0)).to be nil }
-      example('"a" returns nil') { expect(cn.abbr2tz('a')).to be nil }
+      it 'always returns nil' do
+        expect(Sisimai::DateTime.abbr2tz(0)).to be nil
+        expect(Sisimai::DateTime.abbr2tz('a')).to be nil
+      end
     end
 
     context 'wrong number of arguments' do
-      example('"" raises ArgumentError')      { expect { cn.abbr2tz }.to raise_error(ArgumentError) }
-      example('nil,nil raises ArgumentError') { expect { cn.abbr2tz(nil, nil) }.to raise_error(ArgumentError) }
+      it 'raises ArgumentError' do
+        expect { Sisimai::DateTime.abbr2tz }.to raise_error(ArgumentError)
+        expect { Sisimai::DateTime.abbr2tz(nil, nil) }.to raise_error(ArgumentError)
+      end
     end
 
   end
@@ -216,26 +260,34 @@ describe Sisimai::DateTime do
         '-1200' => -43200,
         '+1200' => 43200,
       }
-      tzmap.each do |x,y|
-        example(x + ' returns ' + y.to_s) { expect(cn.tz2second(x)).to eq y }
+      it 'returns timezome offset value(second)' do
+        tzmap.each do |x,y|
+          expect(Sisimai::DateTime.tz2second(x)).to be == y
+        end
       end
     end
 
     context 'invalid argument' do
       context 'Out of Range' do
-        example('-1800 returns nil') { expect(cn.tz2second('-1800')).to be nil }
-        example('+1800 returns nil') { expect(cn.tz2second('+1800')).to be nil }
+        it 'always returns nil' do
+          expect(Sisimai::DateTime.tz2second('-1800')).to be nil
+          expect(Sisimai::DateTime.tz2second('+1800')).to be nil
+        end
       end
 
       context 'not timezone offset' do
-        example('"nil" returns nil') { expect(cn.tz2second('nil')).to be nil }
-        example('nil returns nil')   { expect(cn.tz2second(nil)).to be nil }
+        it 'always returns nil' do
+          expect(Sisimai::DateTime.tz2second('nil')).to be nil
+          expect(Sisimai::DateTime.tz2second(nil)).to be nil
+        end
       end
     end
 
     context 'wrong number of arguments' do
-      example('() raises ArgumentError')      { expect { cn.tz2second }.to raise_error(ArgumentError) }
-      example('nil,nil raises ArgumentError') { expect { cn.tz2second(nil, nil) }.to raise_error(ArgumentError) }
+      it 'raises ArgumentError' do
+        expect { Sisimai::DateTime.tz2second }.to raise_error(ArgumentError)
+        expect { Sisimai::DateTime.tz2second(nil, nil) }.to raise_error(ArgumentError)
+      end
     end
   end
 end
