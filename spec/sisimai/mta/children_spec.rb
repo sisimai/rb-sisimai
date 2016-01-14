@@ -185,6 +185,8 @@ describe 'Sisimai::MTA::*' do
       '33' => { 'status' => %r/\A5[.]7[.]1\z/, 'reason' => %r/blocked/ },
       '34' => { 'status' => %r/\A5[.]7[.]0\z/, 'reason' => %r/securityerror/ },
       '35' => { 'status' => %r/\A5[.]7[.]13\z/, 'reason' => %r/suspend/ },
+      '36' => { 'status' => %r/\A5[.]7[.]1\z/, 'reason' => %r/blocked/ },
+      '37' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
     },
     'SurfControl' => {
       '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/filtered/ },
