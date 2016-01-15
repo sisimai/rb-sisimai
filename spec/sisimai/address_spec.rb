@@ -46,19 +46,21 @@ describe Sisimai::Address do
       context 'valid email address' do
         let(:email) { 'maketest@libsisimai.org' }
         subject { addrobj }
-        it('is Sisimai::Address object') { is_expected.to be_a Sisimai::Address }
-        it('has address method') { expect(addrobj.address).to be_a String }
-        it('has host method') { expect(addrobj.host).to be_a String }
-        it('has user method') { expect(addrobj.user).to be_a String }
-        it('has verp method') { expect(addrobj.verp).to be nil }
-        it('has alias method') { expect(addrobj.alias ).to be nil }
+        it 'is Sisimai::Address object' do
+          is_expected.to be_a Sisimai::Address
+        end
+        it 'is valid method' do
+          expect(addrobj.address).to be_a String
+          expect(addrobj.host).to be_a String
+          expect(addrobj.user).to be_a String
+          expect(addrobj.verp).to be nil
+          expect(addrobj.alias ).to be nil
+        end
       end
 
       context 'wrong number of arguments' do
         it 'raises ArgumentError' do
           expect { Sisimai::Address.new }.to raise_error(ArgumentError)
-        end
-        it 'raises ArgumentError' do
           expect { Sisimai::Address.new(nil, nil) }.to raise_error(ArgumentError)
         end
       end
@@ -69,15 +71,19 @@ describe Sisimai::Address do
         emailfroms.each do |e|
           v = Sisimai::Address.parse([e])
           subject { v }
-          it('returns Array') { is_expected.to be_a Array }
-          it('has 1 element: ' + e) { expect(v.size).to be == 1 }
-          it('returns ' + v[0]) { expect(emailaddrs.index(v[0])).not_to be nil }
+          it 'returns valid address in list' do
+            is_expected.to be_a Array
+            expect(v.size).to be == 1
+            expect(emailaddrs.index(v[0])).not_to be nil
+          end
         end
       end
 
       context 'invalid email address' do
         isnotemail.each do |e|
-          it('returns nil') { expect(Sisimai::Address.parse([e])).to be nil }
+          it 'returns nil' do
+            expect(Sisimai::Address.parse([e])).to be nil
+          end
         end
       end
     end
@@ -87,13 +93,17 @@ describe Sisimai::Address do
         emailfroms.each do |e|
           v = Sisimai::Address.s3s4(e)
           subject { v }
-          it('returns String') { is_expected.to be_a String }
-          it('returns ' + v) { expect(emailaddrs.index(v)).not_to be nil }
+          it 'returns email address only' do
+            is_expected.to be_a String
+            expect(emailaddrs.index(v)).not_to be nil
+          end
         end
       end
       context 'invalid email address' do
         isnotemail.each do |e|
-          it('returns ' + e.to_s) { expect(Sisimai::Address.s3s4(e)).to be == e }
+          it 'returns ' + e.to_s do
+            expect(Sisimai::Address.s3s4(e)).to be == e
+          end
         end
       end
     end
@@ -102,27 +112,31 @@ describe Sisimai::Address do
       e = 'nyaa+neko=example.jp@example.org'
       v = Sisimai::Address.new(e)
       r = Sisimai::Address.expand_verp(e)
-      example('.expand_verp returns ' + r ) { expect(r).to be == v.address }
-      example('.verp returns ' + e ) { expect(e).to be == v.verp }
+      it 'returns expanded email address' do
+        expect(r).to be == v.address
+        expect(e).to be == v.verp
+      end
     end
 
     describe '.alias' do
       e = 'neko+nyaa@example.jp'
       v = Sisimai::Address.new(e)
       r = Sisimai::Address.expand_alias(e)
-      example('.expand_alias returns ' + r ) { expect(r).to be == v.address }
-      example('.alias returns ' + e ) { expect(e).to be == v.alias }
+      it 'returns expanded email address' do
+        expect(r).to be == v.address
+        expect(e).to be == v.alias
+      end
     end
 
     describe '.undisclosed' do
       context 'valid argument character' do
-        it 'returns dummy recipient address' do
+        it 'returns dummy address' do
           expect(Sisimai::Address.undisclosed('r')).to be == 'undisclosed-recipient-in-headers@dummy-domain.invalid'
-        end
-        it 'returns dummy addresser address' do
           expect(Sisimai::Address.undisclosed('s')).to be == 'undisclosed-sender-in-headers@dummy-domain.invalid'
         end
-        it('returns nil') { expect(Sisimai::Address.undisclosed(nil)).to be nil }
+        it 'returns nil' do
+          expect(Sisimai::Address.undisclosed(nil)).to be nil
+        end
       end
     end
   end
@@ -132,17 +146,52 @@ describe Sisimai::Address do
       a = Sisimai::Address.s3s4(e).split('@')
       v = Sisimai::Address.new(Sisimai::Address.s3s4(e))
 
-      it('is Sisimai::Address object') { expect(v).to be_a Sisimai::Address }
-      example('#user returns ' + a[0] ) { expect(v.user).to be == a[0] }
-      example('#host returns ' + a[1] ) { expect(v.host).to be == a[1] }
-      example '#address returns ' + v.address do
-        expect(emailaddrs.index(v.address)).not_to be nil
+      it 'is Sisimai::Address object' do
+        expect(v).to be_a Sisimai::Address
       end
-      example('#verp returns nil') { expect(v.verp).to be nil }
-      example('#alias returns nil') { expect(v.alias).to be nil }
 
-      example('#to_json returns String') { expect(v.to_json).to be_a String }
-      example('#to_json returns address') { expect(v.to_json).to be v.address }
+      describe '#user' do
+        subject { v.user }
+        it 'returns local part' do
+          is_expected.to be_a String
+          is_expected.to be == a[0]
+        end
+      end
+      describe '#host' do
+        subject { v.host }
+        it 'returns domain part' do
+          is_expected.to be_a String
+          is_expected.to be == a[1]
+        end
+      end
+
+      describe '#address' do
+        subject { v.address }
+        it 'returns whole email address' do
+          is_expected.to be_a String
+          is_expected.to be == a[0] + '@' + a[1]
+          expect(emailaddrs.index(v.address)).not_to be nil
+        end
+      end
+
+      describe '#verp' do
+        it 'returns nil' do
+          expect(v.verp).to be nil
+        end
+      end
+
+      describe '#alias' do
+        it 'returns nil' do
+          expect(v.alias).to be nil
+        end
+      end
+
+      describe '#to_json' do
+        it 'returns address' do
+          expect(v.to_json).to be_a String
+          expect(v.to_json).to be v.address
+        end
+      end
     end
   end
 
