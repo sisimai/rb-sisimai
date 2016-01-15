@@ -2,40 +2,43 @@ require 'spec_helper'
 require 'sisimai/mail'
 
 describe Sisimai::Mail do
-  cn = Sisimai::Mail
-  sf = './set-of-emails/mailbox/mbox-0'
-  sd = './set-of-emails/maildir/err'
-  let(:mailobj) { cn.new(samples) }
-  let(:mailbox) { cn.new(samples) }
-  let(:maildir) { cn.new(samples) }
-  let(:mockobj) { cn.new(invalid) }
+  samplemailbox = './set-of-emails/mailbox/mbox-0'
+  samplemaildir = './set-of-emails/maildir/err'
+  let(:mailobj) { Sisimai::Mail.new(samples) }
+  let(:mailbox) { Sisimai::Mail.new(samples) }
+  let(:maildir) { Sisimai::Mail.new(samples) }
+  let(:mockobj) { Sisimai::Mail.new(invalid) }
 
   describe 'class method' do
     describe '.new' do
       context 'mbox file exists' do
-        let(:samples) { sf }
+        let(:samples) { samplemailbox }
         subject { mailobj }
-        it("returns #{cn} object"){ is_expected.to be_a(cn) }
+        it 'returns Sisimai::Mail object' do
+          is_expected.to be_a Sisimai::Mail
+        end
       end
 
       context 'Maildir/ exists' do
-        let(:samples) { sd }
+        let(:samples) { samplemaildir }
         subject { mailobj }
-        it("returns #{cn} object") { is_expected.to be_a(cn) }
+        it 'returns Sisimai::Mail object' do
+          is_expected.to be_a Sisimai::Mail
+        end
       end
 
       context '$stdin' do
         let(:samples) { $stdin }
         subject { mailobj }
-        it("returns #{cn} object"){ is_expected.to be_a(cn) }
+        it 'returns Sisimai::Mail object' do
+          is_expected.to be_a Sisimai::Mail
+        end
       end
 
       context 'wrong number of arguments' do
         it 'raises ArgumentError' do
-          expect { cn.new }.to raise_error(ArgumentError)
-        end
-        it 'raises ArgumentError' do
-          expect { cn.new(nil, nil) }.to raise_error(ArgumentError)
+          expect { Sisimai::Mail.new }.to raise_error(ArgumentError)
+          expect { Sisimai::Mail.new(nil, nil) }.to raise_error(ArgumentError)
         end
       end
     end
@@ -43,59 +46,77 @@ describe Sisimai::Mail do
 
   describe 'instance method' do
     describe 'Mailbox' do
-      let(:samples) { sf }
+      let(:samples) { samplemailbox }
       before do
         mailbox.read
       end
       describe '#class' do
-        it('returns Sisimai::Mail') { expect(mailbox.class).to be == Sisimai::Mail }
+        it 'returns Sisimai::Mail' do
+          expect(mailbox).to be_a Sisimai::Mail
+        end
       end
       describe '#type' do
         subject { mailbox.type }
-        it('returns String') { is_expected.to be_a(String) }
-        it('is "mailbox"')   { is_expected.to be == 'mailbox' }
+        it 'is "mailbox"' do
+          is_expected.to be_a String
+          is_expected.to be == 'mailbox'
+        end
       end
       describe '#mail' do
         subject { mailbox.mail }
-        it('returns Sisimai::Mail::Mbox object') { is_expected.to be_a(Sisimai::Mail::Mbox) }
+        it 'returns Sisimai::Mail::Mbox object' do
+          is_expected.to be_a Sisimai::Mail::Mbox
+        end
       end
       describe '#dir' do
         subject { mailbox.mail.dir }
-        it('returns String') { is_expected.to be_a(String) }
-        it('includes ./set-of-emails')  { is_expected.to match(%r|/set-of-emails|) }
+        it 'includes ./set-of-emails' do
+          is_expected.to be_a String
+          is_expected.to match(%r|/set-of-emails|)
+        end
       end
       describe '#path' do
         subject { mailbox.mail.path }
-        it('returns String') { is_expected.to be_a(String) }
-        it('returns path')   { is_expected.to be == samples }
-        it('is equals to mailbox#path') { is_expected.to be == mailbox.path }
+        it 'is equals to mailbox#path' do
+          is_expected.to be_a String
+          is_expected.to be == samples
+          is_expected.to be == mailbox.path
+        end
       end
       describe '#file' do
         subject { mailbox.mail.file }
-        it('returns String')   { is_expected.to be_a(String) }
-        it('returns filename') { is_expected.to be == File.basename(samples) }
+        it 'returns filename' do
+          is_expected.to be_a String
+          is_expected.to be == File.basename(samples)
+        end
       end
       describe '#size' do
         subject { mailbox.mail.size }
-        it('returns Integer') { is_expected.to be_a(Integer) }
-        it('returns 96906')   { is_expected.to be == 96906 }
+        it 'returns mbox size' do
+          is_expected.to be_a Integer
+          is_expected.to be == 96906
+        end
       end
       describe '#handle' do
         let(:handle) { mailbox.mail.handle }
         subject { handle }
-        it('is a IO::File') { is_expected.to be_a(File) }
-        it('is not closed') { expect(handle.closed?).to be false }
-        it('is readable')   { expect(handle.stat.readable?).to be true }
-        it('has a size')    { expect(handle.stat.size).to be > 0 }
+        it 'is valid IO::File object' do
+          is_expected.to be_a File
+          expect(handle.closed?).to be false
+          expect(handle.stat.readable?).to be true
+          expect(handle.stat.size).to be > 0
+        end
       end
       describe '#offset' do
         subject { mailbox.mail.offset }
-        it('returns Integer') { is_expected.to be_a(Integer) }
-        it('is larger than 0') { is_expected.to be > 0 }
-        it('is smaller than size') { is_expected.to be < mailbox.mail.size }
+        it 'is valid offset value' do
+          is_expected.to be_a Integer
+          is_expected.to be > 0
+          is_expected.to be < mailbox.mail.size
+        end
       end
       describe '#read' do
-        mboxobj = cn.new(sf)
+        mboxobj = Sisimai::Mail.new(samplemailbox)
         emindex = 0
         hasread = 0
 
@@ -105,15 +126,13 @@ describe Sisimai::Mail do
           hasread += mailtxt.size
           subject { mailtxt }
 
-          it "is reading #{mboxobj.path} ##{emindex}" do
-            expect(mboxobj.path).to be == sf
+          it "is #{mboxobj.path} ##{emindex}" do
+            expect(mboxobj.path).to be == samplemailbox
           end
-          it('returns String') { is_expected.to be_a(String) }
-          it('matches /From /'){ is_expected.to match(/Subject:\s*/) }
-          it "is #{mailtxt.size} bytes file" do
+          it 'is valid email text' do
+            is_expected.to be_a String
+            is_expected.to match(/Subject:\s*/)
             expect(mailtxt.size).to be > 0
-          end
-          example "current position is #{mboxobj.mail.offset}" do
             expect(mboxobj.mail.offset).to be == hasread + 512
           end
         end
@@ -128,61 +147,77 @@ describe Sisimai::Mail do
     end
 
     describe 'Maildir/' do
-      let(:samples) { sd }
+      let(:samples) { samplemaildir }
       before do
         maildir.read
       end
       describe '#type' do
         subject { maildir.type }
-        it('returns String') { is_expected.to be_a(String) }
-        it('is "maildir"')   { is_expected.to be == 'maildir' }
+        it 'is "maildir"' do
+          is_expected.to be_a String
+          is_expected.to be == 'maildir'
+        end
       end
       describe '#mail' do
         subject { maildir.mail }
-        it('returns Sisimai::Mail::Maildir object') { is_expected.to be_a(Sisimai::Mail::Maildir) }
+        it 'returns Sisimai::Mail::Maildir object' do
+          is_expected.to be_a Sisimai::Mail::Maildir
+        end
       end
       describe '#dir' do
         subject { maildir.mail.dir }
-        it('returns String') { is_expected.to be_a(String) }
-        it('returns dir name') { is_expected.to be == samples }
+        it 'returns directory name' do
+          is_expected.to be_a String
+          is_expected.to be == samples
+        end
       end
       describe '#path' do
         subject { maildir.mail.path }
-        it('returns String')   { is_expected.to be_a(String) }
-        it('matches *-01.eml') { is_expected.to match(/#{samples}.+[.]eml\z/) }
+        it 'matches *-01.eml' do
+          is_expected.to be_a String
+          is_expected.to match(/#{samples}.+[.]eml\z/)
+        end
       end
       describe '#file' do
         subject { maildir.mail.file }
-        it('returns String')   { is_expected.to be_a(String) }
-        it('returns filename') { is_expected.to match(/make-test[-].+[.]eml\z/) }
+        it 'returns filename' do
+          is_expected.to be_a String
+          is_expected.to match(/make-test[-].+[.]eml\z/)
+        end
       end
       describe '#size' do
         subject { maildir.mail.size }
-        it('returns Integer') { is_expected.to be_a(Integer) }
         it 'returns the number of files in the direcotry' do
+          is_expected.to be_a Integer
           is_expected.to be > 37
         end
       end
       describe '#handle' do
         let(:handle) { maildir.mail.handle }
         subject { handle }
-        it('is a IO::Dir')  { is_expected.to be_a(Dir) }
+        it 'is IO::Dir object' do
+          is_expected.to be_a Dir
+        end
       end
       describe '#offset' do
         subject { maildir.mail.offset }
-        it('returns Integer') { is_expected.to be_a(Integer) }
-        it('is larger than 0')  { is_expected.to be > 0 }
-        it('is smaller than size') { is_expected.to be < maildir.mail.size }
+        it 'is valid offset value' do
+          is_expected.to be_a Integer
+          is_expected.to be > 0
+          is_expected.to be < maildir.mail.size
+        end
       end
       describe '#inodes' do
         let(:inodes) { maildir.mail.inodes }
         subject { maildir.mail.inodes }
-        it('returns Hash') { is_expected.to be_a(Hash) }
-        it('is 1 entries') { expect(inodes.size).to be == 1 }
+        it 'contains inode table' do
+          is_expected.to be_a Hash
+          expect(inodes.size).to be == 1
+        end
       end
 
       describe '#read' do
-        mdirobj = cn.new(sd)
+        mdirobj = Sisimai::Mail.new(samplemaildir)
         emindex = 0
 
         while r = mdirobj.read do
@@ -190,12 +225,12 @@ describe Sisimai::Mail do
           mailtxt  = r
           subject { mailtxt }
 
-          it 'is reading ' + mdirobj.mail.file do
+          it 'is ' + mdirobj.mail.file do
             expect(mdirobj.mail.file).to match(/\A.+[.]eml\z/)
           end
-          it('returns String') { is_expected.to be_a(String) }
-          it('matches /From /'){ is_expected.to match(/Subject:\s*/) }
-          it "is #{mailtxt.size} bytes file" do
+          it 'is valid email text' do
+            is_expected.to be_a String
+            is_expected.to match(/Subject:\s*/)
             expect(mailtxt.size).to be > 0
           end
           example "current position is #{mdirobj.mail.offset}" do
@@ -206,6 +241,7 @@ describe Sisimai::Mail do
             expect(mdirobj.mail.inodes.size).to be == emindex
           end
         end
+
       end
     end
   end

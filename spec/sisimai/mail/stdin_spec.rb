@@ -2,27 +2,29 @@ require 'spec_helper'
 require 'sisimai/mail/stdin'
 
 describe Sisimai::Mail::STDIN do
-  cn = Sisimai::Mail::STDIN
-  sf = nil
-  let(:mailobj) { cn.new(samples) }
-  let(:mockobj) { cn.new(invalid) }
+  let(:mailobj) { Sisimai::Mail::STDIN.new(samples) }
+  let(:mockobj) { Sisimai::Mail::STDIN.new(invalid) }
 
   describe 'class method' do
     describe '.new' do
       context '$stdin' do
         let(:samples) { $stdin }
         subject { mailobj }
-        it("returns #{cn} object"){ is_expected.to be_a(cn) }
+        it 'returns Sisimai::Mail::STDIN object' do
+          is_expected.to be_a Sisimai::Mail::STDIN
+        end
       end
 
       context 'the arugment is not IO::STDIN' do
         let(:invalid) { '/etc/hosts' }
-        it('raises RuntimeError') { expect { mockobj }.to raise_error(RuntimeError) }
+        it 'raises RuntimeError' do
+          expect { mockobj }.to raise_error(RuntimeError)
+        end
       end
 
       context 'wrong number of arguments' do
         it 'raises ArgumentError' do
-          expect { cn.new(nil, nil) }.to raise_error(ArgumentError)
+          expect { Sisimai::Mail::STDIN.new(nil, nil) }.to raise_error(ArgumentError)
         end
       end
     end
@@ -32,29 +34,39 @@ describe Sisimai::Mail::STDIN do
     let(:samples) { $stdin }
     describe '#path' do
       subject { mailobj.path }
-      it('returns String') { is_expected.to be_a(String) }
-      it('is "<STDIN>"')   { is_expected.to be == '<STDIN>' }
+      it 'is "<STDIN>"' do
+        is_expected.to be_a String
+        is_expected.to be == '<STDIN>'
+      end
     end
     describe '#name' do
       subject { mailobj.name }
-      it('returns String')   { is_expected.to be_a(String) }
-      it('returns "<STDIN>"') { is_expected.to be == '<STDIN>' }
+      it 'is "<STDIN>"' do
+        is_expected.to be_a String
+        is_expected.to be == '<STDIN>'
+      end
     end
     describe '#size' do
       subject { mailobj.size }
-      it('returns nil') { is_expected.to be nil }
+      it 'returns nil' do
+        is_expected.to be nil
+      end
     end
     describe '#handle' do
       let(:handle) { mailobj.handle }
       subject { handle }
-      it('is an IO') { is_expected.to be_a(IO) }
-      it('is not closed') { expect(handle.closed?).to be false }
-      it('is readable')   { expect(handle.stat.readable?).to be true }
+      it 'is valid IO object' do
+        is_expected.to be_a IO
+        expect(handle.closed?).to be false
+        expect(handle.stat.readable?).to be true
+      end
     end
     describe '#offset' do
       subject { mailobj.offset }
-      it('returns Integer') { is_expected.to be_a(Integer) }
-      it('is equals to 0') { is_expected.to be == 0 }
+      it 'is 0' do
+        is_expected.to be_a Integer
+        is_expected.to be == 0
+      end
     end
   end
 end

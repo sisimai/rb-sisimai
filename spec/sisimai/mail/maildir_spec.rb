@@ -2,88 +2,103 @@ require 'spec_helper'
 require 'sisimai/mail/maildir'
 
 describe Sisimai::Mail::Maildir do
-  cn = Sisimai::Mail::Maildir
-  sf = './set-of-emails/maildir/bsd'
-  let(:mailobj) { cn.new(samples) }
-  let(:mockobj) { cn.new(invalid) }
+  samplemaildir = './set-of-emails/maildir/bsd'
+  let(:mailobj) { Sisimai::Mail::Maildir.new(samples) }
+  let(:mockobj) { Sisimai::Mail::Maildir.new(invalid) }
 
   describe 'class method' do
     describe '.new' do
       context 'Maildir/ exists' do
-        let(:samples) { sf }
+        let(:samples) { samplemaildir }
         subject { mailobj }
-        it("returns #{cn} object") { is_expected.to be_a(cn) }
-        it('returns String') { expect(mailobj.read).to be_a(String) }
+        it 'returns Sisimai::Mail::Maildir object' do
+          is_expected.to be_a Sisimai::Mail::Maildir
+          expect(mailobj.read).to be_a String
+        end
       end
 
       context 'directory does not exist' do
         let(:invalid) { '/etc/neko/nyan' }
-        it('raises Errno::ENOENT') { expect { mockobj }.to raise_error(Errno::ENOENT) }
+        it 'raises Errno::ENOENT' do
+          expect { mockobj }.to raise_error(Errno::ENOENT)
+        end
       end
 
       context 'argument is not a directory' do
         let(:invalid) { '/etc/resolv.conf' }
-        it('raises Errno::ENOTDIR') { expect { mockobj }.to raise_error(Errno::ENOTDIR) }
+        it 'raises Errno::ENOTDIR' do
+          expect { mockobj }.to raise_error(Errno::ENOTDIR)
+        end
       end
 
       context 'wrong number of arguments' do
         it 'raises ArgumentError' do
-          expect { cn.new }.to raise_error(ArgumentError)
-        end
-        it 'raises ArgumentError' do
-          expect { cn.new(nil, nil) }.to raise_error(ArgumentError)
+          expect { Sisimai::Mail::Maildir.new }.to raise_error(ArgumentError)
+          expect { Sisimai::Mail::Maildir.new(nil, nil) }.to raise_error(ArgumentError)
         end
       end
     end
   end
 
   describe 'instance method' do
-    let(:samples) { sf }
+    let(:samples) { samplemaildir }
     before do
       mailobj.read
     end
     describe '#dir' do
       subject { mailobj.dir }
-      it('returns String') { is_expected.to be_a(String) }
-      it('returns dir name') { is_expected.to be == samples }
+      it 'returns directory name' do
+        is_expected.to be_a String
+        is_expected.to be == samples
+      end
     end
     describe '#path' do
       subject { mailobj.path }
-      it('returns String')   { is_expected.to be_a(String) }
-      it('matches directory') { is_expected.to match(%r|#{samples}/.+|) }
+      it 'matches directory name' do
+        is_expected.to be_a String
+        is_expected.to match(%r|#{samples}/.+|)
+      end
     end
     describe '#file' do
       subject { mailobj.file }
-      it('returns String')   { is_expected.to be_a(String) }
-      it('returns filename') { is_expected.to match(/.+[.].+/) }
+      it 'returns filename' do
+        is_expected.to be_a String
+        is_expected.to match(/.+[.].+/)
+      end
     end
     describe '#size' do
       subject { mailobj.size }
-      it('returns Integer') { is_expected.to be_a(Integer) }
       it 'returns the number of files in the direcotry' do
+        is_expected.to be_a Integer
         is_expected.to be > 255
       end
     end
     describe '#handle' do
       let(:handle) { mailobj.handle }
       subject { handle }
-      it('is a IO::Dir')  { is_expected.to be_a(Dir) }
+      it 'is IO::Dir object' do
+        is_expected.to be_a Dir
+      end
     end
     describe '#offset' do
       subject { mailobj.offset }
-      it('returns Integer') { is_expected.to be_a(Integer) }
-      it('is larger than 0')  { is_expected.to be > 0 }
-      it('is smaller than size') { is_expected.to be < mailobj.size }
+      it 'returns valid offset value' do
+        is_expected.to be_a Integer
+        is_expected.to be > 0
+        is_expected.to be < mailobj.size
+      end
     end
     describe '#inodes' do
       let(:inodes) { mailobj.inodes }
       subject { mailobj.inodes }
-      it('returns Hash') { is_expected.to be_a(Hash) }
-      it('is 1 entries') { expect(inodes.size).to be == 1 }
+      it 'contains inode table' do
+        is_expected.to be_a Hash
+        expect(inodes.size).to be == 1
+      end
     end
 
     describe '#read' do
-      maildir = cn.new(sf)
+      maildir = Sisimai::Mail::Maildir.new(samplemaildir)
       emindex = 0
 
       while r = maildir.read do
@@ -91,12 +106,12 @@ describe Sisimai::Mail::Maildir do
         mailtxt  = r
         subject { mailtxt.scrub('?') }
 
-        it 'is reading ' + maildir.file do
+        it 'is ' + maildir.file do
           expect(maildir.file).to match(/\A[a-z0-9]+[-]\d\d[.]eml\z/)
         end
-        it('returns String') { is_expected.to be_a(String) }
-        it('matches /From:/'){ is_expected.to match(/From:\s*/) }
-        it "is #{mailtxt.size} bytes file" do
+        it 'is valid email text' do
+          is_expected.to be_a String 
+          is_expected.to match(/From:\s*/)
           expect(mailtxt.size).to be > 0
         end
         example "current position is #{maildir.offset}" do
