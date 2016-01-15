@@ -117,12 +117,18 @@ describe Sisimai do
     end
 
     context 'non-bounce email' do
-      parseddata = Sisimai.make(isnotbounce[:maildir])
       example 'returns nil' do
-        expect(parseddata).to be nil
+        expect(Sisimai.make(isnotbounce[:maildir])).to be nil
+        expect(Sisimai.make(nil)).to be nil
       end
     end
 
+    context 'wrong number of arguments' do
+      it 'raises ArgumentError' do
+        expect { Sisimai.make}.to raise_error(ArgumentError)
+        expect { Sisimai.make(nil, nil) }.to raise_error(ArgumentError)
+      end
+    end
   end
 
   describe '.dump' do
@@ -154,9 +160,18 @@ describe Sisimai do
     end
 
     context 'non-bounce email' do
-      jsonstring = Sisimai.dump(isnotbounce[:maildir])
       it 'returns "[]"' do
-        expect(jsonstring).to be == '[]'
+        expect(Sisimai.dump(isnotbounce[:maildir])).to be == '[]'
+      end
+      it 'returns nil' do
+        expect(Sisimai.dump(nil)).to be == nil
+      end
+    end
+
+    context 'wrong number of arguments' do
+      it 'raises ArgumentError' do
+        expect { Sisimai.dump}.to raise_error(ArgumentError)
+        expect { Sisimai.dump(nil, nil) }.to raise_error(ArgumentError)
       end
     end
   end
