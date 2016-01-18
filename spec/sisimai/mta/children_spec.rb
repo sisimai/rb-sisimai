@@ -238,15 +238,21 @@ describe 'Sisimai::MTA::*' do
 
     describe cn do
       describe '.description' do
-        it('returns String') { expect(cn.description).to be_a String }
-        it('has the size')   { expect(cn.description.size).to be > 0 }
+        it 'returns String' do
+          expect(cn.description).to be_a String
+          expect(cn.description.size).to be > 0
+        end
       end
       describe '.pattern' do
-        it('returns Hash')   { expect(cn.pattern).to be_a Hash }
-        it('have some keys') { expect(cn.pattern.keys.size).to be > 0 }
+        it 'returns Hash' do
+          expect(cn.pattern).to be_a Hash
+          expect(cn.pattern.keys.size).to be > 0
+        end
       end
       describe '.scan' do
-        it('returns nil') { expect(cn.scan(nil,nil)).to be nil }
+        it 'returns nil' do
+          expect(cn.scan(nil,nil)).to be nil
+        end
       end
 
       (1 .. MTAChildren[x].keys.size).each do |i|
@@ -268,10 +274,14 @@ describe 'Sisimai::MTA::*' do
 
         while r = mailbox.read do
           mailtxt = r
-          it('returns String') { expect(mailtxt).to be_a String }
-          p = Sisimai::Message.new( data: r )
+          it 'returns String' do
+            expect(mailtxt).to be_a String
+          end
+          p = Sisimai::Message.new(data: r)
 
-          it('returns Sisimai::Message object') { expect(p).to be_a Sisimai::Message }
+          it 'returns Sisimai::Message object' do
+            expect(p).to be_a Sisimai::Message
+          end
           example('Array in ds accessor') { expect(p.ds).to be_a Array }
           example('Hash in header accessor') { expect(p.header).to be_a Hash }
           example('Hash in rfc822 accessor') { expect(p.rfc822).to be_a Hash }
