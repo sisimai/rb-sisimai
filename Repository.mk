@@ -1,4 +1,4 @@
-# p5-Sisimai/Repository.mk
+# rb-Sisimai/Repository.mk
 #  ____                      _ _                               _    
 # |  _ \ ___ _ __   ___  ___(_) |_ ___  _ __ _   _   _ __ ___ | | __
 # | |_) / _ \ '_ \ / _ \/ __| | __/ _ \| '__| | | | | '_ ` _ \| |/ /
@@ -11,6 +11,7 @@ GIT   := /usr/bin/git
 CP    := cp
 B      = master
 V      = neko
+RSYNC  = rsync -var
 EMAILS = set-of-emails
 
 
@@ -57,10 +58,11 @@ git-reset-soft:
 
 import-set-of-emails:
 	test -d $(EMAILS)
-	$(CP) -vRp ../$(EMAILS)/mailbox/* ./$(EMAILS)/mailbox/
-	$(CP) -vRp ../$(EMAILS)/maildir/* ./$(EMAILS)/maildir/
-	$(CP) -vRp ../$(EMAILS)/private/* ./$(EMAILS)/private/
-	$(CP) -vRp ../$(EMAILS)/to-be-debugged-because/* ./$(EMAILS)/to-be-debugged-because/
+	$(CP) -vRp ../$(EMAILS)/README.md $(EMAILS)/
+	$(RSYNC) ../$(EMAILS)/mailbox/ ./$(EMAILS)/mailbox/
+	$(RSYNC) ../$(EMAILS)/maildir/ ./$(EMAILS)/maildir/
+	$(RSYNC) ../$(EMAILS)/private/ ./$(EMAILS)/private/
+	$(RSYNC) ../$(EMAILS)/to-be-debugged-because/ ./$(EMAILS)/to-be-debugged-because/
 
 clean:
 
