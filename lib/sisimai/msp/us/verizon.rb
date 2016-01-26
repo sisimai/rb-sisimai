@@ -88,7 +88,8 @@ module Sisimai
               }x,
             }
             rfc822next = { 'from' => 0, 'to' => 0, 'subject' => 0 }
-            boundary00 = Sisimai::MIME.boundary(mhead['content-type'])
+            boundary00 = Sisimai::MIME.boundary(mhead['content-type']) || ''
+
             if boundary00.size > 0
               # Convert to regular expression
               re1['rfc822'] = Regexp.new('\A' + Regexp.escape('--' + boundary00 + '--') + '\z')
@@ -158,7 +159,7 @@ module Sisimai
 
                 elsif cv = e.match(/\A[ \t]+MAIL FROM:[ \t](.+)\z/)
                   #   MAIL FROM: *******@hg.example.com
-                  senderaddr = cv[1] if senderaddr.epmty?
+                  senderaddr = cv[1] if senderaddr.empty?
 
                 elsif cv = e.match(/\A[ \t]+Subject:[ \t](.+)\z/)
                   #   Subject:
