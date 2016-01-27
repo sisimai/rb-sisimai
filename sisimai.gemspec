@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name    = 'sisimai'
   spec.version = Sisimai::VERSION
   spec.authors = ['azumakuniyuki']
-  spec.email   = ['ruby-lang.org@azumakuniyuki.org']
+  spec.email   = ['azumakuniyuki+rubygems.org@gmail.com']
 
   if spec.respond_to?(:metadata)
     spec.metadata['allowed_push_host'] = 
@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.summary       = 'Mail Analyzing Interface'
   spec.description   = 'Sisimai is a Ruby library for analyzing RFC5322 bounce emails and generating structured data from parsed results.'
   spec.homepage      = "https://github.com/sisimai/rb-Sisimai"
-  spec.license       = 'MIT'
+  spec.license       = 'BSD-2-Clause'
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = 'exe'
