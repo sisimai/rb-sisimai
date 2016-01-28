@@ -63,6 +63,7 @@ import-set-of-emails:
 	$(RSYNC) ../$(EMAILS)/maildir/ ./$(EMAILS)/maildir/
 	$(RSYNC) ../$(EMAILS)/private/ ./$(EMAILS)/private/
 	$(RSYNC) ../$(EMAILS)/to-be-debugged-because/ ./$(EMAILS)/to-be-debugged-because/
+	$(RSYNC) ../$(EMAILS)/to-be-parsed-for-test/  ./$(EMAILS)/to-be-parsed-for-test/
 
 clean:
 
