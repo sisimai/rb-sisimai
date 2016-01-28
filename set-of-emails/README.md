@@ -24,11 +24,12 @@ in this repository are read from `make test` at p5-Sisimai and rb-Sisimai.
 |  - reason-is-undefined/       | Reason is "undefined" in parsed results      |
 |  - sisimai-cannot-parse-yet/  | Emails could not be parsed by Sisimai        |
 |  - something-is-wrong/        | Sisimai can parse but something is wrong     |
+| to-be-parsed-for-test/        | Email files to be parsed for test            |
 
 See Also
 ========
+* __Sisimai Project__ | [github.com/sisimai](https://github.com/sisimai)
 * __libsisimai.org__ | [Sisimai — A successor to bounceHammer, Library to parse error mails](http://libsisimai.org/)
-* __GitHub__ | [github.com/sisimai/p5-Sisimai](https://github.com/sisimai/p5-Sisimai)
 * __Perl Verson__ | [Perl version of Sisimai(Stable)](https://github.com/sisimai/p5-Sisimai)
 * __Ruby verson__ | [Ruby version of Sisimai(Under the development)](https://github.com/sisimai/rb-Sisimai)
 
