@@ -148,8 +148,9 @@ module Sisimai
               e['lhost'] = Sisimai::RFC5322.received(r0[0]).shift if e['lhost'].empty?
               e['rhost'] = Sisimai::RFC5322.received(r0[-1]).pop  if e['rhost'].empty?
             end
-            e['diagnosis'] = e['diagnosis'].gsub(/\A#{Re1[:error]}/, '')
-            e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+            e['diagnosis'] ||= ''
+            e['diagnosis']   = e['diagnosis'].gsub(/\A#{Re1[:error]}/, '')
+            e['diagnosis']   = Sisimai::String.sweep(e['diagnosis'])
 
             ReFailure.each_key do |r|
               # Verify each regular expression of session errors
