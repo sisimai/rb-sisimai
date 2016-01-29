@@ -77,6 +77,8 @@ module Sisimai
       end
       return nil unless thing['recipient'].is_a? Sisimai::Address
       return nil unless thing['addresser'].is_a? Sisimai::Address
+      return nil if thing['recipient'].void
+      return nil if thing['addresser'].void
 
       @addresser    = thing['addresser']
       @senderdomain = thing['senderdomain']
