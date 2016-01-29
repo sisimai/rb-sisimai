@@ -193,10 +193,11 @@ module Sisimai
       else
         return nil
       end
-
-      def to_json
-        return self.address.to_s
-      end
     end
+
+    def to_json
+      return self.address.to_s
+    end
+
   end
 end
