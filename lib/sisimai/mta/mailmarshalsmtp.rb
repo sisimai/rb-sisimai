@@ -57,7 +57,7 @@ module Sisimai
           regularexp = nil
           v = nil
 
-          boundary00 = Sisimai::MIME.boundary(mhead['content-type'])
+          boundary00 = Sisimai::MIME.boundary(mhead['content-type']) || ''
           if boundary00.size > 0
             # Convert to regular expression
             regularexp = Regexp.new('\A' + Regexp.escape('--' + boundary00 + '--') + '\z')
