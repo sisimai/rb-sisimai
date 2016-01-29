@@ -167,7 +167,7 @@ module Sisimai
           'diagnostictype' => e['spec']         || '',
           'deliverystatus' => e['status']       || '',
         }
-        next if p['deliverystatus'][0,1] == 2
+        next if p['deliverystatus'] =~ /\A2[.]/
 
         # EMAIL_ADDRESS:
         # Detect email address from message/rfc822 part
