@@ -92,7 +92,7 @@ module Sisimai
 
               if mhead['x-mimeole']
                 # X-MimeOLE: Produced By Microsoft Exchange V6.5
-                match += 1 if mhead['x-mimeole'] =~ Re0['x-mimeole']
+                match += 1 if mhead['x-mimeole'] =~ Re0[:'x-mimeole']
                 throw :EXCHANGE_OR_NOT if match > 0
               end
 
