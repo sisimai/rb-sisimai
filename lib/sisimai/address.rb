@@ -195,6 +195,8 @@ module Sisimai
       end
     end
 
+    # Returns the value of address as String
+    # @return [String] Email address
     def to_json
       return self.address.to_s
     end
