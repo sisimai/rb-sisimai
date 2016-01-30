@@ -55,7 +55,7 @@ module Sisimai
         argv1 = argv1.gsub(/\t/, '')
         argv1 = argv1.gsub(/\A /, '')
         argv1 = argv1.gsub(/ \z/, '')
-        argv1 = argv1.sub(/ [-]{2,}.+\z/, '')
+        argv1 = argv1.sub(/ [-]{2,}[^ \t].+\z/, '')
 
         return argv1
       end
