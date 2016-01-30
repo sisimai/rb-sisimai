@@ -72,6 +72,13 @@ module Sisimai
       @rfc822 = parameters['rfc822']
     end
 
+    # Check whether the object has valid content or not
+    # @return        [True,False]   returns true if the object is void
+    def void
+      return true unless @ds
+      return false
+    end
+
     # Make data structure from the email message(a body part and headers)
     # @param         [Hash] argvs   Email data
     # @options argvs [String] data  Entire email message
