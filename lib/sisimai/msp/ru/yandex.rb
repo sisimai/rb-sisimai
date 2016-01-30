@@ -174,7 +174,7 @@ module Sisimai
                 if cv = e.match(/\A[Rr]eporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                   # Reporting-MTA: dns; mx.example.jp
                   next if connheader['lhost'].size > 0
-                  connheader['lhost'] = cv[1]
+                  connheader['lhost'] = cv[1].downcase
                   connvalues += 1
 
                 elsif cv = e.match(/\A[Aa]rrival-[Dd]ate:[ ]*(.+)\z/)

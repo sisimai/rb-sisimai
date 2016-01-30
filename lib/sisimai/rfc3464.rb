@@ -284,7 +284,7 @@ module Sisimai
                   #   a message to one or more recipients.  In all cases, the Reporting-MTA
                   #   is the MTA that attempted to perform the delivery, relay, or gateway
                   #   operation described in the DSN.  This field is required.
-                  connheader['rhost'] ||= cv[1]
+                  connheader['rhost'] ||= cv[1].downcase
 
                 elsif cv = e.match(/\A[Rr]eceived-[Ff]rom-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                   # 2.2.4 The Received-From-MTA DSN field
@@ -299,7 +299,7 @@ module Sisimai
                   #   supplied in the HELO or EHLO command, and the network address used by
                   #   the SMTP client SHOULD be included as a comment enclosed in
                   #   parentheses.  (In this case, the MTA-name-type will be "dns".)
-                  connheader['lhost'] = cv[1]
+                  connheader['lhost'] = cv[1].downcase
 
                 elsif cv = e.match(/\A[Aa]rrival-[Dd]ate:[ ]*(.+)\z/)
                   # 2.2.5 The Arrival-Date DSN field

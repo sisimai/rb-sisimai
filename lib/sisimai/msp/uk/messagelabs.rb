@@ -191,7 +191,7 @@ module Sisimai
                 if cv = e.match(/\A[Rr]eporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                   # Reporting-MTA: dns; server-15.bemta-3.messagelabs.com
                   next if connheader['lhost'].size > 0
-                  connheader['lhost'] = cv[1]
+                  connheader['lhost'] = cv[1].downcase
                   connvalues += 1
 
                 elsif cv = e.match(/\A[Aa]rrival-[Dd]ate:[ ]*(.+)\z/)

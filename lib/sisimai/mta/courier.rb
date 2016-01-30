@@ -232,13 +232,13 @@ module Sisimai
                 elsif cv = e.match(/\A[Rr]eporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                   # Reporting-MTA: dns; mx.example.jp
                   next if connheader['rhost'].size > 0
-                  connheader['rhost'] = cv[1]
+                  connheader['rhost'] = cv[1].downcase
                   connvalues += 1
 
                 elsif cv = e.match(/\A[Rr]eceived-[Ff]rom-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                   # Received-From-MTA: DNS; x1x2x3x4.dhcp.example.ne.jp
                   next if connheader['lhost'].size > 0
-                  connheader['lhost'] = cv[1]
+                  connheader['lhost'] = cv[1].downcase
                   connvalues += 1
 
                 elsif cv = e.match(/\A[Aa]rrival-[Dd]ate:[ ]*(.+)\z/)
