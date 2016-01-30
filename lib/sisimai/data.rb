@@ -237,7 +237,7 @@ module Sisimai
           t = Sisimai::Time.strptime(datestring, '%a, %d %b %Y %T')
           p['timestamp'] = ( t.to_time.to_i - zoneoffset ) || nil
         rescue
-          warn ' ***warning: Failed to strptime ' + datestring
+          warn ' ***warning: Failed to strptime ' + datestring.to_s
         end
         next unless p['timestamp']
 
