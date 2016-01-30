@@ -31,9 +31,9 @@ module Sisimai
 
       while r = mail.read do
         # Read and parse each mail file
-        mesg = Sisimai::Message.new( data: r )
-        next unless mesg
-        data = Sisimai::Data.make( data: mesg )
+        mesg = Sisimai::Message.new(data: r)
+        next if mesg.void
+        data = Sisimai::Data.make(data: mesg)
         next unless data
         list.concat(data) if data.size > 0
       end
