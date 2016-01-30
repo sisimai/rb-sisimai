@@ -148,7 +148,8 @@ module Sisimai
       processing['ds'] = bouncedata['ds']
 
       # 5. Rewrite headers of the original message in the body part
-      rfc822part = bouncedata['rfc822'] || aftersplit['body']
+      rfc822part = bouncedata['rfc822']
+      rfc822part = aftersplit['body'] if rfc822part.empty?
       processing['rfc822'] = Sisimai::Message.takeapart(rfc822part)
 
       return processing
