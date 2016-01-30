@@ -74,6 +74,9 @@ module Sisimai
           v = nil
 
           hasdivided.each do |e|
+            # Save the current line for the next loop
+            havepassed << e; p = havepassed[-2]
+
             if readcursor == 0
               # Beginning of the bounce message or delivery status part
               if e =~ Re1[:begin]
@@ -170,6 +173,7 @@ module Sisimai
                     # Continued line of the value of Diagnostic-Code header
                     v['diagnosis'] ||= ''
                     v['diagnosis']  += ' ' + cv[1]
+                    havepassed[-1] = 'Diagnostic-Code: ' + e
                   end
                 end
 
