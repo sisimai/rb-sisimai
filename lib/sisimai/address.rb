@@ -50,9 +50,16 @@ module Sisimai
     # @example  Parse email address
     #   s3s4( '<neko@example.cat>' ) #=> 'neko@example.cat'
     def self.s3s4(input)
-      # no space character between " and < .
-      input = input.sub(/\A(.+)"<(.+)\z/, '\1" <\2')      # "=?ISO-2022-JP?B?....?="<user@example.jp>, 
-      input = input.sub(/\A(.+)[?]=<(.+)\z/, '\1?= <\2')  # =?ISO-2022-JP?B?....?=<user@example.jp>
+      unless input =~ /[ ]/
+        # no space character between " and < .
+        # no space character between " and < .
+        input = input.sub(/\A(.+)"<(.+)\z/, '\1" <\2')      # "=?ISO-2022-JP?B?....?="<user@example.jp>, 
+        input = input.sub(/\A(.+)[?]=<(.+)\z/, '\1?= <\2')  # =?ISO-2022-JP?B?....?=<user@example.jp>
+
+        # comment-part<localpart@domainpart>
+        input = input.sub(/[<]/, ' <') unless input =~ /\A[<]/
+        input = input.sub(/[>]/, '> ') unless input =~ /[>]\z/
+      end
 
       canon = ''
       addrs = []
@@ -78,7 +85,7 @@ module Sisimai
 
       if addrs.size > 1
         # Get the first element which is <...> format string from @addrs array.
-        canon = addrs.detect { |e| e =~ /\A[<].+[>]\z/ }
+        canon = addrs.detect { |e| e =~ /\A[<].+[>]\z/ } || ''
         canon = addrs[0] if canon.size < 1
 
       else
