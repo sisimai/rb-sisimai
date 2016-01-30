@@ -8,6 +8,9 @@ module Sisimai
         require 'sisimai/mta'
         require 'sisimai/rfc5322'
 
+        ReE = {
+          :from    => %r/[@].+[.]mail[.]ru[>]?/,
+        }
         Re0 = {
           :from    => %r/\AMail Delivery System/,
           :subject => %r{(?:
@@ -153,8 +156,9 @@ module Sisimai
         def scan(mhead, mbody)
           return nil unless mhead
           return nil unless mbody
-          return nil unless mhead['subject'] =~ Re0[:subject]
+          return nil if     mhead['from']    =~ ReE[:from]
           return nil unless mhead['from']    =~ Re0[:from]
+          return nil unless mhead['subject'] =~ Re0[:subject]
 
           dscontents = []; dscontents << Sisimai::MTA.DELIVERYSTATUS
           hasdivided = mbody.split("\n")
