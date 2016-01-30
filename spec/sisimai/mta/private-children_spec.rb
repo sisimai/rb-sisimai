@@ -776,7 +776,7 @@ describe 'Sisimai::MTA::' do
       '01047' => %r/hostunknown/,
       '01048' => %r/hostunknown/,
       '01049' => %r/userunknown/,
-      '01050' => %r/hostunknown/,
+      '01050' => %r/(?:hostunknown|onhold)/,
       '01051' => %r/(?:hostunknown|userunknown)/,
       '01052' => %r/(?:blocked|hostunknown|userunknown)/,
       '01053' => %r/userunknown/,
@@ -949,7 +949,6 @@ describe 'Sisimai::MTA::' do
 
         emailfn = sprintf('%s/%s', d0, e)
         sisimai = Sisimai.make(emailfn)
-        next unless sisimai
         n = e.sub(/\A(\d+)[-].*[.]eml/, '\1')
 
         example sprintf('[%s] %s has valid regular expression', n, x) do

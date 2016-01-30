@@ -307,7 +307,6 @@ describe 'Sisimai::MSP::' do
 
         emailfn = sprintf('%s/%s', d0, e)
         sisimai = Sisimai.make(emailfn)
-        next unless sisimai
         n = e.sub(/\A(\d+)[-].*[.]eml/, '\1')
 
         example sprintf('[%s] %s has valid regular expression', n, x) do
