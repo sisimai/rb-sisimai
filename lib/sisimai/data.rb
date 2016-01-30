@@ -201,7 +201,9 @@ module Sisimai
         datestring = nil
         zoneoffset = 0
         datevalues = []
-        datevalues << e['date'] if e['date']
+        if e['date'] && e['date'].size > 0
+          datevalues << e['date']
+        end
 
         # Date information did not exist in message/delivery-status part,...
         RFC822Head['date'].each do |f|
