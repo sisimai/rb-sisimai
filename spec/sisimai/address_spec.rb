@@ -53,8 +53,8 @@ describe Sisimai::Address do
           expect(addrobj.address).to be_a String
           expect(addrobj.host).to be_a String
           expect(addrobj.user).to be_a String
-          expect(addrobj.verp).to be nil
-          expect(addrobj.alias ).to be nil
+          expect(addrobj.verp).to be_a String
+          expect(addrobj.alias ).to be_a String
         end
       end
 
@@ -175,14 +175,16 @@ describe Sisimai::Address do
       end
 
       describe '#verp' do
-        it 'returns nil' do
-          expect(v.verp).to be nil
+        it 'returns empty String' do
+          expect(v.verp).to be_a String
+          expect(v.verp).to be_empty
         end
       end
 
       describe '#alias' do
-        it 'returns nil' do
-          expect(v.alias).to be nil
+        it 'returns empty String' do
+          expect(v.alias).to be_a String
+          expect(v.alias).to be_empty
         end
       end
 

@@ -189,10 +189,19 @@ module Sisimai
 
         end
         @address = sprintf('%s@%s', @user, @host)
+        @alias ||= ''
+        @verp  ||= ''
 
       else
         return nil
       end
+    end
+
+    # Check whether the object has valid content or not
+    # @return        [True,False]   returns true if the object is void
+    def void
+      return true unless @address
+      return false
     end
 
     # Returns the value of address as String
