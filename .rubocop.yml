@@ -7,6 +7,9 @@ AllCops:
     - 'spec/*'
     - 'lib/sisimai/mta/userdefined.rb'
 
+Lint/AssignmentInCondition:
+  Enabled: false
+
 # Configuration parameters: AllowURI, URISchemes.
 Metrics/LineLength:
   Max: 144
