@@ -105,6 +105,9 @@ Style/PredicateName:
 Style/RedundantReturn:
   Enabled: false
 
+Style/RedundantSelf
+  Enabled: false
+
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, AllowInnerSlashes.
 Style/RegexpLiteral:
