@@ -48,7 +48,7 @@ module Sisimai
 
       require 'json'
       parseddata = Sisimai.make(path) || []
-      jsonoption = ::JSON::state.new
+      jsonoption = JSON::state.new
 
       jsonoption.space = ' '
       jsonoption.object_nl = ' '
