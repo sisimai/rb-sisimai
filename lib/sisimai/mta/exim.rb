@@ -22,7 +22,7 @@ module Sisimai
             |error[(]s[)][ ]in[ ]forwarding[ ]or[ ]filtering
             )
           }x,
-          #:'message-id' => %r/\A[<]\w+[-]\w+[-]\w+[@].+\z/,
+          # :'message-id' => %r/\A[<]\w+[-]\w+[-]\w+[@].+\z/,
           # Message-Id: <E1P1YNN-0003AD-Ga@example.org>
         }
 
@@ -495,7 +495,7 @@ module Sisimai
               # Check SMTP reply code
               if rv.size > 0
                 # Generate pseudo DSN code from SMTP reply code
-                r1 = rv[0,1].to_i
+                r1 = rv[0, 1].to_i
                 if r1 == 4
                   # Get the internal DSN(temporary error)
                   sv = Sisimai::SMTP::Status.code(e['reason'], true)
@@ -507,9 +507,9 @@ module Sisimai
               end
             end
 
-            s1  = sv[0,1].to_i if sv.size > 0
+            s1  = sv[0, 1].to_i if sv.size > 0
             v1  = s1 + r1
-            v1 += e['status'][0,1].to_i if e['status']
+            v1 += e['status'][0, 1].to_i if e['status']
 
             if v1 > 0
               # Status or SMTP reply code exists

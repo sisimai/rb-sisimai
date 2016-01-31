@@ -102,7 +102,7 @@ module Sisimai
         argvs['load'].each do |v|
           # Load user defined MTA module
           begin
-            require v.to_s.gsub('::','/').downcase
+            require v.to_s.gsub('::', '/').downcase
           rescue LoadError
             warn ' ***warning: Failed to load ' + v
             next
@@ -162,8 +162,8 @@ module Sisimai
       return {} if email.empty?
 
       email = email.scrub('?')
-      email = email.gsub(/[ \t]+$/,'')
-      email = email.gsub(/^[ \t]+$/,'')
+      email = email.gsub(/[ \t]+$/, '')
+      email = email.gsub(/^[ \t]+$/, '')
       hasdivided = email.split("\n")
       return {} if hasdivided.empty?
 
@@ -171,7 +171,7 @@ module Sisimai
       aftersplit = { 'from' => '', 'header' => '', 'body' => '' }
       pseudofrom = 'MAILER-DAEMON Tue Feb 11 00:00:00 2014'
 
-      if hasdivided[0][0,5] == 'From '
+      if hasdivided[0][0, 5] == 'From '
         # From MAILER-DAEMON Tue Feb 11 00:00:00 2014
         aftersplit['from'] = hasdivided.shift
         aftersplit['from'] = aftersplit['from'].delete("\n").delete("\r")
@@ -448,7 +448,7 @@ module Sisimai
             # Call user defined MTA modules
             next if haveloaded[r]
             begin
-              require r.gsub('::','/').downcase
+              require r.gsub('::', '/').downcase
             rescue LoadError => ce
               warn ' ***warning: Failed to load ' + r
               next
@@ -463,7 +463,7 @@ module Sisimai
             # mail headers on first
             next if haveloaded.key?(r)
             begin
-              require r.gsub('::','/').downcase
+              require r.gsub('::', '/').downcase
             rescue LoadError => ce
               warn ' ***warning: ' + ce.to_s
               next
@@ -491,7 +491,7 @@ module Sisimai
           # When the all of Sisimai::MTA::* modules did not return bounce data,
           # call Sisimai::RFC3464;
           require 'sisimai/rfc3464'
-          scannedset = Sisimai::RFC3464.scan(mailheader,bodystring)
+          scannedset = Sisimai::RFC3464.scan(mailheader, bodystring)
           break if scannedset
 
           # Try to parse the message as auto reply message defined in RFC3834

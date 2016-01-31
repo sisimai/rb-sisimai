@@ -82,7 +82,7 @@ module Sisimai
       # @return        [Hash, Nil]        Bounce data list and message/rfc822 part
       #                                   or Undef if it failed to parse or the
       #                                   arguments are missing
-      def scan(mhead,mbody)
+      def scan(mhead, mbody)
         return nil unless self.is_arf(mhead)
 
         require 'sisimai/address'

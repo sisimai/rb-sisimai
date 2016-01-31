@@ -195,7 +195,7 @@ module Sisimai
         order.each do |e|
           # Load email headers from each MTA,MSP module
           begin
-            require e.gsub('::','/').downcase
+            require e.gsub('::', '/').downcase
           rescue LoadError
             warn ' ***warning: Failed to load ' + e
             next

@@ -142,7 +142,7 @@ module Sisimai
 
           if reasontext.empty?
             # Check the value of Status:
-            v = statuscode[0,3]
+            v = statuscode[0, 3]
             if v == '5.6' || v == '4.6'
               #  X.6.0   Other or undefined media error
               reasontext = 'contenterror'
