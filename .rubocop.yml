@@ -12,6 +12,9 @@ AllCops:
 Lint/AssignmentInCondition:
   Enabled: false
 
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
 # Configuration parameters: AllowURI, URISchemes.
 Metrics/LineLength:
   Max: 144
