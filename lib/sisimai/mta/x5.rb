@@ -40,9 +40,7 @@ module Sisimai
         def scan(mhead, mbody)
           return nil unless mhead
           return nil unless mbody
-
           match = 0
-          plain = ''
 
           # To: "NotificationRecipients" <...>
           match += 1 if mhead['to'] && mhead['to'] =~ Re0[:to]
