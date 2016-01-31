@@ -164,7 +164,7 @@ module Sisimai
 
             elsif cv = e.match(/\AFrom:[ ]*(.+)\z/)
               # Microsoft ARF: original sender.
-              if commondata['from'].size == 0
+              if commondata['from'].empty?
                 commondata['from'] = Sisimai::Address.s3s4(cv[1])
               end
 

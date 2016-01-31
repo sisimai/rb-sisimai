@@ -37,7 +37,7 @@ module Sisimai
       #                           true:  Including 8-bit character
       def is_8bit(argvs)
         v = argvs.to_s
-        return nil   if v.size == 0
+        return nil   if v.empty?
         return true  unless v =~ /\A[\x00-\x7f]*\z/
         return false
       end

@@ -226,7 +226,7 @@ module Sisimai
               break
             end
 
-            if e['status'].size == 0 || e['status'] =~ /\A\d[.]0[.]0\z/
+            if e['status'].empty? || e['status'] =~ /\A\d[.]0[.]0\z/
               # There is no value of Status header or the value is 5.0.0, 4.0.0
               pseudostatus = Sisimai::SMTP::Status.find(e['diagnosis'])
               e['status'] = pseudostatus if pseudostatus.size > 0

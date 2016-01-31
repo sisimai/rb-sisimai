@@ -297,7 +297,7 @@ module Sisimai
             e.each_key { |a| e[a] ||= '' }
           end
 
-          if rfc822part.size == 0
+          if rfc822part.empty?
             # When original message does not included in the bounce message
             rfc822part += sprintf("From: %s\n", connheader['to'])
             rfc822part += sprintf("Date: %s\n", connheader['date'])

@@ -95,7 +95,7 @@ module Sisimai
         return nil unless mhead
         return nil unless mbody
         return nil if mhead.keys.size == 0
-        return nil if mbody.size == 0
+        return nil if mbody.empty?
 
         return nil unless mhead['from'] =~ Re0[:from]
 

@@ -221,7 +221,7 @@ module Sisimai
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
             e['status'] ||= ''
-            if e['status'].size == 0 || e['status'] =~ /\A\d[.]0[.]0\z/
+            if e['status'].empty? || e['status'] =~ /\A\d[.]0[.]0\z/
               # There is no value of Status header or the value is 5.0.0, 4.0.0
               r = Sisimai::SMTP::Status.find(e['diagnosis'])
               e['status'] = r if r.size > 0

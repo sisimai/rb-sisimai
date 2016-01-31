@@ -263,7 +263,7 @@ module Sisimai
                 v['alias'] = cv[1]
 
               else
-                next if e.size == 0
+                next if e.empty?
 
                 if e =~ Re1[:frozen]
                   # Message *** has been frozen by the system filter.
