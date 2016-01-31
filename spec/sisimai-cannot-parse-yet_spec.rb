@@ -48,8 +48,6 @@ end
 
 describe Sisimai::Message do
   seekhandle = Dir.open(cannotparse)
-  filehandle = nil
-  emailindir = ''
   mailastext = ''
 
   while r = seekhandle.read do

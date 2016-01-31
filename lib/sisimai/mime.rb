@@ -28,7 +28,6 @@ module Sisimai
         encodingname = nil
         mimeencoded0 = nil
         decodedtext0 = []
-        decodedtext1 = nil
 
         argvs.each do |e|
           # Check and decode each element

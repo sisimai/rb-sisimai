@@ -5,7 +5,6 @@ require 'sisimai/message'
 require 'sisimai/rhost/googleapps'
 
 describe Sisimai::Rhost::GoogleApps do
-  cn = Sisimai::Rhost::GoogleApps
   rs = {
     '01' => { 'status' => %r/\A5[.]2[.]1\z/, 'reason' => %r/suspend/ },
   }

@@ -130,11 +130,10 @@ module Sisimai
     # @example  Expand alias
     #   expand_alias('neko+straycat@example.jp') #=> 'neko@example.jp'
     def self.expand_alias(email)
-      value = ''
-      local = []
       return '' unless Sisimai::RFC5322.is_emailaddress(email)
 
       local = email.split('@')
+      value = ''
       if cv = local[0].match(/\A([-_\w]+?)[+].+\z/)
         value = sprintf('%s@%s', cv[1], local[1])
       end

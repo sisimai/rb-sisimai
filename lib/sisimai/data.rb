@@ -332,9 +332,6 @@ module Sisimai
 
           if o.deliverystatus.empty?
             # Set pseudo status code
-            pdsv = nil  # Pseudo delivery status value
-            torp = nil  # Temporary or Permanent
-
             torp = o.softbounce == 1 ? true : false
             pdsv = Sisimai::SMTP::Status.code(o.reason, torp)
 
@@ -393,7 +390,6 @@ module Sisimai
     #                           argument is neither "json" nor "yaml"
     def dump(type = 'json')
       return nil unless ['json', 'yaml'].index(type)
-      dumpeddata = ''
       referclass = sprintf('Sisimai::Data::%s', type.upcase)
 
       begin

@@ -52,7 +52,6 @@ module Sisimai
       email = email.scrub('?')
       email = email.gsub("\r\n", "\n")
       methodargv = { 'data' => email }
-      parameters = nil
 
       [:'load', :'order'].each do |e|
         # Order of MTA, MSP modules
@@ -450,7 +449,7 @@ module Sisimai
             begin
               require r.gsub('::', '/').downcase
             rescue LoadError => ce
-              warn ' ***warning: Failed to load ' + r
+              warn ' ***warning: Failed to load ' + ce.to_s
               next
             end
             scannedset = Module.const_get(r).scan(mailheader, bodystring)
