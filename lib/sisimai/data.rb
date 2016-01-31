@@ -57,7 +57,6 @@ module Sisimai
       x0 = Sisimai::Address.parse([argvs['addresser']])
       y0 = Sisimai::Address.parse([argvs['recipient']])
       v0 = nil
-      v1 = []
 
       if x0.is_a? Array
         v0 = Sisimai::Address.new(x0.shift)
