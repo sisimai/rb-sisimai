@@ -9,11 +9,6 @@ Gem::Specification.new do |spec|
   spec.authors = ['azumakuniyuki']
   spec.email   = ['azumakuniyuki+rubygems.org@gmail.com']
 
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = 
-      'TODO: Set to 'http://mygemserver.com' to prevent pushes to rubygems.org, or delete to allow pushes to any server.'
-  end
-
   spec.summary       = 'Mail Analyzing Interface'
   spec.description   = 'Sisimai is a Ruby library for analyzing RFC5322 bounce emails and generating structured data from parsed results.'
   spec.homepage      = 'https://github.com/sisimai/rb-Sisimai'
