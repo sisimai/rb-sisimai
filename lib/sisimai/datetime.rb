@@ -414,7 +414,7 @@ module Sisimai
           # 99 -> 1999, 102 -> 2002
           v['Y'] = v['Y'].to_i + 1900
         end
-        v['z'] ||= ::DateTime.now.zone.tr(':', '')
+        v['z'] ||= ::DateTime.now.zone.delete(':')
 
         # Adjust 2-digit Year
         if altervalue['Y'] && !v['Y']

@@ -93,16 +93,14 @@ module Sisimai
       end
 
       return '' if !canon || canon == ''
-      canon = canon.tr('<>[]():;', '')  # Remove brackets, colons
+      canon = canon.delete('<>[]():;')  # Remove brackets, colons
 
       if canon =~ /\A["].+["][@].+\z/
-        # "localpart..."@example.jp
-        canon = canon.tr(%q|{}'`|, '')
-
+        canon = canon.delete(%q|{}'`|)  # "localpart..."@example.jp
       else
-        # Remove brackets, quotations
-        canon = canon.tr(%q|{}'"`|, '')
+        canon = canon.delete(%q|{}'"`|) # Remove brackets, quotations
       end
+
       return canon
     end
 
@@ -163,7 +161,7 @@ module Sisimai
 
         # Remove MIME-Encoded comment part
         lpart = lpart.sub(/\A=[?].+[?]b[?].+[?]=/, '')
-        lpart = lpart.tr(%q|`'"<>|, '') unless lpart =~ /\A["].+["]\z/
+        lpart = lpart.delete(%q|`'"<>|) unless lpart =~ /\A["].+["]\z/
 
         aflag = false
         addr0 = sprintf('%s@%s', lpart, dpart)

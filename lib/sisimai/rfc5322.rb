@@ -157,12 +157,12 @@ module Sisimai
             # Received: from [10.22.22.222] (smtp-gateway.kyoto.ocn.ne.jp [192.0.2.222])
             if e =~ /\A[\[(]\d+[.]\d+[.]\d+[.]\d+[)\]]\z/
               # [192.0.2.1] or (192.0.2.1)
-              e = e.tr('[]()', '')
+              e = e.delete('[]()')
               addrlist << e
 
             else
               # hostname
-              e = e.tr('[]()', '')
+              e = e.delete('[]()')
               namelist << e
             end
           end
@@ -192,7 +192,7 @@ module Sisimai
         %w[from by].each do |e|
           # Copy entries into hosts
           next unless value[e].length > 0
-          value[e] = value[e].tr('[]();?', '')
+          value[e] = value[e].delete('[]();?')
           hosts << value[e]
         end
         return hosts
