@@ -70,11 +70,11 @@ describe 'Private samples' do
       end
 
       File.open(emailfn,'r') do |fhandle|
-        fhandle.each_line do |f|
+        fhandle.each_line do |g|
           lnindex += 1
-          f = f.scrub('?')
+          g = g.scrub('?')
           it 'end with 0x0a' do
-            expect(f).to match %r/\x0a\z/
+            expect(g).to match %r/\x0a\z/
           end
           break if lnindex > checkuntil
         end
