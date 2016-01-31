@@ -139,7 +139,7 @@ module Sisimai
 
         def description; return 'Exim'; end
         def smtpagent;   return 'Exim'; end
-        def headerlist;  return [ 'X-Failed-Recipients' ]; end
+        def headerlist;  return ['X-Failed-Recipients']; end
         def pattern;     return Re0; end
 
         # Parse bounce messages from Exim

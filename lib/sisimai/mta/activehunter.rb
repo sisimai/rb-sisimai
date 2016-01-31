@@ -24,7 +24,7 @@ module Sisimai
 
         def description; return 'TransWARE Active!hunter'; end
         def smtpagent;   return 'Activehunter'; end
-        def headerlist;  return [ 'X-AHMAILID' ]; end
+        def headerlist;  return ['X-AHMAILID']; end
         def pattern;     return Re0; end
 
         # Parse bounce messages from TransWARE Active!hunter

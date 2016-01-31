@@ -10,13 +10,13 @@ module Sisimai
           'X.1.1' => [
             {
               'reason' => 'userunknown',
-              'regexp' => [ %r/The email account that you tried to reach does not exist[.]/ ],
+              'regexp' => [%r/The email account that you tried to reach does not exist[.]/],
             }
           ],
           'X.1.2' => [
             {
               'reason' => 'hostunknown',
-              'regexp' => [ %r/We weren't able to find the recipient domain[.]/ ],
+              'regexp' => [%r/We weren't able to find the recipient domain[.]/],
             },
           ],
           'X.2.1' => [
@@ -29,19 +29,19 @@ module Sisimai
             },
             {
               'reason' => 'suspend',
-              'regexp' => [ %r/The email account that you tried to reach is disabled[.]/ ],
+              'regexp' => [%r/The email account that you tried to reach is disabled[.]/],
             },
           ],
           'X.2.2' => [
             {
               'reason' => 'mailboxfull',
-              'regexp' => [ %r/The email account that you tried to reach is over quota[.]/ ],
+              'regexp' => [%r/The email account that you tried to reach is over quota[.]/],
             },
           ],
           'X.2.3' => [
             {
               'reason' => 'exceedlimit',
-              'regexp' => [ %r/Your message exceeded Google's message size limits[.]/ ],
+              'regexp' => [%r/Your message exceeded Google's message size limits[.]/],
             },
           ],
           'X.3.0' => [
@@ -56,17 +56,17 @@ module Sisimai
           'X.4.2' => [
             {
               'reason' => 'expired',
-              'regexp' => [ %r/Timeout [-] closing connection[.]/ ],
+              'regexp' => [%r/Timeout [-] closing connection[.]/],
             },
           ],
           'X.4.5' => [
             {
               'reason' => 'undefined',
-              'regexp' => [ %r/Server busy, try again later[.]/ ],
+              'regexp' => [%r/Server busy, try again later[.]/],
             },
             {
               'reason' => 'exceedlimit',
-              'regexp' => [ %r/Daily sending quota exceeded[.]/ ],
+              'regexp' => [%r/Daily sending quota exceeded[.]/],
             },
           ],
           'X.5.0' => [
@@ -93,17 +93,17 @@ module Sisimai
             },
             {
               'reason' => 'securityerror',
-              'regexp' => [ %r/Authentication Required[.]/ ],
+              'regexp' => [%r/Authentication Required[.]/],
             },
           ],
           'X.5.2' => [
             {
               'reason' => 'undefined',
-              'regexp' => [ %r/Cannot Decode response[.]/ ],
+              'regexp' => [%r/Cannot Decode response[.]/],
             },
             {
               'reason' => 'syntaxerror',
-              'regexp' => [ %r/Syntax error[.]/ ],
+              'regexp' => [%r/Syntax error[.]/],
             },
           ],
           'X.5.3' => [
@@ -118,7 +118,7 @@ module Sisimai
           'X.5.4' => [
             {
               'reason' => 'syntaxerror',
-              'regexp' => [ %r/Optional Argument not permitted for that AUTH mode[.]/ ],
+              'regexp' => [%r/Optional Argument not permitted for that AUTH mode[.]/],
             },
           ],
           'X.6.0' => [
@@ -156,15 +156,15 @@ module Sisimai
             },
             {
               'reason' => 'systemerror',
-              'regexp' => [ %r/Cannot authenticate due to temporary system problem[.]/ ],
+              'regexp' => [%r/Cannot authenticate due to temporary system problem[.]/],
             },
             {
               'reason' => 'norelaying',
-              'regexp' => [ %r/Mail relay denied[.]/ ],
+              'regexp' => [%r/Mail relay denied[.]/],
             },
             {
               'reason' => 'rejected',
-              'regexp' => [ %r/Mail Sending denied[.]/ ],
+              'regexp' => [%r/Mail Sending denied[.]/],
             },
           ],
           'X.7.1' => [
@@ -178,7 +178,7 @@ module Sisimai
             },
             {
               'reason' => 'mailboxfull',
-              'regexp' => [ %r/Email quota exceeded[.]/ ],
+              'regexp' => [%r/Email quota exceeded[.]/],
             },
             {
               'reason' => 'blocked',
@@ -189,21 +189,21 @@ module Sisimai
             },
             {
               'reason' => 'contenterror',
-              'regexp' => [ %r/Our system has detected that this message is likely unsolicited mail[.]/ ],
+              'regexp' => [%r/Our system has detected that this message is likely unsolicited mail[.]/],
             },
             {
               'reason' => 'filtered',
-              'regexp' => [ %r/The user or domain that you are sending to [(]or from[)] has a policy/ ],
+              'regexp' => [%r/The user or domain that you are sending to [(]or from[)] has a policy/],
             },
             {
               'reason' => 'rejected',
-              'regexp' => [ %r/Unauthenticated email is not accepted from this domain[.]/ ],
+              'regexp' => [%r/Unauthenticated email is not accepted from this domain[.]/],
             },
           ],
           'X.7.4' => [
             {
               'reason' => 'securityerror',
-              'regexp' => [ %r/Unrecognized Authentication Type[.]/ ],
+              'regexp' => [%r/Unrecognized Authentication Type[.]/],
             },
           ],
         }

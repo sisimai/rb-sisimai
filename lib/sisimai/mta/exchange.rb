@@ -59,7 +59,7 @@ module Sisimai
 
         def description; return 'Microsoft Exchange Server'; end
         def smtpagent;   return 'Exchange'; end
-        def headerlist;  return [ 'X-MS-Embedded-Report', 'X-MimeOLE' ]; end
+        def headerlist;  return ['X-MS-Embedded-Report', 'X-MimeOLE']; end
         def pattern;     return Re0; end
 
         # Parse bounce messages from Microsoft Exchange Server

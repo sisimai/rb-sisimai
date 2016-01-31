@@ -31,7 +31,7 @@ module Sisimai
 
         def description; return 'McAfee Email Appliance'; end
         def smtpagent;   return 'McAfee'; end
-        def headerlist;  return [ 'X-NAI-Header' ]; end
+        def headerlist;  return ['X-NAI-Header']; end
         def pattern;     return Re0; end
 
         # Parse bounce messages from McAfee Email Appliance
