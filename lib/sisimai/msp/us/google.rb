@@ -218,7 +218,7 @@ module Sisimai
 
                 # Get required headers only
                 lhs = cv[1].downcase
-                previousfn = '';
+                previousfn = ''
                 next unless RFC822Head.key?(lhs)
 
                 previousfn  = lhs
