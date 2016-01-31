@@ -55,7 +55,7 @@ module Sisimai
           # 1. Check some value in mhead using regular expression or "==" operator
           #    whether the bounce message should be parsed by this module or not.
           #   - Matched 1 or more values: Proceed to the step 2.
-          #   - Did not matched:          return undef;
+          #   - Did not matched:          return nil
           #
           match += 1 if mhead['subject'] =~ Re0[:subject]
           match += 1 if mhead['from']    =~ Re0[:from]
@@ -94,7 +94,7 @@ module Sisimai
               if cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*.+\z/)
                 # Get required headers only
                 lhs = cv[1].downcase
-                previousfn = '';
+                previousfn = ''
                 next unless RFC822Head.key?(lhs)
 
                 previousfn  = lhs
@@ -121,7 +121,7 @@ module Sisimai
           end
 
           # The following code is dummy to be passed "make test".
-          recipients = 1;
+          recipients = 1
           dscontents[0]['recipient'] = 'kijitora@example.jp'
           dscontents[0]['diagnosis'] = '550 something wrong'
           dscontents[0]['status']    = '5.1.1'
