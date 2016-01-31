@@ -49,10 +49,6 @@ module Sisimai
           return nil unless mhead
           return nil unless mbody
           return nil unless mhead['x-gmx-antispam'];
-          if false
-            return nil unless mhead['from']    =~ Re0[:from]
-            return nil unless mhead['subject'] =~ Re0[:subject]
-          end
 
           dscontents = []; dscontents << Sisimai::MSP.DELIVERYSTATUS
           hasdivided = mbody.split("\n")
