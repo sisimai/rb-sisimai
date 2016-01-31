@@ -95,8 +95,6 @@ module Sisimai
         readcursor = 0    # (Integer) Points the current cursor position
         recipients = 0    # (Integer) The number of 'Final-Recipient' header
         rcptintext = ''   # (String) Recipient address in the message body
-        remotename = ''   # (String) The value of "Reporting-MTA"
-        commandtxt = ''   # (String) SMTP Command name begin with the string '>>>'
         commondata = {
           'diagnosis' => '',  # Error message
           'from'      => '',  # Original-Mail-From:
