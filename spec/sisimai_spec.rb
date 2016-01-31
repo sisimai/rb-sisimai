@@ -164,7 +164,7 @@ describe Sisimai do
         expect(Sisimai.dump(isnotbounce[:maildir])).to be == '[]'
       end
       it 'returns nil' do
-        expect(Sisimai.dump(nil)).to be == nil
+        expect(Sisimai.dump(nil)).to be_nil
       end
     end
 
