@@ -210,7 +210,7 @@ module Sisimai
               if v['recipient']
                 # There are multiple recipient addresses in the message body.
                 dscontents << Sisimai::MTA.DELIVERYSTATUS
-                  v = dscontents[-1]
+                v = dscontents[-1]
               end
               v['recipient'] = Sisimai::Address.s3s4(cv[1])
               recipients += 1
