@@ -966,41 +966,41 @@ describe 'Sisimai::MTA::' do
           end
           example sprintf('[%s] %s#lhost = %s', n, x, ee.lhost) do
             expect(ee.lhost).to be_a String
-            expect(ee.lhost).not_to match /[ ]/
+            expect(ee.lhost).not_to match(/[ ]/)
           end
           example sprintf('[%s] %s#rhost = %s', n, x, ee.rhost) do
             expect(ee.rhost).to be_a String
-            expect(ee.rhost).not_to match /[ ]/
+            expect(ee.rhost).not_to match(/[ ]/)
           end
           example sprintf('[%s] %s#alias = %s', n, x, ee.alias) do
             expect(ee.alias).to be_a String
-            expect(ee.alias).not_to match /[ ]/
+            expect(ee.alias).not_to match(/[ ]/)
           end
           example sprintf('[%s] %s#listid = %s', n, x, ee.listid) do
             expect(ee.listid).to be_a String
-            expect(ee.listid).not_to match /[ ]/
+            expect(ee.listid).not_to match(/[ ]/)
           end
           example sprintf('[%s] %s#action = %s', n, x, ee.action) do
             expect(ee.action).to be_a String
-            expect(ee.action).not_to match /[ ]/
+            expect(ee.action).not_to match(/[ ]/)
             if ee.action.size > 0
-              expect(ee.action).to match /(?:fail.+|delayed|expired)\z/
+              expect(ee.action).to match(/(?:fail.+|delayed|expired)\z/)
             end
           end
           example sprintf('[%s] %s#messageid = %s', n, x, ee.messageid) do
             expect(ee.messageid).to be_a String
-            expect(ee.messageid).not_to match /[ ]/
+            expect(ee.messageid).not_to match(/[ ]/)
           end
           example sprintf('[%s] %s#smtpcommand = %s', n, x, ee.smtpcommand) do
             expect(ee.smtpcommand).to be_a String
-            expect(ee.smtpcommand).not_to match /[ ]/
+            expect(ee.smtpcommand).not_to match(/[ ]/)
           end
           example sprintf('[%s] %s#diagnosticcode = %s', n, x, ee.diagnosticcode) do
             expect(ee.diagnosticcode).to be_a String
           end
           example sprintf('[%s] %s#replycode = %s', n, x, ee.replycode) do
             expect(ee.replycode).to be_a String
-            expect(ee.replycode).to match /\A(?:[45]\d\d|)\z/
+            expect(ee.replycode).to match(/\A(?:[45]\d\d|)\z/)
           end
 
           example sprintf('[%s] %s#feedbacktype = %s', n, x, ee.feedbacktype) do
@@ -1013,8 +1013,8 @@ describe 'Sisimai::MTA::' do
           example sprintf('[%s] %s#deliverystatus = %s', n, x, ee.deliverystatus) do
             expect(ee.deliverystatus).to be_a String
             expect(ee.deliverystatus.size).to be > 0
-            expect(ee.deliverystatus).to match /\A[45][.]\d/
-            expect(ee.deliverystatus).not_to match /[ ]/
+            expect(ee.deliverystatus).to match(/\A[45][.]\d/)
+            expect(ee.deliverystatus).not_to match(/[ ]/)
           end
 
           example sprintf('[%s] %s#softbounce = %s', n, x, ee.softbounce) do
@@ -1039,7 +1039,7 @@ describe 'Sisimai::MTA::' do
             if x == 'MFILTER'
               expect(ee.smtpagent).to be == 'm-FILTER'
             elsif x == 'X4'
-              expect(ee.smtpagent).to match /\A(?:qmail|X4)\z/
+              expect(ee.smtpagent).to match(/\A(?:qmail|X4)\z/)
             elsif x == 'Qmail'
               expect(ee.smtpagent).to be == 'qmail'
             else
@@ -1051,12 +1051,12 @@ describe 'Sisimai::MTA::' do
           example sprintf('[%s] %s#reason = %s', n, x, ee.reason) do
             expect(ee.reason).to be_a String
             expect(ee.reason.size).to be > 0
-            expect(ee.reason).to match reason0
+            expect(ee.reason).to match(reason0)
           end
 
           example sprintf('[%s] %s#timezoneoffset = %s', n, x, ee.timezoneoffset) do
             expect(ee.timezoneoffset).to be_a String
-            expect(ee.timezoneoffset).to match /\A[+-]\d+\z/
+            expect(ee.timezoneoffset).to match(/\A[+-]\d+\z/)
           end
 
           example sprintf('[%s] %s#timestamp = %s', n, x, ee.timestamp) do
@@ -1071,44 +1071,44 @@ describe 'Sisimai::MTA::' do
             expect(ee.addresser).to be_a Sisimai::Address
             expect(ee.addresser.host).to be_a String
             expect(ee.addresser.host.size).to be > 0
-            expect(ee.addresser.host).not_to match /[ ]/
+            expect(ee.addresser.host).not_to match(/[ ]/)
             expect(ee.addresser.host).to be == ee.senderdomain
 
             expect(ee.addresser.user).to be_a String
             expect(ee.addresser.user.size).to be > 0
-            expect(ee.addresser.user).not_to match /[ ]/
+            expect(ee.addresser.user).not_to match(/[ ]/)
 
             expect(ee.addresser.address).to be_a String
             expect(ee.addresser.address.size).to be > 0
-            expect(ee.addresser.address).not_to match /[ ]/
+            expect(ee.addresser.address).not_to match(/[ ]/)
 
             expect(ee.addresser.verp).to be_a String
-            expect(ee.addresser.verp).not_to match /[ ]/
+            expect(ee.addresser.verp).not_to match(/[ ]/)
 
             expect(ee.addresser.alias).to be_a String
-            expect(ee.addresser.alias).not_to match /[ ]/
+            expect(ee.addresser.alias).not_to match(/[ ]/)
           end
 
           example sprintf('[%s] %s#recipient = %s', n, x, ee.recipient) do
             expect(ee.recipient).to be_a Sisimai::Address
             expect(ee.recipient.host).to be_a String
             expect(ee.recipient.host.size).to be > 0
-            expect(ee.recipient.host).not_to match /[ ]/
+            expect(ee.recipient.host).not_to match(/[ ]/)
             expect(ee.recipient.host).to be == ee.destination
 
             expect(ee.recipient.user).to be_a String
             expect(ee.recipient.user.size).to be > 0
-            expect(ee.recipient.user).not_to match /[ ]/
+            expect(ee.recipient.user).not_to match(/[ ]/)
 
             expect(ee.recipient.address).to be_a String
             expect(ee.recipient.address.size).to be > 0
-            expect(ee.recipient.address).not_to match /[ ]/
+            expect(ee.recipient.address).not_to match(/[ ]/)
 
             expect(ee.recipient.verp).to be_a String
-            expect(ee.recipient.verp).not_to match /[ ]/
+            expect(ee.recipient.verp).not_to match(/[ ]/)
 
             expect(ee.recipient.alias).to be_a String
-            expect(ee.recipient.alias).not_to match /[ ]/
+            expect(ee.recipient.alias).not_to match(/[ ]/)
           end
 
         end
