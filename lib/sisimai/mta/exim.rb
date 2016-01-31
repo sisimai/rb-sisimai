@@ -489,7 +489,6 @@ module Sisimai
             rv = Sisimai::SMTP::Reply.find(e['diagnosis'])
             s1 = 0  # First character of Status as integer
             r1 = 0  # First character of SMTP reply code as integer
-            v1 = 0
 
             # "Status:" field did not exist in the bounce message
             if sv.empty?
