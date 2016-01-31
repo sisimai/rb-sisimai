@@ -109,7 +109,7 @@ module Sisimai
     # Another constructor of Sisimai::Data
     # @param        [Hash] argvs       Data and orders
     # @option argvs [Sisimai::Message] Data Object
-    # @return       [Array, Undef]     List of Sisimai::Data or Undef if the 
+    # @return       [Array, Undef]     List of Sisimai::Data or Undef if the
     #                                  argument is not Sisimai::Message object
     def self.make(data: nil, **argvs)
       return nil unless data
@@ -321,7 +321,7 @@ module Sisimai
               next unless p[v].size > 0
               r = Sisimai::SMTP.is_softbounce(p[v])
               if r.nil?
-                o.softbounce = -1 
+                o.softbounce = -1
               else
                 o.softbounce = r ? 1 : 0
               end
@@ -351,7 +351,7 @@ module Sisimai
                 end
               end
             end
-          end 
+          end
         else
           # The value of reason is "vacation" or "feedback"
           o.softbounce = -1
@@ -368,7 +368,7 @@ module Sisimai
       begin
         v = {}
         stringdata = %w[
-          token lhost rhost listid alias reason subject messageid smtpagent 
+          token lhost rhost listid alias reason subject messageid smtpagent
           smtpcommand destination diagnosticcode senderdomain deliverystatus
           timezoneoffset feedbacktype diagnostictype action replycode softbounce
         ]

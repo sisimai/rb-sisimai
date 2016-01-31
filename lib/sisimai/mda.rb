@@ -140,9 +140,9 @@ module Sisimai
           break if bouncemesg.size > 0 && reasonname.size > 0
         end
 
-        return { 
-          'mda'     => agentname0, 
-          'reason'  => reasonname || '', 
+        return {
+          'mda'     => agentname0,
+          'reason'  => reasonname || '',
           'message' => bouncemesg || '',
         }
       end

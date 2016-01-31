@@ -67,14 +67,14 @@ module Sisimai
 
           if tempreason == reasontext
             # Delivery status code points "filtered".
-            if Sisimai::Reason::UserUnknown.match(diagnostic) || 
+            if Sisimai::Reason::UserUnknown.match(diagnostic) ||
                Sisimai::Reason::Filtered.match(diagnostic)
                 v = true
             end
           else
             # Check the value of Diagnostic-Code and the last SMTP command
             if commandtxt != 'RCPT' && commandtxt != 'MAIL'
-              # Check the last SMTP command of the session. 
+              # Check the last SMTP command of the session.
               if Sisimai::Reason::Filtered.match(diagnostic)
                 # Matched with a pattern in this class
                 v = true

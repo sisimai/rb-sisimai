@@ -114,7 +114,7 @@ module Sisimai
               next if readcursor & Indicators[:'deliverystatus'] == 0
 
               # ------- Failure Reasons  --------
-              # 
+              #
               # User not listed in public Name & Address Book
               # kijitora@notes.example.jp
               #

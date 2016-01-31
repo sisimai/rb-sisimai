@@ -1,5 +1,5 @@
 # http://www.iana.org/assignments/smtp-enhanced-status-codes/smtp-enhanced-status-codes.xhtml
-# 
+#
 # ------------------------------------------------------------------------------
 # [Class Sub-Codes]
 # 2.X.Y Success
@@ -9,12 +9,12 @@
 # ------------------------------------------------------------------------------
 # [Subject Sub-Codes]
 #
-# X.0.X --- Other or Undefined Status 
+# X.0.X --- Other or Undefined Status
 #           There is no additional subject information available.
 #
 # X.1.X --- Addressing Status
 #           The address status reports on the originator or destination address.
-#           It may include address syntax or validity. 
+#           It may include address syntax or validity.
 #           These errors can generally be corrected by the sender and retried.
 #
 # X.2.X --- Mailbox Status
@@ -29,7 +29,7 @@
 #
 # X.4.X --- Network and Routing Status
 #           The networking or routing codes report status about the delivery
-#           system itself. These system components include any necessary 
+#           system itself. These system components include any necessary
 #           infrastructure such as directory and routing services. Network issues
 #           are assumed to be under the control of the destination or intermediate
 #           system administrator.
@@ -70,7 +70,7 @@
 #                 this DSN.
 #
 # X.1.1  451    Bad destination mailbox address:(RFC3463)
-#        550      The mailbox specified in the address does not exist. 
+#        550      The mailbox specified in the address does not exist.
 #                 For Internet mail names, this means the address portion to the
 #                 the left of the "@" sign is invalid.
 #                 This code is only useful for permanent failures.
@@ -78,7 +78,7 @@
 # X.1.2  ---    Bad destination system addres:
 #                 The destination system specified in the address does not exist
 #                 or is incapable of accepting mail. For Internet mail names,
-#                 this means the address portion to the right of the "@" is 
+#                 this means the address portion to the right of the "@" is
 #                 invalid for mail.
 #                 This code is only useful for permanent failures.
 #
@@ -191,7 +191,7 @@
 #                 This is useful only as a persistent transient error.
 #
 # X.4.2  421    Bad connection:(RFC 3463)
-#                 The outbound connection was established, but was unable to 
+#                 The outbound connection was established, but was unable to
 #                 complete the message transaction, either because of time-out,
 #                 or inadequate connection quality. This is useful only as a
 #                 persistent transient error.
@@ -238,14 +238,14 @@
 #
 # X.5.1  430    Invalid command:(RFC 3463)
 #        500,501  A mail transaction protocol command was issued which was either
-#        503,530  out of sequence or unsupported. 
+#        503,530  out of sequence or unsupported.
 #        550,554  This is useful only as a permanent error.
 #        555
 #
 # X.5.2  500    Syntax error:(RFC 3463)
 #        500,501  A mail transaction protocol command was issued which could not
 #        502,550  be interpreted, either because the syntax was wrong or the
-#        555      command is unrecognized. 
+#        555      command is unrecognized.
 #                 This is useful only as a permanent error.
 #
 # X.5.3  451    Too many recipients:(RFC 3463)
@@ -390,7 +390,7 @@
 #                 order to use the requested authentication mechanism. This is
 #                 primarily intended for use with clear text authentication mechanisms.
 #                 A client which receives this may activate a security layer such
-#                 as TLS prior to authenticating, or attempt to use a stronger 
+#                 as TLS prior to authenticating, or attempt to use a stronger
 #                 mechanism.
 #
 # X.7.11 524    Encryption required for requested authentication mechanism:(RFC 4954)
@@ -412,12 +412,12 @@
 # X.7.13 525    User Account Disabled:(RFC 5248)
 #                 Sometimes a system administrator will have to disable a user's
 #                 account (e.g., due to lack of payment, abuse, evidence of a
-#                 break-in attempt, etc). 
+#                 break-in attempt, etc).
 #                 This error code occurs after a successful authentication to a
 #                 disabled account. This informs the client that the failure is
 #                 permanent until the user contacts their system administrator
-#                 to get the account re-enabled. 
-#                 It differs from a generic authentication failure where the 
+#                 to get the account re-enabled.
+#                 It differs from a generic authentication failure where the
 #                 client's best option is to present the passphrase entry dialog
 #                 in case the user simply mistyped their passphrase.
 #
@@ -435,7 +435,7 @@
 #                 lower priority messages are rejected.
 #
 # X.7.16 552    Message is too big for the specified priority:(RFC 6710)
-#        4xx      The message is too big for the specified priority. 
+#        4xx      The message is too big for the specified priority.
 #        5xx      This condition might be temporary, for example the server is
 #                 operating in a mode where only higher priority messages below
 #                 certain size are accepted for transfer and delivery.
@@ -498,7 +498,7 @@
 #
 # X.7.26 550    Multiple authentication checks failed:(RFC 7372)
 #                 This status code is returned when a message failed more than
-#                 one message authentication check, contrary to local policy 
+#                 one message authentication check, contrary to local policy
 #                 requirements. The particular mechanisms that failed are not
 #                 specified.
 #
@@ -729,7 +729,7 @@ module Sisimai
         # @return   [String]        DSN or empty string if the first agument did
         #                           not include DSN
         def find(argv1 = '')
-          return '' unless argv1 
+          return '' unless argv1
           return '' unless argv1.size > 0
 
           foundvalue = ''

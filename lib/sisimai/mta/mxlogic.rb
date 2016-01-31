@@ -1,6 +1,6 @@
 module Sisimai
   module MTA
-    # Sisimai::MTA::MXLogic parses a bounce email which created by McAfee SaaS 
+    # Sisimai::MTA::MXLogic parses a bounce email which created by McAfee SaaS
     # (formerly MX Logic). Methods in the module are called from only Sisimai::Message.
     module MXLogic
       # Imported from p5-Sisimail/lib/Sisimai/MTA/MXLogic.pm

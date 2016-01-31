@@ -119,7 +119,7 @@ module Sisimai
 
               v = dscontents[-1]
               if cv = e.match(/\A[ \t]+Could not be delivered to: [<]([^ ]+[@][^ ]+)[>]/)
-                # Your mail sent on: Thu, 29 Apr 2010 11:04:47 +0900 
+                # Your mail sent on: Thu, 29 Apr 2010 11:04:47 +0900
                 #     Could not be delivered to: <******@**.***.**>
                 #     As their mailbox is full.
                 if v['recipient']
@@ -135,7 +135,7 @@ module Sisimai
                 end
 
               elsif cv = e.match(/Your mail sent on: (.+)\z/)
-                # Your mail sent on: Thu, 29 Apr 2010 11:04:47 +0900 
+                # Your mail sent on: Thu, 29 Apr 2010 11:04:47 +0900
                 v['date'] = cv[1]
 
               else

@@ -121,30 +121,30 @@ module Sisimai
 
               if connvalues == connheader.keys.size
                 # This is the mail delivery agent at messagelabs.com.
-                # 
+                #
                 # I was unable to deliver your message to the following addresses:
-                # 
+                #
                 # maria@dest.example.net
-                # 
+                #
                 # Reason: 550 maria@dest.example.net... No such user
-                # 
+                #
                 # The message subject was: Re: BOAS FESTAS!
                 # The message date was: Tue, 23 Dec 2014 20:39:24 +0000
                 # The message identifier was: DB/3F-17375-60D39495
                 # The message reference was: server-5.tower-143.messagelabs.com!1419367172!32=
                 # 691968!1
-                # 
+                #
                 # Please do not reply to this email as it is sent from an unattended mailbox.
                 # Please visit www.messagelabs.com/support for more details
                 # about this error message and instructions to resolve this issue.
-                # 
-                # 
+                #
+                #
                 # --b0Nvs+XKfKLLRaP/Qo8jZhQPoiqeWi3KWPXMgw==
                 # Content-Type: message/delivery-status
-                # 
+                #
                 # Reporting-MTA: dns; server-15.bemta-3.messagelabs.com
                 # Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
-                # 
+                #
                 # Action: failed
                 # Status: 5.0.0
                 # Last-Attempt-Date: Tue, 23 Dec 2014 20:39:35 +0000

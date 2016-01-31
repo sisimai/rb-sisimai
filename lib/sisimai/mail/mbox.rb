@@ -18,7 +18,7 @@ module Sisimai
 
       # Constructor of Sisimai::Mail::Mbox
       # @param    [String] argv1            Path to mbox
-      # @return   [Sisimai::Mail::Mbox,Nil] Object or nil if the argument is not 
+      # @return   [Sisimai::Mail::Mbox,Nil] Object or nil if the argument is not
       #                                     specified or does not exist
       def initialize(argv1)
         raise Errno::ENOENT   unless File.exist?(argv1)

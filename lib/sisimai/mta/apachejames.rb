@@ -115,7 +115,7 @@ module Sisimai
               #   Sent date: Thu Apr 29 01:20:50 JST 2015
               #   MAIL FROM: shironeko@example.jp
               #   RCPT TO: kijitora@example.org
-              #   From: Neko <shironeko@example.jp> 
+              #   From: Neko <shironeko@example.jp>
               #   To: kijitora@example.org
               #   Size (in bytes): 1024
               #   Number of lines: 64

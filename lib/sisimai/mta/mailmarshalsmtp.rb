@@ -118,12 +118,12 @@ module Sisimai
               #
               # 550 5.1.1 User unknown
               #
-              # The following recipients were affected: 
+              # The following recipients were affected:
               #    dummyuser@blabla.xxxxxxxxxxxx.com
               v = dscontents[-1]
 
               if cv = e.match(/\A[ ]{4}([^ ]+[@][^ ]+)\z/)
-                # The following recipients were affected: 
+                # The following recipients were affected:
                 #    dummyuser@blabla.xxxxxxxxxxxx.com
                 if v['recipient']
                   # There are multiple recipient addresses in the message body.

@@ -19,7 +19,7 @@ module Sisimai
 
     # Email address parser
     # @param    [Array] argvs   List of strings including email address
-    # @return   [Array, Nil]    Email address list or Undef when there is no 
+    # @return   [Array, Nil]    Email address list or Undef when there is no
     #                           email address in the argument
     # @example  Parse email address
     #   parse( [ 'Neko <neko@example.cat>' ] )  #=> [ 'neko@example.cat' ]
@@ -53,7 +53,7 @@ module Sisimai
       unless input =~ /[ ]/
         # no space character between " and < .
         # no space character between " and < .
-        input = input.sub(/\A(.+)"<(.+)\z/, '\1" <\2')      # "=?ISO-2022-JP?B?....?="<user@example.jp>, 
+        input = input.sub(/\A(.+)"<(.+)\z/, '\1" <\2')      # "=?ISO-2022-JP?B?....?="<user@example.jp>,
         input = input.sub(/\A(.+)[?]=<(.+)\z/, '\1?= <\2')  # =?ISO-2022-JP?B?....?=<user@example.jp>
 
         # comment-part<localpart@domainpart>

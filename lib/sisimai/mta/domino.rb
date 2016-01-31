@@ -1,6 +1,6 @@
 module Sisimai
   module MTA
-    # Sisimai::MTA::Domino parses a bounce email which created by IBM Domino Server. 
+    # Sisimai::MTA::Domino parses a bounce email which created by IBM Domino Server.
     # Methods in the module are called from only Sisimai::Message.
     module Domino
       # Imported from p5-Sisimail/lib/Sisimai/MTA/Domino.pm

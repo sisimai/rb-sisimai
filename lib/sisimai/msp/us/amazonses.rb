@@ -118,7 +118,7 @@ module Sisimai
                 # Action: failed
                 # Status: 5.0.0 (permanent failure)
                 # Remote-MTA: dns; [192.0.2.9]
-                # Diagnostic-Code: smtp; 5.1.0 - Unknown address error 550-'5.7.1 
+                # Diagnostic-Code: smtp; 5.1.0 - Unknown address error 550-'5.7.1
                 #  <000001321defbd2a-788e31c8-2be1-422f-a8d4-cf7765cc9ed7-000000@email-bounces.amazonses.com>...
                 #  Access denied' (delivery attempts: 0)
                 #

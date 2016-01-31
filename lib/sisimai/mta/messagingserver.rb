@@ -109,17 +109,17 @@ module Sisimai
               # --Boundary_(ID_0000000000000000000000)
               # Content-type: text/plain; charset=us-ascii
               # Content-language: en-US
-              # 
+              #
               # This report relates to a message you sent with the following header fields:
-              # 
+              #
               #   Message-id: <CD8C6134-C312-41D5-B083-366F7FA1D752@me.example.com>
               #   Date: Fri, 21 Nov 2014 23:34:45 +0900
               #   From: Shironeko <shironeko@me.example.com>
               #   To: kijitora@example.jp
               #   Subject: Nyaaaaaaaaaaaaaaaaaaaaaan
-              # 
+              #
               # Your message cannot be delivered to the following recipients:
-              # 
+              #
               #   Recipient address: kijitora@example.jp
               #   Reason: Remote SMTP server has rejected address
               #   Diagnostic code: smtp;550 5.1.1 <kijitora@example.jp>... User Unknown
@@ -171,7 +171,7 @@ module Sisimai
                 # Original-envelope-id: 0NFC009FLKOUVMA0@mr21p30im-asmtp004.me.com
                 # Reporting-MTA: dns;mr21p30im-asmtp004.me.com (tcp-daemon)
                 # Arrival-date: Thu, 29 Apr 2014 23:34:45 +0000 (GMT)
-                # 
+                #
                 # Original-recipient: rfc822;kijitora@example.jp
                 # Final-recipient: rfc822;kijitora@example.jp
                 # Action: failed
@@ -215,7 +215,6 @@ module Sisimai
             end
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
-            
             ReFailure.each_key do |r|
               # Verify each regular expression of session errors
               next unless e['diagnosis'] =~ ReFailure[r]

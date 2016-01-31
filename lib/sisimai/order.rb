@@ -1,6 +1,6 @@
 module Sisimai
   # Sisimai::Order makes optimized order list which include MTA/MSP modules to be
-  # loaded on first from MTA specific headers in the bounce mail headers such as 
+  # loaded on first from MTA specific headers in the bounce mail headers such as
   # X-Failed-Recipients. This module are called from only Sisimai::Message.
   module Order
     # Imported from p5-Sisimail/lib/Sisimai/RFC3464.pm
@@ -15,7 +15,7 @@ module Sisimai
         'Sisimai::MTA::Exchange',
       ]
       AnotherList2 = [
-        # These modules have no MTA specific header and did not listed in the 
+        # These modules have no MTA specific header and did not listed in the
         # following subject header based regular expressions.
         'Sisimai::MSP::US::Facebook',
         'Sisimai::MSP::JP::KDDI',
@@ -107,17 +107,17 @@ module Sisimai
             'Sisimai::MTA::X3',
             'Sisimai::MTA::MFILTER',
           ],
-          %r/return/i => [ 
+          %r/return/i => [
             'Sisimai::MTA::Postfix',
             'Sisimai::MTA::Sendmail',
             'Sisimai::MSP::US::SendGrid',
             'Sisimai::MSP::US::Bigfoot',
             'Sisimai::MTA::X1',
             'Sisimai::MSP::DE::EinsUndEins',
-            'Sisimai::MSP::JP::Biglobe', 
+            'Sisimai::MSP::JP::Biglobe',
             'Sisimai::MTA::V5sendmail',
           ],
-          %r/undeliver/i => [  
+          %r/undeliver/i => [
             'Sisimai::MTA::Postfix',
             'Sisimai::MTA::Exchange',
             'Sisimai::MTA::Notes',
@@ -126,7 +126,7 @@ module Sisimai
             'Sisimai::MTA::IMailServer',
             'Sisimai::MTA::MailMarshalSMTP',
           ],
-          %r/failure/i => [ 
+          %r/failure/i => [
             'Sisimai::MTA::Qmail',
             'Sisimai::MTA::Domino',
             'Sisimai::MSP::US::Google',

@@ -3,7 +3,7 @@ module Sisimai
     # Sisimai::Reason::HasMoved checks the bounce reason is "hasmoved" or not.
     # This class is called only Sisimai::Reason class.
     #
-    # This is the error that a user's mailbox has moved (and is not forwarded 
+    # This is the error that a user's mailbox has moved (and is not forwarded
     # automatically). Sisimai will set "hasmoved" to the reason of email bounce
     # if the value of Status: field in a bounce email is "5.1.6".
     module HasMoved

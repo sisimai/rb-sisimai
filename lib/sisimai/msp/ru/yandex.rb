@@ -166,7 +166,7 @@ module Sisimai
 
               else
                 # Content-Type: message/delivery-status
-                # 
+                #
                 # Reporting-MTA: dns; forward1h.mail.yandex.net
                 # X-Yandex-Queue-ID: 367D79E130D
                 # X-Yandex-Sender: rfc822; shironeko@yandex.example.com

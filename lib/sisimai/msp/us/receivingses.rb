@@ -1,7 +1,7 @@
 module Sisimai
   module MSP::US
     # Sisimai::MSP::US::ReceivingSES parses a bounce email which created by
-    # Amazon Simple Email Service. Methods in the module are called from only 
+    # Amazon Simple Email Service. Methods in the module are called from only
     # Sisimai::Message.
     module ReceivingSES
       # Imported from p5-Sisimail/lib/Sisimai/MSP/US/ReceivingSES.pm

@@ -1,6 +1,6 @@
 module Sisimai
   module MTA
-    # Sisimai::MTA::Postfix parses a bounce email which created by Postfix. 
+    # Sisimai::MTA::Postfix parses a bounce email which created by Postfix.
     # Methods in the module are called from only Sisimai::Message.
     module Postfix
       # Imported from p5-Sisimail/lib/Sisimai/MTA/Postfix.pm
@@ -132,7 +132,7 @@ module Sisimai
                 # Status: 5.1.1
                 # Remote-MTA: DNS; mx.example.jp
                 # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
-                # Last-Attempt-Date: Fri, 14 Feb 2014 12:30:08 -0500              
+                # Last-Attempt-Date: Fri, 14 Feb 2014 12:30:08 -0500
                 v = dscontents[-1]
                 if cv = e.match(/\A[Ff]inal-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*(.+)\z/)
                   # Final-Recipient: RFC822; userunknown@example.jp
@@ -253,7 +253,7 @@ module Sisimai
 
           if recipients == 0
             # Fallback: set recipient address from error message
-            if anotherset['recipient'] && anotherset['recipient'].size > 0 
+            if anotherset['recipient'] && anotherset['recipient'].size > 0
               # Set recipient address
               dscontents[-1]['recipient'] = anotherset['recipient']
               recipients += 1

@@ -36,7 +36,7 @@ module Sisimai
               '000C05A6', # Unknown Recipient,
           ],
           'systemerror' => [
-              '00010256', # Too many recipients. 
+              '00010256', # Too many recipients.
               '000D06B5', # No proxy for recipient (non-smtp mail?)
           ],
           'networkerror' => [
@@ -175,7 +175,7 @@ module Sisimai
 
               if connvalues == connheader.keys.size
                 # did not reach the following recipient(s):
-                # 
+                #
                 # kijitora@example.co.jp on Thu, 29 Apr 2007 16:51:51 -0500
                 #     The recipient name is not recognized
                 #     The MTS-ID of the original message is: c=jp;a= ;p=neko
@@ -284,7 +284,7 @@ module Sisimai
               e['diagnosis'] = errormessage
             end
 
-            unless e['reason'] 
+            unless e['reason']
               # Could not detect the reason from the value of "diagnosis".
               if e['alterrors']
                 # Copy alternative error message

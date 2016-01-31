@@ -165,7 +165,7 @@ module Sisimai
             elsif cv = e.match(/\AFrom:[ ]*(.+)\z/)
               # Microsoft ARF: original sender.
               if commondata['from'].size == 0
-                commondata['from'] = Sisimai::Address.s3s4(cv[1]) 
+                commondata['from'] = Sisimai::Address.s3s4(cv[1])
               end
 
             elsif cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*(.+)\z/)
@@ -258,9 +258,9 @@ module Sisimai
               end
 
             elsif e =~ Re1[:begin]
-              # This is an email abuse report for an email message with the 
-              #   message-id of 0000-000000000000000000000000000000000@mx 
-              #   received from IP address 192.0.2.1 on 
+              # This is an email abuse report for an email message with the
+              #   message-id of 0000-000000000000000000000000000000000@mx
+              #   received from IP address 192.0.2.1 on
               #   Thu, 29 Apr 2010 00:00:00 +0900 (JST)
               commondata['diagnosis'] = e
             end
@@ -290,7 +290,7 @@ module Sisimai
         if cv = mhead['subject'].match(/complaint about message from (\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3})/)
           # Microsoft ARF: remote host address.
           arfheaders['rhost'] = cv[1]
-          commondata['diagnosis'] = sprintf( 
+          commondata['diagnosis'] = sprintf(
             'This is a Microsoft email abuse report for an email message received from IP %s on %s',
             arfheaders['rhost'], mhead['date'])
         end

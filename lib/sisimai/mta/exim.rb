@@ -410,7 +410,7 @@ module Sisimai
                 e['diagnosis'] = e['alterrors'] if e['alterrors'].size > 0
 
               else
-                # Check the both value and try to match 
+                # Check the both value and try to match
                 if e['diagnosis'].size < e['alterrors'].size
                   # Check the value of alterrors
                   rxdiagnosis = %r/#{e['diagnosis']}/i
@@ -524,7 +524,7 @@ module Sisimai
               else
                 # Mismatch error type...?
                 if r1 > 0
-                  # Set pseudo DSN into the value of "status" accessor 
+                  # Set pseudo DSN into the value of "status" accessor
                   e['status'] = sv
                   e['softbounce'] = r1 == 4 ? 1 : 0
                 end

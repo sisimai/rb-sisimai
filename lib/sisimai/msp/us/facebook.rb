@@ -204,7 +204,7 @@ module Sisimai
 
                 else
                   if cv = e.match(/\A[Dd]iagnostic-[Cc]ode:[ ]*(.+?);[ ]*(.+)\z/)
-                    # Diagnostic-Code: smtp; 550 5.1.1 RCP-P2 
+                    # Diagnostic-Code: smtp; 550 5.1.1 RCP-P2
                     #     http://postmaster.facebook.com/response_codes?ip=192.0.2.135#rcp Refused due to recipient preferences
                     v['spec'] = cv[1].upcase
                     v['diagnosis'] = cv[2]
@@ -252,7 +252,7 @@ module Sisimai
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
             if cv = e['diagnosis'].match(/\b([A-Z]{3})[-]([A-Z])(\d)\b/)
-              # Diagnostic-Code: smtp; 550 5.1.1 RCP-P2 
+              # Diagnostic-Code: smtp; 550 5.1.1 RCP-P2
               lhs = cv[1]
               rhs = cv[2]
               num = cv[3]
@@ -276,7 +276,7 @@ module Sisimai
             unless e['reason']
               # http://postmaster.facebook.com/response_codes
               #   Facebook System Resource Issues
-              #   These codes indicate a temporary issue internal to Facebook's 
+              #   These codes indicate a temporary issue internal to Facebook's
               #   system. Administrators observing these issues are not required to
               #   take any action to correct them.
               if fbresponse =~ /\AINT-T\d+\z/

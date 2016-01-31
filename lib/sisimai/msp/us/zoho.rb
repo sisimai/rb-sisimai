@@ -117,7 +117,7 @@ module Sisimai
               # 1 <kijitora@example.co.jp>... User Unknown
 
               # This message was created automatically by mail delivery software.
-              # A message that you sent could not be delivered to one or more of its recipients. This is a permanent error. 
+              # A message that you sent could not be delivered to one or more of its recipients. This is a permanent error.
               #
               # shironeko@example.org Invalid Address, ERROR_CODE :550, ERROR_CODE :Requested action not taken: mailbox unavailable
               v = dscontents[-1]

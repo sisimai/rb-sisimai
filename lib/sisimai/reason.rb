@@ -17,7 +17,7 @@ module Sisimai
       def index
         return %w[
           Blocked ContentError ExceedLimit Expired Filtered HasMoved HostUnknown
-          MailboxFull MailerError MesgTooBig NetworkError NotAccept OnHold 
+          MailboxFull MailerError MesgTooBig NetworkError NotAccept OnHold
           Rejected NoRelaying SpamDetected SecurityError Suspend SystemError
           SystemFull TooManyConn UserUnknown
         ]
@@ -33,14 +33,14 @@ module Sisimai
         return nil unless argvs.is_a? Sisimai::Data
 
         unless RetryReasons.index(argvs.reason)
-          # Return reason text already decided except reason match with the 
+          # Return reason text already decided except reason match with the
           # regular expression of ->retry() method.
           return argvs.reason if argvs.reason.size > 0
         end
 
         reasontext = ''
         classorder = [
-          'MailboxFull', 'MesgTooBig', 'ExceedLimit', 'Suspend', 'HasMoved', 
+          'MailboxFull', 'MesgTooBig', 'ExceedLimit', 'Suspend', 'HasMoved',
           'NoRelaying', 'UserUnknown', 'Filtered', 'Rejected', 'HostUnknown',
           'SpamDetected', 'TooManyConn', 'Blocked',
         ]
@@ -113,7 +113,7 @@ module Sisimai
         commandtxt = argvs.smtpcommand    || ''
         reasontext = ''
         classorder = [
-          'MailboxFull', 'SpamDetected', 'SecurityError', 'SystemError', 
+          'MailboxFull', 'SpamDetected', 'SecurityError', 'SystemError',
           'NetworkError', 'Suspend', 'Expired', 'ContentError',
           'SystemFull', 'NotAccept', 'MailerError',
         ]
@@ -185,10 +185,10 @@ module Sisimai
         reasontext = ''
         typestring = ''
         classorder = [
-          'MailboxFull', 'MesgTooBig', 'ExceedLimit', 'Suspend', 'UserUnknown', 
-          'Filtered', 'Rejected', 'HostUnknown', 'SpamDetected', 'TooManyConn', 
-          'Blocked', 'SpamDetected', 'SecurityError', 'SystemError', 
-          'NetworkError', 'Suspend', 'Expired', 'ContentError', 'HasMoved', 
+          'MailboxFull', 'MesgTooBig', 'ExceedLimit', 'Suspend', 'UserUnknown',
+          'Filtered', 'Rejected', 'HostUnknown', 'SpamDetected', 'TooManyConn',
+          'Blocked', 'SpamDetected', 'SecurityError', 'SystemError',
+          'NetworkError', 'Suspend', 'Expired', 'ContentError', 'HasMoved',
           'SystemFull', 'NotAccept', 'MailerError', 'NoRelaying', 'OnHold',
         ]
 

@@ -98,7 +98,7 @@ module Sisimai
               next if readcursor & Indicators[:'deliverystatus'] == 0
               next if e.empty?
 
-              # The original message was received at Thu, 29 Apr 2010 23:34:45 +0900 (JST) 
+              # The original message was received at Thu, 29 Apr 2010 23:34:45 +0900 (JST)
               # from shironeko@example.jp
               #
               # ---The following addresses had delivery errors---
@@ -118,7 +118,7 @@ module Sisimai
                 recipients += 1
 
               elsif cv = e.match(Re1[:begin])
-                # The original message was received at Thu, 29 Apr 2010 23:34:45 +0900 (JST) 
+                # The original message was received at Thu, 29 Apr 2010 23:34:45 +0900 (JST)
                 datestring = cv[1]
               end
             end

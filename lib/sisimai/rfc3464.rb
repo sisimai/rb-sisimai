@@ -151,7 +151,7 @@ module Sisimai
               #   The Original-Recipient field indicates the original recipient address
               #   as specified by the sender of the message for which the DSN is being
               #   issued.
-              # 
+              #
               #       original-recipient-field =
               #           "Original-Recipient" ":" address-type ";" generic-address
               #
@@ -168,7 +168,7 @@ module Sisimai
               recipients += 1
 
             elsif cv = e.match(/\A[Xx]-[Aa]ctual-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
-              # X-Actual-Recipient: 
+              # X-Actual-Recipient:
               if cv[1] =~ /[ \t]+/
                 # X-Actual-Recipient: RFC822; |IFS=' ' && exec procmail -f- || exit 75 ...
 
@@ -279,7 +279,7 @@ module Sisimai
                   #       mta-name = *text
                   #
                   #   The Reporting-MTA field is defined as follows:
-                  # 
+                  #
                   #   A DSN describes the results of attempts to deliver, relay, or gateway
                   #   a message to one or more recipients.  In all cases, the Reporting-MTA
                   #   is the MTA that attempted to perform the delivery, relay, or gateway

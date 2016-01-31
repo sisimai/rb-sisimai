@@ -98,7 +98,7 @@ module Sisimai
               next if e.empty?
 
               # ============================================================================
-              #      This is an automatically generated Delivery Status Notification.      
+              #      This is an automatically generated Delivery Status Notification.
               #
               # Delivery to the following recipients failed permanently:
               #
@@ -106,7 +106,7 @@ module Sisimai
               #
               #
               # ============================================================================
-              #                             Technical details:                             
+              #                             Technical details:
               #
               # SMTP:RCPT host 192.0.2.8: 553 5.3.0 <kijitora@example.com>... No such user here
               #

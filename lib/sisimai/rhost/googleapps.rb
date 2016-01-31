@@ -72,7 +72,7 @@ module Sisimai
           'X.5.0' => [
             {
               'reason' => 'undefined',
-              'regexp' => [ 
+              'regexp' => [
                 %r/SMTP protocol violation, see RFC 2821[.]/,
                 %r/SMTP protocol violation, no commands allowed to pipeline after STARTTLS/,
               ],

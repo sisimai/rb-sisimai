@@ -41,8 +41,8 @@ module Sisimai
       # @return   [Array] MSP list with order
       def index
         return [
-          'US::Google', 'US::Yahoo', 'US::Aol', 'US::Outlook', 'US::AmazonSES', 
-          'US::SendGrid', 'US::Verizon', 'RU::MailRu', 'RU::Yandex', 'DE::GMX', 
+          'US::Google', 'US::Yahoo', 'US::Aol', 'US::Outlook', 'US::AmazonSES',
+          'US::SendGrid', 'US::Verizon', 'RU::MailRu', 'RU::Yandex', 'DE::GMX',
           'US::Bigfoot', 'US::Facebook', 'US::Zoho', 'DE::EinsUndEins',
           'UK::MessageLabs', 'JP::EZweb', 'JP::KDDI', 'JP::Biglobe',
           'US::ReceivingSES',

@@ -211,7 +211,7 @@ module Sisimai
                 #
                 # The original message was received on Sat, 11 Dec 2010 12:19:57 +0900
                 # from [127.0.0.1] (c10920.example.com [192.0.2.20])
-                # 
+                #
                 # ---------------------------------------------------------------------------
                 #
                 #                           UNDELIVERABLE MAIL
@@ -245,7 +245,7 @@ module Sisimai
                   # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
                   next if connheader['date'].size > 0
                   connheader['date'] = cv[1]
-                  connvalues += 1 
+                  connvalues += 1
                 end
               end
             end

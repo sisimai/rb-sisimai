@@ -1,6 +1,6 @@
 module Sisimai
   module MTA
-    # Sisimai::MTA::mFILTER parses a bounce email which created by Digital Arts 
+    # Sisimai::MTA::mFILTER parses a bounce email which created by Digital Arts
     # m-FILTER. Methods in the module are called from only Sisimai::Message.
     module MFILTER
       # Imported from p5-Sisimail/lib/Sisimai/MTA/mFILTER.pm
@@ -149,7 +149,7 @@ module Sisimai
                   next if v['diagnosis']
                   v['diagnosis'] = e
                 end
-              end 
+              end
             end
           end
 
