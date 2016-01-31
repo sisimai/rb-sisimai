@@ -391,7 +391,7 @@ module Sisimai
     # @param    [String] type   Data format: json, yaml
     # @return   [String, Undef] Dumped data or Undef if the value of first
     #                           argument is neither "json" nor "yaml"
-    def dump(type='json')
+    def dump(type = 'json')
       return nil unless ['json', 'yaml'].index(type)
       dumpeddata = ''
       referclass = sprintf('Sisimai::Data::%s', type.upcase)

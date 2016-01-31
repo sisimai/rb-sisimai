@@ -161,7 +161,7 @@ module Sisimai
       # Get regular expression patterns for specified field
       # @param    [String] group  Group name for "ORDER BY"
       # @return   [Hash]          Pattern table for the group
-      def by(group='')
+      def by(group  = '')
         return {} unless group.size > 0
         return PatternTable[group] if PatternTable.key?(group)
         return {}

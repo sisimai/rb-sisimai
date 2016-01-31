@@ -703,7 +703,7 @@ module Sisimai
         #                               true:  Temporary error
         # @return   [String] DSN or empty if the 1st argument is missing
         # @see      name
-        def code(argv1='', argv2=false)
+        def code(argv1 = '', argv2 = false)
           return '' unless argv1
           return '' unless argv1.size > 0
 
@@ -717,7 +717,7 @@ module Sisimai
         # @return   [String]        Reason name or empty if the first argument did
         #                           not match with values in Sisimai's reason list
         # @see      code
-        def name(argv1='')
+        def name(argv1 = '')
           return '' unless argv1
           return '' unless argv1.size > 0
           return '' unless argv1 =~ /\A[45][.]\d[.]\d+\z/
@@ -728,7 +728,7 @@ module Sisimai
         # @param    [String] argv1  String including DSN
         # @return   [String]        DSN or empty string if the first agument did
         #                           not include DSN
-        def find(argv1= '')
+        def find(argv1 = '')
           return '' unless argv1 
           return '' unless argv1.size > 0
 

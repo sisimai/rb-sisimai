@@ -20,7 +20,7 @@ module Sisimai
       # Decode MIME-Encoded string
       # @param    [Array] argvs   Reference to an array including MIME-Encoded text
       # @return   [String]        MIME-Decoded text
-      def mimedecode(argvs=[])
+      def mimedecode(argvs = [])
         return '' unless argvs
         return '' unless argvs.is_a? Array
 
@@ -105,7 +105,7 @@ module Sisimai
       #                            0: Start of boundary
       #                            1: End of boundary
       # @return   [String] Boundary string
-      def boundary(argv1=nil, start=-1)
+      def boundary(argv1 = nil, start = -1)
         return nil unless argv1
         value = nil
 
