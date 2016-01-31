@@ -10,8 +10,10 @@ module Sisimai
 
         # Based on Sisimai::MTA::Exim
         Re0 = {
-          :'from'      => %r/[<]?mailer-daemon[@].*mail[.]ru[>]?/i,
-          :'subject'   => %r{(?:
+          # Message-Id: <E1P1YNN-0003AD-Ga@*.mail.ru>
+          :'message-id' => %r/\A[<]\w+[-]\w+[-]\w+[@].*mail[.]ru[>]\z/,
+          :'from'       => %r/[<]?mailer-daemon[@].*mail[.]ru[>]?/i,
+          :'subject'    => %r{(?:
              Mail[ ]delivery[ ]failed(:[ ]returning[ ]message[ ]to[ ]sender)?
             |Warning:[ ]message[ ].+[ ]delayed[ ]+
             |Delivery[ ]Status[ ]Notification
@@ -20,8 +22,6 @@ module Sisimai
             |error[(]s[)][ ]in[ ]forwarding[ ]or[ ]filtering
             )
           }x,
-          :'message-id'=> %r/\A[<]\w+[-]\w+[-]\w+[@].*mail[.]ru[>]\z/,
-          # Message-Id: <E1P1YNN-0003AD-Ga@*.mail.ru>
         }
         Re1 = {
           :rfc822 => %r/\A------ This is a copy of the message.+headers[.] ------\z/,

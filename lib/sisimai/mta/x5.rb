@@ -62,7 +62,7 @@ module Sisimai
           if Sisimai::MIME.is_mimeencoded(mhead['subject'])
             # Subject: =?iso-2022-jp?B?UmV0dXJuZWQgbWFpbDogVXNlciB1bmtub3du?=
             plain = Sisimai::MIME.mimedecode([mhead['subject']])
-            match +=1 if plain =~ /Mail Delivery Subsystem/
+            match += 1 if plain =~ /Mail Delivery Subsystem/
           end
           return nil if match < 2
 

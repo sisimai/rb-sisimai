@@ -233,7 +233,7 @@ module Sisimai
               break
             end
 
-            e['reason']||= Sisimai::SMTP::Status.name(e['status'])
+            e['reason'] ||= Sisimai::SMTP::Status.name(e['status'])
             e['spec']  ||= 'SMTP'
             e['agent']   = Sisimai::MSP::US::AmazonSES.smtpagent
           end
