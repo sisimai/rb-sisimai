@@ -52,7 +52,6 @@ module Sisimai
           previousfn = ''     # (String) Previous field name
           readcursor = 0      # (Integer) Points the current cursor position
           recipients = 0      # (Integer) The number of 'Final-Recipient' header
-          boundary00 = ''     # (String) Boundary string
           endoferror = false  # (Boolean) Flag for the end of error message
           regularexp = nil
           v = nil

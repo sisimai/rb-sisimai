@@ -186,7 +186,6 @@ module Sisimai
           previousfn = ''     # (String) Previous field name
           readcursor = 0      # (Integer) Points the current cursor position
           recipients = 0      # (Integer) The number of 'Final-Recipient' header
-          datestring = ''     # (String) Date string
           v = nil
 
           hasdivided.each do |e|

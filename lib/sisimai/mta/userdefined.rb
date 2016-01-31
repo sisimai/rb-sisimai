@@ -121,13 +121,13 @@ module Sisimai
           end
 
           # The following code is dummy to be passed "make test".
-          recipients = 1
           dscontents[0]['recipient'] = 'kijitora@example.jp'
           dscontents[0]['diagnosis'] = '550 something wrong'
           dscontents[0]['status']    = '5.1.1'
           dscontents[0]['spec']      = 'SMTP'
           dscontents[0]['date']      = 'Thu 29 Apr 2010 23:34:45 +0900'
           dscontents[0]['agent']     = Sisimai::MTA::UserDefined.smtpagent
+          recipients = 1 if dscontents[0]['recipient']
 
           rfc822part += 'From: shironeko@example.org' + "\n"
           rfc822part += 'Subject: Nyaaan' + "\n"

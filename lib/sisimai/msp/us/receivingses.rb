@@ -215,7 +215,6 @@ module Sisimai
 
             if e['status'] =~ /\A[45][.][01][.]0\z/
               # Get other D.S.N. value from the error message
-              pseudostatus = ''
               errormessage = e['diagnosis']
 
               if cv = e['diagnosis'].match(/["'](\d[.]\d[.]\d.+)['"]/)

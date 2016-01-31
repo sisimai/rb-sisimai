@@ -155,7 +155,6 @@ module Sisimai
 
           dscontents = []; dscontents << Sisimai::MTA.DELIVERYSTATUS
           hasdivided = mbody.split("\n")
-          havepassed = [''];
           rfc822next = { 'from' => false, 'to' => false, 'subject' => false }
           rfc822part = ''     # (String) message/rfc822-headers part
           previousfn = ''     # (String) Previous field name
@@ -164,9 +163,6 @@ module Sisimai
           v = nil
 
           hasdivided.each do |e|
-            # Save the current line for the next loop
-            havepassed << e; p = havepassed[-2]
-
             if readcursor == 0
               # Beginning of the bounce message or delivery status part
               if e =~ Re1[:begin]

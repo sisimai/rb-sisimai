@@ -162,7 +162,6 @@ module Sisimai
 
           dscontents = []; dscontents << Sisimai::MTA.DELIVERYSTATUS
           hasdivided = mbody.split("\n")
-          havepassed = [''];
           rfc822next = { 'from' => false, 'to' => false, 'subject' => false }
           rfc822part = ''     # (String) message/rfc822-headers part
           previousfn = ''     # (String) Previous field name
@@ -170,7 +169,6 @@ module Sisimai
           recipients = 0      # (Integer) The number of 'Final-Recipient' header
           localhost0 = ''     # (String) Local MTA
           boundary00 = ''     # (String) Boundary string
-          rxboundary = nil    # (String) Regular expression for matching with the boundary
           v = nil
 
           if mhead['content-type']
@@ -178,15 +176,9 @@ module Sisimai
             # the boundary string.
             require 'sisimai/mime'
             boundary00 = Sisimai::MIME.boundary(mhead['content-type']) || ''
-            if boundary00.size > 0
-              # Convert to regular expression
-              rxboundary = Regexp.new('\A' + Regexp.escape('--' + boundary00) + '\z')
-            end
           end
 
           hasdivided.each do |e|
-            # Save the current line for the next loop
-            havepassed << e; p = havepassed[-2]
             break if e =~ Re1[:endof]
 
             if readcursor == 0
