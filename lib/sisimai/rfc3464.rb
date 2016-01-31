@@ -73,7 +73,7 @@ module Sisimai
 
         dscontents = []; dscontents << Sisimai::MTA.DELIVERYSTATUS
         hasdivided = mbody.split("\n")
-        havepassed = [''];
+        havepassed = ['']
         scannedset = Sisimai::MDA.scan(mhead, mbody)
         rfc822next = { 'from' => false, 'to' => false, 'subject' => false }
         rfc822part = ''   # (String) message/rfc822-headers part
@@ -112,7 +112,7 @@ module Sisimai
             if cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*.+\z/)
               # Get required headers only
               lhs = cv[1].downcase
-              previousfn = '';
+              previousfn = ''
               next unless RFC822Head.key?(lhs)
 
               previousfn  = lhs
@@ -403,7 +403,7 @@ module Sisimai
             |Your[ ]message[ ]to[ ]
             )
             ['"]?[<]?([^\s\n\r@=]+[@][-.0-9A-Za-z]+[.][0-9A-Za-z]+)[>]?['"]?
-          }xi;
+          }xi
 
           b = dscontents[-1]
           mbody.split("\n").each do |e|
