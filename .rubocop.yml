@@ -28,6 +28,9 @@ Style/ClassAndModuleChildren:
 Style/ClassVars:
   Enabled: false
 
+Style/ConstantName:
+  Enabled: false
+
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/EmptyLinesAroundBlockBody:
