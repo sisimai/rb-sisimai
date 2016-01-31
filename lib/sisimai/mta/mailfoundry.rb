@@ -113,7 +113,7 @@ module Sisimai
                   v = dscontents[-1]
                 end
                 v['recipient'] = cv[1]
-                recipients =+ 1 
+                recipients += 1
 
               else
                 # Error message
