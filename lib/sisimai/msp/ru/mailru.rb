@@ -244,7 +244,7 @@ module Sisimai
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
             e['diagnosis'] = e['diagnosis'].sub(/\b__.+\z/, '')
 
-            if !e['rhost']
+            unless e['rhost']
               # Get the remote host name
               if cv = e['diagnosis'].match(/host[ ]+([^ \t]+)[ ]\[.+\]:[ ]/)
                 # host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
@@ -259,7 +259,7 @@ module Sisimai
               end
             end
 
-            if !e['command']
+            unless e['command']
               # Get the SMTP command name for the session
               ReCommand.each do |r|
                 # Verify each regular expression of SMTP commands
