@@ -409,7 +409,7 @@ module Sisimai
     # JSON handler
     # @param    [JSON::State] argv  JSON::Ext::Generator::State object
     # @return   [String]            JSON string converted from Sisimai::Data
-    def to_json(argv)
+    def to_json(*)
       return self.dump('json')
     end
 
