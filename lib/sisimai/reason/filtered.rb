@@ -58,7 +58,7 @@ module Sisimai
           require 'sisimai/reason/userunknown'
           commandtxt = argvs.smtpcommand || ''
           statuscode = argvs.deliverystatus || ''
-          diagnostic = argvs.diagnosticcode || '';
+          diagnostic = argvs.diagnosticcode || ''
           tempreason = Sisimai::SMTP::Status.name(statuscode)
           reasontext = Sisimai::Reason::Filtered.text
           v = false
