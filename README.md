@@ -1,12 +1,13 @@
 [![License](https://img.shields.io/badge/license-BSD%202--Clause-orange.svg)](https://github.com/sisimai/rb-Sisimai/blob/master/LICENSE)
 [![Coverage Status](https://img.shields.io/coveralls/sisimai/rb-Sisimai.svg)](https://coveralls.io/r/sisimai/rb-Sisimai)
 [![Build Status](https://travis-ci.org/sisimai/rb-Sisimai.svg?branch=master)](https://travis-ci.org/sisimai/rb-Sisimai) 
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/38340177e6284a65be69c0c7c3dc2b58)](https://www.codacy.com/app/azumakuniyuki/rb-Sisimai)
 [![Ruby](https://img.shields.io/badge/ruby-v2.1.0--v2.2.4-red.svg)](https://www.ruby-lang.org/)
 
 ![](http://41.media.tumblr.com/45c8d33bea2f92da707f4bbe66251d6b/tumblr_nuf7bgeyH51uz9e9oo1_1280.png)
 
-Ruby version of Sisimai is UNDER THE DEVELOPMENT
-================================================
+Ruby version of Sisimai
+=======================
 
 What is Sisimai ? | シシマイ?
 =============================
@@ -15,8 +16,8 @@ structured data from parsed results. Ruby version of Sisimai is ported from
 Perl version of Sisimai at https://github.com/sisimai/p5-Sisimai/ .
 
 Sisimai(シシマイ)はRFC5322準拠のエラーメールを解析し、解析結果をデータ構造に
-変換するインターフェイスを提供するRubyライブラリです。https://github.com/sisimai/p5-Sisimai/
-で公開しているPerl版シシマイから移植しました。
+変換するインターフェイスを提供するRubyライブラリです。
+https://github.com/sisimai/p5-Sisimai/で公開しているPerl版シシマイから移植しました。
 
 Key Features | 主な特徴的機能
 -----------------------------
@@ -48,7 +49,7 @@ messages like following.
 require 'sisimai'
 v = Sisimai.make('/path/to/mbox')       # or path to Maildir/
 
-if v
+unless v.void
   v.each do |e|
     puts e.class                # Sisimai::Data
     puts e.recipient.class      # Sisimai::Address
