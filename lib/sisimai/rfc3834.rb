@@ -6,25 +6,25 @@ module Sisimai
       # http://tools.ietf.org/html/rfc3834
       Re0 = {
         # http://www.iana.org/assignments/auto-submitted-keywords/auto-submitted-keywords.xhtml
-        'auto-submitted' => %r/\Aauto-(?:generated|replied|notified)/i,
+        :'auto-submitted' => %r/\Aauto-(?:generated|replied|notified)/i,
         # https://msdn.microsoft.com/en-us/library/ee219609(v=exchg.80).aspx
-        'x-auto-response-suppress' => %r/(?:OOF|AutoReply)/i,
-        'precedence' => %r/\Aauto_reply\z/,
-        'subject' => %r/\A(?:
+        :'x-auto-response-suppress' => %r/(?:OOF|AutoReply)/i,
+        :'precedence' => %r/\Aauto_reply\z/,
+        :'subject' => %r/\A(?:
              Auto:
             |Out[ ]of[ ]Office:
           )
         /xi,
       }
-      Re1 = { 'endof'  => %r/\A__END_OF_EMAIL_MESSAGE__\z/ }
+      Re1 = { :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/ }
       Re2 = {
-        'subject' => %r/(?:
+        :subject => %r/(?:
              SECURITY[ ]information[ ]for  # sudo
             |Mail[ ]failure[ ][-]          # Exim
             )
         /x,
-        'from'    => %r/(?:root|postmaster|mailer-daemon)[@]/i,
-        'to'      => %r/root[@]/,
+        :from    => %r/(?:root|postmaster|mailer-daemon)[@]/i,
+        :to      => %r/root[@]/,
       }
 
       def description; 'Detector for auto replied message'; end
@@ -61,9 +61,9 @@ module Sisimai
         # DETECT_EXCLUSION_MESSAGE
         Re2.each_key do |e|
           # Exclude message from root@
-          next unless mhead.key?(e)
-          next unless mhead[e]
-          next unless mhead[e] =~ Re2[e]
+          next unless mhead.key?(e.to_s)
+          next unless mhead[e.to_s]
+          next unless mhead[e.to_s] =~ Re2[e]
           leave = 1
           break
         end
@@ -72,9 +72,9 @@ module Sisimai
         # DETECT_AUTO_REPLY_MESSAGE
         Re0.each_key do |e|
           # RFC3834 Auto-Submitted and other headers
-          next unless mhead.key?(e)
-          next unless mhead[e]
-          next unless mhead[e] =~ Re0[e]
+          next unless mhead.key?(e.to_s)
+          next unless mhead[e.to_s]
+          next unless mhead[e.to_s] =~ Re0[e]
           match += 1
           break
         end
