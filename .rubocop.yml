@@ -1,14 +1,15 @@
 AllCops:
   DisplayCopNames: true
   Exclude:
-    - "bin/*"
-    - "tmp/*"
+    - 'bin/*'
+    - 'tmp/*'
+    - 'Rakefile'
 
 # Configuration parameters: AllowURI, URISchemes.
 Metrics/LineLength:
   Max: 144
   Exclude:
-    - "spec/*"
+    - 'spec/*'
 
 # Configuration parameters: CountComments.
 Metrics/MethodLength:
