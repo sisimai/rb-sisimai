@@ -148,8 +148,8 @@ module Sisimai
         # Make default order of MTA/MSP modules to be loaded
         rv = []
         begin
-          rv.concat(Sisimai::MTA.index.map {|e| 'Sisimai::MTA::' + e })
-          rv.concat(Sisimai::MSP.index.map {|e| 'Sisimai::MSP::' + e })
+          rv.concat(Sisimai::MTA.index.map { |e| 'Sisimai::MTA::' + e })
+          rv.concat(Sisimai::MSP.index.map { |e| 'Sisimai::MSP::' + e })
         rescue
           # Failed to load MTA/MSP module
           next
