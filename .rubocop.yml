@@ -29,6 +29,9 @@ Metrics/MethodLength:
 Metrics/ModuleLength:
   Max: 512
 
+Metrics/PerceivedComplexity:
+  Enabled: false
+
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/ClassAndModuleChildren:
     EnforcedStyle: nested
