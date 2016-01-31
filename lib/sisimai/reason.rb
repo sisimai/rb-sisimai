@@ -183,7 +183,6 @@ module Sisimai
         require 'sisimai/smtp/status'
 
         reasontext = ''
-        statuscode = ''
         typestring = ''
         classorder = [
           'MailboxFull', 'MesgTooBig', 'ExceedLimit', 'Suspend', 'UserUnknown', 
