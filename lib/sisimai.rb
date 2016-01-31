@@ -21,8 +21,6 @@ module Sisimai
 
       require 'sisimai/mail'
       mail = Sisimai::Mail.new(path)
-      mesg = nil
-      data = nil
       list = []
 
       return nil unless mail
