@@ -4,6 +4,7 @@ AllCops:
     - 'bin/*'
     - 'tmp/*'
     - 'Rakefile'
+    - 'spec/*'
     - 'lib/sisimai/mta/userdefined.rb'
 
 # Configuration parameters: AllowURI, URISchemes.
