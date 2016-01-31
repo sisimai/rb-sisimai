@@ -7,6 +7,8 @@ AllCops:
     - 'spec/*'
     - 'lib/sisimai/mta/userdefined.rb'
 
+# Offense count: 14
+# Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:
   Enabled: false
 
@@ -121,7 +123,10 @@ Style/SingleLineMethods:
     - 'lib/sisimai.rb'
     - 'lib/sisimai/mta.rb'
     - 'lib/sisimai/msp.rb'
+    - 'lib/sisimai/mta/*'
+    - 'lib/sisimai/msp/*/*'
     - 'lib/sisimai/rfc3463.rb'
+    - 'lib/sisimai/rfc3834.rb'
     - 'lib/sisimai/reason/*.rb'
 
 # Cop supports --auto-correct.
