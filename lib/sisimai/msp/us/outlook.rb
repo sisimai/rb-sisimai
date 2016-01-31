@@ -155,8 +155,8 @@ module Sisimai
                 else
                   if cv = e.match(/\A[Dd]iagnostic-[Cc]ode:[ ]*(.+?);[ ]*(.+)\z/)
                       # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
-                      v['spec'] = cv[1].upcase
-                      v['diagnosis'] = cv[2]
+                    v['spec'] = cv[1].upcase
+                    v['diagnosis'] = cv[2]
 
                   elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A[ \t]+(.+)\z/)
                     # Continued line of the value of Diagnostic-Code header

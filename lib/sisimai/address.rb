@@ -35,8 +35,8 @@ module Sisimai
 
         v = Sisimai::Address.s3s4(e)
         if v.size > 0
-            # The element includes a valid email address
-            addrs << v
+          # The element includes a valid email address
+          addrs << v
         end
       end
 

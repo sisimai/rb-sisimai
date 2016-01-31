@@ -69,7 +69,7 @@ module Sisimai
             # Delivery status code points "filtered".
             if Sisimai::Reason::UserUnknown.match(diagnostic) ||
                Sisimai::Reason::Filtered.match(diagnostic)
-                v = true
+              v = true
             end
           else
             # Check the value of Diagnostic-Code and the last SMTP command

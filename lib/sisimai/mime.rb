@@ -38,19 +38,19 @@ module Sisimai
           if self.is_mimeencoded(e)
             # MIME Encoded string
             if cv = e.match(/\A=[?]([-_0-9A-Za-z]+)[?]([BbQq])[?](.+)[?]=\z/)
-                # =?utf-8?B?55m954yr44Gr44KD44KT44GT?=
-                characterset ||= cv[1]
-                encodingname ||= cv[2]
-                mimeencoded0   = cv[3]
+              # =?utf-8?B?55m954yr44Gr44KD44KT44GT?=
+              characterset ||= cv[1]
+              encodingname ||= cv[2]
+              mimeencoded0   = cv[3]
 
-                if encodingname == 'Q'
-                    # Quoted-Printable
-                    decodedtext0 << mimeencoded0.unpack('M').first
+              if encodingname == 'Q'
+                # Quoted-Printable
+                decodedtext0 << mimeencoded0.unpack('M').first
 
-                elsif encodingname == 'B'
-                    # Base64
-                    decodedtext0 << Base64.decode64(mimeencoded0)
-                end
+              elsif encodingname == 'B'
+                # Base64
+                decodedtext0 << Base64.decode64(mimeencoded0)
+              end
             end
           else
             decodedtext0 << e

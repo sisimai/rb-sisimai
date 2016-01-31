@@ -152,7 +152,7 @@ module Sisimai
 
                 elsif cv = e.match(/\A[Aa]ction:[ ]*(.+)\z/)
                   # Action: failed
-                 v['action'] = cv[1].downcase
+                  v['action'] = cv[1].downcase
 
                 elsif cv = e.match(/\A[Ss]tatus:[ ]*(\d[.]\d+[.]\d+)/)
                   # Status: 5.1.1
