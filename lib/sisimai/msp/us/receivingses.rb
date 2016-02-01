@@ -30,7 +30,7 @@ module Sisimai
         LongFields = Sisimai::RFC5322.LONGFIELDS
         RFC822Head = Sisimai::RFC5322.HEADERFIELDS
 
-        def description; return 'AmazonSES(Receiving): http://aws.amazon.com/ses/'; end
+        def description; return 'Amazon SES(Receiving): http://aws.amazon.com/ses/'; end
         def smtpagent;   return 'US::ReceivingSES'; end
 
         # X-SES-Outgoing: 2015.10.01-54.240.27.7

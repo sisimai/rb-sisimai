@@ -26,7 +26,7 @@ module Sisimai
         LongFields = Sisimai::RFC5322.LONGFIELDS
         RFC822Head = Sisimai::RFC5322.HEADERFIELDS
 
-        def description; return 'AmazonSES(Sending): http://aws.amazon.com/ses/'; end
+        def description; return 'Amazon SES(Sending): http://aws.amazon.com/ses/'; end
         def smtpagent;   return 'US::AmazonSES'; end
 
         # X-SenderID: Sendmail Sender-ID Filter v1.0.0 nijo.example.jp p7V3i843003008
