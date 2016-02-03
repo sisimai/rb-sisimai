@@ -935,11 +935,11 @@ describe 'Sisimai::MTA::' do
 
   PrivateMTAChildren.each_key do |x|
     d0 = './set-of-emails/private/' + x.downcase
-    next unless Dir.exists?(d0)
+    next unless Dir.exist?(d0)
 
     describe x do
       example 'directory exists' do
-        expect(Dir.exists?(d0)).to be true
+        expect(Dir.exist?(d0)).to be true
       end
 
       dhandle = Dir.open(d0)

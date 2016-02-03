@@ -13,7 +13,7 @@ privatefile = './set-of-emails/private'
 describe 'Public samples' do
   publicfile.each do |d|
     example 'directory exists' do
-      expect(Dir.exists?(d)).to be true
+      expect(Dir.exist?(d)).to be true
     end
 
     h = Dir.open(d)
@@ -24,7 +24,7 @@ describe 'Public samples' do
       emailfn = sprintf('%s/%s', d, e)
       lnindex = 0
 
-      next unless File.exists?(emailfn)
+      next unless File.exist?(emailfn)
       it 'has valid file' do
         expect(File.readable?(emailfn)).to be true
         expect(File.size(emailfn)).to be > 0
@@ -47,7 +47,7 @@ describe 'Public samples' do
 end
 
 describe 'Private samples' do
-  break unless Dir.exists?(privatefile)
+  break unless Dir.exist?(privatefile)
   dir0 = Dir.open(privatefile)
 
   while e = dir0.read do
@@ -63,7 +63,7 @@ describe 'Private samples' do
       emailfn = sprintf('%s/%s', directory1, f)
       lnindex = 0
 
-      next unless File.exists?(emailfn)
+      next unless File.exist?(emailfn)
       it 'has valid file' do
         expect(File.readable?(emailfn)).to be true
         expect(File.size(emailfn)).to be > 0
