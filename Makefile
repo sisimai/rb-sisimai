@@ -22,6 +22,9 @@ REPOS_TARGETS = git-status git-push git-commit-amend git-tag-list git-diff \
 # -----------------------------------------------------------------------------
 .PHONY: clean
 
+depend:
+	gem install bundle rake rspec coveralls
+
 install-from-rubygems:
 	gem install $(NAME)
 
