@@ -25,7 +25,7 @@ REPOS_TARGETS = git-status git-push git-commit-amend git-tag-list git-diff \
 install-from-rubygems:
 	gem install $(NAME)
 
-install-from-local: cpanm
+install-from-local:
 	bundle exec $(RAKE) install
 
 release:
