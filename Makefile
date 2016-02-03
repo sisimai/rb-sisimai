@@ -7,7 +7,7 @@
 # -----------------------------------------------------------------------------
 SHELL := /bin/sh
 TIME  := $(shell date '+%s')
-NAME  := Sisimai
+NAME  := sisimai
 RUBY  := ruby
 RAKE  := rake
 MKDIR := mkdir -p
@@ -21,7 +21,18 @@ REPOS_TARGETS = git-status git-push git-commit-amend git-tag-list git-diff \
 
 # -----------------------------------------------------------------------------
 .PHONY: clean
+
+install-from-rubygems:
+	gem install $(NAME)
+
+install-from-local: cpanm
+	bundle exec $(RAKE) install
+
+release:
+	bundle exec $(RAKE) release
+
 test: user-test
+
 user-test:
 	$(RAKE) spec
 
