@@ -194,6 +194,13 @@ describe Sisimai::Address do
           expect(v.to_json).to be v.address
         end
       end
+
+      describe '#to_s' do
+        it 'returns address' do
+          expect(v.to_s).to be_a String
+          expect(v.to_s).to be v.address
+        end
+      end
     end
   end
 
