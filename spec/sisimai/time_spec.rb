@@ -10,6 +10,6 @@ describe Sisimai::Time do
 
   describe '.to_json' do
     it('returns Integer') { expect(to.to_json).to be_a Integer }
-    it('returns machine time') { expect(to.to_json).to be to.to_time.to_i }
+    it('returns machine time') { expect(to.to_json).to eq(to.to_time.to_i) }
   end
 end
