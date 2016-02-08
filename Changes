@@ -3,6 +3,8 @@ Revision history for Ruby version of Sisimai
 4.14.3
     - New method Sisimai::Address#to_s to get a email address as String, it is
       implemented at pull-request #39. Thanks to @hiroyuki-sato.
+    - Almost all of the class variables are removed for resolving issue #40 and
+      merged pull-request #43, thanks to @hiroyuki-sato.
 
 4.14.2  Wed,  3 Feb 2016 13:29:17 +0900 (JST)
     - The first release of rb-Sisimai.
