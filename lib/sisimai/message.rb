@@ -35,8 +35,7 @@ module Sisimai
     }
     DefaultSet = Sisimai::Order.another
     PatternSet = Sisimai::Order.by('subject')
-    @@ExtHeaders = Sisimai::Order.headers
-    @@ToBeLoaded = []
+    ExtHeaders = Sisimai::Order.headers
     @@TryOnFirst = []
 
     # Constructor of Sisimai::Message
@@ -87,6 +86,9 @@ module Sisimai
 
       processing = { 'from' => '', 'header' => {}, 'rfc822' => '', 'ds' => [] }
       mtamodules = []
+      extheaders = ExtHeaders
+      tobeloaded = []
+      methodargv = {}
 
       ['load', 'order'].each do |e|
         # The order of MTA modules specified by user
@@ -109,17 +111,17 @@ module Sisimai
 
           Module.const_get(v).headerlist.each do |w|
             # Get header name which required user defined MTA module
-            @@ExtHeaders[w]  ||= {}
-            @@ExtHeaders[w][v] = 1
+            extheaders[w]  ||= {}
+            extheaders[w][v] = 1
           end
-          @@ToBeLoaded << v
+          tobeloaded << v
         end
       end
 
       mtamodules.each do |e|
         # Append the custom order of MTA modules
-        next if @@ToBeLoaded.index(e)
-        @@ToBeLoaded << e
+        next if tobeloaded.index(e)
+        tobeloaded << e
       end
 
       # 0. Split email data to headers and a body part.
@@ -130,8 +132,9 @@ module Sisimai
       @@TryOnFirst = []
 
       # 2. Convert email headers from text to hash reference
+      methodargv['extheaders'] = extheaders
       processing['from']   = aftersplit['from']
-      processing['header'] = Sisimai::Message.headers(aftersplit['header'])
+      processing['header'] = Sisimai::Message.headers(aftersplit['header'], methodargv)
 
       # 3. Check headers for detecting MTA/MSP module
       if @@TryOnFirst.empty?
@@ -139,7 +142,12 @@ module Sisimai
       end
 
       # 4. Rewrite message body for detecting the bounce reason
-      methodargv = { 'mail' => processing, 'body' => aftersplit['body'] }
+      methodargv = {
+        'mail' => processing, 
+        'body' => aftersplit['body'],
+        'tryonfirst' => @@TryOnFirst,
+        'tobeloaded' => tobeloaded,
+      }
       bouncedata = Sisimai::Message.parse(methodargv)
 
       return nil unless bouncedata
@@ -208,19 +216,22 @@ module Sisimai
 
     # Convert email headers from text to hash reference
     # @param         [String] heads  Email header data
+    # @param         [Hash]   argvs
+    # @param options extheaders [Array] External header table
     # @return        [Hash]          Structured email header data
-    def self.headers(heads)
+    def self.headers(heads, argvs = {})
       return nil unless heads
 
       currheader = ''
       allheaders = {}
       structured = {}
+      extheaders = argvs['extheaders'] || []
 
       HeaderList.each { |e| structured[e] = nil  }
       HeaderList.each { |e| allheaders[e] = true }
       RFC3834Set.each { |e| allheaders[e] = true }
       MultiHeads.each_key { |e| structured[e.downcase] = [] }
-      @@ExtHeaders.each_key { |e| allheaders[e] = true }
+      extheaders.each_key { |e| allheaders[e] = true }
 
       heads.split("\n").each do |e|
         # Convert email headers to hash
@@ -241,9 +252,9 @@ module Sisimai
 
           else
             # Other headers except "Received" and so on
-            if @@ExtHeaders[currheader]
+            if extheaders[currheader]
               # MTA specific header
-              @@TryOnFirst.concat(@@ExtHeaders[currheader].keys)
+              @@TryOnFirst.concat(extheaders[currheader].keys)
             end
             structured[currheader] = rhs
           end
@@ -379,11 +390,14 @@ module Sisimai
     # @param options mail  [String] rfc822 Original message part
     # @param options mail  [Array]  ds     Delivery status list(parsed data)
     # @param options argvs [String] body   Email message body
-    # @param options argvs [Array] load    MTA/MSP module list to load on first
+    # @param options argvs [Array] tryonfirst  MTA/MSP module list to load on first
+    # @param options argvs [Array] tobeloaded  User defined MTA module list
     # @return              [Hash]          Parsed and structured bounce mails
     def self.parse(argvs)
       mesgentity = argvs['mail']
       bodystring = argvs['body']
+      tryonfirst = argvs['tryonfirst'] || []
+      tobeloaded = argvs['tobeloaded'] || []
       mailheader = mesgentity['header']
 
       return nil unless argvs['mail']
@@ -443,7 +457,7 @@ module Sisimai
             throw :SCANNER if scannedset
           end
 
-          @@ToBeLoaded.each do |r|
+          tobeloaded.each do |r|
             # Call user defined MTA modules
             next if haveloaded[r]
             begin
@@ -457,7 +471,7 @@ module Sisimai
             throw :SCANNER if scannedset
           end
 
-          @@TryOnFirst.each do |r|
+          tryonfirst.each do |r|
             # Try MTA module candidates which are detected from MTA specific
             # mail headers on first
             next if haveloaded.key?(r)
