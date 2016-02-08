@@ -36,7 +36,6 @@ module Sisimai
     DefaultSet = Sisimai::Order.another
     PatternSet = Sisimai::Order.by('subject')
     ExtHeaders = Sisimai::Order.headers
-    @@TryOnFirst = []
 
     # Constructor of Sisimai::Message
     # @param         [String] data      Email text data
@@ -88,6 +87,7 @@ module Sisimai
       mtamodules = []
       extheaders = ExtHeaders
       tobeloaded = []
+      headerargv = {}
       methodargv = {}
 
       ['load', 'order'].each do |e|
@@ -128,24 +128,22 @@ module Sisimai
       aftersplit = Sisimai::Message.divideup(email)
       return nil if aftersplit.empty?
 
-      # 1. Initialize variables for setting the value of each email header.
-      @@TryOnFirst = []
-
-      # 2. Convert email headers from text to hash reference
-      methodargv['extheaders'] = extheaders
+      # 1. Convert email headers from text to hash reference
+      headerargv['extheaders'] = extheaders
+      headerargv['tryonfirst'] = []
       processing['from']   = aftersplit['from']
-      processing['header'] = Sisimai::Message.headers(aftersplit['header'], methodargv)
+      processing['header'] = Sisimai::Message.headers(aftersplit['header'], headerargv)
 
       # 3. Check headers for detecting MTA/MSP module
-      if @@TryOnFirst.empty?
-        @@TryOnFirst.concat(Sisimai::Message.makeorder(processing['header']))
+      if headerargv['tryonfirst'].empty?
+        headerargv['tryonfirst'].concat(Sisimai::Message.makeorder(processing['header']))
       end
 
       # 4. Rewrite message body for detecting the bounce reason
       methodargv = {
         'mail' => processing, 
         'body' => aftersplit['body'],
-        'tryonfirst' => @@TryOnFirst,
+        'tryonfirst' => headerargv['tryonfirst'],
         'tobeloaded' => tobeloaded,
       }
       bouncedata = Sisimai::Message.parse(methodargv)
@@ -254,7 +252,10 @@ module Sisimai
             # Other headers except "Received" and so on
             if extheaders[currheader]
               # MTA specific header
-              @@TryOnFirst.concat(extheaders[currheader].keys)
+              extheaders[currheader].keys.each do |r|
+                next if argvs['tryonfirst'].index(r)
+                argvs['tryonfirst'] << r
+              end
             end
             structured[currheader] = rhs
           end
