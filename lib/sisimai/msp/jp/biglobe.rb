@@ -29,7 +29,7 @@ module Sisimai
 
         def description; return 'BIGLOBE: http://www.biglobe.ne.jp'; end
         def smtpagent;   return 'JP::Biglobe'; end
-        def headerlist;  return ['']; end
+        def headerlist;  return []; end
         def pattern;     return Re0; end
 
         # Parse bounce messages from Biglobe
