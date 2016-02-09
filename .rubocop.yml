@@ -42,7 +42,13 @@ Style/AsciiComments:
 
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/ClassAndModuleChildren:
-    EnforcedStyle: nested
+  EnforcedStyle: nested
+  Exclude:
+    - 'lib/sisimai/datetime.rb'
+    - 'lib/sisimai/rfc5322.rb'
+    - 'lib/sisimai/rhost.rb'
+    - 'lib/sisimai/string.rb'
+    - 'lib/sisimai/msp/*/*.rb'
 
 Style/ClassVars:
   Enabled: false
