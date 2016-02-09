@@ -140,7 +140,7 @@ module Sisimai
 
       # 4. Rewrite message body for detecting the bounce reason
       methodargv = {
-        'mail' => processing, 
+        'mail' => processing,
         'body' => aftersplit['body'],
         'tryonfirst' => headerargv['tryonfirst'],
         'tobeloaded' => tobeloaded,
