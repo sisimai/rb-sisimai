@@ -5,7 +5,7 @@ module Sisimai
     module JSON
       # Imported from p5-Sisimail/lib/Sisimai/Data/JSON.pm
       class << self
-        require 'json'
+        require 'oj'
 
         # Data dumper(JSON)
         # @param    [Sisimai::Data] argvs   Object
@@ -15,16 +15,10 @@ module Sisimai
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
 
-          damneddata = argvs.damn
-          jsonstring = nil
-          jsonoption = ::JSON::state.new
-
           begin
-            jsonoption.space = ' '
-            jsonoption.object_nl = ' '
-            jsonstring = ::JSON.generate(damneddata, jsonoption)
+            jsonstring = Oj.dump(argvs.damn, :mode => :compat)
           rescue
-            warn '***warning: Failed to JSON.generate'
+            warn '***warning: Failed to Oj.dump'
           end
 
           return jsonstring

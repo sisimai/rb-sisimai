@@ -46,14 +46,9 @@ module Sisimai
     def dump(path)
       return nil unless path
 
-      require 'json'
+      require 'oj'
       parseddata = Sisimai.make(path) || []
-      jsonoption = JSON::State.new
-
-      jsonoption.space = ' '
-      jsonoption.object_nl = ' '
-
-      return JSON.generate(parseddata, jsonoption)
+      return Oj.dump(parseddata, :mode => :compat)
     end
   end
 
