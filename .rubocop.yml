@@ -35,6 +35,11 @@ Metrics/ModuleLength:
 Metrics/PerceivedComplexity:
   Enabled: false
 
+Style/AsciiComments:
+  Exclude:
+    - 'lib/sisimai/mta/*.rb'
+    - 'lib/sisimai/msp/ru/*.rb'
+
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/ClassAndModuleChildren:
     EnforcedStyle: nested
