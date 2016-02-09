@@ -468,7 +468,6 @@ module Sisimai
       #   tz2second('+0900')  #=> 32400
       def tz2second(argv1)
         return nil unless argv1.is_a?(::String)
-        digit = {}
         ztime = 0
 
         if cr = argv1.match(/\A([-+])(\d)(\d)(\d{2})\z/)
@@ -502,7 +501,6 @@ module Sisimai
       def second2tz(argv1)
         return '+0000' unless argv1.is_a?(Number)
         digit = { 'operator' => '+' }
-        timez = ''
 
         return '' if argv1.abs > TZ_OFFSET  # UTC+14 + 1(DST?)
         digit['operator'] = '-' if argv1 < 0
