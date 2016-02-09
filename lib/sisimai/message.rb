@@ -30,8 +30,8 @@ module Sisimai
     MultiHeads = { 'received' => true }
     IgnoreList = { 'dkim-signature' => true }
     Indicators = {
-      :begin => ( 1 << 1 ),
-      :endof => ( 1 << 2 ),
+      :begin => (1 << 1),
+      :endof => (1 << 2),
     }
     DefaultSet = Sisimai::Order.another
     PatternSet = Sisimai::Order.by('subject')

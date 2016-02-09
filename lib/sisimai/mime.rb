@@ -116,8 +116,8 @@ module Sisimai
           value = value.delete(%q|'"|)
         end
 
-        value = sprintf( '--%s', value ) if start > -1
-        value = sprintf( '%s--', value ) if start >  0
+        value = sprintf('--%s', value) if start > -1
+        value = sprintf('%s--', value) if start >  0
         return value
       end
     end
