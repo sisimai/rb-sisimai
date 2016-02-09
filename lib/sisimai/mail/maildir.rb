@@ -41,10 +41,7 @@ module Sisimai
         return nil unless self.offset < self.size
 
         seekhandle = self.handle
-        filehandle = nil
         readbuffer = ''
-        emailindir = ''
-        emailinode = nil
 
         begin
           while r = seekhandle.read do
