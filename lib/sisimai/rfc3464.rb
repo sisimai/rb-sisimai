@@ -334,8 +334,8 @@ module Sisimai
           match = 0
 
           # Failed to get a recipient address at code above
-          match += 1 if mhead['from']    =~ Re0[:'from']
-          match += 1 if mhead['subject'] =~ Re0[:'subject']
+          match += 1 if mhead['from']    =~ Re0[:from]
+          match += 1 if mhead['subject'] =~ Re0[:subject]
 
           if mhead['return-path']
             # Check the value of Return-Path of the message
