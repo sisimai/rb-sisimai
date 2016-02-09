@@ -88,7 +88,6 @@ module Sisimai
       extheaders = ExtHeaders
       tobeloaded = []
       headerargv = {}
-      methodargv = {}
 
       ['load', 'order'].each do |e|
         # The order of MTA modules specified by user
