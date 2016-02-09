@@ -11,11 +11,11 @@ module Sisimai
         Re0 = {
           :'received'  => %r/by .+[.]vtext[.]com /,
           :'vtext.com' => {
-              :'from' => %r/\Apost_master[@]vtext[.]com\z/,
+            :'from' => %r/\Apost_master[@]vtext[.]com\z/,
           },
           :'vzwpix.com' => {
-              :'from'    => %r/[<]?sysadmin[@].+[.]vzwpix[.]com[>]?\z/,
-              :'subject' => %r/Undeliverable Message/,
+            :'from'    => %r/[<]?sysadmin[@].+[.]vzwpix[.]com[>]?\z/,
+            :'subject' => %r/Undeliverable Message/,
           },
         }
         Indicators = Sisimai::MSP.INDICATORS
