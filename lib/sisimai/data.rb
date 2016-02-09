@@ -244,7 +244,7 @@ module Sisimai
 
         # OTHER_TEXT_HEADERS:
         # Remove square brackets and curly brackets from the host variable
-        ['rhost', 'lhost'].each do |v|
+        %w|rhost lhost|.each do |v|
           p[v] = p[v].delete('[]()')    # Remove square brackets and curly brackets from the host variable
           p[v] = p[v].sub(/\A.+=/, '')  # Remove string before "="
           p[v] = p[v].gsub(/\r\z/, '')  # Remove CR at the end of the value
@@ -316,7 +316,7 @@ module Sisimai
           # not have the value of "deliverystatus".
           if o.softbounce.to_s.empty?
             # The value is not set yet
-            ['deliverystatus', 'diagnosticcode'].each do |v|
+            %w|deliverystatus diagnosticcode|.each do |v|
               # Set the value of softbounce
               next unless p[v].size > 0
               r = Sisimai::SMTP.is_softbounce(p[v])
@@ -389,7 +389,7 @@ module Sisimai
     # @return   [String, Undef] Dumped data or Undef if the value of first
     #                           argument is neither "json" nor "yaml"
     def dump(type = 'json')
-      return nil unless ['json', 'yaml'].index(type)
+      return nil unless %w|json yaml|.index(type)
       referclass = sprintf('Sisimai::Data::%s', type.upcase)
 
       begin

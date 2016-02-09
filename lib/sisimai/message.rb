@@ -89,7 +89,7 @@ module Sisimai
       tobeloaded = []
       headerargv = {}
 
-      ['load', 'order'].each do |e|
+      %w|load order|.each do |e|
         # The order of MTA modules specified by user
         next unless argvs.key?(e)
         next unless argvs[e].is_a? Array

@@ -40,13 +40,12 @@ module Sisimai
       # MTA list
       # @return   [Array] MTA list with order
       def index
-        return [
-          'Sendmail', 'Postfix', 'Qmail', 'Exim', 'Courier', 'OpenSMTPD',
-          'Exchange', 'MessagingServer', 'Domino', 'Notes', 'ApacheJames',
-          'McAfee', 'MXLogic', 'MailFoundry', 'IMailServer', 'MFILTER',
-          'Activehunter', 'InterScanMSS', 'SurfControl', 'MailMarshalSMTP',
-          'X1', 'X2', 'X3', 'X4', 'X5', 'V5sendmail',
-        ]
+        return %w|
+          Sendmail Postfix Qmail Exim Courier OpenSMTPD Exchange MessagingServer
+          Domino Notes ApacheJames McAfee MXLogic MailFoundry IMailServer MFILTER
+          Activehunter InterScanMSS SurfControl MailMarshalSMTP
+          X1 X2 X3 X4 X5 V5sendmail
+        |
       end
 
     end

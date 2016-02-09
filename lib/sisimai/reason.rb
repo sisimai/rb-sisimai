@@ -39,11 +39,10 @@ module Sisimai
         end
 
         reasontext = ''
-        classorder = [
-          'MailboxFull', 'MesgTooBig', 'ExceedLimit', 'Suspend', 'HasMoved',
-          'NoRelaying', 'UserUnknown', 'Filtered', 'Rejected', 'HostUnknown',
-          'SpamDetected', 'TooManyConn', 'Blocked',
-        ]
+        classorder = %w|
+          MailboxFull MesgTooBig ExceedLimit Suspend HasMoved NoRelaying UserUnknown
+          Filtered Rejected HostUnknown SpamDetected TooManyConn Blocked
+        |
 
         if argvs.diagnostictype == 'SMTP' || argvs.diagnostictype == ''
           # Diagnostic-Code: SMTP; ... or empty value
@@ -112,11 +111,10 @@ module Sisimai
         diagnostic = argvs.diagnosticcode || ''
         commandtxt = argvs.smtpcommand    || ''
         reasontext = ''
-        classorder = [
-          'MailboxFull', 'SpamDetected', 'SecurityError', 'SystemError',
-          'NetworkError', 'Suspend', 'Expired', 'ContentError',
-          'SystemFull', 'NotAccept', 'MailerError',
-        ]
+        classorder = %w|
+          MailboxFull SpamDetected SecurityError SystemError NetworkError
+          Suspend Expired ContentError SystemFull NotAccept MailerError
+        |
 
         require 'sisimai/smtp/status'
         reasontext = Sisimai::SMTP::Status.name(statuscode)
@@ -184,13 +182,12 @@ module Sisimai
 
         reasontext = ''
         typestring = ''
-        classorder = [
-          'MailboxFull', 'MesgTooBig', 'ExceedLimit', 'Suspend', 'UserUnknown',
-          'Filtered', 'Rejected', 'HostUnknown', 'SpamDetected', 'TooManyConn',
-          'Blocked', 'SpamDetected', 'SecurityError', 'SystemError',
-          'NetworkError', 'Suspend', 'Expired', 'ContentError', 'HasMoved',
-          'SystemFull', 'NotAccept', 'MailerError', 'NoRelaying', 'OnHold',
-        ]
+        classorder = %w|
+          MailboxFull MesgTooBig ExceedLimit Suspend UserUnknown Filtered Rejected
+          HostUnknown SpamDetected TooManyConn Blocked SpamDetected SecurityError
+          SystemError NetworkError Suspend Expired ContentError HasMoved SystemFull
+          NotAccept MailerError NoRelaying OnHold
+        |
 
         statuscode = Sisimai::SMTP::Status.find(argv1)
         if cv = argv1.match(/\A(SMTP|X-.+);/i)

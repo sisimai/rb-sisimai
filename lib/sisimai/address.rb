@@ -10,7 +10,7 @@ module Sisimai
     #                           Undef when the $argv1 is neither 'r' nor 's'
     def self.undisclosed(argv1)
       return nil unless argv1
-      return nil unless ['r', 's'].index(argv1)
+      return nil unless %w|r s|.index(argv1)
 
       local = argv1 == 'r' ? 'recipient' : 'sender'
       return sprintf('undisclosed-%s-in-headers@dummy-domain.invalid', local)

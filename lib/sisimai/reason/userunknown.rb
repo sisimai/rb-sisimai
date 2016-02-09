@@ -136,7 +136,7 @@ module Sisimai
           return true if argvs.reason == Sisimai::Reason::UserUnknown.text
 
           require 'sisimai/smtp/status'
-          prematches = ['NoRelaying', 'Blocked', 'MailboxFull', 'HasMoved']
+          prematches = %w|NoRelaying Blocked MailboxFull HasMoved|
           matchother = false
           statuscode = argvs.deliverystatus || ''
           diagnostic = argvs.diagnosticcode || ''
