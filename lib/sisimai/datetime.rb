@@ -290,7 +290,6 @@ module Sisimai
         datestring = datestring.sub(/[,](\d+)/, ', \1')  # Thu,13 -> Thu, 13
         datestring = datestring.sub(/(\d{1,2}),/, '\1')  # Apr,29 -> Apr 29
         timetokens = datestring.split(' ')
-        parseddate = ''   # (String) Canonified Date/Time string
         afternoon1 = 0    # (Integer) After noon flag
         altervalue = {}   # (Hash) To store alternative values
         v = {
@@ -442,10 +441,7 @@ module Sisimai
 
         # Build date string
         #   Thu, 29 Apr 2004 10:01:11 +0900
-        parseddate = sprintf(
-          '%s, %s %s %s %s %s',
-          v['a'], v['d'], v['M'], v['Y'], v['T'], v['z'])
-        return parseddate
+        return sprintf('%s, %s %s %s %s %s', v['a'], v['d'], v['M'], v['Y'], v['T'], v['z'])
       end
 
       # Abbreviation -> Tiemzone
