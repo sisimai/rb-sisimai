@@ -180,9 +180,9 @@ module Sisimai
               :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
             }
             reFailure = {
-                'userunknown' => %r{
-                    No[ ]valid[ ]recipients[ ]for[ ]this[ ]MM
-                }x,
+              'userunknown' => %r{
+                  No[ ]valid[ ]recipients[ ]for[ ]this[ ]MM
+              }x,
             }
             rfc822next = { 'from' => 0, 'to' => 0, 'subject' => 0 }
             boundary00 = Sisimai::MIME.boundary(mhead['content-type'])
