@@ -13,29 +13,29 @@ module Sisimai
     require 'sisimai/datetime'
 
     @@rwaccessors = [
-      'token',          # [String] Message token/MD5 Hex digest value
-      'lhost',          # [String] local host name/Local MTA
-      'rhost',          # [String] Remote host name/Remote MTA
-      'alias',          # [String] Alias of the recipient address
-      'listid',         # [String] List-Id header of each ML
-      'reason',         # [String] Bounce reason
-      'action',         # [String] The value of Action: header
-      'subject',        # [String] UTF-8 Subject text
-      'timestamp',      # [Sisimai::Time] Date: header in the original message
-      'addresser',      # [Sisimai::Address] From address
-      'recipient',      # [Sisimai::Address] Recipient address which bounced
-      'messageid',      # [String] Message-Id: header
-      'replycode',      # [String] SMTP Reply Code
-      'smtpagent',      # [String] MTA name
-      'softbounce',     # [Integer] 1 = Soft bounce, 0 = Hard bounce, -1 = ?
-      'smtpcommand',    # [String] The last SMTP command
-      'destination',    # [String] The domain part of the "recipinet"
-      'senderdomain',   # [String] The domain part of the "addresser"
-      'feedbacktype',   # [String] Feedback Type
-      'diagnosticcode', # [String] Diagnostic-Code: Header
-      'diagnostictype', # [String] The 1st part of Diagnostic-Code: Header
-      'deliverystatus', # [String] Delivery Status(DSN)
-      'timezoneoffset', # [Integer] Time zone offset(seconds)
+      :token,           # [String] Message token/MD5 Hex digest value
+      :lhost,           # [String] local host name/Local MTA
+      :rhost,           # [String] Remote host name/Remote MTA
+      :alias,           # [String] Alias of the recipient address
+      :listid,          # [String] List-Id header of each ML
+      :reason,          # [String] Bounce reason
+      :action,          # [String] The value of Action: header
+      :subject,         # [String] UTF-8 Subject text
+      :timestamp,       # [Sisimai::Time] Date: header in the original message
+      :addresser,       # [Sisimai::Address] From address
+      :recipient,       # [Sisimai::Address] Recipient address which bounced
+      :messageid,       # [String] Message-Id: header
+      :replycode,       # [String] SMTP Reply Code
+      :smtpagent,       # [String] MTA name
+      :softbounce,      # [Integer] 1 = Soft bounce, 0 = Hard bounce, -1 = ?
+      :smtpcommand,     # [String] The last SMTP command
+      :destination,     # [String] The domain part of the "recipinet"
+      :senderdomain,    # [String] The domain part of the "addresser"
+      :feedbacktype,    # [String] Feedback Type
+      :diagnosticcode,  # [String] Diagnostic-Code: Header
+      :diagnostictype,  # [String] The 1st part of Diagnostic-Code: Header
+      :deliverystatus,  # [String] Delivery Status(DSN)
+      :timezoneoffset,  # [Integer] Time zone offset(seconds)
     ]
     @@rwaccessors.each { |e| attr_accessor e }
 
