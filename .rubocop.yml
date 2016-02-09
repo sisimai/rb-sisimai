@@ -95,6 +95,9 @@ Style/FileName:
 Style/FormatString:
   EnforcedStyle: sprintf
 
+Style/HashSyntax:
+  Enabled: false
+
 # Cop supports --auto-correct.
 Style/LeadingCommentSpace:
   Enabled: false
