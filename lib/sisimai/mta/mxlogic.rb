@@ -18,7 +18,7 @@ module Sisimai
               )
           }x,
           :'message-id' => %r/\A[<]mxl[~][0-9a-f]+/,
-        };
+        }
         Re1 = {
           :rfc822 => %r/\AIncluded is a copy of the message header:\z/,
           :begin  => %r/\AThis message was created automatically by mail delivery software[.]\z/,
@@ -27,7 +27,7 @@ module Sisimai
         ReCommand = [
           %r/SMTP error from remote (?:mail server|mailer) after ([A-Za-z]{4})/,
           %r/SMTP error from remote (?:mail server|mailer) after end of ([A-Za-z]{4})/,
-        ];
+        ]
 
         ReFailure = {
           'userunknown' => %r{
