@@ -8,7 +8,7 @@ module Sisimai
       # Reason list better to retry detecting an error reason
       # @return   [Array] Reason list
       def retry
-        return ['undefined', 'onhold', 'systemerror', 'securityerror', 'networkerror']
+        return %w|undefined onhold systemerror securityerror networkerror|
       end
       RetryReasons = Sisimai::Reason.retry
 
