@@ -1,6 +1,6 @@
 module Sisimai
-  # Sisimai::Mail::Mbox is a mailbox file (UNIX mbox) reader.
   class Mail
+    # Sisimai::Mail::Mbox is a mailbox file (UNIX mbox) reader.
     class Mbox
       # Imported from p5-Sisimail/lib/Sisimai/Mail/Mbox.pm
       @@roaccessors = [

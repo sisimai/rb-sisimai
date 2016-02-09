@@ -1,5 +1,10 @@
 module Sisimai
   module Reason
+    # This is the error that a sent email size is too big for a destination mail
+    # server. In many case, There are many attachment files with email, or the
+    # file size is too large.
+    # Sisimai will set "mesgtoobig" to the reason of email bounce if the value
+    # of Status: field in a bounce email is "5.3.4".
     module MesgTooBig
       # Imported from p5-Sisimail/lib/Sisimai/Reason/MesgTooBig.pm
       class << self
