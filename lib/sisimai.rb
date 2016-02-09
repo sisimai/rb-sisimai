@@ -48,7 +48,8 @@ module Sisimai
 
       require 'oj'
       parseddata = Sisimai.make(path) || []
-      return Oj.dump(parseddata, :mode => :compat)
+      jsonstring = Oj.dump(parseddata, :mode => :compat)
+      return jsonstring
     end
   end
 
