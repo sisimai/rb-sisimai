@@ -12,6 +12,9 @@ AllCops:
 Lint/AssignmentInCondition:
   Enabled: false
 
+Metrics/AbcSize:
+  Max: 30
+
 Metrics/CyclomaticComplexity:
   Enabled: false
 
@@ -134,7 +137,7 @@ Style/SingleLineMethods:
     - 'lib/sisimai/msp.rb'
     - 'lib/sisimai/mta/*'
     - 'lib/sisimai/msp/*/*'
-    - 'lib/sisimai/rfc3463.rb'
+    - 'lib/sisimai/rfc3464.rb'
     - 'lib/sisimai/rfc3834.rb'
     - 'lib/sisimai/reason/*.rb'
 
