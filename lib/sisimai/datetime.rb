@@ -258,7 +258,6 @@ module Sisimai
       #   o2d(2,'/')  #=> 2015/11/02
       def o2d(argv1 = 0, argv2 = '-')
         piece = ::DateTime.now
-        epoch = 0
 
         return piece.strftime('%Y/%m/%d') unless argv1 =~ /\A[-]?\d+\z/
         epoch = piece.to_time.to_i - argv1 * 86400
