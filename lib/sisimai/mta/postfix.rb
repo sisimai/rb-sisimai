@@ -62,7 +62,7 @@ module Sisimai
 
           dscontents = []; dscontents << Sisimai::MTA.DELIVERYSTATUS
           hasdivided = mbody.split("\n")
-          havepassed = [''];
+          havepassed = ['']
           rfc822next = { 'from' => false, 'to' => false, 'subject' => false }
           rfc822part = ''     # (String) message/rfc822-headers part
           previousfn = ''     # (String) Previous field name
