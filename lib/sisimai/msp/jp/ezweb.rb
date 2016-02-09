@@ -29,21 +29,21 @@ module Sisimai
         ReFailure = {
           #'notaccept' => [ %r/The following recipients did not receive this message:/ ],
           'mailboxfull' => [
-              %r/The user[(]s[)] account is temporarily over quota/,
+            %r/The user[(]s[)] account is temporarily over quota/,
           ],
           'suspend' => [
-              # http://www.naruhodo-au.kddi.com/qa3429203.html
-              # The recipient may be unpaid user...?
-              %r/The user[(]s[)] account is disabled[.]/,
-              %r/The user[(]s[)] account is temporarily limited[.]/,
+            # http://www.naruhodo-au.kddi.com/qa3429203.html
+            # The recipient may be unpaid user...?
+            %r/The user[(]s[)] account is disabled[.]/,
+            %r/The user[(]s[)] account is temporarily limited[.]/,
           ],
           'expired' => [
-              # Your message was not delivered within 0 days and 1 hours.
-              # Remote host is not responding.
-              %r/Your message was not delivered within /,
+            # Your message was not delivered within 0 days and 1 hours.
+            # Remote host is not responding.
+            %r/Your message was not delivered within /,
           ],
           'onhold' => [
-              %r/Each of the following recipients was rejected by a remote mail server/,
+            %r/Each of the following recipients was rejected by a remote mail server/,
           ],
         }
         Indicators = Sisimai::MSP.INDICATORS
