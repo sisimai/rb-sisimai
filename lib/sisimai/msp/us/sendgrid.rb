@@ -52,7 +52,7 @@ module Sisimai
           require 'sisimai/datetime'
           dscontents = []; dscontents << Sisimai::MSP.DELIVERYSTATUS
           hasdivided = mbody.split("\n")
-          havepassed = [''];
+          havepassed = ['']
           rfc822next = { 'from' => false, 'to' => false, 'subject' => false }
           rfc822part = ''     # (String) message/rfc822-headers part
           previousfn = ''     # (String) Previous field name
