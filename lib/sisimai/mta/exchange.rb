@@ -28,29 +28,29 @@ module Sisimai
         }
         ErrorCodeTable = {
           'onhold' => [
-              '000B099C', # Host Unknown, Message exceeds size limit, ...
-              '000B09AA', # Unable to relay for, Message exceeds size limit,...
-              '000B09B6', # Error messages by remote MTA
+            '000B099C', # Host Unknown, Message exceeds size limit, ...
+            '000B09AA', # Unable to relay for, Message exceeds size limit,...
+            '000B09B6', # Error messages by remote MTA
           ],
           'userunknown' => [
-              '000C05A6', # Unknown Recipient,
+            '000C05A6', # Unknown Recipient,
           ],
           'systemerror' => [
-              '00010256', # Too many recipients.
-              '000D06B5', # No proxy for recipient (non-smtp mail?)
+            '00010256', # Too many recipients.
+            '000D06B5', # No proxy for recipient (non-smtp mail?)
           ],
           'networkerror' => [
-              '00120270', # Too Many Hops
+            '00120270', # Too Many Hops
           ],
           'contenterr' => [
-              '00050311', # Conversion to Internet format failed
-              '000502CC', # Conversion to Internet format failed
+            '00050311', # Conversion to Internet format failed
+            '000502CC', # Conversion to Internet format failed
           ],
           'securityerr' => [
-              '000B0981', # 502 Server does not support AUTH
+            '000B0981', # 502 Server does not support AUTH
           ],
           'filtered' => [
-              '000C0595', # Ambiguous Recipient
+            '000C0595', # Ambiguous Recipient
           ],
         }
         Indicators = Sisimai::MTA.INDICATORS
