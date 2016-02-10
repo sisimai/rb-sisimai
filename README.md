@@ -36,7 +36,9 @@ More details about system requirements are available at available at
 [Sisimai | Getting Started](http://libsisimai.org/start) page.
 
 * [Ruby 2.1.0 or later](http://www.ruby-lang.org/)
-* Also works on JRuby 9.0.0.0 or later
+  * [__Oj | The fastest JSON parser and object serializer__](https://rubygems.org/gems/oj)
+* Also works on [JRuby 9.0.0.0 or later](http://jruby.org)
+  * [__JrJackson | A mostly native JRuby wrapper for the java jackson json processor jar__](https://rubygems.org/gems/jrjackson)
 
 Install | インストール
 ----------------------
@@ -137,10 +139,11 @@ and Ruby version of Sisimai.
 | Features                                       | Ruby version  | Perl version|
 |------------------------------------------------|---------------|-------------|
 | System requirements                            | Ruby 2.1-2.3  | Perl 5.10 - |
+|                                                | JRuby 9.0.0.0-|             |
 | Analytical precision ratio(2000 emails)[1]     | 1.00          | 1.00        |
-| The speed of parsing email(1000 emails)        | 3.93s         | 2.50s       |
+| The speed of parsing email(1000 emails)        | 3.81s         | 2.50s       |
 | How to install                                 | gem install   | cpanm       |
-| Dependencies (Except core modules)             | 0 modules     | 2 modules   |
+| Dependencies (Except core modules)             | 1 modules     | 2 modules   |
 | LOC:Source lines of code                       | 11400 lines   | 8900 lines  |
 | The number of tests in t/, xt/ directory       | 89570 tests   | 160500 tests|
 | License                                        | The BSD 2-Clause License    |
@@ -154,10 +157,11 @@ and Ruby version of Sisimai.
 | 機能                                           | Ruby version  | Perl version|
 |------------------------------------------------|---------------|-------------|
 | 動作環境                                       | Ruby 2.1-2.3  | Perl 5.10 - |
+|                                                | JRuby 9.0.0.0-|             |
 | 解析精度の割合(2000通のメール)[1]              | 1.00          | 1.00        |
-| メール解析速度(1000通のメール)                 | 3.93秒        | 2.50秒      |
+| メール解析速度(1000通のメール)                 | 3.81秒        | 2.50秒      |
 | インストール方法                               | gem install   | cpanm       |
-| 依存モジュール数(コアモジュールを除く)         | 0モジュール   | 2モジュール |
+| 依存モジュール数(コアモジュールを除く)         | 1モジュール   | 2モジュール |
 | LOC:ソースコードの行数                         | 11400行       | 8900行      |
 | テスト件数(t/,xt/ディレクトリ)                 | 89570件       | 160500件    |
 | ライセンス                                     | 二条項BSD     | 二条項BSD   |
