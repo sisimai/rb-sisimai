@@ -1,5 +1,3 @@
-require 'oj'
-
 module Sisimai
   class Data
     # Sisimai::Data::JSON dumps parsed data object as a JSON format. This class
@@ -15,10 +13,22 @@ module Sisimai
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
 
-          begin
-            jsonstring = Oj.dump(argvs.damn, :mode => :compat)
-          rescue
-            warn '***warning: Failed to Oj.dump'
+          if RUBY_PLATFORM =~ /java/
+            # java-based ruby environment like JRuby.
+            begin
+              require 'jrjackson'
+              jsonstring = JrJackson::Json.dump(argvs.damn)
+            rescue
+              warn '***warning: Failed to JrJackson::Json.dump'
+            end
+          else
+            # MRI
+            begin
+              require 'oj'
+              jsonstring = Oj.dump(argvs.damn, :mode => :compat)
+            rescue
+              warn '***warning: Failed to Oj.dump'
+            end
           end
 
           return jsonstring
