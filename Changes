@@ -1,6 +1,10 @@
 Revision history for Ruby version of Sisimai
 
 4.14.3
+    - Beginning with this version, Sisimai requires Oj(MRI) or JrJackson(JRuby)
+      for encoding parsed data to JSON string more faster (about 10%-20% faster
+      than before). Implemented at pull-request #44 and discussed in issue #42.
+      Thanks to @hiroyuki-sato.
     - New method Sisimai::Address#to_s to get a email address as String, it is
       implemented at pull-request #39. Thanks to @hiroyuki-sato.
     - Almost all of the class variables are removed for resolving issue #40 and
