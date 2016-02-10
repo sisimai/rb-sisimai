@@ -5,8 +5,6 @@ module Sisimai
     module JSON
       # Imported from p5-Sisimail/lib/Sisimai/Data/JSON.pm
       class << self
-        require 'json'
-
         # Data dumper(JSON)
         # @param    [Sisimai::Data] argvs   Object
         # @return   [String, Nil]           Dumped data or Undef if the argument
@@ -15,16 +13,22 @@ module Sisimai
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
 
-          damneddata = argvs.damn
-          jsonstring = nil
-          jsonoption = ::JSON::state.new
-
-          begin
-            jsonoption.space = ' '
-            jsonoption.object_nl = ' '
-            jsonstring = ::JSON.generate(damneddata, jsonoption)
-          rescue
-            warn '***warning: Failed to JSON.generate'
+          if RUBY_PLATFORM =~ /java/
+            # java-based ruby environment like JRuby.
+            begin
+              require 'jrjackson'
+              jsonstring = JrJackson::Json.dump(argvs.damn)
+            rescue
+              warn '***warning: Failed to JrJackson::Json.dump'
+            end
+          else
+            # MRI
+            begin
+              require 'oj'
+              jsonstring = Oj.dump(argvs.damn, :mode => :compat)
+            rescue
+              warn '***warning: Failed to Oj.dump'
+            end
           end
 
           return jsonstring

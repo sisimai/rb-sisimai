@@ -210,7 +210,7 @@ module Sisimai
 
     # Returns the value of address as String
     # @return [String] Email address
-    def to_json
+    def to_json(*)
       return to_s
     end
 

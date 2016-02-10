@@ -361,28 +361,17 @@ module Sisimai
     # Convert from object to hash reference
     # @return   [Hash] Data in Hash reference
     def damn
-      data = nil
-      begin
-        v = {}
-        stringdata = %w[
-          token lhost rhost listid alias reason subject messageid smtpagent
-          smtpcommand destination diagnosticcode senderdomain deliverystatus
-          timezoneoffset feedbacktype diagnostictype action replycode softbounce
-        ]
-
-        stringdata.each do |e|
-          # Copy string data
-          v[e] = self.send(e) || ''
-        end
-        v['addresser'] = self.addresser.address
-        v['recipient'] = self.recipient.address
-        v['timestamp'] = self.timestamp.to_time.to_i
-        data = v
-      rescue
-        warn '***warning: Failed to damn()'
+      data = {}
+      @@rwaccessors.each do |e|
+        next if e.to_s =~ /(?:addresser|recipient|timestamp)/
+        data[e.to_s] = self.send(e) || ''
       end
+      data['addresser'] = self.addresser.address
+      data['recipient'] = self.recipient.address
+      data['timestamp'] = self.timestamp.to_time.to_i
       return data
     end
+    alias :to_hash :damn
 
     # Data dumper
     # @param    [String] type   Data format: json, yaml
@@ -403,7 +392,6 @@ module Sisimai
     end
 
     # JSON handler
-    # @param    [JSON::State] argv  JSON::Ext::Generator::State object
     # @return   [String]            JSON string converted from Sisimai::Data
     def to_json(*)
       return self.dump('json')

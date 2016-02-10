@@ -46,14 +46,17 @@ module Sisimai
     def dump(path)
       return nil unless path
 
-      require 'json'
       parseddata = Sisimai.make(path) || []
-      jsonoption = JSON::State.new
-
-      jsonoption.space = ' '
-      jsonoption.object_nl = ' '
-
-      return JSON.generate(parseddata, jsonoption)
+      if RUBY_PLATFORM =~ /java/
+        # java-based ruby environment like JRuby.
+        require 'jrjackson'
+        jsonstring = JrJackson::Json.dump(parseddata)
+      else
+        puts RUBY_PLATFORM
+        require 'oj'
+        jsonstring = Oj.dump(parseddata, :mode => :compat)
+      end
+      return jsonstring
     end
   end
 
