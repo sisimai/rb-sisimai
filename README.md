@@ -24,7 +24,12 @@ Key Features | 主な特徴的機能
 * __Easy to Install, Use.__ | __インストールも使用も簡単__
   * gem install
   * git clone & make
-
+* __High Precision of Analysis__ | __高い解析精度__
+  * 2 times higher than bounceHammer | 解析精度はbounceHammerの二倍
+  * Support 21 known MTAs and 5 unknown MTAs | 26種類のMTAに対応
+  * Support 20 major MSPs(Mail Service Providers) | 20種類の著名なMSPに対応
+  * Support Feedback Loop Message(ARF) | Feedback Loopにも対応
+  * Can detect 25 error reasons | 25種類のエラー理由を検出
 
 Setting Up Sisimai | シシマイを使う準備
 =======================================
@@ -136,18 +141,18 @@ Differences between Perl version and Ruby version | Perl版との違い
 The following table show the differences between Perl version of Sisimai
 and Ruby version of Sisimai.
 
-| Features                                       | Ruby version  | Perl version|
-|------------------------------------------------|---------------|-------------|
-| System requirements                            | Ruby 2.1-2.3  | Perl 5.10 - |
-|                                                | JRuby 9.0.0.0-|             |
-| Analytical precision ratio(2000 emails)[1]     | 1.00          | 1.00        |
-| The speed of parsing email(1000 emails)        | 3.81s         | 2.50s       |
-| How to install                                 | gem install   | cpanm       |
-| Dependencies (Except core modules)             | 1 modules     | 2 modules   |
-| LOC:Source lines of code                       | 11400 lines   | 8900 lines  |
-| The number of tests in t/, xt/ directory       | 89570 tests   | 160500 tests|
-| License                                        | The BSD 2-Clause License    |
-| Support Contract provided by Developer         | Coming soon   | Available   |
+| Features                                       | Ruby version  | Perl version |
+|------------------------------------------------|---------------|--------------|
+| System requirements                            | Ruby 2.1-2.3  | Perl 5.10 -  |
+|                                                | JRuby 9.0.0.0-|              |
+| Analytical precision ratio(2000 emails)[1]     | 1.00          | 1.00         |
+| The speed of parsing email(1000 emails)        | 3.81s         | 2.50s        |
+| How to install                                 | gem install   | cpanm        |
+| Dependencies (Except core modules)             | 1 modules     | 2 modules    |
+| LOC:Source lines of code                       | 11400 lines   | 8900 lines   |
+| The number of tests in t/, xt/ directory       | 90000 tests   | 160500 tests |
+| License                                        | BSD 2-Clause  | BSD 2-Clause |
+| Support Contract provided by Developer         | Coming soon   | Available    |
 
 1. See ./ANALYTICAL-PRECISION
 
@@ -163,7 +168,7 @@ and Ruby version of Sisimai.
 | インストール方法                               | gem install   | cpanm       |
 | 依存モジュール数(コアモジュールを除く)         | 1モジュール   | 2モジュール |
 | LOC:ソースコードの行数                         | 11400行       | 8900行      |
-| テスト件数(t/,xt/ディレクトリ)                 | 89570件       | 160500件    |
+| テスト件数(t/,xt/ディレクトリ)                 | 90000件       | 160500件    |
 | ライセンス                                     | 二条項BSD     | 二条項BSD   |
 | 開発会社によるサポート契約                     | 準備中        | 提供中      |
 
@@ -212,6 +217,7 @@ details about these modules are available at
 | MSP::RU::Yandex          | Yandex.Mail: http://www.yandex.ru                 |
 | MSP::UK::MessageLabs     | Symantec.cloud http://www.messagelabs.com         |
 | MSP::US::AmazonSES       | AmazonSES(Sending): http://aws.amazon.com/ses/    |
+| MSP::US::AmazonWorkMail  | Amazon WorkMail: https://aws.amazon.com/workmail/ |
 | MSP::US::Aol             | Aol Mail: http://www.aol.com                      |
 | MSP::US::Bigfoot         | Bigfoot: http://www.bigfoot.com                   |
 | MSP::US::Facebook        | Facebook: https://www.facebook.com                |
