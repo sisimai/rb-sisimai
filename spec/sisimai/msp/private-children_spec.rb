@@ -180,6 +180,13 @@ describe 'Sisimai::MSP::' do
       '01013' => %r/userunknown/,
       '01014' => %r/filtered/,
     },
+    'US::AmazonWorkMail' => {
+      '01001' => %r/userunknown/,
+      '01002' => %r/filtered/,
+      '01003' => %r/systemerror/,
+      '01004' => %r/mailboxfull/,
+      '01005' => %r/expired/,
+    },
     'US::Aol' => {
       '01001' => %r/hostunknown/,
       '01002' => %r/mailboxfull/,

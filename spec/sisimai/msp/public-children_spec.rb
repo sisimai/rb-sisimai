@@ -51,6 +51,13 @@ describe 'Sisimai::MSP::*' do
       '03' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
       '04' => { 'status' => %r/\A5[.]4[.]7\z/, 'reason' => %r/expired/ },
     },
+    'US::AmazonWorkMail' => {
+      '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+      '02' => { 'status' => %r/\A5[.]2[.]1\z/, 'reason' => %r/filtered/ },
+      '03' => { 'status' => %r/\A5[.]3[.]5\z/, 'reason' => %r/systemerror/ },
+      '04' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
+      '05' => { 'status' => %r/\A4[.]4[.]7\z/, 'reason' => %r/expired/ },
+    },
     'US::Aol' => {
       '01' => { 'status' => %r/\A5[.]4[.]4\z/, 'reason' => %r/hostunknown/ },
       '02' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
