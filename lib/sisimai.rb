@@ -52,7 +52,6 @@ module Sisimai
         require 'jrjackson'
         jsonstring = JrJackson::Json.dump(parseddata)
       else
-        puts RUBY_PLATFORM
         require 'oj'
         jsonstring = Oj.dump(parseddata, :mode => :compat)
       end
