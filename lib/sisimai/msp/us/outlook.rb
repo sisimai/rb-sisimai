@@ -57,7 +57,6 @@ module Sisimai
           match += 1 if mhead['received'].find { |a| a =~ Re0[:received] }
           return nil if match < 2
 
-          require 'sisimai/rfc5322'
           dscontents = []; dscontents << Sisimai::MSP.DELIVERYSTATUS
           hasdivided = mbody.split("\n")
           havepassed = [''];
