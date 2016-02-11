@@ -718,6 +718,12 @@ describe 'Sisimai::MTA::' do
       '01192' => %r/userunknown/,
       '01193' => %r/userunknown/,
       '01194' => %r/suspend/,
+      '01195' => %r/securityerror/,
+      '01196' => %r/suspend/,
+      '01197' => %r/userunknown/,
+      '01198' => %r/userunknown/,
+      '01199' => %r/blocked/,
+      '01200' => %r/hostunknown/,
     },
     'SurfControl' => {
       '01001' => %r/filtered/,
