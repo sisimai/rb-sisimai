@@ -255,6 +255,14 @@ describe 'Sisimai::MSP::' do
       '01043' => %r/userunknown/,
       '01044' => %r/securityerror/,
     },
+    'US::Office365' => {
+      '01001' => %r/filtered/,
+      '01002' => %r/filtered/,
+      '01003' => %r/filtered/,
+      '01004' => %r/filtered/,
+      '01005' => %r/filtered/,
+      '01006' => %r/networkerror/,
+    },
     'US::Outlook' => {
       '01002' => %r/userunknown/,
       '01003' => %r/userunknown/,

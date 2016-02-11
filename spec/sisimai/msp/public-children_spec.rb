@@ -87,6 +87,9 @@ describe 'Sisimai::MSP::*' do
       '13' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
       '14' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
     },
+    'US::Office365' => {
+      '01' => { 'status' => %r/\A5[.]1[.]10\z/, 'reason' => %r/filtered/ },
+    },
     'US::Outlook' => {
       '01' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
       '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
