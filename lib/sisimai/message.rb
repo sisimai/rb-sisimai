@@ -185,6 +185,7 @@ module Sisimai
       hasdivided.each do |e|
         # Split email data to headers and a body part.
         e = e.delete("\r").delete("\n")
+        e = e.gsub(/[ \t]+\z/, '')
 
         if readcursor & Indicators[:endof] > 0
           # The body part of the email
