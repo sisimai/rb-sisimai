@@ -27,7 +27,7 @@ Key Features | 主な特徴的機能
 * __High Precision of Analysis__ | __高い解析精度__
   * 2 times higher than bounceHammer | 解析精度はbounceHammerの二倍
   * Support 21 known MTAs and 5 unknown MTAs | 26種類のMTAに対応
-  * Support 20 major MSPs(Mail Service Providers) | 20種類の著名なMSPに対応
+  * Support 21 major MSPs(Mail Service Providers) | 21種類の著名なMSPに対応
   * Support Feedback Loop Message(ARF) | Feedback Loopにも対応
   * Can detect 25 error reasons | 25種類のエラー理由を検出
 
@@ -149,8 +149,8 @@ and Ruby version of Sisimai.
 | The speed of parsing email(1000 emails)        | 3.81s         | 2.50s        |
 | How to install                                 | gem install   | cpanm        |
 | Dependencies (Except core modules)             | 1 modules     | 2 modules    |
-| LOC:Source lines of code                       | 11400 lines   | 8900 lines   |
-| The number of tests in t/, xt/ directory       | 90000 tests   | 160500 tests |
+| LOC:Source lines of code                       | 11700 lines   | 9100 lines   |
+| The number of tests in t/, xt/ directory       | 90700 tests   | 162400 tests |
 | License                                        | BSD 2-Clause  | BSD 2-Clause |
 | Support Contract provided by Developer         | Coming soon   | Available    |
 
@@ -167,8 +167,8 @@ and Ruby version of Sisimai.
 | メール解析速度(1000通のメール)                 | 3.81秒        | 2.50秒      |
 | インストール方法                               | gem install   | cpanm       |
 | 依存モジュール数(コアモジュールを除く)         | 1モジュール   | 2モジュール |
-| LOC:ソースコードの行数                         | 11400行       | 8900行      |
-| テスト件数(t/,xt/ディレクトリ)                 | 90000件       | 160500件    |
+| LOC:ソースコードの行数                         | 11700行       | 9100行      |
+| テスト件数(t/,xt/ディレクトリ)                 | 90700件       | 162400件    |
 | ライセンス                                     | 二条項BSD     | 二条項BSD   |
 | 開発会社によるサポート契約                     | 準備中        | 提供中      |
 
@@ -222,6 +222,7 @@ details about these modules are available at
 | MSP::US::Bigfoot         | Bigfoot: http://www.bigfoot.com                   |
 | MSP::US::Facebook        | Facebook: https://www.facebook.com                |
 | MSP::US::Google          | Google Gmail: https://mail.google.com             |
+| MSP::US::Office365       | Microsoft Office 365: http://office.microsoft.com/|
 | MSP::US::Outlook         | Microsoft Outlook.com: https://www.outlook.com/   |
 | MSP::US::ReceivingSES    | AmazonSES(Receiving): http://aws.amazon.com/ses/  |
 | MSP::US::SendGrid        | SendGrid: http://sendgrid.com/                    |
