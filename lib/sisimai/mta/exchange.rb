@@ -26,7 +26,7 @@ module Sisimai
           :rfc822 => %r|\AContent-Type: message/rfc822|,
           :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
-        ErrorCodeTable = {
+        CodeTable = {
           'onhold' => [
             '000B099C', # Host Unknown, Message exceeds size limit, ...
             '000B09AA', # Unable to relay for, Message exceeds size limit,...
@@ -269,9 +269,9 @@ module Sisimai
               errormessage = cv[2]
               pseudostatus = ''
 
-              ErrorCodeTable.each_key do |r|
+              CodeTable.each_key do |r|
                 # Find captured code from the error code table
-                next unless ErrorCodeTable[r].index(capturedcode)
+                next unless CodeTable[r].index(capturedcode)
                 e['reason'] = r
                 pseudostatus = Sisimai::SMTP::Status.code(r)
                 e['status'] = pseudostatus if pseudostatus.size > 0
