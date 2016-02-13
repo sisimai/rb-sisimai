@@ -1,6 +1,6 @@
 Revision history for Ruby version of Sisimai
 
-4.15.0
+4.15.0  Sat, 13 Feb 2016 12:40:15 +0900 (JST)
     - Beginning with this version, Sisimai requires Oj(MRI) or JrJackson(JRuby)
       for encoding parsed data to JSON string more faster (about 10%-20% faster
       than before). Implemented at pull-request #44 and discussed in issue #42.
