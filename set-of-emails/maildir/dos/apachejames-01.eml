@@ -2,12 +2,12 @@ Received: (qmail 21084 invoked from network); 12 Jun 2013 02:22:14 -0000
 Received: from gargamel.example.com (192.0.2.146)
 	by athena.internal.example.com with SMTP; 12 Jun 2013 02:22:14 -0000
 Received: (qmail 19083 invoked from network); 12 Jun 2013 02:22:13 -0000
-Received: from txslspamp2.vtext.example.com ([192.0.2.195])
+Received: from txslspamp2.vtext.com ([192.0.2.195])
 	by gargamel.example.com ([192.0.2.146])
 	with ESMTP via SSL; 12 Jun 2013 02:22:13 -0000
 Received: from unknown (HELO VZW) ([192.0.2.8])
-	by txslspamp2.vtext.example.com with ESMTP; 12 Jun 2013 02:22:13 +0000
-From: post_master@vtext.example.com
+	by txslspamp2.vtext.com with ESMTP; 12 Jun 2013 02:22:13 +0000
+From: post_master@vtext.com
 To: kijitora@example.com
 Message-ID: <00000000.000000.0000000000000.JavaMail.c@example.com>
 In-Reply-To: <00000000000000.00000.qmail@example.com>
@@ -35,7 +35,7 @@ Message details:
   Subject: Test message
   Sent date: Wed Jun 12 02:21:53 GMT 2013
   MAIL FROM: kijitora@example.com
-  RCPT TO: 000000000000@vtext.example.com
+  RCPT TO: 000000000000@vtext.com
   From: shironeko@example.com
   CC: recipient list not shown: ;
   Size (in bytes): 39
