@@ -183,6 +183,7 @@ describe 'Sisimai::MTA::' do
       '01104' => %r/mailererror/,
       '01105' => %r/mailererror/,
       '01106' => %r/onhold/,
+      '01107' => %r/spamdetected/,
     },
     'IMailServer' => {
       '01001' => %r/hostunknown/,
@@ -261,6 +262,7 @@ describe 'Sisimai::MTA::' do
       '01010' => %r/mailboxfull/,
       '01011' => %r/expired/,
       '01012' => %r/filtered/,
+      '01013' => %r/mailboxfull/,
     },
     'MFILTER' => {
       '01001' => %r/filtered/,
@@ -524,6 +526,7 @@ describe 'Sisimai::MTA::' do
       '01062' => %r/filtered/,
       '01063' => %r/userunknown/,
       '01064' => %r/userunknown/,
+      '01065' => %r/mailboxfull/,
     },
     'Sendmail' => {
       '01001' => %r/suspend/,

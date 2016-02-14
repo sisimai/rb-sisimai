@@ -257,9 +257,11 @@ describe 'Sisimai::' do
       '01247' => %r/userunknown/,
       '01248' => %r/mailboxfull/,
       '01249' => %r/onhold/,
+      '01250' => %r/mailboxfull/,
+      '01251' => %r/mailboxfull/,
+      '01252' => %r/networkerror/,
     },
     'RFC3834' => {
-      '01001' => %r/vacation/,
       '01002' => %r/vacation/,
     },
   }
