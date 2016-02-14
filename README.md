@@ -29,7 +29,7 @@ Key Features | 主な特徴的機能
   * Support 21 known MTAs and 5 unknown MTAs | 26種類のMTAに対応
   * Support 21 major MSPs(Mail Service Providers) | 21種類の著名なMSPに対応
   * Support Feedback Loop Message(ARF) | Feedback Loopにも対応
-  * Can detect 25 error reasons | 25種類のエラー理由を検出
+  * Can detect 26 error reasons | 26種類のエラー理由を検出
 
 Setting Up Sisimai | シシマイを使う準備
 =======================================
@@ -144,13 +144,13 @@ and Ruby version of Sisimai.
 | Features                                       | Ruby version  | Perl version |
 |------------------------------------------------|---------------|--------------|
 | System requirements                            | Ruby 2.1-2.3  | Perl 5.10 -  |
-|                                                | JRuby 9.0.0.0-|              |
+|                                                | JRuby 9.0.4.0-|              |
 | Analytical precision ratio(2000 emails)[1]     | 1.00          | 1.00         |
 | The speed of parsing email(1000 emails)        | 3.81s         | 2.50s        |
 | How to install                                 | gem install   | cpanm        |
 | Dependencies (Except core modules)             | 1 modules     | 2 modules    |
 | LOC:Source lines of code                       | 11700 lines   | 9100 lines   |
-| The number of tests in t/, xt/ directory       | 90700 tests   | 162400 tests |
+| The number of tests in t/, xt/ directory       | 92400 tests   | 166200 tests |
 | License                                        | BSD 2-Clause  | BSD 2-Clause |
 | Support Contract provided by Developer         | Coming soon   | Available    |
 
@@ -162,13 +162,13 @@ and Ruby version of Sisimai.
 | 機能                                           | Ruby version  | Perl version|
 |------------------------------------------------|---------------|-------------|
 | 動作環境                                       | Ruby 2.1-2.3  | Perl 5.10 - |
-|                                                | JRuby 9.0.0.0-|             |
+|                                                | JRuby 9.0.4.0-|             |
 | 解析精度の割合(2000通のメール)[1]              | 1.00          | 1.00        |
 | メール解析速度(1000通のメール)                 | 3.81秒        | 2.50秒      |
 | インストール方法                               | gem install   | cpanm       |
 | 依存モジュール数(コアモジュールを除く)         | 1モジュール   | 2モジュール |
 | LOC:ソースコードの行数                         | 11700行       | 9100行      |
-| テスト件数(t/,xt/ディレクトリ)                 | 90700件       | 162400件    |
+| テスト件数(t/,xt/ディレクトリ)                 | 92400件       | 166200件    |
 | ライセンス                                     | 二条項BSD     | 二条項BSD   |
 | 開発会社によるサポート契約                     | 準備中        | 提供中      |
 
@@ -238,7 +238,7 @@ details about these modules are available at
 
 Bounce Reason List | バウンス理由の一覧
 ----------------------------------------
-Sisimai can detect the following 25 bounce reasons. More details about reasons
+Sisimai can detect the following 26 bounce reasons. More details about reasons
 are available at [Sisimai | Bounce Reason List](http://libsisimai.org/reason)
 page.
 
@@ -246,6 +246,7 @@ page.
 |----------------|----------------------------------------|----------------------------------|
 | Blocked        | Blocked due to client IP address       | IPアドレスによる拒否             |
 | ContentError   | Invalid format email                   | 不正な形式のメール               |
+| Delivered      | Successfully delivered (> v4.16.0)     | 正常に配信された
 | ExceedLimit    | Message size exceeded the limit(5.2.3) | メールサイズの超過               |
 | Expired        | Delivery time expired                  | 配送時間切れ                     |
 | Feedback       | Bounced for a complaint of the message | 元メールへの苦情によるバウンス   |
@@ -270,7 +271,7 @@ page.
 | Undefined      | Could not decide the error reason      | バウンスした理由は特定出来ず     |
 | Vacation       | Auto replied message                   | 自動応答メッセージ               |
 
-Sisimaiは上記のエラー25種を検出します。
+Sisimaiは上記のエラー26種を検出します。
 
 
 Parsed data structure | 解析後のデータ構造
