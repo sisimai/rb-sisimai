@@ -4,6 +4,7 @@ require 'sisimai/smtp/reply'
 describe Sisimai::SMTP::Reply do
   cn = Sisimai::SMTP::Reply
   smtperrors = [
+    %q|smtp; 250 2.1.5 OK|,
     %q|smtp; 550 5.1.1 <kijitora@example.co.jp>... User Unknown|,
     %q|smtp; 550 Unknown user kijitora@example.jp|,
     %q|smtp; 550 5.7.1 can't determine Purported |,

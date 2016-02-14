@@ -10,6 +10,7 @@ describe Sisimai::SMTP::Status do
     'suspend', 'systemerror', 'systemfull', 'toomanyconn', 'userunknown',
   ]
   statuslist = %w/
+    2.1.5
     4.1.6 4.1.7 4.1.8 4.1.9 4.2.1 4.2.2 4.2.3 4.2.4 4.3.1 4.3.2 4.3.3 4.3.5
     4.4.1 4.4.2 4.4.4 4.4.5 4.4.6 4.4.7 4.5.3 4.5.5 4.6.0 4.6.2 4.6.5
     4.7.1 4.7.2 4.7.5 4.7.6 4.7.7
@@ -19,6 +20,7 @@ describe Sisimai::SMTP::Status do
     5.7.1 5.7.2 5.7.3 5.7.4 5.7.5 5.7.6 5.7.7 5.7.8 5.7.9
   /
   smtperrors = [
+    'smtp; 2.1.5 250 OK',
     'smtp;550 5.2.2 <mikeneko@example.co.jp>... Mailbox Full',
     'smtp; 550 5.1.1 Mailbox does not exist',
     'smtp; 550 5.1.1 Mailbox does not exist',
@@ -71,7 +73,11 @@ describe Sisimai::SMTP::Status do
         v = cn.name(e)
         subject { v }
         it('returns reason string') { is_expected.to be_a String }
-        it('is included in reason list') { expect(reasonlist.index(v)).to be_a Integer }
+        if v == 'delivered'
+          it('is "delivered"') { expect(v).to be == 'delivered' }
+        else
+          it('is included in reason list') { expect(reasonlist.index(v)).to be_a Integer }
+        end
       end
     end
 
@@ -92,7 +98,7 @@ describe Sisimai::SMTP::Status do
       smtperrors.each do |e|
         subject { cn.find(e) }
         it('returns DSN') { is_expected.to be_a String }
-        it('matches with DSN') { is_expected.to match /\A[45][.]\d[.]\d\z/ }
+        it('matches with DSN') { is_expected.to match /\A[245][.]\d[.]\d\z/ }
       end
     end
 

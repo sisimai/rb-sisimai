@@ -97,7 +97,7 @@ describe 'Sisimai::' do
       '01081' => %r/(?:filtered|onhold)/,
       '01083' => %r/filtered/,
       '01085' => %r/filtered/,
-      '01086' => %r/filtered/,
+      '01086' => %r/(?:filtered|delivered)/,
       '01087' => %r/filtered/,
       '01088' => %r/onhold/,
       '01089' => %r/filtered/,
@@ -317,7 +317,7 @@ describe 'Sisimai::' do
             expect(ee.action).to be_a String
             expect(ee.action).not_to match(/[ ]/)
             if ee.action.size > 0
-              expect(ee.action).to match(/(?:fail.+|delayed|expired)\z/)
+              expect(ee.action).to match(/(?:fail.+|delayed|expired|delivered|deliverable|relayed)\z/)
             end
           end
           example sprintf('[%s] %s#messageid = %s', n, x, ee.messageid) do
@@ -333,7 +333,7 @@ describe 'Sisimai::' do
           end
           example sprintf('[%s] %s#replycode = %s', n, x, ee.replycode) do
             expect(ee.replycode).to be_a String
-            expect(ee.replycode).to match(/\A(?:[45]\d\d|)\z/)
+            expect(ee.replycode).to match(/\A(?:[245]\d\d|)\z/)
           end
 
           example sprintf('[%s] %s#feedbacktype = %s', n, x, ee.feedbacktype) do
@@ -352,7 +352,7 @@ describe 'Sisimai::' do
             expect(ee.deliverystatus).not_to match(/[ ]/)
             if x != 'ARF' && x != 'RFC3834' 
               expect(ee.deliverystatus.size).to be > 0
-              expect(ee.deliverystatus).to match(/\A[45][.]\d/)
+              expect(ee.deliverystatus).to match(/\A[245][.]\d/)
             end
           end
 

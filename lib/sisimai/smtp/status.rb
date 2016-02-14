@@ -541,6 +541,8 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/SMTP/Status.pm
       class << self
         StandardCode = {
+          '2.1.5'  => 'delivered',      # Successfully delivered
+          # ------------------------------------------------------------------------------
           '4.1.6'  => 'hasmoved',       # Destination mailbox has moved, No forwarding address
           '4.1.7'  => 'rejected',       # Bad sender's mailbox address syntax
           '4.1.8'  => 'rejected',       # Bad sender's system address
@@ -720,7 +722,7 @@ module Sisimai
         def name(argv1 = '')
           return '' unless argv1
           return '' unless argv1.size > 0
-          return '' unless argv1 =~ /\A[45][.]\d[.]\d+\z/
+          return '' unless argv1 =~ /\A[245][.]\d[.]\d+\z/
           return StandardCode[argv1] || ''
         end
 
@@ -737,6 +739,7 @@ module Sisimai
             %r/[ ]?[(][#]([45][.]\d[.]\d+)[)]?[ ]?/,  # #5.5.1
             %r/\b\d{3}[- ][#]?([45][.]\d[.]\d+)\b/,   # 550-5.1.1 OR 550 5.5.1
             %r/\b([45][.]\d[.]\d+)\b/,                # 5.5.1
+            %r/\b(2[.][0-7][.][0-7])\b/,              # 2.1.5
           ]
 
           regularexp.each do |e|

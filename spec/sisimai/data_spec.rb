@@ -62,10 +62,10 @@ describe Sisimai::Data do
         example('#recipient#host returns String') { expect(e.recipient.host).to be_a String }
         example('#recipient#host is a domain part') { expect(e.recipient.host).to match(/\A.+[.].+\z/) }
         example('#recipient#user returns String') { expect(e.recipient.user).to be_a String }
-        example('#recipient#user is a local part') { expect(e.recipient.user).to match(/\A[a-z]+\z/) }
+        example('#recipient#user is a local part') { expect(e.recipient.user).to match(/\A[0-9a-z]+\z/) }
         example('#recipient#address returns String') { expect(e.recipient.address).to be_a String }
         example '#recipient#address is an email address' do
-          expect(e.recipient.address).to match(/\A[a-z]+[@].+[.].+\z/)
+          expect(e.recipient.address).to match(/\A[0-9a-z]+[@].+[.].+\z/)
         end
         example '#recipient#host is #destination' do
           expect(e.recipient.host).to be == e.destination

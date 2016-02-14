@@ -104,6 +104,16 @@ module Sisimai
       @replycode      = Sisimai::SMTP::Reply.find(argvs['diagnosticcode'])
       @softbounce     = argvs['softbounce']     || ''
       @softbounce     = 1 if @replycode =~ /\A4/
+
+      if cv = @action.match(/\A(.+?) .+/)
+        @action = cv[1]
+      end
+
+      if @replycode.size > 0 && @deliverystatus.size > 0
+        # The first digits did not match: 5.1.1 250
+        @replycode = '' unless @replycode[0, 1] == @deliverystatus[0, 1]
+      end
+
     end
 
     # Another constructor of Sisimai::Data
@@ -166,7 +176,6 @@ module Sisimai
           'diagnostictype' => e['spec']         || '',
           'deliverystatus' => e['status']       || '',
         }
-        next if p['deliverystatus'] =~ /\A2[.]/
 
         # EMAIL_ADDRESS:
         # Detect email address from message/rfc822 part
@@ -185,13 +194,6 @@ module Sisimai
         p['addresser'] ||= ''
         p['addresser']   = messageobj.header['to'] if p['addresser'].empty?
 
-        if p['alias'] && Sisimai::RFC5322.is_emailaddress(p['alias'])
-          # Alias address should be the value of "recipient", Replace the
-          # value of recipient with the value of "alias".
-          w = p['recipient']
-          p['recipient'] = p['alias']
-          p['alias'] = w
-        end
         next unless p['addresser']
         next unless p['recipient']
 

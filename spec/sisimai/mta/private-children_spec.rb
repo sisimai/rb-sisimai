@@ -172,7 +172,7 @@ describe 'Sisimai::MTA::' do
       '01093' => %r/(?:undefined|onhold|systemerror)/,
       '01094' => %r/onhold/,
       '01095' => %r/onhold/,
-      '01096' => %r/onhold/,
+      '01096' => %r/(?:hostunknown|onhold)/,
       '01097' => %r/(?:hostunknown|networkerror)/,
       '01098' => %r/expired/,
       '01099' => %r/expired/,
@@ -532,7 +532,7 @@ describe 'Sisimai::MTA::' do
       '01001' => %r/suspend/,
       '01002' => %r/blocked/,
       '01003' => %r/expired/,
-      '01004' => %r/userunknown/,
+      '01004' => %r/(?:userunknown|delivered)/,
       '01005' => %r/expired/,
       '01006' => %r/expired/,
       '01007' => %r/expired/,
@@ -994,7 +994,7 @@ describe 'Sisimai::MTA::' do
             expect(ee.action).to be_a String
             expect(ee.action).not_to match(/[ ]/)
             if ee.action.size > 0
-              expect(ee.action).to match(/(?:fail.+|delayed|expired)\z/)
+              expect(ee.action).to match(/(?:fail.+|delayed|expired|expanded)\z/)
             end
           end
           example sprintf('[%s] %s#messageid = %s', n, x, ee.messageid) do
@@ -1023,7 +1023,7 @@ describe 'Sisimai::MTA::' do
           example sprintf('[%s] %s#deliverystatus = %s', n, x, ee.deliverystatus) do
             expect(ee.deliverystatus).to be_a String
             expect(ee.deliverystatus.size).to be > 0
-            expect(ee.deliverystatus).to match(/\A[45][.]\d/)
+            expect(ee.deliverystatus).to match(/\A[245][.]\d/)
             expect(ee.deliverystatus).not_to match(/[ ]/)
           end
 
