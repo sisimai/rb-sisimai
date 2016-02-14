@@ -279,6 +279,7 @@ describe 'Sisimai::MTA::' do
       '01004' => %r/filtered/,
       '01005' => %r/userunknown/,
       '01006' => %r/filtered/,
+      '01007' => %r/filtered/,
     },
     'MXLogic' => {
       '01001' => %r/userunknown/,
