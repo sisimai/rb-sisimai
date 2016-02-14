@@ -54,6 +54,7 @@ describe 'Sisimai::*' do
       '25' => { 'status' => /\A5[.]0[.]\d+\z/, 'reason' => /onhold/, 'agent' => /RFC3464/ },
       '26' => { 'status' => /\A5[.]1[.]1\z/, 'reason' => /userunknown/, 'agent' => /RFC3464/ },
       '27' => { 'status' => /\A4[.]4[.]6\z/, 'reason' => /networkerror/, 'agent' => /RFC3464/ },
+      '28' => { 'status' => /\A2[.]1[.]5\z/, 'reason' => /delivered/, 'agent' => /RFC3464/ },
     },
     'RFC3834' => {
       '01' => { 'status' => /\A\z/, 'reason' => /vacation/ },
@@ -157,13 +158,13 @@ describe 'Sisimai::*' do
 
             if e['status'] && e['status'].size > 0
               example sprintf('[%s] %s[status] = %s', n, x, e['status']) do
-                expect(e['status']).to match(/\A(?:[45][.]\d[.]\d+)\z/)
+                expect(e['status']).to match(/\A(?:[245][.]\d[.]\d+)\z/)
               end
             end
 
             if e['action'].size > 0
               example sprintf('[%s] %s[action] = %s', n, x, e['action']) do
-                expect(e['action']).to match(/\A(?:fail.+|delayed|expired)\z/)
+                expect(e['action']).to match(/\A(?:fail.+|delayed|expired|delivered|deliverable)\z/)
               end
             end
 
@@ -235,7 +236,7 @@ describe 'Sisimai::*' do
             end
 
             example sprintf('[%s] %s#replycode = %s', n, x, e.replycode) do
-              expect(e.replycode).to match(/\A(?:[45]\d\d|)\z/)
+              expect(e.replycode).to match(/\A(?:[245]\d\d|)\z/)
             end
 
             example sprintf('[%s] %s#timezoneoffset = %s', n, x, e.timezoneoffset) do

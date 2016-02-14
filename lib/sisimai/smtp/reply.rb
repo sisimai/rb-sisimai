@@ -70,9 +70,12 @@ module Sisimai
           return '' unless argv1.size > 0
           return '' if argv1 =~ /X-Unix;/i
 
-          value = argv1.match(/\b([45][0-5][0-9])\b/)
-          return value[1] if value
-          return ''
+          if cv = argv1.match(/\b([45][0-5][0-9])\b/) || cv = argv1.match(/\b(25[0-3])\b/)
+            # 550, 447, or 250
+            return cv[1]
+          else
+            return ''
+          end
         end
       end
     end

@@ -1,0 +1,122 @@
+From MAILER-DAEMON  Thu Apr 29 23:34:45 2015
+Return-Path: <>
+X-Original-To: root@neko-222-2222.vs.example.ne.jp
+Delivered-To: root@neko-222-2222.vs.example.ne.jp
+Received: by neko-222-2222.vs.example.ne.jp (Postfix)
+	id CE7E412402D0; Thu, 29 Apr 2015 23:34:45 +0900 (JST)
+Date: Thu, 29 Apr 2015 23:34:45 +0900 (JST)
+From: MAILER-DAEMON@neko-222-2222.vs.example.ne.jp (Mail Delivery System)
+Subject: Mail Delivery Status Report
+To: root@neko-222-2222.vs.example.ne.jp
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="2222CCCC0022.2222000022/neko-222-2222.vs.example.ne.jp"
+Message-Id: <20151025071802.CE7E412402D0@neko-222-2222.vs.example.ne.jp>
+
+This is a MIME-encapsulated message.
+
+--2222CCCC0022.2222000022/neko-222-2222.vs.example.ne.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host neko-222-2222.vs.example.ne.jp.
+
+Enclosed is the mail delivery report that you requested.
+
+                   The mail system
+
+<kijitora@neko.example.jp>: delivery via
+    mail.neko.example.jp[192.0.2.2]:25: 250 2.1.5 Ok
+
+--2222CCCC0022.2222000022/neko-222-2222.vs.example.ne.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; neko-222-2222.vs.example.ne.jp
+X-Postfix-Queue-ID: 22CC00222233
+X-Postfix-Sender: rfc822; root@neko-222-2222.vs.example.ne.jp
+Arrival-Date: Thu, 29 Apr 2015 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; kijitora@neko.example.jp
+Action: deliverable
+Status: 2.1.5
+Remote-MTA: dns; mail.neko.example.jp
+Diagnostic-Code: smtp; 250 2.1.5 Ok
+
+--2222CCCC0022.2222000022/neko-222-2222.vs.example.ne.jp
+Content-Description: Message Headers
+Content-Type: text/rfc822-headers
+
+Return-Path: <root@neko-222-2222.vs.example.ne.jp>
+Received: by neko-222-2222.vs.example.ne.jp (Postfix, from userid 0)
+	id 22CC00222233; Thu, 29 Apr 2015 23:34:45 +0900 (JST)
+From: root@neko-222-2222.vs.example.ne.jp
+Subject: Nyaaan
+To:	kijitora@neko.example.jp
+Message-Id: <20151025071802.22CC00222233@neko-222-2222.vs.example.ne.jp>
+Date: Thu, 29 Apr 2015 23:34:45 +0900 (JST)
+
+--2222CCCC0022.2222000022/neko-222-2222.vs.example.ne.jp--
+
+From MAILER-DAEMON  Thu Apr 29 23:34:45 2015
+Return-Path: <>
+X-Original-To: root@neko-222-2222.vs.example.ne.jp
+Delivered-To: root@neko-222-2222.vs.example.ne.jp
+Received: by neko-222-2222.vs.example.ne.jp (Postfix)
+	id 0472E12402D0; Thu, 29 Apr 2015 23:34:45 +0900 (JST)
+Date: Thu, 29 Apr 2015 23:34:45 +0900 (JST)
+From: MAILER-DAEMON@neko-222-2222.vs.example.ne.jp (Mail Delivery System)
+Subject: Mail Delivery Status Report
+To: root@neko-222-2222.vs.example.ne.jp
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="CC002222FFEE.2200222222/neko-222-2222.vs.example.ne.jp"
+Message-Id: <20151025071833.0472E12402D0@neko-222-2222.vs.example.ne.jp>
+
+This is a MIME-encapsulated message.
+
+--CC002222FFEE.2200222222/neko-222-2222.vs.example.ne.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host neko-222-2222.vs.example.ne.jp.
+
+Enclosed is the mail delivery report that you requested.
+
+                   The mail system
+
+<info@neko.example.jp>: delivery via mail.neko.example.jp[192.0.2.2]:25: 250
+    2.1.5 Ok
+
+--CC002222FFEE.2200222222/neko-222-2222.vs.example.ne.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; neko-222-2222.vs.example.ne.jp
+X-Postfix-Queue-ID: CC002222FFEE
+X-Postfix-Sender: rfc822; root@neko-222-2222.vs.example.ne.jp
+Arrival-Date: Thu, 29 Apr 2015 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; info@neko.example.jp
+Action: deliverable
+Status: 2.1.5
+Remote-MTA: dns; mail.neko.example.jp
+Diagnostic-Code: smtp; 250 2.1.5 Ok
+
+--CC002222FFEE.2200222222/neko-222-2222.vs.example.ne.jp
+Content-Description: Message Headers
+Content-Type: text/rfc822-headers
+
+Return-Path: <root@neko-222-2222.vs.example.ne.jp>
+Received: by neko-222-2222.vs.example.ne.jp (Postfix, from userid 0)
+	id CC002222FFEE; Thu, 29 Apr 2015 23:34:45 +0900 (JST)
+From: root@neko-222-2222.vs.example.ne.jp
+Subject: Nyaaan
+To:	info@neko.example.jp
+Message-Id: <20151025071832.CC002222FFEE@neko-222-2222.vs.example.ne.jp>
+Date: Thu, 29 Apr 2015 23:34:45 +0900 (JST)
+
+--CC002222FFEE.2200222222/neko-222-2222.vs.example.ne.jp--
+

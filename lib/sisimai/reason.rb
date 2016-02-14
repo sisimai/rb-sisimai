@@ -38,11 +38,13 @@ module Sisimai
           return argvs.reason if argvs.reason.size > 0
         end
 
+        statuscode = argvs.deliverystatus || ''
         reasontext = ''
         classorder = %w|
           MailboxFull MesgTooBig ExceedLimit Suspend HasMoved NoRelaying UserUnknown
           Filtered Rejected HostUnknown SpamDetected TooManyConn Blocked
         |
+        return 'delivered' if statuscode =~ /\A2[.]/
 
         if argvs.diagnostictype == 'SMTP' || argvs.diagnostictype == ''
           # Diagnostic-Code: SMTP; ... or empty value
