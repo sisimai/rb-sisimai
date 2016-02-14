@@ -11,6 +11,11 @@ describe 'Sisimai::MTA::' do
       '01005' => %r/userunknown/,
       '01006' => %r/userunknown/,
       '01007' => %r/filtered/,
+      '01008' => %r/filtered/,
+      '01009' => %r/userunknown/,
+      '01010' => %r/filtered/,
+      '01011' => %r/filtered/,
+      '01012' => %r/userunknown/,
     },
     'ApacheJames' => {
       '01001' => %r/filtered/,
@@ -229,6 +234,8 @@ describe 'Sisimai::MTA::' do
       '01003' => %r/userunknown/,
       '01004' => %r/userunknown/,
       '01005' => %r/userunknown/,
+      '01006' => %r/userunknown/,
+      '01007' => %r/userunknown/,
     },
     'MailFoundry' => {
       '01001' => %r/filtered/,
@@ -236,6 +243,7 @@ describe 'Sisimai::MTA::' do
       '01003' => %r/userunknown/,
       '01004' => %r/filtered/,
       '01005' => %r/mailboxfull/,
+      '01007' => %r/filtered/,
     },
     'MailMarshalSMTP' => {
       '01001' => %r/filtered/,
@@ -283,6 +291,7 @@ describe 'Sisimai::MTA::' do
       '01008' => %r/userunknown/,
       '01009' => %r/userunknown/,
       '01010' => %r/filtered/,
+      '01011' => %r/filtered/,
     },
     'Notes' => {
       '01001' => %r/userunknown/,
@@ -460,6 +469,7 @@ describe 'Sisimai::MTA::' do
       '01147' => %r/userunknown/,
       '01148' => %r/userunknown/,
       '01149' => %r/mailboxfull/,
+      '01150' => %r/filtered/,
     },
     'Qmail' => {
       '01001' => %r/filtered/,
@@ -527,6 +537,7 @@ describe 'Sisimai::MTA::' do
       '01063' => %r/userunknown/,
       '01064' => %r/userunknown/,
       '01065' => %r/mailboxfull/,
+      '01066' => %r/userunknown/,
     },
     'Sendmail' => {
       '01001' => %r/suspend/,
@@ -727,6 +738,7 @@ describe 'Sisimai::MTA::' do
       '01198' => %r/userunknown/,
       '01199' => %r/blocked/,
       '01200' => %r/hostunknown/,
+      '01201' => %r/spamdetected/,
     },
     'SurfControl' => {
       '01001' => %r/filtered/,
@@ -908,12 +920,25 @@ describe 'Sisimai::MTA::' do
       '01017' => %r/(?:suspend|filtered)/,
       '01018' => %r/suspend/,
       '01019' => %r/mailboxfull/,
+      '01020' => %r/filtered/,
+      '01021' => %r/(?:filtered|suspend)/,
+      '01022' => %r/filtered/,
+      '01023' => %r/suspend/,
+      '01024' => %r/suspend/,
+      '01025' => %r/suspend/,
+      '01026' => %r/suspend/,
+      '01027' => %r/mailboxfull/,
+      '01028' => %r/expired/,
     },
     'X3' => {
       '01001' => %r/userunknown/,
       '01002' => %r/undefined/,
       '01003' => %r/expired/,
       '01004' => %r/userunknown/,
+      '01005' => %r/undefined/,
+      '01006' => %r/userunknown/,
+      '01007' => %r/expired/,
+      '01008' => %r/userunknown/,
     },
     'X4' => {
       '01001' => %r/mailboxfull/,
@@ -936,6 +961,8 @@ describe 'Sisimai::MTA::' do
       '01018' => %r/userunknown/,
       '01019' => %r/userunknown/,
       '01020' => %r/mailboxfull/,
+      '01021' => %r/networkerror/,
+      '01022' => %r/userunknown/,
     },
     'X5' => {
       '01001' => %r/userunknown/,
