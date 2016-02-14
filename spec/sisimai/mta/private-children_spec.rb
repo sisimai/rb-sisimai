@@ -939,6 +939,7 @@ describe 'Sisimai::MTA::' do
     },
     'X5' => {
       '01001' => %r/userunknown/,
+      '01002' => %r/userunknown/,
     },
   }
 
