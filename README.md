@@ -101,6 +101,10 @@ v = Sisimai.make('/path/to/mbox')       # or path to Maildir/
 
 unless v.void
   v.each do |e|
+    # If you want to get only ERROR records, skip if the value of "reason"
+    # is "delivered". This reason is implemented at Sisimai v4.16.0
+    next if e['reason'] == 'delivered'
+  
     puts e.class                # Sisimai::Data
     puts e.recipient.class      # Sisimai::Address
     puts e.timestamp.class      # Sisimai::Time
@@ -150,7 +154,7 @@ and Ruby version of Sisimai.
 | How to install                                 | gem install   | cpanm        |
 | Dependencies (Except core modules)             | 1 modules     | 2 modules    |
 | LOC:Source lines of code                       | 11700 lines   | 9100 lines   |
-| The number of tests in t/, xt/ directory       | 92400 tests   | 166200 tests |
+| The number of tests in t/, xt/ directory       | 92400 tests   | 166700 tests |
 | License                                        | BSD 2-Clause  | BSD 2-Clause |
 | Support Contract provided by Developer         | Coming soon   | Available    |
 
@@ -168,7 +172,7 @@ and Ruby version of Sisimai.
 | インストール方法                               | gem install   | cpanm       |
 | 依存モジュール数(コアモジュールを除く)         | 1モジュール   | 2モジュール |
 | LOC:ソースコードの行数                         | 11700行       | 9100行      |
-| テスト件数(t/,xt/ディレクトリ)                 | 92400件       | 166200件    |
+| テスト件数(t/,xt/ディレクトリ)                 | 92400件       | 166700件    |
 | ライセンス                                     | 二条項BSD     | 二条項BSD   |
 | 開発会社によるサポート契約                     | 準備中        | 提供中      |
 
