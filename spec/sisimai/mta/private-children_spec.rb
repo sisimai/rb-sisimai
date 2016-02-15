@@ -36,6 +36,7 @@ describe 'Sisimai::MTA::' do
       '01009' => %r/filtered/,
       '01010' => %r/blocked/,
       '01011' => %r/hostunknown/,
+      '01012' => %r/hostunknown/,
     },
     'Domino' => {
       '01001' => %r/onhold/,
@@ -49,6 +50,8 @@ describe 'Sisimai::MTA::' do
       '01009' => %r/userunknown/,
       '01010' => %r/userunknown/,
       '01011' => %r/userunknown/,
+      '01012' => %r/userunknown/,
+      '01013' => %r/userunknown/,
     },
     'Exchange' => {
       '01001' => %r/userunknown/,
@@ -83,6 +86,7 @@ describe 'Sisimai::MTA::' do
       '01030' => %r/userunknown/,
       '01031' => %r/userunknown/,
       '01032' => %r/userunknown/,
+      '01033' => %r/userunknown/,
     },
     'Exim' => {
       '01001' => %r/securityerror/,
@@ -227,6 +231,7 @@ describe 'Sisimai::MTA::' do
       '01034' => %r/userunknown/,
       '01035' => %r/spamdetected/,
       '01036' => %r/spamdetected/,
+      '01037' => %r/spamdetected/,
     },
     'InterScanMSS' => {
       '01001' => %r/userunknown/,
@@ -302,6 +307,7 @@ describe 'Sisimai::MTA::' do
       '01005' => %r/onhold/,
       '01006' => %r/userunknown/,
       '01007' => %r/userunknown/,
+      '01008' => %r/userunknown/,
     },
     'OpenSMTPD' => {
       '01001' => %r/userunknown/,

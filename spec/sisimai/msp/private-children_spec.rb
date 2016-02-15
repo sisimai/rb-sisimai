@@ -290,6 +290,7 @@ describe 'Sisimai::MSP::' do
     },
     'US::Verizon' => {
       '01001' => %r/userunknown/,
+      '01002' => %r/userunknown/,
     },
     'US::Yahoo' => {
       '01001' => %r/userunknown/,
