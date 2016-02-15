@@ -98,7 +98,7 @@ describe Sisimai::SMTP::Status do
       smtperrors.each do |e|
         subject { cn.find(e) }
         it('returns DSN') { is_expected.to be_a String }
-        it('matches with DSN') { is_expected.to match /\A[245][.]\d[.]\d\z/ }
+        it('matches with DSN') { is_expected.to match(/\A[245][.]\d[.]\d\z/) }
       end
     end
 
