@@ -1,5 +1,9 @@
 Revision history for Ruby version of Sisimai
 
+4.15.1  Wed, 17 Feb 2016 01:36:45 +0900 (JST)
+    - Fix serious bug `gem install sisimai` fails on JRuby, reported at issue
+      #46. Thanks to @hiroyuki-sato.
+
 4.15.0  Sat, 13 Feb 2016 12:40:15 +0900 (JST)
     - Beginning with this version, Sisimai requires Oj(MRI) or JrJackson(JRuby)
       for encoding parsed data to JSON string more faster (about 10%-20% faster
