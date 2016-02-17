@@ -9,12 +9,14 @@ SHELL := /bin/sh
 TIME  := $(shell date '+%s')
 NAME  := sisimai
 RUBY  := ruby
+JRUBY := /usr/local/jr
 RAKE  := rake
 MKDIR := mkdir -p
 RSPEC := rspec -Ilib -f progress
 CP    := cp
 RM    := rm -f
 
+DEPENDENCIES  = bundle rake rspec
 .DEFAULT_GOAL = git-status
 REPOS_TARGETS = git-status git-push git-commit-amend git-tag-list git-diff \
 				git-reset-soft git-rm-cached git-branch
@@ -23,16 +25,28 @@ REPOS_TARGETS = git-status git-push git-commit-amend git-tag-list git-diff \
 .PHONY: clean
 
 depend:
-	gem install bundle rake rspec coveralls
+	gem install $(DEPENDENCIES)
+	if [ test -d "$(JRUBY)" ]; then \
+		PATH="$$PATH:$(JRUBY)/bin" $(JRUBY)/bin/gem install $(DEPENDENCIES); \
+	fi
 
 install-from-rubygems:
 	gem install $(NAME)
+	if [ test -d "$(JRUBY)" ]; then \
+		PATH="$$PATH:$(JRUBY)/bin" $(JRUBY)/bin/gem install $(NAME); \
+	fi
 
 install-from-local:
-	bundle exec $(RAKE) install
+	$(RAKE) install
+	if [ test -d "$(JRUBY)" ]; then \
+		PATH="$$PATH:$(JRUBY)/bin" $(JRUBY)/bin/rake install; \
+	fi
 
 release:
-	bundle exec $(RAKE) release
+	$(RAKE) release
+	if [ test -d "$(JRUBY)" ]; then \
+		PATH="$$PATH:$(JRUBY)/bin" $(JRUBY)/bin/rake release; \
+	fi
 
 test: user-test
 
