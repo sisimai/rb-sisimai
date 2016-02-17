@@ -4,6 +4,9 @@ source 'https://rubygems.org'
 gemspec name: 'sisimai'
 
 # To execute `rake spec` on Travis-CI
-gem 'rake',  :require => false
-gem 'rspec', :require => false
+group :development, :test do
+  gem 'rake',  :require => false
+  gem 'rspec', :require => false
+  gem 'coveralls', :require => false
+end
 
