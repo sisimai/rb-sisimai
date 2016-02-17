@@ -7,7 +7,7 @@ rvm:
   - jruby-9.0.4.0
 before_install:
   - gem update bundler
-  - gem install rspec rake
+  - gem install rspec rake coveralls
 script:
   - rake spec
 sudo: false
