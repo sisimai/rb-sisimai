@@ -176,4 +176,25 @@ describe Sisimai do
     end
   end
 
+  describe '.engine' do
+    it 'returns Hash' do
+      expect(Sisimai.engine).to be_a Hash
+      expect(Sisimai.engine.keys.size).to be > 0
+    end
+    it 'including a module information' do
+      Sisimai.engine.each do |e, f|
+        expect(e).to match(/\ASisimai::/)
+        expect(f).to be_a String
+        expect(f.size).to be > 0
+      end
+    end
+
+    context 'wrong number of arguments' do
+      it 'raises ArgumentError' do
+        expect { Sisimai.engine(nil)}.to raise_error(ArgumentError)
+        expect { Sisimai.engine(nil, nil) }.to raise_error(ArgumentError)
+      end
+    end
+  end
+
 end

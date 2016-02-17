@@ -13,15 +13,18 @@ module Sisimai
     def libname(); return 'Sisimai';        end
 
     # Wrapper method for parsing mailbox/maidir
-    # @param    [String] path   Path to mbox or Maildir/
+    # @param         [String] path         Path to mbox or Maildir/
+    # @param         [Hash]  argvs         Parser options(delivered=false)
+    # @options argvs [Boolean] delivered  true: Include "delivered" reason
     # @return   [Array]         Parsed objects
     # @return   [nil]           nil if the argument was wrong or an empty array
-    def make(path)
+    def make(path, **argvs)
       return nil unless path
 
       require 'sisimai/mail'
       mail = Sisimai::Mail.new(path)
       list = []
+      opts = argvs[:delivered] || false
 
       return nil unless mail
       require 'sisimai/data'
@@ -31,7 +34,7 @@ module Sisimai
         # Read and parse each mail file
         mesg = Sisimai::Message.new(data: r)
         next if mesg.void
-        data = Sisimai::Data.make(data: mesg)
+        data = Sisimai::Data.make(data: mesg, delivered: opts)
         next unless data
         list.concat(data) if data.size > 0
       end
@@ -41,12 +44,14 @@ module Sisimai
     end
 
     # Wrapper method to parse mailbox/Maildir and dump as JSON
-    # @param        [String] path Path to mbox or Maildir/
-    # @return       [String]      Parsed data as JSON text
-    def dump(path)
+    # @param         [String] path       Path to mbox or Maildir/
+    # @param         [Hash] argvs        Parser options
+    # @options argvs [Integer] delivered true: Include "delivered" reason
+    # @return        [String]            Parsed data as JSON text
+    def dump(path, **argvs)
       return nil unless path
 
-      parseddata = Sisimai.make(path) || []
+      parseddata = Sisimai.make(path, argvs) || []
       if RUBY_PLATFORM =~ /java/
         # java-based ruby environment like JRuby.
         require 'jrjackson'
@@ -57,6 +62,34 @@ module Sisimai
       end
       return jsonstring
     end
+
+    # Parser engine list (MTA/MSP modules)
+    # @return   [Hash]     Parser engine table
+    def engine
+      names = %w|MTA MSP ARF RFC3464 RFC3834|
+      table = {}
+
+      names.each do |e|
+        r = 'Sisimai::' + e
+        require r.gsub('::', '/').downcase
+
+        if e == 'MTA' || e == 'MSP'
+          # Sisimai::MTA or Sisimai::MSP
+          Module.const_get(r).send(:index).each do |ee|
+            # Load and get the value of "description" from each module
+            rr = sprintf('Sisimai::%s::%s', e, ee)
+            require rr.gsub('::', '/').downcase
+            table[rr.to_sym] = Module.const_get(rr).send(:description)
+          end
+        else
+          # Sisimai::ARF, Sisimai::RFC3464, and Sisimai::RFC3834
+          table[r.to_sym] = Module.const_get(r).send(:description)
+        end
+      end
+
+      return table
+    end
+
   end
 
 end

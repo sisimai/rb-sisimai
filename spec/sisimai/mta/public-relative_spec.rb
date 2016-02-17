@@ -178,7 +178,7 @@ describe 'Sisimai::*' do
             end
           end
 
-          o = Sisimai::Data.make( data: p )
+          o = Sisimai::Data.make( data: p, delivered: true )
           it 'returns Array' do
             expect(o).to be_a Array
             expect(o.size).to be > 0

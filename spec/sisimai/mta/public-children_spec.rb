@@ -278,7 +278,7 @@ describe 'Sisimai::MTA::*' do
           it 'returns String' do
             expect(mailtxt).to be_a String
           end
-          p = Sisimai::Message.new(data: r)
+          p = Sisimai::Message.new(data: r, delivered: true)
 
           it 'returns Sisimai::Message object' do
             expect(p).to be_a Sisimai::Message

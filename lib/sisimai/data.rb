@@ -117,10 +117,11 @@ module Sisimai
     end
 
     # Another constructor of Sisimai::Data
-    # @param        [Hash] argvs       Data and orders
-    # @option argvs [Sisimai::Message] Data Object
-    # @return       [Array, Undef]     List of Sisimai::Data or Undef if the
-    #                                  argument is not Sisimai::Message object
+    # @param          [Sisimai::Message] data   Data Object
+    # @param          [Hash] argvs              Parser options
+    # @options argvs  [Boolean] delivered       true: Including "delivered" reason
+    # @return         [Array, Undef]            List of Sisimai::Data or Undef if the
+    #                                           argument is not Sisimai::Message object
     def self.make(data: nil, **argvs)
       return nil unless data
       return nil unless data.is_a? Sisimai::Message
@@ -131,6 +132,7 @@ module Sisimai
       objectlist = []
       rxcommands = %r/\A(?:EHLO|HELO|MAIL|RCPT|DATA|QUIT)\z/
       givenorder = argvs['order'] || {}
+      delivered1 = argvs[:delivered] || false
 
       return nil unless messageobj.ds
       return nil unless messageobj.rfc822
@@ -176,6 +178,10 @@ module Sisimai
           'diagnostictype' => e['spec']         || '',
           'deliverystatus' => e['status']       || '',
         }
+        unless delivered1
+          # Skip if the value of "deliverystatus" begins with "2." such as 2.1.5
+          next if p['deliverystatus'] =~ /\A2[.]/
+        end
 
         # EMAIL_ADDRESS:
         # Detect email address from message/rfc822 part
