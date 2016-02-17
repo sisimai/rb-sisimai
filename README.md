@@ -52,10 +52,10 @@ Install | インストール
 
 ```shell
 % sudo gem install sisimai
-Fetching: sisimai-4.14.2.gem (100%)
-Successfully installed sisimai-4.14.2
-Parsing documentation for sisimai-4.14.2
-Installing ri documentation for sisimai-4.14.2
+Fetching: sisimai-4.16.0.gem (100%)
+Successfully installed sisimai-4.16.0
+Parsing documentation for sisimai-4.16.0
+Installing ri documentation for sisimai-4.16.0
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -82,7 +82,7 @@ Parsing documentation for coveralls-0.8.10
 Done installing documentation for coveralls after 0 seconds
 4 gems installed
 bundle exec rake install
-sisimai 4.14.2 built to pkg/sisimai-4.14.2.gem.
+sisimai 4.14.2 built to pkg/sisimai-4.16.0.gem.
 sisimai (4.14.2) installed.
 ```
 
@@ -99,12 +99,12 @@ messages like following.
 require 'sisimai'
 v = Sisimai.make('/path/to/mbox')       # or path to Maildir/
 
+# If you want to get bounce records which reason is "delivered", set "delivered"
+# option to make() method like the following:
+v = Sisimai.make('/path/to/mbox', delivered: true)
+
 unless v.void
   v.each do |e|
-    # If you want to get only ERROR records, skip if the value of "reason"
-    # is "delivered". This reason is implemented at Sisimai v4.16.0
-    next if e['reason'] == 'delivered'
-  
     puts e.class                # Sisimai::Data
     puts e.recipient.class      # Sisimai::Address
     puts e.timestamp.class      # Sisimai::Time
@@ -124,6 +124,10 @@ end
 
 # Get JSON string from parsed mailbox or Maildir/
 puts Sisimai.dump('/path/to/mbox')  # or path to Maildir/
+
+# dump() method also accepts "delivered" option like the following code:
+puts Sisimai.dump('/path/to/mbox', delivered: true)
+
 ```
 
 ```json
