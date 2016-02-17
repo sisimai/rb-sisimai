@@ -8,7 +8,7 @@ rvm:
 before_install:
   - gem update bundler
 script:
-  - bundle exec rake spec
+  - rake spec
 sudo: false
 cache: bundler
 notifications:
