@@ -13,6 +13,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'Sisimai is a Ruby library for analyzing RFC5322 bounce emails and generating structured data from parsed results.'
   spec.homepage      = 'http://libsisimai.org/'
   spec.license       = 'BSD-2-Clause'
+  spec.platform      = "java"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = 'exe'
@@ -24,5 +25,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 1.8'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec'
-  spec.add_runtime_dependency 'oj', '>= 2.14.4'
+  spec.add_runtime_dependency 'jrjackson'
 end
