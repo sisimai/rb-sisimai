@@ -13,11 +13,11 @@ module Sisimai
     def libname(); return 'Sisimai';        end
 
     # Wrapper method for parsing mailbox/maidir
-    # @param         [String] path         Path to mbox or Maildir/
-    # @param         [Hash]  argvs         Parser options(delivered=false)
-    # @options argvs [Boolean] delivered  true: Include "delivered" reason
-    # @return   [Array]         Parsed objects
-    # @return   [nil]           nil if the argument was wrong or an empty array
+    # @param         [String] path       Path to mbox or Maildir/
+    # @param         [Hash]  argvs       Parser options(delivered=false)
+    # @options argvs [Boolean] delivered true: Include "delivered" reason
+    # @return        [Array]             Parsed objects
+    # @return        [nil]               nil if the argument was wrong or an empty array
     def make(path, **argvs)
       return nil unless path
 

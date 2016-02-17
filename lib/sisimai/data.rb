@@ -117,11 +117,11 @@ module Sisimai
     end
 
     # Another constructor of Sisimai::Data
-    # @param          [Sisimai::Message] data   Data Object
-    # @param          [Hash] argvs              Parser options
-    # @options argvs  [Boolean] delivered       true: Including "delivered" reason
-    # @return         [Array, Undef]            List of Sisimai::Data or Undef if the
-    #                                           argument is not Sisimai::Message object
+    # @param          [Sisimai::Message] data Data Object
+    # @param          [Hash] argvs            Parser options
+    # @options argvs  [Boolean] delivered     true: Including "delivered" reason
+    # @return         [Array, Nil]            List of Sisimai::Data or Nil if the
+    #                                         argument is not Sisimai::Message object
     def self.make(data: nil, **argvs)
       return nil unless data
       return nil unless data.is_a? Sisimai::Message
