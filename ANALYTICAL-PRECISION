@@ -17,7 +17,7 @@ MTA::MessagingServer ....   19/0022  0.8636  Oracle Communications Messaging Ser
 MTA::Notes ..............    0/0012  0.0000  Lotus Notes
 MTA::OpenSMTPD ..........    5/0023  0.2174  OpenSMTPD
 MTA::Postfix ............  161/0179  0.8994  Postfix
-MTA::Sendmail ...........  257/0244  1.0000  V8Sendmail: /usr/sbin/sendmail
+MTA::Sendmail ...........  257/0243  1.0000  V8Sendmail: /usr/sbin/sendmail
 MTA::SurfControl ........    6/0008  0.7500  WebSense SurfControl
 MTA::V5sendmail .........    0/0386  0.0000  Sendmail version 5
 MTA::X1 .................    0/0007  0.0000  Unknown MTA #1
@@ -49,8 +49,8 @@ MSP::US::Verizon ........    3/0003  1.0000  Verizon Wireless: http://www.verizo
 MSP::US::Yahoo ..........    0/0009  0.0000  Yahoo! MAIL: https://www.yahoo.com
 MSP::US::Zoho ...........    0/0011  0.0000  Zoho Mail: https://www.zoho.com
 ARF .....................    9/0050  0.1800  Abuse Feedback Reporting Format
-RFC3464 .................  130/0274  0.4745  Fallback Module for MTAs
+RFC3464 .................  130/0273  0.4762  Fallback Module for MTAs
 RFC3834 .................    0/0004  0.0000  Detector for auto replied message
 -------------------------------------------------------------------------------
- bounceHammer 2.7.13p3    1025/2127  0.4819
- Sisimai 4.16.0           2127/2127  1.0000
+ bounceHammer 2.7.13p3    1025/2125  0.4824
+ Sisimai 4.16.0           2125/2125  1.0000
