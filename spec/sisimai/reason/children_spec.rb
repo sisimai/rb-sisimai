@@ -35,6 +35,11 @@ reasonchildren.each_key do |e|
       it('returns reason name') { expect(cn.text).to be == e.downcase }
     end
 
+    describe '.description' do
+      it('returns String') { expect(cn.description).to be_a String }
+      it('returns description') { expect(cn.description.size).to be > 0 }
+    end
+
     describe '.true' do
       it('returns nil') { expect(cn.true(nil)).to be nil }
     end
@@ -46,6 +51,30 @@ reasonchildren.each_key do |e|
       end
     end
   end
+end
 
+%w|Delivered Feedback Undefined Vacation|.each do |e|
+  rn = 'Sisimai::Reason::' + e
+  require rn.downcase.gsub('::', '/')
+  cn = Module.const_get(rn)
+
+  describe cn do
+    describe '.text' do
+      it('returns reason name') { expect(cn.text).to be == e.downcase }
+    end
+
+    describe '.description' do
+      it('returns String') { expect(cn.description).to be_a String }
+      it('returns description') { expect(cn.description.size).to be > 0 }
+    end
+
+    describe '.true' do
+      it('returns nil') { expect(cn.true(nil)).to be nil }
+    end
+
+    describe '.match' do
+      it('returns nil') { expect(cn.true(nil)).to be nil }
+    end
+  end
 end
 
