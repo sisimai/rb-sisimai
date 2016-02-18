@@ -1,5 +1,16 @@
 Revision history for Ruby version of Sisimai
 
+4.16.0  Thu, 18 Feb 2016 13:49:01 +0900 (JST)
+    - Implement new reason "delivered". Sisimai set "delivered" to the reason
+      when the value of Status: field in a bounce message begins with "2". This
+      feature is optional and is not enabled by default.
+    - Implement new method Sisimai.engine. the method returns the list of MTA
+      and MSP module list implemented in Sisimai.
+    - Fix serious bug (`gem install` fails on JRuby environment) in Gemfile and
+      sisimai.gemspec. This bug is reported at issue #46 and pull-request #47.
+      Thanks to @hiroyuki-sato and all the people who helped for resolving this
+      issue on https://github.com/rubygems/rubygems/issues/1492.
+
 4.15.1  Wed, 17 Feb 2016 01:36:45 +0900 (JST)
     - Fix serious bug `gem install sisimai` fails on JRuby, reported at issue
       #46. Thanks to @hiroyuki-sato.
