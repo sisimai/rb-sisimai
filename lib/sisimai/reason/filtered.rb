@@ -28,6 +28,7 @@ module Sisimai
               being[ ]accepted[ ]for[ ]this[ ]mailbox
             |has[ ]restricted[ ]SMS[ ]e-mail    # AT&T
             |http://postmaster[.]facebook[.]com/.+refused[ ]due[ ]to[ ]recipient[ ]preferences # Facebook
+            |IS[ ]NOT[ ]ACCEPTING[ ]ANY[ ]MAIL
             |permanent[ ]failure[ ]for[ ]one[ ]or[ ]more[ ]recipients[ ][(].+:blocked[)]
             |RESOLVER[.]RST[.]NotAuthorized # Microsoft Exchange
             |This[ ]account[ ]is[ ]protected[ ]by
