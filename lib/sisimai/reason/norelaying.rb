@@ -14,6 +14,9 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/NoRelaying.pm
       class << self
         def text; return 'norelaying'; end
+        def description
+          return 'Email rejected with error message "Relaying Denied"'
+        end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions

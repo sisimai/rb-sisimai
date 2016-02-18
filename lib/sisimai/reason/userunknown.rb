@@ -17,6 +17,9 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/UserUnknown.pm
       class << self
         def text; return 'userunknown'; end
+        def description
+          return "Email rejected due to a local part of a recipient's email address does not exist"
+        end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions

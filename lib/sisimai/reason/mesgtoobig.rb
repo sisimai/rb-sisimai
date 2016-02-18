@@ -9,6 +9,9 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/MesgTooBig.pm
       class << self
         def text; return 'mesgtoobig'; end
+        def description
+          return 'Email rejected due to a email size is too big for a destination mail server'
+        end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions

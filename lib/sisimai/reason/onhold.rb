@@ -9,6 +9,9 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/OnHold.pm
       class << self
         def text; return 'onhold'; end
+        def description
+          return 'Sisimai could not decided the reason due to there is no (or less) detailed information for judging the reason'
+        end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions

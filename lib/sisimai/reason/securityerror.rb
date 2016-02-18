@@ -16,6 +16,9 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/SecurityError.pm
       class << self
         def text; return 'securityerror'; end
+        def description
+          return 'Email rejected due to security violation was detected on a destination host'
+        end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions

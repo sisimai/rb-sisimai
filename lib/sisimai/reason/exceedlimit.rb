@@ -10,6 +10,9 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/ExceedLimit.pm
       class << self
         def text; return 'exceedlimit'; end
+        def description
+          return 'Email rejected due to an email exceeded the limit'
+        end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions

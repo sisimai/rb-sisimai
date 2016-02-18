@@ -12,6 +12,9 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/NotAccept.pm
       class << self
         def text; return 'notaccept'; end
+        def description
+          return 'Delivery failed due to a destination mail server does not accept any email'
+        end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions

@@ -10,6 +10,9 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/MailboxFull.pm
       class << self
         def text; return 'mailboxfull'; end
+        def description
+          return "Email rejected due to a recipient's mailbox is full"
+        end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions

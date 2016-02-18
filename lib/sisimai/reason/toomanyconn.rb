@@ -13,6 +13,9 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/TooManyConn.pm
       class << self
         def text; return 'toomanyconn'; end
+        def description
+          return 'SMTP connection rejected temporarily due to too many concurrency connections to the remote host'
+        end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions

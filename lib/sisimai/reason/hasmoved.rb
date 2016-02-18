@@ -10,6 +10,9 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/HasMoved.pm
       class << self
         def text; return 'hasmoved'; end
+        def description
+          return "Email rejected due to user's mailbox has moved and is not forwarded automatically"
+        end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions

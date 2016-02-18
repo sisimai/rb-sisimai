@@ -13,6 +13,9 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/SystemError.pm
       class << self
         def text; return 'systemerror'; end
+        def description
+          return 'Email returned due to system error on the remote host'
+        end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions

@@ -13,6 +13,9 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/Filtered.pm
       class << self
         def text; return 'filtered'; end
+        def description
+          return 'Email rejected due to a header content after SMTP DATA command'
+        end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
