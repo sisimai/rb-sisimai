@@ -197,4 +197,25 @@ describe Sisimai do
     end
   end
 
+  describe '.reason' do
+    it 'returns Hash' do
+      expect(Sisimai.reason).to be_a Hash
+      expect(Sisimai.reason.keys.size).to be > 0
+    end
+    it 'including a reason description' do
+      Sisimai.reason.each do |e, f|
+        expect(e).to match(/\A[A-Z]/)
+        expect(f).to be_a String
+        expect(f.size).to be > 0
+      end
+    end
+
+    context 'wrong number of arguments' do
+      it 'raises ArgumentError' do
+        expect { Sisimai.reason(nil)}.to raise_error(ArgumentError)
+        expect { Sisimai.reason(nil, nil) }.to raise_error(ArgumentError)
+      end
+    end
+  end
+
 end

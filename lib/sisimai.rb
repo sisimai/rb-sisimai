@@ -90,6 +90,22 @@ module Sisimai
       return table
     end
 
-  end
+    # Reason list Sisimai can detect
+    # @return   [Hash]     Reason list table
+    def reason
+      require 'sisimai/reason'
+      table = {}
+      names = Sisimai::Reason.index
+      names.concat(%w|Delivered Feedback Undefined Vacation|)
 
+      names.each do |e|
+        r = 'Sisimai::Reason::' + e
+        require r.gsub('::', '/').downcase
+        table[r.to_sym] = Module.const_get(r).send(:description)
+      end
+
+      return table
+    end
+  end
 end
+
