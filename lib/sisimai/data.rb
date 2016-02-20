@@ -43,8 +43,8 @@ module Sisimai
     RetryIndex = Sisimai::Reason.retry
     RFC822Head = Sisimai::RFC5322.HEADERFIELDS('all')
     AddrHeader = {
-      'addresser' => RFC822Head['addresser'],
-      'recipient' => RFC822Head['recipient'],
+      :addresser => RFC822Head['addresser'],
+      :recipient => RFC822Head['recipient'],
     }
 
     # Constructor of Sisimai::Data
@@ -128,10 +128,10 @@ module Sisimai
 
       messageobj = data
       rfc822data = messageobj.rfc822
-      fieldorder = { 'recipient' => [], 'addresser' => [] }
+      fieldorder = { :recipient => [], :addresser => [] }
       objectlist = []
       rxcommands = %r/\A(?:EHLO|HELO|MAIL|RCPT|DATA|QUIT)\z/
-      givenorder = argvs['order'] || {}
+      givenorder = argvs[:order] || {}
       delivered1 = argvs[:delivered] || false
 
       return nil unless messageobj.ds
@@ -185,7 +185,7 @@ module Sisimai
 
         # EMAIL_ADDRESS:
         # Detect email address from message/rfc822 part
-        fieldorder['addresser'].each do |f|
+        fieldorder[:addresser].each do |f|
           # Check each header in message/rfc822 part
           h = f.downcase
           next unless rfc822data.key?(h)
