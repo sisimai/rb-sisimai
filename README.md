@@ -29,7 +29,7 @@ Key Features | 主な特徴的機能
   * Support 21 known MTAs and 5 unknown MTAs | 26種類のMTAに対応
   * Support 21 major MSPs(Mail Service Providers) | 21種類の著名なMSPに対応
   * Support Feedback Loop Message(ARF) | Feedback Loopにも対応
-  * Can detect 26 error reasons | 26種類のエラー理由を検出
+  * Can detect 27 error reasons | 27種類のエラー理由を検出
 
 Setting Up Sisimai | シシマイを使う準備
 =======================================
@@ -246,7 +246,7 @@ details about these modules are available at
 
 Bounce Reason List | バウンス理由の一覧
 ----------------------------------------
-Sisimai can detect the following 26 bounce reasons. More details about reasons
+Sisimai can detect the following 27 bounce reasons. More details about reasons
 are available at [Sisimai | Bounce Reason List](http://libsisimai.org/reason)
 page.
 
@@ -254,7 +254,7 @@ page.
 |----------------|----------------------------------------|----------------------------------|
 | Blocked        | Blocked due to client IP address       | IPアドレスによる拒否             |
 | ContentError   | Invalid format email                   | 不正な形式のメール               |
-| Delivered      | Successfully delivered (> v4.16.0)     | 正常に配信された
+| Delivered[1]   | Successfully delivered (> v4.16.0)     | 正常に配信された                 |
 | ExceedLimit    | Message size exceeded the limit(5.2.3) | メールサイズの超過               |
 | Expired        | Delivery time expired                  | 配送時間切れ                     |
 | Feedback       | Bounced for a complaint of the message | 元メールへの苦情によるバウンス   |
@@ -280,7 +280,8 @@ page.
 | Undefined      | Could not decide the error reason      | バウンスした理由は特定出来ず     |
 | Vacation       | Auto replied message                   | 自動応答メッセージ               |
 
-Sisimaiは上記のエラー26種を検出します。
+Sisimaiは上記のエラー27種を検出します。
+1. This reason is not included by default | このバウンス理由は標準では解析結果に含まれません
 
 
 Parsed data structure | 解析後のデータ構造
