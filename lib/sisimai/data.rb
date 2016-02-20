@@ -41,10 +41,10 @@ module Sisimai
 
     EndOfEmail = Sisimai::String.EOM
     RetryIndex = Sisimai::Reason.retry
-    RFC822Head = Sisimai::RFC5322.HEADERFIELDS('all')
+    RFC822Head = Sisimai::RFC5322.HEADERFIELDS(:all)
     AddrHeader = {
-      :addresser => RFC822Head['addresser'],
-      :recipient => RFC822Head['recipient'],
+      :addresser => RFC822Head[:addresser],
+      :recipient => RFC822Head[:recipient],
     }
 
     # Constructor of Sisimai::Data
@@ -213,7 +213,7 @@ module Sisimai
         end
 
         # Date information did not exist in message/delivery-status part,...
-        RFC822Head['date'].each do |f|
+        RFC822Head[:date].each do |f|
           # Get the value of Date header or other date related header.
           next unless rfc822data[f.downcase]
           datevalues << rfc822data[f.downcase]

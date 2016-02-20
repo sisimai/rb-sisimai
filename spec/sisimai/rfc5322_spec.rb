@@ -17,7 +17,7 @@ describe Sisimai::RFC5322 do
     end
 
     context '("date")' do
-      v = cn.HEADERFIELDS('date')
+      v = cn.HEADERFIELDS(:date)
       it 'returns Array' do
         expect(v).to be_a_kind_of(Array)
         v.each do |e|
@@ -28,7 +28,7 @@ describe Sisimai::RFC5322 do
     end
 
     context '("neko")' do
-      v = cn.HEADERFIELDS('neko')
+      v = cn.HEADERFIELDS(:neko)
       it 'returns Hash' do
         expect(v).to be_a_kind_of(Hash)
         v.each_key do |e|

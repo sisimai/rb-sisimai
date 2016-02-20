@@ -4,15 +4,15 @@ module Sisimai
     # Imported from p5-Sisimail/lib/Sisimai/RFC5322.pm
     class << self
       HeaderTable = {
-        'messageid' => ['Message-Id'],
-        'subject'   => ['Subject'],
-        'listid'    => ['List-Id'],
-        'date'      => ['Date', 'Posted-Date', 'Posted', 'Resent-Date'],
-        'addresser' => [
+        :messageid => ['Message-Id'],
+        :subject   => ['Subject'],
+        :listid    => ['List-Id'],
+        :date      => ['Date', 'Posted-Date', 'Posted', 'Resent-Date'],
+        :addresser => [
           'From', 'Return-Path', 'Reply-To', 'Errors-To', 'Reverse-Path',
           'X-Postfix-Sender', 'Envelope-From', 'X-Envelope-From',
         ],
-        'recipient' => [
+        :recipient => [
           'To', 'Delivered-To', 'Forward-Path', 'Envelope-To',
           'X-Envelope-To', 'Resent-To', 'Apparently-To'
         ],
@@ -61,7 +61,7 @@ module Sisimai
       HeaderIndex = build_flatten_rfc822header_list.call
 
       # Grouped RFC822 headers
-      # @param    [String] group  RFC822 Header group name
+      # @param    [Symbol] group  RFC822 Header group name
       # @return   [Array,Hash]    RFC822 Header list
       def HEADERFIELDS(group = '')
         return HeaderIndex unless group.size > 0
