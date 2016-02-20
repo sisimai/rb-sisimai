@@ -272,6 +272,7 @@ page.
 | SecurityError  | Virus detected or authentication error | ウィルスの検出または認証失敗     |
 | SpamDetected   | Detected a message as spam             | メールはスパムとして判定された   |
 | Suspend        | Recipient's account is suspended       | 宛先アカウントは一時的に停止中   |
+| SyntaxError    | syntax error in SMTP (> v4.17.0)       | SMTPの文法エラー(> 4.17.0)       |
 | SystemError    | Some error on the destination host     | 宛先サーバでのOSレベルのエラー   |
 | SystemFull     | Disk full on the destination host      | 宛先サーバのディスクが一杯       |
 | TooManyConn    | Connection rate limit exceeded         | 接続制限数を超過した             |
