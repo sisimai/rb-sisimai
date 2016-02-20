@@ -30,7 +30,7 @@ module Sisimai
         #                     %d33-90 /       ; The rest of the US-ASCII
         #                     %d94-126        ;  characters not including "[",
         #                                     ;  "]", or "\"
-        re             = { 'rfc5322' => nil, 'ignored' => nil, 'domain' => nil }
+        re             = { rfc5322: nil, ignored: nil, domain: nil }
         atom           = %r([a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+)o
         quoted_string  = %r/"(?:\\[^\r\n]|[^\\"])*"/o
         domain_literal = %r/\[(?:\\[\x01-\x09\x0B-\x0c\x0e-\x7f]|[\x21-\x5a\x5e-\x7e])*\]/o
@@ -38,9 +38,9 @@ module Sisimai
         local_part     = %r/(?:#{dot_atom}|#{quoted_string})/o
         domain         = %r/(?:#{dot_atom}|#{domain_literal})/o
 
-        re['rfc5322']  = %r/#{local_part}[@]#{domain}/o
-        re['ignored']  = %r/#{local_part}[.]*[@]#{domain}/o
-        re['domain']   = %r/#{domain}/o
+        re[:rfc5322]   = %r/#{local_part}[@]#{domain}/o
+        re[:ignored]   = %r/#{local_part}[.]*[@]#{domain}/o
+        re[:domain]    = %r/#{domain}/o
 
         return re
       end
@@ -82,7 +82,7 @@ module Sisimai
       def is_emailaddress(email)
         return false unless email.is_a?(::String)
         return false if email =~ %r/(?:[\x00-\x1f]|\x1f)/
-        return true  if email =~ Re['ignored']
+        return true  if email =~ Re[:ignored]
         return false
       end
 
@@ -94,7 +94,7 @@ module Sisimai
         return false unless dpart.is_a?(::String)
         return false if dpart =~ /(?:[\x00-\x1f]|\x1f)/
         return false if dpart =~ /[@]/
-        return true  if dpart =~ Re['domain']
+        return true  if dpart =~ Re[:domain]
         return false
       end
 
