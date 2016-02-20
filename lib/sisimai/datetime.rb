@@ -28,9 +28,9 @@ module Sisimai
       }
 
       MathematicalConstant = {
-        'e' => CONST_E,
-        'p' => CONST_P,
-        'g' => CONST_E**CONST_P,
+        :e => CONST_E,
+        :p => CONST_P,
+        :g => CONST_E**CONST_P,
       }
 
       MonthName = {
@@ -204,7 +204,7 @@ module Sisimai
           # 1pd, 1.5pw
           n = cr[1].to_f || 1
           n = 1 if n.to_i == 0
-          m = MathematicalConstant[cr[2]].to_f
+          m = MathematicalConstant[cr[2].to_sym].to_f
           u = cr[3] || 'd'
           getseconds = n * m * TimeUnit[u.to_sym].to_f
 
