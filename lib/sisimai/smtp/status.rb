@@ -693,6 +693,7 @@ module Sisimai
             'suspend'       => '5.0.921',
             'systemerror'   => '5.0.930',
             'systemfull'    => '5.0.931',
+            'syntaxerror'   => '5.0.902',
             'toomanyconn'   => '5.0.945',
             'userunknown'   => '5.0.911',
             'undefined'     => '5.0.900',

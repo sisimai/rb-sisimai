@@ -19,13 +19,13 @@ module Sisimai
           Blocked ContentError ExceedLimit Expired Filtered HasMoved HostUnknown
           MailboxFull MailerError MesgTooBig NetworkError NotAccept OnHold
           Rejected NoRelaying SpamDetected SecurityError Suspend SystemError
-          SystemFull TooManyConn UserUnknown
+          SystemFull TooManyConn UserUnknown SyntaxError
         ]
       end
 
       # Detect the bounce reason
       # @param    [Sisimai::Data] argvs   Parsed email object
-      # @return   [String, Undef]         Bounce reason or Undef if the argument
+      # @return   [String, Nil]           Bounce reason or Nil if the argument
       #                                   is missing or invalid object
       # @see anotherone
       def get(argvs)
@@ -68,22 +68,7 @@ module Sisimai
 
         if reasontext.empty? || reasontext == 'undefined'
           # Bounce reason is not detected yet.
-          loop do
-            p = 'Sisimai::Reason::OnHold' # Onhold ?
-            r = nil
-            begin
-              require p.downcase.gsub('::', '/')
-              r = Module.const_get(p)
-              reasontext = r.text if r.true(argvs)
-            rescue
-              warn ' ***warning: Failed to load ' + p
-            end
-            break if reasontext.size > 0
-
-            # Other reason ?
-            reasontext = self.anotherone(argvs)
-            break
-          end
+          reasontext = self.anotherone(argvs)
 
           if reasontext == 'undefined' || reasontext.empty?
             # Action: delayed => "expired"
@@ -154,6 +139,11 @@ module Sisimai
             elsif argvs.diagnostictype =~ /\AX-(?:UNIX|POSTFIX)\z/
               # Diagnostic-Code: X-UNIX; ...
               reasontext = 'mailererror'
+
+            else
+              # 50X Syntax Error?
+              require 'sisimai/reason/syntaxerror'
+              reasontext = 'syntaxerror' if Sisimai::Reason::SyntaxError.true(argvs)
             end
           end
 
