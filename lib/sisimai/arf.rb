@@ -270,7 +270,7 @@ module Sisimai
         if recipients == 0
           # Insert pseudo recipient address when there is no valid recipient
           # address in the message.
-          dscontents[-1]['recipient'] = Sisimai::Address.undisclosed('r')
+          dscontents[-1]['recipient'] = Sisimai::Address.undisclosed(:r)
           recipients = 1
         end
 

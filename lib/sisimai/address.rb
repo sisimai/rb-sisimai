@@ -5,17 +5,16 @@ module Sisimai
     require 'sisimai/rfc5322'
 
     # Return pseudo recipient or sender address
-    # @param    [String] argv1  Address type: 'r' or 's'
+    # @param    [Symbol] argv1  Address type: :r or :s
     # @return   [String, Nil]   Pseudo recipient address or sender address or
-    #                           Undef when the $argv1 is neither 'r' nor 's'
+    #                           Undef when the $argv1 is neither :r nor :s
     def self.undisclosed(argv1)
       return nil unless argv1
-      return nil unless %w|r s|.index(argv1)
+      return nil unless %w|r s|.index(argv1.to_s)
 
-      local = argv1 == 'r' ? 'recipient' : 'sender'
+      local = argv1 == :r ? 'recipient' : 'sender'
       return sprintf('undisclosed-%s-in-headers@dummy-domain.invalid', local)
     end
-
 
     # Email address parser
     # @param    [Array] argvs   List of strings including email address
