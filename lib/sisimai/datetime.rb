@@ -14,17 +14,17 @@ module Sisimai
       TZ_OFFSET = 54000               # Max time zone offset, 54000 seconds
 
       TimeUnit = {
-        'o' => (BASE_D * BASE_Y * 4), # Olympiad, 4 years
-        'y' => (BASE_D * BASE_Y),     # Year, Gregorian Calendar
-        'q' => (BASE_D * BASE_Y / 4), # Quarter, year/4
-        'l' => (BASE_D * BASE_L),     # Lunar month
-        'f' => (BASE_D * 14),         # Fortnight, 2 weeks
-        'w' => (BASE_D * 7),          # Week, 604800 seconds
-        'd' => BASE_D,                # Day
-        'h' => 3600,                  # Hour
-        'b' => 86.4,                  # Beat, Swatch internet time: 1000b = 1d
-        'm' => 60,                    # Minute,
-        's' => 1,                     # Second
+        :o => (BASE_D * BASE_Y * 4), # Olympiad, 4 years
+        :y => (BASE_D * BASE_Y),     # Year, Gregorian Calendar
+        :q => (BASE_D * BASE_Y / 4), # Quarter, year/4
+        :l => (BASE_D * BASE_L),     # Lunar month
+        :f => (BASE_D * 14),         # Fortnight, 2 weeks
+        :w => (BASE_D * 7),          # Week, 604800 seconds
+        :d => BASE_D,                # Day
+        :h => 3600,                  # Hour
+        :b => 86.4,                  # Beat, Swatch internet time: 1000b = 1d
+        :m => 60,                    # Minute,
+        :s => 1,                     # Second
       }
 
       MathematicalConstant = {
@@ -198,7 +198,7 @@ module Sisimai
           # 1d, 1.5w
           n = cr[1].to_f
           u = cr[2] || 'd'
-          getseconds = n * TimeUnit[u].to_f
+          getseconds = n * TimeUnit[u.to_sym].to_f
 
         elsif cr = argv1.match(/\A(\d+|\d+[.]\d+)?([#{mathconsts}])([#{unitoftime}])?\z/)
           # 1pd, 1.5pw
@@ -206,7 +206,7 @@ module Sisimai
           n = 1 if n.to_i == 0
           m = MathematicalConstant[cr[2]].to_f
           u = cr[3] || 'd'
-          getseconds = n * m * TimeUnit[u].to_f
+          getseconds = n * m * TimeUnit[u.to_sym].to_f
 
         else
           getseconds = 0
