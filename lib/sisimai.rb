@@ -96,9 +96,12 @@ module Sisimai
       require 'sisimai/reason'
       table = {}
       names = Sisimai::Reason.index
+
+      # These reasons are not included in the results of Sisimai::Reason.index
       names.concat(%w|Delivered Feedback Undefined Vacation|)
 
       names.each do |e|
+        # Call .description() method of Sisimai::Reason::*
         r = 'Sisimai::Reason::' + e
         require r.gsub('::', '/').downcase
         table[r.to_sym] = Module.const_get(r).send(:description)
