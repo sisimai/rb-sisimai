@@ -1,5 +1,14 @@
 Revision history for Ruby version of Sisimai
 
+4.17.0
+    - Implement new reason "syntaxerror". Sisimai will set "syntaxerror" to the
+      raeson when the value of "replycode" begins with "50" such as 502, 503,
+      or 504. Imported from https://github.com/sisimai/p5-Sisimai/pull/170.
+    - Implement description() method at each class in sisimai/reason/*.rb and
+      Sisimai.reason method for getting the list of reasons Sisimai can detect
+      and its description: issue #48.
+    - Remove unused method Sisimai::Reason->match, issue #49.
+
 4.16.0  Thu, 18 Feb 2016 13:49:01 +0900 (JST)
     - Implement new reason "delivered". Sisimai set "delivered" to the reason
       when the value of Status: field in a bounce message begins with "2". This
