@@ -34,21 +34,21 @@ module Sisimai
       }
 
       MonthName = {
-        'full' => %w|January February March April May June July August September October November December|,
-        'abbr' => %w|Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec|,
+        :full => %w|January February March April May June July August September October November December|,
+        :abbr => %w|Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec|,
       }
 
       DayOfWeek = {
-        'full' => %w|Sunday Monday Tuesday Wednesday Thursday Friday Saturday|,
-        'abbr' => %w|Sun Mon Tue Wed Thu Fri Sat |,
+        :full => %w|Sunday Monday Tuesday Wednesday Thursday Friday Saturday|,
+        :abbr => %w|Sun Mon Tue Wed Thu Fri Sat |,
       }
 
       HourName = {
-        'full' => [
+        :full => [
           'Midnight', 1, 2, 3, 4, 5, 'Morning', 7, 8, 9, 10, 11,
           'Noon', 13, 14, 15, 16, 17, 'Evening', 19, 20, 21, 22, 23,
         ],
-        'abbr' => [0..23],
+        :abbr => [0..23],
       }
 
       TimeZoneAbbr = {
@@ -223,7 +223,7 @@ module Sisimai
       #   monthname()  #=> [ 'Jan', 'Feb', ... ]
       #   monthname(1) #=> [ 'January', 'February', 'March', ... ]
       def monthname(argv1 = 0)
-        value = argv1 > 0 ? 'full' : 'abbr'
+        value = argv1 > 0 ? :full : :abbr
         return MonthName[value]
       end
 
@@ -234,7 +234,7 @@ module Sisimai
       #   dayofweek()  #=> [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ]
       #   dayofweek(1) #=> [ 'Sunday', 'Monday', 'Tuesday', ... ]
       def dayofweek(argv1 = 0)
-        value = argv1 > 0 ? 'full' : 'abbr'
+        value = argv1 > 0 ? :full : :abbr
         return DayOfWeek[value]
       end
 
@@ -245,7 +245,7 @@ module Sisimai
       #   hourname()  #=> [ 0, 1, 2, ... 23 ]
       #   hourname(1) #=> [ 'Midnight', 1, 2, ... 'Morning', 7, ... 'Noon', ... 23 ]
       def hourname(argv1 = 1)
-        value = argv1 > 0 ? 'full' : 'abbr'
+        value = argv1 > 0 ? :full : :abbr
         return HourName[value]
       end
 
@@ -306,11 +306,11 @@ module Sisimai
             # Day of week or Day of week; Thu, Apr, ...
             p.chop if p.length == 4 # Thu, -> Thu
 
-            if DayOfWeek['abbr'].include?(p)
+            if DayOfWeek[:abbr].include?(p)
               # Day of week; Mon, Thu, Sun,...
               v['a'] = p
 
-            elsif MonthName['abbr'].include?(p)
+            elsif MonthName[:abbr].include?(p)
               # Month name abbr.; Apr, May, ...
               v['M'] = p
 
@@ -372,13 +372,13 @@ module Sisimai
               if cr = p.match(%r|\A(\d{4})[-/](\d{1,2})[-/](\d{1,2})\z|)
                 # Mail.app(MacOS X)'s faked Bounce, Arrival-Date: 2010-06-18 17:17:52 +0900
                 v['Y'] = cr[1].to_i
-                v['M'] = MonthName['abbr'][cr[2].to_i - 1]
+                v['M'] = MonthName[:abbr][cr[2].to_i - 1]
                 v['d'] = cr[3].to_i
 
               elsif cr = p.match(%r|\A(\d{4})[-/](\d{1,2})[-/](\d{1,2})T([0-2]\d):([0-5]\d):([0-5]\d)\z|)
                 # ISO 8601; 2000-04-29T01:23:45
                 v['Y'] = cr[1].to_i
-                v['M'] = MonthName['abbr'][cr[2].to_i - 1]
+                v['M'] = MonthName[:abbr][cr[2].to_i - 1]
 
                 if cr[3].to_i < 32
                   v['d'] = cr[3].to_i
@@ -390,7 +390,7 @@ module Sisimai
 
               elsif cr = p.match(%r|\A(\d{1,2})/(\d{1,2})/(\d{1,2})\z|)
                 # 4/29/01 11:34:45 PM
-                v['M']  = MonthName['abbr'][cr[1].to_i - 1]
+                v['M']  = MonthName[:abbr][cr[1].to_i - 1]
                 v['d']  = cr[2].to_i
                 v['Y']  = cr[3].to_i + 2000
                 v['Y'] -= 100 if v['Y'].to_i > ::DateTime.now.year + 1
