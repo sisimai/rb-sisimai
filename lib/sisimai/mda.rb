@@ -10,12 +10,12 @@ module Sisimai
         # dovecot/src/deliver/deliver.c
         # 11: #define DEFAULT_MAIL_REJECTION_HUMAN_REASON \
         # 12: "Your message to <%t> was automatically rejected:%n%r"
-        'dovecot'    => %r/\AYour message to .+ was automatically rejected:\z/,
-        'mail.local' => %r/\Amail[.]local: /,
-        'procmail'   => %r/\Aprocmail: /,
-        'maildrop'   => %r/\Amaildrop: /,
-        'vpopmail'   => %r/\Avdelivermail: /,
-        'vmailmgr'   => %r/\Avdeliver: /,
+        :'dovecot'    => %r/\AYour message to .+ was automatically rejected:\z/,
+        :'mail.local' => %r/\Amail[.]local: /,
+        :'procmail'   => %r/\Aprocmail: /,
+        :'maildrop'   => %r/\Amaildrop: /,
+        :'vpopmail'   => %r/\Avdelivermail: /,
+        :'vmailmgr'   => %r/\Avdeliver: /,
       }
       Re2 = %r{\A(?>
          Your[ ]message[ ]to[ ].+[ ]was[ ]automatically[ ]rejected:\z
@@ -25,58 +25,58 @@ module Sisimai
 
       # dovecot/src/deliver/mail-send.c:94
       ReFailure = {
-        'dovecot' => {
-          'userunknown' => %r/\AMailbox doesn't exist: /i,
-          'mailboxfull' => %r{\A(?:
+        :'dovecot' => {
+          :userunknown => %r/\AMailbox doesn't exist: /i,
+          :mailboxfull => %r{\A(?:
              Quota[ ]exceeded # Dovecot 1.2 dovecot/src/plugins/quota/quota.c
             |Quota[ ]exceeded[ ][(]mailbox[ ]for[ ]user[ ]is[ ]full[)]  # dovecot/src/plugins/quota/quota.c
             |Not[ ]enough[ ]disk[ ]space
             )
           }xi,
         },
-        'mail.local' => {
-          'userunknown' => %r{[:][ ](?:
+        :'mail.local' => {
+          :userunknown => %r{[:][ ](?:
              unknown[ ]user[:]
             |User[ ]unknown
             |Invalid[ ]mailbox[ ]path
             |User[ ]missing[ ]home[ ]directory
             )
           }xi,
-          'mailboxfull' => %r{(?:
+          :mailboxfull => %r{(?:
              Disc[ ]quota[ ]exceeded
             |Mailbox[ ]full[ ]or[ ]quota[ ]exceeded
             )
           }xi,
-          'systemerror' => %r/Temporary file write error/i,
+          :systemerror => %r/Temporary file write error/i,
         },
-        'procmail' => {
-          'mailboxfull' => %r/Quota exceeded while writing/i,
-          'systemfull'  => %r/No space left to finish writing/i,
+        :'procmail' => {
+          :mailboxfull => %r/Quota exceeded while writing/i,
+          :systemfull  => %r/No space left to finish writing/i,
         },
-        'maildrop' => {
-          'userunknown' => %r{(?:
+        :'maildrop' => {
+          :userunknown => %r{(?:
              Invalid[ ]user[ ]specified[.]
             |Cannot[ ]find[ ]system[ ]user
             )
           }xi,
-          'mailboxfull' => %r/maildir over quota[.]\z/i,
+          :mailboxfull => %r/maildir over quota[.]\z/i,
         },
-        'vpopmail' => {
-          'userunknown' => %r/Sorry, no mailbox here by that name[.]/i,
-          'filtered'    => %r{(?:
+        :'vpopmail' => {
+          :userunknown => %r/Sorry, no mailbox here by that name[.]/i,
+          :filtered    => %r{(?:
              account[ ]is[ ]locked[ ]email[ ]bounced
             |user[ ]does[ ]not[ ]exist,[ ]but[ ]will[ ]deliver[ ]to[ ]
             )
           }xi,
-          'mailboxfull' => %r/(?:domain|user) is over quota/i,
+          :mailboxfull => %r/(?:domain|user) is over quota/i,
         },
-        'vmailmgr' => {
-          'userunknown' => %r{(?>
+        :'vmailmgr' => {
+          :userunknown => %r{(?>
              Invalid[ ]or[ ]unknown[ ](?:base[ ]user[ ]or[ ]domain|virtual[ ]user)
             |User[ ]name[ ]does[ ]not[ ]refer[ ]to[ ]a[ ]virtual[ ]user/
             )
           }ix,
-          'mailboxfull' => %r/Delivery failed due to system quota violation/i,
+          :mailboxfull => %r/Delivery failed due to system quota violation/i,
         },
       }
 
@@ -115,7 +115,7 @@ module Sisimai
             Re1.each_key do |f|
               # Detect the agent name from the line
               next unless e =~ Re1[f]
-              agentname0 = f
+              agentname0 = f.to_s
               break
             end
           end
@@ -128,12 +128,12 @@ module Sisimai
         return nil unless agentname0.size > 0
         return nil unless linebuffer.size > 0
 
-        ReFailure[agentname0].each_key do |e|
+        ReFailure[agentname0.to_sym].each_key do |e|
           # Detect an error reason from message patterns of the MDA.
           linebuffer.each do |f|
             # Try to match with each regular expression
-            next unless f =~ ReFailure[agentname0][e]
-            reasonname = e
+            next unless f =~ ReFailure[agentname0.to_sym][e]
+            reasonname = e.to_s
             bouncemesg = f
             break
           end
