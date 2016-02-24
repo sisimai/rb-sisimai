@@ -170,5 +170,36 @@ describe Sisimai::RFC5322 do
     end
   end
 
+  describe '.weedout' do
+    rfc822text = <<'EOR';
+Return-Path: <shironeko@mx.example.co.jp>
+Received: from mx.example.co.jp (localhost [127.0.0.1])
+	by mx.example.co.jp (8.13.9/8.13.1) with ESMTP id fffff000000001
+	for <kijitora@example.net>; Thu, 9 Apr 2014 23:34:45 +0900
+Received: (from shironeko@localhost)
+	by mx.example.co.jp (8.13.9/8.13.1/Submit) id fff0000000003
+	for kijitora@example.net; Thu, 9 Apr 2014 23:34:45 +0900
+Date: Thu, 9 Apr 2014 23:34:45 +0900
+Message-Id: <0000000011111.fff0000000003@mx.example.co.jp>
+Content-Type: text/plain
+MIME-Version: 1.0
+From: Shironeko <shironeko@example.co.jp>
+To: Kijitora <shironeko@example.co.jp>
+Subject: Nyaaaan
+
+Nyaaan
+EOR
+    context 'Valid strings as array' do
+      rfc822part = Sisimai::RFC5322.weedout(rfc822text.split("\n"))
+      subject { rfc822part }
+      it('returns String') { is_expected.to be_a String }
+      it('weedout string') { expect(rfc822part.size).to be > 0 }
+      it('contains From:') { is_expected.to match(/^From: /) }
+      it('contains Date:') { is_expected.to match(/^Date: /) }
+      it('is not contain MIME-Version:') { is_expected.not_to match(/^MIME-Version: /) }
+      it('is not contain Received:') { is_expected.not_to match(/^Received: /) }
+    end
+  end
+
 end
 
