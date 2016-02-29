@@ -110,8 +110,6 @@ module Sisimai
           '18' => { 'command' => 'DATA', 'reason' => 'filtered' },
         }
         Indicators = Sisimai::MSP.INDICATORS
-        LongFields = Sisimai::RFC5322.LONGFIELDS
-        RFC822Head = Sisimai::RFC5322.HEADERFIELDS
 
         def description; return 'Google Gmail: https://mail.google.com'; end
         def smtpagent;   return 'US::Google'; end
@@ -186,9 +184,9 @@ module Sisimai
           require 'sisimai/address'
           dscontents = []; dscontents << Sisimai::MSP.DELIVERYSTATUS
           hasdivided = mbody.split("\n")
-          rfc822next = { 'from' => false, 'to' => false, 'subject' => false }
           rfc822part = ''     # (String) message/rfc822-headers part
-          previousfn = ''     # (String) Previous field name
+          rfc822list = []     # (Array) Each line in message/rfc822 part string
+          blanklines = 0      # (Integer) The number of blank lines
           readcursor = 0      # (Integer) Points the current cursor position
           recipients = 0      # (Integer) The number of 'Final-Recipient' header
           statecode0 = 0      # (Integer) The value of (state *) in the error message
@@ -212,29 +210,12 @@ module Sisimai
 
             if readcursor & Indicators[:'message-rfc822'] > 0
               # After "message/rfc822"
-              if cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*.+\z/)
-                # Skip if DKIM-Signature header
-                next if e =~ /\ADKIM-Signature[:]/
-
-                # Get required headers only
-                lhs = cv[1].downcase
-                previousfn = ''
-                next unless RFC822Head.key?(lhs)
-
-                previousfn  = lhs
-                rfc822part += e + "\n"
-
-              elsif e =~ /\A[ \t]+/
-                # Continued line from the previous line
-                next if rfc822next[previousfn]
-                rfc822part += e + "\n" if LongFields.key?(previousfn)
-
-              else
-                # Check the end of headers in rfc822 part
-                next unless LongFields.key?(previousfn)
-                next unless e.empty?
-                rfc822next[previousfn] = true
+              if e.empty?
+                blanklines += 1
+                break if blanklines > 1
+                next
               end
+              rfc822list << e
 
             else
               # Before "message/rfc822"
@@ -347,6 +328,7 @@ module Sisimai
             e['agent']  = Sisimai::MSP::US::Google.smtpagent
           end
 
+          rfc822part = Sisimai::RFC5322.weedout(rfc822list)
           return { 'ds' => dscontents, 'rfc822' => rfc822part }
         end
 
