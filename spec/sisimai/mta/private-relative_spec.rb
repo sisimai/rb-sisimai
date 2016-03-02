@@ -289,6 +289,12 @@ describe 'Sisimai::' do
           expect(PrivateMTARelative[x][n]).to be_a Regexp
         end
 
+        example sprintf('[%s] %s have 1 or more element', n, x) do
+          expect(sisimai).to be_a Array
+          expect(sisimai.size).to be > 0
+        end
+        next unless sisimai
+
         sisimai.each do |ee|
           it 'is Sisimai::Data object' do
             expect(ee).to be_a Sisimai::Data

@@ -28,8 +28,6 @@ module Sisimai
           :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
         Indicators = Sisimai::MTA.INDICATORS
-        LongFields = Sisimai::RFC5322.LONGFIELDS
-        RFC822Head = Sisimai::RFC5322.HEADERFIELDS
 
         def description; return 'Module description'; end
         def smtpagent;   return 'Module name'; end
@@ -66,9 +64,9 @@ module Sisimai
           #    in lib/sisimai/mta or lib/sisimai/msp directory to implement codes.
           dscontents = []; dscontents << Sisimai::MTA.DELIVERYSTATUS
           hasdivided = mbody.split("\n")
-          rfc822next = { 'from' => false, 'to' => false, 'subject' => false }
           rfc822part = ''     # (String) message/rfc822-headers part
-          previousfn = ''     # (String) Previous field name
+          rfc822list = []     # (Array) Each line in message/rfc822 part string
+          blanklines = 0      # (Integer) The number of blank lines
           readcursor = 0      # (Integer) Points the current cursor position
           recipients = 0      # (Integer) The number of 'Final-Recipient' header
 
@@ -91,26 +89,12 @@ module Sisimai
 
             if readcursor & Indicators[:'message-rfc822'] > 0
               # After "message/rfc822"
-              if cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*.+\z/)
-                # Get required headers only
-                lhs = cv[1].downcase
-                previousfn = ''
-                next unless RFC822Head.key?(lhs)
-
-                previousfn  = lhs
-                rfc822part += e + "\n"
-
-              elsif e =~ /\A[ \t]+/
-                # Continued line from the previous line
-                next if rfc822next[previousfn]
-                rfc822part += e + "\n" if LongFields.key?(previousfn)
-
-              else
-                # Check the end of headers in rfc822 part
-                next unless LongFields.key?(previousfn)
-                next unless e.empty?
-                rfc822next[previousfn] = true
+              if e.empty?
+                blanklines += 1
+                break if blanklines > 1
+                next
               end
+              rfc822list << e
 
             else
               # Before "message/rfc822"
@@ -129,15 +113,16 @@ module Sisimai
           dscontents[0]['agent']     = Sisimai::MTA::UserDefined.smtpagent
           recipients = 1 if dscontents[0]['recipient']
 
-          rfc822part += 'From: shironeko@example.org' + "\n"
-          rfc822part += 'Subject: Nyaaan' + "\n"
-          rfc822part += 'Message-Id: 000000000000@example.jp' + "\n"
+          rfc822list << 'From: shironeko@example.org'
+          rfc822list << 'Subject: Nyaaan'
+          rfc822list << 'Message-Id: 000000000000@example.jp'
 
           # 3. Return undef when there is no recipient address which is failed to
           #    delivery in the bounce message
           return nil if recipients == 0
 
           # 4. Return the following variable.
+          rfc822part = Sisimai::RFC5322.weedout(rfc822list)
           return { 'ds' => dscontents, 'rfc822' => rfc822part }
         end
 

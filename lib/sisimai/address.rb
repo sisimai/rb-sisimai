@@ -82,7 +82,7 @@ module Sisimai
           e.chomp
           unless e =~ /\A[<]?.+[@][-.0-9A-Za-z]+[.]?[A-Za-z]{2,}[>]?\z/
             # Check whether the element is mailer-daemon or not
-            next unless Sisimai::RF5322.is_mailerdaemon(e)
+            next unless Sisimai::RFC5322.is_mailerdaemon(e)
           end
           addrs << e
         end
@@ -204,6 +204,10 @@ module Sisimai
       else
         # The argument does not include "@"
         return nil unless Sisimai::RFC5322.is_mailerdaemon(email)
+        @alias ||= ''
+        @verp  ||= ''
+        @host  ||= ''
+
         if cv = email.match(/[<]([^ ]+)[>]/)
           # Mail Delivery Subsystem <MAILER-DAEMON>
           @user = cv[1]

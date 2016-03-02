@@ -59,6 +59,9 @@ describe Sisimai::RFC5322 do
     'mailer-daemon@example.jp',
     'MAILER-DAEMON@example.cat',
     'Mailer-Daemon <postmaster@example.org>',
+    'MAILER-DAEMON',
+    'postmaster',
+    'postmaster@example.org',
   ]
   emailaddrs = [
     'neko@example.jp',
@@ -71,11 +74,6 @@ describe Sisimai::RFC5322 do
   describe '.is_emailaddress' do
     describe 'Valid Email Address String' do
       emailaddrs.each do |e|
-        context "(#{e})" do
-          it('returns true') { expect(cn.is_emailaddress(e)).to be true }
-        end
-      end
-      postmaster.each do |e|
         context "(#{e})" do
           it('returns true') { expect(cn.is_emailaddress(e)).to be true }
         end

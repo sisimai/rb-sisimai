@@ -107,12 +107,12 @@ module Sisimai
         return false unless email.is_a?(::String)
 
         re = %r/(?:
-               mailer-daemon[@]
-              |[<(]mailer-daemon[)>]
-              |\Amailer-daemon\z
-              |[ ]?mailer-daemon[ ]
-              )
-        /xi
+           (?:mailer-daemon|postmaster)[@]
+          |[<(](?:mailer-daemon|postmaster)[)>]
+          |\A(?:mailer-daemon|postmaster)\z
+          |[ ]?mailer-daemon[ ]
+          )
+        /xi;
         return true if email =~ re
         return false
       end

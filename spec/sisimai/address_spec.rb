@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'sisimai/address'
+require 'sisimai/rfc5322'
 require 'json'
 
 describe Sisimai::Address do
@@ -12,6 +13,7 @@ describe Sisimai::Address do
     '8be@example.gov', 'nekochan@example.jp', 'neko@example.com', 'neko@example.org',
     'neko@example.net', 'neko@example.edu', 'neko@example.cat', 'neko@example.mil',
     'neko@example.gov', 'neko@example.int', 'neko@example.gl', '"neko.."@example.jp',
+    'MAILER-DAEMON', 'postmaster',
   ]
   emailfroms = [
     %q|"Neko" <neko@example.jp>|,
@@ -38,6 +40,8 @@ describe Sisimai::Address do
     %q|{neko@example.int}|,
     %q|&lt;neko@example.gl&gt;|,
     %q|"neko.."@example.jp|,
+    %q|Mail Delivery Subsystem <MAILER-DAEMON>|,
+    %q|postmaster|,
   ]
   isnotemail = [ '1', 'neko', 'cat%nyaan.jp', '' ]
 
@@ -157,11 +161,16 @@ describe Sisimai::Address do
           is_expected.to be == a[0]
         end
       end
+
       describe '#host' do
         subject { v.host }
         it 'returns domain part' do
           is_expected.to be_a String
-          is_expected.to be == a[1]
+          if Sisimai::RFC5322.is_mailerdaemon(e)
+            is_expected.to be_empty
+          else
+            is_expected.to be == a[1]
+          end
         end
       end
 
@@ -169,7 +178,7 @@ describe Sisimai::Address do
         subject { v.address }
         it 'returns whole email address' do
           is_expected.to be_a String
-          is_expected.to be == a[0] + '@' + a[1]
+          is_expected.to be == a[0] + '@' + a[1] unless Sisimai::RFC5322.is_mailerdaemon(e)
           expect(emailaddrs.index(v.address)).not_to be nil
         end
       end
