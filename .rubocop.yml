@@ -15,6 +15,9 @@ Lint/AssignmentInCondition:
 Metrics/AbcSize:
   Max: 30
 
+Metrics/BlockNesting:
+  Max: 4
+
 Metrics/CyclomaticComplexity:
   Enabled: false
 
