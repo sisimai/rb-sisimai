@@ -82,7 +82,7 @@ module Sisimai
 
           dscontents = []; dscontents << Sisimai::MTA.DELIVERYSTATUS
           hasdivided = mbody.split("\n")
-          havepassed = [''];
+          havepassed = ['']
           rfc822part = ''     # (String) message/rfc822-headers part
           rfc822list = []     # (Array) Each line in message/rfc822 part string
           blanklines = 0      # (Integer) The number of blank lines
