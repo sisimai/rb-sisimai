@@ -143,7 +143,7 @@ module Sisimai
                   # Final-Recipient: rfc822; kijitora@example.co.jp
                   if v['recipient']
                     # There are multiple recipient addresses in the message body.
-                    dscontents << Sisimai::MTA.DELIVERYSTATUS;
+                    dscontents << Sisimai::MTA.DELIVERYSTATUS
                     v = dscontents[-1]
                   end
                   v['recipient'] = cv[1]
