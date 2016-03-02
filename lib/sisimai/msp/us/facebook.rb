@@ -101,8 +101,7 @@ module Sisimai
 
           dscontents = []; dscontents << Sisimai::MSP.DELIVERYSTATUS
           hasdivided = mbody.split("\n")
-          havepassed = [''];
-          rfc822part = ''     # (String) message/rfc822-headers part
+          havepassed = ['']
           rfc822list = []     # (Array) Each line in message/rfc822 part string
           blanklines = 0      # (Integer) The number of blank lines
           readcursor = 0      # (Integer) Points the current cursor position
@@ -241,7 +240,7 @@ module Sisimai
               rhs = cv[2]
               num = cv[3]
 
-              fbresponse = sprintf("%s-%s%d", lhs, rhs, num)
+              fbresponse = sprintf('%s-%s%d', lhs, rhs, num)
               e['softbounce'] = rhs == 'P' ? 0 : 1
             end
 

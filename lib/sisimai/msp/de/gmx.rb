@@ -46,11 +46,10 @@ module Sisimai
         def scan(mhead, mbody)
           return nil unless mhead
           return nil unless mbody
-          return nil unless mhead['x-gmx-antispam'];
+          return nil unless mhead['x-gmx-antispam']
 
           dscontents = []; dscontents << Sisimai::MSP.DELIVERYSTATUS
           hasdivided = mbody.split("\n")
-          rfc822part = ''     # (String) message/rfc822-headers part
           rfc822list = []     # (Array) Each line in message/rfc822 part string
           blanklines = 0      # (Integer) The number of blank lines
           readcursor = 0      # (Integer) Points the current cursor position
@@ -127,7 +126,7 @@ module Sisimai
               else
                 # Get error message
                 if e =~ /\b[45][.]\d[.]\d\b/ || e =~ /[<][^ ]+[@][^ ]+[>]/ || e =~ /\b[45]\d{2}\b/
-                  v['diagnosis'] ||= e;
+                  v['diagnosis'] ||= e
 
                 else
                   next if e =~ /\A\z/

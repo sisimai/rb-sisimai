@@ -49,7 +49,6 @@ module Sisimai
           require 'sisimai/address'
           dscontents = []; dscontents << Sisimai::MSP.DELIVERYSTATUS
           hasdivided = mbody.split("\n")
-          rfc822part = ''     # (String) message/rfc822-headers part
           rfc822list = []     # (Array) Each line in message/rfc822 part string
           blanklines = 0      # (Integer) The number of blank lines
           readcursor = 0      # (Integer) Points the current cursor position

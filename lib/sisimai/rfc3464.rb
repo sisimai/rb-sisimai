@@ -72,7 +72,6 @@ module Sisimai
         hasdivided = mbody.split("\n")
         havepassed = ['']
         scannedset = Sisimai::MDA.scan(mhead, mbody)
-        rfc822part = ''   # (String) message/rfc822-headers part
         rfc822list = []   # (Array) Each line in message/rfc822 part string
         blanklines = 0    # (Integer) The number of blank lines
         readcursor = 0    # (Integer) Points the current cursor position
@@ -105,13 +104,13 @@ module Sisimai
           end
 
           if readcursor & Indicators[:'message-rfc822'] > 0
-              # After "message/rfc822"
-              if e.empty?
-                blanklines += 1
-                break if blanklines > 1
-                next
-              end
-              rfc822list << e
+            # After "message/rfc822"
+            if e.empty?
+              blanklines += 1
+              break if blanklines > 1
+              next
+            end
+            rfc822list << e
 
           else
             # Before "message/rfc822"

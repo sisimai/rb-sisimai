@@ -59,7 +59,6 @@ module Sisimai
           require 'sisimai/address'
           dscontents = []; dscontents << Sisimai::MSP.DELIVERYSTATUS
           hasdivided = mbody.split("\n")
-          rfc822part = ''     # (String) message/rfc822-headers part
           rfc822list = []     # (Array) Each line in message/rfc822 part string
           blanklines = 0      # (Integer) The number of blank lines
           readcursor = 0      # (Integer) Points the current cursor position
@@ -85,7 +84,6 @@ module Sisimai
                 550[ ][-][ ]Requested[ ]action[ ]not[ ]taken:[ ]no[ ]such[ ]user[ ]here
               }x,
             }
-            rfc822next = { 'from' => 0, 'to' => 0, 'subject' => 0 }
             boundary00 = Sisimai::MIME.boundary(mhead['content-type']) || ''
 
             if boundary00.size > 0
@@ -168,7 +166,6 @@ module Sisimai
                   No[ ]valid[ ]recipients[ ]for[ ]this[ ]MM
               }x,
             }
-            rfc822next = { 'from' => 0, 'to' => 0, 'subject' => 0 }
             boundary00 = Sisimai::MIME.boundary(mhead['content-type'])
             if boundary00.size > 0
               # Convert to regular expression
@@ -241,12 +238,13 @@ module Sisimai
 
           return nil if recipients == 0
 
-          if ! rfc822list.find { |a| a =~ /^From: / }
+          if !rfc822list.find { |a| a =~ /^From: / }
             # Set the value of "MAIL FROM:" or "From:"
-            rfc822list << sprintf("From: %s", senderaddr)
-          elsif ! rfc822list.find { |a| a =~ /^Subject: / }
+            rfc822list << sprintf('From: %s', senderaddr)
+
+          elsif !rfc822list.find { |a| a =~ /^Subject: / }
             # Set the value of "Subject:"
-            rfc822list << sprintf("Subject: %s", subjecttxt)
+            rfc822list << sprintf('Subject: %s', subjecttxt)
           end
 
           require 'sisimai/string'

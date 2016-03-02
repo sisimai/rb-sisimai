@@ -46,7 +46,6 @@ module Sisimai
           hasdivided = mbody.split("\n")
           rfc822list = []     # (Array) Each line in message/rfc822 part string
           blanklines = 0      # (Integer) The number of blank lines
-          rfc822part = ''     # (String) message/rfc822-headers part
           readcursor = 0      # (Integer) Points the current cursor position
           recipients = 0      # (Integer) The number of 'Final-Recipient' header
           v = nil
