@@ -166,8 +166,9 @@ module Sisimai
       return {} if email.empty?
 
       email = email.scrub('?')
-      email = email.gsub(/[ \t]+$/, '')
-      email = email.gsub(/^[ \t]+$/, '')
+      email = email.gsub(/\r\n/, "\n")  if email =~ /\r\n/
+      email = email.gsub(/[ \t]+$/, '') if email =~ /[ \t]+$/
+
       hasdivided = email.split("\n")
       return {} if hasdivided.empty?
 
@@ -184,9 +185,6 @@ module Sisimai
       # Split email data to headers and a body part.
       hasdivided.each do |e|
         # Split email data to headers and a body part.
-        e = e.delete("\r").delete("\n")
-        e = e.gsub(/[ \t]+\z/, '')
-
         if readcursor & Indicators[:endof] > 0
           # The body part of the email
           aftersplit['body'] += e + "\n"

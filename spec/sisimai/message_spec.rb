@@ -53,7 +53,7 @@ describe Sisimai::Message do
     end
 
     describe '#rfc822' do
-      ['return-path', 'delivered-to', 'to', 'subject', 'date', 'from', 'message-id', 'reply-to'].each do |e|
+      %w|return-path to subject date from message-id|.each do |e|
         example(e + 'header is String') { expect(messageobj.rfc822[e]).to be_a String }
         example(e + 'header has a size') { expect(messageobj.rfc822[e].size).to be > 0 }
       end

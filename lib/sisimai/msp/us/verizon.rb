@@ -19,8 +19,6 @@ module Sisimai
           },
         }
         Indicators = Sisimai::MSP.INDICATORS
-        LongFields = Sisimai::RFC5322.LONGFIELDS
-        RFC822Head = Sisimai::RFC5322.HEADERFIELDS
 
         def description; return 'Verizon Wireless: http://www.verizonwireless.com'; end
         def smtpagent;   return 'US::Verizon'; end
@@ -61,9 +59,8 @@ module Sisimai
           require 'sisimai/address'
           dscontents = []; dscontents << Sisimai::MSP.DELIVERYSTATUS
           hasdivided = mbody.split("\n")
-          rfc822next = { 'from' => false, 'to' => false, 'subject' => false }
-          rfc822part = ''     # (String) message/rfc822-headers part
-          previousfn = ''     # (String) Previous field name
+          rfc822list = []     # (Array) Each line in message/rfc822 part string
+          blanklines = 0      # (Integer) The number of blank lines
           readcursor = 0      # (Integer) Points the current cursor position
           recipients = 0      # (Integer) The number of 'Final-Recipient' header
           senderaddr = ''     # (String) Sender address in the message body
@@ -87,7 +84,6 @@ module Sisimai
                 550[ ][-][ ]Requested[ ]action[ ]not[ ]taken:[ ]no[ ]such[ ]user[ ]here
               }x,
             }
-            rfc822next = { 'from' => 0, 'to' => 0, 'subject' => 0 }
             boundary00 = Sisimai::MIME.boundary(mhead['content-type']) || ''
 
             if boundary00.size > 0
@@ -114,26 +110,12 @@ module Sisimai
 
               if readcursor & Indicators[:'message-rfc822'] > 0
                 # After "message/rfc822"
-                if cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*.+\z/)
-                  # Get required headers only
-                  lhs = cv[1].downcase
-                  previousfn = ''
-                  next unless RFC822Head.key?(lhs)
-
-                  previousfn  = lhs
-                  rfc822part += e + "\n"
-
-                elsif e =~ /\A[ \t]+/
-                  # Continued line from the previous line
-                  next if rfc822next[previousfn]
-                  rfc822part += e + "\n" if LongFields.key?(previousfn)
-
-                else
-                  # Check the end of headers in rfc822 part
-                  next unless LongFields.key?(previousfn)
-                  next unless e.empty?
-                  rfc822next[previousfn] = true
+                if e.empty?
+                  blanklines += 1
+                  break if blanklines > 1
+                  next
                 end
+                rfc822list << e
 
               else
                 # Before "message/rfc822"
@@ -184,7 +166,6 @@ module Sisimai
                   No[ ]valid[ ]recipients[ ]for[ ]this[ ]MM
               }x,
             }
-            rfc822next = { 'from' => 0, 'to' => 0, 'subject' => 0 }
             boundary00 = Sisimai::MIME.boundary(mhead['content-type'])
             if boundary00.size > 0
               # Convert to regular expression
@@ -210,26 +191,12 @@ module Sisimai
 
               if readcursor & Indicators[:'message-rfc822'] > 0
                 # After "message/rfc822"
-                if cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*.+\z/)
-                  # Get required headers only
-                  lhs = cv[1].downcase
-                  previousfn = ''
-                  next unless RFC822Head.key?(lhs)
-
-                  previousfn  = lhs
-                  rfc822part += e + "\n"
-
-                elsif e =~ /\A[ \t]+/
-                  # Continued line from the previous line
-                  next if rfc822next[previousfn]
-                  rfc822part += e + "\n" if LongFields.key?(previousfn)
-
-                else
-                  # Check the end of headers in rfc822 part
-                  next unless LongFields.key?(previousfn)
-                  next unless e.empty?
-                  rfc822next[previousfn] = true
+                if e.empty?
+                  blanklines += 1
+                  break if blanklines > 1
+                  next
                 end
+                rfc822list << e
 
               else
                 # Before "message/rfc822"
@@ -271,9 +238,14 @@ module Sisimai
 
           return nil if recipients == 0
 
-          # Set the value of "MAIL FROM:" or "From:", and "Subject"
-          rfc822part += sprintf("From: %s\n", senderaddr) unless rfc822part =~ /\bFrom: /
-          rfc822part += sprintf("Subject: %s\n", subjecttxt) unless rfc822part =~ /\bSubject: /
+          if !rfc822list.find { |a| a =~ /^From: / }
+            # Set the value of "MAIL FROM:" or "From:"
+            rfc822list << sprintf('From: %s', senderaddr)
+
+          elsif !rfc822list.find { |a| a =~ /^Subject: / }
+            # Set the value of "Subject:"
+            rfc822list << sprintf('Subject: %s', subjecttxt)
+          end
 
           require 'sisimai/string'
           require 'sisimai/smtp/status'
@@ -301,6 +273,7 @@ module Sisimai
             e['agent']   = Sisimai::MSP::US::Verizon.smtpagent
           end
 
+          rfc822part = Sisimai::RFC5322.weedout(rfc822list)
           return { 'ds' => dscontents, 'rfc822' => rfc822part }
         end
 

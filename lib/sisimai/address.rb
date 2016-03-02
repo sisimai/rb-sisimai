@@ -29,7 +29,10 @@ module Sisimai
         #   1. The element must include '@'.
         #   2. The element must not include character except from 0x20 to 0x7e.
         next unless e
-        next unless e =~ /[@]/
+        unless e =~ /[@]/
+          # Allow if the argument is MAILER-DAEMON
+          next unless Sisimai::RFC5322.is_mailerdaemon(e)
+        end
         next if e =~ /[^\x20-\x7e]/
 
         v = Sisimai::Address.s3s4(e)
@@ -77,7 +80,10 @@ module Sisimai
       else
         token.each do |e|
           e.chomp
-          next unless e =~ /\A[<]?.+[@][-.0-9A-Za-z]+[.]?[A-Za-z]{2,}[>]?\z/
+          unless e =~ /\A[<]?.+[@][-.0-9A-Za-z]+[.]?[A-Za-z]{2,}[>]?\z/
+            # Check whether the element is mailer-daemon or not
+            next unless Sisimai::RFC5322.is_mailerdaemon(e)
+          end
           addrs << e
         end
       end
@@ -196,7 +202,22 @@ module Sisimai
         @verp  ||= ''
 
       else
-        return nil
+        # The argument does not include "@"
+        return nil unless Sisimai::RFC5322.is_mailerdaemon(email)
+        @alias ||= ''
+        @verp  ||= ''
+        @host  ||= ''
+
+        if cv = email.match(/[<]([^ ]+)[>]/)
+          # Mail Delivery Subsystem <MAILER-DAEMON>
+          @user = cv[1]
+          @address = cv[1]
+        else
+          return nil if email =~ /[ ]/
+          # The argument does not include " "
+          @user = email
+          @address = email
+        end
       end
     end
 

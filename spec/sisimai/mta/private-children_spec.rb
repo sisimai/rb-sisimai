@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'sisimai'
+require 'sisimai/rfc5322'
 
 describe 'Sisimai::MTA::' do
   PrivateMTAChildren = {
@@ -999,6 +1000,12 @@ describe 'Sisimai::MTA::' do
           expect(PrivateMTAChildren[x][n]).to be_a Regexp
         end
 
+        example sprintf('[%s] %s have 1 or more element', n, x) do
+          expect(sisimai).to be_a Array
+          expect(sisimai.size).to be > 0
+        end
+        next unless sisimai
+
         sisimai.each do |ee|
           it 'is Sisimai::Data object' do
             expect(ee).to be_a Sisimai::Data
@@ -1114,7 +1121,9 @@ describe 'Sisimai::MTA::' do
           example sprintf('[%s] %s#addresser = %s', n, x, ee.addresser) do
             expect(ee.addresser).to be_a Sisimai::Address
             expect(ee.addresser.host).to be_a String
-            expect(ee.addresser.host.size).to be > 0
+            unless Sisimai::RFC5322.is_mailerdaemon(ee.addresser.address)
+              expect(ee.addresser.host.size).to be > 0 
+            end
             expect(ee.addresser.host).not_to match(/[ ]/)
             expect(ee.addresser.host).to be == ee.senderdomain
 
@@ -1136,7 +1145,9 @@ describe 'Sisimai::MTA::' do
           example sprintf('[%s] %s#recipient = %s', n, x, ee.recipient) do
             expect(ee.recipient).to be_a Sisimai::Address
             expect(ee.recipient.host).to be_a String
-            expect(ee.recipient.host.size).to be > 0
+            unless Sisimai::RFC5322.is_mailerdaemon(ee.recipient.address)
+              expect(ee.recipient.host.size).to be > 0
+            end
             expect(ee.recipient.host).not_to match(/[ ]/)
             expect(ee.recipient.host).to be == ee.destination
 

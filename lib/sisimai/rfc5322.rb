@@ -74,6 +74,7 @@ module Sisimai
       def LONGFIELDS
         return { 'to' => 1, 'from' => 1, 'subject' => 1, 'message-id' => 1 }
       end
+      LongHeaders = Sisimai::RFC5322.LONGFIELDS
 
       # Check that the argument is an email address or not
       # @param    [String] email  Email address string
@@ -106,12 +107,12 @@ module Sisimai
         return false unless email.is_a?(::String)
 
         re = %r/(?:
-               mailer-daemon[@]
-              |[<(]mailer-daemon[)>]
-              |\Amailer-daemon\z
-              |[ ]?mailer-daemon[ ]
-              )
-        /xi
+           (?:mailer-daemon|postmaster)[@]
+          |[<(](?:mailer-daemon|postmaster)[)>]
+          |\A(?:mailer-daemon|postmaster)\z
+          |[ ]?mailer-daemon[ ]
+          )
+        /xi;
         return true if email =~ re
         return false
       end
@@ -196,6 +197,43 @@ module Sisimai
           hosts << value[e]
         end
         return hosts
+      end
+
+      # Weed out rfc822/message header fields excepct necessary fields
+      # @param    [Array] argv1  each line divided message/rc822 part
+      # @return   [String]       Selected fields
+      def weedout(argv1)
+        return nil unless argv1.is_a?(Array)
+
+        rfc822next = { from: false, to: false, subject: false }
+        rfc822part = '' # (String) message/rfc822-headers part
+        previousfn = '' # (String) Previous field name
+
+        argv1.each do |e|
+          # After "message/rfc822"
+          if cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*.+\z/)
+            # Get required headers
+            lhs = cv[1].downcase
+            previousfn = ''
+            next unless HeaderIndex.key?(lhs)
+  
+            previousfn  = lhs
+            rfc822part += e + "\n"
+  
+          elsif e =~ /\A[ \t]+/
+            # Continued line from the previous line
+            next if rfc822next[previousfn]
+            rfc822part += e + "\n" if LongHeaders.key?(previousfn)
+
+          else
+            # Check the end of headers in rfc822 part
+            next unless LongHeaders.key?(previousfn)
+            next unless e.empty?
+            rfc822next[previousfn] = true
+          end
+        end
+
+        return rfc822part
       end
 
     end
