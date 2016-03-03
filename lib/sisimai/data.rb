@@ -43,8 +43,8 @@ module Sisimai
     RetryIndex = Sisimai::Reason.retry
     RFC822Head = Sisimai::RFC5322.HEADERFIELDS(:all)
     AddrHeader = {
-      :addresser => RFC822Head[:addresser],
-      :recipient => RFC822Head[:recipient],
+      addresser: RFC822Head[:addresser],
+      recipient: RFC822Head[:recipient],
     }
 
     # Constructor of Sisimai::Data
