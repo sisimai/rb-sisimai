@@ -64,15 +64,17 @@ module Sisimai
           systemerror: [
             'CON-T1', # Facebook's mail server currently has too many connections open to allow another one.
           ],
+          toomanyconn: [
+            'CON-T3', # Your mail server has opened too many new connections to Facebook's mail servers in a short period of time.
+          ],
+          suspend: [
+            'RCP-T4', # The attempted recipient address is currently deactivated. The user may or may not reactivate it.
+          ],
           undefined: [
             'RCP-T1', # The attempted recipient address is not currently available due to an internal system issue. This is a temporary condition.
             'MSG-T1', # The number of recipients on the message exceeds Facebook's allowed maximum.
             'CON-T2', # Your mail server currently has too many connections open to Facebook's mail servers.
-            'CON-T3', # Your mail server has opened too many new connections to Facebook's mail servers in a short period of time.
             'CON-T4', # Your mail server has exceeded the maximum number of recipients for its current connection.
-          ],
-          suspend: [
-            'RCP-T4', # The attempted recipient address is currently deactivated. The user may or may not reactivate it.
           ],
         }
         Indicators = Sisimai::MSP.INDICATORS
