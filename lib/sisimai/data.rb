@@ -109,11 +109,6 @@ module Sisimai
         @action = cv[1]
       end
 
-      if @replycode.size > 0 && @deliverystatus.size > 0
-        # The first digits did not match: 5.1.1 250
-        @replycode = '' unless @replycode[0, 1] == @deliverystatus[0, 1]
-      end
-
     end
 
     # Another constructor of Sisimai::Data
@@ -357,9 +352,16 @@ module Sisimai
               end
             end
           end
+
+          if o.replycode.size > 0
+            # Check both of the first digit of "deliverystatus" and "replycode"
+            o.replycode = '' unless o.replycode[0, 1] == o.deliverystatus[0, 1]
+          end
+
         else
           # The value of reason is "vacation" or "feedback"
           o.softbounce = -1
+          o.replycode = ''
         end
         objectlist << o
       end
