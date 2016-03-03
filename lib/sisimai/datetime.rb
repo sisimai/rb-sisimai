@@ -467,10 +467,10 @@ module Sisimai
 
         if cr = argv1.match(/\A([-+])(\d)(\d)(\d{2})\z/)
           digit = {
-            'operator': cr[1],
-            'hour-10':  cr[2].to_i,
-            'hour-01':  cr[3].to_i,
-            'minutes':  cr[4].to_i,
+            :'operator' => cr[1],
+            :'hour-10'  => cr[2].to_i,
+            :'hour-01'  => cr[3].to_i,
+            :'minutes'  => cr[4].to_i,
           }
           ztime += (digit[:'hour-10'] * 10 + digit[:'hour-01']) * 3600
           ztime += (digit[:'minutes'] * 60)
@@ -495,7 +495,7 @@ module Sisimai
       #   second2tz(12345)    #=> '+0325'
       def second2tz(argv1)
         return '+0000' unless argv1.is_a?(Number)
-        digit = { operator: '+' }
+        digit = { :operator => '+' }
 
         return '' if argv1.abs > TZ_OFFSET  # UTC+14 + 1(DST?)
         digit[:operator] = '-' if argv1 < 0
