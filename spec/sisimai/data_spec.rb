@@ -111,7 +111,6 @@ describe Sisimai::Data do
   context 'with orders of email address headers' do
     file = './set-of-emails/maildir/bsd/sendmail-04.eml'
     mail = Sisimai::Mail.new(file)
-    list = {}
 
     while r = mail.read do
       mesg = Sisimai::Message.new(data: r)
