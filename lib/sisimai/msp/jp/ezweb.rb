@@ -27,7 +27,7 @@ module Sisimai
           :endof    => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
         ReFailure = {
-          #'notaccept' => [ %r/The following recipients did not receive this message:/ ],
+          # notaccept: [ %r/The following recipients did not receive this message:/ ],
           mailboxfull: [
             %r/The user[(]s[)] account is temporarily over quota/,
           ],
