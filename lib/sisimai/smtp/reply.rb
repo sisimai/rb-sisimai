@@ -77,6 +77,7 @@ module Sisimai
             return ''
           end
         end
+
       end
     end
   end
