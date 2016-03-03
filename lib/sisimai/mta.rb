@@ -10,8 +10,8 @@ module Sisimai
       # @private
       def INDICATORS
         return {
-          'deliverystatus': (1 << 1),
-          'message-rfc822': (1 << 2),
+          :'deliverystatus' => (1 << 1),
+          :'message-rfc822' => (1 << 2),
         }
       end
 
