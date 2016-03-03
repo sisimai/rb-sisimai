@@ -59,7 +59,7 @@ module Sisimai
             if readcursor == 0
               # Beginning of the bounce message or delivery status part
               if e =~ Re1[:begin]
-                readcursor |= Indicators[:'deliverystatus']
+                readcursor |= Indicators[:deliverystatus]
                 next
               end
             end
@@ -83,7 +83,7 @@ module Sisimai
 
             else
               # Before "message/rfc822"
-              next if readcursor & Indicators[:'deliverystatus'] == 0
+              next if readcursor & Indicators[:deliverystatus] == 0
               next if e.empty?
 
               # This is a MIME-encapsulated message.

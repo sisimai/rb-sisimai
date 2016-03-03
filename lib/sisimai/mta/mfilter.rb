@@ -57,7 +57,7 @@ module Sisimai
           hasdivided.each do |e|
             if readcursor == 0
               # Beginning of the bounce message or delivery status part
-              readcursor |= Indicators[:'deliverystatus'] if e =~ Re1[:begin]
+              readcursor |= Indicators[:deliverystatus] if e =~ Re1[:begin]
             end
 
             if readcursor & Indicators[:'message-rfc822'] == 0
@@ -79,7 +79,7 @@ module Sisimai
 
             else
               # Before "message/rfc822"
-              next if readcursor & Indicators[:'deliverystatus'] == 0
+              next if readcursor & Indicators[:deliverystatus] == 0
               next if e.empty?
 
               # このメールは「m-FILTER」が自動的に生成して送信しています。
