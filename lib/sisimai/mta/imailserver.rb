@@ -19,37 +19,23 @@ module Sisimai
           :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
         ReSMTP = {
-          'conn' => %r{(?:
+          conn: %r{(?:
                SMTP[ ]connection[ ]failed,
               |Unexpected[ ]connection[ ]response[ ]from[ ]server:
               )
           },
-          'ehlo' => %r|Unexpected response to EHLO/HELO:|,
-          'mail' => %r|Server response to MAIL FROM:|,
-          'rcpt' => %r|Additional RCPT TO generated following response:|,
-          'data' => %r|DATA command generated response:|,
+          ehlo: %r|Unexpected response to EHLO/HELO:|,
+          mail: %r|Server response to MAIL FROM:|,
+          rcpt: %r|Additional RCPT TO generated following response:|,
+          data: %r|DATA command generated response:|,
         }
         ReFailure = {
-          'hostunknown' => %r{
-              Unknown[ ]host
-          },
-          'userunknown' => %r{\A(?:
-               Unknown[ ]user
-              |Invalid[ ]final[ ]delivery[ ]userid    # Filtered ?
-              )
-          }x,
-          'mailboxfull' => %r{
-              \AUser[ ]mailbox[ ]exceeds[ ]allowed[ ]size
-          }x,
-          'securityerr' => %r{
-              \ARequested[ ]action[ ]not[ ]taken:[ ]virus[ ]detected
-          }x,
-          'undefined' => %r{
-              \Aundeliverable[ ]to[ ]
-          }x,
-          'expired' => %r{
-              \ADelivery[ ]failed[ ]\d+[ ]attempts
-          }x,
+          hostunknown: %r/Unknown[ ]host/x,
+          userunknown: %r/\A(?:Unknown[ ]user|Invalid[ ]final[ ]delivery[ ]userid)/x,
+          mailboxfull: %r/\AUser[ ]mailbox[ ]exceeds[ ]allowed[ ]size/x,
+          securityerr: %r/\ARequested[ ]action[ ]not[ ]taken:[ ]virus[ ]detected/x,
+          undefined:   %r/\Aundeliverable[ ]to[ ]/x,
+          expired:     %r/\ADelivery[ ]failed[ ]\d+[ ]attempts/x,
         }
         Indicators = Sisimai::MTA.INDICATORS
 
@@ -184,14 +170,14 @@ module Sisimai
             ReSMTP.each_key do |r|
               # Detect SMTP command from the message
               next unless e['diagnosis'] =~ ReSMTP[r]
-              e['command'] = r.upcase
+              e['command'] = r.to_s.upcase
               break
             end
 
             ReFailure.each_key do |r|
               # Verify each regular expression of session errors
               next unless e['diagnosis'] =~ ReFailure[r]
-              e['reason'] = r
+              e['reason'] = r.to_s
               break
             end
 

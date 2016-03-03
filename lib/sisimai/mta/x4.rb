@@ -55,21 +55,21 @@ module Sisimai
         ReSMTP = {
           # Error text regular expressions which defined in qmail-remote.c
           # qmail-remote.c:225|  if (smtpcode() != 220) quit("ZConnected to "," but greeting failed");
-          'conn'  => %r/(?:Error:)?Connected[ ]to[ ].+[ ]but[ ]greeting[ ]failed[.]/x,
+          conn: %r/(?:Error:)?Connected[ ]to[ ].+[ ]but[ ]greeting[ ]failed[.]/x,
           # qmail-remote.c:231|  if (smtpcode() != 250) quit("ZConnected to "," but my name was rejected");
-          'ehlo'  => %r/(?:Error:)?Connected[ ]to[ ].+[ ]but[ ]my[ ]name[ ]was[ ]rejected[.]/x,
+          ehlo: %r/(?:Error:)?Connected[ ]to[ ].+[ ]but[ ]my[ ]name[ ]was[ ]rejected[.]/x,
           # qmail-remote.c:238|  if (code >= 500) quit("DConnected to "," but sender was rejected");
           # reason = rejected
-          'mail'  => %r/(?:Error:)?Connected[ ]to[ ].+[ ]but[ ]sender[ ]was[ ]rejected[.]/x,
+          mail: %r/(?:Error:)?Connected[ ]to[ ].+[ ]but[ ]sender[ ]was[ ]rejected[.]/x,
           # qmail-remote.c:249|  out("h"); outhost(); out(" does not like recipient.\n");
           # qmail-remote.c:253|  out("s"); outhost(); out(" does not like recipient.\n");
           # reason = userunknown
-          'rcpt'  => %r/(?:Error:)?.+[ ]does[ ]not[ ]like[ ]recipient[.]/x,
+          rcpt: %r/(?:Error:)?.+[ ]does[ ]not[ ]like[ ]recipient[.]/x,
           # qmail-remote.c:265|  if (code >= 500) quit("D"," failed on DATA command");
           # qmail-remote.c:266|  if (code >= 400) quit("Z"," failed on DATA command");
           # qmail-remote.c:271|  if (code >= 500) quit("D"," failed after I sent the message");
           # qmail-remote.c:272|  if (code >= 400) quit("Z"," failed after I sent the message");
-          'data'  => %r{(?:
+          data: %r{(?:
              (?:Error:)?.+[ ]failed[ ]on[ ]DATA[ ]command[.]
             |(?:Error:)?.+[ ]failed[ ]after[ ]I[ ]sent[ ]the[ ]message[.]
             )
@@ -84,10 +84,10 @@ module Sisimai
         }x
         # qmail-ldap-1.03-20040101.patch:19817 - 19866
         ReLDAP = {
-          'suspend'     => %r/Mailaddress is administrative?le?y disabled/,            # 5.2.1
-          'userunknown' => %r/[Ss]orry, no mailbox here by that name/,                 # 5.1.1
-          'exceedlimit' => %r/The message exeeded the maximum size the user accepts/,  # 5.2.3
-          'systemerror' => %r{(?>
+          suspend:     %r/Mailaddress is administrative?le?y disabled/,            # 5.2.1
+          userunknown: %r/[Ss]orry, no mailbox here by that name/,                 # 5.1.1
+          exceedlimit: %r/The message exeeded the maximum size the user accepts/,  # 5.2.3
+          systemerror: %r{(?>
              Automatic[ ]homedir[ ]creator[ ]crashed                    # 4.3.0
             |Illegal[ ]value[ ]in[ ]LDAP[ ]attribute                    # 5.3.5
             |LDAP[ ]attribute[ ]is[ ]not[ ]given[ ]but[ ]mandatory      # 5.3.5
@@ -115,32 +115,32 @@ module Sisimai
         ReFailure = {
           # qmail-local.c:589|  strerr_die1x(100,"Sorry, no mailbox here by that name. (#5.1.1)");
           # qmail-remote.c:253|  out("s"); outhost(); out(" does not like recipient.\n");
-          'userunknown' => %r{(?:
+          userunknown: %r{(?:
              no[ ]mailbox[ ]here[ ]by[ ]that[ ]name
             |[ ]does[ ]not[ ]like[ ]recipient[.]
             )
           }x,
           # error_str.c:192|  X(EDQUOT,"disk quota exceeded")
-          'mailboxfull' => %r/disk[ ]quota[ ]exceeded/x,
+          mailboxfull: %r/disk[ ]quota[ ]exceeded/x,
           # qmail-qmtpd.c:233| ... result = "Dsorry, that message size exceeds my databytes limit (#5.3.4)";
           # qmail-smtpd.c:391| ... out("552 sorry, that message size exceeds my databytes limit (#5.3.4)\r\n"); return;
-          'mesgtoobig'  => %r/Message[ ]size[ ]exceeds[ ]fixed[ ]maximum[ ]message[ ]size:/x,
+          mesgtoobig:  %r/Message[ ]size[ ]exceeds[ ]fixed[ ]maximum[ ]message[ ]size:/x,
           # qmail-remote.c:68|  Sorry, I couldn't find any host by that name. (#4.1.2)\n"); zerodie();
           # qmail-remote.c:78|  Sorry, I couldn't find any host named ");
-          'hostunknown' => %r/\ASorry[,][ ]I[ ]couldn[']t[ ]find[ ]any[ ]host[ ]/x,
-          'systemerror' => %r{(?>
+          hostunknown: %r/\ASorry[,][ ]I[ ]couldn[']t[ ]find[ ]any[ ]host[ ]/x,
+          systemerror: %r{(?>
              bad[ ]interpreter:[ ]No[ ]such[ ]file[ ]or[ ]directory
             |system[ ]error
             |Unable[ ]to\b
             )
           }x,
-          'networkerror' => %r{Sorry(?:
+          networkerror: %r{Sorry(?:
              [,][ ]I[ ]wasn[']t[ ]able[ ]to[ ]establish[ ]an[ ]SMTP[ ]connection
             |[,][ ]I[ ]couldn[']t[ ]find[ ]a[ ]mail[ ]exchanger[ ]or[ ]IP[ ]address
             |[.][ ]Although[ ]I[']m[ ]listed[ ]as[ ]a[ ]best[-]preference[ ]MX[ ]or[ ]A[ ]for[ ]that[ ]host
             )
           }x,
-          'systemfull' => %r/Requested action not taken: mailbox unavailable [(]not enough free space[)]/,
+          systemfull: %r/Requested action not taken: mailbox unavailable [(]not enough free space[)]/,
         }
         # qmail-send.c:922| ... (&dline[c],"I'm not going to try again; this message has been in the queue too long.\n")) nomem();
         ReDelayed  = %r/this[ ]message[ ]has[ ]been[ ]in[ ]the[ ]queue[ ]too[ ]long[.]\z/x
@@ -271,7 +271,7 @@ module Sisimai
               ReSMTP.each_key do |r|
                 # Verify each regular expression of SMTP commands
                 next unless e['diagnosis'] =~ ReSMTP[r]
-                e['command'] = r.upcase
+                e['command'] = r.to_s.upcase
                 break
               end
 
@@ -306,12 +306,12 @@ module Sisimai
                   if e['alterrors']
                     # Check the value of "alterrors"
                     next unless e['alterrors'] =~ ReFailure[r]
-                    e['reason'] = r
+                    e['reason'] = r.to_s
                   end
                   break if e['reason']
 
                   next unless e['diagnosis'] =~ ReFailure[r]
-                  e['reason'] = r
+                  e['reason'] = r.to_s
                   break
                 end
 
@@ -319,7 +319,7 @@ module Sisimai
                   ReLDAP.each_key do |r|
                     # Verify each regular expression of LDAP errors
                     next unless e['diagnosis'] =~ ReLDAP[r]
-                    e['reason'] = r
+                    e['reason'] = r.to_s
                     break
                   end
                 end

@@ -34,20 +34,14 @@ module Sisimai
         }
         ReFailure = {
           # courier/module.esmtp/esmtpclient.c:526| hard_error(del, ctf, "No such domain.");
-          'hostunknown' => %r{
-            \ANo[ ]such[ ]domain[.]\z
-          }x,
+          hostunknown: %r/\ANo[ ]such[ ]domain[.]\z/x,
           # courier/module.esmtp/esmtpclient.c:531| hard_error(del, ctf,
           # courier/module.esmtp/esmtpclient.c:532|  "This domain's DNS violates RFC 1035.");
-          'systemerror' => %r{
-            \AThis[ ]domain's[ ]DNS[ ]violates[ ]RFC[ ]1035[.]\z
-          }x,
+          systemerror: %r/\AThis[ ]domain's[ ]DNS[ ]violates[ ]RFC[ ]1035[.]\z/x,
         }
         ReDelayed = {
           # courier/module.esmtp/esmtpclient.c:535| soft_error(del, ctf, "DNS lookup failed.");
-          'networkerror' => %r{
-            \ADNS[ ]lookup[ ]failed[.]\z
-          },
+          networkerror: %r/\ADNS[ ]lookup[ ]failed[.]\z/x,
         }
         Indicators = Sisimai::MTA.INDICATORS
 
@@ -254,7 +248,7 @@ module Sisimai
             ReFailure.each_key do |r|
               # Verify each regular expression of session errors
               next unless e['diagnosis'] =~ ReFailure[r]
-              e['reason'] = r
+              e['reason'] = r.to_s
               e['softbounce'] = 0
               break
             end
@@ -263,7 +257,7 @@ module Sisimai
               ReDelayed.each_key do |r|
                 # Verify each regular expression of session errors
                 next unless e['diagnosis'] =~ ReDelayed[r]
-                e['reason'] = r
+                e['reason'] = r.to_s
                 e['softbounce'] = 1
                 break
               end

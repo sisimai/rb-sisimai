@@ -29,10 +29,10 @@ module Sisimai
           %r/SMTP error from remote (?:mail server|mailer) after end of ([A-Za-z]{4})/,
         ]
         ReFailure = {
-          'userunknown' => %r{
+          userunknown: %r{
               user[ ]not[ ]found
           }x,
-          'hostunknown' => %r{(?>
+          hostunknown: %r{(?>
                all[ ](?:
                    host[ ]address[ ]lookups[ ]failed[ ]permanently
                   |relevant[ ]MX[ ]records[ ]point[ ]to[ ]non[-]existent[ ]hosts
@@ -40,23 +40,23 @@ module Sisimai
               |Unrouteable[ ]address
               )
           }x,
-          'mailboxfull' => %r{(?:
+          mailboxfull: %r{(?:
                mailbox[ ]is[ ]full:?
               |error:[ ]quota[ ]exceed
               )
           }x,
-          'notaccept' => %r{(?:
+          notaccept: %r{(?:
                an[ ]MX[ ]or[ ]SRV[ ]record[ ]indicated[ ]no[ ]SMTP[ ]service
               |no[ ]host[ ]found[ ]for[ ]existing[ ]SMTP[ ]connection
               )
           }x,
-          'systemerror' => %r{(?>
+          systemerror: %r{(?>
                delivery[ ]to[ ](?:file|pipe)[ ]forbidden
               |local[ ]delivery[ ]failed
               |LMTP[ ]error[ ]after[ ]
               )
           }x,
-          'contenterror' => %r{
+          contenterror: %r{
               Too[ ]many[ ]["]Received["][ ]headers
           }x,
         }
@@ -237,7 +237,7 @@ module Sisimai
                 ReFailure.each_key do |r|
                   # Check each regular expression
                   next unless e['diagnosis'] =~ ReFailure[r]
-                  e['reason'] = r
+                  e['reason'] = r.to_s
                   break
                 end
 

@@ -78,11 +78,11 @@ module Sisimai
         # find exim/ -type f -exec grep 'message = US' {} /dev/null \;
         ReFailure = {
           # route.c:1158|  DEBUG(D_uid) debug_printf("getpwnam() returned NULL (user not found)\n");
-          'userunknown' => %r/user[ ]not[ ]found/x,
+          userunknown: %r/user[ ]not[ ]found/x,
           # transports/smtp.c:3524|  addr->message = US"all host address lookups failed permanently";
           # routers/dnslookup.c:331|  addr->message = US"all relevant MX records point to non-existent hosts";
           # route.c:1826|  uschar *message = US"Unrouteable address";
-          'hostunknown' => %r{(?>
+          hostunknown: %r{(?>
              all[ ](?:
                host[ ]address[ ]lookups[ ]failed[ ]permanently
               |relevant[ ]MX[ ]records[ ]point[ ]to[ ]non[-]existent[ ]hosts
@@ -93,10 +93,10 @@ module Sisimai
           # transports/appendfile.c:2567|  addr->user_message = US"mailbox is full";
           # transports/appendfile.c:3049|  addr->message = string_sprintf("mailbox is full "
           # transports/appendfile.c:3050|  "(quota exceeded while writing to file %s)", filename);
-          'mailboxfull' => %r/(?:mailbox[ ]is[ ]full:?|error:[ ]quota[ ]exceed)/x,
+          mailboxfull: %r/(?:mailbox[ ]is[ ]full:?|error:[ ]quota[ ]exceed)/x,
           # routers/dnslookup.c:328|  addr->message = US"an MX or SRV record indicated no SMTP service";
           # transports/smtp.c:3502|  addr->message = US"no host found for existing SMTP connection";
-          'notaccept' => %r{(?:
+          notaccept: %r{(?:
              an[ ]MX[ ]or[ ]SRV[ ]record[ ]indicated[ ]no[ ]SMTP[ ]service
             |no[ ]host[ ]found[ ]for[ ]existing[ ]SMTP[ ]connection
             )
@@ -104,14 +104,14 @@ module Sisimai
           # deliver.c:5614|  addr->message = US"delivery to file forbidden";
           # deliver.c:5624|  addr->message = US"delivery to pipe forbidden";
           # transports/pipe.c:1156|  addr->user_message = US"local delivery failed";
-          'systemerror' => %r{(?>
+          systemerror: %r{(?>
              delivery[ ]to[ ](?:file|pipe)[ ]forbidden
             |local[ ]delivery[ ]failed
             |LMTP[ ]error[ ]after[ ]
             )
           }x,
           # deliver.c:5425|  new->message = US"Too many \"Received\" headers - suspected mail loop";
-          'contenterror' => %r/Too[ ]many[ ]["]Received["][ ]headers/x,
+          contenterror: %r/Too[ ]many[ ]["]Received["][ ]headers/x,
         }
 
         # retry.c:902|  addr->message = (addr->message == NULL)? US"retry timeout exceeded" :
@@ -439,7 +439,7 @@ module Sisimai
                 ReFailure.each_key do |r|
                   # Check each regular expression
                   next unless e['diagnosis'] =~ ReFailure[r]
-                  e['reason'] = r
+                  e['reason'] = r.to_s
                   break
                 end
 

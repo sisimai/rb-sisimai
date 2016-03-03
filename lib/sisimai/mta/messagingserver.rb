@@ -20,7 +20,7 @@ module Sisimai
           :rfc822 => %r!\A(?:Content-type:[ ]*message/rfc822|Return-path:[ ]*)!x,
         }
         ReFailure = {
-          'hostunknown' => %r{Illegal[ ]host/domain[ ]name[ ]found}x,
+          hostunknown: %r|Illegal[ ]host/domain[ ]name[ ]found|x,
         }
         Indicators = Sisimai::MTA.INDICATORS
 
@@ -201,7 +201,7 @@ module Sisimai
             ReFailure.each_key do |r|
               # Verify each regular expression of session errors
               next unless e['diagnosis'] =~ ReFailure[r]
-              e['reason'] = r
+              e['reason'] = r.to_s
               break
             end
 

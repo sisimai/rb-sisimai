@@ -17,12 +17,12 @@ module Sisimai
           :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
         ReFailure = {
-          'userunknown' => %r{(?:
+          userunknown: %r{(?:
              User[ ]not[ ]listed[ ]in[ ]public[ ]Name[ ][&][ ]Address[ ]Book
             |ディレクトリのリストにありません
             )
           }x,
-          'networkerror' => %r/Message has exceeded maximum hop count/,
+          networkerror: %r/Message has exceeded maximum hop count/,
         }
         Indicators = Sisimai::MTA.INDICATORS
 
@@ -173,8 +173,8 @@ module Sisimai
             ReFailure.each_key do |r|
               # Check each regular expression of Notes error messages
               next unless e['diagnosis'] =~ ReFailure[r]
-              e['reason'] = r
-              pseudostatus = Sisimai::SMTP::Status.code(r)
+              e['reason'] = r.to_s
+              pseudostatus = Sisimai::SMTP::Status.code(r.to_s)
               e['status'] = pseudostatus if pseudostatus.size > 0
               break
             end

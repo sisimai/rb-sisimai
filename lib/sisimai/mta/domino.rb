@@ -17,7 +17,7 @@ module Sisimai
           :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
         ReFailure = {
-          'userunknown' => %r{(?>
+          userunknown: %r{(?>
              not[ ]listed[ ]in[ ](?:
                Domino[ ]Directory
               |public[ ]Name[ ][&][ ]Address[ ]Book
@@ -25,12 +25,8 @@ module Sisimai
             |Domino[ ]ディレクトリには見つかりません
             )
           }x,
-          'filtered' => %r{
-              Cannot[ ]route[ ]mail[ ]to[ ]user
-          }x,
-          'systemerror' => %r{
-              Several[ ]matches[ ]found[ ]in[ ]Domino[ ]Directory
-          }x,
+          filtered:    %r/Cannot[ ]route[ ]mail[ ]to[ ]user/x,
+          systemerror: %r/Several[ ]matches[ ]found[ ]in[ ]Domino[ ]Directory/x,
         }
         Indicators = Sisimai::MTA.INDICATORS
 
@@ -166,8 +162,8 @@ module Sisimai
             ReFailure.each_key do |r|
               # Check each regular expression of Domino error messages
               next unless e['diagnosis'] =~ ReFailure[r]
-              e['reason'] = r
-              pseudostatus = Sisimai::SMTP::Status.code(r, false)
+              e['reason'] = r.to_s
+              pseudostatus = Sisimai::SMTP::Status.code(r.to_s, false)
               e['status'] = pseudostatus if pseudostatus.size > 0
               break
             end

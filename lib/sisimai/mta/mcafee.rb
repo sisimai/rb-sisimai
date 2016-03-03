@@ -19,7 +19,7 @@ module Sisimai
           :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
         ReFailure = {
-          'userunknown' => %r{(?:
+          userunknown: %r{(?:
              User[ ][(].+[@].+[)][ ]unknown[.]
             |550[ ]Unknown[ ]user[ ][^ ]+[@][^ ]+
             )
@@ -165,7 +165,7 @@ module Sisimai
             ReFailure.each_key do |r|
               # Verify each regular expression of session errors
               next unless e['diagnosis'] =~ ReFailure[r]
-              e['reason'] = r
+              e['reason'] = r.to_s
               break
             end
 
