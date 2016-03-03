@@ -21,10 +21,10 @@ module Sisimai
         }
         ReFailure = {
           # The followings are error messages in Rule sets/*/Actions/Template
-          'filtered'      => %r/Mailbox does not exist/,
-          'mesgtoobig'    => %r/Message too large/,
-          'mailboxfull'   => %r/Mailbox full/,
-          'contenterror'  => %r/Message content rejected/,
+          filtered:     %r/Mailbox does not exist/,
+          mesgtoobig:   %r/Message too large/,
+          mailboxfull:  %r/Mailbox full/,
+          contenterror: %r/Message content rejected/,
         }
         Indicators = Sisimai::MSP.INDICATORS
 
@@ -211,7 +211,7 @@ module Sisimai
             ReFailure.each_key do |r|
               # Verify each regular expression of session errors
               next unless e['diagnosis'] =~ ReFailure[r]
-              e['reason'] = r
+              e['reason'] = r.to_s
               break
             end
 

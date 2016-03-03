@@ -24,14 +24,14 @@ module Sisimai
           :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
         CodeTable = {
-          '4.4.7'   => 'expired',
-          '5.1.0'   => 'rejected',
-          '5.1.1'   => 'userunknown',
-          '5.1.10'  => 'filtered',
-          '5.4.1'   => 'networkerror',
-          '5.4.14'  => 'networkerror',
-          '5.7.1'   => 'rejected',
-          '5.7.133' => 'rejected',
+          :'4.4.7'   => 'expired',
+          :'5.1.0'   => 'rejected',
+          :'5.1.1'   => 'userunknown',
+          :'5.1.10'  => 'filtered',
+          :'5.4.1'   => 'networkerror',
+          :'5.4.14'  => 'networkerror',
+          :'5.7.1'   => 'rejected',
+          :'5.7.133' => 'rejected',
         }
         Indicators = Sisimai::MSP.INDICATORS
 
@@ -242,7 +242,7 @@ module Sisimai
             end
 
             if e['status']
-              e['reason'] = CodeTable[e['status']] || ''
+              e['reason'] = CodeTable[e['status'].to_sym] || ''
             end
           end
 

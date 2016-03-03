@@ -80,9 +80,7 @@ module Sisimai
             }
             reFailure = {
               # The attempted recipient address does not exist.
-              'userunknown' => %r{
-                550[ ][-][ ]Requested[ ]action[ ]not[ ]taken:[ ]no[ ]such[ ]user[ ]here
-              }x,
+              userunknown: %r/550[ ][-][ ]Requested[ ]action[ ]not[ ]taken:[ ]no[ ]such[ ]user[ ]here/x,
             }
             boundary00 = Sisimai::MIME.boundary(mhead['content-type']) || ''
 
@@ -162,9 +160,7 @@ module Sisimai
               :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
             }
             reFailure = {
-              'userunknown' => %r{
-                  No[ ]valid[ ]recipients[ ]for[ ]this[ ]MM
-              }x,
+              userunknown: %r/No[ ]valid[ ]recipients[ ]for[ ]this[ ]MM/x,
             }
             boundary00 = Sisimai::MIME.boundary(mhead['content-type'])
             if boundary00.size > 0
@@ -263,7 +259,7 @@ module Sisimai
             reFailure.each_key do |r|
               # Verify each regular expression of session errors
               next unless e['diagnosis'] =~ reFailure[r]
-              e['reason'] = r
+              e['reason'] = r.to_s
               break
             end
 

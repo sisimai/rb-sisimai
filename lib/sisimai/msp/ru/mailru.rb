@@ -33,15 +33,13 @@ module Sisimai
           %r/SMTP error from remote (?:mail server|mailer) after end of ([A-Za-z]{4})/,
         ]
         ReFailure = {
-          'expired' => %r{(?:
+          expired: %r{(?:
                retry[ ]timeout[ ]exceeded
               |No[ ]action[ ]is[ ]required[ ]on[ ]your[ ]part
               )
           }x,
-          'userunknown' => %r{
-              user[ ]not[ ]found
-          }x,
-          'hostunknown' => %r{(?>
+          userunknown: %r/user[ ]not[ ]found/x,
+          hostunknown: %r{(?>
                all[ ](?:
                    host[ ]address[ ]lookups[ ]failed[ ]permanently
                   |relevant[ ]MX[ ]records[ ]point[ ]to[ ]non[-]existent[ ]hosts
@@ -49,24 +47,18 @@ module Sisimai
               |Unrouteable[ ]address
               )
           }x,
-          'mailboxfull' => %r{(?:
-               mailbox[ ]is[ ]full:?
-              |error:[ ]quota[ ]exceed
-              )
-          }x,
-          'notaccept' => %r{(?:
+          mailboxfull: %r/(?:mailbox[ ]is[ ]full:?|error:[ ]quota[ ]exceed)/x,
+          notaccept: %r{(?:
                an[ ]MX[ ]or[ ]SRV[ ]record[ ]indicated[ ]no[ ]SMTP[ ]service
               |no[ ]host[ ]found[ ]for[ ]existing[ ]SMTP[ ]connection
               )
           }x,
-          'systemerror' => %r{(?:
+          systemerror: %r{(?:
                delivery[ ]to[ ](?:file|pipe)[ ]forbidden
               |local[ ]delivery[ ]failed
               )
           }x,
-          'contenterror' => %r{
-              Too[ ]many[ ]["]Received["][ ]headers[ ]
-          }x,
+          contenterror: %r/Too[ ]many[ ]["]Received["][ ]headers[ ]/x,
         }
         Indicators = Sisimai::MSP.INDICATORS
 
@@ -267,7 +259,7 @@ module Sisimai
                 ReFailure.each_key do |r|
                   # Check each regular expression
                   next unless e['diagnosis'] =~ ReFailure[r]
-                  e['reason'] = r
+                  e['reason'] = r.to_s
                   break
                 end
               end

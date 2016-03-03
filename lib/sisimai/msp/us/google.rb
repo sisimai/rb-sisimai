@@ -24,13 +24,13 @@ module Sisimai
           :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
         ReFailure = {
-          'expired' => %r{(?:
+          expired: %r{(?:
                DNS[ ]Error:[ ]Could[ ]not[ ]contact[ ]DNS[ ]servers
               |Delivery[ ]to[ ]the[ ]following[ ]recipient[ ]has[ ]been[ ]delayed
               |The[ ]recipient[ ]server[ ]did[ ]not[ ]accept[ ]our[ ]requests[ ]to[ ]connect
               )
           }x,
-          'hostunknown' => %r{DNS[ ]Error:[ ](?:
+          hostunknown: %r{DNS[ ]Error:[ ](?:
                Domain[ ]name[ ]not[ ]found
               |DNS[ ]server[ ]returned[ ]answer[ ]with[ ]no[ ]data
               )
@@ -309,7 +309,7 @@ module Sisimai
               ReFailure.each_key do |r|
                 # Verify each regular expression of session errors
                 next unless e['diagnosis'] =~ ReFailure[r]
-                e['reason'] = r
+                e['reason'] = r.to_s
                 break
               end
             end

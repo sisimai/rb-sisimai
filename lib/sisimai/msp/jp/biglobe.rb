@@ -19,8 +19,8 @@ module Sisimai
           :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
         ReFailure = {
-          'filtered'    => %r/Mail Delivery Failed[.]+ User unknown/,
-          'mailboxfull' => %r/The number of messages in recipient's mailbox exceeded the local limit[.]/,
+          filtered:    %r/Mail Delivery Failed[.]+ User unknown/,
+          mailboxfull: %r/The number of messages in recipient's mailbox exceeded the local limit[.]/,
         }
         Indicators = Sisimai::MSP.INDICATORS
 
@@ -142,7 +142,7 @@ module Sisimai
             ReFailure.each_key do |r|
               # Verify each regular expression of session errors
               next unless e['diagnosis'] =~ ReFailure[r]
-              e['reason'] = r
+              e['reason'] = r.to_s
               break
             end
 

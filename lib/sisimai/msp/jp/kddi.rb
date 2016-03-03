@@ -25,9 +25,9 @@ module Sisimai
           :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
         ReFailure = {
-          'mailboxfull' => %r/As[ ]their[ ]mailbox[ ]is[ ]full/x,
-          'norelaying'  => %r/Due[ ]to[ ]the[ ]following[ ]SMTP[ ]relay[ ]error/x,
-          'hostunknown' => %r/As[ ]the[ ]remote[ ]domain[ ]doesnt[ ]exist/x,
+          mailboxfull: %r/As[ ]their[ ]mailbox[ ]is[ ]full/x,
+          norelaying:  %r/Due[ ]to[ ]the[ ]following[ ]SMTP[ ]relay[ ]error/x,
+          hostunknown: %r/As[ ]the[ ]remote[ ]domain[ ]doesnt[ ]exist/x,
         }
         Indicators = Sisimai::MSP.INDICATORS
 
@@ -156,7 +156,7 @@ module Sisimai
                 ReFailure.each_key do |r|
                   # Verify each regular expression of session errors
                   next unless e['diagnosis'] =~ ReFailure[r]
-                  e['reason'] = r
+                  e['reason'] = r.to_s
                   break
                 end
               end
