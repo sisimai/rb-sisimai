@@ -541,162 +541,162 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/SMTP/Status.pm
       class << self
         StandardCode = {
-          '2.1.5': 'delivered',      # Successfully delivered
+          :'2.1.5'  => 'delivered',      # Successfully delivered
           # ------------------------------------------------------------------------------
-          '4.1.6':  'hasmoved',       # Destination mailbox has moved, No forwarding address
-          '4.1.7':  'rejected',       # Bad sender's mailbox address syntax
-          '4.1.8':  'rejected',       # Bad sender's system address
-          '4.1.9':  'systemerror',    # Message relayed to non-compliant mailer
-          '4.2.1':  'suspend',        # Mailbox disabled, not accepting messages
-          '4.2.2':  'mailboxfull',    # Mailbox full
-          '4.2.3':  'exceedlimit',    # Message length exceeds administrative limit
-          '4.2.4':  'filtered',       # Mailing list expansion problem
-          #'4.3.0': 'systemerror',    # Other or undefined mail system status
-          '4.3.1':  'systemfull',     # Mail system full
-          '4.3.2':  'notaccept',      # System not accepting network messages
-          '4.3.3':  'systemerror',    # System not capable of selected features
-          '4.3.5':  'systemerror',    # System incorrectly configured
-          #'4.4.0': 'networkerror',   # Other or undefined network or routing status
-          '4.4.1':  'expired',        # No answer from host
-          '4.4.2':  'networkerror',   # Bad connection
-          #'4.4.3': 'systemerror',    # Directory server failure
-          '4.4.4':  'networkerror',   # Unable to route
-          '4.4.5':  'toomanyconn',    # Mail system congestion
-          '4.4.6':  'networkerror',   # Routing loop detected
-          '4.4.7':  'expired',        # Delivery time expired
-          #'4.5.0': 'networkerror',   # Other or undefined protocol status
-          '4.5.3':  'systemerror',    # Too many recipients
-          '4.5.5':  'systemerror',    # Wrong protocol version
-          '4.6.0':  'contenterror',   # Other or undefined media error
-          '4.6.2':  'contenterror',   # Conversion required and prohibited
-          '4.6.5':  'contenterror',   # Conversion Failed
-          #'4.7.0': 'securityerror',  # Other or undefined security status
-          '4.7.1':  'blocked',        # Delivery not authorized, message refused
-          '4.7.2':  'blocked',        # Mailing list expansion prohibited
-          '4.7.5':  'securityerror',  # Cryptographic failure
-          '4.7.6':  'securityerror',  # Cryptographic algorithm not supported
-          '4.7.7':  'securityerror',  # Message integrity failure
-          '4.7.12': 'securityerror',  # A password transition is needed
-          '4.7.15': 'securityerror',  # Priority Level is too low
-          '4.7.16': 'mesgtoobig',     # Message is too big for the specified priority
-          '4.7.24': 'securityerror',  # SPF validation error
+          :'4.1.6'  => 'hasmoved',       # Destination mailbox has moved, No forwarding address
+          :'4.1.7'  => 'rejected',       # Bad sender's mailbox address syntax
+          :'4.1.8'  => 'rejected',       # Bad sender's system address
+          :'4.1.9'  => 'systemerror',    # Message relayed to non-compliant mailer
+          :'4.2.1'  => 'suspend',        # Mailbox disabled, not accepting messages
+          :'4.2.2'  => 'mailboxfull',    # Mailbox full
+          :'4.2.3'  => 'exceedlimit',    # Message length exceeds administrative limit
+          :'4.2.4'  => 'filtered',       # Mailing list expansion problem
+          # :'4.3.0' => 'systemerror',    # Other or undefined mail system status
+          :'4.3.1'  => 'systemfull',     # Mail system full
+          :'4.3.2'  => 'notaccept',      # System not accepting network messages
+          :'4.3.3'  => 'systemerror',    # System not capable of selected features
+          :'4.3.5'  => 'systemerror',    # System incorrectly configured
+          # :'4.4.0' => 'networkerror',   # Other or undefined network or routing status
+          :'4.4.1'  => 'expired',        # No answer from host
+          :'4.4.2'  => 'networkerror',   # Bad connection
+          # :'4.4.3' => 'systemerror',    # Directory server failure
+          :'4.4.4'  => 'networkerror',   # Unable to route
+          :'4.4.5'  => 'toomanyconn',    # Mail system congestion
+          :'4.4.6'  => 'networkerror',   # Routing loop detected
+          :'4.4.7'  => 'expired',        # Delivery time expired
+          # :'4.5.0' => 'networkerror',   # Other or undefined protocol status
+          :'4.5.3'  => 'systemerror',    # Too many recipients
+          :'4.5.5'  => 'systemerror',    # Wrong protocol version
+          :'4.6.0'  => 'contenterror',   # Other or undefined media error
+          :'4.6.2'  => 'contenterror',   # Conversion required and prohibited
+          :'4.6.5'  => 'contenterror',   # Conversion Failed
+          # :'4.7.0' => 'securityerror',  # Other or undefined security status
+          :'4.7.1'  => 'blocked',        # Delivery not authorized, message refused
+          :'4.7.2'  => 'blocked',        # Mailing list expansion prohibited
+          :'4.7.5'  => 'securityerror',  # Cryptographic failure
+          :'4.7.6'  => 'securityerror',  # Cryptographic algorithm not supported
+          :'4.7.7'  => 'securityerror',  # Message integrity failure
+          :'4.7.12' => 'securityerror',  # A password transition is needed
+          :'4.7.15' => 'securityerror',  # Priority Level is too low
+          :'4.7.16' => 'mesgtoobig',     # Message is too big for the specified priority
+          :'4.7.24' => 'securityerror',  # SPF validation error
           # ------------------------------------------------------------------------------
-          '5.1.0':  'userunknown',    # Other address status
-          '5.1.1':  'userunknown',    # Bad destination mailbox address
-          '5.1.2':  'hostunknown',    # Bad destination system address
-          '5.1.3':  'userunknown',    # Bad destination mailbox address syntax
-          '5.1.4':  'filtered',       # Destination mailbox address ambiguous
-          '5.1.6':  'hasmoved',       # Destination mailbox has moved, No forwarding address
-          '5.1.7':  'rejected',       # Bad sender's mailbox address syntax
-          '5.1.8':  'rejected',       # Bad sender's system address
-          '5.1.9':  'systemerror',    # Message relayed to non-compliant mailer
-          '5.1.10': 'notaccept',      # Recipient address has null MX
-          '5.2.0':  'filtered',       # Other or undefined mailbox status
-          '5.2.1':  'filtered',       # Mailbox disabled, not accepting messages
-          '5.2.2':  'mailboxfull',    # Mailbox full
-          '5.2.3':  'exceedlimit',    # Message length exceeds administrative limit
-          '5.2.4':  'filtered',       # Mailing list expansion problem
-          '5.3.0':  'systemerror',    # Other or undefined mail system status
-          '5.3.1':  'systemfull',     # Mail system full
-          '5.3.2':  'notaccept',      # System not accepting network messages
-          '5.3.3':  'systemerror',    # System not capable of selected features
-          '5.3.4':  'mesgtoobig',     # Message too big for system
-          '5.3.5':  'systemerror',    # System incorrectly configured
-          '5.4.0':  'networkerror',   # Other or undefined network or routing status
-          '5.4.3':  'systemerror',    # Directory server failure
-          '5.5.3':  'toomanyconn',    # Too many recipients
-          '5.5.4':  'systemerror',    # Invalid command arguments
-          '5.5.5':  'systemerror',    # Wrong protocol version
-          '5.5.6':  'securityerror',  # Authentication Exchange line is too long
-          '5.6.0':  'contenterror',   # Other or undefined media error
-          '5.6.1':  'contenterror',   # Media not supported
-          '5.6.2':  'contenterror',   # Conversion required and prohibited
-          '5.6.3':  'contenterror',   # Conversion required but not supported
-          '5.6.5':  'contenterror',   # Conversion Failed
-          '5.6.6':  'contenterror',   # Message content not available
-          '5.6.7':  'contenterror',   # Non-ASCII addresses not permitted for that sender/recipient
-          '5.6.8':  'contenterror',   # UTF-8 string reply is required, but not permitted by the SMTP client
-          '5.6.9':  'contenterror',   # UTF-8 header message cannot be transferred to one or more recipients
-          '5.7.0':  'securityerror',  # Other or undefined security status
-          '5.7.1':  'blocked',        # Delivery not authorized, message refused
-          '5.7.2':  'blocked',        # Mailing list expansion prohibited
-          '5.7.3':  'securityerror',  # Security conversion required but not possible
-          '5.7.4':  'securityerror',  # Security features not supported
-          '5.7.5':  'securityerror',  # Cryptographic failure
-          '5.7.6':  'securityerror',  # Cryptographic algorithm not supported
-          '5.7.7':  'securityerror',  # Message integrity failure
-          '5.7.8':  'securityerror',  # Authentication credentials invalid
-          '5.7.9':  'securityerror',  # Authentication mechanism is too weak
-          '5.7.10': 'securityerror',  # Encryption Needed
-          '5.7.11': 'securityerror',  # Encryption required for requested authentication mechanism
-          '5.7.13': 'suspend',        # User Account Disabled
-          '5.7.14': 'securityerror',  # Trust relationship required
-          '5.7.15': 'securityerror',  # Priority Level is too low
-          '5.7.16': 'mesgtoobig',     # Message is too big for the specified priority
-          '5.7.17': 'hasmoved',       # Mailbox owner has changed
-          '5.7.18': 'hasmoved',       # Domain owner has changed
-          '5.7.19': 'securityerror',  # RRVS test cannot be completed
-          '5.7.20': 'securityerror',  # No passing DKIM signature found
-          '5.7.21': 'securityerror',  # No acceptable DKIM signature found
-          '5.7.22': 'securityerror',  # No valid author-matched DKIM signature found
-          '5.7.23': 'securityerror',  # SPF validation failed
-          '5.7.24': 'securityerror',  # SPF validation error
-          '5.7.25': 'blocked',        # Reverse DNS validation failed
-          '5.7.26': 'securityerror',  # Multiple authentication checks failed
-          '5.7.27': 'rejected',       # Sender address has null MX
+          :'5.1.0'  => 'userunknown',    # Other address status
+          :'5.1.1'  => 'userunknown',    # Bad destination mailbox address
+          :'5.1.2'  => 'hostunknown',    # Bad destination system address
+          :'5.1.3'  => 'userunknown',    # Bad destination mailbox address syntax
+          :'5.1.4'  => 'filtered',       # Destination mailbox address ambiguous
+          :'5.1.6'  => 'hasmoved',       # Destination mailbox has moved, No forwarding address
+          :'5.1.7'  => 'rejected',       # Bad sender's mailbox address syntax
+          :'5.1.8'  => 'rejected',       # Bad sender's system address
+          :'5.1.9'  => 'systemerror',    # Message relayed to non-compliant mailer
+          :'5.1.10' => 'notaccept',      # Recipient address has null MX
+          :'5.2.0'  => 'filtered',       # Other or undefined mailbox status
+          :'5.2.1'  => 'filtered',       # Mailbox disabled, not accepting messages
+          :'5.2.2'  => 'mailboxfull',    # Mailbox full
+          :'5.2.3'  => 'exceedlimit',    # Message length exceeds administrative limit
+          :'5.2.4'  => 'filtered',       # Mailing list expansion problem
+          :'5.3.0'  => 'systemerror',    # Other or undefined mail system status
+          :'5.3.1'  => 'systemfull',     # Mail system full
+          :'5.3.2'  => 'notaccept',      # System not accepting network messages
+          :'5.3.3'  => 'systemerror',    # System not capable of selected features
+          :'5.3.4'  => 'mesgtoobig',     # Message too big for system
+          :'5.3.5'  => 'systemerror',    # System incorrectly configured
+          :'5.4.0'  => 'networkerror',   # Other or undefined network or routing status
+          :'5.4.3'  => 'systemerror',    # Directory server failure
+          :'5.5.3'  => 'toomanyconn',    # Too many recipients
+          :'5.5.4'  => 'systemerror',    # Invalid command arguments
+          :'5.5.5'  => 'systemerror',    # Wrong protocol version
+          :'5.5.6'  => 'securityerror',  # Authentication Exchange line is too long
+          :'5.6.0'  => 'contenterror',   # Other or undefined media error
+          :'5.6.1'  => 'contenterror',   # Media not supported
+          :'5.6.2'  => 'contenterror',   # Conversion required and prohibited
+          :'5.6.3'  => 'contenterror',   # Conversion required but not supported
+          :'5.6.5'  => 'contenterror',   # Conversion Failed
+          :'5.6.6'  => 'contenterror',   # Message content not available
+          :'5.6.7'  => 'contenterror',   # Non-ASCII addresses not permitted for that sender/recipient
+          :'5.6.8'  => 'contenterror',   # UTF-8 string reply is required, but not permitted by the SMTP client
+          :'5.6.9'  => 'contenterror',   # UTF-8 header message cannot be transferred to one or more recipients
+          :'5.7.0'  => 'securityerror',  # Other or undefined security status
+          :'5.7.1'  => 'blocked',        # Delivery not authorized, message refused
+          :'5.7.2'  => 'blocked',        # Mailing list expansion prohibited
+          :'5.7.3'  => 'securityerror',  # Security conversion required but not possible
+          :'5.7.4'  => 'securityerror',  # Security features not supported
+          :'5.7.5'  => 'securityerror',  # Cryptographic failure
+          :'5.7.6'  => 'securityerror',  # Cryptographic algorithm not supported
+          :'5.7.7'  => 'securityerror',  # Message integrity failure
+          :'5.7.8'  => 'securityerror',  # Authentication credentials invalid
+          :'5.7.9'  => 'securityerror',  # Authentication mechanism is too weak
+          :'5.7.10' => 'securityerror',  # Encryption Needed
+          :'5.7.11' => 'securityerror',  # Encryption required for requested authentication mechanism
+          :'5.7.13' => 'suspend',        # User Account Disabled
+          :'5.7.14' => 'securityerror',  # Trust relationship required
+          :'5.7.15' => 'securityerror',  # Priority Level is too low
+          :'5.7.16' => 'mesgtoobig',     # Message is too big for the specified priority
+          :'5.7.17' => 'hasmoved',       # Mailbox owner has changed
+          :'5.7.18' => 'hasmoved',       # Domain owner has changed
+          :'5.7.19' => 'securityerror',  # RRVS test cannot be completed
+          :'5.7.20' => 'securityerror',  # No passing DKIM signature found
+          :'5.7.21' => 'securityerror',  # No acceptable DKIM signature found
+          :'5.7.22' => 'securityerror',  # No valid author-matched DKIM signature found
+          :'5.7.23' => 'securityerror',  # SPF validation failed
+          :'5.7.24' => 'securityerror',  # SPF validation error
+          :'5.7.25' => 'blocked',        # Reverse DNS validation failed
+          :'5.7.26' => 'securityerror',  # Multiple authentication checks failed
+          :'5.7.27' => 'rejected',       # Sender address has null MX
         }
 
         InternalCode = {
-          temporary: {
-            blocked:       '4.0.971',
-            contenterror:  '4.0.960',
-            # exceedlimit: '4.0.923',
-            expired:       '4.0.947',
-            filtered:      '4.0.924',
-            # hasmoved:    '4.0.916',
-            # hostunknown: '4.0.912',
-            mailboxfull:   '4.0.922',
-            # mailererror: '4.0.939',
-            # mesgtoobig:  '4.0.934',
-            networkerror:  '4.0.944',
-            # norelaying:  '4.0.909',
-            notaccept:     '4.0.932',
-            onhold:        '4.0.901',
-            rejected:      '4.0.918',
-            securityerror: '4.0.970',
-            spamdetected:  '4.0.980',
-            # suspend:     '4.0.921',
-            systemerror:   '4.0.930',
-            systemfull:    '4.0.931',
-            toomanyconn:   '4.0.945',
-            # userunknown: '4.0.911',
-            undefined:     '4.0.900',
+          :temporary => {
+            :blocked       => '4.0.971',
+            :contenterror  => '4.0.960',
+            # :exceedlimit => '4.0.923',
+            :expired       => '4.0.947',
+            :filtered      => '4.0.924',
+            # :hasmoved    => '4.0.916',
+            # :hostunknown => '4.0.912',
+            :mailboxfull   => '4.0.922',
+            # :mailererror => '4.0.939',
+            # :mesgtoobig  => '4.0.934',
+            :networkerror  => '4.0.944',
+            # :norelaying  => '4.0.909',
+            :notaccept     => '4.0.932',
+            :onhold:       => '4.0.901',
+            :rejected:     => '4.0.918',
+            :securityerror => '4.0.970',
+            :spamdetected  => '4.0.980',
+            # :suspend     => '4.0.921',
+            :systemerror   => '4.0.930',
+            :systemfull:   => '4.0.931',
+            :toomanyconn:  => '4.0.945',
+            # :userunknown => '4.0.911',
+            :undefined     => '4.0.900',
           },
-          permanent: {
-            blocked:       '5.0.971',
-            contenterror:  '5.0.960',
-            exceedlimit:   '5.0.923',
-            expired:       '5.0.947',
-            filtered:      '5.0.910',
-            hasmoved:      '5.0.916',
-            hostunknown:   '5.0.912',
-            mailboxfull:   '5.0.922',
-            mailererror:   '5.0.939',
-            mesgtoobig:    '5.0.934',
-            networkerror:  '5.0.944',
-            norelaying:    '5.0.909',
-            notaccept:     '5.0.932',
-            onhold:        '5.0.901',
-            rejected:      '5.0.918',
-            securityerror: '5.0.970',
-            spamdetected:  '5.0.980',
-            suspend:       '5.0.921',
-            systemerror:   '5.0.930',
-            systemfull:    '5.0.931',
-            syntaxerror:   '5.0.902',
-            toomanyconn:   '5.0.945',
-            userunknown:   '5.0.911',
-            undefined:     '5.0.900',
+          :permanent => {
+            :blocked       => '5.0.971',
+            :contenterror  => '5.0.960',
+            :exceedlimit   => '5.0.923',
+            :expired       => '5.0.947',
+            :filtered      => '5.0.910',
+            :hasmoved      => '5.0.916',
+            :hostunknown   => '5.0.912',
+            :mailboxfull   => '5.0.922',
+            :mailererror   => '5.0.939',
+            :mesgtoobig    => '5.0.934',
+            :networkerror  => '5.0.944',
+            :norelaying    => '5.0.909',
+            :notaccept     => '5.0.932',
+            :onhold        => '5.0.901',
+            :rejected      => '5.0.918',
+            :securityerror => '5.0.970',
+            :spamdetected  => '5.0.980',
+            :suspend       => '5.0.921',
+            :systemerror   => '5.0.930',
+            :systemfull    => '5.0.931',
+            :syntaxerror   => '5.0.902',
+            :toomanyconn   => '5.0.945',
+            :userunknown   => '5.0.911',
+            :undefined     => '5.0.900',
           },
         }
 
