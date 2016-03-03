@@ -62,7 +62,7 @@ module Sisimai
 
           # 2. Parse message body(mbody) of the bounce message. See some modules
           #    in lib/sisimai/mta or lib/sisimai/msp directory to implement codes.
-          dscontents = []; dscontents << Sisimai::MTA.DELIVERYSTATUS
+          dscontents = [Sisimai::MTA.DELIVERYSTATUS]
           hasdivided = mbody.split("\n")
           rfc822list = []     # (Array) Each line in message/rfc822 part string
           blanklines = 0      # (Integer) The number of blank lines

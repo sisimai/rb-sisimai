@@ -84,7 +84,7 @@ module Sisimai
         require 'sisimai/address'
         require 'sisimai/rfc5322'
 
-        dscontents = []; dscontents << Sisimai::MTA.DELIVERYSTATUS
+        dscontents = [Sisimai::MTA.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         recipients = 0  # (Integer) The number of 'Final-Recipient' header
         maxmsgline = 5  # (Integer) Max message length(lines)

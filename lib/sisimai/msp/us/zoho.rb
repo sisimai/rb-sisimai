@@ -52,7 +52,7 @@ module Sisimai
           return nil unless mbody
           return nil unless mhead['x-zohomail']
 
-          dscontents = []; dscontents << Sisimai::MSP.DELIVERYSTATUS
+          dscontents = [Sisimai::MSP.DELIVERYSTATUS]
           hasdivided = mbody.split("\n")
           rfc822list = []     # (Array) Each line in message/rfc822 part string
           blanklines = 0      # (Integer) The number of blank lines

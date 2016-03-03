@@ -52,7 +52,7 @@ module Sisimai
           match += 1 if Re0[:subject].find { |a| mhead['subject'] == a }
           return nil if match == 0
 
-          dscontents = []; dscontents << Sisimai::MTA.DELIVERYSTATUS
+          dscontents = [Sisimai::MTA.DELIVERYSTATUS]
           hasdivided = mbody.split("\n")
           rfc822list = []     # (Array) Each line in message/rfc822 part string
           blanklines = 0      # (Integer) The number of blank lines

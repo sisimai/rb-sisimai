@@ -55,7 +55,7 @@ module Sisimai
           match += 1 if mhead['received'].find { |a| a =~ Re0[:received] }
           return nil if match < 2
 
-          dscontents = []; dscontents << Sisimai::MSP.DELIVERYSTATUS
+          dscontents = [Sisimai::MSP.DELIVERYSTATUS]
           hasdivided = mbody.split("\n")
           havepassed = ['']
           rfc822list = []     # (Array) Each line in message/rfc822 part string
@@ -71,7 +71,8 @@ module Sisimai
 
           hasdivided.each do |e|
             # Save the current line for the next loop
-            havepassed << e; p = havepassed[-2]
+            havepassed << e
+            p = havepassed[-2]
 
             if readcursor == 0
               # Beginning of the bounce message or delivery status part

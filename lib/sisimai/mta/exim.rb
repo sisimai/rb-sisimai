@@ -157,7 +157,7 @@ module Sisimai
           return nil unless mhead['from']    =~ Re0[:from]
           return nil unless mhead['subject'] =~ Re0[:subject]
 
-          dscontents = []; dscontents << Sisimai::MTA.DELIVERYSTATUS
+          dscontents = [Sisimai::MTA.DELIVERYSTATUS]
           hasdivided = mbody.split("\n")
           rfc822list = []     # (Array) Each line in message/rfc822 part string
           blanklines = 0      # (Integer) The number of blank lines

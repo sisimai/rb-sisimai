@@ -86,7 +86,7 @@ module Sisimai
         return nil unless self.is_arf(mhead)
 
         require 'sisimai/address'
-        dscontents = []; dscontents << Sisimai::MTA.DELIVERYSTATUS
+        dscontents = [Sisimai::MTA.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         rfc822part = ''   # (String) message/rfc822-headers part
         previousfn = ''   # (String) Previous field name

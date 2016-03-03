@@ -50,7 +50,7 @@ module Sisimai
           match += 1 if mhead['received'].find { |a| a =~ Re0[:received] }
           return if match == 0
 
-          dscontents = []; dscontents << Sisimai::MTA.DELIVERYSTATUS
+          dscontents = [Sisimai::MTA.DELIVERYSTATUS]
           hasdivided = mbody.split("\n")
           rfc822list = []     # (Array) Each line in message/rfc822 part string
           blanklines = 0      # (Integer) The number of blank lines
@@ -62,7 +62,6 @@ module Sisimai
           v = nil
 
           hasdivided.each do |e|
-
             if readcursor == 0
               # Beginning of the bounce message or delivery status part
               if e =~ Re1[:begin]
