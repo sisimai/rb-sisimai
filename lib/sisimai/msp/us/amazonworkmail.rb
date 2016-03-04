@@ -192,6 +192,12 @@ module Sisimai
               e['status'] = pseudostatus if pseudostatus.size > 0
             end
 
+            if cv = e['diagnosis'].match(/[<]([245]\d\d)[ ].+[>]/)
+              # 554 4.4.7 Message expired: unable to deliver in 840 minutes.
+              # <421 4.4.2 Connection timed out>
+              e['replycode'] = cv[1]
+            end
+
             e['reason'] ||= Sisimai::SMTP::Status.name(e['status'])
             e['spec']   ||= 'SMTP'
             e['agent']    = Sisimai::MSP::US::AmazonWorkMail.smtpagent

@@ -101,7 +101,8 @@ module Sisimai
       @smtpcommand    = argvs['smtpcommand']    || ''
       @feedbacktype   = argvs['feedbacktype']   || ''
       @action         = argvs['action']         || ''
-      @replycode      = Sisimai::SMTP::Reply.find(argvs['diagnosticcode'])
+      @replycode      = argvs['replycode']      || ''
+      @replycode      = Sisimai::SMTP::Reply.find(argvs['diagnosticcode']) if @replycode.empty?
       @softbounce     = argvs['softbounce']     || ''
       @softbounce     = 1 if @replycode =~ /\A4/
 
@@ -164,6 +165,7 @@ module Sisimai
           'alias'          => e['alias']        || '',
           'action'         => e['action']       || '',
           'reason'         => e['reason']       || '',
+          'replycode'      => e['replycode']    || '',
           'smtpagent'      => e['agent']        || '',
           'recipient'      => e['recipient']    || '',
           'softbounce'     => e['softbounce']   || '',
