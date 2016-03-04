@@ -57,6 +57,8 @@ describe 'Sisimai::MSP::*' do
       '03' => { 'status' => %r/\A5[.]3[.]5\z/, 'reason' => %r/systemerror/ },
       '04' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
       '05' => { 'status' => %r/\A4[.]4[.]7\z/, 'reason' => %r/expired/ },
+      '06' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
+      '07' => { 'status' => %r/\A4[.]4[.]7\z/, 'reason' => %r/expired/ },
     },
     'US::Aol' => {
       '01' => { 'status' => %r/\A5[.]4[.]4\z/, 'reason' => %r/hostunknown/ },
@@ -86,6 +88,9 @@ describe 'Sisimai::MSP::*' do
       '12' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/onhold/ },
       '13' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
       '14' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+      '15' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+      '16' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
+      '17' => { 'status' => %r/\A4[.]0[.]\d+\z/, 'reason' => %r/expired/ },
     },
     'US::Office365' => {
       '01' => { 'status' => %r/\A5[.]1[.]10\z/, 'reason' => %r/filtered/ },
