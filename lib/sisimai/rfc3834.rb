@@ -133,14 +133,6 @@ module Sisimai
         v['date']      = mhead['date']
         v['status']    = ''
 
-        if mhead['received'].size > 0
-          # Get localhost and remote host name from Received header.
-          r = mhead['received']
-          %w|lhost rhost|.each { |a| v[a] ||= '' }
-          v['lhost'] = Sisimai::RFC5322.received(r[0]).shift if v['lhost'].empty?
-          v['rhost'] = Sisimai::RFC5322.received(r[-1]).pop  if v['rhost'].empty?
-        end
-
         v.each_key { |a| v[a] ||= '' }
         return { 'ds' => dscontents, 'rfc822' => '' }
       end

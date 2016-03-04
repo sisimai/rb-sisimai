@@ -189,8 +189,6 @@ module Sisimai
           end
 
           require 'sisimai/string'
-          require 'sisimai/smtp/status'
-
           dscontents.map do |e|
             e['agent'] = Sisimai::MTA::MXLogic.smtpagent
             e['lhost'] = localhost0
@@ -247,10 +245,6 @@ module Sisimai
                 end
               end
             end
-
-            e['status'] = Sisimai::SMTP::Status.find(e['diagnosis'])
-            e['spec']   = e['reason'] == 'mailererror' ? 'X-UNIX' : 'SMTP'
-            e['action'] = 'failed' if e['status'] =~ /\A[45]/
             e.each_key { |a| e[a] ||= '' }
           end
 

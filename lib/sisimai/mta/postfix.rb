@@ -263,21 +263,6 @@ module Sisimai
             end
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
             e['spec']    ||= 'SMTP' if e['diagnosis'] =~ /host .+ said:/
-            e['status']  ||= ''
-
-            if mhead['received'].size > 0
-              # Get localhost and remote host name from Received header.
-              r0 = mhead['received']
-              %w|lhost rhost|.each { |a| e[a] ||= '' }
-              e['lhost'] = Sisimai::RFC5322.received(r0[0]).shift if e['lhost'].empty?
-              e['rhost'] = Sisimai::RFC5322.received(r0[-1]).pop  if e['rhost'].empty?
-            end
-
-            if e['status'].empty? || e['status'] =~ /\A\d[.]0[.]0\z/
-              # There is no value of Status header or the value is 5.0.0, 4.0.0
-              r = Sisimai::SMTP::Status.find(e['diagnosis'])
-              e['status'] = r if r.size > 0
-            end
             e.each_key { |a| e[a] ||= '' }
           end
 

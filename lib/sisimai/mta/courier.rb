@@ -228,23 +228,13 @@ module Sisimai
               end
             end
           end
-
           return nil if recipients == 0
           require 'sisimai/string'
-          require 'sisimai/smtp/status'
 
           dscontents.map do |e|
             # Set default values if each value is empty.
             connheader.each_key { |a| e[a] ||= connheader[a] || '' }
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-
-            if mhead['received'].size > 0
-              # Get localhost and remote host name from Received header.
-              r0 = mhead['received']
-              %w|lhost rhost|.each { |a| e[a] ||= '' }
-              e['lhost'] = Sisimai::RFC5322.received(r0[0]).shift if e['lhost'].empty?
-              e['rhost'] = Sisimai::RFC5322.received(r0[-1]).pop  if e['rhost'].empty?
-            end
 
             ReFailure.each_key do |r|
               # Verify each regular expression of session errors
@@ -264,12 +254,6 @@ module Sisimai
               end
             end
 
-            if !e['status'] || e['status'] =~ /\d[.]0[.]0\z/
-              # Get the status code from the respnse of remote MTA.
-              f = Sisimai::SMTP::Status.find(e['diagnosis'])
-              e['status'] = f if f.size > 0
-            end
-            e['spec']      = '' unless e['spec'] =~ /\A(?:SMTP|X-UNIX)\z/
             e['agent']     = Sisimai::MTA::Courier.smtpagent
             e['command'] ||= commandtxt || ''
             e.each_key { |a| e[a] ||= '' }

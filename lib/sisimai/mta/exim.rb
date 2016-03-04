@@ -517,7 +517,6 @@ module Sisimai
               end
             end
             e['status'] ||= sv
-            e['action'] ||= 'failed' if e['status'] =~ /\A[45]/
             e.each_key { |a| e[a] ||= '' }
           end
 

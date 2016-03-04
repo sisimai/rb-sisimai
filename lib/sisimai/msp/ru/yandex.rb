@@ -184,35 +184,16 @@ module Sisimai
 
             end
           end
-
           return nil if recipients == 0
           require 'sisimai/string'
-          require 'sisimai/smtp/status'
 
           dscontents.map do |e|
             # Set default values if each value is empty.
             connheader.each_key { |a| e[a] ||= connheader[a] || '' }
-            e['command'] = commandset.shift || ''
-
-            if mhead['received'].size > 0
-              # Get localhost and remote host name from Received header.
-              r0 = mhead['received']
-              %w|lhost rhost|.each { |a| e[a] ||= '' }
-              e['lhost'] = Sisimai::RFC5322.received(r0[0]).shift if e['lhost'].empty?
-              e['rhost'] = Sisimai::RFC5322.received(r0[-1]).pop  if e['rhost'].empty?
-            end
+            e['command']   = commandset.shift || ''
             e['diagnosis'] = e['diagnosis'].gsub(/\\n/, '')
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-
-            e['status'] ||= ''
-            if e['status'].empty? || e['status'] =~ /\A\d[.]0[.]0\z/
-              # There is no value of Status header or the value is 5.0.0, 4.0.0
-              r = Sisimai::SMTP::Status.find(e['diagnosis'])
-              e['status'] = r if r.size > 0
-            end
-
-            e['spec']  = 'SMTP'
-            e['agent'] = Sisimai::MSP::RU::Yandex.smtpagent
+            e['agent']     = Sisimai::MSP::RU::Yandex.smtpagent
           end
 
           rfc822part = Sisimai::RFC5322.weedout(rfc822list)

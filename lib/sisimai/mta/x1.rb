@@ -106,25 +106,12 @@ module Sisimai
               end
             end
           end
-
           return nil if recipients == 0
           require 'sisimai/string'
-          require 'sisimai/smtp/status'
 
           dscontents.map do |e|
-            e['agent'] = Sisimai::MTA::X1.smtpagent
-
-            if mhead['received'].size > 0
-              # Get localhost and remote host name from Received header.
-              r0 = mhead['received']
-              %w|lhost rhost|.each { |a| e[a] ||= '' }
-              e['lhost'] = Sisimai::RFC5322.received(r0[0]).shift if e['lhost'].empty?
-              e['rhost'] = Sisimai::RFC5322.received(r0[-1]).pop  if e['rhost'].empty?
-            end
+            e['agent']     = Sisimai::MTA::X1.smtpagent
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-            e['status']    = Sisimai::SMTP::Status.find(e['diagnosis'])
-            e['spec']      = e['reason'] == 'mailererror' ? 'X-UNIX' : 'SMTP'
-            e['action']    = 'failed' if e['status'] =~ /\A[45]/
             e['date']      = datestring || ''
             e.each_key { |a| e[a] ||= '' }
           end

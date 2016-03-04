@@ -202,7 +202,6 @@ module Sisimai
             end
           end
           require 'sisimai/string'
-          require 'sisimai/smtp/status'
 
           dscontents.map do |e|
             # Set default values if each value is empty.
@@ -264,10 +263,6 @@ module Sisimai
                 end
               end
             end
-
-            e['status']    = Sisimai::SMTP::Status.find(e['diagnosis'])
-            e['spec']      = e['reason'] == 'mailererror' ? 'X-UNIX' : 'SMTP'
-            e['action']    = 'failed' if e['status'] =~ /\A[45]/
             e['command'] ||= ''
             e['agent']     = Sisimai::MSP::RU::MailRu.smtpagent
           end

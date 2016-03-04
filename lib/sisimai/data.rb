@@ -110,6 +110,7 @@ module Sisimai
       return nil unless data.is_a? Sisimai::Message
 
       messageobj = data
+      mailheader = data.header
       rfc822data = messageobj.rfc822
       fieldorder = { :recipient => [], :addresser => [] }
       objectlist = []
@@ -235,6 +236,14 @@ module Sisimai
         next unless p['timestamp']
 
         # OTHER_TEXT_HEADERS:
+        if mailheader['received'].size > 0
+          # Get localhost and remote host name from Received header.
+          r0 = mailheader['received']
+          %w|lhost rhost|.each { |a| e[a] ||= '' }
+          e['lhost'] = Sisimai::RFC5322.received(r0[0]).shift if e['lhost'].empty?
+          e['rhost'] = Sisimai::RFC5322.received(r0[-1]).pop  if e['rhost'].empty?
+        end
+
         # Remove square brackets and curly brackets from the host variable
         %w|rhost lhost|.each do |v|
           p[v] = p[v].delete('[]()')    # Remove square brackets and curly brackets from the host variable
@@ -285,12 +294,31 @@ module Sisimai
           p['deliverystatus'] = d
         end
 
+        if p['reason'] == 'mailererror'
+          p['diagnostictype'] ||= 'X-UNIX'
+        else
+          unless p['reason'] =~ /\A(?:feedback|vacation)\z/
+            p['diagnostictype'] ||= 'SMTP' 
+          end
+        end
+
         # Check the value of SMTP command
         p['smtpcommand'] = '' unless p['smtpcommand'] =~ rxcommands
 
         # Check the value of "action"
-        if cv = p['action'].match(/\A(.+?) .+/)
-          p['action'] = cv[1]
+        if p['action'].size > 0
+          if cv = p['action'].match(/\A(.+?) .+/)
+            # Action: expanded (to multi-recipient alias)
+            p['action'] = cv[1]
+          end
+        else
+          if p['reason'] == 'expired'
+            # Action: delayed
+            p['action'] = 'delayed'
+          elsif p['deliverystatus'] =~ /\A[45]/
+            # Action: failed
+            p['action'] = 'failed'
+          end
         end
 
         o = Sisimai::Data.new(p)

@@ -181,21 +181,11 @@ module Sisimai
               end
             end
           end
-
           return nil if recipients == 0
           require 'sisimai/string'
-          require 'sisimai/smtp/status'
 
           dscontents.map do |e|
-            e['agent'] = Sisimai::MTA::MessagingServer.smtpagent
-
-            if mhead['received'].size > 0
-              # Get localhost and remote host name from Received header.
-              r0 = mhead['received']
-              %w|lhost rhost|.each { |a| e[a] ||= '' }
-              e['lhost'] = Sisimai::RFC5322.received(r0[0]).shift if e['lhost'].empty?
-              e['rhost'] = Sisimai::RFC5322.received(r0[-1]).pop  if e['rhost'].empty?
-            end
+            e['agent']     = Sisimai::MTA::MessagingServer.smtpagent
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
             ReFailure.each_key do |r|
@@ -204,13 +194,6 @@ module Sisimai
               e['reason'] = r.to_s
               break
             end
-
-            if e['status'].nil? || e['status'].empty? || e['status'] =~ /\A\d[.]0[.]0\z/
-              # There is no value of Status header or the value is 5.0.0, 4.0.0
-              pseudostatus = Sisimai::SMTP::Status.find(e['diagnosis'])
-              e['status'] = pseudostatus if pseudostatus.size > 0
-            end
-            e['action'] = 'failed' if e['status'] =~ /\A[45]/
             e.each_key { |a| e[a] ||= '' }
           end
 

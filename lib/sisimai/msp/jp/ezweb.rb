@@ -200,19 +200,9 @@ module Sisimai
               end
             end
           end
-
           return nil if recipients == 0
-          require 'sisimai/smtp/status'
 
           dscontents.map do |e|
-            if mhead['received'].size > 0
-              # Get localhost and remote host name from Received header.
-              r0 = mhead['received']
-              %w|lhost rhost|.each { |a| e[a] ||= '' }
-              e['lhost'] = Sisimai::RFC5322.received(r0[0]).shift if e['lhost'].empty?
-              e['rhost'] = Sisimai::RFC5322.received(r0[-1]).pop  if e['rhost'].empty?
-            end
-
             if e['alterrors'] && e['alterrors'].size > 0
               # Copy alternative error message
               e['diagnosis'] ||= e['alterrors']
@@ -259,11 +249,7 @@ module Sisimai
                 e['reason'] = 'userunknown'
               end
             end
-
-            e['status'] = Sisimai::SMTP::Status.find(e['diagnosis'])
-            e['spec']   = 'SMTP'
-            e['action'] = 'failed' if e['status'] =~ /\A[45]/
-            e['agent']  = Sisimai::MSP::JP::EZweb.smtpagent
+            e['agent'] = Sisimai::MSP::JP::EZweb.smtpagent
           end
 
           rfc822part = Sisimai::RFC5322.weedout(rfc822list)

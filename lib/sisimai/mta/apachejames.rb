@@ -146,10 +146,8 @@ module Sisimai
               end
             end
           end
-
           return nil if recipients == 0
           require 'sisimai/string'
-          require 'sisimai/smtp/status'
 
           unless rfc822list.find { |a| a =~ /^Subject:/ }
             # Set the value of $subjecttxt as a Subject if there is no original
@@ -158,17 +156,8 @@ module Sisimai
           end
 
           dscontents.map do |e|
-            e['agent'] = Sisimai::MTA::ApacheJames.smtpagent
-
-            if mhead['received'].size > 0
-              # Get localhost and remote host name from Received header.
-              r0 = mhead['received']
-              %w|lhost rhost|.each { |a| e[a] ||= '' }
-              e['lhost'] = Sisimai::RFC5322.received(r0[0]).shift if e['lhost'].empty?
-              e['rhost'] = Sisimai::RFC5322.received(r0[-1]).pop  if e['rhost'].empty?
-            end
+            e['agent']     = Sisimai::MTA::ApacheJames.smtpagent
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'] || diagnostic)
-            e['status']    = Sisimai::SMTP::Status.find(e['diagnosis'])
             e.each_key { |a| e[a] ||= '' }
           end
 

@@ -187,13 +187,6 @@ module Sisimai
             # Set default values if each value is empty.
             connheader.each_key { |a| e[a] ||= connheader[a] || '' }
 
-            if mhead['received'].size > 0
-              # Get localhost and remote host name from Received header.
-              r0 = mhead['received']
-              %w|lhost rhost|.each { |a| e[a] ||= '' }
-              e['lhost'] = Sisimai::RFC5322.received(r0[0]).shift if e['lhost'].empty?
-              e['rhost'] = Sisimai::RFC5322.received(r0[-1]).pop  if e['rhost'].empty?
-            end
             e['diagnosis'] = e['diagnosis'].gsub(/\\n/, ' ')
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
@@ -217,7 +210,6 @@ module Sisimai
             end
 
             e['reason'] ||= Sisimai::SMTP::Status.name(e['status'])
-            e['spec']   ||= 'SMTP'
             e['agent']    = Sisimai::MSP::US::ReceivingSES.smtpagent
           end
 

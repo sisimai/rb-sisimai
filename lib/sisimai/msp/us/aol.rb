@@ -182,13 +182,7 @@ module Sisimai
             # Set default values if each value is empty.
             connheader.each_key { |a| e[a] ||= connheader[a] || '' }
 
-            if mhead['received'].size > 0
-              # Get localhost and remote host name from Received header.
-              r0 = mhead['received']
-              %w|lhost rhost|.each { |a| e[a] ||= '' }
-              e['lhost'] = Sisimai::RFC5322.received(r0[0]).shift if e['lhost'].empty?
-              e['rhost'] = Sisimai::RFC5322.received(r0[-1]).pop  if e['rhost'].empty?
-            end
+            e['agent']     = Sisimai::MSP::US::Aol.smtpagent
             e['diagnosis'] = e['diagnosis'].gsub(/\\n/, ' ')
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
@@ -204,9 +198,6 @@ module Sisimai
               pseudostatus = Sisimai::SMTP::Status.find(e['diagnosis'])
               e['status'] = pseudostatus if pseudostatus.size > 0
             end
-
-            e['spec']  ||= 'SMTP'
-            e['agent']   = Sisimai::MSP::US::Aol.smtpagent
           end
 
           rfc822part = Sisimai::RFC5322.weedout(rfc822list)

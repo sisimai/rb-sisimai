@@ -237,15 +237,6 @@ module Sisimai
           require 'sisimai/smtp/status'
 
           dscontents.map do |e|
-            if mhead['received'].size > 0
-              # Get localhost and remote host name from Received header.
-              r0 = mhead['received']
-              %w|lhost rhost|.each { |a| e[a] ||= '' }
-              e['lhost'] = Sisimai::RFC5322.received(r0[0]).shift if e['lhost'].empty?
-              e['rhost'] = Sisimai::RFC5322.received(r0[-1]).pop  if e['rhost'].empty?
-            end
-            e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-
             if cv = e['diagnosis'].match(/\AMSEXCH:.+[ \t]*[(]([0-9A-F]{8})[)][ \t]*(.*)\z/)
               #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
               capturedcode = cv[1]
@@ -272,10 +263,7 @@ module Sisimai
                 e.delete('alterrors')
               end
             end
-
-            e['spec']   = e['reason'] == 'mailererror' ? 'X-UNIX' : 'SMTP'
-            e['action'] = 'failed' if e['status'] =~ /\A[45]/
-            e['agent']  = Sisimai::MTA::Exchange.smtpagent
+            e['agent'] = Sisimai::MTA::Exchange.smtpagent
             e.delete('msexch')
             e.each_key { |a| e[a] ||= '' }
           end

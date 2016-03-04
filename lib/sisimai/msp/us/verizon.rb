@@ -244,16 +244,8 @@ module Sisimai
           end
 
           require 'sisimai/string'
-          require 'sisimai/smtp/status'
-
           dscontents.map do |e|
-            if mhead['received'].size > 0
-              # Get localhost and remote host name from Received header.
-              r0 = mhead['received']
-              %w|lhost rhost|.each { |a| e[a] ||= '' }
-              e['lhost'] = Sisimai::RFC5322.received(r0[0]).shift if e['lhost'].empty?
-              e['rhost'] = Sisimai::RFC5322.received(r0[-1]).pop  if e['rhost'].empty?
-            end
+            e['agent']     = Sisimai::MSP::US::Verizon.smtpagent
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
             reFailure.each_key do |r|
@@ -262,11 +254,6 @@ module Sisimai
               e['reason'] = r.to_s
               break
             end
-
-            e['status'] = Sisimai::SMTP::Status.find(e['diagnosis'])
-            e['spec']   = e['reason'] == 'mailererror' ? 'X-UNIX' : 'SMTP'
-            e['action'] = 'failed' if e['status'] =~ /\A[45]/
-            e['agent']   = Sisimai::MSP::US::Verizon.smtpagent
           end
 
           rfc822part = Sisimai::RFC5322.weedout(rfc822list)
