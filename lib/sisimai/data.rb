@@ -97,11 +97,6 @@ module Sisimai
       @replycode      = Sisimai::SMTP::Reply.find(argvs['diagnosticcode']) if @replycode.empty?
       @softbounce     = argvs['softbounce']     || ''
       @softbounce     = 1 if @replycode =~ /\A4/
-
-      if cv = @action.match(/\A(.+?) .+/)
-        @action = cv[1]
-      end
-
     end
 
     # Another constructor of Sisimai::Data
@@ -292,6 +287,11 @@ module Sisimai
 
         # Check the value of SMTP command
         p['smtpcommand'] = '' unless p['smtpcommand'] =~ rxcommands
+
+        # Check the value of "action"
+        if cv = p['action'].match(/\A(.+?) .+/)
+          p['action'] = cv[1]
+        end
 
         o = Sisimai::Data.new(p)
         next unless o.recipient
