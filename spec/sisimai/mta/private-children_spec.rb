@@ -236,7 +236,7 @@ describe 'Sisimai::MTA::' do
     },
     'InterScanMSS' => {
       '01001' => %r/userunknown/,
-      '01002' => %r/undefined/,
+      '01002' => %r/userunknown/,
       '01003' => %r/userunknown/,
       '01004' => %r/userunknown/,
       '01005' => %r/userunknown/,
