@@ -129,7 +129,7 @@ module Sisimai
                   recipients += 1
 
                 elsif cv = e.match(/\A[Xx]-[Aa]ctual-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/) ||
-                      cv = e.match(/\A[Oo]riginal-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
+                           e.match(/\A[Oo]riginal-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
                   # X-Actual-Recipient: RFC822; kijitora@example.co.jp
                   # Original-Recipient: rfc822;kijitora@example.co.jp
                   v['alias'] = cv[1]

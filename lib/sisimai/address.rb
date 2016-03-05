@@ -167,7 +167,6 @@ module Sisimai
         # Remove MIME-Encoded comment part
         lpart = lpart.sub(/\A=[?].+[?]b[?].+[?]=/, '')
         lpart = lpart.delete(%q|`'"<>|) unless lpart =~ /\A["].+["]\z/
-
         aflag = false
         addr0 = sprintf('%s@%s', lpart, dpart)
         addr1 = Sisimai::Address.expand_verp(addr0)

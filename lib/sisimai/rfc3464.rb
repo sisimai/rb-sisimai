@@ -120,7 +120,7 @@ module Sisimai
 
             v = dscontents[-1]
             if cv = e.match(/\A(?:[Ff]inal|[Oo]riginal)-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/) ||
-               cv = e.match(/\A(?:[Ff]inal|[Oo]riginal)-[Rr]ecipient:[ ]*([^ ]+)\z/)
+                    e.match(/\A(?:[Ff]inal|[Oo]riginal)-[Rr]ecipient:[ ]*([^ ]+)\z/)
               # 2.3.2 Final-Recipient field
               #   The Final-Recipient field indicates the recipient for which this set
               #   of per-recipient fields applies.  This field MUST be present in each

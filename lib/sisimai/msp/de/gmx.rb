@@ -99,8 +99,7 @@ module Sisimai
               # 5.1.1 <shironeko@example.jp>... User Unknown
               v = dscontents[-1]
 
-              if cv = e.match(/\A["]([^ ]+[@][^ ]+)["]:\z/) ||
-                 cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>]\z/)
+              if cv = e.match(/\A["]([^ ]+[@][^ ]+)["]:\z/) || e.match(/\A[<]([^ ]+[@][^ ]+)[>]\z/)
                 # "shironeko@example.jp":
                 # ---- OR ----
                 # <kijitora@6jo.example.co.jp>

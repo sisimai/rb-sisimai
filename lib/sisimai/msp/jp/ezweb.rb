@@ -145,8 +145,8 @@ module Sisimai
               v = dscontents[-1]
 
               if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>]\z/) ||
-                 cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>]:?(.*)\z/) ||
-                 cv = e.match(/\A[ \t]+Recipient: [<]([^ ]+[@][^ ]+)[>]/)
+                      e.match(/\A[<]([^ ]+[@][^ ]+)[>]:?(.*)\z/) ||
+                      e.match(/\A[ \t]+Recipient: [<]([^ ]+[@][^ ]+)[>]/)
 
                 if v['recipient']
                   # There are multiple recipient addresses in the message body.

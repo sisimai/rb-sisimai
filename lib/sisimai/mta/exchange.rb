@@ -168,7 +168,7 @@ module Sisimai
                 v = dscontents[-1]
 
                 if cv = e.match(/\A[ \t]*([^ ]+[@][^ ]+) on[ \t]*.*\z/) ||
-                   cv = e.match(/\A[ \t]*.+(?:SMTP|smtp)=([^ ]+[@][^ ]+) on[ \t]*.*\z/)
+                        e.match(/\A[ \t]*.+(?:SMTP|smtp)=([^ ]+[@][^ ]+) on[ \t]*.*\z/)
                   # kijitora@example.co.jp on Thu, 29 Apr 2007 16:51:51 -0500
                   #   kijitora@example.com on 4/29/99 9:19:59 AM
                   if v['recipient']

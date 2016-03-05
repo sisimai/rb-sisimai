@@ -197,7 +197,7 @@ module Sisimai
             v = dscontents[-1]
 
             if cv = e.match(/\AOriginal-Rcpt-To:[ ]+[<]?(.+)[>]?\z/) ||
-               cv = e.match(/\ARedacted-Address:[ ]([^ ].+[@])\z/)
+                    e.match(/\ARedacted-Address:[ ]([^ ].+[@])\z/)
               # Original-Rcpt-To header field is optional and may appear any
               # number of times as appropriate:
               # Original-Rcpt-To: <user@example.com>

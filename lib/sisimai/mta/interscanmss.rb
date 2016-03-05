@@ -96,16 +96,15 @@ module Sisimai
               v = dscontents[-1]
 
               if cv = e.match(/\A.+[<>]{3}[ \t]+.+[<]([^ ]+[@][^ ]+)[>]\z/) ||
-                 cv = e.match(/\A.+[<>]{3}[ \t]+.+[<]([^ ]+[@][^ ]+)[>]/)
+                      e.match(/\A.+[<>]{3}[ \t]+.+[<]([^ ]+[@][^ ]+)[>]/)
                 # Sent <<< RCPT TO:<kijitora@example.co.jp>
                 # Received >>> 550 5.1.1 <kijitora@example.co.jp>... user unknown
-                cr = cv[1]
-                if v['recipient'] && cr != v['recipient']
+                if v['recipient'] && cv[1] != v['recipient']
                   # There are multiple recipient addresses in the message body.
                   dscontents << Sisimai::MTA.DELIVERYSTATUS
                   v = dscontents[-1]
                 end
-                v['recipient'] = cr
+                v['recipient'] = cv[1]
                 recipients = dscontents.size
               end
 
