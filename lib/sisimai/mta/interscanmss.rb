@@ -116,6 +116,17 @@ module Sisimai
               elsif cv = e.match(/\AReceived[ ]+[>]{3}[ ]+(\d{3}[ ]+.+)\z/)
                 # Received >>> 550 5.1.1 <kijitora@example.co.jp>... user unknown
                 v['diagnosis'] = cv[1]
+
+              else
+                # Error message in non-English
+                if cv = e.match(/[ ][>]{3}[ ]([A-Z]{4})/)
+                  # >>> RCPT TO ...
+                  v['command'] = cv[1]
+
+                elsif cv = e.match(/[ ][<]{3}[ ](.+)/)
+                  # <<< 550 5.1.1 User unknown
+                  v['diagnosis'] = cv[1]
+                end
               end
             end
           end
