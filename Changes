@@ -1,6 +1,6 @@
 Revision history for Ruby version of Sisimai
 
-4.17.0
+4.17.0  Wed, 16 Mar 2016
     - Implement new reason "syntaxerror". Sisimai will set "syntaxerror" to the
       raeson when the value of "replycode" begins with "50" such as 502, 503,
       or 504. Imported from https://github.com/sisimai/p5-Sisimai/pull/170.
@@ -8,6 +8,12 @@ Revision history for Ruby version of Sisimai
       Sisimai.reason method for getting the list of reasons Sisimai can detect
       and its description: issue #48.
     - Remove unused method Sisimai::Reason->match, issue #49.
+    - Some methods of Sisimai::Address allow "postmaster", and "mailer-daemon"
+      ( without a domain part ) as an email address.
+    - Sisimai::RFC5322.is_mailerdaemon() method returns true when the argument
+      includes "postmaster".
+    - Merge pull-request #51, new method Sisimai::RFC5322.weedout() and code
+      improvements in all the MTA/MSP modules.
 
 4.16.0  Thu, 18 Feb 2016 13:49:01 +0900 (JST)
     - Implement new reason "delivered". Sisimai set "delivered" to the reason
