@@ -149,36 +149,36 @@ Differences between Perl version and Ruby version | Perl版との違い
 The following table show the differences between Perl version of Sisimai
 and Ruby version of Sisimai.
 
-| Features                                       | Ruby version  | Perl version |
-|------------------------------------------------|---------------|--------------|
-| System requirements                            | Ruby 2.1-2.3  | Perl 5.10 -  |
-|                                                | JRuby 9.0.4.0-|              |
-| Analytical precision ratio(2000 emails)[1]     | 1.00          | 1.00         |
-| The speed of parsing email(1000 emails)        | 3.81s         | 2.50s        |
-| How to install                                 | gem install   | cpanm        |
-| Dependencies (Except core modules)             | 1 modules     | 2 modules    |
-| LOC:Source lines of code                       | 11700 lines   | 9100 lines   |
-| The number of tests in t/, xt/ directory       | 92400 tests   | 166700 tests |
-| License                                        | BSD 2-Clause  | BSD 2-Clause |
-| Support Contract provided by Developer         | Coming soon   | Available    |
+| Features                                    | Ruby version   | Perl version  |
+|---------------------------------------------|----------------|---------------|
+| System requirements                         | Ruby 2.1-2.3   | Perl 5.10 -   |
+|                                             | JRuby 9.0.4.0- |               |
+| Analytical precision ratio(2000 emails)[1]  | 1.00           | 1.00          |
+| The speed of parsing email(1000 emails)     | 3.30s          | 2.33s         |
+| How to install                              | gem install    | cpanm         |
+| Dependencies (Except core modules)          | 1 modules      | 2 modules     |
+| LOC:Source lines of code                    | 11000 lines    | 8000 lines    |
+| The number of tests in t/, xt/ directory    | 94200 tests    | 170000 tests  |
+| License                                     | BSD 2-Clause   | BSD 2-Clause  |
+| Support Contract provided by Developer      | Coming soon    | Available     |
 
 1. See ./ANALYTICAL-PRECISION
 
 公開中のPerl版Sisimai(p5-Sisimai)とRuby版Sisimai(rb-Sisimai)は下記のような違いが
 あります。
 
-| 機能                                           | Ruby version  | Perl version|
-|------------------------------------------------|---------------|-------------|
-| 動作環境                                       | Ruby 2.1-2.3  | Perl 5.10 - |
-|                                                | JRuby 9.0.4.0-|             |
-| 解析精度の割合(2000通のメール)[1]              | 1.00          | 1.00        |
-| メール解析速度(1000通のメール)                 | 3.81秒        | 2.50秒      |
-| インストール方法                               | gem install   | cpanm       |
-| 依存モジュール数(コアモジュールを除く)         | 1モジュール   | 2モジュール |
-| LOC:ソースコードの行数                         | 11700行       | 9100行      |
-| テスト件数(t/,xt/ディレクトリ)                 | 92400件       | 166700件    |
-| ライセンス                                     | 二条項BSD     | 二条項BSD   |
-| 開発会社によるサポート契約                     | 準備中        | 提供中      |
+| 機能                                        | Ruby version   | Perl version  |
+|---------------------------------------------|----------------|---------------|
+| 動作環境                                    | Ruby 2.1-2.3   | Perl 5.10 -   |
+|                                             | JRuby 9.0.4.0- |               |
+| 解析精度の割合(2000通のメール)[1]           | 1.00           | 1.00          |
+| メール解析速度(1000通のメール)              | 3.30秒         | 2.33秒        |
+| インストール方法                            | gem install    | cpanm         |
+| 依存モジュール数(コアモジュールを除く)      | 1モジュール    | 2モジュール   |
+| LOC:ソースコードの行数                      | 11000行        | 8000行        |
+| テスト件数(t/,xt/ディレクトリ)              | 94200件        | 170000件      |
+| ライセンス                                  | 二条項BSD      | 二条項BSD     |
+| 開発会社によるサポート契約                  | 準備中         | 提供中        |
 
 1. ./ANALYTICAL-PRECISIONを参照
 
@@ -254,7 +254,7 @@ page.
 |----------------|----------------------------------------|----------------------------------|
 | Blocked        | Blocked due to client IP address       | IPアドレスによる拒否             |
 | ContentError   | Invalid format email                   | 不正な形式のメール               |
-| Delivered[1]   | Successfully delivered (> v4.16.0)     | 正常に配信された                 |
+| Delivered[1]   | Successfully delivered (> v4.16.0)     | 正常に配信された(> v4.16.0)      |
 | ExceedLimit    | Message size exceeded the limit(5.2.3) | メールサイズの超過               |
 | Expired        | Delivery time expired                  | 配送時間切れ                     |
 | Feedback       | Bounced for a complaint of the message | 元メールへの苦情によるバウンス   |
@@ -272,7 +272,7 @@ page.
 | SecurityError  | Virus detected or authentication error | ウィルスの検出または認証失敗     |
 | SpamDetected   | Detected a message as spam             | メールはスパムとして判定された   |
 | Suspend        | Recipient's account is suspended       | 宛先アカウントは一時的に停止中   |
-| SyntaxError    | syntax error in SMTP (> v4.17.0)       | SMTPの文法エラー(> 4.17.0)       |
+| SyntaxError    | syntax error in SMTP (> v4.17.0)       | SMTPの文法エラー(> v4.17.0)      |
 | SystemError    | Some error on the destination host     | 宛先サーバでのOSレベルのエラー   |
 | SystemFull     | Disk full on the destination host      | 宛先サーバのディスクが一杯       |
 | TooManyConn    | Connection rate limit exceeded         | 接続制限数を超過した             |
