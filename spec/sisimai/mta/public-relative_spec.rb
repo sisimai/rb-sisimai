@@ -55,6 +55,7 @@ describe 'Sisimai::*' do
       '26' => { 'status' => /\A5[.]1[.]1\z/, 'reason' => /userunknown/, 'agent' => /RFC3464/ },
       '27' => { 'status' => /\A4[.]4[.]6\z/, 'reason' => /networkerror/, 'agent' => /RFC3464/ },
       '28' => { 'status' => /\A2[.]1[.]5\z/, 'reason' => /delivered/, 'agent' => /RFC3464/ },
+      '29' => { 'status' => /\A5[.]5[.]0\z/, 'reason' => /syntaxerror/, 'agent' => /RFC3464/ },
     },
     'RFC3834' => {
       '01' => { 'status' => /\A\z/, 'reason' => /vacation/ },
