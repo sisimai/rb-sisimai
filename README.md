@@ -158,7 +158,7 @@ and Ruby version of Sisimai.
 | How to install                              | gem install    | cpanm         |
 | Dependencies (Except core modules)          | 1 modules      | 2 modules     |
 | LOC:Source lines of code                    | 11000 lines    | 8000 lines    |
-| The number of tests in t/, xt/ directory    | 94200 tests    | 170000 tests  |
+| The number of tests in t/, xt/ directory    | 94300 tests    | 170000 tests  |
 | License                                     | BSD 2-Clause   | BSD 2-Clause  |
 | Support Contract provided by Developer      | Coming soon    | Available     |
 
@@ -176,7 +176,7 @@ and Ruby version of Sisimai.
 | インストール方法                            | gem install    | cpanm         |
 | 依存モジュール数(コアモジュールを除く)      | 1モジュール    | 2モジュール   |
 | LOC:ソースコードの行数                      | 11000行        | 8000行        |
-| テスト件数(t/,xt/ディレクトリ)              | 94200件        | 170000件      |
+| テスト件数(t/,xt/ディレクトリ)              | 94300件        | 170000件      |
 | ライセンス                                  | 二条項BSD      | 二条項BSD     |
 | 開発会社によるサポート契約                  | 準備中         | 提供中        |
 
