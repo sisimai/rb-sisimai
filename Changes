@@ -1,6 +1,6 @@
 Revision history for Ruby version of Sisimai
 
-4.17.0  Wed, 16 Mar 2016
+4.17.0  Wed, 16 Mar 2016 12:22:44 +0900 (JST)
     - Implement new reason "syntaxerror". Sisimai will set "syntaxerror" to the
       raeson when the value of "replycode" begins with "50" such as 502, 503,
       or 504. Imported from https://github.com/sisimai/p5-Sisimai/pull/170.
