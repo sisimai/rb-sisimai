@@ -82,7 +82,6 @@ module Sisimai
 
         require 'sisimai/mta'
         require 'sisimai/address'
-        require 'sisimai/rfc5322'
 
         dscontents = [Sisimai::MTA.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
