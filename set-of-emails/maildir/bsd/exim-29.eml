@@ -1,0 +1,58 @@
+From MAILER-DAEMON Tue Mar 02 09:44:33 1999
+Received: from EXIMUSER by example.co.jp with local (Exim 4.00)
+	id FFFFFF-222222-00
+	for lmn@example.co.jp; Tue, 2 Mar 1999 09:44:33 +0000
+X-Failed-Recipients: kijitora@example.co.jp
+Auto-Submitted: auto-replied
+From: Mail Delivery System <Mailer-Daemon@example.co.jp>
+To: lmn@example.co.jp
+Content-Type: multipart/report; report-type=delivery-status; boundary=NNNNNNNNNN-eximdsn-MMMMMMMMMM
+MIME-Version: 1.0
+Subject: Mail delivery failed
+Message-Id: <EFFFFFF-222222-00@example.co.jp>
+Date: Tue, 2 Mar 1999 09:44:33 +0000
+
+--NNNNNNNNNN-eximdsn-MMMMMMMMMM
+Content-type: text/plain; charset=us-ascii
+
+This message was created automatically by mail delivery software.
+
+A message sent by
+
+  <shironeko@example.org>
+
+could not be delivered to one or more of its recipients. The following
+address(es) failed:
+
+  kijitora@example.co.jp
+  host 192.0.2.22 [192.0.2.22]
+    SMTP error from remote mail server after MAIL FROM:<shironeko@example.org>:
+    550 Bad SPF records for [example.org:192.0.2.2], see http://spf.pobox.com/
+
+--NNNNNNNNNN-eximdsn-MMMMMMMMMM
+Content-type: message/delivery-status
+
+Reporting-MTA: dns; example.co.jp
+
+Action: failed
+Final-Recipient: rfc822;kijitora@example.co.jp
+Status: 5.0.0
+Remote-MTA: dns; 192.0.2.22
+Diagnostic-Code: smtp; 550 Bad SPF records for
+    [example.org:192.0.2.2], see http://spf.pobox.com/
+
+--NNNNNNNNNN-eximdsn-MMMMMMMMMM
+Content-type: message/rfc822
+
+Return-path: <shironeko@example.org>
+Received: from CALLER by example.co.jp with local (Exim 4.00)
+	(envelope-from <shironeko@example.org>)
+	id EEEEEE-222222-00; Tue, 2 Mar 1999 09:44:33 +0000
+Message-Id: <EEEEEEE-222222-00@example.co.jp>
+From: shironeko@example.org
+Date: Tue, 2 Mar 1999 09:44:33 +0000
+
+Nyaaan
+
+--NNNNNNNNNN-eximdsn-MMMMMMMMMM--
+
