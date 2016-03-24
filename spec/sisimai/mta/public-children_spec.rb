@@ -59,6 +59,7 @@ describe 'Sisimai::MTA::*' do
       '26' => { 'status' => %r/\A5[.]0[.]0\z/, 'reason' => %r/mailererror/ },
       '27' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/blocked/ },
       '28' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mailererror/ },
+      '29' => { 'status' => %r/\A5[.]0[.]0\z/, 'reason' => %r/blocked/ },
     },
     'IMailServer' => {
       '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },

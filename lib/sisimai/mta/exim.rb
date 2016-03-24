@@ -63,6 +63,7 @@ module Sisimai
             |The[ ].+[ ]router[ ]encountered[ ]the[ ]following[ ]error[(]s[)]:
             )
            }x,
+          :deliverystatus => %r|\AContent-type: message/delivery-status|,
           :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
 
@@ -165,6 +166,9 @@ module Sisimai
           recipients = 0      # (Integer) The number of 'Final-Recipient' header
           localhost0 = ''     # (String) Local MTA
           boundary00 = ''     # (String) Boundary string
+          havepassed = {
+            :deliverystatus => 0
+          }
           v = nil
 
           if mhead['content-type']
@@ -280,8 +284,12 @@ module Sisimai
 
                     else
                       # Error message ?
-                      v['alterrors'] ||= ''
-                      v['alterrors']  += e + ' ' if e =~ /\A[ ]+/
+                      if havepassed[:deliverystatus] == 0
+                        # Content-type: message/delivery-status
+                        havepassed[:deliverystatus] = 1 if e =~ Re1[:deliverystatus]
+                        v['alterrors'] ||= ''
+                        v['alterrors']  += e + ' ' if e =~ /\A[ ]+/
+                      end
                     end
                   else
                     if dscontents.size == recipients
@@ -368,7 +376,7 @@ module Sisimai
                 e['diagnosis'] = dscontents[0]['diagnosis'] || ''
                 e['spec']    ||= dscontents[0]['spec']
 
-                if dscontents[0]['alterrors']
+                if dscontents[0]['alterrors'] && dscontents[0]['alterrors'].size > 0
                   # The value of "alterrors" is also copied
                   e['alterrors'] = dscontents[0]['alterrors']
                 end
@@ -377,7 +385,10 @@ module Sisimai
 
             if e['alterrors'] && e['alterrors'].size > 0
               # Copy alternative error message
-              e['diagnosis'] ||= e['alterrors']
+              if e['diagnosis'].nil? || e['diagnosis'].empty?
+                e['diagnosis'] ||= e['alterrors']
+              end
+
               if e['diagnosis'] =~ /\A[-]+/ || e['diagnosis'] =~ /__\z/
                 # Override the value of diagnostic code message
                 e['diagnosis'] = e['alterrors'] if e['alterrors'].size > 0
