@@ -13,6 +13,7 @@ module Sisimai
         :file,    # [String] Each file name of a mail in the Maildir/
         :inodes,  # [Array]  i-node List of files in the Maildir/
         :offset,  # [Integer]  Offset position for seeking
+        :count,   # [Integer] The number of file has read
         :handle,  # [IO::Dir] Directory handle
       ]
       @@roaccessors.each { |e| attr_reader   e }
@@ -32,13 +33,14 @@ module Sisimai
         @file   = nil
         @offset = 0
         @inodes = {}
+        @count  = 0
         @handle = Dir.open(argv1)
       end
 
       # Maildir reader, works as a iterator.
       # @return       [String] Contents of file in Maildir/
       def read
-        return nil unless self.offset < self.size
+        return nil unless self.count < self.size
 
         seekhandle = self.handle
         readbuffer = ''
@@ -70,7 +72,8 @@ module Sisimai
             break
           end
 
-          seekhandle.close unless self.offset < self.size
+          self.count += 1
+          seekhandle.close unless self.count < self.size
         end
 
         return readbuffer
