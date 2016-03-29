@@ -96,6 +96,14 @@ describe Sisimai::Mail::Maildir do
         expect(inodes.size).to be == 1
       end
     end
+    describe '#count' do
+      let(:count) { mailobj.count }
+      subject { mailobj.count }
+      it 'returns the number of read files' do
+        is_expected.to be_a Integer
+        is_expected.to be == 1
+      end
+    end
 
     describe '#read' do
       maildir = Sisimai::Mail::Maildir.new(samplemaildir)
@@ -103,24 +111,22 @@ describe Sisimai::Mail::Maildir do
 
       while r = maildir.read do
         emindex += 1
-        mailtxt  = r
-        subject { mailtxt.scrub('?') }
-
         it 'is ' + maildir.file do
           expect(maildir.file).to match(/\A[a-z0-9]+[-]\d\d[.]eml\z/)
+          expect(maildir.file.size).to be > 0
         end
-        it 'is valid email text' do
-          is_expected.to be_a String 
-          is_expected.to match(/From:\s*/)
-          expect(mailtxt.size).to be > 0
+        it "has read #{maildir.count} files" do
+          expect(maildir.count).to be > 0
+          expect(maildir.count).to be == emindex
         end
-        example "current position is #{maildir.offset}" do
-          expect(maildir.offset).to be_a(Integer)
-          expect(maildir.offset).to be > 0
+        it 'has 1 or more inode entries' do
+          expect(maildir.inodes.keys.size).to be_a Integer
+          expect(maildir.inodes.keys.size).to be >= emindex - 3
         end
-        example "the number of inode entries is #{maildir.inodes.size}" do
-          expect(maildir.inodes.size).to be == emindex
-        end
+      end
+      example "the number of read files is #{maildir.count}" do
+        expect(maildir.count).to be > 0
+        expect(maildir.count).to be == emindex
       end
     end
   end
