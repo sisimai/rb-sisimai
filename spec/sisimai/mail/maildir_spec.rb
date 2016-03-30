@@ -81,14 +81,6 @@ describe Sisimai::Mail::Maildir do
         is_expected.to be_a Dir
       end
     end
-    describe '#offset' do
-      subject { mailobj.offset }
-      it 'returns valid offset value' do
-        is_expected.to be_a Integer
-        is_expected.to be > 0
-        is_expected.to be < mailobj.size
-      end
-    end
     describe '#inodes' do
       let(:inodes) { mailobj.inodes }
       subject { mailobj.inodes }

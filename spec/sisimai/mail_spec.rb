@@ -198,14 +198,6 @@ describe Sisimai::Mail do
           is_expected.to be_a Dir
         end
       end
-      describe '#offset' do
-        subject { maildir.mail.offset }
-        it 'is valid offset value' do
-          is_expected.to be_a Integer
-          is_expected.to be > 0
-          is_expected.to be < maildir.mail.size
-        end
-      end
       describe '#inodes' do
         let(:inodes) { maildir.mail.inodes }
         subject { maildir.mail.inodes }
@@ -232,10 +224,6 @@ describe Sisimai::Mail do
 
           it 'is ' + mdirobj.mail.file do
             expect(mdirobj.mail.file).to match(/\A.+[.]eml\z/)
-          end
-          example "current position is #{mdirobj.mail.offset}" do
-            expect(mdirobj.mail.offset).to be_a(Integer)
-            expect(mdirobj.mail.offset).to be > 0
           end
           example "the number of read files is #{mdirobj.mail.inodes.size}" do
             expect(mdirobj.mail.count).to be == emindex

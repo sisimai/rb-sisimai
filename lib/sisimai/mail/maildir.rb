@@ -12,7 +12,6 @@ module Sisimai
         :path,    # [String] Path to each file
         :file,    # [String] Each file name of a mail in the Maildir/
         :inodes,  # [Array]  i-node List of files in the Maildir/
-        :offset,  # [Integer]  Offset position for seeking
         :count,   # [Integer] The number of file has read
         :handle,  # [IO::Dir] Directory handle
       ]
@@ -31,7 +30,6 @@ module Sisimai
         @size   = Dir.entries(argv1).size
         @dir    = argv1
         @file   = nil
-        @offset = 0
         @inodes = {}
         @count  = 0
         @handle = Dir.open(argv1)
@@ -48,7 +46,6 @@ module Sisimai
         begin
           while r = seekhandle.read do
             # Read each file in the directory
-            self.offset = seekhandle.pos
             next if r == '.' || r == '..'
 
             emailindir = sprintf('%s/%s', self.dir, r)
