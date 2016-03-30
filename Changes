@@ -4,6 +4,8 @@ Revision history for Ruby version of Sisimai
     - Ported codes from https://github.com/sisimai/p5-Sisimai/pull/180 to fix
       issue https://github.com/sisimai/p5-Sisimai/issues/179 a variable in lib/
       sisimai/mta/exim.rb is not quoted before passing to %r// operator.
+    - Fixed serious bug in Sisimai::Mail::Maildir#read method reported at issue
+      #55 and #56 by pull-request #57. Thanks to @taku1201.
 
 4.17.0  Wed, 16 Mar 2016 12:22:44 +0900 (JST)
     - Implement new reason "syntaxerror". Sisimai will set "syntaxerror" to the
