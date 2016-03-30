@@ -21,7 +21,7 @@ describe 'Sisimai::MTA::*' do
     },
     'Domino' => {
       '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
-      '02' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
+      '02' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/(?:userunknown|onhold)/ },
     },
     'Exchange' => {
       '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
