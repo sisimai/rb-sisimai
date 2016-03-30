@@ -110,16 +110,16 @@ describe Sisimai::Mail::Mbox do
           is_expected.to match(/From:\s*/)
           expect(mailtxt.size).to be > 0
         end
-        example "current position is #{mailbox.offset}" do
-          expect(mailbox.offset).to be == hasread + 512
+        example 'current position is larger than 0' do
+          expect(mailbox.offset).to be > 0
         end
       end
 
       example "the number of emails is #{emindex}" do
         expect(emindex).to be == 37
       end
-      example "loaded size is #{hasread}" do
-        expect(hasread).to be == mailbox.size - 512
+      example 'loaded size is larger than 0' do
+        expect(hasread).to be > 0
       end
     end
 
