@@ -36,9 +36,12 @@ Setting Up Sisimai | シシマイを使う準備
 
 System requirements | 動作環境
 ------------------------------
+More details about system requirements are available at
+[Sisimai | Getting Started](http://libsisimai.org/en/start) page.
 
-More details about system requirements are available at available at 
-[Sisimai | Getting Started](http://libsisimai.org/start) page.
+Sisimaiの動作環境についての詳細は
+[Sisimai | シシマイを使ってみる](http://libsisimai.org/ja/start)をご覧ください。
+
 
 * [Ruby 2.1.0 or later](http://www.ruby-lang.org/)
   * [__Oj | The fastest JSON parser and object serializer__](https://rubygems.org/gems/oj)
@@ -147,7 +150,9 @@ One-Liner | ワンライナーで
 Differences between Perl version and Ruby version | Perl版との違い
 ------------------------------------------------------------------
 The following table show the differences between Perl version of Sisimai
-and Ruby version of Sisimai.
+and Ruby version of Sisimai. Information about differences between Sisimai
+and bounceHammer are available at
+[Sisimai | Differences](http://libsisimai.org/en/diff) page.
 
 | Features                                    | Ruby version   | Perl version  |
 |---------------------------------------------|----------------|---------------|
@@ -165,7 +170,9 @@ and Ruby version of Sisimai.
 1. See ./ANALYTICAL-PRECISION
 
 公開中のPerl版Sisimai(p5-Sisimai)とRuby版Sisimai(rb-Sisimai)は下記のような違いが
-あります。
+あります。bounceHammer version 2.7.13p3とSisimai(シシマイ)の違いについては
+[Sisimai | 違いの一覧](http://libsisimai.org/ja/diff)をご覧ください。
+
 
 | 機能                                        | Ruby version   | Perl version  |
 |---------------------------------------------|----------------|---------------|
@@ -186,7 +193,7 @@ MTA/MSP Modules | MTA/MSPモジュール一覧
 ---------------------------------------
 The following table is the list of MTA/MSP:(Mail Service Provider) modules. More
 details about these modules are available at 
-[Sisimai | Parser Engines](http://libsisimai.org/engine) page.
+[Sisimai | Parser Engines](http://libsisimai.org/en/engine) page.
 
 | Module Name(Sisimai::)   | Description                                       |
 |--------------------------|---------------------------------------------------|
@@ -242,12 +249,14 @@ details about these modules are available at
 | RFC3834                  | Detector for auto replied message                 |
 
 上記はSisimaiに含まれてるMTA/MSP(メールサービスプロバイダ)モジュールの一覧です。
+より詳しい情報は[Sisimai | 解析エンジン](http://libsisimai.org/ja/engine)を
+ご覧ください。
 
 
 Bounce Reason List | バウンス理由の一覧
 ----------------------------------------
 Sisimai can detect the following 27 bounce reasons. More details about reasons
-are available at [Sisimai | Bounce Reason List](http://libsisimai.org/reason)
+are available at [Sisimai | Bounce Reason List](http://libsisimai.org/en/reason)
 page.
 
 | Reason(理由)   | Description                            | 理由の説明                       |
@@ -280,7 +289,9 @@ page.
 | Undefined      | Could not decide the error reason      | バウンスした理由は特定出来ず     |
 | Vacation       | Auto replied message                   | 自動応答メッセージ               |
 
-Sisimaiは上記のエラー27種を検出します。
+Sisimaiは上記のエラー27種を検出します。バウンス理由についてのより詳細な情報は
+[Sisimai | バウンス理由の一覧](http://libsisimai.org/ja/reason)をご覧ください。
+
 1. This reason is not included by default | このバウンス理由は標準では解析結果に含まれません
 
 
@@ -288,7 +299,7 @@ Parsed data structure | 解析後のデータ構造
 ------------------------------------------
 The following table shows a data structure(Sisimai::Data) of parsed bounce mail.
 More details about data structure are available at available at 
-[Sisimai — Data Structure of Sisimai::Data](http://libsisimai.org/data) page.
+[Sisimai | Data Structure of Sisimai::Data](http://libsisimai.org/en/data) page.
 
 | Name           | Description                           | 値の説明                       |
 |----------------|---------------------------------------|--------------------------------|
@@ -316,7 +327,9 @@ More details about data structure are available at available at
 | timezoneoffset | Time zone offset(seconds)             | タイムゾーンの時差             |
 | token          | MD5 value of addresser and recipient  | 送信者と受信者のハッシュ値     |
 
-上記の表は解析後のバウンスメールの構造(Sisimai::Data)です。
+上記の表は解析後のバウンスメールの構造(Sisimai::Data)です。データ構造のより詳細な情報は
+[Sisimai | Sisimai::Dataのデータ構造](http://libsisimai.org/ja/data)をご覧ください。
+
 
 
 Emails could not be parsed | 解析出来ないメール
