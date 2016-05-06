@@ -7,40 +7,32 @@
 
 ![](http://41.media.tumblr.com/45c8d33bea2f92da707f4bbe66251d6b/tumblr_nuf7bgeyH51uz9e9oo1_1280.png)
 
-What is Sisimai ? | シシマイ?
-=============================
+What is Sisimai ?
+=================
 Sisimai is a Ruby library for analyzing RFC5322 bounce emails and generating
 structured data from parsed results. Ruby version of Sisimai is ported from
 Perl version of Sisimai at https://github.com/sisimai/p5-Sisimai/ .
 
-Sisimai(シシマイ)はRFC5322準拠のエラーメールを解析し、解析結果をデータ構造に
-変換するインターフェイスを提供するRubyライブラリです。
-https://github.com/sisimai/p5-Sisimai/で公開しているPerl版シシマイから移植しました。
-
-Key Features | 主な特徴的機能
------------------------------
-* __Convert Bounce Mails to Structured Data__ | __エラーメールをデータ構造に変換__
-  * Supported formats are Perl and JSON | Perlのデータ形式とJSONに対応
-* __Easy to Install, Use.__ | __インストールも使用も簡単__
+Key Features
+------------
+* __Convert Bounce Mails to Structured Data__
+  * Supported formats are Perl and JSON
+* __Easy to Install, Use.__
   * gem install
   * git clone & make
-* __High Precision of Analysis__ | __高い解析精度__
-  * 2 times higher than bounceHammer | 解析精度はbounceHammerの二倍
-  * Support 21 known MTAs and 5 unknown MTAs | 26種類のMTAに対応
-  * Support 21 major MSPs(Mail Service Providers) | 21種類の著名なMSPに対応
-  * Support Feedback Loop Message(ARF) | Feedback Loopにも対応
-  * Can detect 27 error reasons | 27種類のエラー理由を検出
+* __High Precision of Analysis__
+  * 2 times higher than bounceHammer
+  * Support 21 known MTAs and 5 unknown MTAs
+  * Support 21 major MSPs(Mail Service Providers)
+  * Support Feedback Loop Message(ARF)
+  * Can detect 27 error reasons
 
-Setting Up Sisimai | シシマイを使う準備
-=======================================
-
-System requirements | 動作環境
-------------------------------
+Setting Up Sisimai
+==================
+System requirements
+-------------------
 More details about system requirements are available at
 [Sisimai | Getting Started](http://libsisimai.org/en/start) page.
-
-Sisimaiの動作環境についての詳細は
-[Sisimai | シシマイを使ってみる](http://libsisimai.org/ja/start)をご覧ください。
 
 
 * [Ruby 2.1.0 or later](http://www.ruby-lang.org/)
@@ -48,9 +40,8 @@ Sisimaiの動作環境についての詳細は
 * Also works on [JRuby 9.0.0.0 or later](http://jruby.org)
   * [__JrJackson | A mostly native JRuby wrapper for the java jackson json processor jar__](https://rubygems.org/gems/jrjackson)
 
-Install | インストール
+Install
 ----------------------
-
 ### From RubyGems.org
 
 ```shell
@@ -89,11 +80,10 @@ sisimai 4.14.2 built to pkg/sisimai-4.16.0.gem.
 sisimai (4.14.2) installed.
 ```
 
-Usage | 使い方
-==============
-
-Basic usage | 基本的な使い方
-----------------------------
+Usage
+=====
+Basic usage
+-----------
 make() method provides feature for getting parsed data from bounced email 
 messages like following.
 
@@ -130,18 +120,14 @@ puts Sisimai.dump('/path/to/mbox')  # or path to Maildir/
 
 # dump() method also accepts "delivered" option like the following code:
 puts Sisimai.dump('/path/to/mbox', delivered: true)
-
 ```
 
 ```json
 [{"recipient": "kijitora@example.jp", "addresser": "shironeko@1jo.example.org", "feedbacktype": "", "action": "failed", "subject": "Nyaaaaan", "smtpcommand": "DATA", "diagnosticcode": "550 Unknown user kijitora@example.jp", "listid": "", "destination": "example.jp", "smtpagent": "Courier", "lhost": "1jo.example.org", "deliverystatus": "5.0.0", "timestamp": 1291954879, "messageid": "201012100421.oBA4LJFU042012@1jo.example.org", "diagnostictype": "SMTP", "timezoneoffset": "+0900", "reason": "filtered", "token": "ce999a4c869e3f5e4d8a77b2e310b23960fb32ab", "alias": "", "senderdomain": "1jo.example.org", "rhost": "mfsmax.example.jp"}, {"diagnostictype": "SMTP", "timezoneoffset": "+0900", "reason": "userunknown", "timestamp": 1381900535, "messageid": "E1C50F1B-1C83-4820-BC36-AC6FBFBE8568@example.org", "token": "9fe754876e9133aae5d20f0fd8dd7f05b4e9d9f0", "alias": "", "senderdomain": "example.org", "rhost": "mx.bouncehammer.jp", "action": "failed", "addresser": "kijitora@example.org", "recipient": "userunknown@bouncehammer.jp", "feedbacktype": "", "smtpcommand": "DATA", "subject": "バウンスメールのテスト(日本語)", "destination": "bouncehammer.jp", "listid": "", "diagnosticcode": "550 5.1.1 <userunknown@bouncehammer.jp>... User Unknown", "deliverystatus": "5.1.1", "lhost": "p0000-ipbfpfx00kyoto.kyoto.example.co.jp", "smtpagent": "Sendmail"}]
 ```
 
-上記のようにSisimaiのmake()メソッドをmboxかMaildirのPATHを引数にして実行すると
-解析結果が配列で返ってきます。
-
-One-Liner | ワンライナーで
---------------------------
+One-Liner
+---------
 
 ```shell
 % ruby -rsisimai -e 'puts Sisimai.dump($*.shift)' /path/to/mbox
@@ -169,28 +155,8 @@ and bounceHammer are available at
 
 1. See ./ANALYTICAL-PRECISION
 
-公開中のPerl版Sisimai(p5-Sisimai)とRuby版Sisimai(rb-Sisimai)は下記のような違いが
-あります。bounceHammer version 2.7.13p3とSisimai(シシマイ)の違いについては
-[Sisimai | 違いの一覧](http://libsisimai.org/ja/diff)をご覧ください。
-
-
-| 機能                                        | Ruby version   | Perl version  |
-|---------------------------------------------|----------------|---------------|
-| 動作環境                                    | Ruby 2.1-2.3   | Perl 5.10 -   |
-|                                             | JRuby 9.0.4.0- |               |
-| 解析精度の割合(2000通のメール)[1]           | 1.00           | 1.00          |
-| メール解析速度(1000通のメール)              | 3.30秒         | 2.33秒        |
-| インストール方法                            | gem install    | cpanm         |
-| 依存モジュール数(コアモジュールを除く)      | 1モジュール    | 2モジュール   |
-| LOC:ソースコードの行数                      | 11000行        | 8000行        |
-| テスト件数(t/,xt/ディレクトリ)              | 94300件        | 170000件      |
-| ライセンス                                  | 二条項BSD      | 二条項BSD     |
-| 開発会社によるサポート契約                  | 準備中         | 提供中        |
-
-1. ./ANALYTICAL-PRECISIONを参照
-
-MTA/MSP Modules | MTA/MSPモジュール一覧
----------------------------------------
+MTA/MSP Modules
+---------------
 The following table is the list of MTA/MSP:(Mail Service Provider) modules. More
 details about these modules are available at 
 [Sisimai | Parser Engines](http://libsisimai.org/en/engine) page.
@@ -248,129 +214,109 @@ details about these modules are available at
 | RFC3464                  | Fallback Module for MTAs                          |
 | RFC3834                  | Detector for auto replied message                 |
 
-上記はSisimaiに含まれてるMTA/MSP(メールサービスプロバイダ)モジュールの一覧です。
-より詳しい情報は[Sisimai | 解析エンジン](http://libsisimai.org/ja/engine)を
-ご覧ください。
-
-
-Bounce Reason List | バウンス理由の一覧
-----------------------------------------
+Bounce Reason List
+------------------
 Sisimai can detect the following 27 bounce reasons. More details about reasons
 are available at [Sisimai | Bounce Reason List](http://libsisimai.org/en/reason)
 page.
 
-| Reason(理由)   | Description                            | 理由の説明                       |
-|----------------|----------------------------------------|----------------------------------|
-| Blocked        | Blocked due to client IP address       | IPアドレスによる拒否             |
-| ContentError   | Invalid format email                   | 不正な形式のメール               |
-| Delivered[1]   | Successfully delivered (> v4.16.0)     | 正常に配信された(> v4.16.0)      |
-| ExceedLimit    | Message size exceeded the limit(5.2.3) | メールサイズの超過               |
-| Expired        | Delivery time expired                  | 配送時間切れ                     |
-| Feedback       | Bounced for a complaint of the message | 元メールへの苦情によるバウンス   |
-| Filtered       | Rejected after DATA command            | DATAコマンド以降で拒否された     |
-| HasMoved       | Destination mail addrees has moved     | 宛先メールアドレスは移動した     |
-| HostUnknown    | Unknown destination host name          | 宛先ホスト名が存在しない         |
-| MailboxFull    | Recipient's mailbox is full            | メールボックスが一杯             |
-| MailerError    | Mailer program error                   | メールプログラムのエラー         |
-| MesgTooBig     | Message size is too big(5.3.4)         | メールが大き過ぎる               |
-| NetworkError   | Network error: DNS or routing          | DNS等ネットワーク関係のエラー    |
-| NotAccept      | Destinaion does not accept any message | 宛先ホストはメールを受けとらない |
-| OnHold         | Deciding the bounce reason is on hold  | エラー理由の特定は保留           |
-| Rejected       | Rejected due to envelope from address  | エンベロープFromで拒否された     |
-| NoRelaying     | Relay access denied                    | リレーの拒否                     |
-| SecurityError  | Virus detected or authentication error | ウィルスの検出または認証失敗     |
-| SpamDetected   | Detected a message as spam             | メールはスパムとして判定された   |
-| Suspend        | Recipient's account is suspended       | 宛先アカウントは一時的に停止中   |
-| SyntaxError    | syntax error in SMTP (> v4.17.0)       | SMTPの文法エラー(> v4.17.0)      |
-| SystemError    | Some error on the destination host     | 宛先サーバでのOSレベルのエラー   |
-| SystemFull     | Disk full on the destination host      | 宛先サーバのディスクが一杯       |
-| TooManyConn    | Connection rate limit exceeded         | 接続制限数を超過した             |
-| UserUnknown    | Recipient's address does not exist     | 宛先メールアドレスは存在しない   |
-| Undefined      | Could not decide the error reason      | バウンスした理由は特定出来ず     |
-| Vacation       | Auto replied message                   | 自動応答メッセージ               |
+| Reason         | Description                            | Impelmented at     |
+|----------------|----------------------------------------|--------------------|
+| Blocked        | Blocked due to client IP address       |                    |
+| ContentError   | Invalid format email                   |                    |
+| Delivered[1]   | Successfully delivered                 | v4.16.0            |
+| ExceedLimit    | Message size exceeded the limit(5.2.3) |                    |
+| Expired        | Delivery time expired                  |                    |
+| Feedback       | Bounced for a complaint of the message |                    |
+| Filtered       | Rejected after DATA command            |                    |
+| HasMoved       | Destination mail addrees has moved     |                    |
+| HostUnknown    | Unknown destination host name          |                    |
+| MailboxFull    | Recipient's mailbox is full            |                    |
+| MailerError    | Mailer program error                   |                    |
+| MesgTooBig     | Message size is too big(5.3.4)         |                    |
+| NetworkError   | Network error: DNS or routing          |                    |
+| NotAccept      | Destinaion does not accept any message |                    |
+| OnHold         | Deciding the bounce reason is on hold  |                    |
+| Rejected       | Rejected due to envelope from address  |                    |
+| NoRelaying     | Relay access denied                    |                    |
+| SecurityError  | Virus detected or authentication error |                    |
+| SpamDetected   | Detected a message as spam             |                    |
+| Suspend        | Recipient's account is suspended       |                    |
+| SyntaxError    | syntax error in SMTP                   | v4.17.0            |
+| SystemError    | Some error on the destination host     |                    |
+| SystemFull     | Disk full on the destination host      |                    |
+| TooManyConn    | Connection rate limit exceeded         |                    |
+| UserUnknown    | Recipient's address does not exist     |                    |
+| Undefined      | Could not decide the error reason      |                    |
+| Vacation       | Auto replied message                   | v4.1.28            |
 
-Sisimaiは上記のエラー27種を検出します。バウンス理由についてのより詳細な情報は
-[Sisimai | バウンス理由の一覧](http://libsisimai.org/ja/reason)をご覧ください。
+1. This reason is not included by default
 
-1. This reason is not included by default | このバウンス理由は標準では解析結果に含まれません
-
-
-Parsed data structure | 解析後のデータ構造
-------------------------------------------
+Parsed data structure
+---------------------
 The following table shows a data structure(Sisimai::Data) of parsed bounce mail.
 More details about data structure are available at available at 
 [Sisimai | Data Structure of Sisimai::Data](http://libsisimai.org/en/data) page.
 
-| Name           | Description                           | 値の説明                       |
-|----------------|---------------------------------------|--------------------------------|
-| action         | The value of Action: header           | Action:ヘッダの値              |
-| addresser      | The From address                      | 送信者のアドレス               |
-| alias          | Alias of the recipient                | 受信者アドレスのエイリアス     |
-| destination    | The domain part of the "recipinet"    | "recipient"のドメイン部分      |
-| deliverystatus | Delivery Status(DSN)                  | 配信状態(DSN)の値              |
-| diagnosticcode | Error message                         | エラーメッセージ               |
-| diagnostictype | Error message type                    | エラーメッセージの種別         |
-| feedbacktype   | Feedback Type                         | Feedback-Typeのフィールド      |
-| lhost          | local host name(local MTA)            | 送信側MTAのホスト名            |
-| listid         | List-Id: header of each ML            | List-Idヘッダの値              |
-| messageid      | Message-Id: of the original message   | 元メールのMessage-Id           |
-| reason         | Detected bounce reason                | 検出したバウンスした理由       |
-| recipient      | Recipient address which bounced       | バウンスした受信者のアドレス   |
-| replycode      | SMTP Reply Code                       | SMTP応答コード                 |
-| rhost          | Remote host name(remote MTA)          | 受信側MTAのホスト名            |
-| senderdomain   | The domain part of the "addresser"    | "addresser"のドメイン部分      |
-| softbounce     | The bounce is soft bounce or not      | ソフトバウンスであるかどうか   |
-| smtpagent      | MTA name(Sisimai::MTA::, MSP::)       | MTA名(Sisimai::MTA::,MSP::)    |
-| smtpcommand    | The last SMTP command in the session  | セッション中最後のSMTPコマンド |
-| subject        | Subject of the original message(UTF8) | 元メールのSubject(UTF-8)       |
-| timestamp      | Date: header in the original message  | 元メールのDate                 |
-| timezoneoffset | Time zone offset(seconds)             | タイムゾーンの時差             |
-| token          | MD5 value of addresser and recipient  | 送信者と受信者のハッシュ値     |
+| Name           | Description                                                 |
+|----------------|-------------------------------------------------------------|
+| action         | The value of Action: header                                 |
+| addresser      | The sender's email address (From:)                          |
+| alias          | Alias of the recipient                                      |
+| destination    | The domain part of the "recipinet"                          |
+| deliverystatus | Delivery Status(DSN), ex) 5.1.1, 4.4.7                      |
+| diagnosticcode | Error message                                               |
+| diagnostictype | Error message type                                          |
+| feedbacktype   | Feedback Type                                               |
+| lhost          | local host name(local MTA)                                  |
+| listid         | The value of List-Id: header of the original message        |
+| messageid      | The value of Message-Id: of the original message            |
+| reason         | Detected bounce reason                                      |
+| recipient      | Recipient address which bounced (To:)                       |
+| replycode      | SMTP Reply Code, ex) 550, 421                               |
+| rhost          | Remote host name(remote MTA)                                |
+| senderdomain   | The domain part of the "addresser"                          |
+| softbounce     | The bounce is soft bounce or not: 0=hard,1=soft,-1=unknown  |
+| smtpagent      | MTA module name (Sisimai::MTA::, MSP::)                     |
+| smtpcommand    | The last SMTP command in the session                        |
+| subject        | The vale of Subject: header of the original message(UTF8)   |
+| timestamp      | Timestamp of the bounce, UNIX matchine time                 |
+| timezoneoffset | Time zone offset string: ex) +0900                          |
+| token          | MD5 value of addresser, recipient, and the timestamp        |
 
-上記の表は解析後のバウンスメールの構造(Sisimai::Data)です。データ構造のより詳細な情報は
-[Sisimai | Sisimai::Dataのデータ構造](http://libsisimai.org/ja/data)をご覧ください。
-
-
-
-Emails could not be parsed | 解析出来ないメール
------------------------------------------------
+Emails could not be parsed
+--------------------------
 __Bounce mails__ which could not be parsed by Sisimai are saved in the directory
 `set-of-emails/to-be-debugged-because/sisimai-cannot-parse-yet`. If you find any
 bounce email cannot be parsed using Sisimai, please add the email into the directory
 and send Pull-Request to this repository.
 
-解析出来ない__バウンスメール__は`set-of-emails/to-be-debugged-because/sisimai-cannot-parse-yet`
-ディレクトリにはいっています。もしもSisimaiで解析出来ないメールを見つけたら、
-このディレクトリに追加してPull-Requestを送ってください。
-
-
-Other Information | その他の情報
-================================
-
-Related Sites | 関連サイト
---------------------------
-
+Other Information
+=================
+Related Sites
+-------------
 * __libsisimai.org__ | [Sisimai | The successor to bounceHammer, Library to parse bounce mails](http://libsisimai.org/)
 * __GitHub__ | [github.com/sisimai/rb-Sisimai](https://github.com/sisimai/rb-Sisimai)
 * __Perl verson__ | [Perl version of Sisimai](https://github.com/sisimai/p5-Sisimai)
 
-SEE ALSO | 参考サイト
----------------------
+SEE ALSO
+--------
+* [README-JA.md - README.md in Japanese(日本語)](https://github.com/sisimai/rb-Sisimai/blob/master/README-JA.md)
 * [RFC3463 - Enhanced Mail System Status Codes](https://tools.ietf.org/html/rfc3463)
 * [RFC3464 - An Extensible Message Format for Delivery Status Notifications](https://tools.ietf.org/html/rfc3464)
 * [RFC3834 - Recommendations for Automatic Responses to Electronic Mail](https://tools.ietf.org/html/rfc3834)
 * [RFC5321 - Simple Mail Transfer Protocol](https://tools.ietf.org/html/rfc5321)
 * [RFC5322 - Internet Message Format](https://tools.ietf.org/html/rfc5322)
 
-AUTHOR | 作者
--------------
+AUTHOR
+------
 [@azumakuniyuki](https://twitter.com/azumakuniyuki)
 
-COPYRIGHT | 著作権
-------------------
+COPYRIGHT
+---------
 Copyright (C) 2015-2016 azumakuniyuki, All Rights Reserved.
 
-LICENSE | ライセンス
---------------------
+LICENSE
+-------
 This software is distributed under The BSD 2-Clause License.
 
