@@ -11,7 +11,8 @@
 =========
 Sisimai(シシマイ)はRFC5322準拠のエラーメールを解析し、解析結果をデータ構造に
 変換するインターフェイスを提供するRubyライブラリです。
-https://github.com/sisimai/p5-Sisimai/で公開しているPerl版シシマイから移植しました。
+[github.com/sisimai/p5-Sisimai](https://github.com/sisimai/p5-Sisimai/)
+で公開しているPerl版シシマイから移植しました。
 
 主な特徴的機能
 --------------
@@ -84,7 +85,7 @@ sisimai (4.14.2) installed.
 ======
 基本的な使い方
 --------------
-下記のようにSisimaiのmake()メソッドをmboxかMaildirのPATHを引数にして実行すると
+下記のようにSisimaiの`make()`メソッドをmboxかMaildirのPATHを引数にして実行すると
 解析結果が配列で返ってきます。
 
 ```ruby
@@ -152,7 +153,7 @@ Perl版Sisimaiとの違い
 | ライセンス                                  | 二条項BSD      | 二条項BSD     |
 | 開発会社によるサポート契約                  | 準備中         | 提供中        |
 
-1. ./ANALYTICAL-PRECISIONを参照
+1. [./ANALYTICAL-PRECISION](https://github.com/sisimai/rb-Sisimai/blob/master/ANALYTICAL-PRECISION)を参照
 
 MTA/MSPモジュール一覧
 ---------------------
@@ -253,7 +254,7 @@ Sisimaiは下記のエラー27種を検出します。バウンス理由につ�
 
 解析後のデータ構造
 ------------------
-下記の表は解析後のバウンスメールの構造(Sisimai::Data)です。データ構造のより詳細な情報は
+下記の表は解析後のバウンスメールの構造(`Sisimai::Data`)です。データ構造のより詳細な情報は
 [Sisimai | Sisimai::Dataのデータ構造](http://libsisimai.org/ja/data)をご覧ください。
 
 | アクセサ名     | 値の説明                                                    |
@@ -284,15 +285,15 @@ Sisimaiは下記のエラー27種を検出します。バウンス理由につ�
 
 解析出来ないメール
 ------------------
-解析出来ない__バウンスメール__は`set-of-emails/to-be-debugged-because/sisimai-cannot-parse-yet`
+解析出来ないバウンスメールは`set-of-emails/to-be-debugged-because/sisimai-cannot-parse-yet`
 ディレクトリにはいっています。もしもSisimaiで解析出来ないメールを見つけたら、
 このディレクトリに追加してPull-Requestを送ってください。
 
 その他の情報
 ============
-
 関連サイト
 ----------
+* __@libsisimai__ | [Sisimai on Twitter (@libsisimai)](https://twitter.com/libsisimai)
 * __libsisimai.org__ | [Sisimai | The successor to bounceHammer, Library to parse bounce mails](http://libsisimai.org/)
 * __GitHub__ | [github.com/sisimai/rb-Sisimai](https://github.com/sisimai/rb-Sisimai)
 * __Perl verson__ | [Perl version of Sisimai](https://github.com/sisimai/p5-Sisimai)

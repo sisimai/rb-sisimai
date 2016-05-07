@@ -10,8 +10,8 @@
 What is Sisimai ?
 =================
 Sisimai is a Ruby library for analyzing RFC5322 bounce emails and generating
-structured data from parsed results. Ruby version of Sisimai is ported from
-Perl version of Sisimai at https://github.com/sisimai/p5-Sisimai/ .
+structured data from parsed results. The Ruby version of Sisimai is ported from
+the Perl version of Sisimai at [github.com/sisimai/p5-Sisimai](https://github.com/sisimai/p5-Sisimai/).
 
 Key Features
 ------------
@@ -84,7 +84,7 @@ Usage
 =====
 Basic usage
 -----------
-make() method provides feature for getting parsed data from bounced email 
+`make()` method provides feature for getting parsed data from bounced email 
 messages like following.
 
 ```ruby
@@ -153,7 +153,7 @@ and bounceHammer are available at
 | License                                     | BSD 2-Clause   | BSD 2-Clause  |
 | Support Contract provided by Developer      | Coming soon    | Available     |
 
-1. See ./ANALYTICAL-PRECISION
+1. See [./ANALYTICAL-PRECISION](https://github.com/sisimai/rb-Sisimai/blob/master/ANALYTICAL-PRECISION)
 
 MTA/MSP Modules
 ---------------
@@ -254,7 +254,7 @@ page.
 
 Parsed data structure
 ---------------------
-The following table shows a data structure(Sisimai::Data) of parsed bounce mail.
+The following table shows a data structure(`Sisimai::Data`) of parsed bounce mail.
 More details about data structure are available at available at 
 [Sisimai | Data Structure of Sisimai::Data](http://libsisimai.org/en/data) page.
 
@@ -286,15 +286,16 @@ More details about data structure are available at available at
 
 Emails could not be parsed
 --------------------------
-__Bounce mails__ which could not be parsed by Sisimai are saved in the directory
-`set-of-emails/to-be-debugged-because/sisimai-cannot-parse-yet`. If you find any
-bounce email cannot be parsed using Sisimai, please add the email into the directory
-and send Pull-Request to this repository.
+Bounce mails which could not be parsed by Sisimai are saved in the directory
+`set-of-emails/to-be-debugged-because/sisimai-cannot-parse-yet`. If you have
+found any bounce email cannot be parsed using Sisimai, please add the email
+into the directory and send Pull-Request to this repository.
 
 Other Information
 =================
 Related Sites
 -------------
+* __@libsisimai__ | [Sisimai on Twitter (@libsisimai)](https://twitter.com/libsisimai)
 * __libsisimai.org__ | [Sisimai | The successor to bounceHammer, Library to parse bounce mails](http://libsisimai.org/)
 * __GitHub__ | [github.com/sisimai/rb-Sisimai](https://github.com/sisimai/rb-Sisimai)
 * __Perl verson__ | [Perl version of Sisimai](https://github.com/sisimai/p5-Sisimai)
