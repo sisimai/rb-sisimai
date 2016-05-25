@@ -11,8 +11,8 @@ describe Sisimai::Rhost do
       end
       v.each do |e|
         describe e do
-          it('is a String')       { expect(e.is_a?(String)).to be true }
-          it('is valid hostname') { expect(e).to match(/\A[-.a-z0-9]+\z/) }
+          it('is a String')       { expect(e.is_a?(Regexp)).to be true }
+          #it('is valid hostname') { expect(e).to match(/\A[-.a-z0-9]+\z/) }
         end
       end
     end
@@ -29,7 +29,10 @@ describe Sisimai::Rhost do
 
   describe '.match' do
     context 'valid argument string' do
-      v = ['aspmx.l.google.com']
+      v = [
+        'aspmx.l.google.com',
+        'neko.protection.outlook.com',
+      ]
       v.each do |e|
         context "(#{e})" do
           it('returns true') { expect(cn.match(e)).to be true }

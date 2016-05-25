@@ -6,7 +6,7 @@ module Sisimai
     module GoogleApps
       class << self
         # Imported from p5-Sisimail/lib/Sisimai/Rhost/GoogleApps.pm
-        SMTPErrorSet = {
+        CodeTable = {
           :'X.1.1' => [
             {
               :reason => 'userunknown',
@@ -220,7 +220,7 @@ module Sisimai
           statuscode = argvs.deliverystatus.sub(/\A\d[.](\d+[.]\d+)\z/, 'X.\1')
           statusmesg = argvs.diagnosticcode
           reasontext = ''
-          errortable = SMTPErrorSet[statuscode.to_sym] || []
+          errortable = CodeTable[statuscode.to_sym] || []
 
           errortable.each do |e|
             # Try to match

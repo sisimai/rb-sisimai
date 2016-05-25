@@ -7,7 +7,8 @@ module Sisimai
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Rhost.pm
       RhostClass = {
-        'aspmx.l.google.com' => 'GoogleApps',
+        %r/\Aaspmx[.]l[.]google[.]com\z/ => 'GoogleApps',
+        %r/[.]protection[.]outlook[.]com\z/ => 'ExchangeOnline',
       }
 
       # Retrun the list of remote hosts Sisimai support
@@ -20,10 +21,20 @@ module Sisimai
       # @param    [String] argvs  Remote host name
       # @return   [True,False]    True: matched
       #                           False: did not match
-      def match(host)
-        return false unless host.is_a? ::String
-        return true  if RhostClass.key?(host.downcase)
-        return false
+      def match(rhost)
+        return false unless rhost.is_a? ::String
+        return false if rhost.empty?
+
+        host0 = rhost.downcase
+        match = false
+
+        RhostClass.each_key do |e|
+          # Try to match with each key of RhostClass
+          next unless host0 =~ e
+          match = true
+          break
+        end
+        return match
       end
 
       # Detect the bounce reason from certain remote hosts
@@ -35,10 +46,19 @@ module Sisimai
         return argvs.reason if argvs.reason.size > 0
 
         remotehost = argvs.rhost.downcase
-        modulename = 'Sisimai::Rhost::' + RhostClass[remotehost]
-        rhostclass = modulename.gsub('::', '/').downcase
-        require rhostclass
+        rhostclass = ''
+        reasontext = ''
+        modulename = ''
 
+        RhostClass.each_key do |e|
+          # Try to match with each key of $RhostClass
+          next unless remotehost =~ e
+          modulename = 'Sisimai::Rhost::' + RhostClass[e]
+          rhostclass = modulename.gsub('::', '/').downcase
+          break
+        end
+
+        require rhostclass
         reasontext = Module.const_get(modulename).get(argvs)
         return reasontext
       end
