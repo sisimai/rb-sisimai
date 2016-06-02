@@ -133,8 +133,8 @@ One-Liner
 % ruby -rsisimai -e 'puts Sisimai.dump($*.shift)' /path/to/mbox
 ```
 
-Differences between Perl version and Ruby version | Perl版との違い
-------------------------------------------------------------------
+Differences between Perl version and Ruby version
+-------------------------------------------------
 The following table show the differences between Perl version of Sisimai
 and Ruby version of Sisimai. Information about differences between Sisimai
 and bounceHammer are available at
