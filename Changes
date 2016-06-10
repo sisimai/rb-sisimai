@@ -1,5 +1,10 @@
 Revision history for Ruby version of Sisimai
 
+4.17.2
+    - Issue #174, Implement Sisimai::Rhost::ExchangeOnline for the bounce mail
+      from on-premises Exchange 2013 and Office 365.
+    - The reason of status code: 4.4.5 is "systemfull".
+
 4.17.1  Wed, 30 Mar 2016 14:00:22 +0900 (JST)
     - Ported codes from https://github.com/sisimai/p5-Sisimai/pull/180 to fix
       issue https://github.com/sisimai/p5-Sisimai/issues/179 a variable in lib/
