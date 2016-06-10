@@ -40,6 +40,7 @@ module Sisimai
             |domain[ ]does[ ]not[ ]exist:
             |domain[ ].+[ ]mismatches[ ]client[ ]ip
             |dns[ ]lookup[ ]failure:[ ].+[ ]try[ ]again[ ]later
+            |DNSBL:ATTRBL
             |Go[ ]away
             |hosts[ ]with[ ]dynamic[ ]ip
             |IP[ ]\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3}[ ]is[ ]blocked[ ]by[ ]EarthLink # Earthlink
