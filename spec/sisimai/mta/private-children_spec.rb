@@ -478,6 +478,10 @@ describe 'Sisimai::MTA::' do
       '01148' => %r/userunknown/,
       '01149' => %r/mailboxfull/,
       '01150' => %r/filtered/,
+      '01151' => %r/spamdetected/,
+      '01152' => %r/blocked/,
+      '01153' => %r/spamdetected/,
+      '01154' => %r/spamdetected/,
     },
     'Qmail' => {
       '01001' => %r/filtered/,
@@ -748,6 +752,8 @@ describe 'Sisimai::MTA::' do
       '01200' => %r/hostunknown/,
       '01201' => %r/spamdetected/,
       '01202' => %r/systemfull/,
+      '01203' => %r/blocked/,
+      '01204' => %r/suspend/,
     },
     'SurfControl' => {
       '01001' => %r/filtered/,
