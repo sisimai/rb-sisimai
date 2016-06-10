@@ -747,6 +747,7 @@ describe 'Sisimai::MTA::' do
       '01199' => %r/blocked/,
       '01200' => %r/hostunknown/,
       '01201' => %r/spamdetected/,
+      '01202' => %r/systemfull/,
     },
     'SurfControl' => {
       '01001' => %r/filtered/,
