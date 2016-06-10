@@ -561,7 +561,7 @@ module Sisimai
           :'4.4.2'  => 'networkerror',   # Bad connection
           # :'4.4.3' => 'systemerror',    # Directory server failure
           :'4.4.4'  => 'networkerror',   # Unable to route
-          :'4.4.5'  => 'toomanyconn',    # Mail system congestion
+          :'4.4.5'  => 'systemfull',     # Mail system congestion
           :'4.4.6'  => 'networkerror',   # Routing loop detected
           :'4.4.7'  => 'expired',        # Delivery time expired
           # :'4.5.0' => 'networkerror',   # Other or undefined protocol status
