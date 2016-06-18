@@ -1,0 +1,42 @@
+From postmaster@example.onmicrosoft.com  Thu Apr 29 23:34:45 2015
+From: postmaster@example.onmicrosoft.com (postmaster@example.onmicrosoft.com)
+Date: Thu, 29 Apr 2015 23:34:45 +0900
+Subject: Undeliverable: Nyaan
+Message-ID: <00000000-0000-0000-0000-0000000000@NEKOCHAN.example.prod.outlook.com>
+
+Delivery has failed to these recipients or groups:
+
+kijitora@example.onmicrosoft.com<mailto:kijitora@example.onmicrosoft.com>
+The email address you entered couldn't be found. Check the recipient's email address then try to resend the message. For more tips to resolve this issue see DSN code 5.1.1 in Exchange Online<http://go.microsoft.com/fwlink/?LinkId=389363>. If the problem continues contact your help desk.
+
+
+
+
+
+
+
+Diagnostic information for administrators:
+
+Generating server: NEKOCHAN.example.prod.outlook.com
+
+kijitora@example.onmicrosoft.com
+Remote Server returned '550 5.1.1 RESOLVER.ADR.RecipNotFound; not found'
+
+Original message headers:
+
+Received: from NYANKO.example.prod.outlook.com (192.0.2.22) by
+ NEKOCHAN.example.prod.outlook.com (192.0.2.222) with Microsoft SMTP
+ Server (TLS) id 15.0.918.8; Thu, 29 Apr 2015 23:34:45 +0900
+Received: from neko22.example.org (198.51.100.2) by
+ NYAAAAN.mail.protection.outlook.com (192.0.2.65) with Microsoft SMTP
+ Server (TLS) id 15.0.918.8 via Frontend Transport; Thu, 29 Apr 2015 23:34:45
+ +0900
+Message-ID: <c302b7e8-9b97-40ef-90eb-313cc6c25133@NYAAAAN.example.org>
+From: <sironeko@example.jp>
+To: "Kijitora" <kijitora@example.org>
+Return-Path: sironeko@example.jp
+Date: Thu, 29 Apr 2015 23:34:45 +0900
+MIME-Version: 1.0
+Content-Type: text/plain
+
+Nyaan

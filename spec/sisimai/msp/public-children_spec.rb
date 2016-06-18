@@ -94,6 +94,7 @@ describe 'Sisimai::MSP::*' do
     },
     'US::Office365' => {
       '01' => { 'status' => %r/\A5[.]1[.]10\z/, 'reason' => %r/filtered/ },
+      '02' => { 'status' => %r/\A5[.]1[.]1\z/,  'reason' => %r/userunknown/ },
     },
     'US::Outlook' => {
       '01' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
