@@ -42,6 +42,12 @@ install-from-local:
 		PATH="$$PATH:$(JRUBY)/bin" $(JRUBY)/bin/rake install; \
 	fi
 
+build:
+	$(RAKE) $@ 
+	if [ -d "$(JRUBY)" ]; then \
+		PATH="$$PATH:$(JRUBY)/bin" $(JRUBY)/bin/rake $@; \
+	fi
+
 release:
 	$(RAKE) release
 	if [ -d "$(JRUBY)" ]; then \
