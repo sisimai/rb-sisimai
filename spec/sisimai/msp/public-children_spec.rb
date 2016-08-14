@@ -7,134 +7,134 @@ describe 'Sisimai::MSP::*' do
   debugOnlyTo = ''
   MSPChildren = {
     'DE::EinsUndEins' => {
-      '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mesgtoobig/ },
+      '01' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/mesgtoobig/, 'b' => %r/\A1\z/ },
     },
     'DE::GMX' => {
-      '01' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
-      '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
-      '03' => { 'status' => %r/\A5[.][12][.][12]\z/, 'reason' => %r/(?:userunknown|mailboxfull)/ },
-      '04' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+      '01' => { 's' => %r/\A5[.]2[.]2\z/,   'r' => %r/mailboxfull/, 'b' => %r/\A1\z/ },
+      '02' => { 's' => %r/\A5[.]1[.]1\z/,   'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
+      '03' => { 's' => %r/\A5[.][12][.][12]\z/, 'r' => %r/(?:userunknown|mailboxfull)/, 'b' => %r/\d\z/ },
+      '04' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/expired/,     'b' => %r/\A1\z/ },
     },
     'JP::Biglobe' => {
-      '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mailboxfull/ },
+      '01' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/mailboxfull/, 'b' => %r/\A1\z/ },
     },
     'JP::EZweb' => {
-      '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/filtered/ },
-      '02' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/(?:suspend|undefined)/ },
-      '03' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/suspend/ },
-      '04' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
-      '05' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
-      '06' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
+      '01' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/filtered/,    'b' => %r/\A1\z/ },
+      '02' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/(?:suspend|undefined)/, 'b' => %r/\d\z/ },
+      '03' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/suspend/,     'b' => %r/\A1\z/ },
+      '04' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
+      '05' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/expired/,     'b' => %r/\A1\z/ },
+      '06' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
     },
     'JP::KDDI' => {
-      '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mailboxfull/ },
-      '02' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mailboxfull/ },
-      '03' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/mailboxfull/ },
+      '01' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/mailboxfull/, 'b' => %r/\A1\z/ },
+      '02' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/mailboxfull/, 'b' => %r/\A1\z/ },
+      '03' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/mailboxfull/, 'b' => %r/\A1\z/ },
     },
     'RU::MailRu' => {
-      '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
-      '02' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
-      '03' => { 'status' => %r/\A5[.][12][.][12]\z/, 'reason' => %r/(?:userunknown|mailboxfull)/ },
-      '04' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+      '01' => { 's' => %r/\A5[.]1[.]1\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
+      '02' => { 's' => %r/\A5[.]2[.]2\z/, 'r' => %r/mailboxfull/, 'b' => %r/\A1\z/ },
+      '03' => { 's' => %r/\A5[.][12][.][12]\z/, 'r' => %r/(?:userunknown|mailboxfull)/, 'b' => %r/\A[01]\z/ },
+      '04' => { 's' => %r/\A5[.]1[.]1\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
     },
     'RU::Yandex' => {
-      '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
-      '02' => { 'status' => %r/\A5[.][12][.][12]\z/, 'reason' => %r/(?:userunknown|mailboxfull)/ },
-      '03' => { 'status' => %r/\A4[.]4[.]1\z/, 'reason' => %r/expired/ },
+      '01' => { 's' => %r/\A5[.]1[.]1\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
+      '02' => { 's' => %r/\A5[.][12][.][12]\z/, 'r' => %r/(?:userunknown|mailboxfull)/, 'b' => %r/\d\z/ },
+      '03' => { 's' => %r/\A4[.]4[.]1\z/, 'r' => %r/expired/,     'b' => %r/\A1\z/ },
     },
     'UK::MessageLabs' => {
-      '01' => { 'status' => %r/\A5[.]0[.]0\z/, 'reason' => %r/userunknown/ },
+      '01' => { 's' => %r/\A5[.]0[.]0\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
     },
     'US::AmazonSES' => {
-      '01' => { 'status' => %r/\A5[.]7[.]1\z/, 'reason' => %r/blocked/ },
-      '02' => { 'status' => %r/\A5[.]3[.]0\z/, 'reason' => %r/filtered/ },
-      '03' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
-      '04' => { 'status' => %r/\A5[.]4[.]7\z/, 'reason' => %r/expired/ },
+      '01' => { 's' => %r/\A5[.]7[.]1\z/, 'r' => %r/blocked/,     'b' => %r/\A1\z/ },
+      '02' => { 's' => %r/\A5[.]3[.]0\z/, 'r' => %r/filtered/,    'b' => %r/\A1\z/ },
+      '03' => { 's' => %r/\A5[.]2[.]2\z/, 'r' => %r/mailboxfull/, 'b' => %r/\A1\z/ },
+      '04' => { 's' => %r/\A5[.]4[.]7\z/, 'r' => %r/expired/,     'b' => %r/\A1\z/ },
     },
     'US::AmazonWorkMail' => {
-      '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
-      '02' => { 'status' => %r/\A5[.]2[.]1\z/, 'reason' => %r/filtered/ },
-      '03' => { 'status' => %r/\A5[.]3[.]5\z/, 'reason' => %r/systemerror/ },
-      '04' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
-      '05' => { 'status' => %r/\A4[.]4[.]7\z/, 'reason' => %r/expired/ },
-      '06' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
-      '07' => { 'status' => %r/\A4[.]4[.]7\z/, 'reason' => %r/expired/ },
+      '01' => { 's' => %r/\A5[.]1[.]1\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
+      '02' => { 's' => %r/\A5[.]2[.]1\z/, 'r' => %r/filtered/,    'b' => %r/\A1\z/ },
+      '03' => { 's' => %r/\A5[.]3[.]5\z/, 'r' => %r/systemerror/, 'b' => %r/\A1\z/ },
+      '04' => { 's' => %r/\A5[.]2[.]2\z/, 'r' => %r/mailboxfull/, 'b' => %r/\A1\z/ },
+      '05' => { 's' => %r/\A4[.]4[.]7\z/, 'r' => %r/expired/,     'b' => %r/\A1\z/ },
+      '06' => { 's' => %r/\A5[.]2[.]2\z/, 'r' => %r/mailboxfull/, 'b' => %r/\A1\z/ },
+      '07' => { 's' => %r/\A4[.]4[.]7\z/, 'r' => %r/expired/,     'b' => %r/\A1\z/ },
     },
     'US::Aol' => {
-      '01' => { 'status' => %r/\A5[.]4[.]4\z/, 'reason' => %r/hostunknown/ },
-      '02' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
-      '03' => { 'status' => %r/\A5[.][12][.][12]\z/, 'reason' => %r/(?:mailboxfull|userunknown)/ },
-      '04' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+      '01' => { 's' => %r/\A5[.]4[.]4\z/, 'r' => %r/hostunknown/, 'b' => %r/\A0\z/ },
+      '02' => { 's' => %r/\A5[.]2[.]2\z/, 'r' => %r/mailboxfull/, 'b' => %r/\A1\z/ },
+      '03' => { 's' => %r/\A5[.][12][.][12]\z/, 'r' => %r/(?:mailboxfull|userunknown)/, 'b' => %r/\d\z/ },
+      '04' => { 's' => %r/\A5[.]1[.]1\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
     },
     'US::Bigfoot' => {
-      '01' => { 'status' => %r/\A5[.]7[.]1\z/, 'reason' => %r/userunknown/ },
+      '01' => { 's' => %r/\A5[.]7[.]1\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
     },
     'US::Facebook' => {
-      '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/filtered/ },
-      '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+      '01' => { 's' => %r/\A5[.]1[.]1\z/, 'r' => %r/filtered/,    'b' => %r/\A1\z/ },
+      '02' => { 's' => %r/\A5[.]1[.]1\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
     },
     'US::Google' => {
-      '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
-      '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
-      '03' => { 'status' => %r/\A5[.]7[.]0\z/, 'reason' => %r/filtered/ },
-      '04' => { 'status' => %r/\A5[.]7[.]1\z/, 'reason' => %r/blocked/ },
-      '05' => { 'status' => %r/\A5[.]7[.]1\z/, 'reason' => %r/blocked/ },
-      '06' => { 'status' => %r/\A4[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
-      '07' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/systemerror/ },
-      '08' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
-      '09' => { 'status' => %r/\A4[.]0[.]\d+\z/, 'reason' => %r/expired/ },
-      '10' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
-      '11' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
-      '12' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/onhold/ },
-      '13' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
-      '14' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
-      '15' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
-      '16' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
-      '17' => { 'status' => %r/\A4[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+      '01' => { 's' => %r/\A5[.]1[.]1\z/,   'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
+      '02' => { 's' => %r/\A5[.]1[.]1\z/,   'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
+      '03' => { 's' => %r/\A5[.]7[.]0\z/,   'r' => %r/filtered/,    'b' => %r/\A1\z/ },
+      '04' => { 's' => %r/\A5[.]7[.]1\z/,   'r' => %r/blocked/,     'b' => %r/\A1\z/ },
+      '05' => { 's' => %r/\A5[.]7[.]1\z/,   'r' => %r/blocked/,     'b' => %r/\A1\z/ },
+      '06' => { 's' => %r/\A4[.]2[.]2\z/,   'r' => %r/mailboxfull/, 'b' => %r/\A1\z/ },
+      '07' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/systemerror/, 'b' => %r/\A1\z/ },
+      '08' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/expired/,     'b' => %r/\A1\z/ },
+      '09' => { 's' => %r/\A4[.]0[.]\d+\z/, 'r' => %r/expired/,     'b' => %r/\A1\z/ },
+      '10' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/expired/,     'b' => %r/\A1\z/ },
+      '11' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/expired/,     'b' => %r/\A1\z/ },
+      '12' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/onhold/,      'b' => %r/\d\z/ },
+      '13' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/expired/,     'b' => %r/\A1\z/ },
+      '14' => { 's' => %r/\A5[.]1[.]1\z/,   'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
+      '15' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/expired/,     'b' => %r/\A1\z/ },
+      '16' => { 's' => %r/\A5[.]2[.]2\z/,   'r' => %r/mailboxfull/, 'b' => %r/\A1\z/ },
+      '17' => { 's' => %r/\A4[.]0[.]\d+\z/, 'r' => %r/expired/,     'b' => %r/\A1\z/ },
     },
     'US::Office365' => {
-      '01' => { 'status' => %r/\A5[.]1[.]10\z/, 'reason' => %r/filtered/ },
-      '02' => { 'status' => %r/\A5[.]1[.]1\z/,  'reason' => %r/userunknown/ },
+      '01' => { 's' => %r/\A5[.]1[.]10\z/, 'r' => %r/filtered/,     'b' => %r/\A1\z/ },
+      '02' => { 's' => %r/\A5[.]1[.]1\z/,  'r' => %r/userunknown/,  'b' => %r/\A0\z/ },
     },
     'US::Outlook' => {
-      '01' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
-      '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
-      '03' => { 'status' => %r/\A5[.]5[.]0\z/, 'reason' => %r/hostunknown/ },
-      '04' => { 'status' => %r/\A5[.][12][.][12]\z/, 'reason' => %r/(?:mailboxfull|userunknown)/ },
-      '05' => { 'status' => %r/\A5[.]5[.]0\z/, 'reason' => %r/userunknown/ },
-      '06' => { 'status' => %r/\A4[.]4[.]7\z/, 'reason' => %r/expired/ },
-      '07' => { 'status' => %r/\A4[.]4[.]7\z/, 'reason' => %r/expired/ },
+      '01' => { 's' => %r/\A5[.]2[.]2\z/, 'r' => %r/mailboxfull/,   'b' => %r/\A1\z/ },
+      '02' => { 's' => %r/\A5[.]1[.]1\z/, 'r' => %r/userunknown/,   'b' => %r/\A0\z/ },
+      '03' => { 's' => %r/\A5[.]5[.]0\z/, 'r' => %r/hostunknown/,   'b' => %r/\A0\z/ },
+      '04' => { 's' => %r/\A5[.][12][.][12]\z/, 'r' => %r/(?:mailboxfull|userunknown)/, 'b' => %r/\A[01]\z/ },
+      '05' => { 's' => %r/\A5[.]5[.]0\z/, 'r' => %r/userunknown/,   'b' => %r/\A0\z/ },
+      '06' => { 's' => %r/\A4[.]4[.]7\z/, 'r' => %r/expired/,       'b' => %r/\A1\z/ },
+      '07' => { 's' => %r/\A4[.]4[.]7\z/, 'r' => %r/expired/,       'b' => %r/\A1\z/ },
     },
     'US::ReceivingSES' => {
-      '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/filtered/ },
-      '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/filtered/ },
-      '03' => { 'status' => %r/\A4[.]0[.]0\z/, 'reason' => %r/onhold/ },
-      '04' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
-      '05' => { 'status' => %r/\A5[.]3[.]4\z/, 'reason' => %r/mesgtoobig/ },
-      '06' => { 'status' => %r/\A5[.]6[.]1\z/, 'reason' => %r/contenterror/ },
-      '07' => { 'status' => %r/\A5[.]2[.]0\z/, 'reason' => %r/filtered/ },
+      '01' => { 's' => %r/\A5[.]1[.]1\z/, 'r' => %r/filtered/,    'b' => %r/\A1\z/ },
+      '02' => { 's' => %r/\A5[.]1[.]1\z/, 'r' => %r/filtered/,    'b' => %r/\A1\z/ },
+      '03' => { 's' => %r/\A4[.]0[.]0\z/, 'r' => %r/onhold/,      'b' => %r/\d\z/ },
+      '04' => { 's' => %r/\A5[.]2[.]2\z/, 'r' => %r/mailboxfull/, 'b' => %r/\A1\z/ },
+      '05' => { 's' => %r/\A5[.]3[.]4\z/, 'r' => %r/mesgtoobig/,  'b' => %r/\A1\z/ },
+      '06' => { 's' => %r/\A5[.]6[.]1\z/, 'r' => %r/contenterror/,'b' => %r/\A1\z/ },
+      '07' => { 's' => %r/\A5[.]2[.]0\z/, 'r' => %r/filtered/,    'b' => %r/\A1\z/ },
     },
     'US::SendGrid' => {
-      '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
-      '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
-      '03' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+      '01' => { 's' => %r/\A5[.]1[.]1\z/,   'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
+      '02' => { 's' => %r/\A5[.]1[.]1\z/,   'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
+      '03' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/expired/,     'b' => %r/\A1\z/ },
     },
     'US::Verizon' => {
-      '01' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/userunknown/ },
+      '01' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
     },
     'US::Yahoo' => {
-      '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
-      '02' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
-      '03' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
-      '04' => { 'status' => %r/\A5[.]2[.]2\z/, 'reason' => %r/mailboxfull/ },
-      '05' => { 'status' => %r/\A5[.]2[.]1\z/, 'reason' => %r/filtered/ },
+      '01' => { 's' => %r/\A5[.]1[.]1\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
+      '02' => { 's' => %r/\A5[.]2[.]2\z/, 'r' => %r/mailboxfull/, 'b' => %r/\A1\z/ },
+      '03' => { 's' => %r/\A5[.]1[.]1\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
+      '04' => { 's' => %r/\A5[.]2[.]2\z/, 'r' => %r/mailboxfull/, 'b' => %r/\A1\z/ },
+      '05' => { 's' => %r/\A5[.]2[.]1\z/, 'r' => %r/filtered/,    'b' => %r/\A1\z/ },
     },
     'US::Zoho' => {
-      '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
-      '02' => { 'status' => %r/\A5[.]2[.][12]\z/, 'reason' => %r/(?:mailboxfull|filtered)/ },
-      '03' => { 'status' => %r/\A5[.]0[.]\d+\z/, 'reason' => %r/filtered/ },
-      '04' => { 'status' => %r/\A4[.]0[.]\d+\z/, 'reason' => %r/expired/ },
-      '05' => { 'status' => %r/\A4[.]0[.]\d+\z/, 'reason' => %r/expired/ },
+      '01' => { 's' => %r/\A5[.]1[.]1\z/,   'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
+      '02' => { 's' => %r/\A5[.]2[.][12]\z/,'r' => %r/(?:mailboxfull|filtered)/, 'b' => %r/\A1\z/ },
+      '03' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/filtered/,    'b' => %r/\A1\z/ },
+      '04' => { 's' => %r/\A4[.]0[.]\d+\z/, 'r' => %r/expired/,     'b' => %r/\A1\z/ },
+      '05' => { 's' => %r/\A4[.]0[.]\d+\z/, 'r' => %r/expired/,     'b' => %r/\A1\z/ },
     },
   }
 
@@ -295,13 +295,7 @@ describe 'Sisimai::MSP::*' do
             end
 
             example sprintf('[%s] %s#softbounce = %s', n, x, e.softbounce) do
-              if e.deliverystatus[0,1].to_i == 4
-                expect(e.softbounce).to be == 1
-              elsif e.deliverystatus[0,1].to_i == 5
-                expect(e.softbounce).to be == 0
-              else
-                expect(e.softbounce).to be == -1
-              end
+              expect(e.softbounce.to_s).to match(MSPChildren[x][n]['b'])
             end
 
             example sprintf('[%s] %s#replycode = %s', n, x, e.replycode) do
@@ -313,11 +307,11 @@ describe 'Sisimai::MSP::*' do
             end
 
             example sprintf('[%s] %s#deliverystatus = %s', n, x, e.deliverystatus) do
-              expect(e.deliverystatus).to match(MSPChildren[x][n]['status'])
+              expect(e.deliverystatus).to match(MSPChildren[x][n]['s'])
             end
 
             example sprintf('[%s] %s#reason = %s', n, x, e.reason) do
-              expect(e.reason).to match(MSPChildren[x][n]['reason'])
+              expect(e.reason).to match(MSPChildren[x][n]['r'])
             end
 
             example sprintf('[%s] %s#token = %s', n, x, e.token) do

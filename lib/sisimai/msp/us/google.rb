@@ -253,11 +253,6 @@ module Sisimai
                 end
 
               else
-                if cv = e.match(/Technical details of (.+) failure:/)
-                  # Technical details of permanent failure:
-                  # Technical details of temporary failure:
-                  v['softbounce'] = cv[1] == 'permanent' ? 0 : 1
-                end
                 v['diagnosis'] ||= ''
                 v['diagnosis']  += e + ' '
               end

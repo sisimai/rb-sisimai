@@ -146,11 +146,7 @@ module Sisimai
               #    host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
               v = dscontents[-1]
 
-              if e =~ /[ \t]*This is a permanent error[.][ \t]*/
-                # recipients. This is a permanent error. The following address(es) failed:
-                v['softbounce'] = 0
-
-              elsif cv = e.match(/\A[ \t]+([^ \t]+[@][^ \t]+[.][a-zA-Z]+)\z/)
+              if cv = e.match(/\A[ \t]+([^ \t]+[@][^ \t]+[.][a-zA-Z]+)\z/)
                 #   kijitora@example.jp
                 if v['recipient']
                   # There are multiple recipient addresses in the message body.

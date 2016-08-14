@@ -134,7 +134,6 @@ module Sisimai
                   # Status:5.2.0
                   # Status: 5.1.0 (permanent failure)
                   v['status'] = cv[1]
-                  v['softbounce'] = 0 if e =~ /[(]permanent failure[)]/
 
                 elsif cv = e.match(/\A[Rr]emote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                   # Remote-MTA: DNS; mx.example.jp

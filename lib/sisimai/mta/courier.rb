@@ -240,7 +240,6 @@ module Sisimai
               # Verify each regular expression of session errors
               next unless e['diagnosis'] =~ ReFailure[r]
               e['reason'] = r.to_s
-              e['softbounce'] = 0
               break
             end
 
@@ -249,7 +248,6 @@ module Sisimai
                 # Verify each regular expression of session errors
                 next unless e['diagnosis'] =~ ReDelayed[r]
                 e['reason'] = r.to_s
-                e['softbounce'] = 1
                 break
               end
             end

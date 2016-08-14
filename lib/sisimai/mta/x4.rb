@@ -220,11 +220,7 @@ module Sisimai
               # Giving up on 192.0.2.153.
               v = dscontents[-1]
 
-              if cv = e.match(/\AThis is a permanent error;/)
-                # This is a permanent error; I've given up. Sorry it didn't work out.
-                v['softbounce'] = 0
-
-              elsif cv = e.match(/\A(?:To[ ]*:)?[<](.+[@].+)[>]:[ ]*\z/)
+              if cv = e.match(/\A(?:To[ ]*:)?[<](.+[@].+)[>]:[ ]*\z/)
                 # <kijitora@example.jp>:
                 if v['recipient']
                   # There are multiple recipient addresses in the message body.

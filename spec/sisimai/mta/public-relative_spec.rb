@@ -10,57 +10,57 @@ describe 'Sisimai::*' do
   MDAPatterns = /\A(?:RFC3464|dovecot|mail[.]local|procmail|maildrop|vpopmail|vmailmgr)/
   MTARelative = {
     'ARF' => {
-      '01' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /abuse/ },
-      '02' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /abuse/ },
-      '03' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /abuse/ },
-      '04' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /abuse/ },
-      '05' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /abuse/ },
-      '06' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /abuse/ },
-      '07' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /auth-failure/ },
-      '08' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /auth-failure/ },
-      '09' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /auth-failure/ },
-      '10' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /abuse/ },
-      '11' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /abuse/ },
-      '12' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /opt-out/ },
-      '13' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /abuse/ },
-      '14' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /auth-failure/ },
-      '15' => { 'status' => /\A\z/, 'reason' => /feedback/, 'feedbacktype' => /abuse/ },
+      '01' => { 's' => /\A\z/, 'r' => /feedback/, 'f' => /abuse/, 'b' => %r/\A-1\z/ },
+      '02' => { 's' => /\A\z/, 'r' => /feedback/, 'f' => /abuse/, 'b' => %r/\A-1\z/ },
+      '03' => { 's' => /\A\z/, 'r' => /feedback/, 'f' => /abuse/, 'b' => %r/\A-1\z/ },
+      '04' => { 's' => /\A\z/, 'r' => /feedback/, 'f' => /abuse/, 'b' => %r/\A-1\z/ },
+      '05' => { 's' => /\A\z/, 'r' => /feedback/, 'f' => /abuse/, 'b' => %r/\A-1\z/ },
+      '06' => { 's' => /\A\z/, 'r' => /feedback/, 'f' => /abuse/, 'b' => %r/\A-1\z/ },
+      '07' => { 's' => /\A\z/, 'r' => /feedback/, 'f' => /auth-failure/, 'b' => %r/\A-1\z/ },
+      '08' => { 's' => /\A\z/, 'r' => /feedback/, 'f' => /auth-failure/, 'b' => %r/\A-1\z/ },
+      '09' => { 's' => /\A\z/, 'r' => /feedback/, 'f' => /auth-failure/, 'b' => %r/\A-1\z/ },
+      '10' => { 's' => /\A\z/, 'r' => /feedback/, 'f' => /abuse/, 'b' => %r/\A-1\z/ },
+      '11' => { 's' => /\A\z/, 'r' => /feedback/, 'f' => /abuse/, 'b' => %r/\A-1\z/ },
+      '12' => { 's' => /\A\z/, 'r' => /feedback/, 'f' => /opt-out/, 'b' => %r/\A-1\z/ },
+      '13' => { 's' => /\A\z/, 'r' => /feedback/, 'f' => /abuse/,   'b' => %r/\A-1\z/ },
+      '14' => { 's' => /\A\z/, 'r' => /feedback/, 'f' => /auth-failure/, 'b' => %r/\A-1\z/ },
+      '15' => { 's' => /\A\z/, 'r' => /feedback/, 'f' => /abuse/,   'b' => %r/\A-1\z/ },
     },
     'RFC3464' => {
-      '01' => { 'status' => /\A5[.]1[.]1\z/, 'reason' => /mailboxfull/, 'agent' => /dovecot/ },
-      '02' => { 'status' => /\A[45][.]0[.]\d+\z/, 'reason' => /(?:undefined|filtered|expired)/, 'agent' => /RFC3464/ },
-      '03' => { 'status' => /\A[45][.]0[.]\d+\z/, 'reason' => /(?:undefined|expired)/, 'agent' => /RFC3464/ },
-      '04' => { 'status' => /\A5[.]5[.]0\z/, 'reason' => /mailererror/, 'agent' => /RFC3464/ },
-      '05' => { 'status' => /\A5[.]2[.]1\z/, 'reason' => /filtered/, 'agent' => /RFC3464/ },
-      '06' => { 'status' => /\A5[.]5[.]0\z/, 'reason' => /userunknown/, 'agent' => /mail.local/ },
-      '07' => { 'status' => /\A4[.]4[.]0\z/, 'reason' => /expired/, 'agent' => /RFC3464/ },
-      '08' => { 'status' => /\A5[.]7[.]1\z/, 'reason' => /spamdetected/, 'agent' => /RFC3464/ },
-      '09' => { 'status' => /\A4[.]3[.]0\z/, 'reason' => /mailboxfull/, 'agent' => /RFC3464/ },
-      '10' => { 'status' => /\A5[.]1[.]1\z/, 'reason' => /userunknown/, 'agent' => /RFC3464/ },
-      '11' => { 'status' => /\A5[.]\d[.]\d+\z/, 'reason' => /spamdetected/, 'agent' => /RFC3464/ },
-      '12' => { 'status' => /\A4[.]3[.]0\z/, 'reason' => /mailboxfull/, 'agent' => /RFC3464/ },
-      '13' => { 'status' => /\A4[.]0[.]0\z/, 'reason' => /mailererror/, 'agent' => /RFC3464/ },
-      '14' => { 'status' => /\A4[.]4[.]1\z/, 'reason' => /expired/, 'agent' => /RFC3464/ },
-      '15' => { 'status' => /\A5[.]0[.]\d+\z/, 'reason' => /mesgtoobig/, 'agent' => /RFC3464/ },
-      '16' => { 'status' => /\A5[.]0[.]\d+\z/, 'reason' => /filtered/, 'agent' => /RFC3464/ },
-      '17' => { 'status' => /\A5[.]0[.]\d+\z/, 'reason' => /expired/, 'agent' => /RFC3464/ },
-      '18' => { 'status' => /\A5[.]1[.]1\z/, 'reason' => /userunknown/, 'agent' => /RFC3464/ },
-      '19' => { 'status' => /\A5[.]0[.]\d+\z/, 'reason' => /onhold/, 'agent' => /RFC3464/ },
-      '20' => { 'status' => /\A5[.]0[.]\d+\z/, 'reason' => /mailererror/, 'agent' => /RFC3464/ },
-      '21' => { 'status' => /\A5[.]0[.]\d+\z/, 'reason' => /networkerror/, 'agent' => /RFC3464/ },
-      '22' => { 'status' => /\A5[.]0[.]\d+\z/, 'reason' => /hostunknown/, 'agent' => /RFC3464/ },
-      '23' => { 'status' => /\A5[.]0[.]\d+\z/, 'reason' => /mailboxfull/, 'agent' => /RFC3464/ },
-      '24' => { 'status' => /\A5[.]0[.]\d+\z/, 'reason' => /onhold/, 'agent' => /RFC3464/ },
-      '25' => { 'status' => /\A5[.]0[.]\d+\z/, 'reason' => /onhold/, 'agent' => /RFC3464/ },
-      '26' => { 'status' => /\A5[.]1[.]1\z/, 'reason' => /userunknown/, 'agent' => /RFC3464/ },
-      '27' => { 'status' => /\A4[.]4[.]6\z/, 'reason' => /networkerror/, 'agent' => /RFC3464/ },
-      '28' => { 'status' => /\A2[.]1[.]5\z/, 'reason' => /delivered/, 'agent' => /RFC3464/ },
-      '29' => { 'status' => /\A5[.]5[.]0\z/, 'reason' => /syntaxerror/, 'agent' => /RFC3464/ },
+      '01' => { 's' => /\A5[.]1[.]1\z/,     'r' => /mailboxfull/, 'a' => /dovecot/, 'b' => %r/\A1\z/ },
+      '02' => { 's' => /\A[45][.]0[.]\d+\z/,'r' => /(?:undefined|filtered|expired)/, 'a' => /RFC3464/, 'b' => %r/\d\z/ },
+      '03' => { 's' => /\A[45][.]0[.]\d+\z/,'r' => /(?:undefined|expired)/, 'a' => /RFC3464/, 'b' => %r/\d\z/ },
+      '04' => { 's' => /\A5[.]5[.]0\z/,     'r' => /mailererror/, 'a' => /RFC3464/, 'b' => %r/\A1\z/ },
+      '05' => { 's' => /\A5[.]2[.]1\z/,     'r' => /filtered/,    'a' => /RFC3464/,    'b' => %r/\A1\z/ },
+      '06' => { 's' => /\A5[.]5[.]0\z/,     'r' => /userunknown/, 'a' => /mail.local/, 'b' => %r/\A0\z/ },
+      '07' => { 's' => /\A4[.]4[.]0\z/,     'r' => /expired/,     'a' => /RFC3464/, 'b' => %r/\A1\z/ },
+      '08' => { 's' => /\A5[.]7[.]1\z/,     'r' => /spamdetected/,'a' => /RFC3464/, 'b' => %r/\A1\z/ },
+      '09' => { 's' => /\A4[.]3[.]0\z/,     'r' => /mailboxfull/, 'a' => /RFC3464/, 'b' => %r/\A1\z/ },
+      '10' => { 's' => /\A5[.]1[.]1\z/,     'r' => /userunknown/, 'a' => /RFC3464/, 'b' => %r/\A0\z/ },
+      '11' => { 's' => /\A5[.]\d[.]\d+\z/,  'r' => /spamdetected/,'a' => /RFC3464/, 'b' => %r/\A1\z/ },
+      '12' => { 's' => /\A4[.]3[.]0\z/,     'r' => /mailboxfull/, 'a' => /RFC3464/, 'b' => %r/\A1\z/ },
+      '13' => { 's' => /\A4[.]0[.]0\z/,     'r' => /mailererror/, 'a' => /RFC3464/, 'b' => %r/\A1\z/ },
+      '14' => { 's' => /\A4[.]4[.]1\z/,     'r' => /expired/,     'a' => /RFC3464/, 'b' => %r/\A1\z/ },
+      '15' => { 's' => /\A5[.]0[.]\d+\z/,   'r' => /mesgtoobig/,  'a' => /RFC3464/, 'b' => %r/\A1\z/ },
+      '16' => { 's' => /\A5[.]0[.]\d+\z/,   'r' => /filtered/,    'a' => /RFC3464/, 'b' => %r/\A1\z/ },
+      '17' => { 's' => /\A5[.]0[.]\d+\z/,   'r' => /expired/,     'a' => /RFC3464/, 'b' => %r/\A1\z/ },
+      '18' => { 's' => /\A5[.]1[.]1\z/,     'r' => /userunknown/, 'a' => /RFC3464/, 'b' => %r/\A0\z/ },
+      '19' => { 's' => /\A5[.]0[.]\d+\z/,   'r' => /onhold/,      'a' => /RFC3464/, 'b' => %r/\A1\z/ },
+      '20' => { 's' => /\A5[.]0[.]\d+\z/,   'r' => /mailererror/, 'a' => /RFC3464/, 'b' => %r/\A1\z/ },
+      '21' => { 's' => /\A5[.]0[.]\d+\z/,   'r' => /networkerror/,'a' => /RFC3464/, 'b' => %r/\A1\z/ },
+      '22' => { 's' => /\A5[.]0[.]\d+\z/,   'r' => /hostunknown/, 'a' => /RFC3464/, 'b' => %r/\A0\z/ },
+      '23' => { 's' => /\A5[.]0[.]\d+\z/,   'r' => /mailboxfull/, 'a' => /RFC3464/, 'b' => %r/\A1\z/ },
+      '24' => { 's' => /\A5[.]0[.]\d+\z/,   'r' => /onhold/,      'a' => /RFC3464/, 'b' => %r/\d\z/ },
+      '25' => { 's' => /\A5[.]0[.]\d+\z/,   'r' => /onhold/,      'a' => /RFC3464/, 'b' => %r/\d\z/ },
+      '26' => { 's' => /\A5[.]1[.]1\z/,     'r' => /userunknown/, 'a' => /RFC3464/, 'b' => %r/\A0\z/ },
+      '27' => { 's' => /\A4[.]4[.]6\z/,     'r' => /networkerror/,'a' => /RFC3464/, 'b' => %r/\A1\z/ },
+      '28' => { 's' => /\A2[.]1[.]5\z/,     'r' => /delivered/,   'a' => /RFC3464/, 'b' => %r/\A-1\z/ },
+      '29' => { 's' => /\A5[.]5[.]0\z/,     'r' => /syntaxerror/, 'a' => /RFC3464/, 'b' => %r/\A1\z/ },
     },
     'RFC3834' => {
-      '01' => { 'status' => /\A\z/, 'reason' => /vacation/ },
-      '02' => { 'status' => /\A\z/, 'reason' => /vacation/ },
-      '03' => { 'status' => /\A\z/, 'reason' => /vacation/ },
+      '01' => { 's' => /\A\z/, 'r' => /vacation/, 'b' => %r/\A-1\z/ },
+      '02' => { 's' => /\A\z/, 'r' => /vacation/, 'b' => %r/\A-1\z/ },
+      '03' => { 's' => /\A\z/, 'r' => /vacation/, 'b' => %r/\A-1\z/ },
     },
   }
 
@@ -132,7 +132,7 @@ describe 'Sisimai::*' do
 
             if x == 'ARF'
               example sprintf('[%s] %s[feedbacktype] = %s', n, x, e['feedbacktype']) do
-                expect(e['feedbacktype']).to match(MTARelative['ARF'][n]['feedbacktype'])
+                expect(e['feedbacktype']).to match(MTARelative['ARF'][n]['f'])
               end
             end
 
@@ -227,13 +227,7 @@ describe 'Sisimai::*' do
             end
 
             example sprintf('[%s] %s#softbounce = %s', n, x, e.softbounce) do
-              if e.deliverystatus[0,1].to_i == 4
-                expect(e.softbounce).to be == 1
-              elsif e.deliverystatus[0,1].to_i == 5
-                expect(e.softbounce).to be == 0
-              else
-                expect(e.softbounce).to be == -1
-              end
+              expect(e.softbounce.to_s).to match(MTARelative[x][n]['b'])
             end
 
             example sprintf('[%s] %s#replycode = %s', n, x, e.replycode) do
@@ -245,11 +239,11 @@ describe 'Sisimai::*' do
             end
 
             example sprintf('[%s] %s#deliverystatus = %s', n, x, e.deliverystatus) do
-              expect(e.deliverystatus).to match(MTARelative[x][n]['status'])
+              expect(e.deliverystatus).to match(MTARelative[x][n]['s'])
             end
 
             example sprintf('[%s] %s#reason = %s', n, x, e.reason) do
-              expect(e.reason).to match(MTARelative[x][n]['reason'])
+              expect(e.reason).to match(MTARelative[x][n]['r'])
             end
 
             example sprintf('[%s] %s#token = %s', n, x, e.token) do
@@ -258,7 +252,7 @@ describe 'Sisimai::*' do
 
             if x == 'ARF'
               example sprintf('[%s] %s#feedbacktype = %s', n, x, e.feedbacktype) do
-                expect(e.feedbacktype).to match(MTARelative['ARF'][n]['feedbacktype'])
+                expect(e.feedbacktype).to match(MTARelative['ARF'][n]['f'])
               end
             end
 
