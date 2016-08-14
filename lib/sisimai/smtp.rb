@@ -10,6 +10,7 @@ module Sisimai
       #                             false: Hard bounce
       #                             nil: May not be bounce ?
       def is_softbounce(argv1 = '')
+        warn sprintf(" ***warning: Obsoleted method, use Sisimai::SMTP::Error.soft_or_hard() instead.");
         return nil unless argv1
         return nil unless argv1.size > 0
 

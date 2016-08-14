@@ -187,17 +187,10 @@ module Sisimai
           dscontents.map do |e|
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
-            if e['status']
-              # Check softbounce or not
-              e['softbounce'] = 1 if e['status'] =~ /\A4[.]/
-
-            else
-              # Get the value of SMTP status code as a pseudo D.S.N.
-              if cv = e['diagnosis'].match(/\b([45])\d\d[ \t]*/)
-                # 4xx or 5xx
-                e['softbounce'] = 1 if cv[1].to_i == 4
-                e['status'] = sprintf("%d.0.0", cv[1])
-              end
+            # Get the value of SMTP status code as a pseudo D.S.N.
+            if cv = e['diagnosis'].match(/\b([45])\d\d[ \t]*/)
+              # 4xx or 5xx
+              e['status'] = sprintf("%d.0.0", cv[1])
             end
 
             if e['status'] =~ /[45][.]0[.]0/

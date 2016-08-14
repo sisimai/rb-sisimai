@@ -110,15 +110,9 @@ module Sisimai
                   next if v['diagnosis'].nil? || v['diagnosis'].empty?
                   next if e =~ /\A[-]+/
 
-                  if e =~ /\AThis has been a permanent failure/
-                    # This has been a permanent failure.  No further delivery attempts will be made.
-                    v['softbounce'] = 0
-
-                  else
-                    # Server mx22.example.org[192.0.2.222] failed with: 550 <kijitora@example.org> No such user here
-                    v['diagnosis'] ||= ''
-                    v['diagnosis']  += ' ' + e
-                  end
+                  # Server mx22.example.org[192.0.2.222] failed with: 550 <kijitora@example.org> No such user here
+                  v['diagnosis'] ||= ''
+                  v['diagnosis']  += ' ' + e
                 end
               end
             end

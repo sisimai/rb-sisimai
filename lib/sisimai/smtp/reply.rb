@@ -70,6 +70,20 @@ module Sisimai
           return '' unless argv1.size > 0
           return '' if argv1 =~ /X-Unix;/i
 
+          ip4re = %r{\b
+            (?:\d|[01]?\d\d|2[0-4]\d|25[0-5])[.]
+            (?:\d|[01]?\d\d|2[0-4]\d|25[0-5])[.]
+            (?:\d|[01]?\d\d|2[0-4]\d|25[0-5])[.]
+            (?:\d|[01]?\d\d|2[0-4]\d|25[0-5])
+          \b}x;
+
+          if argv1 =~ ip4re
+            # Convert found IPv4 addresses to '***.***.***.***' to avoid that
+            # the following code detects an octet of the IPv4 adress as an SMTP
+            # reply code.
+            argv1 = argv1.gsub(/#{ip4re}/, '***.***.***.***')
+          end
+
           if cv = argv1.match(/\b([45][0-5][0-9])\b/) || argv1.match(/\b(25[0-3])\b/)
             # 550, 447, or 250
             return cv[1]

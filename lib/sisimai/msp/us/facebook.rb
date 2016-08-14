@@ -235,7 +235,6 @@ module Sisimai
               num = cv[3]
 
               fbresponse = sprintf('%s-%s%d', lhs, rhs, num)
-              e['softbounce'] = rhs == 'P' ? 0 : 1
             end
 
             catch :SESSION do
@@ -263,7 +262,6 @@ module Sisimai
                 # This block has not been tested because we have no email sample
                 # including "INT-T?" error code.
                 e['reason'] = 'systemerror'
-                e['softbounce'] = 1
               end
             end
           end

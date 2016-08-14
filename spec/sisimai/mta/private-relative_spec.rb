@@ -366,16 +366,12 @@ describe 'Sisimai::' do
           example sprintf('[%s] %s#softbounce = %s', n, x, ee.softbounce) do
             expect(ee.softbounce).to be_a Integer
             expect(ee.softbounce.between?(-1,1)).to be true
-            if ee.deliverystatus.size > 0
-              if ee.deliverystatus[0,1] == "4"
-                expect(ee.softbounce).to be == 1
-              elsif ee.deliverystatus[0,1] == "5"
-                expect(ee.softbounce).to be == 0
-              else
-                expect(ee.softbounce).to be == -1
-              end
-            else
+            if ee.reason =~ /(?:feedback|vacation|delivered)/
               expect(ee.softbounce).to be == -1
+            elsif ee.reason =~ /(?:unknown|hasmoved)/
+              expect(ee.softbounce).to be == 0
+            else
+              expect(ee.softbounce.to_s).to match(/[01]/)
             end
           end
 

@@ -152,11 +152,7 @@ module Sisimai
               #    host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
               v = dscontents[-1]
 
-              if e =~ /[ \t]*This is a permanent error[.][ \t]*/
-                # deliver.c:6811|  "recipients. This is a permanent error. The following address(es) failed:\n");
-                v['softbounce'] = 0
-
-              elsif cv = e.match(/\A[ \t]*[<]([^ ]+[@][^ ]+)[>]:(.+)\z/)
+              if cv = e.match(/\A[ \t]*[<]([^ ]+[@][^ ]+)[>]:(.+)\z/)
                 # A message that you have sent could not be delivered to one or more
                 # recipients.  This is a permanent error.  The following address failed:
                 #

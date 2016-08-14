@@ -4,6 +4,7 @@ module Sisimai
     # Imported from p5-Sisimail/lib/Sisimai/Data.pm
     require 'sisimai/address'
     require 'sisimai/rfc5322'
+    require 'sisimai/smtp/error'
     require 'sisimai/smtp/reply'
     require 'sisimai/smtp/status'
     require 'sisimai/string'
@@ -96,7 +97,6 @@ module Sisimai
       @replycode      = argvs['replycode']      || ''
       @replycode      = Sisimai::SMTP::Reply.find(argvs['diagnosticcode']) if @replycode.empty?
       @softbounce     = argvs['softbounce']     || ''
-      @softbounce     = 1 if @replycode =~ /\A4/
     end
 
     # Another constructor of Sisimai::Data
@@ -336,40 +336,58 @@ module Sisimai
           o.reason = r
         end
 
-        if o.reason != 'feedback' && o.reason != 'vacation'
+        if o.reason =~ /\A(?:delivered|feedback|vacation)\z/
+          # The value of reason is "vacation" or "feedback"
+          o.softbounce = -1
+          o.replycode = '' unless o.reason == 'delivered'
+        else
           # Bounce message which reason is "feedback" or "vacation" does
           # not have the value of "deliverystatus".
+          softorhard = nil
+          textasargv = nil
+
           if o.softbounce.to_s.empty?
             # The value is not set yet
-            %w|deliverystatus diagnosticcode|.each do |v|
-              # Set the value of softbounce
-              next unless p[v].size > 0
-              r = Sisimai::SMTP.is_softbounce(p[v])
-              if r.nil?
-                o.softbounce = -1
-              else
-                o.softbounce = r ? 1 : 0
-              end
-              break if o.softbounce > -1
+            textasargv = sprintf('%s %s', p['deliverystatus'], p['diagnosticcode'])
+            textasargv = textasargv.gsub(/\A[ ]/, '')
+            softorhard = Sisimai::SMTP::Error.soft_or_hard(o.reason, textasargv)
+
+            if softorhard.size > 0
+              # Returned value is "soft" or "hard"
+              o.softbounce = (softorhard == 'soft') ? 1 : 0
+            else
+              # Returned value is an empty string
+              o.softbounce = (-1)
             end
-            o.softbounce = -1 if o.softbounce.to_s.empty?
           end
 
           if o.deliverystatus.empty?
             # Set pseudo status code
-            torp = o.softbounce == 1 ? true : false
-            pdsv = Sisimai::SMTP::Status.code(o.reason, torp)
+            pseudocode = nil  # Pseudo delivery status code
+            getchecked = nil  # Permanent error or not
+            tmpfailure = nil  # Temporary error or not
 
-            if pdsv.size > 0
-              # Set the value of "deliverystatus" and "softbounce".
-              o.deliverystatus = pdsv
-              if o.softbounce == -1
-                # Check the value of "softbounce" again
-                torp = Sisimai::SMTP.is_softbounce(pdsv)
-                if torp.nil?
-                  o.softbounce = -1
+            textasargv = sprintf('%s %s', o.replycode, p['diagnosticcode'])
+            textasargv = textasargv.gsub(/\A[ ]/, '')
+
+            getchecked = Sisimai::SMTP::Error.is_permanent(textasargv)
+            tmpfailure = getchecked.nil? ? false : (getchecked ? false : true)
+            pseudocode = Sisimai::SMTP::Status.code(o.reason, tmpfailure)
+
+            if pseudocode.size > 0
+              # Set the value of "deliverystatus" and "softbounce"
+              o.deliverystatus = pseudocode
+
+              if o.softbounce < 0
+                # set the value of "softbounce" again when the value is -1
+                softorhard = Sisimai::SMTP::Error.soft_or_hard(o.reason, pseudocode)
+
+                if softorhard.size > 0
+                  # Returned value is "soft" or "hard"
+                  o.softbounce = softorhard == 'soft' ? 1 : 0
                 else
-                  o.softbounce = torp ? 1 : 0
+                  # Returned value is an empty string
+                  o.softbounce = -1
                 end
               end
             end
@@ -380,12 +398,9 @@ module Sisimai
             o.replycode = '' unless o.replycode[0, 1] == o.deliverystatus[0, 1]
           end
 
-        else
-          # The value of reason is "vacation" or "feedback"
-          o.softbounce = -1
-          o.replycode = ''
         end
         objectlist << o
+
       end
       return objectlist
     end
