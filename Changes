@@ -1,5 +1,9 @@
 Revision history for Ruby version of Sisimai
 
+4.17.3
+    - Import pull-request https://github.com/sisimai/rb-Sisimai/pull/59 (soft
+      bounce improvement) from Perl version of Sisimai.
+
 4.17.2  Tue, 26 Jul 2016 21:00:17 +0900 (JST)
     - Issue #174, Implement Sisimai::Rhost::ExchangeOnline for the bounce mail
       from on-premises Exchange 2013 and Office 365.
