@@ -17,6 +17,12 @@ Sisimai::MTA::Exchange2003
   * mailman-2.1.15/tests/bounces/groupwise_01.txt
   * Copyright (C) 1989, 1991 Free Software Foundation, Inc. | GPLv2
 
+Sisimai::MTA::Exchange2007
+--------------------------
+* exchange2007-02.eml
+  * [message-too-large.msg](https://github.com/rjbs/Mail-DeliveryStatus-BounceParser/blob/master/t/corpus/message-too-large.msg)
+  * Copyright (C) 2003-2006 IC Group, Inc. | GPLv2
+
 Sisimai::MTA::Exim
 ------------------
 * exim-09.eml

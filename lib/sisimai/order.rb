@@ -17,6 +17,7 @@ module Sisimai
       AnotherList2 = [
         # These modules have no MTA specific header and did not listed in the
         # following subject header based regular expressions.
+        'Sisimai::MTA::Exchange2007',
         'Sisimai::MSP::US::Facebook',
         'Sisimai::MSP::JP::KDDI',
       ]
@@ -121,6 +122,7 @@ module Sisimai
           ],
           %r/undeliver/i => [
             'Sisimai::MTA::Postfix',
+            'Sisimai::MTA::Exchange2007',
             'Sisimai::MTA::Exchange2003',
             'Sisimai::MTA::Notes',
             'Sisimai::MSP::US::Office365',

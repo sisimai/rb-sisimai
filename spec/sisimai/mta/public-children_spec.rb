@@ -31,6 +31,10 @@ describe 'Sisimai::MTA::*' do
       '05' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
       '06' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
     },
+    'Exchange2007' => {
+      '01' => { 's' => %r/\A5[.]1[.]1\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
+      '02' => { 's' => %r/\A5[.]2[.]3\z/, 'r' => %r/mesgtoobig/,  'b' => %r/\A1\z/ },
+    },
     'Exim' => {
       '01' => { 's' => %r/\A5[.]7[.]0\z/,   'r' => %r/blocked/,     'b' => %r/\A1\z/ },
       '02' => { 's' => %r/\A5[.][12][.]1\z/,'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
@@ -343,7 +347,7 @@ describe 'Sisimai::MTA::*' do
               end
             end
 
-            if e['action'].size > 0
+            if e['action'].to_s.size > 0
               example sprintf('[%s] %s[action] = %s', n, x, e['action']) do
                 expect(e['action']).to match(/\A(?:fail.+|delayed|expired)\z/)
               end

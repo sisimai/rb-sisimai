@@ -89,6 +89,10 @@ describe 'Sisimai::MTA::' do
       '01032' => %r/userunknown/,
       '01033' => %r/userunknown/,
     },
+    'Exchange2007' => {
+      '01001' => %r/userunknown/,
+      '01002' => %r/mesgtoobig/,
+    },
     'Exim' => {
       '01001' => %r/securityerror/,
       '01002' => %r/expired/,
