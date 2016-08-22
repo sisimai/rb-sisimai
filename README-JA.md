@@ -23,7 +23,7 @@ Sisimai(シシマイ)はRFC5322準拠のエラーメールを解析し、解析�
   * git clone & make
 * __高い解析精度__
   * 解析精度はbounceHammerの二倍
-  * 26種類のMTAに対応
+  * 27種類のMTAに対応
   * 21種類の著名なMSPに対応
   * Feedback Loopにも対応
   * 27種類のエラー理由を検出
@@ -148,8 +148,8 @@ Perl版Sisimaiとの違い
 | メール解析速度(1000通のメール)              | 3.30秒         | 2.33秒        |
 | インストール方法                            | gem install    | cpanm         |
 | 依存モジュール数(コアモジュールを除く)      | 1モジュール    | 2モジュール   |
-| LOC:ソースコードの行数                      | 11000行        | 8000行        |
-| テスト件数(t/,xt/ディレクトリ)              | 94700件        | 170000件      |
+| LOC:ソースコードの行数                      | 11500行        | 8400行        |
+| テスト件数(t/,xt/ディレクトリ)              | 95000件        | 172000件      |
 | ライセンス                                  | 二条項BSD      | 二条項BSD     |
 | 開発会社によるサポート契約                  | 準備中         | 提供中        |
 
@@ -167,7 +167,8 @@ MTA/MSPモジュール一覧
 | MTA::ApacheJames         | Java Apache Mail Enterprise Server                |
 | MTA::Courier             | Courier MTA                                       |
 | MTA::Domino              | IBM Domino Server                                 |
-| MTA::Exchange            | Microsoft Exchange Server                         |
+| MTA::Exchange2003        | Microsoft Exchange Server 2003                    |
+| MTA::Exchange2007        | Microsoft Exchange Server 2007 (> v4.18.0)        |
 | MTA::Exim                | Exim                                              |
 | MTA::IMailServer         | IPSWITCH IMail Server                             |
 | MTA::InterScanMSS        | Trend Micro InterScan Messaging Security Suite    |

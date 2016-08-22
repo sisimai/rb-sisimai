@@ -22,7 +22,7 @@ Key Features
   * git clone & make
 * __High Precision of Analysis__
   * 2 times higher than bounceHammer
-  * Support 21 known MTAs and 5 unknown MTAs
+  * Support 22 known MTAs and 5 unknown MTAs
   * Support 21 major MSPs(Mail Service Providers)
   * Support Feedback Loop Message(ARF)
   * Can detect 27 error reasons
@@ -148,8 +148,8 @@ and bounceHammer are available at
 | The speed of parsing email(1000 emails)     | 3.30s          | 2.33s         |
 | How to install                              | gem install    | cpanm         |
 | Dependencies (Except core modules)          | 1 modules      | 2 modules     |
-| LOC:Source lines of code                    | 11000 lines    | 8000 lines    |
-| The number of tests in t/, xt/ directory    | 94700 tests    | 170000 tests  |
+| LOC:Source lines of code                    | 11500 lines    | 8400 lines    |
+| The number of tests in t/, xt/ directory    | 95000 tests    | 172000 tests  |
 | License                                     | BSD 2-Clause   | BSD 2-Clause  |
 | Support Contract provided by Developer      | Coming soon    | Available     |
 
@@ -167,7 +167,8 @@ details about these modules are available at
 | MTA::ApacheJames         | Java Apache Mail Enterprise Server                |
 | MTA::Courier             | Courier MTA                                       |
 | MTA::Domino              | IBM Domino Server                                 |
-| MTA::Exchange            | Microsoft Exchange Server                         |
+| MTA::Exchange2003        | Microsoft Exchange Server 2003                    |
+| MTA::Exchange2007        | Microsoft Exchange Server 2007 (> v4.18.0)        |
 | MTA::Exim                | Exim                                              |
 | MTA::IMailServer         | IPSWITCH IMail Server                             |
 | MTA::InterScanMSS        | Trend Micro InterScan Messaging Security Suite    |
