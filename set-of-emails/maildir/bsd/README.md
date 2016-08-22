@@ -11,8 +11,8 @@ Sisimai::ARF
   * [fbl-hotmail.txt](https://github.com/prasad83/node-bounce-handler/blob/master/eml/fbl-hotmail.txt)
   * Copyright (c) 2014 prasad83 | The MIT License
 
-Sisimai::MTA::Exchange
-----------------------
+Sisimai::MTA::Exchange2003
+--------------------------
 * exchange-06.eml
   * mailman-2.1.15/tests/bounces/groupwise_01.txt
   * Copyright (C) 1989, 1991 Free Software Foundation, Inc. | GPLv2

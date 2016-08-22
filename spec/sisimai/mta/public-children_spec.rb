@@ -23,7 +23,7 @@ describe 'Sisimai::MTA::*' do
       '01' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
       '02' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/(?:userunknown|onhold)/, 'b' => %r/\d\z/ },
     },
-    'Exchange' => {
+    'Exchange2003' => {
       '01' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
       '02' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
       '03' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
@@ -352,7 +352,7 @@ describe 'Sisimai::MTA::*' do
             ['rhost', 'lhost'].each do |ee|
               next unless e[ee]
               next unless e[ee].size > 0
-              next if x =~ /\A(?:qmail|Exim|Exchange|X4)\z/
+              next if x =~ /\A(?:qmail|Exim|Exchange|X4)/
               example sprintf('[%s] %s[%s] = %s', n, x, ee, e[ee]) do
                 expect(e[ee]).to match(/\A(?:localhost|.+[.].+)\z/)
               end

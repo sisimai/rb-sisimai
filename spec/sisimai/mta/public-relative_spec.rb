@@ -172,7 +172,7 @@ describe 'Sisimai::*' do
             ['rhost', 'lhost'].each do |ee|
               next unless e[ee]
               next unless e[ee].size > 0
-              next if x =~ /\A(?:qmail|Exim|Exchange|X4)\z/
+              next if x =~ /\A(?:qmail|Exim|Exchange|X4)/
               example sprintf('[%s] %s[%s] = %s', n, x, ee, e[ee]) do
                 expect(e[ee]).to match(/\A(?:localhost|.+[.].+)\z/)
               end

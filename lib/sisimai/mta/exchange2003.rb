@@ -1,9 +1,10 @@
 module Sisimai
   module MTA
-    # Sisimai::MTA::Exchange parses a bounce email which created by Microsoft
-    # Exchange Server. Methods in the module are called from only Sisimai::Message.
-    module Exchange
-      # Imported from p5-Sisimail/lib/Sisimai/MTA/Exchange.pm
+    # Sisimai::MTA::Exchange2003 parses a bounce email which created by Microsoft
+    # Exchange Server 2003.
+    # Methods in the module are called from only Sisimai::Message.
+    module Exchange2003
+      # Imported from p5-Sisimail/lib/Sisimai/MTA/Exchange2003.pm
       class << self
         require 'sisimai/mta'
         require 'sisimai/rfc5322'
@@ -55,12 +56,12 @@ module Sisimai
         }
         Indicators = Sisimai::MTA.INDICATORS
 
-        def description; return 'Microsoft Exchange Server'; end
-        def smtpagent;   return 'Exchange'; end
+        def description; return 'Microsoft Exchange Server 2003'; end
+        def smtpagent;   return 'Exchange2003'; end
         def headerlist;  return ['X-MS-Embedded-Report', 'X-MimeOLE']; end
         def pattern;     return Re0; end
 
-        # Parse bounce messages from Microsoft Exchange Server
+        # Parse bounce messages from Microsoft Exchange Server 2003
         # @param         [Hash] mhead       Message header of a bounce email
         # @options mhead [String] from      From header
         # @options mhead [String] date      Date header
@@ -263,7 +264,7 @@ module Sisimai
                 e.delete('alterrors')
               end
             end
-            e['agent'] = Sisimai::MTA::Exchange.smtpagent
+            e['agent'] = Sisimai::MTA::Exchange2003.smtpagent
             e.delete('msexch')
             e.each_key { |a| e[a] ||= '' }
           end

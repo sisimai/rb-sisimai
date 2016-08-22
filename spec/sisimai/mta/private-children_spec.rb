@@ -54,7 +54,7 @@ describe 'Sisimai::MTA::' do
       '01012' => %r/userunknown/,
       '01013' => %r/userunknown/,
     },
-    'Exchange' => {
+    'Exchange2003' => {
       '01001' => %r/userunknown/,
       '01002' => %r/userunknown/,
       '01003' => %r/userunknown/,

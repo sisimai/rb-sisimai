@@ -12,7 +12,7 @@ module Sisimai
         # These modules have many subject patterns or have MIME encoded subjects
         # which is hard to code as regular expression
         'Sisimai::MTA::Exim',
-        'Sisimai::MTA::Exchange',
+        'Sisimai::MTA::Exchange2003',
       ]
       AnotherList2 = [
         # These modules have no MTA specific header and did not listed in the
@@ -121,7 +121,7 @@ module Sisimai
           ],
           %r/undeliver/i => [
             'Sisimai::MTA::Postfix',
-            'Sisimai::MTA::Exchange',
+            'Sisimai::MTA::Exchange2003',
             'Sisimai::MTA::Notes',
             'Sisimai::MSP::US::Office365',
             'Sisimai::MSP::US::Verizon',
