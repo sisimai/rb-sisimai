@@ -21,9 +21,18 @@ module Sisimai
           :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
         NDRSubject = {
-          :'RESOLVER.ADR.RecipNotFound'     => 'userunknown',
-          :'RESOLVER.RST.RecipSizeLimit'    => 'mesgtoobig',
-          :'QUEUE.Expired'                  => 'expired',
+          :'SMTPSEND.DNS.NonExistentDomain'=> 'hostunknown',   # 554 5.4.4 SMTPSEND.DNS.NonExistentDomain
+          :'SMTPSEND.DNS.MxLoopback'       => 'networkerror',  # 554 5.4.4 SMTPSEND.DNS.MxLoopback
+          :'RESOLVER.ADR.BadPrimary'       => 'systemerror',   # 550 5.2.0 RESOLVER.ADR.BadPrimary
+          :'RESOLVER.ADR.RecipNotFound'    => 'userunknown',   # 550 5.1.1 RESOLVER.ADR.RecipNotFound
+          :'RESOLVER.ADR.ExRecipNotFound'  => 'userunknown',   # 550 5.1.1 RESOLVER.ADR.ExRecipNotFound
+          :'RESOLVER.ADR.RecipLimit'       => 'toomanyconn',   # 550 5.5.3 RESOLVER.ADR.RecipLimit
+          :'RESOLVER.ADR.InvalidInSmtp'    => 'systemerror',   # 550 5.1.0 RESOLVER.ADR.InvalidInSmtp
+          :'RESOLVER.ADR.Ambiguous'        => 'systemerror',   # 550 5.1.4 RESOLVER.ADR.Ambiguous, 420 4.2.0 RESOLVER.ADR.Ambiguous
+          :'RESOLVER.RST.AuthRequired'     => 'filtered',      # 550 5.7.1 RESOLVER.RST.AuthRequired
+          :'RESOLVER.RST.NotAuthorized'    => 'rejected',      # 550 5.7.1 RESOLVER.RST.NotAuthorized
+          :'RESOLVER.RST.RecipSizeLimit'   => 'mesgtoobig',    # 550 5.2.3 RESOLVER.RST.RecipSizeLimit
+          :'QUEUE.Expired'                 => 'expired',       # 550 4.4.7 QUEUE.Expired
         }
         Indicators = Sisimai::MTA.INDICATORS
 

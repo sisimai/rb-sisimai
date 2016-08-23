@@ -31,7 +31,7 @@ module Sisimai
           %r/\A4[.]7[.]26\z/       => 'securityerror',
           %r/\A4[.]7[.][56]\d\d\z/ => 'blocked',
           %r/\A4[.]7[.]8[5-9]\d\z/ => 'blocked',
-          %r/\A5[.]1[.]0\z/        => 'rejected',
+          %r/\A5[.]1[.]0\z/        => 'userunknown',
           %r/\A5[.]4[.]1\z/        => 'norelaying',
           %r/\A5[.]4[.]6\z/        => 'networkerror',
           %r/\A5[.]6[.]11\z/       => 'contenterror',
