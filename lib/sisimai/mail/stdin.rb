@@ -35,6 +35,10 @@ module Sisimai
         readhandle = self.handle
         readbuffer = ''
 
+        if readhandle
+          return nil if readhandle.closed?
+        end
+
         begin
           readhandle = STDIN unless readhandle
           while r = readhandle.gets
