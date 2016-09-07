@@ -27,7 +27,6 @@ module Sisimai
           classname = sprintf('%s::STDIN', self.class)
           parameter['type'] = 'stdin'
           parameter['path'] = $stdin
-
         else
           # The argumenet is a mailbox or a Maildir/.
           mediatype = File.ftype(argv1)
@@ -49,7 +48,6 @@ module Sisimai
         # The argument neither a mailbox nor a Maildir/.
         classname = sprintf('%s::STDIN', self.class)
         parameter['type'] = 'stdin'
-
       end
 
       return nil unless classname
