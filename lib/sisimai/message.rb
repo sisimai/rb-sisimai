@@ -36,7 +36,7 @@ module Sisimai
     DefaultSet = Sisimai::Order.another
     PatternSet = Sisimai::Order.by('subject')
     ExtHeaders = Sisimai::Order.headers
-    ReEncoding = Sisimai::MIME.encodings
+    ReEncoding = Sisimai::MIME.patterns
 
     # Constructor of Sisimai::Message
     # @param         [String] data      Email text data

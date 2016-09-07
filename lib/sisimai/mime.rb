@@ -17,7 +17,7 @@ module Sisimai
 
       # Make MIME-Encoding and Content-Type related headers regurlar expression
       # @return   [Array] Regular expressions related to MIME encoding
-      def encodings
+      def patterns
         return ReE
       end
 
