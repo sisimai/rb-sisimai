@@ -108,17 +108,6 @@ module Sisimai
           end
           return nil if match < 2
 
-          if mbody =~ /^Content-Transfer-Encoding: quoted-printable$/
-            # This is a multi-part message in MIME format. Your mail reader does not
-            # understand MIME message format.
-            # --=_gy7C4Gpes0RP4V5Bs9cK4o2Us2ZT57b-3OLnRN+4klS8dTmQ
-            # Content-Type: text/plain; charset=iso-8859-15
-            # Content-Transfer-Encoding: quoted-printable
-            require 'sisimai/mime'
-            mbody = mbody.sub(/\A.+?quoted-printable/ms, '')
-            mbody = Sisimai::MIME.qprintd(mbody)
-          end
-
           dscontents = [Sisimai::MSP.DELIVERYSTATUS]
           hasdivided = mbody.split("\n")
           rfc822list = []     # (Array) Each line in message/rfc822 part string

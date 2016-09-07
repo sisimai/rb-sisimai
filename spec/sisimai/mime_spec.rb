@@ -67,11 +67,49 @@ describe Sisimai::MIME do
 
   # Base64, Quoted-Printable
   describe '.qprintd' do
+    h7 = { 'content-type' => 'multipart/report; report-type=delivery-status; boundary="b0Nvs+XKfKLLRaP/Qo8jZhQPoiqeWi3KWPXMgw=="' }
+    q7 = '
+--b0Nvs+XKfKLLRaP/Qo8jZhQPoiqeWi3KWPXMgw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+This is the mail delivery agent at messagelabs.com.
+
+I was unable to deliver your message to the following addresses:
+
+maria@dest.example.net
+
+Reason: 550 maria@dest.example.net... No such user
+
+The message subject was: Re: BOAS FESTAS!
+The message date was: Tue, 23 Dec 2014 20:39:24 +0000
+The message identifier was: DB/3F-17375-60D39495
+The message reference was: server-5.tower-143.messagelabs.com!1419367172!32=
+691968!1
+
+Please do not reply to this email as it is sent from an unattended mailbox.
+Please visit www.messagelabs.com/support for more details
+about this error message and instructions to resolve this issue.
+
+
+--b0Nvs+XKfKLLRaP/Qo8jZhQPoiqeWi3KWPXMgw==
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; server-15.bemta-3.messagelabs.com
+Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
+
+    ';
+    
     context 'Quoted-Printable string' do
       it('returns "Neko"') { expect(cn.qprintd('=4e=65=6b=6f')).to be == 'Neko' }
+      d7 = cn.qprintd(q7, h7)
+      it('returns String') { expect(d7).to be_a String }
+      it('returns String') { expect(q7.size).to be > d7.size }
+      it('includes boundary') { expect(d7).to match(%r|[-][-]b0Nvs[+]XKfKLLRaP/Qo8jZhQPoiqeWi3KWPXMgw==|m) }
+      it('does not match 32=') { expect(d7).not_to match(/32=$/m) }
     end
     context 'wrong number of arguments' do
-      it('raises ArgumentError') { expect { cn.qprintd(nil,nil) }.to raise_error(ArgumentError) }
+      it('raises ArgumentError') { expect { cn.qprintd(nil,nil,nil) }.to raise_error(ArgumentError) }
     end
   end
 

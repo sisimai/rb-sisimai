@@ -43,7 +43,7 @@ describe 'Sisimai::MTA::' do
       '01001' => %r/onhold/,
       '01002' => %r/userunknown/,
       '01003' => %r/userunknown/,
-      '01004' => %r/onhold/,
+      '01004' => %r/userunknown/,
       '01005' => %r/onhold/,
       '01006' => %r/userunknown/,
       '01007' => %r/userunknown/,

@@ -36,6 +36,7 @@ module Sisimai
     DefaultSet = Sisimai::Order.another
     PatternSet = Sisimai::Order.by('subject')
     ExtHeaders = Sisimai::Order.headers
+    ReEncoding = Sisimai::MIME.encodings
 
     # Constructor of Sisimai::Message
     # @param         [String] data      Email text data
@@ -424,6 +425,21 @@ module Sisimai
           else
             # Content-Transfer-Encoding: quoted-printable
             bodystring = Sisimai::MIME.qprintd(bodystring)
+          end
+        end
+      else
+        # NOT text/plain
+        if bodystring =~ ReEncoding[:'quoted-print']
+          # Content-Transfer-Encoding: quoted-printable
+          bodystring = Sisimai::MIME.qprintd(bodystring, mailheader)
+        end
+
+        if bodystring =~ ReEncoding[:'7bit-encoded'] &&
+           cv = bodystring.match(ReEncoding[:'some-iso2022'])
+          # Content-Transfer-Encoding: 7bit
+          # Content-Type: text/plain; charset=ISO-2022-JP
+          unless cv[1].downcase =~ /(?:us-ascii|utf[-]?8)/
+            bodystring = Sisimai::String.to_utf8(bodystring, cv[1])
           end
         end
       end

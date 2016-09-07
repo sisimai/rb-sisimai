@@ -42,6 +42,34 @@ module Sisimai
         return false
       end
 
+      # Convert given string to UTF-8
+      # @param    [String] argv1  String to be converted
+      # @param    [String] argv2  Encoding name before converting
+      # @return   [String]        UTF-8 Encoded string
+      def to_utf8(argv1 = '', argv2 = nil)
+        return '' unless argv1.size > 0
+
+        encodefrom = argv2 || false
+        getencoded = ''
+
+        begin
+          # Try to convert the string to UTF-8
+          if encodefrom
+            # String#encode('UTF-8', <FROM>)
+            getencoded = argv1.encode('UTF-8', encodefrom)
+          else
+            # Force encoding to UTF-8
+            getencoded = argv1.force_encoding('UTF-8')
+          end
+        rescue
+          # Unknown encoding name or failed to encode
+          getencoded = argv1.force_encoding('UTF-8')
+        end
+        getencoded = getencoded.scrub('?')
+
+        return getencoded
+      end
+
       # Clean the string out
       # @param    [String] argv1  String to be cleaned
       # @return   [String]        Cleaned out string

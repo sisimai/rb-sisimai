@@ -4,6 +4,22 @@ module Sisimai
     # Imported from p5-Sisimail/lib/Sisimai/MIME.pm
     class << self
       require 'base64'
+      require 'sisimai/string'
+
+      ReE = {
+        :'7bit-encoded' => %r/^Content-Transfer-Encoding:[ ]*7bit$/im,
+        :'quoted-print' => %r/^Content-Transfer-Encoding:[ ]*quoted-printable$/im,
+        :'some-iso2022' => %r/^Content-Type:[ ]*.+;[ ]*charset=["']?(iso-2022-[-a-z0-9]+?)['"]?$/im,
+        :'with-charset' => %r/^Content[-]Type:[ ]*.+[;][ ]*charset=['"]?(.+?)['"]?$/i,
+        :'only-charset' => %r/^[\s\t]+charset=['"]?(.+?)['"]?$/i,
+        :'html-message' => %r|^Content-Type:[ ]*text/html;|mi,
+      }
+
+      # Make MIME-Encoding and Content-Type related headers regurlar expression
+      # @return   [Array] Regular expressions related to MIME encoding
+      def encodings
+        return ReE
+      end
 
       # Check that the argument is MIME-Encoded string or not
       # @param    [String] argvs  String to be checked
@@ -78,10 +94,95 @@ module Sisimai
 
       # Decode MIME Quoted-Printable Encoded string
       # @param  [String] argv1   MIME Encoded text
+      # @param  [Hash]   heads   Email header
       # @return [String]         MIME Decoded text
-      def qprintd(argv1)
+      def qprintd(argv1 = nil, heads = {})
         return nil unless argv1
-        return argv1.unpack('M').first
+        return argv1.unpack('M').first unless heads['content-type']
+        return argv1.unpack('M').first unless heads['content-type'].size > 0
+
+        # Quoted-printable encoded part is the part of the text
+        boundary00 = Sisimai::MIME.boundary(heads['content-type'], 0)
+
+        # Decoded using unpack('M') entire body string when the boundary string
+        # or "Content-Transfer-Encoding: quoted-printable" are not included in
+        # the message body.
+        return argv1.unpack('M').first if boundary00.size == 0
+        return argv1.unpack('M').first unless argv1 =~ ReE[:'quoted-print']
+
+        boundary01 = Sisimai::MIME.boundary(heads['content-type'], 1)
+        reboundary = {
+          :begin => Regexp.new('\A' + Regexp.escape(boundary00)),
+          :until => Regexp.new(Regexp.escape(boundary01) + '\z')
+        }
+        bodystring = ''
+        notdecoded = ''
+        getencoded = ''
+
+        encodename = nil
+        ctencoding = nil
+        mimeinside = false
+
+        argv1.split("\n").each do |e|
+          # This is a multi-part message in MIME format. Your mail reader does not
+          # understand MIME message format.
+          # --=_gy7C4Gpes0RP4V5Bs9cK4o2Us2ZT57b-3OLnRN+4klS8dTmQ
+          # Content-Type: text/plain; charset=iso-8859-15
+          # Content-Transfer-Encoding: quoted-printable
+          if mimeinside 
+            # Quoted-Printable encoded text block
+            if e =~ reboundary[:begin]
+              # The next boundary string has appeared
+              # --=_gy7C4Gpes0RP4V5Bs9cK4o2Us2ZT57b-3OLnRN+4klS8dTmQ
+              getencoded = Sisimai::String.to_utf8(notdecoded.unpack('M').first, encodename)
+
+              bodystring += getencoded
+              bodystring += e + "\n"
+
+              notdecoded = ''
+              mimeinside = false
+              ctencoding = false
+              encodename = nil
+            else
+              # Inside of Queoted printable encoded text
+              notdecoded += e + "\n"
+            end
+          else
+            # NOT Quoted-Printable encoded text block
+            if e =~ /\A[-]{2}[^\s]+[^-]\z/
+              # Start of the boundary block
+              # --=_gy7C4Gpes0RP4V5Bs9cK4o2Us2ZT57b-3OLnRN+4klS8dTmQ
+              unless e == boundary00
+                # New boundary string has appeared
+                boundary00 = e
+                boundary01 = e + '--'
+                reboundary = {
+                  :begin => Regexp.new('\A' + Regexp.escape(boundary00)),
+                  :until => Regexp.new(Regexp.escape(boundary01) + '\z')
+                }
+              end
+            elsif cv = e.match(ReE[:'with-charset']) ||
+                  cv = e.match(ReE[:'only-charset'])
+              # Content-Type: text/plain; charset=ISO-2022-JP
+              encodename = cv[1]
+              mimeinside = true if ctencoding
+
+            elsif e =~ ReE[:'quoted-print']
+              # Content-Transfer-Encoding: quoted-printable
+              ctencoding = true
+              mimeinside = true if encodename
+
+            elsif e =~ reboundary[:until]
+              # The end of boundary block
+              # --=_gy7C4Gpes0RP4V5Bs9cK4o2Us2ZT57b-3OLnRN+4klS8dTmQ--
+              mimeinside = false
+            end
+
+            bodystring += e + "\n"
+          end
+        end
+
+        return bodystring
       end
 
       # Decode MIME BASE64 Encoded string
@@ -106,7 +207,7 @@ module Sisimai
       # @return   [String] Boundary string
       def boundary(argv1 = nil, start = -1)
         return nil unless argv1
-        value = nil
+        value = ''
 
         if cv = argv1.match(/\bboundary=([^ ]+)/)
           # Content-Type: multipart/mixed; boundary=Apple-Mail-5--931376066
@@ -114,10 +215,10 @@ module Sisimai
           #    boundary="n6H9lKZh014511.1247824040/mx.example.jp"
           value = cv[1]
           value = value.delete(%q|'"|)
+          value = sprintf('--%s', value) if start > -1
+          value = sprintf('%s--', value) if start >  0
         end
 
-        value = sprintf('--%s', value) if start > -1
-        value = sprintf('%s--', value) if start >  0
         return value
       end
     end
