@@ -61,4 +61,51 @@ describe Sisimai::String do
       it('raises ArgumentError') { expect { Sisimai::String.sweep('x', 'y') }.to raise_error(ArgumentError) }
     end
   end
+
+  describe '.to_plain' do
+    xhtml = '
+        <html>
+        <head>
+        </head>
+        <body>
+            <h1>neko</h1>
+            <div>
+            <a href = "http://libsisimai.org">Sisimai</a>
+            <a href = "mailto:maketest@libsisimai.org">maketest</a>
+            </div>
+        </body>
+        </html>
+    '
+    parts = '<body>Nyaan</body>'
+
+    context 'valid string' do
+      it('returns String') { expect(Sisimai::String.to_plain(xhtml)).to be_a String }
+      it('has the size')   { expect(Sisimai::String.to_plain(xhtml).size).to be > 0 }
+      it('returns "neko"') { expect(Sisimai::String.to_plain(xhtml)).to match(/\bneko\b/) }
+      it('is not include HTML tags') { 
+        expect(Sisimai::String.to_plain(xhtml)).not_to match(/<html>/)
+        expect(Sisimai::String.to_plain(xhtml)).not_to match(/<head>/)
+        expect(Sisimai::String.to_plain(xhtml)).not_to match(/<body>/)
+        expect(Sisimai::String.to_plain(xhtml)).not_to match(/<div>/)
+        expect(Sisimai::String.to_plain(xhtml)).to match(/\[Sisimai\]/)
+        expect(Sisimai::String.to_plain(xhtml)).to match(/\[maketest\]/)
+        expect(Sisimai::String.to_plain(xhtml)).to match(%r|\(http://.+\)|)
+        expect(Sisimai::String.to_plain(xhtml)).to match(%r|\(mailto:.+\)|)
+      }
+
+      it('returns plain text') {
+        expect(Sisimai::String.to_plain(parts, true)).to match(/Nyaan/)
+        expect(Sisimai::String.to_plain(parts, true)).not_to match(/<body>/)
+      }
+
+      it('does not returns plain text') {
+        expect(Sisimai::String.to_plain(parts, false)).to match(/Nyaan/)
+        expect(Sisimai::String.to_plain(parts, false)).to match(/<body>/)
+      }
+    end
+
+    context 'wrong number of arguments' do
+      it('raises ArgumentError') { expect { Sisimai::String.to_plain(nil, nil, nil) }.to raise_error(ArgumentError) }
+    end
+  end
 end
