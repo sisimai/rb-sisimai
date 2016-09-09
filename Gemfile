@@ -4,8 +4,13 @@ source 'https://rubygems.org'
 gemspec name: 'sisimai'
 
 # To execute `rake spec` on Travis-CI
-gem 'oj', '>= 2.14.4', :platforms => :ruby
-gem 'jrjackson', '>= 0.3.8', :platforms => :jruby
+platforms :ruby do
+  gem 'oj', '>= 2.14.4'
+end
+
+platforms :jruby do
+  gem 'jrjackson', '>= 0.3.8'
+end
 
 group :development, :test do
   gem 'rake',  :require => false
