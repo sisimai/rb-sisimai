@@ -1,12 +1,10 @@
 source 'https://rubygems.org'
 
 # Specify your gem's dependencies in sisimai.gemspec
-platform :ruby do
-  gemspec name: 'sisimai'
-end
-
-platform :jruby do
-  gemspec name: 'sisimai-java'
+if RUBY_PLATFORM == 'java'
+  gemspec :name => 'sisimai-java'
+else
+  gemspec :name => 'sisimai'
 end
 
 # To execute `rake spec` on Travis-CI
