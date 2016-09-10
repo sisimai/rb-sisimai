@@ -261,6 +261,7 @@ describe 'Sisimai::' do
       '01251' => %r/mailboxfull/,
       '01252' => %r/networkerror/,
       '01253' => %r/hostunknown/,
+      '01254' => %r/userunknown/,
     },
     'RFC3834' => {
       '01002' => %r/vacation/,

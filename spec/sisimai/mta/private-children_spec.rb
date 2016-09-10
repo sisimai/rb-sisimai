@@ -92,6 +92,8 @@ describe 'Sisimai::MTA::' do
     'Exchange2007' => {
       '01001' => %r/userunknown/,
       '01002' => %r/mesgtoobig/,
+      '01003' => %r/undefined/,
+      '01004' => %r/userunknown/,
     },
     'Exim' => {
       '01001' => %r/securityerror/,
@@ -759,6 +761,7 @@ describe 'Sisimai::MTA::' do
       '01203' => %r/blocked/,
       '01204' => %r/suspend/,
       '01205' => %r/userunknown/,
+      '01206' => %r/systemerror/,
     },
     'SurfControl' => {
       '01001' => %r/filtered/,
