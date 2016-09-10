@@ -187,6 +187,7 @@ module Sisimai
         rv.concat(AnotherList3)
         rv.concat(AnotherList4)
         rv.concat(AnotherList5)
+        rv.concat(AnotherList9)
         return rv
       end
 
