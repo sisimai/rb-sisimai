@@ -121,6 +121,7 @@ module Sisimai
                     v = dscontents[-1]
                   end
                   v['recipient'] = cv[1]
+                  v['diagnosis'] = ''
                   recipients += 1
 
                 elsif cv = e.match(/\A[#]([45]\d{2})[ ]([45][.]\d[.]\d+)[ ].+\z/)
