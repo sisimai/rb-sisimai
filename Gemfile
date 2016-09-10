@@ -8,8 +8,8 @@ else
 end
 
 # To execute `rake spec` on Travis-CI
-#gem 'oj', '>= 2.14.4',       :platforms => :ruby
-#gem 'jrjackson', '>= 0.3.8', :platforms => :jruby
+gem 'oj', '>= 2.14.4',       :platforms => :ruby
+gem 'jrjackson', '>= 0.3.8', :platforms => :jruby
 
 group :development, :test do
   gem 'rake',  :require => false
