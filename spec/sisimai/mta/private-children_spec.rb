@@ -758,6 +758,7 @@ describe 'Sisimai::MTA::' do
       '01202' => %r/systemfull/,
       '01203' => %r/blocked/,
       '01204' => %r/suspend/,
+      '01205' => %r/userunknown/,
     },
     'SurfControl' => {
       '01001' => %r/filtered/,

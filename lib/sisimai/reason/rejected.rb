@@ -44,6 +44,7 @@ module Sisimai
             |invalid[ ]domain,[ ]see[ ][<]url:.+[>]
             |mx[ ]records[ ]for[ ].+[ ]violate[ ]section[ ].+
             |name[ ]service[ ]error[ ]for[ ]    # Malformed MX RR or host not found
+            |Null[ ]Sender[ ]is[ ]not[ ]allowed
             |recipient[ ]not[ ]accepted[.][ ][(]batv:[ ]no[ ]tag
             |returned[ ]mail[ ]not[ ]accepted[ ]here
             |rfc[ ]1035[ ]violation:[ ]recursive[ ]cname[ ]records[ ]for

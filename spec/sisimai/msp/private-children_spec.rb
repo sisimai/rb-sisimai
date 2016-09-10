@@ -265,6 +265,7 @@ describe 'Sisimai::MSP::' do
       '01006' => %r/networkerror/,
       '01007' => %r/userunknown/,
       '01008' => %r/userunknown/,
+      '01009' => %r/securityerror/,
     },
     'US::Outlook' => {
       '01002' => %r/userunknown/,

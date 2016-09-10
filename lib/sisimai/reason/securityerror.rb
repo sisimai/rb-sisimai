@@ -44,10 +44,12 @@ module Sisimai
               # http://kb.mimecast.com/Mimecast_Knowledge_Base/Administration_Console/Monitoring/Mimecast_SMTP_Error_Codes#554
               |rejected[ ]due[ ]to[ ]security[ ]policies
               )
+            |Executable[ ]files[ ]are[ ]not[ ]allowed[ ]in[ ]compressed[ ]files
             |insecure[ ]mail[ ]relay
             |sorry,[ ]you[ ]don'?t[ ]authenticate[ ]or[ ]the[ ]domain[ ]isn'?t[ ]in[ ]my[ ]list[ ]of[ ]allowed[ ]rcpthosts
             |the[ ]message[ ]was[ ]rejected[ ]because[ ]it[ ]contains[ ]prohibited[ ]virus[ ]or[ ]spam[ ]content
             |TLS[ ]required[ ]but[ ]not[ ]supported # SendGrid
+            |you[ ]are[ ]not[ ]authorized[ ]to[ ]send[ ]mail,[ ]authentication[ ]is[ ]required
             |You[ ]have[ ]exceeded[ ]the[ ]the[ ]allowable[ ]number[ ]of[ ]posts[ ]without[ ]solving[ ]a[ ]captcha
             |verification[ ]failure
             )
