@@ -200,6 +200,7 @@ describe 'Sisimai::MTA::' do
       '01105' => %r/mailererror/,
       '01106' => %r/onhold/,
       '01107' => %r/spamdetected/,
+      '01108' => %r/onhold/,
     },
     'IMailServer' => {
       '01001' => %r/hostunknown/,
