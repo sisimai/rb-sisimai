@@ -23,6 +23,10 @@ Sisimai::MTA::Exchange2007
   * [message-too-large.msg](https://github.com/rjbs/Mail-DeliveryStatus-BounceParser/blob/master/t/corpus/message-too-large.msg)
   * Copyright (C) 2003-2006 IC Group, Inc. | GPLv2
 
+* exchange2007-03.eml
+  * https://github.com/LoneStarInternet/mail_manager/tree/master/spec/test_app/spec/support/files/bounce-mail-box-full.txt
+  * Copyright (c) 2015 Lone Star Internet, Inc. | MIT
+
 Sisimai::MTA::Exim
 ------------------
 * exim-09.eml
@@ -137,6 +141,26 @@ Sisimai::MTA::Postfix
   * mailman-2.1.15/tests/bounces/postfix_05.txt
   * Copyright (C) 1989, 1991 Free Software Foundation, Inc. | GPLv2
 
+* postfix-22.eml
+  * https://github.com/LoneStarInternet/mail_manager/tree/master/spec/test_app/spec/support/files/bounce_400.txt
+  * Copyright (c) 2015 Lone Star Internet, Inc. | MIT
+
+* postfix-23.eml
+  * https://github.com/LoneStarInternet/mail_manager/tree/master/spec/test_app/spec/support/files/bounce_500.txt
+  * Copyright (c) 2015 Lone Star Internet, Inc. | MIT
+
+* postfix-24.eml
+  * https://github.com/LoneStarInternet/mail_manager/tree/master/spec/test_app/spec/support/files/bounce-invalid-address.txt
+  * Copyright (c) 2015 Lone Star Internet, Inc. | MIT
+
+* postfix-25.eml
+  * https://github.com/LoneStarInternet/mail_manager/tree/master/spec/test_app/spec/support/files/bounce-smtp-timeout.txt
+  * Copyright (c) 2015 Lone Star Internet, Inc. | MIT
+
+* postfix-26.eml
+  * https://github.com/LoneStarInternet/mail_manager/tree/master/spec/test_app/spec/support/files/bounce-unknown_domain.txt
+  * Copyright (c) 2015 Lone Star Internet, Inc. | MIT
+
 Sisimai::MTA::qmail
 -------------------
 * qmail-09.eml
@@ -197,6 +221,10 @@ Sisimai::RFC3464
   * mailman-2.1.15/tests/bounces/simple_24.txt
   * Copyright (C) 1989, 1991 Free Software Foundation, Inc. | GPLv2
 
+* rfc3464-30.eml
+  * https://github.com/LoneStarInternet/mail_manager/tree/master/spec/test_app/spec/support/files/bounce-over-quota.txt
+  * Copyright (c) 2015 Lone Star Internet, Inc. | MIT
+
 Sisimai::RFC3834
 ----------------
 * rfc3834-01.eml
@@ -210,6 +238,14 @@ Sisimai::RFC3834
 * rfc3834-03.eml
   * [aol-vacation.msg](https://github.com/rjbs/Mail-DeliveryStatus-BounceParser/blob/master/t/corpus/aol-vacation.msg)
   * Copyright (C) 2003-2006 IC Group, Inc. | GPLv2
+
+* rfc3834-04.eml
+  * https://github.com/LoneStarInternet/mail_manager/tree/master/spec/test_app/spec/support/files/bounce-invalid2.txt
+  * Copyright (c) 2015 Lone Star Internet, Inc. | MIT
+
+* rfc3834-05.eml
+  * https://github.com/LoneStarInternet/mail_manager/tree/master/spec/test_app/spec/support/files/bounce-invalid3.txt
+  * Copyright (c) 2015 Lone Star Internet, Inc. | MIT
 
 Sisimai::MTA::Sendmail
 ----------------------
