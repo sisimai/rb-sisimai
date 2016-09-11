@@ -29,7 +29,22 @@ module Sisimai
         return false unless argv1
 
         argv1 = argv1.delete('"')
-        return true if argv1 =~ /[ \t]*=[?][-_0-9A-Za-z]+[?][BbQq][?].+[?]=[ \t]*\z/
+        parts = []
+        isnot = false
+
+        if argv1 =~ /[ ]/
+          # Multiple MIME-Encoded strings in a line
+          parts = argv1.split(' ')
+        else
+          parts << argv1
+        end
+
+        parts.each do |e|
+          # Check all the string in the array
+          next if e =~ /[ \t]*=[?][-_0-9A-Za-z]+[?][BbQq][?].+[?]=?[ \t]*\z/
+          isnot = true
+        end
+        return true unless isnot
         return false
       end
 
@@ -52,7 +67,7 @@ module Sisimai
 
           if self.is_mimeencoded(e)
             # MIME Encoded string
-            if cv = e.match(/\A=[?]([-_0-9A-Za-z]+)[?]([BbQq])[?](.+)[?]=\z/)
+            if cv = e.match(/\A=[?]([-_0-9A-Za-z]+)[?]([BbQq])[?](.+)[?]=?\z/)
               # =?utf-8?B?55m954yr44Gr44KD44KT44GT?=
               characterset ||= cv[1]
               encodingname ||= cv[2]
