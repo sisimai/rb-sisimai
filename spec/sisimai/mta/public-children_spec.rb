@@ -194,6 +194,7 @@ describe 'Sisimai::MTA::*' do
       '37' => { 's' => %r/\A5[.]1[.]1\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
       '38' => { 's' => %r/\A5[.]7[.]1\z/, 'r' => %r/spamdetected/,'b' => %r/\A1\z/ },
       '39' => { 's' => %r/\A4[.]4[.]5\z/, 'r' => %r/systemfull/,  'b' => %r/\A1\z/ },
+      '40' => { 's' => %r/\A5[.]2[.]0\z/, 'r' => %r/filtered/,    'b' => %r/\A1\z/ },
     },
     'SurfControl' => {
       '01' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/filtered/,    'b' => %r/\A1\z/ },
