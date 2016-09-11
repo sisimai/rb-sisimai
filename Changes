@@ -1,11 +1,11 @@
 Revision history for Ruby version of Sisimai
 
-4.18.1
+4.18.1  Sun, 11 Sep 2016 20:05:20 +0900 (JST)
     - Fix bug in Sisimai::Mail::STDIN.read() method reported at issue #61.
       Thanks to @yaegassy.
     - Fix bug in Sisimai::MIME.qprintd() reported at #60.
     - Improved code related to MIME decoding.
-    - Implement Sisimai::String->to_plain() for converting from HTML message to
+    - Implement Sisimai::String.to_plain() for converting from HTML message to
       plain text before parsing. The method and related codes are imported from
       pull-request #197 at p5-Sisimai.
 
