@@ -39,7 +39,8 @@ module Sisimai
             |destination[ ]server[ ]rejected[ ]recipients
             |email[ ]address[ ]does[ ]not[ ]exist
             |invalid[ ](?:
-               mailbox[ ]path
+               address
+              |mailbox[ ]path
               |recipient                 # Linkedin
               )
             |is[ ]not[ ](?:
