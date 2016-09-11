@@ -51,14 +51,14 @@ module Sisimai
     def dump(path, **argvs)
       return nil unless path
 
-      parseddata = Sisimai.make(path, argvs) || []
+      nyaan = Sisimai.make(path, argvs) || []
       if RUBY_PLATFORM =~ /java/
         # java-based ruby environment like JRuby.
         require 'jrjackson'
-        jsonstring = JrJackson::Json.dump(parseddata)
+        jsonstring = JrJackson::Json.dump(nyaan)
       else
         require 'oj'
-        jsonstring = Oj.dump(parseddata, :mode => :compat)
+        jsonstring = Oj.dump(nyaan, :mode => :compat)
       end
       return jsonstring
     end
