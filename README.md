@@ -149,7 +149,7 @@ and bounceHammer are available at
 | How to install                              | gem install    | cpanm         |
 | Dependencies (Except core modules)          | 1 modules      | 2 modules     |
 | LOC:Source lines of code                    | 11600 lines    | 8500 lines    |
-| The number of tests in t/, xt/ directory    | 97000 tests    | 177000 tests  |
+| The number of tests(spec/,t/,xt/) directory | 97000 tests    | 177000 tests  |
 | License                                     | BSD 2-Clause   | BSD 2-Clause  |
 | Support Contract provided by Developer      | Coming soon    | Available     |
 
