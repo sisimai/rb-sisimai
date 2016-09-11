@@ -37,7 +37,7 @@ More details about system requirements are available at
 
 * [Ruby 2.1.0 or later](http://www.ruby-lang.org/)
   * [__Oj | The fastest JSON parser and object serializer__](https://rubygems.org/gems/oj)
-* Also works on [JRuby 9.0.0.0 or later](http://jruby.org)
+* Also works on [JRuby 9.0.4.0 or later](http://jruby.org)
   * [__JrJackson | A mostly native JRuby wrapper for the java jackson json processor jar__](https://rubygems.org/gems/jrjackson)
 
 Install
@@ -148,8 +148,8 @@ and bounceHammer are available at
 | The speed of parsing email(1000 emails)     | 3.30s          | 2.33s         |
 | How to install                              | gem install    | cpanm         |
 | Dependencies (Except core modules)          | 1 modules      | 2 modules     |
-| LOC:Source lines of code                    | 11500 lines    | 8400 lines    |
-| The number of tests in t/, xt/ directory    | 95000 tests    | 172000 tests  |
+| LOC:Source lines of code                    | 11600 lines    | 8500 lines    |
+| The number of tests in t/, xt/ directory    | 97000 tests    | 177000 tests  |
 | License                                     | BSD 2-Clause   | BSD 2-Clause  |
 | Support Contract provided by Developer      | Coming soon    | Available     |
 

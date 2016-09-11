@@ -38,7 +38,7 @@ Sisimaiの動作環境についての詳細は
 
 * [Ruby 2.1.0 or later](http://www.ruby-lang.org/)
   * [__Oj | The fastest JSON parser and object serializer__](https://rubygems.org/gems/oj)
-* Also works on [JRuby 9.0.0.0 or later](http://jruby.org)
+* Also works on [JRuby 9.0.4.0 or later](http://jruby.org)
   * [__JrJackson | A mostly native JRuby wrapper for the java jackson json processor jar__](https://rubygems.org/gems/jrjackson)
 
 インストール
@@ -148,8 +148,8 @@ Perl版Sisimaiとの違い
 | メール解析速度(1000通のメール)              | 3.30秒         | 2.33秒        |
 | インストール方法                            | gem install    | cpanm         |
 | 依存モジュール数(コアモジュールを除く)      | 1モジュール    | 2モジュール   |
-| LOC:ソースコードの行数                      | 11500行        | 8400行        |
-| テスト件数(t/,xt/ディレクトリ)              | 95000件        | 172000件      |
+| LOC:ソースコードの行数                      | 11600行        | 8500行        |
+| テスト件数(t/,xt/ディレクトリ)              | 97000件        | 177000件      |
 | ライセンス                                  | 二条項BSD      | 二条項BSD     |
 | 開発会社によるサポート契約                  | 準備中         | 提供中        |
 
