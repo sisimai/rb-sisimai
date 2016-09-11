@@ -4,10 +4,10 @@
 MTA::Activehunter .......    0/0014  0.0000  TransWARE Active!hunter
 MTA::ApacheJames ........    0/0006  0.0000  Java Apache Mail Enterprise Server
 MTA::Courier ............   14/0016  0.8750  Courier MTA
-MTA::Domino .............    7/0015  0.4667  IBM Domino Server
+MTA::Domino .............    6/0015  0.4000  IBM Domino Server
 MTA::Exchange2003 .......    1/0051  0.0196  Microsoft Exchange Server 2003
-MTA::Exchange2007 .......    3/0004  0.7500  Microsoft Exchange Server 2007
-MTA::Exim ...............  142/0172  0.8256  Exim
+MTA::Exchange2007 .......    4/0006  0.6667  Microsoft Exchange Server 2007
+MTA::Exim ...............  144/0174  0.8276  Exim
 MTA::IMailServer ........    0/0045  0.0000  IPSWITCH IMail Server
 MTA::InterScanMSS .......    0/0009  0.0000  Trend Micro InterScan Messaging Security Suite
 MTA::MXLogic ............    0/0014  0.0000  McAfee SaaS
@@ -18,7 +18,7 @@ MTA::MessagingServer ....   19/0022  0.8636  Oracle Communications Messaging Ser
 MTA::Notes ..............    0/0012  0.0000  Lotus Notes
 MTA::OpenSMTPD ..........    5/0023  0.2174  OpenSMTPD
 MTA::Postfix ............  165/0183  0.9016  Postfix
-MTA::Sendmail ...........  259/0247  1.0000  V8Sendmail: /usr/sbin/sendmail
+MTA::Sendmail ...........  330/0252  1.0000  V8Sendmail: /usr/sbin/sendmail
 MTA::SurfControl ........    6/0008  0.7500  WebSense SurfControl
 MTA::V5sendmail .........    0/0386  0.0000  Sendmail version 5
 MTA::X1 .................    0/0007  0.0000  Unknown MTA #1
@@ -42,7 +42,7 @@ MSP::US::Aol ............   18/0021  0.8571  Aol Mail: http://www.aol.com
 MSP::US::Bigfoot ........    2/0002  1.0000  Bigfoot: http://www.bigfoot.com
 MSP::US::Facebook .......    3/0003  1.0000  Facebook: https://www.facebook.com
 MSP::US::Google .........   58/0062  0.9355  Google Gmail: https://mail.google.com
-MSP::US::Office365 ......    7/0010  0.7000  Microsoft Office 365: http://office.microsoft.com/
+MSP::US::Office365 ......    8/0011  0.7273  Microsoft Office 365: http://office.microsoft.com/
 MSP::US::Outlook ........   19/0021  0.9048  Microsoft Outlook.com: https://www.outlook.com/
 MSP::US::ReceivingSES ...    0/0007  0.0000  Amazon SES(Receiving): http://aws.amazon.com/ses/
 MSP::US::SendGrid .......    7/0012  0.5833  SendGrid: http://sendgrid.com/
@@ -50,8 +50,8 @@ MSP::US::Verizon ........    3/0003  1.0000  Verizon Wireless: http://www.verizo
 MSP::US::Yahoo ..........    0/0009  0.0000  Yahoo! MAIL: https://www.yahoo.com
 MSP::US::Zoho ...........    0/0011  0.0000  Zoho Mail: https://www.zoho.com
 ARF .....................    9/0050  0.1800  Abuse Feedback Reporting Format
-RFC3464 .................  131/0272  0.4816  Fallback Module for MTAs
+RFC3464 .................  135/0276  0.4891  Fallback Module for MTAs
 RFC3834 .................    0/0004  0.0000  Detector for auto replied message
 -------------------------------------------------------------------------------
- bounceHammer 2.7.13p3    1110/2145  0.5175
- Sisimai 4.18.0           2145/2145  1.0000
+ bounceHammer 2.7.13p3    1188/2159  0.5503
+ Sisimai 4.18.1           2159/2159  1.0000
