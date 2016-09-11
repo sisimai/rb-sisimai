@@ -29,17 +29,17 @@ module Sisimai
         return false unless argv1
 
         argv1 = argv1.delete('"')
-        parts = []
+        piece = []
         isnot = false
 
         if argv1 =~ /[ ]/
           # Multiple MIME-Encoded strings in a line
-          parts = argv1.split(' ')
+          piece = argv1.split(' ')
         else
-          parts << argv1
+          piece << argv1
         end
 
-        parts.each do |e|
+        piece.each do |e|
           # Check all the string in the array
           next if e =~ /[ \t]*=[?][-_0-9A-Za-z]+[?][BbQq][?].+[?]=?[ \t]*\z/
           isnot = true
