@@ -262,6 +262,9 @@ describe 'Sisimai::' do
       '01252' => %r/networkerror/,
       '01253' => %r/hostunknown/,
       '01254' => %r/userunknown/,
+      '01255' => %r/expired/,
+      '01256' => %r/onhold/,
+      '01257' => %r/onhold/,
     },
     'RFC3834' => {
       '01002' => %r/vacation/,
