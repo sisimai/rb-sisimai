@@ -763,6 +763,8 @@ describe 'Sisimai::MTA::' do
       '01204' => %r/suspend/,
       '01205' => %r/userunknown/,
       '01206' => %r/systemerror/,
+      '01207' => %r/userunknown/,
+      '01208' => %r/expired/,
     },
     'SurfControl' => {
       '01001' => %r/filtered/,
