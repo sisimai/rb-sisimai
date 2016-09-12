@@ -224,7 +224,7 @@ module Sisimai
         return nil unless argv1
         value = ''
 
-        if cv = argv1.match(/\bboundary=([^ ]+)/)
+        if cv = argv1.match(/\bboundary=([^ ]+)/i)
           # Content-Type: multipart/mixed; boundary=Apple-Mail-5--931376066
           # Content-Type: multipart/report; report-type=delivery-status;
           #    boundary="n6H9lKZh014511.1247824040/mx.example.jp"
