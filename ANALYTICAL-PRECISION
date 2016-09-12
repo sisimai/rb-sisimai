@@ -6,7 +6,7 @@ MTA::ApacheJames ........    0/0006  0.0000  Java Apache Mail Enterprise Server
 MTA::Courier ............   14/0016  0.8750  Courier MTA
 MTA::Domino .............    6/0015  0.4000  IBM Domino Server
 MTA::Exchange2003 .......    1/0051  0.0196  Microsoft Exchange Server 2003
-MTA::Exchange2007 .......    4/0006  0.6667  Microsoft Exchange Server 2007
+MTA::Exchange2007 .......    5/0007  0.7143  Microsoft Exchange Server 2007
 MTA::Exim ...............  144/0174  0.8276  Exim
 MTA::IMailServer ........    0/0045  0.0000  IPSWITCH IMail Server
 MTA::InterScanMSS .......    0/0009  0.0000  Trend Micro InterScan Messaging Security Suite
@@ -17,7 +17,7 @@ MTA::McAfee .............    0/0010  0.0000  McAfee Email Appliance
 MTA::MessagingServer ....   19/0022  0.8636  Oracle Communications Messaging Server
 MTA::Notes ..............    0/0012  0.0000  Lotus Notes
 MTA::OpenSMTPD ..........    5/0023  0.2174  OpenSMTPD
-MTA::Postfix ............  165/0183  0.9016  Postfix
+MTA::Postfix ............  170/0188  0.9043  Postfix
 MTA::Sendmail ...........  330/0252  1.0000  V8Sendmail: /usr/sbin/sendmail
 MTA::SurfControl ........    6/0008  0.7500  WebSense SurfControl
 MTA::V5sendmail .........    0/0386  0.0000  Sendmail version 5
@@ -50,8 +50,8 @@ MSP::US::Verizon ........    3/0003  1.0000  Verizon Wireless: http://www.verizo
 MSP::US::Yahoo ..........    0/0009  0.0000  Yahoo! MAIL: https://www.yahoo.com
 MSP::US::Zoho ...........    0/0011  0.0000  Zoho Mail: https://www.zoho.com
 ARF .....................    9/0050  0.1800  Abuse Feedback Reporting Format
-RFC3464 .................  135/0276  0.4891  Fallback Module for MTAs
-RFC3834 .................    0/0004  0.0000  Detector for auto replied message
+RFC3464 .................  136/0277  0.4910  Fallback Module for MTAs
+RFC3834 .................    0/0006  0.0000  Detector for auto replied message
 -------------------------------------------------------------------------------
- bounceHammer 2.7.13p3    1188/2159  0.5503
- Sisimai 4.18.1           2159/2159  1.0000
+ bounceHammer 2.7.13p3    1195/2168  0.5512
+ Sisimai 4.18.2           2168/2168  1.0000
