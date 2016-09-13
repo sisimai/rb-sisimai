@@ -161,11 +161,27 @@ Sisimai::MTA::Postfix
   * https://github.com/LoneStarInternet/mail_manager/tree/master/spec/test_app/spec/support/files/bounce-unknown_domain.txt
   * Copyright (c) 2015 Lone Star Internet, Inc. | MIT
 
+* postfix-27.eml
+  * https://github.com/rgl/MailBounceDetector/blob/master/MailBounceDetector.Tests/Fixtures/bounce_postfix_non_existing_mailbox.eml
+  * Copyright (c) 2015 Rui Lopes (ruilopes.com) | MIT
+
 Sisimai::MTA::qmail
 -------------------
 * qmail-09.eml
   * mailman-2.1.15/tests/bounces/qmail_01.txt
   * Copyright (C) 1989, 1991 Free Software Foundation, Inc. | GPLv2
+
+* qmail-10.eml
+  * https://github.com/rgl/MailBounceDetector/blob/master/MailBounceDetector.Tests/Fixtures/bounce_qmail_extra_lines_between_recipient_paragraphs.eml
+  * Copyright (c) 2015 Rui Lopes (ruilopes.com) | MIT
+
+* qmail-11.eml
+  * https://github.com/rgl/MailBounceDetector/blob/master/MailBounceDetector.Tests/Fixtures/bounce_qmail_multipart_alternative_non_existing_mailbox.eml
+  * Copyright (c) 2015 Rui Lopes (ruilopes.com) | MIT
+
+* qmail-12.eml
+  * https://github.com/rgl/MailBounceDetector/blob/master/MailBounceDetector.Tests/Fixtures/bounce_qmail_no_host_found.eml
+  * Copyright (c) 2015 Rui Lopes (ruilopes.com) | MIT
 
 Sisimai::RFC3464
 ----------------
