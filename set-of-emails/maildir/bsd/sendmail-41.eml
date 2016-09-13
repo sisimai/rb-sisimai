@@ -1,0 +1,125 @@
+Return-Path: <>
+Received: from mx2.example.jp (mx2.example.jp [192.0.2.222])
+	by aneyakoji.example.co.jp (V8/cf) with ESMTP id u8CJoVRB027731
+	for <postmaster@example.co.jp>; Tue, 13 Sep 2016 04:50:33 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 aneyakoji.example.co.jp u8CJoVRB027731
+Authentication-Results: aneyakoji.example.co.jp; sender-id=none header.from=MAILER-DAEMON@mx2.example.jp
+Received: from localhost (localhost)
+	by mx2.example.jp (V8/cf) id u8CJoQN4016081;
+	Tue, 13 Sep 2016 04:50:33 +0900
+Date: Tue, 13 Sep 2016 04:50:33 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON@mx2.example.jp>
+Message-Id: <201609121950.u8CJoQN4016081@mx2.example.jp>
+To: postmaster@mx2.example.jp
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="u8CJoQN4016081.1473709833/mx2.example.jp"
+Subject: Postmaster notify: see transcript for details
+Auto-Submitted: auto-generated (postmaster-notification)
+
+This is a MIME-encapsulated message
+
+--u8CJoQN4016081.1473709833/mx2.example.jp
+
+The original message was received at Tue, 13 Sep 2016 04:50:26 +0900
+from localhost
+with id u8CJoQN3016081
+
+   ----- The following addresses had permanent fatal errors -----
+<this-local-part-does-not-exist@yahoo.com>
+    (reason: 554 delivery error: dd This user doesn't have a yahoo.com account (this-local-part-does-not-exist@yahoo.com) [0] - mta1061.mail.ne1.yahoo.com)
+
+   ----- Transcript of session follows -----
+... while talking to mta6.am0.yahoodns.net.:
+>>> DATA
+<<< 554 delivery error: dd This user doesn't have a yahoo.com account (this-local-part-does-not-exist@yahoo.com) [0] - mta1061.mail.ne1.yahoo.com
+554 5.0.0 Service unavailable
+
+--u8CJoQN4016081.1473709833/mx2.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx2.example.jp
+Received-From-MTA: DNS; FF00FFFF.static.example.org
+Arrival-Date: Tue, 13 Sep 2016 04:50:26 +0900
+
+Final-Recipient: RFC822; this-local-part-does-not-exist@yahoo.com
+Action: failed
+Status: 5.0.0
+Remote-MTA: DNS; mta6.am0.yahoodns.net
+Diagnostic-Code: SMTP; 554 delivery error: dd This user doesn't have a yahoo.com account (this-local-part-does-not-exist@yahoo.com) [0] - mta1061.mail.ne1.yahoo.com
+Last-Attempt-Date: Tue, 13 Sep 2016 04:50:30 +0900
+
+--u8CJoQN4016081.1473709833/mx2.example.jp
+Content-Type: message/rfc822
+
+Return-Path: <MAILER-DAEMON>
+Received: from localhost (localhost)
+	by mx2.example.jp (V8/cf) id u8CJoQN3016081;
+	Tue, 13 Sep 2016 04:50:26 +0900
+Date: Tue, 13 Sep 2016 04:50:26 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON>
+Message-Id: <201609121950.u8CJoQN3016081@mx2.example.jp>
+To: <this-local-part-does-not-exist@yahoo.com>
+To: postmaster
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="u8CJoQN3016081.1473709826/mx2.example.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--u8CJoQN3016081.1473709826/mx2.example.jp
+
+...
+
+--u8CJoQN3016081.1473709826/mx2.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx2.example.jp
+Received-From-MTA: DNS; FF00FFFF.static.example.org
+Arrival-Date: Tue, 13 Sep 2016 04:50:25 +0900
+
+Original-Recipient: rfc822;kijitora@neko.example.com
+Final-Recipient: RFC822; kijitora@neko.example.com
+Action: failed
+Status: 5.3.5
+Diagnostic-Code: SMTP; 553 5.3.5 system config error
+Last-Attempt-Date: Tue, 13 Sep 2016 04:50:26 +0900
+
+--u8CJoQN3016081.1473709826/mx2.example.jp
+Content-Type: message/rfc822
+
+Return-Path: <this-local-part-does-not-exist@yahoo.com>
+Received: from mx.smtp.example.net (FF00FFFF.static.example.org [198.51.100.22])
+	by mx2.example.jp (V8/cf) with ESMTP id u8CJoPN3016079
+	for <kijitora@neko.example.com>; Tue, 13 Sep 2016 04:50:25 +0900
+Message-Id: <201609121950.u8CJoPN3016079@mx2.example.jp>
+Received: from User (unknown [203.0.113.2])
+	(Authenticated sender: server)
+	by mx.smtp.example.net (Postfix) with ESMTPA id 23EC336A7E;
+	Mon, 12 Sep 2016 13:35:38 +0200 (CEST)
+Reply-To: <sironeko@example.ad.jp>
+From: "NON-EXISTENT" <this-local-part-does-not-exist@yahoo.com>
+Subject: Nyaan
+Date: Mon, 12 Sep 2016 13:35:46 +0200
+MIME-Version: 1.0
+Content-Type: text/html;
+	charset="Windows-1251"
+Content-Transfer-Encoding: 7bit
+X-Priority: 3
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook Express 6.00.2600.0000
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2600.0000
+To: undisclosed-recipients:;
+
+<HTML><HEAD><TITLE></TITLE>
+</HEAD>
+<BODY bgcolor=#FFFFFF leftmargin=5 topmargin=5 rightmargin=5 bottommargin=5>
+</BODY></HTML>
+
+--u8CJoQN3016081.1473709826/mx2.example.jp--
+
+
+--u8CJoQN4016081.1473709833/mx2.example.jp--
+
