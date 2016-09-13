@@ -148,6 +148,7 @@ describe 'Sisimai::MTA::*' do
       '24' => { 's' => %r/\A5[.]0[.]0\z/,   'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
       '25' => { 's' => %r/\A4[.]4[.]1\z/,   'r' => %r/expired/,     'b' => %r/\A1\z/ },
       '26' => { 's' => %r/\A5[.]4[.]4\z/,   'r' => %r/hostunknown/, 'b' => %r/\A0\z/ },
+      '27' => { 's' => %r/\A5[.]1[.]1\z/,   'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
     },
     'Qmail' => {
       '01' => { 's' => %r/\A5[.]5[.]0\z/,   'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
@@ -159,6 +160,9 @@ describe 'Sisimai::MTA::*' do
       '07' => { 's' => %r/\A4[.]4[.]1\z/,   'r' => %r/networkerror/,'b' => %r/\A1\z/ },
       '08' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/mailboxfull/, 'b' => %r/\A1\z/ },
       '09' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/undefined/,   'b' => %r/\d\z/ },
+      '10' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/hostunknown/, 'b' => %r/\A0\z/ },
+      '11' => { 's' => %r/\A5[.]7[.]1\z/,   'r' => %r/norelaying/,  'b' => %r/\A1\z/ },
+      '12' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/hostunknown/, 'b' => %r/\A0\z/ },
     },
     'Sendmail' => {
       '01' => { 's' => %r/\A5[.]1[.]1\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
