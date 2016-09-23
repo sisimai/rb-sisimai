@@ -151,7 +151,15 @@ describe Sisimai do
             end
           end
         end
+
+        isntmethod = Sisimai.make(sampleemail[e], hook: {})
+        isntmethod.each do |ee|
+          it('is Sisimai::Data') { expect(ee).to be_a Sisimai::Data }
+          it('is Nil') { expect(ee.catch).to be_nil }
+        end
+
       end
+
     end
 
     context 'non-bounce email' do
