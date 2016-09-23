@@ -6,9 +6,20 @@ require 'sisimai/message'
 describe Sisimai::Data do
   context 'without orders of email address headers' do
     mail = Sisimai::Mail.new('./set-of-emails/maildir/bsd/sendmail-03.eml')
+    call = lambda do |argv|
+      data = { 'x-mailer' => '', 'return-path' => '' }
+      if cv = argv['body'].match(/^X-Mailer:\s*(.+)$/)
+          data['x-mailer'] = cv[1]
+      end
+
+      if cv = argv['body'].match(/^Return-Path:\s*(.+)$/)
+          data['return-path'] = cv[1]
+      end
+      return data
+    end
 
     while r = mail.read do
-      mesg = Sisimai::Message.new(data: r)
+      mesg = Sisimai::Message.new(data: r, hook: call)
       data = Sisimai::Data.make(data: mesg)
       example 'Sisimai::Data.make returns Array' do
         expect(data).to be_a Array
@@ -104,6 +115,12 @@ describe Sisimai::Data do
 
         example('#feedbacktype is String') { expect(e.feedbacktype).to be_a String }
         example('#feedbacktype is empty') { expect(e.feedbacktype).to be_empty }
+
+        example('#catch is Hash') { expect(e.catch).to be_a Hash }
+        example('#catch[x-mailer] is String') { expect(e.catch['x-mailer']).to be_a String }
+        example('#catch[x-mailer] includes "Apple"') { expect(e.catch['x-mailer']).to match(/Apple/) }
+        example('#catch[return-path] is String') { expect(e.catch['return-path']).to be_a String }
+        example('#catch[return-path] includes "kijitora"') { expect(e.catch['return-path']).to match(/kijitora/) }
       end
     end
   end

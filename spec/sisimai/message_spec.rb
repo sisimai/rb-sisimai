@@ -6,7 +6,18 @@ describe Sisimai::Message do
   sf = './set-of-emails/mailbox/mbox-0'
 
   mailastext = File.open(sf).read
-  messageobj = cn.new(data: mailastext)
+  callbackto = lambda do |argv|
+    data = { 'x-mailer' => '', 'return-path' => '' }
+    if cv = argv['body'].match(/^X-Mailer:\s*(.+)$/)
+        data['x-mailer'] = cv[1]
+    end
+
+    if cv = argv['body'].match(/^Return-Path:\s*(.+)$/)
+        data['return-path'] = cv[1]
+    end
+    return data
+  end
+  messageobj = cn.new(data: mailastext, hook: callbackto)
 
   describe 'class method' do
     describe '.new' do
@@ -15,6 +26,7 @@ describe Sisimai::Message do
       example('#ds returns Array') { expect(messageobj.ds).to be_a Array }
       example('#rfc822 returns Hash') { expect(messageobj.rfc822).to be_a Hash }
       example('#from returns String') { expect(messageobj.from).to be_a String }
+      example('#catch returns Hash')  { expect(messageobj.catch).to be_a Hash }
     end
   end
 
@@ -58,6 +70,13 @@ describe Sisimai::Message do
         example(e + 'header has a size') { expect(messageobj.rfc822[e].size).to be > 0 }
       end
     end
+
+    describe '#catch' do
+      %w|return-path x-mailer|.each do |e|
+        example(e + 'key exists') { expect(messageobj.catch.key?(e)).to be true }
+      end
+    end
+
   end
 
 end

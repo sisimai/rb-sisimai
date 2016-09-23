@@ -96,8 +96,14 @@ describe Sisimai do
                 damn.each_key do |eee|
                   next if ee.send(eee).class.to_s =~ /\ASisimai::/
                   next if eee == 'subject'
-                  example "['#{eee}'] is ##{eee}" do
-                    expect(damn[eee]).to be == ee.send(eee)
+                  if eee == 'catch'
+                    example "['#{eee}'] is ''" do
+                      expect(damn[eee]).to be_empty
+                    end
+                  else
+                    example "['#{eee}'] is ##{eee}" do
+                      expect(damn[eee]).to be == ee.send(eee)
+                    end
                   end
                 end
               end
@@ -112,6 +118,38 @@ describe Sisimai do
             end
           end
 
+        end
+
+        callbackto = lambda do |argv|
+          data = { 'x-mailer' => '', 'return-path' => '' }
+          if cv = argv['body'].match(/^X-Mailer:\s*(.+)$/)
+              data['x-mailer'] = cv[1]
+          end
+
+          if cv = argv['body'].match(/^Return-Path:\s*(.+)$/)
+              data['return-path'] = cv[1]
+          end
+          return data
+        end
+        havecaught = Sisimai.make(sampleemail[e], hook: callbackto)
+
+        havecaught.each do |ee|
+          it('is Sisimai::Data') { expect(ee).to be_a Sisimai::Data }
+          it('is Hash') { expect(ee.catch).to be_a Hash }
+
+          it('exists "x-mailer" key') { expect(ee.catch.key?('x-mailer')).to be true }
+          if ee.catch['x-mailer'].size > 0
+            it 'matches with X-Mailer' do
+              expect(ee.catch['x-mailer']).to match(/[A-Z]/)
+            end
+          end
+
+          it('exists "return-path" key') { expect(ee.catch.key?('return-path')).to be true }
+          if ee.catch['return-path'].size > 0
+            it 'matches with Return-Path' do
+              expect(ee.catch['return-path']).to match(/(?:<>|.+[@].+|<mailer-daemon>)/i)
+            end
+          end
         end
       end
     end

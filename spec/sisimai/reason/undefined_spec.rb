@@ -65,8 +65,14 @@ describe Sisimai do
             damn.each_key do |eee|
               next if ee.send(eee).class.to_s =~ /\ASisimai::/
               next if eee == 'subject'
-              example "['#{eee}'] is ##{eee}" do
-                expect(damn[eee]).to be == ee.send(eee)
+              if eee == 'catch'
+                example "['#{eee}'] is ''" do
+                  expect(damn[eee]).to be_empty
+                end
+              else
+                example "['#{eee}'] is ##{eee}" do
+                  expect(damn[eee]).to be == ee.send(eee)
+                end
               end
             end
           end

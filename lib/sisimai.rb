@@ -16,6 +16,7 @@ module Sisimai
     # @param         [String] path       Path to mbox or Maildir/
     # @param         [Hash]  argvs       Parser options(delivered=false)
     # @options argvs [Boolean] delivered true: Include "delivered" reason
+    # @options argvs [Lambda]  hook      Lambda object to be called back
     # @return        [Array]             Parsed objects
     # @return        [nil]               nil if the argument was wrong or an empty array
     def make(path, **argvs)
@@ -24,17 +25,19 @@ module Sisimai
       require 'sisimai/mail'
       mail = Sisimai::Mail.new(path)
       list = []
-      opts = argvs[:delivered] || false
 
       return nil unless mail
       require 'sisimai/data'
       require 'sisimai/message'
 
+      methodargv = { :delivered => argvs[:delivered] || false }
+      hookmethod = argvs[:hook] || nil
+
       while r = mail.read do
         # Read and parse each mail file
-        mesg = Sisimai::Message.new(data: r)
+        mesg = Sisimai::Message.new(data: r, hook: hookmethod)
         next if mesg.void
-        data = Sisimai::Data.make(data: mesg, delivered: opts)
+        data = Sisimai::Data.make(data: mesg, delivered: methodargv)
         next unless data
         list.concat(data) if data.size > 0
       end
@@ -47,6 +50,7 @@ module Sisimai
     # @param         [String] path       Path to mbox or Maildir/
     # @param         [Hash] argvs        Parser options
     # @options argvs [Integer] delivered true: Include "delivered" reason
+    # @options argvs [Lambda]  hook      Lambda object to be called back
     # @return        [String]            Parsed data as JSON text
     def dump(path, **argvs)
       return nil unless path

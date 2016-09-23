@@ -17,6 +17,7 @@ module Sisimai
       :header,  # [Hash]   Header part of a email
       :ds,      # [Array]  Parsed data by Sisimai::MTA::*
       :rfc822,  # [Hash]   Header part of the original message
+      :catch,   # [?]      The results returned by hook method
     ]
     @@rwaccessors.each { |e| attr_accessor e }
 
@@ -41,7 +42,10 @@ module Sisimai
     # Constructor of Sisimai::Message
     # @param         [String] data      Email text data
     # @param         [Hash] argvs       Module to be loaded
-    # @options argvs [String] data      Entire email message
+    # @options argvs [String] :data     Entire email message
+    # @options argvs [Array]  :load     User defined MTA module list
+    # @options argvs [Array]  :order    The order of MTA modules
+    # @options argvs [Code]   :hook     Reference to callback method
     # @return        [Sisimai::Message] Structured email data or Undef if each
     #                                   value of the arguments are missing
     def initialize(data: '', **argvs)
@@ -50,9 +54,9 @@ module Sisimai
       email = data
       email = email.scrub('?')
       email = email.gsub("\r\n", "\n")
-      methodargv = { 'data' => email }
+      methodargv = { 'data' => email, 'hook' => argvs[:hook] || nil }
 
-      [:'load', :'order'].each do |e|
+      [:load, :order].each do |e|
         # Order of MTA, MSP modules
         next unless argvs.key?(e)
         next unless argvs[e].is_a? Array
@@ -68,6 +72,7 @@ module Sisimai
       @header = parameters['header']
       @ds     = parameters['ds']
       @rfc822 = parameters['rfc822']
+      @catch  = parameters['catch'] || nil
     end
 
     # Check whether the object has valid content or not
@@ -80,11 +85,23 @@ module Sisimai
     # Make data structure from the email message(a body part and headers)
     # @param         [Hash] argvs   Email data
     # @options argvs [String] data  Entire email message
+    # @options argvs [Array]  load  User defined MTA module list
+    # @options argvs [Array]  order The order of MTA modules
+    # @options argvs [Code]   hook  Reference to callback method
     # @return        [Hash]         Resolved data structure
     def self.make(argvs)
       email = argvs['data']
 
       processing = { 'from' => '', 'header' => {}, 'rfc822' => '', 'ds' => [] }
+      hookmethod = argvs['hook'] || nil
+      havecaught = nil
+      processing = {
+        'from'   => '',  # From_ line
+        'header' => {},  # Email header
+        'rfc822' => '',  # Original message part
+        'ds'     => [],  # Parsed data, Delivery Status
+        'catch'  => nil, # Data parsed by callback method
+      }
       mtamodules = []
       extheaders = ExtHeaders
       tobeloaded = []
@@ -128,7 +145,18 @@ module Sisimai
       aftersplit = Sisimai::Message.divideup(email)
       return nil if aftersplit.empty?
 
-      # 1. Convert email headers from text to hash reference
+      # 1. Call the hook method
+      if hookmethod.is_a? Proc
+        # Execute hook method
+        begin
+          havecaught = hookmethod.call(aftersplit)
+        rescue StandardError => ce
+          warn sprintf(" ***warning: Something is wrong in hook method :%s", ce.to_s)
+        end
+        processing['catch'] = havecaught
+      end
+
+      # 2. Convert email headers from text to hash reference
       headerargv['extheaders'] = extheaders
       headerargv['tryonfirst'] = []
       processing['from']   = aftersplit['from']
