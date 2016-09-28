@@ -8,13 +8,14 @@ describe Sisimai::Data do
     mail = Sisimai::Mail.new('./set-of-emails/maildir/bsd/sendmail-03.eml')
     call = lambda do |argv|
       data = { 'x-mailer' => '', 'return-path' => '' }
-      if cv = argv['body'].match(/^X-Mailer:\s*(.+)$/)
+      if cv = argv['message'].match(/^X-Mailer:\s*(.+)$/)
           data['x-mailer'] = cv[1]
       end
 
-      if cv = argv['body'].match(/^Return-Path:\s*(.+)$/)
+      if cv = argv['message'].match(/^Return-Path:\s*(.+)$/)
           data['return-path'] = cv[1]
       end
+      data['from'] = argv['headers']['from'] || ''
       return data
     end
 
@@ -121,6 +122,8 @@ describe Sisimai::Data do
         example('#catch[x-mailer] includes "Apple"') { expect(e.catch['x-mailer']).to match(/Apple/) }
         example('#catch[return-path] is String') { expect(e.catch['return-path']).to be_a String }
         example('#catch[return-path] includes "kijitora"') { expect(e.catch['return-path']).to match(/kijitora/) }
+        example('#catch[from] is String') { expect(e.catch['from']).to be_a String }
+        example('#catch[from] includes "@"') { expect(e.catch['from']).to match(/[@]/) }
       end
     end
   end

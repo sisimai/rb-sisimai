@@ -94,7 +94,6 @@ module Sisimai
 
       processing = { 'from' => '', 'header' => {}, 'rfc822' => '', 'ds' => [] }
       hookmethod = argvs['hook'] || nil
-      havecaught = nil
       processing = {
         'from'   => '',  # From_ line
         'header' => {},  # Email header
@@ -141,20 +140,9 @@ module Sisimai
         tobeloaded << e
       end
 
-      # 0. Split email data to headers and a body part.
+      # 1. Split email data to headers and a body part.
       aftersplit = Sisimai::Message.divideup(email)
       return nil if aftersplit.empty?
-
-      # 1. Call the hook method
-      if hookmethod.is_a? Proc
-        # Execute hook method
-        begin
-          havecaught = hookmethod.call(aftersplit)
-        rescue StandardError => ce
-          warn sprintf(" ***warning: Something is wrong in hook method :%s", ce.to_s)
-        end
-        processing['catch'] = havecaught
-      end
 
       # 2. Convert email headers from text to hash reference
       headerargv['extheaders'] = extheaders
@@ -169,6 +157,7 @@ module Sisimai
 
       # 4. Rewrite message body for detecting the bounce reason
       methodargv = {
+        'hook' => hookmethod,
         'mail' => processing,
         'body' => aftersplit['body'],
         'tryonfirst' => headerargv['tryonfirst'],
@@ -178,7 +167,8 @@ module Sisimai
 
       return nil unless bouncedata
       return nil if bouncedata.empty?
-      processing['ds'] = bouncedata['ds']
+      processing['ds']    = bouncedata['ds']
+      processing['catch'] = bouncedata['catch']
 
       # 5. Rewrite headers of the original message in the body part
       rfc822part = bouncedata['rfc822']
@@ -424,6 +414,8 @@ module Sisimai
     def self.parse(argvs)
       mesgentity = argvs['mail']
       bodystring = argvs['body']
+      hookmethod = argvs['hook'] || nil
+      havacaught = nil
       tryonfirst = argvs['tryonfirst'] || []
       tobeloaded = argvs['tobeloaded'] || []
       mailheader = mesgentity['header']
@@ -475,6 +467,17 @@ module Sisimai
           unless cv[1].downcase =~ /(?:us-ascii|utf[-]?8)/
             bodystring = Sisimai::String.to_utf8(bodystring, cv[1])
           end
+        end
+      end
+
+      # Call the hook method
+      if hookmethod.is_a? Proc
+        # Execute hook method
+        begin
+          p = { 'headers' => mailheader, 'message' => bodystring }
+          havecaught = hookmethod.call(p)
+        rescue StandardError => ce
+          warn sprintf(" ***warning: Something is wrong in hook method :%s", ce.to_s)
         end
       end
 
@@ -565,6 +568,8 @@ module Sisimai
           break
         end
       end
+
+      scannedset['catch'] = havecaught if scannedset
       return scannedset
     end
 

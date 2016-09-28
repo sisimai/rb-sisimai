@@ -122,13 +122,14 @@ describe Sisimai do
 
         callbackto = lambda do |argv|
           data = { 'x-mailer' => '', 'return-path' => '' }
-          if cv = argv['body'].match(/^X-Mailer:\s*(.+)$/)
+          if cv = argv['message'].match(/^X-Mailer:\s*(.+)$/)
               data['x-mailer'] = cv[1]
           end
 
-          if cv = argv['body'].match(/^Return-Path:\s*(.+)$/)
+          if cv = argv['message'].match(/^Return-Path:\s*(.+)$/)
               data['return-path'] = cv[1]
           end
+          data['from'] = argv['headers']['from'] || ''
           return data
         end
         havecaught = Sisimai.make(sampleemail[e], hook: callbackto)
@@ -148,6 +149,13 @@ describe Sisimai do
           if ee.catch['return-path'].size > 0
             it 'matches with Return-Path' do
               expect(ee.catch['return-path']).to match(/(?:<>|.+[@].+|<mailer-daemon>)/i)
+            end
+          end
+
+          it('exists "from" key') { expect(ee.catch.key?('from')).to be true }
+          if ee.catch['from'].size > 0
+            it 'matches with From' do
+              expect(ee.catch['from']).to match(/(?:<>|.+[@].+|<?mailer-daemon>?)/i)
             end
           end
         end

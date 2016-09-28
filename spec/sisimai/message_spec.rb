@@ -8,13 +8,14 @@ describe Sisimai::Message do
   mailastext = File.open(sf).read
   callbackto = lambda do |argv|
     data = { 'x-mailer' => '', 'return-path' => '' }
-    if cv = argv['body'].match(/^X-Mailer:\s*(.+)$/)
+    if cv = argv['message'].match(/^X-Mailer:\s*(.+)$/)
         data['x-mailer'] = cv[1]
     end
 
-    if cv = argv['body'].match(/^Return-Path:\s*(.+)$/)
+    if cv = argv['message'].match(/^Return-Path:\s*(.+)$/)
         data['return-path'] = cv[1]
     end
+    data['from'] = argv['headers']['from'] || ''
     return data
   end
   messageobj = cn.new(data: mailastext, hook: callbackto)
@@ -72,7 +73,7 @@ describe Sisimai::Message do
     end
 
     describe '#catch' do
-      %w|return-path x-mailer|.each do |e|
+      %w|return-path x-mailer from|.each do |e|
         example(e + 'key exists') { expect(messageobj.catch.key?(e)).to be true }
       end
     end
