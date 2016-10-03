@@ -108,10 +108,19 @@ module Sisimai
         # Call .description() method of Sisimai::Reason::*
         r = 'Sisimai::Reason::' + e
         require r.gsub('::', '/').downcase
-        table[r.to_sym] = Module.const_get(r).send(:description)
+        table[e.to_sym] = Module.const_get(r).send(:description)
       end
 
       return table
+    end
+
+    # Try to match with message patterns
+    # @param    [String]    Error message text
+    # @return   [String]    Reason text
+    def match(argvs = '')
+      return nil if argvs.empty?
+      require 'sisimai/reason'
+      return Sisimai::Reason.match(argvs)
     end
   end
 end

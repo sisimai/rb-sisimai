@@ -3,6 +3,7 @@ require 'sisimai/reason'
 require 'sisimai/message'
 require 'sisimai/mail'
 require 'sisimai/data'
+require 'sisimai'
 
 describe Sisimai::Reason do
   cn = Sisimai::Reason
@@ -124,9 +125,17 @@ describe Sisimai::Reason do
   describe '.match' do
     smtperrors.each do |e|
       v = cn.match(e)
+      reasonlist = Sisimai.reason.keys.map { |e| e.to_s.downcase }
+
       subject { v }
       it('returns String') { is_expected.to be_a String }
       it('returns reason: '+ v) { is_expected.to match(/\A[a-z]+\z/) }
+      it 'is included in the valid reason list' do
+        expect(reasonlist.include?(v)).to be true
+      end
+      it 'is the same value with the value of Sisimai.match(e)' do
+        expect(v).to be == Sisimai.match(e)
+      end
     end
   end
 
