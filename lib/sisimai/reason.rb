@@ -213,6 +213,7 @@ module Sisimai
           else
             # Detect the bounce reason from "Status:" code
             reasontext = Sisimai::SMTP::Status.name(statuscode) || 'undefined'
+            reasontext = 'undefined' if reasontext.empty?
           end
         end
         return reasontext
