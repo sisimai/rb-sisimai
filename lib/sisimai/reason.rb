@@ -165,6 +165,59 @@ module Sisimai
         return reasontext
       end
 
+      # Detect the bounce reason from given text
+      # @param    [String] argv1  Error message
+      # @return   [String]        Bounce reason
+      def match(argv1)
+        return nil unless argv1
+        require 'sisimai/smtp/status'
+
+        reasontext = ''
+        typestring = ''
+        classorder = %w|
+          MailboxFull MesgTooBig ExceedLimit Suspend UserUnknown Filtered Rejected
+          HostUnknown SpamDetected TooManyConn Blocked SpamDetected SecurityError
+          SystemError NetworkError Suspend Expired ContentError HasMoved SystemFull
+          NotAccept MailerError NoRelaying SyntaxError OnHold
+        |
+
+        statuscode = Sisimai::SMTP::Status.find(argv1)
+        if cv = argv1.match(/\A(SMTP|X-.+);/i)
+          typestring = cv[1].upcase
+        end
+
+        # Diagnostic-Code: SMTP; ... or empty value
+        classorder.each do |e|
+          # Check the value of Diagnostic-Code: and the value of Status:, it is a
+          # deliverystats, with true() method in each Sisimai::Reason::* class.
+          p = 'Sisimai::Reason::' + e
+          r = nil
+          begin
+            require p.downcase.gsub('::', '/')
+            r = Module.const_get(p)
+          rescue
+            warn ' ***warning: Failed to load ' + p
+            next
+          end
+
+          next unless r.match(argv1)
+          reasontext = r.text
+          break
+        end
+
+        if reasontext.empty?
+          # Check the value of $typestring
+          if typestring == 'X-UNIX'
+            # X-Unix; ...
+            reasontext = 'mailererror'
+          else
+            # Detect the bounce reason from "Status:" code
+            reasontext = Sisimai::SMTP::Status.name(statuscode) || 'undefined'
+          end
+        end
+        return reasontext
+      end
+
     end
   end
 end
