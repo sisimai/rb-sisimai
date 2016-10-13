@@ -10,12 +10,17 @@ module Sisimai
         require 'sisimai/rfc5322'
 
         # http://aws.amazon.com/ses/
+        ReE = { :'x-mailer' => %r/Amazon[ ]WorkMail/ }
         Re0 = {
           :from    => %r/\AMAILER-DAEMON[@]email[-]bounces[.]amazonses[.]com\z/,
           :subject => %r/\ADelivery Status Notification [(]Failure[)]\z/,
         }
         Re1 = {
-          :begin   => %r/\AThe following message to [<]/,
+          :begin   => %r/\A(?:
+               The[ ]following[ ]message[ ]to[ ][<]
+              |An[ ]error[ ]occurred[ ]while[ ]trying[ ]to[ ]deliver[ ]the[ ]mail[ ]
+              )
+          /x,
           :rfc822  => %r|\Acontent-type: message/rfc822\z|,
           :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
@@ -30,7 +35,8 @@ module Sisimai
         # X-SenderID: Sendmail Sender-ID Filter v1.0.0 nijo.example.jp p7V3i843003008
         # X-Original-To: 000001321defbd2a-788e31c8-2be1-422f-a8d4-cf7765cc9ed7-000000@email-bounces.amazonses.com
         # X-AWS-Outgoing: 199.255.192.156
-        def headerlist;  return ['X-AWS-Outgoing']; end
+        # X-SES-Outgoing: 2016.10.12-54.240.27.6
+        def headerlist;  return ['X-AWS-Outgoing', 'X-SES-Outgoing']; end
         def pattern;     return Re0; end
 
         # Parse bounce messages from Amazon SES
@@ -47,7 +53,14 @@ module Sisimai
         def scan(mhead, mbody)
           return nil unless mhead
           return nil unless mbody
-          return nil unless mhead['x-aws-outgoing']
+
+          match = 0
+          xmail = mhead['x-mailer'] || ''
+
+          return nil if mhead['x-mailer'] =~ ReE[:'x-mailer']
+          match += 1 if mhead['x-aws-outgoing']
+          match += 1 if mhead['x-ses-outgoing']
+          return nil if match == 0
 
           dscontents = [Sisimai::MSP.DELIVERYSTATUS]
           hasdivided = mbody.split("\n")
@@ -168,7 +181,7 @@ module Sisimai
                 #
                 # Reporting-MTA: dns; a192-79.smtp-out.amazonses.com
                 #
-                if cv = e.match(/\A[Rr]eporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
+                if cv = e.match(/\A[Rr]eporting-MTA:[ ]*[DNSdns]+;[ ]*(.+)\z/)
                   # Reporting-MTA: dns; mx.example.jp
                   next if connheader['lhost'].size > 0
                   connheader['lhost'] = cv[1].downcase
