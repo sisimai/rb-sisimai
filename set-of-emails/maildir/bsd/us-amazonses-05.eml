@@ -1,0 +1,73 @@
+Delivered-To: kijitora@example.com
+Received: by 10.37.32.132 with SMTP id g126csp488578ybg;
+        Tue, 11 Oct 2016 05:39:01 -0700 (PDT)
+X-Received: by 10.99.113.14 with SMTP id m14mr1124812pgc.57.1476189541063;
+        Tue, 11 Oct 2016 05:39:01 -0700 (PDT)
+Return-Path: <>
+Received: from aneyakoji.example.jp (aneyakoji.example.jp. [192.0.2.36])
+        by mx.google.com with ESMTP id vs8si3281859pab.244.2016.10.11.05.38.59
+        for <kijitora@example.com>;
+        Tue, 11 Oct 2016 05:39:00 -0700 (PDT)
+Received-SPF: pass (google.com: best guess record for domain of postmaster@aneyakoji.example.jp designates 192.0.2.36 as permitted sender) client-ip=192.0.2.36;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: best guess record for domain of postmaster@aneyakoji.example.jp designates 192.0.2.36 as permitted sender) smtp.helo=aneyakoji.example.jp
+Received: from a27-8.smtp-out.us-west-2.amazonses.com (a27-8.smtp-out.us-west-2.amazonses.com [54.240.27.8])
+	by aneyakoji.example.jp (V8/cf) with ESMTP id u9BCcx86019307
+	for <sironeko@example.jp>; Tue, 11 Oct 2016 21:38:59 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 aneyakoji.example.jp u9BCcx86019307
+Authentication-Results: aneyakoji.example.jp; sender-id=pass header.from=MAILER-DAEMON@us-west-2.amazonses.com
+From: MAILER-DAEMON@us-west-2.amazonses.com
+To: sironeko@example.jp
+Message-ID: <01010157b3c0c752-ee5b6bff-a3a2-42a2-a4ea-7fbeb7b65f30-000000@us-west-2.amazonses.com>
+Subject: Delivery Status Notification (Failure)
+MIME-Version: 1.0
+Content-Type: multipart/report; 
+	boundary="----=_Part_491442_153898515.1476189538160"; 
+	report-type=delivery-status
+Date: Tue, 11 Oct 2016 12:38:58 +0000
+X-SES-Outgoing: 2016.10.11-54.240.27.8
+
+------=_Part_491442_153898515.1476189538160
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Description: Notification
+
+An error occurred while trying to deliver the mail to the following recipients:
+bounce@simulator.amazonses.com
+------=_Part_491442_153898515.1476189538160
+Content-Type: message/delivery-status
+Content-Transfer-Encoding: 7bit
+Content-Description: Delivery Status Notification
+
+Reporting-MTA: dsn; a27-33.smtp-out.us-west-2.amazonses.com
+
+Action: failed
+Final-Recipient: rfc822; bounce@simulator.amazonses.com
+Diagnostic-Code: smtp; 550 5.1.1 user unknown
+Status: 5.1.1
+
+
+------=_Part_491442_153898515.1476189538160
+Content-Type: message/rfc822
+Content-Description: Undelivered Message
+
+From: sironeko@example.jp
+To: bounce@simulator.amazonses.com
+Subject: neko
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID: <01010157b3c0c026-110cf920-4be1-4c36-87c0-1f48d0cc6639-000000@us-west-2.amazonses.com>
+Date: Tue, 11 Oct 2016 12:38:56 +0000
+X-SES-Outgoing: 2016.10.11-54.240.27.33
+Feedback-ID: 1.us-west-2.l/mTI5simBcQTvzdbgZFhsMZPHJ5GOwxD8rCkHvi/2Q=:AmazonSES
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=gdwg2y3kokkkj5a55z2ilkup5wp5hhxx; d=amazonses.com; t=1476189536;
+	h=From:To:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-ID:Date:Feedback-ID;
+	bh=WRkYRwSU0EIKKppaHfmp28cJDAgWJLeR1xnJZVCEQ1g=;
+	b=Nue3QS5HYzCittGnCzENrf73fC675mOnXFigMjUwOzgMLmUpotAShWWUjbOg2Pku
+	Qep3Pe77aS4NB8zg7h4aFsIJGBHzM+ASLjVLjKIc1OIGArFMQtG6rbcP6kVbsfC8kp8
+	a3Hs/i8+N4nvYwcMo97VOOXtQdnFfH4/IjasKJR4=
+
+Nyaan
+------=_Part_491442_153898515.1476189538160--

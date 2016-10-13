@@ -50,6 +50,10 @@ describe 'Sisimai::MSP::*' do
       '02' => { 's' => %r/\A5[.]3[.]0\z/, 'r' => %r/filtered/,    'b' => %r/\A1\z/ },
       '03' => { 's' => %r/\A5[.]2[.]2\z/, 'r' => %r/mailboxfull/, 'b' => %r/\A1\z/ },
       '04' => { 's' => %r/\A5[.]4[.]7\z/, 'r' => %r/expired/,     'b' => %r/\A1\z/ },
+      '05' => { 's' => %r/\A5[.]1[.]1\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
+      '06' => { 's' => %r/\A5[.]1[.]1\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
+      '07' => { 's' => %r/\A5[.]7[.]6\z/, 'r' => %r/securityerror/, 'b' => %r/\A1\z/ },
+      '08' => { 's' => %r/\A5[.]7[.]9\z/, 'r' => %r/securityerror/, 'b' => %r/\A1\z/ },
     },
     'US::AmazonWorkMail' => {
       '01' => { 's' => %r/\A5[.]1[.]1\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
