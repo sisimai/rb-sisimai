@@ -17,8 +17,8 @@ MTA::McAfee .............    0/0010  0.0000  McAfee Email Appliance
 MTA::MessagingServer ....   19/0022  0.8636  Oracle Communications Messaging Server
 MTA::Notes ..............    0/0012  0.0000  Lotus Notes
 MTA::OpenSMTPD ..........    5/0023  0.2174  OpenSMTPD
-MTA::Postfix ............  170/0188  0.9043  Postfix
-MTA::Sendmail ...........  330/0252  1.0000  V8Sendmail: /usr/sbin/sendmail
+MTA::Postfix ............  171/0189  0.9048  Postfix
+MTA::Sendmail ...........  331/0253  1.0000  V8Sendmail: /usr/sbin/sendmail
 MTA::SurfControl ........    6/0008  0.7500  WebSense SurfControl
 MTA::V5sendmail .........    0/0386  0.0000  Sendmail version 5
 MTA::X1 .................    0/0007  0.0000  Unknown MTA #1
@@ -27,7 +27,7 @@ MTA::X3 .................    0/0012  0.0000  Unknown MTA #3
 MTA::X4 .................    0/0029  0.0000  Unknown MTA #4 qmail clones
 MTA::X5 .................    3/0003  1.0000  Unknown MTA #5
 MTA::mFILTER ............    0/0009  0.0000  Digital Arts m-FILTER
-MTA::qmail ..............   52/0078  0.6667  qmail
+MTA::qmail ..............   52/0082  0.6341  qmail
 MSP::DE::EinsUndEins ....    0/0003  0.0000  1&1: http://www.1and1.de
 MSP::DE::GMX ............    0/0010  0.0000  GMX: http://www.gmx.net
 MSP::JP::Biglobe ........    5/0007  0.7143  BIGLOBE: http://www.biglobe.ne.jp
@@ -36,7 +36,7 @@ MSP::JP::KDDI ...........    6/0006  1.0000  au by KDDI: http://www.au.kddi.com
 MSP::RU::MailRu .........    4/0014  0.2857  @mail.ru: https://mail.ru
 MSP::RU::Yandex .........    4/0007  0.5714  Yandex.Mail: http://www.yandex.ru
 MSP::UK::MessageLabs ....    2/0002  1.0000  Symantec.cloud http://www.messagelabs.com
-MSP::US::AmazonSES ......   18/0018  1.0000  Amazon SES(Sending): http://aws.amazon.com/ses/
+MSP::US::AmazonSES ......   22/0022  1.0000  Amazon SES(Sending): http://aws.amazon.com/ses/
 MSP::US::AmazonWorkMail .    8/0012  0.6667  Amazon WorkMail: https://aws.amazon.com/workmail/
 MSP::US::Aol ............   18/0021  0.8571  Aol Mail: http://www.aol.com
 MSP::US::Bigfoot ........    2/0002  1.0000  Bigfoot: http://www.bigfoot.com
@@ -53,5 +53,5 @@ ARF .....................    9/0050  0.1800  Abuse Feedback Reporting Format
 RFC3464 .................  136/0277  0.4910  Fallback Module for MTAs
 RFC3834 .................    0/0006  0.0000  Detector for auto replied message
 -------------------------------------------------------------------------------
- bounceHammer 2.7.13p3    1195/2168  0.5512
- Sisimai 4.18.2           2168/2168  1.0000
+ bounceHammer 2.7.13p3    1201/2178  0.5514
+ Sisimai 4.19.0           2178/2178  1.0000
