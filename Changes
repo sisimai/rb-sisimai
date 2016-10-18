@@ -1,6 +1,6 @@
 Revision history for Ruby version of Sisimai
 
-4.19.0
+4.19.0  Tue, 18 Oct 2016 14:19:10 +0900 (JST)
     - Implement a callback feature at Sisimai.make and Sisimai.dump methods.
       More imformation about the feature are available at the following pages:
       - http://libsisimai.org/en/usage#callback
