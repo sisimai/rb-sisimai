@@ -127,6 +127,35 @@ puts Sisimai.dump('/path/to/mbox', delivered: true)
 [{"recipient": "kijitora@example.jp", "addresser": "shironeko@1jo.example.org", "feedbacktype": "", "action": "failed", "subject": "Nyaaaaan", "smtpcommand": "DATA", "diagnosticcode": "550 Unknown user kijitora@example.jp", "listid": "", "destination": "example.jp", "smtpagent": "Courier", "lhost": "1jo.example.org", "deliverystatus": "5.0.0", "timestamp": 1291954879, "messageid": "201012100421.oBA4LJFU042012@1jo.example.org", "diagnostictype": "SMTP", "timezoneoffset": "+0900", "reason": "filtered", "token": "ce999a4c869e3f5e4d8a77b2e310b23960fb32ab", "alias": "", "senderdomain": "1jo.example.org", "rhost": "mfsmax.example.jp"}, {"diagnostictype": "SMTP", "timezoneoffset": "+0900", "reason": "userunknown", "timestamp": 1381900535, "messageid": "E1C50F1B-1C83-4820-BC36-AC6FBFBE8568@example.org", "token": "9fe754876e9133aae5d20f0fd8dd7f05b4e9d9f0", "alias": "", "senderdomain": "example.org", "rhost": "mx.bouncehammer.jp", "action": "failed", "addresser": "kijitora@example.org", "recipient": "userunknown@bouncehammer.jp", "feedbacktype": "", "smtpcommand": "DATA", "subject": "バウンスメールのテスト(日本語)", "destination": "bouncehammer.jp", "listid": "", "diagnosticcode": "550 5.1.1 <userunknown@bouncehammer.jp>... User Unknown", "deliverystatus": "5.1.1", "lhost": "p0000-ipbfpfx00kyoto.kyoto.example.co.jp", "smtpagent": "Sendmail"}]
 ```
 
+コールバック機能
+----------------
+Sisimai 4.19.0から、`Sisimai.make()`と`Sisimai.dump()`にLamda(Procオブジェクト)
+を引数`hook`に指定できるようになりました。`hook`に指定したコードによって処理さ
+れた結果は`Sisimai::Data.catch`メソッドで得ることができます。
+
+```ruby
+#! /usr/bin/env ruby
+require 'sisimai'
+callbackto = lambda do |v|
+  r = { 'x-mailer' => '' }
+
+  if cv = v['message'].match(/^X-Mailer:\s*(.+)$/)
+    r['x-mailer'] = cv[1]
+  end
+  return r
+end
+
+data = Sisimai.make('/path/to/mbox', hook: callbackto)
+json = Sisimai.dump('/path/to/mbox', hook: callbackto)
+
+puts data[0].catch['x-mailer']      # Apple Mail (2.1283)
+```
+
+コールバック機能のより詳細な使い方は
+[Sisimai | 解析方法 - コールバック機能](http://libsisimai.org/ja/usage/#callback)
+をご覧ください。
+
+
 ワンライナーで
 --------------
 
@@ -148,8 +177,8 @@ Perl版Sisimaiとの違い
 | メール解析速度(1000通のメール)              | 3.30秒         | 2.33秒        |
 | インストール方法                            | gem install    | cpanm         |
 | 依存モジュール数(コアモジュールを除く)      | 1モジュール    | 2モジュール   |
-| LOC:ソースコードの行数                      | 11600行        | 8500行        |
-| テスト件数(spec/,t/,xt/ディレクトリ)        | 97000件        | 177000件      |
+| LOC:ソースコードの行数                      | 11700行        | 8600行        |
+| テスト件数(spec/,t/,xt/ディレクトリ)        | 103800件       | 184100件      |
 | ライセンス                                  | 二条項BSD      | 二条項BSD     |
 | 開発会社によるサポート契約                  | 準備中         | 提供中        |
 
