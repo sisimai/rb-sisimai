@@ -8,9 +8,9 @@
 SHELL := /bin/sh
 TIME  := $(shell date '+%s')
 NAME  := sisimai
-RUBY  := ruby
-JRUBY := /usr/local/jr
-RAKE  := rake
+RUBY  ?= ruby
+JRUBY ?= /usr/local/jr
+RAKE  ?= rake
 MKDIR := mkdir -p
 RSPEC := rspec -Ilib -f progress
 CP    := cp
