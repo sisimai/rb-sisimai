@@ -13,7 +13,7 @@ module Sisimai
       return nil unless %w|r s|.index(argv1.to_s)
 
       local = argv1 == :r ? 'recipient' : 'sender'
-      return sprintf('undisclosed-%s-in-headers@dummy-domain.invalid', local)
+      return sprintf('undisclosed-%s-in-headers@libsisimai.org.invalid', local)
     end
 
     # Email address parser
