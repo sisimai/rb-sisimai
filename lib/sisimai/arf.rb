@@ -315,7 +315,6 @@ module Sisimai
             end
           end
 
-          e['action']  = 'failed'
           e['reason']  = 'feedback'
           e['command'] = ''
           e['status']  = ''
