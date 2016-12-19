@@ -18,16 +18,16 @@ module Sisimai
             begin
               require 'jrjackson'
               jsonstring = JrJackson::Json.dump(argvs.damn)
-            rescue
-              warn '***warning: Failed to JrJackson::Json.dump'
+            rescue StandardError => ce
+              warn '***warning: Failed to JrJackson::Json.dump: ' + ce.to_s
             end
           else
             # MRI
             begin
               require 'oj'
               jsonstring = Oj.dump(argvs.damn, :mode => :compat)
-            rescue
-              warn '***warning: Failed to Oj.dump'
+            rescue StandardError => ce
+              warn '***warning: Failed to Oj.dump: ' + ce_to_s
             end
           end
 
