@@ -23,7 +23,7 @@ module Sisimai
         Indicators = Sisimai::MTA.INDICATORS
 
         def description; return 'Digital Arts m-FILTER'; end
-        def smtpagent;   return 'm-FILTER'; end
+        def smtpagent;   return 'MTA::mFILTER'; end
         def headerlist;  return ['X-Mailer']; end
         def pattern;     return Re0; end
 

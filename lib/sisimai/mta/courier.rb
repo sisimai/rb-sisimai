@@ -46,7 +46,7 @@ module Sisimai
         Indicators = Sisimai::MTA.INDICATORS
 
         def description; return 'Courier MTA'; end
-        def smtpagent;   return 'Courier'; end
+        def smtpagent;   return Sisimai::MTA.smtpagent(self); end
         def headerlist;  return []; end
         def pattern;     return Re0; end
 

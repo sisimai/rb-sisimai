@@ -122,7 +122,7 @@ module Sisimai
         Indicators = Sisimai::MTA.INDICATORS
 
         def description; return 'qmail'; end
-        def smtpagent;   return 'qmail'; end
+        def smtpagent;   return 'MTA::qmail'; end
         def headerlist;  return []; end
         def pattern;     return Re0; end
 

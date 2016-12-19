@@ -72,7 +72,7 @@ module Sisimai
         Indicators = Sisimai::MTA.INDICATORS
 
         def description; return 'McAfee SaaS'; end
-        def smtpagent;   return 'MXLogic'; end
+        def smtpagent;   return Sisimai::MTA.smtpagent(self); end
         # X-MX-Bounce: mta/src/queue/bounce
         # X-MXL-NoteHash: ffffffffffffffff-0000000000000000000000000000000000000000
         # X-MXL-Hash: 4c9d4d411993da17-bbd4212b6c887f6c23bab7db4bd87ef5edc00758

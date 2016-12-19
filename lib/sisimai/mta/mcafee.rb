@@ -28,7 +28,7 @@ module Sisimai
         Indicators = Sisimai::MTA.INDICATORS
 
         def description; return 'McAfee Email Appliance'; end
-        def smtpagent;   return 'McAfee'; end
+        def smtpagent;   return Sisimai::MTA.smtpagent(self); end
         def headerlist;  return ['X-NAI-Header']; end
         def pattern;     return Re0; end
 

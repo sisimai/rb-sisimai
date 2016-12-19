@@ -20,7 +20,7 @@ module Sisimai
         Indicators = Sisimai::MTA.INDICATORS
 
         def description; return 'Unknown MTA #5'; end
-        def smtpagent;   return 'X5'; end
+        def smtpagent;   return Sisimai::MTA.smtpagent(self); end
         def headerlist;  return []; end
         def pattern;     return Re0; end
 

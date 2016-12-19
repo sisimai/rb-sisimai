@@ -21,7 +21,7 @@ module Sisimai
         Indicators = Sisimai::MTA.INDICATORS
 
         def description; return 'TransWARE Active!hunter'; end
-        def smtpagent;   return 'Activehunter'; end
+        def smtpagent;   return Sisimai::MTA.smtpagent(self); end
         def headerlist;  return ['X-AHMAILID']; end
         def pattern;     return Re0; end
 

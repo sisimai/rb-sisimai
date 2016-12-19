@@ -26,7 +26,7 @@ module Sisimai
         Indicators = Sisimai::MTA.INDICATORS
 
         def description; return 'V8Sendmail: /usr/sbin/sendmail'; end
-        def smtpagent;   return 'Sendmail'; end
+        def smtpagent;   return Sisimai::MTA.smtpagent(self); end
         def headerlist;  return []; end
         def pattern;     return Re0; end
 

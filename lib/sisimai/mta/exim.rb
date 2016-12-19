@@ -136,7 +136,7 @@ module Sisimai
         Indicators = Sisimai::MTA.INDICATORS
 
         def description; return 'Exim'; end
-        def smtpagent;   return 'Exim'; end
+        def smtpagent;   return Sisimai::MTA.smtpagent(self); end
         def headerlist;  return ['X-Failed-Recipients']; end
         def pattern;     return Re0; end
 

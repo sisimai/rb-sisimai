@@ -37,7 +37,7 @@ module Sisimai
         Indicators = Sisimai::MTA.INDICATORS
 
         def description; return 'Microsoft Exchange Server 2007'; end
-        def smtpagent;   return 'Exchange2007'; end
+        def smtpagent;   return Sisimai::MTA.smtpagent(self); end
         def headerlist;  return ['Content-Language']; end
         def pattern;     return Re0; end
 

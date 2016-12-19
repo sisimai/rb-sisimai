@@ -21,7 +21,7 @@ module Sisimai
         Indicators = Sisimai::MTA.INDICATORS
 
         def description; return 'WebSense SurfControl'; end
-        def smtpagent;   return 'SurfControl'; end
+        def smtpagent;   return Sisimai::MTA.smtpagent(self); end
         # X-SEF-ZeroHour-RefID: fgs=000000000
         # X-SEF-Processed: 0_0_0_000__2010_04_29_23_34_45
         # X-Mailer: SurfControl E-mail Filter

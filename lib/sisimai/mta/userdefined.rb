@@ -30,7 +30,7 @@ module Sisimai
         Indicators = Sisimai::MTA.INDICATORS
 
         def description; return 'Module description'; end
-        def smtpagent;   return 'Module name'; end
+        def smtpagent;   return Sisimai::MTA.smtpagent(self); end
         def headerlist;  return ['X-Some-UserDefined-Header']; end
         def pattern;     return Re0; end
 

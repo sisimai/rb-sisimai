@@ -25,7 +25,7 @@ module Sisimai
         Indicators = Sisimai::MTA.INDICATORS
 
         def description; return 'Oracle Communications Messaging Server'; end
-        def smtpagent;   return 'MessagingServer'; end
+        def smtpagent;   return Sisimai::MTA.smtpagent(self); end
         def headerlist;  return []; end
         def pattern;     return Re0; end
 
