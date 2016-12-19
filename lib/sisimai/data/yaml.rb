@@ -20,12 +20,13 @@ module Sisimai
 
           begin
             yamlstring = ::YAML.dump(damneddata)
-          rescue
-            warn '***warning: Failed to YAML.dump'
+          rescue StandardError => ce
+            warn '***warning: Failed to YAML.dump: ' + ce.to_s
           end
 
           return yamlstring
         end
+
       end
     end
   end
