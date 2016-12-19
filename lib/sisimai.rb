@@ -13,49 +13,108 @@ module Sisimai
     def libname(); return 'Sisimai';        end
 
     # Wrapper method for parsing mailbox/maidir
-    # @param         [String] path       Path to mbox or Maildir/
-    # @param         [Hash]  argvs       Parser options(delivered=false)
-    # @options argvs [Boolean] delivered true: Include "delivered" reason
-    # @options argvs [Lambda]  hook      Lambda object to be called back
+    # @param         [String] argv0      Path to mbox or Maildir/
+    # @param         [Hash]   argv0      or Hash (decoded JSON)
+    # @param         [IO]     argv0      or STDIN object
+    # @param         [Hash]   argv1      Parser options(delivered=false)
+    # @options argv1 [Boolean] delivered true: Include "delivered" reason
+    # @options argv1 [Lambda]  hook      Lambda object to be called back
+    # @options argv1 [String]  input     Input data format: 'email', 'json'
     # @return        [Array]             Parsed objects
     # @return        [nil]               nil if the argument was wrong or an empty array
-    def make(path, **argvs)
-      return nil unless path
+    def make(argv0, **argv1)
+      return nil unless argv0
 
-      require 'sisimai/mail'
-      mail = Sisimai::Mail.new(path)
-      list = []
-
-      return nil unless mail
       require 'sisimai/data'
       require 'sisimai/message'
 
-      methodargv = { :delivered => argvs[:delivered] || false }
-      hookmethod = argvs[:hook] || nil
+      input = argv1[:input] || nil
+      rtype = nil
 
-      while r = mail.read do
-        # Read and parse each mail file
-        mesg = Sisimai::Message.new(data: r, hook: hookmethod)
-        next if mesg.void
-        data = Sisimai::Data.make(data: mesg, delivered: methodargv)
-        next unless data
-        list.concat(data) if data.size > 0
+      unless input
+        # "input" did not specified, try to detect automatically.
+        rtype = argv0.class.to_s
+        if rtype == 'String'
+          # The argument may be a path to email
+          input = 'email'
+
+        elsif rtype =~ /\A(?:Array|Hash)\z/
+          # The argument may be a decoded JSON object
+          input = 'json'
+        end
       end
 
-      return nil if list.size == 0
-      return list
+      methodargv = {}
+      delivered1 = argv1[:delivered] || false
+      hookmethod = argv1[:hook] || nil
+      bouncedata = []
+
+      if input == 'email'
+        # Path to mailbox or Maildir/, or STDIN: 'input' => 'email'
+        require 'sisimai/mail'
+        mail = Sisimai::Mail.new(argv0)
+        return nil unless mail
+
+        while r = mail.read do
+          # Read and parse each mail file
+          methodargv = { data: r, hook: hookmethod, input: 'email' }
+          mesg = Sisimai::Message.new(methodargv)
+          next if mesg.void
+
+          methodargv = { data: mesg, hook: hookmethod, input: 'email', delivered: delivered1 }
+          data = Sisimai::Data.make(methodargv)
+          next unless data
+          bouncedata.concat(data) if data.size > 0
+        end
+
+      elsif input == 'json'
+        # Decoded JSON object: 'input' => 'json'
+        type = argv0.class.to_s
+        list = []
+
+        if type == 'Array'
+          # [ {...}, {...}, ... ]
+          argv0.each do |e|
+            next unless e.class.to_s == 'Hash'
+            list << e
+          end
+        else
+          list << argv0
+        end
+
+        list.each do |e|
+          methodargv = { data: e, hook: hookmethod, input: 'json' }
+          mesg = Sisimai::Message.new(methodargv)
+          next if mesg.void
+
+          methodargv = { data: e, hook: hookmethod, input: 'json', delivered: delivered1 }
+          data = Sisimai::Data.make(methodargv)
+          next unless data
+          bouncedata.concat(data) if data.size > 0
+        end
+
+      else
+        # The value of "input" neither "email" nor "json"
+        fail ' ***error: invalid value of "input"'
+      end
+
+      return nil if bouncedata.size == 0
+      return bouncedata
     end
 
     # Wrapper method to parse mailbox/Maildir and dump as JSON
-    # @param         [String] path       Path to mbox or Maildir/
-    # @param         [Hash] argvs        Parser options
-    # @options argvs [Integer] delivered true: Include "delivered" reason
-    # @options argvs [Lambda]  hook      Lambda object to be called back
+    # @param         [String] argv0      Path to mbox or Maildir/
+    # @param         [Hash]   argv0      or Hash (decoded JSON)
+    # @param         [IO]     argv0      or STDIN object
+    # @param         [Hash] argv1        Parser options
+    # @options argv1 [Integer] delivered true: Include "delivered" reason
+    # @options argv1 [Lambda]  hook      Lambda object to be called back
+    # @options argv1 [String]  input     Input data format: 'email', 'json'
     # @return        [String]            Parsed data as JSON text
-    def dump(path, **argvs)
-      return nil unless path
+    def dump(argv0, **argv1)
+      return nil unless argv0
 
-      nyaan = Sisimai.make(path, argvs) || []
+      nyaan = Sisimai.make(argv0, argv1) || []
       if RUBY_PLATFORM =~ /java/
         # java-based ruby environment like JRuby.
         require 'jrjackson'
@@ -70,15 +129,15 @@ module Sisimai
     # Parser engine list (MTA/MSP modules)
     # @return   [Hash]     Parser engine table
     def engine
-      names = %w|MTA MSP ARF RFC3464 RFC3834|
+      names = %w|MTA MSP CED ARF RFC3464 RFC3834|
       table = {}
 
       names.each do |e|
         r = 'Sisimai::' + e
         require r.gsub('::', '/').downcase
 
-        if e == 'MTA' || e == 'MSP'
-          # Sisimai::MTA or Sisimai::MSP
+        if e == 'MTA' || e == 'MSP' || e == 'CED'
+          # Sisimai::MTA or Sisimai::MSP or Sisimai::CED
           Module.const_get(r).send(:index).each do |ee|
             # Load and get the value of "description" from each module
             rr = sprintf('Sisimai::%s::%s', e, ee)
