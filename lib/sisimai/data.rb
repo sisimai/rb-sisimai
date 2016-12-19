@@ -239,12 +239,12 @@ module Sisimai
         next unless p['timestamp']
 
         # OTHER_TEXT_HEADERS:
-        if mailheader['received'].size > 0
+        recvheader = mailheader['received'] || []
+        if recvheader.size > 0
           # Get localhost and remote host name from Received header.
-          r0 = mailheader['received']
           %w|lhost rhost|.each { |a| e[a] ||= '' }
-          e['lhost'] = Sisimai::RFC5322.received(r0[0]).shift if e['lhost'].empty?
-          e['rhost'] = Sisimai::RFC5322.received(r0[-1]).pop  if e['rhost'].empty?
+          e['lhost'] = Sisimai::RFC5322.received(recvheader[0]).shift if e['lhost'].empty?
+          e['rhost'] = Sisimai::RFC5322.received(recvheader[-1]).pop  if e['rhost'].empty?
         end
 
         # Remove square brackets and curly brackets from the host variable
