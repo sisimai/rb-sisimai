@@ -8,6 +8,7 @@ module Sisimai
         require 'sisimai/ced'
         require 'sisimai/rfc5322'
 
+        def smtpagent;   return Sisimai::CED.smtpagent(self); end
         def description; return 'SendGrid(JSON): http://sendgrid.com/'; end
 
         # @abstract Adapt SendGrid bounce object for Sisimai::Message format
@@ -65,7 +66,7 @@ module Sisimai
             v['status']    ||= Sisimai::SMTP::Status.find(diagnostic)
             v['replycode'] ||= Sisimai::SMTP::Reply.find(diagnostic)
             v['diagnosis']   = argvs['reason'] || ''
-            v['agent']       = Sisimai::CED.smtpagent
+            v['agent']       = Sisimai::CED::US::SendGrid.smtpagent
 
             # Generate pseudo message/rfc822 part
             rfc822head = {

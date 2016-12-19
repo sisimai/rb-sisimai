@@ -37,6 +37,7 @@ module Sisimai
         # x-amz-sns-subscription-arn: arn:aws:sns:us-west-2:000000000000:SESEJB:ffffffff-2222-2222-2222-eeeeeeeeeeee
         def headerlist;  return ['x-amz-sns-message-id']; end
         def pattern;     return Re0; end
+        def smtpagent;   return Sisimai::CED.smtpagent(self); end
         def description; return 'Amazon SES(JSON): http://aws.amazon.com/ses/'; end
 
         # Parse bounce messages from Amazon SES(JSON)
@@ -251,7 +252,7 @@ module Sisimai
           return nil if recipients == 0
 
           dscontents.each do |e|
-            e['agent'] = Sisimai::CED.smtpagent
+            e['agent'] = Sisimai::CED::US::AmazonSES.smtpagent
           end
 
           if argvs['mail']['headers']
