@@ -29,7 +29,7 @@ module Sisimai
         Indicators = Sisimai::MSP.INDICATORS
 
         def description; return 'Amazon SES(Receiving): http://aws.amazon.com/ses/'; end
-        def smtpagent;   return 'US::ReceivingSES'; end
+        def smtpagent;   return Sisimai::MSP.smtpagent(self); end
 
         # X-SES-Outgoing: 2015.10.01-54.240.27.7
         # Feedback-ID: 1.us-west-2.HX6/J9OVlHTadQhEu1+wdF9DBj6n6Pa9sW5Y/0pSOi8=:AmazonSES

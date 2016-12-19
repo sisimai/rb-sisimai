@@ -26,7 +26,7 @@ module Sisimai
         Indicators = Sisimai::MSP.INDICATORS
 
         def description; return 'Microsoft Outlook.com: https://www.outlook.com/'; end
-        def smtpagent;   return 'US::Outlook'; end
+        def smtpagent;   return Sisimai::MSP.smtpagent(self); end
 
         # X-Message-Delivery: Vj0xLjE7RD0wO0dEPTA7U0NMPTk7bD0xO3VzPTE=
         # X-Message-Info: AuEzbeVr9u5fkDpn2vR5iCu5wb6HBeY4iruBjnutBzpStnUabbM...

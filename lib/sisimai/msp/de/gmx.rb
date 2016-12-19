@@ -23,7 +23,7 @@ module Sisimai
         Indicators = Sisimai::MSP.INDICATORS
 
         def description; return 'GMX: http://www.gmx.net'; end
-        def smtpagent;   return 'DE::GMX'; end
+        def smtpagent;   return Sisimai::MSP.smtpagent(self); end
 
         # Envelope-To: <kijitora@mail.example.com>
         # X-GMX-Antispam: 0 (Mail was not recognized as spam); Detail=V3;

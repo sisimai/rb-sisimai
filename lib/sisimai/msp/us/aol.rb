@@ -23,7 +23,7 @@ module Sisimai
         Indicators = Sisimai::MSP.INDICATORS
 
         def description; return 'Aol Mail: http://www.aol.com'; end
-        def smtpagent;   return 'US::Aol'; end
+        def smtpagent;   return Sisimai::MSP.smtpagent(self); end
 
         # X-AOL-IP: 192.0.2.135
         # X-AOL-VSS-INFO: 5600.1067/98281

@@ -22,7 +22,7 @@ module Sisimai
         Indicators = Sisimai::MSP.INDICATORS
 
         def description; return 'Amazon WorkMail: https://aws.amazon.com/workmail/'; end
-        def smtpagent;   return 'US::AmazonWorkMail'; end
+        def smtpagent;   return Sisimai::MSP.smtpagent(self); end
 
         # X-Mailer: Amazon WorkMail
         # X-Original-Mailer: Amazon WorkMail

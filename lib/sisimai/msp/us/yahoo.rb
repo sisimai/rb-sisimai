@@ -19,7 +19,7 @@ module Sisimai
         Indicators = Sisimai::MSP.INDICATORS
 
         def description; return 'Yahoo! MAIL: https://www.yahoo.com'; end
-        def smtpagent;   return 'US::Yahoo'; end
+        def smtpagent;   return Sisimai::MSP.smtpagent(self); end
 
         # X-YMailISG: YtyUVyYWLDsbDh...
         # X-YMail-JAS: Pb65aU4VM1mei...

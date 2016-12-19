@@ -30,7 +30,7 @@ module Sisimai
         Indicators = Sisimai::MSP.INDICATORS
 
         def description; return 'Amazon SES(Sending): http://aws.amazon.com/ses/'; end
-        def smtpagent;   return 'US::AmazonSES'; end
+        def smtpagent;   return Sisimai::MSP.smtpagent(self); end
 
         # X-SenderID: Sendmail Sender-ID Filter v1.0.0 nijo.example.jp p7V3i843003008
         # X-Original-To: 000001321defbd2a-788e31c8-2be1-422f-a8d4-cf7765cc9ed7-000000@email-bounces.amazonses.com

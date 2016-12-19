@@ -22,7 +22,7 @@ module Sisimai
         Indicators = Sisimai::MSP.INDICATORS
 
         def description; return 'SendGrid: http://sendgrid.com/'; end
-        def smtpagent;   return 'US::SendGrid'; end
+        def smtpagent;   return Sisimai::MSP.smtpagent(self); end
 
         # Return-Path: <apps@sendgrid.net>
         # X-Mailer: MIME-tools 5.502 (Entity 5.502)

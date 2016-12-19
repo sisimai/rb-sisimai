@@ -19,7 +19,7 @@ module Sisimai
         Indicators = Sisimai::MSP.INDICATORS
 
         def description; return 'Yandex.Mail: http://www.yandex.ru'; end
-        def smtpagent;   return 'RU::Yandex'; end
+        def smtpagent;   return Sisimai::MSP.smtpagent(self); end
 
         # X-Yandex-Front: mxback1h.mail.yandex.net
         # X-Yandex-TimeMark: 1417885948

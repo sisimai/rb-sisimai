@@ -25,7 +25,7 @@ module Sisimai
         Indicators = Sisimai::MSP.INDICATORS
 
         def description; return 'Symantec.cloud http://www.messagelabs.com'; end
-        def smtpagent;   return 'UK::MessageLabs'; end
+        def smtpagent;   return Sisimai::MSP.smtpagent(self); end
 
         # X-Msg-Ref: server-11.tower-143.messagelabs.com!1419367175!36473369!1
         # X-Originating-IP: [10.245.230.38]

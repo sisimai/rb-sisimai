@@ -63,7 +63,7 @@ module Sisimai
         Indicators = Sisimai::MSP.INDICATORS
 
         def description; return '@mail.ru: https://mail.ru'; end
-        def smtpagent;   return 'RU::MailRu'; end
+        def smtpagent;   return Sisimai::MSP.smtpagent(self); end
         def headerlist;  return ['X-Failed-Recipients']; end
         def pattern;     return Re0; end
 

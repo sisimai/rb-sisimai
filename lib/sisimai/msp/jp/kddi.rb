@@ -32,7 +32,7 @@ module Sisimai
         Indicators = Sisimai::MSP.INDICATORS
 
         def description; return 'au by KDDI: http://www.au.kddi.com'; end
-        def smtpagent;   return 'JP::KDDI'; end
+        def smtpagent;   return Sisimai::MSP.smtpagent(self); end
         def headerlist;  return []; end
         def pattern;     return Re0; end
 

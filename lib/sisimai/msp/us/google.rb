@@ -112,7 +112,7 @@ module Sisimai
         Indicators = Sisimai::MSP.INDICATORS
 
         def description; return 'Google Gmail: https://mail.google.com'; end
-        def smtpagent;   return 'US::Google'; end
+        def smtpagent;   return Sisimai::MSP.smtpagent(self); end
         def headerlist;  return ['X-Failed-Recipients']; end
         def pattern;     return Re0; end
 

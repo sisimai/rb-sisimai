@@ -28,7 +28,7 @@ module Sisimai
         Indicators = Sisimai::MSP.INDICATORS
 
         def description; return 'Zoho Mail: https://www.zoho.com'; end
-        def smtpagent;   return 'US::Zoho'; end
+        def smtpagent;   return Sisimai::MSP.smtpagent(self); end
 
         # X-ZohoMail: Si CHF_MF_NL SS_10 UW48 UB48 FMWL UW48 UB48 SGR3_1_09124_42
         # X-Zoho-Virus-Status: 2

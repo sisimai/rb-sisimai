@@ -24,7 +24,7 @@ module Sisimai
         Indicators = Sisimai::MSP.INDICATORS
 
         def description; return '1&1: http://www.1and1.de'; end
-        def smtpagent;   return 'DE::EinsUndEins'; end
+        def smtpagent;   return Sisimai::MSP.smtpagent(self); end
         # X-UI-Out-Filterresults: unknown:0;
         def headerlist;  return []; end
         def pattern;     return Re0; end

@@ -55,7 +55,7 @@ module Sisimai
         Indicators = Sisimai::MSP.INDICATORS
 
         def description; return 'Microsoft Office 365: http://office.microsoft.com/'; end
-        def smtpagent;   return 'US::Office365'; end
+        def smtpagent;   return Sisimai::MSP.smtpagent(self); end
 
         def headerlist
           # X-MS-Exchange-Message-Is-Ndr:
