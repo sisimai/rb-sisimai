@@ -30,6 +30,7 @@ module Sisimai
               |unknown
               |unreachable
               )
+            |Mail[ ]domain[ ]mentioned[ ]in[ ]email[ ]address[ ]is[ ]unknown
             |name[ ]or[ ]service[ ]not[ ]known
             |no[ ]such[ ]domain
             |recipient[ ](?:
