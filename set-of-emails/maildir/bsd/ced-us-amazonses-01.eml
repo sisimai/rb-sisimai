@@ -1,0 +1,47 @@
+Delivered-To: sironeko@example.com
+Received: by 10.37.47.81 with SMTP id v78csp965841ybv;
+        Thu, 20 Oct 2016 17:06:41 -0700 (PDT)
+X-Received: by 10.99.2.214 with SMTP id 205mr4929756pgc.1.1477008401761;
+        Thu, 20 Oct 2016 17:06:41 -0700 (PDT)
+Return-Path: <01010157e48fa0da-c8193da8-0663-4595-93f1-48a12e862252-000000@us-west-2.amazonses.com>
+Received: from nijo.example.jp (nijo.example.jp. [192.0.2.153])
+        by mx.google.com with ESMTP id c17si30985537pgj.153.2016.10.20.17.06.41
+        for <sironeko@example.com>;
+        Thu, 20 Oct 2016 17:06:41 -0700 (PDT)
+Received-SPF: fail (google.com: domain of 01010157e48fa0da-c8193da8-0663-4595-93f1-48a12e862252-000000@us-west-2.amazonses.com does not designate 192.0.2.153 as permitted sender) client-ip=192.0.2.153;
+Authentication-Results: mx.google.com;
+       dkim=neutral (body hash did not verify) header.i=@amazonses.com;
+       spf=fail (google.com: domain of 01010157e48fa0da-c8193da8-0663-4595-93f1-48a12e862252-000000@us-west-2.amazonses.com does not designate 192.0.2.153 as permitted sender) smtp.mailfrom=01010157e48fa0da-c8193da8-0663-4595-93f1-48a12e862252-000000@us-west-2.amazonses.com
+Received: from a27-82.smtp-out.us-west-2.amazonses.com (a27-82.smtp-out.us-west-2.amazonses.com [54.240.27.82])
+	by nijo.example.jp (V8/cf) with ESMTP id u9L06fOn017159
+	for <nekochan@example.jp>; Fri, 21 Oct 2016 09:06:41 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 nijo.example.jp u9L06fOn017159
+Authentication-Results: nijo.example.jp; sender-id=none header.from=no-reply@sns.amazonaws.com; spf=pass smtp.mfrom=01010157e48fa0da-c8193da8-0663-4595-93f1-48a12e862252-000000@us-west-2.amazonses.com
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=gdwg2y3kokkkj5a55z2ilkup5wp5hhxx; d=amazonses.com; t=1477008400;
+	h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Feedback-ID;
+	bh=Z2dTQ3/mPA3FKUGnivGj2m77HvJT6arMwX7iB5K+eyw=;
+	b=GbmozRKJzswLXWDMk8eyN/o1oC07lxI3Fia/9cTDWMzPPjt4LNy/3OOLDLzTtm3I
+	4pEh4m7iu9DZSuflR0uLeoY9rfwfl+AarBz7A1CDWf3n+hDt3Aa8bBfmmVhtO7Kzwmp
+	SvtQ+k39gAllN+KpQIH6aQ2cBPMhrEIVMb0ar+S0=
+Date: Fri, 21 Oct 2016 00:06:40 +0000
+From: SES-EM-B <no-reply@sns.amazonaws.com>
+To: nekochan@example.jp
+Message-ID: <01010157e48fa0da-c8193da8-0663-4595-93f1-48a12e862252-000000@us-west-2.amazonses.com>
+Subject: AWS Notification Message
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+x-amz-sns-message-id: ad6bdf42-f483-5bae-bf50-8fc1aad3f981
+x-amz-sns-subscription-arn: arn:aws:sns:us-west-2:123456789012:SES-EM-B:6826a561-3e15-47c8-a928-bf7e4463942d
+X-SES-Outgoing: 2016.10.21-54.240.27.82
+Feedback-ID: 1.us-west-2.c55J8LO2Yl1R0Ht+ysI6VjzUH6Cvo3dHPF80AUVC/G8=:AmazonSES
+
+{"notificationType":"Bounce","bounce":{"bounceType":"Permanent","bounceSubType":"General","bouncedRecipients":[{"emailAddress":"bounce@simulator.amazonses.com","action":"failed","status":"5.1.1","diagnosticCode":"smtp; 550 5.1.1 user unknown"}],"timestamp":"2016-10-21T00:06:40.502Z","feedbackId":"01010157e48fa03f-c7e948fe-3c34-403e-b681-02a497797067-000000","reportingMTA":"dsn; a27-23.smtp-out.us-west-2.amazonses.com"},"mail":{"timestamp":"2016-10-21T00:06:39.000Z","source":"kijitora@neko.example.org","sourceArn":"arn:aws:ses:us-west-2:123456789012:identity/kijitora@neko.example.org","sendingAccountId":"123456789012","messageId":"01010157e48f9b9b-891e9a0e-9c9d-4773-9bfe-608f2ef4756d-000000","destination":["bounce@simulator.amazonses.com"],"headersTruncated":false,"headers":[{"name":"From","value":"kijitora@neko.example.org"},{"name":"To","value":"bounce@simulator.amazonses.com"},{"name":"Subject","value":"nyaan"},{"name":"MIME-Version","value":"1.0"},{"name":"Content-Type","value":"text/plain; charset=UTF-8"},{"name":"!
+ Content-Transfer-Encoding","value":"base64"}],"commonHeaders":{"from":["kijitora@neko.example.org"],"to":["bounce@simulator.amazonses.com"],"subject":"nyaan"}}}
+
+--
+If you wish to stop receiving notifications from this topic, please click or visit the link below to unsubscribe:
+https://sns.us-west-2.amazonaws.com/unsubscribe.html?SubscriptionArn=arn:aws:sns:us-west-2:123456789012:SES-EM-B:6826a561-3e15-47c8-a928-bf7e4463942d&Endpoint=nekochan@example.jp
+
+Please do not reply directly to this email. If you have any questions or comments regarding this email, please contact us at https://aws.amazon.com/support

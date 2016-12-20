@@ -1,0 +1,46 @@
+Delivered-To: sironeko@example.com
+Received: by 10.200.58.164 with SMTP id x33csp2637093qte;
+        Wed, 23 Nov 2016 04:01:10 -0800 (PST)
+X-Received: by 10.84.131.36 with SMTP id 33mr5949396pld.1.1479902470060;
+        Wed, 23 Nov 2016 04:01:10 -0800 (PST)
+Return-Path: <01010158910f86d3-55c63e10-339d-49fe-bd6c-6d12e6f3a33c-000000@us-west-2.amazonses.com>
+Received: from aneyakoji.example.jp (aneyakoji.example.jp. [192.0.2.222])
+        by mx.google.com with ESMTP id u189si29555672pfu.124.2016.11.23.04.01.09
+        for <sironeko@example.com>;
+        Wed, 23 Nov 2016 04:01:10 -0800 (PST)
+Received-SPF: fail (google.com: domain of 01010158910f86d3-55c63e10-339d-49fe-bd6c-6d12e6f3a33c-000000@us-west-2.amazonses.com does not designate 192.0.2.222 as permitted sender) client-ip=192.0.2.222;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@amazonses.com;
+       spf=fail (google.com: domain of 01010158910f86d3-55c63e10-339d-49fe-bd6c-6d12e6f3a33c-000000@us-west-2.amazonses.com does not designate 192.0.2.222 as permitted sender) smtp.mailfrom=01010158910f86d3-55c63e10-339d-49fe-bd6c-6d12e6f3a33c-000000@us-west-2.amazonses.com
+Received: from a27-15.smtp-out.us-west-2.amazonses.com (a27-15.smtp-out.us-west-2.amazonses.com [54.240.27.15])
+	by aneyakoji.example.jp (V8/cf) with ESMTP id uANC19kf028162
+	for <kijitora@example.jp>; Wed, 23 Nov 2016 21:01:09 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 aneyakoji.example.jp uANC19kf028162
+Authentication-Results: aneyakoji.example.jp; sender-id=none header.from=no-reply@sns.amazonaws.com; spf=pass smtp.mfrom=01010158910f86d3-55c63e10-339d-49fe-bd6c-6d12e6f3a33c-000000@us-west-2.amazonses.com
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=gdwg2y3kokkkj5a55z2ilkup5wp5hhxx; d=amazonses.com; t=1479902463;
+	h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Feedback-ID;
+	bh=yfgbEtaRRqk0in7FjRmsLdqqQBzqkGnpQ62SU/NyQ9o=;
+	b=O9d5oiZmOUDs0biYSDtOtDyLhn0C4NWy2kNiuB71xamO0VT/9xq7Qyoumqrvva+g
+	FNi4f7xOAQrNX/9FamPVYyHoAa5qSHDc9N9E8e1y26dF9Hcl4Ghhgj5a7686xLnZMSQ
+	vPRvaedOHfxRNM2gtkwHfpljOn1Km3Bz3pnY9VrM=
+Date: Wed, 23 Nov 2016 12:01:03 +0000
+From: SES-EM-D <no-reply@sns.amazonaws.com>
+To: kijitora@example.jp
+Message-ID: <01010158910f86d3-55c63e10-339d-49fe-bd6c-6d12e6f3a33c-000000@us-west-2.amazonses.com>
+Subject: AWS Notification Message
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+x-amz-sns-message-id: 1af9f4b7-502e-510c-9aba-a418d71101fc
+x-amz-sns-subscription-arn: arn:aws:sns:us-west-2:123456789012:SES-EM-D:cf5d1ce1-7c6e-47bb-976e-5d1800de56d0
+X-SES-Outgoing: 2016.11.23-54.240.27.15
+Feedback-ID: 1.us-west-2.c55J8LO2Yl1R0Ht+ysI6VjzUH6Cvo3dHPF80AUVC/G8=:AmazonSES
+
+{"notificationType":"Delivery","mail":{"timestamp":"2016-11-23T12:00:59.530Z","source":"kijitora@neko.example.jp","sourceArn":"arn:aws:ses:us-west-2:123456789012:identity/kijitora@neko.example.jp","sendingAccountId":"123456789012","messageId":"01010158910f768a-98f33ad0-6366-4b78-86e7-1048b5d7d519-000000","destination":["success@simulator.amazonses.com"],"headersTruncated":false,"headers":[{"name":"From","value":"kijitora@neko.example.jp"},{"name":"To","value":"success@simulator.amazonses.com"},{"name":"Subject","value":"Nyaan"},{"name":"MIME-Version","value":"1.0"},{"name":"Content-Type","value":"text/plain; charset=UTF-8"},{"name":"Content-Transfer-Encoding","value":"base64"}],"commonHeaders":{"from":["kijitora@neko.example.jp"],"to":["success@simulator.amazonses.com"],"subject":"Nyaan"}},"delivery":{"timestamp":"2016-11-23T12:01:03.512Z","processingTimeMillis":3982,"recipients":["success@simulator.amazonses.com"],"smtpResponse":"250 2.6.0 Message received","reportingMTA":"a27-29.smtp-out.us-west-2.amazonses.com"}}
+
+--
+If you wish to stop receiving notifications from this topic, please click or visit the link below to unsubscribe:
+https://sns.us-west-2.amazonaws.com/unsubscribe.html?SubscriptionArn=arn:aws:sns:us-west-2:123456789012:SES-EM-D:cf5d1ce1-7c6e-47bb-976e-5d1800de56d0&Endpoint=kijitora@example.jp
+
+Please do not reply directly to this email. If you have any questions or comments regarding this email, please contact us at https://aws.amazon.com/support

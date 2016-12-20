@@ -1,0 +1,51 @@
+Delivered-To: sironeko@example.com
+Received: by 10.37.47.81 with SMTP id v78csp1081351ybv;
+        Thu, 20 Oct 2016 23:58:06 -0700 (PDT)
+X-Received: by 10.98.73.203 with SMTP id r72mr8950513pfi.4.1477033086421;
+        Thu, 20 Oct 2016 23:58:06 -0700 (PDT)
+Return-Path: <01010157e6083e0a-4218bd58-f11a-4bce-b20d-ad670c9a8f4a-000000@us-west-2.amazonses.com>
+Received: from nijo.example.jp (nijo.example.jp. [192.0.2.153])
+        by mx.google.com with ESMTP id yw4si1087120pab.235.2016.10.20.23.58.06
+        for <sironeko@example.com>;
+        Thu, 20 Oct 2016 23:58:06 -0700 (PDT)
+Received-SPF: fail (google.com: domain of 01010157e6083e0a-4218bd58-f11a-4bce-b20d-ad670c9a8f4a-000000@us-west-2.amazonses.com does not designate 192.0.2.153 as permitted sender) client-ip=192.0.2.153;
+Authentication-Results: mx.google.com;
+       dkim=neutral (body hash did not verify) header.i=@amazonses.com;
+       spf=fail (google.com: domain of 01010157e6083e0a-4218bd58-f11a-4bce-b20d-ad670c9a8f4a-000000@us-west-2.amazonses.com does not designate 192.0.2.153 as permitted sender) smtp.mailfrom=01010157e6083e0a-4218bd58-f11a-4bce-b20d-ad670c9a8f4a-000000@us-west-2.amazonses.com
+Received: from a27-84.smtp-out.us-west-2.amazonses.com (a27-84.smtp-out.us-west-2.amazonses.com [54.240.27.84])
+	by nijo.example.jp (V8/cf) with ESMTP id u9L6w4Rc002915
+	for <nekochan@example.jp>; Fri, 21 Oct 2016 15:58:04 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 nijo.example.jp u9L6w4Rc002915
+Authentication-Results: nijo.example.jp; sender-id=none header.from=no-reply@sns.amazonaws.com; spf=pass smtp.mfrom=01010157e6083e0a-4218bd58-f11a-4bce-b20d-ad670c9a8f4a-000000@us-west-2.amazonses.com
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=gdwg2y3kokkkj5a55z2ilkup5wp5hhxx; d=amazonses.com; t=1477033082;
+	h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Feedback-ID;
+	bh=99fii1AUIlruZw9Lf6Ac9goZx1dgrNvtQlk/Aw9xvQA=;
+	b=fFf+0ZqGYUe5oi8d929a3wCzeo/WoX5n0JC/M4YxjB4e60E6kK+l7lORFDaCL5x6
+	pyJhKFDWO2AO40ZoJ7/VrfuCqwocjC5ExqqAsBOHhwvKEvZX42X1p/dMnkrj/dfZeg0
+	nQ/34M1PWDhFbPvDt08XL4aPlR/870GDADx99cPM=
+Date: Fri, 21 Oct 2016 06:58:02 +0000
+From: SES-EJ-B <no-reply@sns.amazonaws.com>
+To: nekochan@example.jp
+Message-ID: <01010157e6083e0a-4218bd58-f11a-4bce-b20d-ad670c9a8f4a-000000@us-west-2.amazonses.com>
+Subject: AWS Notification Message
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+x-amz-sns-message-id: 02f86d9b-eecf-573d-b47d-3d1850750c30
+x-amz-sns-subscription-arn: arn:aws:sns:us-west-2:123456789012:SES-EJ-B:c4b92a6d-5e69-49cf-bf38-b4c9ebb70972
+X-SES-Outgoing: 2016.10.21-54.240.27.84
+Feedback-ID: 1.us-west-2.c55J8LO2Yl1R0Ht+ysI6VjzUH6Cvo3dHPF80AUVC/G8=:AmazonSES
+
+{
+  "Type" : "Notification",
+  "MessageId" : "02f86d9b-eecf-573d-b47d-3d1850750c30",
+  "TopicArn" : "arn:aws:sns:us-west-2:123456789012:SES-EJ-B",
+  "Message" : "{\"notificationType\":\"Bounce\",\"bounce\":{\"bounceType\":\"Permanent\",\"bounceSubType\":\"General\",\"bouncedRecipients\":[{\"emailAddress\":\"bounce@simulator.amazonses.com\",\"action\":\"failed\",\"status\":\"5.1.1\",\"diagnosticCode\":\"smtp; 550 5.1.1 user unknown\"}],\"timestamp\":\"2016-10-21T06:58:02.245Z\",\"feedbackId\":\"01010157e6083d17-38cf01f3-852d-4401-8e8a-84e67a3e51d8-000000\",\"reportingMTA\":\"dsn; a27-33.smtp-out.us-west-2.amazonses.com\"},\"mail\":{\"timestamp\":\"2016-10-21T06:58:00.000Z\",\"source\":\"kijitora@neko.example.org\",\"sourceArn\":\"arn:aws:ses:us-west-2:123456789012:identity/kijitora@neko.example.org\",\"sendingAccountId\":\"123456789012\",\"messageId\":\"01010157e6083857-2c73eed0-71f8-47d1-ab77-c4646f9d776d-000000\",\"destination\":[\"bounce@simulator.amazonses.com\"],\"headersTruncated\":false,\"headers\":[{\"name\":\"From\",\"value\":\"kijitora@neko.example.org\"},{\"name\":\"To\",\"value\":\"bounce@simulator.amazonses.com\"},{\"name\":\"Subject\",\"value\":\"Nya!
+ aan\"},{\"name\":\"MIME-Version\",\"value\":\"1.0\"},{\"name\":\"Content-Type\",\"value\":\"text/plain; charset=UTF-8\"},{\"name\":\"Content-Transfer-Encoding\",\"value\":\"base64\"}],\"commonHeaders\":{\"from\":[\"kijitora@neko.example.org\"],\"to\":[\"bounce@simulator.amazonses.com\"],\"subject\":\"Nyaaan\"}}}",
+  "Timestamp" : "2016-10-21T06:58:02.294Z",
+  "SignatureVersion" : "1",
+  "Signature" : "C8prgK1poqge9QGVsmEejcVIWCDZGtQ92c1VFywS0ZbpWFJi28y9BEKhjopGdy2PtZ8llYeksStsgqcWbwVrHIEeIhVSRBexI46uYPxP9isUQxbhmc1TjcPefDHyc2/blYA5Xi4RYgRu257s/XEPb/7eC2nmjjtjfhbOMwJVKv9yaOKAIXOgQaRTUZgXN3zgWHgMWxNaaWGM/I1qQTqdDakq9kWAsVwDo9+KJlmMWtIIEywZ8ut9GkHGJFdoWcdhubDUuFlaVlcQpyVqP9wsU6KtvurSl0KLMq0+IQVFBo3/BKt8RxwDvgl3b1MTq5xdhLtiYO6Ldlrmn3kElF2pOw==",
+  "SigningCertURL" : "https://sns.us-west-2.amazonaws.com/SimpleNotificationService-b95095beb82e8f6a046b3aafc7f4149a.pem",
+  "UnsubscribeURL" : "https://sns.us-west-2.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:us-west-2:123456789012:SES-EJ-B:c4b92a6d-5e69-49cf-bf38-b4c9ebb70972"
+}
