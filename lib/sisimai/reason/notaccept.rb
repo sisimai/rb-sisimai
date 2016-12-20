@@ -24,7 +24,11 @@ module Sisimai
           return nil unless argv1
 
           # Destination mail server does not accept any message
-          regex = %r/smtp[ ]protocol[ ]returned[ ]a[ ]permanent[ ]error/xi
+          regex = %r{(?:
+               Name[ ]server:[ ][.]:[ ]host[ ]not[ ]found # Sendmail
+              |55[46][ ]smtp[ ]protocol[ ]returned[ ]a[ ]permanent[ ]error
+            )
+          }ix
 
           return true if argv1 =~ regex
           return false
