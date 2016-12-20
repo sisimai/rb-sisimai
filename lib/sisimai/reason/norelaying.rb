@@ -64,6 +64,8 @@ module Sisimai
             # Check the value of Diagnosic-Code: header with patterns
             return true if Sisimai::Reason::NoRelaying.match(argvs.diagnosticcode)
           end
+
+          return false
         end
 
       end
