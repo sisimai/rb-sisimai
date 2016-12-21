@@ -91,6 +91,14 @@ describe Sisimai::SMTP::Error do
           subject { v }
           it('returns String') { is_expected.to be_a String }
           it('returns "hard"') { is_expected.to be == 'hard' }
+
+          if e == 'notaccept'
+            q = cn.soft_or_hard(e, '503 Not accept any email')
+            it('503... returns "hard"') { expect(q).to be == 'hard' }
+
+            r = cn.soft_or_hard(e, '409 Not accept any email')
+            it('409... returns "soft"') { expect(r).to be == 'soft' }
+          end
         end
       end
 
