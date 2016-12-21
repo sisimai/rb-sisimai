@@ -87,8 +87,9 @@ module Sisimai
           mesg = Sisimai::Message.new(methodargv)
           next if mesg.void
 
-          methodargv = { data: e, hook: hookmethod, input: 'json', delivered: delivered1 }
+          methodargv = { data: mesg, hook: hookmethod, input: 'json', delivered: delivered1 }
           data = Sisimai::Data.make(methodargv)
+
           next unless data
           bouncedata.concat(data) if data.size > 0
         end
