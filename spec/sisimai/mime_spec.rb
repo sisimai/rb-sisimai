@@ -99,7 +99,7 @@ Reporting-MTA: dns; server-15.bemta-3.messagelabs.com
 Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
 
     ';
-    
+
     context 'Quoted-Printable string' do
       it('returns "Neko"') { expect(cn.qprintd('=4e=65=6b=6f')).to be == 'Neko' }
       d7 = cn.qprintd(q7, h7)
@@ -108,6 +108,15 @@ Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
       it('includes boundary') { expect(d7).to match(%r|[-][-]b0Nvs[+]XKfKLLRaP/Qo8jZhQPoiqeWi3KWPXMgw==|m) }
       it('does not match 32=') { expect(d7).not_to match(/32=$/m) }
     end
+
+    h8 = { 'content-type' => 'neko/nyan' }
+    q8 = 'neko'
+    d8 = cn.qprintd(q8, h8)
+    context 'Invalid content-type header' do
+      it('returns String') { expect(d8).to be_a String }
+      it('returns ' + q8)  { expect(d8).to be == q8 }
+    end
+
     context 'wrong number of arguments' do
       it('raises ArgumentError') { expect { cn.qprintd(nil,nil,nil) }.to raise_error(ArgumentError) }
     end
