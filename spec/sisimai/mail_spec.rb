@@ -7,6 +7,7 @@ describe Sisimai::Mail do
   let(:mailobj) { Sisimai::Mail.new(samples) }
   let(:mailbox) { Sisimai::Mail.new(samples) }
   let(:maildir) { Sisimai::Mail.new(samples) }
+  let(:devices) { Sisimai::Mail.new(samples) }
   let(:mockobj) { Sisimai::Mail.new(invalid) }
 
   describe 'class method' do
@@ -45,6 +46,25 @@ describe Sisimai::Mail do
   end
 
   describe 'instance method' do
+    describe 'Standard-In' do
+      let(:samples) { STDIN }
+      describe '#class' do
+        it('returns Sisimai::Mail') { expect(devices).to be_a Sisimai::Mail }
+      end
+      describe '#type' do
+        it('is "stdin"') { expect(devices.type).to be == 'stdin' }
+      end
+      describe '#path' do
+        it('returns IO::STDIN') { expect(devices.path).to be_a IO }
+      end
+      describe '#mail' do
+        it('returns "Sisimai::Mail::STDIN"') { expect(devices.mail).to be_a Sisimai::Mail::STDIN }
+      end
+      describe '#close' do
+        it('will be closed successfully') { expect(devices.close).to be true }
+      end
+    end
+
     describe 'Mailbox' do
       let(:samples) { samplemailbox }
       before do
