@@ -62,6 +62,13 @@ describe Sisimai::Address do
         end
       end
 
+      context '<MAILER-DAEMON>' do
+        v = Sisimai::Address.new('Mail Delivery Subsystem <MAILER-DAEMON>')
+        it 'returns Sisimai::Address object' do
+          expect(v).to be_a Sisimai::Address
+        end
+      end
+
       context 'wrong number of arguments' do
         it 'raises ArgumentError' do
           expect { Sisimai::Address.new }.to raise_error(ArgumentError)
@@ -135,8 +142,8 @@ describe Sisimai::Address do
     describe '.undisclosed' do
       context 'valid argument character' do
         it 'returns dummy address' do
-          expect(Sisimai::Address.undisclosed(:r)).to be == 'undisclosed-recipient-in-headers@dummy-domain.invalid'
-          expect(Sisimai::Address.undisclosed(:s)).to be == 'undisclosed-sender-in-headers@dummy-domain.invalid'
+          expect(Sisimai::Address.undisclosed(:r)).to be == 'undisclosed-recipient-in-headers@libsisimai.org.invalid'
+          expect(Sisimai::Address.undisclosed(:s)).to be == 'undisclosed-sender-in-headers@libsisimai.org.invalid'
         end
         it 'returns nil' do
           expect(Sisimai::Address.undisclosed(nil)).to be nil
