@@ -121,9 +121,7 @@ module Sisimai
           return nil unless argvs.keys.size > 0
           return nil unless argvs.key?('notificationType')
 
-          require 'sisimai/time'
           require 'sisimai/rfc5322'
-
           dscontents = [Sisimai::CED.DELIVERYSTATUS];
           rfc822head = {}   # (Hash) Check flags for headers in RFC822 part
           recipients = 0    # (Integer) The number of 'Final-Recipient' header
@@ -144,7 +142,7 @@ module Sisimai
               next unless Sisimai::RFC5322.is_emailaddress(e['emailAddress'])
 
               v = dscontents[-1]
-              if v['recipient'].size > 1
+              if v['recipient']
                 # There are multiple recipient addresses in the message body.
                 dscontents << Sisimai::CED.DELIVERYSTATUS
                 v = dscontents[-1]
@@ -191,13 +189,8 @@ module Sisimai
                 v['feedbacktype'] = o['complaintFeedbackType'] || ''
               end
 
-              begin
-                q = o['timestamp'] || argvs['mail']['timestamp']
-                q = q.sub(/[.]\d+Z\z/, '')
-                v['date'] = Sisimai::Time.strptime(q, '%Y-%m-%dT%T')
-              rescue
-                ;
-              end
+              v['date'] = o['timestamp'] || argvs['mail']['timestamp']
+              v['date'] = v['date'].sub(/[.]\d+Z\z/, '')
             end
 
           elsif argvs['notificationType'] == 'Delivery'
@@ -221,7 +214,7 @@ module Sisimai
               next unless Sisimai::RFC5322.is_emailaddress(e)
 
               v = dscontents[-1]
-              if v['recipient'].size > 0
+              if v['recipient']
                 # There are multiple recipient addresses in the message body.
                 dscontents << Sisimai::CED.DELIVERYSTATUS
                 v = dscontents[-1]
@@ -235,13 +228,8 @@ module Sisimai
               v['reason']    = 'delivered'
               v['action']    = 'deliverable'
 
-              begin
-                q = o['timestamp'] || argvs['mail']['timestamp']
-                q = q.sub(/[.]\d+Z\z/, '')
-                v['date'] = Sisimai::Time.strptime(q, '%Y-%m-%dT%T')
-              rescue
-                ;
-              end
+              v['date'] = o['timestamp'] || argvs['mail']['timestamp']
+              v['date'] = v['date'].sub(/[.]\d+Z\z/, '')
             end
 
           else

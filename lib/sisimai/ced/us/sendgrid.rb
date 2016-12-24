@@ -8,6 +8,8 @@ module Sisimai
         require 'sisimai/ced'
         require 'sisimai/rfc5322'
 
+        def headerlist;  return []; end
+        def pattern;     return {}; end
         def smtpagent;   return Sisimai::CED.smtpagent(self); end
         def description; return 'SendGrid(JSON): http://sendgrid.com/'; end
 
@@ -27,7 +29,6 @@ module Sisimai
           recipients = 0      # (Integer) The number of 'Final-Recipient' header
           v = dscontents[-1]
 
-          require 'sisimai/date'
           require 'sisimai/string'
           require 'sisimai/address'
           require 'sisimai/rfc5322'
@@ -41,16 +42,10 @@ module Sisimai
             #   },
             recipients += 1
             v['recipient'] = argvs['email']
+            v['date'] = argvs['created'] || ''
 
             statuscode = argvs['status']  || ''
-            datestring = argvs['created'] || ''
             diagnostic = Sisimai::String.sweep(argvs['reason']) || ''
-
-            begin
-              v['date'] = Sisimai::Time.strptime(datestring, '%Y-%m-%d %T')
-            rescue
-              return nil
-            end
 
             if statuscode =~ /\A[245]\d\d\z/
               # "status": "550"
