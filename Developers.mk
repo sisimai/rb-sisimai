@@ -21,6 +21,7 @@ PERL_SISIMAI := p5-Sisimai
 PRECISIONTAB := ANALYTICAL-PRECISION
 BENCHMARKDIR := tmp/benchmark
 PARSERLOGDIR := var/log
+CEDMODULEDIR := lib/sisimai/ced
 MTAMODULEDIR := lib/sisimai/mta
 MSPMODULEDIR := lib/sisimai/msp
 MTARELATIVES := ARF rfc3464 rfc3834
@@ -74,6 +75,15 @@ sample:
 			$(MKDIR) $(BENCHMARKSET)/$$DIR-$$MSP ;\
 			$(CP) $(PUBLICEMAILS)/$$DIR-$$MSP-*.eml $(BENCHMARKSET)/$$DIR-$$MSP/ ;\
 			$(CP) $(PRIVATEMAILS)/$$DIR-$$MSP/* $(BENCHMARKSET)/$$DIR-$$MSP/ ;\
+		done ;\
+	done
+	for c in `$(LS) ./$(CEDMODULEDIR)`; do \
+		for v in `$(LS) ./$(CEDMODULEDIR)/$$c/*.rb`; do \
+			DIR=`echo $$c | tr '[A-Z]' '[a-z]' | tr -d '/'` ;\
+			CED="`echo $$v | cut -d/ -f6 | tr '[A-Z]' '[a-z]' | sed 's/.rb//g'`" ;\
+			$(MKDIR) $(BENCHMARKSET)/$$DIR-$$CED ;\
+			$(CP) $(PUBLICEMAILS)/$$DIR-$$CED-*.eml $(BENCHMARKSET)/$$DIR-$$CED/ ;\
+			$(CP) $(PRIVATEMAILS)/$$DIR-$$CED/* $(BENCHMARKSET)/$$DIR-$$CED/ ;\
 		done ;\
 	done
 	for v in arf rfc3464 rfc3834; do \
