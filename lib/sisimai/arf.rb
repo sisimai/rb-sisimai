@@ -317,6 +317,7 @@ module Sisimai
 
           e['reason']  = 'feedback'
           e['command'] = ''
+          e['action']  = ''
           e['status']  = ''
           e['alias']   = ''
           e['agent']   = self.smtpagent if e['agent'].empty?
