@@ -8,6 +8,9 @@ module Sisimai
       def INDICATORS;        return Sisimai::Skeleton.INDICATORS;     end
       def DELIVERYSTATUS;    return Sisimai::Skeleton.DELIVERYSTATUS; end
       def smtpagent(v = ''); return v.to_s.sub(/\ASisimai::/, '');    end
+      def description;       return ''; end
+      def headerlist;        return []; end
+      def pattern;           return {}; end
 
       # CED list
       # @return   [Array] CED list with order
