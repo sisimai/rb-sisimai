@@ -69,14 +69,16 @@ describe 'Private samples' do
         expect(File.size(emailfn)).to be > 0
       end
 
-      File.open(emailfn,'r') do |fhandle|
-        fhandle.each_line do |g|
-          lnindex += 1
-          g = g.scrub('?')
-          it 'end with 0x0a' do
-            expect(g).to match %r/\x0a\z/
+      if emailfn =~ /[.]eml/
+        File.open(emailfn,'r') do |fhandle|
+          fhandle.each_line do |g|
+            lnindex += 1
+            g = g.scrub('?')
+            it 'end with 0x0a' do
+              expect(g).to match %r/\x0a\z/
+            end
+            break if lnindex > checkuntil
           end
-          break if lnindex > checkuntil
         end
       end
 
