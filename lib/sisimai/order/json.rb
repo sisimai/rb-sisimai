@@ -27,11 +27,17 @@ module Sisimai
         end
         DefaultOrder = make_default_order.call
 
-        # Make default order of MTA/MSP modules to be loaded
-        # @return   [Array] Default order list of MTA/MSP modules
-        def default
-          return DefaultOrder
-        end
+        # Make default order of CED modules to be loaded
+        # @return   [Array] Default order list of CED modules
+        def default; return DefaultOrder; end
+
+        # Make CED module list as a spare
+        # @return   [Array] Ordered module list
+        def another; return []; end
+
+        # Make email header list in each CED module
+        # @return   [Hash] Header list to be parsed
+        def headers; return {}; end
 
         # Get regular expression patterns for specified key name
         # @param    [String] group  Group name for "ORDER BY"

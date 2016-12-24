@@ -1,8 +1,8 @@
 module Sisimai
-  # Sisimai::Order::Email makes optimized order list which include MTA and MSP
-  # modules to be loaded on first from MTA specific headers in the bounce mail
-  # headers such as X-Failed-Recipients.
-  # This module are called from only Sisimai::Message.
+  # Sisimai::Order::Email makes optimized order list which include MTA, MSP and
+  # CED modules to be loaded on first from MTA, MSP or CED specific headers in
+  # the bounce mail headers such as X-Failed-Recipients.
+  # This module are called from only Sisimai::Message::Email.
   module Order
     module Email
       # Imported from p5-Sisimail/lib/Sisimai/Order/Email.pm
@@ -155,13 +155,14 @@ module Sisimai
         }
 
         make_default_order = lambda do
-          # Make default order of MTA/MSP modules to be loaded
+          # Make default order of MTA/MSP and CED modules to be loaded
           rv = []
           begin
             rv.concat(Sisimai::MTA.index.map { |e| 'Sisimai::MTA::' + e })
             rv.concat(Sisimai::MSP.index.map { |e| 'Sisimai::MSP::' + e })
+            rv.concat(Sisimai::CED.index.map { |e| 'Sisimai::CED::' + e })
           rescue
-            # Failed to load MTA/MSP module
+            # Failed to load MTA/MSP or CED module
             next
           end
           return rv
@@ -183,7 +184,7 @@ module Sisimai
           return {}
         end
 
-        # Make MTA/MSP module list as a spare
+        # Make MTA, MSP, and CED module list as a spare
         # @return   [Array] Ordered module list
         def another
           rv = []
@@ -196,7 +197,7 @@ module Sisimai
           return rv
         end
 
-        # Make email header list in each MTA module
+        # Make email header list in each MTA, MSP, and CED module
         # @return   [Hash] Header list to be parsed
         def headers
           order = self.default
