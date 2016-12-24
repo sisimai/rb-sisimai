@@ -6,7 +6,7 @@ require 'sisimai/data/json'
 require 'sisimai/message'
 
 describe Sisimai::Data::JSON do
-  file = './set-of-emails/maildir/bsd/sendmail-02.eml'
+  file = './set-of-emails/maildir/bsd/mta-sendmail-02.eml'
   mail = Sisimai::Mail.new(file)
   list = %w[
     token lhost rhost alias listid reason subject replycode messageid smtpagent

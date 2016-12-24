@@ -10,7 +10,7 @@ describe Sisimai::Rhost::ExchangeOnline do
   }
   describe 'bounce mail from GoogleApps' do
     rs.each_key.each do |n|
-      emailfn = sprintf('./set-of-emails/maildir/bsd/exchange-online-%02d.eml', n)
+      emailfn = sprintf('./set-of-emails/maildir/bsd/rhost-exchange-online-%02d.eml', n)
       next unless File.exist?(emailfn)
 
       mailbox = Sisimai::Mail.new(emailfn)
@@ -37,7 +37,7 @@ describe Sisimai::Rhost::ExchangeOnline do
           example('action is not empty') { expect(e['action']).not_to be_empty }
           example('rhost is ' + mtahost) { expect(e['rhost']).to be == mtahost }
           example('alias is ""') { expect(e['alias']).to be_empty }
-          example('agent is Sendmail') { expect(e['agent']).to be == 'Sendmail' }
+          example('agent is MTA::Sendmail') { expect(e['agent']).to be == 'MTA::Sendmail' }
         end
 
         data = Sisimai::Data.make(data: mesg)

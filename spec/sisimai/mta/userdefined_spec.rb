@@ -29,7 +29,7 @@ describe 'Sisimai::MTA::UserDefined' do
         example('#smtpcommand returns String') { expect(e.smtpcommand).to be_a String }
 
         example('#reason is "userunknown"') { expect(e.reason).to be == 'userunknown' }
-        example('#smtpagent is "Module name"') { expect(e.smtpagent).to be == 'Module name' }
+        example('#smtpagent is "MTA::UserDefined"') { expect(e.smtpagent).to be == 'MTA::UserDefined' }
 
         example('#timestamp is Sisimai::Time') { expect(e.timestamp).to be_a Sisimai::Time }
         example('#timestamp#year is 2010') { expect(e.timestamp.year).to be == 2010 }

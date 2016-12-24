@@ -3,7 +3,7 @@ require 'sisimai/mail/maildir'
 
 describe Sisimai::Mail::Maildir do
   samplemaildir = './set-of-emails/maildir/bsd'
-  allofthefiles = 339
+  allofthefiles = 346
   let(:mailobj) { Sisimai::Mail::Maildir.new(samples) }
   let(:mockobj) { Sisimai::Mail::Maildir.new(invalid) }
 
@@ -105,7 +105,7 @@ describe Sisimai::Mail::Maildir do
       while r = maildir.read do
         emindex += 1
         it 'is ' + maildir.file do
-          expect(maildir.file).to match(/\A[a-z0-9]+[-]\d\d[.]eml\z/)
+          expect(maildir.file).to match(/\A[a-z0-9-]+[-]\d\d[.]eml\z/)
           expect(maildir.file.size).to be > 0
         end
         it "has read #{maildir.count} files" do

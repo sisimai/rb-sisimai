@@ -5,7 +5,7 @@ require 'sisimai/message'
 
 describe Sisimai::Data do
   context 'without orders of email address headers' do
-    mail = Sisimai::Mail.new('./set-of-emails/maildir/bsd/sendmail-03.eml')
+    mail = Sisimai::Mail.new('./set-of-emails/maildir/bsd/mta-sendmail-03.eml')
     call = lambda do |argv|
       data = { 'x-mailer' => '', 'return-path' => '' }
       if cv = argv['message'].match(/^X-Mailer:\s*(.+)$/)
@@ -89,7 +89,7 @@ describe Sisimai::Data do
         end
 
         example('#smtpagent is String') { expect(e.smtpagent).to be_a String }
-        example('#smtpagent is "Sendmail"') { expect(e.smtpagent).to be == 'Sendmail' }
+        example('#smtpagent is "MTA::Sendmail"') { expect(e.smtpagent).to be == 'MTA::Sendmail' }
 
         example('#smtpcommand is String') { expect(e.smtpcommand).to be_a String }
         example('#smtpcommand is "DATA"') { expect(e.smtpcommand).to be == 'DATA' }
@@ -129,7 +129,7 @@ describe Sisimai::Data do
   end
 
   context 'with orders of email address headers' do
-    file = './set-of-emails/maildir/bsd/sendmail-04.eml'
+    file = './set-of-emails/maildir/bsd/mta-sendmail-04.eml'
     mail = Sisimai::Mail.new(file)
 
     while r = mail.read do
@@ -212,7 +212,7 @@ describe Sisimai::Data do
         end
 
         example('#smtpagent is String') { expect(e.smtpagent).to be_a String }
-        example('#smtpagent is "Sendmail"') { expect(e.smtpagent).to be == 'Sendmail' }
+        example('#smtpagent is "MTA::Sendmail"') { expect(e.smtpagent).to be == 'MTA::Sendmail' }
 
         example('#smtpcommand is String') { expect(e.smtpcommand).to be_a String }
         example('#smtpcommand is "MAIL"') { expect(e.smtpcommand).to be == 'MAIL' }

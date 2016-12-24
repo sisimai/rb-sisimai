@@ -279,7 +279,7 @@ describe 'Sisimai::MTA::*' do
           next unless debugOnlyTo == sprintf( "%s-%02d", x.downcase, i)
         end
 
-        emailfn = sprintf('./set-of-emails/maildir/bsd/%s-%02d.eml', x.downcase, i)
+        emailfn = sprintf('./set-of-emails/maildir/bsd/mta-%s-%02d.eml', x.downcase, i)
         mailbox = Sisimai::Mail.new(emailfn)
         mailtxt = nil
 
@@ -328,7 +328,7 @@ describe 'Sisimai::MTA::*' do
 
             if x == 'MFILTER'
               example sprintf('[%s] %s[agent] = %s', n, x, e['agent']) do
-                expect(e['agent']).to be == 'm-FILTER'
+                expect(e['agent']).to be == 'MTA::mFILTER'
               end
             elsif x == 'X4'
               example sprintf('[%s] %s[agent] = %s', n, x, e['agent']) do
@@ -336,11 +336,11 @@ describe 'Sisimai::MTA::*' do
               end
             elsif x == 'Qmail'
               example sprintf('[%s] %s[agent] = %s', n, x, e['agent']) do
-                expect(e['agent']).to be == 'qmail'
+                expect(e['agent']).to be == 'MTA::qmail'
               end
             else
               example sprintf('[%s] %s[agent] = %s', n, x, e['agent']) do
-                expect(e['agent']).to be == x
+                expect(e['agent']).to be == 'MTA::' + x
               end
             end
 
