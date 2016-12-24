@@ -100,6 +100,7 @@ module Sisimai
               # The value is 0 or 1
               softorhard = getchecked == 1 ? 'hard' : 'soft'
             end
+
           elsif argv1 == 'notaccept'
             # NotAccept: 5xx => hard bounce, 4xx => soft bounce
             if argv2.size > 0
@@ -119,6 +120,7 @@ module Sisimai
               # "notaccept" is a hard bounce
               softorhard = 'hard'
             end
+
           else
             # Check all the reasons defined at the above
             catch :SOFT_OR_HARD do
