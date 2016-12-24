@@ -1,12 +1,11 @@
 require 'spec_helper'
 require 'sisimai'
 require 'json'
+require 'sisimai/reason/onhold'
 
 thatsonhold = './set-of-emails/to-be-debugged-because/reason-is-onhold'
 describe Sisimai do
-
   describe '.make' do
-
     mail = Sisimai.make(thatsonhold)
     subject { mail }
     it('is Array') { is_expected.to be_a Array }
@@ -43,6 +42,10 @@ describe Sisimai do
         end
         example '#replycode returns String' do
           expect(ee.replycode).to be_a String
+        end
+
+        example 'Sisimai::Reason::OnHold.true returns true' do
+          expect(Sisimai::Reason::OnHold.true(ee)).to be true
         end
       end
 
