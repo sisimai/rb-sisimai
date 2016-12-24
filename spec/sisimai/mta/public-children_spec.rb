@@ -276,7 +276,7 @@ describe 'Sisimai::MTA::*' do
 
       (1 .. MTAChildren[x].keys.size).each do |i|
         if debugOnlyTo.size > 0
-          next unless debugOnlyTo == sprintf( "%s-%02d", x.downcase, i)
+          next unless debugOnlyTo == sprintf( "mta-%s-%02d", x.downcase, i)
         end
 
         emailfn = sprintf('./set-of-emails/maildir/bsd/mta-%s-%02d.eml', x.downcase, i)

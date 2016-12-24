@@ -160,7 +160,7 @@ describe 'Sisimai::MSP::*' do
 
       (1 .. MSPChildren[x].keys.size).each do |i|
         if debugOnlyTo.size > 0
-          next unless debugOnlyTo == sprintf( "%s-%02d", x.downcase, i)
+          next unless debugOnlyTo == sprintf( "msp-%s-%02d", x.downcase, i)
         end
 
         emailfn = sprintf('./set-of-emails/maildir/bsd/msp-%s-%02d.eml', x.downcase.gsub('::', '-'), i)
