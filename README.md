@@ -96,7 +96,7 @@ v = Sisimai.make('/path/to/mbox')       # or path to Maildir/
 # option to make() method like the following:
 v = Sisimai.make('/path/to/mbox', delivered: true)
 
-unless v.void
+if v.is_a? Array
   v.each do |e|
     puts e.class                # Sisimai::Data
     puts e.recipient.class      # Sisimai::Address
