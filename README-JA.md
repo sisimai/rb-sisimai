@@ -123,9 +123,28 @@ puts Sisimai.dump('/path/to/mbox')  # or path to Maildir/
 puts Sisimai.dump('/path/to/mbox', delivered: true)
 ```
 
-```json
-[{"recipient": "kijitora@example.jp", "addresser": "shironeko@1jo.example.org", "feedbacktype": "", "action": "failed", "subject": "Nyaaaaan", "smtpcommand": "DATA", "diagnosticcode": "550 Unknown user kijitora@example.jp", "listid": "", "destination": "example.jp", "smtpagent": "Courier", "lhost": "1jo.example.org", "deliverystatus": "5.0.0", "timestamp": 1291954879, "messageid": "201012100421.oBA4LJFU042012@1jo.example.org", "diagnostictype": "SMTP", "timezoneoffset": "+0900", "reason": "filtered", "token": "ce999a4c869e3f5e4d8a77b2e310b23960fb32ab", "alias": "", "senderdomain": "1jo.example.org", "rhost": "mfsmax.example.jp"}, {"diagnostictype": "SMTP", "timezoneoffset": "+0900", "reason": "userunknown", "timestamp": 1381900535, "messageid": "E1C50F1B-1C83-4820-BC36-AC6FBFBE8568@example.org", "token": "9fe754876e9133aae5d20f0fd8dd7f05b4e9d9f0", "alias": "", "senderdomain": "example.org", "rhost": "mx.bouncehammer.jp", "action": "failed", "addresser": "kijitora@example.org", "recipient": "userunknown@bouncehammer.jp", "feedbacktype": "", "smtpcommand": "DATA", "subject": "バウンスメールのテスト(日本語)", "destination": "bouncehammer.jp", "listid": "", "diagnosticcode": "550 5.1.1 <userunknown@bouncehammer.jp>... User Unknown", "deliverystatus": "5.1.1", "lhost": "p0000-ipbfpfx00kyoto.kyoto.example.co.jp", "smtpagent": "Sendmail"}]
+バウンスオブジェクト(JSON)を読む
+--------------------------------
+メール配信クラウドからAPIで取得したバウンスオブジェクト(JSON)を読んで解析する
+場合は、次のようなコードを書いてください。この機能はSisimai v4.20.0で実装され
+ました。
+
+```ruby
+#! /usr/bin/env ruby
+require 'json'
+require 'sisimai'
+
+j = JSON.load('{"notificationType"=>"Bounce", "bounce"=>{"...') # JSON String
+v = Sisimai.make(j, input: 'json')
+
+if v.is_a? Array
+  v.each do |e|
+    ...
+  end
+end
 ```
+現時点ではAmazon SESとSendGridのみをサポートしています。
+
 
 コールバック機能
 ----------------
@@ -163,6 +182,15 @@ puts data[0].catch['x-mailer']      # Apple Mail (2.1283)
 % ruby -rsisimai -e 'puts Sisimai.dump($*.shift)' /path/to/mbox
 ```
 
+解析結果の例(JSON)
+------------------
+```json
+[{"recipient": "kijitora@example.jp", "addresser": "shironeko@1jo.example.org", "feedbacktype": "", "action": "failed", "subject": "Nyaaaaan", "smtpcommand": "DATA", "diagnosticcode": "550 Unknown user kijitora@example.jp", "listid": "", "destination": "example.jp", "smtpagent": "Courier", "lhost": "1jo.example.org", "deliverystatus": "5.0.0", "timestamp": 1291954879, "messageid": "201012100421.oBA4LJFU042012@1jo.example.org", "diagnostictype": "SMTP", "timezoneoffset": "+0900", "reason": "filtered", "token": "ce999a4c869e3f5e4d8a77b2e310b23960fb32ab", "alias": "", "senderdomain": "1jo.example.org", "rhost": "mfsmax.example.jp"}, {"diagnostictype": "SMTP", "timezoneoffset": "+0900", "reason": "userunknown", "timestamp": 1381900535, "messageid": "E1C50F1B-1C83-4820-BC36-AC6FBFBE8568@example.org", "token": "9fe754876e9133aae5d20f0fd8dd7f05b4e9d9f0", "alias": "", "senderdomain": "example.org", "rhost": "mx.bouncehammer.jp", "action": "failed", "addresser": "kijitora@example.org", "recipient": "userunknown@bouncehammer.jp", "feedbacktype": "", "smtpcommand": "DATA", "subject": "バウンスメールのテスト(日本語)", "destination": "bouncehammer.jp", "listid": "", "diagnosticcode": "550 5.1.1 <userunknown@bouncehammer.jp>... User Unknown", "deliverystatus": "5.1.1", "lhost": "p0000-ipbfpfx00kyoto.kyoto.example.co.jp", "smtpagent": "Sendmail"}]
+```
+
+シシマイの仕様
+==============
+
 Perl版Sisimaiとの違い
 ---------------------
 公開中のPerl版Sisimai(p5-Sisimai)とRuby版Sisimai(rb-Sisimai)は下記のような違いが
@@ -177,8 +205,8 @@ Perl版Sisimaiとの違い
 | メール解析速度(1000通のメール)              | 3.30秒         | 2.33秒        |
 | インストール方法                            | gem install    | cpanm         |
 | 依存モジュール数(コアモジュールを除く)      | 1モジュール    | 2モジュール   |
-| LOC:ソースコードの行数                      | 11700行        | 8600行        |
-| テスト件数(spec/,t/,xt/ディレクトリ)        | 103800件       | 184100件      |
+| LOC:ソースコードの行数                      | 12200行        | 8800行        |
+| テスト件数(spec/,t/,xt/ディレクトリ)        | 106400件       | 187800件      |
 | ライセンス                                  | 二条項BSD      | 二条項BSD     |
 | 開発会社によるサポート契約                  | 準備中         | 提供中        |
 
@@ -292,6 +320,7 @@ Sisimaiは下記のエラー27種を検出します。バウンス理由につ�
 | action         | Action:ヘッダの値                                           |
 | addresser      | 送信者のアドレス                                            |
 | alias          | 受信者アドレスのエイリアス                                  |
+| catch          | 引数に指定したフックメソッドが返すデータ                    |
 | destination    | "recipient"のドメイン部分                                   |
 | deliverystatus | 配信状態(DSN)の値(例: 5.1.1, 4.4.7)                         |
 | diagnosticcode | エラーメッセージ                                            |
