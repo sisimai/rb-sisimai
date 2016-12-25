@@ -48,6 +48,11 @@ module Sisimai
       addresser: RFC822Head[:addresser],
       recipient: RFC822Head[:recipient],
     }
+    ActionList = %r/\A(?:failed|delayed|delivered|relayed|expanded)\z/
+    ActionHead = {
+      %r/\Afailure\z/ => 'failed',
+      %r/\Aexpired\z/ => 'delayed',
+    }
 
     # Constructor of Sisimai::Data
     # @param    [Hash] argvs    Data
@@ -313,6 +318,16 @@ module Sisimai
           if cv = p['action'].match(/\A(.+?) .+/)
             # Action: expanded (to multi-recipient alias)
             p['action'] = cv[1]
+          end
+
+          unless p['action'] =~ ActionList
+            # The value of "action" is not in the following values:
+            # "failed" / "delayed" / "delivered" / "relayed" / "expanded"
+            ActionHead.each_key do |q|
+              next unless p['action'] =~ q
+              p['action'] = ActionHead[q]
+              break
+            end
           end
         else
           if p['reason'] == 'expired'
