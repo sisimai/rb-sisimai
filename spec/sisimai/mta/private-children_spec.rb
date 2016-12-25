@@ -997,7 +997,7 @@ describe 'Sisimai::MTA::' do
   }
 
   PrivateMTAChildren.each_key do |x|
-    d0 = './set-of-emails/private/' + x.downcase
+    d0 = './set-of-emails/private/mta-' + x.downcase
     next unless Dir.exist?(d0)
 
     describe x do
@@ -1102,13 +1102,13 @@ describe 'Sisimai::MTA::' do
             expect(ee.smtpagent).to be_a String
             expect(ee.smtpagent.size).to be > 0
             if x == 'MFILTER'
-              expect(ee.smtpagent).to be == 'm-FILTER'
+              expect(ee.smtpagent).to be == 'MTA::mFILTER'
             elsif x == 'X4'
-              expect(ee.smtpagent).to match(/\A(?:qmail|X4)\z/)
+              expect(ee.smtpagent).to match(/\AMTA::(?:qmail|X4)\z/)
             elsif x == 'Qmail'
-              expect(ee.smtpagent).to be == 'qmail'
+              expect(ee.smtpagent).to be == 'MTA::qmail'
             else
-              expect(ee.smtpagent).to be == x
+              expect(ee.smtpagent).to be == 'MTA::' + x
             end
           end
 

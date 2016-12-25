@@ -311,7 +311,7 @@ describe 'Sisimai::MSP::' do
   }
 
   PrivateMSPChildren.each_key do |x|
-    d0 = './set-of-emails/private/' + x.downcase
+    d0 = './set-of-emails/private/msp-' + x.downcase
     d0 = d0.gsub(/::/, '-')
     next unless Dir.exist?(d0)
 
@@ -416,7 +416,7 @@ describe 'Sisimai::MSP::' do
           example sprintf('[%s] %s#smtpagent = %s', n, x, ee.smtpagent) do
             expect(ee.smtpagent).to be_a String
             expect(ee.smtpagent.size).to be > 0
-            expect(ee.smtpagent).to be == x
+            expect(ee.smtpagent).to be == 'MSP::' + x
           end
 
           reason0 = PrivateMSPChildren[x][n]
