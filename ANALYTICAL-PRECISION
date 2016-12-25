@@ -18,7 +18,7 @@ MTA::MessagingServer ....   19/0022  0.8636  Oracle Communications Messaging Ser
 MTA::Notes ..............    0/0012  0.0000  Lotus Notes
 MTA::OpenSMTPD ..........    5/0023  0.2174  OpenSMTPD
 MTA::Postfix ............  171/0189  0.9048  Postfix
-MTA::Sendmail ...........  331/0253  1.0000  V8Sendmail: /usr/sbin/sendmail
+MTA::Sendmail ...........  331/0254  1.0000  V8Sendmail: /usr/sbin/sendmail
 MTA::SurfControl ........    6/0008  0.7500  WebSense SurfControl
 MTA::V5sendmail .........    0/0386  0.0000  Sendmail version 5
 MTA::X1 .................    0/0007  0.0000  Unknown MTA #1
@@ -46,12 +46,14 @@ MSP::US::Office365 ......    8/0011  0.7273  Microsoft Office 365: http://office
 MSP::US::Outlook ........   19/0021  0.9048  Microsoft Outlook.com: https://www.outlook.com/
 MSP::US::ReceivingSES ...    0/0007  0.0000  Amazon SES(Receiving): http://aws.amazon.com/ses/
 MSP::US::SendGrid .......    7/0012  0.5833  SendGrid: http://sendgrid.com/
-MSP::US::Verizon ........    3/0003  1.0000  Verizon Wireless: http://www.verizonwireless.com
+MSP::US::Verizon ........    4/0004  1.0000  Verizon Wireless: http://www.verizonwireless.com
 MSP::US::Yahoo ..........    0/0009  0.0000  Yahoo! MAIL: https://www.yahoo.com
 MSP::US::Zoho ...........    0/0011  0.0000  Zoho Mail: https://www.zoho.com
+CED::US::AmazonSES ......    0/0009  0.0000  Amazon SES(JSON): http://aws.amazon.com/ses/
+CED::US::SendGrid .......    0/0000  1.0000  SendGrid(JSON): http://sendgrid.com/
 ARF .....................    9/0050  0.1800  Abuse Feedback Reporting Format
-RFC3464 .................  136/0277  0.4910  Fallback Module for MTAs
+RFC3464 .................  136/0278  0.4892  Fallback Module for MTAs
 RFC3834 .................    0/0006  0.0000  Detector for auto replied message
 -------------------------------------------------------------------------------
- bounceHammer 2.7.13p3    1201/2178  0.5514
- Sisimai 4.19.0           2178/2178  1.0000
+ bounceHammer 2.7.13p3    1202/2190  0.5489
+ Sisimai 4.20.0           2190/2190  1.0000
