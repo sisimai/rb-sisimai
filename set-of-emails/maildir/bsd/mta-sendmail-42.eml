@@ -1,0 +1,64 @@
+Return-Path: <MAILER-DAEMON@local.neko.example.jp>
+Received: from localhost (localhost)
+	by local.neko.example.jp (V8/cf) id uBE8v4sB020264;
+	Wed, 14 Dec 2016 17:57:04 +0900
+Date: Wed, 14 Dec 2016 17:57:04 +0900
+From: Mail Delivery Subsystem <poostmaster@neko.example.jp>
+Message-Id: <201612140857.uBE8v4sB020264@local.neko.example.jp>
+To: <sironeko@neko.example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="uBE8v4sB020264.1481705824/local.neko.example.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--uBE8v4sB020264.1481705824/local.neko.example.jp
+
+The original message was received at Wed, 14 Dec 2016 17:57:04 +0900
+from c2022-neko.kyoto.example.ne.jp [192.0.2.222]
+
+   ----- The following addresses had permanent fatal errors -----
+<nekochan@libsisimai.org>
+
+   ----- Transcript of session follows -----
+550 5.1.2 <nekochan@libsisimai.org>... Host unknown (Name server: .: host not found)
+
+--uBE8v4sB020264.1481705824/local.neko.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; local.neko.example.jp
+Received-From-MTA: DNS; c2022-neko.kyoto.example.ne.jp
+Arrival-Date: Wed, 14 Dec 2016 17:57:04 +0900
+
+Final-Recipient: RFC822; nekochan@libsisimai.org
+Action: failed
+Status: 5.1.2
+Remote-MTA: DNS; 
+Last-Attempt-Date: Wed, 14 Dec 2016 17:57:04 +0900
+
+--uBE8v4sB020264.1481705824/local.neko.example.jp
+Content-Type: message/rfc822
+
+Return-Path: <sironeko@neko.example.jp>
+Received: from [192.0.2.1] (c2022-neko.kyoto.example.ne.jp [192.0.2.222])
+	(authenticated bits=0)
+	by local.neko.example.jp (V8/cf) with ESMTP id uBE8v3sB020261
+	for <nekochan@libsisimai.org>; Wed, 14 Dec 2016 17:57:04 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 local.neko.example.jp uBE8v3sB020261
+Authentication-Results: local.neko.example.jp; sender-id=pass header.from=sironeko@neko.example.jp; auth=pass (CRAM-MD5); spf=pass smtp.mfrom=sironeko@neko.example.jp
+From: "Shironeko, Nyaan" <sironeko@neko.example.jp>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+Subject: Nyaan
+Message-Id: <A0C9A1D8-4F47-4CF8-94ED-6DE64A626AC1@neko.example.jp>
+Date: Wed, 14 Dec 2016 17:57:01 +0900
+To: nekochan@libsisimai.org
+Mime-Version: 1.0 (Mac OS X Mail 9.3 \(3124\))
+X-Mailer: Apple Mail (2.3124)
+
+44Gr44KD44O844KT
+
+--uBE8v4sB020264.1481705824/local.neko.example.jp--
+
