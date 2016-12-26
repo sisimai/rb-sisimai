@@ -142,6 +142,7 @@ module Sisimai
                 elsif cv = e.match(/\A[Rr]emote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                   # Remote-MTA: DNS; mx.example.jp
                   v['rhost'] = cv[1].downcase
+                  v['rhost'] = '' if v['rhost'] =~ /\A\s+\z/  # Remote-MTA: DNS;
 
                 elsif cv = e.match(/\A[Ll]ast-[Aa]ttempt-[Dd]ate:[ ]*(.+)\z/)
                   # Last-Attempt-Date: Fri, 14 Feb 2014 12:30:08 -0500
