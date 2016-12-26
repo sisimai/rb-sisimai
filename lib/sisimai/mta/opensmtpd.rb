@@ -39,7 +39,7 @@ module Sisimai
         #   bounce.c/338:    "    Your message was relayed to these recipients.\n\n";
         #   bounce.c/339:
         Re1 = {
-          :begin  => %r/\A[ \t]*This is the MAILER-DAEMON, please DO NOT REPLY to this e-mail[.]\z/,
+          :begin  => %r/\A[ \t]*This is the MAILER-DAEMON, please DO NOT REPLY to this e[-]?mail[.]\z/,
           :rfc822 => %r/\A[ \t]*Below is a copy of the original message:\z/,
           :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
