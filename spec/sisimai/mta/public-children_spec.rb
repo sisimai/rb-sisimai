@@ -120,6 +120,7 @@ describe 'Sisimai::MTA::*' do
       '03' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/hostunknown/, 'b' => %r/\A0\z/ },
       '04' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/networkerror/,'b' => %r/\A1\z/ },
       '05' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/expired/,     'b' => %r/\A1\z/ },
+      '06' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/expired/,     'b' => %r/\A1\z/ },
     },
     'Postfix' => {
       '01' => { 's' => %r/\A5[.]1[.]1\z/,   'r' => %r/mailererror/, 'b' => %r/\A1\z/ },
@@ -206,6 +207,7 @@ describe 'Sisimai::MTA::*' do
       '39' => { 's' => %r/\A4[.]4[.]5\z/, 'r' => %r/systemfull/,  'b' => %r/\A1\z/ },
       '40' => { 's' => %r/\A5[.]2[.]0\z/, 'r' => %r/filtered/,    'b' => %r/\A1\z/ },
       '41' => { 's' => %r/\A5[.]0[.]0\z/, 'r' => %r/filtered/,    'b' => %r/\A1\z/ },
+      '42' => { 's' => %r/\A5[.]1[.]2\z/, 'r' => %r/hostunknown/, 'b' => %r/\A0\z/ },
     },
     'SurfControl' => {
       '01' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/filtered/,    'b' => %r/\A1\z/ },
@@ -369,6 +371,7 @@ describe 'Sisimai::MTA::*' do
               next unless e[ee]
               next unless e[ee].size > 0
               next if x =~ /\A(?:qmail|Exim|Exchange|X4)/
+              next if e[ee].size == 0
               example sprintf('[%s] %s[%s] = %s', n, x, ee, e[ee]) do
                 expect(e[ee]).to match(/\A(?:localhost|.+[.].+)\z/)
               end
