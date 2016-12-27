@@ -187,14 +187,14 @@ and bounceHammer are available at
 
 | Features                                    | Ruby version   | Perl version  |
 |---------------------------------------------|----------------|---------------|
-| System requirements                         | Ruby 2.1-2.3   | Perl 5.10 -   |
+| System requirements                         | Ruby 2.1 - 2.4 | Perl 5.10 -   |
 |                                             | JRuby 9.0.4.0- |               |
 | Analytical precision ratio(2000 emails)[1]  | 1.00           | 1.00          |
 | The speed of parsing email(1000 emails)     | 3.30s          | 2.33s         |
 | How to install                              | gem install    | cpanm         |
 | Dependencies (Except core modules)          | 1 module       | 2 modules     |
 | LOC:Source lines of code                    | 12200 lines    | 8800 lines    |
-| The number of tests(spec/,t/,xt/) directory | 106400 tests   | 187800 tests  |
+| The number of tests(spec/,t/,xt/) directory | 106400 tests   | 188000 tests  |
 | License                                     | BSD 2-Clause   | BSD 2-Clause  |
 | Support Contract provided by Developer      | Coming soon    | Available     |
 
