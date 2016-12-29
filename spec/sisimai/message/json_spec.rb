@@ -18,8 +18,8 @@ describe Sisimai::Message do
   end
 
   callbackto = lambda do |argv|
-    data = { 'email' => '' }
-    data['email'] = argv['message']['email'] || ''
+    data = { 'email' => '', 'type' => argv['datasrc'] }
+    data['email'] = argv['bounces']['email'] || ''
     return data
   end
   messageobj = cn.new(data: jsonobject[0], hook: callbackto, input: 'json')
@@ -62,6 +62,7 @@ describe Sisimai::Message do
   end
 
   describe '#catch' do
+    example('type is "json"') { expect(messageobj.catch['type']).to be == 'json' }
     example('"email" key exists') { expect(messageobj.catch.key?('email')).to be true }
   end
 

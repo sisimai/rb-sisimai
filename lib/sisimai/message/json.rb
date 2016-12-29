@@ -126,7 +126,12 @@ module Sisimai
         if hookmethod.is_a? Proc
           # Execute hook method
           begin
-            p = { 'headers' => {}, 'message' => argvs['json'] }
+            p = {
+              'datasrc' => 'json',
+              'headers' => nil,
+              'message' => nil,
+              'bounces' => argvs['json']
+            }
             havecaught = hookmethod.call(p)
           rescue StandardError => ce
             warn sprintf(" ***warning: Something is wrong in hook method :%s", ce.to_s)

@@ -15,7 +15,7 @@ describe Sisimai::Message do
     if q == 'mail'
       mailstring = File.open(sf[q]).read
       callbackto = lambda do |argv|
-        data = { 'x-mailer' => '', 'return-path' => '' }
+        data = { 'x-mailer' => '', 'return-path' => '', 'type' => argv['datasrc'] }
         if cv = argv['message'].match(/^X-Mailer:\s*(.+)$/)
             data['x-mailer'] = cv[1]
         end
@@ -43,9 +43,10 @@ describe Sisimai::Message do
 
       callbackto = lambda do |argv|
         data = { 'feedbackid' => '', 'account-id'  => '', 'source-arn'  => '' }
-        data['feedbackid'] = argv['message']['bounce']['feedbackId'] || ''
-        data['account-id'] = argv['message']['mail']['sendingAccountId'] || ''
-        data['source-arn'] = argv['message']['mail']['sourceArn'] || ''
+        data['type'] = argv['datasrc']
+        data['feedbackid'] = argv['bounces']['bounce']['feedbackId'] || ''
+        data['account-id'] = argv['bounces']['mail']['sendingAccountId'] || ''
+        data['source-arn'] = argv['bounces']['mail']['sourceArn'] || ''
         return data
       end
       messageobj = cn.new(data: jsonobject, hook: callbackto, input: 'json')
@@ -115,10 +116,12 @@ describe Sisimai::Message do
 
       describe '#catch' do
         if q == 'mail'
+          example('type is "email"') { expect(messageobj.catch['type']).to be == 'email' }
           %w|return-path x-mailer from|.each do |e|
             example(e + 'key exists') { expect(messageobj.catch.key?(e)).to be true }
           end
         else
+          example('type is "json"') { expect(messageobj.catch['type']).to be == 'json' }
           %w|feedbackid account-id source-arn|.each do |e|
             example(e + 'key exists') { expect(messageobj.catch.key?(e)).to be true }
           end

@@ -447,7 +447,12 @@ module Sisimai
         if hookmethod.is_a? Proc
           # Execute hook method
           begin
-            p = { 'headers' => mailheader, 'message' => bodystring }
+            p = { 
+              'datasrc' => 'email',
+              'headers' => mailheader,
+              'message' => bodystring,
+              'bounces' => nil
+            }
             havecaught = hookmethod.call(p)
           rescue StandardError => ce
             warn sprintf(" ***warning: Something is wrong in hook method :%s", ce.to_s)

@@ -142,9 +142,10 @@ describe Sisimai do
         if e.to_s == 'jsonapi'
           callbackto = lambda do |argv|
             data = { 'feedbackid' => '', 'account-id'  => '', 'source-arn'  => '' }
-            data['feedbackid'] = argv['message']['bounce']['feedbackId'] || ''
-            data['account-id'] = argv['message']['mail']['sendingAccountId'] || ''
-            data['source-arn'] = argv['message']['mail']['sourceArn'] || ''
+            data['type'] = argv['datasrc']
+            data['feedbackid'] = argv['bounces']['bounce']['feedbackId'] || ''
+            data['account-id'] = argv['bounces']['mail']['sendingAccountId'] || ''
+            data['source-arn'] = argv['bounces']['mail']['sourceArn'] || ''
             return data
           end
 
@@ -164,7 +165,7 @@ describe Sisimai do
 
         else
           callbackto = lambda do |argv|
-            data = { 'x-mailer' => '', 'return-path' => '' }
+            data = { 'x-mailer' => '', 'return-path' => '', 'type' => argv['datasrc'] }
             if cv = argv['message'].match(/^X-Mailer:\s*(.+)$/)
                 data['x-mailer'] = cv[1]
             end
@@ -183,11 +184,13 @@ describe Sisimai do
           it('is Hash') { expect(ee.catch).to be_a Hash }
 
           if e.to_s == 'jsonapi'
+            it('"type" is "json"') { expect(ee.catch['type']).to be == 'json' }
             it('exists "feedbackid" key') { expect(ee.catch.key?('feedbackid')).to be true }
             it('exists "account-id" key') { expect(ee.catch.key?('account-id')).to be true }
             it('exists "source-arn" key') { expect(ee.catch.key?('source-arn')).to be true }
 
           else
+            it('"type" is "email"') { expect(ee.catch['type']).to be == 'email' }
             it('exists "x-mailer" key') { expect(ee.catch.key?('x-mailer')).to be true }
             if ee.catch['x-mailer'].size > 0
               it 'matches with X-Mailer' do
