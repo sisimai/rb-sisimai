@@ -58,7 +58,7 @@ module Sisimai
             emailinode = File.stat(emailindir).ino
             next if self.inodes.key?(emailinode)
 
-            filehandle = File.open(emailindir, 'r')
+            filehandle = File.open(emailindir, 'r:UTF-8')
             readbuffer = filehandle.read
             filehandle.close
 

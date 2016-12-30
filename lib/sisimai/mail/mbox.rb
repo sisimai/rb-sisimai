@@ -29,7 +29,7 @@ module Sisimai
         @file   = File.basename(argv1)
         @size   = File.size(argv1)
         @offset = 0
-        @handle = File.open(argv1, 'r')
+        @handle = File.open(argv1, 'r:UTF-8')
       end
 
       # Mbox reader, works as an iterator.
