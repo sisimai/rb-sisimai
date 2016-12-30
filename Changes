@@ -11,6 +11,8 @@ Revision history for Ruby version of Sisimai
     - The Domain part of dummy email address defined in Sisimai::Address module
       has been changed from "dummy-domain.invalid" to "libsisimai.org.invalid".
     - Sisimai::SMTP.is_softbounce() method has been deleted.
+    - Improved code for avoid "Invalid byte sequence in UTF-8 (ArgumentError)"
+      error in Sisimai::String.to_plain method reported from M.R.
     - Sisimai works on Ruby 2.4.0.
 
 4.19.0  Tue, 18 Oct 2016 14:19:10 +0900 (JST)
