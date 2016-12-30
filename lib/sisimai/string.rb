@@ -77,6 +77,7 @@ module Sisimai
           # Rewrite <a> elements
           # 1. <a href = 'http://...'>...</a> to " http://... "
           # 2. <a href = 'mailto:...'>...</a> to " Value <mailto:...> "
+          plain = plain.scrub('?')
           plain = plain.gsub(%r|<a\s+href\s*=\s*['"](https?://.+?)['"].*?>(.*?)</a>|i, '[\2](\1)')
           plain = plain.gsub(%r|<a\s+href\s*=\s*["']mailto:([^\s]+?)["']>(.*?)</a>|i, '[\2](mailto:\1)')
 
