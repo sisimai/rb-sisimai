@@ -1,6 +1,6 @@
 Revision history for Ruby version of Sisimai
 
-4.20.0  Sat, 31 Dec 2016
+4.20.0  Sat, 31 Dec 2016 13:36:22 +0900 (JST)
     - Experimental implementation: New MTA modules for 2 Cloud Email Deliveries,
       Sisimai::CED::US::AmazonSES and Sisimai::CED::US::SendGrid. These modules
       can parse JSON formatted bounce objects and can convert to Sisimai::Data
