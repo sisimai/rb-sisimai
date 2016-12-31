@@ -14,7 +14,6 @@ module Sisimai
           :from    => %r/\A[<]?no-reply[@]sns[.]amazonaws[.]com[>]?/,
           :subject => %r/\AAWS Notification Message\z/,
         }
-        MRI = RUBY_PLATFORM =~ /java/ ? false : true
 
         # https://docs.aws.amazon.com/en_us/ses/latest/DeveloperGuide/notification-contents.html
         BounceType = {
@@ -82,21 +81,21 @@ module Sisimai
           end
 
           begin
-            if MRI
-              # Matz' Ruby Implementation
-              require 'oj'
-              jsonobject = Oj.load(jsonstring)
-              if jsonobject['Message']
-                # 'Message' => '{"notificationType":"Bounce",...
-                jsonthings = Oj.load(jsonobject['Message'])
-              end
-            else
+            if RUBY_PLATFORM =~ /java/
               # java-based ruby environment like JRuby.
               require 'jrjackson'
               jsonobject = JrJackson::Json.load(jsonstring)
               if jsonobject['Message']
                 # 'Message' => '{"notificationType":"Bounce",...
                 jsonthings = JrJackson::Json.load(jsonobject['Message'])
+              end
+            else
+              # Matz' Ruby Implementation
+              require 'oj'
+              jsonobject = Oj.load(jsonstring)
+              if jsonobject['Message']
+                # 'Message' => '{"notificationType":"Bounce",...
+                jsonthings = Oj.load(jsonobject['Message'])
               end
             end
             jsonthings ||= jsonobject
