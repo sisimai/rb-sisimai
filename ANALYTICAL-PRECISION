@@ -16,9 +16,9 @@ MTA::MailMarshalSMTP ....    0/0003  0.0000  Trustwave Secure Email Gateway
 MTA::McAfee .............    0/0010  0.0000  McAfee Email Appliance
 MTA::MessagingServer ....   19/0022  0.8636  Oracle Communications Messaging Server
 MTA::Notes ..............    0/0012  0.0000  Lotus Notes
-MTA::OpenSMTPD ..........    5/0023  0.2174  OpenSMTPD
+MTA::OpenSMTPD ..........    6/0024  0.2500  OpenSMTPD
 MTA::Postfix ............  171/0189  0.9048  Postfix
-MTA::Sendmail ...........  331/0254  1.0000  V8Sendmail: /usr/sbin/sendmail
+MTA::Sendmail ...........  332/0255  1.0000  V8Sendmail: /usr/sbin/sendmail
 MTA::SurfControl ........    6/0008  0.7500  WebSense SurfControl
 MTA::V5sendmail .........    0/0386  0.0000  Sendmail version 5
 MTA::X1 .................    0/0007  0.0000  Unknown MTA #1
@@ -55,5 +55,5 @@ ARF .....................    9/0050  0.1800  Abuse Feedback Reporting Format
 RFC3464 .................  136/0278  0.4892  Fallback Module for MTAs
 RFC3834 .................    0/0006  0.0000  Detector for auto replied message
 -------------------------------------------------------------------------------
- bounceHammer 2.7.13p3    1202/2190  0.5489
- Sisimai 4.20.0           2190/2190  1.0000
+ bounceHammer 2.7.13p3    1204/2192  0.5493
+ Sisimai 4.20.0           2192/2192  1.0000
