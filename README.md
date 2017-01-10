@@ -42,6 +42,8 @@ Sisimai is a Ruby library for analyzing RFC5322 bounce emails and generating
 structured data from parsed results. The Ruby version of Sisimai is ported from
 the Perl version of Sisimai at [github.com/sisimai/p5-Sisimai](https://github.com/sisimai/p5-Sisimai/).
 
+![](http://libsisimai.org/static/images/figure/sisimai-overview-1.png)
+
 Key Features
 -------------------------------------------------------------------------------
 * __Convert Bounce Mails to Structured Data__

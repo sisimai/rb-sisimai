@@ -43,6 +43,8 @@ Sisimai(シシマイ)はRFC5322準拠のエラーメールを解析し、解析�
 [github.com/sisimai/p5-Sisimai](https://github.com/sisimai/p5-Sisimai/)
 で公開しているPerl版シシマイから移植しました。
 
+![](http://libsisimai.org/static/images/figure/sisimai-overview-1.png)
+
 Key features
 -------------------------------------------------------------------------------
 * __エラーメールをデータ構造に変換__
