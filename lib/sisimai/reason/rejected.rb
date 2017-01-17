@@ -42,6 +42,7 @@ module Sisimai
             |error:[ ]no[ ]third-party[ ]dsns               # SpamWall - block empty sender
             |fully[ ]qualified[ ]email[ ]address[ ]required # McAfee
             |invalid[ ]domain,[ ]see[ ][<]url:.+[>]
+            |Message[ ]rejected:[ ]Email[ ]address[ ]is[ ]not[ ]verified
             |mx[ ]records[ ]for[ ].+[ ]violate[ ]section[ ].+
             |name[ ]service[ ]error[ ]for[ ]    # Malformed MX RR or host not found
             |Null[ ]Sender[ ]is[ ]not[ ]allowed

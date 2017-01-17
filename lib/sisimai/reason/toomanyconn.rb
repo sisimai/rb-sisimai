@@ -27,6 +27,10 @@ module Sisimai
              All[ ]available[ ]IPs[ ]are[ ]at[ ]maximum[ ]connection[ ]limit    # SendGrid
             |connection[ ]rate[ ]limit[ ]exceeded
             |no[ ]IPs[ ]available[ ][-][ ].+[ ]exceeds[ ]per[-]domain[ ]connection[ ]limit[ ]for
+            |Throttling[ ]failure:[ ](?:
+               Daily[ ]message[ ]quota[ ]exceeded
+              |Maximum[ ]sending[ ]rate[ ]exceeded
+              )
             |Too[ ]many[ ](?:
                connections
               |connections[ ]from[ ]your[ ]host[.]    # Microsoft
