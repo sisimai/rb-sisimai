@@ -223,7 +223,7 @@ module Sisimai
 
         heads.split("\n").each do |e|
           # Convert email headers to hash
-          if cv = e.match(/\A([^ ]+?)[:][ ]*(.+?)\z/)
+          if cv = e.match(/\A([^ ]+?)[:][ ]*(.*?)\z/)
             # split the line into a header name and a header content
             lhs = cv[1]
             rhs = cv[2]

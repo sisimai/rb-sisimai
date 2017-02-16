@@ -64,6 +64,7 @@ describe 'Sisimai::*' do
       '03' => { 's' => /\A\z/, 'r' => /vacation/, 'b' => %r/\A-1\z/ },
       '04' => { 's' => /\A\z/, 'r' => /vacation/, 'b' => %r/\A-1\z/ },
       '05' => { 's' => /\A\z/, 'r' => /vacation/, 'b' => %r/\A-1\z/ },
+      '06' => { 's' => /\A\z/, 'r' => /vacation/, 'b' => %r/\A-1\z/ },
     },
   }
 
