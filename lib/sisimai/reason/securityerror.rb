@@ -27,8 +27,12 @@ module Sisimai
         def match(argv1)
           return nil unless argv1
           regex = %r{(?>
-             authentication[ ](?:
-               failed;[ ]server[ ].+[ ]said:  # Postfix
+             Account[ ]not[ ]subscribed[ ]to[ ]SES
+            |authentication[ ](?:
+               Credentials Invalid
+              |failure
+              |failed;[ ]server[ ].+[ ]said:  # Postfix
+              |required
               |turned[ ]on[ ]in[ ]your[ ]email[ ]client
               )
             |\d+[ ]denied[ ]\[[a-z]+\][ ].+[(]Mode:[ ].+[)]
@@ -49,6 +53,7 @@ module Sisimai
             |sorry,[ ]you[ ]don'?t[ ]authenticate[ ]or[ ]the[ ]domain[ ]isn'?t[ ]in[ ]my[ ]list[ ]of[ ]allowed[ ]rcpthosts
             |the[ ]message[ ]was[ ]rejected[ ]because[ ]it[ ]contains[ ]prohibited[ ]virus[ ]or[ ]spam[ ]content
             |TLS[ ]required[ ]but[ ]not[ ]supported # SendGrid
+            |User[ ].+[ ]is[ ]not[ ]authorized[ ]to[ ]perform[ ]ses:SendRawEmail[ ]on[ ]resource
             |you[ ]are[ ]not[ ]authorized[ ]to[ ]send[ ]mail,[ ]authentication[ ]is[ ]required
             |You[ ]have[ ]exceeded[ ]the[ ]the[ ]allowable[ ]number[ ]of[ ]posts[ ]without[ ]solving[ ]a[ ]captcha
             |verification[ ]failure
