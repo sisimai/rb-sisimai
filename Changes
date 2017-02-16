@@ -1,5 +1,11 @@
 Revision history for Ruby version of Sisimai
 
+4.20.2
+    - Pull-Request #63 Add some error message patterns from Amazon SES SMTP
+      endpoint.
+    - Fix regular expression in Sisimai::Message::Email.headers for resolving
+      a bug reported from @rdeavila at issue #65.
+
 4.20.1  Sat, 31 Dec 2016 20:10:22 +0900 (JST)
     - Fix the Java version of Gem file.
 
