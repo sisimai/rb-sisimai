@@ -34,7 +34,7 @@ module Sisimai
       unless input
         # "input" did not specified, try to detect automatically.
         rtype = argv0.class.to_s
-        if rtype == 'String'
+        if rtype == 'String' || rtype == 'IO'
           # The argument may be a path to email
           input = 'email'
 
