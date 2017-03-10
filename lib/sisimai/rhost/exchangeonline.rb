@@ -29,8 +29,8 @@ module Sisimai
           ],
           %r/\A4[.]4[.]2\z/ => [
             {
-                :reason => 'blocked',
-                :regexp => %r/Connection dropped/,
+              :reason => 'blocked',
+              :regexp => %r/Connection dropped/,
             },
           ],
           %r/\A4[.]7[.]26\z/ => [

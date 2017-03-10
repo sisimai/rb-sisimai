@@ -65,9 +65,9 @@ module Sisimai
 
             # Generate pseudo message/rfc822 part
             rfc822head = {
-                'to'   => argvs['email'],
-                'from' => Sisimai::Address.undisclosed('s'),
-                'date' => v['date'],
+              'to'   => argvs['email'],
+              'from' => Sisimai::Address.undisclosed('s'),
+              'date' => v['date'],
             }
           else
             # The value of $argvs->{'email'} does not seems to an email address

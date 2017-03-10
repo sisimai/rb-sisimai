@@ -125,8 +125,8 @@ module Sisimai
           rfc822head = {}   # (Hash) Check flags for headers in RFC822 part
           recipients = 0    # (Integer) The number of 'Final-Recipient' header
           labeltable = {
-              :Bounce    => 'bouncedRecipients',
-              :Complaint => 'complainedRecipients',
+            :Bounce    => 'bouncedRecipients',
+            :Complaint => 'complainedRecipients',
           }
           v = nil
 
