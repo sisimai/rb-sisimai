@@ -64,7 +64,7 @@ module Sisimai
 
           hasdivided.each do |e|
             # Find JSON string from the message body
-            next if e.size == 0
+            next if e.size.zero?
             break if e =~ /\A[-]{2}\z/
             break if e == '__END_OF_EMAIL_MESSAGE__'
 
@@ -236,7 +236,7 @@ module Sisimai
             # or "Delivery".
             return nil
           end
-          return nil if recipients == 0
+          return nil if recipients.zero?
 
           dscontents.each do |e|
             e['agent'] = Sisimai::CED::US::AmazonSES.smtpagent

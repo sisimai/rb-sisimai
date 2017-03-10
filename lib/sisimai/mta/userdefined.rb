@@ -58,7 +58,7 @@ module Sisimai
           match += 1 if mhead['subject'] =~ Re0[:subject]
           match += 1 if mhead['from']    =~ Re0[:from]
           match += 1 if mhead['x-some-userdefined-header']
-          return nil if match == 0
+          return nil if match.zero?
 
           # 2. Parse message body(mbody) of the bounce message. See some modules
           #    in lib/sisimai/mta or lib/sisimai/msp directory to implement codes.
@@ -70,7 +70,7 @@ module Sisimai
           recipients = 0      # (Integer) The number of 'Final-Recipient' header
 
           hasdivided.each do |e|
-            if readcursor == 0
+            if readcursor.zero?
               # Beginning of the bounce message or delivery status part
               if e =~ Re1[:begin]
                 readcursor |= Indicators[:deliverystatus]
@@ -118,7 +118,7 @@ module Sisimai
 
           # 3. Return undef when there is no recipient address which is failed to
           #    delivery in the bounce message
-          return nil if recipients == 0
+          return nil if recipients.zero?
 
           # 4. Return the following variable.
           rfc822part = Sisimai::RFC5322.weedout(rfc822list)

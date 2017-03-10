@@ -59,7 +59,7 @@ module Sisimai
           v = nil
 
           hasdivided.each do |e|
-            if readcursor == 0
+            if readcursor.zero?
               # Beginning of the bounce message or delivery status part
               if e =~ Re1[:begin]
                 readcursor |= Indicators[:deliverystatus]
@@ -142,7 +142,7 @@ module Sisimai
             end
           end
 
-          if recipients == 0
+          if recipients.zero?
             # Fallback: Get the recpient address from RFC822 part
             rfc822list.each do |e|
               if cv = e.match(/^To:[ ]*(.+)$/m)
@@ -153,7 +153,7 @@ module Sisimai
             end
           end
 
-          return nil if recipients == 0
+          return nil if recipients.zero?
           require 'sisimai/string'
           require 'sisimai/smtp/status'
 

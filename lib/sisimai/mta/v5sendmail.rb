@@ -74,7 +74,7 @@ module Sisimai
           v = nil
 
           hasdivided.each do |e|
-            if readcursor == 0
+            if readcursor.zero?
               # Beginning of the bounce message or delivery status part
               if e =~ Re1[:begin]
                 readcursor |= Indicators[:deliverystatus]
@@ -159,7 +159,7 @@ module Sisimai
           end
           return nil if readcursor & Indicators[:'message-rfc822'] == 0
 
-          if recipients == 0
+          if recipients.zero?
             # Get the recipient address from the original message
             rfc822list.each do |e|
               if cv = e.match(/^To: (.+)$/m)
@@ -170,7 +170,7 @@ module Sisimai
               end
             end
           end
-          return nil if recipients == 0
+          return nil if recipients.zero?
           require 'sisimai/string'
 
           dscontents.map do |e|

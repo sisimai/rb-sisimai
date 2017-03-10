@@ -181,7 +181,7 @@ module Sisimai
           hasdivided.each do |e|
             break if e =~ Re1[:endof]
 
-            if readcursor == 0
+            if readcursor.zero?
               # Beginning of the bounce message or delivery status part
               if e =~ Re1[:begin]
                 readcursor |= Indicators[:deliverystatus]
@@ -280,7 +280,7 @@ module Sisimai
 
                     else
                       # Error message ?
-                      if havepassed[:deliverystatus] == 0
+                      if havepassed[:deliverystatus].zero?
                         # Content-type: message/delivery-status
                         havepassed[:deliverystatus] = 1 if e =~ Re1[:deliverystatus]
                         v['alterrors'] ||= ''
@@ -339,7 +339,7 @@ module Sisimai
               end
             end
           end
-          return nil if recipients == 0
+          return nil if recipients.zero?
 
           if mhead['received'].size > 0
             # Get the name of local MTA

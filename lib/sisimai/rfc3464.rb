@@ -62,7 +62,7 @@ module Sisimai
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil if mhead.keys.size == 0
+        return nil if mhead.keys.size.zero?
         return nil if mbody.empty?
 
         require 'sisimai/mda'
@@ -88,7 +88,7 @@ module Sisimai
           havepassed << e
           p = havepassed[-2]
 
-          if readcursor == 0
+          if readcursor.zero?
             # Beginning of the bounce message or delivery status part
             if e =~ Re1[:begin]
               readcursor |= Indicators[:deliverystatus]
@@ -395,7 +395,7 @@ module Sisimai
             break if e =~ Re1[:rfc822]
             break if e =~ re_stop
 
-            next if e.size == 0
+            next if e.size.zero?
             next if e =~ re_skip
             next if e =~ /\A[*]/
 

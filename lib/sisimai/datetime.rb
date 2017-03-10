@@ -203,7 +203,7 @@ module Sisimai
         elsif cr = argv1.match(/\A(\d+|\d+[.]\d+)?([#{mathconsts}])([#{unitoftime}])?\z/)
           # 1pd, 1.5pw
           n = cr[1].to_f || 1
-          n = 1 if n.to_i == 0
+          n = 1 if n.to_i.zero?
           m = MathematicalConstant[cr[2].to_sym].to_f
           u = cr[3] || 'd'
           getseconds = n * m * TimeUnit[u.to_sym].to_f

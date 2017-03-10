@@ -94,7 +94,7 @@ module Sisimai
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil if mhead.keys.size == 0
+        return nil if mhead.keys.size.zero?
         return nil if mbody.empty?
 
         return nil unless mhead['from'] =~ Re0[:from]

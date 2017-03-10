@@ -122,7 +122,7 @@ module Sisimai
         # Decoded using unpack('M') entire body string when the boundary string
         # or "Content-Transfer-Encoding: quoted-printable" are not included in
         # the message body.
-        return argv1.unpack('M').first if boundary00.size == 0
+        return argv1.unpack('M').first if boundary00.size.zero?
         return argv1.unpack('M').first unless argv1 =~ ReE[:'quoted-print']
 
         boundary01 = Sisimai::MIME.boundary(heads['content-type'], 1)

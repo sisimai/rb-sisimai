@@ -100,7 +100,7 @@ module Sisimai
           match += 1 if mhead['x-mxl-notehash']
           match += 1 if mhead['subject'] =~ Re0[:subject]
           match += 1 if mhead['from']    =~ Re0[:from]
-          return nil if match == 0
+          return nil if match.zero?
 
           dscontents = [Sisimai::MTA.DELIVERYSTATUS]
           hasdivided = mbody.split("\n")
@@ -112,7 +112,7 @@ module Sisimai
           v = nil
 
           hasdivided.each do |e|
-            if readcursor == 0
+            if readcursor.zero?
               # Beginning of the bounce message or delivery status part
               if e =~ Re1[:begin]
                 readcursor |= Indicators[:deliverystatus]
@@ -174,7 +174,7 @@ module Sisimai
               end
             end
           end
-          return nil if recipients == 0
+          return nil if recipients.zero?
 
           if mhead['received'].size > 0
             # Get the name of local MTA

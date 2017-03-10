@@ -74,7 +74,7 @@ module Sisimai
             return nil
           end
 
-          return nil if recipients == 0
+          return nil if recipients.zero?
           return { 'ds' => dscontents, 'rfc822' => rfc822head }
         end
 

@@ -47,7 +47,7 @@ module Sisimai
           match  = 0
           match += 1 if mhead['content-type'] =~ Re0[:boundary]
           match += 1 if mhead['subject']      =~ Re0[:subject]
-          return nil if match == 0
+          return nil if match.zero?
 
           require 'sisimai/address'
           dscontents = [Sisimai::MTA.DELIVERYSTATUS]
@@ -59,7 +59,7 @@ module Sisimai
           v = nil
 
           hasdivided.each do |e|
-            if readcursor == 0
+            if readcursor.zero?
               # Beginning of the bounce message or delivery status part
               if e =~ Re1[:begin]
                 readcursor |= Indicators[:deliverystatus]
@@ -181,7 +181,7 @@ module Sisimai
               end
             end
           end
-          return nil if recipients == 0
+          return nil if recipients.zero?
           require 'sisimai/string'
 
           dscontents.map do |e|

@@ -64,7 +64,7 @@ module Sisimai
           hasdivided.each do |e|
             next if e.empty?
 
-            if readcursor == 0
+            if readcursor.zero?
               # Beginning of the bounce message or delivery status part
               if e =~ Re1[:begin]
                 readcursor |= Indicators[:deliverystatus]
@@ -140,7 +140,7 @@ module Sisimai
             end
           end
 
-          return nil if recipients == 0
+          return nil if recipients.zero?
           require 'sisimai/string'
           require 'sisimai/smtp/status'
 

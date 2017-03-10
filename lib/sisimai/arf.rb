@@ -128,7 +128,7 @@ module Sisimai
         #      this specification is set to "1".
         #
         hasdivided.each do |e|
-          if readcursor == 0
+          if readcursor.zero?
             # Beginning of the bounce message or delivery status part
             if e =~ Re1[:begin]
               readcursor |= Indicators[:deliverystatus]
@@ -267,7 +267,7 @@ module Sisimai
           commondata[:diagnosis] += ' ' + arfheaders[:authres]
         end
 
-        if recipients == 0
+        if recipients.zero?
           # Insert pseudo recipient address when there is no valid recipient
           # address in the message.
           dscontents[-1]['recipient'] = Sisimai::Address.undisclosed(:r)

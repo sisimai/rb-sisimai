@@ -76,7 +76,7 @@ module Sisimai
             havepassed << e
             p = havepassed[-2]
 
-            if readcursor == 0
+            if readcursor.zero?
               # Beginning of the bounce message or delivery status part
               if e =~ Re1[:begin]
                 readcursor |= Indicators[:deliverystatus]
@@ -149,7 +149,7 @@ module Sisimai
               end
             else
               # After "message/rfc822"
-              next if recipients == 0
+              next if recipients.zero?
               next if readcursor & Indicators['deliverystatus'] == 0
 
               if e.empty?
@@ -161,7 +161,7 @@ module Sisimai
 
             end
           end
-          return nil if recipients == 0
+          return nil if recipients.zero?
           require 'sisimai/string'
 
           dscontents.map do |e|

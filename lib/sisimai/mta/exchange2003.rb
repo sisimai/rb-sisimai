@@ -95,7 +95,7 @@ module Sisimai
                 throw :EXCHANGE_OR_NOT if match > 0
               end
 
-              throw :EXCHANGE_OR_NOT if mhead['received'].size == 0
+              throw :EXCHANGE_OR_NOT if mhead['received'].size.zero?
               mhead['received'].each do |e|
                 # Received: by ***.**.** with Internet Mail Service (5.5.2657.72)
                 next unless e =~ Re0[:'received']
@@ -105,7 +105,7 @@ module Sisimai
               break
             end
           end
-          return nil if match == 0
+          return nil if match.zero?
 
           dscontents = [Sisimai::MTA.DELIVERYSTATUS]
           hasdivided = mbody.split("\n")
@@ -123,7 +123,7 @@ module Sisimai
           v = nil
 
           hasdivided.each do |e|
-            if readcursor == 0
+            if readcursor.zero?
               # Beginning of the bounce message or delivery status part
               if e =~ Re1[:begin]
                 readcursor |= Indicators[:deliverystatus]
@@ -233,7 +233,7 @@ module Sisimai
             end
           end
 
-          return nil if recipients == 0
+          return nil if recipients.zero?
           require 'sisimai/string'
           require 'sisimai/smtp/status'
 

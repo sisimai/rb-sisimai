@@ -43,7 +43,7 @@ module Sisimai
           match  = 0
           match += 1 if mhead['from'] =~ Re0[:from]
           match += 1 if mhead['received'].find { |a| a =~ Re0[:received] }
-          return nil if match == 0
+          return nil if match.zero?
 
           require 'sisimai/address'
           dscontents = [Sisimai::MSP.DELIVERYSTATUS]
@@ -67,7 +67,7 @@ module Sisimai
             havepassed << e
             p = havepassed[-2]
 
-            if readcursor == 0
+            if readcursor.zero?
               # Beginning of the bounce message or delivery status part
               if e =~ Re1[:begin]
                 readcursor |= Indicators[:deliverystatus]
@@ -184,7 +184,7 @@ module Sisimai
               end
             end
           end
-          return nil if recipients == 0
+          return nil if recipients.zero?
           require 'sisimai/string'
 
           dscontents.map do |e|

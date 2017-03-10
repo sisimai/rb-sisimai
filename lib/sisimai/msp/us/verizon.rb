@@ -90,7 +90,7 @@ module Sisimai
             end
 
             hasdivided.each do |e|
-              if readcursor == 0
+              if readcursor.zero?
                 # Beginning of the bounce message or delivery status part
                 if e =~ re1[:begin]
                   readcursor |= Indicators[:deliverystatus]
@@ -169,7 +169,7 @@ module Sisimai
             end
 
             hasdivided.each do |e|
-              if readcursor == 0
+              if readcursor.zero?
                 # Beginning of the bounce message or delivery status part
                 if e =~ re1[:begin]
                   readcursor |= Indicators[:deliverystatus]
@@ -232,7 +232,7 @@ module Sisimai
             end
           end
 
-          return nil if recipients == 0
+          return nil if recipients.zero?
 
           if !rfc822list.find { |a| a =~ /^From: / }
             # Set the value of "MAIL FROM:" or "From:"
