@@ -324,7 +324,11 @@ module Sisimai
             if mhead['x-failed-recipients']
               # X-Failed-Recipients: kijitora@example.jp
               rcptinhead = mhead['x-failed-recipients'].split(',')
-              rcptinhead.each { |a| a.lstrip!; a.rstrip!; }
+              rcptinhead.each do |a|
+                # Remove space characters
+                a.lstrip!
+                a.rstrip!
+              end
               recipients = rcptinhead.size
 
               rcptinhead.each do |e|

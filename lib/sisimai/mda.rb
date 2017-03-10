@@ -109,7 +109,7 @@ module Sisimai
           # Check each line with each MDA's symbol regular expression.
           if agentname0 == ''
             # Try to match with each regular expression
-            next unless e.size > 0;
+            next unless e.size > 0
             next unless e =~ Re2
 
             Re1.each_key do |f|

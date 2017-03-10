@@ -112,7 +112,7 @@ module Sisimai
           |\A(?:mailer-daemon|postmaster)\z
           |[ ]?mailer-daemon[ ]
           )
-        /xi;
+        /xi
         return true if email =~ re
         return false
       end

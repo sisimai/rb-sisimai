@@ -75,7 +75,7 @@ module Sisimai
             (?:\d|[01]?\d\d|2[0-4]\d|25[0-5])[.]
             (?:\d|[01]?\d\d|2[0-4]\d|25[0-5])[.]
             (?:\d|[01]?\d\d|2[0-4]\d|25[0-5])
-          \b}x;
+          \b}x
 
           if argv1 =~ ip4re
             # Convert found IPv4 addresses to '***.***.***.***' to avoid that

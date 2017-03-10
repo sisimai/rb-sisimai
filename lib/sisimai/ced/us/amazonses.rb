@@ -121,7 +121,7 @@ module Sisimai
           return nil unless argvs.key?('notificationType')
 
           require 'sisimai/rfc5322'
-          dscontents = [Sisimai::CED.DELIVERYSTATUS];
+          dscontents = [Sisimai::CED.DELIVERYSTATUS]
           rfc822head = {}   # (Hash) Check flags for headers in RFC822 part
           recipients = 0    # (Integer) The number of 'Final-Recipient' header
           labeltable = {
