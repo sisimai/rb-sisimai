@@ -77,6 +77,7 @@ Style/EmptyLineBetweenDefs:
     - 'lib/sisimai/reason/*.rb'
     - 'lib/sisimai/rfc3464.rb'
     - 'lib/sisimai/rfc3834.rb'
+    - 'lib/sisimai/order.rb'
 
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
