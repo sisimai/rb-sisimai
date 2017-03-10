@@ -81,13 +81,13 @@ module Sisimai
           plain = plain.gsub(%r|<a\s+href\s*=\s*['"](https?://.+?)['"].*?>(.*?)</a>|i, '[\2](\1)')
           plain = plain.gsub(%r|<a\s+href\s*=\s*["']mailto:([^\s]+?)["']>(.*?)</a>|i, '[\2](mailto:\1)')
 
-          plain = plain.gsub(/<[^<@>]+?>\s*/,' ') # Delete HTML tags except <neko@example.jp>
-          plain = plain.gsub(/&lt;/, '<')         # Convert to left angle brackets
-          plain = plain.gsub(/&gt;/, '>')         # Convert to right angle brackets
-          plain = plain.gsub(/&amp;/, '&')        # Convert to "&"
-          plain = plain.gsub(/&quot;/, '"')       # Convert to '"'
-          plain = plain.gsub(/&apos;/, "'")       # Convert to "'"
-          plain = plain.gsub(/&nbsp;/, ' ')       # Convert to ' '
+          plain = plain.gsub(/<[^<@>]+?>\s*/, ' ')  # Delete HTML tags except <neko@example.jp>
+          plain = plain.gsub(/&lt;/, '<')           # Convert to left angle brackets
+          plain = plain.gsub(/&gt;/, '>')           # Convert to right angle brackets
+          plain = plain.gsub(/&amp;/, '&')          # Convert to "&"
+          plain = plain.gsub(/&quot;/, '"')         # Convert to '"'
+          plain = plain.gsub(/&apos;/, "'")         # Convert to "'"
+          plain = plain.gsub(/&nbsp;/, ' ')         # Convert to ' '
 
           if argv1.size > plain.size
             plain  = plain.squeeze(' ')
