@@ -47,7 +47,6 @@ module Sisimai
 
         remotehost = argvs.rhost.downcase
         rhostclass = ''
-        reasontext = ''
         modulename = ''
 
         RhostClass.each_key do |e|

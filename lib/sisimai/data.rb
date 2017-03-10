@@ -152,8 +152,6 @@ module Sisimai
 
       messageobj.ds.each do |e|
         # Create parameters for new() constructor.
-        o = nil # Sisimai::Data Object
-        r = nil # Reason text
         p = {
           'catch'          => messageobj.catch  || nil,
           'lhost'          => e['lhost']        || '',
@@ -362,7 +360,6 @@ module Sisimai
           # Bounce message which reason is "feedback" or "vacation" does
           # not have the value of "deliverystatus".
           softorhard = nil
-          textasargv = nil
 
           if o.softbounce.to_s.empty?
             # The value is not set yet
@@ -381,10 +378,6 @@ module Sisimai
 
           if o.deliverystatus.empty?
             # Set pseudo status code
-            pseudocode = nil  # Pseudo delivery status code
-            getchecked = nil  # Permanent error or not
-            tmpfailure = nil  # Temporary error or not
-
             textasargv = sprintf('%s %s', o.replycode, p['diagnosticcode'])
             textasargv = textasargv.gsub(/\A[ ]/, '')
 

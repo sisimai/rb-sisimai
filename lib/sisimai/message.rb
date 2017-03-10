@@ -62,8 +62,6 @@ module Sisimai
       end
 
       methodargv = { 'data' => email, 'hook' => argvs[:hook] || nil }
-      datasource = nil
-
       [:load, :order].each do |e|
         # Order of MTA, MSP modules
         next unless argvs.key?(e)

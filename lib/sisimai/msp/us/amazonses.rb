@@ -55,9 +55,8 @@ module Sisimai
           return nil unless mbody
 
           match = 0
-          xmail = mhead['x-mailer'] || ''
-
           return nil if mhead['x-mailer'] =~ ReE[:'x-mailer']
+
           match += 1 if mhead['x-aws-outgoing']
           match += 1 if mhead['x-ses-outgoing']
           return nil if match == 0

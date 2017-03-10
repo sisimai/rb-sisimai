@@ -28,10 +28,7 @@ module Sisimai
           return nil unless argv1
           return nil unless argv1.size > 0
 
-          statuscode = nil
-          classvalue = nil
           getchecked = nil
-
           statuscode = Sisimai::SMTP::Status.find(argv1)
           statuscode = Sisimai::SMTP::Reply.find(argv1) if statuscode.empty?
           classvalue = statuscode[0, 1].to_i
@@ -81,8 +78,6 @@ module Sisimai
           return '' if argv1.empty?
 
           getchecked = nil
-          statuscode = nil
-          classvalue = nil
           softorhard = nil
 
           if argv1 =~ /\A(?:delivered|feedback|vacation)\z/
