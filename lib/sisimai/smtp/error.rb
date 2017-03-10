@@ -9,13 +9,12 @@ module Sisimai
         require 'sisimai/smtp/status'
 
         SoftOrHard = {
-          :soft => [
-            'blocked', 'contenterror', 'exceedlimit', 'expired', 'filtered',
-            'mailboxfull', 'mailererror', 'mesgtoobig', 'networkerror', 'norelaying',
-            'rejected', 'securityerror', 'spamdetected', 'suspend', 'syntaxerror',
-            'systemerror', 'systemfull', 'toomanyconn',
-          ],
-          :hard => ['hasmoved', 'hostunknown', 'userunknown']
+          :soft => %w|
+            blocked contenterror exceedlimit expired filtered mailboxfull
+            mailererror mesgtoobig networkerror norelaying rejected suspend
+            securityerror spamdetected syntaxerror systemerror systemfull
+            toomanyconn|,
+          :hard => %w|hasmoved hostunknown userunknown|
         }
 
         # Permanent error or not
