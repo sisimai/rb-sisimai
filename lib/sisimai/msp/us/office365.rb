@@ -12,7 +12,6 @@ module Sisimai
           :'subject'    => %r/Undeliverable:/,
           :'received'   => %r/.+[.](?:outbound[.]protection|prod)[.]outlook[.]com\b/,
           :'message-id' => %r/.+[.](?:outbound[.]protection|prod)[.]outlook[.]com\b/,
-          
         }
         Re1 = {
           :begin  => %r{\A(?:

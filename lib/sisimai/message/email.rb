@@ -447,7 +447,7 @@ module Sisimai
         if hookmethod.is_a? Proc
           # Execute hook method
           begin
-            p = { 
+            p = {
               'datasrc' => 'email',
               'headers' => mailheader,
               'message' => bodystring,

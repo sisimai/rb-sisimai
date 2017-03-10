@@ -304,7 +304,7 @@ module Sisimai
           p['diagnostictype'] ||= 'X-UNIX'
         else
           unless p['reason'] =~ /\A(?:feedback|vacation)\z/
-            p['diagnostictype'] ||= 'SMTP' 
+            p['diagnostictype'] ||= 'SMTP'
           end
         end
 

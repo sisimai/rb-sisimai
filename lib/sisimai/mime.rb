@@ -144,7 +144,7 @@ module Sisimai
           # --=_gy7C4Gpes0RP4V5Bs9cK4o2Us2ZT57b-3OLnRN+4klS8dTmQ
           # Content-Type: text/plain; charset=iso-8859-15
           # Content-Transfer-Encoding: quoted-printable
-          if mimeinside 
+          if mimeinside
             # Quoted-Printable encoded text block
             if e =~ reboundary[:begin]
               # The next boundary string has appeared
