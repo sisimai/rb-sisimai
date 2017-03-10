@@ -170,7 +170,7 @@ Style/TrailingBlankLines:
 
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyleForMultiline, SupportedStyles.
-Style/TrailingComma:
+Style/TrailingCommaInLiteral:
   Enabled: false
   EnforcedStyleForMultiline: comma
 
@@ -182,4 +182,8 @@ Style/VariableName:
 Style/UnneededPercentQ:
   Exclude:
     - 'spec/*'
+
+Style/ZeroLengthPredicate:
+  Enabled: false
+
 
