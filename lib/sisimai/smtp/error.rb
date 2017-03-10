@@ -13,7 +13,8 @@ module Sisimai
             blocked contenterror exceedlimit expired filtered mailboxfull
             mailererror mesgtoobig networkerror norelaying rejected suspend
             securityerror spamdetected syntaxerror systemerror systemfull
-            toomanyconn|,
+            toomanyconn
+          |,
           :hard => %w|hasmoved hostunknown userunknown|
         }
 
