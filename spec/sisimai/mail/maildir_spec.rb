@@ -26,7 +26,7 @@ describe Sisimai::Mail::Maildir do
       end
 
       context 'argument is not a directory' do
-        let(:invalid) { '/etc/resolv.conf' }
+        let(:invalid) { '/etc/hosts' }
         it 'raises Errno::ENOTDIR' do
           expect { mockobj }.to raise_error(Errno::ENOTDIR)
         end

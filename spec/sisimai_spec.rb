@@ -165,7 +165,12 @@ describe Sisimai do
 
         else
           callbackto = lambda do |argv|
-            data = { 'x-mailer' => '', 'return-path' => '', 'type' => argv['datasrc'] }
+            data = {
+              'x-mailer' => '',
+              'return-path' => '',
+              'type' => argv['datasrc'],
+              'x-virus-scanned' => '',
+            }
             if cv = argv['message'].match(/^X-Mailer:\s*(.+)$/)
                 data['x-mailer'] = cv[1]
             end
@@ -174,9 +179,13 @@ describe Sisimai do
                 data['return-path'] = cv[1]
             end
             data['from'] = argv['headers']['from'] || ''
+            data['x-virus-scanned'] = argv['headers']['x-virus-scanned'] || ''
             return data
           end
-          havecaught = Sisimai.make(sampleemail[e], hook: callbackto, input: 'email')
+          havecaught = Sisimai.make(sampleemail[e],
+                                    hook: callbackto,
+                                    input: 'email',
+                                    field: ['X-Virus-Scanned'])
         end
 
         havecaught.each do |ee|
@@ -211,6 +220,14 @@ describe Sisimai do
                 expect(ee.catch['from']).to match(/(?:<>|.+[@].+|<?mailer-daemon>?)/i)
               end
             end
+
+            it('exists "x-virus-scanned" key') { expect(ee.catch.key?('x-virus-scanned')).to be true }
+            if ee.catch['x-virus-scanned'].size > 0
+              it 'matches with Clam or Amavis' do
+                expect(ee.catch['x-virus-scanned']).to match(/(?:amavis|clam)/i)
+              end
+            end
+
           end
         end
 

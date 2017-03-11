@@ -26,6 +26,7 @@ module Sisimai
     # @param         [Hash] argvs       Module to be loaded
     # @options argvs [String] :data     Entire email message
     # @options argvs [Array]  :load     User defined MTA module list
+    # @options argvs [Array]  :field    Email header names to be captured
     # @options argvs [Array]  :order    The order of MTA modules
     # @options argvs [Code]   :hook     Reference to callback method
     # @return        [Sisimai::Message] Structured email data or Undef if each
@@ -35,6 +36,7 @@ module Sisimai
 
       email = data
       input = argvs[:input] || 'email'
+      field = argvs[:field] || []
       child = nil
 
       if input == 'email'
@@ -61,7 +63,11 @@ module Sisimai
         return nil
       end
 
-      methodargv = { 'data' => email, 'hook' => argvs[:hook] || nil }
+      methodargv = {
+        'data'  => email,
+        'hook'  => argvs[:hook] || nil,
+        'field' => argvs[:field],
+      }
       [:load, :order].each do |e|
         # Order of MTA, MSP modules
         next unless argvs.key?(e)

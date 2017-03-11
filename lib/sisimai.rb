@@ -20,6 +20,7 @@ module Sisimai
     # @options argv1 [Boolean] delivered true: Include "delivered" reason
     # @options argv1 [Lambda]  hook      Lambda object to be called back
     # @options argv1 [String]  input     Input data format: 'email', 'json'
+    # @options argv1 [Array]   field     Email header name to be captured
     # @return        [Array]             Parsed objects
     # @return        [nil]               nil if the argument was wrong or an empty array
     def make(argv0, **argv1)
@@ -47,6 +48,7 @@ module Sisimai
       methodargv = {}
       delivered1 = argv1[:delivered] || false
       hookmethod = argv1[:hook] || nil
+      headerlist = argv1[:field] || []
       bouncedata = []
 
       if input == 'email'
@@ -57,7 +59,7 @@ module Sisimai
 
         while r = mail.read do
           # Read and parse each mail file
-          methodargv = { data: r, hook: hookmethod, input: 'email' }
+          methodargv = { data: r, hook: hookmethod, input: 'email', field: headerlist }
           mesg = Sisimai::Message.new(methodargv)
           next if mesg.void
 

@@ -38,6 +38,7 @@ module Sisimai
       # @param         [Hash] argvs   Email data
       # @options argvs [String] data  Entire email message
       # @options argvs [Array]  load  User defined MTA module list
+      # @options argvs [Array]  field Email header names to be captured
       # @options argvs [Array]  order The order of MTA modules
       # @options argvs [Code]   hook  Reference to callback method
       # @return        [Hash]         Resolved data structure
@@ -66,6 +67,7 @@ module Sisimai
         headerargv = {}
         headerargv['extheaders'] = ExtHeaders
         headerargv['tryonfirst'] = []
+        headerargv['extrafield'] = argvs['field'] || []
         processing['from']   = aftersplit['from']
         processing['header'] = Sisimai::Message::Email.headers(aftersplit['header'], headerargv)
 
@@ -214,12 +216,16 @@ module Sisimai
         allheaders = {}
         structured = {}
         extheaders = argvs['extheaders'] || []
+        extrafield = argvs['extrafield'] || []
 
         HeaderList.each { |e| structured[e] = nil  }
         HeaderList.each { |e| allheaders[e] = true }
         RFC3834Set.each { |e| allheaders[e] = true }
         MultiHeads.each_key { |e| structured[e.downcase] = [] }
         extheaders.each_key { |e| allheaders[e] = true }
+        if extrafield.size > 0
+          extrafield.each { |e| allheaders[e.downcase] = true }
+        end
 
         heads.split("\n").each do |e|
           # Convert email headers to hash
