@@ -80,10 +80,10 @@ Install
 
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-4.16.0.gem (100%)
-Successfully installed sisimai-4.16.0
-Parsing documentation for sisimai-4.16.0
-Installing ri documentation for sisimai-4.16.0
+Fetching: sisimai-4.20.2.gem (100%)
+Successfully installed sisimai-4.20.2
+Parsing documentation for sisimai-4.20.2
+Installing ri documentation for sisimai-4.20.2
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -110,8 +110,8 @@ Parsing documentation for coveralls-0.8.10
 Done installing documentation for coveralls after 0 seconds
 4 gems installed
 bundle exec rake install
-sisimai 4.14.2 built to pkg/sisimai-4.16.0.gem.
-sisimai (4.14.2) installed.
+sisimai 4.20.2 built to pkg/sisimai-4.20.2.gem.
+sisimai (4.20.2) installed.
 ```
 
 Usage
@@ -197,16 +197,18 @@ Sisimai 4.19.0から`Sisimai.make()`と`Sisimai.dump()`にLamda(Procオブジェ
 #! /usr/bin/env ruby
 require 'sisimai'
 callbackto = lambda do |v|
-  r = { 'x-mailer' => '' }
+  r = { 'x-mailer' => '', 'queue-id' => '' }
 
-  if cv = v['message'].match(/^X-Mailer:\s*(.+)$/)
-    r['x-mailer'] = cv[1]
+  if cv = v['message'].match(/^X-Postfix-Queue-ID:\s*(.+)$/)
+    r['queue-id'] = cv[1]
   end
+  r['x-mailer'] = v['headers']['x-mailer'] || ''
   return r
 end
 
-data = Sisimai.make('/path/to/mbox', hook: callbackto)
-json = Sisimai.dump('/path/to/mbox', hook: callbackto)
+list = ['X-Mailer']
+data = Sisimai.make('/path/to/mbox', hook: callbackto, field: list)
+json = Sisimai.dump('/path/to/mbox', hook: callbackto, field: list)
 
 puts data[0].catch['x-mailer']      # Apple Mail (2.1283)
 ```
