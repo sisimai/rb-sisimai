@@ -1,5 +1,13 @@
 Revision history for the Ruby version of Sisimai
 
+4.20.2p1
+    - Sisimai.make and Sisimai::Message.new methods check "field" argument more
+      strictly.
+    - Improved Sisimai::SMTP::Status.find(). The method checks whether a found
+      value as D.S.N. is IPv4 address or not.
+    - Improved code for getting error messages, D.S.N. values, and SMTP reply
+      codes in Sisimai::MTA::Postfix.scan() method.
+
 4.20.2  Sat, 11 Mar 2017 16:32:48 +0900 (JST)
     - Pull-Request #63 Add some error message patterns from Amazon SES SMTP
       endpoint.
