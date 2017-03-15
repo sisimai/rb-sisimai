@@ -29,8 +29,11 @@ module Sisimai
       require 'sisimai/data'
       require 'sisimai/message'
 
-      input = argv1[:input] || nil
       rtype = nil
+      input = argv1[:input] || nil
+      field = argv1[:field] || []
+      fail ' ***error: "field" accepts an array reference only' unless field.is_a? Array
+
 
       unless input
         # "input" did not specified, try to detect automatically.
@@ -48,7 +51,6 @@ module Sisimai
       methodargv = {}
       delivered1 = argv1[:delivered] || false
       hookmethod = argv1[:hook] || nil
-      headerlist = argv1[:field] || []
       bouncedata = []
 
       if input == 'email'
@@ -59,7 +61,7 @@ module Sisimai
 
         while r = mail.read do
           # Read and parse each mail file
-          methodargv = { data: r, hook: hookmethod, input: 'email', field: headerlist }
+          methodargv = { data: r, hook: hookmethod, input: 'email', field: field }
           mesg = Sisimai::Message.new(methodargv)
           next if mesg.void
 

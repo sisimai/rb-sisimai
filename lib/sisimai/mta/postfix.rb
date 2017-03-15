@@ -186,10 +186,12 @@ module Sisimai
                 if cv = e.match(/[ \t][(]in reply to ([A-Z]{4}).*/)
                   # 5.1.1 <userunknown@example.co.jp>... User Unknown (in reply to RCPT TO
                   commandset << cv[1]
+                  anotherset['diagnosis'] += ' ' + e
 
                 elsif cv = e.match(/([A-Z]{4})[ \t]*.*command[)]\z/)
                   # to MAIL command)
                   commandset << cv[1]
+                  anotherset['diagnosis'] += ' ' + e
 
                 else
                   if cv = e.match(/\A[Rr]eporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
@@ -229,6 +231,7 @@ module Sisimai
                         anotherset['diagnosis'] += ' ' + e
                       end
                     end
+
                   end
                 end
               end
@@ -246,8 +249,8 @@ module Sisimai
           return nil if recipients.zero?
 
           require 'sisimai/string'
-          require 'sisimai/smtp'
           require 'sisimai/smtp/status'
+          require 'sisimai/smtp/reply'
 
           dscontents.map do |e|
             # Set default values if each value is empty.
@@ -259,8 +262,39 @@ module Sisimai
             if anotherset['diagnosis']
               # Copy alternative error message
               e['diagnosis'] = anotherset['diagnosis'] unless e['diagnosis']
-              e['diagnosis'] = anotherset['diagnosis'] if e['diagnosis'] =~ /\A\d+\z/
+
+              if e['diagnosis'] =~ /\A\d+\z/
+                e['diagnosis'] = anotherset['diagnosis']
+              else
+                # More detailed error message is in "$anotherset"
+                as = nil  # status
+                ar = nil  # replycode
+
+                if e['status'] == '' || e['status'] =~ /\A[45][.]0[.]0\z/
+                  # Check the value of D.S.N. in $anotherset
+                  as = Sisimai::SMTP::Status.find(anotherset['diagnosis'])
+                  if as.size > 0 && as[-3, 3] != '0.0'
+                    # The D.S.N. is neither an empty nor *.0.0
+                    e['status'] = as
+                  end
+                end
+
+                if e['replycode'] == '' || e['replycode'] =~ /\A[45]00\z/
+                  # Check the value of SMTP reply code in $anotherset
+                  ar = Sisimai::SMTP::Reply.find(anotherset['diagnosis'])
+                  if ar.size > 0 && ar[-2, 2].to_i != 0
+                    # The SMTP reply code is neither an empty nor *00
+                    e['replycode'] = ar
+                  end
+                end
+
+                if ( as || ar ) && ( anotherset['diagnosis'].size > e['diagnosis'].size )
+                  # Update the error message in $e->{'diagnosis'}
+                  e['diagnosis'] = anotherset['diagnosis']
+                end
+              end
             end
+
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
             e['spec']    ||= 'SMTP' if e['diagnosis'] =~ /host .+ said:/
             e.each_key { |a| e[a] ||= '' }

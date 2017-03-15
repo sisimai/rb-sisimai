@@ -747,6 +747,12 @@ module Sisimai
             # Get the value of D.S.N. in the text
             next unless r = argv1.match(e)
             foundvalue = r[1]
+
+            if argv1 =~ /\b(?:#{foundvalue}[.]\d{1,3}|\d{1,3}[.]#{foundvalue})\b/
+              # Clear and skip if the value is an IPv4 address
+              foundvalue = ''
+              next
+            end
             break
           end
 

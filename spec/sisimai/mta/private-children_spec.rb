@@ -489,6 +489,8 @@ describe 'Sisimai::MTA::' do
       '01152' => %r/blocked/,
       '01153' => %r/spamdetected/,
       '01154' => %r/spamdetected/,
+      '01155' => %r/userunknown/,
+      '01156' => %r/userunknown/,
     },
     'Qmail' => {
       '01001' => %r/filtered/,

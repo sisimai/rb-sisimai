@@ -53,6 +53,13 @@ module Sisimai
 
       else
         # Unsupported value in "input"
+        warn ' ***warning: Unsupported value in "input": ' + input.to_s
+        return nil
+      end
+
+      unless field.is_a? Array
+        # Unsupported value in "field"
+        warn ' ***warning: "field" accepts an array reference only'
         return nil
       end
 
@@ -66,7 +73,7 @@ module Sisimai
       methodargv = {
         'data'  => email,
         'hook'  => argvs[:hook] || nil,
-        'field' => argvs[:field],
+        'field' => field,
       }
       [:load, :order].each do |e|
         # Order of MTA, MSP modules
