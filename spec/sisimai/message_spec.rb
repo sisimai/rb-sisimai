@@ -11,6 +11,7 @@ describe Sisimai::Message do
   %w|mail json|.each do |q|
     messageobj = nil
     callbackto = nil
+    nullobject = nil
 
     if q == 'mail'
       mailstring = File.open(sf[q]).read
@@ -27,6 +28,7 @@ describe Sisimai::Message do
         return data
       end
       messageobj = cn.new(data: mailstring, hook: callbackto, input: 'email')
+      nullobject = cn.new(data: mailstring, field: 'neko')
 
     else
       jsonstring = File.open(sf[q]).read
@@ -60,6 +62,10 @@ describe Sisimai::Message do
         example('#rfc822 returns Hash') { expect(messageobj.rfc822).to be_a Hash }
         example('#from returns String') { expect(messageobj.from).to be_a String }
         example('#catch returns Hash')  { expect(messageobj.catch).to be_a Hash }
+
+        if q == 'email'
+          it('returns Sisimai::Message object') { expect(nullobject).to be_a cn }
+        end
       end
     end
 
@@ -125,6 +131,13 @@ describe Sisimai::Message do
           %w|feedbackid account-id source-arn|.each do |e|
             example(e + 'key exists') { expect(messageobj.catch.key?(e)).to be true }
           end
+        end
+      end
+
+      describe '#void' do
+        example('returns false') { expect(messageobj.void).to be false }
+        if q == 'email'
+          example('returns true') { expect(nullobject).to be true }
         end
       end
 
