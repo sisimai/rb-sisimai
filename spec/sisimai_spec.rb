@@ -252,8 +252,15 @@ describe Sisimai do
 
     context 'wrong number of arguments' do
       it 'raises ArgumentError' do
-        expect { Sisimai.make}.to raise_error(ArgumentError)
+        expect { Sisimai.make }.to raise_error(ArgumentError)
         expect { Sisimai.make(nil, nil) }.to raise_error(ArgumentError)
+      end
+    end
+
+    context 'Invalid value in arguments' do
+      it 'raises RuntimeError' do
+        expect { Sisimai.make('/dev/null', field: 'neko') }.to raise_error(RuntimeError)
+        expect { Sisimai.make('/dev/null', input: 'neko') }.to raise_error(RuntimeError)
       end
     end
   end
