@@ -14,7 +14,7 @@ module Sisimai
 
     @@rwaccessors = [
       :from,    # [String] UNIX From line
-      :header,  # [Hash]   Header part of a email
+      :header,  # [Hash]   Header part of an email
       :ds,      # [Array]  Parsed data by Sisimai::MTA::*
       :rfc822,  # [Hash]   Header part of the original message
       :catch,   # [?]      The results returned by hook method

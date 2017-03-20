@@ -10,7 +10,7 @@ module Sisimai
       class << self
         def text; return 'mesgtoobig'; end
         def description
-          return 'Email rejected due to a email size is too big for a destination mail server'
+          return 'Email rejected due to an email size is too big for a destination mail server'
         end
 
         # Try to match that the given text and regular expressions
