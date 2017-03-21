@@ -1,5 +1,8 @@
 Revision history for the Ruby version of Sisimai
 
+4.20.2p2
+    - Pull-Request #69, Fix some typos. Thanks to @koic.
+
 4.20.2p1
     - Sisimai.make and Sisimai::Message.new methods check "field" argument more
       strictly.
