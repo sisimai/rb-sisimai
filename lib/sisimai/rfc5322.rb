@@ -78,7 +78,7 @@ module Sisimai
 
       # Check that the argument is an email address or not
       # @param    [String] email  Email address string
-      # @return   [True,False]    true: is a email address
+      # @return   [True,False]    true: is an email address
       #                           false: is not an email address
       def is_emailaddress(email)
         return false unless email.is_a?(::String)

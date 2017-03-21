@@ -113,7 +113,7 @@ Revision history for the Ruby version of Sisimai
     - Implement new MTA/MSP module "Sisimai::MSP::US::Office365" to parse error
       mails via Microsoft Office 365. The module, test codes, and sample emails
       are imported from https://github.com/sisimai/p5-Sisimai/pull/164.
-    - New method Sisimai::Address#to_s to get a email address as String, it is
+    - New method Sisimai::Address#to_s to get an email address as String, it is
       implemented at pull-request #39. Thanks to @hiroyuki-sato.
     - Almost all of the class variables are removed for resolving issue #40 and
       merged pull-request #43, thanks to @hiroyuki-sato.
