@@ -256,6 +256,10 @@ describe 'Sisimai::MSP::' do
       '01044' => %r/securityerror/,
       '01045' => %r/expired/,
     },
+    'US::GSuite' => {
+      '01001' => %r/userunknown/,
+      '01002' => %r/userunknown/,
+    },
     'US::Office365' => {
       '01001' => %r/filtered/,
       '01002' => %r/filtered/,

@@ -96,6 +96,10 @@ describe 'Sisimai::MSP::*' do
       '16' => { 's' => %r/\A5[.]2[.]2\z/,   'r' => %r/mailboxfull/, 'b' => %r/\A1\z/ },
       '17' => { 's' => %r/\A4[.]0[.]\d+\z/, 'r' => %r/expired/,     'b' => %r/\A1\z/ },
     },
+    'US::GSuite' => {
+      '01' => { 's' => %r/\A5[.]1[.]0\z/,   'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
+      '02' => { 's' => %r/\A5[.]0[.]0\z/,   'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
+    },
     'US::Office365' => {
       '01' => { 's' => %r/\A5[.]1[.]10\z/, 'r' => %r/filtered/,     'b' => %r/\A1\z/ },
       '02' => { 's' => %r/\A5[.]1[.]1\z/,  'r' => %r/userunknown/,  'b' => %r/\A0\z/ },

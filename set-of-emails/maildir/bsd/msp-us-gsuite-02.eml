@@ -1,0 +1,180 @@
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on shelby.example.net
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,MIME_HEADER_CTYPE_ONLY,
+	RCVD_IN_DNSWL_NONE,RCVD_IN_SORBS_SPAM,URIBL_BLOCKED autolearn=no version=3.3.2
+Received: from mail-lf0-f66.google.com ([209.85.215.66])
+	by shelby.example.net with esmtps (TLS1.2:RSA_AES_128_CBC_SHA1:128)
+	(Exim 4.80)
+	id 1crLWb-0001Wu-2x
+	for issue218@linux.example.de; Fri, 24 Mar 2017 10:28:49 +0100
+Received: by mail-lf0-f66.google.com with SMTP id v2so883599lfi.2
+        for <issue218@linux.example.de>; Fri, 24 Mar 2017 02:28:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20161025;
+        h=from:to:auto-submitted:subject:references:in-reply-to:message-id
+         :date;
+        bh=ZaXqPubt2Y09f+riOSQuXHWlmBs3J2KZBO54WcbtBbs=;
+        b=Rv9u7Eur5Wp5DTB7hYKOgAo/gspH/9TKLryAhBN2AB3Qt/3QIr6ygVtYA06s50Mgzq
+         kk1DDtPzLVWYaTgmYZjrgcxUCvfMyN6gRNKx77F807DfQUt7rNDanK7INrR7LPFuZcId
+         /SAQTfS6IR/dtv3/W7G62/gZWwlMyNRR5hpVmpJ4v6OBh42DWdsqpBIM1G/63XgeyqY3
+         DrgEBh45asP/FQrLQ2/krBL7UZOtUC19fQO98ncnLVXSJM4tMzw9ohOf3F6IyiNPaxAa
+         aLkphGZKxgMvmZbUyQSDtfHioxw8ysl1xaGRWU/lAPFSpnMbQ5pU7R4S/fnv+AzpRT1P
+         js3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:auto-submitted:subject:references
+         :in-reply-to:message-id:date;
+        bh=ZaXqPubt2Y09f+riOSQuXHWlmBs3J2KZBO54WcbtBbs=;
+        b=jY2PhN9mja59DbIHRzgp67y7GkMWbhE5f6WUBrETSWy47flYvS8UVX0EnzmbyZqS+D
+         hd/zHhfjp31omPkIm3GBb+YCJOWSJr+gf/5D9r1r4owunRPPs5ezIHYVYdYogVCoQJNX
+         XWlg7UwlafB83IbDHMEH9A/jiLG6F24sgfYsDjEZ7dEbcE5sviJvBQMWu1ac1gq6c497
+         3Buy6f/wxlbKUByTnNMFYunOaK06LTrzcJ3JPo6n3wz2WRkCgp0U6CwOfx3RZHxtaoGZ
+         Zkqv4pyplW8EXAcrF1MgBPlS1e3djXSyaN4tsg8mqoGiEYzZnY9K2oeNGqyBtGfWZSjP
+         MRXQ==
+X-Gm-Message-State: AFeK/H3OuV9ifjCJwkb2Us7PvVoxwdQUuHnbSNbSaHXDml+9YXnFKPh+X1RtdVWDxiWK57WfdSc1Ya28oRMSbHx2dj3Bs/9zsS1p+oY=
+X-Received: by 10.25.37.10 with SMTP id l10mr3508841lfl.17.1490347718449;
+        Fri, 24 Mar 2017 02:28:38 -0700 (PDT)
+Content-Type: multipart/report; boundary=001a1140640e599149054b769e99; report-type=delivery-status
+Received: by 10.25.37.10 with SMTP id l10mr3857678lfl.17; Fri, 24 Mar 2017
+ 02:28:38 -0700 (PDT)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+To: issue218@linux.example.de
+Auto-Submitted: auto-replied
+Subject: Delivery Status Notification (Failure)
+References: <002b01d2a4bb$028be941$b756c59a@example>
+In-Reply-To: <002b01d2a4bb$028be941$b756c59a@example>
+Message-ID: <58d4e6c6.0a25190a.79dd8.8aff.GMRIR@mx.google.com>
+Date: Fri, 24 Mar 2017 02:28:38 -0700 (PDT)
+
+--001a1140640e599149054b769e99
+Content-Type: multipart/related; boundary=001a1140640e599177054b769e9a
+
+--001a1140640e599177054b769e9a
+Content-Type: multipart/alternative; boundary=001a1140640e59917b054b769e9b
+
+--001a1140640e59917b054b769e9b
+Content-Type: text/plain; charset=UTF-8
+
+
+** Address not found **
+
+Your message wasn't delivered to kijitora@example.it because the address couldn't be found. Check for typos or unnecessary spaces and try again.
+
+
+
+
+--001a1140640e59917b054b769e9b
+Content-Type: text/html; charset=UTF-8
+
+
+<html>
+<head>
+<style>
+* {
+font-family:Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+</style>
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" class="email-wrapper" style="padding-top:32px;background-color:#ffffff;"><tbody>
+<tr><td>
+<table cellpadding=0 cellspacing=0><tbody>
+<tr><td style="max-width:560px;padding:24px 24px 32px;background-color:#fafafa;border:1px solid #e0e0e0;border-radius:2px">
+<img style="padding:0 24px 16px 0;float:left" width=72 height=72 alt="Error Icon" src="cid:icon.png">
+<table style="min-width:272px;padding-top:8px"><tbody>
+<tr><td><h2 style="font-size:20px;color:#212121;font-weight:bold;margin:0">
+Address not found
+</h2></td></tr>
+<tr><td style="padding-top:20px;color:#757575;font-size:16px;font-weight:normal;text-align:left">
+Your message wasn't delivered to <a style='color:#212121;text-decoration:none'><b>kijitora@example.it</b></a> because the address couldn't be found. Check for typos or unnecessary spaces and try again.
+</td></tr>
+</tbody></table>
+</td></tr>
+</tbody></table>
+</td></tr>
+<tr style="border:none;background-color:#fff;font-size:12.8px;width:90%">
+<td align="left" style="padding:48px 10px">
+</td>
+</tr>
+</tbody></table>
+</body>
+</html>
+
+--001a1140640e59917b054b769e9b--
+--001a1140640e599177054b769e9a
+Content-Type: image/png; name="icon.png"
+Content-Disposition: attachment; filename="icon.png"
+Content-Transfer-Encoding: base64
+Content-ID: <icon.png>
+
+iVBORw0KGgoAAAANSUhEUgAAAJAAAACQCAYAAADnRuK4AAAACXBIWXMAABYlAAAWJQFJUiTwAAAA
+GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABTdJREFUeNrsnD9sFEcUh5+PRMqZ
+yA0SPhAUQAQFUkyTgiBASARo6QApqVIkfdxGFJFSgGhJAUIiBaQB0ZIOKVCkwUgURjIg2fxL4kS+
+YDvkbC/388bi8N16Z4/d7J/5PsniuD3fyePP772ZeTsDQRAYQL/UGAJAIEAgQCBAIAAEAgQCBAIE
+AkAgyJT3Mv+Eq7vYK8mTE+MDRCAghQECAeRQA5V2ZOpmg5vDx3NPzRbmGRMEcmTrEbNNB8zWfRD+
+f/Efs2e3zCZvMjaksBg27TfbcuSNPEKP9ZyuAQKtHX2O9ncNgWC57umMPKvRNb0GEKgnLoUyxTQC
+rcns0/6uIRAs8/hGf9cQCJZpTpjdO2f25/03z+mxntM1eLtsZAgiUtX4JcaBCAQIBAgECARQ8CJa
+G5jab4J4pm4WZmO3OALVh802fIwcLkyPkcKAGggAgQCBAIEAgQCBABAIEAjKA/1AnahhbO5FdOOY
+VsrrDbPBYcYKgf5D2wLaV3p+22xh1u17tO3S+DTcvxvagUDeivPgx/a/95J/73w7Sj26Hn4pKo2M
+ehuV/KyBJM6d0f7k6RKx/R63vvL2tmf/ItDdM2ZTP6f7nkp9Y2fDx1v9akmpIU+KSCLVUghUQfSL
+zVKeTklbLxGoctw/nzC5rw8L5KRNbkpnKq6pgSqEClzNnFzY+XnYWrt6VpVk1vbwWvg+RKCKMOUw
+Q1LEOXA+/MX3mpJvGDHb265xtnzmFoUK1HaKQGlMtePYM+q2KKjXuaS1NJYIEKgI8jhEgqHt4cqy
+Ky53j3hyHz2bqSLp2o2LbJ7MxKovkGqXteoWpaOk96O9/yF/dF7NwlS36AuIQIBA5celQK4PIxBE
+4LLzrtoLgaALdSy6CJRkWQCBPGLsTHznomZ9nszUECgJ2ml3WWHe+QVFNPSQx6UdZNtxr9pbEShN
+eTTz8mQXHoHSlke7+Z+c9m6VGoHSkEfs/trLW3wQKApN1V3lGfnGu2Z6BFoLtYCs3GWBPAiUCLVh
+/HoaeRCoT9R873KLM/IgUBfapnCpe5AHgXry4pf412ihEHkQqCdxd5VqrcezhUIESsJMTJ+Pdthp
+Z0WgyNlXXPHc2Mc4IVAELl2Gnh8mhUDvCkfbIVAkcbf/aOoO3fMKhqAD3frTa4quwpn0hUDOkQhI
+YYBAgECAQAAU0QlYObl+5Ug8NcprZkZxjUCxRPVA6zmtEXHCBykskrhjgHXN09PoEcgFl4M4H11j
+nBAoApcj6ZoPGScEAgTKApcDoTw5sgWB+sGlz1n90IBAPdE6j1o21PfcC11jLagL1oFWRyGlKU3p
+OxcSJQ7NZAjkhHp/uG2HFAYIBAgECASAQIBAgECAQAAIBOkxEARBtp9wdVfAMOfIifEBIhCQwgCB
+ABAI0oV2jhxZ+nfBatuPZfgBCy0Eqqo8c01b+uu51XZvzOgDWoHNTGR+pCwpLEd5svuAZXlO2uEr
+PyEQ8hRWHgRCHmqg0sjTnLalv6crJQ8C/U8stqNO0I4+VZOHFIY8COS1PGL2ybd5yUMKK7s8zYmL
+dujyd3n+nESgcsvzZd4/KwIhDwIhT35QA6UyE1qyxZnfvJMHgdKS549JC1qvvJOHFIY8CFR5eV5O
+XimqPAhUdHnmfx+zgxdOFXkoqIGKKs/cswnb/8Oeog8HEai48nxUhiFBIORBIOShBioskkbySCLk
+IQIhDwIhj28p7FApR6b1qlEbHGpkO/rr6215vi/zH1r2x7tApSGFAQIBAgECAQIBIBAgECAQIBBA
+LK8FGADCTxYrr+EVJgAAAABJRU5ErkJggg==
+--001a1140640e599177054b769e9a--
+--001a1140640e599149054b769e99
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; googlemail.com
+Received-From-MTA: dns; issue218@linux.example.de
+Arrival-Date: Fri, 24 Mar 2017 02:28:38 -0700 (PDT)
+X-Original-Message-ID: <002b01d2a4bb$028be941$b756c59a@example>
+
+Final-Recipient: rfc822; kijitora@example.it
+Action: failed
+Status: 5.0.0
+Last-Attempt-Date: Fri, 24 Mar 2017 02:28:38 -0700 (PDT)
+
+--001a1140640e599149054b769e99
+Content-Type: message/rfc822
+
+X-Received: by 10.25.37.10 with SMTP id l10mr3508834lfl.17.1490347718262;
+        Fri, 24 Mar 2017 02:28:38 -0700 (PDT)
+Return-Path: <issue218@linux.example.de>
+Received: from 222.2.0.192.neko.example.co.th ([192.0.2.222])
+        by mx.google.com with ESMTP id o66si992250lfg.117.2017.03.24.02.28.37
+        for <kijitora@example.it>;
+        Fri, 24 Mar 2017 02:28:38 -0700 (PDT)
+Received-SPF: neutral (google.com: 192.0.2.222 is neither permitted nor denied by best guess record for domain of issue218@linux.example.de) client-ip=192.0.2.222;
+Authentication-Results: mx.google.com;
+       spf=neutral (google.com: 192.0.2.222 is neither permitted nor denied by best guess record for domain of issue218@linux.example.de) smtp.mailfrom=issue218@linux.example.de
+Message-ID: <002b01d2a4bb$028be941$b756c59a@example>
+From: <issue218@linux.example.de>
+To: <kijitora@example.it>
+Subject: 5394
+Date: 24 Mar 2017 22:01:42 +0600
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_000_0028_01D2A4BB.02869201"
+X-Priority: 3
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook Express 6.00.2800.1106
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2800.1106
+
+Nyaan
+
+--001a1140640e599149054b769e99--
+
