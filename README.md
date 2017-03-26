@@ -54,7 +54,7 @@ Key Features
 * __High Precision of Analysis__
   * 2 times higher than bounceHammer
   * Support 22 known MTAs and 5 unknown MTAs
-  * Support 21 major MSPs(Mail Service Providers)
+  * Support 22 major MSPs(Mail Service Providers)
   * Support 2 major Cloud Email Delivery Services(JSON format)
   * Support Feedback Loop Message(ARF)
   * Can detect 27 error reasons
@@ -243,8 +243,8 @@ and bounceHammer are available at
 | The speed of parsing email(1000 emails)     | 3.30s          | 2.33s         |
 | How to install                              | gem install    | cpanm         |
 | Dependencies (Except core modules)          | 1 module       | 2 modules     |
-| LOC:Source lines of code                    | 12200 lines    | 8884 lines    |
-| The number of tests(spec/,t/,xt/) directory | 107700 tests   | 189000 tests  |
+| LOC:Source lines of code                    | 12400 lines    | 9000 lines    |
+| The number of tests(spec/,t/,xt/) directory | 108000 tests   | 189600 tests  |
 | License                                     | BSD 2-Clause   | BSD 2-Clause  |
 | Support Contract provided by Developer      | Coming soon    | Available     |
 
