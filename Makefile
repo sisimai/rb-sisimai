@@ -54,10 +54,15 @@ release:
 		PATH="$$PATH:$(JRUBY)/bin" $(JRUBY)/bin/rake release; \
 	fi
 
-test: user-test
+test: cruby-test jruby-test
 
-user-test:
+cruby-test:
 	$(RAKE) spec
+
+jruby-test:
+	if [ -d "$(JRUBY)" ]; then \
+		PATH="$$PATH:$(JRUBY)/bin" $(JRUBY)/bin/rake spec; \
+	fi
 
 patrol:
 	rubocop -fp --display-cop-names --display-style-guide --no-color lib
