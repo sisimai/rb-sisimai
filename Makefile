@@ -27,31 +27,31 @@ REPOS_TARGETS = git-status git-push git-commit-amend git-tag-list git-diff \
 depend:
 	gem install $(DEPENDENCIES)
 	if [ test -d "$(JRUBY)" ]; then \
-		PATH="$$PATH:$(JRUBY)/bin" $(JRUBY)/bin/gem install $(DEPENDENCIES); \
+		PATH="$(JRUBY)/bin:$$PATH" $(JRUBY)/bin/gem install $(DEPENDENCIES); \
 	fi
 
 install-from-rubygems:
 	gem install $(NAME)
 	if [ test -d "$(JRUBY)" ]; then \
-		PATH="$$PATH:$(JRUBY)/bin" $(JRUBY)/bin/gem install $(NAME); \
+		PATH="$(JRUBY)/bin:$$PATH" $(JRUBY)/bin/gem install $(NAME); \
 	fi
 
 install-from-local:
 	$(RAKE) install
 	if [ test -d "$(JRUBY)" ]; then \
-		PATH="$$PATH:$(JRUBY)/bin" $(JRUBY)/bin/rake install; \
+		PATH="$(JRUBY)/bin:$$PATH" $(JRUBY)/bin/rake install; \
 	fi
 
 build:
 	$(RAKE) $@ 
 	if [ -d "$(JRUBY)" ]; then \
-		PATH="$$PATH:$(JRUBY)/bin" $(JRUBY)/bin/rake $@; \
+		PATH="$(JRUBY)/bin:$$PATH" $(JRUBY)/bin/rake $@; \
 	fi
 
 release:
 	$(RAKE) release
 	if [ -d "$(JRUBY)" ]; then \
-		PATH="$$PATH:$(JRUBY)/bin" $(JRUBY)/bin/rake release; \
+		PATH="$(JRUBY)/bin:$$PATH" $(JRUBY)/bin/rake release; \
 	fi
 
 test: cruby-test jruby-test
@@ -61,7 +61,7 @@ cruby-test:
 
 jruby-test:
 	if [ -d "$(JRUBY)" ]; then \
-		PATH="$$PATH:$(JRUBY)/bin" $(JRUBY)/bin/rake spec; \
+		PATH="$(JRUBY)/bin:$$PATH" LS_HEAP_SIZE='1024m' $(JRUBY)/bin/rake spec; \
 	fi
 
 patrol:
