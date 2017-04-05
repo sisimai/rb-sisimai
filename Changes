@@ -4,6 +4,7 @@ Revision history for the Ruby version of Sisimai
     - Pull-Request #69, Fix some typos. Thanks to @koic.
     - Experimental implementation: new MTA module "Sisimai::MSP::US::GSuite" to 
       parse bounce mails returned from G Suite.
+    - Pull-Request #71, Fix break statement. Thanks to @MichiakiNakaya.
 
 4.20.2p1
     - Sisimai.make and Sisimai::Message.new methods check "field" argument more
