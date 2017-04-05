@@ -248,7 +248,7 @@ module Sisimai
                 # Try to match with each key as a regular expression
                 next unless e['status'] =~ f
                 e['reason'] = CodeTable[f]
-                last
+                break
               end
             end
           end
