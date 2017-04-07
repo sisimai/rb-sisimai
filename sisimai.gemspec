@@ -24,10 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 1.8'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 0'
-
-  if RUBY_PLATFORM == 'java'
-    spec.add_runtime_dependency 'jrjackson','~> 0.3', '>= 0.3.8'
-  else
-    spec.add_runtime_dependency 'oj', '~> 2.14', '>= 2.14.4'
-  end
+  spec.add_runtime_dependency 'oj', '~> 2.14', '>= 2.14.4'
 end
