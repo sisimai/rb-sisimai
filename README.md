@@ -85,10 +85,10 @@ Install
 
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-4.20.2.gem (100%)
-Successfully installed sisimai-4.20.2
-Parsing documentation for sisimai-4.20.2
-Installing ri documentation for sisimai-4.20.2
+Fetching: sisimai-4.21.0.gem (100%)
+Successfully installed sisimai-4.21.0
+Parsing documentation for sisimai-4.21.0
+Installing ri documentation for sisimai-4.21.0
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -104,8 +104,8 @@ gem install bundle rake rspec coveralls
 ...
 4 gems installed
 bundle exec rake install
-sisimai 4.20.2 built to pkg/sisimai-4.20.2.gem.
-sisimai (4.20.2) installed.
+sisimai 4.21.0 built to pkg/sisimai-4.21.0.gem.
+sisimai (4.21.0) installed.
 ```
 
 Usage

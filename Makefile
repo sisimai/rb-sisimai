@@ -54,7 +54,7 @@ release:
 		PATH="$(JRUBY)/bin:$$PATH" $(JRUBY)/bin/rake release; \
 	fi
 
-test: cruby-test jruby-test
+test: cruby-test
 
 cruby-test:
 	$(RAKE) spec

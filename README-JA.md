@@ -80,10 +80,10 @@ Install
 
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-4.20.2.gem (100%)
-Successfully installed sisimai-4.20.2
-Parsing documentation for sisimai-4.20.2
-Installing ri documentation for sisimai-4.20.2
+Fetching: sisimai-4.21.0.gem (100%)
+Successfully installed sisimai-4.21.0
+Parsing documentation for sisimai-4.21.0
+Installing ri documentation for sisimai-4.21.0
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -96,22 +96,11 @@ $ git clone https://github.com/sisimai/rb-Sisimai.git
 $ cd ./rb-Sisimai
 $ sudo make depend install-from-local
 gem install bundle rake rspec coveralls
-Successfully installed bundle-0.0.1
-Parsing documentation for bundle-0.0.1
-Done installing documentation for bundle after 0 seconds
-Successfully installed rake-10.5.0
-Parsing documentation for rake-10.5.0
-Done installing documentation for rake after 1 seconds
-Successfully installed rspec-3.4.0
-Parsing documentation for rspec-3.4.0
-Done installing documentation for rspec after 0 seconds
-Successfully installed coveralls-0.8.10
-Parsing documentation for coveralls-0.8.10
-Done installing documentation for coveralls after 0 seconds
+...
 4 gems installed
 bundle exec rake install
-sisimai 4.20.2 built to pkg/sisimai-4.20.2.gem.
-sisimai (4.20.2) installed.
+sisimai 4.21.0 built to pkg/sisimai-4.21.0.gem.
+sisimai (4.21.0) installed.
 ```
 
 Usage
