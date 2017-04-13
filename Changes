@@ -1,5 +1,9 @@
 Revision history for the Ruby version of Sisimai
 
+4.21.0p1 (not tagged yet)
+    - Pull-Request #73, Fix codes for initializing a hash element with an empty
+      string in Sisimai::MTA::Postfix. Thanks to @MichiakiNakaya.
+
 4.21.0 Mon, 10 Apr 2017 12:17:22 +0900 (JST)
     - Experimental implementation: new MTA module "Sisimai::MSP::US::GSuite" to 
       parse bounce mails returned from G Suite.
