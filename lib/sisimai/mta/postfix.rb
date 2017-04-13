@@ -186,11 +186,13 @@ module Sisimai
                 if cv = e.match(/[ \t][(]in reply to ([A-Z]{4}).*/)
                   # 5.1.1 <userunknown@example.co.jp>... User Unknown (in reply to RCPT TO
                   commandset << cv[1]
+                  anotherset['diagnosis'] ||= ''
                   anotherset['diagnosis'] += ' ' + e
 
                 elsif cv = e.match(/([A-Z]{4})[ \t]*.*command[)]\z/)
                   # to MAIL command)
                   commandset << cv[1]
+                  anotherset['diagnosis'] ||= ''
                   anotherset['diagnosis'] += ' ' + e
 
                 else
