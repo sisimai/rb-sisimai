@@ -23,8 +23,11 @@ module Sisimai
           regex = %r{(?>
              access[ ]denied[.][ ]IP[ ]name[ ]lookup[ ]failed
             |access[ ]from[ ]ip[ ]address[ ].+[ ]blocked
+            |blacklisted[ ]by
             |Blocked[ ]-[ ]see[ ]https://support[.]proofpoint[.]com/dnsbl-lookup[.]cgi[?]ip=.+
+            |can[']t[ ]determine[ ]Purported[ ]Responsible[ ]Address
             |cannot[ ]resolve[ ]your[ ]address
+            |client[ ]host[ ].+[ ]blocked[ ]using
             |client[ ]host[ ]rejected:[ ](?:
                may[ ]not[ ]be[ ]mail[ ]exchanger
               |cannot[ ]find[ ]your[ ]hostname    # Yahoo!
@@ -64,6 +67,7 @@ module Sisimai
                network[ ]is[ ]temporary[ ]blacklisted
               |server[ ]requires[ ]confirmation
               )
+            |was[ ]blocked[ ]by[ ].+
             |we[ ]do[ ]not[ ]accept[ ]mail[ ]from[ ](?: # @mail.ru
                hosts[ ]with[ ]dynamic[ ]IP[ ]or[ ]generic[ ]dns[ ]PTR-records
               |dynamic[ ]ips

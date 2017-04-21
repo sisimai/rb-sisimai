@@ -35,6 +35,7 @@ module Sisimai
             |address[ ]unknown
             |archived[ ]recipient
             |BAD[-_ ]RECIPIENT
+            |can[']t[ ]accept[ ]user
             |destination[ ]addresses[ ]were[ ]unknown
             |destination[ ]server[ ]rejected[ ]recipients
             |email[ ]address[ ]does[ ]not[ ]exist
@@ -75,8 +76,7 @@ module Sisimai
             |recipient[ ](?:
                .+[ ]was[ ]not[ ]found[ ]in
               |address[ ]rejected:[ ](?:
-                 access[ ]denied
-                |invalid[ ]user
+                 invalid[ ]user
                 |user[ ].+[ ]does[ ]not[ ]exist
                 |user[ ]unknown[ ]in[ ].+[ ]table
                 |unknown[ ]user
@@ -96,7 +96,8 @@ module Sisimai
               |no[ ]mailbox[ ]here[ ]by[ ]that[ ]name
               )
             |the[ ](?:
-               following[ ]recipients[ ]was[ ]undeliverable
+               email[ ]account[ ]that[ ]you[ ]tried[ ]to[ ]reach[ ]does[ ]not[ ]exist
+              |following[ ]recipients[ ]was[ ]undeliverable
               |user[']s[ ]email[ ]name[ ]is[ ]not[ ]found
               )
             |this[ ](?:
@@ -105,8 +106,7 @@ module Sisimai
               |user[ ]doesn[']?t[ ]have[ ]a[ ].+[ ]account
               )
             |unknown[ ](?:
-               address
-              |e[-]?mail[ ]address
+               e[-]?mail[ ]address
               |local[- ]part
               |mailbox
               |recipient

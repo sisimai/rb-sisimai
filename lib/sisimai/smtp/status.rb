@@ -618,8 +618,8 @@ module Sisimai
           :'5.6.8'  => 'contenterror',   # UTF-8 string reply is required, but not permitted by the SMTP client
           :'5.6.9'  => 'contenterror',   # UTF-8 header message cannot be transferred to one or more recipients
           :'5.7.0'  => 'securityerror',  # Other or undefined security status
-          :'5.7.1'  => 'blocked',        # Delivery not authorized, message refused
-          :'5.7.2'  => 'blocked',        # Mailing list expansion prohibited
+          :'5.7.1'  => 'securityerror',  # Delivery not authorized, message refused
+          :'5.7.2'  => 'securityerror',  # Mailing list expansion prohibited
           :'5.7.3'  => 'securityerror',  # Security conversion required but not possible
           :'5.7.4'  => 'securityerror',  # Security features not supported
           :'5.7.5'  => 'securityerror',  # Cryptographic failure

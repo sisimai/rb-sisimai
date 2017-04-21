@@ -50,6 +50,7 @@ module Sisimai
               )
             |Executable[ ]files[ ]are[ ]not[ ]allowed[ ]in[ ]compressed[ ]files
             |insecure[ ]mail[ ]relay
+            |Recipient[ ]address[ ]rejected:[ ]Access[ ]denied
             |sorry,[ ]you[ ]don'?t[ ]authenticate[ ]or[ ]the[ ]domain[ ]isn'?t[ ]in[ ]my[ ]list[ ]of[ ]allowed[ ]rcpthosts
             |the[ ]message[ ]was[ ]rejected[ ]because[ ]it[ ]contains[ ]prohibited[ ]virus[ ]or[ ]spam[ ]content
             |TLS[ ]required[ ]but[ ]not[ ]supported # SendGrid

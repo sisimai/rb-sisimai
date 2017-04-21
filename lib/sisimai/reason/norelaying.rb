@@ -25,7 +25,8 @@ module Sisimai
         def match(argv1)
           return nil unless argv1
           regex = %r{(?>
-             Insecure[ ]Mail[ ]Relay
+             as[ ]a[ ]relay
+            |Insecure[ ]Mail[ ]Relay
             |mail[ ]server[ ]requires[ ]authentication[ ]when[ ]attempting[ ]to[ ]
               send[ ]to[ ]a[ ]non-local[ ]e-mail[ ]address    # MailEnable
             |not[ ]allowed[ ]to[ ]relay[ ]through[ ]this[ ]machine
