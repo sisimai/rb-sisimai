@@ -6,10 +6,12 @@ RELEASE NOTES for Ruby version of Sisimai
 v4.21.0p2
 --------------------------------------------------------------------------------
 - release: "Not released yet"
-- version: "Not tagged yet"
+- version: "4.21.0p2"
 - changes:
   - Changes file has been renamed to **ChangeLog.md** and converted to Markdown
     format.
+  - Import Pull-Request https://github.com/sisimai/p5-Sisimai/pull/223 for code
+    improvement to detect DNS related errors at G Suite.
 
 v4.21.0p1
 --------------------------------------------------------------------------------
