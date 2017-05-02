@@ -1,0 +1,77 @@
+Delivered-To: kijitora@mail.example.ru
+Return-path: <>
+Received: from mail by f374.i.mail.ru with local id 1d5Q4V-00059X-Fc
+	for kijitora@mail.example.ru; Tue, 02 May 2017 08:09:59 +0300
+X-Failed-Recipients: neko@libsisimai.org
+X-Mailer-Daemon-Recipients: neko@libsisimai.org
+Auto-Submitted: auto-replied
+From: mailer-daemon@corp.mail.ru
+To: kijitora@mail.example.ru
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Subject: =?UTF-8?B?0JLQsNGI0LUg0YHQvtC+0LHRidC10L3QuNC1INC90LUg0LTQvtGB0YLQsNCy0LvQtdC90L4=?=. Mail failure.
+Message-Id: <E1d5Q4V-00059X-Fc@f374.i.mail.ru>
+Date: Tue, 02 May 2017 08:09:59 +0300
+Authentication-Results: f374.i.mail.ru; auth=pass smtp.auth=mailer-daemon@corp.mail.ru smtp.mailfrom=mailer-daemon@corp.mail.ru
+
+Это письмо создано автоматически сервером Mail.Ru, отвечать на него не нужно.
+
+К сожалению, Ваше письмо не может быть доставлено одному или нескольким получателям:
+
+  neko@libsisimai.org
+    an MX or SRV record indicated no SMTP service
+
+Рекомендуем Вам проверить корректность указания адресов получателей.
+
+**********************
+
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  neko@libsisimai.org
+    an MX or SRV record indicated no SMTP service
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <kijitora@mail.example.ru>
+Received: by f374.i.mail.ru with local (envelope-from <kijitora@mail.example.ru>)
+	id 1d5Q4U-000593-VB
+	for neko@libsisimai.org; Tue, 02 May 2017 08:09:59 +0300
+Received: by e.mail.ru with HTTP;
+	Tue, 02 May 2017 08:09:58 +0300
+From: =?UTF-8?B?a3VuaXl1a2kgYXp1bWE=?= <kijitora@mail.example.ru>
+To: neko@libsisimai.org
+Subject: =?UTF-8?B?TnlhYW4=?=
+MIME-Version: 1.0
+X-Mailer: Mail.Ru Mailer 1.0
+X-Originating-IP: [153.156.254.67]
+Date: Tue, 02 May 2017 08:09:58 +0300
+Reply-To: =?UTF-8?B?a3VuaXl1a2kgYXp1bWE=?= <kijitora@mail.example.ru>
+X-Priority: 3 (Normal)
+Message-ID: <1493701798.665756489@f374.i.mail.ru>
+Content-Type: multipart/alternative;
+	boundary="--ALT--qqqn6VNShwvuoizcDcWlJtnHLZxN41Kt1493701798"
+Authentication-Results: f374.i.mail.ru; auth=pass smtp.auth=kijitora@mail.example.ru smtp.mailfrom=kijitora@mail.example.ru
+X-7FA49CB5: 0D63561A33F958A55613AE6EA04A40B8599B686407CD0FFA85278A3262A38F3A725E5C173C3A84C31843B52DAC7A1853BE6448F529FC3EDD4E672349037D5FA5C4224003CC836476C0CAF46E325F83A50BF2EBBBDD9D6B0F2AF38021CC9F462D574AF45C6390F7469DAA53EE0834AAEE
+X-Mailru-Sender: 052F3EE632032033F266ABDBF0757312F10615B9947D4BE94F098A93F446C8CA2AF7FA9068B537F6C2F39516BD8028B71D295F8817E181A9626B1D7BE3F966DCC1066F626AABBBD95843B8C90ECF6809064FDD5B919501F067EA787935ED9F1B
+X-Mras: OK
+X-Spam: undefined
+
+
+----ALT--qqqn6VNShwvuoizcDcWlJtnHLZxN41Kt1493701798
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+
+Ck55YWFuCgotLSAKa3VuaXl1a2kgYXp1bWE=
+
+----ALT--qqqn6VNShwvuoizcDcWlJtnHLZxN41Kt1493701798
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
+
+CjxIVE1MPjxCT0RZPjxicj5OeWFhbjxicj48YnI+LS0gPGJyPmt1bml5dWtpIGF6dW1hPC9CT0RZ
+PjwvSFRNTD4K
+
+----ALT--qqqn6VNShwvuoizcDcWlJtnHLZxN41Kt1493701798--
