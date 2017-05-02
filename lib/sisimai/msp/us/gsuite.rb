@@ -14,12 +14,16 @@ module Sisimai
         }
         Re1 = {
           :begin   => %r/\A[*][*][ ].+[ ][*][*]\z/,
-          :error   => %r/\AThe[ ]response[ ]from[ ]the[ ]remote[ ]server[ ]was:\z/,
+          :error   => %r/\AThe[ ]response([ ]from[ ]the[ ]remote[ ]server)?[ ]was:\z/,
           :html    => %r{\AContent-Type:[ ]*text/html;[ ]*charset=['"]?(?:UTF|utf)[-]8['"]?\z},
           :rfc822  => %r{\AContent-Type:[ ]*(?:message/rfc822|text/rfc822-headers)\z},
           :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         }
-        ErrorMayBe = { :userunknown => %r/because the address couldn't be found/ }
+        ErrorMayBe = {
+          :userunknown  => %r/because the address couldn't be found/,
+          :notaccept    => %r/Null MX/,
+          :networkerror => %r/DNS type .+ lookup of .+ responded with code NXDOMAIN/,
+        }
         Indicators = Sisimai::MSP.INDICATORS
 
         def description; return 'G Suite: https://gsuite.google.com'; end
@@ -53,6 +57,7 @@ module Sisimai
           blanklines = 0      # (Integer) The number of blank lines
           readcursor = 0      # (Integer) Points the current cursor position
           recipients = 0      # (Integer) The number of 'Final-Recipient' header
+          endoferror = true   # (Integer) Flag for a blank line after error messages
           anotherset = {}     # (Hash) Another error information
           emptylines = 0      # (Integer) The number of empty lines
           connvalues = 0      # (Integer) Flag, 1 if all the value of $connheader have been set
@@ -90,7 +95,6 @@ module Sisimai
             else
               # Before "message/rfc822"
               next if readcursor & Indicators[:deliverystatus] == 0
-              next if e.empty?
 
               if connvalues == connheader.keys.size
                 # Final-Recipient: rfc822; kijitora@example.de
@@ -133,6 +137,16 @@ module Sisimai
                     # Diagnostic-Code: smtp; 550 #5.1.0 Address rejected.
                     v['spec'] = cv[1].upcase
                     v['diagnosis'] = cv[2]
+                  else
+                    # Append error messages continued from the previous line
+                    if endoferror && ( v['diagnosis'] && v['diagnosis'].size > 0 )
+                      endoferror = true if e.empty?
+                      endoferror = true if e =~ /\A--/
+
+                      next if endoferror
+                      next unless e =~ /\A[ ]/
+                      v['diagnosis'] += e
+                    end
                   end
                 end
 
@@ -157,7 +171,7 @@ module Sisimai
                   # Detect SMTP session error or connection error
                   if e =~ Re1[:error]
                     # The response from the remote server was:
-                    anotherset['diagnosis'] = e
+                    anotherset['diagnosis'] += e
                   else
                     # ** Address not found **
                     #
@@ -169,9 +183,14 @@ module Sisimai
                     next if e =~ Re1[:html]
 
                     if anotherset['diagnosis']
-                      # 550 #5.1.0 Address rejected.
-                      emptylines += 1 if e.empty?
-                      next if emptylines > 2
+                      # Continued error messages from the previous line like
+                      # "550 #5.1.0 Address rejected."
+                      next if emptylines > 5
+                      if e.empty?
+                        # Count and next()
+                        emptylines += 1
+                        next
+                      end
                       anotherset['diagnosis'] += ' ' + e
                     else
                       # ** Address not found **

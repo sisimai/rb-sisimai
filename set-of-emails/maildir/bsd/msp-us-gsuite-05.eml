@@ -1,0 +1,226 @@
+Delivered-To: kijitora@gmail.example.com
+Received: by 10.237.47.35 with SMTP id l32csp1144005qtd; Sun, 30 Apr 2017
+ 04:26:07 -0700 (PDT)
+X-Received: by 10.200.36.2 with SMTP id c2mr17113222qtc.271.1493551567645;
+ Sun, 30 Apr 2017 04:26:07 -0700 (PDT)
+Return-Path: <>
+Received: from mail-qk0-x246.google.com (mail-qk0-x246.google.com.
+ [2607:f8b0:400d:c09::246]) by mx.google.com with ESMTPS id
+ u13si4778312qtb.334.2017.04.30.04.26.07 for <kijitora@gmail.example.com>
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128); Sun, 30 Apr
+ 2017 04:26:07 -0700 (PDT)
+Received-SPF: pass (google.com: best guess record for domain of
+ postmaster@mail-qk0-x246.google.com designates 2607:f8b0:400d:c09::246 as
+ permitted sender) client-ip=2607:f8b0:400d:c09::246;
+Authentication-Results: mx.google.com; dkim=pass header.i=@googlemail.com;
+ spf=pass (google.com: best guess record for domain of
+ postmaster@mail-qk0-x246.google.com designates 2607:f8b0:400d:c09::246 as
+ permitted sender) smtp.helo=mail-qk0-x246.google.com; dmarc=pass
+ (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=googlemail.com
+Received: by mail-qk0-x246.google.com with SMTP id g39so5210941qkh.3 for
+ <kijitora@gmail.example.com>; Sun, 30 Apr 2017 04:26:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=googlemail.com;
+ s=20161025;
+ h=from:to:auto-submitted:subject:references:in-reply-to:message-id :date;
+ bh=j7QZPFzw4b1zlWJQvcwzd+yswGoj/ij75RqlN7QDHnM=;
+ b=OJEo79AuR5SmwQRIR30Im6t09GtVYQ2Vafamkw/iBhtsq8QaIpj6u1kklsQcZUB8XC
+ TRh6xGYBSJFDTrq6w6H21ArJ2xXfzgb88yOBhleNLmFz5wrGjL/K6ojNBTWJuPIfZoAw
+ GluZvLGrzq6Zmm9friWRzeOwGWau+q+MCzZGtmUoMofoCUvZ4RzUl8Z9zIZ9oUOGTnpK
+ eMdvLPWRB5Zx1TvKWz+a3KY2D8hYqH5ipbYohtJIUXrkZQzn9hhd+ofRpyFRnVwOck3u
+ jVJTxe0i8+Tv4padxuBL/qpt9SCqVHc1/2wVjxBUkgwKG14qKah+2LprZYxkHIxvhlHd W7XQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1e100.net;
+ s=20161025; h=x-gm-message-state:from:to:auto-submitted:subject:references
+ :in-reply-to:message-id:date;
+ bh=j7QZPFzw4b1zlWJQvcwzd+yswGoj/ij75RqlN7QDHnM=;
+ b=klH8+qkyJjMZVDdJZ9sEYAtEuudPhs8xeq2MTTY4C8+SV6bCnrWFPiwcBU9b2gJgkk
+ 86+cZ7p1gwMS9zOBJNSFHSk150i5qyzf0keqjXw6ysVdZ/ijL9cNcRPx3u8REjFR1OMg
+ EHB2rNyFbYqVzD6baPtfUIkcQ9e1nFjCeztzw439WcXMLsXoOZRat3nQYz+6digUdOxX
+ GRYmRwWfZsXGR061zfRysqGDK5Rcs5dR1Kxx06DIUeaj58eyWqNvl22LCOUDRMrr5Zr0
+ LA8lWD4XNlQ9dC/LmlyuScU6oh/WB8rLF5GxEngkGVxK+nSHW1E9nJ9h56pMgymiED5+ aNrQ==
+X-Gm-Message-State: AN3rC/4pK+ij7AovaUF39bXg5B+/BxUEfVhouf3AM+Jgl0OEGizY8eQn
+ 6Hruo8hXwzcFABh9WG7YIAieSJkxxAmbPv4aVcPHLg==
+X-Received: by 10.55.159.66 with SMTP id i63mr3873610qke.207.1493551567576;
+ Sun, 30 Apr 2017 04:26:07 -0700 (PDT)
+Content-Type: multipart/report; boundary=001a114d85d4a39433054e609240;
+ report-type=delivery-status
+Return-Path: <>
+Received: by 10.55.159.66 with SMTP id i63mr4046947qke.207; Sun, 30 Apr 2017
+ 04:26:07 -0700 (PDT)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+To: kijitora@gmail.example.com
+Auto-Submitted: auto-replied
+Subject: Delivery Status Notification (Failure)
+References: <CAByYQsHXg2cXwxngxkcwej84LqcVDd4CpoHv+ens3ZfwWodAnQ@mail.gmail.example.com>
+In-Reply-To: <CAByYQsHXg2cXwxngxkcwej84LqcVDd4CpoHv+ens3ZfwWodAnQ@mail.gmail.example.com>
+X-Failed-Recipients: sotoneko@haineko.org
+Message-ID: <5905c9cf.429f370a.43a01.400d.GMRIR@mx.google.com>
+Date: Sun, 30 Apr 2017 04:26:07 -0700 (PDT)
+
+
+--001a114d85d4a39433054e609240
+Content-Type: multipart/RELATED;
+	boundary=001a114d85d4a39b60054e609246
+
+
+--001a114d85d4a39b60054e609246
+Content-Type: multipart/ALTERNATIVE;
+	boundary=001a114d85d4a39b69054e609247
+
+
+--001a114d85d4a39b69054e609247
+Content-Transfer-Encoding: 7BIT
+Content-Type: TEXT/PLAIN;
+	charset=UTF-8
+
+
+** Address not found **
+
+Your message wasn't delivered to sotoneko@haineko.org because the domain haineko.org couldn't be found. Check for typos or unnecessary spaces and try again.
+
+
+
+The response was:
+
+DNS Error: 80480947 DNS type 'mx' lookup of haineko.org responded with code NXDOMAIN
+Domain name not found: haineko.org
+
+--001a114d85d4a39b69054e609247
+Content-Transfer-Encoding: 7BIT
+Content-Type: TEXT/HTML;
+	charset=UTF-8
+
+
+<html>
+<head>
+<style>
+* {
+font-family:Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+</style>
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" class="email-wrapper" style="padding-top:32px;background-color:#ffffff;"><tbody>
+<tr><td>
+<table cellpadding=0 cellspacing=0><tbody>
+<tr><td style="max-width:560px;padding:24px 24px 32px;background-color:#fafafa;border:1px solid #e0e0e0;border-radius:2px">
+<img style="padding:0 24px 16px 0;float:left" width=72 height=72 alt="Error Icon" src="cid:icon.png">
+<table style="min-width:272px;padding-top:8px"><tbody>
+<tr><td><h2 style="font-size:20px;color:#212121;font-weight:bold;margin:0">
+Address not found
+</h2></td></tr>
+<tr><td style="padding-top:20px;color:#757575;font-size:16px;font-weight:normal;text-align:left">
+Your message wasn't delivered to <a style='color:#212121;text-decoration:none'><b>sotoneko@haineko.org</b></a> because the domain haineko.org couldn't be found. Check for typos or unnecessary spaces and try again.
+</td></tr>
+</tbody></table>
+</td></tr>
+</tbody></table>
+</td></tr>
+<tr style="border:none;background-color:#fff;font-size:12.8px;width:90%">
+<td align="left" style="padding:48px 10px">
+The response was:<br/>
+<p style="font-family:monospace">
+DNS Error: 80480947 DNS type &#39;mx&#39; lookup of haineko.org responded with code NXDOMAIN
+Domain name not found: haineko.org
+</p>
+</td>
+</tr>
+</tbody></table>
+</body>
+</html>
+
+--001a114d85d4a39b69054e609247--
+
+--001a114d85d4a39b60054e609246
+Content-Transfer-Encoding: BASE64
+Content-Disposition: ATTACHMENT;
+	filename=icon.png
+Content-Type: IMAGE/PNG;
+	name=icon.png
+Content-Id: <icon.png>
+
+iVBORw0KGgoAAAANSUhEUgAAAJAAAACQCAYAAADnRuK4AAAACXBIWXMAABYlAAAWJQFJUiTwAAAA
+GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABTdJREFUeNrsnD9sFEcUh5+PRMqZ
+yA0SPhAUQAQFUkyTgiBASARo6QApqVIkfdxGFJFSgGhJAUIiBaQB0ZIOKVCkwUgURjIg2fxL4kS+
+YDvkbC/388bi8N16Z4/d7J/5PsniuD3fyePP772ZeTsDQRAYQL/UGAJAIEAgQCBAIAAEAgQCBAIE
+AkAgyJT3Mv+Eq7vYK8mTE+MDRCAghQECAeRQA5V2ZOpmg5vDx3NPzRbmGRMEcmTrEbNNB8zWfRD+
+f/Efs2e3zCZvMjaksBg27TfbcuSNPEKP9ZyuAQKtHX2O9ncNgWC57umMPKvRNb0GEKgnLoUyxTQC
+rcns0/6uIRAs8/hGf9cQCJZpTpjdO2f25/03z+mxntM1eLtsZAgiUtX4JcaBCAQIBAgECARQ8CJa
+G5jab4J4pm4WZmO3OALVh802fIwcLkyPkcKAGggAgQCBAIEAgQCBABAIEAjKA/1AnahhbO5FdOOY
+VsrrDbPBYcYKgf5D2wLaV3p+22xh1u17tO3S+DTcvxvagUDeivPgx/a/95J/73w7Sj26Hn4pKo2M
+ehuV/KyBJM6d0f7k6RKx/R63vvL2tmf/ItDdM2ZTP6f7nkp9Y2fDx1v9akmpIU+KSCLVUghUQfSL
+zVKeTklbLxGoctw/nzC5rw8L5KRNbkpnKq6pgSqEClzNnFzY+XnYWrt6VpVk1vbwWvg+RKCKMOUw
+Q1LEOXA+/MX3mpJvGDHb265xtnzmFoUK1HaKQGlMtePYM+q2KKjXuaS1NJYIEKgI8jhEgqHt4cqy
+Ky53j3hyHz2bqSLp2o2LbJ7MxKovkGqXteoWpaOk96O9/yF/dF7NwlS36AuIQIBA5celQK4PIxBE
+4LLzrtoLgaALdSy6CJRkWQCBPGLsTHznomZ9nszUECgJ2ml3WWHe+QVFNPSQx6UdZNtxr9pbEShN
+eTTz8mQXHoHSlke7+Z+c9m6VGoHSkEfs/trLW3wQKApN1V3lGfnGu2Z6BFoLtYCs3GWBPAiUCLVh
+/HoaeRCoT9R873KLM/IgUBfapnCpe5AHgXry4pf412ihEHkQqCdxd5VqrcezhUIESsJMTJ+Pdthp
+Z0WgyNlXXPHc2Mc4IVAELl2Gnh8mhUDvCkfbIVAkcbf/aOoO3fMKhqAD3frTa4quwpn0hUDOkQhI
+YYBAgECAQAAU0QlYObl+5Ug8NcprZkZxjUCxRPVA6zmtEXHCBykskrhjgHXN09PoEcgFl4M4H11j
+nBAoApcj6ZoPGScEAgTKApcDoTw5sgWB+sGlz1n90IBAPdE6j1o21PfcC11jLagL1oFWRyGlKU3p
+OxcSJQ7NZAjkhHp/uG2HFAYIBAgECASAQIBAgECAQAAIBOkxEARBtp9wdVfAMOfIifEBIhCQwgCB
+ABAI0oV2jhxZ+nfBatuPZfgBCy0Eqqo8c01b+uu51XZvzOgDWoHNTGR+pCwpLEd5svuAZXlO2uEr
+PyEQ8hRWHgRCHmqg0sjTnLalv6crJQ8C/U8stqNO0I4+VZOHFIY8COS1PGL2ybd5yUMKK7s8zYmL
+dujyd3n+nESgcsvzZd4/KwIhDwIhT35QA6UyE1qyxZnfvJMHgdKS549JC1qvvJOHFIY8CFR5eV5O
+XimqPAhUdHnmfx+zgxdOFXkoqIGKKs/cswnb/8Oeog8HEai48nxUhiFBIORBIOShBioskkbySCLk
+IQIhDwIhj28p7FApR6b1qlEbHGpkO/rr6215vi/zH1r2x7tApSGFAQIBAgECAQIBIBAgECAQIBBA
+LK8FGADCTxYrr+EVJgAAAABJRU5ErkJggg==
+--001a114d85d4a39b60054e609246--
+
+--001a114d85d4a39433054e609240
+Content-Transfer-Encoding: 7BIT
+Content-Type: MESSAGE/DELIVERY-STATUS
+
+Reporting-MTA: dns; googlemail.com
+Arrival-Date: Sun, 30 Apr 2017 04:26:07 -0700 (PDT)
+X-Original-Message-ID: <CAByYQsHXg2cXwxngxkcwej84LqcVDd4CpoHv+ens3ZfwWodAnQ@mail.gmail.example.com>
+
+Final-Recipient: rfc822; sotoneko@haineko.org
+Action: failed
+Status: 4.0.0
+Diagnostic-Code: smtp; DNS Error: 80480947 DNS type 'mx' lookup of haineko.org responded with code NXDOMAIN
+ Domain name not found: haineko.org
+Last-Attempt-Date: Sun, 30 Apr 2017 04:26:07 -0700 (PDT)
+
+--001a114d85d4a39433054e609240
+Content-Transfer-Encoding: 7BIT
+Content-Type: MESSAGE/RFC822
+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.example.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to
+         :content-transfer-encoding;
+        bh=rusHJ832mxXijrx1oASQER0RT9FM4fQlxn95+REONFY=;
+        b=RSeAzDFseKVtyPsKa+JC4v4nuMRg21ysnVYSgRVLr1E7+TvfjOWaAggO7GkyP6+MYc
+         96HGUybefxV/qo780PQEkgPtdSIa08mY4GtZg6Zj3C6Kit037t6HdvHnx1t+Ie3XNptx
+         RV3A6UsOoKg/O7DjmAuv74DMfmzV7QsR965zwDfv2H0m830zUTdJi8dIbZUGrzfTVVIq
+         y6q4xZCISXaRbjOekmmRDsn4XpHNxeabALeSQkSU+boCx/eqdozACkJQUu1MMIeQuyoO
+         42AXhX56rIOfiUccF6mEEn4OaS6edhmTWQBa3LYaVOXayOH6OxCvux8nUF7883/PmSm0
+         nLfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to
+         :content-transfer-encoding;
+        bh=rusHJ832mxXijrx1oASQER0RT9FM4fQlxn95+REONFY=;
+        b=P7J1Flpg5uZY2UwVu3Tv98vADyQ7vRElmZ1RtGPCMEqvpa5u3KRfMOCepqVeGrektv
+         Q2s757yJlgPBGQ7nWI9QAp4+YhkdKMGsVp2HDOcwi2Ii9ekhkb78qwWMB7AfmdXsiVYP
+         rzrnaXXWBKYEE9IPt2NumXirgT010yawyQ1CyIyGHDhL2EzllO5CsfJjdqRMazeOZPQc
+         ezOQHAIKDVBodlLR7bQ0EamCMY+ehHWwRaVLGudwg+v/WrFkEHNfXlAOBL156bvOs2XC
+         wPblurdKc3sgj8V7+XJAyBcW6fwhq9XmfRXGKBypvkKLica52KMIRiJ51xidrpUg0mCr
+         qwZQ==
+X-Gm-Message-State: AN3rC/5L5n2poaMAYOhG32FtXUFr6W4OXvZZQfbZt16uiFMKTOKf2UQP
+	oChZNPpWGgdD0kzbLth8YDXYyq2MXOEG
+X-Received: by 10.55.159.66 with SMTP id i63mr3873599qke.207.1493551567326;
+ Sun, 30 Apr 2017 04:26:07 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.200.3.30 with HTTP; Sun, 30 Apr 2017 04:25:46 -0700 (PDT)
+From: kijitora <kijitora@gmail.example.com>
+Date: Sun, 30 Apr 2017 20:25:46 +0900
+Message-ID: <CAByYQsHXg2cXwxngxkcwej84LqcVDd4CpoHv+ens3ZfwWodAnQ@mail.gmail.example.com>
+Subject: Nyaan
+To: sotoneko@haineko.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Nyaan
+
+--001a114d85d4a39433054e609240--
