@@ -19,6 +19,7 @@ module Sisimai
         }
         ReFailure = {
           hostunknown: %r/Host[ ]or[ ]domain[ ]name[ ]not[ ]found/,
+          notaccept:   %r/type=MX:[ ]Malformed[ ]or[ ]unexpected[ ]name[ ]server[ ]reply/,
         }
         Indicators = Sisimai::MSP.INDICATORS
 
