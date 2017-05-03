@@ -107,6 +107,7 @@ describe 'Sisimai::MSP::*' do
       '04' => { 's' => %r/\A4[.]0[.]0\z/,   'r' => %r/networkerror/,'b' => %r/\A1\z/ },
       '05' => { 's' => %r/\A4[.]0[.]0\z/,   'r' => %r/networkerror/,'b' => %r/\A1\z/ },
       '06' => { 's' => %r/\A4[.]4[.]1\z/,   'r' => %r/expired/,     'b' => %r/\A1\z/ },
+      '07' => { 's' => %r/\A4[.]4[.]1\z/,   'r' => %r/expired/,     'b' => %r/\A1\z/ },
     },
     'US::Office365' => {
       '01' => { 's' => %r/\A5[.]1[.]10\z/, 'r' => %r/filtered/,     'b' => %r/\A1\z/ },
