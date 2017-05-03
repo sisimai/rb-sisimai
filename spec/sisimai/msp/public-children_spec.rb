@@ -71,6 +71,8 @@ describe 'Sisimai::MSP::*' do
       '02' => { 's' => %r/\A5[.]2[.]2\z/, 'r' => %r/mailboxfull/, 'b' => %r/\A1\z/ },
       '03' => { 's' => %r/\A5[.][12][.][12]\z/, 'r' => %r/(?:mailboxfull|userunknown)/, 'b' => %r/\d\z/ },
       '04' => { 's' => %r/\A5[.]1[.]1\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
+      '05' => { 's' => %r/\A5[.]4[.]4\z/, 'r' => %r/hostunknown/, 'b' => %r/\A0\z/ },
+      '06' => { 's' => %r/\A5[.]4[.]4\z/, 'r' => %r/notaccept/,   'b' => %r/\A0\z/ },
     },
     'US::Bigfoot' => {
       '01' => { 's' => %r/\A5[.]7[.]1\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
