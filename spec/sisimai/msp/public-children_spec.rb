@@ -36,6 +36,8 @@ describe 'Sisimai::MSP::*' do
       '02' => { 's' => %r/\A5[.]2[.]2\z/, 'r' => %r/mailboxfull/, 'b' => %r/\A1\z/ },
       '03' => { 's' => %r/\A5[.][12][.][12]\z/, 'r' => %r/(?:userunknown|mailboxfull)/, 'b' => %r/\A[01]\z/ },
       '04' => { 's' => %r/\A5[.]1[.]1\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
+      '05' => { 's' => %r/\A5[.]0[.].+\z/, 'r' => %r/notaccept/, 'b' => %r/\A0\z/ },
+      '06' => { 's' => %r/\A5[.]0[.].+\z/, 'r' => %r/hostunknown/, 'b' => %r/\A0\z/ },
     },
     'RU::Yandex' => {
       '01' => { 's' => %r/\A5[.]1[.]1\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
@@ -69,6 +71,8 @@ describe 'Sisimai::MSP::*' do
       '02' => { 's' => %r/\A5[.]2[.]2\z/, 'r' => %r/mailboxfull/, 'b' => %r/\A1\z/ },
       '03' => { 's' => %r/\A5[.][12][.][12]\z/, 'r' => %r/(?:mailboxfull|userunknown)/, 'b' => %r/\d\z/ },
       '04' => { 's' => %r/\A5[.]1[.]1\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
+      '05' => { 's' => %r/\A5[.]4[.]4\z/, 'r' => %r/hostunknown/, 'b' => %r/\A0\z/ },
+      '06' => { 's' => %r/\A5[.]4[.]4\z/, 'r' => %r/notaccept/,   'b' => %r/\A0\z/ },
     },
     'US::Bigfoot' => {
       '01' => { 's' => %r/\A5[.]7[.]1\z/, 'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
@@ -103,6 +107,7 @@ describe 'Sisimai::MSP::*' do
       '04' => { 's' => %r/\A4[.]0[.]0\z/,   'r' => %r/networkerror/,'b' => %r/\A1\z/ },
       '05' => { 's' => %r/\A4[.]0[.]0\z/,   'r' => %r/networkerror/,'b' => %r/\A1\z/ },
       '06' => { 's' => %r/\A4[.]4[.]1\z/,   'r' => %r/expired/,     'b' => %r/\A1\z/ },
+      '07' => { 's' => %r/\A4[.]4[.]1\z/,   'r' => %r/expired/,     'b' => %r/\A1\z/ },
     },
     'US::Office365' => {
       '01' => { 's' => %r/\A5[.]1[.]10\z/, 'r' => %r/filtered/,     'b' => %r/\A1\z/ },

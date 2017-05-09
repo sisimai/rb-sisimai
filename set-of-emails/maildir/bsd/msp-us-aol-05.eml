@@ -1,0 +1,105 @@
+Return-Path: <null>
+Received: from imb-m02e.mx.aol.example.com (imb-m02.mx.aol.example.com [10.74.122.177])
+	(using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mtaiw-mbe01.mx.aol.example.com (Internet Inbound) with ESMTPS id 4C64E70000088
+	for <kijitora@aol.example.com>; Tue,  2 May 2017 01:16:02 -0400 (EDT)
+Received: from omr-m013e.mx.aol.example.com (omr-m013.mx.aol.example.com [10.74.117.72])
+	(using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by imb-m02e.mx.aol.example.com (AOL Mail Bouncer) with ESMTPS id 1DC2B38000A3
+	for <kijitora@aol.example.com>; Tue,  2 May 2017 01:16:02 -0400 (EDT)
+Received: by omr-m013e.mx.aol.example.com (Outbound Mail Relay)
+	id 05BAF38000A2; Tue,  2 May 2017 01:16:02 -0400 (EDT)
+Date: Tue,  2 May 2017 01:16:02 -0400 (EDT)
+From: MAILER-DAEMON@AOL.com (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: kijitora@aol.example.com
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="F209A380008E.1493702162/omr-m013e.mx.aol.example.com"
+Message-Id: <20170502051602.05BAF38000A2@omr-m013e.mx.aol.example.com>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mx.aol.example.com;
+	s=20150623; t=1493702162;
+	bh=EM4Muy1q7hmimNEN3/oGGsqaJFefya98SOuL0QHMp6s=;
+	h=From:To:Subject:Message-Id:Date:MIME-Version:Content-Type;
+	b=idE4OS3iKKKDHGJ2sQo0mYXhdtrZyRj3vr6xlpSl5EpaFD94QUFGrpuAGpNQ8FEW/
+	 2xsmrncOgtUAAT/VCirh0oI1yI+OCdD3GS28jZWOMI69/k27oHt5smT1Es9Ea4YsFr
+	 zOiwaA9T5lK4wLa/AfR03/Ta9eV9CoOMAtG9MOGw=
+x-aol-global-disposition: G
+x-aol-sid: 3039ac1afea7590816126e54
+X-AOL-IP: 10.74.122.177
+
+This is a MIME-encapsulated message.
+
+--F209A380008E.1493702162/omr-m013e.mx.aol.example.com
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host omr-m013e.mx.aol.example.com.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<nyan@haineko.org>: Host or domain name not found. Name service error for
+    name=haineko.org type=A: Host not found
+
+--F209A380008E.1493702162/omr-m013e.mx.aol.example.com
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; omr-m013e.mx.aol.example.com
+X-Outbound-Mail-Relay-Queue-ID: F209A380008E
+X-Outbound-Mail-Relay-Sender: rfc822; kijitora@aol.example.com
+Arrival-Date: Tue,  2 May 2017 01:16:01 -0400 (EDT)
+
+Final-Recipient: rfc822; nyan@haineko.org
+Original-Recipient: rfc822;nyan@haineko.org
+Action: failed
+Status: 5.4.4
+Diagnostic-Code: X-Outbound-Mail-Relay; Host or domain name not found. Name
+    service error for name=haineko.org type=A: Host not found
+
+--F209A380008E.1493702162/omr-m013e.mx.aol.example.com
+Content-Description: Undelivered Message Headers
+Content-Type: text/rfc822-headers
+
+Return-Path: <kijitora@aol.example.com>
+Received: from mtaomg-mae01.mx.aol.example.com (mtaomg-mae01.mx.aol.example.com [172.26.254.143])
+	by omr-m013e.mx.aol.example.com (Outbound Mail Relay) with ESMTP id F209A380008E
+	for <nyan@haineko.org>; Tue,  2 May 2017 01:16:01 -0400 (EDT)
+Received: from core-aaa03a.mail.aol.example.com (core-aaa03.mail.aol.example.com [172.26.125.3])
+	by mtaomg-mae01.mx.aol.example.com (OMAG/Core Interface) with ESMTP id 9D1EF38000081
+	for <nyan@haineko.org>; Tue,  2 May 2017 01:16:01 -0400 (EDT)
+Received: from 153.156.254.67 by webprd-m12.mail.aol.example.com (10.74.58.176) with HTTP (WebMailUI); Tue, 02 May 2017 01:16:01 -0400
+Date: Tue, 2 May 2017 01:16:01 -0400
+From: kijitora <kijitora@aol.example.com>
+To: nyan@haineko.org
+Message-Id: <15bc79632bf-5852-14fcf@webprd-m12.mail.aol.example.com>
+Subject: Nyaan
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-MB-Message-Source: WebUI
+X-MB-Message-Type: User
+X-Mailer: JAS STD
+X-Originating-IP: [153.156.254.67]
+x-aol-global-disposition: G
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mx.aol.example.com;
+	s=20150623; t=1493702161;
+	bh=ZIzoLxkO6DTsSDI/+AFKxpWxCMR2TOMCWjxgPIUzUQY=;
+	h=From:To:Subject:Message-Id:Date:MIME-Version:Content-Type;
+	b=44E5GcdTTQ/360MhjyaY+XQsSG4/e6Py2qYkwNMJIDC8tgFkbOIA0AhcNtIiyBzun
+	 +Cwm/gfZ73dubqoz+yR+kvYKHBB8uZ3UQDoMY2I2AvUgdPtmvxlrx/Fgzqp55lSlsN
+	 V9nw25a8VHOjT7ejkmv+diBq905ZxgKUSP0ursYo=
+x-aol-sid: 3039ac1afe8f5908161148be
+
+--F209A380008E.1493702162/omr-m013e.mx.aol.example.com--

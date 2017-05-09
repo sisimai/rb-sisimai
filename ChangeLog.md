@@ -3,6 +3,13 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.21.0p3
+--------------------------------------------------------------------------------
+- release: "Not released yet"
+- version: "4.21.0p3"
+- changes:
+  - Improved code to detect RFC7505 (NullMX) error: sisimai/set-of-emails#4.
+
 v4.21.0p2
 --------------------------------------------------------------------------------
 - release: "Not released yet"
