@@ -6,7 +6,7 @@ RELEASE NOTES for Ruby version of Sisimai
 v4.21.0p3
 --------------------------------------------------------------------------------
 - release: "Not released yet"
-- version: "Not tagged yet"
+- version: "4.21.0p3"
 - changes:
   - Improved code to detect RFC7505 (NullMX) error: sisimai/set-of-emails#4.
 
