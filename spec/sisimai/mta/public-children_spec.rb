@@ -151,6 +151,7 @@ describe 'Sisimai::MTA::*' do
       '25' => { 's' => %r/\A4[.]4[.]1\z/,   'r' => %r/expired/,     'b' => %r/\A1\z/ },
       '26' => { 's' => %r/\A5[.]4[.]4\z/,   'r' => %r/hostunknown/, 'b' => %r/\A0\z/ },
       '27' => { 's' => %r/\A5[.]1[.]1\z/,   'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
+      '28' => { 's' => %r/\A5[.]7[.]1\z/,   'r' => %r/securityerror/, 'b' => %r/\A1\z/ },
     },
     'Qmail' => {
       '01' => { 's' => %r/\A5[.]5[.]0\z/,   'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
@@ -209,6 +210,7 @@ describe 'Sisimai::MTA::*' do
       '40' => { 's' => %r/\A5[.]2[.]0\z/, 'r' => %r/filtered/,    'b' => %r/\A1\z/ },
       '41' => { 's' => %r/\A5[.]0[.]0\z/, 'r' => %r/filtered/,    'b' => %r/\A1\z/ },
       '42' => { 's' => %r/\A5[.]1[.]2\z/, 'r' => %r/hostunknown/, 'b' => %r/\A0\z/ },
+      '43' => { 's' => %r/\A5[.]7[.]1\z/, 'r' => %r/securityerror/, 'b' => %r/\A1\z/ },
     },
     'SurfControl' => {
       '01' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/filtered/,    'b' => %r/\A1\z/ },
