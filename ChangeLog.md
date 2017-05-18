@@ -6,7 +6,7 @@ RELEASE NOTES for Ruby version of Sisimai
 v4.21.0p4
 --------------------------------------------------------------------------------
 - release: "Not released yet"
-- version: "4.21.0p3"
+- version: "4.21.0p4"
 - changes:
   - Code improvements for checking and decoding irregular MIME encoded strings
     at is_mimeencoded and mimedecode methods in Sisimai::MIME class reported at
