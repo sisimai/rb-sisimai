@@ -3,6 +3,15 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.21.0p4
+--------------------------------------------------------------------------------
+- release: "Not released yet"
+- version: "4.21.0p3"
+- changes:
+  - Code improvements for checking and decoding irregular MIME encoded strings
+    at is_mimeencoded and mimedecode methods in Sisimai::MIME class reported at
+    issue #75. Thanks to @winebarrel.
+
 v4.21.0p3
 --------------------------------------------------------------------------------
 - release: "Not released yet"
