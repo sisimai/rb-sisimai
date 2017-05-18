@@ -152,6 +152,7 @@ describe 'Sisimai::MTA::*' do
       '26' => { 's' => %r/\A5[.]4[.]4\z/,   'r' => %r/hostunknown/, 'b' => %r/\A0\z/ },
       '27' => { 's' => %r/\A5[.]1[.]1\z/,   'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
       '28' => { 's' => %r/\A5[.]7[.]1\z/,   'r' => %r/securityerror/, 'b' => %r/\A1\z/ },
+      '29' => { 's' => %r/\A5[.]7[.]1\z/,   'r' => %r/securityerror/, 'b' => %r/\A1\z/ },
     },
     'Qmail' => {
       '01' => { 's' => %r/\A5[.]5[.]0\z/,   'r' => %r/userunknown/, 'b' => %r/\A0\z/ },
