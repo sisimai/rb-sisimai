@@ -30,7 +30,7 @@ module Sisimai
 
         argv1 = argv1.delete('"')
         piece = []
-        isnot = false
+        mime1 = false
 
         if argv1 =~ /[ ]/
           # Multiple MIME-Encoded strings in a line
@@ -41,11 +41,10 @@ module Sisimai
 
         piece.each do |e|
           # Check all the string in the array
-          next if e =~ /[ \t]*=[?][-_0-9A-Za-z]+[?][BbQq][?].+[?]=?[ \t]*\z/
-          isnot = true
+          next unless e =~ /[ \t]*=[?][-_0-9A-Za-z]+[?][BbQq][?].+[?]=?[ \t]*/
+          mime1 = true
         end
-        return true unless isnot
-        return false
+        return mime1
       end
 
       # Decode MIME-Encoded string
@@ -60,6 +59,9 @@ module Sisimai
         mimeencoded0 = nil
         decodedtext0 = []
 
+        notmimetext0 = ''
+        notmimetext1 = ''
+
         argvs.each do |e|
           # Check and decode each element
           e = e.lstrip.rstrip
@@ -67,12 +69,15 @@ module Sisimai
 
           if self.is_mimeencoded(e)
             # MIME Encoded string
-            if cv = e.match(/\A=[?]([-_0-9A-Za-z]+)[?]([BbQq])[?](.+)[?]=?\z/)
+            if cv = e.match(/\A(.*)=[?]([-_0-9A-Za-z]+)[?]([BbQq])[?](.+)[?]=?(.*)\z/)
               # =?utf-8?B?55m954yr44Gr44KD44KT44GT?=
-              characterset ||= cv[1]
-              encodingname ||= cv[2]
-              mimeencoded0   = cv[3]
+              notmimetext0   = cv[1]
+              characterset ||= cv[2]
+              encodingname ||= cv[3]
+              mimeencoded0   = cv[4]
+              notmimetext1   = cv[5]
 
+              decodedtext0 << notmimetext0
               if encodingname == 'Q'
                 # Quoted-Printable
                 decodedtext0 << mimeencoded0.unpack('M').first
@@ -81,6 +86,7 @@ module Sisimai
                 # Base64
                 decodedtext0 << Base64.decode64(mimeencoded0)
               end
+              decodedtext0 << notmimetext1
             end
           else
             decodedtext0 << e
