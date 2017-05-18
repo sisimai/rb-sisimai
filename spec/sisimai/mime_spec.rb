@@ -60,6 +60,20 @@ describe Sisimai::MIME do
       end
     end
 
+    context 'Irregular MIME encoded test' do
+      # Irregular MIME encoded strings
+      b9 = [
+        '[NEKO] =?UTF-8?B?44OL44Oj44O844Oz?=',
+        '=?UTF-8?B?44OL44Oj44O844Oz?= [NYAAN]',
+        '[NEKO] =?UTF-8?B?44OL44Oj44O844Oz?= [NYAAN]'
+      ]
+      b9.each do |e|
+        v9 = cn.mimedecode([e])
+        it('returns true') { expect(cn.is_mimeencoded(e)).to be true }
+        it('matches /ニャーン/') { expect(v9).to match %r/ニャーン/ }
+      end
+    end
+
     context 'wrong number of arguments' do
       it('raises ArgumentError') { expect { cn.mimedecode(nil,nil) }.to raise_error(ArgumentError) }
     end
@@ -147,4 +161,5 @@ Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
       it('raises ArgumentError') { expect { cn.boundary(nil,nil,nil) }.to raise_error(ArgumentError) }
     end
   end
+
 end

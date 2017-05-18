@@ -3,6 +3,13 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.21.0p5
+--------------------------------------------------------------------------------
+- release: "Not released yet"
+- version: "4.21.0p5"
+- changes:
+  - Add unit test codes to test all the changes at issue #75.
+
 v4.21.0p4
 --------------------------------------------------------------------------------
 - release: "Not released yet"
