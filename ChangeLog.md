@@ -3,49 +3,24 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.21.0p5
+v4.21.1
 --------------------------------------------------------------------------------
-- release: "Not released yet"
-- version: "4.21.0p5"
-- changes:
-  - Add unit test codes to test all the changes at issue #75.
-
-v4.21.0p4
---------------------------------------------------------------------------------
-- release: "Not released yet"
-- version: "4.21.0p4"
-- changes:
-  - Code improvements for checking and decoding irregular MIME encoded strings
-    at is_mimeencoded and mimedecode methods in Sisimai::MIME class reported at
-    issue #75. Thanks to @winebarrel.
-
-v4.21.0p3
---------------------------------------------------------------------------------
-- release: "Not released yet"
-- version: "4.21.0p3"
-- changes:
-  - Improved code to detect RFC7505 (NullMX) error: sisimai/set-of-emails#4.
-
-v4.21.0p2
---------------------------------------------------------------------------------
-- release: "Not released yet"
-- version: "4.21.0p2"
-- changes:
-  - Changes file has been renamed to **ChangeLog.md** and converted to Markdown
-    format.
-  - Import Pull-Request https://github.com/sisimai/p5-Sisimai/pull/223 for code
-    improvement to detect DNS related errors at G Suite.
-
-v4.21.0p1
---------------------------------------------------------------------------------
-- release: "Not released yet. As of present, it is available on GitHub only."
-- version: "4.21.0p1"
+- release: "Mon, 29 May 2017"
+- version: "4.21.1"
 - changes:
   - Pull-Request #73, Fix codes for initializing a hash element with an empty
     string in Sisimai::MTA::Postfix. Thanks to @MichiakiNakaya.
   - Import pull-request: https://github.com/sisimai/p5-Sisimai/pull/222 from
     p5-Sisimai to improve error message patterns.
-
+  - Changes file has been renamed to **ChangeLog.md** and converted to Markdown
+    format.
+  - Import Pull-Request https://github.com/sisimai/p5-Sisimai/pull/223 for code
+    improvement to detect DNS related errors at G Suite.
+  - Improved code to detect RFC7505 (NullMX) error: sisimai/set-of-emails#4.
+  - Code improvements for checking and decoding irregular MIME encoded strings
+    at is_mimeencoded and mimedecode methods in Sisimai::MIME class reported at
+    issue #75. Thanks to @winebarrel.
+  - Add unit test codes to test all the changes at issue #75.
 
 v4.21.0 - Support G Suite
 --------------------------------------------------------------------------------
