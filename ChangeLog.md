@@ -5,7 +5,7 @@ RELEASE NOTES for Ruby version of Sisimai
 
 v4.21.1
 --------------------------------------------------------------------------------
-- release: "Mon, 29 May 2017"
+- release: "Mon, 29 May 2017 14:22:22 +0900 (JST)"
 - version: "4.21.1"
 - changes:
   - Pull-Request #73, Fix codes for initializing a hash element with an empty
