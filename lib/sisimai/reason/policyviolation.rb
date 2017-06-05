@@ -4,7 +4,7 @@ module Sisimai
     # or not. This class is called only Sisimai::Reason class.
     #
     # This is the error that a policy violation was detected on a destination mail
-    # host. When a header content or a format of the original message violates 
+    # host. When a header content or a format of the original message violates
     # security policies, or multiple addresses exist in the From: header, Sisimai
     # will set "policyviolation".
     #
@@ -12,7 +12,7 @@ module Sisimai
     #   Status: 5.7.9
     #   Remote-MTA: DNS; mx.example.co.jp
     #   Diagnostic-Code: SMTP; 554 5.7.9 Header error
-    # 
+    #
     module PolicyViolation
       # Imported from p5-Sisimail/lib/Sisimai/Reason/PolicyViolation.pm
       class << self
