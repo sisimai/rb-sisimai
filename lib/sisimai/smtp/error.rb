@@ -11,9 +11,9 @@ module Sisimai
         SoftOrHard = {
           :soft => %w|
             blocked contenterror exceedlimit expired filtered mailboxfull
-            mailererror mesgtoobig networkerror norelaying rejected suspend
-            securityerror spamdetected syntaxerror systemerror systemfull
-            toomanyconn
+            mailererror mesgtoobig networkerror norelaying policyviolation
+            rejected securityerror spamdetected suspend syntaxerror systemerror
+            systemfull toomanyconn virusdetected
           |,
           :hard => %w|hasmoved hostunknown userunknown|
         }

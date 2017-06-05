@@ -57,6 +57,8 @@ describe 'Sisimai::*' do
       '28' => { 's' => /\A2[.]1[.]5\z/,     'r' => /delivered/,   'a' => /RFC3464/, 'b' => %r/\A-1\z/ },
       '29' => { 's' => /\A5[.]5[.]0\z/,     'r' => /syntaxerror/, 'a' => /RFC3464/, 'b' => %r/\A1\z/ },
       '30' => { 's' => /\A4[.]2[.]2\z/,     'r' => /mailboxfull/, 'a' => /RFC3464/, 'b' => %r/\A1\z/ },
+      '31' => { 's' => /\A5[.]0[.]\d+\z/,   'r' => /virusdetected/, 'a' => /RFC3464/, 'b' => %r/\A1\z/ },
+      '32' => { 's' => /\A5[.]0[.]\d+\z/,   'r' => /filtered/,    'a' => /RFC3464/, 'b' => %r/\A1\z/ },
     },
     'RFC3834' => {
       '01' => { 's' => /\A\z/, 'r' => /vacation/, 'b' => %r/\A-1\z/ },

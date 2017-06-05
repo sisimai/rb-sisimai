@@ -25,6 +25,7 @@ module Sisimai
         # @return   [True,False]            true: Connection rejected due to
         #                                         syntax error
         #                                   false: is not syntax error
+        # @since 4.1.25
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
           return nil unless argvs

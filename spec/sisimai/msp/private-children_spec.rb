@@ -196,7 +196,7 @@ describe 'Sisimai::MSP::' do
       '01006' => %r/userunknown/,
       '01007' => %r/mailboxfull/,
       '01008' => %r/filtered/,
-      '01009' => %r/securityerror/,
+      '01009' => %r/policyviolation/,
       '01010' => %r/filtered/,
       '01011' => %r/filtered/,
       '01012' => %r/mailboxfull/,
@@ -253,7 +253,7 @@ describe 'Sisimai::MSP::' do
       '01041' => %r/userunknown/,
       '01042' => %r/userunknown/,
       '01043' => %r/userunknown/,
-      '01044' => %r/securityerror/,
+      '01044' => %r/policyviolation/,
       '01045' => %r/expired/,
     },
     'US::GSuite' => {
