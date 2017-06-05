@@ -3,6 +3,17 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.21.1p1
+--------------------------------------------------------------------------------
+- release: "not released yet"
+- version: "4.21.1p1"
+- changes:
+  - Import Pull-Request sisimai/p5-Sisimai#225, bounce reason: "securityerror"
+    has been divided into the following three reasons:
+    - securityerror
+    - virusdetected
+    - policyviolation
+
 v4.21.1
 --------------------------------------------------------------------------------
 - release: "Mon, 29 May 2017 14:22:22 +0900 (JST)"
