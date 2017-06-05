@@ -1,0 +1,158 @@
+From tomcat-user-return-90809-apmail-jakarta-tomcat-user-archive=jakarta.apache.org@jakarta.apache.org Thu Jan 29 06:32:38 2004
+Return-Path: <tomcat-user-return-90809-apmail-jakarta-tomcat-user-archive=jakarta.apache.org@jakarta.apache.org>
+Delivered-To: apmail-jakarta-tomcat-user-archive@www.apache.org
+Received: (qmail 6895 invoked from network); 29 Jan 2004 06:32:38 -0000
+Received: from daedalus.apache.org (HELO mail.apache.org) (208.185.179.12)
+  by minotaur-2.apache.org with SMTP; 29 Jan 2004 06:32:38 -0000
+Received: (qmail 15604 invoked by uid 500); 29 Jan 2004 06:31:03 -0000
+Delivered-To: apmail-jakarta-tomcat-user-archive@jakarta.apache.org
+Received: (qmail 15537 invoked by uid 500); 29 Jan 2004 06:31:02 -0000
+Mailing-List: contact tomcat-user-help@jakarta.apache.org; run by ezmlm
+Precedence: bulk
+List-Unsubscribe: <mailto:tomcat-user-unsubscribe@jakarta.apache.org>
+List-Subscribe: <mailto:tomcat-user-subscribe@jakarta.apache.org>
+List-Help: <mailto:tomcat-user-help@jakarta.apache.org>
+List-Post: <mailto:tomcat-user@jakarta.apache.org>
+List-Id: "Tomcat Users List" <tomcat-user.jakarta.apache.org>
+Reply-To: "Tomcat Users List" <tomcat-user@jakarta.apache.org>
+Delivered-To: mailing list tomcat-user@jakarta.apache.org
+Received: (qmail 15397 invoked from network); 29 Jan 2004 06:31:01 -0000
+Received: from unknown (HELO smtp2.mail.be.easynet.net) (212.100.160.76)
+  by daedalus.apache.org with SMTP; 29 Jan 2004 06:31:01 -0000
+Received: from 213-193-188-11.adsl.easynet.be ([213.193.188.11] helo=mycomeurope.com)
+        by smtp2.mail.be.easynet.net with esmtp (Exim 4.22)
+        id 1Am5hn-0000YS-SK
+        for tomcat-user@jakarta.apache.org; Thu, 29 Jan 2004 07:31:11 +0100
+Date: Thu, 29 Jan 2004 07:31:08 +0100
+Message-Id: <f0401290731080009@local>
+from: "Mailer-Daemon@mycomeurope.com" <mailerror@mycomeurope.com>
+to: <tomcat-user@jakarta.apache.org>
+subject: Mycom Europe: Mail Delivery Error - tomcat-user@jakarta.apache.org
+Mime-Version: 1.0
+Content-Type: multipart/mixed; boundary="----=_NextPart_f0401290731080009"
+X-Spam-Rating: daedalus.apache.org 1.6.2 0/1000/N
+X-Spam-Rating: minotaur-2.apache.org 1.6.2 0/1000/N
+
+------=_NextPart_f0401290731080009
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+
+----- THIS IS AN AUTOMATED ERROR REPLY ---
+PLEASE CHECK THE SPELLING OF THE EMAIL-ADDRESS
+
+Dear Mailer-Daemon@mycomeurope.com (mailerror@mycomeurope.com),
+
+Your message
+"Mycom Europe: Mail Delivery Error - tomcat-user@jakarta.apache.org", sent to <tomcat-user@jakarta.apache.org>
+
+cannot be delivered due to the following error:
+tomcat-user@jakarta.apache.org - no such mailbox at MYCOMEUROPE.COM.
+
+Generally this means that
+a) There _really_ isn't such an address here at Mycom
+b) You have misspelled the address (and due to misspelling, refer to a))
+
+Below is the header from the original message:
+
+Received: from pop3.easynet.be by FTGate SmartPop;
+        Thu, 29 Jan 2004 07:31:07 +0100
+Return-path: <tomcat-user-return-90806-mailerror=mycomeurope.com@jakarta.apache.org>
+Envelope-to: mailerror@mycomeurope.com
+Delivery-date: Thu, 29 Jan 2004 07:24:23 +0100
+Received: from mx3.mail.be.easynet.net ([2001:6f8:200:1::1:80])
+        by pop3.mail.be.easynet.net with esmtp (TLSv1:DHE-RSA-AES256-SHA:256)
+        (Exim 4.12)
+        id 1Am5bA-0006hQ-00
+        for mailerror@mycomeurope.com; Thu, 29 Jan 2004 07:24:20 +0100
+Received: from daedalus.apache.org ([208.185.179.12] helo=mail.apache.org)
+        by mx3.mail.be.easynet.net with smtp (Exim 4.24)
+        id 1Am5b9-0003Jh-HL
+        for mailerror@mycomeurope.com; Thu, 29 Jan 2004 07:24:19 +0100
+Received: (qmail 88525 invoked by uid 500); 29 Jan 2004 06:23:41 -0000
+Mailing-List: contact tomcat-user-help@jakarta.apache.org; run by ezmlm
+Precedence: bulk
+List-Unsubscribe: <mailto:tomcat-user-unsubscribe@jakarta.apache.org>
+List-Subscribe: <mailto:tomcat-user-subscribe@jakarta.apache.org>
+List-Help: <mailto:tomcat-user-help@jakarta.apache.org>
+List-Post: <mailto:tomcat-user@jakarta.apache.org>
+List-Id: "Tomcat Users List" <tomcat-user.jakarta.apache.org>
+Reply-To: "Tomcat Users List" <tomcat-user@jakarta.apache.org>
+Delivered-To: mailing list tomcat-user@jakarta.apache.org
+Received: (qmail 88495 invoked from network); 29 Jan 2004 06:23:41 -0000
+Received: from unknown (HELO smtp2.mail.be.easynet.net) (212.100.160.76)
+  by daedalus.apache.org with SMTP; 29 Jan 2004 06:23:41 -0000
+Received: from 213-193-188-11.adsl.easynet.be ([213.193.188.11] helo=mycomeurope.com)
+        by smtp2.mail.be.easynet.net with esmtp (Exim 4.22)
+        id 1Am5ah-0000K7-JO
+        for tomcat-user@jakarta.apache.org; Thu, 29 Jan 2004 07:23:51 +0100
+Date: Thu, 29 Jan 2004 07:23:48 +0100
+
+Dear Mailer-Daemon@mycomeurope.com (mailerror@mycomeurope.com),
+
+Your message
+"Mycom Europe: Mail Delivery Error - tomcat-user@jakarta.apache.org", sent to <tomcat-user@jakarta.apache.org>
+
+cannot be delivered due to the following error:
+tomcat-user@jakarta.apache.org - no such mailbox at MYCOMEUROPE.COM.
+
+Generally this means that
+a) There _really_ isn't such an address here at Mycom
+b) You have misspelled the address (and due to misspelling, refer to a))
+
+Below is the header from the original message:
+
+Received: from pop3.easynet.be by FTGate SmartPop;
+        Thu, 29 Jan 2004 07:31:07 +0100
+Return-path: <tomcat-user-return-90806-mailerror=mycomeurope.com@jakarta.apache.org>
+Envelope-to: mailerror@mycomeurope.com
+Delivery-date: Thu, 29 Jan 2004 07:24:23 +0100
+Received: from mx3.mail.be.easynet.net ([2001:6f8:200:1::1:80])
+        by pop3.mail.be.easynet.net with esmtp (TLSv1:DHE-RSA-AES256-SHA:256)
+        (Exim 4.12)
+        id 1Am5bA-0006hQ-00
+        for mailerror@mycomeurope.com; Thu, 29 Jan 2004 07:24:20 +0100
+Received: from daedalus.apache.org ([208.185.179.12] helo=mail.apache.org)
+        by mx3.mail.be.easynet.net with smtp (Exim 4.24)
+        id 1Am5b9-0003Jh-HL
+        for mailerror@mycomeurope.com; Thu, 29 Jan 2004 07:24:19 +0100
+Received: (qmail 88525 invoked by uid 500); 29 Jan 2004 06:23:41 -0000
+Mailing-List: contact tomcat-user-help@jakarta.apache.org; run by ezmlm
+Precedence: bulk
+List-Unsubscribe: <mailto:tomcat-user-unsubscribe@jakarta.apache.org>
+List-Subscribe: <mailto:tomcat-user-subscribe@jakarta.apache.org>
+List-Help: <mailto:tomcat-user-help@jakarta.apache.org>
+List-Post: <mailto:tomcat-user@jakarta.apache.org>
+List-Id: "Tomcat Users List" <tomcat-user.jakarta.apache.org>
+Reply-To: "Tomcat Users List" <tomcat-user@jakarta.apache.org>
+Delivered-To: mailing list tomcat-user@jakarta.apache.org
+Received: (qmail 88495 invoked from network); 29 Jan 2004 06:23:41 -0000
+Received: from unknown (HELO smtp2.mail.be.easynet.net) (212.100.160.76)
+  by daedalus.apache.org with SMTP; 29 Jan 2004 06:23:41 -0000
+Received: from 213-193-188-11.adsl.easynet.be ([213.193.188.11] helo=mycomeurope.com)
+        by smtp2.mail.be.easynet.net with esmtp (Exim 4.22)
+        id 1Am5ah-0000K7-JO
+        for tomcat-user@jakarta.apache.org; Thu, 29 Jan 2004 07:23:51 +0100
+Date: Thu, 29 Jan 2004 07:23:48 +0100
+Message-Id: <f04012907234801DF@local>
+from: "Mailer-Daemon@mycomeurope.com" <mailerror@mycomeurope.com>
+to: <tomcat-user@jakarta.apache.org>
+subject: Mycom Europe: Mail Delivery Error - tomcat-user@jakarta.apache.org
+Mime-Version: 1.0
+Content-Type: multipart/mixed; boundary="----=_NextPart_f04012907234801DF"
+X-Spam-Rating: daedalus.apache.org 1.6.2 0/1000/N
+X-DCC-x-mailer.co.uk-Metrics: nusku 1192; Body=2 Fuz1=5 Fuz2=6
+x-recipient:<mailerror@mycomeurope.com>
+
+
+
+
+----- THIS IS AN AUTOMATED ERROR REPLY ---
+
+
+------=_NextPart_f0401290731080009
+Content-Type: text/plain; charset=us-ascii
+
+---------------------------------------------------------------------
+To unsubscribe, e-mail: tomcat-user-unsubscribe@jakarta.apache.org
+For additional commands, e-mail: tomcat-user-help@jakarta.apache.org
+------=_NextPart_f0401290731080009--

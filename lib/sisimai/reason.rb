@@ -18,8 +18,8 @@ module Sisimai
         return %w[
           Blocked ContentError ExceedLimit Expired Filtered HasMoved HostUnknown
           MailboxFull MailerError MesgTooBig NetworkError NotAccept OnHold
-          Rejected NoRelaying SpamDetected SecurityError Suspend SystemError
-          SystemFull TooManyConn UserUnknown SyntaxError
+          Rejected NoRelaying SpamDetected VirusDetected PolicyViolation SecurityError
+          Suspend SystemError SystemFull TooManyConn UserUnknown SyntaxError
         ]
       end
 
@@ -99,8 +99,9 @@ module Sisimai
         commandtxt = argvs.smtpcommand    || ''
         reasontext = ''
         classorder = %w|
-          MailboxFull SpamDetected SecurityError SystemError NetworkError
-          Suspend Expired ContentError SystemFull NotAccept MailerError
+          MailboxFull SpamDetected PolicyViolation VirusDetected SecurityError
+          SystemError NetworkError Suspend Expired ContentError SystemFull
+          NotAccept MailerError
         |
 
         require 'sisimai/smtp/status'

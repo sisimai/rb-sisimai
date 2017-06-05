@@ -81,6 +81,7 @@ module Sisimai
             |rejecting[ ]banned[ ]content
             |related[ ]to[ ]content[ ]with[ ]spam[-]like[ ]characteristics
             |rule[ ]imposed[ ]as[ ].+is[ ]blacklisted[ ]on              # Mailmarshal RBLs
+            |Sender[ ]domain[ ]listed[ ]at[ ].+
             |sending[ ]address[ ]not[ ]accepted[ ]due[ ]to[ ]spam[ ]filter
             |spam[ ](?:
                .+[ ]exceeded
