@@ -1,0 +1,67 @@
+Return-Path: <MAILER-DAEMON@nijo.example.co.jp>
+Received: from localhost (localhost)
+	by nijo.example.co.jp (V8/cf) id v66BRJWb024589;
+	Thu, 6 Jul 2017 20:27:19 +0900
+Date: Thu, 6 Jul 2017 20:27:19 +0900
+From: Mail Delivery Subsystem <poostmaster@example.co.jp>
+Message-Id: <201707061127.v66BRJWb024589@nijo.example.co.jp>
+To: <sironeko@example.co.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="v66BRJWb024589.1499340439/nijo.example.co.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--v66BRJWb024589.1499340439/nijo.example.co.jp
+
+The original message was received at Thu, 6 Jul 2017 20:27:18 +0900
+from c54-nyaaan.kyoto.example.ne.jp [198.51.100.22]
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora@rokujo.example.jp>
+    (reason: 552 5.6.0 Headers too large (3 max))
+
+   ----- Transcript of session follows -----
+... while talking to rokujo.example.jp.:
+>>> DATA
+<<< 552 5.6.0 Headers too large (3 max)
+554 5.0.0 Service unavailable
+
+--v66BRJWb024589.1499340439/nijo.example.co.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; nijo.example.co.jp
+Received-From-MTA: DNS; c54-nyaaan.kyoto.example.ne.jp
+Arrival-Date: Thu, 6 Jul 2017 20:27:18 +0900
+
+Final-Recipient: RFC822; kijitora@rokujo.example.jp
+Action: failed
+Status: 5.6.0
+Remote-MTA: DNS; rokujo.example.jp
+Diagnostic-Code: SMTP; 552 5.6.0 Headers too large (3 max)
+Last-Attempt-Date: Thu, 6 Jul 2017 20:27:19 +0900
+
+--v66BRJWb024589.1499340439/nijo.example.co.jp
+Content-Type: message/rfc822
+
+Return-Path: <sironeko@example.co.jp>
+Received: from [192.0.2.65] (c54-nyaaan.kyoto.example.ne.jp [198.51.100.22])
+	(authenticated bits=128)
+	by nijo.example.co.jp (V8/cf) with ESMTP id v66BRIWc024587
+	for <kijitora@rokujo.example.jp>; Thu, 6 Jul 2017 20:27:18 +0900
+From: Sironeko <sironeko@example.co.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: Nyaan
+Message-Id: <0F185696-F23C-4C53-8432-E1EE513F5D88@example.co.jp>
+Date: Thu, 6 Jul 2017 20:27:18 +0900
+To: kijitora@rokujo.example.jp
+X-Mailer: Apple Mail (2.3273)
+
+Nyaaan
+
+--v66BRJWb024589.1499340439/nijo.example.co.jp--
+
