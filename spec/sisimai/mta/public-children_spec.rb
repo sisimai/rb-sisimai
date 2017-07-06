@@ -212,6 +212,7 @@ describe 'Sisimai::MTA::*' do
       '41' => { 's' => %r/\A5[.]0[.]0\z/,     'r' => %r/filtered/,        'b' => %r/\A1\z/ },
       '42' => { 's' => %r/\A5[.]1[.]2\z/,     'r' => %r/hostunknown/,     'b' => %r/\A0\z/ },
       '43' => { 's' => %r/\A5[.]7[.]1\z/,     'r' => %r/policyviolation/, 'b' => %r/\A1\z/ },
+      '44' => { 's' => %r/\A5[.]6[.]0\z/,     'r' => %r/contenterror/,    'b' => %r/\A1\z/ },
     },
     'SurfControl' => {
       '01' => { 's' => %r/\A5[.]0[.]\d+\z/, 'r' => %r/filtered/,    'b' => %r/\A1\z/ },
