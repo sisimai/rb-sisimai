@@ -1,0 +1,73 @@
+Return-Path: <MAILER-DAEMON>
+Received: from zapp.lnstar.com (zapp.lnstar.com [66.45.121.18])
+	by nibbler.lnstar.com (8.14.0/8.14.0) with ESMTP id oB1ILach023363
+	for <bounce@austinflowers.com>; Wed, 1 Dec 2010 12:21:36 -0600
+Received: by zapp.lnstar.com (Postfix)
+	id 2AB5A10E6EE; Wed,  1 Dec 2010 12:21:36 -0600 (CST)
+Date: Wed,  1 Dec 2010 12:21:36 -0600 (CST)
+From: MAILER-DAEMON@lnstar.com (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: bounce@austinflowers.com
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="199E710E6EB.1291227696/zapp.lnstar.com"
+Message-Id: <20101201182136.2AB5A10E6EE@zapp.lnstar.com>
+X-Spam-Status: No, score=-1.3 required=5.0 tests=ALL_TRUSTED,AWL
+	autolearn=disabled version=3.2.1
+X-Spam-Checker-Version: SpamAssassin 3.2.1 (2007-05-02) on nibbler.lnstar.com
+Status:   
+
+This is a MIME-encapsulated message.
+
+--199E710E6EB.1291227696/zapp.lnstar.com
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host zapp.lnstar.com.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<anthony@ticketsyanyevent.com>: Host or domain name not found. Name service
+    error for name=ticketsyanyevent.com type=A: Host not found
+
+--199E710E6EB.1291227696/zapp.lnstar.com
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; zapp.lnstar.com
+X-Postfix-Queue-ID: 199E710E6EB
+X-Postfix-Sender: rfc822; bounce@austinflowers.com
+Arrival-Date: Wed,  1 Dec 2010 12:21:36 -0600 (CST)
+
+Final-Recipient: rfc822; anthony@ticketsyanyevent.com
+Action: failed
+Status: 5.4.4
+Diagnostic-Code: X-Postfix; Host or domain name not found. Name service error
+    for name=ticketsyanyevent.com type=A: Host not found
+
+--199E710E6EB.1291227696/zapp.lnstar.com
+Content-Description: Undelivered Message Headers
+Content-Type: text/rfc822-headers
+
+Return-Path: <bounce@austinflowers.com>
+Received: by zapp.lnstar.com (Postfix, from userid 65534)
+	id 199E710E6EB; Wed,  1 Dec 2010 12:21:36 -0600 (CST)
+Date: Wed, 1 Dec 2010 12:21:36 -0600
+From: "San Antonio Flower Co." <tommy@sanantonioflowercompany.com>
+To: anthony@ticketsyanyevent.com
+Subject: Rose Bouquet Special
+Mime-Version: 1.0
+Content-Type: multipart/alternative; boundary=mimepart_4cf69230199e7_3299..fdba850d82231b
+X-Bounce-Guid: 123-133-834-4e158432ca9bdc473fc8a12c6696d667cec893c4
+Message-Id: <20101201182136.199E710E6EB@zapp.lnstar.com>
+
+--199E710E6EB.1291227696/zapp.lnstar.com--

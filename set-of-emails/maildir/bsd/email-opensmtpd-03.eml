@@ -1,0 +1,36 @@
+Return-Path: <>
+Received: from vagrant-centos65.vagrantup.com (c135.kyoto.example.ne.jp [192.0.2.135])
+	by 6jo.example.jp (V8/cf) with ESMTP id s9OApEx7008965
+	for <shironeko@example.jp>; Fri, 24 Oct 2014 19:51:15 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 6jo.example.jp s9OApEx7008965
+Authentication-Results: 6jo.example.jp; sender-id=fail (MalformedDomain) header.from=MAILER-DAEMON@localhost
+Message-Id: <201410241051.s9OApEx7008965@6jo.example.jp>
+Received: from localhost (localhost [local]);
+	by localhost (OpenSMTPD) with ESMTPA id c3832c27;
+	for <shironeko@example.jp>;
+	Fri, 24 Oct 2014 10:51:13 +0000 (UTC)
+Subject: Delivery status notification: error
+From: Mailer Daemon <MAILER-DAEMON@6jo.example.jp>
+To: shironeko@example.jp
+Date: Fri, 24 Oct 2014 10:51:13 +0000 (UTC)
+
+    Hi!
+
+    This is the MAILER-DAEMON, please DO NOT REPLY to this e-mail.
+
+    An error has occurred while attempting to deliver a message for
+    the following list of recipients:
+
+kijitora@neko.example.jp: Domain does not exist
+
+    Below is a copy of the original message:
+
+Received: from [127.0.0.1] (localhost [127.0.0.1]);
+	by localhost (OpenSMTPD) with ESMTP id a6bdcb6d;
+	for <kijitora@neko.example.jp>;
+	Fri, 24 Oct 2014 10:50:33 +0000 (UTC)
+Subject: TEST
+From: "Shironeko, Nyanko" <shironeko@example.jp>
+To: "Kijitora" <kijitora@example.jp>
+
+TEST

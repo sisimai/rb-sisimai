@@ -1,0 +1,167 @@
+Return-Path: <MAILER-DAEMON@nijo.example.jp>
+Received: from localhost (localhost)
+	by nijo.example.jp (V8/cf) id q9RDSSCP020784;
+	Sat, 27 Oct 2012 22:28:28 +0900
+Date: Sat, 27 Oct 2012 22:28:28 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON@nijo.example.jp>
+Message-Id: <201210271328.q9RDSSCP020784@nijo.example.jp>
+To: <sironeko@example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="q9RDSSCP020784.1351344508/nijo.example.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--q9RDSSCP020784.1351344508/nijo.example.jp
+
+The original message was received at Sat, 27 Oct 2012 22:28:24 +0900
+from 121-87-205-206f1.shg1.eonet.ne.jp [121.87.205.206]
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora@example.com>
+    (reason: 550 5.7.1 message content rejected)
+
+   ----- Transcript of session follows -----
+... while talking to mail.example.com.:
+>>> DATA
+<<< 550 5.7.1 message content rejected
+554 5.0.0 Service unavailable
+
+--q9RDSSCP020784.1351344508/nijo.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; nijo.example.jp
+Received-From-MTA: DNS; 121-87-205-206f1.shg1.eonet.ne.jp
+Arrival-Date: Sat, 27 Oct 2012 22:28:24 +0900
+
+Final-Recipient: RFC822; kijitora@example.com
+Action: failed
+Status: 5.7.1
+Remote-MTA: DNS; mail.example.com
+Diagnostic-Code: SMTP; 550 5.7.1 message content rejected
+Last-Attempt-Date: Sat, 27 Oct 2012 22:28:28 +0900
+
+--q9RDSSCP020784.1351344508/nijo.example.jp
+Content-Type: message/rfc822
+
+Return-Path: <sironeko@example.jp>
+Received: from saburokaneie-mmdlvii.neko.nyaan.jp (121-87-205-206f1.shg1.eonet.ne.jp [121.87.205.206])
+	(authenticated bits=0)
+	by nijo.example.jp (V8/cf) with ESMTP id q9RDSNCP020779
+	for <kijitora@example.com>; Sat, 27 Oct 2012 22:28:24 +0900
+Subject: =?utf-8?Q?Re=3A_=5B=E3=82=B5=E3=82=A4=E3=83=88=E3=81=8B=E3=82=89?=
+ =?utf-8?Q?=E3=81=AE=E3=81=8A=E5=95=8F=E5=90=88=E3=81=9B=5D=3A_?=
+ =?utf-8?Q?=E3=81=9D=E3=81=AE=E4=BB=96/bouncehammer?=
+Mime-Version: 1.0 (Apple Message framework v1283)
+Content-Type: multipart/mixed; boundary="Apple-Mail=_9FA97D51-44FA-47B6-A4B2-34BBD227EAE2"
+From: "azuma, kuniyuki" <sironeko@example.jp>
+X-Priority: 3 (Normal)
+In-Reply-To: <zarafa.508a91a0.649e.6cedece87615712b@zarafa.vacmail.local>
+Date: Sat, 27 Oct 2012 22:28:23 +0900
+Message-Id: <44E68417-7E14-4546-A844-73B37944BA13@example.jp>
+References: <201210191936.q9JJajf2025845@nijo.example.jp> <zarafa.508a91a0.649e.6cedece87615712b@zarafa.vacmail.local>
+To: Arie Valstar <kijitora@example.com>
+X-Mailer: Apple Mail (2.1283)
+
+
+--Apple-Mail=_9FA97D51-44FA-47B6-A4B2-34BBD227EAE2
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=iso-2022-jp
+
+Hello Arie.
+
+We have tested a bounce email from y.example.com. but mailboxparser reported =
+the reason "userunknown".
+Could you send a entire message (including all headers and a original =
+message) like an attached email.
+
+best regards.
+
+
+--Apple-Mail=_9FA97D51-44FA-47B6-A4B2-34BBD227EAE2
+Content-Disposition: attachment;
+	filename=500-from-y.example.com-1.eml
+Content-Type: message/rfc822;
+	name="500-from-y.example.com-1.eml"
+Content-Transfer-Encoding: binary
+
+Return-Path: <MAILER-DAEMON@mta.example.jp>
+Received: from localhost (localhost)
+	by mta.example.jp (V8/cf) id q9RDCuol017809;
+	Sat, 27 Oct 2012 22:12:56 +0900
+Date: Sat, 27 Oct 2012 22:12:56 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON@mta.example.jp>
+Message-Id: <201210271312.q9RDCuol017809@mta.example.jp>
+To: <mikeneko@example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="q9RDCuol017809.1351343576/mta.example.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--q9RDCuol017809.1351343576/mta.example.jp
+
+The original message was received at Sat, 27 Oct 2012 22:12:53 +0900
+from 121-87-205-206f1.shg1.eonet.ne.jp [121.87.205.206]
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora@y.example.com>
+    (reason: 554 delivery error: dd This user doesn't have a y.example.com account (kijitora@y.example.com) [0] - mta1397.mail.mud.y.example.com)
+
+   ----- Transcript of session follows -----
+... while talking to mta6.am0.yahoodns.net.:
+>>> DATA
+<<< 554 delivery error: dd This user doesn't have a y.example.com account (kijitora@y.example.com) [0] - mta1397.mail.mud.y.example.com
+554 5.0.0 Service unavailable
+
+--q9RDCuol017809.1351343576/mta.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mta.example.jp
+Received-From-MTA: DNS; 121-87-205-206f1.shg1.eonet.ne.jp
+Arrival-Date: Sat, 27 Oct 2012 22:12:53 +0900
+
+Final-Recipient: RFC822; kijitora@y.example.com
+Action: failed
+Status: 5.0.0
+Remote-MTA: DNS; mta6.am0.yahoodns.net
+Diagnostic-Code: SMTP; 554 delivery error: dd This user doesn't have a y.example.com account (kijitora@y.example.com) [0] - mta1397.mail.mud.y.example.com
+Last-Attempt-Date: Sat, 27 Oct 2012 22:12:56 +0900
+
+--q9RDCuol017809.1351343576/mta.example.jp
+Content-Type: message/rfc822
+
+Return-Path: <mikeneko@example.jp>
+Received: from saburokaneie-mmdlvii.neko.nyaan.jp (121-87-205-206f1.shg1.eonet.ne.jp [121.87.205.206])
+	(authenticated bits=0)
+	by mta.example.jp (V8/cf) with ESMTP id q9RDCrol017804
+	for <kijitora@y.example.com>; Sat, 27 Oct 2012 22:12:53 +0900
+From: "mikeneko, nyanko" <mikeneko@example.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Subject: Nyaan
+Date: Sat, 27 Oct 2012 22:12:52 +0900
+Message-Id: <951712FF-EA9E-4827-964C-673EE509AA33@example.jp>
+To: kijitora@y.example.com
+Mime-Version: 1.0 (Apple Message framework v1283)
+X-Mailer: Apple Mail (2.1283)
+
+Nyaan
+
+--q9RDCuol017809.1351343576/mta.example.jp--
+
+
+--Apple-Mail=_9FA97D51-44FA-47B6-A4B2-34BBD227EAE2
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=iso-2022-jp
+
+--Apple-Mail=_9FA97D51-44FA-47B6-A4B2-34BBD227EAE2--
+
+--q9RDSSCP020784.1351344508/nijo.example.jp--
+

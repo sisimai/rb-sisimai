@@ -1,0 +1,28 @@
+Return-Path: <MAILER-DAEMON@example.net>
+Received: from mx1.example.net ([192.0.2.120])
+    by mx9.example.net (Post.Office MTA v3.1.2 release (FF000+0900) 
+    ID# 0+09000000000000000) with SMTP id 0000000 for <shironeko@example.jp>;
+    Thu, 29 Apr 1999 23:34:45 +0900
+Received: by mx1.example.net; (5.65/1.37) id 0000000; Thu, 29 Apr 1999 23:34:45 +0900
+Date: Thu, 29 Apr 1999 23:34:45 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON@example.net>
+Subject: Returned mail: Deferred: Connection timed out during user open with example.org
+Message-Id: <0000000000.0000000@mx1.example.net>
+To: shironeko@example.jp
+
+   ----- Transcript of session follows -----
+While talking to mx.example.edu:
+>>> MAIL From:<shironeko@example.jp>
+<<< 550 Insecure Mail Relay
+554 <kijitora@example.edu>... Remote protocol error
+421 example.org (smtp)... Deferred: Connection timed out during user open with example.org
+
+   ----- Unsent message follows -----
+Received: by mx1.example.net; (5.65/1.37) id 0000000; 
+    Thu, 29 Apr 1999 23:34:45 +0900
+From: shironeko@example.jp
+To: kijitora@example.edu
+Subject: Nyaaaaan
+
+Nyaaaan
+

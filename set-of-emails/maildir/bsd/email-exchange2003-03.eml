@@ -1,0 +1,52 @@
+Return-Path: <>
+X-Original-To: shironeko@mx.example.jp
+Delivered-To: shironeko@mx.example.jp
+Received: from mailgw0.example.net (unknown [192.0.2.98])
+	by mx.mx.example.jp (Postfix) with ESMTP id 0000000000
+	for <shironeko@mx.example.jp>; Thu, 29 Apr 2009 23:45:42 +0900 (JST)
+Received: by mailgw0.example.net with Internet Mail Service (5.5.2657.72)
+	id <XXXXXXXX>; Thu, 29 Apr 2009 23:00:00 -0400
+Message-ID: <0000000000000000000000000000000000000000@mailgw0.example.net>
+From: System Administrator <postmaster@example.net>
+To: shironeko@mx.example.jp
+Subject: E
+Date: Thu, 29 Apr 2009 23:00:00 -0400
+MIME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="----_=_NextPart_000_0000ffff"
+
+This message is in MIME format. Since your mail reader does not understand
+this format, some or all of this message may not be legible.
+
+------_=_NextPart_000_0000ffff
+Content-Type: text/plain;
+	charset="ISO-2022-JP"
+
+Your message
+
+  To:      kijitora@example.net
+  Subject: Message
+  Sent:    Thu, 29 Apr 2009 23:00:00 -0400
+
+did not reach the following recipient(s):
+
+kijitora@example.jp on Thu, 29 Apr 2010 00:00:00 -0000
+    The recipient name is not recognized
+    MSEXCH:IMS:NNN:KIJITORACAT:NEKO 0 (000C05A6)
+Unknown Recipient
+
+
+------_=_NextPart_000_0000ffff
+Content-Type: message/rfc822
+
+Message-ID: <00000000000.ffffffffffff.ff@example.net>
+From: Neko <shironeko@mx.example.jp>
+Reply-To: postmaster@example.jp
+To: kijitora@example.net
+Subject: =?UTF-8?B?IHwg5rGa44KM44Gm54Gw54yr44Gr44Gq44Gj44Gm44KL44GT44Go44GM44GC?=
+ =?UTF-8?B?44KL55m954yr?=
+Date: Thu, 29 Apr 2009 00:00:00 -0400
+MIME-Version: 1.0
+Content-Type: text/plain; charset="ISO-2022-JP"
+
+message

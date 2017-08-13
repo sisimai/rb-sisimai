@@ -1,0 +1,101 @@
+Return-path: <>
+Received: from mr21p30im-asmtp003.me.example.com ([17.111.174.66])
+ by ms30511.mac.example.com (Oracle Communications Messaging Server 7u4-27.08
+ (7.0.4.27.7) 64bit (built Aug 22 2013))
+ with ESMTP id <0NFE00IS126JKL20@ms30511.mac.example.com> for shironeko@icloud.example.com;
+ Fri, 21 Nov 2014 12:18:19 +0000 (GMT)
+Original-recipient: rfc822;shironeko@icloud.example.com
+Received: from process-daemon.mr21p30im-asmtp003.me.example.com by
+ mr21p30im-asmtp003.me.example.com
+ (Oracle Communications Messaging Server 7.0.5.33.0 64bit (built Aug 27 2014))
+ id <0NFE00O001A6QC00@mr21p30im-asmtp003.me.example.com> for shironeko@icloud.example.com
+ (ORCPT shironeko@icloud.example.com); Fri, 21 Nov 2014 12:18:19 +0000 (GMT)
+X-Proofpoint-Virus-Version: vendor=fsecure
+ engine=2.50.10432:5.13.68,1.0.28,0.0.0000
+ definitions=2014-11-21_04:2014-11-21,2014-11-21,1970-01-01 signatures=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ ndrscore=0 suspectscore=3 adjustscore=0 phishscore=0 adultscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=7.0.1-1408290000
+ definitions=main-1411210099
+Received: from mr21p30im-asmtp003.me.example.com
+ (Oracle Communications Messaging Server 7.0.5.33.0 64bit (built Aug 27 2014))
+ id <0NFE0016P26HT700@mr21p30im-asmtp003.me.example.com>; Fri,
+ 21 Nov 2014 12:18:18 +0000 (GMT)
+Date: Fri, 21 Nov 2014 12:18:18 +0000 (GMT)
+From: postmaster@mac.example.com
+Subject: Delivery Notification: Delivery has failed
+To: shironeko@icloud.example.com
+Message-id: <0NFE0016R26IT700@mr21p30im-asmtp003.me.example.com>
+MIME-version: 1.0
+Content-type: multipart/report; report-type=delivery-status;
+ boundary="Boundary_(ID_ATTSdYjCBS4CR0BmUidqaQ)"
+
+
+--Boundary_(ID_ATTSdYjCBS4CR0BmUidqaQ)
+Content-type: text/plain; charset=us-ascii
+Content-language: en-US
+
+This report relates to a message you sent with the following header fields:
+
+  Message-id: <4BC0361E-BAE9-480C-863C-227216D44823@icloud.example.com>
+  Date: Fri, 21 Nov 2014 21:18:14 +0900
+  From: Shironeko <shironeko@icloud.example.com>
+  To: kijitora@example.jp
+  Subject: Nyaaaaaaaaaaaaaaaaaaaaaan
+
+Your message cannot be delivered to the following recipients:
+
+  Recipient address: kijitora@example.jp
+  Reason: Remote SMTP server has rejected address
+  Diagnostic code: smtp;550 5.2.1 <kijitora@example.jp>... User Unknown
+  Remote system: dns;mx.example.jp (TCP|17.111.174.66|33442|173.255.246.153|25) (8jo.example.jp ESMTP SENDMAIL-VM)
+
+
+--Boundary_(ID_ATTSdYjCBS4CR0BmUidqaQ)
+Content-type: message/delivery-status
+
+Original-envelope-id: 0NFE00N7826GKJ10@mr21p30im-asmtp003.me.example.com
+Reporting-MTA: dns;mr21p30im-asmtp003.me.example.com (tcp-daemon)
+Arrival-date: Fri, 21 Nov 2014 12:18:17 +0000 (GMT)
+
+Original-recipient: rfc822;kijitora@example.jp
+Final-recipient: rfc822;kijitora@example.jp
+Action: failed
+Status: 5.2.1 (Remote SMTP server has rejected address)
+Remote-MTA: dns;mx.example.jp (TCP|17.111.174.66|33442|192.0.2.153|25)
+ (8jo.example.jp ESMTP SENDMAIL-VM)
+Diagnostic-code: smtp;550 5.2.1 <kijitora@example.jp>... User Unknown
+
+--Boundary_(ID_ATTSdYjCBS4CR0BmUidqaQ)
+Content-type: message/rfc822
+
+Return-path: <shironeko@icloud.example.com>
+Received: from tcp-daemon.mr21p30im-asmtp003.me.example.com by
+ mr21p30im-asmtp003.me.example.com
+ (Oracle Communications Messaging Server 7.0.5.33.0 64bit (built Aug 27 2014))
+ id <0NFE0016P26HT700@mr21p30im-asmtp003.me.example.com>; Fri,
+ 21 Nov 2014 12:18:18 +0000 (GMT)
+Received: from [192.0.2.3] (c135.kyoto.example.ne.jp [192.0.2.135])
+ by mr21p30im-asmtp003.me.example.com
+ (Oracle Communications Messaging Server 7.0.5.33.0 64bit (built Aug 27 2014))
+ with ESMTPSA id <0NFE00N7626EKJ10@mr21p30im-asmtp003.me.example.com> for
+ kijitora@example.jp; Fri, 21 Nov 2014 12:18:17 +0000 (GMT)
+Date: Fri, 21 Nov 2014 21:18:14 +0900
+From: Shironeko <shironeko@icloud.example.com>
+Subject: Nyaaaaaaaaaaaaaaaaaaaaaan
+To: kijitora@example.jp
+Message-id: <4BC0361E-BAE9-480C-863C-227216D44823@icloud.example.com>
+MIME-version: 1.0 (Mac OS X Mail 7.3 \(1878.6\))
+X-Mailer: Apple Mail (2.1878.6)
+Content-type: text/plain; charset=utf-8
+Content-transfer-encoding: base64
+X-Proofpoint-Virus-Version: vendor=fsecure
+ engine=2.50.10432:5.13.68,1.0.28,0.0.0000
+ definitions=2014-11-21_04:2014-11-21,2014-11-21,1970-01-01 signatures=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ suspectscore=1 phishscore=0 adultscore=0 bulkscore=0 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=7.0.1-1408290000 definitions=main-1411210099
+
+54yr44Gh44KD44KT
+
+--Boundary_(ID_ATTSdYjCBS4CR0BmUidqaQ)--

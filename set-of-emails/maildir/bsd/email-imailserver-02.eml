@@ -1,0 +1,36 @@
+Return-Path: <>
+X-Original-To: shironeko@example.jp
+Delivered-To: shironeko@example.jp
+Received: from mx9.example.co.jp (unknown [192.0.2.126])
+    by mx.example.jp (Postfix) with ESMTP id 0000000000
+    for <shironeko@example.jp>; Thu, 29 Apr 2010 23:45:10 +0900 (JST)
+Date:     Thu, 29 Apr 2010 23:45:10 +0900
+Message-Id: <00000000000.0000000@example.co.jp>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+From:     "Postmaster" <postmaster@example.co.jp>
+Sender:   <postmaster@example.co.jp>
+To:       shironeko@example.jp
+Subject: Undeliverable Mail
+X-Mailer: <SMTP32 v8.22>
+
+User mailbox exceeds allowed size: kijitora@example.co.jp
+
+
+Original message follows.
+
+Received: from smtp8.relay1.example.ne.jp [192.0.2.209] by mx4.example.co.jp
+  (SMTPD-8.22) id 00000000; Thu, 29 Apr 2010 23:45:10 +0900
+Received: from unknown (HELO smtp5.example.ne.jp) (192.0.2.201)
+  by 0 with SMTP; 29 Apr 2010 23:45:10 -0000
+Message-ID: <00000000000000000000000@smtp5.example.ne.jp>
+Date: Thu, 29 Apr 2010 23:45:10 +0900 (JST)
+From: Shironeko <shironeko@example.jp>
+Reply-To: neko@example.ne.jp
+To: kijitora@example.co.jp
+Subject: Nyaaaan
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ISO-2022-JP
+Content-Transfer-Encoding: 7bit
+
+Nyaan

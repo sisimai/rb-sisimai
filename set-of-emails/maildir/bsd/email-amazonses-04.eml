@@ -1,0 +1,55 @@
+Return-Path: <>
+Received: from a192-92.smtp-out.amazonses.com (a192-92.smtp-out.amazonses.com [199.255.192.92])
+	by nijo.example.jp (V8/cf) with ESMTP id p98CVIaZ008543
+	for <shironeko@example.jp>; Sat, 8 Oct 2011 21:31:18 +0900
+X-Original-To: 00000132e227401e-8b219a82-5a72-41d9-87a7-5077a1286043-000000@email-bounces.amazonses.com
+Delivered-To: 00000132e227401e-8b219a82-5a72-41d9-87a7-5077a1286043-000000@email-bounces.amazonses.com
+Message-Id: <00000132e3734ea1-da7ff9c4-f1a6-11e0-a07a-05b449f3e7b5-000000@email.amazonses.com>
+Date: Sat, 8 Oct 2011 12:12:57 +0000
+To: shironeko@example.jp
+From: MAILER-DAEMON@email-bounces.amazonses.com
+Subject: Delivery Status Notification (Failure)
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status; boundary="QQp9R.4hiWd7/A6.1TVBzH.66J8Mo8"
+X-AWS-Outgoing: 199.255.192.92
+
+--QQp9R.4hiWd7/A6.1TVBzH.66J8Mo8
+content-type: text/plain;
+    charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+The following message to <kijitora@example.com> was undeliverab=
+le.
+The reason for the problem:
+5.4.7 - Delivery expired (message too old) 'timeout'
+
+--QQp9R.4hiWd7/A6.1TVBzH.66J8Mo8
+content-type: message/delivery-status
+
+Reporting-MTA: dns; na-mm-outgoing-6102-bacon.iad6.amazon.com
+
+Final-Recipient: rfc822;kijitora@example.com
+Action: failed
+Status: 5.0.0 (permanent failure)
+Diagnostic-Code: smtp; 5.4.7 - Delivery expired (message too old) 'timeout' (delivery attempts: 0)
+
+--QQp9R.4hiWd7/A6.1TVBzH.66J8Mo8
+content-type: message/rfc822
+
+Received: from unknown (HELO aws-bacon-dlvr-svc-na-i-15c23d74.us-east-1.amazon.com) ([10.13.198.17])
+  by na-mm-outgoing-6102-bacon.iad6.amazon.com with ESMTP; 08 Oct 2011 05:46:57 +0000
+Return-Path: 00000132e227401e-8b219a82-5a72-41d9-87a7-5077a1286043-000000@email-bounces.amazonses.com
+From: shironeko@example.jp
+To: kijitora@example.com
+Subject: TEST
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Date: Sat, 8 Oct 2011 06:10:15 +0000
+Message-ID: <00000132e227401e-8b219a82-5a72-41d9-87a7-5077a1286043-000000@email.amazonses.com>
+X-AWS-Outgoing: 199.255.192.79
+
+ses-email-send script
+Copyright 2010 Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+
+--QQp9R.4hiWd7/A6.1TVBzH.66J8Mo8--

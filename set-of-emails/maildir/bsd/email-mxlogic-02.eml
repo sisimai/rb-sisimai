@@ -1,0 +1,44 @@
+Return-Path: <>
+Delivered-To: shironeko@example.or.jp
+Received: (qmail 1000 invoked from network); 29 Apr 2012 23:34:45 +0900
+Received: FROM mx43.example.jp BY mxl8.example.net WITH local;
+    Thu, 29 Apr 2012 23:34:45 +0900
+Date: Thu, 29 Apr 2012 23:34:45 +0900
+From: Mail Delivery System <MAILER-DAEMON@mxl8.example.net>
+To: shironeko@example.or.jp
+Subject: Mail delivery failed
+Message-Id: <mxl~ffff.0000.0000@mxl8.example.net>
+MIME-Version: 1.0
+Content-Type: text/plain
+X-MX-Bounce: mta/src/queue/bounce
+X-MXL-NoteHash: ffffffffffffffff-0000000000000000000000000000000000000000
+
+This message was created automatically by mail delivery software.
+
+A message that you have sent could not be delivered to one or more
+recipients.  This is a permanent error.  The following address failed:
+
+  <kijitora@example.jp>: 550 5.1.1 <kijitora@example.jp>: Recipient address rejected: User unknown in local recipient table
+
+
+
+Included is a copy of the message header:
+-----------------------------------------
+Received: from unknown [192.0.2.240] (EHLO relay5.example.or.jp)
+	by mxl8.example.net(mxl_mta-6.5.0-5)
+	with ESMTP id 00000000.0.0000000.00-000.00000000.mxl8.example.net 
+    (envelope-from <shironeko@example.or.jp>);
+	Thu, 29 Apr 2012 23:34:45 +0900 (JST)
+Received: from unknown (HELO relay4.example.or.jp) (192.0.2.28)
+    by 192.0.2.178 with SMTP; 29 Apr 2012 23:34:45 +0900
+Message-ID: <0000000.000000000000@relay4.example.or.jp>
+Reply-To: Nyanko <shironeko@example.or.jp>
+To: Kijitora <kijitora@example.jp>
+Subject: Nyaaan
+Mime-Version: 1.0
+Content-Type: text/plain; charset=iso-2022-jp
+Content-Transfer-Encoding: 7bit
+Date: Thu, 29 Apr 2012 23:34:45 +0900 (JST)
+From: Shironeko <shironeko@example.or.jp>
+
+Nyaan

@@ -1,0 +1,29 @@
+Date: Thu, 29 Apr 2008 14:45:56 +0900 
+Message-Id: <1001011111.FF00134@mail.example.com> 
+Mime-Version: 1.0 
+Content-Type: text/plain; charset=us-ascii 
+From: "Postmaster" <postmaster@mail.example.com> 
+Sender: <postmaster@mail.example.com> 
+To: <shironeko@neko.example.com> 
+Subject: Undeliverable Mail 
+X-Mailer: <SMTP32 v9.23> 
+X-RCPT-TO: <shironeko@neko.example.com> 
+Status: 
+X-UIDL: 000000000 
+X-IMail-ThreadID: 0000000000000000 
+
+Save to the following Address Book: 
+
+To: shironeko@neko.example.com 
+CC: 
+Date: Thursday, Apr 29, 2008 2:45:56 PM 
+Subject: Undeliverable Mail 
+
+undeliverable to kijitora@example.jp 
+
+Body of message generated response: 
+550-REJECTED - Blacklisted URL in message. (example.com) in [black]. 
+550-See http://lookup.uribl.com. - Blacklisted Link - X=pascal 
+550-H=mail.example.com [192.0.2.11] HELO=[mail.example.com] 
+550-F=[shironeko@neko.example.com] T=[kijitora@example.jp] S=[HOT 
+550 DEALS UPDATE - 04/29/08 (Special Update - Family Sale)

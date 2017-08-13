@@ -1,0 +1,94 @@
+Delivered-To: kijitora+example.jp@gmail.example.com
+Received: by 10.237.39.99 with SMTP id n90csp596051qtd;
+        Thu, 11 May 2017 01:31:47 -0700 (PDT)
+X-Received: by 10.98.64.69 with SMTP id n66mr10926097pfa.211.1494491507346;
+        Thu, 11 May 2017 01:31:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1494491507; cv=none;
+        d=google.com; s=arc-20160816;
+        b=l7qTc5XMO5uV4fsvskwNfjRfjtAWqihedN0tc8be4wCTcamnUdQHTQsE9PghFkqrLA
+         5eGRuMZskYeWx4CehBpwWxPi36RlH4suBrxhoc9k7T+hd+YFvk/SvfY8WnrTR1lsRxBx
+         +QrpO5Om/qe1uygwMmFXlWiUtdR8YrIVmZfLvWJZcSWfDBUDMGum8VnRAF18dvD+KgkZ
+         mHQ5rRfYDZO67ntHxf8smxxvoU7NkbgVpjrbSDSPL7rhaRfV1Xa91SqrEEEA+ROuwYG6
+         8C5ldlEkdfWvKq2IpOLFWRTxJ5mUw9Q6fTQ+GDlm+IwN7oKLjBmLh8gxkjik612ImlLt
+         XBuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=auto-submitted:subject:mime-version:to:message-id:from:date
+         :arc-authentication-results;
+        bh=KNtWeR+cooGy+0S9jv1zRUUS+dh6ocsTLxoiR6IUyX0=;
+        b=H0e/fVhOP+CQ5oqgTgNXdNnRAtzsrMFysiugNh+Q97aaUcNQkNF5y+Cxw3/KzidBJL
+         htAVBAiKWgn1Pew5qgXbgxSoAPWDfxKAeSt/OFgOxZpvXHQ1CEQwXcJID2RP2pkLY6ao
+         Q7HICKE0odhmf5QN8P7g8cB4UuIjidOqE8iaTTDCr1etVZqWuMHTUrK0ymjMhHMGg4Lp
+         HFMc7PeiyDd64sJ0n2C2hfoMXv7zxRN6f60TkZzzYrYbUqTPMGKUfjHhjimwwV+jUQ9i
+         NG8UuWYobadpfMmwP4uTdPkyo2xF4P2ZLV0PclRbatdieW+SG7WExEdOXpsJ/Vue98ar
+         eZvA==
+ARC-Authentication-Results: i=1; mx.google.com;
+       spf=pass (google.com: best guess record for domain of postmaster@kujo.example.jp designates 192.0.2.222 as permitted sender) smtp.helo=kujo.example.jp
+Return-Path: <>
+Received: from kujo.example.jp (kujo.example.jp. [192.0.2.222])
+        by mx.google.com with ESMTP id l15si1175075pfk.415.2017.05.11.01.31.46
+        for <kijitora+example.jp@gmail.example.com>;
+        Thu, 11 May 2017 01:31:47 -0700 (PDT)
+Received-SPF: pass (google.com: best guess record for domain of postmaster@kujo.example.jp designates 192.0.2.222 as permitted sender) client-ip=192.0.2.222;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: best guess record for domain of postmaster@kujo.example.jp designates 192.0.2.222 as permitted sender) smtp.helo=kujo.example.jp
+Received: from localhost (localhost)
+	by kujo.example.jp (V8/cf) id v4B8Viav016285;
+	Thu, 11 May 2017 17:31:45 +0900
+Date: Thu, 11 May 2017 17:31:45 +0900
+From: Mail Delivery Subsystem <poostmaster@example.jp>
+Message-Id: <201705110831.v4B8Viav016285@kujo.example.jp>
+To: <neko@example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="v4B8Viav016285.1494491505/kujo.example.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--v4B8Viav016285.1494491505/kujo.example.jp
+
+The original message was received at Thu, 11 May 2017 17:30:07 +0900
+from localhost [127.0.0.1]
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora@gmail.example.com>
+    (reason: 550-5.7.1 [192.0.2.222      13] Messages with multiple addresses in From:)
+
+   ----- Transcript of session follows -----
+... while talking to gmail-smtp-in.l.google.com.:
+>>> DATA
+<<< 550-5.7.1 [192.0.2.222      13] Messages with multiple addresses in From:
+<<< 550 5.7.1 header are not accepted. r7si1238383pli.26 - gsmtp
+554 5.0.0 Service unavailable
+
+--v4B8Viav016285.1494491505/kujo.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; kujo.example.jp
+Arrival-Date: Thu, 11 May 2017 17:30:07 +0900
+
+Final-Recipient: RFC822; kijitora@gmail.example.com
+Action: failed
+Status: 5.7.1
+Remote-MTA: DNS; gmail-smtp-in.l.google.com
+Diagnostic-Code: SMTP; 550-5.7.1 [192.0.2.222      13] Messages with multiple addresses in From:
+Last-Attempt-Date: Thu, 11 May 2017 17:31:45 +0900
+
+--v4B8Viav016285.1494491505/kujo.example.jp
+Content-Type: message/rfc822
+
+Return-Path: <neko@example.jp>
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by kujo.example.jp (V8/cf) with ESMTP id v4B8Tkau016223
+	for <kijitora@gmail.example.com>; Thu, 11 May 2017 17:30:07 +0900
+Date: Thu, 11 May 2017 17:29:46 +0900
+Message-Id: <201705110830.v4B8Tkau016223@kujo.example.jp>
+From: neko@example.jp, daemon@example.jp
+To: kijitora@gmail.example.com
+Subject: Nyaaan
+
+Nyaaan
+
+--v4B8Viav016285.1494491505/kujo.example.jp--
+

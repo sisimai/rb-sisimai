@@ -1,0 +1,33 @@
+Return-Path: <>
+Received: from vagrant-centos65.example.com (c21352.kyoto.example.ne.jp [192.0.2.135])
+	by aneyakoji.example.jp (V8/cf) with ESMTP id s6HAuIEE027507
+	for <kijitora@example.jp>; Thu, 17 Jul 2014 19:56:19 +0900
+Message-Id: <201407171056.s6HAuIEE027507@aneyakoji.example.jp>
+Received: from localhost (localhost [local]);
+	by localhost (OpenSMTPD) with ESMTPA id 700fd087;
+	for <kijitora@example.jp>;
+	Thu, 17 Jul 2014 11:15:48 +0000 (UTC)
+Subject: Delivery status notification: error
+From: Mailer Daemon <MAILER-DAEMON@aneyakoji.example.jp>
+To: kijitora@example.jp
+Date: Thu, 17 Jul 2014 11:15:48 +0000 (UTC)
+
+    Hi!
+
+    This is the MAILER-DAEMON, please DO NOT REPLY to this e-mail.
+
+    An error has occurred while attempting to deliver a message for
+    the following list of recipients:
+
+mailboxfull@example.jp: 550 5.2.2 <mailboxfull@example.jp>... Mailbox Full
+userunknown@example.jp: 550 5.1.1 <userunknown@example.jp>... User Unknown
+
+    Below is a copy of the original message:
+
+Received: from [127.0.0.1] (localhost [127.0.0.1]);
+	by localhost (OpenSMTPD) with ESMTP id 966254b0;
+	Thu, 17 Jul 2014 11:15:29 +0000 (UTC)
+Subject: test from OpenSMTPD
+From: kijitora@example.jp
+
+test

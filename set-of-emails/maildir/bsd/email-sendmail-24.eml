@@ -1,0 +1,66 @@
+Return-Path: <MAILER-DAEMON@aneyakoji.example.jp>
+Received: from localhost (localhost)
+	by aneyakoji.example.jp (V8/cf) id t5EKjZJv020261;
+	Mon, 15 Jun 2015 05:45:35 +0900
+Date: Mon, 15 Jun 2015 05:45:35 +0900
+From: Mail Delivery Subsystem <poostmaster@example.jp>
+Message-Id: <201506142045.t5EKjZJv020261@aneyakoji.example.jp>
+To: <kijitora@example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="t5EKjZJv020261.1434314735/aneyakoji.example.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--t5EKjZJv020261.1434314735/aneyakoji.example.jp
+
+The original message was received at Mon, 15 Jun 2015 05:45:34 +0900
+from p0120-xf4kyoto.kyoto.example.ne.jp [192.0.2.222]
+
+   ----- The following addresses had permanent fatal errors -----
+<neko@xn--cesupi09d.jp>
+    (reason: 550 Host unknown)
+
+   ----- Transcript of session follows -----
+550 5.1.2 <neko@xn--cesupi09d.jp>... Host unknown (Name server: xn--cesupi09d.jp.: host not found)
+
+--t5EKjZJv020261.1434314735/aneyakoji.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; aneyakoji.example.jp
+Received-From-MTA: DNS; p0120-xf4kyoto.kyoto.example.ne.jp
+Arrival-Date: Mon, 15 Jun 2015 05:45:34 +0900
+
+Final-Recipient: RFC822; neko@xn--cesupi09d.jp
+Action: failed
+Status: 5.1.2
+Remote-MTA: DNS; xn--cesupi09d.jp
+Diagnostic-Code: SMTP; 550 Host unknown
+Last-Attempt-Date: Mon, 15 Jun 2015 05:45:35 +0900
+
+--t5EKjZJv020261.1434314735/aneyakoji.example.jp
+Content-Type: message/rfc822
+
+Return-Path: <kijitora@example.jp>
+Received: from [10.64.19.206] (p0120-xf4kyoto.kyoto.example.ne.jp [192.0.2.222])
+	(authenticated bits=0)
+	by aneyakoji.example.jp (V8/cf) with ESMTP id t5EKjXJv020258
+	for <neko@xn--cesupi09d.jp>; Mon, 15 Jun 2015 05:45:34 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 aneyakoji.example.jp t5EKjXJv020258
+Authentication-Results: aneyakoji.example.jp; sender-id=pass header.from=kijitora@example.jp; auth=pass (CRAM-MD5); spf=pass smtp.mfrom=kijitora@example.jp
+From: "kijitora, kuniyuki" <kijitora@example.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?Q?test_for_bounce=28=E5=9C=B0=E5=9F=9F=E7=8C=AB=29?=
+Message-Id: <35C4147F-7DF3-4B26-B225-FD7AFA378D70@example.jp>
+Date: Mon, 15 Jun 2015 05:45:31 +0900
+To: neko@xn--cesupi09d.jp
+Mime-Version: 1.0 (Mac OS X Mail 7.3 \(1878.6\))
+X-Mailer: Apple Mail (2.1878.6)
+
+Nyaaan
+
+--t5EKjZJv020261.1434314735/aneyakoji.example.jp--
+

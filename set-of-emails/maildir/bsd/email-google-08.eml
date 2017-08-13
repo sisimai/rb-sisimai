@@ -1,0 +1,59 @@
+Delivered-To: shironeko@gmail.example.com
+Received: by 10.194.16.169 with SMTP id h9csp277588wjd;
+        Mon, 24 Nov 2014 09:07:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20120113;
+        h=mime-version:from:to:subject:message-id:date:content-type;
+        bh=mOeGYII3AkdntU0OX5kBJX4jlUam2JiIMzv/0adOplw=;
+        b=c6FTT8Xbuw7EtnqJxJmfAb5crnBWL3ZhDxcZ+Qy8XB4SPhlR+2KM81U9hKMYWIEpxU
+         o5Ep+fYj3/sFDoEgBQJ//zADVAKrNDTbDydcIW9xFo3WBrtN47CklEbZtX++j5DDtdiM
+         xoapRuMj+ElSpKepPIatbUSHj6nA95UTIQYvXdf2oVmgm9OCgaozW0/i0eHmfVdMo4V+
+         cc/P89JoVKqDXXG2n6rBbIBDMG9vRt5myT98GzXV5HjOTPNFXXprPm7NkQCideIaRUvJ
+         2yxBoNKRhzAK7w0L/0/8mLWhZLZDM8bqfIq/vf0zM5CNdyVOvtgpjEK59ow614WMFJWN
+         6qCA==
+X-Received: by 10.68.57.225 with SMTP id l1mr33963192pbq.87.1416848852376;
+        Mon, 24 Nov 2014 09:07:32 -0800 (PST)
+MIME-Version: 1.0
+Return-Path: <>
+Received: by 10.68.57.225 with SMTP id l1mr21015024pbq.87; Mon, 24 Nov 2014
+ 09:07:32 -0800 (PST)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+To: shironeko@gmail.example.com
+Subject: Delivery Status Notification (Delay)
+Message-ID: <001a113836268bd96105089dd45b@google.com>
+Date: Mon, 24 Nov 2014 17:07:32 +0000
+Content-Type: text/plain; charset=UTF-8
+
+This is an automatically generated Delivery Status Notification
+
+THIS IS A WARNING MESSAGE ONLY.
+
+YOU DO NOT NEED TO RESEND YOUR MESSAGE.
+
+Delivery to the following recipient has been delayed:
+
+     kijitora@example.com
+
+Message will be retried for 2 more day(s)
+
+----- Original message -----
+
+X-Received: by 10.68.57.225 with SMTP id l1mr24542571pbq.87.1416760974274;
+        Sun, 23 Nov 2014 08:42:54 -0800 (PST)
+Return-Path: <shironeko@gmail.example.com>
+Received: from [192.0.2.203] (c135.kyoto.example.ne.jp. [192.0.2.135])
+        by mx.google.com with ESMTPSA id ae4sm10225009pad.16.2014.11.23.08.42.52
+        for <kijitora@example.com>
+        (version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+        Sun, 23 Nov 2014 08:42:53 -0800 (PST)
+From: shironeko <shironeko@gmail.example.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Subject: Nyaaaaan
+Message-Id: <AA6C0062-22D4-4D7E-8766-4494D07205C1@gmail.example.com>
+Date: Mon, 24 Nov 2014 01:38:43 +0900
+To: kijitora@example.com
+Mime-Version: 1.0 (Mac OS X Mail 7.3 \(1878.6\))
+X-Mailer: Apple Mail (2.1878.6)
+
+Nyaaan

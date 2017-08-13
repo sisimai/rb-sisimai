@@ -1,0 +1,60 @@
+Received: from mx.example.com ([192.0.2.33])
+	by mx.example.jp (8.14.4/8.14.4) with ESMTP id q0000008000000
+	for <azuma+postmaster@example.jp>; Thu, 29 Apr 2012 23:45:48 +0900 (JST)
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 mx.example.jp q0000008000000
+Authentication-Results: mx.example.jp; sender-id=none header.from=MAILER-DAEMON@mx.example.com
+Date: Thu, 29 Apr 2012 23:45:34 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON@mx.example.com>
+Message-Id: <202345292345.q0000098000000@mx.example.com>
+To: postmaster@mx.example.com
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="q0000098000000.0000000004/mx.example.com"
+Subject: Postmaster notify: see transcript for details
+Auto-Submitted: auto-generated (postmaster-notification)
+X-Virus-Scanned: ClamAV version 0.94.2, clamav-milter version 0.94.2 on 6kaku.example.jp
+X-Virus-Status: Clean
+
+This is a MIME-encapsulated message
+
+--q0000098000000.1267617874/mx.example.com
+
+The original message was received at Thu, 29 Apr 2012 12:46:19 +0900
+from c134.example.jp [192.0.2.90]
+with id q000000Of019233
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora@example.co.jp>
+
+   ----- Transcript of session follows -----
+<kijitora@example.co.jp>... Deferred: Name server: example.co.jp.: host name lookup failure
+Message could not be delivered for 8 hours
+Message will be deleted from queue
+
+--q0000098000000.0000000000/mx.example.com
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx.example.com
+Arrival-Date: Thu, 29 Apr 2012 12:46:19 +0900
+
+Final-Recipient: RFC822; kijitora@example.co.jp
+Action: failed
+Status: 4.4.7
+Remote-MTA: DNS; example.co.jp
+Last-Attempt-Date: Thu, 29 Apr 2012 23:45:34 +0900
+
+--q0000098000000.0000000000/mx.example.com
+Content-Type: text/rfc822-headers
+
+Return-Path: <shironeko@example.or.jp>
+Date: Thu, 029 Apr 2012 12:46:23 +0900
+From: Nyanko <shironeko@example.or.jp>
+To: shironeko@example.or.jp
+Subject: Nyaaaaaaaaaaaaaaaaaaan
+Message-Id: <00000000000000.FFFFFFFF@example.or.jp>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="ISO-2022-JP"
+Content-Transfer-Encoding: 7bit
+
+--q0000098000000.0000000000/mx.example.com--
+

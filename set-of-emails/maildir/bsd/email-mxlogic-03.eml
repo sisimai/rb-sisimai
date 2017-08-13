@@ -1,0 +1,46 @@
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by mx4145.example.org (Postfix) with ESMTP id 00000000000
+	for <shironeko@example.co.jp>; Thu, 29 Apr 2009 23:34:45 +0900 (JST)
+From: "Mail Delivery System" <MAILER-DAEMON@00000000.mxlogic.net>
+To: <shironeko@mx4145.example.org>
+Subject: Mail delivery failed
+Date: Wed, 14 May 2009 23:34:45 +0900
+Message-ID: <mxl~0000.0000.0000@00000000.mxlogic.net>
+MIME-Version: 1.0
+Content-Type: text/plain;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: 7bit
+
+This message was created automatically by mail delivery software.
+
+A message that you have sent could not be delivered to one or more
+recipients.  This is a permanent error.  The following address failed:
+
+  <kijitora@example.co.jp>: 550 unknown user
+<kijitora@example.co.jp>
+
+
+
+Included is a copy of the message header:
+-----------------------------------------
+Received: from unknown [192.0.2.12] (EHLO mx4145.example.org)
+    by 00000000.mxlogic.net (mxl_mta-5.5.0-3) with ESMTP id
+    00000000.0000000000.000000.00-000.00000000.mxlogic.net (envelope-from
+    <shironeko@mx4145.example.org>);
+    Thu, 29 Apr 2009 23:34:45 +0900 (JST)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+    by mx4145.example.org (Postfix) with ESMTP id 00000000000
+    for <shironeko@example.co.jp>; Thu, 29 Apr 2009 23:34:45 +0900 (JST)
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: shironeko@mx4145.example.org
+To: kijitora@example.co.jp
+Message-ID: <0000.0000000000000000@mx4145.example.org>
+Date: Thu, 29 Apr 2009 23:34:45 +0900
+Precedence: bulk
+Sender: shironeko@mx4145.example.org
+Errors-To: shironeko@mx4145.example.org
+Subject: Nyaaaan
+
+Nyaaaan

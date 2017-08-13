@@ -1,0 +1,51 @@
+Return-Path: 
+Received: from mout-bounce.gmx.com ([74.208.4.220]) by mx-ha.gmx.net (mxgmxus001) with ESMTPS (Nemesis) id 0MStpz-1XVPwJ3X41-00Rm7h for <kijitora@mail.example.com>; Fri, 28 Nov 2014 18:00:14 +0100
+Received: from mda by mogmxus002.server.lan id 0MPlTg-1XqZ921DSU-0052Yr Fri, 28 Nov 2014 18:00:14 +0100
+Date: Fri, 28 Nov 2014 18:00:14 +0100
+From: MAILER-DAEMON@mail.gmx.com
+To: kijitora@mail.example.com
+Subject: Mail delivery failed: returning message to sender
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-UI-Out-Filterresults: unknown:0;
+Envelope-To: <kijitora@mail.example.com>
+X-GMX-Antispam: 0 (Mail was not recognized as spam); Detail=V3;
+X-GMX-Antivirus: 0 (no virus found)
+X-UI-Filterresults: notjunk:1;V01:K0:C19s7yhXQfI=:HikVrfBxBvrAjTAAPJeGBiiiNM tPFU0uZmwdsxWYI7kCE0KdjdlMe5efzKImjuo3QlA7xV7KYIIlkXxPl1Oj0WPy1inYbrYfhbQ UOdm07d75Jl05yEDO2ocNqWHWz8SM7PMONCXlsOecssLhIwOP9NS0ZR42YM8zk3P6b+wfXFpf IdUASygndzAD3Fw/rNHPCmuohhvtif8Ng9jcMyA0WBpItdxNd0+AJeeFsaqhayRmPJDp8gUNS 7ufmwEay+sbkLRokzPFxlH1CMeEVW/xLUBENnv5fJrElLbD9A2kUAatCaUhbpZCBFf517gdlG POlR7/rJfLxm85vsJ9fShq8DevOwQ0kxTzKToR4l9Uda9NqozvzFkzHPHrxqY3NLls6qrORGH ymew+UOw4jxVPq4X3bTJYNr5f1CJAmcum2UwzGxsD7c5M1yM6cxCkHZ6fxdyDRHUty1i1zmDn 9gSxGUWZ7CrWZsMY7VGatFBCi34IPUPQlBRyl9Y5I9i6Xe3RGoPWVL0zK4SPJ+6oBaGyhbqqd fQ4UC8LIFae+M4zKAeCic6FHfjCSCQ8chmK69kTEwIBb626lz/OicrE+V3vdsAJGeandVj/JX KG4Fn1XpSAh7r4eGWgR5B3CAfMM3X17yfgtcXxLqyY4lJmZvfFBZLanh4uGK/gbxS4vNCW3VU JtFOILUyzipKvyPlI34QoTS8Ta8GVcOiSkG+A+PAO/O1LdjKZHs1/VWKz3nO+R5P6hIrdpvTf S5NT2tkPbhxLkaMrC+dO3h68m0bbUi0BzxQ5px1o4kCQPMg9Mdh2WVhQrIoxQSWGCJZdd9RH9 cdQCo7RjbEcciCbIdtbM/YV8q+Y7KNP5l3uqG0vM3GdZ8wu2XwkTCt/ueLvOPeUg2BSHLXorc W+TqTuSyz3iGUeEFidgW2A84VJ94ntI2qGEKiaPZc+qYmrIVrOfHUmIyGpjLvVuFEVAasRqki NSRQddwtQFbJ4Wq5jjWygc7dwNHjkiQDUDoiKO4JYyNb9GsD6mTGwek/gkv5iYzbAqtBiXCWy skH40fiQZKU7WagA51PFOYvvcC8S0KI/of3lZ6fQl7j4r8TozjUPkkSkT+SidT+Wmo1oDQT5D R3bPsPladIxlUwv496QF+BYMS674FBc3E6Y/ScL9001yyCcrVpHOQ==
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of
+its recipients. This is a permanent error. The following address
+failed:
+
+"shironeko@example.jp":
+SMTP error from remote server after RCPT command:
+host: mx.example.jp
+5.1.1 <shironeko@example.jp>... User Unknown
+
+
+--- The header of the original message is following. ---
+
+Received: from [192.0.2.135] by 3capp-mailcom-lxa07.server.lan (via
+HTTP); Fri, 28 Nov 2014 18:00:13 +0100
+MIME-Version: 1.0
+Message-ID: <trinity-fde69d4e-12a0-462b-9dcd-7312ce506d03-1417194013122@3capp-mailcom-lxa07>
+From: Kijitora <kijitora@mail.example.com>
+To: shironeko@example.jp
+Subject: Nyaaaan
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 28 Nov 2014 18:00:13 +0100
+Importance: normal
+Sensitivity: Normal
+X-Priority: 3
+X-Provags-ID: V03:K0:5CX7vZ9xwWNIAcSlQTf/1wf4JnBXnc3rnU6CHmHnSJq
+LPFm1mvxMP5U+rsbQtztAcWJcLJJZRh3B/4GkFnd3s8PCFNPYa
+4BKg9oKnpLh1U3k65qqwV97Pw5kc8TfhlHOKk79nYhShZqRcbA
+8zlQjNdGZf87kh3O2yWaWeq67poYDZAisZe89utsp5H8Cg1MFi
+N7IOp5ayJoN5rCEMc8k1zWKRbX9HBqRgi+u9x33OEVF8cFO9Pr
+/ahsSL6qgsONSq6YKplfHI4N8qKkqVBGNsbqEERDSyQrrweKAq
+DxCrl1OE7FfRC8jJbM5D7N7ikgl
+X-UI-Out-Filterresults: notjunk:1;
+

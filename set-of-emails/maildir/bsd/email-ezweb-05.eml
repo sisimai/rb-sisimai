@@ -1,0 +1,38 @@
+Return-Path: <MAILER-DAEMON>
+Received: from ezweb.ne.jp (ffffffff-00.ezweb.ne.jp [59.135.39.227])
+	by mta20.example.co.jp (8.12.2) with SMTP id 00000000000000
+	for <kijitora@example.jp>; Thu, 29 Apr 2008 23:34:45 +0900
+To: <kijitora@example.jp>
+From: Postmaster@ezweb.ne.jp
+Message-ID: <2008042923344500000000000000@0000000000.ezweb.ne.jp>
+Date: Thu, 29 Apr 2008 23:34:45 +0900
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="==_XX00/FFFFFFFFF00=/XFF"
+Reply-To: Mail Administrator <Postmaster@ezweb.ne.jp>
+Subject: Mail System Error - Returned Mail
+X-UID: 000
+X-Mbox-Status: RO
+X-Message-Flags: S
+X-UIDL: 000
+
+This message is in MIME format.Since your mail reader does not understand this format, some or all of the message may not be legible
+
+--==_XX00/FFFFFFFFF00=/XFF
+Content-Type: text/plain; charset="ISO-2022-JP"
+Content-Transfer-Encoding: 7bit
+
+次のあて先へのメッセージはエラーのため送信できませんでした。
+
+再送信を試みましたが送信先メールサーバの事由により送信できませんでした。
+しばらくしてから再送信してください。
+
+Your message was not delivered within 0 days and 1 hours.
+Remote host is not responding.
+
+The following recipients did not receive this message:
+
+<this-local-part-does-not-exist-on-the-server@ezweb.ne.jp>
+
+
+--==_XX00/FFFFFFFFF00=/XFF--
+

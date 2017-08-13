@@ -1,0 +1,77 @@
+Delivered-To: kijitora@mail.example.ru
+Return-path: <>
+Received: from mail by f424.i.mail.ru with local id 1d5Q3j-0002h2-9s
+	for kijitora@mail.example.ru; Tue, 02 May 2017 08:09:11 +0300
+X-Failed-Recipients: nyan@haineko.org
+X-Mailer-Daemon-Recipients: nyan@haineko.org
+Auto-Submitted: auto-replied
+From: mailer-daemon@corp.mail.ru
+To: kijitora@mail.example.ru
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Subject: =?UTF-8?B?0JLQsNGI0LUg0YHQvtC+0LHRidC10L3QuNC1INC90LUg0LTQvtGB0YLQsNCy0LvQtdC90L4=?=. Mail failure.
+Message-Id: <E1d5Q3j-0002h2-9s@f424.i.mail.ru>
+Date: Tue, 02 May 2017 08:09:11 +0300
+Authentication-Results: f424.i.mail.ru; auth=pass smtp.auth=mailer-daemon@corp.mail.ru smtp.mailfrom=mailer-daemon@corp.mail.ru
+
+Это письмо создано автоматически сервером Mail.Ru, отвечать на него не нужно.
+
+К сожалению, Ваше письмо не может быть доставлено одному или нескольким получателям:
+
+  nyan@haineko.org
+    Unrouteable address
+
+Рекомендуем Вам проверить корректность указания адресов получателей.
+
+**********************
+
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  nyan@haineko.org
+    Unrouteable address
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <kijitora@mail.example.ru>
+Received: by f424.i.mail.ru with local (envelope-from <kijitora@mail.example.ru>)
+	id 1d5Q3i-0002gb-Ta
+	for nyan@haineko.org; Tue, 02 May 2017 08:09:11 +0300
+Received: by e.mail.ru with HTTP;
+	Tue, 02 May 2017 08:09:10 +0300
+From: =?UTF-8?B?a3VuaXl1a2kgYXp1bWE=?= <kijitora@mail.example.ru>
+To: nyan@haineko.org
+Subject: =?UTF-8?B?TnlhYW4=?=
+MIME-Version: 1.0
+X-Mailer: Mail.Ru Mailer 1.0
+X-Originating-IP: [153.156.254.67]
+Date: Tue, 02 May 2017 08:09:10 +0300
+Reply-To: =?UTF-8?B?a3VuaXl1a2kgYXp1bWE=?= <kijitora@mail.example.ru>
+X-Priority: 3 (Normal)
+Message-ID: <1493701750.688484291@f424.i.mail.ru>
+Content-Type: multipart/alternative;
+	boundary="--ALT--nnNyODYWnVksFwXiw8b55iGN4VO4Rhdo1493701750"
+Authentication-Results: f424.i.mail.ru; auth=pass smtp.auth=kijitora@mail.example.ru smtp.mailfrom=kijitora@mail.example.ru
+X-7FA49CB5: 0D63561A33F958A5F7DC017766D087288D96C51F59D1EFF775920203ACDF7AC6725E5C173C3A84C3BC2DAF0A2DE4255E38FEA4E4FF5B79C8789C969B8F27C422C4224003CC836476C0CAF46E325F83A50BF2EBBBDD9D6B0F5D41B9178041F3E72623479134186CDE6BA297DBC24807EABDAD6C7F3747799A
+X-Mailru-Sender: 052F3EE632032033F266ABDBF07573123E8F7A2EE55AC8B2E97FE09ED3E3287C3AE1F61852031267C2F39516BD8028B71D295F8817E181A9626B1D7BE3F966DCC1066F626AABBBD95843B8C90ECF6809064FDD5B919501F067EA787935ED9F1B
+X-Mras: OK
+X-Spam: undefined
+
+
+----ALT--nnNyODYWnVksFwXiw8b55iGN4VO4Rhdo1493701750
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+
+Ck55YWFuCgotLSAKa3VuaXl1a2kgYXp1bWE=
+
+----ALT--nnNyODYWnVksFwXiw8b55iGN4VO4Rhdo1493701750
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
+
+CjxIVE1MPjxCT0RZPjxicj5OeWFhbjxicj48YnI+LS0gPGJyPmt1bml5dWtpIGF6dW1hPC9CT0RZ
+PjwvSFRNTD4K
+
+----ALT--nnNyODYWnVksFwXiw8b55iGN4VO4Rhdo1493701750--

@@ -1,0 +1,47 @@
+Return-Path: <>
+Received: from mx9.relay.example.net (mx9.relay.example.net [192.0.2.22])
+	by 2jo.example.jp (V8/cf) with ESMTP id p977e8r8027078
+	for <shironeko@example.jp>; Thu, 29 Apr 2011 23:45:10 +0900
+Received: by mxr4.example.net (mx909) id 00000000000000; Thu, 29 Apr 2011 23:45:10 +0900
+Received: FROM queue-bounce BY relay0.mxl8.example.net WITH local;
+	Thu, 29 Apr 2011 23:45:10 +0900
+Date: Thu, 29 Apr 2011 23:45:10 +0900
+From: Mail Delivery System <MAILER-DAEMON@relay0.mxl8.example.net>
+To: shironeko@example.jp
+Subject: Mail delivery failed
+Message-Id: <mxl~fff.0000.0000@relay0.mxl8.example.net>
+MIME-Version: 1.0
+Content-Type: text/plain
+X-MX-Bounce: mta/src/queue/bounce
+X-MXL-NoteHash: 0000000000000000-ffffffffffffffffffffffffffffffffffffffff
+
+This message was created automatically by mail delivery software.
+
+A message that you have sent could not be delivered to one or more
+recipients.  This is a permanent error.  The following address failed:
+
+  <kijitora@example.co.jp>: 550 5.1.1 <kijitora@example.co.jp>: Recipient address rejected: User unknown in local recipient table
+
+
+
+Included is a copy of the message header:
+-----------------------------------------
+Received: from unknown [192.0.2.89] (EHLO 2jo.example.jp)
+	by relay0.mxl8.example.net(mxl_mta-6.5.0-4)
+	with ESMTP id ffffffff.0.000000.00-000.000000.relay0.mxl8.example.net 
+    (envelope-from <shironeko@example.jp>); Thu, 29 Apr 2011 23:45:10 +0900 (JST)
+Received: from [192.0.2.31] (c135.kyoto.example.ne.jp [192.0.2.45])
+	(authenticated bits=0)
+	by 2jo.example.jp (V8/cf) with ESMTP id 00000000000000
+	for <kijitora@example.co.jp>; Thu, 29 Apr 2011 23:45:10 +0900
+Message-Id: <0AE85451-E088-48AE-804E-1F4B713B6C63@example.jp>
+From: Shironeko <shironeko@example.jp>
+To: kijitora@example.co.jp
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Apple Message framework v936)
+Subject: Nyaaaan
+Date: Thu, 29 Apr 2011 23:45:10 +0900
+X-Mailer: Apple Mail (2.936)
+
+Nyaaan

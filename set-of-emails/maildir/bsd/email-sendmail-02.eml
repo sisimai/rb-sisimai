@@ -1,0 +1,82 @@
+Return-Path: <MAILER-DAEMON@nijo.example.jp>
+Received: from localhost (localhost)
+	by nijo.example.jp (V8/cf) id s1QB5ma0018057;
+	Wed, 26 Feb 2014 06:05:48 -0500
+Date: Wed, 26 Feb 2014 06:05:48 -0500
+From: Mail Delivery Subsystem <MAILER-DAEMON@nijo.example.jp>
+Message-Id: <201402261105.s1QB5ma0018057@nijo.example.jp>
+To: <kijitora@example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="s1QB5ma0018057.1393412748/nijo.example.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--s1QB5ma0018057.1393412748/nijo.example.jp
+
+The original message was received at Wed, 26 Feb 2014 06:05:47 -0500
+from smtp-gateway.kyoto.ocn.ne.jp [192.0.2.222]
+
+   ----- The following addresses had permanent fatal errors -----
+<userunknown@example.org>
+    (reason: 550 5.1.1 <userunknown@example.org>... User Unknown)
+<filtered@example.org>
+    (reason: 550 5.2.1 <filtered@example.org>... User Unknown)
+
+   ----- Transcript of session follows -----
+... while talking to mx.example.org.:
+>>> DATA
+<<< 550 5.2.1 <filtered@example.org>... User Unknown
+550 5.1.1 <filtered@example.org>... User unknown
+<<< 550 5.1.1 <userunknown@example.org>... User Unknown
+550 5.1.1 <userunknown@example.org>... User unknown
+<<< 503 5.0.0 Need RCPT (recipient)
+
+--s1QB5ma0018057.1393412748/nijo.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; nijo.example.jp
+Received-From-MTA: DNS; smtp-gateway.kyoto.ocn.ne.jp
+Arrival-Date: Wed, 26 Feb 2014 06:05:47 -0500
+
+Final-Recipient: RFC822; userunknown@example.org
+Action: failed
+Status: 5.1.1
+Remote-MTA: DNS; mx.example.org
+Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.org>... User Unknown
+Last-Attempt-Date: Wed, 26 Feb 2014 06:05:48 -0500
+
+Final-Recipient: RFC822; filtered@example.com
+Action: failed
+Status: 5.2.1
+Remote-MTA: DNS; mx.example.com
+Diagnostic-Code: SMTP; 550 5.2.1 <filtered@example.com>... User Unknown
+Last-Attempt-Date: Wed, 26 Feb 2014 06:05:48 -0500
+
+--s1QB5ma0018057.1393412748/nijo.example.jp
+Content-Type: message/rfc822
+
+Return-Path: <kijitora@example.jp>
+Received: from [10.22.22.222] (smtp-gateway.kyoto.ocn.ne.jp [192.0.2.222])
+	(authenticated bits=0)
+	by nijo.example.jp (V8/cf) with ESMTP id s1QB5ka0018055;
+	Wed, 26 Feb 2014 06:05:47 -0500
+From: Kijitora <kijitora@example.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?B?55m954yr44Gr44KD44KT44GT44Go44GK44Gj44GV44KT54yr44CB?=
+ =?utf-8?B?44GC44Go57ie5LiJ5q+b54yr44Gr6ZuJ55m954yr44Gu6Kaq5a2Q?=
+ =?utf-8?B?44CC44Gd44KM44GL44KJ44Kq44OD44OJ44Ki44Kk44Gu55m954yr?=
+ =?utf-8?B?44KC44CC?=
+Message-Id: <C6625D0F-A302-4980-BEAB-2AF883EA0116@example.jp>
+Date: Wed, 26 Feb 2014 20:05:45 +0900
+To: userunknown@example.org, filtered@example.org
+Mime-Version: 1.0 (Mac OS X Mail 7.1 \(1827\))
+X-Mailer: Apple Mail (2.1827)
+
+test
+
+--s1QB5ma0018057.1393412748/nijo.example.jp--
+

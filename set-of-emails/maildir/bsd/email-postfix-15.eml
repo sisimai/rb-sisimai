@@ -1,0 +1,69 @@
+From MAILER-DAEMON  Fri Feb 13 05:04:57 2015
+Return-Path: <>
+X-Original-To: root@kawaramachi.example.jp
+Delivered-To: root@kawaramachi.example.jp
+Received: by kawaramachi.example.jp (Postfix)
+	id 5908320C15; Fri, 13 Feb 2015 05:04:57 +0000 (UTC)
+Date: Fri, 13 Feb 2015 05:04:57 +0000 (UTC)
+From: MAILER-DAEMON@kawaramachi.example.jp (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: root@kawaramachi.example.jp
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="54EF320C12.1423803897/kawaramachi.example.jp"
+Message-Id: <20150213050457.5908320C15@kawaramachi.example.jp>
+
+This is a MIME-encapsulated message.
+
+--54EF320C12.1423803897/kawaramachi.example.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host kawaramachi.example.jp.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@bukkoji.example.org>: connect to
+    bukkoji.example.org[192.0.2.1]:25: Connection timed out
+
+--54EF320C12.1423803897/kawaramachi.example.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; kawaramachi.example.jp
+X-Postfix-Queue-ID: 54EF320C12
+X-Postfix-Sender: rfc822; root@kawaramachi.example.jp
+Arrival-Date: Fri, 13 Feb 2015 03:12:31 +0000 (UTC)
+
+Final-Recipient: rfc822; kijitora@bukkoji.example.org
+Original-Recipient: rfc822;kijitora@bukkoji.example.org
+Action: failed
+Status: 4.4.1
+Diagnostic-Code: X-Postfix; connect to
+    bukkoji.example.org[192.0.2.1]:25: Connection timed out
+
+--54EF320C12.1423803897/kawaramachi.example.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <root@kawaramachi.example.jp>
+Received: by kawaramachi.example.jp (Postfix, from userid 0)
+	id 54EF320C12; Fri, 13 Feb 2015 03:12:31 +0000 (UTC)
+To: kijitora@bukkoji.example.org
+Subject: Nyaaaan
+Message-Id: <20150213031231.54EF320C12@kawaramachi.example.jp>
+Date: Fri, 13 Feb 2015 03:12:31 +0000 (UTC)
+From: root@kawaramachi.example.jp (root)
+
+Nyaaan
+
+--54EF320C12.1423803897/kawaramachi.example.jp--

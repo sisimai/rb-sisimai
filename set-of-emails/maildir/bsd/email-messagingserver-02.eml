@@ -1,0 +1,72 @@
+Return-path: <>
+Envelope-to: shironeko@example.com
+Delivery-date: Thu, 29 Apr 2007 23:34:45 +0000
+Received: from mx4.example.net ([192.0.2.122])
+    by mx54.example.net with esmtp (Exim 4.60) id 000000+000000-00
+    for shironeko@example.com; Thu, 29 Apr 2007 23:34:45 +0000
+Received: from mx ([192.0.2.34]:10000 "EHLO smtp.example.net")
+    by mx4.example.net with ESMTP id 000000000000000;
+    Thu, 29 Apr 2007 23:34:45 +0000
+Received: from mail.example.net ([192.0.2.11])
+    id <0000000000000000@mx3.example.net>; Thu, 29 Apr 2007 23:34:45 +0000 (GMT)
+Date: Thu, 29 Apr 2007 23:34:45 +0000 (GMT)
+From: postmaster@example.net
+Subject: Delivery Notification: Delivery has failed
+To: shironeko@example.com
+Message-id: <0000000000000000@mx3.example.net>
+MIME-version: 1.0
+Content-type: multipart/report;
+ boundary="Boundary_(ID_00000000000000000)"; report-type=delivery-status
+
+--Boundary_(ID_00000000000000000)
+Content-type: text/plain; charset=us-ascii
+Content-language: en-US
+
+This report relates to a message you sent with the following header fields:
+
+  Message-id: <00000000000000000000000000000000@example.com>
+  Date: Thu, 29 Apr 2007 23:34:45 +0000
+  From: Shironeko <shironeko@example.com>
+  To: kijitora@example.net
+  Subject: Nyaaan
+
+Your message cannot be delivered to the following recipients:
+
+  Recipient address: @smtp.example.net:kijitora@server
+  Original address: kijitora@example.net
+  Reason: LMTP transmission failure has occurred
+  Diagnostic code: smtp;522 5.2.0 Delivery failed: Over quota
+  Remote system: dns;mx.example.net (mx. -- Server LMTP [Sun ONE Messaging Server 6.1 [built Jan 28 2005]])
+
+--Boundary_(ID_00000000000000000)
+Content-type: message/delivery-status
+
+Reporting-MTA: dns;mx3.example.net
+
+Original-recipient: rfc822;kijitora@example.net
+Final-recipient: rfc822;@smtp.example.net:kijitora@server
+Action: failed
+Status: 5.2.0 (LMTP transmission failure has occurred)
+Remote-MTA: dns;smtp.example.net
+ (mx. -- Server LMTP [Sun ONE Messaging Server 6.1 [built Jan 28 2005]])
+Diagnostic-code: smtp;522 5.2.0 Delivery failed: Over quota
+
+--Boundary_(ID_00000000000000000)
+Content-type: message/rfc822
+
+Return-path: <shironeko@example.com>
+Received: from mx3.example.net by mail.example.net ([192.0.2.4])
+    id <0000000000000000@mx3.example.net>; Thu, 29 Apr 2007 23:34:45 +0000 (GMT)
+Received: from mail.example.net by example.com with HTTP (Mail); 
+    Thu, 29 Apr 2007 23:34:45 +0000
+Date: Thu, 29 Apr 2007 23:34:45 +0000
+From: Shironeko <shironeko@example.com>
+Subject: Nyaaan
+To: kijitora@example.net
+Message-id: <00000000000000000000000000000000@example.com>
+MIME-version: 1.0
+Content-type: text/plain; charset=utf-8
+Content-transfer-encoding: 7BIT
+
+Nyaaaan
+

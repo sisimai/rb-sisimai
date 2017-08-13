@@ -1,0 +1,41 @@
+Return-Path: <>
+Received: from marutamachi.example.org (c192128.example.net [192.0.2.128])
+	by aneyakoji.example.jp (V8/cf) with ESMTP id s6A7VhYM004256
+	for <shironeko@example.jp>; Thu, 10 Jul 2014 16:31:43 +0900
+Received: from mail by marutamachi.example.org with local (Exim 4.72)
+	id 1X58pT-0004bZ-Co
+	for shironeko@example.jp; Thu, 10 Jul 2014 16:31:43 +0900
+Date: Thu, 10 Jul 2014 16:31:43 +0900
+Message-Id: <E1X58pT-0004bZ-Co@marutamachi.example.org>
+X-Failed-Recipients: kijitora@example.jp,
+  sabatora@example.jp
+Auto-Submitted: auto-replied
+From: Mail Delivery System <Mailer-Daemon@marutamachi.example.org>
+To: shironeko@example.jp
+Subject: Mail delivery failed: returning message to sender
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  kijitora@example.jp
+    SMTP error from remote mail server after RCPT TO:<kijitora@example.jp>:
+    host mx.example.jp [192.0.2.153]: 550 5.1.1 <kijitora@example.jp>... User Unknown
+  sabatora@example.jp
+    SMTP error from remote mail server after RCPT TO:<sabatora@example.jp>:
+    host mx.example.jp [192.0.2.153]: 550 5.2.1 <sabatora@example.jp>... User Unknown
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <shironeko@example.jp>
+Received: from localhost ([127.0.0.1])
+	by marutamachi.example.org with esmtp (Exim 4.72)
+	(envelope-from <shironeko@example.jp>)
+	id 1X58pB-0004bW-2s; Thu, 10 Jul 2014 16:31:40 +0900
+Date: Thu, 10 Jul 2014 16:31:36 +0900
+Message-Id: <E1X58pB-0004bW-2s@marutamachi.example.org>
+Subject: test from Exim 1
+From: shironeko@example.jp
+
+test

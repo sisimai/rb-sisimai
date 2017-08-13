@@ -1,0 +1,46 @@
+Received: from e1.example.org (r135.example.net [192.0.2.128])
+	by mx.example.jp (8.14.4/8.14.4) with ESMTP id o91AFNQX000234
+	for <shironeko@example.jp>; Fri, 1 Oct 2010 19:15:24 +0900 (JST)
+X-Virus-Status: Clean
+X-Virus-Scanned: clamav-milter 0.96 at 5j.example.jp
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 mx.example.jp o91AFNQX000234
+Authentication-Results: mx.example.jp; sender-id=none header.from=Mailer-Daemon@e1.example.org
+Received: from mail by e1.example.org with local (Exim 4.72)
+	id 1P1ceB-000FL1-4q
+	for shironeko@example.jp; Fri, 01 Oct 2010 19:15:23 +0900
+Date: Fri, 01 Oct 2010 19:15:23 +0900
+Message-Id: <E1P1ceB-000FL1-4q@e1.example.org>
+X-Failed-Recipients: kijitora@example.ed.jp
+Auto-Submitted: auto-replied
+From: Mail Delivery System <Mailer-Daemon@e1.example.org>
+To: shironeko@example.jp
+Subject: Mail delivery failed: returning message to sender
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  kijitora
+    SMTP error from remote mail server after MAIL FROM:<shironeko@example.jp> SIZE=1543:
+    host mx.example.jp [192.0.2.20]: 550 5.7.0 <shironeko@example.jp>... Please use the smtp server of your ISP.
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <shironeko@example.jp>
+Received: from localhost ([127.0.0.1])
+	by e1.example.org with smtp (Exim 4.72)
+	(envelope-from <shironeko@example.jp>)
+	id 1P1ce6-000Egt-GZ
+	for kijitora@example.ed.jp; Fri, 01 Oct 2010 19:15:19 +0900
+Date: Fri, 01 Oct 2010 19:15:19 +0900
+Message-Id: <E1P1ce6-000Egt-GZ@e1.example.org>
+From: shironeko@example.jp
+
+data
+354 Enter mail, end with "." on a line by itself
+Message-Id: <hogeuoiuadogalhg.dg9i09@example.jp>
+From: foaiudgoueaego@hoge.aa
+To: kijitora@example.ed.jp
+
+test

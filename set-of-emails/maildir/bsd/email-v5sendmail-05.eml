@@ -1,0 +1,42 @@
+Return-Path: <MAILER-DAEMON@example.com>
+Received: from mx2.example.com ([192.0.2.89]) 
+    by mx4.example.net (Post.Office MTA v3.1.2 
+    release (FF000-0000) ID# 0-00000000000000000) 
+    with SMTP id 0000000 for <shironeko@example.jp>;
+    Thu, 29 Apr 1999 23:34:45 +0900
+Received: by mx5.example.com; (5.65/1.37) id 0000000;
+    Thu, 29 Apr 1999 23:34:45 +0900
+Date: Thu, 29 Apr 1999 23:34:45 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON@example.com>
+Subject: Returned mail: User unknown
+Message-Id: <0000000000.0000000@example.com>
+To: shironeko@example.jp
+
+   ----- Transcript of session follows -----
+While talking to example.edu:
+>>> DATA
+<<< 550 Your E-Mail is redundant.  You cannot send E-Mail to yourself (shironeko@example.jp).
+421 example.edu (smtp)... Deferred: Connection reset by peer during result wait with example.edu
+554 <kijitora@example.edu>... Remote protocol error: Connection reset by peer during result wait with example.edu
+550 example.or.jp (smtp)... 550 Host unknown
+554 <kuroneko@example.or.jp>... 550 Host unknown (Authoritative answer from name server)
+550 example.org (smtp)... 550 Host unknown
+554 <kijitora@example.org>... 550 Host unknown (Authoritative answer from name server)
+While talking to smtp.example.com:
+>>> QUIT
+<<< 421 dns.example.org Sorry, unable to contact destination SMTP daemon.
+421 smtp.example.org (smtp)... Deferred: Connection reset by peer during greeting wait with smtp.example.org
+While talking to mail.example.co.jp:
+>>> RCPT To:<mikeneko@example.co.jp>
+<<< 550 Requested User Mailbox not found. No such user here.
+550 <mikeneko@example.co.jp>... User unknown
+
+   ----- Unsent message follows -----
+Received: by dns.example.com; (5.65/1.37) id 0000000; 
+    Thu, 29 Apr 1999 23:34:45 +0900
+From: shironeko@example.jp
+To: kijitora@example.org
+Subject: Nyaan
+
+Nyaaaan
+

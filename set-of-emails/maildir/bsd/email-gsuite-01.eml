@@ -1,0 +1,189 @@
+Return-Path: <>
+Received: from mail-pg0-f67.google.com (mail-pg0-f67.google.com [74.125.83.67])
+	by aneyakoji.example.jp (V8/cf) with ESMTP id v22nekonyan
+	for <sironeko@example.jp>; Sat, 25 Mar 2017 12:34:56 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 aneyakoji.example.jp v22nekonyan
+Authentication-Results: aneyakoji.example.jp; sender-id=pass header.from=mailer-daemon@googlemail.com
+Received: by mail-pg0-f67.google.com with SMTP id q22neko2222nn.1
+        for <sironeko@example.jp>; Fri, 24 Mar 2017 12:34:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20161025;
+        h=from:to:auto-submitted:subject:references:in-reply-to:message-id
+         :date;
+        bh=wHN9FsOc8eHpGnInjZe8hO+5G9NIf4zIVtk69pRMC9U=;
+        b=Uddu2IezvdWUyBWOpp0ENc3K9ElRKs+DGllfYC7k5ZWLg0DDEzRvHkvu8GBjtzTQTi
+         1vCNkxBMPyS/MSdIxlLgKf/ZQg+9FnknIj+oj+bKC6iVhfeYpSd+Kr++QTYsoPmhdkYT
+         yw0+gS2iSAponz/KwdCRn6PiV1lj6B6ute82OaqvtUP0wIRGSJxRFNXXtqOa+LlLkxEX
+         b0Xl3SMOd0G/Sa82AX7jOYhb/M5Y95z3ikMFlFkecyqxCikC9HtlZh3L0kRFHbQkDdR0
+         jF5Dpn6r08ZFReZ5WkCyYb1dxcOGgpwUX162VU5aT2lgfHYoPVq0Ipt1PS1HGfVncUDO
+         50Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:auto-submitted:subject:references
+         :in-reply-to:message-id:date;
+        bh=wHN9FsOc8eHpGnInjZe8hO+5G9NIf4zIVtk69pRMC9U=;
+        b=uOUCl+vxmjPk5A/TQ08YtayveKldmt23MD6hR5E7ONm9ssx3SGjG0jagZH0KWltpU6
+         K2WbK9DkpYkrazY6m+OE1xnL63yI/iBKosC24SQR/shZCWXlcdTPwncVDIkp+fp7RoM5
+         3FUyj6ZUQI8pYfglHHoZwR6tBKSZg81lgCNYDAKipQP5XdDPY1l1+QEv4R/tCegmdxOF
+         GrlgrpdOSl/1g1tdcga3jAW33ZO4QsudPKXoOOA37YLIdT90JzNxTzyXnF7yxtpH72wq
+         ay82xboOVGzHeW3s51uTdGhkU2Hi1ICwoJb5th9m/D3wXblZFee4ELsf7aM3JEDxrRXS
+         AlEQ==
+X-Gm-Message-State: NEKO/Nyaaaaaaaaaaaaaaaaaaaaan/NoranekoNyaaaan+Nyaan/nekoneko22nyannyaaaaan==
+X-Received: by 10.99.122.22 with SMTP id v22neko222222332neko.222.1490423650000;
+        Fri, 24 Mar 2017 12:34:56 -0700 (PDT)
+Content-Type: multipart/report; boundary=ffff00000000000000ffff; report-type=delivery-status
+Received: by 10.99.122.22 with SMTP id v22neko222233nyan.222; Fri, 24 Mar 2017
+ 12:34:56 -0700 (PDT)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+To: sironeko@example.jp
+Auto-Submitted: auto-replied
+Subject: Delivery Status Notification (Failure)
+References: <00222222-2222-2222-2222-FF00FFFF0000@example.jp>
+In-Reply-To: <00222222-2222-2222-2222-FF00FFFF0000@example.jp>
+Message-ID: <ee002222.2200eeaa.2002f.e222.NYAAN@mx.google.com>
+Date: Fri, 24 Mar 2017 12:34:56 -0700 (PDT)
+
+--ffff00000000000000ffff
+Content-Type: multipart/related; boundary=ee00ff00002222eeffccdd
+
+--ee00ff00002222eeffccdd
+Content-Type: multipart/alternative; boundary=aa00220022222222ffeebb
+
+--aa00220022222222ffeebb
+Content-Type: text/plain; charset=UTF-8
+
+
+** Address not found **
+
+Your message wasn't delivered to kijitora@example.de because the address couldn't be found. Check for typos or unnecessary spaces and try again.
+
+
+
+The response from the remote server was:
+550 #5.1.0 Address rejected.
+
+--aa00220022222222ffeebb
+Content-Type: text/html; charset=UTF-8
+
+
+<html>
+<head>
+<style>
+* {
+font-family:Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+</style>
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" class="email-wrapper" style="padding-top:32px;background-color:#ffffff;"><tbody>
+<tr><td>
+<table cellpadding=0 cellspacing=0><tbody>
+<tr><td style="max-width:560px;padding:24px 24px 32px;background-color:#fafafa;border:1px solid #e0e0e0;border-radius:2px">
+<img style="padding:0 24px 16px 0;float:left" width=72 height=72 alt="Error Icon" src="cid:icon.png">
+<table style="min-width:272px;padding-top:8px"><tbody>
+<tr><td><h2 style="font-size:20px;color:#212121;font-weight:bold;margin:0">
+Address not found
+</h2></td></tr>
+<tr><td style="padding-top:20px;color:#757575;font-size:16px;font-weight:normal;text-align:left">
+Your message wasn't delivered to <a style='color:#212121;text-decoration:none'><b>kijitora@example.de</b></a> because the address couldn't be found. Check for typos or unnecessary spaces and try again.
+</td></tr>
+</tbody></table>
+</td></tr>
+</tbody></table>
+</td></tr>
+<tr style="border:none;background-color:#fff;font-size:12.8px;width:90%">
+<td align="left" style="padding:48px 10px">
+The response from the remote server was:<br/>
+<p style="font-family:monospace">
+550 #5.1.0 Address rejected.
+</p>
+</td>
+</tr>
+</tbody></table>
+</body>
+</html>
+
+--aa00220022222222ffeebb--
+--ee00ff00002222eeffccdd
+Content-Type: image/png; name="icon.png"
+Content-Disposition: attachment; filename="icon.png"
+Content-Transfer-Encoding: base64
+Content-ID: <icon.png>
+
+iVBORw0KGgoAAAANSUhEUgAAAJAAAACQCAYAAADnRuK4AAAACXBIWXMAABYlAAAWJQFJUiTwAAAA
+GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABTdJREFUeNrsnD9sFEcUh5+PRMqZ
+yA0SPhAUQAQFUkyTgiBASARo6QApqVIkfdxGFJFSgGhJAUIiBaQB0ZIOKVCkwUgURjIg2fxL4kS+
+YDvkbC/388bi8N16Z4/d7J/5PsniuD3fyePP772ZeTsDQRAYQL/UGAJAIEAgQCBAIAAEAgQCBAIE
+AkAgyJT3Mv+Eq7vYK8mTE+MDRCAghQECAeRQA5V2ZOpmg5vDx3NPzRbmGRMEcmTrEbNNB8zWfRD+
+f/Efs2e3zCZvMjaksBg27TfbcuSNPEKP9ZyuAQKtHX2O9ncNgWC57umMPKvRNb0GEKgnLoUyxTQC
+rcns0/6uIRAs8/hGf9cQCJZpTpjdO2f25/03z+mxntM1eLtsZAgiUtX4JcaBCAQIBAgECARQ8CJa
+G5jab4J4pm4WZmO3OALVh802fIwcLkyPkcKAGggAgQCBAIEAgQCBABAIEAjKA/1AnahhbO5FdOOY
+VsrrDbPBYcYKgf5D2wLaV3p+22xh1u17tO3S+DTcvxvagUDeivPgx/a/95J/73w7Sj26Hn4pKo2M
+ehuV/KyBJM6d0f7k6RKx/R63vvL2tmf/ItDdM2ZTP6f7nkp9Y2fDx1v9akmpIU+KSCLVUghUQfSL
+zVKeTklbLxGoctw/nzC5rw8L5KRNbkpnKq6pgSqEClzNnFzY+XnYWrt6VpVk1vbwWvg+RKCKMOUw
+Q1LEOXA+/MX3mpJvGDHb265xtnzmFoUK1HaKQGlMtePYM+q2KKjXuaS1NJYIEKgI8jhEgqHt4cqy
+Ky53j3hyHz2bqSLp2o2LbJ7MxKovkGqXteoWpaOk96O9/yF/dF7NwlS36AuIQIBA5celQK4PIxBE
+4LLzrtoLgaALdSy6CJRkWQCBPGLsTHznomZ9nszUECgJ2ml3WWHe+QVFNPSQx6UdZNtxr9pbEShN
+eTTz8mQXHoHSlke7+Z+c9m6VGoHSkEfs/trLW3wQKApN1V3lGfnGu2Z6BFoLtYCs3GWBPAiUCLVh
+/HoaeRCoT9R873KLM/IgUBfapnCpe5AHgXry4pf412ihEHkQqCdxd5VqrcezhUIESsJMTJ+Pdthp
+Z0WgyNlXXPHc2Mc4IVAELl2Gnh8mhUDvCkfbIVAkcbf/aOoO3fMKhqAD3frTa4quwpn0hUDOkQhI
+YYBAgECAQAAU0QlYObl+5Ug8NcprZkZxjUCxRPVA6zmtEXHCBykskrhjgHXN09PoEcgFl4M4H11j
+nBAoApcj6ZoPGScEAgTKApcDoTw5sgWB+sGlz1n90IBAPdE6j1o21PfcC11jLagL1oFWRyGlKU3p
+OxcSJQ7NZAjkhHp/uG2HFAYIBAgECASAQIBAgECAQAAIBOkxEARBtp9wdVfAMOfIifEBIhCQwgCB
+ABAI0oV2jhxZ+nfBatuPZfgBCy0Eqqo8c01b+uu51XZvzOgDWoHNTGR+pCwpLEd5svuAZXlO2uEr
+PyEQ8hRWHgRCHmqg0sjTnLalv6crJQ8C/U8stqNO0I4+VZOHFIY8COS1PGL2ybd5yUMKK7s8zYmL
+dujyd3n+nESgcsvzZd4/KwIhDwIhT35QA6UyE1qyxZnfvJMHgdKS549JC1qvvJOHFIY8CFR5eV5O
+XimqPAhUdHnmfx+zgxdOFXkoqIGKKs/cswnb/8Oeog8HEai48nxUhiFBIORBIOShBioskkbySCLk
+IQIhDwIhj28p7FApR6b1qlEbHGpkO/rr6215vi/zH1r2x7tApSGFAQIBAgECAQIBIBAgECAQIBBA
+LK8FGADCTxYrr+EVJgAAAABJRU5ErkJggg==
+--ee00ff00002222eeffccdd--
+--ffff00000000000000ffff
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; googlemail.com
+Received-From-MTA: dns; sironeko@example.jp
+Arrival-Date: Fri, 24 Mar 2017 12:34:56 -0700 (PDT)
+X-Original-Message-ID: <00222222-2222-2222-2222-FF00FFFF0000@example.jp>
+
+Final-Recipient: rfc822; kijitora@example.de
+Action: failed
+Status: 5.0.0
+Remote-MTA: dns; 192.0.2.222 (192.0.2.222, the server for the domain.)
+Diagnostic-Code: smtp; 550 #5.1.0 Address rejected.
+Last-Attempt-Date: Fri, 24 Mar 2017 12:34:56 -0700 (PDT)
+
+--ffff00000000000000ffff
+Content-Type: message/rfc822
+
+X-Gm-Message-State: NEKO/Nyaaaan0ai9dgaig4u9u8hamcbh499/Nyaan2/222NN+nyaaanNekochan22nyaaaaaaaan/Sotoneko22Nyaan/NekoNyaaan2
+X-Received: by 10.99.122.22 with SMTP id v22nekochan488nya.222.1490423649015;
+        Fri, 24 Mar 2017 12:34:56 -0700 (PDT)
+X-Received: by 10.99.122.22 with SMTP id v22nekochan477nya.222.1490423648801;
+        Fri, 24 Mar 2017 12:34:56 -0700 (PDT)
+Return-Path: <sironeko@example.jp>
+Received: from aneyakoji.example.jp (aneyakoji.example.jp. [198.51.100.2])
+        by mx.google.com with ESMTP id 22neko22nyaaaan.404.2017.03.24.12.34.56
+        for <kijitora@example.de>;
+        Fri, 24 Mar 2017 12:34:56 -0700 (PDT)
+Received-SPF: pass (google.com: domain of sironeko@example.jp designates 198.51.100.2 as permitted sender) client-ip=198.51.100.2;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: domain of sironeko@example.jp designates 198.51.100.2 as permitted sender) smtp.mailfrom=sironeko@example.jp
+Received: from [172.31.127.65] (c222-222kyoto.kyoto.example.ne.jp [203.0.113.222])
+	(authenticated bits=0)
+	by aneyakoji.example.jp (V8/cf) with ESMTP id v2NekoNyaan22g
+	for <kijitora@example.de>; Sat, 25 Mar 2017 12:34:56 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 aneyakoji.example.jp v2NekoNyaan22g
+Authentication-Results: aneyakoji.example.jp; sender-id=pass header.from=sironeko@example.jp; auth=pass (CRAM-MD5); spf=pass smtp.mfrom=sironeko@example.jp
+From: "Neko, Nyaaan" <sironeko@example.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Subject: Nyaaan
+Message-Id: <00222222-2222-2222-2222-FF00FFFF0000@example.jp>
+Date: Sat, 25 Mar 2017 12:34:56 +0900
+To: kijitora@example.de
+Mime-Version: 1.0 (Mac OS X Mail 9.3 \(3124\))
+X-Mailer: Apple Mail (2.3124)
+
+Nyaan
+
+--ffff00000000000000ffff--

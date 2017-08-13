@@ -1,0 +1,66 @@
+Return-Path: <>
+X-Original-To: shironeko@example.ne.jp
+Delivered-To: shironeko@example.ne.jp
+Received: from mx6.example.co.jp (mx6.example.co.jp [192.0.2.32])
+        by mx.example.ne.jp (Postfix) with ESMTP id 9999999999
+        for <shironeko@example.ne.jp>; Thu, 29 Apr 2013 23:45:00 +0900 (JST)
+Received: from localhost (localhost)
+        by mx6.example.co.jp (8.14.8/8.14.8) id 00000000000000;
+        Thu, 29 Apr 2013 23:45:00 +0900 (JST) (envelope-from MAILER-DAEMON)
+Date: Thu, 29 Apr 2013 23:45:00 +0900 (JST)
+From: Mail Delivery Subsystem <MAILER-DAEMON@example.co.jp>
+Message-Id: <201304290000.00000000000000@example.co.jp>
+To: <shironeko@example.ne.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+        boundary="f000000000.0000/mx6.example.co.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--f000000000.0000/mx6.example.co.jp
+
+The original message was received at Thu, 29 Apr 2013 23:45:00 +0900 (JST)
+from g5.example.jp [192.0.2.9] (may be forged)
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora@example.or.jp>
+    (reason: Insufficient permission)
+
+   ----- Transcript of session follows -----
+maildrop: maildir over quota.
+550 5.0.0 <kijitora@example.or.jp>... Insufficient permission
+
+--f000000000.0000/mx6.example.co.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx6.example.co.jp
+Received-From-MTA: DNS; g5.example.jp
+Arrival-Date: Thu, 29 Apr 2013 23:45:00 +0900 (JST)
+
+Final-Recipient: RFC822; kijitora@example.or.jp
+ction: failed
+Status: 5.3.0
+Diagnostic-Code: X-Unix; 77
+Last-Attempt-Date: Thu, 29 Apr 2013 23:45:00 +0900 (JST)
+
+--f000000000.0000/mx6.example.co.jp
+Content-Type: message/rfc822
+
+Return-Path: <shironeko@example.ne.jp>
+Received: from g56.smtp.example.jp (g5.example.jp [192.0.2.9] (may be forged))
+        by mx6.example.co.jp (8.14.8/8.14.8) with SMTP id 00000000000000
+        for <kijitora@example.or.jp>; Thu, 29 Apr 2013 23:45:00 +0900 (JST)
+        (envelope-from shironeko@example.ne.jp)
+Message-ID: <00000000000.00000000000@localhost.example.or.jp>
+Date: Thu, 29 Apr 2013 23:45:00 +0900 (JST)
+From: "Shironeko, Nyanko" <shironeko@example.ne.jp>
+To: kijitora@example.or.jp
+Subject: Nyaaaaaan
+MIME-Version: 1.0
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+
+Nyaaa
+

@@ -1,0 +1,251 @@
+Delivered-To: kijitora@gmail.example.com
+Received: by 10.237.47.35 with SMTP id l32csp1142834qtd; Sun, 30 Apr 2017
+ 04:22:44 -0700 (PDT)
+X-Received: by 10.55.143.198 with SMTP id r189mr12678525qkd.315.1493551364194;
+ Sun, 30 Apr 2017 04:22:44 -0700 (PDT)
+Return-Path: <>
+Received: from mail-qk0-x247.google.com (mail-qk0-x247.google.com.
+ [2607:f8b0:400d:c09::247]) by mx.google.com with ESMTPS id
+ u56si5766081qtu.57.2017.04.30.04.22.44 for <kijitora@gmail.example.com>
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128); Sun, 30 Apr
+ 2017 04:22:44 -0700 (PDT)
+Received-SPF: pass (google.com: best guess record for domain of
+ postmaster@mail-qk0-x247.google.com designates 2607:f8b0:400d:c09::247 as
+ permitted sender) client-ip=2607:f8b0:400d:c09::247;
+Authentication-Results: mx.google.com; dkim=pass header.i=@googlemail.com;
+ spf=pass (google.com: best guess record for domain of
+ postmaster@mail-qk0-x247.google.com designates 2607:f8b0:400d:c09::247 as
+ permitted sender) smtp.helo=mail-qk0-x247.google.com; dmarc=pass
+ (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=googlemail.com
+Received: by mail-qk0-x247.google.com with SMTP id g39so6598513qkh.3 for
+ <kijitora@gmail.example.com>; Sun, 30 Apr 2017 04:22:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=googlemail.com;
+ s=20161025;
+ h=from:to:auto-submitted:subject:references:in-reply-to:message-id :date;
+ bh=Sz/OSR+0y2FE9AW6WeArhvvuvKAc0MnvKF+whE0FUck=;
+ b=NuqvAwupmy0/sAlOyzuGecMRa3cwYjRBc22mIQdOvus0Pt8tt/b9EbYmxN5MY87guq
+ UOTwT4zieDQU+HZBg9tcLEcIQnpHWj4tBo5qSctkfa2SAmz2Wa0Gac5HvYnpU8HjAmem
+ mKmAK3UnTXCZNEQVvRuXpwIOAWgLYsONWO0OvnGxqcV8TMDAFIKFUim+Z3p/BF1CtxPm
+ 6w6BFWnD+LY8ufBl4LkgXAuQLPreidWiZrxruwazPeflbBiTCyvbFiFo27nitM5Qz/Rr
+ 437UmEjtQZrRHZ3cY51h4gnbEcVwAgXOrFr1xZ58qiMkWiqZeXxkRg6koRXNdilnxPgh YsWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1e100.net;
+ s=20161025; h=x-gm-message-state:from:to:auto-submitted:subject:references
+ :in-reply-to:message-id:date;
+ bh=Sz/OSR+0y2FE9AW6WeArhvvuvKAc0MnvKF+whE0FUck=;
+ b=HA9+BKdspSyY7PSNLvdfcJR6UWXA9KOq9wIuC7UAPQEBapLY2eMBizvd4CKV+K137/
+ kwStagAzIju7LUjlVBdL8TVwq+MW631nSAcAGPEzvC/0eJrKgpm2uHb1uOvsSH4aGk8m
+ AdAFGsK9iR8qRFaz9WPYb1UzZ8cONCIy1AibGc86mvqPjRra+SgE4vtWruAzBm5NB8PR
+ Tq2TW5MeKdrECpFqPsEB7eaByTAWPs04E7Ew/mp0BxLugEwvQki809YzAujyBX+tZ8Gj
+ cEo1Nd9yV7UsIAaGewaMLb94BQu168H/931MDxvYUVPr/1qWPQTUgDQ4vLQwuIP/PCDo MGzQ==
+X-Gm-Message-State: AN3rC/6i3sig/MhAUApHZ4KcgorJ4M/LpGO0OCgcsJy0XrgzOckMq+Nh
+ QF21M92aFjwUh64g0E3BP2r2ETtgEzHX+9JP4yGTDg==
+X-Received: by 10.55.160.135 with SMTP id j129mr3484541qke.116.1493551364112;
+ Sun, 30 Apr 2017 04:22:44 -0700 (PDT)
+Content-Type: multipart/report; boundary=001a114fd7c482f4e6054e608653;
+ report-type=delivery-status
+Return-Path: <>
+Received: by 10.55.160.135 with SMTP id j129mr3641763qke.116; Sun, 30 Apr 2017
+ 04:22:44 -0700 (PDT)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+To: kijitora@gmail.example.com
+Auto-Submitted: auto-replied
+Subject: Delivery Status Notification (Failure)
+References: <CAByYQsEVA+zJMnugH3M98xXcDj5XHp8HYsGtb5_r9Jd8LuyF=Q@mail.gmail.example.com>
+In-Reply-To: <CAByYQsEVA+zJMnugH3M98xXcDj5XHp8HYsGtb5_r9Jd8LuyF=Q@mail.gmail.example.com>
+X-Failed-Recipients: neko@libsisimai.org
+Message-ID: <5905c904.87a0370a.32f33.4398.GMRIR@mx.google.com>
+Date: Sun, 30 Apr 2017 04:22:44 -0700 (PDT)
+
+
+--001a114fd7c482f4e6054e608653
+Content-Type: multipart/RELATED;
+	boundary=001a114fd7c482fcdc054e608654
+
+
+--001a114fd7c482fcdc054e608654
+Content-Type: multipart/ALTERNATIVE;
+	boundary=001a114fd7c482fcea054e608655
+
+
+--001a114fd7c482fcea054e608655
+Content-Transfer-Encoding: 7BIT
+Content-Type: TEXT/PLAIN;
+	charset=UTF-8
+
+
+** Address not found **
+
+Your message wasn't delivered to neko@libsisimai.org because the domain libsisimai.org couldn't be found. Check for typos or unnecessary spaces and try again.
+
+Learn more here: https://www.rfc-editor.org/info/rfc7505
+(Warning: This link will take you to a third-party site)
+
+The response was:
+
+DNS Error: 80458680 DNS type 'mx' lookup of libsisimai.org responded with code NOERROR
+The domain libsisimai.org doesn't receive email according to the administrator: returned Null MX https://www.rfc-editor.org/info/rfc7505
+
+--001a114fd7c482fcea054e608655
+Content-Transfer-Encoding: 7BIT
+Content-Type: TEXT/HTML;
+	charset=UTF-8
+
+
+<html>
+<head>
+<style>
+* {
+font-family:Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+</style>
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" class="email-wrapper" style="padding-top:32px;background-color:#ffffff;"><tbody>
+<tr><td>
+<table cellpadding=0 cellspacing=0><tbody>
+<tr><td style="max-width:560px;padding:24px 24px 32px;background-color:#fafafa;border:1px solid #e0e0e0;border-radius:2px">
+<img style="padding:0 24px 16px 0;float:left" width=72 height=72 alt="Error Icon" src="cid:icon.png">
+<table style="min-width:272px;padding-top:8px"><tbody>
+<tr><td><h2 style="font-size:20px;color:#212121;font-weight:bold;margin:0">
+Address not found
+</h2></td></tr>
+<tr><td style="padding-top:20px;color:#757575;font-size:16px;font-weight:normal;text-align:left">
+Your message wasn't delivered to <a style='color:#212121;text-decoration:none'><b>neko@libsisimai.org</b></a> because the domain libsisimai.org couldn't be found. Check for typos or unnecessary spaces and try again.
+</td></tr>
+<tr><td style="padding-top:24px;color:#4285F4;font-size:14px;font-weight:bold;text-align:left">
+<a style="text-decoration:none" href="https://www.rfc-editor.org/info/rfc7505">LEARN MORE</a>
+</td></tr>
+<tr><td style="margin-top:8px;font-style:italic;font-size:12px;color:#757575">
+<img style="padding:0 4 0 0;float:left" width=12 height=12 alt="Warning" src="cid:warning_triangle.png">
+This link will take you to a third-party site
+</td></tr>
+</tbody></table>
+</td></tr>
+</tbody></table>
+</td></tr>
+<tr style="border:none;background-color:#fff;font-size:12.8px;width:90%">
+<td align="left" style="padding:48px 10px">
+The response was:<br/>
+<p style="font-family:monospace">
+DNS Error: 80458680 DNS type &#39;mx&#39; lookup of libsisimai.org responded with code NOERROR
+The domain libsisimai.org doesn&#39;t receive email according to the administrator: returned Null MX https://www.rfc-editor.org/info/rfc7505
+</p>
+</td>
+</tr>
+</tbody></table>
+</body>
+</html>
+
+--001a114fd7c482fcea054e608655--
+
+--001a114fd7c482fcdc054e608654
+Content-Transfer-Encoding: BASE64
+Content-Disposition: ATTACHMENT;
+	filename=icon.png
+Content-Type: IMAGE/PNG;
+	name=icon.png
+Content-Id: <icon.png>
+
+iVBORw0KGgoAAAANSUhEUgAAAJAAAACQCAYAAADnRuK4AAAACXBIWXMAABYlAAAWJQFJUiTwAAAA
+GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABTdJREFUeNrsnD9sFEcUh5+PRMqZ
+yA0SPhAUQAQFUkyTgiBASARo6QApqVIkfdxGFJFSgGhJAUIiBaQB0ZIOKVCkwUgURjIg2fxL4kS+
+YDvkbC/388bi8N16Z4/d7J/5PsniuD3fyePP772ZeTsDQRAYQL/UGAJAIEAgQCBAIAAEAgQCBAIE
+AkAgyJT3Mv+Eq7vYK8mTE+MDRCAghQECAeRQA5V2ZOpmg5vDx3NPzRbmGRMEcmTrEbNNB8zWfRD+
+f/Efs2e3zCZvMjaksBg27TfbcuSNPEKP9ZyuAQKtHX2O9ncNgWC57umMPKvRNb0GEKgnLoUyxTQC
+rcns0/6uIRAs8/hGf9cQCJZpTpjdO2f25/03z+mxntM1eLtsZAgiUtX4JcaBCAQIBAgECARQ8CJa
+G5jab4J4pm4WZmO3OALVh802fIwcLkyPkcKAGggAgQCBAIEAgQCBABAIEAjKA/1AnahhbO5FdOOY
+VsrrDbPBYcYKgf5D2wLaV3p+22xh1u17tO3S+DTcvxvagUDeivPgx/a/95J/73w7Sj26Hn4pKo2M
+ehuV/KyBJM6d0f7k6RKx/R63vvL2tmf/ItDdM2ZTP6f7nkp9Y2fDx1v9akmpIU+KSCLVUghUQfSL
+zVKeTklbLxGoctw/nzC5rw8L5KRNbkpnKq6pgSqEClzNnFzY+XnYWrt6VpVk1vbwWvg+RKCKMOUw
+Q1LEOXA+/MX3mpJvGDHb265xtnzmFoUK1HaKQGlMtePYM+q2KKjXuaS1NJYIEKgI8jhEgqHt4cqy
+Ky53j3hyHz2bqSLp2o2LbJ7MxKovkGqXteoWpaOk96O9/yF/dF7NwlS36AuIQIBA5celQK4PIxBE
+4LLzrtoLgaALdSy6CJRkWQCBPGLsTHznomZ9nszUECgJ2ml3WWHe+QVFNPSQx6UdZNtxr9pbEShN
+eTTz8mQXHoHSlke7+Z+c9m6VGoHSkEfs/trLW3wQKApN1V3lGfnGu2Z6BFoLtYCs3GWBPAiUCLVh
+/HoaeRCoT9R873KLM/IgUBfapnCpe5AHgXry4pf412ihEHkQqCdxd5VqrcezhUIESsJMTJ+Pdthp
+Z0WgyNlXXPHc2Mc4IVAELl2Gnh8mhUDvCkfbIVAkcbf/aOoO3fMKhqAD3frTa4quwpn0hUDOkQhI
+YYBAgECAQAAU0QlYObl+5Ug8NcprZkZxjUCxRPVA6zmtEXHCBykskrhjgHXN09PoEcgFl4M4H11j
+nBAoApcj6ZoPGScEAgTKApcDoTw5sgWB+sGlz1n90IBAPdE6j1o21PfcC11jLagL1oFWRyGlKU3p
+OxcSJQ7NZAjkhHp/uG2HFAYIBAgECASAQIBAgECAQAAIBOkxEARBtp9wdVfAMOfIifEBIhCQwgCB
+ABAI0oV2jhxZ+nfBatuPZfgBCy0Eqqo8c01b+uu51XZvzOgDWoHNTGR+pCwpLEd5svuAZXlO2uEr
+PyEQ8hRWHgRCHmqg0sjTnLalv6crJQ8C/U8stqNO0I4+VZOHFIY8COS1PGL2ybd5yUMKK7s8zYmL
+dujyd3n+nESgcsvzZd4/KwIhDwIhT35QA6UyE1qyxZnfvJMHgdKS549JC1qvvJOHFIY8CFR5eV5O
+XimqPAhUdHnmfx+zgxdOFXkoqIGKKs/cswnb/8Oeog8HEai48nxUhiFBIORBIOShBioskkbySCLk
+IQIhDwIhj28p7FApR6b1qlEbHGpkO/rr6215vi/zH1r2x7tApSGFAQIBAgECAQIBIBAgECAQIBBA
+LK8FGADCTxYrr+EVJgAAAABJRU5ErkJggg==
+--001a114fd7c482fcdc054e608654
+Content-Transfer-Encoding: BASE64
+Content-Disposition: ATTACHMENT;
+	filename=warning_triangle.png
+Content-Type: IMAGE/PNG;
+	name=warning_triangle.png
+Content-Id: <warning_triangle.png>
+
+iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAYxJREFUSA3t
+VLFOhEAUBKLFXXMd3VlqZXGJrX6AP+AHWFsZ4CpDoQmBhMTyfkdbEwsrLaiJnQ1XmIAzCuTt3nKs
+xk432fB2dmYeb9+C4/ypEQTBKed3ivZsyavVatd13ZyTsa3OOkFRFBdN0xxwMrZN4NoQ4zj2q6p6
+gfmMfFTxNp1O94G/jumtKoD5TWdOQ8bExsy5P1rBcrlc1HX9AFPlZVBF7XneUZIkj9sSKSITEea3
+ujl5xLhn0khsawJcyTMYHUuBjLlHjsT0eDBBnucTkDMpyLLM5ZQYOS1Xg7+WgwnKsoxAmRtVKjhv
+uSrarowJoijaQ/mhUWEAyaXGsOUYE0CQgswjsh2TVrPB18/TQdPY1LsNph1wgh7dS6pSAb5MD/d7
+9OpJAxlTSw+JKYv1en2OUheSIOOBW9RTqKVHDyDoE6BJM3w413LzJzE96NVpd7oA2a8Q+93a9ER/
+GhOuYX7rdUn8s8lhGPI3/IS19X9eM9WX7+jHYZqmz90R5b9ozmR8UXr+j/ET+ADSfKckAihanAAA
+AABJRU5ErkJggg==
+--001a114fd7c482fcdc054e608654--
+
+--001a114fd7c482f4e6054e608653
+Content-Transfer-Encoding: 7BIT
+Content-Type: MESSAGE/DELIVERY-STATUS
+
+Reporting-MTA: dns; googlemail.com
+Arrival-Date: Sun, 30 Apr 2017 04:22:43 -0700 (PDT)
+X-Original-Message-ID: <CAByYQsEVA+zJMnugH3M98xXcDj5XHp8HYsGtb5_r9Jd8LuyF=Q@mail.gmail.example.com>
+
+Final-Recipient: rfc822; neko@libsisimai.org
+Action: failed
+Status: 4.0.0
+Diagnostic-Code: smtp; DNS Error: 80458680 DNS type 'mx' lookup of libsisimai.org responded with code NOERROR
+ The domain libsisimai.org doesn't receive email according to the administrator: returned Null MX https://www.rfc-editor.org/info/rfc7505
+Last-Attempt-Date: Sun, 30 Apr 2017 04:22:44 -0700 (PDT)
+
+--001a114fd7c482f4e6054e608653
+Content-Transfer-Encoding: 7BIT
+Content-Type: MESSAGE/RFC822
+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.example.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to
+         :content-transfer-encoding;
+        bh=rusHJ832mxXijrx1oASQER0RT9FM4fQlxn95+REONFY=;
+        b=l54ofaoIRMus8QXo9FQ8btqAsGGu27Uaj4VY36Qcevmvr2KbgWaX5KR+WLQFTeiLz1
+         i8+nmTFi3UCJu5W+NSRBwDQehexu2RnpkfcCTCSFsgrLYsI5ecKziy7NFvMhNlO8MGGk
+         tn+szzEIzXtwdTP/h92X6pJf/Ba3gS4mZzFgBHHKwWLl+S3FpE5+VzvuTtECKRWHAJ+9
+         uda/p5rWUbqQ5vgpE0+60lkQpSp6E/ekmb90WxRBgg3DqPep5NhWEuiigAJ7dXNcuXE2
+         OYdkOFegQZPU/9jhcdbmsfwI2yKi9xkbjjPeRWDFb0QPLNbDGK3jOfdW+S9aWhDYJBzn
+         qzMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to
+         :content-transfer-encoding;
+        bh=rusHJ832mxXijrx1oASQER0RT9FM4fQlxn95+REONFY=;
+        b=HeEMYDOesaTiZS3Gyp6PXCsqfxaU2WmR+bQd22mhJiXihCfgNu79TD6DIZYOswkf6d
+         mFqKFLecExqHAGtm30E9eEJPmF0emoXMgcVJtYpbWbxE1BSFUI7XFPDMknDmV68lpHIC
+         3J5JWYTPu20jcSBWDp4CIBZQX99sNKYdyArLGX15IMO3Rw0iBYXd58pJUn+ubGrWWb1q
+         elHDSWwRERtzwGubV2WpOf62RF/sloWOA9TkjjVC8PopC+IOL8RxQuvg7TXAREzkW6OC
+         mhBIKfsUlW/DzJ9mK+KoigZasQ8QlwuEvFYHlWQIHOWDnPt/Djvk68uTVdy8K7c5l1ge
+         Ds9w==
+X-Gm-Message-State: AN3rC/6/K2Jdgqqc7wMsPjaU16SmFBea3O5A1F0ruT0W8BlXdHK3yqUv
+	2BOAoqjDM0Q+7LXcks6Gp7pOV0YwSmsg
+X-Received: by 10.55.160.135 with SMTP id j129mr3484530qke.116.1493551363821;
+ Sun, 30 Apr 2017 04:22:43 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.200.3.30 with HTTP; Sun, 30 Apr 2017 04:22:23 -0700 (PDT)
+From: kijitora <kijitora@gmail.example.com>
+Date: Sun, 30 Apr 2017 20:22:23 +0900
+Message-ID: <CAByYQsEVA+zJMnugH3M98xXcDj5XHp8HYsGtb5_r9Jd8LuyF=Q@mail.gmail.example.com>
+Subject: Nyaan
+To: neko@libsisimai.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Nyaan
+
+--001a114fd7c482f4e6054e608653--

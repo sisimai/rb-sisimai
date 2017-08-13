@@ -1,0 +1,70 @@
+Return-Path: <>
+X-Original-To: shironeko@example.jp
+Delivered-To: shironeko@example.jp
+Received: from mx03.example.jp (localhost.localdomain [127.0.0.1])
+	by mx03.example.jp (Postfix) with ESMTP id FFFFF0000000
+	for <shironeko@example.jp>; Thu, 20 Apr 2008 23:34:45 +0900 (JST)
+Received: from f0.mx4.example.net (f0.example.net [192.0.2.2])
+	by mx03.example.jp (Postfix) with ESMTP id ff000000000
+	for <shironeko@example.jp>; Thu, 20 Apr 2008 23:34:45 +0900 (JST)
+X-SEF-Processed: 0_0_0_000__2008_04_20_23_34_45
+X-SEF-NDR-0000000-0000-0000-0000-000000000000: 1
+X-SEF-0000000-0000-0000-0000-000000000000: 1
+From: <>
+To: <shironeko@example.jp>
+Date: Thu, 20 Apr 2008 23:34:45 -0600
+Subject: X
+Message-Id: <20080420000000.ff000000000@mx03.example.jp>
+X-Mailer: SurfControl E-mail Filter
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="--=_NextPart_ST_00_00_00_Thursday_April_20_2008_00000"
+X-Virus-Scanned: ClamAV using ClamSMTP
+
+
+----=_NextPart_ST_00_00_00_Thursday_April_20_2008_00000
+Content-Type: text/plain;
+
+Your message could not be sent.
+A transcript of the attempts to send the message follows.
+The number of attempts made: 1
+Addressed To: kijitora@example.net
+
+Thu, 20 Apr 2008 23:34:45 +0900
+Failed to send to identified host,
+kijitora@example.net: [192.0.2.2], 554 Service currently unavailable
+--- Message non-deliverable.
+
+
+
+----=_NextPart_ST_00_00_00_Thursday_April_20_2008_00000
+Content-Type: message/delivery-status;
+
+
+Action: failed
+Final-Recipient: rfc822;kijitora@example.net
+Diagnostic-Code: smtp; 554 Service currently unavailable
+Status: 5.0.0
+
+
+
+
+----=_NextPart_ST_00_00_00_Thursday_April_20_2008_00000
+Content-Type: message/rfc822;
+
+X-SEF-Processed: 0_0_0_000__2008_04_20_23_34_45
+X-SEF-0000000-0000-0000-0000-000000000000: 1
+Received: from host [192.0.2.120] by f0.mx4.example.net - SurfControl E-mail Filter ; Thu, 20 Apr 2008 23:34:45 +0900
+Received: by mx9.example.jp (Postfix, from userid 525)
+	id 000000000000 Thu, 20 Apr 2008 23:34:45 +0900 (JST)
+Content-Type: text/plain
+MIME-Version: 1.0
+Date: Thu, 20 Apr 2008 23:34:45 UT
+From: Sender <shironeko@example.jp>
+Message-Id: <00000000000000000000@x.example.jp>
+Reply-To: <shironeko@example.jp>
+To: kijitora@example.net
+Subject: Nyaaan
+
+Nyaan
+

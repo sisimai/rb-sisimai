@@ -1,0 +1,68 @@
+Return-Path: <MAILER-DAEMON@neko.example.jp>
+Received: from localhost (localhost)
+	by neko.example.jp (V8/cf) id t8D2Lrr0011671;
+	Sun, 13 Sep 2015 11:21:54 +0900
+Date: Sun, 13 Sep 2015 11:21:54 +0900
+From: Mail Delivery Subsystem <poostmaster@example.jp>
+Message-Id: <201509130221.t8D2Lrr0011671@neko.example.jp>
+To: <shironeko@example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="t8D2Lrr0011671.1442110914/neko.example.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--t8D2Lrr0011671.1442110914/neko.example.jp
+
+The original message was received at Sun, 13 Sep 2015 03:10:06 +0900
+from c135.kyoto.example.ne.jp [192.0.2.135]
+
+   ----- The following addresses had permanent fatal errors -----
+<this-local-part-does-not-exist-on-the-system@y-mobile.ne.jp>
+    (reason: )
+
+   ----- Transcript of session follows -----
+... while talking to ymx1.softbank.ne.jp.:
+<<< 421
+<this-local-part-does-not-exist-on-the-system@y-mobile.ne.jp>... Deferred: 421
+Message could not be delivered for 8 hours
+Message will be deleted from queue
+
+--t8D2Lrr0011671.1442110914/neko.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; neko.example.jp
+Arrival-Date: Sun, 13 Sep 2015 03:10:06 +0900
+
+Final-Recipient: RFC822; this-local-part-does-not-exist-on-the-system@y-mobile.ne.jp
+Action: failed
+Status: 4.4.7
+Diagnostic-Code: SMTP; 
+Last-Attempt-Date: Sun, 13 Sep 2015 11:21:54 +0900
+
+--t8D2Lrr0011671.1442110914/neko.example.jp
+Content-Type: message/rfc822
+
+Return-Path: <shironeko@example.jp>
+Received: from [192.0.2.222] (c135.kyoto.example.ne.jp [192.0.2.135])
+	(authenticated bits=0)
+	by neko.example.jp (V8/cf) with ESMTP id t8CIA5VM014298
+	for <this-local-part-does-not-exist-on-the-system@y-mobile.ne.jp>; Sun, 13 Sep 2015 03:10:06 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 neko.example.jp t8CIA5VM014298
+Authentication-Results: neko.example.jp; sender-id=pass header.from=shironeko@example.jp; auth=pass (CRAM-MD5); spf=pass smtp.mfrom=shironeko@example.jp
+From: "shironeko, kuniyuki" <shironeko@example.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Subject: Nyaaaaaaaaaaaaaaan
+Message-Id: <54341A75-5EF4-4F06-9C5D-56D36A9283FC@example.jp>
+Date: Sun, 13 Sep 2015 03:10:04 +0900
+To: this-local-part-does-not-exist-on-the-system@y-mobile.ne.jp
+Mime-Version: 1.0 (Mac OS X Mail 7.3 \(1878.6\))
+X-Mailer: Apple Mail (2.1878.6)
+
+Nyaaan
+
+--t8D2Lrr0011671.1442110914/neko.example.jp--
+

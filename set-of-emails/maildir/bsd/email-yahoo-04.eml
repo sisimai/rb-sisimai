@@ -1,0 +1,94 @@
+From MAILER-DAEMON@yahoo.com Sat Dec  6 13:46:11 2014
+X-Apparently-To: shironeko@ovi.example.com; Sat, 06 Dec 2014 13:46:12 +0000
+Return-Path: <>
+Received-SPF: none (domain of nm36-vm0.bullet.mail.ne1.yahoo.com does not designate permitted sender hosts)
+ bAMDMQ--
+X-YMailISG: vUVJ1uEWLDtRgnpYRKpThlix9osCqNA.IvSqzPvPQymD991C
+ _aby4X7GZcQrzksT_ghddXp_Hu2Te291S3aZhqr6r8ArXa7WmOoEAjgtz2Pm
+ _nHovP5G49rfqinFUj7ZtMNsnxvU_NTscKml0qviPuSxjzjbopmyQGntr4Ew
+ voMNwzmK9gmZDo4gWZuK_mCTz0t_VTp2BXYTTWPaKb0fLJoqkk1X_aoabdWh
+ tYpDjMVkr_RcZl8ikuoeHJ_G_xM5rMmeyol.3jz841bVKOdd95itzo25ieQ2
+ .mSPsOv5DWW3M8x3pdfRgskJyHA6N6Oe3S6sNOYCwjO9pssGHg_ludh2sv3S
+ bFUeD7ryqL0fhLq6iaick9cn0mwdW_sFZRcWeu.WihFK5Efu0q9ZHktjaHHZ
+ RplwRIas64b.kKzZJBX_abEy4VdPZny6ppeeWHUnCUICnZFKobbduvbIiO6O
+ TtKGcMgBNEtFj_kaWb3.dSYnrIIufR85NW9aLHJFoQ3oPL7GB7ggrdz4.at1
+ SISRpHjgzlzFE64Z_LkWepf41XM05thQg46xTmSRNB9SX4K6BzOmuERzA4VV
+ tywPIMQKiDyWshvZjqTNfEeIcYjxYt6_hdatYxmX4bdcvP9brn8UXAH7mw82
+ X1pc8.hTje6TDdThydb7hAWgd81SDUiAFsv42n3kHm1kBQ6LEwjdmyNQGWAd
+ mtRt_y9RY3Sjvu5L74tgWSPpKPfzr96EIYeHDm1YTGim6ha.LRfC5Q7r4DKE
+ _7uNbyDIadq9dweeV.d8.NPeB2QKlnKPlP3iGkG0QpSEWHtH4evPFeX3Oymp
+ M1Jc__YcpeuzKT1P4yUFk9EOO888M32VRa5KeD4W1pIEAQQ8E3AVrTL2pMZt
+ YKrx54nwSKq.5Z_ovt_C5VO9zypQx_EfTsnzW39bEJtWHIvxW0WjMSkGgssq
+ Bl77cD8rAXyDzYJXWppJsWnSC99A3Qy9mhMvdTyQ9f5ULsPv62q1vUGpKHW1
+ 2JbGuNMlmHDqjU3ui7fViv9klQLfglz41HFwbAaeMe6e4bUuu1XmZsvV.Jzx
+ FQjxB..sv7M.1C_diNGPE7mNUFT9fdtCCkwEJ2jOjAdg5SBK7Dj.hKAjYb3q
+ noh62vvZq8xTQo1bJmM_GUDAZEoksAfcC_nyX047A2V7rFsGdS5qEAWPp_.4
+ 4BKEPzD4u51cnMSONsUWRyG.3EQHnJG9JuldoqJ4aYpnv4Q_k3hJyE_g2WcY
+ Qc3VSIMueQOtGEMGg7wqIzPt7vuQAoZNL3YOivic.In92VjRuuSTp9eFra7t
+ 4cytT7.gfFWQZ2rYsilMAuHp2HMZqCG0ABBGuz00bv9SpbhDEohodqNw75yc
+ PcFXJG8mF_olPm1srG7WKClHr1JfoyrBo7VOVX4muDZdV53gjUbBm7.pbb6t
+ EUKFZJJKdtY.6Hqggnh.2Qc4vB.8APDDS3iPPc8Z4Afixc55UdzV8AVMdQvA
+ VCx07oFzIpNMEcFeFEIQLTmuClMVW_wteO_k4dNvoYjkuc1iKFl46gL9eFkJ
+ SWkGjJ8.JOSpd.wDIuxybHXpKe3N9rc7RvkahIN3yeydgNqXr6S0XKZSg4Qp
+ TkP4HRWcUgJSmj1w5XCu8Aspar_HzyDO.kGf7g--
+X-Originating-IP: [98.138.229.112]
+Authentication-Results: mta1271.mail.bf1.yahoo.com  from=yahoo.com; domainkeys=pass (ok);  from=yahoo.com; dkim=pass (ok)
+Received: from 127.0.0.1  (EHLO nm36-vm0.bullet.mail.ne1.yahoo.com) (98.138.229.112)
+  by mta1271.mail.bf1.yahoo.com with SMTPS; Sat, 06 Dec 2014 13:46:11 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=bounce; t=1417873571; bh=OP4DrW1D5+HHkgEWBVVubXtxEun8zKTssuQMfEL1XE8=; h=From:To:Date:Subject:From:Subject; b=KlpMkeptI/mYfGXC8oBcUKmyeoYn87hXsbvz2eRephDiCoF86Oujb0wRbVxMrQBXybBbReMsGJsyCM8SLZ/w8zGPGQX0tjtv8uoESEXBumZAAhNUJNIqxFJowewHXzexOGiRoHFZt/KAIrcPaMUbyMz0nwYVltajLJIHiK8HkQc=
+DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=bounce; d=yahoo.com;
+	b=ADYXZBJqQ/DCX6h6dRbotB4vYGZfZl6UeRe/bsDrNVY7D+Jgko/3H2ZrnGckNrdcm1lEhkGtARGoFA+eesjNBcfRuXBQda/eZGo8SWdCrYyfTmxlEIM1TLJqMf65T2dEXonDaHHU/WcXfll7hdmkbfsfeYfxlYj5CG8jdE78K8I=;
+From: MAILER-DAEMON@yahoo.com
+To: shironeko@ovi.example.com
+Date: Sat, 06 Dec 2014 13:46:11 -0000
+Subject: Failure Notice
+X-Yahoo-Newman-Property: bmbounce
+Content-Length: 2384
+
+Sorry, we were unable to deliver your message to the following address.
+
+<kijitora@example.co.jp>:
+Remote host said:
+550 5.2.2 <kijitora@example.co.jp>... Mailbox Full
+[RCPT_TO]
+
+--- Below this line is a copy of the message.
+
+Received: from [127.0.0.1] by nm36.bullet.mail.ne1.yahoo.com with NNFMP; 06 Dec 2014 13:46:10 -0000
+Received: from [98.138.100.114] by nm36.bullet.mail.ne1.yahoo.com with NNFMP; 06 Dec 2014 13:43:11 -0000
+Received: from [98.138.226.165] by tm105.bullet.mail.ne1.yahoo.com with NNFMP; 06 Dec 2014 13:43:01 -0000
+Received: from [127.0.0.1] by omp1066.mail.ne1.yahoo.com with NNFMP; 06 Dec 2014 13:43:01 -0000
+X-Yahoo-Newman-Property: ymail-4
+X-Yahoo-Newman-Id: 842758.25055.bm@omp1066.mail.ne1.yahoo.com
+X-YMail-OSG: T5Nn1DYVM1lLcAqNwFXAUmQzYek5g7uSlqvD8WruAsKQgVWciqzf46HmcOneeIg
+MoeQ1suROdCCQbgEskAYSGz850BGKMGcbp7OHZuOlADL2S2WdMd8Xo_Xukx3bZeJASPkut.YUtZj
+GzN5.VmeKom07GoM7S93hclElPxO_a4OEifx8MrEMOmVsbLL2q6zqdaNafqzsz1KWCI5bRFLjSIf
+fdkxScwGKTLCkZRNzQc5XSS2pFyt0SYKQvszFcYB5aiFVJy5_JZop.k_sn3FOXsyKn50PYj4b.L9
+YDh60SabLEX1z4CC_K8uTJOXk3SCxZGrcI6WQDXmny8VIDbB5lSmxhus9aJgSUXC2D2TYOFSLyhy
+XWrI7CSI3N_os4qXTeCshiPy.2hzuoB00Gz2mrWKN0FmfRMu4tSiGmL15qZLx9NwBFgJCXBA0Gm7
+U.QEoTo4pN2gMKrWrC79Nq3b0ba8tJlC2HzWnDC2mUXFpe.h9uU7VHC7te_sPnNrc9zl9.Hpdf07
+wxpPT_w--
+Received: by 98.138.105.203; Sat, 06 Dec 2014 13:43:01 +0000 
+Date: Sat, 6 Dec 2014 13:43:01 +0000 (UTC)
+From: Shironeko <shironeko@ovi.example.com>
+Reply-To: Shironeko <shironeko@ovi.example.com>
+To: "kijitora@example.co.jp" <kijitora@example.co.jp>, 
+    "mikeneko@example.co.jp" <mikeneko@example.co.jp>
+Message-ID: <92177194.3672721.1417873381074.JavaMail.yahoo@jws100157.mail.ne1.yahoo.com>
+Subject: Nyaaaaaan
+MIME-Version: 1.0
+Content-Type: multipart/alternative; 
+    boundary="----=_Part_3672720_1310345634.1417873381072"
+Content-Length: 534
+
+------=_Part_3672720_1310345634.1417873381072
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Nyaaaaan
+------=_Part_3672720_1310345634.1417873381072
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<html><body><div style="color:#000; background-color:#fff; font-family:HelveticaNeue-Light, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;font-size:16px"><div dir="ltr">Nyaaaaan</div></div></body></html>
+------=_Part_3672720_1310345634.1417873381072--

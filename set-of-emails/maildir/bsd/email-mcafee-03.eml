@@ -1,0 +1,59 @@
+Return-Path: <>
+Delivered-To: shironeko@example.com
+Received: (qmail 11111 invoked from network); 9 Apr 2012 23:34:45 +0900
+Received: from unknown (HELO mx53.example.com) (192.0.2.4)
+    by 192.0.2.34 with SMTP; 9 Apr 2012 23:34:45 +0900
+Received: from mx46.example.ne.jp (mx46.example.ne.jp [192.0.2.246])
+    by mc4.example.ne.jp (Postfix) with ESMTP id 0000000000
+    for <shironeko@example.com>; Thu,  9 Apr 2012 23:34:45 +0900 (JST)
+Received: from relay41.example.ne.jp (relay41.example.ne.jp [192.0.2.241])
+    by mx46.example.ne.jp (Postfix) with SMTP id 0000000000
+    for <shironeko@example.com>; Thu,  9 Apr 2012 23:34:45 +0900 (JST)
+Date: Thu, 09 Apr 2012 23:34:45 +0900
+To: <shironeko@example.com>
+From: <postmaster@example.or.jp>
+MIME-Version: 1.0
+Content-Type: Multipart/Mixed;
+  boundary="------------Boundary-00=_FFFFF000000000000"
+X-NAI-Header: Modified by McAfee Email and Web Security Virtual Appliance
+Subject: Delivery Status
+Message-Id: <20120409233445.0000000000@mx46.example.ne.jp>
+
+--------------Boundary-00=_FFFFF000000000000
+Content-Type: text/plain; name="deliveryproblems.txt"
+
+    --- The following addresses had delivery problems ---
+
+<kijitora@example.or.jp>   (5.1.1 <kijitora@example.or.jp>... User unknown)
+
+--------------Boundary-00=_FFFFF000000000000
+Content-Type: message/delivery-status; name="deliverystatus.txt"
+
+Original-Recipient: <kijitora@example.or.jp>
+Action: failed
+Diagnostic-Code: smtp; 550 5.1.1 <kijitora@example.or.jp>... User unknown
+Remote-MTA: 192.0.2.89
+
+
+--------------Boundary-00=_FFFFF000000000000
+Content-Type: message/rfc822
+Content-Disposition: attachment
+
+Received: from (gw55.example.ne.jp [192.0.2.155]) 
+    by relay41.example.ne.jp with smtp id ffff_0000_00000000_0000_0000000;
+    Thu, 09 Apr 2012 23:34:45 +0900
+Received: from unknown (HELO relay-3.example.com) (192.0.2.203)
+  by 172.16.0.1 with SMTP; 9 Apr 2012 23:34:45 +0900
+Message-ID: <00000000.0000000000000@relay-3.example.com>
+Reply-To: Nekochan <shironeko@example.com>
+To: Kijitora <kijitora@example.or.jp>
+Subject: Nyaaan
+Mime-Version: 1.0
+Content-Type: text/plain 
+Date: Thu, 09 Apr 2012 23:34:45 +0900 (JST)
+From: Shironeko <shironeko@example.com>
+
+Nyaan
+
+--------------Boundary-00=_FFFFF000000000000--
+

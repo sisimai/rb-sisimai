@@ -1,0 +1,61 @@
+Return-Path: <>
+Received: from mx4.kyoto.example.co.jp (mx4.kyoto.example.co.jp [192.0.2.25])
+    by 9jo.example.jp (V8/cf) with ESMTP id 00000000000000
+    for <shironeko@example.jp>; Thu, 29 Apr 2010 23:34:45 +0900
+Received: from relay5.1jo.example.co.jp (host [192.0.2.220])
+    by mx4.kyoto.example.co.jp (Postfix) with SMTP id 00000000000
+    for <shironeko@example.jp>; Thu,  29 Apr 2010 23:34:45 +0900 (JST)
+Received: By OpenMail Mailer;Thu, 29 Apr 2010 23:34:45 +0900 (JST)
+From: "Mail Deliver System" <MAILER-DAEMON@9jo.example.jp>
+To: shironeko@example.jp
+Subject: Returned Mail: User unknown
+Date: Thu, 29 Apr 2010 23:34:45 +0900 (JST)
+Content-Type: multipart/mixed; boundary="---fff000000000000000000000"
+Message-Id: <20100429233445.00000000000@mx4.kyoto.example.co.jp>
+
+This is a multi-part message in MIME format.
+
+-----fff000000000000000000000
+Content-Type: text/plain;
+   charset="iso-2022-jp"
+
+The original message was received at Thu, 29 Apr 2010 23:34:45 +0900 (JST) 
+from shironeko@example.jp
+
+---The following addresses had delivery errors---
+
+kijitora@example.co.jp [User unknown]
+
+
+-----fff000000000000000000000
+Received: from 192.0.2.250
+    by relay5.1jo.example.co.jp with Mail2000 ESMTP Server V4.49
+    (envelope-from <shironeko@example.jp>); Thu, 29 Apr 2010 23:34:45 +0900 (JST)
+Return-Path: <shironeko@example.jp>
+Received: from relay1.kyoto.example.co.jp (r1.1jo.example.co.jp [127.0.0.1])
+    by r4.kyoto.example.co.jp (Postfix) with ESMTP id 00000000000
+    for <kijitora@example.co.jp>; Thu,  29 Apr 2010 23:34:45 +0900 (JST)
+Received: from x3.relay.example.co.jp (unknown [192.0.2.4])
+    by karasuma.kyoto.example.co.jp (Postfix) with ESMTP id 00000000000
+    for <kijitora@example.co.jp>; Thu,  29 Apr 2010 23:34:45 +0900 (JST)
+listener: smtp3
+Received: from 9jo.example.jp ([192.0.2.153])
+  by smptd450.example.co.jp with ESMTP; 29 Apr 2010 23:34:45 +0900
+Received: from ak-powerbook-mdclxx (c0.kyoto.example.ne.jp [192.0.2.90])
+    (authenticated bits=0)
+    by 9jo.example.jp (V8/cf) with ESMTP id 00000000000000
+    for <kijitora@example.co.jp>; Thu, 29 Apr 2010 23:34:45 +0900
+Message-Id: <000000000000000000000000000000000000@example.jp>
+From: Shironeko <shironeko@example.jp>
+To: kijitora@example.co.jp
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Apple Message framework v936)
+Date: Thu, 29 Apr 2010 23:34:45 +0900
+X-Mailer: Apple Mail (2.936)
+Subject: Nyaaaaan
+
+Nyaan
+
+
+-----fff000000000000000000000--

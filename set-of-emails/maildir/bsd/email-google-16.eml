@@ -1,0 +1,99 @@
+Delivered-To: sironeko@google.example.com
+Received: by 10.37.76.198 with SMTP id z189csp1268927yba;
+        Mon, 29 Feb 2016 10:25:22 -0800 (PST)
+X-Received: by 10.31.149.135 with SMTP id x129mr12436170vkd.62.1456770321985;
+        Mon, 29 Feb 2016 10:25:21 -0800 (PST)
+Return-Path: <>
+Received: from mail-vk0-x245.google.com (mail-vk0-x245.google.com. [2607:f8b0:400c:c05::245])
+        by mx.google.com with ESMTPS id k20si5266180vkd.122.2016.02.29.10.25.21
+        for <sironeko@google.example.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 29 Feb 2016 10:25:21 -0800 (PST)
+Received-SPF: pass (google.com: best guess record for domain of postmaster@mail-vk0-x245.google.com designates 2607:f8b0:400c:c05::245 as permitted sender) client-ip=2607:f8b0:400c:c05::245;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: best guess record for domain of postmaster@mail-vk0-x245.google.com designates 2607:f8b0:400c:c05::245 as permitted sender) smtp.mailfrom=;
+       dkim=pass header.i=@googlemail.com;
+       dmarc=pass (p=QUARANTINE dis=NONE) header.from=googlemail.com
+Received: by mail-vk0-x245.google.com with SMTP id e6so81375365vkh.0
+        for <sironeko@google.example.com>; Mon, 29 Feb 2016 10:25:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20120113;
+        h=mime-version:from:to:subject:message-id:date;
+        bh=0toagiqDequCqWaj03s9nAZfWfissLutga0tbC9QcbM=;
+        b=votiAGhoqYwBaWA1N6LeN03IScWlVpRbfkT/P+LsGRjYe1imIbpzPACnzkhgaech0r
+         ubByPvEReVhANr/2IpFolwLGRkodwYnzYRb7PFHD4yERGfYAWQSdigtuQlRagfj5wu6W
+         LKbLROAGHuK/Jsz+31w0eRooLvru7qjJ9GTgmpkPOtE/wXZHFw8svXgmAo+dca/NFz/X
+         EUpKKkSl1+tULIwmLR8EzA98BgZ4olR2Pf4gfVb/TMU2oW8wJtnO7uB0B2Lb95yXbTS3
+         5JoixdYxXw6NOOGS8OLsmZpCaN5vCr1CXmeE8zrorRbUBy00aXEAQkSwAFL6RBfdX6hF
+         a9gA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20130820;
+        h=x-gm-message-state:mime-version:from:to:subject:message-id:date;
+        bh=0toagiqDequCqWaj03s9nAZfWfissLutga0tbC9QcbM=;
+        b=b2MeZBAPawZ9yAdnGzJVLJAwQsBt8oGWVALKryp9FwvXNfIqP8gSFI0N60mb3LwiBW
+         Yh4IJ9D1s+ZimDxuh5mcxWxLovuPuryWSJJ2UXAlX91VeyX6jNBq95tATEHHbVx4E2tF
+         27CJB47Mbr1lG17AcxqO878BeikIv6nDuZ8ujdAMgyUG5VL3P9lY3kn39On2y9H1Xeoh
+         Cl4pZX55qAJJC740dHms/yU38yb2DttlEbSyYLMqN8wFyOv4rS7SQ90Y2CiTRghOpkwd
+         Q3XpX6kqTxgz2EDrhT1JGF5vgIpPm/ZUsJIUp3fVgRy5uW4iXlcMV9ob5GQvKawXXmQr
+         /1cw==
+X-Gm-Message-State: AD7BkJLEo2htf+NsYQ8JrxQf3GK2wMWxIaFlmplgoUVkIF2FAFArxjufpM2gDhKNinFgzW8gqqWkW3/B3y1/9NrB+cMdGn0FEg==
+X-Received: by 10.129.109.7 with SMTP id i7mr9073792ywc.121.1456770321895;
+        Mon, 29 Feb 2016 10:25:21 -0800 (PST)
+MIME-Version: 1.0
+Return-Path: <>
+Received: by 10.129.109.7 with SMTP id i7mr9726429ywc.121; Mon, 29 Feb 2016
+ 10:25:21 -0800 (PST)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+To: sironeko@google.example.com
+X-Failed-Recipients: mailboxfull@bouncehammer.jp
+Subject: Delivery Status Notification (Failure)
+Message-ID: <001a114db6508e4f8e052cecc58a@google.com>
+Date: Mon, 29 Feb 2016 18:25:21 +0000
+Content-Type: text/plain; charset=UTF-8
+
+Delivery to the following recipient failed permanently:
+
+     mailboxfull@bouncehammer.jp
+
+Technical details of permanent failure: 
+Google tried to deliver your message, but it was rejected by the server for the recipient domain bouncehammer.jp by mx.bouncehammer.jp. [192.0.2.2].
+
+The error that the other server returned was:
+550 5.2.2 <mailboxfull@bouncehammer.jp>... Mailbox Full
+
+
+----- Original message -----
+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.example.com; s=20120113;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=WRkYRwSU0EIKKppaHfmp28cJDAgWJLeR1xnJZVCEQ1g=;
+        b=Q+zFLYazNXfH+Hd1oMhBSpulUWNEy+zGs1MLIoRQtAhwi2QwBVVjIVYU5kKZnMKXcp
+         WNZKm+4qUTyFsnUHXsEB4pLqE3qB3WEXT+W8j28m1Uh1YLwhevz9D+3u+D5SmdFLLw0a
+         DCcDxG3LNeWbXPr1xif70GJOv52HNXlE6PzJAMKymk5mFoDPU7H0MAOy307vSajRL/gu
+         6LKDEgcoKQfXx8hPPiGVWiwxOmOnrJcyTUdltrtCchK7SCvVPFRs7KdCDR6nYYKBCaHX
+         g3fUS/+BdOzOUInhaYZnzv7NRW3CT/ZrZWG9zQ08HqYr1/HOpP0xcZQdfQVCOLxFOb36
+         DA/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20130820;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=WRkYRwSU0EIKKppaHfmp28cJDAgWJLeR1xnJZVCEQ1g=;
+        b=Ja557xDPGDHsQ1vCBmlVH05P+GZFYcEFoBo6CTkQ4qNQcdES9i3ES0+iIjsCaMVf8i
+         FLnwWBaFMZRY2dqPu4bK310V6fOp3CxX1wKfcsdeatwkp6hnaooJihK3l/F1GUqzZy1h
+         F7DrTPsKlQcHdharKkYMGDHhSAN/fM0+pvdL4WieIQ73F2Z68CsJFg4EYdvrzihMovxl
+         yOdGlIvHwFFqWdLxITlubi1VU6swxlLF7VXtyWQ9R04VXvCtHl9ILqqEUlzCleI2r5nM
+         zVQGQ6uS/bu5zoc3RKyomAohrrBRt8A5f+GQXumGWInY0OOGoTN04VsMBhHS8hA31CNr
+         ZNsQ==
+X-Gm-Message-State: AD7BkJKsl78wcfrFm/za1a9CoQod1MQS48b0lYoVguF5w+/fmU7h469G92QGb8J6ZpZnF547WIA4rR/eVQivAw==
+X-Received: by 10.129.109.7 with SMTP id i7mr9073768ywc.121.1456770321181;
+ Mon, 29 Feb 2016 10:25:21 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.37.1.137 with HTTP; Mon, 29 Feb 2016 10:25:01 -0800 (PST)
+From: sironeko <sironeko@google.example.com>
+Date: Tue, 1 Mar 2016 03:25:01 +0900
+Message-ID: <CAByYQsGrtAMtMPpgjc+VGGj=QWruPrLuUsee_4=ahWTY2KCBcg@mail.google.example.com>
+Subject: Nyaan
+To: mailboxfull@bouncehammer.jp
+Content-Type: text/plain; charset=UTF-8
+
+Nyaan

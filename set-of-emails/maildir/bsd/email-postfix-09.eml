@@ -1,0 +1,76 @@
+X-DTI-Virus-Check: checked
+X-DTI-Recipient: <kijitora@example.ne.jp>
+Return-Path: <MAILER-DAEMON@store05-fbp.cm.dti.ne.jp>
+Received: from mx05.cm.dti.ne.jp (mx05-fbp.cm.dti.ne.jp [10.236.71.123]) by store05-fbp.cm.dti.ne.jp (3.10pn) with ESMTP id s8D5NwKL029784 for <kijitora@example.ne.jp>; Sat, 13 Sep 2014 14:23:58 +0900 (JST)
+Received: from mx02.silk.dream.jp (imx02.silk.dream.jp [202.216.231.157]) by mx05.cm.dti.ne.jp (3.11g) with ESMTP id s8D5Nxlh014456 for <kijitora@example.ne.jp>; Sat, 13 Sep 2014 14:23:59 +0900 (JST)
+Received: from scpa316.cm2.dti.ne.jp (gw2.cm.dream.jp [59.157.133.2]) by mx02.silk.dream.jp (3.11g) with ESMTP id s8D5Nwos005819 for <kijitora@example.ne.jp>; Sat, 13 Sep 2014 14:23:58 +0900 (JST)
+Received: from pps.filterd (scpa316.cm2.dti.ne.jp [127.0.0.1])
+	by scpa316.cm2.dti.ne.jp (8.14.5/8.14.5) with SMTP id s8D5ME7h028416
+	for <kijitora@example.ne.jp>; Sat, 13 Sep 2014 14:23:58 +0900
+Received: from xxxc.asia (li738-236.members.linode.com [106.185.32.236])
+	by scpa316.cm2.dti.ne.jp with ESMTP id 1pc0x1x1pe-1
+	for <kijitora@example.ne.jp>; Sat, 13 Sep 2014 14:23:58 +0900
+Received: by xxxc.asia (Postfix)
+	id F13164A2C; Sat, 13 Sep 2014 05:23:57 +0000 (UTC)
+Date: Sat, 13 Sep 2014 05:23:57 +0000 (UTC)
+From: MAILER-DAEMON@xxxc.asia (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: kijitora@example.ne.jp
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="D536746FC.1410585837/xxxc.asia"
+Message-Id: <20140913052357.F13164A2C@xxxc.asia>
+
+This is a MIME-encapsulated message.
+
+--D536746FC.1410585837/xxxc.asia
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host xxxc.asia.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@example.ne.jp>: host mgate02.dti.ne.jp[202.216.228.55] said:
+    452 4.3.2 Connection rate limit exceeded. (in reply to MAIL FROM command)
+
+--D536746FC.1410585837/xxxc.asia
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; xxxc.asia
+X-Postfix-Queue-ID: D536746FC
+X-Postfix-Sender: rfc822; kijitora@example.ne.jp
+Arrival-Date: Sat, 13 Sep 2014 05:23:57 +0000 (UTC)
+
+Final-Recipient: rfc822; kijitora@example.ne.jp
+Original-Recipient: rfc822;kijitora@example.ne.jp
+Action: failed
+Status: 4.3.2
+Remote-MTA: dns; mgate02.dti.ne.jp
+Diagnostic-Code: smtp; 452 4.3.2 Connection rate limit exceeded.
+
+--D536746FC.1410585837/xxxc.asia
+Content-Description: Undelivered Message Headers
+Content-Type: text/rfc822-headers
+
+Return-Path: <kijitora@example.ne.jp>
+Subject: =?ISO-2022-JP?B?gaGL2Yt9kmyJuoKwgUmBSYGhiWaJ5oFFg0GDaoOBgUWDWIN8gVuDY4FFibmKeYH0jouSrpe/lrOXv4LFjKmV+pHogaE=?=
+From: kijitora@example.ne.jp
+To: kijitora@example.ne.jp
+Message-ID: 20140913142357
+Content-Type: text/plain; charset="SHIFT_JIS"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+
+--D536746FC.1410585837/xxxc.asia--
+

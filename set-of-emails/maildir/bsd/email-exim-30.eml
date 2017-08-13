@@ -1,0 +1,46 @@
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on nekochan.example.net
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,NO_RELAYS
+	autolearn=ham version=3.3.2
+Received: from Debian-exim by nekochan.example.net with local (Exim 4.80)
+	id 1d18ZP-0000cF-9f
+	for sironeko@example.de; Thu, 20 Apr 2017 11:40:11 +0200
+X-Failed-Recipients: kijitora@exmaple.ch
+Auto-Submitted: auto-replied
+From: Mail Delivery System <Mailer-Daemon@mx1.example.net>
+To: sironeko@example.de
+Subject: Mail delivery failed: returning message to sender
+Message-Id: <E1d18ZP-0000cF-9f@nekochan.example.net>
+Date: Thu, 20 Apr 2017 11:40:11 +0200
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  kijitora@exmaple.ch
+    SMTP error from remote mail server after RCPT TO:<kijitora@exmaple.ch>:
+    host mx1.example.eu [192.0.2.32]: 554 5.7.1 <kijitora@exmaple.ch>:
+    Recipient address rejected: Access denied
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <sironeko@example.de>
+Received: from a198-51-100-41.neko.example.de ([198.51.100.41] helo=[203.0.113.136])
+	by nekochan.example.net with esmtpsa (TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128)
+	(Exim 4.80)
+	(envelope-from <sironeko@example.de>)
+	id 1d18ZN-0000br-Mp; Thu, 20 Apr 2017 11:40:09 +0200
+To: kijitora@exmaple.ch
+From: "White Cat" <sironeko@example.de>
+Subject: Reject test
+Message-ID: <22222222-2222-2222-2222-222222222222@example.de>
+Date: Thu, 20 Apr 2017 11:40:03 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.8.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+Nyaan
+

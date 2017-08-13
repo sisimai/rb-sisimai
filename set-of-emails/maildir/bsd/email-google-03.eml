@@ -1,0 +1,51 @@
+Delivered-To: this-local-part-does-not-exist-on-google-mail@gmail.com
+Received: by 10.231.14.200 with SMTP id h8cs59483iba;
+        Sun, 3 Oct 2010 15:49:33 -0700 (PDT)
+Received: by 10.142.148.12 with SMTP id v12mr7782710wfd.21.1286146172035;
+        Sun, 03 Oct 2010 15:49:32 -0700 (PDT)
+MIME-Version: 1.0
+Return-Path: <>
+Received: by 10.142.148.12 with SMTP id v12mr11204501wfd.21; Sun, 03 Oct 2010
+ 15:49:32 -0700 (PDT)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+To: this-local-part-does-not-exist-on-google-mail@gmail.com
+X-Failed-Recipients: kijitora@example.co.jp
+Subject: Delivery Status Notification (Failure)
+Message-ID: <000e0cd22984b69f4f0491be3d42@google.com>
+Date: Sun, 03 Oct 2010 22:49:32 +0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+Delivery to the following recipient failed permanently:
+
+     kijitora@example.co.jp
+
+Technical details of permanent failure:=20
+Google tried to deliver your message, but it was rejected by the recipient =
+domain. We recommend contacting the other email provider for further inform=
+ation about the cause of this error. The error that the other server return=
+ed was: 554 554 5.7.0 Header error (state 18).
+
+----- Original message -----
+
+Received: by 10.142.148.12 with SMTP id v12mr7782689wfd.21.1286146171144;
+        Sun, 03 Oct 2010 15:49:31 -0700 (PDT)
+Return-Path: <this-local-part-does-not-exist-on-google-mail@gmail.com>
+Received: from [192.0.2.31] (135.kyoto.example.ne.jp [192.0=
+.2.135])
+        by mx.google.com with ESMTPS id y4sm2291748wfd.8.2010.10.03.15.49.3=
+0
+        (version=3DTLSv1/SSLv3 cipher=3DRC4-MD5);
+        Sun, 03 Oct 2010 15:49:30 -0700 (PDT)
+Message-Id: <CBA48452-0888-4AAC-AA4E-0F54D382117F@gmail.com>
+From: this-local-part-does-not-exist-on-google-mail <this-local-part-does-not-exist-on-google-mail@gmail.com>
+To: kijitora@example.co.jp
+Content-Type: text/plain; charset=3DUS-ASCII; format=3Dflowed
+Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Apple Message framework v936)
+Subject: test for bounce 2
+Date: Mon, 4 Oct 2010 07:49:27 +0900
+X-Mailer: Apple Mail (2.936)
+
+test
+

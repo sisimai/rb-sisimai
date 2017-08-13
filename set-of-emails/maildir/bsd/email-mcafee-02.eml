@@ -1,0 +1,65 @@
+Return-Path: <>
+Delivered-To: shironeko@example.com
+Received: (qmail 000 invoked from network); 29 Apr 2012 23:45:10 +0900
+Received: from unknown (HELO smtp-90.example.com) (192.0.2.244)
+  by 192.0.2.244 with SMTP; 29 Apr 2012 23:45:10 +0900
+Received: from mx8.example.net (mx8.example.net [192.0.2.55])
+	by relay0.example.net (Postfix) with SMTP id 0000000000
+	for <shironeko@example.com>; Thu,  29 Apr 2012 23:45:10 +0900 (JST)
+Date: Thu, 29 Apr 2012 23:45:10 +0900
+To: <shironeko@example.com>
+From: <Postmaster@example.jp>
+MIME-Version: 1.0
+Content-Type: Multipart/Mixed;
+  boundary="------------Boundary-00=_000000000000ffff00"
+X-NAI-Header: Modified by McAfee Email and Web Security Virtual Appliance
+Subject: Delivery Status
+Message-Id: <20120429000000.0000000000@mx8.example.net>
+X-Junkmail-Status: score=15/100, host=smtp-90.example.com
+X-Junkmail-SD-Raw: score=unknown,
+	refid=no connection,
+	ip=192.0.2.88
+	so=2012-04-29 23:45:10,
+	dmn=2012-04-29 23:45:10,
+	mode=single engine
+
+--------------Boundary-00=_000000000000ffff00
+Content-Type: text/plain; name="deliveryproblems.txt"
+
+    --- The following addresses had delivery problems ---
+
+<kijitora@example.jp>   (5.1.1 <kijitora@example.jp>... User unknown)
+
+--------------Boundary-00=_000000000000ffff00
+Content-Type: message/delivery-status; name="deliverystatus.txt"
+
+Original-Recipient: <kijitora@example.jp>
+Action: failed
+Diagnostic-Code: smtp; 550 5.1.1 <kijitora@example.jp>... User unknown
+Remote-MTA: 192.0.2.248
+
+
+--------------Boundary-00=_000000000000ffff00
+Content-Type: message/rfc822
+Content-Disposition: attachment
+
+Received: from (smtp-7.example.net [192.0.2.129]) by mx8.example.net with smtp
+	 id 0000; Thu, 29 Apr 2012 23:45:10 +0900
+Received: from smtp-90.example.com (mx01.example.com [192.0.2.39])
+	by smtp-7.example.net (Postfix) with ESMTP id 0000000000
+	for <kijitora@example.jp>; Thu, 29 Apr 2012 23:45:10 +0900 (JST)
+Received: from unknown (HELO gw5.example.com) (192.0.2.210)
+  by 192.0.2.244 with SMTP; 29 Apr 2012 23:45:10 +0900
+Message-ID: <0000000000000000000.neko@smtp-gw56.example.com>
+From: Neko <shironeko@example.com>
+Reply-To: Nyan <shironeko@example.co.jp>
+To: Torachan <kijitora@example.jp>
+Subject: Nyaaaaan
+Mime-Version: 1.0
+Content-Type: text/plain
+Date: Thu, 29 Apr 2012 23:45:10 +0900 (JST)
+
+Nyaaan
+
+--------------Boundary-00=_000000000000ffff00--
+

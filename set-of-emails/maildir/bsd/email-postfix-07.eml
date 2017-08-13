@@ -1,0 +1,74 @@
+Return-Path: <>
+Received: from mfgw216.ocn.ad.jp (mfgw216.ocn.ad.jp [125.206.188.199])
+	by mirror.example.ne.jp (Postfix) with ESMTP id 649A12BEA
+	for <shironeko@mirror.example.ne.jp>; Fri, 17 Jul 2009 18:29:19 +0900 (JST)
+Received: by smtp.mirror.example.ne.jp (Postfix) via BOUNCE
+	id 4061F2BEA; Fri, 17 Jul 2009 18:29:19 +0900 (JST)
+Date: Fri, 17 Jul 2009 18:29:19 +0900 (JST)
+From: MAILER-DAEMON@smtp.mirror.example.ne.jp (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: shironeko@mirror.example.ne.jp
+MIME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="E7A632C0E.1247822959/smtp.mirror.example.ne.jp"
+Message-Id: <20090717092919.4061F2BEA@smtp.mirror.example.ne.jp>
+
+This is a MIME-encapsulated message.
+
+--E7A632C0E.1247822959/smtp.mirror.example.ne.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=iso-2022-jp
+
+This is the Postfix program at host smtp.mirror.example.ne.jp.
+
+I'm sorry to have to inform you that the message returned
+below could not be delivered to one or more destinations.
+
+For further assistance, please contact <support@ocn.ad.jp>
+
+If you do so, please include this problem report. You can
+delete your own text from the message returned below.
+
+The following sentences are Japanese.
+
+
+このメールと共に返信されているメールは一つ以上の宛先に対
+して配信できませんでした。
+
+エラーメッセージの原因や対処法については下記のサイトで
+ご案内しております。
+http://www.example.ne.jp/0/faq/mail/errormail/
+
+上記のサイトでも解決できない場合は、<support@ocn.ad.jp>
+へご連絡ください。
+ご連絡の際には、この障害レポートを一緒にお送りください。
+このメールに添付されているお客様の元のメールは削除しても
+構いません。
+
+--------------------------------------------------------
+
+<kijitora@user.example.or.jp>: host
+    mx.user.example.or.jp[192.0.2.22] said: 550
+    <kijitora@user.example.or.jp>: User unknown
+
+
+--E7A632C0E.1247822959/smtp.mirror.example.ne.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Received: from [192.0.2.129] (c7071.kyoto.example.ne.jp [192.0.2.199])
+    by smtp.mirror.example.ne.jp (Postfix) with ESMTP id E7A632C0E
+    for <kijitora@user.example.or.jp>; Fri, 17 Jul 2009 18:29:18 +0900 (JST)
+Mime-Version: 1.0 (Apple Message framework v753.1)
+Content-Transfer-Encoding: 7bit
+Message-Id: <8EF96F3F-377B-4E4D-9F3C-54EE1924B2BA@mirror.example.ne.jp>
+Content-Type: text/plain; charset=US-ASCII; format=flowed
+To: kijitora@user.example.or.jp
+From: Shironeko <shironeko@mirror.example.ne.jp>
+Subject: Nyaaan
+Date: Fri, 17 Jul 2009 18:29:26 +0900
+X-Mailer: Apple Mail (2.753.1)
+
+Nyaaaa
+
+--E7A632C0E.1247822959/smtp.mirror.example.ne.jp--

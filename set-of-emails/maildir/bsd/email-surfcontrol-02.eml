@@ -1,0 +1,70 @@
+Return-Path: <>
+X-Original-To: shironeko@example.co.jp
+Delivered-To: shironeko@example.co.jp
+Received: from mx4.example.co.jp (localhost.localdomain [127.0.0.1])
+    by mx4.example.co.jp (Postfix) with ESMTP id 00000000000
+    for <shironeko@example.co.jp>; Thu, 29 Apr 2009 23:34:45 +0900 (JST)
+Received: from relay1.ext.example.org (relay1.example.org [192.0.2.244])
+	by mx4.example.co.jp (Postfix) with ESMTP id 00000000000
+	for <shironeko@example.co.jp>; Thu, 29 Apr 2009 23:34:45 +0900 (JST)
+X-SEF-Processed: 0_0_0_429__2009_04_29_23_34_45
+X-SEF-NDR-0000000-0000-0000-0000-000000000000: 1
+X-SEF-0000000-0000-0000-0000-000000000000: 1
+From: <>
+To: <shironeko@example.co.jp>
+Date: Thu, 29 Apr 2009 23:34:45 +0900
+Subject: Nyaan
+X-Mailer: SurfControl E-mail Filter
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+    boundary="--=_NextPart_ST_00_00_00_Thursday_April_29_2009_00000"
+Message-Id: <20090429233445.00000000000@mx4.example.co.jp>
+
+
+----=_NextPart_ST_00_00_00_Thursday_April_29_2009_00000
+Content-Type: text/plain;
+
+Your message could not be sent.
+A transcript of the attempts to send the message follows.
+The number of attempts made: 1
+Addressed To: kijitora@example.org
+
+Thu, 29 Apr 2009 23:34:45 +0900
+Failed to send to identified host,
+kijitora@example.org: [192.0.2.244], 554 Service currently unavailable
+--- Message non-deliverable.
+
+
+
+----=_NextPart_ST_00_00_00_Thursday_April_29_2009_00000
+Content-Type: message/delivery-status;
+
+
+Action: failed
+Final-Recipient: rfc822;kijitora@example.org
+Diagnostic-Code: smtp; 554 Service currently unavailable
+Status: 5.0.0
+
+
+
+
+----=_NextPart_ST_00_00_00_Thursday_April_29_2009_00000
+Content-Type: message/rfc822;
+
+X-SEF-Processed: 0_0_0_000__2009_04_29_23_34_45
+X-SEF-0000000-0000-0000-0000-000000000000: 1
+Received: from unknown [192.0.2.230] by relay1.ext.example.org - SurfControl E-mail Filter ;
+    Thu, 29 Apr 2009 23:34:45 +0900
+Received: by bbx.example.co.jp (Postfix, from userid 25)
+    id 00000000000; Thu, 29 Apr 2009 23:34:45 +0900 (JST)
+Content-Type: text/plain
+MIME-Version: 1.0
+Date: Thu, 29 Apr 2009 23:34:45
+From: Shironeko <shironeko@example.co.jp>
+To: kijitora@example.org
+Message-Id: <20090429233455.99999999999@example.co.jp>
+Subject: Nyaan
+
+Nyaaan
+----=_NextPart_ST_00_00_00_Thursday_April_29_2009_00000--
+

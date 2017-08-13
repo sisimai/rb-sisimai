@@ -1,0 +1,22 @@
+Received: (qmail 1111 invoked for bounce); 29 Apr 2010 07:55:24 -0000
+Date: 29 Apr 2010 07:55:24 -0000
+From: MAILER-DAEMON@nijo.example.jp
+To: root@nijo.example.jp
+Subject: failure notice
+
+Hi. This is the qmail-send program at nijo.example.jp.
+I'm afraid I wasn't able to deliver your message to the following addresses.
+This is a permanent error; I've given up. Sorry it didn't work out.
+
+<kijitora@example.org>:
+Connected to 192.0.2.225 but sender was rejected.
+Remote host said: 550 5.7.1 <root@nijo.example.jp>... Access denied
+
+--- Below this line is a copy of the message.
+
+Return-Path: <root@nijo.example.jp>
+Received: (qmail 8888 invoked by uid 0); 29 Apr 2010 07:55:23 -0000
+Date: 29 Apr 2010 07:55:23 -0000
+Message-ID: <00000000000000.5529.qmail@nijo.example.jp>
+From: root@nijo.example.jp
+To: kijitora@example.org

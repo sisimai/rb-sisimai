@@ -1,0 +1,64 @@
+From MAILER-DAEMON  Thu Apr 29 23:34:45 2009
+Return-Path: <MAILER-DAEMON>
+Received: from localhost (localhost)
+    by mx356.example.jp (R8/cf) id n3T00000000000;
+    Thu, 29 Apr 2009 23:34:45 +0900
+Date: Thu, 29 Apr 2009 23:34:45 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON>
+Message-Id: <200904292334.00000000000000@mx356.example.jp>
+To: postmaster
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="n3T000000000000.000000000/mx356.example.jp"
+Subject: Postmaster notify: see transcript for details
+Auto-Submitted: auto-generated (postmaster-notification)
+
+This is a MIME-encapsulated message
+
+--n3T000000000000.000000000/mx356.example.jp
+
+The original message was received at Thu, 29 Apr 2009 23:34:45 +0900
+from [192.0.2.34]
+
+   ----- The following addresses had permanent fatal errors -----
+"|/home/kijitora/mail/catch.pl"
+    (reason: 255)
+    (expanded from: <kijitora@example.jp>)
+
+   ----- Transcript of session follows -----
+DBI connect('dbname=example;host=192.0.2.222;port=1200','dbuser',...) failed: FATAL:  sorry, too many clients already
+ at /home/kijitora/mail/catch.pl line 158
+554 5.3.0 unknown mailer error 255
+
+--n3T000000000000.000000000/mx356.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx356.example.jp
+Received-From-MTA: DNS; [192.0.2.22]
+Arrival-Date: Thu, 29 Apr 2009 23:34:45 +0900
+
+Final-Recipient: RFC822; kijitora@example.jp
+X-Actual-Recipient: X-Unix; |/home/kijitora/mail/catch.pl
+Action: failed
+Status: 5.0.0
+Diagnostic-Code: X-Unix; 255
+Last-Attempt-Date: Thu, 29 Apr 2009 23:34:45 +0900
+
+--n3T000000000000.000000000/mx356.example.jp
+Content-Type: text/rfc822-headers
+
+Return-Path: <dms@crane-look.com>
+Received: from mx521.relay35.example.co.jp ([192.0.2.4])
+	by mx356.example.jp (R8/cf) with SMTP id 00000000000000
+	for <kijitora@example.jp>; Thu, 29 Apr 2009 23:34:45 +0900
+Message-Id: <200904292334.00000000000000@mx356.example.jp>
+Content-Type: text/plain; charset=Shift_JIS
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+From: shironeko@example.org
+To: kijitora@example.jp
+Date: Thu, 29 Apr 2009 23:34:45 +0900 (JST)
+Subject: failure notice
+
+--n3T000000000000.000000000/mx356.example.jp--
+

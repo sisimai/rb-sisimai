@@ -1,0 +1,121 @@
+Return-Path: <>
+X-Original-To: donotreply@testsender.com
+Delivered-To: donotreply@testsender.com
+Received: by testhost.com (Postfix)
+	id 5AADE70970; Mon,  9 Nov 2009 23:26:46 +0000 (UTC)
+Date: Mon,  9 Nov 2009 23:26:46 +0000 (UTC)
+From: MAILER-DAEMON@testhost.com (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: donotreply@testsender.com
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="1808A707A6.1257809206/testhost.com"
+Message-Id: <20091109232646.5AADE70970@testhost.com>
+
+This is a MIME-encapsulated message.
+
+--1808A707A6.1257809206/testhost.com
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host testhost.com.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<relay_failed@testreceiver.com>: host testreceiver.com[200.190.180.170] said: 550 5.7.1
+    Unable to relay for relay_failed@testreceiver.com (in reply to RCPT TO command)
+
+--1808A707A6.1257809206/testhost.com
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; testhost.com
+X-Postfix-Queue-ID: 1808A707A6
+X-Postfix-Sender: rfc822; donotreply@testsender.com
+Arrival-Date: Mon,  9 Nov 2009 12:11:13 +0000 (UTC)
+
+Final-Recipient: rfc822; relay_failed@testreceiver.com
+Original-Recipient: rfc822;relay_failed@testreceiver.com
+Action: failed
+Status: 5.7.1
+Remote-MTA: dns; testreceiver.com
+Diagnostic-Code: smtp; 550 5.7.1 Unable to relay for relay_failed@testreceiver.com
+
+--1808A707A6.1257809206/testhost.com
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Received: from testsender.com (localhost [127.0.0.1])
+	by testhost.com (Postfix) with ESMTP id 1808A707A6
+	for <relay_failed@testreceiver.com>; Mon,  9 Nov 2009 12:11:13 +0000 (UTC)
+Date: Mon, 9 Nov 2009 12:11:13 +0000
+From: "From Person" <donotreply@testsender.com>
+To: relay_failed@testreceiver.com
+Message-Id: <4af806e115ecd_7edb..fdbdbfe9c151c8@testhost.com>
+Subject: 09 Nov, 2009 from From Person
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary=mimepart_4af806e116507_7edb..fdbdbfe9c1527f
+
+
+
+--mimepart_4af806e116507_7edb..fdbdbfe9c1527f
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: Quoted-printable
+Content-Disposition: inline
+
+Thank you
+
+--mimepart_4af806e116507_7edb..fdbdbfe9c1527f
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: Quoted-printable
+Content-Disposition: inline
+
+<HTML>
+
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8">=
+
+<style>
+<!-- in case incoming feed has no style -->
+body { background-color: #ffffff; color: #333333; }
+
+body, p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size:   14px;
+  line-height: 18px;
+}
+
+pre {
+  background-color: #eeeeee;
+  padding: 10px;
+  font-size: 12px;
+}
+
+a { color: #000; }
+a:visited { color: #666; }
+a:hover { color: #fff; background-color:#000; }
+</style>
+</head>
+
+<body>
+<div style=3D"margin-bottom: 10px; background-color: #BB8888; color: #FFF=
+FFF; border: 1px solid #EECCCC; padding: 5px;">
+  Thank you
+</div>
+</body></HTML>
+
+
+
+--mimepart_4af806e116507_7edb..fdbdbfe9c1527f--
+
+--1808A707A6.1257809206/testhost.com--

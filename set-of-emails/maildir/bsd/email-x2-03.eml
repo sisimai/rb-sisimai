@@ -1,0 +1,34 @@
+From MAILER-DAEMON Thu Apr 29 23:34:45 2009
+Return-path: <>
+Envelope-to: shironeko@example.co.jp
+Delivery-date: Thu, 12 Sep 2009 23:34:45 +0100
+Date: 12 Sep 2009 23:34:45 +0000
+From: MAILER-DAEMON@example.com
+To: shironeko@example.co.jp
+Subject: failed delivery
+
+Message from  example.com.
+Unable to deliver message to the following address(es).
+
+<kijitora@example.org>:
+unable to connect to remote server [192.0.2.222:25]: Operation timed
+out
+I'm not going to try again; this message has been in the queue too long.
+
+--- Original message follows.
+
+Return-Path: <shironeko@example.co.jp>
+X-Originating-IP: [192.0.2.222]
+Authentication-Results: mx4.example.com
+    from=example.co.jp; domainkeys=neutral (no sig)
+From: Nyanko <shironeko@example.co.jp>
+To: kijitora@example.org
+Subject: Nyaaaan
+Message-ID: <00000000000000000@example.co.jp>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Sender: HassleMe <shironeko@example.co.jp>
+Date: Thu, 11 Sep 2009 23:34:45 +0100
+
+Nyaaan

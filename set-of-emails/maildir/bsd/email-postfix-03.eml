@@ -1,0 +1,71 @@
+Return-Path: <>
+X-Original-To: postmaster@e1.example.ne.jp
+Delivered-To: postmaster@e1.example.ne.jp
+Received: by e1.example.ne.jp (Postfix)
+	id X0000000000000; Thu,  1 Jul 2014 23:45:01 +0900 (JST)
+Date: Thu,  1 Jul 2014 23:45:01 +0900 (JST)
+From: MAILER-DAEMON@e1.example.ne.jp (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: postmaster@e1.example.ne.jp
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="X1111111111111.000000000000/e1.example.ne.jp"
+Message-Id: <20140701045401.X0000000000000@e1.example.ne.jp>
+
+This is a MIME-encapsulated message.
+
+--X1111111111111.000000000000/e1.example.ne.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host e1.example.ne.jp.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@example.net>: host mail.example.net[192.0.2.78] said:
+    550 Unknown user kijitora@example.net (in reply to end of DATA
+    command)
+
+--X1111111111111.000000000000/e1.example.ne.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; e1.example.ne.jp
+X-Postfix-Queue-ID: X1111111111111
+X-Postfix-Sender: rfc822; postmaster@e1.example.ne.jp
+Arrival-Date: Thu,  1 Jul 2014 23:45:01 +0900 (JST)
+
+Final-Recipient: rfc822; kijitora@example.net
+Original-Recipient: rfc822;kijitora@example.net
+Action: failed
+Status: 5.0.0
+Remote-MTA: dns; mail.example.net
+Diagnostic-Code: smtp; 550 Unknown user kijitora@example.net
+
+--X1111111111111.000000000000/e1.example.ne.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by e1.example.ne.jp (Postfix) with ESMTP id X1111111111111
+	for <kijitora@example.net>; Thu,  1 Jul 2014 23:45:01 +0900 (JST)
+Received: by e1.example.ne.jp (Postfix, from userid 255)
+	id 97DAA44A0204; Thu,  1 Jul 2014 23:45:59 +0900 (JST)
+To:  kijitora@example.net
+Subject: Message
+From: shironeko@example.jp
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-2022-JP
+Content-Transfer-Encoding: 7bit
+Message-Id: <20140701000000.000000000000@e1.example.ne.jp>
+Date: Thu,  1 Jul 2014 23:45:59 +0900 (JST)
+

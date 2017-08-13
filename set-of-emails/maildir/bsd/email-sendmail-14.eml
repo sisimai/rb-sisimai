@@ -1,0 +1,64 @@
+Mime-Version: 1.0 (Apple Message framework v753.1)
+References: <200904290210.00000000000000@mx.example.jp>
+Content-Type: text/plain;
+	charset=ISO-2022-JP;
+	delsp=yes;
+	format=flowed
+Message-Id: <36DAE068-34EA-4F98-9B94-1E6F7F936BE8@example.jp>
+Content-Transfer-Encoding: 7bit
+From: "Shironeko, Nyanko" <shironeko@example.jp>
+Subject: Fwd: Returned mail: see transcript for details
+Date: Wed, 6 May 2009 00:00:00 +0900
+To: Shironeko <shironeko@neko.example.ne.jp>
+
+Forward the message.
+
+Begin forwarded message:
+
+> From: Mail Delivery Subsystem <MAILER-DAEMON>
+> Date: 2009年4月28日 23:45:01:JST
+> To: <shironeko@example.jp>
+> Subject: Returned mail: see transcript for details
+> Message-Id: <200904290210.00000000000000@mx.example.jp>
+>
+> The original message was received at Thu, 29 Apr 2009 23:45:01  
+> +0900 (JST)
+> from [192.0.2.31]
+>
+>    ----- The following addresses had permanent fatal errors -----
+> <kijitora@example.com>
+>     (reason: 550 5.1.1 <kijitora@example.com>... User unknown)
+>
+>    ----- Transcript of session follows -----
+> ... while talking to mx.example.com.:
+>>>> DATA
+> <<< 550 5.1.1 <kijitora@example.com>... User unknown
+> 550 5.1.1 <kijitora@example.com>... User unknown
+> <<< 503 5.0.0 Need RCPT (recipient)
+> Reporting-MTA: dns; mx.example.jp
+> Received-From-MTA: DNS; [192.0.2.31]
+> Arrival-Date: Thu, 29 Apr 2009 23:45:01 +0900 (JST)
+>
+> Final-Recipient: RFC822; kijitora@example.com
+> Action: failed
+> Status: 5.1.1
+> Remote-MTA: DNS; mx.example.com
+> Diagnostic-Code: SMTP; 550 5.1.1 <kijitora@example.com>... User unknown
+> Last-Attempt-Date: Thu, 29 Apr 2009 23:45:01 +0900 (JST)
+> Return-Path: <shironeko@example.jp>
+> Received: from mx.example.org ([192.0.2.10])
+> 	(authenticated bits=0)
+> 	by mx.example.jp (8.14.3/8.14.3) with ESMTP id n3S2AbIG029209
+> 	for <kijitora@example.com>; Thu, 29 Apr 2009 23:45:01 +0900 (JST)
+> Mime-Version: 1.0 (Apple Message framework v753.1)
+> Content-Transfer-Encoding: 7bit
+> Message-Id: <6D736808-04A1-47D3-92BD-44388ABFCCE4@example.jp>
+> Content-Type: text/plain; charset=US-ASCII; format=flowed
+> To: kijitora@example.com
+> From: "Shironeko, Nyanko" <shironeko@example.jp>
+> Subject: TEST
+> Date: Thu, 29 Apr 2009 23:45:01 +0900
+> X-Mailer: Apple Mail (2.753.1)
+> X-Virus-Scanned: ClamAV version 0.94.2, clamav-milter version 0.94.2
+> X-Virus-Status: Clean
+

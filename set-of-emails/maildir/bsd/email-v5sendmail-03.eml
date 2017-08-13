@@ -1,0 +1,29 @@
+Return-Path: <MAILER-DAEMON@example.com>
+Received: from mx5.example.com ([192.0.2.155])
+    by mx5.r.example.com (Post.Office MTA v3.1.2
+    release (FF000-0000) ID# 0-00000000000000000) with SMTP
+    id 0000000 for <webmaster@exampe.com>;
+    Thu, 28 Sep 1998 23:34:45 -0700
+Received: by mx5.example.com; (5.65/1.37) id 0000000; 
+    Thu, 29 Sep 1995 23:34:45 +0900
+Date: Thu, 29 Sep 1995 23:34:45 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON@example.com>
+Subject: Returned mail: Deferred: Connection timed out during user open with example.org
+Message-Id: <0000000000.0000000@mx5.example.com>
+To: webmaster@exampe.com
+
+   ----- Transcript of session follows -----
+While talking to smtp.example.com:
+>>> RCPT To:<kijitora@example.org>
+<<< 550 <kijitora@example.org>, User Unknown
+550 <kijitora@example.org>... User unknown
+421 example.org (smtp)... Deferred: Connection timed out during user open with example.org
+
+   ----- Unsent message follows -----
+Received: by mx5.example.com; (5.65/1.37) id 0000000;
+    Thu, 29 Apr 1995 23:34:45 +0900
+From: webmaster@exampe.com
+To: kijitora@exampe.org
+Subject: Nyaaan
+
+Nyaan

@@ -1,0 +1,60 @@
+Received: from localhost (localhost) by mx4.smtp.example.co.jp 
+    (Switch-3.1.9/Switch-3.1.9) id q0000000000ff00000; Thu, 29 Apr 2012 23:45:10 
+    +0900
+Date: Thu, 29 Apr 2012 23:45:10 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON@mx4.smtp.example.co.jp>
+Message-Id: <201204290000.q0000000000ff00000@mx4.smtp.example.co.jp>
+To: <shironeko@example.or.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status; 
+    boundary="q0000000000ff00000.0000000/mx4.smtp.example.co.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--q0000000000ff00000.0000000/mx4.smtp.example.co.jp
+
+The original message was received at Thu, 29 Apr 2012 23:45:10 +0900
+from smtp-in.example.co.jp [192.0.2.70]
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora@example.org>
+    (reason: 550 Host unknown)
+
+   ----- Transcript of session follows -----
+550 5.1.2 <kijitora@example.org>... Host unknown (Name server: smtp24.example.org: no data known)
+
+--q0000000000ff00000.0000000/mx4.smtp.example.co.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx4.smtp.example.co.jp
+Received-From-MTA: DNS; smtp-in.example.co.jp
+Arrival-Date: Thu, 29 Apr 2012 23:45:10 +0900
+
+Final-Recipient: RFC822; @mx.example.org
+Action: failed
+Status: 5.1.2
+Remote-MTA: DNS; smtp-gw9.example.co.jp
+Last-Attempt-Date: Thu, 29 Apr 2012 23:45:10 +0900
+
+--q0000000000ff00000.0000000/mx4.smtp.example.co.jp
+Content-Type: message/rfc822
+
+Return-Path: <shironeko@example.or.jp>
+Received: from smtp3.example.co.jp (smtp-in.example.co.jp [192.0.2.8]) 
+    by mx4.smtp.example.co.jp (Switch-3.1.9/Switch-3.1.9) with ESMTP id 
+    q0000000000ffffffff for <kijitora@example.org>; Thu, 29 Apr 2012 
+    23:45:10 +0900
+Received: from mail.example.co.jp by smtp3.example.co.jp (8.13.6/8.13.4) 
+    id q0000000000fffffff0; Thu, 29 Apr 2012 23:45:10 +0900
+Date: Thu, 29 Apr 2012 23:45:10 +0900
+From: shironeko@example.or.jp
+To: kijitora@example.org
+Subject: Nyaaaaan
+Message-Id: <00000000000000000000000000@example.or.jp>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="ISO-2022-JP"
+
+
+--q0000000000ff00000.0000000/mx4.smtp.example.co.jp--

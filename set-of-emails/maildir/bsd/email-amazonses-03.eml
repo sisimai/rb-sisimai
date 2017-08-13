@@ -1,0 +1,55 @@
+Return-Path: <>
+Received: from a192-92.smtp-out.amazonses.com (a192-92.smtp-out.amazonses.com [199.255.192.92])
+	by nijo.example.org (V8/cf) with ESMTP id p961Cgfv031259
+	for <shironeko@example.org>; Thu, 6 Oct 2011 10:12:42 +0900
+X-Original-To: 00000132d6ca0cd4-ff6d8ee5-29a0-4501-a68a-3ff8695254bb-000000@email-bounces.amazonses.com
+Delivered-To: 00000132d6ca0cd4-ff6d8ee5-29a0-4501-a68a-3ff8695254bb-000000@email-bounces.amazonses.com
+Message-Id: <00000132d6ca199d-48d84a95-efb8-11e0-a93e-ade7bf36e322-000000@email.amazonses.com>
+Date: Thu, 6 Oct 2011 01:12:41 +0000
+To: shironeko@example.org
+From: MAILER-DAEMON@email-bounces.amazonses.com
+Subject: Delivery Status Notification (Failure)
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status; boundary="Q2nkU.4hfQok6YM.Qi87o.EIN1bYL"
+X-AWS-Outgoing: 199.255.192.92
+
+--Q2nkU.4hfQok6YM.Qi87o.EIN1bYL
+content-type: text/plain;
+    charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+The following message to <kijitora@example.jp> was undeliverable.
+The reason for the problem:
+5.1.0 - Unknown address error 550-'5.2.2 <kijitora@example.jp>... Mail=
+box Full'
+
+--Q2nkU.4hfQok6YM.Qi87o.EIN1bYL
+content-type: message/delivery-status
+
+Reporting-MTA: dns; a192-79.smtp-out.amazonses.com
+
+Final-Recipient: rfc822;kijitora@example.jp
+Action: failed
+Status: 5.0.0 (permanent failure)
+Remote-MTA: dns; [192.0.2.222]
+Diagnostic-Code: smtp; 5.1.0 - Unknown address error 550-'5.2.2 <kijitora@example.jp>... Mailbox Full' (delivery attempts: 0)
+
+--Q2nkU.4hfQok6YM.Qi87o.EIN1bYL
+content-type: message/rfc822
+
+Received: from unknown (HELO aws-bacon-delivery-svc-iad-1021.vdc.amazon.com) ([10.146.56.129])
+  by na-mm-outgoing-6102-bacon.iad6.amazon.com with ESMTP; 06 Oct 2011 00:49:33 +0000
+Return-Path: 00000132d6ca0cd4-ff6d8ee5-29a0-4501-a68a-3ff8695254bb-000000@email-bounces.amazonses.com
+To: kijitora@example.jp
+Subject: Nyaan
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Date: Thu, 6 Oct 2011 01:12:38 +0000
+Message-ID: <00000132d6ca0cd4-ff6d8ee5-29a0-4501-a68a-3ff8695254bb-000000@email.amazonses.com>
+X-AWS-Outgoing: 199.255.192.79
+From: shironeko@example.org
+
+Nyaan
+
+--Q2nkU.4hfQok6YM.Qi87o.EIN1bYL--

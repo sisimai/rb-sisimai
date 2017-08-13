@@ -1,0 +1,63 @@
+From MAILER-DAEMON  Thu Apr 19 23:45:00 2009
+Return-Path: <MAILER-DAEMON>
+Date: Thu, 29 Apr 2009 23:45:00 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON>
+Message-Id: <000000000000000000000000000@mx.example.jp>
+To: <httpd@host1.mx.example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="00000000000000.ffffffffffffffff/mx.example.jp"
+Subject: Returned mail: see transcript for details
+
+This is a MIME-encapsulated message
+
+--00000000000000.ffffffffffffffff/mx.example.jp
+
+The original message was received at Thu, 29 Apr 2009 23:45:00 +0900
+from localhost.localdomain [127.0.0.1]
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora@example.com>
+    (reason: 553 5.1.8 <httpd@host1.mx.example.jp>... Domain of sender address httpd@host1.mx.example.jp does not exist)
+
+   ----- Transcript of session follows -----
+... while talking to mx.example.com.:
+>>> MAIL From:<httpd@host1.mx.example.jp> SIZE=800 AUTH=<>
+<<< 553 5.1.8 <httpd@host1.mx.example.jp>... Domain of sender address httpd@host1.mx.example.jp does not exist
+501 5.6.0 Data format error
+
+--00000000000000.ffffffffffffffff/mx.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx.example.jp
+Received-From-MTA: DNS; localhost.localdomain
+Arrival-Date: Thu, 29 Apr 2009 23:45:00 +0900
+
+Final-Recipient: RFC822; kijitora@example.com
+Action: failed
+Status: 5.1.8
+Diagnostic-Code: SMTP; 553 5.1.8 <httpd@host1.mx.example.jp>... Domain of sender
+    address httpd@host1.mx.example.jp does not exist
+Last-Attempt-Date: Thu, 29 Apr 2009 23:45:00 +0900
+
+--00000000000000.ffffffffffffffff/mx.example.jp
+Content-Type: message/rfc822
+
+Return-Path: <httpd@host1.mx.example.jp>
+Received: (from httpd@localhost)
+	by host1.mx.example.jp (8.14.4/8.13.8/Submit) id oAIFWTpo021016
+	for kijitora@example.com; Thu, 29 Apr 2009 23:45:00 +0900
+Date: Thu, 29 Apr 2009 23:45:00 +0900
+Message-Id: <000000000000000000000000000@host1.mx.example.jp>
+To: kijitora@example.com
+From: shironeko@example.co.jp
+Subject: Message
+MIME-Version: 1.0
+Content-type: text/plain; charset=ISO-2022-JP
+Content-Transfer-Encoding: 7bit
+X-Mailer: 
+
+Message
+
+--00000000000000.ffffffffffffffff/mx.example.jp--
+

@@ -1,0 +1,43 @@
+Return-Path: <>
+X-Original-To: shironeko@example.org
+Delivered-To: shironeko@example.org
+Received: from mx43.example.org (mx3.example.org [192.0.2.4])
+    by mx.example.org (Postfix) with ESMTP id 0000000000
+    for <shironeko@example.org>; Thu, 29 Apr 2010 23:34:45 +0900 (JST)
+Received: from mf5.example.org ([192.0.2.5]) by mx43.example.org 
+    with Microsoft SMTPSVC(6.0.3790.4675); Thu, 29 Apr 2010 23:34:45 +0900
+Received: from 127.0.0.1 (127.0.0.1) by m-FILTER with ESMTP;
+    Thu, 29 Apr 2010 23:34:45 +0900
+X-Mailer: m-FILTER
+Message-Id: <000000000000.0000@example.co.jp>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="ISO-2022-JP"
+Content-Tramx3fer-Encoding: 7bit
+From: <>
+To: shironeko@example.org
+Date: Thu, 29 Apr 2010 23:34:45 +0900
+Subject: failure notice
+
+このメールは「m-FILTER」が自動的に生成して送信しています。
+メールサーバーとの通信中、下記の理由により
+このメールは送信できませんでした。
+
+以下のメールアドレスへの送信に失敗しました。
+kijitora@example.org
+
+
+-------server message
+550 kijitora@example.org... No such user
+
+-------SMTP command
+DATA
+
+-------original mail info
+From: shironeko@example.org
+Subject: Nyaaan
+Date: Thu, 29 Apr 2010 23:34:45 +0900 (JST)
+Message-ID: <000000000.0000000000000@g1.example.com>
+BODY:
+----------------------------------------------------
+Nyaan
+

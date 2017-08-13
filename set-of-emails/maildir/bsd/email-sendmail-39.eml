@@ -1,0 +1,73 @@
+Return-Path: <>
+Received: from nekochan.example.ne.jp (nekochan.example.ne.jp [192.0.2.22])
+	by nyaan.example.co.jp (V8/cf) with ESMTP id u38Lah1T020022
+	for <kijitora@example.co.jp>; Thu, 9 Apr 2016 04:00:40 +0900
+X-SenderID: Sendmail Sender-ID Filter v1.0.0 nyaan.example.co.jp u38Lah1T020022
+Authentication-Results: nyaan.example.co.jp; sender-id=none header.from=MAILER-DAEMON@nekochan.example.ne.jp
+Received: from localhost (localhost)
+	by nekochan.example.ne.jp (V8/cf) id u38J0g02002222;
+	Thu, 9 Apr 2016 02:22:22 +0900
+Date: Thu, 9 Apr 2016 02:22:22 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON@nekochan.example.ne.jp>
+Message-Id: <201604092222.u38J0g02002222@nekochan.example.ne.jp>
+To: kijitora@nekochan.example.ne.jp
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="u38J0g02002222.1465222222/nekochan.example.ne.jp"
+Subject: Postmaster notify: see transcript for details
+Auto-Submitted: auto-generated (kijitora-notification)
+
+This is a MIME-encapsulated message
+
+--u38J0g02002222.1465222222/nekochan.example.ne.jp
+
+The original message was received at Wed, 8 Apr 2016 22:22:22 +0900
+from localhost
+with id u38NNL02002222
+
+   ----- The following addresses had permanent fatal errors -----
+kijitora@example.co.jp
+    (reason: 452 4.4.5 Insufficient disk space; try again later)
+    (expanded from: kijitora)
+
+   ----- Transcript of session follows -----
+... while talking to mx.example.co.jp.:
+>>> MAIL From:<> SIZE=2222
+<<< 452 4.4.5 Insufficient disk space; try again later
+kijitora@example.co.jp... Deferred: 452 4.4.5 Insufficient disk space; try again later
+Message could not be delivered for 8 hours
+Message will be deleted from queue
+
+--u38J0g02002222.1465222222/nekochan.example.ne.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; nekochan.example.ne.jp
+Arrival-Date: Wed, 8 Apr 2016 22:22:22 +0900
+
+Final-Recipient: RFC822; kijitora@nekochan.example.ne.jp
+X-Actual-Recipient: RFC822; kijitora@example.co.jp
+Action: failed
+Status: 4.4.7
+Diagnostic-Code: SMTP; 452 4.4.5 Insufficient disk space; try again later
+Last-Attempt-Date: Thu, 9 Apr 2016 02:22:22 +0900
+
+--u38J0g02002222.1465222222/nekochan.example.ne.jp
+Content-Type: text/rfc822-headers
+
+Return-Path: <MAILER-DAEMON>
+Received: from localhost (localhost)
+	by nekochan.example.ne.jp (V8/cf) id u38NNL02002222;
+	Wed, 8 Apr 2016 22:22:22 +0900
+Date: Wed, 8 Apr 2016 22:22:22 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON>
+Message-Id: <201604091100.u38NNL02002222@nekochan.example.ne.jp>
+To: kijitora
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="u38NNL02002222.1465222222/nekochan.example.ne.jp"
+Subject: Postmaster notify: see transcript for details
+Auto-Submitted: auto-generated (kijitora-notification)
+
+--u38J0g02002222.1465222222/nekochan.example.ne.jp--
+
+

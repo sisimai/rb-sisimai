@@ -1,0 +1,70 @@
+x-store-info:D6taffyBScEUZsL+ZXbbDoZx0yi5SZysJlOAjqd2NAnWhtIVF75rguSDzkwBo9UqNxU8PYiOul3dsQSVuxy3WLhAzg39f+mnket4qHptoyw6gX94U6QhpFxCbC4t05tekN1gIEvZP68=
+Authentication-Results: hotmail.com; spf=none (sender IP is 65.54.190.29; identity alignment result is pass and alignment mode is relaxed) smtp.helo=BAY004-OMC1S18.hotmail.com; dkim=none (identity alignment result is pass and alignment mode is relaxed) header.d=mail.hotmail.com; x-hmca=none header.id=postmaster@mail.hotmail.com
+X-SID-PRA: postmaster@mail.hotmail.com
+X-AUTH-Result: NONE
+X-SID-Result: NONE
+X-Message-Delivery: Vj0xLjE7RD0wO0dEPTA7U0NMPTk7bD0xO3VzPTE=
+X-Message-Info: AuEzbeVr9u5fkDpn2vR5iCu5wb6HBeY4iruBjnutBzpStnUabbM/X3OHG1tkHI7a3kMiU15mwZkdItk0fkPUd26iJME4hbgAI/g6pso0Zyh7O0XVOq5g8hCf8Efy9J5lKkdwprP9EhP7RM0PyiUzXHkNE5r5dNzX
+Received: from BAY004-OMC1S18.hotmail.com ([65.54.190.29]) by BAY004-MC4F56.hotmail.com over TLS secured channel with Microsoft SMTPSVC(7.5.7601.22751);
+	 Fri, 30 Jan 2015 21:29:41 -0800
+From: postmaster@mail.hotmail.com
+To: shironeko@outlook.example.com
+Date: Fri, 30 Jan 2015 21:29:41 -0800
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="9B095B5ADSN=_01D03A62B009E3D8000522C4BAY004?OMC1S18.h"
+X-DSNContext: 7ce717b1 - 1386 - 00000002 - C00402D1
+Message-ID: <A1XvpFVjC000256d1@BAY004-OMC1S18.hotmail.com>
+Subject: Delivery Status Notification (Failure)
+Return-Path: <>
+X-OriginalArrivalTime: 31 Jan 2015 05:29:41.0564 (UTC) FILETIME=[E9D91FC0:01D03D16]
+
+This is a MIME-formatted message.  
+Portions of this message may be unreadable without a MIME-capable mail program.
+
+--9B095B5ADSN=_01D03A62B009E3D8000522C4BAY004?OMC1S18.h
+Content-Type: text/plain; charset=unicode-1-1-utf-7
+
+This is an automatically generated Delivery Status Notification.
+
+Unable to deliver message to the following recipients, due to being unable to connect successfully to the destination mail server.
+
+       kijitora@example.com
+
+
+
+
+--9B095B5ADSN=_01D03A62B009E3D8000522C4BAY004?OMC1S18.h
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns;BAY004-OMC1S18.hotmail.com
+Received-From-MTA: dns;BAY182-W41
+Arrival-Date: Wed, 28 Jan 2015 21:29:14 -0800
+
+Final-Recipient: rfc822;kijitora@example.com
+Action: failed
+Status: 4.4.7
+
+--9B095B5ADSN=_01D03A62B009E3D8000522C4BAY004?OMC1S18.h
+Content-Type: message/rfc822
+
+Received: from BAY182-W41 ([65.54.190.61]) by BAY004-OMC1S18.hotmail.com over TLS secured channel with Microsoft SMTPSVC(7.5.7601.22751);
+	 Wed, 28 Jan 2015 21:29:14 -0800
+X-TMN: [CfZrePAD+kDGS4nnafN9F0pJfUe9RyO1]
+X-Originating-Email: [shironeko@outlook.example.com]
+Message-ID: <BAY182-W4180385B0DABF89EB94B34A9300@phx.gbl>
+Return-Path: shironeko@outlook.example.com
+From: Shironeko <shironeko@outlook.example.com>
+To: "kijitora@example.com" <kijitora@example.com>
+Subject: Nyaaaan
+Date: Thu, 29 Jan 2015 14:29:13 +0900
+Importance: Normal
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginalArrivalTime: 29 Jan 2015 05:29:14.0272 (UTC) FILETIME=[84C13200:01D03B84]
+
+TnlhYWFuIAkJIAkgICAJCSAg
+
+
+--9B095B5ADSN=_01D03A62B009E3D8000522C4BAY004?OMC1S18.h--

@@ -1,0 +1,64 @@
+Received: by LITEMAIL51.bigfoot.com (LiteMail v3.03(LITEMAIL51)) with SMTP id 1412281813_LITEMAIL51_5437911_7120404;
+	Sun, 28 Dec 2014 18:17:18 -0800
+Date: Sun, 28 Dec 2014 18:17:16 -0800
+From: Mail Delivery Subsystem <MAILER-DAEMON@bigfoot.com>
+Message-Id: <14122813_LITEMAIL57_491202_776323_1704@LITEMAIL57.bigfoot.com>
+To: <user@xxxxxxxxxx.com>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="201412281816847"
+Subject: Returned mail: Requested action not taken: mailbox name not allowed
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--201412281816847
+
+The original message was received at Sun, 28 Dec 2014 18:17:16 -0800
+from LITEMAIL57.bigfoot.com [192.168.12.53]
+
+
+
+   ----- The following addresses had permanent fatal errors -----
+<destinaion@example.net>
+
+   ----- Transcript of session follows -----
+>>> RCPT TO:<destinaion@example.net>
+<<< 553 Invalid recipient destinaion@example.net (Mode: normal)
+
+--201412281816847
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; litemail57.bigfoot.com
+Arrival-Date: Sun, 28 Dec 2014 18:17:16 -0800
+
+Final-Recipient: RFC822; <destinaion@example.net>
+Action: failed
+Status: 5.7.1
+Remote-MTA: DNS; p01c11m075.mx.example.net
+Diagnostic-Code: SMTP; 553 Invalid recipient destinaion@example.net (Mode: normal)
+Last-Attempt-Date: Sun, 28 Dec 2014 18:17:16 -0800
+
+
+
+--201412281816847
+Content-Type: message/partial
+
+Received: by LITEMAIL57.bigfoot.com (LiteMail v3.03(LITEMAIL57)) with SMTP id 1412281811_LITEMAIL57_4742901_15695198;
+	Sun, 28 Dec 2014 18:17:14 -0800 
+Received: from xxxxxxxxxx.com ([172.16.17.18]) 
+	by litemail16.bigfoot.net with SMTP id 1419818724.17508;
+	Sun, 28 Dec 2014 21:05:25 -0500
+Received: from unknown (HELO horde01) (10.1.12.13)
+  by relay3 with SMTP; 29 Dec 2014 02:17:06 -0000
+Cc: recipient list not shown: ;
+Date: Mon, 29 Dec 2014 02:17:05 +0000
+Message-ID: <20141229021705.Horde.ht6XOg3pMXT2XD9vNBMt1A6@mail.xxxxxxxxxx.com>
+From: user@xxxxxxxxxx.com
+Subject: Thank you.
+Content-Type: text/plain; charset=UTF-8; format=flowed; DelSp=Yes
+MIME-Version: 1.0
+Content-Disposition: inline
+
+--201412281816847--
+

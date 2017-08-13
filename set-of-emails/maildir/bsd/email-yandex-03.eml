@@ -1,0 +1,101 @@
+Received: from mxback5g.mail.yandex.net ([127.0.0.1])
+	by mxback5g.mail.yandex.net with LMTP id mQviamBh
+	for <shironeko@yandex.example.com>; Tue, 9 Dec 2014 20:48:26 +0300
+Received: from forward19.mail.yandex.net (forward19.mail.yandex.net [95.108.253.144])
+	by mxback5g.mail.yandex.net (nwsmtp/Yandex) with ESMTP id 7SZ4QIsijl-mPc81DBi;
+	Tue,  9 Dec 2014 20:48:25 +0300
+X-Yandex-Front: mxback5g.mail.yandex.net
+X-Yandex-TimeMark: 1418147305
+X-Yandex-Uniq: 8af0d90c-7507-4106-b604-c0a114d5be9f
+X-Yandex-Spam: 1
+Received: by forward19.mail.yandex.net (Yandex)
+	id BF58E112115A; Tue,  9 Dec 2014 20:48:25 +0300 (MSK)
+Date: Tue,  9 Dec 2014 20:48:25 +0300 (MSK)
+From: mailer-daemon@yandex.ru
+Subject: =?UTF-8?B?0J3QtdC00L7RgdGC0LDQstC70LXQvdC90L7QtSDRgdC+0L7QsdGJ0LXQvdC40LU=?=
+To: shironeko@yandex.example.com
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="DBB451121700.1418147305/forward19.mail.yandex.net"
+Message-Id: <20141209174825.BF58E112115A@forward19.mail.yandex.net>
+Return-Path: <>
+X-Yandex-Forward: 10104c00ad0726da5f37374723b1e0c8
+
+This is a MIME-encapsulated message.
+
+--DBB451121700.1418147305/forward19.mail.yandex.net
+Content-Description: Notification
+Content-Type: text/plain; charset=utf-8
+
+              **********
+
+Это письмо отправлено почтовым сервером yandex.example.com.
+
+К сожалению, мы вынуждены сообщить Вам о том, что Ваше письмо не может
+быть отправлено одному или нескольким адресатам. Причины указаны ниже.
+
+Пожалуйста, не отвечайте на это сообщение. 
+
+              **********
+
+This is the mail system at host yandex.ru.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+Please, do not reply to this message.
+
+
+<kijitora@6jo.example.jp>: connect to
+    6jo.example.jp[192.0.2.79]:25: Connection timed out
+
+--DBB451121700.1418147305/forward19.mail.yandex.net
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; forward19.mail.yandex.net
+X-Yandex-Queue-ID: DBB451121700
+X-Yandex-Sender: rfc822; shironeko@yandex.example.com
+Arrival-Date: Sat,  6 Dec 2014 20:43:08 +0300 (MSK)
+
+Final-Recipient: rfc822; kijitora@6jo.example.jp
+Original-Recipient: rfc822;kijitora@6jo.example.jp
+Action: failed
+Status: 4.4.1
+Diagnostic-Code: X-Yandex; connect to 6jo.example.jp[192.0.2.79]:25:
+    Connection timed out
+
+--DBB451121700.1418147305/forward19.mail.yandex.net
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <shironeko@yandex.example.com>
+Received: from web9g.yandex.example.com (web9g.yandex.example.com [95.108.252.109])
+	by forward19.mail.yandex.net (Yandex) with ESMTP id DBB451121700
+	for <kijitora@6jo.example.jp>; Sat,  6 Dec 2014 20:43:08 +0300 (MSK)
+Received: from 127.0.0.1 (localhost [127.0.0.1])
+	by web9g.yandex.example.com (Yandex) with ESMTP id 65DEA38E0B2C;
+	Sat,  6 Dec 2014 20:43:08 +0300 (MSK)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.example.com; s=mail;
+	t=1417887788; bh=XQ7JyCxYcHF+yDWIQrykjfsKFpIER4mAFkpYo4zscI4=;
+	h=From:To:Subject:Date;
+	b=FMGk8mwzUthJkbZP1+vsTtASfQqqGu+h5suDYcWOXGx+G7tdJGH43hEFmd2ufG+HC
+	 eZR/MVvViQnyeokRReGmmjnmCA/jKs+0OtgqmNP6QSl/lNCEHqK4y/UKpJlImHDR/j
+	 PFHaWKrEg/vMsqUijKQVoOXK+Vl1K94VW2p1knAE=
+Received: from 192-0-2-25f0.kyt1.example.ne.jp (192-0-2-25f0.kyt1.example.ne.jp [192.0.2.14]) by web9g.yandex.example.com with HTTP;
+	Sat, 06 Dec 2014 20:43:08 +0300
+From: Shironeko <shironeko@yandex.example.com>
+Envelope-From: shironeko@yandex.com
+Subject: Nyaaaaaaan
+MIME-Version: 1.0
+Message-Id: <623501417887788@web9g.yandex.example.com>
+X-Mailer: Yamail [ http://yandex.example.com ] 5.0
+Date: Sun, 07 Dec 2014 02:43:08 +0900
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+To: kijitora@6jo.example.jp
+
+Nyaaan?
+
+--DBB451121700.1418147305/forward19.mail.yandex.net--

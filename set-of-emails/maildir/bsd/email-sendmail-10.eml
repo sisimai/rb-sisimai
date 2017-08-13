@@ -1,0 +1,82 @@
+Received: from localhost (localhost)
+	by mx.example.jp (8.14.1/8.14.1) id m61J12TM028174;
+	Wed, 2 Jul 2008 04:01:03 +0900 (JST)
+Date: Wed, 2 Jul 2008 04:01:03 +0900 (JST)
+From: Mail Delivery Subsystem <MAILER-DAEMON>
+Message-Id: <200807011901.m61J12TM028174@mx.example.jp>
+To: postmaster
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="m61J12TM028174.1214938863/mx.example.jp"
+Subject: Postmaster notify: see transcript for details
+Auto-Submitted: auto-generated (postmaster-notification)
+
+This is a MIME-encapsulated message
+
+--m61J12TM028174.1214938863/mx.example.jp
+
+The original message was received at Fri, 27 Jun 2008 19:02:46 +0900 (JST)
+from [192.0.2.28]
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora@example.or.jp>
+    (reason: 450 4.7.1 <c135.kyoto.example.ne.jp[192.0.2.56]>: Client host rejected: may not be mail exchanger)
+
+   ----- Transcript of session follows -----
+... while talking to mx2.example.or.jp.:
+>>> DATA
+<<< 450 4.7.1 <c135.kyoto.example.ne.jp[192.0.2.56]>: Client host rejected: may not be mail exchanger
+<kijitora@example.or.jp>... Deferred: 450 4.7.1 <c135.kyoto.example.ne.jp[192.0.2.56]>: Client host rejected: may not be mail exchanger
+<<< 554 5.5.1 Error: no valid recipients
+... while talking to mx.example.or.jp.:
+>>> DATA
+<<< 450 4.7.1 <c135.kyoto.example.ne.jp[192.0.2.56]>: Client host rejected: may not be mail exchanger
+<kijitora@example.or.jp>... Deferred: 450 4.7.1 <c135.kyoto.example.ne.jp[192.0.2.56]>: Client host rejected: may not be mail exchanger
+<<< 554 5.5.1 Error: no valid recipients
+... while talking to mx3.example.or.jp.:
+>>> DATA
+<<< 450 4.7.1 <c135.kyoto.example.ne.jp[192.0.2.56]>: Client host rejected: may not be mail exchanger
+<kijitora@example.or.jp>... Deferred: 450 4.7.1 <c135.kyoto.example.ne.jp[192.0.2.56]>: Client host rejected: may not be mail exchanger
+<<< 554 5.5.1 Error: no valid recipients
+Message could not be delivered for 12 hours
+Message will be deleted from queue
+
+--m61J12TM028174.1214938863/mx.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx.example.jp
+Arrival-Date: Fri, 27 Jun 2008 19:02:46 +0900 (JST)
+
+Final-Recipient: RFC822; kijitora@example.or.jp
+Action: failed
+Status: 4.4.7
+Remote-MTA: DNS; mx3.example.or.jp
+Diagnostic-Code: SMTP; 450 4.7.1 <c135.kyoto.example.ne.jp[192.0.2.56]>: Client host rejected: may not be mail exchanger
+Last-Attempt-Date: Wed, 2 Jul 2008 04:01:03 +0900 (JST)
+
+--m61J12TM028174.1214938863/mx.example.jp
+Content-Type: text/rfc822-headers
+
+Return-Path: <shironeko@example.jp>
+Received: from neko-terminal ([192.0.2.28])
+	(authenticated bits=0)
+	by mx.example.jp (8.14.1/8.14.1) with ESMTP id m5RA2kx6000650
+	for <kijitora@example.or.jp>; Fri, 27 Jun 2008 19:02:46 +0900 (JST)
+Message-ID: <35D4575B4B344F23AD8D2CF355751ABD@neko-terminal>
+From: "Shironeko, Nyanko" <shironeko@example.jp>
+To: <kijitora@example.or.jp>
+Subject: Nyaaaaaaan
+Date: Fri, 27 Jun 2008 19:02:44 +0900
+MIME-Version: 1.0
+Content-Type: text/plain;
+	format=flowed;
+	charset="iso-2022-jp";
+	reply-type=original
+Content-Transfer-Encoding: 7bit
+X-Priority: 3
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Windows Mail 6.0.6001.18000
+X-MimeOLE: Produced By Microsoft MimeOLE V6.0.6001.18000
+
+--m61J12TM028174.1214938863/mx.example.jp--
+

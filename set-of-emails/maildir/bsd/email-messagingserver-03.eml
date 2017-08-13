@@ -1,0 +1,70 @@
+Return-Path: <>
+Received: from mx3-4.example.net ([192.0.2.225])
+    by mx3.g5.example.com (Post.Office MTA v3.1.2 release (FF000+0000)
+    ID# 0+00000000000000000) with ESMTP id 0000000 for <shironeko@example.com>;
+    Thu, 29 Apr 2001 23:34:45 +0000
+Date: Thu, 29 Apr 2001 23:34:45 +0000 (GMT)
+From: PMDF e-Mail Interconnect <MAILER-DAEMON@internetmci.com>
+Subject: Delivery Notification: Delivery has failed
+To: shironeko@example.com
+Message-id: <00000000000000@example.net>
+MIME-version: 1.0
+Content-type: multipart/report;
+    BOUNDARY="Boundary_(ID_0000000000000000000000)"; 
+    report-type=delivery-status
+
+This report relates to a message you sent with the following header fields:
+
+  Message-id: <000000000000000000@example.org>
+  Date: Thu, 29 Apr 2001 23:34:45 +0000
+  From: shironeko@example.com
+  To: nekochan@example.org
+  Subject: Nyaaan
+
+Your message cannot be delivered to the following recipients:
+
+  Recipient address: sabineko@example.org
+  Reason: Remote SMTP server has rejected address
+  Diagnostic code: smtp; 550 5.7.1 550 User Unknown: sabineko@example.org
+  Remote system: dns; mailbox0.d5.example.org (TCP|192.0.2.225|34321|192.0.2.12|25) (x4.d5.example.org -- ESMTP (x4.d5.example.org)
+  Recipient address: mikeneko@example.org
+  Reason: Remote SMTP server has rejected address
+  Diagnostic code: smtp; 550 5.7.1 550 User Unknown: mikeneko@example.org
+  Remote system: dns; mailbox0.d5.example.org (TCP|192.0.2.225|34321|192.0.2.12|25) (x4.d5.example.org -- ESMTP (x4.d5.example.org)
+
+
+Original-envelope-id: 000000000000000@example.org
+Reporting-MTA: dns; mailbox0.d5.example.org
+
+Action: failed
+Status: 5.0.0 (Remote SMTP server has rejected address)
+Original-recipient: rfc822;sabineko@example.org
+Final-recipient: rfc822;sabineko@example.org
+Remote-MTA: dns; mailbox0.d5.example.org
+ (TCP|192.0.2.225|34321|192.0.2.12|25)
+ (x4.d5.example.org -- ESMTP (x4.d5.example.org)
+Diagnostic-code: smtp; 550 5.7.1 550 User Unknown: sabineko@example.org
+
+Action: failed
+Status: 5.0.0 (Remote SMTP server has rejected address)
+Original-recipient: rfc822;mikeneko@example.org
+Final-recipient: rfc822;mikeneko@example.org
+Remote-MTA: dns; mailbox0.d5.example.org
+ (TCP|192.0.2.225|34321|192.0.2.12|25)
+ (x4.d5.example.org -- ESMTP (x4.d5.example.org)
+Diagnostic-code: smtp; 550 5.7.1 550 User Unknown: mikeneko@example.org
+
+Return-path: shironeko@example.com
+Received: from example.org ([203.69.3.3]) by mx5.example.org 
+    with SMTP id <000000000000000@mx5.example.org>;
+    Thu, 29 Apr 2001 23:34:45 +0000 (GMT)
+Received: by example.org; (5.65/1.37) id 0000000;
+    Thu, 29 Apr 2001 23:34:45 +0000
+Date: Thu, 29 Apr 2001 23:34:45 +0000
+From: shironeko@example.com
+Subject: Nyaaan
+Message-id: <000000000000000000@example.org>
+To: nekochan@example.com
+
+Nyaaan
+

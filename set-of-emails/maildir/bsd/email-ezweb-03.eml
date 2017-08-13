@@ -1,0 +1,35 @@
+Return-Path: <MAILER-DAEMON>
+Received: from ezweb.ne.jp (nx3oBP05-09.ezweb.ne.jp [59.135.39.233])
+	by mx1.example.jp (R8/cf) with SMTP id m818S7u6010937
+	for <info@example.net>; Mon, 1 Sep 2008 17:28:07 +0900
+To: <info@example.net>
+From: Postmaster@ezweb.ne.jp
+Message-ID: <0000000000000000000000000000@nm09lds023.ezweb.ne.jp>
+Date: Mon, 1 Sep 2008 17:28:11 +0900
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="==_FF00/00000000000/FF00"
+Reply-To: Mail Administrator <Postmaster@ezweb.ne.jp>
+Subject: Mail System Error - Returned Mail
+X-UID: 518                                       
+X-Mbox-Status: RO
+X-Message-Flags: S
+X-UIDL: 518
+
+This message is in MIME format.Since your mail reader does not understand this format, some or all of the message may not be legible
+
+--==_FF00/00000000000/FF00
+Content-Type: text/plain; charset="ISO-2022-JP"
+Content-Transfer-Encoding: 7bit
+
+次のあて先へのメッセージはエラーのため送信できませんでした。
+
+送信先メールアドレスが見つかりませんでした。
+メールアドレスをご確認の上、再送信してください。
+
+The user(s) account is disabled.
+
+<this-local-part-does-not-exist-on-the-site@ezweb.ne.jp>
+
+
+--==_FF00/00000000000/FF00--
+
