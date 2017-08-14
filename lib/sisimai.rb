@@ -131,18 +131,18 @@ module Sisimai
       return jsonstring
     end
 
-    # Parser engine list (MTA/MSP modules)
+    # Parser engine list (MTA modules)
     # @return   [Hash]     Parser engine table
     def engine
-      names = %w|MTA MSP CED ARF RFC3464 RFC3834|
+      names = %w|Bite::Email Bite::JSON ARF RFC3464 RFC3834|
       table = {}
 
       names.each do |e|
         r = 'Sisimai::' + e
         require r.gsub('::', '/').downcase
 
-        if e == 'MTA' || e == 'MSP' || e == 'CED'
-          # Sisimai::MTA or Sisimai::MSP or Sisimai::CED
+        if e =~ /\ABite::(?:Email|JSON)\z/
+          # Sisimai::Bite::Email or Sisimai::Bite::JSON
           Module.const_get(r).send(:index).each do |ee|
             # Load and get the value of "description" from each module
             rr = sprintf('Sisimai::%s::%s', e, ee)
