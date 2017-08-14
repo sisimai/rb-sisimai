@@ -3,7 +3,7 @@ module Sisimai
   module ARF
     # Imported from p5-Sisimail/lib/Sisimai/Message.pm
     class << self
-      require 'sisimai/mta'
+      require 'sisimai/bite/email'
       require 'sisimai/rfc5322'
 
       Re0 =  {
@@ -36,7 +36,7 @@ module Sisimai
         :rfc822 => %r[\AContent-Type: (:?message/rfc822|text/rfc822-headers)],
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }
-      Indicators = Sisimai::MTA.INDICATORS
+      Indicators = Sisimai::Bite::Email.INDICATORS
       LongFields = Sisimai::RFC5322.LONGFIELDS
       RFC822Head = Sisimai::RFC5322.HEADERFIELDS
 
@@ -86,7 +86,7 @@ module Sisimai
         return nil unless self.is_arf(mhead)
 
         require 'sisimai/address'
-        dscontents = [Sisimai::MTA.DELIVERYSTATUS]
+        dscontents = [Sisimai::Bite::Email.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         rfc822part = ''   # (String) message/rfc822-headers part
         previousfn = ''   # (String) Previous field name
@@ -204,7 +204,7 @@ module Sisimai
               # Redacted-Address: localpart@
               if v['recipient']
                 # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::MTA.DELIVERYSTATUS
+                dscontents << Sisimai::Bite::Email.DELIVERYSTATUS
                 v = dscontents[-1]
               end
               v['recipient'] = Sisimai::Address.s3s4(cv[1])
