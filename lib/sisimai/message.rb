@@ -1,8 +1,8 @@
 module Sisimai
-  # Sisimai::Message convert bounce email text to data structure. It resolve email
-  # text into an UNIX From line, the header part of the mail, delivery status, and
-  # RFC822 header part. When the email given as a argument of "new" method is not a
-  # bounce email, the method returns nil.
+  # Sisimai::Message convert bounce email text to data structure. It resolve
+  # email text into an UNIX From line, the header part of the mail, delivery
+  # status, and RFC822 header part. When the email given as a argument of "new"
+  # method is not a bounce email, the method returns nil.
   class Message
     # Imported from p5-Sisimail/lib/Sisimai/Message.pm
     require 'sisimai/arf'
@@ -15,7 +15,7 @@ module Sisimai
     @@rwaccessors = [
       :from,    # [String] UNIX From line
       :header,  # [Hash]   Header part of an email
-      :ds,      # [Array]  Parsed data by Sisimai::MTA::*
+      :ds,      # [Array]  Parsed data by Sisimai::Bite::*::* module
       :rfc822,  # [Hash]   Header part of the original message
       :catch,   # [?]      The results returned by hook method
     ]
@@ -76,7 +76,7 @@ module Sisimai
         'field' => field,
       }
       [:load, :order].each do |e|
-        # Order of MTA, MSP modules
+        # Order of MTA modules
         next unless argvs.key?(e)
         next unless argvs[e].is_a? Array
         next if argvs[e].empty?
