@@ -4,6 +4,7 @@ module Sisimai::Bite
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/JSON.pm
       require 'sisimai/bite'
+      require 'sisimai/rfc5322'
 
       def headerlist; return []; end
       def pattern;    return []; end
