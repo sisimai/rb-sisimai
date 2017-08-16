@@ -4,6 +4,7 @@ module Sisimai
     module Email
       class << self
         # Imported from p5-Sisimail/lib/Sisimai/Bite/Email.pm
+        require 'sisimai/bite'
         require 'sisimai/rfc5322'
 
         # @abstract Flags for position variable
@@ -21,15 +22,16 @@ module Sisimai
         # @abstract MTA list
         # @return   [Array] MTA list with order
         def index
-          return %w|
-            Sendmail Postfix qmail Exim Courier OpenSMTPD Exchange2007 Exchange2003
-            Google Yahoo GSuite Aol Outlook Office365 SendGrid AmazonSES MailRu
-            Yandex MessagingServer Domino Notes ReceivingSES AmazonWorkMail Verizon
-            GMX Bigfoot Facebook Zoho EinsUndEins MessageLabs EZweb KDDI Biglobe
-            ApacheJames McAfee MXLogic MailFoundry IMailServer 
-            mFILTER Activehunter InterScanMSS SurfControl MailMarshalSMTP
-            X1 X2 X3 X4 X5 V5sendmail 
-          |
+          return ['Sendmail']
+#         return %w|
+#           Sendmail Postfix qmail Exim Courier OpenSMTPD Exchange2007 Exchange2003
+#           Google Yahoo GSuite Aol Outlook Office365 SendGrid AmazonSES MailRu
+#           Yandex MessagingServer Domino Notes ReceivingSES AmazonWorkMail Verizon
+#           GMX Bigfoot Facebook Zoho EinsUndEins MessageLabs EZweb KDDI Biglobe
+#           ApacheJames McAfee MXLogic MailFoundry IMailServer 
+#           mFILTER Activehunter InterScanMSS SurfControl MailMarshalSMTP
+#           X1 X2 X3 X4 X5 V5sendmail 
+#         |
         end
 
         # @abstract Parse bounce messages

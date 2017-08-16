@@ -3,8 +3,7 @@ module Sisimai
   module RFC3464
     # Imported from p5-Sisimail/lib/Sisimai/RFC3464.pm
     class << self
-      require 'sisimai/mta'
-      require 'sisimai/rfc5322'
+      require 'sisimai/bite/email'
 
       # http://tools.ietf.org/html/rfc3464
       Re0 = {
@@ -42,7 +41,7 @@ module Sisimai
         :error   => %r/\A(?:[45]\d\d[ \t]+|[<][^@]+[@][^@]+[>]:?[ \t]+)/i,
         :command => %r/[ ](RCPT|MAIL|DATA)[ ]+command\b/,
       }
-      Indicators = Sisimai::MTA.INDICATORS
+      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; 'Fallback Module for MTAs'; end
       def smtpagent;   'RFC3464'; end
@@ -50,7 +49,7 @@ module Sisimai
       def headerlist;  return []; end
 
       # Detect an error for RFC3464
-      # @param         [Hash] mhead       Message header of a bounce email
+      # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
       # @options mhead [String] date      Date header
       # @options mhead [String] subject   Subject header
@@ -68,7 +67,7 @@ module Sisimai
         require 'sisimai/mda'
         require 'sisimai/address'
 
-        dscontents = [Sisimai::MTA.DELIVERYSTATUS]
+        dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         havepassed = ['']
         scannedset = Sisimai::MDA.scan(mhead, mbody)
@@ -144,7 +143,7 @@ module Sisimai
 
               if x.size > 0 && x != y
                 # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::MTA.DELIVERYSTATUS
+                dscontents << Sisimai::Bite.DELIVERYSTATUS
                 v = dscontents[-1]
               end
               v['recipient'] = y
@@ -407,7 +406,7 @@ module Sisimai
 
               if x.size > 0 && x != y
                 # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::MTA.DELIVERYSTATUS
+                dscontents << Sisimai::Bite.DELIVERYSTATUS
                 b = dscontents[-1]
               end
               b['recipient'] = y

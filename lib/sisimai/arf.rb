@@ -1,7 +1,7 @@
 module Sisimai
   # Sisimai::ARF is a parser for email returned as a FeedBack Loop report message.
   module ARF
-    # Imported from p5-Sisimail/lib/Sisimai/Message.pm
+    # Imported from p5-Sisimail/lib/Sisimai/ARF.pm
     class << self
       require 'sisimai/bite/email'
       require 'sisimai/rfc5322'
@@ -72,7 +72,7 @@ module Sisimai
       end
 
       # Detect an error for Feedback Loop
-      # @param         [Hash] mhead       Message header of a bounce email
+      # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
       # @options mhead [String] date      Date header
       # @options mhead [String] subject   Subject header
@@ -86,7 +86,7 @@ module Sisimai
         return nil unless self.is_arf(mhead)
 
         require 'sisimai/address'
-        dscontents = [Sisimai::Bite::Email.DELIVERYSTATUS]
+        dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         rfc822part = ''   # (String) message/rfc822-headers part
         previousfn = ''   # (String) Previous field name
@@ -204,7 +204,7 @@ module Sisimai
               # Redacted-Address: localpart@
               if v['recipient']
                 # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::Bite::Email.DELIVERYSTATUS
+                dscontents << Sisimai::Bite.DELIVERYSTATUS
                 v = dscontents[-1]
               end
               v['recipient'] = Sisimai::Address.s3s4(cv[1])
