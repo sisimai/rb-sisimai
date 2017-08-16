@@ -189,6 +189,18 @@ module Sisimai::Bite::Email
           end
         end
 
+        if recipients.zero? && mbody =~ /notificationType/
+          # Try to parse with Sisimai::Bite::JSON::AmazonSES module
+          autoload :Sisimai::Bite::JSON::AmazonSES, 'sisimai/bite/json/amazonses'
+          e = Sisimai::Bite::JSON::AmazonSES.scan(mhead, mbody)
+
+          if e['ds'].is_a? Array
+            # Update dscontents
+            dscontents = e['ds']
+            recipients = e['ds'].size
+          end
+        end
+
         return nil if recipients.zero?
         require 'sisimai/string'
         require 'sisimai/smtp/status'
