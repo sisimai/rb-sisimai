@@ -4,7 +4,7 @@ module Sisimai
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Skeleton.pm
 
-      # Flags for position variable for
+      # Flags for position variables
       # @return   [Hash] Position flag data
       # @private
       def INDICATORS
