@@ -5,7 +5,7 @@ module Sisimai
     module JSON
       # Imported from p5-Sisimail/lib/Sisimai/Order/JSON.pm
       class << self
-        require 'sisimai/ced'
+        require 'sisimai/bite/json'
 
         PatternTable = {
           'keyname' => {

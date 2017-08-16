@@ -81,7 +81,7 @@ module Sisimai
           'Sisimai::Bite::Email::SurfControl',
         ]
 
-        # This variable don't hold MTA/MSP name which have one or more MTA specific
+        # This variable don't hold MTA name which have one or more MTA specific
         # header such as X-AWS-Outgoing, X-Yandex-Uniq.
         PatternTable = {
           'subject' => {
@@ -163,8 +163,8 @@ module Sisimai
         end
         DefaultOrder = make_default_order.call
 
-        # @abstract Make default order of MTA/MSP modules to be loaded
-        # @return   [Array] Default order list of MTA/MSP modules
+        # @abstract Make default order of MTA modules to be loaded
+        # @return   [Array] Default order list of MTA modules
         def default
           return DefaultOrder
         end
@@ -199,7 +199,7 @@ module Sisimai
           skips = { 'return-path' => 1, 'x-mailer' => 1 }
 
           order.each do |e|
-            # Load email headers from each MTA,MSP module
+            # Load email headers from each MTA module
             begin
               require e.gsub('::', '/').downcase
             rescue LoadError
@@ -208,7 +208,7 @@ module Sisimai
             end
 
             Module.const_get(e).headerlist.each do |v|
-              # Get header name which required each MTA/MSP module
+              # Get header name which required each MTA module
               q = v.downcase
               next if skips.key?(q)
               table[q]  ||= {}

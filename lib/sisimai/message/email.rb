@@ -99,7 +99,7 @@ module Sisimai
           # The value returned from Sisimai::Bite::Email::* modules
           processing['rfc822'] = Sisimai::Message::Email.takeapart(rfc822part)
         else
-          # The value returned from Sisimai::CED::* modules
+          # The value returned from Sisimai::Bite::JSON::* modules
           processing['rfc822'] = rfc822part
         end
 

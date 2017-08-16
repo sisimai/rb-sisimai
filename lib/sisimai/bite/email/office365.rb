@@ -5,8 +5,7 @@ module Sisimai::Bite::Email
     # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Office365.pm
-      require 'sisimai/msp'
-      require 'sisimai/rfc5322'
+      require 'sisimai/bite/email'
 
       Re0 = {
         :'subject'    => %r/Undeliverable:/,
