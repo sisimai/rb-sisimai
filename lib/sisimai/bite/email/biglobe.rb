@@ -145,4 +145,4 @@ module Sisimai::Bite::Email
     end
   end
 end
-end
+
