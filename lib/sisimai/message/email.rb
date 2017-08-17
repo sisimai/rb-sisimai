@@ -527,6 +527,7 @@ module Sisimai
               # not match with any regular expressions of Subject header.
               next if haveloaded.key?(r)
               begin
+                require r.gsub('::', '/').downcase
                 scannedset = Module.const_get(r).scan(mailheader, bodystring)
                 haveloaded[r] = true
                 throw :SCANNER if scannedset
