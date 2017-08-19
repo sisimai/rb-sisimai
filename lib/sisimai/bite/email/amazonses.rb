@@ -34,7 +34,7 @@ module Sisimai::Bite::Email
       # X-Original-To: 000001321defbd2a-788e31c8-2be1-422f-a8d4-cf7765cc9ed7-000000@email-bounces.amazonses.com
       # X-AWS-Outgoing: 199.255.192.156
       # X-SES-Outgoing: 2016.10.12-54.240.27.6
-      def headerlist;  return ['X-AWS-Outgoing', 'X-SES-Outgoing']; end
+      def headerlist;  return ['X-AWS-Outgoing', 'X-SES-Outgoing', 'x-amz-sns-message-id']; end
       def pattern;     return Re0; end
 
       # Parse bounce messages from Amazon SES
