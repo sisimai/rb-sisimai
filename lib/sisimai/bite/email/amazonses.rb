@@ -191,7 +191,7 @@ module Sisimai::Bite::Email
 
         if recipients.zero? && mbody =~ /notificationType/
           # Try to parse with Sisimai::Bite::JSON::AmazonSES module
-          autoload :Sisimai::Bite::JSON::AmazonSES, 'sisimai/bite/json/amazonses'
+          require 'sisimai/bite/json/amazonses'
           e = Sisimai::Bite::JSON::AmazonSES.scan(mhead, mbody)
 
           if e['ds'].is_a? Array
@@ -209,8 +209,9 @@ module Sisimai::Bite::Email
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
 
-          e['diagnosis'] = e['diagnosis'].gsub(/\\n/, ' ')
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+          e['diagnosis'] ||= ''
+          e['diagnosis']   = e['diagnosis'].gsub(/\\n/, ' ')
+          e['diagnosis']   = Sisimai::String.sweep(e['diagnosis'])
 
           if e['status'] =~ /\A[45][.][01][.]0\z/
             # Get other D.S.N. value from the error message
