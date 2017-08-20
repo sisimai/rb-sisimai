@@ -5,7 +5,7 @@ describe Sisimai::Message do
   cn = Sisimai::Message
   sf = {
     'mail' => './set-of-emails/mailbox/mbox-0',
-    'json' => './set-of-emails/jsonapi/ced-us-amazonses-01.json',
+    'json' => './set-of-emails/jsonobj/json-amazonses-01.json',
   }
 
   %w|mail json|.each do |q|
@@ -93,9 +93,9 @@ describe Sisimai::Message do
             example('rhost is a hostname') { expect(e['rhost']).to match(/\A.+[.].+\z/) }
             example('lhost is String') { expect(e['lhost']).to be_a String }
             example('lhost is a hostname') { expect(e['lhost']).to match(/\A.+[.].+\z/) }
-            example('agent is Sendmail') { expect(e['agent']).to be == 'MTA::Sendmail' }
+            example('agent is Sendmail') { expect(e['agent']).to be == 'Email::Sendmail' }
           else
-            example('agent is AmasonSES') { expect(e['agent']).to be == 'CED::US::AmazonSES' }
+            example('agent is AmasonSES') { expect(e['agent']).to be == 'JSON::AmazonSES' }
           end
 
         end

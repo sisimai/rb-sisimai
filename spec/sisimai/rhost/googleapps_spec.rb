@@ -37,7 +37,7 @@ describe Sisimai::Rhost::GoogleApps do
           example('action is not empty') { expect(e['action']).not_to be_empty }
           example('rhost is ' + mtahost) { expect(e['rhost']).to be == mtahost }
           example('alias is ""') { expect(e['alias']).to be_empty }
-          example('agent is MTA::Sendmail') { expect(e['agent']).to be == 'MTA::Sendmail' }
+          example('agent is Email::Sendmail') { expect(e['agent']).to be == 'Email::Sendmail' }
         end
 
         data = Sisimai::Data.make(data: mesg)
