@@ -83,6 +83,10 @@ module Sisimai
                 end
               end
 
+              if privateset
+                next unless samplefile
+              end
+
               describe sprintf("%s[%s]", enginename, e['n']) do
                 # Sendmail[22]
                 it('sample exists as ' + samplefile) { expect(File.exist?(samplefile)).to be true }
