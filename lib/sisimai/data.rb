@@ -28,7 +28,7 @@ module Sisimai
       :recipient,       # [Sisimai::Address] Recipient address which bounced
       :messageid,       # [String] Message-Id: header
       :replycode,       # [String] SMTP Reply Code
-      :smtpagent,       # [String] MTA name
+      :smtpagent,       # [String] Module(Engine) name
       :softbounce,      # [Integer] 1 = Soft bounce, 0 = Hard bounce, -1 = ?
       :smtpcommand,     # [String] The last SMTP command
       :destination,     # [String] The domain part of the "recipinet"

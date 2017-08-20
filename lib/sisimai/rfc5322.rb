@@ -47,7 +47,7 @@ module Sisimai
 
       build_flatten_rfc822header_list = lambda do
         # Convert HEADER: structured hash table to flatten hash table for being
-        # called from Sisimai::MTA::*
+        # called from Sisimai::Bite::Email::*
         fv = {}
         HeaderTable.each_value do |e|
           e.each do |ee|

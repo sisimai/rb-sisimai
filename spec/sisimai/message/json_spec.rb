@@ -3,7 +3,7 @@ require 'sisimai/message'
 
 describe Sisimai::Message do
   cn = Sisimai::Message
-  sf = './set-of-emails/jsonapi/ced-us-sendgrid-03.json'
+  sf = './set-of-emails/jsonobj/json-sendgrid-03.json'
 
   jsonstring = File.open(sf).read
   jsonobject = nil
@@ -40,7 +40,7 @@ describe Sisimai::Message do
     hook: callbackto, 
     input: 'json',
     load: ['Sisimai::Neko::Nyaan'],
-    order: ['Sisimai::CED::US::AmazonSES', 'Sisimai::CED::US::SendGrid']
+    order: ['Sisimai::Bite::JSON::AmazonSES', 'Sisimai::Bite::JSON::SendGrid']
   )
 
   describe '#ds' do
@@ -57,7 +57,7 @@ describe Sisimai::Message do
       example('diagnosis size > 0') { expect(e['diagnosis'].size).to be > 0 }
       example('action exists') { expect(e.key?('action')).to be true }
       example('agent is String') { expect(e['agent']).to be_a String }
-      example('agent is SendGrid') { expect(e['agent']).to be == 'CED::US::SendGrid' }
+      example('agent is SendGrid') { expect(e['agent']).to be == 'JSON::SendGrid' }
     end
   end
 

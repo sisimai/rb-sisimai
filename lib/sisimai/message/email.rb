@@ -71,7 +71,7 @@ module Sisimai
         processing['from']   = aftersplit['from']
         processing['header'] = Sisimai::Message::Email.headers(aftersplit['header'], headerargv)
 
-        # 3. Check headers for detecting MTA/MSP module
+        # 3. Check headers for detecting MTA modules
         if headerargv['tryonfirst'].empty?
           headerargv['tryonfirst'].concat(Sisimai::Message::Email.makeorder(processing['header']))
         end
@@ -96,10 +96,10 @@ module Sisimai
         rfc822part = aftersplit['body'] if rfc822part.empty?
 
         if rfc822part.is_a? ::String
-          # The value returned from Sisimai::MTA::* or Sisimai::MSP::* modules
+          # The value returned from Sisimai::Bite::Email::* modules
           processing['rfc822'] = Sisimai::Message::Email.takeapart(rfc822part)
         else
-          # The value returned from Sisimai::CED::* modules
+          # The value returned from Sisimai::Bite::JSON::* modules
           processing['rfc822'] = rfc822part
         end
 
@@ -274,9 +274,9 @@ module Sisimai
         return structured
       end
 
-      # Check headers for detecting MTA/MSP module and returns the order of modules
+      # Check headers for detecting MTA module and returns the order of modules
       # @param         [Hash] heads   Email header data
-      # @return        [Array]        Order of MTA/MSP modules
+      # @return        [Array]        Order of MTA modules
       def self.makeorder(heads)
         return [] unless heads
         return [] unless heads['subject']
@@ -379,7 +379,7 @@ module Sisimai
         return takenapart
       end
 
-      # Parse bounce mail with each MTA/MSP module
+      # @abstract Parse bounce mail with each MTA module
       # @param               [Hash] argvs    Processing message entity.
       # @param options argvs [Hash] mail     Email message entity
       # @param options mail  [String] from   From line of mbox
@@ -387,7 +387,7 @@ module Sisimai
       # @param options mail  [String] rfc822 Original message part
       # @param options mail  [Array]  ds     Delivery status list(parsed data)
       # @param options argvs [String] body   Email message body
-      # @param options argvs [Array] tryonfirst  MTA/MSP module list to load on first
+      # @param options argvs [Array] tryonfirst  MTA module list to load on first
       # @param options argvs [Array] tobeloaded  User defined MTA module list
       # @return              [Hash]          Parsed and structured bounce mails
       def self.parse(argvs)
@@ -483,7 +483,7 @@ module Sisimai
             # 1. Sisimai::ARF
             # 2. User-Defined Module
             # 3. MTA Module Candidates to be tried on first
-            # 4. Sisimai::MTA::* and MSP::*
+            # 4. Sisimai::Bite::Email::*
             # 5. Sisimai::RFC3464
             # 6. Sisimai::RFC3834
             #
@@ -523,10 +523,11 @@ module Sisimai
             end
 
             DefaultSet.each do |r|
-              # MTA/MSP modules which does not have MTA specific header and did
+              # MTA modules which does not have MTA specific header and did
               # not match with any regular expressions of Subject header.
               next if haveloaded.key?(r)
               begin
+                require r.gsub('::', '/').downcase
                 scannedset = Module.const_get(r).scan(mailheader, bodystring)
                 haveloaded[r] = true
                 throw :SCANNER if scannedset
@@ -537,8 +538,8 @@ module Sisimai
 
             end
 
-            # When the all of Sisimai::MTA::* modules did not return bounce data,
-            # call Sisimai::RFC3464;
+            # When the all of Sisimai::Bite::Email::* modules did not return
+            # bounce data, call Sisimai::RFC3464;
             require 'sisimai/rfc3464'
             scannedset = Sisimai::RFC3464.scan(mailheader, bodystring)
             break if scannedset

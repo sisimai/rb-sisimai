@@ -36,9 +36,9 @@ describe Sisimai::Message do
     hook: callbackto, 
     input: 'email',
     order: [
-      'Sisimai::MTA::Sendmail', 'Sisimai::MTA::Postfix', 
-      'Sisimai::MTA::qmail', 'Sisimai::MTA::Exchange2003', 
-      'Sisimai::MSP::US::Google', 'Sisimai::MSP::US::Verizon',
+      'Sisimai::Bite::Email::Sendmail', 'Sisimai::Bite::Email::Postfix', 
+      'Sisimai::Bite::Email::Qmail', 'Sisimai::Bite::Email::Exchange2003', 
+      'Sisimai::Bite::Email::Google', 'Sisimai::Bite::Email::Verizon',
     ]
   )
 
@@ -64,7 +64,7 @@ describe Sisimai::Message do
       example('rhost is a hostname') { expect(e['rhost']).to match(/\A.+[.].+\z/) }
       example('lhost is String') { expect(e['lhost']).to be_a String }
       example('lhost is a hostname') { expect(e['lhost']).to match(/\A.+[.].+\z/) }
-      example('agent is Sendmail') { expect(e['agent']).to be == 'MTA::Sendmail' }
+      example('agent is Sendmail') { expect(e['agent']).to be == 'Email::Sendmail' }
     end
   end
 

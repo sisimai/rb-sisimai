@@ -6,7 +6,7 @@ describe Sisimai do
   sampleemail = {
     :mailbox => './set-of-emails/mailbox/mbox-0',
     :maildir => './set-of-emails/maildir/bsd',
-    :jsonapi => './set-of-emails/jsonapi/ced-us-amazonses-01.json',
+    :jsonobj => './set-of-emails/jsonobj/json-amazonses-01.json',
   }
   isnotbounce = {
     :maildir => './set-of-emails/maildir/not',
@@ -39,9 +39,9 @@ describe Sisimai do
 
   describe '.make' do
     context 'valid email file' do
-      [:mailbox, :maildir, :jsonapi].each do |e|
+      [:mailbox, :maildir, :jsonobj].each do |e|
 
-        if e.to_s == 'jsonapi' 
+        if e.to_s == 'jsonobj' 
           jf = File.open(sampleemail[e], 'r')
           js = jf.read
           jf.close
@@ -139,7 +139,7 @@ describe Sisimai do
 
         end
 
-        if e.to_s == 'jsonapi'
+        if e.to_s == 'jsonobj'
           callbackto = lambda do |argv|
             data = { 'feedbackid' => '', 'account-id'  => '', 'source-arn'  => '' }
             data['type'] = argv['datasrc']
@@ -192,7 +192,7 @@ describe Sisimai do
           it('is Sisimai::Data') { expect(ee).to be_a Sisimai::Data }
           it('is Hash') { expect(ee.catch).to be_a Hash }
 
-          if e.to_s == 'jsonapi'
+          if e.to_s == 'jsonobj'
             it('"type" is "json"') { expect(ee.catch['type']).to be == 'json' }
             it('exists "feedbackid" key') { expect(ee.catch.key?('feedbackid')).to be true }
             it('exists "account-id" key') { expect(ee.catch.key?('account-id')).to be true }

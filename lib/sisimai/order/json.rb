@@ -1,41 +1,42 @@
 module Sisimai
-  # Sisimai::Order::JSON - Make optimized order list for calling CED modules
+  # Sisimai::Order::JSON - Make optimized order list for calling MTA modules
+  # for JSON formatted bounce objects
   module Order
     module JSON
       # Imported from p5-Sisimail/lib/Sisimai/Order/JSON.pm
       class << self
-        require 'sisimai/ced'
+        require 'sisimai/bite/json'
 
         PatternTable = {
           'keyname' => {
             'notificationType' => [
-              'Sisimai::CED::US::AmazonSES',
+              'Sisimai::Bite::JSON::AmazonSES',
             ],
           },
         }
 
         make_default_order = lambda do
-          # Make default order of CED modules to be loaded
+          # Make default order of MTA(JSON) modules to be loaded
           rv = []
           begin
-            rv.concat(Sisimai::CED.index.map { |e| 'Sisimai::CED::' + e })
+            rv.concat(Sisimai::Bite::JSON.index.map { |e| 'Sisimai::Bite::JSON::' + e })
           rescue
-            # Failed to load CED module
+            # Failed to load MTA(JSON) module
             next
           end
           return rv
         end
         DefaultOrder = make_default_order.call
 
-        # Make default order of CED modules to be loaded
-        # @return   [Array] Default order list of CED modules
+        # @abstract Make default order of MTA(JSON) modules to be loaded
+        # @return   [Array] Default order list of MTA(JSON) modules
         def default; return DefaultOrder; end
 
-        # Make CED module list as a spare
+        # @abstract Make MTA(JSON) module list as a spare
         # @return   [Array] Ordered module list
         def another; return []; end
 
-        # Make email header list in each CED module
+        # Make email header list in each MTA(JSON) module
         # @return   [Hash] Header list to be parsed
         def headers; return {}; end
 

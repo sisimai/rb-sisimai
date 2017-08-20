@@ -15,8 +15,8 @@ module Sisimai
       # Make data structure from decoded JSON object
       # @param         [Hash] argvs   Bounce object
       # @options argvs [Hash]   data  Decoded JSON
-      # @options argvs [Array]  load  User defined CED module list
-      # @options argvs [Array]  order The order of CED modules
+      # @options argvs [Array]  load  User defined MTA(JSON) module list
+      # @options argvs [Array]  order The order of MTA(JSON) modules
       # @options argvs [Code]   hook  Reference to callback method
       # @return        [Hash]         Resolved data structure
       def self.make(argvs)
@@ -48,10 +48,10 @@ module Sisimai
         return processing
       end
 
-      # Load CED  modules which specified at 'order' and 'load' in the argument
+      # Load MTA(JSON) modules which specified at 'order' and 'load' in the argument
       # @param         [Hash] argvs       Module information to be loaded
-      # @options argvs [Array]  load      User defined CED module list
-      # @options argvs [Array]  order     The order of CED modules
+      # @options argvs [Array]  load      User defined MTA(JSON) module list
+      # @options argvs [Array]  order     The order of MTA(JSON) modules
       # @return        [Array]            Module list
       # @since v4.20.0
       def self.load(argvs)
@@ -59,7 +59,7 @@ module Sisimai
         tobeloaded = []
 
         %w|load order|.each do |e|
-          # The order of CED modules specified by user
+          # The order of MTA(JSON) modules specified by user
           next unless argvs.key?(e)
           next unless argvs[e].is_a? Array
           next if argvs[e].empty?
@@ -67,9 +67,9 @@ module Sisimai
           modulelist.concat(argvs['order']) if e == 'order'
           next unless e == 'load'
 
-          # Load user defined CED module
+          # Load user defined MTA(JSON) module
           argvs['load'].each do |v|
-            # Load user defined CED module
+            # Load user defined MTA(JSON) module
             begin
               require v.to_s.gsub('::', '/').downcase
             rescue LoadError
@@ -81,7 +81,7 @@ module Sisimai
         end
 
         modulelist.each do |e|
-          # Append the custom order of CED modules
+          # Append the custom order of MTA(JSON) modules
           next if tobeloaded.index(e)
           tobeloaded << e
         end
@@ -89,10 +89,10 @@ module Sisimai
         return tobeloaded
       end
 
-      # Check the decoded JSON strucutre for detecting CED modules and returns
-      # the order of modules to be called.
+      # Check the decoded JSON strucutre for detecting MTA(JSON) modules and
+      # returns the order of modules to be called.
       # @param         [Hash] heads   Decoded JSON object
-      # @return        [Array]        Order of CED modules
+      # @return        [Array]        Order of MTA(JSON) modules
       def self.makeorder(argvs)
         return [] unless argvs
         return [] unless argvs.keys.size > 0
@@ -100,7 +100,7 @@ module Sisimai
 
         # Seek some key names from given argument
         ObjectKeys.each_key do |e|
-          # Get CED module list matched with a specified key
+          # Get MTA(JSON) module list matched with a specified key
           next unless argvs.key?(e)
 
           # Matched and push it into the order list
@@ -110,7 +110,7 @@ module Sisimai
         return order
       end
 
-      # Parse bounce object with each CED module
+      # Parse bounce object with each MTA(JSON) module
       # @param               [Hash] argvs    Processing message entity.
       # @param options argvs [Hash] json     Decoded bounce object
       # @param options argvs [Proc] hook     Hook method to be called
@@ -141,11 +141,11 @@ module Sisimai
         catch :ADAPTOR do
           loop do
             # 1. User-Defined Module
-            # 2. CED Module Candidates to be tried on first
-            # 3. Sisimai::CED::*
+            # 2. MTA(JSON) Module Candidates to be tried on first
+            # 3. Sisimai::Bite::JSON::*
             #
             @@ToBeLoaded.each do |r|
-              # Call user defined CED modules
+              # Call user defined MTA(JSON) modules
               next if haveloaded[r]
               begin
                 require r.gsub('::', '/').downcase
@@ -159,7 +159,8 @@ module Sisimai
             end
 
             @@TryOnFirst.each do |r|
-              # Try CED module candidates which are detected from object key names
+              # Try MTA(JSON) module candidates which are detected from object
+              # key names
               next if haveloaded.key?(r)
               begin
                 require r.gsub('::', '/').downcase
@@ -173,7 +174,7 @@ module Sisimai
             end
 
             DefaultSet.each do |r|
-              # Default order of CED modules
+              # Default order of MTA(JSON) modules
               next if haveloaded.key?(r)
               begin
                 require r.gsub('::', '/').downcase

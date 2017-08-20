@@ -80,10 +80,10 @@ module Sisimai
         end
         return nil if match < 1
 
-        require 'sisimai/mta'
+        require 'sisimai/bite/email'
         require 'sisimai/address'
 
-        dscontents = [Sisimai::MTA.DELIVERYSTATUS]
+        dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         recipients = 0  # (Integer) The number of 'Final-Recipient' header
         maxmsgline = 5  # (Integer) Max message length(lines)
