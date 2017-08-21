@@ -7,41 +7,48 @@ describe Sisimai::Address do
   let(:addrobj) { Sisimai::Address.new(email) }
 
   emailaddrs = [
-    'neko@example.jp', 'nyan@example.jp', 'nyanko@example.jp', 'lui@example.jp',
-    'aoi@example.jp', 'may@example.jp', 'aoki@example.jp', 'shima@example.jp',
-    'chosuke@example.jp', 'akari@example.jp', 'mari@example.jp', '8suke@example.gov',
-    '8be@example.gov', 'nekochan@example.jp', 'neko@example.com', 'neko@example.org',
-    'neko@example.net', 'neko@example.edu', 'neko@example.cat', 'neko@example.mil',
-    'neko@example.gov', 'neko@example.int', 'neko@example.gl', '"neko.."@example.jp',
-    'MAILER-DAEMON', 'postmaster',
-  ]
-  emailfroms = [
-    %q|"Neko" <neko@example.jp>|,
-    %q|"=?ISO-2022-JP?B?dummy?=" <nyan@example.jp>|,
-    %q|"N Y A N K O" <nyanko@example.jp>|,
-    %q|"Shironeko Lui" <lui@example.jp>|,
-    %q|<aoi@example.jp>|,
-    %q|<may@example.jp> may@example.jp|,
-    %q|Odd-Eyes Aoki <aoki@example.jp>|,
-    %q|Mikeneko Shima <shima@example.jp> SHIMA@EXAMPLE.JP|,
-    %q|chosuke@neko <chosuke@example.jp>|,
-    %q|akari@chatora.neko <akari@example.jp>|,
-    %q|mari <mari@example.jp> mari@host.int|,
-    %q|8suke@example.gov (Mayuge-Neko)|,
-    %q|Shibainu Hachibe. (Harima-no-kami) 8be@example.gov|,
-    %q|nekochan@example.jp|,
-    %q|<neko@example.com>:|,
-    %q|"<neko@example.org>"|,
-    %q|"neko@example.net"|,
-    %q|'neko@example.edu'|,
-    %q|`neko@example.cat`|,
-    %q|(neko@example.mil)|,
-    %q|[neko@example.gov]|,
-    %q|{neko@example.int}|,
-    %q|&lt;neko@example.gl&gt;|,
-    %q|"neko.."@example.jp|,
-    %q|Mail Delivery Subsystem <MAILER-DAEMON>|,
-    %q|postmaster|,
+    { 'v' => %q|"Neko" <neko@example.jp>|, 'a' => 'neko@example.jp' },
+    { 'v' => %q|"=?ISO-2022-JP?B?dummy?=" <nyan@example.jp>|, 'a' => 'nyan@example.jp' },
+    { 'v' => %q|"N Y A N K O" <nyanko@example.jp>|, 'a' => 'nyanko@example.jp' },
+    { 'v' => %q|"Shironeko Lui" <lui@example.jp>|, 'a' => 'lui@example.jp' },
+    { 'v' => %q|<aoi@example.jp>|, 'a' => 'aoi@example.jp' },
+    { 'v' => %q|<may@example.jp> may@example.jp|, 'a' => 'may@example.jp' },
+    { 'v' => %q|Odd-Eyes Aoki <aoki@example.jp>|, 'a' => 'aoki@example.jp' },
+    { 'v' => %q|Mikeneko Shima <shima@example.jp> SHIMA@EXAMPLE.JP|, 'a' => 'shima@example.jp' },
+    { 'v' => %q|chosuke@neko <chosuke@example.jp>|, 'a' => 'chosuke@example.jp' },
+    { 'v' => %q|akari@chatora.neko <akari@example.jp>|, 'a' => 'akari@example.jp' },
+    { 'v' => %q|mari <mari@example.jp> mari@host.int|, 'a' => 'mari@example.jp' },
+    { 'v' => %q|8suke@example.gov (Mayuge-Neko)|, 'a' => '8suke@example.gov' },
+    { 'v' => %q|Shibainu Hachibe. (Harima-no-kami) 8be@example.gov|, 'a' => '8be@example.gov' },
+    { 'v' => %q|nekochan@example.jp|, 'a' => 'nekochan@example.jp' },
+    { 'v' => %q|<neko@example.com>:|, 'a' => 'neko@example.com' },
+    { 'v' => %q|"<neko@example.org>"|, 'a' => 'neko@example.org' },
+    { 'v' => %q|"neko@example.net"|, 'a' => 'neko@example.net' },
+    { 'v' => %q|'neko@example.edu'|, 'a' => 'neko@example.edu' },
+    { 'v' => %q|`neko@example.cat`|, 'a' => 'neko@example.cat' },
+    { 'v' => %q|(neko@example.mil)|, 'a' => 'neko@example.mil' },
+    { 'v' => %q|[neko@example.gov]|, 'a' => 'neko@example.gov' },
+    { 'v' => %q|{neko@example.int}|, 'a' => 'neko@example.int' },
+    { 'v' => %q|&lt;neko@example.gl&gt;|, 'a' => 'neko@example.gl' },
+    { 'v' => %q|"neko.."@example.jp|, 'a' => '"neko.."@example.jp' },
+    { 'v' => %q|Mail Delivery Subsystem <MAILER-DAEMON>|, 'a' => 'MAILER-DAEMON' },
+    { 'v' => %q|postmaster|, 'a' => 'postmaster' },
+    { 'v' => %q|neko.nyaan@example.com|, 'a' => 'neko.nyaan@example.com' },
+    { 'v' => %q|neko.nyaan+nyan@example.com|, 'a' => 'neko.nyaan+nyan@example.com' },
+    { 'v' => %q|neko-nyaan@example.com|, 'a' => 'neko-nyaan@example.com' },
+    { 'v' => %q|neko-nyaan@example.com.|, 'a' => 'neko-nyaan@example.com.' },
+    { 'v' => %q|n@example.com|, 'a' => 'n@example.com' },
+#   { 'v' => %q|"neko.nyaan.@.nyaan.jp"@example.com|, 'a' => '"neko.nyaan.@.nyaan.jp"@example.com' },
+#   { 'v' => %q|"neko.(),:;<>[]\".NYAAN.\"neko@\\ \"neko\".nyaan"@neko.example.com|,
+#     'a' => %q|"neko.(),:;<>[]\".NYAAN.\"neko@\\ \"neko\".nyaan"@neko.example.com| },
+#   { 'v' => %q|neko-nyaan@neko-nyaan.example.com|, 'a' => 'neko-nyaan@neko-nyaan.example.com' },
+#   { 'v' => %q|neko@nyaan|, 'a' => 'neko@nyaan' },
+#   { 'v' => q[#!$%&'*+-/=?^_`{}|~@example.org], 'a' => q[#!$%&'*+-/=?^_`{}|~@example.org] },
+#   { 'v' => q*"()<>[]:,;@\\\"!#$%&'-/=?^_`{}| ~.a"@example.org*,
+#     'a' => q*"()<>[]:,;@\\\"!#$%&'-/=?^_`{}| ~.a"@example.org* },
+#   { 'v' => %q|" "@example.org|, 'a' => '" "@example.org' },
+#   { 'v' => %q|neko@localhost|, 'a' => 'neko@localhost' },
+#   { 'v' => %q|neko@[IPv6:2001:DB8::1]|, 'a' => 'neko@[IPv6:2001:DB8::1]' },
   ]
   isnotemail = [ '1', 'neko', 'cat%nyaan.jp', '' ]
 
@@ -79,13 +86,14 @@ describe Sisimai::Address do
 
     describe '.parse' do
       context 'valid email address' do
-        emailfroms.each do |e|
-          v = Sisimai::Address.parse([e])
+        emailaddrs.each do |e|
+          v = Sisimai::Address.parse([e['v']])
           subject { v }
           it 'returns valid address in list' do
             is_expected.to be_a Array
             expect(v.size).to be == 1
-            expect(emailaddrs.index(v[0])).not_to be nil
+            expect(v[0]).not_to be nil
+            expect(v[0]).to be == e['a']
           end
         end
       end
@@ -101,12 +109,13 @@ describe Sisimai::Address do
 
     describe '.s3s4' do
       context 'valid email address' do
-        emailfroms.each do |e|
-          v = Sisimai::Address.s3s4(e)
+        emailaddrs.each do |e|
+          v = Sisimai::Address.s3s4(e['v'])
           subject { v }
           it 'returns email address only' do
             is_expected.to be_a String
-            expect(emailaddrs.index(v)).not_to be nil
+            expect(v).not_to be nil
+            expect(v).to be == e['a']
           end
         end
       end
@@ -153,9 +162,9 @@ describe Sisimai::Address do
   end
 
   describe 'Instance method' do
-    emailfroms.each do |e|
-      a = Sisimai::Address.s3s4(e).split('@')
-      v = Sisimai::Address.new(Sisimai::Address.s3s4(e))
+    emailaddrs.each do |e|
+      a = Sisimai::Address.s3s4(e['v']).split('@')
+      v = Sisimai::Address.new(Sisimai::Address.s3s4(e['v']))
 
       it 'is Sisimai::Address object' do
         expect(v).to be_a Sisimai::Address
@@ -173,7 +182,7 @@ describe Sisimai::Address do
         subject { v.host }
         it 'returns domain part' do
           is_expected.to be_a String
-          if Sisimai::RFC5322.is_mailerdaemon(e)
+          if Sisimai::RFC5322.is_mailerdaemon(e['v'])
             is_expected.to be_empty
           else
             is_expected.to be == a[1]
@@ -185,8 +194,7 @@ describe Sisimai::Address do
         subject { v.address }
         it 'returns whole email address' do
           is_expected.to be_a String
-          is_expected.to be == a[0] + '@' + a[1] unless Sisimai::RFC5322.is_mailerdaemon(e)
-          expect(emailaddrs.index(v.address)).not_to be nil
+          is_expected.to be == a[0] + '@' + a[1] unless Sisimai::RFC5322.is_mailerdaemon(e['v'])
         end
       end
 
