@@ -57,7 +57,7 @@ Key Features
   * Support 22 major MSPs(Mail Service Providers)
   * Support 2 major Cloud Email Delivery Services(JSON format)
   * Support Feedback Loop Message(ARF)
-  * Can detect 27 error reasons
+  * Can detect 29 error reasons
 
 Command line demo
 -------------------------------------------------------------------------------
