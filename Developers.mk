@@ -21,9 +21,8 @@ PERL_SISIMAI := p5-Sisimai
 PRECISIONTAB := ANALYTICAL-PRECISION
 BENCHMARKDIR := tmp/benchmark
 PARSERLOGDIR := var/log
-CEDMODULEDIR := lib/sisimai/ced
-MTAMODULEDIR := lib/sisimai/mta
-MSPMODULEDIR := lib/sisimai/msp
+MAILCLASSDIR := lib/$(NAME)/Bite/Email
+JSONCLASSDIR := lib/$(NAME)/Bite/JSON
 MTARELATIVES := ARF rfc3464 rfc3834
 EMAIL_PARSER := sbin/emparser
 BENCHMARKEMP := sbin/mp
@@ -37,10 +36,11 @@ DOSFORMATSET := $(SET_OF_EMAIL)/maildir/dos
 MACFORMATSET := $(SET_OF_EMAIL)/maildir/mac
 
 INDEX_LENGTH := 24
-DESCR_LENGTH := 48
+DESCR_LENGTH := 50
 BH_CAN_PARSE := courier exim messagingserver postfix sendmail surfcontrol x5 \
-				jp-ezweb jp-kddi ru-yandex uk-messagelabs us-amazonses us-aol \
-				us-bigfoot us-facebook us-outlook us-verizon
+				ezweb kddi yandex messagelabs amazonses aol bigfoot facebook \
+				outlook verizon
+
 
 # -----------------------------------------------------------------------------
 .PHONY: clean
@@ -51,8 +51,8 @@ private-sample:
 
 precision-table:
 	cat ../$(PERL_SISIMAI)/$(PRECISIONTAB) | sed \
-		-e 's/MTA::qmail/MTA::Qmail/g' \
-		-e 's/MTA::mFILTER/MTA::MFILTER/g' > $(PRECISIONTAB)
+		-e 's/Email::qmail/Email::Qmail/g' \
+		-e 's/Email::mFILTER/Email::MFILTER/g' > $(PRECISIONTAB)
 
 update-sample-emails:
 	for v in `find $(PUBLICEMAILS) -name '*-01.eml' -type f`; do \
@@ -62,29 +62,11 @@ update-sample-emails:
 	done
 
 sample:
-	for v in `$(LS) ./$(MTAMODULEDIR)/*.rb | grep -v userdefined`; do \
-		MTA=`echo $$v | cut -d/ -f5 | tr '[A-Z]' '[a-z]' | sed 's/.rb//g'` ;\
-		$(MKDIR) $(BENCHMARKSET)/$$MTA ;\
-		$(CP) $(PUBLICEMAILS)/$$MTA-*.eml $(BENCHMARKSET)/$$MTA/ ;\
-		$(CP) $(PRIVATEMAILS)/$$MTA/* $(BENCHMARKSET)/$$MTA/ ;\
-	done
-	for c in `$(LS) ./$(MSPMODULEDIR)`; do \
-		for v in `$(LS) ./$(MSPMODULEDIR)/$$c/*.rb`; do \
-			DIR=`echo $$c | tr '[A-Z]' '[a-z]' | tr -d '/'` ;\
-			MSP="`echo $$v | cut -d/ -f6 | tr '[A-Z]' '[a-z]' | sed 's/.rb//g'`" ;\
-			$(MKDIR) $(BENCHMARKSET)/$$DIR-$$MSP ;\
-			$(CP) $(PUBLICEMAILS)/$$DIR-$$MSP-*.eml $(BENCHMARKSET)/$$DIR-$$MSP/ ;\
-			$(CP) $(PRIVATEMAILS)/$$DIR-$$MSP/* $(BENCHMARKSET)/$$DIR-$$MSP/ ;\
-		done ;\
-	done
-	for c in `$(LS) ./$(CEDMODULEDIR)`; do \
-		for v in `$(LS) ./$(CEDMODULEDIR)/$$c/*.rb`; do \
-			DIR=`echo $$c | tr '[A-Z]' '[a-z]' | tr -d '/'` ;\
-			CED="`echo $$v | cut -d/ -f6 | tr '[A-Z]' '[a-z]' | sed 's/.rb//g'`" ;\
-			$(MKDIR) $(BENCHMARKSET)/$$DIR-$$CED ;\
-			$(CP) $(PUBLICEMAILS)/$$DIR-$$CED-*.eml $(BENCHMARKSET)/$$DIR-$$CED/ ;\
-			$(CP) $(PRIVATEMAILS)/$$DIR-$$CED/* $(BENCHMARKSET)/$$DIR-$$CED/ ;\
-		done ;\
+	for v in `$(LS) ./$(MAILCLASSDIR)/*.rb | grep -v userdefined`; do \
+		MTA=`echo $$v | cut -d/ -f6 | tr '[A-Z]' '[a-z]' | sed 's/.rb//g'` ;\
+		$(MKDIR) $(BENCHMARKSET)/email-$$MTA ;\
+		$(CP) $(PUBLICEMAILS)/email-$$MTA-*.eml $(BENCHMARKSET)/email-$$MTA/ ;\
+		$(CP) $(PRIVATEMAILS)/email-$$MTA/* $(BENCHMARKSET)/email-$$MTA/ ;\
 	done
 	for v in arf rfc3464 rfc3834; do \
 		$(MKDIR) $(BENCHMARKSET)/$$v ;\
@@ -98,8 +80,8 @@ profile: benchmark-mbox
 velocity-measurement:
 	@ $(MKDIR) $(VELOCITYTEST)
 	@ for v in $(BH_CAN_PARSE); do \
-		$(CP) $(PUBLICEMAILS)/$$v-*.eml $(VELOCITYTEST)/; \
-		$(CP) $(PRIVATEMAILS)/$$v/*.eml $(VELOCITYTEST)/; \
+		$(CP) $(PUBLICEMAILS)/email-$$v-*.eml $(VELOCITYTEST)/; \
+		$(CP) $(PRIVATEMAILS)/email-$$v/*.eml $(VELOCITYTEST)/; \
 	done
 	@ echo -------------------------------------------------------------------
 	@ echo `$(LS) $(VELOCITYTEST) | wc -l` emails in $(VELOCITYTEST)
