@@ -1,60 +1,60 @@
  bounceHammer 2.7.13p3
  MTA MODULE NAME          CAN PARSE   RATIO   NOTES
--------------------------------------------------------------------------------
-MTA::Activehunter .......    0/0014  0.0000  TransWARE Active!hunter
-MTA::ApacheJames ........    0/0006  0.0000  Java Apache Mail Enterprise Server
-MTA::Courier ............   14/0016  0.8750  Courier MTA
-MTA::Domino .............    6/0015  0.4000  IBM Domino Server
-MTA::Exchange2003 .......    1/0051  0.0196  Microsoft Exchange Server 2003
-MTA::Exchange2007 .......    6/0007  0.8571  Microsoft Exchange Server 2007
-MTA::Exim ...............  146/0176  0.8295  Exim
-MTA::IMailServer ........    0/0045  0.0000  IPSWITCH IMail Server
-MTA::InterScanMSS .......    0/0009  0.0000  Trend Micro InterScan Messaging Security Suite
-MTA::MXLogic ............    0/0014  0.0000  McAfee SaaS
-MTA::MailFoundry ........    0/0007  0.0000  MailFoundry
-MTA::MailMarshalSMTP ....    0/0003  0.0000  Trustwave Secure Email Gateway
-MTA::McAfee .............    0/0010  0.0000  McAfee Email Appliance
-MTA::MessagingServer ....   19/0022  0.8636  Oracle Communications Messaging Server
-MTA::Notes ..............    0/0012  0.0000  Lotus Notes
-MTA::OpenSMTPD ..........    6/0024  0.2500  OpenSMTPD
-MTA::Postfix ............  173/0191  0.9058  Postfix
-MTA::Sendmail ...........  332/0255  1.0000  V8Sendmail: /usr/sbin/sendmail
-MTA::SurfControl ........    6/0008  0.7500  WebSense SurfControl
-MTA::V5sendmail .........    0/0386  0.0000  Sendmail version 5
-MTA::X1 .................    0/0007  0.0000  Unknown MTA #1
-MTA::X2 .................    0/0069  0.0000  Unknown MTA #2
-MTA::X3 .................    0/0012  0.0000  Unknown MTA #3
-MTA::X4 .................    0/0029  0.0000  Unknown MTA #4 qmail clones
-MTA::X5 .................    3/0003  1.0000  Unknown MTA #5
-MTA::mFILTER ............    0/0009  0.0000  Digital Arts m-FILTER
-MTA::qmail ..............   53/0082  0.6463  qmail
-MSP::DE::EinsUndEins ....    0/0003  0.0000  1&1: http://www.1and1.de
-MSP::DE::GMX ............    0/0010  0.0000  GMX: http://www.gmx.net
-MSP::JP::Biglobe ........    5/0007  0.7143  BIGLOBE: http://www.biglobe.ne.jp
-MSP::JP::EZweb ..........  130/0125  1.0000  au EZweb: http://www.au.kddi.com/mobile/
-MSP::JP::KDDI ...........    6/0006  1.0000  au by KDDI: http://www.au.kddi.com
-MSP::RU::MailRu .........    4/0014  0.2857  @mail.ru: https://mail.ru
-MSP::RU::Yandex .........    4/0007  0.5714  Yandex.Mail: http://www.yandex.ru
-MSP::UK::MessageLabs ....    2/0002  1.0000  Symantec.cloud http://www.messagelabs.com
-MSP::US::AmazonSES ......   22/0022  1.0000  Amazon SES(Sending): http://aws.amazon.com/ses/
-MSP::US::AmazonWorkMail .    8/0012  0.6667  Amazon WorkMail: https://aws.amazon.com/workmail/
-MSP::US::Aol ............   18/0021  0.8571  Aol Mail: http://www.aol.com
-MSP::US::Bigfoot ........    2/0002  1.0000  Bigfoot: http://www.bigfoot.com
-MSP::US::Facebook .......    3/0003  1.0000  Facebook: https://www.facebook.com
-MSP::US::GSuite .........    8/0008  1.0000  G Suite: https://gsuite.google.com/
-MSP::US::Google .........   58/0062  0.9355  Google Gmail: https://mail.google.com
-MSP::US::Office365 ......    8/0011  0.7273  Microsoft Office 365: http://office.microsoft.com/
-MSP::US::Outlook ........   19/0021  0.9048  Microsoft Outlook.com: https://www.outlook.com/
-MSP::US::ReceivingSES ...    0/0007  0.0000  Amazon SES(Receiving): http://aws.amazon.com/ses/
-MSP::US::SendGrid .......    7/0012  0.5833  SendGrid: http://sendgrid.com/
-MSP::US::Verizon ........    4/0004  1.0000  Verizon Wireless: http://www.verizonwireless.com
-MSP::US::Yahoo ..........    0/0009  0.0000  Yahoo! MAIL: https://www.yahoo.com
-MSP::US::Zoho ...........    0/0011  0.0000  Zoho Mail: https://www.zoho.com
-CED::US::AmazonSES ......    0/0009  0.0000  Amazon SES(JSON): http://aws.amazon.com/ses/
-CED::US::SendGrid .......    0/0000  1.0000  SendGrid(JSON): http://sendgrid.com/
+--------------------------------------------------------------------------------
+Email::Activehunter .....    0/0014  0.0000  TransWARE Active!hunter
+Email::AmazonSES ........   22/0031  0.7097  Amazon SES(Sending): http://aws.amazon.com/ses/
+Email::AmazonWorkMail ...    8/0012  0.6667  Amazon WorkMail: https://aws.amazon.com/workmail/
+Email::Aol ..............   20/0023  0.8696  Aol Mail: http://www.aol.com
+Email::ApacheJames ......    0/0006  0.0000  Java Apache Mail Enterprise Server
+Email::Bigfoot ..........    2/0002  1.0000  Bigfoot: http://www.bigfoot.com
+Email::Biglobe ..........    5/0007  0.7143  BIGLOBE: http://www.biglobe.ne.jp
+Email::Courier ..........   14/0016  0.8750  Courier MTA
+Email::Domino ...........    6/0015  0.4000  IBM Domino Server
+Email::EZweb ............  130/0125  1.0000  au EZweb: http://www.au.kddi.com/mobile/
+Email::EinsUndEins ......    0/0003  0.0000  1&1: http://www.1and1.de
+Email::Exchange2003 .....    1/0051  0.0196  Microsoft Exchange Server 2003
+Email::Exchange2007 .....    6/0007  0.8571  Microsoft Exchange Server 2007
+Email::Exim .............  146/0176  0.8295  Exim
+Email::Facebook .........    3/0003  1.0000  Facebook: https://www.facebook.com
+Email::GMX ..............    0/0010  0.0000  GMX: http://www.gmx.net
+Email::GSuite ...........    9/0009  1.0000  G Suite: https://gsuite.google.com/
+Email::Google ...........   58/0062  0.9355  Google Gmail: https://mail.google.com
+Email::IMailServer ......    0/0045  0.0000  IPSWITCH IMail Server
+Email::InterScanMSS .....    0/0009  0.0000  Trend Micro InterScan Messaging Security Suite
+Email::KDDI .............    6/0006  1.0000  au by KDDI: http://www.au.kddi.com
+Email::MXLogic ..........    0/0014  0.0000  McAfee SaaS
+Email::MailFoundry ......    0/0007  0.0000  MailFoundry
+Email::MailMarshalSMTP ..    0/0003  0.0000  Trustwave Secure Email Gateway
+Email::MailRu ...........    4/0016  0.2500  @mail.ru: https://mail.ru
+Email::McAfee ...........    0/0010  0.0000  McAfee Email Appliance
+Email::MessageLabs ......    2/0002  1.0000  Symantec.cloud http://www.messagelabs.com
+Email::MessagingServer ..   19/0022  0.8636  Oracle Communications Messaging Server
+Email::Notes ............    0/0012  0.0000  Lotus Notes
+Email::Office365 ........    8/0011  0.7273  Microsoft Office 365: http://office.microsoft.com/
+Email::OpenSMTPD ........    6/0024  0.2500  OpenSMTPD
+Email::Outlook ..........   19/0021  0.9048  Microsoft Outlook.com: https://www.outlook.com/
+Email::Postfix ..........  175/0193  0.9067  Postfix
+Email::ReceivingSES .....    0/0007  0.0000  Amazon SES(Receiving): http://aws.amazon.com/ses/
+Email::SendGrid .........    7/0012  0.5833  SendGrid: http://sendgrid.com/
+Email::Sendmail .........  334/0257  1.0000  V8Sendmail: /usr/sbin/sendmail
+Email::SurfControl ......    6/0008  0.7500  WebSense SurfControl
+Email::V5sendmail .......    0/0386  0.0000  Sendmail version 5
+Email::Verizon ..........    4/0004  1.0000  Verizon Wireless: http://www.verizonwireless.com
+Email::X1 ...............    0/0007  0.0000  Unknown MTA #1
+Email::X2 ...............    0/0069  0.0000  Unknown MTA #2
+Email::X3 ...............    0/0012  0.0000  Unknown MTA #3
+Email::X4 ...............    0/0029  0.0000  Unknown MTA #4 qmail clones
+Email::X5 ...............    3/0003  1.0000  Unknown MTA #5
+Email::Yahoo ............    0/0009  0.0000  Yahoo! MAIL: https://www.yahoo.com
+Email::Yandex ...........    4/0007  0.5714  Yandex.Mail: http://www.yandex.ru
+Email::Zoho .............    0/0011  0.0000  Zoho Mail: https://www.zoho.com
+Email::MFILTER ..........    0/0009  0.0000  Digital Arts m-FILTER
+Email::Qmail ............   53/0082  0.6463  qmail
+JSON::AmazonSES .........   22/0031  0.7097  Amazon SES(JSON): http://aws.amazon.com/ses/
+JSON::SendGrid ..........    7/0012  0.5833  SendGrid(JSON): http://sendgrid.com/
 ARF .....................    9/0050  0.1800  Abuse Feedback Reporting Format
-RFC3464 .................  136/0278  0.4892  Fallback Module for MTAs
+RFC3464 .................  136/0280  0.4857  Fallback Module for MTAs
 RFC3834 .................    0/0007  0.0000  Detector for auto replied message
--------------------------------------------------------------------------------
- bounceHammer 2.7.13p3    1218/2205  0.5524
- Sisimai 4.21.0p2         2205/2205  1.0000
+--------------------------------------------------------------------------------
+ bounceHammer 2.7.13p3    1254/2259  0.5551
+ Sisimai 4.22.0           2259/2259  1.0000
