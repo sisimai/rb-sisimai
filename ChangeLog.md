@@ -3,16 +3,19 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.21.1p1
+v4.22.0
 --------------------------------------------------------------------------------
 - release: "not released yet"
-- version: "4.21.1p1"
+- version: "4.22.0"
 - changes:
   - Import Pull-Request sisimai/p5-Sisimai#225, bounce reason: "securityerror"
     has been divided into the following three reasons:
     - securityerror
     - virusdetected
     - policyviolation
+  - Issue #226 All the MTA modules have been moved to Sisimai::Bite::* and old
+    MTA modules: Sisimai::MTA, Sisimai::MSP, Sisimai::CED, and all the methods
+    in these classes have been marked as obsoleted.
 
 v4.21.1
 --------------------------------------------------------------------------------
