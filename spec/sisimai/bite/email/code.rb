@@ -318,9 +318,6 @@ module Sisimai
                           it sprintf("%s #addresser.%s does not include [ ]", lb, rr) do
                             expect(pr.addresser.send(rr)).not_to match(/[ \r]/)
                           end
-                          it sprintf("%s #recipient.%s does not include [ ]", lb, rr) do
-                            expect(pr.recipient.send(rr)).not_to match(/[ \r]/)
-                          end
                         end
 
                         %w|addresser recipient|.each do |rr|

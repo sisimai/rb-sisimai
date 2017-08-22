@@ -26,10 +26,8 @@ describe Sisimai::Address do
     { 'v' => %q|"neko@example.net"|, 'a' => 'neko@example.net' },
     { 'v' => %q|'neko@example.edu'|, 'a' => 'neko@example.edu' },
     { 'v' => %q|`neko@example.cat`|, 'a' => 'neko@example.cat' },
-    { 'v' => %q|(neko@example.mil)|, 'a' => 'neko@example.mil' },
     { 'v' => %q|[neko@example.gov]|, 'a' => 'neko@example.gov' },
     { 'v' => %q|{neko@example.int}|, 'a' => 'neko@example.int' },
-    { 'v' => %q|&lt;neko@example.gl&gt;|, 'a' => 'neko@example.gl' },
     { 'v' => %q|"neko.."@example.jp|, 'a' => '"neko.."@example.jp' },
     { 'v' => %q|Mail Delivery Subsystem <MAILER-DAEMON>|, 'a' => 'MAILER-DAEMON' },
     { 'v' => %q|postmaster|, 'a' => 'postmaster' },
@@ -80,6 +78,29 @@ describe Sisimai::Address do
         it 'raises ArgumentError' do
           expect { Sisimai::Address.new }.to raise_error(ArgumentError)
           expect { Sisimai::Address.new(nil, nil) }.to raise_error(ArgumentError)
+        end
+      end
+    end
+
+    describe '.find' do
+      context 'valid email address' do
+        emailaddrs.each do |e|
+          v = Sisimai::Address.find(e['v'])
+          subject { v }
+          it 'returns valid address in list' do
+            is_expected.to be_a Array
+            expect(v.size).to be == 1
+            expect(v[0]['address']).not_to be nil
+            expect(v[0]['address']).to be == e['a']
+          end
+        end
+      end
+
+      context 'invalid email address' do
+        isnotemail.each do |e|
+          it 'returns nil' do
+            expect(Sisimai::Address.find(e)).to be nil
+          end
         end
       end
     end

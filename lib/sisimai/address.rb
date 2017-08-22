@@ -16,6 +16,255 @@ module Sisimai
       return sprintf('undisclosed-%s-in-headers@libsisimai.org.invalid', local)
     end
 
+    def self.find(argvs, addrs = nil)
+      # Email address parser with a name and a comment
+      # @param    [String] argvs  String including email address
+      # @param    [Boolean] addrs true:  Returns list including all the elements
+      #                           false: Returns list including email addresses only
+      # @return   [Array, Nil]    Email address list or Undef when there is no 
+      #                           email address in the argument
+      # @example  Parse email address
+      #   input:  parse('Neko <neko@example.cat>')
+      #   output: [{'address' => 'neko@example.cat', 'name' => 'Neko'}]
+      return nil unless argvs
+      argvs = argvs.gsub(/[\r\n]/, '')
+
+      emailtable = { 'address' => '', 'name' => '', 'comment' => '' }
+      addrtables = []
+      readcursor = 0
+      delimiters = ['<', '>', '(', ')', '"', ',']
+      indicators = {
+        :'email-address' => (1 << 0),    # <neko@example.org>
+        :'quoted-string' => (1 << 1),    # "Neko, Nyaan"
+        :'comment-block' => (1 << 2),    # (neko)
+      }
+      characters = argvs.split('')
+      readbuffer = []
+
+      v = emailtable  # temporary buffer
+      p = ''          # current position
+
+      characters.each do |e|
+        # Check each characters
+        if delimiters.detect { |r| r == e }
+          # The character is a delimiter character
+          if e == ','
+            # Separator of email addresses or not
+            if v['address'] =~ /\A[<].+[@].+[>]\z/
+              # An email address has already been picked
+
+              if readcursor & indicators[:'comment-block'] > 0
+                # The cursor is in the comment block (Neko, Nyaan)
+                v['comment'] += e
+
+              elsif readcursor & indicators[:'quoted-string'] > 0
+                # "Neko, Nyaan"
+                v['name'] += e
+
+              else
+                # The cursor is not in neither the quoted-string nor the comment block
+                readcursor = 0  # reset cursor position
+                readbuffer << v
+                v = { 'address' => '', 'name' => '', 'comment' => '' }
+                p = ''
+              end
+            else
+              # "Neko, Nyaan" <neko@nyaan.example.org> OR <"neko,nyaan"@example.org>
+              p.size > 0 ? (v[p] += e) : (v['name'] += e)
+            end
+            next
+          end # End of if(',')
+
+          if e == '<'
+            # <: The beginning of an email address or not
+            if v['address'].size > 0
+              p.size > 0 ? (v[p] += e) : (v['name'] += e)
+
+            else
+              # <neko@nyaan.example.org>
+              readcursor |= indicators[:'email-address']
+              v['address'] += e
+              p = 'address'
+            end
+            next
+          end
+          # End of if('<')
+
+          if e == '>'
+            # >: The end of an email address or not
+            if readcursor & indicators[:'email-address'] > 0
+              # <neko@example.org>
+              readcursor &= ~indicators[:'email-address']
+              v['address'] += e
+              p = ''
+            else
+              # a comment block or a display name
+              p.size > 0 ? (v['comment'] += e) : (v['name'] += e)
+            end
+            next
+          end # End of if('>')
+
+          if e == '('
+            # The beginning of a comment block or not
+            if readcursor & indicators[:'email-address'] > 0
+              # <"neko(nyaan)"@example.org> or <neko(nyaan)@example.org>
+              if v['address'] =~ /["]/
+                # Quoted local part: <"neko(nyaan)"@example.org>
+                v['address'] += e
+
+              else
+                # Comment: <neko(nyaan)@example.org>
+                readcursor |= indicators[:'comment-block']
+                v['comment'] += e
+                p = 'comment'
+              end
+            elsif readcursor & indicators[:'comment-block'] > 0
+              # Comment at the outside of an email address (...(...)
+              v['comment'] += e
+
+            elsif readcursor & indicators[:'quoted-string'] > 0
+              # "Neko, Nyaan(cat)", Deal as a display name
+              v['name'] += e
+
+            else
+              # The beginning of a comment block
+              readcursor |= indicators[:'comment-block']
+              v['comment'] += e
+              p = 'comment'
+            end
+            next
+          end # End of if('(')
+
+          if e == ')'
+            # The end of a comment block or not
+            if readcursor & indicators[:'email-address'] > 0
+              # <"neko(nyaan)"@example.org> OR <neko(nyaan)@example.org>
+              if v['address'] =~ /["]/
+                # Quoted string in the local part: <"neko(nyaan)"@example.org>
+                v['address'] += e
+
+              else
+                # Comment: <neko(nyaan)@example.org>
+                readcursor &= ~indicators[:'comment-block']
+                v['comment'] += e
+                p = 'address'
+              end
+            elsif readcursor & indicators[:'comment-block'] > 0
+              # Comment at the outside of an email address (...(...)
+              readcursor &= ~indicators[:'comment-block']
+              v['comment'] += e
+              p = ''
+
+            else
+              # Deal as a display name
+              readcursor &= ~indicators[:'comment-block']
+              v['name'] = e
+              p = ''
+            end
+            next
+          end # End of if(')')
+
+          if e == '"'
+            # The beginning or the end of a quoted-string
+            if p.size > 0
+              # email-address or comment-block
+              v[p] += e
+            else
+              # Display name
+              v['name'] += e
+              if readcursor & indicators[:'quoted-string'] > 0
+                # "Neko, Nyaan"
+                unless v['name'] =~ /\x5c["]\z/
+                  # "Neko, Nyaan \"...
+                  readcursor &= ~indicators[:'quoted-string']
+                  p = ''
+                end
+              else
+                if readcursor & indicators[:'email-address'] == 0 &&
+                   readcursor & indicators[:'comment-block'] == 0
+                  # Deal as the beginning of a display name
+                  readcursor |= indicators[:'quoted-string']
+                  p = 'name'
+                end
+              end
+            end
+            next
+          end # End of if('"') 
+        else
+          # The character is not a delimiter
+          p.size > 0 ? (v[p] += e) : (v['name'] += e)
+          next
+        end
+      end
+
+      if v['address'].size > 0
+        # Push the latest values
+        readbuffer << v
+      else
+        # No email address like <neko@example.org> in the argument
+        if v['name'] =~ /[@]/
+          # String like an email address will be set to the value of "address"
+          if cv = v['name'].match(/(["].+?["][@][^ ]+)/)
+            # "neko nyaan"@example.org
+            v['address'] = cv[1]
+
+          elsif cv = v['name'].match(/([^\s]+[@][^\s]+)/)
+            # neko-nyaan@example.org
+            v['address'] = cv[1]
+          end
+        elsif Sisimai::RFC5322.is_mailerdaemon(v['name'])
+          # Allow if the argument is MAILER-DAEMON
+          v['address'] = v['name']
+        end
+
+        if v['address'].size > 0
+          # Remove the value of "name" and remove the comment from the address
+          if cv = v['address'].match(/(.*)([(].+[)])(.*)/)
+            # (nyaan)nekochan@example.org, nekochan(nyaan)cat@example.org or
+            # nekochan(nyaan)@example.org
+            v['address'] = cv[1] + cv[3]
+            v['comment'] = cv[2]
+          end
+          v['name'] = ''
+          readbuffer << v
+        end
+      end
+
+      readbuffer.each do |e|
+        unless e['address'] =~ /\A.+[@].+\z/
+          # Allow if the argument is MAILER-DAEMON
+          next unless Sisimai::RFC5322.is_mailerdaemon(e['address'])
+        end
+
+        e['address'] = e['address'].sub(/\A[\[<{('`]/, '')
+        e['address'] = e['address'].sub(/['`>})\]]\z/, '')
+
+        unless e['address'] =~ /\A["].+["][@]/
+          # Remove double-quotations
+          e['address'] = e['address'].sub(/\A["]/, '')
+          e['address'] = e['address'].sub(/["]\z/, '')
+        end
+
+        if addrs
+          # Almost compatible with parse() method, returns email address only
+          e.delete('name')
+          e.delete('comment')
+        else
+          # Remove double-quotations, trailing spaces.
+          %w|name comment|.each do |f|
+            e[f] = e[f].sub(/\A\s*/, '')
+            e[f] = e[f].sub(/\s*\z/, '')
+          end
+          e['name'] = e['name'].sub(/\A["]/, '')
+          e['name'] = e['name'].sub(/["]\z/, '')
+        end
+        addrtables << e
+      end
+
+      return nil if addrtables.empty?
+      return addrtables
+    end
+
     # Email address parser
     # @param    [Array] argvs   List of strings including email address
     # @return   [Array, Nil]    Email address list or Undef when there is no
@@ -55,8 +304,8 @@ module Sisimai
       unless input =~ /[ ]/
         # no space character between " and < .
         # no space character between " and < .
-        input = input.sub(/\A(.+)"<(.+)\z/, '\1" <\2')      # "=?ISO-2022-JP?B?....?="<user@example.jp>,
-        input = input.sub(/\A(.+)[?]=<(.+)\z/, '\1?= <\2')  # =?ISO-2022-JP?B?....?=<user@example.jp>
+        input = input.sub(/\A(.+)"<(.+)\z/, '\1" <\2')      # "=?ISO-2022-JP?B?....?="<user@example.org>,
+        input = input.sub(/\A(.+)[?]=<(.+)\z/, '\1?= <\2')  # =?ISO-2022-JP?B?....?=<user@example.org>
 
         # comment-part<localpart@domainpart>
         input = input.sub(/[<]/, ' <') unless input =~ /\A[<]/
@@ -101,7 +350,7 @@ module Sisimai
       canon = canon.delete('<>[]():;')  # Remove brackets, colons
 
       if canon =~ /\A["].+["][@].+\z/
-        canon = canon.delete(%q|{}'`|)  # "localpart..."@example.jp
+        canon = canon.delete(%q|{}'`|)  # "localpart..."@example.org
       else
         canon = canon.delete(%q|{}'"`|) # Remove brackets, quotations
       end
@@ -113,7 +362,7 @@ module Sisimai
     # @param    [String] email  VERP Address
     # @return   [String]        Email address
     # @example  Expand VERP address
-    #   expand_verp('bounce+neko=example.jp@example.org') #=> 'neko@example.jp'
+    #   expand_verp('bounce+neko=example.org@example.org') #=> 'neko@example.org'
     def self.expand_verp(email)
       local = email.split('@', 2).first
       verp0 = ''
@@ -131,7 +380,7 @@ module Sisimai
     # @param    [String] email  Email alias string
     # @return   [String]        Expanded email address
     # @example  Expand alias
-    #   expand_alias('neko+straycat@example.jp') #=> 'neko@example.jp'
+    #   expand_alias('neko+straycat@example.org') #=> 'neko@example.org'
     def self.expand_alias(email)
       return '' unless Sisimai::RFC5322.is_emailaddress(email)
 

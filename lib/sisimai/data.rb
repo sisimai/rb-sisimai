@@ -61,18 +61,18 @@ module Sisimai
       thing = {}
 
       # Create email address object
-      x0 = Sisimai::Address.parse([argvs['addresser']])
-      y0 = Sisimai::Address.parse([argvs['recipient']])
+      x0 = Sisimai::Address.find(argvs['addresser'])
+      y0 = Sisimai::Address.find(argvs['recipient'])
 
       return nil unless x0.is_a? Array
       return nil unless y0.is_a? Array
 
-      thing[:addresser] = Sisimai::Address.new(x0.shift)
+      thing[:addresser] = Sisimai::Address.new(x0[0]['address'])
       return nil unless thing[:addresser].is_a? Sisimai::Address
       return nil if thing[:addresser].void
       thing[:senderdomain] = thing[:addresser].host
 
-      thing[:recipient] = Sisimai::Address.new(y0.shift)
+      thing[:recipient] = Sisimai::Address.new(y0[0]['address'])
       return nil unless thing[:recipient].is_a? Sisimai::Address
       return nil if thing[:recipient].void
       thing[:destination] = thing[:recipient].host
