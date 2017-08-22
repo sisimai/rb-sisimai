@@ -13,9 +13,11 @@ v4.22.0
     - securityerror
     - virusdetected
     - policyviolation
-  - Issue #226 All the MTA modules have been moved to Sisimai::Bite::* and old
+  - Issue #78 All the MTA modules have been moved to Sisimai::Bite::* and old
     MTA modules: Sisimai::MTA, Sisimai::MSP, Sisimai::CED, and all the methods
     in these classes have been marked as obsoleted.
+  - Import Pull-Request sisimai/p5-Sisimai#230 Sisimai::Address.find method has
+    been implemented experimentaly as bourne again parser for email addresses.
 
 v4.21.1
 --------------------------------------------------------------------------------
