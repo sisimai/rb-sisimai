@@ -5,7 +5,7 @@ RELEASE NOTES for Ruby version of Sisimai
 
 v4.22.0
 --------------------------------------------------------------------------------
-- release: "not released yet"
+- release: "Tue, 22 Aug 2017 18:25:55 +0900 (JST)"
 - version: "4.22.0"
 - changes:
   - Import Pull-Request sisimai/p5-Sisimai#225, bounce reason: "securityerror"
