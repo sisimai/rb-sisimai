@@ -273,12 +273,14 @@ describe Sisimai do
     context 'valid email file' do
       [:mailbox, :maildir].each do |e|
 
-        jsonstring = Sisimai.dump(sampleemail[e])
-        it('returns String') { expect(jsonstring).to be_a String }
-        it('is not empty') { expect(jsonstring.size).to be > 0 }
+        before do
+          jsonstring = Sisimai.dump(sampleemail[e])
+          rubyobject = JSON.parse(jsonstring)
+        end
 
         describe 'Generate Ruby object from JSON string' do
-          rubyobject = JSON.parse(jsonstring)
+          it('returns String') { expect(jsonstring).to be_a String }
+          it('is not empty') { expect(jsonstring.size).to be > 0 }
           it('returns Array') { expect(rubyobject).to be_a Array }
 
           rubyobject.each do |ee|
