@@ -274,7 +274,6 @@ describe Sisimai do
       [:mailbox, :maildir].each do |e|
 
         jsonstring = Sisimai.dump(sampleemail[e])
-p jsonstring
         it('returns String') { expect(jsonstring).to be_a String }
         it('is not empty') { expect(jsonstring.size).to be > 0 }
 
