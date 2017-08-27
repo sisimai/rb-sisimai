@@ -285,9 +285,10 @@ describe Sisimai do
             it('contains Hash') { expect(ee).to be_a Hash }
             tobetested.each do |eee|
               example("#{eee} = #{ee[eee]}") do
-                if eee == 'senderdomain' && ee['addresser'] =~ /\A(?:postmaster|MAILER-DAEMON)\z/i
-                  expect(ee[eee].size).to be == 0
+                if eee == 'senderdomain' && ee['addresser'] =~ /\A(?:postmaster|MAILER-DAEMON)\z/
+                  expect(ee[eee]).to be_empty
                 else
+                  p ee if eee == 'senderdomain' && ee['senderdomain'].empty?
                   expect(ee[eee].size).to be > 0
                 end
               end
