@@ -61,30 +61,21 @@ module Sisimai
       thing = {}
 
       # Create email address object
-      x0 = Sisimai::Address.find(argvs['addresser'])
-      y0 = Sisimai::Address.find(argvs['recipient'])
+      as = Sisimai::Address.make(argvs['addresser'])
+      ar = Sisimai::Address.make({ 'address' => argvs['recipient'] })
 
-      return nil unless x0.is_a? Array
-      return nil unless y0.is_a? Array
+      return nil unless as.is_a? Sisimai::Address
+      return nil unless ar.is_a? Sisimai::Address
 
-      thing[:addresser] = Sisimai::Address.new(x0[0]['address'])
-      return nil unless thing[:addresser].is_a? Sisimai::Address
-      return nil if thing[:addresser].void
-      thing[:senderdomain] = thing[:addresser].host
+      return nil if as.void
+      return nil if ar.void
 
-      thing[:recipient] = Sisimai::Address.new(y0[0]['address'])
-      return nil unless thing[:recipient].is_a? Sisimai::Address
-      return nil if thing[:recipient].void
-      thing[:destination] = thing[:recipient].host
-      thing[:alias] = argvs['alias'] || ''
-
-      @addresser    = thing[:addresser]
-      @senderdomain = thing[:senderdomain]
-      @recipient    = thing[:recipient]
-      @destination  = thing[:destination]
-      @alias        = thing[:alias]
-
-      @token = Sisimai::String.token(@addresser.address, @recipient.address, argvs['timestamp'])
+      @addresser = as
+      @recipient = ar
+      @senderdomain = as.host
+      @destination  = ar.host
+      @alias = argvs['alias'] || ''
+      @token = Sisimai::String.token(as.address, ar.address, argvs['timestamp'])
       @timestamp = Sisimai::Time.parse(::Time.at(argvs['timestamp']).to_s)
       @timezoneoffset = argvs['timezoneoffset'] || '+0000'
       @lhost          = argvs['lhost']          || ''
@@ -180,17 +171,20 @@ module Sisimai
           # Check each header in message/rfc822 part
           h = f.downcase
           next unless rfc822data.key?(h)
-          next unless rfc822data[h].size > 0
-          next unless Sisimai::RFC5322.is_emailaddress(rfc822data[h])
-          p['addresser'] = rfc822data[h]
+          next if rfc822data[h].empty?
+
+          j = Sisimai::Address.find(rfc822data[h]) || []
+          next if j.empty?
+          p['addresser'] = j[0]
           break
         end
 
-        # Fallback: Get the sender address from the header of the bounced
-        # email if the address is not set at loop above.
-        p['addresser'] ||= ''
-        p['addresser']   = messageobj.header['to'] if p['addresser'].empty?
-
+        unless p['addresser']
+          # Fallback: Get the sender address from the header of the bounced
+          # email if the address is not set at loop above.
+          j = Sisimai::Address.find(messageobj.header['to']) || []
+          p['addresser'] = j[0] unless j.empty?
+        end
         next unless p['addresser']
         next unless p['recipient']
 

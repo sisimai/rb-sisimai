@@ -38,9 +38,9 @@ module Sisimai
         local_part     = %r/(?:#{dot_atom}|#{quoted_string})/o
         domain         = %r/(?:#{dot_atom}|#{domain_literal})/o
 
-        re[:rfc5322]   = %r/#{local_part}[@]#{domain}/o
-        re[:ignored]   = %r/#{local_part}[.]*[@]#{domain}/o
-        re[:domain]    = %r/#{domain}/o
+        re[:rfc5322]   = %r/\A#{local_part}[@]#{domain}\z/o
+        re[:ignored]   = %r/\A#{local_part}[.]*[@]#{domain}\z/o
+        re[:domain]    = %r/\A#{domain}\z/o
 
         return re
       end
@@ -83,6 +83,7 @@ module Sisimai
       def is_emailaddress(email)
         return false unless email.is_a?(::String)
         return false if email =~ %r/(?:[\x00-\x1f]|\x1f)/
+        return false if email.size > 254
         return true  if email =~ Re[:ignored]
         return false
       end

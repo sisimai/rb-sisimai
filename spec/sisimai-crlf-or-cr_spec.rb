@@ -14,8 +14,7 @@ describe Sisimai do
         next if e == :mac
 
         mail = Sisimai.make(sampleemail[e])
-        subject { mail }
-        it('is Array') { is_expected.to be_a Array }
+        it('is Array') { expect(mail).to be_a Array }
         it('have data') { expect(mail.size).to be > 0 }
 
         mail.each do |ee|

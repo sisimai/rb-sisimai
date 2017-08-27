@@ -67,8 +67,21 @@ describe Sisimai::RFC5322 do
     'neko@example.jp',
     'neko+nyaa@example.jp',
     'nyaa+neko=example.jp@example.org',
-    'Shironeko Nyanko <shironeko@example.jp>',
-    '=?UTF-8?B?55m954yr?= <shironeko@example.co.jp>',
+    '"neko@nyaan"@example.org',
+    '"neko nyaan"@exaple.org',
+    '{nekonyaan}@example.org',
+    'neko|nyaan@example.org',
+    'neko?nyaan@example.org',
+    '"neko<>nyaan"@example.org',
+    '"neko(nyaan)"@example.org',
+    '"nora(:;)neko"@example.org',
+    'neko^_^nyaan@example.org',
+    'neko$nyaan@example.org',
+    'neko%nyaan@example.org',
+    'neko&nyaan@example.org',
+    'neko?nyaan@example.org',
+    'neko|nyaan@example.org',
+    '"neko\\nyaan"@example.org',
   ]
 
   describe '.is_emailaddress' do

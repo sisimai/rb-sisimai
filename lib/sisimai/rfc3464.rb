@@ -403,6 +403,7 @@ module Sisimai
               # May be an email address
               x = b['recipient'] || ''
               y = Sisimai::Address.s3s4(cv[1])
+              next unless Sisimai::RFC5322.is_emailaddress(y)
 
               if x.size > 0 && x != y
                 # There are multiple recipient addresses in the message body.
@@ -422,6 +423,26 @@ module Sisimai
           end
 
           break
+        end
+
+        if recipients.zero?
+          # Try to get a recipient address from email headers
+          rfc822list.each do |e|
+            # Check To: header in the original message
+            if cv = e.match(/\ATo:\s*(.+)\z/)
+              r = Sisimai::Address.find(cv[1], true)
+              b = nil
+              next if r.empty?
+
+              if dscontents.size == recipients
+                dscontents << Sisimai::Bite::Email.DELIVERYSTATUS
+              end
+              b = dscontents[-1]
+              b['recipient'] = r[0]['address']
+              b['agent'] = Sisimai::RFC3464.smtpagent + '::Fallback'
+              recipients += 1
+            end
+          end
         end
 
         return nil unless recipients > 0
