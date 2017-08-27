@@ -274,6 +274,7 @@ describe Sisimai do
       [:mailbox, :maildir].each do |e|
 
         jsonstring = Sisimai.dump(sampleemail[e])
+p jsonstring
         it('returns String') { expect(jsonstring).to be_a String }
         it('is not empty') { expect(jsonstring.size).to be > 0 }
 
@@ -285,13 +286,9 @@ describe Sisimai do
             it('contains Hash') { expect(ee).to be_a Hash }
             tobetested.each do |eee|
               example("#{eee} = #{ee[eee]}") do
-                if eee == 'senderdomain' && ee['addresser'].match(/\A(?:postmaster|MAILER-DAEMON)\z/)
+                if eee == 'senderdomain' && ee['addresser'] =~ /\A(?:postmaster|MAILER-DAEMON)\z/
                   expect(ee[eee]).to be_empty
                 else
-                  if eee == 'senderdomain' && ee['senderdomain'].empty?
-                    p eee
-                    p ee 
-                  end
                   expect(ee[eee].size).to be > 0
                 end
               end
