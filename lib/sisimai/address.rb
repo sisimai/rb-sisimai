@@ -16,35 +16,47 @@ module Sisimai
       return sprintf('undisclosed-%s-in-headers@libsisimai.org.invalid', local)
     end
 
-    def self.find(argvs, addrs = nil)
+    def self.make(argvs)
+    end
+
+    def self.find(argv1 = nil, addrs = nil)
       # Email address parser with a name and a comment
-      # @param    [String] argvs  String including email address
+      # @param    [String] argv1  String including email address
       # @param    [Boolean] addrs true:  Returns list including all the elements
       #                           false: Returns list including email addresses only
       # @return   [Array, Nil]    Email address list or Undef when there is no 
       #                           email address in the argument
       # @example  Parse email address
-      #   input:  parse('Neko <neko@example.cat>')
-      #   output: [{'address' => 'neko@example.cat', 'name' => 'Neko'}]
-      return nil unless argvs
-      argvs = argvs.gsub(/[\r\n]/, '')
+      #   input:  'Neko <neko(nyaan)@example.org>'
+      #   output: [{
+      #               'address' => 'neko@example.org',
+      #               'name'    => 'Neko',
+      #               'comment' => '(nyaan)'
+      #           }]
+      return nil unless argv1
+      argv1 = argv1.gsub(/[\r\n]/, '')
 
       emailtable = { 'address' => '', 'name' => '', 'comment' => '' }
       addrtables = []
+      readbuffer = []
       readcursor = 0
       delimiters = ['<', '>', '(', ')', '"', ',']
+      validemail = %r{(?>
+        (?:([^\s]+|["].+?["]))          # local part
+        [@]
+        (?:([^@\s]+|[0-9A-Za-z:\.]+))   # domain part
+        )
+      }x
       indicators = {
         :'email-address' => (1 << 0),    # <neko@example.org>
         :'quoted-string' => (1 << 1),    # "Neko, Nyaan"
         :'comment-block' => (1 << 2),    # (neko)
       }
-      characters = argvs.split('')
-      readbuffer = []
 
       v = emailtable  # temporary buffer
       p = ''          # current position
 
-      characters.each do |e|
+      argv1.split('').each do |e|
         # Check each characters
         if delimiters.detect { |r| r == e }
           # The character is a delimiter character
@@ -115,11 +127,12 @@ module Sisimai
               else
                 # Comment: <neko(nyaan)@example.org>
                 readcursor |= indicators[:'comment-block']
+                v['comment'] += ' ' if v['comment'] =~ /[)]\z/
                 v['comment'] += e
-                p = 'comment'
               end
             elsif readcursor & indicators[:'comment-block'] > 0
               # Comment at the outside of an email address (...(...)
+              v['comment'] += ' ' if v['comment'] =~ /[)]\z/
               v['comment'] += e
 
             elsif readcursor & indicators[:'quoted-string'] > 0
@@ -129,6 +142,7 @@ module Sisimai
             else
               # The beginning of a comment block
               readcursor |= indicators[:'comment-block']
+              v['comment'] += ' ' if v['comment'] =~ /[)]\z/
               v['comment'] += e
               p = 'comment'
             end
@@ -202,42 +216,41 @@ module Sisimai
         readbuffer << v
       else
         # No email address like <neko@example.org> in the argument
-        if v['name'] =~ /[@]/
+        if v['name'] =~ validemail
           # String like an email address will be set to the value of "address"
-          if cv = v['name'].match(/(["].+?["][@][^ ]+)/)
-            # "neko nyaan"@example.org
-            v['address'] = cv[1]
+          v['address'] = sprintf("%s@%s", cv[1], cv[2])
 
-          elsif cv = v['name'].match(/([^\s]+[@][^\s]+)/)
-            # neko-nyaan@example.org
-            v['address'] = cv[1]
-          end
         elsif Sisimai::RFC5322.is_mailerdaemon(v['name'])
           # Allow if the argument is MAILER-DAEMON
           v['address'] = v['name']
         end
 
         if v['address'].size > 0
-          # Remove the value of "name" and remove the comment from the address
+          # Remove the comment from the address
           if cv = v['address'].match(/(.*)([(].+[)])(.*)/)
             # (nyaan)nekochan@example.org, nekochan(nyaan)cat@example.org or
             # nekochan(nyaan)@example.org
             v['address'] = cv[1] + cv[3]
             v['comment'] = cv[2]
           end
-          v['name'] = ''
           readbuffer << v
         end
       end
 
       readbuffer.each do |e|
+        # The element must not include any character except from 0x20 to 0x7e.
+        next if e['address'] =~ /[^\x20-\x7e]/
+
         unless e['address'] =~ /\A.+[@].+\z/
           # Allow if the argument is MAILER-DAEMON
           next unless Sisimai::RFC5322.is_mailerdaemon(e['address'])
         end
 
+        # Remove angle brackets, other brackets, and quotations: []<>{}'`
+        # except a domain part is an IP address like neko@[192.0.2.222]
         e['address'] = e['address'].sub(/\A[\[<{('`]/, '')
-        e['address'] = e['address'].sub(/['`>})\]]\z/, '')
+        e['address'] = e['address'].sub(/['`>})]\z/, '')
+        e['address'] = e['address'].sub(/\]\z/, '') unless e['address'] =~ /[@]\[[0-9A-Z:\.]+\]\z/i
 
         unless e['address'] =~ /\A["].+["][@]/
           # Remove double-quotations
@@ -255,6 +268,8 @@ module Sisimai
             e[f] = e[f].sub(/\A\s*/, '')
             e[f] = e[f].sub(/\s*\z/, '')
           end
+          e['comment'] = '' unless e['comment'] =~ /\A[(].+[)]/
+          e['name'] = e['name'].squeeze(' ')
           e['name'] = e['name'].sub(/\A["]/, '')
           e['name'] = e['name'].sub(/["]\z/, '')
         end
