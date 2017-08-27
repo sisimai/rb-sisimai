@@ -283,13 +283,16 @@ describe Sisimai do
 
           rubyobject.each do |ee|
             it('contains Hash') { expect(ee).to be_a Hash }
+            example('addresser is a String') { expect(ee['addresser']).to be_a ::String }
+            example('recipient is a String') { expect(ee['recipient']).to be_a ::String }
+
             tobetested.each do |eee|
               example("#{eee} = #{ee[eee]}") do
                 if eee == 'senderdomain' && ee['addresser'] =~ /\A(?:postmaster|MAILER-DAEMON)\z/
                   expect(ee[eee]).to be_empty
                 else
                   if eee == 'senderdomain' && ee['senderdomain'] == ''
-                    puts jsonstring
+                    expect(ee[eee]).to be_empty
                   else
                     expect(ee[eee].size).to be > 0
                   end
