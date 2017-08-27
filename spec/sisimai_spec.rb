@@ -270,17 +270,18 @@ describe Sisimai do
       addresser recipient senderdomain destination reason timestamp 
       token smtpagent
     |
+    jsonobject = nil
+    rubyobject = nil
+
     context 'valid email file' do
       [:mailbox, :maildir].each do |e|
 
-        before do
-          jsonstring = Sisimai.dump(sampleemail[e])
-          rubyobject = JSON.parse(jsonstring)
-        end
+        jsonstring = Sisimai.dump(sampleemail[e])
+        it('returns String') { expect(jsonstring).to be_a String }
+        it('is not empty') { expect(jsonstring.size).to be > 0 }
+        rubyobject = JSON.parse(jsonstring)
 
         describe 'Generate Ruby object from JSON string' do
-          it('returns String') { expect(jsonstring).to be_a String }
-          it('is not empty') { expect(jsonstring.size).to be > 0 }
           it('returns Array') { expect(rubyobject).to be_a Array }
 
           rubyobject.each do |ee|
