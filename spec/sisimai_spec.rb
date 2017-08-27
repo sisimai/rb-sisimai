@@ -288,6 +288,10 @@ describe Sisimai do
                 if eee == 'senderdomain' && ee['addresser'] =~ /\A(?:postmaster|MAILER-DAEMON)\z/
                   expect(ee[eee]).to be_empty
                 else
+                  if eee == 'senderdomain' && ee['senderdomain'].empty?
+                    puts jsonstring
+                    puts rubyobject
+                  end
                   expect(ee[eee].size).to be > 0
                 end
               end
