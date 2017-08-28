@@ -1,7 +1,6 @@
 require 'spec_helper'
 require 'sisimai'
 require 'json'
-require 'oj'
 
 describe Sisimai do
   sampleemail = {
@@ -12,7 +11,6 @@ describe Sisimai do
   isnotbounce = {
     :maildir => './set-of-emails/maildir/not',
   }
-  p Oj::VERSION
 
   describe 'Sisimai::VERSION' do
     subject { Sisimai::VERSION }
@@ -272,8 +270,6 @@ describe Sisimai do
       addresser recipient senderdomain destination reason timestamp 
       token smtpagent
     |
-    jsonobject = nil
-    rubyobject = nil
 
     context 'valid email file' do
       [:mailbox, :maildir].each do |e|
@@ -281,26 +277,25 @@ describe Sisimai do
         jsonstring = Sisimai.dump(sampleemail[e])
         it('returns String') { expect(jsonstring).to be_a String }
         it('is not empty') { expect(jsonstring.size).to be > 0 }
-        rubyobject = JSON.parse(jsonstring)
 
         describe 'Generate Ruby object from JSON string' do
+          rubyobject = JSON.parse(jsonstring)
           it('returns Array') { expect(rubyobject).to be_a Array }
 
           rubyobject.each do |ee|
-            it('contains Hash') { expect(ee).to be_a Hash }
-            example('addresser is a String') { expect(ee['addresser']).to be_a ::String }
-            example('recipient is a String') { expect(ee['recipient']).to be_a ::String }
+            it 'is a flat data structure' do
+              expect(ee).to be_a Hash
+              expect(ee['addresser']).to be_a ::String
+              expect(ee['recipient']).to be_a ::String
+              expect(ee['timestamp']).to be_a Integer
+            end
 
             tobetested.each do |eee|
               example("#{eee} = #{ee[eee]}") do
                 if eee == 'senderdomain' && ee['addresser'] =~ /\A(?:postmaster|MAILER-DAEMON)\z/
                   expect(ee[eee]).to be_empty
                 else
-                  if eee == 'senderdomain' && ee['senderdomain'] == ''
-                    expect(ee[eee]).to be_empty
-                  else
-                    expect(ee[eee].size).to be > 0
-                  end
+                  expect(ee[eee].size).to be > 0
                 end
               end
             end
