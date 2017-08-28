@@ -302,7 +302,9 @@ module Sisimai
       def self.takeapart(heads)
         return {} unless heads
 
-        # Convert from string to hash reference
+        # 1. Scrub to avoid "invalid byte sequence in UTF-8" exception (#82)
+        # 2. Convert from string to hash reference
+        heads = heads.scrub('?')
         heads = heads.gsub(/^[>]+[ ]/m, '')
 
         takenapart = {}
