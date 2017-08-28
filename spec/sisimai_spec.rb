@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'sisimai'
 require 'json'
+require 'oj'
 
 describe Sisimai do
   sampleemail = {
@@ -11,7 +12,7 @@ describe Sisimai do
   isnotbounce = {
     :maildir => './set-of-emails/maildir/not',
   }
-
+  p Oj::VERSION
   describe 'Sisimai::VERSION' do
     subject { Sisimai::VERSION }
     it('returns version') { is_expected.not_to be nil }
