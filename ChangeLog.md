@@ -3,6 +3,18 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.22.0p1
+--------------------------------------------------------------------------------
+- release: "not released yet"
+- version: ""
+- changes:
+  - Sisimai::Address was born again: import Pull-Request sisimai/p5-Sisimai#231
+    - Implement new email address parser method: find()
+    - Implement new constructor: make()
+    - Implement new writable accessors: name() and comment()
+    - parse() method was marked as obsoleted
+  - Require Oj 3.0.0 or later
+
 v4.22.0
 --------------------------------------------------------------------------------
 - release: "Tue, 22 Aug 2017 18:25:55 +0900 (JST)"
