@@ -1,0 +1,81 @@
+Return-Path: <>
+Received: from [redacted].net.br ([redacted].net.br [[redacted]])
+ by inbound-smtp.us-east-1.amazonaws.com with SMTP id [redacted]
+ for bounces+OkGew2p6d9r5RJ5x9g1nxNq73zQDL1Zo-[redacted].br@example.net.br;
+ Sat, 12 Aug 2017 21:57:09 +0000 (UTC)
+X-SES-Spam-Verdict: PASS
+X-SES-Virus-Verdict: PASS
+Received-SPF: pass (spfCheck: domain of [redacted].net.br designates [redacted] as permitted sender) client-ip=[redacted]; envelope-from=postmaster@example.net.br; helo=[redacted].net.br;
+Authentication-Results: amazonses.com;
+ spf=pass (spfCheck: domain of [redacted].net.br designates [redacted] as permitted sender) client-ip=[redacted]; envelope-from=postmaster@example.net.br; helo=[redacted].net.br;
+X-SES-RECEIPT: [redacted]
+X-SES-DKIM-SIGNATURE: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=224i4yxa5dv7c2xz3womw6peuasteono; d=amazonses.com; t=1502575030;
+	h=X-SES-RECEIPT:Date:From:Subject:To:MIME-Version:Content-Type:Message-Id;
+	bh=BWidKjC4S0NbHfJyNpzlk805DzVa5/bMRs6QoN8OTpo=;
+	b=kOtH6OmyLBgqsUExvRp4/yNJTZheGi08a5EMplRGuRxHqoziBHHQjOh0UwqDMIKZ
+	IFzbiAKX4lRuWFi/Ntb8/sijgcPyKqBu269VwAnGmUYEJvAV55D4uXnJjftu+CT7WCr
+	L6SkHjYmTQSWpTwvXmM1YDcUP2dkpWV5+Ko9S4lY=
+Received: by [redacted].net.br (Postfix)
+	id 84FFABD9; Sat, 12 Aug 2017 21:57:09 +0000 (UTC)
+Date: Sat, 12 Aug 2017 21:57:09 +0000 (UTC)
+From: MAILER-DAEMON@example.net.br (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: bounces+OkGew2p6d9r5RJ5x9g1nxNq73zQDL1Zo-[redacted].br@example.net.br
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="F180CB7A.1502575029/[redacted].net.br"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20170812215709.84FFABD9@example.net.br>
+
+This is a MIME-encapsulated message.
+
+--F180CB7A.1502575029/[redacted].net.br
+Content-Description: Notification
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+This is the mail system at host [redacted].net.br.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@example.br>: host
+    [redacted]-br.mail.protection.outlook.com[207.46.163.74] said: 550 5.4.1
+    [kijitora@example.br]: Recipient address rejected: Access denied
+    [BL2NAM02FT061.eop-nam02.prod.protection.outlook.com] (in reply to RCPT TO
+    command)
+
+--F180CB7A.1502575029/[redacted].net.br
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+Content-Transfer-Encoding: 8bit
+
+Reporting-MTA: dns; [redacted].net.br
+X-Postfix-Queue-ID: F180CB7A
+X-Postfix-Sender: rfc822; bounces+OkGew2p6d9r5RJ5x9g1nxNq73zQDL1Zo-[redacted].br@example.net.br
+Arrival-Date: Sat, 12 Aug 2017 21:56:53 +0000 (UTC)
+
+Final-Recipient: rfc822; kijitora@example.br
+Original-Recipient: rfc822;kijitora@example.br
+Action: failed
+Status: 5.4.1
+Remote-MTA: dns; [redacted]-br.mail.protection.outlook.com
+Diagnostic-Code: smtp; 550 5.4.1 [kijitora@example.br]: Recipient
+    address rejected: Access denied
+    [BL2NAM02FT061.eop-nam02.prod.protection.outlook.com]
+
+--F180CB7A.1502575029/[redacted].net.br
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 8bit
+
+[from here, just a copy of the original message, with full headers.]
