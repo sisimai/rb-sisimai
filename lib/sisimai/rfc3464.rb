@@ -95,7 +95,7 @@ module Sisimai
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] > 0
+          if readcursor & Indicators[:'message-rfc822'] == 0
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
