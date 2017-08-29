@@ -438,7 +438,7 @@ module Sisimai
                 dscontents << Sisimai::Bite::Email.DELIVERYSTATUS
               end
               b = dscontents[-1]
-              b['recipient'] = r[0]['address']
+              b['recipient'] = r[0][:address]
               b['agent'] = Sisimai::RFC3464.smtpagent + '::Fallback'
               recipients += 1
             end

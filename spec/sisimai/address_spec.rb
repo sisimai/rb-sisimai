@@ -203,18 +203,18 @@ describe Sisimai::Address do
           it 'returns valid address in list' do
             expect(v).to be_a Array
             expect(v.size).to be == 1
-            expect(v[0]['address']).not_to be nil
-            expect(v[0]['address']).to be == e['a']
-            expect(v[0]['comment']).to be_a ::String
-            expect(v[0]['name']).to be_a ::String
+            expect(v[0][:address]).not_to be nil
+            expect(v[0][:address]).to be == e['a']
+            expect(v[0][:comment]).to be_a ::String
+            expect(v[0][:name]).to be_a ::String
           end
 
           r = Sisimai::Address.find(e['v'], true)
           it 'returns valid address only in list' do
             expect(r).to be_a Array
             expect(r.size).to be == 1
-            expect(r[0]['address']).not_to be nil
-            expect(r[0]['address']).to be == e['a']
+            expect(r[0][:address]).not_to be nil
+            expect(r[0][:address]).to be == e['a']
             expect(r[0].keys.size).to be == 1
           end
         end
@@ -293,7 +293,7 @@ describe Sisimai::Address do
       context 'invalid email address' do
         isnotemail.each do |e|
           it 'returns nil' do
-            expect(Sisimai::Address.make({'address' => e })).to be nil
+            expect(Sisimai::Address.make({ address: e })).to be nil
           end
         end
       end

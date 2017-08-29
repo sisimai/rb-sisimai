@@ -62,7 +62,7 @@ module Sisimai
 
       # Create email address object
       as = Sisimai::Address.make(argvs['addresser'])
-      ar = Sisimai::Address.make({ 'address' => argvs['recipient'] })
+      ar = Sisimai::Address.make({ address: argvs['recipient'] })
 
       return nil unless as.is_a? Sisimai::Address
       return nil unless ar.is_a? Sisimai::Address
