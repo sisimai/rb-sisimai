@@ -3,17 +3,25 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.22.0p1
+v4.22.1
 --------------------------------------------------------------------------------
-- release: "not released yet"
-- version: ""
+- release: "Tue, 29 Aug 2017 17:25:22 +0900 (JST)"
+- version: "4.22.1"
 - changes:
   - Sisimai::Address was born again: import Pull-Request sisimai/p5-Sisimai#231
     - Implement new email address parser method: find()
     - Implement new constructor: make()
     - Implement new writable accessors: name() and comment()
     - parse() method was marked as obsoleted
-  - Require Oj 3.0.0 or later
+  - **Require Oj 3.0.0 or later. Build test fails when the version of installed
+    Oj is 2.18.* on CRuby.**
+  - Tested on JRuby 9.1.9.0.
+  - Fix wrong constant name in Sisimai::Rhost::ExchangeOnline reported at issue
+    #77. Thanks to @rdeavila.
+  - Improved code in Sisimai::Message::Email to avoid an exception reported at
+    issue #82. Thanks to @hiroyuki-sato.
+  - Fixed wrong bitwise operation in Sisimai::RFC3464 for getting the original
+    message part Thanks to @hiroyuki-sato.
 
 v4.22.0
 --------------------------------------------------------------------------------
