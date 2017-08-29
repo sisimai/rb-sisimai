@@ -170,13 +170,13 @@ describe Sisimai::Address do
           is_expected.to be_a Sisimai::Address
         end
         it 'is valid method' do
-          expect(addrobj.address).to be_a String
-          expect(addrobj.host).to be_a String
-          expect(addrobj.user).to be_a String
-          expect(addrobj.verp).to be_a String
-          expect(addrobj.alias).to be_a String
-          expect(addrobj.name).to be_a String
-          expect(addrobj.comment).to be_a String
+          expect(addrobj.address).to be_a ::String
+          expect(addrobj.host).to be_a ::String
+          expect(addrobj.user).to be_a ::String
+          expect(addrobj.verp).to be_a ::String
+          expect(addrobj.alias).to be_a ::String
+          expect(addrobj.name).to be_a ::String
+          expect(addrobj.comment).to be_a ::String
         end
       end
 
@@ -206,7 +206,9 @@ describe Sisimai::Address do
             expect(v[0][:address]).not_to be nil
             expect(v[0][:address]).to be == e['a']
             expect(v[0][:comment]).to be_a ::String
+            expect(v[0][:comment]).to be == e['c']
             expect(v[0][:name]).to be_a ::String
+            expect(v[0][:name]).to be == e['n']
           end
 
           r = Sisimai::Address.find(e['v'], true)
@@ -355,7 +357,7 @@ describe Sisimai::Address do
   describe 'Instance method' do
     emailaddrs.each do |e|
       a = Sisimai::Address.s3s4(e['v']).split('@')
-      v = Sisimai::Address.new(Sisimai::Address.s3s4(e['v']))
+      v = Sisimai::Address.new(e['v'])
 
       it 'is Sisimai::Address object' do
         expect(v).to be_a Sisimai::Address
@@ -386,6 +388,22 @@ describe Sisimai::Address do
         it 'returns whole email address' do
           is_expected.to be_a String
           is_expected.to be == a[0] + '@' + a[1] unless Sisimai::RFC5322.is_mailerdaemon(e['v'])
+        end
+      end
+
+      describe '#name' do
+        subject { v.name }
+        it 'returns a display name' do
+          is_expected.to be_a String
+          is_expected.to be == e['n']
+        end
+      end
+
+      describe '#comment' do
+        subject { v.comment }
+        it 'returns a comment' do
+          is_expected.to be_a String
+          is_expected.to be == e['c']
         end
       end
 
