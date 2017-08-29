@@ -6,9 +6,9 @@ require 'sisimai/rhost/exchangeonline'
 
 describe Sisimai::Rhost::ExchangeOnline do
   rs = {
-    '01' => { 'status' => %r/\A5[.]7[.]606\z/, 'reason' => %r/securityerror/ },
+    '01' => { 'status' => %r/\A5[.]7[.]606\z/, 'reason' => %r/blocked/ },
   }
-  describe 'bounce mail from GoogleApps' do
+  describe 'bounce mail from Exchange Online' do
     rs.each_key.each do |n|
       emailfn = sprintf('./set-of-emails/maildir/bsd/rhost-exchange-online-%02d.eml', n)
       next unless File.exist?(emailfn)

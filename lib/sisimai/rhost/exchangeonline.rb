@@ -116,6 +116,12 @@ module Sisimai
               :regexp => %r/System incorrectly configured/,
             },
           ],
+          %r/\A5[.]4[.]1\z/ => [
+            {
+              :reason => 'userunknown',
+              :regexp => %r/Recipient address rejected: Access denied/,
+            },
+          ],
           %r/\A5[.]4[.][46]\z/ => [
             {
               :reason => 'networkerror',
@@ -234,23 +240,22 @@ module Sisimai
           ],
         }
 
-        # Detect bounce reason from Google Apps
+        # Detect bounce reason from Exchange Online
         # @param    [Sisimai::Data] argvs   Parsed email object
         # @return   [String]                The bounce reason for Exchange Online
-        # @see      https://support.google.com/a/answer/3726730?hl=en
         def get(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
           return argvs.reason if argvs.reason.size > 0
 
-          statuscode = argvs.deliverystatus.sub(/\A\d[.](\d+[.]\d+)\z/, 'X.\1')
+          statuscode = argvs.deliverystatus
           statusmesg = argvs.diagnosticcode
           reasontext = ''
 
           CodeTable.each_key do |e|
             # Try to match with each regular expression of delivery status codes
             next unless statuscode =~ e
-            Codetable[e].each do |f|
+            CodeTable[e].each do |f|
               # Try to match with each regular expression of error messages
               next unless statusmesg =~ f[:regexp]
               reasontext = f[:reason]
