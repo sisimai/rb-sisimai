@@ -64,7 +64,7 @@ module Sisimai
             end
           end
 
-          getchecked
+          return getchecked
         end
 
         # Check softbounce or not
@@ -137,7 +137,7 @@ module Sisimai
             end
           end
 
-          softorhard
+          return softorhard
         end
 
       end
