@@ -91,10 +91,10 @@ module Sisimai
             if getchecked.nil?
               softorhard = ''
             else
-              if getchecked
-                softorhard = 'hard'
+              softorhard if getchecked
+                'hard'
               else
-                softorhard = 'soft'
+                'soft'
               end
             end
 
@@ -145,4 +145,3 @@ module Sisimai
     end
   end
 end
-
