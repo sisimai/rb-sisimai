@@ -100,6 +100,17 @@ describe Sisimai::SMTP::Error do
             it('409... returns "soft"') { expect(r).to be == 'soft' }
           end
         end
+
+        dependondsn.each do |e|
+          q = cn.soft_or_hard(e, '503 Not accept any email')
+          it('503... returns "hard"') { expect(q).to be == 'hard' }
+
+          r = cn.soft_or_hard(e, '409 Not accept any email')
+          it('409... returns "soft"') { expect(r).to be == 'soft' }
+
+          s = cn.soft_or_hard(e, isnterrors.first)
+          it('250... returns ""') { expect(s).to be == '' }
+        end
       end
 
       context 'is not an error' do

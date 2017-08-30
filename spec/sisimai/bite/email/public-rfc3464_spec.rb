@@ -20,7 +20,7 @@ isexpected = [
   { 'n' => '16', 's' => /\A5[.]0[.]\d+\z/,   'r' => /filtered/,    'a' => /RFC3464/, 'b' => /\A1\z/ },
   { 'n' => '17', 's' => /\A5[.]0[.]\d+\z/,   'r' => /expired/,     'a' => /RFC3464/, 'b' => /\A1\z/ },
   { 'n' => '18', 's' => /\A5[.]1[.]1\z/,     'r' => /userunknown/, 'a' => /RFC3464/, 'b' => /\A0\z/ },
-  { 'n' => '19', 's' => /\A5[.]0[.]\d+\z/,   'r' => /onhold/,      'a' => /RFC3464/, 'b' => /\A1\z/ },
+  { 'n' => '19', 's' => /\A5[.]0[.]\d+\z/,   'r' => /onhold/,      'a' => /RFC3464/, 'b' => /\A0\z/ },
   { 'n' => '20', 's' => /\A5[.]0[.]\d+\z/,   'r' => /mailererror/, 'a' => /RFC3464/, 'b' => /\A1\z/ },
   { 'n' => '21', 's' => /\A5[.]0[.]\d+\z/,   'r' => /networkerror/,'a' => /RFC3464/, 'b' => /\A1\z/ },
   { 'n' => '22', 's' => /\A5[.]0[.]\d+\z/,   'r' => /hostunknown/, 'a' => /RFC3464/, 'b' => /\A0\z/ },
@@ -36,4 +36,3 @@ isexpected = [
   { 'n' => '32', 's' => /\A5[.]0[.]\d+\z/,   'r' => /filtered/,    'a' => /RFC3464/, 'b' => /\A1\z/ },
 ]
 Sisimai::Bite::Email::Code.maketest(enginename, isexpected)
-
