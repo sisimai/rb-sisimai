@@ -3,6 +3,15 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.22.1p1
+--------------------------------------------------------------------------------
+- release: "Not released yet"
+- version: ""
+- changes:
+  - Fix code (wrong value assingment) in Sisimai::Bite::Email::GSuite
+  - Apply Pull-Request #84 (issue #83) for setting the value of `softorhard` in 
+    `Sisimai::SMTP::Error.soft_or_hard` method. Thanks to @lunatyq.
+
 v4.22.1
 --------------------------------------------------------------------------------
 - release: "Tue, 29 Aug 2017 17:25:22 +0900 (JST)"
