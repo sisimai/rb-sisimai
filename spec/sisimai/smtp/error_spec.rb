@@ -13,6 +13,10 @@ describe Sisimai::SMTP::Error do
   isntbounces = ['delivered', 'feedback', 'vacation']
   dependondsn = ['undefined', 'onhold']
 
+  dependondsn_hard = [
+    ['onhold', 'host example.com[222.111.111.111] said: 550 cuda_nsu User <elen.conor@example.com> unknown (in reply to RCPT TO command)']
+  ]
+
   isnterrors = [
     'smtp; 2.1.5 250 OK',
   ]
@@ -99,6 +103,17 @@ describe Sisimai::SMTP::Error do
             r = cn.soft_or_hard(e, '409 Not accept any email')
             it('409... returns "soft"') { expect(r).to be == 'soft' }
           end
+        end
+
+        dependondsn.each do |e|
+          q = cn.soft_or_hard(e, '503 Not accept any email')
+          it('503... returns "hard"') { expect(q).to be == 'hard' }
+
+          r = cn.soft_or_hard(e, '409 Not accept any email')
+          it('409... returns "soft"') { expect(r).to be == 'soft' }
+
+          s = cn.soft_or_hard(e, isnterrors.first)
+          it('250... returns ""') { expect(s).to be == '' }
         end
       end
 

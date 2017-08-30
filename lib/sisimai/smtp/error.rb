@@ -64,7 +64,7 @@ module Sisimai
             end
           end
 
-          return getchecked
+          getchecked
         end
 
         # Check softbounce or not
@@ -89,11 +89,13 @@ module Sisimai
             getchecked = Sisimai::SMTP::Error.is_permanent(argv2)
 
             if getchecked.nil?
-              # The value is not defined (returned undef)
               softorhard = ''
             else
-              # The value is 0 or 1
-              softorhard = getchecked == 1 ? 'hard' : 'soft'
+              if getchecked
+                softorhard = 'hard'
+              else
+                softorhard = 'soft'
+              end
             end
 
           elsif argv1 == 'notaccept'
@@ -136,7 +138,7 @@ module Sisimai
           end
 
           sortorhard = '' if softorhard.nil?
-          return softorhard
+          softorhard
         end
 
       end
