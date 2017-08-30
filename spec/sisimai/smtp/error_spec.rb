@@ -13,10 +13,6 @@ describe Sisimai::SMTP::Error do
   isntbounces = ['delivered', 'feedback', 'vacation']
   dependondsn = ['undefined', 'onhold']
 
-  dependondsn_hard = [
-    ['onhold', 'host example.com[222.111.111.111] said: 550 cuda_nsu User <elen.conor@example.com> unknown (in reply to RCPT TO command)']
-  ]
-
   isnterrors = [
     'smtp; 2.1.5 250 OK',
   ]
