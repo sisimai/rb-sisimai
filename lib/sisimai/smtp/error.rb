@@ -137,7 +137,6 @@ module Sisimai
             end
           end
 
-          sortorhard = '' if softorhard.nil?
           softorhard
         end
 
