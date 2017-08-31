@@ -58,8 +58,6 @@ module Sisimai
     # @param    [Hash] argvs    Data
     # @return   [Sisimai::Data] Structured email data
     def initialize(argvs)
-      thing = {}
-
       # Create email address object
       as = Sisimai::Address.make(argvs['addresser'])
       ar = Sisimai::Address.make({ address: argvs['recipient'] })
