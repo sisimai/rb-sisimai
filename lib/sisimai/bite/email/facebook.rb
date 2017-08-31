@@ -247,21 +247,20 @@ module Sisimai::Bite::Email
             end
           end
 
-          unless e['reason']
-            # http://postmaster.facebook.com/response_codes
-            #   Facebook System Resource Issues
-            #   These codes indicate a temporary issue internal to Facebook's
-            #   system. Administrators observing these issues are not required to
-            #   take any action to correct them.
-            if fbresponse =~ /\AINT-T\d+\z/
-              # * INT-Tx
-              #
-              # https://groups.google.com/forum/#!topic/cdmix/eXfi4ddgYLQ
-              # This block has not been tested because we have no email sample
-              # including "INT-T?" error code.
-              e['reason'] = 'systemerror'
-            end
-          end
+          # http://postmaster.facebook.com/response_codes
+          #   Facebook System Resource Issues
+          #   These codes indicate a temporary issue internal to Facebook's
+          #   system. Administrators observing these issues are not required to
+          #   take any action to correct them.
+          next if e['reason']
+
+          # * INT-Tx
+          #
+          # https://groups.google.com/forum/#!topic/cdmix/eXfi4ddgYLQ
+          # This block has not been tested because we have no email sample
+          # including "INT-T?" error code.
+          next unless fbresponse =~ /\AINT-T\d+\z/
+          e['reason'] = 'systemerror'
         end
 
         rfc822part = Sisimai::RFC5322.weedout(rfc822list)

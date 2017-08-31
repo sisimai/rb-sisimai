@@ -299,14 +299,13 @@ module Sisimai::Bite::Email
               break
             end
           end
-          e['status'] = Sisimai::SMTP::Status.find(e['diagnosis'])
+          next unless e['reason']
 
-          if e['reason']
-            # Set pseudo status code
-            if e['status'] =~ /\A[45][.][1-7][.][1-9]\z/
-              # Override bounce reason
-              e['reason'] = Sisimai::SMTP::Status.name(e['status'])
-            end
+          # Set pseudo status code
+          e['status'] = Sisimai::SMTP::Status.find(e['diagnosis'])
+          if e['status'] =~ /\A[45][.][1-7][.][1-9]\z/
+            # Override bounce reason
+            e['reason'] = Sisimai::SMTP::Status.name(e['status'])
           end
         end
 

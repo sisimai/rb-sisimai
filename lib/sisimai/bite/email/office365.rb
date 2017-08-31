@@ -241,14 +241,13 @@ module Sisimai::Bite::Email
             pseudostatus = Sisimai::SMTP::Status.find(e['diagnosis'])
             e['status'] = pseudostatus if pseudostatus.size > 0
           end
+          next unless e['status']
 
-          if e['status']
-            CodeTable.each_key do |f|
-              # Try to match with each key as a regular expression
-              next unless e['status'] =~ f
-              e['reason'] = CodeTable[f]
-              break
-            end
+          CodeTable.each_key do |f|
+            # Try to match with each key as a regular expression
+            next unless e['status'] =~ f
+            e['reason'] = CodeTable[f]
+            break
           end
         end
 
