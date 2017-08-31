@@ -58,7 +58,7 @@ module Sisimai::Bite::Email
         endoferror = true   # (Integer) Flag for a blank line after error messages
         anotherset = {}     # (Hash) Another error information
         emptylines = 0      # (Integer) The number of empty lines
-        connvalues = 0      # (Integer) Flag, 1 if all the value of $connheader have been set
+        connvalues = 0      # (Integer) Flag, 1 if all the value of connheader have been set
         connheader = {
           'date'  => '',    # The value of Arrival-Date header
           'lhost' => '',    # The value of Reporting-MTA header
@@ -220,12 +220,12 @@ module Sisimai::Bite::Email
             if e['diagnosis'] =~ /\A\d+\z/
               e['diagnosis'] = anotherset['diagnosis']
             else
-              # More detailed error message is in "$anotherset"
+              # More detailed error message is in "anotherset"
               as = nil  # status
               ar = nil  # replycode
 
               if e['status'] == '' || e['status'] =~ /\A[45][.]0[.]0\z/
-                # Check the value of D.S.N. in $anotherset
+                # Check the value of D.S.N. in anotherset
                 as = Sisimai::SMTP::Status.find(anotherset['diagnosis'])
                 if as.size > 0 && as[-3, 3] != '0.0'
                   # The D.S.N. is neither an empty nor *.0.0
@@ -234,7 +234,7 @@ module Sisimai::Bite::Email
               end
 
               if e['replycode'] == '' || e['replycode'] =~ /\A[45]00\z/
-                # Check the value of SMTP reply code in $anotherset
+                # Check the value of SMTP reply code in anotherset
                 ar = Sisimai::SMTP::Reply.find(anotherset['diagnosis'])
                 if ar.size > 0 && ar[-2, 2].to_i != 0
                   # The SMTP reply code is neither an empty nor *00
@@ -243,7 +243,7 @@ module Sisimai::Bite::Email
               end
 
               if (as || ar) && (anotherset['diagnosis'].size > e['diagnosis'].size)
-                # Update the error message in $e->{'diagnosis'}
+                # Update the error message in e['diagnosis']
                 e['diagnosis'] = anotherset['diagnosis']
               end
             end

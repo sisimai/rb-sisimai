@@ -179,7 +179,7 @@ module Sisimai::Bite::Email
             recipients = rcptinhead.size
 
             rcptinhead.each do |e|
-              # Insert each recipient address into @$dscontents
+              # Insert each recipient address into dscontents
               dscontents[-1]['recipient'] = e
               next if dscontents.size == recipients
               dscontents << Sisimai::Bite.DELIVERYSTATUS

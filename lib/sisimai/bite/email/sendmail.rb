@@ -60,7 +60,7 @@ module Sisimai::Bite::Email
         commandtxt = ''     # (String) SMTP Command name begin with the string '>>>'
         esmtpreply = ''     # (String) Reply from remote server on SMTP session
         sessionerr = false  # (Boolean) Flag, "true" if it is SMTP session error
-        connvalues = 0      # (Integer) Flag, 1 if all the value of $connheader have been set
+        connvalues = 0      # (Integer) Flag, 1 if all the value of connheader have been set
         connheader = {
           'date'  => '',    # The value of Arrival-Date header
           'rhost' => '',    # The value of Reporting-MTA header

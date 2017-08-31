@@ -66,7 +66,7 @@ module Sisimai::Bite::Email
         blanklines = 0      # (Integer) The number of blank lines
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        connvalues = 0      # (Integer) Flag, 1 if all the value of $connheader have been set
+        connvalues = 0      # (Integer) Flag, 1 if all the value of connheader have been set
         connheader = {
           'lhost' => '',    # The value of Reporting-MTA header
         }

@@ -207,7 +207,7 @@ module Sisimai
         end
 
         if reasontext.empty?
-          # Check the value of $typestring
+          # Check the value of typestring
           if typestring == 'X-UNIX'
             # X-Unix; ...
             reasontext = 'mailererror'

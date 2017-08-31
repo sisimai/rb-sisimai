@@ -53,7 +53,7 @@ module Sisimai::Bite::Email
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         commandtxt = ''     # (String) SMTP Command name begin with the string '>>>'
         esmtpreply = ''     # (String) Reply from remote server on SMTP session
-        connvalues = 0      # (Integer) Flag, 1 if all the value of $connheader have been set
+        connvalues = 0      # (Integer) Flag, 1 if all the value of connheader have been set
         connheader = {
           'date'  => '',    # The value of Arrival-Date header
           'lhost' => '',    # The value of Reporting-MTA header

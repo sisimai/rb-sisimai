@@ -17,7 +17,7 @@ module Sisimai
         return RhostClass.keys
       end
 
-      # The value of "rhost" is listed in $RhostClass or not
+      # The value of "rhost" is listed in RhostClass or not
       # @param    [String] argvs  Remote host name
       # @return   [True,False]    True: matched
       #                           False: did not match
@@ -50,7 +50,7 @@ module Sisimai
         modulename = ''
 
         RhostClass.each_key do |e|
-          # Try to match with each key of $RhostClass
+          # Try to match with each key of RhostClass
           next unless remotehost =~ e
           modulename = 'Sisimai::Rhost::' + RhostClass[e]
           rhostclass = modulename.gsub('::', '/').downcase

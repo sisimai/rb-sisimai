@@ -363,7 +363,7 @@ module Sisimai
             # MIME-Encoded subject field or ASCII characters only
             r = []
             if mimeborder['subject']
-              # split the value of Subject by $borderline
+              # split the value of Subject by borderline
               v.split(borderline).each do |m|
                 # Insert value to the array if the string is MIME encoded text
                 r << m if Sisimai::MIME.is_mimeencoded(m)

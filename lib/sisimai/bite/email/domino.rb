@@ -159,7 +159,7 @@ module Sisimai::Bite::Email
         end
 
         unless rfc822list.find { |a| a =~ /^Subject:/ }
-          # Set the value of $subjecttxt as a Subject if there is no original
+          # Set the value of subjecttxt as a Subject if there is no original
           # message in the bounce mail.
           rfc822list << sprintf('Subject: %s', subjecttxt)
         end

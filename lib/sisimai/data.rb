@@ -214,7 +214,7 @@ module Sisimai
         end
 
         if datestring
-          # Get the value of timezone offset from $datestring
+          # Get the value of timezone offset from datestring
           if cv = datestring.match(/\A(.+)[ ]+([-+]\d{4})\z/)
             # Wed, 26 Feb 2014 06:05:48 -0500
             datestring = cv[1]
