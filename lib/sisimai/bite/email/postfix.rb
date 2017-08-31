@@ -288,7 +288,7 @@ module Sisimai::Bite::Email
                 end
               end
 
-              if ( as || ar ) && ( anotherset['diagnosis'].size > e['diagnosis'].size )
+              if (as || ar) && (anotherset['diagnosis'].size > e['diagnosis'].size)
                 # Update the error message in $e->{'diagnosis'}
                 e['diagnosis'] = anotherset['diagnosis']
               end

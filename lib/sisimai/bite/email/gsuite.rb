@@ -135,7 +135,7 @@ module Sisimai::Bite::Email
                   v['diagnosis'] = cv[2]
                 else
                   # Append error messages continued from the previous line
-                  if endoferror && ( v['diagnosis'] && v['diagnosis'].size > 0 )
+                  if endoferror && (v['diagnosis'] && v['diagnosis'].size > 0)
                     endoferror = true if e.empty?
                     endoferror = true if e.start_with?('--')
 
@@ -242,7 +242,7 @@ module Sisimai::Bite::Email
                 end
               end
 
-              if ( as || ar ) && ( anotherset['diagnosis'].size > e['diagnosis'].size )
+              if (as || ar) && (anotherset['diagnosis'].size > e['diagnosis'].size)
                 # Update the error message in $e->{'diagnosis'}
                 e['diagnosis'] = anotherset['diagnosis']
               end
