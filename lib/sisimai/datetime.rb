@@ -40,7 +40,7 @@ module Sisimai
 
       DayOfWeek = {
         full: %w|Sunday Monday Tuesday Wednesday Thursday Friday Saturday|,
-        abbr: %w|Sun Mon Tue Wed Thu Fri Sat |,
+        abbr: %w|Sun Mon Tue Wed Thu Fri Sat|,
       }.freeze
 
       HourName = {
