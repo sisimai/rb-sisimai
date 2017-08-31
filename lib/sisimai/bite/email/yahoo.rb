@@ -98,7 +98,7 @@ module Sisimai::Bite::Email
               recipients += 1
 
             else
-              if e =~ /\ARemote host said:/
+              if e.start_with?('Remote host said:')
                 # Remote host said: 550 5.1.1 <kijitora@example.org>... User Unknown [RCPT_TO]
                 v['diagnosis'] = e
 

@@ -137,7 +137,7 @@ module Sisimai::Bite::Email
                   # Append error messages continued from the previous line
                   if endoferror && ( v['diagnosis'] && v['diagnosis'].size > 0 )
                     endoferror = true if e.empty?
-                    endoferror = true if e =~ /\A--/
+                    endoferror = true if e.start_with?('--')
 
                     next if endoferror
                     next unless e =~ /\A[ ]/
