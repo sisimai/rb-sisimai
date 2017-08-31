@@ -182,8 +182,7 @@ module Sisimai
                   :until => Regexp.new(Regexp.escape(boundary01) + '\z')
                 }
               end
-            elsif cv = e.match(ReE[:'with-charset']) ||
-                  cv = e.match(ReE[:'only-charset'])
+            elsif cv = e.match(ReE[:'with-charset']) || e.match(ReE[:'only-charset'])
               # Content-Type: text/plain; charset=ISO-2022-JP
               encodename = cv[1]
               mimeinside = true if ctencoding

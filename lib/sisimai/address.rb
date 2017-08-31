@@ -393,7 +393,7 @@ module Sisimai
       thing = addrs.shift
 
       if cv = thing[:address].match(/\A([^\s]+)[@]([^@]+)\z/) ||
-         cv = thing[:address].match(/\A(["].+?["])[@]([^@]+)\z/)
+              thing[:address].match(/\A(["].+?["])[@]([^@]+)\z/)
         # Get the local part and the domain part from the email address
         lpart = cv[1]
         dpart = cv[2]

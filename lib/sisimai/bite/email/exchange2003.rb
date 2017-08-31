@@ -220,7 +220,7 @@ module Sisimai::Bite::Email
                 connvalues += 1
 
               elsif cv = e.match(%r|\A[ \t]+Sent:[ \t]+([A-Z][a-z]{2},.+[-+]\d{4})\z|) ||
-                    cv = e.match(%r|\A[ \t]+Sent:[ \t]+(\d+[/]\d+[/]\d+[ \t]+\d+:\d+:\d+[ \t].+)|)
+                         e.match(%r|\A[ \t]+Sent:[ \t]+(\d+[/]\d+[/]\d+[ \t]+\d+:\d+:\d+[ \t].+)|)
                 #  Sent:    Thu, 29 Apr 2010 18:14:35 +0000
                 #  Sent:    4/29/99 9:19:59 AM
                 next if connheader['date'].size > 0
