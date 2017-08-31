@@ -379,10 +379,7 @@ module Sisimai
                 # ISO 8601; 2000-04-29T01:23:45
                 v[:Y] = cr[1].to_i
                 v[:M] = MonthName[:abbr][cr[2].to_i - 1]
-
-                if cr[3].to_i < 32
-                  v[:d] = cr[3].to_i
-                end
+                v[:d] = cr[3].to_i if cr[3].to_i < 32
 
                 if cr[4].to_i < 24 && cr[5].to_i < 60 && cr[6].to_i < 60
                   v[:T] = sprintf('%02d:%02d:%02d', cr[4], cr[5], cr[6])

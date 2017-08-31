@@ -68,9 +68,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
-              readcursor |= Indicators[:deliverystatus]
-            end
+            readcursor |= Indicators[:deliverystatus] if e =~ Re1[:begin]
           end
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
