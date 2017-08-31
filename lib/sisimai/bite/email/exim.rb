@@ -504,7 +504,7 @@ module Sisimai::Bite::Email
                    Sisimai::SMTP::Status.code(e['reason'], true)
                  else
                    # Set pseudo DSN (permanent error)
-                  Sisimai::SMTP::Status.code(e['reason'], false)
+                   Sisimai::SMTP::Status.code(e['reason'], false)
                  end
           end
           e['status'] ||= sv

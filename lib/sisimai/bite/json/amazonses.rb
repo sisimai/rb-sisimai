@@ -161,11 +161,11 @@ module Sisimai::Bite::JSON
 
               if BounceType.key?(o['bounceType'].to_sym) &&
                  BounceType[o['bounceType'].to_sym].key?(o['bounceSubType'].to_sym)
-                  # 'bounce' => {
-                  #       'bounceType' => 'Permanent',
-                  #       'bounceSubType' => 'General'
-                  # },
-                  v['reason'] = BounceType[o['bounceType'].to_sym][o['bounceSubType'].to_sym]
+                # 'bounce' => {
+                #       'bounceType' => 'Permanent',
+                #       'bounceSubType' => 'General'
+                # },
+                v['reason'] = BounceType[o['bounceType'].to_sym][o['bounceSubType'].to_sym]
               end
 
             else

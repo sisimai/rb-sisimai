@@ -363,7 +363,7 @@ module Sisimai
 
             o.softbounce = if softorhard.size > 0
                              # Returned value is "soft" or "hard"
-                            (softorhard == 'soft') ? 1 : 0
+                             (softorhard == 'soft') ? 1 : 0
                            else
                              # Returned value is an empty string
                              -1

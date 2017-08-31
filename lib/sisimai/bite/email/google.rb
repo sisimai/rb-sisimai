@@ -275,7 +275,7 @@ module Sisimai::Bite::Email
                              hostname.downcase
                            else
                              # Use IP address instead
-                            ipv4addr
+                             ipv4addr
                            end
             end
           end
