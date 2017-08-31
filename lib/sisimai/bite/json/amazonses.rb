@@ -119,8 +119,8 @@ module Sisimai::Bite::JSON
 
         if argvs['notificationType'] =~ /\A(?:Bounce|Complaint)\z/
           # { "notificationType":"Bounce", "bounce": { "bounceType":"Permanent",...
-          o = argvs[ argvs['notificationType'].downcase ]
-          r = o[ labeltable[ argvs['notificationType'].to_sym ] ] || []
+          o = argvs[argvs['notificationType'].downcase]
+          r = o[labeltable[argvs['notificationType'].to_sym]] || []
 
           r.each do |e|
             # 'bouncedRecipients' => [ { 'emailAddress' => 'bounce@si...' }, ... ]
@@ -235,7 +235,7 @@ module Sisimai::Bite::JSON
           argvs['mail']['headers'].each do |e|
             # 'headers' => [ { 'name' => 'From', 'value' => 'neko@nyaan.jp' }, ... ],
             next unless e['name'] =~ /\A(?:From|To|Subject|Message-ID|Date)\z/
-            rfc822head[ e['name'].downcase ] = e['value']
+            rfc822head[e['name'].downcase] = e['value']
           end
         end
 
