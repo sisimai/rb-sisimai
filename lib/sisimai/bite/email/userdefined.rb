@@ -114,7 +114,7 @@ module Sisimai::Bite::Email
         rfc822list << 'Subject: Nyaaan'
         rfc822list << 'Message-Id: 000000000000@example.jp'
 
-        # 3. Return undef when there is no recipient address which is failed to
+        # 3. Return nil when there is no recipient address which is failed to
         #    delivery in the bounce message
         return nil if recipients.zero?
 

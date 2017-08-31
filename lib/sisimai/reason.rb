@@ -86,7 +86,7 @@ module Sisimai
 
       # Detect the other bounce reason, fall back method for get()
       # @param    [Sisimai::Data] argvs   Parsed email object
-      # @return   [String, Undef]         Bounce reason or Undef if the argument
+      # @return   [String, Nil]           Bounce reason or nli if the argument
       #                                   is missing or invalid object
       # @see get
       def anotherone(argvs)

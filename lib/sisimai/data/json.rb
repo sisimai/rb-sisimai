@@ -6,9 +6,9 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Data/JSON.pm
       class << self
         # Data dumper(JSON)
-        # @param    [Sisimai::Data] argvs   Object
-        # @return   [String, Nil]           Dumped data or Undef if the argument
-        #                                   is missing
+        # @param    [Sisimai::Data] argvs Object
+        # @return   [String, Nil]         Dumped data or nil if the argument
+        #                                 is missing
         def dump(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data

@@ -80,7 +80,7 @@ module Sisimai
       # @options mhead [String] others    Other required headers
       # @param         [String] mbody     Message body of a bounce email
       # @return        [Hash, Nil]        Bounce data list and message/rfc822 part
-      #                                   or Undef if it failed to parse or the
+      #                                   or nil if it failed to parse or the
       #                                   arguments are missing
       def scan(mhead, mbody)
         return nil unless self.is_arf(mhead)

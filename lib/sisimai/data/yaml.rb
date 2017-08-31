@@ -8,9 +8,9 @@ module Sisimai
         require 'yaml'
 
         # Data dumper(YAML)
-        # @param    [Sisimai::Data] argvs   Object
-        # @return   [String, Undef]         Dumped data or Undef if the argument
-        #                                   is missing
+        # @param    [Sisimai::Data] argvs Object
+        # @return   [String, Nil]         Dumped data or nil if the argument
+        #                                 is missing
         def dump(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data

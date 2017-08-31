@@ -425,7 +425,7 @@ module Sisimai
 
     # Data dumper
     # @param    [String] type   Data format: json, yaml
-    # @return   [String, Undef] Dumped data or Undef if the value of first
+    # @return   [String, Nil]   Dumped data or nil if the value of the first
     #                           argument is neither "json" nor "yaml"
     def dump(type = 'json')
       return nil unless %w|json yaml|.index(type)
