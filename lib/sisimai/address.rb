@@ -7,7 +7,7 @@ module Sisimai
     # Return pseudo recipient or sender address
     # @param    [Symbol] argv1  Address type: :r or :s
     # @return   [String, Nil]   Pseudo recipient address or sender address or
-    #                           nil when the $argv1 is neither :r nor :s
+    #                           nil when the argv1 is neither :r nor :s
     def self.undisclosed(argv1)
       return nil unless argv1
       return nil unless %w|r s|.index(argv1.to_s)
