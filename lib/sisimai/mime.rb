@@ -98,9 +98,9 @@ module Sisimai
 
         if characterset && encodingname
           # utf8 => UTF-8
-          characterset = 'UTF-8' if characterset.upcase == 'UTF8'
+          characterset = 'UTF-8' if characterset.casecmp('UTF8').zero?
 
-          if characterset.upcase != 'UTF-8'
+          unless characterset.casecmp('UTF-8').zero?
             # Characterset is not UTF-8
             begin
               decodedtext1 = decodedtext1.encode('UTF-8', characterset)
