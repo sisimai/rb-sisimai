@@ -55,10 +55,6 @@ module Sisimai
                          elsif argv1 =~ /permanent/i
                            # Permanently failure
                            true
-                         else
-                           # did not find information to decide that it is a soft bounce
-                           # or a hard bounce.
-                           nil
                          end
           end
 
