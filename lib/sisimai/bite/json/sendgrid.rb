@@ -22,7 +22,6 @@ module Sisimai::Bite::JSON
         return nil unless Sisimai::RFC5322.is_emailaddress(argvs['email'])
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
-        rfc822head = {}     # (Hash) Check flags for headers in RFC822 part
         v = dscontents[-1]
 
         require 'sisimai/string'
