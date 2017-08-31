@@ -42,7 +42,7 @@ module Sisimai
       # @param    [String] argv1  String including email address
       # @param    [Boolean] addrs true:  Returns list including all the elements
       #                           false: Returns list including email addresses only
-      # @return   [Array, Nil]    Email address list or Undef when there is no 
+      # @return   [Array, Nil]    Email address list or Undef when there is no
       #                           email address in the argument
       # @example  Parse email address
       #   find('Neko <neko(nyaan)@example.org>')
@@ -212,7 +212,7 @@ module Sisimai
               end
             end
             next
-          end # End of if('"') 
+          end # End of if('"')
         else
           # The character is not a delimiter
           p.size > 0 ? (v[p] += e) : (v[:name] += e)

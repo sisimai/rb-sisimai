@@ -334,7 +334,7 @@ module Sisimai
               # The line is MIME-Encoded test
               takenapart[previousfn] += if previousfn == 'subject'
                                           # Subject: header
-                                          borderline + e 
+                                          borderline + e
                                         else
                                           # Is not Subject header
                                           e
