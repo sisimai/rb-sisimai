@@ -13,8 +13,8 @@ module Sisimai
         :offset,  # [Integer]  Offset position for seeking
         :handle,  # [IO::File] File handle
       ]
-      @@roaccessors.each do |e| attr_reader   e end
-      @@rwaccessors.each do |e| attr_accessor e end
+      @@roaccessors.each { |e| attr_reader   e }
+      @@rwaccessors.each { |e| attr_accessor e }
 
       # Constructor of Sisimai::Mail::STDIN
       # @param    [IO::STDIN] stdin      Standard-In
