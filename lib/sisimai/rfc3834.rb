@@ -15,8 +15,8 @@ module Sisimai
             |Out[ ]of[ ]Office:
           )
         /xi,
-      }
-      Re1 = { :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/ }
+      }.freeze
+      Re1 = { :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/ }.freeze
       Re2 = {
         :subject => %r/(?:
              SECURITY[ ]information[ ]for  # sudo
@@ -25,7 +25,7 @@ module Sisimai
         /x,
         :from    => %r/(?:root|postmaster|mailer-daemon)[@]/i,
         :to      => %r/root[@]/,
-      }
+      }.freeze
 
       def description; 'Detector for auto replied message'; end
       def smtpagent;   'RFC3834'; end

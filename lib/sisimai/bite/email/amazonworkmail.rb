@@ -11,12 +11,12 @@ module Sisimai::Bite::Email
         :'subject'  => %r/Delivery[_ ]Status[_ ]Notification[_ ].+Failure/,
         :'received' => %r/.+[.]smtp-out[.].+[.]amazonses[.]com\b/,
         :'x-mailer' => %r/\AAmazon WorkMail\z/,
-      }
+      }.freeze
       Re1 = {
         :begin  => %r/\ATechnical report:\z/,
         :rfc822 => %r|\Acontent-type: message/rfc822\z|,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Amazon WorkMail: https://aws.amazon.com/workmail/'; end
@@ -75,7 +75,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -94,7 +94,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             if connvalues == connheader.keys.size

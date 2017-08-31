@@ -11,7 +11,7 @@ module Sisimai::Bite::Email
         :'subject'    => %r/Undeliverable:/,
         :'received'   => %r/.+[.](?:outbound[.]protection|prod)[.]outlook[.]com\b/,
         :'message-id' => %r/.+[.](?:outbound[.]protection|prod)[.]outlook[.]com\b/,
-      }
+      }.freeze
       Re1 = {
         :begin  => %r{\A(?:
            Delivery[ ]has[ ]failed[ ]to[ ]these[ ]recipients[ ]or[ ]groups:
@@ -22,7 +22,7 @@ module Sisimai::Bite::Email
         :eoerr  => %r/\AOriginal message headers:\z/,
         :rfc822 => %r|\AContent-Type: message/rfc822\z|,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       CodeTable = {
         # https://support.office.com/en-us/article/Email-non-delivery-reports-in-Office-365-51daa6b9-2e35-49c4-a0c9-df85bf8533c3
         %r/\A4[.]4[.]7\z/        => 'expired',
@@ -49,7 +49,7 @@ module Sisimai::Bite::Email
         %r/\A5[.]7[.]60[6-9]\z/  => 'blocked',
         %r/\A5[.]7[.]6[1-4]\d\z/ => 'blocked',
         %r/\A5[.]7[.]7[0-4]\d\z/ => 'toomanyconn',
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Microsoft Office 365: http://office.microsoft.com/'; end
@@ -126,7 +126,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -145,7 +145,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             # kijitora@example.com<mailto:kijitora@example.com>

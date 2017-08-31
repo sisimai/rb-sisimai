@@ -9,20 +9,20 @@ module Sisimai::Bite::Email
       Re0 = {
         :'x-nai'   => %r/Modified by McAfee /,
         :'subject' => %r/\ADelivery Status\z/,
-      }
+      }.freeze
       Re1 = {
         :begin   => %r/[-]+ The following addresses had delivery problems [-]+\z/,
         :error   => %r|\AContent-Type: [^ ]+/[^ ]+; name="deliveryproblems[.]txt"|,
         :rfc822  => %r|\AContent-Type: message/rfc822\z|,
         :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       ReFailure = {
         userunknown: %r{(?:
            User[ ][(].+[@].+[)][ ]unknown[.]
           |550[ ]Unknown[ ]user[ ][^ ]+[@][^ ]+
           )
         }x,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'McAfee Email Appliance'; end
@@ -72,7 +72,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -91,7 +91,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             # Content-Type: text/plain; name="deliveryproblems.txt"

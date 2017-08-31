@@ -16,7 +16,7 @@ module Sisimai::Bite::Email
           :'from'    => %r/[<]?sysadmin[@].+[.]vzwpix[.]com[>]?\z/,
           :'subject' => %r/Undeliverable Message/,
         },
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Verizon Wireless: http://www.verizonwireless.com'; end
@@ -97,7 +97,7 @@ module Sisimai::Bite::Email
               end
             end
 
-            if readcursor & Indicators[:'message-rfc822'] == 0
+            if (readcursor & Indicators[:'message-rfc822']).zero?
               # Beginning of the original message part
               if e =~ re1[:rfc822]
                 readcursor |= Indicators[:'message-rfc822']
@@ -116,7 +116,7 @@ module Sisimai::Bite::Email
 
             else
               # Before "message/rfc822"
-              next if readcursor & Indicators[:deliverystatus] == 0
+              next if (readcursor & Indicators[:deliverystatus]).zero?
               next if e.empty?
 
               # Message details:
@@ -176,7 +176,7 @@ module Sisimai::Bite::Email
               end
             end
 
-            if readcursor & Indicators[:'message-rfc822'] == 0
+            if (readcursor & Indicators[:'message-rfc822']).zero?
               # Beginning of the original message part
               if e =~ re1[:rfc822]
                 readcursor |= Indicators[:'message-rfc822']
@@ -195,7 +195,7 @@ module Sisimai::Bite::Email
 
             else
               # Before "message/rfc822"
-              next if readcursor & Indicators[:deliverystatus] == 0
+              next if (readcursor & Indicators[:deliverystatus]).zero?
               next if e.empty?
 
               # Original Message:

@@ -10,7 +10,7 @@ module Sisimai::Bite::Email
         :from     => %r/\AMailer Daemon [<][^ ]+[@]/,
         :subject  => %r/\ADelivery status notification/,
         :received => %r/[ ][(]OpenSMTPD[)][ ]with[ ]/,
-      }
+      }.freeze
       # http://www.openbsd.org/cgi-bin/man.cgi?query=smtpd&sektion=8
       # opensmtpd-5.4.2p1/smtpd/
       #   bounce.c/317:#define NOTICE_INTRO \
@@ -40,7 +40,7 @@ module Sisimai::Bite::Email
         :begin  => %r/\A[ \t]*This is the MAILER-DAEMON, please DO NOT REPLY to this e[-]?mail[.]\z/,
         :rfc822 => %r/\A[ \t]*Below is a copy of the original message:\z/,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       ReFailure = {
         expired: %r{
           # smtpd/queue.c:221|  envelope_set_errormsg(&evp, "Envelope expired");
@@ -76,7 +76,7 @@ module Sisimai::Bite::Email
           # smtpd/mta.c:1013|  relay->failstr = "Could not retrieve credentials";
           Could[ ]not[ ]retrieve[ ]credentials
         }x,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'OpenSMTPD'; end
@@ -119,7 +119,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -138,7 +138,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             #    Hi!

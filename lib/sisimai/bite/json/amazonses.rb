@@ -21,7 +21,7 @@ module Sisimai::Bite::JSON
           :ContentRejected    => '',
           :AttachmentRejected => '',
         },
-      }
+      }.freeze
 
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
       def description; return 'Amazon SES(JSON): http://aws.amazon.com/ses/'; end

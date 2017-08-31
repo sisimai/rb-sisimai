@@ -25,23 +25,23 @@ module Sisimai
         b: 86.4,                  # Beat, Swatch internet time: 1000b = 1d
         m: 60,                    # Minute,
         s: 1,                     # Second
-      }
+      }.freeze
 
       MathematicalConstant = {
         e: CONST_E,
         p: CONST_P,
         g: CONST_E**CONST_P,
-      }
+      }.freeze
 
       MonthName = {
         full: %w|January February March April May June July August September October November December|,
         abbr: %w|Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec|,
-      }
+      }.freeze
 
       DayOfWeek = {
         full: %w|Sunday Monday Tuesday Wednesday Thursday Friday Saturday|,
         abbr: %w|Sun Mon Tue Wed Thu Fri Sat |,
-      }
+      }.freeze
 
       HourName = {
         full: [
@@ -49,7 +49,7 @@ module Sisimai
           'Noon', 13, 14, 15, 16, 17, 'Evening', 19, 20, 21, 22, 23,
         ],
         abbr: [0..23],
-      }
+      }.freeze
 
       TimeZoneAbbr = {
         # http://en.wikipedia.org/wiki/List_of_time_zone_abbreviations
@@ -178,7 +178,7 @@ module Sisimai
         # WET:   '-0000', # Western European Time             UTC
         # YAKT:  '+0900', # Yakutsk Time                      UTC+09:00
         # YEKT:  '+0500', # Yekaterinburg Time                UTC+05:00
-      }
+      }.freeze
 
       # Convert to second
       # @param    [String] argv1  Digit and a unit of time
@@ -417,13 +417,13 @@ module Sisimai
         # Adjust 2-digit Year
         if altervalue[:Y] && !v[:Y]
           # Check alternative value(Year)
-          if altervalue[:Y].to_i >= 82
-            # SMTP was born in 1982
-            v[:Y] ||= 1900 + altervalue[:Y].to_i
-          else
-            # 20XX
-            v[:Y] ||= 2000 + altervalue[:Y].to_i
-          end
+          v[:Y] ||= if altervalue[:Y].to_i >= 82
+                      # SMTP was born in 1982
+                      1900 + altervalue[:Y].to_i
+                    else
+                      # 20XX
+                      2000 + altervalue[:Y].to_i
+                    end
         end
 
         # Check each piece

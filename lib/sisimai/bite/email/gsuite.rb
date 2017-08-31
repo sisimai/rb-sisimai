@@ -9,19 +9,19 @@ module Sisimai::Bite::Email
       Re0 = {
         :from    => %r/[@]googlemail[.]com[>]?\z/,
         :subject => %r/Delivery[ ]Status[ ]Notification/,
-      }
+      }.freeze
       Re1 = {
         :begin   => %r/\A[*][*][ ].+[ ][*][*]\z/,
         :error   => %r/\AThe[ ]response([ ]from[ ]the[ ]remote[ ]server)?[ ]was:\z/,
         :html    => %r{\AContent-Type:[ ]*text/html;[ ]*charset=['"]?(?:UTF|utf)[-]8['"]?\z},
         :rfc822  => %r{\AContent-Type:[ ]*(?:message/rfc822|text/rfc822-headers)\z},
         :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       ErrorMayBe = {
         :userunknown  => %r/because the address couldn't be found/,
         :notaccept    => %r/Null MX/,
         :networkerror => %r/DNS type .+ lookup of .+ responded with code NXDOMAIN/,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'G Suite: https://gsuite.google.com'; end
@@ -73,7 +73,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -92,7 +92,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
 
             if connvalues == connheader.keys.size
               # Final-Recipient: rfc822; kijitora@example.de

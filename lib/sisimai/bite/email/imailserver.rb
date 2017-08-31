@@ -10,13 +10,13 @@ module Sisimai::Bite::Email
       Re0 = {
         :'x-mailer' => %r/\A[<]SMTP32 v[\d.]+[>][ ]*\z/,
         :'subject'  => %r/\AUndeliverable Mail[ ]*\z/,
-      }
+      }.freeze
       Re1 = {
         :begin  => %r/\A\z/,    # Blank line
         :error  => %r/Body of message generated response:/,
         :rfc822 => %r/\AOriginal message follows[.]\z/,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       ReSMTP = {
         conn: %r{(?:
              SMTP[ ]connection[ ]failed,
@@ -27,7 +27,7 @@ module Sisimai::Bite::Email
         mail: %r|Server response to MAIL FROM:|,
         rcpt: %r|Additional RCPT TO generated following response:|,
         data: %r|DATA command generated response:|,
-      }
+      }.freeze
       ReFailure = {
         hostunknown: %r/Unknown[ ]host/x,
         userunknown: %r/\A(?:Unknown[ ]user|Invalid[ ]final[ ]delivery[ ]userid)/x,
@@ -35,7 +35,7 @@ module Sisimai::Bite::Email
         securityerr: %r/\ARequested[ ]action[ ]not[ ]taken:[ ]virus[ ]detected/x,
         undefined:   %r/\Aundeliverable[ ]to[ ]/x,
         expired:     %r/\ADelivery[ ]failed[ ]\d+[ ]attempts/x,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'IPSWITCH IMail Server'; end
@@ -80,7 +80,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -145,11 +145,11 @@ module Sisimai::Bite::Email
 
           if e['alterrors'] && e['alterrors'].size > 0
             # Copy alternative error message
-            if e['diagnosis']
-              e['diagnosis'] = e['alterrors'] + ' ' + e['diagnosis']
-            else
-              e['diagnosis'] = e['alterrors']
-            end
+            e['diagnosis'] = if e['diagnosis']
+                               e['alterrors'] + ' ' + e['diagnosis']
+                             else
+                               e['alterrors']
+                              end
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
             e.delete('alterrors')
           end

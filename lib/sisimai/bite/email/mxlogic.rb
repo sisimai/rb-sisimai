@@ -17,16 +17,16 @@ module Sisimai::Bite::Email
             )
         }x,
         :'message-id' => %r/\A[<]mxl[~][0-9a-f]+/,
-      }
+      }.freeze
       Re1 = {
         :rfc822 => %r/\AIncluded is a copy of the message header:\z/,
         :begin  => %r/\AThis message was created automatically by mail delivery software[.]\z/,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       ReCommand = [
         %r/SMTP error from remote (?:mail server|mailer) after ([A-Za-z]{4})/,
         %r/SMTP error from remote (?:mail server|mailer) after end of ([A-Za-z]{4})/,
-      ]
+      ].freeze
       ReFailure = {
         userunknown: %r{
             user[ ]not[ ]found
@@ -58,7 +58,7 @@ module Sisimai::Bite::Email
         contenterror: %r{
             Too[ ]many[ ]["]Received["][ ]headers
         }x,
-      }
+      }.freeze
       ReDelayed = %r{(?:
          retry[ ]timeout[ ]exceeded
         |No[ ]action[ ]is[ ]required[ ]on[ ]your[ ]part
@@ -119,7 +119,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -138,7 +138,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             # This message was created automatically by mail delivery software.

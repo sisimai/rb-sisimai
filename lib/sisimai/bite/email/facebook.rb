@@ -9,12 +9,12 @@ module Sisimai::Bite::Email
       Re0 = {
         :from    => %r/\AFacebook [<]mailer-daemon[@]mx[.]facebook[.]com[>]\z/,
         :subject => %r/\ASorry, your message could not be delivered\z/,
-      }
+      }.freeze
       Re1 = {
         :begin   => %r/\AThis message was created automatically by Facebook[.]\z/,
         :rfc822  => %r/\AContent-Disposition: inline\z/,
         :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
 
       # http://postmaster.facebook.com/response_codes
       # NOT TESTD EXCEPT RCP-P2
@@ -74,7 +74,7 @@ module Sisimai::Bite::Email
           'CON-T2', # Your mail server currently has too many connections open to Facebook's mail servers.
           'CON-T4', # Your mail server has exceeded the maximum number of recipients for its current connection.
         ],
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Facebook: https://www.facebook.com'; end
@@ -127,7 +127,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -146,7 +146,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             if connvalues == connheader.keys.size

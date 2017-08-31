@@ -15,7 +15,7 @@ module Sisimai
           )
         }x,
         :'subject'      => %r/complaint[ ]about[ ]message[ ]from[ ]/,
-      }
+      }.freeze
       # http://tools.ietf.org/html/rfc5965
       # http://en.wikipedia.org/wiki/Feedback_loop_(email)
       # http://en.wikipedia.org/wiki/Abuse_Reporting_Format
@@ -35,7 +35,7 @@ module Sisimai
         }x,
         :rfc822 => %r[\AContent-Type: (:?message/rfc822|text/rfc822-headers)],
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
       LongFields = Sisimai::RFC5322.LONGFIELDS
       RFC822Head = Sisimai::RFC5322.HEADERFIELDS
@@ -136,7 +136,7 @@ module Sisimai
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']

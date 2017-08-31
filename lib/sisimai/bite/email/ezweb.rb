@@ -11,7 +11,7 @@ module Sisimai::Bite::Email
         :'subject'    => %r/\AMail System Error - Returned Mail\z/,
         :'received'   => %r/\Afrom[ ](?:.+[.])?ezweb[.]ne[.]jp[ ]/,
         :'message-id' => %r/[@].+[.]ezweb[.]ne[.]jp[>]\z/,
-      }
+      }.freeze
       Re1 = {
         :begin  => %r{\A(?:
              The[ ]user[(]s[)][ ]
@@ -23,7 +23,7 @@ module Sisimai::Bite::Email
         :rfc822   => %r#\A(?:[-]{50}|Content-Type:[ ]*message/rfc822)#,
         :boundary => %r/\A__SISIMAI_PSEUDO_BOUNDARY__\z/,
         :endof    => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       ReFailure = {
         # notaccept: [ %r/The following recipients did not receive this message:/ ],
         mailboxfull: [
@@ -43,7 +43,7 @@ module Sisimai::Bite::Email
         onhold: [
           %r/Each of the following recipients was rejected by a remote mail server/,
         ],
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'au EZweb: http://www.au.kddi.com/mobile/'; end
@@ -107,7 +107,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822] || e =~ rxboundary
               readcursor |= Indicators[:'message-rfc822']
@@ -126,7 +126,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             # The user(s) account is disabled.
@@ -204,7 +204,7 @@ module Sisimai::Bite::Email
           if e['alterrors'] && e['alterrors'].size > 0
             # Copy alternative error message
             e['diagnosis'] ||= e['alterrors']
-            if e['diagnosis'] =~ /\A[-]+/ || e['diagnosis'] =~ /__\z/
+            if e['diagnosis'] =~ /\A[-]+/ || e['diagnosis'].end_with?('__')
               # Override the value of diagnostic code message
               e['diagnosis'] = e['alterrors'] if e['alterrors'].size > 0
             end

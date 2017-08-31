@@ -10,14 +10,14 @@ module Sisimai::Bite::Email
       Re0 = {
         :'subject'          => %r/\AUndeliverable:/,
         :'content-language' => %r/\A[a-z]{2}(?:[-][A-Z]{2})?\z/,
-      }
+      }.freeze
       Re1 = {
         :begin  => %r/[ ]Microsoft[ ]Exchange[ ]Server[ ]20\d{2}/,
         :error  => %r/[ ]((?:RESOLVER|QUEUE)[.][A-Za-z]+(?:[.]\w+)?);/,
         :rhost  => %r/\AGenerating[ ]server:[ ]?(.*)/,
         :rfc822 => %r/\AOriginal message headers:/,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       NDRSubject = {
         :'SMTPSEND.DNS.NonExistentDomain'=> 'hostunknown',   # 554 5.4.4 SMTPSEND.DNS.NonExistentDomain
         :'SMTPSEND.DNS.MxLoopback'       => 'networkerror',  # 554 5.4.4 SMTPSEND.DNS.MxLoopback
@@ -31,7 +31,7 @@ module Sisimai::Bite::Email
         :'RESOLVER.RST.NotAuthorized'    => 'rejected',      # 550 5.7.1 RESOLVER.RST.NotAuthorized
         :'RESOLVER.RST.RecipSizeLimit'   => 'mesgtoobig',    # 550 5.2.3 RESOLVER.RST.RecipSizeLimit
         :'QUEUE.Expired'                 => 'expired',       # 550 4.4.7 QUEUE.Expired
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Microsoft Exchange Server 2007'; end
@@ -79,7 +79,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -98,7 +98,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
 
             if connvalues == connheader.keys.size
               # Diagnostic information for administrators:
@@ -131,7 +131,7 @@ module Sisimai::Bite::Email
                 v['diagnosis'] = e
 
               else
-                if v['diagnosis'].to_s.size > 0 && v['diagnosis'] =~ /=\z/
+                if v['diagnosis'].to_s.size > 0 && v['diagnosis'].end_with?('=')
                   # Continued line of error messages
                   v['diagnosis']  = v['diagnosis'].sub(/=\z/, '')
                   v['diagnosis'] += e

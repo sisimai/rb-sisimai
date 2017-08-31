@@ -10,16 +10,16 @@ module Sisimai::Bite::Email
       Re0 = {
         :from    => %r/MAILER-DAEMON[@]messagelabs[.]com/,
         :subject => %r/\AMail Delivery Failure/,
-      }
+      }.freeze
       Re1 = {
         :begin   => %r|\AContent-Type: message/delivery-status|,
         :error   => %r/\AReason:[ \t]*(.+)\z/,
         :rfc822  => %r|\AContent-Type: text/rfc822-headers\z|,
         :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       ReFailure = {
         userunknown: %r/No[ ]such[ ]user/x,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Symantec.cloud http://www.messagelabs.com'; end
@@ -79,7 +79,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -98,7 +98,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             if connvalues == connheader.keys.size

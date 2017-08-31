@@ -22,13 +22,13 @@ module Sisimai
       HeaderList = [
         'from', 'to', 'date', 'subject', 'content-type', 'reply-to', 'message-id',
         'received', 'content-transfer-encoding', 'return-path', 'x-mailer',
-      ]
-      MultiHeads = { 'received' => true }
-      IgnoreList = { 'dkim-signature' => true }
+      ].freeze
+      MultiHeads = { 'received' => true }.freeze
+      IgnoreList = { 'dkim-signature' => true }.freeze
       Indicators = {
         :begin => (1 << 1),
         :endof => (1 << 2),
-      }
+      }.freeze
       DefaultSet = Sisimai::Order::Email.another
       SubjectTab = Sisimai::Order::Email.by('subject')
       ExtHeaders = Sisimai::Order::Email.headers
@@ -95,14 +95,13 @@ module Sisimai
         rfc822part = bouncedata['rfc822']
         rfc822part = aftersplit['body'] if rfc822part.empty?
 
-        if rfc822part.is_a? ::String
-          # The value returned from Sisimai::Bite::Email::* modules
-          processing['rfc822'] = Sisimai::Message::Email.takeapart(rfc822part)
-        else
-          # The value returned from Sisimai::Bite::JSON::* modules
-          processing['rfc822'] = rfc822part
-        end
-
+        processing['rfc822'] = if rfc822part.is_a? ::String
+                                 # The value returned from Sisimai::Bite::Email::* modules
+                                 Sisimai::Message::Email.takeapart(rfc822part)
+                               else
+                                 # The value returned from Sisimai::Bite::JSON::* modules
+                                 rfc822part
+                               end
         return processing
       end
 
@@ -333,14 +332,13 @@ module Sisimai
             # Concatenate the line if it is the value of required header
             if Sisimai::MIME.is_mimeencoded(e)
               # The line is MIME-Encoded test
-              if previousfn == 'subject'
-                # Subject: header
-                takenapart[previousfn] += borderline + e
-
-              else
-                # Is not Subject header
-                takenapart[previousfn] += e
-              end
+              takenapart[previousfn] += if previousfn == 'subject'
+                                          # Subject: header
+                                          borderline + e 
+                                        else
+                                          # Is not Subject header
+                                          e
+                                        end
               mimeborder[previousfn] = true
 
             else
@@ -419,14 +417,13 @@ module Sisimai
           if ctencoding == 'base64' || ctencoding == 'quoted-printable'
             # Content-Transfer-Encoding: base64
             # Content-Transfer-Encoding: quoted-printable
-            if ctencoding == 'base64'
-              # Content-Transfer-Encoding: base64
-              bodystring = Sisimai::MIME.base64d(bodystring)
-
-            else
-              # Content-Transfer-Encoding: quoted-printable
-              bodystring = Sisimai::MIME.qprintd(bodystring)
-            end
+            bodystring = if ctencoding == 'base64'
+                           # Content-Transfer-Encoding: base64
+                           Sisimai::MIME.base64d(bodystring)
+                         else
+                           # Content-Transfer-Encoding: quoted-printable
+                           Sisimai::MIME.qprintd(bodystring)
+                         end
           end
 
           if mesgformat =~ %r|text/html;?|

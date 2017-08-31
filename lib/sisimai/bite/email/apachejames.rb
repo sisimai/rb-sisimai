@@ -10,7 +10,7 @@ module Sisimai::Bite::Email
         :'subject'    => %r/\A\[BOUNCE\]\z/,
         :'received'   => %r/JAMES SMTP Server/,
         :'message-id' => %r/\d+[.]JavaMail[.].+[@]/,
-      }
+      }.freeze
       Re1 = {
         # apache-james-2.3.2/src/java/org/apache/james/transport/mailets/
         #   AbstractNotify.java|124:  out.println("Error message below:");
@@ -19,7 +19,7 @@ module Sisimai::Bite::Email
         :error  => %r/\AError message below:\z/,
         :rfc822 => %r|\AContent-Type: message/rfc822|,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Java Apache Mail Enterprise Server'; end
@@ -68,7 +68,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -87,7 +87,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             # Message details:

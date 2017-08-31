@@ -9,7 +9,7 @@ module Sisimai
       RhostClass = {
         %r/\Aaspmx[.]l[.]google[.]com\z/ => 'GoogleApps',
         %r/[.]protection[.]outlook[.]com\z/ => 'ExchangeOnline',
-      }
+      }.freeze
 
       # Retrun the list of remote hosts Sisimai support
       # @return   [Array] Remote host list

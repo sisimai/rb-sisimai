@@ -47,12 +47,12 @@ module Sisimai
     AddrHeader = {
       addresser: RFC822Head[:addresser],
       recipient: RFC822Head[:recipient],
-    }
+    }.freeze
     ActionList = %r/\A(?:failed|delayed|delivered|relayed|expanded)\z/
     ActionHead = {
       %r/\Afailure\z/ => 'failed',
       %r/\Aexpired\z/ => 'delayed',
-    }
+    }.freeze
 
     # Constructor of Sisimai::Data
     # @param    [Hash] argvs    Data
@@ -361,13 +361,13 @@ module Sisimai
             textasargv = textasargv.gsub(/\A[ ]/, '')
             softorhard = Sisimai::SMTP::Error.soft_or_hard(o.reason, textasargv)
 
-            if softorhard.size > 0
-              # Returned value is "soft" or "hard"
-              o.softbounce = (softorhard == 'soft') ? 1 : 0
-            else
-              # Returned value is an empty string
-              o.softbounce = (-1)
-            end
+            o.softbounce = if softorhard.size > 0
+                             # Returned value is "soft" or "hard"
+                            (softorhard == 'soft') ? 1 : 0
+                           else
+                             # Returned value is an empty string
+                             -1
+                           end
           end
 
           if o.deliverystatus.empty?
@@ -387,13 +387,13 @@ module Sisimai
                 # set the value of "softbounce" again when the value is -1
                 softorhard = Sisimai::SMTP::Error.soft_or_hard(o.reason, pseudocode)
 
-                if softorhard.size > 0
-                  # Returned value is "soft" or "hard"
-                  o.softbounce = softorhard == 'soft' ? 1 : 0
-                else
-                  # Returned value is an empty string
-                  o.softbounce = -1
-                end
+                o.softbounce = if softorhard.size > 0
+                                 # Returned value is "soft" or "hard"
+                                 softorhard == 'soft' ? 1 : 0
+                               else
+                                 # Returned value is an empty string
+                                 -1
+                               end
               end
             end
           end

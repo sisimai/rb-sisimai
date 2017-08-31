@@ -8,7 +8,7 @@ module Sisimai::Bite::Email
 
       ReE = {
         :from    => %r/[@].+[.]mail[.]ru[>]?/,
-      }
+      }.freeze
       Re0 = {
         :from    => %r/\AMail Delivery System/,
         :subject => %r{(?:
@@ -22,7 +22,7 @@ module Sisimai::Bite::Email
         }x,
         # :'message-id' => %r/\A[<]\w+[-]\w+[-]\w+[@].+\z/,
         # Message-Id: <E1P1YNN-0003AD-Ga@example.org>
-      }
+      }.freeze
 
       # Error text regular expressions which defined in exim/src/deliver.c
       #
@@ -63,7 +63,7 @@ module Sisimai::Bite::Email
          }x,
         :deliverystatus => %r|\AContent-type: message/delivery-status|,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
 
       ReCommand = [
         # transports/smtp.c:564|  *message = US string_sprintf("SMTP error from remote mail server after %s%s: "
@@ -72,7 +72,7 @@ module Sisimai::Bite::Email
         %r/SMTP error from remote (?:mail server|mailer) after end of ([A-Za-z]{4})/,
         %r/LMTP error after ([A-Za-z]{4})/,
         %r/LMTP error after end of ([A-Za-z]{4})/,
-      ]
+      ].freeze
 
       # find exim/ -type f -exec grep 'message = US' {} /dev/null \;
       ReFailure = {
@@ -111,7 +111,7 @@ module Sisimai::Bite::Email
         }x,
         # deliver.c:5425|  new->message = US"Too many \"Received\" headers - suspected mail loop";
         contenterror: %r/Too[ ]many[ ]["]Received["][ ]headers/x,
-      }
+      }.freeze
 
       # retry.c:902|  addr->message = (addr->message == NULL)? US"retry timeout exceeded" :
       # deliver.c:7475|  "No action is required on your part. Delivery attempts will continue for\n"
@@ -187,7 +187,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -206,7 +206,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             # This message was created automatically by mail delivery software.
@@ -387,7 +387,7 @@ module Sisimai::Bite::Email
               e['diagnosis'] ||= e['alterrors']
             end
 
-            if e['diagnosis'] =~ /\A[-]+/ || e['diagnosis'] =~ /__\z/
+            if e['diagnosis'] =~ /\A[-]+/ || e['diagnosis'].end_with?('__')
               # Override the value of diagnostic code message
               e['diagnosis'] = e['alterrors'] if e['alterrors'].size > 0
 
@@ -499,14 +499,13 @@ module Sisimai::Bite::Email
             e['status'] = sv if r1 > 0
           else
             # Neither Status nor SMTP reply code exist
-            if e['reason'] =~ /\A(?:expired|mailboxfull)/
-              # Set pseudo DSN (temporary error)
-              sv = Sisimai::SMTP::Status.code(e['reason'], true)
-
-            else
-              # Set pseudo DSN (permanent error)
-              sv = Sisimai::SMTP::Status.code(e['reason'], false)
-            end
+            sv = if e['reason'] =~ /\A(?:expired|mailboxfull)/
+                   # Set pseudo DSN (temporary error)
+                   Sisimai::SMTP::Status.code(e['reason'], true)
+                 else
+                   # Set pseudo DSN (permanent error)
+                  Sisimai::SMTP::Status.code(e['reason'], false)
+                 end
           end
           e['status'] ||= sv
           e.each_key { |a| e[a] ||= '' }

@@ -644,7 +644,7 @@ module Sisimai
           :'5.7.25' => 'blocked',        # Reverse DNS validation failed
           :'5.7.26' => 'securityerror',  # Multiple authentication checks failed
           :'5.7.27' => 'rejected',       # Sender address has null MX
-        }
+        }.freeze
 
         InternalCode = {
           :temporary => {
@@ -700,7 +700,7 @@ module Sisimai
             :undefined       => '5.0.900',
             :virusdetected   => '5.0.971',
           },
-        }
+        }.freeze
 
         # Convert from the reason string to the internal status code
         # @param    [String]     argv1  Reason name

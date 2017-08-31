@@ -13,7 +13,7 @@ module Sisimai
               'Sisimai::Bite::JSON::AmazonSES',
             ],
           },
-        }
+        }.freeze
 
         make_default_order = lambda do
           # Make default order of MTA(JSON) modules to be loaded

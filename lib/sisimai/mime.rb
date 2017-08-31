@@ -13,7 +13,7 @@ module Sisimai
         :'with-charset' => %r/^Content[-]Type:[ ]*.+[;][ ]*charset=['"]?(.+?)['"]?$/i,
         :'only-charset' => %r/^[\s\t]+charset=['"]?(.+?)['"]?$/i,
         :'html-message' => %r|^Content-Type:[ ]*text/html;|mi,
-      }
+      }.freeze
 
       # Make MIME-Encoding and Content-Type related headers regurlar expression
       # @return   [Array] Regular expressions related to MIME encoding

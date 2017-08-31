@@ -16,7 +16,7 @@ module Sisimai
           'To', 'Delivered-To', 'Forward-Path', 'Envelope-To',
           'X-Envelope-To', 'Resent-To', 'Apparently-To'
         ],
-      }
+      }.freeze
 
       build_regular_expressions = lambda do
         # See http://www.ietf.org/rfc/rfc5322.txt

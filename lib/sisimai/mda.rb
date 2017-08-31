@@ -5,7 +5,7 @@ module Sisimai
     class << self
       Re0 = {
         :from => %r/\A(?:Mail Delivery Subsystem|MAILER-DAEMON|postmaster)/i,
-      }
+      }.freeze
       Re1 = {
         # dovecot/src/deliver/deliver.c
         # 11: #define DEFAULT_MAIL_REJECTION_HUMAN_REASON \
@@ -16,7 +16,7 @@ module Sisimai
         :'maildrop'   => %r/\Amaildrop: /,
         :'vpopmail'   => %r/\Avdelivermail: /,
         :'vmailmgr'   => %r/\Avdeliver: /,
-      }
+      }.freeze
       Re2 = %r{\A(?>
          Your[ ]message[ ]to[ ].+[ ]was[ ]automatically[ ]rejected:\z
         |(?:mail[.]local|procmail|maildrop|vdelivermail|vdeliver):[ ]
@@ -78,7 +78,7 @@ module Sisimai
           }ix,
           :mailboxfull => %r/Delivery failed due to system quota violation/i,
         },
-      }
+      }.freeze
 
       # Parse message body and return reason and text
       # @param         [Hash] mhead       Message header of a bounce email

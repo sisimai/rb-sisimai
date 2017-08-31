@@ -8,11 +8,11 @@ module Sisimai::Bite::Email
       require 'sisimai/bite/email'
 
       # http://aws.amazon.com/ses/
-      ReE = { :'x-mailer' => %r/Amazon[ ]WorkMail/ }
+      ReE = { :'x-mailer' => %r/Amazon[ ]WorkMail/ }.freeze
       Re0 = {
         :from    => %r/\AMAILER-DAEMON[@]email[-]bounces[.]amazonses[.]com\z/,
         :subject => %r/\ADelivery Status Notification [(]Failure[)]\z/,
-      }
+      }.freeze
       Re1 = {
         :begin   => %r/\A(?:
              The[ ]following[ ]message[ ]to[ ][<]
@@ -21,10 +21,10 @@ module Sisimai::Bite::Email
         /x,
         :rfc822  => %r|\Acontent-type: message/rfc822\z|,
         :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       ReFailure = {
         expired: %r/Delivery[ ]expired/x,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Amazon SES(Sending): http://aws.amazon.com/ses/'; end
@@ -85,7 +85,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -105,7 +105,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             if connvalues == connheader.keys.size

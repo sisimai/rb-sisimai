@@ -8,12 +8,12 @@ module Sisimai::Bite::Email
 
       Re0 = {
         :subject => %r/\ADELIVERY FAILURE:/,
-      }
+      }.freeze
       Re1 = {
         :begin   => %r/\AYour message/,
         :rfc822  => %r|\AContent-Type: message/delivery-status\z|,
         :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       ReFailure = {
         userunknown: %r{(?>
            not[ ]listed[ ]in[ ](?:
@@ -25,7 +25,7 @@ module Sisimai::Bite::Email
         }x,
         filtered:    %r/Cannot[ ]route[ ]mail[ ]to[ ]user/x,
         systemerror: %r/Several[ ]matches[ ]found[ ]in[ ]Domino[ ]Directory/x,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'IBM Domino Server'; end
@@ -70,7 +70,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -89,7 +89,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
 
             # Your message
             #
