@@ -64,7 +64,7 @@ module Sisimai
 
         argvs.each do |e|
           # Check and decode each element
-          e = e.lstrip.rstrip
+          e = e.strip
           e = e.delete('"')
 
           if self.is_mimeencoded(e)
