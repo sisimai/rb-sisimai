@@ -164,7 +164,7 @@ module Sisimai
 
             else
               # hostname
-              e = e.delete('[]()')
+              e = e.delete('()')
               namelist << e
             end
           end
