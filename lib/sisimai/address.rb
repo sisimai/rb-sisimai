@@ -227,7 +227,7 @@ module Sisimai
         # No email address like <neko@example.org> in the argument
         if cv = v[:name].match(validemail)
           # String like an email address will be set to the value of "address"
-          v[:address] = sprintf("%s@%s", cv[1], cv[2])
+          v[:address] = sprintf('%s@%s', cv[1], cv[2])
 
         elsif Sisimai::RFC5322.is_mailerdaemon(v[:name])
           # Allow if the argument is MAILER-DAEMON
@@ -343,7 +343,7 @@ module Sisimai
       verp0 = ''
 
       if cv = local.match(/\A[-_\w]+?[+](\w[-._\w]+\w)[=](\w[-.\w]+\w)\z/)
-        verp0 = sprintf("%s@%s", cv[1], cv[2])
+        verp0 = sprintf('%s@%s', cv[1], cv[2])
         return verp0 if Sisimai::RFC5322.is_emailaddress(verp0)
       else
         return ''
@@ -418,7 +418,7 @@ module Sisimai
         end
         @user    = lpart
         @host    = dpart
-        @address = sprintf("%s@%s", lpart, dpart)
+        @address = sprintf('%s@%s', lpart, dpart)
 
       else
         # The argument does not include "@"

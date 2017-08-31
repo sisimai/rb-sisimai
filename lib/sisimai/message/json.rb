@@ -134,7 +134,7 @@ module Sisimai
             }
             havecaught = hookmethod.call(p)
           rescue StandardError => ce
-            warn sprintf(" ***warning: Something is wrong in hook method :%s", ce.to_s)
+            warn sprintf(' ***warning: Something is wrong in hook method :%s', ce.to_s)
           end
         end
 
