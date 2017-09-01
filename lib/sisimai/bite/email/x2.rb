@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::X2 parses a bounce email which created by Unknown
+  # MTA #2. Methods in the module are called from only Sisimai::Message.
   module X2
-    # Sisimai::Bite::Email::X2 parses a bounce email which created by Unknown
-    # MTA #2. Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/X2.pm
       require 'sisimai/bite/email'

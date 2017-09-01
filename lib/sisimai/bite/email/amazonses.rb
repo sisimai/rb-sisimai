@@ -1,8 +1,8 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::AmazonSES parses a bounce email which created by
+  # Amazon Simple Email Service.
+  # Methods in the module are called from only Sisimai::Message.
   module AmazonSES
-    # Sisimai::Bite::Email::AmazonSES parses a bounce email which created by
-    # Amazon Simple Email Service.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/AmazonSES.pm
       require 'sisimai/bite/email'

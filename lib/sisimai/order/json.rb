@@ -1,7 +1,7 @@
 module Sisimai
-  # Sisimai::Order::JSON - Make optimized order list for calling MTA modules
-  # for JSON formatted bounce objects
   module Order
+    # Sisimai::Order::JSON - Make optimized order list for calling MTA modules
+    # for JSON formatted bounce objects
     module JSON
       # Imported from p5-Sisimail/lib/Sisimai/Order/JSON.pm
       class << self

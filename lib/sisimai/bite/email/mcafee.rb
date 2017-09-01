@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::McAfee parses a bounce email which created by McAfee
+  # Email Appliance. Methods in the module are called from only Sisimai::Message.
   module McAfee
-    # Sisimai::Bite::Email::McAfee parses a bounce email which created by McAfee
-    # Email Appliance. Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/McAfee.pm
       require 'sisimai/bite/email'

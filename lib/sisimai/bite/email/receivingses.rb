@@ -1,8 +1,8 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::ReceivingSES parses a bounce email which created
+  # by Amazon Simple Email Service. Methods in the module are called from
+  # only Sisimai::Message.
   module ReceivingSES
-    # Sisimai::Bite::Email::ReceivingSES parses a bounce email which created
-    # by Amazon Simple Email Service. Methods in the module are called from
-    # only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/ReceivingSES.pm
       require 'sisimai/bite/email'

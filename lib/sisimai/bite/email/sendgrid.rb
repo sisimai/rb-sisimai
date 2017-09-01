@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::SendGrid parses a bounce email which created by
+  # SendGrid. Methods in the module are called from only Sisimai::Message.
   module SendGrid
-    # Sisimai::Bite::Email::SendGrid parses a bounce email which created by
-    # SendGrid. Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/SendGrid.pm
       require 'sisimai/bite/email'

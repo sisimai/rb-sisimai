@@ -1,7 +1,7 @@
 module Sisimai
   module Bite
+    # Sisimai::Bite::JSON - Base class for Sisimai::Bite::JSON::*
     module JSON
-      # Sisimai::Bite::JSON - Base class for Sisimai::Bite::JSON::*
       class << self
         # Imported from p5-Sisimail/lib/Sisimai/Bite/JSON.pm
         require 'sisimai/bite'

@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Biglobe parses a bounce email which created by BIGLOBE.
+  # Methods in the module are called from only Sisimai::Message.
   module Biglobe
-    # Sisimai::Bite::Email::Biglobe parses a bounce email which created by BIGLOBE.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Biglobe.pm
       require 'sisimai/bite/email'

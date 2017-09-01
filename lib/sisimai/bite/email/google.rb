@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Google parses a bounce email which created by Gmail.
+  # Methods in the module are called from only Sisimai::Message.
   module Google
-    # Sisimai::Bite::Email::Google parses a bounce email which created by Gmail.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Google.pm
       require 'sisimai/bite/email'

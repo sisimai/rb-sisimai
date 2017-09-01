@@ -1,8 +1,8 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Exchange2007 parses a bounce email which created by
+  # Microsoft Exchange Server 2007.
+  # Methods in the module are called from only Sisimai::Message.
   module Exchange2007
-    # Sisimai::Bite::Email::Exchange2007 parses a bounce email which created by
-    # Microsoft Exchange Server 2007.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Exchange2007.pm
       require 'sisimai/bite/email'

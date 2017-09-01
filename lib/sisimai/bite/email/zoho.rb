@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Zoho parses a bounce email which created by Zoho Mail.
+  # Methods in the module are called from only Sisimai::Message.
   module Zoho
-    # Sisimai::Bite::Email::Zoho parses a bounce email which created by Zoho Mail.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Zoho.pm
       require 'sisimai/bite/email'

@@ -1,9 +1,9 @@
 module Sisimai
-  # Sisimai::Order::Email makes optimized order list which include MTA modules
-  # to be loaded on first from MTA specific headers in the bounce mail headers
-  # such as X-Failed-Recipients.
-  # This module are called from only Sisimai::Message::Email.
   module Order
+    # Sisimai::Order::Email makes optimized order list which include MTA modules
+    # to be loaded on first from MTA specific headers in the bounce mail headers
+    # such as X-Failed-Recipients.
+    # This module are called from only Sisimai::Message::Email.
     module Email
       # Imported from p5-Sisimail/lib/Sisimai/Order/Email.pm
       class << self

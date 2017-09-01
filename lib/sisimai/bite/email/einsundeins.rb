@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::EinsUndEins parses a bounce email which created by
+  # 1&1. Methods in the module are called from only Sisimai::Message.
   module EinsUndEins
-    # Sisimai::Bite::Email::EinsUndEins parses a bounce email which created by
-    # 1&1. Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/EinsUndEins.pm
       require 'sisimai/bite/email'

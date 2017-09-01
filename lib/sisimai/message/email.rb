@@ -1,9 +1,9 @@
 module Sisimai
-  # Sisimai::Message::Email convert bounce email text to data structure. It
-  # resolves an email text into an UNIX From line, the header part of the mail,
-  # delivery status, and RFC822 header part. When the email given as a argument
-  # of "new" method is not a bounce email, the method returns nil.
   class Message
+    # Sisimai::Message::Email convert bounce email text to data structure. It
+    # resolves an email text into an UNIX From line, the header part of the mail,
+    # delivery status, and RFC822 header part. When the email given as a argument
+    # of "new" method is not a bounce email, the method returns nil.
     class Email
       # Imported from p5-Sisimail/lib/Sisimai/Message/Email.pm
       require 'sisimai/arf'

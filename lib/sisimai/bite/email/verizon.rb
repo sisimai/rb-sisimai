@@ -1,8 +1,8 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Verizon parses a bounce email which created by
+  # Verizon Wireless.
+  # Methods in the module are called from only Sisimai::Message.
   module Verizon
-    # Sisimai::Bite::Email::Verizon parses a bounce email which created by
-    # Verizon Wireless.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Verizon.pm
       require 'sisimai/bite/email'

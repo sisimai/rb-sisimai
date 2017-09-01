@@ -1,7 +1,7 @@
 module Sisimai
-  # Sisimai::Message::JSON convert from a bounce object (decoded JSON) which is
-  # retrieved from some Cloud Email Deliveries API to data structure.
   class Message
+    # Sisimai::Message::JSON convert from a bounce object (decoded JSON) which is
+    # retrieved from some Cloud Email Deliveries API to data structure.
     class JSON
       # Imported from p5-Sisimail/lib/Sisimai/Message/JSON.pm
       require 'sisimai/order/json'

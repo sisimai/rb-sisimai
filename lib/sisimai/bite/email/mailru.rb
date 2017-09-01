@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::MailRu parses a bounce email which created by @mail.ru.
+  # Methods in the module are called from only Sisimai::Message.
   module MailRu
-    # Sisimai::Bite::Email::MailRu parses a bounce email which created by @mail.ru.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/MailRu.pm
       # Based on Sisimai::Bite::Email::Exim

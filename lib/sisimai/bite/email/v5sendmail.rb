@@ -1,8 +1,8 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::V5sendmail parses a bounce email which created by
+  # Sendmail version 5.
+  # Methods in the module are called from only Sisimai::Message.
   module V5sendmail
-    # Sisimai::Bite::Email::V5sendmail parses a bounce email which created by
-    # Sendmail version 5.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/V5sendmail.pm
       require 'sisimai/bite/email'

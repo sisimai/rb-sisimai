@@ -1,8 +1,8 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Outlook parses a bounce email which created by
+  # Microsoft Outlook.com.
+  # Methods in the module are called from only Sisimai::Message.
   module Outlook
-    # Sisimai::Bite::Email::Outlook parses a bounce email which created by
-    # Microsoft Outlook.com.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/US/Outlook.pm
       require 'sisimai/bite/email'

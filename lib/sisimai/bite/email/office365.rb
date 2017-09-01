@@ -1,8 +1,8 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Office365 parses a bounce email which created by
+  # Microsoft Office 365.
+  # Methods in the module are called from only Sisimai::Message.
   module Office365
-    # Sisimai::Bite::Email::Office365 parses a bounce email which created by
-    # Microsoft Office 365.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Office365.pm
       require 'sisimai/bite/email'

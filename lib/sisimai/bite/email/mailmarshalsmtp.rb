@@ -1,8 +1,8 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::MailMarshalSMTP parses a bounce email which created
+  # by Trustwave Secure Email Gateway: formerly MailMarshal SMTP. Methods in
+  # the module are called from only Sisimai::Message.
   module MailMarshalSMTP
-    # Sisimai::Bite::Email::MailMarshalSMTP parses a bounce email which created
-    # by Trustwave Secure Email Gateway: formerly MailMarshal SMTP. Methods in
-    # the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/MailMarshalSMTP.pm
       require 'sisimai/bite/email'

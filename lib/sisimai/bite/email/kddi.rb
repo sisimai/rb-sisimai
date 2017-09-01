@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::KDDI parses a bounce email which created by au by KDDI.
+  # Methods in the module are called from only Sisimai::Message.
   module KDDI
-    # Sisimai::Bite::Email::KDDI parses a bounce email which created by au by KDDI.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/KDDI.pm
       require 'sisimai/bite/email'

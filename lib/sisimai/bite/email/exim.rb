@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Exim parses a bounce email which created by Exim.
+  # Methods in the module are called from only Sisimai::Message.
   module Exim
-    # Sisimai::Bite::Email::Exim parses a bounce email which created by Exim.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Exim.pm
       require 'sisimai/bite/email'

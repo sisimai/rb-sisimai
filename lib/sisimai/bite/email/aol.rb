@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Aol parses a bounce email which created by Aol Mail.
+  # Methods in the module are called from only Sisimai::Message.
   module Aol
-    # Sisimai::Bite::Email::Aol parses a bounce email which created by Aol Mail.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Aol.pm
       require 'sisimai/bite/email'

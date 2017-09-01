@@ -1,8 +1,8 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::InterScanMSS parses a bounce email which created by
+  # Trend Micro InterScan Messaging Security Suite. Methods in the module are
+  # called from only Sisimai::Message.
   module InterScanMSS
-    # Sisimai::Bite::Email::InterScanMSS parses a bounce email which created by
-    # Trend Micro InterScan Messaging Security Suite. Methods in the module are
-    # called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/InterScanMSS.pm
       require 'sisimai/bite/email'

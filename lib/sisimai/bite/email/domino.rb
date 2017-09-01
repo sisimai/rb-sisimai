@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Domino parses a bounce email which created by IBM
+  # Domino Server. Methods in the module are called from only Sisimai::Message.
   module Domino
-    # Sisimai::Bite::Email::Domino parses a bounce email which created by IBM
-    # Domino Server. Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Domino.pm
       require 'sisimai/bite/email'

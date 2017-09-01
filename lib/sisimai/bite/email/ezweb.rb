@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::EZweb parses a bounce email which created by au EZweb.
+  # Methods in the module are called from only Sisimai::Message.
   module EZweb
-    # Sisimai::Bite::Email::EZweb parses a bounce email which created by au EZweb.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/EZweb.pm
       require 'sisimai/bite/email'

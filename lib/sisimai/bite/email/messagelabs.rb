@@ -1,8 +1,8 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::MessageLabs parses a bounce email which created by
+  # Symantec.cloud: formerly MessageLabs. Methods in the module are called
+  # from only Sisimai::Message.
   module MessageLabs
-    # Sisimai::Bite::Email::MessageLabs parses a bounce email which created by
-    # Symantec.cloud: formerly MessageLabs. Methods in the module are called
-    # from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/MessageLabs.pm
       require 'sisimai/bite/email'

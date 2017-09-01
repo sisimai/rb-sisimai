@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Bigfoot parses a bounce email which created by Bigfoot.
+  # Methods in the module are called from only Sisimai::Message.
   module Bigfoot
-    # Sisimai::Bite::Email::Bigfoot parses a bounce email which created by Bigfoot.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Bigfoot.pm
       require 'sisimai/bite/email'

@@ -1,8 +1,8 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::SurfControl parses a bounce email which created by
+  # WebSense SurfControl.
+  # Methods in the module are called from only Sisimai::Message.
   module SurfControl
-    # Sisimai::Bite::Email::SurfControl parses a bounce email which created by
-    # WebSense SurfControl.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/SurfControl.pm
       require 'sisimai/bite/email'

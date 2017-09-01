@@ -1,8 +1,8 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::MessagingServer parses a bounce email which created
+  # by Oracle Communications Messaging Server and Sun Java System Messaging
+  # Server. Methods in the module are called from only Sisimai::Message.
   module MessagingServer
-    # Sisimai::Bite::Email::MessagingServer parses a bounce email which created
-    # by Oracle Communications Messaging Server and Sun Java System Messaging
-    # Server. Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/MessagingServer.pm
       require 'sisimai/bite'

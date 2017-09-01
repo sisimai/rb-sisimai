@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::AmazonWorkMail parses a bounce email which created by
+  # Amazon WorkMail. Methods in the module are called from only Sisimai::Message.
   module AmazonWorkMail
-    # Sisimai::Bite::Email::AmazonWorkMail parses a bounce email which created by
-    # Amazon WorkMail. Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/AmazonWorkMail.pm
       require 'sisimai/bite/email'

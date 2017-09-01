@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::MailFoundry parses a bounce email which created by
+  # MailFoundry. Methods in the module are called from only Sisimai::Message.
   module MailFoundry
-    # Sisimai::Bite::Email::MailFoundry parses a bounce email which created by
-    # MailFoundry. Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/MailFoundry.pm
       require 'sisimai/bite/email'

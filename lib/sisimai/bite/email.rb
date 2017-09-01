@@ -1,7 +1,7 @@
 module Sisimai
   module Bite
+    # Sisimai::Bite::Email- Base class for Sisimai::Bite::Email::*
     module Email
-      # Sisimai::Bite::Email- Base class for Sisimai::Bite::Email::*
       class << self
         # Imported from p5-Sisimail/lib/Sisimai/Bite/Email.pm
         require 'sisimai/bite'

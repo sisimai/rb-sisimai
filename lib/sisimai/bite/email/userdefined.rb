@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::UserDefined is an example module as a template to
+  # implement your custom MTA module.
   module UserDefined
-    # Sisimai::Bite::Email::UserDefined is an example module as a template to
-    # implement your custom MTA module.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/UserDefined.pm
       require 'sisimai/bite/email'

@@ -1,8 +1,8 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::mFILTER parses a bounce email which created by
+  # Digital Arts m-FILTER.
+  # Methods in the module are called from only Sisimai::Message.
   module MFILTER
-    # Sisimai::Bite::Email::mFILTER parses a bounce email which created by
-    # Digital Arts m-FILTER.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/mFILTER.pm
       require 'sisimai/bite/email'

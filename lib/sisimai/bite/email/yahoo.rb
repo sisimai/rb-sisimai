@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Yahoo parses a bounce email which created by Yahoo!
+  # MAIL. Methods in the module are called from only Sisimai::Message.
   module Yahoo
-    # Sisimai::Bite::Email::Yahoo parses a bounce email which created by Yahoo!
-    # MAIL. Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Yahoo.pm
       require 'sisimai/bite/email'
