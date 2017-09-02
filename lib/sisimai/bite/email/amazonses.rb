@@ -192,12 +192,12 @@ module Sisimai::Bite::Email
         if recipients.zero? && mbody =~ /notificationType/
           # Try to parse with Sisimai::Bite::JSON::AmazonSES module
           require 'sisimai/bite/json/amazonses'
-          e = Sisimai::Bite::JSON::AmazonSES.scan(mhead, mbody)
+          j = Sisimai::Bite::JSON::AmazonSES.scan(mhead, mbody)
 
-          if e['ds'].is_a? Array
+          if j['ds'].is_a? Array
             # Update dscontents
-            dscontents = e['ds']
-            recipients = e['ds'].size
+            dscontents = j['ds']
+            recipients = j['ds'].size
           end
         end
 
