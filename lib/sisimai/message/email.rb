@@ -18,7 +18,7 @@ module Sisimai
 
       EndOfEmail = Sisimai::String.EOM
       RFC822Head = Sisimai::RFC5322.HEADERFIELDS
-      RFC3834Set = Sisimai::RFC3834.headerlist.map { |e| e.downcase }
+      RFC3834Set = Sisimai::RFC3834.headerlist.map(&:downcase)
       HeaderList = [
         'from', 'to', 'date', 'subject', 'content-type', 'reply-to', 'message-id',
         'received', 'content-transfer-encoding', 'return-path', 'x-mailer',
