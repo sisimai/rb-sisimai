@@ -149,7 +149,7 @@ module Sisimai::Bite::Email
                                e['alterrors'] + ' ' + e['diagnosis']
                              else
                                e['alterrors']
-                              end
+                             end
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
             e.delete('alterrors')
           end
