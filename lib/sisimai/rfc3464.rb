@@ -429,18 +429,17 @@ module Sisimai
           # Try to get a recipient address from email headers
           rfc822list.each do |e|
             # Check To: header in the original message
-            if cv = e.match(/\ATo:\s*(.+)\z/)
-              r = Sisimai::Address.find(cv[1], true)
-              next if r.empty?
+            next unless cv = e.match(/\ATo:\s*(.+)\z/)
+            r = Sisimai::Address.find(cv[1], true)
+            next if r.empty?
 
-              if dscontents.size == recipients
-                dscontents << Sisimai::Bite::Email.DELIVERYSTATUS
-              end
-              b = dscontents[-1]
-              b['recipient'] = r[0][:address]
-              b['agent'] = Sisimai::RFC3464.smtpagent + '::Fallback'
-              recipients += 1
+            if dscontents.size == recipients
+              dscontents << Sisimai::Bite::Email.DELIVERYSTATUS
             end
+            b = dscontents[-1]
+            b['recipient'] = r[0][:address]
+            b['agent'] = Sisimai::RFC3464.smtpagent + '::Fallback'
+            recipients += 1
           end
         end
 

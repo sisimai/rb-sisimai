@@ -143,11 +143,11 @@ module Sisimai::Bite::Email
         if recipients.zero?
           # Fallback: Get the recpient address from RFC822 part
           rfc822list.each do |e|
-            if cv = e.match(/^To:[ ]*(.+)$/m)
-              v['recipient'] = Sisimai::Address.s3s4(cv[1])
-              recipients += 1 if v['recipient'].size > 0
-              break
-            end
+            next unless cv = e.match(/^To:[ ]*(.+)$/m)
+
+            v['recipient'] = Sisimai::Address.s3s4(cv[1])
+            recipients += 1 if v['recipient'].size > 0
+            break
           end
         end
 
