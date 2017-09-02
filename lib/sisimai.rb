@@ -34,7 +34,6 @@ module Sisimai
       field = argv1[:field] || []
       raise ' ***error: "field" accepts an array reference only' unless field.is_a? Array
 
-
       unless input
         # "input" did not specified, try to detect automatically.
         rtype = argv0.class.to_s
