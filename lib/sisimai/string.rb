@@ -110,13 +110,13 @@ module Sisimai
 
         begin
           # Try to convert the string to UTF-8
-          if encodefrom
-            # String#encode('UTF-8', <FROM>)
-            getencoded = argv1.encode('UTF-8', encodefrom)
-          else
-            # Force encoding to UTF-8
-            getencoded = argv1.force_encoding('UTF-8')
-          end
+          getencoded = if encodefrom
+                         # String#encode('UTF-8', <FROM>)
+                         argv1.encode('UTF-8', encodefrom)
+                       else
+                         # Force encoding to UTF-8
+                         argv1.force_encoding('UTF-8')
+                       end
         rescue
           # Unknown encoding name or failed to encode
           getencoded = argv1.force_encoding('UTF-8')

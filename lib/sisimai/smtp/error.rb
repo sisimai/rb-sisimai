@@ -16,7 +16,7 @@ module Sisimai
             systemfull toomanyconn virusdetected
           |,
           :hard => %w|hasmoved hostunknown userunknown|
-        }
+        }.freeze
 
         # Permanent error or not
         # @param    [String] argv1  String including SMTP Status code
@@ -49,19 +49,13 @@ module Sisimai
             end
           else
             # Check with regular expression
-            if argv1 =~ /(?:temporar|persistent)/i
-              # Temporary failure
-              getchecked = false
-
-            elsif argv1 =~ /permanent/i
-              # Permanently failure
-              getchecked = true
-
-            else
-              # did not find information to decide that it is a soft bounce
-              # or a hard bounce.
-              getchecked = nil
-            end
+            getchecked = if argv1 =~ /(?:temporar|persistent)/i
+                           # Temporary failure
+                           false
+                         elsif argv1 =~ /permanent/i
+                           # Permanently failure
+                           true
+                         end
           end
 
           return getchecked
@@ -85,17 +79,17 @@ module Sisimai
             softorhard = ''
 
           elsif argv1 == 'onhold' || argv1 == 'undefined'
-            # Check with the value of D.S.N. in $argv2
+            # Check with the value of D.S.N. in argv2
             getchecked = Sisimai::SMTP::Error.is_permanent(argv2)
 
             if getchecked.nil?
               softorhard = ''
             else
               softorhard = if getchecked
-                'hard'
-              else
-                'soft'
-              end
+                             'hard'
+                           else
+                             'soft'
+                           end
             end
 
           elsif argv1 == 'notaccept'
@@ -106,13 +100,13 @@ module Sisimai
               statuscode = Sisimai::SMTP::Reply.find(argv2) if statuscode.empty?
               classvalue = statuscode[0, 1].to_i
 
-              if classvalue == 4
-                # Deal as a "soft bounce"
-                softorhard = 'soft'
-              else
-                # 5 or 0, deal as a "hard bounce"
-                softorhard = 'hard'
-              end
+              softorhard = if classvalue == 4
+                             # Deal as a "soft bounce"
+                             'soft'
+                           else
+                             # 5 or 0, deal as a "hard bounce"
+                             'hard'
+                           end
             else
               # "notaccept" is a hard bounce
               softorhard = 'hard'

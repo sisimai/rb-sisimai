@@ -1,8 +1,8 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::V5sendmail parses a bounce email which created by
+  # Sendmail version 5.
+  # Methods in the module are called from only Sisimai::Message.
   module V5sendmail
-    # Sisimai::Bite::Email::V5sendmail parses a bounce email which created by
-    # Sendmail version 5.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/V5sendmail.pm
       require 'sisimai/bite/email'
@@ -10,7 +10,7 @@ module Sisimai::Bite::Email
       Re0 = {
         :from    => %r/\AMail Delivery Subsystem/,
         :subject => %r/\AReturned mail: [A-Z]/,
-      }
+      }.freeze
       # Error text regular expressions which defined in src/savemail.c
       #   savemail.c:485| (void) fflush(stdout);
       #   savemail.c:486| p = queuename(e->e_parent, 'x');
@@ -36,7 +36,7 @@ module Sisimai::Bite::Email
           )[ ]-----
         }x,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Sendmail version 5'; end
@@ -81,7 +81,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -100,7 +100,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             #    ----- Transcript of session follows -----
@@ -156,17 +156,17 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if readcursor & Indicators[:'message-rfc822'] == 0
+        return nil if (readcursor & Indicators[:'message-rfc822']).zero?
 
         if recipients.zero?
           # Get the recipient address from the original message
           rfc822list.each do |e|
-            if cv = e.match(/^To: (.+)$/m)
-              # The value of To: header in the original message
-              dscontents[0]['recipient'] = Sisimai::Address.s3s4(cv[1])
-              recipients = 1
-              break
-            end
+            next unless cv = e.match(/^To: (.+)$/m)
+
+            # The value of To: header in the original message
+            dscontents[0]['recipient'] = Sisimai::Address.s3s4(cv[1])
+            recipients = 1
+            break
           end
         end
         return nil if recipients.zero?
@@ -177,14 +177,13 @@ module Sisimai::Bite::Email
           e['agent']   = self.smtpagent
           e['command'] = commandset[errorindex] || ''
 
-          if anotherset['diagnosis'] && anotherset['diagnosis'].size > 0
-            # Copy alternative error message
-            e['diagnosis'] ||= anotherset['diagnosis']
-
-          else
-            # Set server response as a error message
-            e['diagnosis'] ||= responding[errorindex]
-          end
+          e['diagnosis'] ||= if anotherset['diagnosis'] && anotherset['diagnosis'].size > 0
+                               # Copy alternative error message
+                               anotherset['diagnosis']
+                             else
+                               # Set server response as a error message
+                               responding[errorindex]
+                             end
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
           unless e['recipient'] =~ /\A[^ ]+[@][^ ]+\z/

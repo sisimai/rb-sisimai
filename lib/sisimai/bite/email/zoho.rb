@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Zoho parses a bounce email which created by Zoho Mail.
+  # Methods in the module are called from only Sisimai::Message.
   module Zoho
-    # Sisimai::Bite::Email::Zoho parses a bounce email which created by Zoho Mail.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Zoho.pm
       require 'sisimai/bite/email'
@@ -14,15 +14,15 @@ module Sisimai::Bite::Email
             )
         }x,
         :'x-mailer' => %r/\AZoho Mail\z/,
-      }
+      }.freeze
       Re1 = {
         :begin  => %r/\AThis message was created automatically by mail delivery/,
         :rfc822 => %r/\AReceived:[ \t]*from mail[.]zoho[.]com/,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       ReFailure = {
         expired: %r/Host not reachable/
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Zoho Mail: https://www.zoho.com'; end
@@ -68,7 +68,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -87,7 +87,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             # This message was created automatically by mail delivery software.
@@ -113,7 +113,7 @@ module Sisimai::Bite::Email
               v['recipient'] = cv[1]
               v['diagnosis'] = cv[2]
 
-              if v['diagnosis'] =~ /=\z/
+              if v['diagnosis'].end_with?('=')
                 # Quoted printable
                 v['diagnosis'] = v['diagnosis'].sub(/=\z/, '')
                 qprintable = true

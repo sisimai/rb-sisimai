@@ -238,7 +238,7 @@ module Sisimai
               :regexp => %r/Access denied, tenant has exceeded threshold/,
             },
           ],
-        }
+        }.freeze
 
         # Detect bounce reason from Exchange Online
         # @param    [Sisimai::Data] argvs   Parsed email object

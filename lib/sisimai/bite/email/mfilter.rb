@@ -1,8 +1,8 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::mFILTER parses a bounce email which created by
+  # Digital Arts m-FILTER.
+  # Methods in the module are called from only Sisimai::Message.
   module MFILTER
-    # Sisimai::Bite::Email::mFILTER parses a bounce email which created by
-    # Digital Arts m-FILTER.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/mFILTER.pm
       require 'sisimai/bite/email'
@@ -11,14 +11,14 @@ module Sisimai::Bite::Email
         :'from'     => %r/\AMailer Daemon [<]MAILER-DAEMON[@]/,
         :'subject'  => %r/\Afailure notice\z/,
         :'x-mailer' => %r/\Am-FILTER\z/,
-      }
+      }.freeze
       Re1 = {
         :begin   => %r/\A[^ ]+[@][^ ]+[.][a-zA-Z]+\z/,
         :error   => %r/\A-------server message\z/,
         :command => %r/\A-------SMTP command\z/,
         :rfc822  => %r/\A-------original (?:message|mail info)\z/,
         :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Digital Arts m-FILTER'; end
@@ -59,7 +59,7 @@ module Sisimai::Bite::Email
             readcursor |= Indicators[:deliverystatus] if e =~ Re1[:begin]
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -78,7 +78,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             # このメールは「m-FILTER」が自動的に生成して送信しています。

@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::::Email::ApacheJames parses a bounce email which created by
+  # ApacheJames. Methods in the module are called from only Sisimai::Message.
   module ApacheJames
-    # Sisimai::Bite::::Email::ApacheJames parses a bounce email which created by
-    # ApacheJames. Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/ApacheJames.pm
       require 'sisimai/bite/email'
@@ -10,7 +10,7 @@ module Sisimai::Bite::Email
         :'subject'    => %r/\A\[BOUNCE\]\z/,
         :'received'   => %r/JAMES SMTP Server/,
         :'message-id' => %r/\d+[.]JavaMail[.].+[@]/,
-      }
+      }.freeze
       Re1 = {
         # apache-james-2.3.2/src/java/org/apache/james/transport/mailets/
         #   AbstractNotify.java|124:  out.println("Error message below:");
@@ -19,7 +19,7 @@ module Sisimai::Bite::Email
         :error  => %r/\AError message below:\z/,
         :rfc822 => %r|\AContent-Type: message/rfc822|,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Java Apache Mail Enterprise Server'; end
@@ -68,7 +68,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -87,7 +87,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             # Message details:
@@ -148,7 +148,7 @@ module Sisimai::Bite::Email
         require 'sisimai/string'
 
         unless rfc822list.find { |a| a =~ /^Subject:/ }
-          # Set the value of $subjecttxt as a Subject if there is no original
+          # Set the value of subjecttxt as a Subject if there is no original
           # message in the bounce mail.
           rfc822list << sprintf('Subject: %s', subjecttxt)
         end

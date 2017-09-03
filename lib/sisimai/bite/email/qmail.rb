@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Qmail parses a bounce email which created by qmail.
+  # Methods in the module are called from only Sisimai::Message.
   module Qmail
-    # Sisimai::Bite::Email::Qmail parses a bounce email which created by qmail.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/qmail.pm
       require 'sisimai/bite/email'
@@ -9,7 +9,7 @@ module Sisimai::Bite::Email
       Re0 = {
         :subject  => %r/\Afailure notice/i,
         :received => %r/\A[(]qmail[ ]+\d+[ ]+invoked[ ]+(?:for[ ]+bounce|from[ ]+network)[)]/,
-      }
+      }.freeze
       #  qmail-remote.c:248|    if (code >= 500) {
       #  qmail-remote.c:249|      out("h"); outhost(); out(" does not like recipient.\n");
       #  qmail-remote.c:265|  if (code >= 500) quit("D"," failed on DATA command");
@@ -23,7 +23,7 @@ module Sisimai::Bite::Email
         :error  => %r/\ARemote host said:/,
         :sorry  => %r/\A[Ss]orry[,.][ ]/,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       ReSMTP = {
         # Error text regular expressions which defined in qmail-remote.c
         # qmail-remote.c:225|  if (smtpcode() != 220) quit("ZConnected to "," but greeting failed");
@@ -46,7 +46,7 @@ module Sisimai::Bite::Email
           |(?:Error:)?.+[ ]failed[ ]after[ ]I[ ]sent[ ]the[ ]message[.]
           )
         }x,
-      }
+      }.freeze
       # qmail-remote.c:261|  if (!flagbother) quit("DGiving up on ","");
       ReHost = %r{(?:
          Giving[ ]up[ ]on[ ](.+[0-9a-zA-Z])[.]?\z
@@ -79,7 +79,7 @@ module Sisimai::Bite::Email
             )
           )
         }x,
-      }
+      }.freeze
       # userunknown + expired
       ReOnHold  = %r/\A[^ ]+ does not like recipient[.][ ]+.+this message has been in the queue too long[.]\z/
       # qmail-remote-fallback.patch
@@ -114,7 +114,7 @@ module Sisimai::Bite::Email
           )
         }x,
         systemfull: %r/Requested action not taken: mailbox unavailable [(]not enough free space[)]/,
-      }
+      }.freeze
       # qmail-send.c:922| ... (&dline[c],"I'm not going to try again; this message has been in the queue too long.\n")) nomem();
       ReDelayed  = %r/this[ ]message[ ]has[ ]been[ ]in[ ]the[ ]queue[ ]too[ ]long[.]\z/x
       Indicators = Sisimai::Bite::Email.INDICATORS
@@ -165,7 +165,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -184,7 +184,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             # <kijitora@example.jp>:

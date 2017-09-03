@@ -47,22 +47,20 @@ module Sisimai
     AddrHeader = {
       addresser: RFC822Head[:addresser],
       recipient: RFC822Head[:recipient],
-    }
+    }.freeze
     ActionList = %r/\A(?:failed|delayed|delivered|relayed|expanded)\z/
     ActionHead = {
       %r/\Afailure\z/ => 'failed',
       %r/\Aexpired\z/ => 'delayed',
-    }
+    }.freeze
 
     # Constructor of Sisimai::Data
     # @param    [Hash] argvs    Data
     # @return   [Sisimai::Data] Structured email data
     def initialize(argvs)
-      thing = {}
-
       # Create email address object
       as = Sisimai::Address.make(argvs['addresser'])
-      ar = Sisimai::Address.make({ address: argvs['recipient'] })
+      ar = Sisimai::Address.make(address: argvs['recipient'])
 
       return nil unless as.is_a? Sisimai::Address
       return nil unless ar.is_a? Sisimai::Address
@@ -216,7 +214,7 @@ module Sisimai
         end
 
         if datestring
-          # Get the value of timezone offset from $datestring
+          # Get the value of timezone offset from datestring
           if cv = datestring.match(/\A(.+)[ ]+([-+]\d{4})\z/)
             # Wed, 26 Feb 2014 06:05:48 -0500
             datestring = cv[1]
@@ -361,13 +359,13 @@ module Sisimai
             textasargv = textasargv.gsub(/\A[ ]/, '')
             softorhard = Sisimai::SMTP::Error.soft_or_hard(o.reason, textasargv)
 
-            if softorhard.size > 0
-              # Returned value is "soft" or "hard"
-              o.softbounce = (softorhard == 'soft') ? 1 : 0
-            else
-              # Returned value is an empty string
-              o.softbounce = (-1)
-            end
+            o.softbounce = if softorhard.size > 0
+                             # Returned value is "soft" or "hard"
+                             (softorhard == 'soft') ? 1 : 0
+                           else
+                             # Returned value is an empty string
+                             -1
+                           end
           end
 
           if o.deliverystatus.empty?
@@ -387,13 +385,13 @@ module Sisimai
                 # set the value of "softbounce" again when the value is -1
                 softorhard = Sisimai::SMTP::Error.soft_or_hard(o.reason, pseudocode)
 
-                if softorhard.size > 0
-                  # Returned value is "soft" or "hard"
-                  o.softbounce = softorhard == 'soft' ? 1 : 0
-                else
-                  # Returned value is an empty string
-                  o.softbounce = -1
-                end
+                o.softbounce = if softorhard.size > 0
+                                 # Returned value is "soft" or "hard"
+                                 softorhard == 'soft' ? 1 : 0
+                               else
+                                 # Returned value is an empty string
+                                 -1
+                               end
               end
             end
           end
@@ -427,7 +425,7 @@ module Sisimai
 
     # Data dumper
     # @param    [String] type   Data format: json, yaml
-    # @return   [String, Undef] Dumped data or Undef if the value of first
+    # @return   [String, Nil]   Dumped data or nil if the value of the first
     #                           argument is neither "json" nor "yaml"
     def dump(type = 'json')
       return nil unless %w|json yaml|.index(type)

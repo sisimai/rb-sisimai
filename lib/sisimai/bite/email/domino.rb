@@ -1,19 +1,19 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Domino parses a bounce email which created by IBM
+  # Domino Server. Methods in the module are called from only Sisimai::Message.
   module Domino
-    # Sisimai::Bite::Email::Domino parses a bounce email which created by IBM
-    # Domino Server. Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Domino.pm
       require 'sisimai/bite/email'
 
       Re0 = {
         :subject => %r/\ADELIVERY FAILURE:/,
-      }
+      }.freeze
       Re1 = {
         :begin   => %r/\AYour message/,
         :rfc822  => %r|\AContent-Type: message/delivery-status\z|,
         :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       ReFailure = {
         userunknown: %r{(?>
            not[ ]listed[ ]in[ ](?:
@@ -25,7 +25,7 @@ module Sisimai::Bite::Email
         }x,
         filtered:    %r/Cannot[ ]route[ ]mail[ ]to[ ]user/x,
         systemerror: %r/Several[ ]matches[ ]found[ ]in[ ]Domino[ ]Directory/x,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'IBM Domino Server'; end
@@ -70,7 +70,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -89,7 +89,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
 
             # Your message
             #
@@ -159,7 +159,7 @@ module Sisimai::Bite::Email
         end
 
         unless rfc822list.find { |a| a =~ /^Subject:/ }
-          # Set the value of $subjecttxt as a Subject if there is no original
+          # Set the value of subjecttxt as a Subject if there is no original
           # message in the bounce mail.
           rfc822list << sprintf('Subject: %s', subjecttxt)
         end

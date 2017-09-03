@@ -13,7 +13,7 @@ module Sisimai
         :'with-charset' => %r/^Content[-]Type:[ ]*.+[;][ ]*charset=['"]?(.+?)['"]?$/i,
         :'only-charset' => %r/^[\s\t]+charset=['"]?(.+?)['"]?$/i,
         :'html-message' => %r|^Content-Type:[ ]*text/html;|mi,
-      }
+      }.freeze
 
       # Make MIME-Encoding and Content-Type related headers regurlar expression
       # @return   [Array] Regular expressions related to MIME encoding
@@ -64,7 +64,7 @@ module Sisimai
 
         argvs.each do |e|
           # Check and decode each element
-          e = e.lstrip.rstrip
+          e = e.strip
           e = e.delete('"')
 
           if self.is_mimeencoded(e)
@@ -98,9 +98,9 @@ module Sisimai
 
         if characterset && encodingname
           # utf8 => UTF-8
-          characterset = 'UTF-8' if characterset.upcase == 'UTF8'
+          characterset = 'UTF-8' if characterset.casecmp('UTF8').zero?
 
-          if characterset.upcase != 'UTF-8'
+          unless characterset.casecmp('UTF-8').zero?
             # Characterset is not UTF-8
             begin
               decodedtext1 = decodedtext1.encode('UTF-8', characterset)
@@ -182,8 +182,7 @@ module Sisimai
                   :until => Regexp.new(Regexp.escape(boundary01) + '\z')
                 }
               end
-            elsif cv = e.match(ReE[:'with-charset']) ||
-                  cv = e.match(ReE[:'only-charset'])
+            elsif cv = e.match(ReE[:'with-charset']) || e.match(ReE[:'only-charset'])
               # Content-Type: text/plain; charset=ISO-2022-JP
               encodename = cv[1]
               mimeinside = true if ctencoding

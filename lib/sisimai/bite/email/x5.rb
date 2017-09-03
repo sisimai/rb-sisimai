@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::X5 parses a bounce email which created by Unknown
+  # MTA #5. Methods in the module are called from only Sisimai::Message.
   module X5
-    # Sisimai::Bite::Email::X5 parses a bounce email which created by Unknown
-    # MTA #5. Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/X5.pm
       require 'sisimai/bite/email'
@@ -9,12 +9,12 @@ module Sisimai::Bite::Email
       Re0 = {
         :from => %r/\bTWFpbCBEZWxpdmVyeSBTdWJzeXN0ZW0\b/,
         :to   => %r/\bNotificationRecipients\b/,
-      }
+      }.freeze
       Re1 = {
         :begin  => %r|\AContent-Type: message/delivery-status|,
         :rfc822 => %r|\AContent-Type: message/rfc822|,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Unknown MTA #5'; end
@@ -82,7 +82,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -148,7 +148,7 @@ module Sisimai::Bite::Email
           else
             # After "message/rfc822"
             next if recipients.zero?
-            next if readcursor & Indicators['deliverystatus'] == 0
+            next if (readcursor & Indicators['deliverystatus']).zero?
 
             if e.empty?
               blanklines += 1

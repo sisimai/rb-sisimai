@@ -19,7 +19,7 @@ module Sisimai
           |Warning:[ ]
           )
         }xi,
-      }
+      }.freeze
       Re1 = {
         :begin   => %r{\A(?>
            Content-Type:[ ]*(?:
@@ -40,7 +40,7 @@ module Sisimai
         }xi,
         :error   => %r/\A(?:[45]\d\d[ \t]+|[<][^@]+[@][^@]+[>]:?[ \t]+)/i,
         :command => %r/[ ](RCPT|MAIL|DATA)[ ]+command\b/,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; 'Fallback Module for MTAs'; end
@@ -57,7 +57,7 @@ module Sisimai
       # @options mhead [String] others    Other required headers
       # @param         [String] mbody     Message body of a bounce email
       # @return        [Hash, Nil]        Bounce data list and message/rfc822 part
-      #                                   or Undef if it failed to parse or the
+      #                                   or nil if it failed to parse or the
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
@@ -95,7 +95,7 @@ module Sisimai
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -429,19 +429,17 @@ module Sisimai
           # Try to get a recipient address from email headers
           rfc822list.each do |e|
             # Check To: header in the original message
-            if cv = e.match(/\ATo:\s*(.+)\z/)
-              r = Sisimai::Address.find(cv[1], true)
-              b = nil
-              next if r.empty?
+            next unless cv = e.match(/\ATo:\s*(.+)\z/)
+            r = Sisimai::Address.find(cv[1], true)
+            next if r.empty?
 
-              if dscontents.size == recipients
-                dscontents << Sisimai::Bite::Email.DELIVERYSTATUS
-              end
-              b = dscontents[-1]
-              b['recipient'] = r[0][:address]
-              b['agent'] = Sisimai::RFC3464.smtpagent + '::Fallback'
-              recipients += 1
+            if dscontents.size == recipients
+              dscontents << Sisimai::Bite::Email.DELIVERYSTATUS
             end
+            b = dscontents[-1]
+            b['recipient'] = r[0][:address]
+            b['agent'] = Sisimai::RFC3464.smtpagent + '::Fallback'
+            recipients += 1
           end
         end
 
@@ -456,7 +454,7 @@ module Sisimai
           if e.key?('alterrors') && e['alterrors'].size > 0
             # Copy alternative error message
             e['diagnosis'] ||= e['alterrors']
-            if e['diagnosis'] =~ /\A[-]+/ || e['diagnosis'] =~ /__\z/
+            if e['diagnosis'] =~ /\A[-]+/ || e['diagnosis'].end_with?('__')
               # Override the value of diagnostic code message
               e['diagnosis'] = e['alterrors'] if e['alterrors'].size > 0
             end

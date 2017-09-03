@@ -21,7 +21,7 @@ module Sisimai::Bite::JSON
           :ContentRejected    => '',
           :AttachmentRejected => '',
         },
-      }
+      }.freeze
 
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
       def description; return 'Amazon SES(JSON): http://aws.amazon.com/ses/'; end
@@ -98,8 +98,8 @@ module Sisimai::Bite::JSON
 
       # @abstract Adapt Amazon SES bounce object for Sisimai::Message format
       # @param        [Hash] argvs  bounce object(JSON) retrieved from Amazon SNS
-      # @return       [Hash, Nil]   Bounce data list and message/rfc822 part
-      #                             or Undef if it failed to parse or the
+      # @return       [Hash, Nil]   Bounce data list and message/rfc822 part or
+      #                             nil if it failed to parse or the
       #                             arguments are missing
       # @since v4.20.0
       def adapt(argvs)
@@ -119,8 +119,8 @@ module Sisimai::Bite::JSON
 
         if argvs['notificationType'] =~ /\A(?:Bounce|Complaint)\z/
           # { "notificationType":"Bounce", "bounce": { "bounceType":"Permanent",...
-          o = argvs[ argvs['notificationType'].downcase ]
-          r = o[ labeltable[ argvs['notificationType'].to_sym ] ] || []
+          o = argvs[argvs['notificationType'].downcase]
+          r = o[labeltable[argvs['notificationType'].to_sym]] || []
 
           r.each do |e|
             # 'bouncedRecipients' => [ { 'emailAddress' => 'bounce@si...' }, ... ]
@@ -161,11 +161,11 @@ module Sisimai::Bite::JSON
 
               if BounceType.key?(o['bounceType'].to_sym) &&
                  BounceType[o['bounceType'].to_sym].key?(o['bounceSubType'].to_sym)
-                  # 'bounce' => {
-                  #       'bounceType' => 'Permanent',
-                  #       'bounceSubType' => 'General'
-                  # },
-                  v['reason'] = BounceType[o['bounceType'].to_sym][o['bounceSubType'].to_sym]
+                # 'bounce' => {
+                #       'bounceType' => 'Permanent',
+                #       'bounceSubType' => 'General'
+                # },
+                v['reason'] = BounceType[o['bounceType'].to_sym][o['bounceSubType'].to_sym]
               end
 
             else
@@ -235,7 +235,7 @@ module Sisimai::Bite::JSON
           argvs['mail']['headers'].each do |e|
             # 'headers' => [ { 'name' => 'From', 'value' => 'neko@nyaan.jp' }, ... ],
             next unless e['name'] =~ /\A(?:From|To|Subject|Message-ID|Date)\z/
-            rfc822head[ e['name'].downcase ] = e['value']
+            rfc822head[e['name'].downcase] = e['value']
           end
         end
 

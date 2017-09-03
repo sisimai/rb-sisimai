@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Facebook parses a bounce email which created by Facebook.
+  # Methods in the module are called from only Sisimai::Message.
   module Facebook
-    # Sisimai::Bite::Email::Facebook parses a bounce email which created by Facebook.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Facebook.pm
       require 'sisimai/bite/email'
@@ -9,12 +9,12 @@ module Sisimai::Bite::Email
       Re0 = {
         :from    => %r/\AFacebook [<]mailer-daemon[@]mx[.]facebook[.]com[>]\z/,
         :subject => %r/\ASorry, your message could not be delivered\z/,
-      }
+      }.freeze
       Re1 = {
         :begin   => %r/\AThis message was created automatically by Facebook[.]\z/,
         :rfc822  => %r/\AContent-Disposition: inline\z/,
         :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
 
       # http://postmaster.facebook.com/response_codes
       # NOT TESTD EXCEPT RCP-P2
@@ -74,7 +74,7 @@ module Sisimai::Bite::Email
           'CON-T2', # Your mail server currently has too many connections open to Facebook's mail servers.
           'CON-T4', # Your mail server has exceeded the maximum number of recipients for its current connection.
         ],
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Facebook: https://www.facebook.com'; end
@@ -107,7 +107,7 @@ module Sisimai::Bite::Email
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         fbresponse = ''     # (String) Response code from Facebook
-        connvalues = 0      # (Integer) Flag, 1 if all the value of $connheader have been set
+        connvalues = 0      # (Integer) Flag, 1 if all the value of connheader have been set
         connheader = {
           'date'  => '',    # The value of Arrival-Date header
           'lhost' => '',    # The value of Reporting-MTA header
@@ -127,7 +127,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -146,7 +146,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             if connvalues == connheader.keys.size
@@ -247,21 +247,20 @@ module Sisimai::Bite::Email
             end
           end
 
-          unless e['reason']
-            # http://postmaster.facebook.com/response_codes
-            #   Facebook System Resource Issues
-            #   These codes indicate a temporary issue internal to Facebook's
-            #   system. Administrators observing these issues are not required to
-            #   take any action to correct them.
-            if fbresponse =~ /\AINT-T\d+\z/
-              # * INT-Tx
-              #
-              # https://groups.google.com/forum/#!topic/cdmix/eXfi4ddgYLQ
-              # This block has not been tested because we have no email sample
-              # including "INT-T?" error code.
-              e['reason'] = 'systemerror'
-            end
-          end
+          # http://postmaster.facebook.com/response_codes
+          #   Facebook System Resource Issues
+          #   These codes indicate a temporary issue internal to Facebook's
+          #   system. Administrators observing these issues are not required to
+          #   take any action to correct them.
+          next if e['reason']
+
+          # * INT-Tx
+          #
+          # https://groups.google.com/forum/#!topic/cdmix/eXfi4ddgYLQ
+          # This block has not been tested because we have no email sample
+          # including "INT-T?" error code.
+          next unless fbresponse =~ /\AINT-T\d+\z/
+          e['reason'] = 'systemerror'
         end
 
         rfc822part = Sisimai::RFC5322.weedout(rfc822list)

@@ -1,22 +1,22 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::MailMarshalSMTP parses a bounce email which created
+  # by Trustwave Secure Email Gateway: formerly MailMarshal SMTP. Methods in
+  # the module are called from only Sisimai::Message.
   module MailMarshalSMTP
-    # Sisimai::Bite::Email::MailMarshalSMTP parses a bounce email which created
-    # by Trustwave Secure Email Gateway: formerly MailMarshal SMTP. Methods in
-    # the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/MailMarshalSMTP.pm
       require 'sisimai/bite/email'
 
       Re0 = {
         :subject  => %r/\AUndeliverable Mail: ["]/,
-      }
+      }.freeze
       Re1 = {
         :begin  => %r/\AYour message:\z/,
         :rfc822 => nil,
         :error  => %r/\ACould not be delivered because of\z/,
         :rcpts  => %r/\AThe following recipients were affected:/,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Trustwave Secure Email Gateway'; end
@@ -52,12 +52,12 @@ module Sisimai::Bite::Email
         v = nil
 
         boundary00 = Sisimai::MIME.boundary(mhead['content-type']) || ''
-        if boundary00.size > 0
-          # Convert to regular expression
-          regularexp = Regexp.new('\A' + Regexp.escape('--' + boundary00 + '--') + '\z')
-        else
-          regularexp = %r/\A[ \t]*[+]+[ \t]*\z/
-        end
+        regularexp = if boundary00.size > 0
+                       # Convert to regular expression
+                       Regexp.new('\A' + Regexp.escape('--' + boundary00 + '--') + '\z')
+                     else
+                       regularexp = %r/\A[ \t]*[+]+[ \t]*\z/
+                     end
 
         hasdivided.each do |e|
           if readcursor.zero?
@@ -68,7 +68,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ regularexp
               readcursor |= Indicators[:'message-rfc822']
@@ -87,7 +87,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             break if e =~ regularexp
 
             # Your message:

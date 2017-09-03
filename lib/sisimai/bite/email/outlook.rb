@@ -1,8 +1,8 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Outlook parses a bounce email which created by
+  # Microsoft Outlook.com.
+  # Methods in the module are called from only Sisimai::Message.
   module Outlook
-    # Sisimai::Bite::Email::Outlook parses a bounce email which created by
-    # Microsoft Outlook.com.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/US/Outlook.pm
       require 'sisimai/bite/email'
@@ -11,17 +11,17 @@ module Sisimai::Bite::Email
         :from     => %r/postmaster[@]/,
         :subject  => %r/Delivery Status Notification/,
         :received => %r/.+[.]hotmail[.]com\b/,
-      }
+      }.freeze
       Re1 = {
         :begin  => %r/\AThis is an automatically generated Delivery Status Notification/,
         :error  => %r/\A[.]+ while talking to .+[:]\z/,
         :rfc822 => %r|\AContent-Type: message/rfc822\z|,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       ReFailure = {
         hostunknown: %r/The mail could not be delivered to the recipient because the domain is not reachable/,
         userunknown: %r/Requested action not taken: mailbox unavailable/,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Microsoft Outlook.com: https://www.outlook.com/'; end
@@ -61,7 +61,7 @@ module Sisimai::Bite::Email
         blanklines = 0      # (Integer) The number of blank lines
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        connvalues = 0      # (Integer) Flag, 1 if all the value of $connheader have been set
+        connvalues = 0      # (Integer) Flag, 1 if all the value of connheader have been set
         connheader = {
           'date'  => '',    # The value of Arrival-Date header
           'lhost' => '',    # The value of Reporting-MTA header
@@ -81,7 +81,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -100,7 +100,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             if connvalues == connheader.keys.size

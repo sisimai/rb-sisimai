@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::KDDI parses a bounce email which created by au by KDDI.
+  # Methods in the module are called from only Sisimai::Message.
   module KDDI
-    # Sisimai::Bite::Email::KDDI parses a bounce email which created by au by KDDI.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/KDDI.pm
       require 'sisimai/bite/email'
@@ -11,7 +11,7 @@ module Sisimai::Bite::Email
         :'reply-to'   => %r/\Afrom[ \t]+\w+[.]auone[-]net[.]jp[ \t]/,
         :'received'   => %r/\Afrom[ ](?:.+[.])?ezweb[.]ne[.]jp[ ]/,
         :'message-id' => %r/[@].+[.]ezweb[.]ne[.]jp[>]\z/,
-      }
+      }.freeze
       Re1 = {
         :begin => %r/\AYour[ ]mail[ ](?:
              sent[ ]on:?[ ][A-Z][a-z]{2}[,]
@@ -21,12 +21,12 @@ module Sisimai::Bite::Email
         :rfc822 => %r|\AContent-Type: message/rfc822\z|,
         :error  => %r/Could not be delivered to:? /,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       ReFailure = {
         mailboxfull: %r/As[ ]their[ ]mailbox[ ]is[ ]full/x,
         norelaying:  %r/Due[ ]to[ ]the[ ]following[ ]SMTP[ ]relay[ ]error/x,
         hostunknown: %r/As[ ]the[ ]remote[ ]domain[ ]doesnt[ ]exist/x,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'au by KDDI: http://www.au.kddi.com'; end
@@ -75,7 +75,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -94,7 +94,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             v = dscontents[-1]

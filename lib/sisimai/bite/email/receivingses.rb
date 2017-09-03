@@ -1,8 +1,8 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::ReceivingSES parses a bounce email which created
+  # by Amazon Simple Email Service. Methods in the module are called from
+  # only Sisimai::Message.
   module ReceivingSES
-    # Sisimai::Bite::Email::ReceivingSES parses a bounce email which created
-    # by Amazon Simple Email Service. Methods in the module are called from
-    # only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/ReceivingSES.pm
       require 'sisimai/bite/email'
@@ -11,19 +11,19 @@ module Sisimai::Bite::Email
       Re0 = {
         :subject  => %r/\ADelivery Status Notification [(]Failure[)]\z/,
         :received => %r/.+[.]smtp-out[.].+[.]amazonses[.]com\b/,
-      }
+      }.freeze
       Re1 = {
         :begin  => %r/\AThis message could not be delivered[.]\z/,
         :rfc822 => %r|\Acontent-type: text/rfc822-headers\z|,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       ReFailure = {
         # The followings are error messages in Rule sets/*/Actions/Template
         filtered:     %r/Mailbox does not exist/,
         mesgtoobig:   %r/Message too large/,
         mailboxfull:  %r/Mailbox full/,
         contenterror: %r/Message content rejected/,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Amazon SES(Receiving): http://aws.amazon.com/ses/'; end
@@ -57,7 +57,7 @@ module Sisimai::Bite::Email
         blanklines = 0      # (Integer) The number of blank lines
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        connvalues = 0      # (Integer) Flag, 1 if all the value of $connheader have been set
+        connvalues = 0      # (Integer) Flag, 1 if all the value of connheader have been set
         connheader = {
           'date'  => '',    # The value of Arrival-Date header
           'lhost' => '',    # The value of Reporting-MTA header
@@ -77,7 +77,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -96,7 +96,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             if connvalues == connheader.keys.size

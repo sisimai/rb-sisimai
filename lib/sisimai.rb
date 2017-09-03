@@ -32,8 +32,7 @@ module Sisimai
       rtype = nil
       input = argv1[:input] || nil
       field = argv1[:field] || []
-      fail ' ***error: "field" accepts an array reference only' unless field.is_a? Array
-
+      raise ' ***error: "field" accepts an array reference only' unless field.is_a? Array
 
       unless input
         # "input" did not specified, try to detect automatically.
@@ -100,7 +99,7 @@ module Sisimai
 
       else
         # The value of "input" neither "email" nor "json"
-        fail ' ***error: invalid value of "input"'
+        raise ' ***error: invalid value of "input"'
       end
 
       return nil if bouncedata.size.zero?

@@ -1,7 +1,7 @@
 module Sisimai
   module Bite
+    # Sisimai::Bite::Email- Base class for Sisimai::Bite::Email::*
     module Email
-      # Sisimai::Bite::Email- Base class for Sisimai::Bite::Email::*
       class << self
         # Imported from p5-Sisimail/lib/Sisimai/Bite/Email.pm
         require 'sisimai/bite'
@@ -27,9 +27,9 @@ module Sisimai
             Google Yahoo GSuite Aol Outlook Office365 SendGrid AmazonSES MailRu
             Yandex MessagingServer Domino Notes ReceivingSES AmazonWorkMail Verizon
             GMX Bigfoot Facebook Zoho EinsUndEins MessageLabs EZweb KDDI Biglobe
-            ApacheJames McAfee MXLogic MailFoundry IMailServer 
+            ApacheJames McAfee MXLogic MailFoundry IMailServer
             MFILTER Activehunter InterScanMSS SurfControl MailMarshalSMTP
-            X1 X2 X3 X4 X5 V5sendmail 
+            X1 X2 X3 X4 X5 V5sendmail
           |
         end
 

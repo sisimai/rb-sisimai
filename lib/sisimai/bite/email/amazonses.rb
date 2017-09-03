@@ -1,18 +1,18 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::AmazonSES parses a bounce email which created by
+  # Amazon Simple Email Service.
+  # Methods in the module are called from only Sisimai::Message.
   module AmazonSES
-    # Sisimai::Bite::Email::AmazonSES parses a bounce email which created by
-    # Amazon Simple Email Service.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/AmazonSES.pm
       require 'sisimai/bite/email'
 
       # http://aws.amazon.com/ses/
-      ReE = { :'x-mailer' => %r/Amazon[ ]WorkMail/ }
+      ReE = { :'x-mailer' => %r/Amazon[ ]WorkMail/ }.freeze
       Re0 = {
         :from    => %r/\AMAILER-DAEMON[@]email[-]bounces[.]amazonses[.]com\z/,
         :subject => %r/\ADelivery Status Notification [(]Failure[)]\z/,
-      }
+      }.freeze
       Re1 = {
         :begin   => %r/\A(?:
              The[ ]following[ ]message[ ]to[ ][<]
@@ -21,10 +21,10 @@ module Sisimai::Bite::Email
         /x,
         :rfc822  => %r|\Acontent-type: message/rfc822\z|,
         :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       ReFailure = {
         expired: %r/Delivery[ ]expired/x,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Amazon SES(Sending): http://aws.amazon.com/ses/'; end
@@ -66,7 +66,7 @@ module Sisimai::Bite::Email
         blanklines = 0      # (Integer) The number of blank lines
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        connvalues = 0      # (Integer) Flag, 1 if all the value of $connheader have been set
+        connvalues = 0      # (Integer) Flag, 1 if all the value of connheader have been set
         connheader = {
           'lhost' => '',    # The value of Reporting-MTA header
         }
@@ -85,7 +85,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -105,7 +105,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             if connvalues == connheader.keys.size
@@ -192,12 +192,12 @@ module Sisimai::Bite::Email
         if recipients.zero? && mbody =~ /notificationType/
           # Try to parse with Sisimai::Bite::JSON::AmazonSES module
           require 'sisimai/bite/json/amazonses'
-          e = Sisimai::Bite::JSON::AmazonSES.scan(mhead, mbody)
+          j = Sisimai::Bite::JSON::AmazonSES.scan(mhead, mbody)
 
-          if e['ds'].is_a? Array
+          if j['ds'].is_a? Array
             # Update dscontents
-            dscontents = e['ds']
-            recipients = e['ds'].size
+            dscontents = j['ds']
+            recipients = j['ds'].size
           end
         end
 

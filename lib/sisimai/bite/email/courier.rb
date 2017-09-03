@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Courier parses a bounce email which created by Courier
+  # MTA. Methods in the module are called from only Sisimai::Message.
   module Courier
-    # Sisimai::Bite::Email::Courier parses a bounce email which created by Courier
-    # MTA. Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Courier.pm
       require 'sisimai/bite/email'
@@ -16,7 +16,7 @@ module Sisimai::Bite::Email
           )
         }x,
         :'message-id' => %r/\A[<]courier[.][0-9A-F]+[.]/,
-      }
+      }.freeze
       Re1 = {
         :begin  => %r{(?:
            DELAYS[ ]IN[ ]DELIVERING[ ]YOUR[ ]MESSAGE
@@ -29,18 +29,18 @@ module Sisimai::Bite::Email
           )\z
         }x,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       ReFailure = {
         # courier/module.esmtp/esmtpclient.c:526| hard_error(del, ctf, "No such domain.");
         hostunknown: %r/\ANo[ ]such[ ]domain[.]\z/x,
         # courier/module.esmtp/esmtpclient.c:531| hard_error(del, ctf,
         # courier/module.esmtp/esmtpclient.c:532|  "This domain's DNS violates RFC 1035.");
         systemerror: %r/\AThis[ ]domain's[ ]DNS[ ]violates[ ]RFC[ ]1035[.]\z/x,
-      }
+      }.freeze
       ReDelayed = {
         # courier/module.esmtp/esmtpclient.c:535| soft_error(del, ctf, "DNS lookup failed.");
         networkerror: %r/\ADNS[ ]lookup[ ]failed[.]\z/x,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Courier MTA'; end
@@ -80,7 +80,7 @@ module Sisimai::Bite::Email
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         commandtxt = ''     # (String) SMTP Command name begin with the string '>>>'
-        connvalues = 0      # (Integer) Flag, 1 if all the value of $connheader have been set
+        connvalues = 0      # (Integer) Flag, 1 if all the value of connheader have been set
         connheader = {
           'date'  => '',    # The value of Arrival-Date header
           'rhost' => '',    # The value of Reporting-MTA header
@@ -101,7 +101,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -120,7 +120,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             if connvalues == connheader.keys.size

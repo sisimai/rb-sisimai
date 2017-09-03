@@ -1,22 +1,22 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::SendGrid parses a bounce email which created by
+  # SendGrid. Methods in the module are called from only Sisimai::Message.
   module SendGrid
-    # Sisimai::Bite::Email::SendGrid parses a bounce email which created by
-    # SendGrid. Methods in the module are called from only Sisimai::Message.
     class << self
-    # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/SendGrid.pm
+      # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/SendGrid.pm
       require 'sisimai/bite/email'
 
       Re0 = {
         :'from'        => %r/\AMAILER-DAEMON\z/,
         :'return-path' => %r/\A[<]apps[@]sendgrid[.]net[>]\z/,
         :'subject'     => %r/\AUndelivered Mail Returned to Sender\z/,
-      }
+      }.freeze
       Re1 = {
         :begin  => %r/\AThis is an automatically generated message from SendGrid[.]\z/,
         :error  => %r/\AIf you require assistance with this, please contact SendGrid support[.]\z/,
         :rfc822 => %r|\AContent-Type: message/rfc822|,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'SendGrid: http://sendgrid.com/'; end
@@ -54,7 +54,7 @@ module Sisimai::Bite::Email
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         commandtxt = ''     # (String) SMTP Command name begin with the string '>>>'
-        connvalues = 0      # (Integer) Flag, 1 if all the value of $connheader have been set
+        connvalues = 0      # (Integer) Flag, 1 if all the value of connheader have been set
         connheader = {
           'date' => '',     # The value of Arrival-Date header
         }
@@ -73,7 +73,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -92,7 +92,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             if connvalues == connheader.keys.size
@@ -188,7 +188,7 @@ module Sisimai::Bite::Email
           # Get the value of SMTP status code as a pseudo D.S.N.
           if cv = e['diagnosis'].match(/\b([45])\d\d[ \t]*/)
             # 4xx or 5xx
-            e['status'] = sprintf("%d.0.0", cv[1])
+            e['status'] = sprintf('%d.0.0', cv[1])
           end
 
           if e['status'] =~ /[45][.]0[.]0/

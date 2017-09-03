@@ -1,9 +1,9 @@
 module Sisimai
-  # Sisimai::Order::Email makes optimized order list which include MTA modules
-  # to be loaded on first from MTA specific headers in the bounce mail headers
-  # such as X-Failed-Recipients.
-  # This module are called from only Sisimai::Message::Email.
   module Order
+    # Sisimai::Order::Email makes optimized order list which include MTA modules
+    # to be loaded on first from MTA specific headers in the bounce mail headers
+    # such as X-Failed-Recipients.
+    # This module are called from only Sisimai::Message::Email.
     module Email
       # Imported from p5-Sisimail/lib/Sisimai/Order/Email.pm
       class << self
@@ -14,14 +14,14 @@ module Sisimai
           # which is hard to code as regular expression
           'Sisimai::Bite::Email::Exim',
           'Sisimai::Bite::Email::Exchange2003',
-        ]
+        ].freeze
         EngineOrder2 = [
           # These modules have no MTA specific header and did not listed in the
           # following subject header based regular expressions.
           'Sisimai::Bite::Email::Exchange2007',
           'Sisimai::Bite::Email::Facebook',
           'Sisimai::Bite::Email::KDDI',
-        ]
+        ].freeze
         EngineOrder3 = [
           # These modules have no MTA specific header but listed in the following
           # subject header based regular expressions.
@@ -39,7 +39,7 @@ module Sisimai
           'Sisimai::Bite::Email::SendGrid',
           'Sisimai::Bite::Email::Bigfoot',
           'Sisimai::Bite::Email::X4',
-        ]
+        ].freeze
         EngineOrder4 = [
           # These modules have no MTA specific headers and there are few samples or
           # too old MTA
@@ -54,7 +54,7 @@ module Sisimai
           'Sisimai::Bite::Email::X2',
           'Sisimai::Bite::Email::X1',
           'Sisimai::Bite::Email::V5sendmail',
-        ]
+        ].freeze
         EngineOrder5 = [
           # These modules have one or more MTA specific headers but other headers
           # also required for detecting MTA name
@@ -64,7 +64,7 @@ module Sisimai
           'Sisimai::Bite::Email::MessageLabs',
           'Sisimai::Bite::Email::MailMarshalSMTP',
           'Sisimai::Bite::Email::MFILTER',
-        ]
+        ].freeze
         EngineOrder9 = [
           # These modules have one or more MTA specific headers
           'Sisimai::Bite::Email::Aol',
@@ -79,7 +79,7 @@ module Sisimai
           'Sisimai::Bite::Email::McAfee',
           'Sisimai::Bite::Email::Activehunter',
           'Sisimai::Bite::Email::SurfControl',
-        ]
+        ].freeze
 
         # This variable don't hold MTA name which have one or more MTA specific
         # header such as X-AWS-Outgoing, X-Yandex-Uniq.
@@ -148,7 +148,7 @@ module Sisimai
               'Sisimai::Bite::Email::Exim',
             ],
           },
-        }
+        }.freeze
 
         make_default_order = lambda do
           # Make default order of MTA modules to be loaded

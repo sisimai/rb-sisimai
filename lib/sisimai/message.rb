@@ -29,7 +29,7 @@ module Sisimai
     # @options argvs [Array]  :field    Email header names to be captured
     # @options argvs [Array]  :order    The order of MTA modules
     # @options argvs [Code]   :hook     Reference to callback method
-    # @return        [Sisimai::Message] Structured email data or Undef if each
+    # @return        [Sisimai::Message] Structured email data or nil if each
     #                                   value of the arguments are missing
     def initialize(data: '', **argvs)
       return nil if data.empty?

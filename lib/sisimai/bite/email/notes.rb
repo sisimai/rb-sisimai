@@ -1,19 +1,19 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::::Email::Notes parses a bounce email which created by Lotus
+  # Notes Server. Methods in the module are called from only Sisimai::Message.
   module Notes
-    # Sisimai::Bite::::Email::Notes parses a bounce email which created by Lotus
-    # Notes Server. Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Notes.pm
       require 'sisimai/bite/email'
 
       Re0 = {
         :'subject' => %r/\AUndeliverable message/,
-      }
+      }.freeze
       Re1 = {
         :begin  => %r/\A[-]+[ ]+Failure Reasons[ ]+[-]+\z/,
         :rfc822 => %r/^[-]+[ ]+Returned Message[ ]+[-]+$/,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       ReFailure = {
         userunknown: %r{(?:
            User[ ]not[ ]listed[ ]in[ ]public[ ]Name[ ][&][ ]Address[ ]Book
@@ -21,7 +21,7 @@ module Sisimai::Bite::Email
           )
         }x,
         networkerror: %r/Message has exceeded maximum hop count/,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Lotus Notes'; end
@@ -65,7 +65,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -92,7 +92,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
 
             # ------- Failure Reasons  --------
             #
@@ -143,11 +143,11 @@ module Sisimai::Bite::Email
         if recipients.zero?
           # Fallback: Get the recpient address from RFC822 part
           rfc822list.each do |e|
-            if cv = e.match(/^To:[ ]*(.+)$/m)
-              v['recipient'] = Sisimai::Address.s3s4(cv[1])
-              recipients += 1 if v['recipient'].size > 0
-              break
-            end
+            next unless cv = e.match(/^To:[ ]*(.+)$/m)
+
+            v['recipient'] = Sisimai::Address.s3s4(cv[1])
+            recipients += 1 if v['recipient'].size > 0
+            break
           end
         end
 

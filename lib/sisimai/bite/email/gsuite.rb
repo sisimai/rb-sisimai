@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::GSuite parses a bounce email which created by G Suite.
+  # Methods in the module are called from only Sisimai::Message.
   module GSuite
-    # Sisimai::Bite::Email::GSuite parses a bounce email which created by G Suite.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/GSuite.pm
       require 'sisimai/bite/email'
@@ -9,19 +9,19 @@ module Sisimai::Bite::Email
       Re0 = {
         :from    => %r/[@]googlemail[.]com[>]?\z/,
         :subject => %r/Delivery[ ]Status[ ]Notification/,
-      }
+      }.freeze
       Re1 = {
         :begin   => %r/\A[*][*][ ].+[ ][*][*]\z/,
         :error   => %r/\AThe[ ]response([ ]from[ ]the[ ]remote[ ]server)?[ ]was:\z/,
         :html    => %r{\AContent-Type:[ ]*text/html;[ ]*charset=['"]?(?:UTF|utf)[-]8['"]?\z},
         :rfc822  => %r{\AContent-Type:[ ]*(?:message/rfc822|text/rfc822-headers)\z},
         :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       ErrorMayBe = {
         :userunknown  => %r/because the address couldn't be found/,
         :notaccept    => %r/Null MX/,
         :networkerror => %r/DNS type .+ lookup of .+ responded with code NXDOMAIN/,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'G Suite: https://gsuite.google.com'; end
@@ -58,7 +58,7 @@ module Sisimai::Bite::Email
         endoferror = true   # (Integer) Flag for a blank line after error messages
         anotherset = {}     # (Hash) Another error information
         emptylines = 0      # (Integer) The number of empty lines
-        connvalues = 0      # (Integer) Flag, 1 if all the value of $connheader have been set
+        connvalues = 0      # (Integer) Flag, 1 if all the value of connheader have been set
         connheader = {
           'date'  => '',    # The value of Arrival-Date header
           'lhost' => '',    # The value of Reporting-MTA header
@@ -68,12 +68,10 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
-              readcursor |= Indicators[:deliverystatus]
-            end
+            readcursor |= Indicators[:deliverystatus] if e =~ Re1[:begin]
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -92,7 +90,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
 
             if connvalues == connheader.keys.size
               # Final-Recipient: rfc822; kijitora@example.de
@@ -137,9 +135,9 @@ module Sisimai::Bite::Email
                   v['diagnosis'] = cv[2]
                 else
                   # Append error messages continued from the previous line
-                  if endoferror && ( v['diagnosis'] && v['diagnosis'].size > 0 )
+                  if endoferror && (v['diagnosis'] && v['diagnosis'].size > 0)
                     endoferror = true if e.empty?
-                    endoferror = true if e =~ /\A--/
+                    endoferror = true if e.start_with?('--')
 
                     next if endoferror
                     next unless e =~ /\A[ ]/
@@ -222,12 +220,12 @@ module Sisimai::Bite::Email
             if e['diagnosis'] =~ /\A\d+\z/
               e['diagnosis'] = anotherset['diagnosis']
             else
-              # More detailed error message is in "$anotherset"
+              # More detailed error message is in "anotherset"
               as = nil  # status
               ar = nil  # replycode
 
               if e['status'] == '' || e['status'] =~ /\A[45][.]0[.]0\z/
-                # Check the value of D.S.N. in $anotherset
+                # Check the value of D.S.N. in anotherset
                 as = Sisimai::SMTP::Status.find(anotherset['diagnosis'])
                 if as.size > 0 && as[-3, 3] != '0.0'
                   # The D.S.N. is neither an empty nor *.0.0
@@ -236,7 +234,7 @@ module Sisimai::Bite::Email
               end
 
               if e['replycode'] == '' || e['replycode'] =~ /\A[45]00\z/
-                # Check the value of SMTP reply code in $anotherset
+                # Check the value of SMTP reply code in anotherset
                 ar = Sisimai::SMTP::Reply.find(anotherset['diagnosis'])
                 if ar.size > 0 && ar[-2, 2].to_i != 0
                   # The SMTP reply code is neither an empty nor *00
@@ -244,8 +242,8 @@ module Sisimai::Bite::Email
                 end
               end
 
-              if ( as || ar ) && ( anotherset['diagnosis'].size > e['diagnosis'].size )
-                # Update the error message in $e->{'diagnosis'}
+              if (as || ar) && (anotherset['diagnosis'].size > e['diagnosis'].size)
+                # Update the error message in e['diagnosis']
                 e['diagnosis'] = anotherset['diagnosis']
               end
             end

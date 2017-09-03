@@ -1,8 +1,8 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Exchange2003 parses a bounce email which created by
+  # Microsoft Exchange Server 2003.
+  # Methods in the module are called from only Sisimai::Message.
   module Exchange2003
-    # Sisimai::Bite::Email::Exchange2003 parses a bounce email which created by
-    # Microsoft Exchange Server 2003.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Exchange2003.pm
       require 'sisimai/bite/email'
@@ -18,13 +18,13 @@ module Sisimai::Bite::Email
         :'x-mimeole' => %r/\AProduced By Microsoft Exchange/,
         # Received: by ***.**.** with Internet Mail Service (5.5.2657.72)
         :'received'  => %r/\Aby .+ with Internet Mail Service [(][\d.]+[)]/,
-      }
+      }.freeze
       Re1 = {
         :begin  => %r/\AYour message/,
         :error  => %r/\Adid not reach the following recipient[(]s[)]:/,
         :rfc822 => %r|\AContent-Type: message/rfc822|,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       CodeTable = {
         onhold: [
           '000B099C', # Host Unknown, Message exceeds size limit, ...
@@ -51,7 +51,7 @@ module Sisimai::Bite::Email
         filtered: [
           '000C0595', # Ambiguous Recipient
         ],
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Microsoft Exchange Server 2003'; end
@@ -112,7 +112,7 @@ module Sisimai::Bite::Email
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         statuspart = false  # (Boolean) Flag, true = have got delivery status part.
-        connvalues = 0      # (Integer) Flag, 1 if all the value of $connheader have been set
+        connvalues = 0      # (Integer) Flag, 1 if all the value of connheader have been set
         connheader = {
           'to'      => '',  # The value of "To"
           'date'    => '',  # The value of "Date"
@@ -129,7 +129,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -148,7 +148,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if statuspart
 
             if connvalues == connheader.keys.size
@@ -220,7 +220,7 @@ module Sisimai::Bite::Email
                 connvalues += 1
 
               elsif cv = e.match(%r|\A[ \t]+Sent:[ \t]+([A-Z][a-z]{2},.+[-+]\d{4})\z|) ||
-                    cv = e.match(%r|\A[ \t]+Sent:[ \t]+(\d+[/]\d+[/]\d+[ \t]+\d+:\d+:\d+[ \t].+)|)
+                         e.match(%r|\A[ \t]+Sent:[ \t]+(\d+[/]\d+[/]\d+[ \t]+\d+:\d+:\d+[ \t].+)|)
                 #  Sent:    Thu, 29 Apr 2010 18:14:35 +0000
                 #  Sent:    4/29/99 9:19:59 AM
                 next if connheader['date'].size > 0

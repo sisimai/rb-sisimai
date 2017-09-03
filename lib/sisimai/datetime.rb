@@ -25,23 +25,23 @@ module Sisimai
         b: 86.4,                  # Beat, Swatch internet time: 1000b = 1d
         m: 60,                    # Minute,
         s: 1,                     # Second
-      }
+      }.freeze
 
       MathematicalConstant = {
         e: CONST_E,
         p: CONST_P,
         g: CONST_E**CONST_P,
-      }
+      }.freeze
 
       MonthName = {
         full: %w|January February March April May June July August September October November December|,
         abbr: %w|Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec|,
-      }
+      }.freeze
 
       DayOfWeek = {
         full: %w|Sunday Monday Tuesday Wednesday Thursday Friday Saturday|,
-        abbr: %w|Sun Mon Tue Wed Thu Fri Sat |,
-      }
+        abbr: %w|Sun Mon Tue Wed Thu Fri Sat|,
+      }.freeze
 
       HourName = {
         full: [
@@ -49,7 +49,7 @@ module Sisimai
           'Noon', 13, 14, 15, 16, 17, 'Evening', 19, 20, 21, 22, 23,
         ],
         abbr: [0..23],
-      }
+      }.freeze
 
       TimeZoneAbbr = {
         # http://en.wikipedia.org/wiki/List_of_time_zone_abbreviations
@@ -178,7 +178,7 @@ module Sisimai
         # WET:   '-0000', # Western European Time             UTC
         # YAKT:  '+0900', # Yakutsk Time                      UTC+09:00
         # YEKT:  '+0500', # Yekaterinburg Time                UTC+05:00
-      }
+      }.freeze
 
       # Convert to second
       # @param    [String] argv1  Digit and a unit of time
@@ -334,7 +334,7 @@ module Sisimai
             end
 
           elsif cr = p.match(/\A([0-2]\d):([0-5]\d):([0-5]\d)\z/) ||
-                cr = p.match(/\A(\d{1,2})[-:](\d{1,2})[-:](\d{1,2})\z/)
+                     p.match(/\A(\d{1,2})[-:](\d{1,2})[-:](\d{1,2})\z/)
             # Time; 12:34:56, 03:14:15, ...
             # Arrival-Date: 2014-03-26 00-01-19
 
@@ -379,10 +379,7 @@ module Sisimai
                 # ISO 8601; 2000-04-29T01:23:45
                 v[:Y] = cr[1].to_i
                 v[:M] = MonthName[:abbr][cr[2].to_i - 1]
-
-                if cr[3].to_i < 32
-                  v[:d] = cr[3].to_i
-                end
+                v[:d] = cr[3].to_i if cr[3].to_i < 32
 
                 if cr[4].to_i < 24 && cr[5].to_i < 60 && cr[6].to_i < 60
                   v[:T] = sprintf('%02d:%02d:%02d', cr[4], cr[5], cr[6])
@@ -417,13 +414,13 @@ module Sisimai
         # Adjust 2-digit Year
         if altervalue[:Y] && !v[:Y]
           # Check alternative value(Year)
-          if altervalue[:Y].to_i >= 82
-            # SMTP was born in 1982
-            v[:Y] ||= 1900 + altervalue[:Y].to_i
-          else
-            # 20XX
-            v[:Y] ||= 2000 + altervalue[:Y].to_i
-          end
+          v[:Y] ||= if altervalue[:Y].to_i >= 82
+                      # SMTP was born in 1982
+                      1900 + altervalue[:Y].to_i
+                    else
+                      # 20XX
+                      2000 + altervalue[:Y].to_i
+                    end
         end
 
         # Check each piece
@@ -445,7 +442,7 @@ module Sisimai
 
       # Abbreviation -> Tiemzone
       # @param    [String] argv1  Abbr. e.g.) JST, GMT, PDT
-      # @return   [String, Undef] +0900, +0000, -0600 or Undef if the argument is
+      # @return   [String, Nil]   +0900, +0000, -0600 or nil if the argument is
       #                           invalid format or not supported abbreviation
       # @example  Get the timezone string of "JST"
       #   abbr2tz('JST')  #=> '+0900'
@@ -456,7 +453,7 @@ module Sisimai
 
       # Convert to second
       # @param    [String] argv1  Timezone string e.g) +0900
-      # @return   [Integer,Undef] n: seconds or Undef it the argument is invalid
+      # @return   [Integer, Nil]  n: seconds or nil it the argument is invalid
       #                           format string
       # @see      second2tz
       # @example  Convert '+0900' to seconds

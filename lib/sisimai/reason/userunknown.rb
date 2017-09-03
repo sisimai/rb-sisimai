@@ -167,11 +167,10 @@ module Sisimai
                 next
               end
 
-              if r.match(diagnostic)
-                # Match with reason defined in Sisimai::Reason::* except UserUnknown.
-                matchother = true
-                break
-              end
+              next unless r.match(diagnostic)
+              # Match with reason defined in Sisimai::Reason::* except UserUnknown.
+              matchother = true
+              break
             end
 
             # Did not match with other message patterns

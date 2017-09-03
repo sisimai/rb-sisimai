@@ -1,8 +1,8 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Office365 parses a bounce email which created by
+  # Microsoft Office 365.
+  # Methods in the module are called from only Sisimai::Message.
   module Office365
-    # Sisimai::Bite::Email::Office365 parses a bounce email which created by
-    # Microsoft Office 365.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Office365.pm
       require 'sisimai/bite/email'
@@ -11,7 +11,7 @@ module Sisimai::Bite::Email
         :'subject'    => %r/Undeliverable:/,
         :'received'   => %r/.+[.](?:outbound[.]protection|prod)[.]outlook[.]com\b/,
         :'message-id' => %r/.+[.](?:outbound[.]protection|prod)[.]outlook[.]com\b/,
-      }
+      }.freeze
       Re1 = {
         :begin  => %r{\A(?:
            Delivery[ ]has[ ]failed[ ]to[ ]these[ ]recipients[ ]or[ ]groups:
@@ -22,7 +22,7 @@ module Sisimai::Bite::Email
         :eoerr  => %r/\AOriginal message headers:\z/,
         :rfc822 => %r|\AContent-Type: message/rfc822\z|,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       CodeTable = {
         # https://support.office.com/en-us/article/Email-non-delivery-reports-in-Office-365-51daa6b9-2e35-49c4-a0c9-df85bf8533c3
         %r/\A4[.]4[.]7\z/        => 'expired',
@@ -49,7 +49,7 @@ module Sisimai::Bite::Email
         %r/\A5[.]7[.]60[6-9]\z/  => 'blocked',
         %r/\A5[.]7[.]6[1-4]\d\z/ => 'blocked',
         %r/\A5[.]7[.]7[0-4]\d\z/ => 'toomanyconn',
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Microsoft Office 365: http://office.microsoft.com/'; end
@@ -126,7 +126,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -145,7 +145,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             # kijitora@example.com<mailto:kijitora@example.com>
@@ -241,14 +241,13 @@ module Sisimai::Bite::Email
             pseudostatus = Sisimai::SMTP::Status.find(e['diagnosis'])
             e['status'] = pseudostatus if pseudostatus.size > 0
           end
+          next unless e['status']
 
-          if e['status']
-            CodeTable.each_key do |f|
-              # Try to match with each key as a regular expression
-              next unless e['status'] =~ f
-              e['reason'] = CodeTable[f]
-              break
-            end
+          CodeTable.each_key do |f|
+            # Try to match with each key as a regular expression
+            next unless e['status'] =~ f
+            e['reason'] = CodeTable[f]
+            break
           end
         end
 

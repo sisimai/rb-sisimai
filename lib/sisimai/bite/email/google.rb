@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Google parses a bounce email which created by Gmail.
+  # Methods in the module are called from only Sisimai::Message.
   module Google
-    # Sisimai::Bite::Email::Google parses a bounce email which created by Gmail.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Google.pm
       require 'sisimai/bite/email'
@@ -9,7 +9,7 @@ module Sisimai::Bite::Email
       Re0 = {
         :from    => %r/[@]googlemail[.]com[>]?\z/,
         :subject => %r/Delivery[ ]Status[ ]Notification/,
-      }
+      }.freeze
       Re1 = {
         :begin   => %r/Delivery to the following recipient/,
         :start   => %r/Technical details of (?:permanent|temporary) failure:/,
@@ -20,7 +20,7 @@ module Sisimai::Bite::Email
             )\z
         }x,
         :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       ReFailure = {
         expired: %r{(?:
              DNS[ ]Error:[ ]Could[ ]not[ ]contact[ ]DNS[ ]servers
@@ -33,7 +33,7 @@ module Sisimai::Bite::Email
             |DNS[ ]server[ ]returned[ ]answer[ ]with[ ]no[ ]data
             )
         }x,
-      }
+      }.freeze
       StateTable = {
         # Technical details of permanent failure:
         # Google tried to deliver your message, but it was rejected by the recipient domain.
@@ -106,7 +106,7 @@ module Sisimai::Bite::Email
         # cause of this error. The error that the other server returned was:
         # 550 550 Unknown user *****@***.**.*** (state 18).
         '18' => { 'command' => 'DATA', 'reason' => 'filtered' },
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Google Gmail: https://mail.google.com'; end
@@ -192,12 +192,10 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
-              readcursor |= Indicators[:deliverystatus]
-            end
+            readcursor |= Indicators[:deliverystatus] if e =~ Re1[:begin]
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -216,7 +214,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             # Technical details of permanent failure:=20
@@ -272,13 +270,13 @@ module Sisimai::Bite::Email
               # the server for the recipient domain example.jp by mx.example.jp. [192.0.2.153].
               hostname = cv[1]
               ipv4addr = cv[2]
-              if hostname =~ /[-0-9a-zA-Z]+[.][a-zA-Z]+\z/
-                # Maybe valid hostname
-                e['rhost'] = hostname.downcase
-              else
-                # Use IP address instead
-                e['rhost'] = ipv4addr
-              end
+              e['rhost'] = if hostname =~ /[-0-9a-zA-Z]+[.][a-zA-Z]+\z/
+                             # Maybe valid hostname
+                             hostname.downcase
+                           else
+                             # Use IP address instead
+                             ipv4addr
+                           end
             end
           end
 
@@ -299,14 +297,13 @@ module Sisimai::Bite::Email
               break
             end
           end
-          e['status'] = Sisimai::SMTP::Status.find(e['diagnosis'])
+          next unless e['reason']
 
-          if e['reason']
-            # Set pseudo status code
-            if e['status'] =~ /\A[45][.][1-7][.][1-9]\z/
-              # Override bounce reason
-              e['reason'] = Sisimai::SMTP::Status.name(e['status'])
-            end
+          # Set pseudo status code
+          e['status'] = Sisimai::SMTP::Status.find(e['diagnosis'])
+          if e['status'] =~ /\A[45][.][1-7][.][1-9]\z/
+            # Override bounce reason
+            e['reason'] = Sisimai::SMTP::Status.name(e['status'])
           end
         end
 

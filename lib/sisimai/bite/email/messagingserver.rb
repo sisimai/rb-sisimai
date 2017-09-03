@@ -1,8 +1,8 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::MessagingServer parses a bounce email which created
+  # by Oracle Communications Messaging Server and Sun Java System Messaging
+  # Server. Methods in the module are called from only Sisimai::Message.
   module MessagingServer
-    # Sisimai::Bite::Email::MessagingServer parses a bounce email which created
-    # by Oracle Communications Messaging Server and Sun Java System Messaging
-    # Server. Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/MessagingServer.pm
       require 'sisimai/bite'
@@ -12,15 +12,15 @@ module Sisimai::Bite::Email
         :subject  => %r/\ADelivery Notification: /,
         :received => %r/[ ][(]MessagingServer[)][ ]with[ ]/,
         :boundary => %r/Boundary_[(]ID_.+[)]/,
-      }
+      }.freeze
       Re1 = {
         :begin  => %r/\AThis report relates to a message you sent with the following header fields:/,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         :rfc822 => %r!\A(?:Content-type:[ ]*message/rfc822|Return-path:[ ]*)!x,
-      }
+      }.freeze
       ReFailure = {
         hostunknown: %r|Illegal[ ]host/domain[ ]name[ ]found|x,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Oracle Communications Messaging Server'; end
@@ -66,7 +66,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -85,7 +85,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             # --Boundary_(ID_0000000000000000000000)

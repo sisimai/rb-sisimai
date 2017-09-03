@@ -206,7 +206,7 @@ module Sisimai
               :regexp => [%r/Unrecognized Authentication Type[.]/],
             },
           ],
-        }
+        }.freeze
 
         # Detect bounce reason from Google Apps
         # @param    [Sisimai::Data] argvs   Parsed email object

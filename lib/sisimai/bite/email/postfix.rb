@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Postfix parses a bounce email which created by
+  # Postfix. Methods in the module are called from only Sisimai::Message.
   module Postfix
-    # Sisimai::Bite::Email::Postfix parses a bounce email which created by
-    # Postfix. Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Postfix.pm
       require 'sisimai/bite/email'
@@ -10,7 +10,7 @@ module Sisimai::Bite::Email
       Re0 = {
         :from    => %r/ [(]Mail Delivery System[)]\z/,
         :subject => %r/\AUndelivered Mail Returned to Sender\z/,
-      }
+      }.freeze
       Re1 = {
         :begin => %r{\A(?>
            [ ]+The[ ](?:
@@ -32,7 +32,7 @@ module Sisimai::Bite::Email
         }x,
         :rfc822 => %r!\AContent-Type:[ \t]*(?:message/rfc822|text/rfc822-headers)\z!x,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Postfix'; end
@@ -64,7 +64,7 @@ module Sisimai::Bite::Email
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         commandset = []     # (Array) ``in reply to * command'' list
-        connvalues = 0      # (Integer) Flag, 1 if all the value of $connheader have been set
+        connvalues = 0      # (Integer) Flag, 1 if all the value of connheader have been set
         connheader = {
           'date'  => '',    # The value of Arrival-Date header
           'lhost' => '',    # The value of Received-From-MTA header
@@ -85,7 +85,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -104,7 +104,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             if connvalues == connheader.keys.size
@@ -266,12 +266,12 @@ module Sisimai::Bite::Email
             if e['diagnosis'] =~ /\A\d+\z/
               e['diagnosis'] = anotherset['diagnosis']
             else
-              # More detailed error message is in "$anotherset"
+              # More detailed error message is in "anotherset"
               as = nil  # status
               ar = nil  # replycode
 
               if e['status'] == '' || e['status'] =~ /\A[45][.]0[.]0\z/
-                # Check the value of D.S.N. in $anotherset
+                # Check the value of D.S.N. in anotherset
                 as = Sisimai::SMTP::Status.find(anotherset['diagnosis'])
                 if as.size > 0 && as[-3, 3] != '0.0'
                   # The D.S.N. is neither an empty nor *.0.0
@@ -280,7 +280,7 @@ module Sisimai::Bite::Email
               end
 
               if e['replycode'] == '' || e['replycode'] =~ /\A[45]00\z/
-                # Check the value of SMTP reply code in $anotherset
+                # Check the value of SMTP reply code in anotherset
                 ar = Sisimai::SMTP::Reply.find(anotherset['diagnosis'])
                 if ar.size > 0 && ar[-2, 2].to_i != 0
                   # The SMTP reply code is neither an empty nor *00
@@ -288,8 +288,8 @@ module Sisimai::Bite::Email
                 end
               end
 
-              if ( as || ar ) && ( anotherset['diagnosis'].size > e['diagnosis'].size )
-                # Update the error message in $e->{'diagnosis'}
+              if (as || ar) && (anotherset['diagnosis'].size > e['diagnosis'].size)
+                # Update the error message in e['diagnosis']
                 e['diagnosis'] = anotherset['diagnosis']
               end
             end

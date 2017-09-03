@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::MailRu parses a bounce email which created by @mail.ru.
+  # Methods in the module are called from only Sisimai::Message.
   module MailRu
-    # Sisimai::Bite::Email::MailRu parses a bounce email which created by @mail.ru.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/MailRu.pm
       # Based on Sisimai::Bite::Email::Exim
@@ -20,16 +20,16 @@ module Sisimai::Bite::Email
           |error[(]s[)][ ]in[ ]forwarding[ ]or[ ]filtering
           )
         }x,
-      }
+      }.freeze
       Re1 = {
         :rfc822 => %r/\A------ This is a copy of the message.+headers[.] ------\z/,
         :begin  => %r/\AThis message was created automatically by mail delivery software[.]/,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       ReCommand = [
         %r/SMTP error from remote (?:mail server|mailer) after ([A-Za-z]{4})/,
         %r/SMTP error from remote (?:mail server|mailer) after end of ([A-Za-z]{4})/,
-      ]
+      ].freeze
       ReFailure = {
         expired: %r{(?:
              retry[ ]timeout[ ]exceeded
@@ -57,7 +57,7 @@ module Sisimai::Bite::Email
             )
         }x,
         contenterror: %r/Too[ ]many[ ]["]Received["][ ]headers[ ]/x,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return '@mail.ru: https://mail.ru'; end
@@ -101,7 +101,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -121,7 +121,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             # Это письмо создано автоматически
@@ -179,7 +179,7 @@ module Sisimai::Bite::Email
             recipients = rcptinhead.size
 
             rcptinhead.each do |e|
-              # Insert each recipient address into @$dscontents
+              # Insert each recipient address into dscontents
               dscontents[-1]['recipient'] = e
               next if dscontents.size == recipients
               dscontents << Sisimai::Bite.DELIVERYSTATUS
@@ -204,7 +204,7 @@ module Sisimai::Bite::Email
           if e['alterrors'] && e['alterrors'].size > 0
             # Copy alternative error message
             e['diagnosis'] ||= e['alterrors']
-            if e['diagnosis'] =~ /\A[-]+/ || e['diagnosis'] =~ /__\z/
+            if e['diagnosis'] =~ /\A[-]+/ || e['diagnosis'].end_with?('__')
               # Override the value of diagnostic code message
               e['diagnosis'] = e['alterrors'] if e['alterrors'].size > 0
             end

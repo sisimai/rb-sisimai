@@ -1,7 +1,7 @@
 module Sisimai::Bite::Email
+  # Sisimai::Bite::Email::Biglobe parses a bounce email which created by BIGLOBE.
+  # Methods in the module are called from only Sisimai::Message.
   module Biglobe
-    # Sisimai::Bite::Email::Biglobe parses a bounce email which created by BIGLOBE.
-    # Methods in the module are called from only Sisimai::Message.
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Biglobe.pm
       require 'sisimai/bite/email'
@@ -9,17 +9,17 @@ module Sisimai::Bite::Email
       Re0 = {
         :subject => %r/\AReturned mail:/,
         :from    => %r/postmaster[@](?:biglobe|inacatv|tmtv|ttv)[.]ne[.]jp/,
-      }
+      }.freeze
       Re1 = {
         :begin  => %r/\A   ----- The following addresses had delivery problems -----\z/,
         :error  => %r/\A   ----- Non-delivered information -----\z/,
         :rfc822 => %r|\AContent-Type: message/rfc822\z|,
         :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }
+      }.freeze
       ReFailure = {
         filtered:    %r/Mail Delivery Failed[.]+ User unknown/,
         mailboxfull: %r/The number of messages in recipient's mailbox exceeded the local limit[.]/,
-      }
+      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'BIGLOBE: http://www.biglobe.ne.jp'; end
@@ -62,7 +62,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if readcursor & Indicators[:'message-rfc822'] == 0
+          if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e =~ Re1[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -81,7 +81,7 @@ module Sisimai::Bite::Email
 
           else
             # Before "message/rfc822"
-            next if readcursor & Indicators[:deliverystatus] == 0
+            next if (readcursor & Indicators[:deliverystatus]).zero?
             next if e.empty?
 
             # This is a MIME-encapsulated message.

@@ -7,7 +7,7 @@ module Sisimai
     # Return pseudo recipient or sender address
     # @param    [Symbol] argv1  Address type: :r or :s
     # @return   [String, Nil]   Pseudo recipient address or sender address or
-    #                           Undef when the $argv1 is neither :r nor :s
+    #                           nil when the argv1 is neither :r nor :s
     def self.undisclosed(argv1)
       return nil unless argv1
       return nil unless %w|r s|.index(argv1.to_s)
@@ -18,7 +18,7 @@ module Sisimai
 
     # New constructor of Sisimai::Address
     # @param    [Hash] argvs        Email address, name, and other elements
-    # @return   [Sisimai::Address]  Object or Undef when the email address was
+    # @return   [Sisimai::Address]  Object or nil when the email address was
     #                               not valid.
     # @example  make({address: 'neko@example.org', name: 'Neko', comment: '(nyaan)')}
     #           # => Sisimai::Address object
@@ -42,7 +42,7 @@ module Sisimai
       # @param    [String] argv1  String including email address
       # @param    [Boolean] addrs true:  Returns list including all the elements
       #                           false: Returns list including email addresses only
-      # @return   [Array, Nil]    Email address list or Undef when there is no 
+      # @return   [Array, Nil]    Email address list or nil when there is no
       #                           email address in the argument
       # @example  Parse email address
       #   find('Neko <neko(nyaan)@example.org>')
@@ -212,7 +212,7 @@ module Sisimai
               end
             end
             next
-          end # End of if('"') 
+          end # End of if('"')
         else
           # The character is not a delimiter
           p.size > 0 ? (v[p] += e) : (v[:name] += e)
@@ -227,7 +227,7 @@ module Sisimai
         # No email address like <neko@example.org> in the argument
         if cv = v[:name].match(validemail)
           # String like an email address will be set to the value of "address"
-          v[:address] = sprintf("%s@%s", cv[1], cv[2])
+          v[:address] = sprintf('%s@%s', cv[1], cv[2])
 
         elsif Sisimai::RFC5322.is_mailerdaemon(v[:name])
           # Allow if the argument is MAILER-DAEMON
@@ -292,7 +292,7 @@ module Sisimai
 
     # Email address parser
     # @param    [Array] argvs   List of strings including email address
-    # @return   [Array, Nil]    Email address list or Undef when there is no
+    # @return   [Array, Nil]    Email address list or nil when there is no
     #                           email address in the argument
     # @until    v4.22.1
     def self.parse(argvs = nil)
@@ -343,7 +343,7 @@ module Sisimai
       verp0 = ''
 
       if cv = local.match(/\A[-_\w]+?[+](\w[-._\w]+\w)[=](\w[-.\w]+\w)\z/)
-        verp0 = sprintf("%s@%s", cv[1], cv[2])
+        verp0 = sprintf('%s@%s', cv[1], cv[2])
         return verp0 if Sisimai::RFC5322.is_emailaddress(verp0)
       else
         return ''
@@ -382,7 +382,7 @@ module Sisimai
 
     # Constructor of Sisimai::Address
     # @param <str>  [String] argv1          Email address
-    # @return       [Sisimai::Address, Nil] Object or Undef when the email
+    # @return       [Sisimai::Address, Nil] Object or nil when the email
     #                                       address was not valid
     def initialize(argv1)
       return nil unless argv1
@@ -393,7 +393,7 @@ module Sisimai
       thing = addrs.shift
 
       if cv = thing[:address].match(/\A([^\s]+)[@]([^@]+)\z/) ||
-         cv = thing[:address].match(/\A(["].+?["])[@]([^@]+)\z/)
+              thing[:address].match(/\A(["].+?["])[@]([^@]+)\z/)
         # Get the local part and the domain part from the email address
         lpart = cv[1]
         dpart = cv[2]
@@ -418,7 +418,7 @@ module Sisimai
         end
         @user    = lpart
         @host    = dpart
-        @address = sprintf("%s@%s", lpart, dpart)
+        @address = sprintf('%s@%s', lpart, dpart)
 
       else
         # The argument does not include "@"
