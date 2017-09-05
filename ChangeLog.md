@@ -16,7 +16,7 @@ v4.22.1p1
     Style/UselessAssignment, and others reported from Rubocop.
   - Fix code for Performance/Casecmp, Performance/LstripRstrip in Sisimai::MIME.
   - Update code for Style/SymbolProc in Sisimai::Message::Email.
-  
+  - Support parsing JSON object from SendGrid Event Webhook.
 
 v4.22.1
 --------------------------------------------------------------------------------
