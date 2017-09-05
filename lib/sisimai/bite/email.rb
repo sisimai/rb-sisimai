@@ -5,7 +5,6 @@ module Sisimai
       class << self
         # Imported from p5-Sisimail/lib/Sisimai/Bite/Email.pm
         require 'sisimai/bite'
-        require 'sisimai/rfc5322'
 
         # @abstract Flags for position variable
         # @return   [Hash] Position flag data

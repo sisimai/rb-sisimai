@@ -124,7 +124,7 @@ module Sisimai
                     lb = nil  # Label
                     re = nil  # Regular expression
 
-                    mesgobject = Sisimai::Message.new(data: r, input: 'json')
+                    mesgobject = Sisimai::Message.new(data: r, input: 'json', delivered: true)
                     next unless mesgobject
                     next if mesgobject.void
 

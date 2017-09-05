@@ -8,9 +8,15 @@ v4.22.1p1
 - release: "Not released yet"
 - version: ""
 - changes:
-  - Fix code (wrong value assingment) in Sisimai::Bite::Email::GSuite
   - Apply Pull-Request #84 (issue #83) for setting the value of `softorhard` in 
     `Sisimai::SMTP::Error.soft_or_hard` method. Thanks to @lunatyq.
+  - Fix a wrong value assingment, and code for Performance/StartWith reported
+    from Rubocop in Sisimai::Bite::Email::GSuite.
+  - Update codes about Lint/AssignmentInCondition, Style/Next, Style/EmptyElse,
+    Style/UselessAssignment, and others reported from Rubocop.
+  - Fix code for Performance/Casecmp, Performance/LstripRstrip in Sisimai::MIME.
+  - Update code for Style/SymbolProc in Sisimai::Message::Email.
+  - Support parsing JSON object from SendGrid Event Webhook.
 
 v4.22.1
 --------------------------------------------------------------------------------

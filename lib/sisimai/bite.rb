@@ -3,6 +3,7 @@ module Sisimai
   module Bite
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite.pm
+      require 'sisimai/rfc5322'
 
       # Data structure for parsed bounce messages
       # @return [Hash] Data structure for delivery status

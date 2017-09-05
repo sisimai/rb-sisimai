@@ -1,0 +1,1 @@
+[{"ip":"192.0.2.22","status":"5.7.13","sg_event_id":"G9n4tny6SbOd2OOIwR4WWQ","reason":"525 5.7.13 Disabled recipient address ","sg_message_id":"1WmUfrSfRTK-rqq2dbmjbg.filter0005p3mdw1-16436-59ADC425-15.0","tls":0,"event":"bounce","email":"kijitora@example.jp","timestamp":1504560168,"smtp-id":"<201709042122.v84LMhK6032741@example.nyaan.jp>","type":"blocked"}]
