@@ -17,6 +17,7 @@ isexpected = [
   { 'n' => '13', 's' => /\A2[.]0[.]0\z/,   'r' => /delivered/,   'b' => /\A-1\z/},
   { 'n' => '14', 's' => /\A5[.]7[.]13\z/,  'r' => /suspend/,     'b' => /\A1\z/ },
   { 'n' => '15', 's' => /\A\z/,            'r' => /feedback/,    'b' => /\A-1\z/ },
+  { 'n' => '16', 's' => /\A\z/,            'r' => /feedback/,    'b' => /\A-1\z/ },
 ]
 Sisimai::Bite::JSON::Code.maketest(enginename, isexpected)
 
