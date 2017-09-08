@@ -46,7 +46,7 @@ module Sisimai::Bite::JSON
           #   'smtp-id' => '<201709042010.v84KAQ5T032530@example.nyaan.jp>',
           #   'status' => '5.2.2'
           # },
-          return nil unless argvs['event'] =~ /\A(?:bounce|deferred|delivered)\z/
+          return nil unless argvs['event'] =~ /\A(?:bounce|deferred|delivered|spamreport)\z/
           dscontents = [Sisimai::Bite.DELIVERYSTATUS]
           diagnostic = argvs['reason']   || ''
           diagnostic = argvs['response'] || '' if diagnostic.empty?
@@ -63,6 +63,18 @@ module Sisimai::Bite::JSON
           if argvs['event'] == 'delivered'
             # "event": "delivered"
             v['reason'] = 'delivered'
+          elsif argvs['event'] == 'spamreport'
+            # [
+            #   {
+            #     "email": "kijitora@example.com",
+            #     "timestamp": 1504837383,
+            #     "sg_message_id": "6_hrAeKvTDaB5ynBI2nbnQ.filter0002p3las1-27574-59B1FDA3-19.0",
+            #     "sg_event_id": "o70uHqbMSXOaaoveMZIjjg",
+            #     "event": "spamreport"
+            #   }
+            # ]
+            v['reason'] = 'feedback'
+            v['feedbacktype'] = 'abuse'
           end
           v['status']    ||= Sisimai::SMTP::Status.find(v['diagnosis']) || ''
           v['replycode'] ||= Sisimai::SMTP::Reply.find(v['diagnosis'])  || ''
