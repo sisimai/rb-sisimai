@@ -81,8 +81,8 @@ module Sisimai::Bite::JSON
 
           # Generate pseudo message/rfc822 part
           rfc822head = {
-            'from' => Sisimai::Address.undisclosed('s'),
-            'date' => v['date'],
+            'from'       => Sisimai::Address.undisclosed('s'),
+            'message-id' => v['sg_message_id'],
           }
         else
           #   {
