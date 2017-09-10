@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.22.1p1
+v4.22.1p2
 --------------------------------------------------------------------------------
 - release: "Not released yet"
 - version: ""
@@ -17,6 +17,7 @@ v4.22.1p1
   - Fix code for Performance/Casecmp, Performance/LstripRstrip in Sisimai::MIME.
   - Update code for Style/SymbolProc in Sisimai::Message::Email.
   - Support parsing JSON object from SendGrid Event Webhook.
+  - Suuport "event": "spamreport" via Feedback Loop on SendGrid Event Webhook.
 
 v4.22.1
 --------------------------------------------------------------------------------
