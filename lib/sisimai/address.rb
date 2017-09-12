@@ -3,6 +3,7 @@ module Sisimai
   class Address
     # Imported from p5-Sisimail/lib/Sisimai/Address.pm
     require 'sisimai/rfc5322'
+    @@undisclosed = 'libsisimai.org.invalid'
 
     # Return pseudo recipient or sender address
     # @param    [Symbol] argv1  Address type: :r or :s
@@ -13,7 +14,7 @@ module Sisimai
       return nil unless %w|r s|.index(argv1.to_s)
 
       local = argv1 == :r ? 'recipient' : 'sender'
-      return sprintf('undisclosed-%s-in-headers@libsisimai.org.invalid', local)
+      return sprintf('undisclosed-%s-in-headers@%s', local, @@undisclosed)
     end
 
     # New constructor of Sisimai::Address
@@ -441,6 +442,15 @@ module Sisimai
     # @return        [True,False]   returns true if the object is void
     def void
       return true unless @address
+      return false
+    end
+
+    # Check the "address" is an undisclosed address or not
+    # @param    [None]
+    # @return   [Boolean] true:  Undisclosed address
+    #                     false: Is not undisclosed address
+    def is_undisclosed
+      return true if self.host == @@undisclosed
       return false
     end
 

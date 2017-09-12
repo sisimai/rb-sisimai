@@ -177,6 +177,7 @@ describe Sisimai::Address do
           expect(addrobj.alias).to be_a ::String
           expect(addrobj.name).to be_a ::String
           expect(addrobj.comment).to be_a ::String
+          expect(addrobj.is_undisclosed).to be false
         end
       end
 
@@ -350,6 +351,16 @@ describe Sisimai::Address do
         it 'returns nil' do
           expect(Sisimai::Address.undisclosed(nil)).to be nil
         end
+
+        v = Sisimai::Address.new(Sisimai::Address.undisclosed(:r))
+        it 'returns true' do
+          expect(v.is_undisclosed).to be true
+        end
+
+        v = Sisimai::Address.new(Sisimai::Address.undisclosed(:s))
+        it 'returns true' do
+          expect(v.is_undisclosed).to be true
+        end
       end
     end
   end
@@ -418,6 +429,12 @@ describe Sisimai::Address do
         it 'returns empty String' do
           expect(v.alias).to be_a String
           expect(v.alias).to be_empty
+        end
+      end
+
+      describe '#is_undisclosed' do
+        it 'returns address' do
+          expect(v.is_undisclosed).to be false
         end
       end
 
