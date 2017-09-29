@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.22.1p3
+v4.22.1p4
 --------------------------------------------------------------------------------
 - release: "Not released yet"
 - version: ""
@@ -19,6 +19,8 @@ v4.22.1p3
   - Support parsing JSON object from SendGrid Event Webhook.
   - Suuport "event": "spamreport" via Feedback Loop on SendGrid Event Webhook.
   - Implement `Sisimai::Address.is_undisclosed` method.
+  - Import Pull-Request #237: Support parsing bounce mail from GoDaddy.
+  - Fix bug for setting the value of `date` in Sisimai::Bite::Email::Postfix.
 
 v4.22.1
 --------------------------------------------------------------------------------
