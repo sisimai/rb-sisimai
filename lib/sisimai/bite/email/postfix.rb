@@ -203,7 +203,7 @@ module Sisimai::Bite::Email
                 elsif cv = e.match(/\A[Aa]rrival-[Dd]ate:[ ]*(.+)\z/)
                   # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
                   next if connheader['date'].size > 0
-                  connheader['date'] = 1
+                  connheader['date'] = cv[1]
                   connvalues += 1
 
                 elsif cv = e.match(/\A(X-Postfix-Sender):[ ]*rfc822;[ ]*(.+)\z/)
