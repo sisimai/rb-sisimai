@@ -7,8 +7,9 @@ module Sisimai
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Rhost.pm
       RhostClass = {
-        %r/\Aaspmx[.]l[.]google[.]com\z/ => 'GoogleApps',
-        %r/[.]protection[.]outlook[.]com\z/ => 'ExchangeOnline',
+        %r/\Aaspmx[.]l[.]google[.]com\z/                 => 'GoogleApps',
+        %r/[.]protection[.]outlook[.]com\z/              => 'ExchangeOnline',
+        %r/\A(?:smtp|mailstore1)[.]secureserver[.]net\z/ => 'GoDaddy',
       }.freeze
 
       # Retrun the list of remote hosts Sisimai support

@@ -1,0 +1,69 @@
+From MAILER-DAEMON@mta1.example.net  Wed Apr  1 01:52:21 2009
+Return-Path: <MAILER-DAEMON@mta1.example.net>
+Received: from localhost (localhost)
+	by mta1.example.net (8.13.8/8.13.8) id n315qKUv008579;
+	Wed, 1 Apr 2009 01:52:20 -0400
+Date: Wed, 1 Apr 2009 01:52:20 -0400
+From: Mail Delivery Subsystem <MAILER-DAEMON@mta1.example.net>
+Message-Id: <200904010552.n315qKUv008579@mta1.example.net>
+To: <sironeko@mta1.example.net>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="n315qKUv008579.1238565140/mta1.example.net"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--n315qKUv008579.1238565140/mta1.example.net
+
+The original message was received at Wed, 1 Apr 2009 01:49:21 -0400
+from localhost.localdomain [127.0.0.1]
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora@example.com>
+    (reason: 553 http://www.spamhaus.org/query/bl?ip=192.0.2.222)
+
+   ----- Transcript of session follows -----
+... while talking to smtp.secureserver.net.:
+>>> RCPT To:<kijitora@example.com>
+<<< 553 http://www.spamhaus.org/query/bl?ip=192.0.2.222
+550 5.1.1 <kijitora@example.com>... User unknown
+
+--n315qKUv008579.1238565140/mta1.example.net
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mta1.example.net
+Received-From-MTA: DNS; localhost.localdomain
+Arrival-Date: Wed, 1 Apr 2009 01:49:21 -0400
+
+Final-Recipient: RFC822; kijitora@example.com
+Action: failed
+Status: 5.1.3
+Remote-MTA: DNS; smtp.secureserver.net
+Diagnostic-Code: SMTP; 553 http://www.spamhaus.org/query/bl?ip=192.0.2.222
+Last-Attempt-Date: Wed, 1 Apr 2009 01:52:20 -0400
+
+--n315qKUv008579.1238565140/mta1.example.net
+Content-Type: message/rfc822
+
+Return-Path: <sironeko@mta1.example.net>
+Received: from mta1.example.net (localhost.localdomain [127.0.0.1])
+	by mta1.example.net (8.13.8/8.13.8) with ESMTP id n315nLUv008575
+	for <kijitora@example.com>; Wed, 1 Apr 2009 01:49:21 -0400
+Received: (from sironeko@localhost)
+	by mta1.example.net (8.13.8/8.13.8/Submit) id n315nLUx008574;
+	Wed, 1 Apr 2009 01:49:21 -0400
+Date: Wed, 1 Apr 2009 01:49:21 -0400
+Message-Id: <200904010549.n315nLUx008574@mta1.example.net>
+To: kijitora@example.com
+From: "Sironeko, Cat" <sironeko@example.org>
+Subject: Nyaan
+Reply-to: sironeko@example.org
+MIME-Version: 1.0
+Content-type: text/plain; charset=us-ascii
+
+Nyaan
+
+--n315qKUv008579.1238565140/mta1.example.net--
+

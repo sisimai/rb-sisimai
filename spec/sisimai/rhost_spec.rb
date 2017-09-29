@@ -32,6 +32,8 @@ describe Sisimai::Rhost do
       v = [
         'aspmx.l.google.com',
         'neko.protection.outlook.com',
+        'smtp.secureserver.net',
+        'mailstore1.secureserver.net',
       ]
       v.each do |e|
         context "(#{e})" do
