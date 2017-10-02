@@ -291,36 +291,6 @@ module Sisimai
       return addrtables
     end
 
-    # Email address parser
-    # @param    [Array] argvs   List of strings including email address
-    # @return   [Array, Nil]    Email address list or nil when there is no
-    #                           email address in the argument
-    # @until    v4.22.1
-    def self.parse(argvs = nil)
-      return nil unless argvs
-      return nil unless argvs.is_a? Array
-      return nil if argvs.empty?
-
-      warn ' ***warning: Sisimai::Address.parse is marked as obsoleted'
-      addrs = []
-
-      argvs.each do |e|
-        # Parse each element in the array
-        #   1. The element must include '@'.
-        #   2. The element must not include character except from 0x20 to 0x7e.
-        next unless e
-        next unless e.is_a? Object::String
-        next if e.empty?
-
-        v = Sisimai::Address.find(e, 1) || []
-        next if v.empty?
-        v.each { |f| addrs << f[:address] }
-      end
-
-      return nil if addrs.empty?
-      return addrs
-    end
-
     # Runs like ruleset 3,4 of sendmail.cf
     # @param    [String] input  Text including an email address
     # @return   [String]        Email address without comment, brackets
