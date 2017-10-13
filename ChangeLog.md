@@ -3,10 +3,10 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.22.1p4
+v4.22.2
 --------------------------------------------------------------------------------
-- release: "Not released yet"
-- version: ""
+- release: "Fri, 13 Oct 2017 11:59:53 +0900 (JST)"
+- version: "v4.22.2"
 - changes:
   - Apply Pull-Request #84 (issue #83) for setting the value of `softorhard` in 
     `Sisimai::SMTP::Error.soft_or_hard` method. Thanks to @lunatyq.
@@ -21,6 +21,8 @@ v4.22.1p4
   - Implement `Sisimai::Address.is_undisclosed` method.
   - Import Pull-Request #237: Support parsing bounce mail from GoDaddy.
   - Fix bug for setting the value of `date` in Sisimai::Bite::Email::Postfix.
+  - Remove obsoleted classes: Sisimai::MTA, Sisimai::MSP, and Sisimai::CED.
+  - Remove obsoleted method: `Sisimai::Address.parse`.
 
 v4.22.1
 --------------------------------------------------------------------------------
