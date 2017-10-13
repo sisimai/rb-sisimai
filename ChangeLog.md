@@ -10,7 +10,7 @@ v4.22.2
 - changes:
   - Apply Pull-Request #84 (issue #83) for setting the value of `softorhard` in 
     `Sisimai::SMTP::Error.soft_or_hard` method. Thanks to @lunatyq.
-  - Fix a wrong value assingment, and code for Performance/StartWith reported
+  - Fix a wrong value assignment, and code for Performance/StartWith reported
     from Rubocop in Sisimai::Bite::Email::GSuite.
   - Update codes about Lint/AssignmentInCondition, Style/Next, Style/EmptyElse,
     Style/UselessAssignment, and others reported from Rubocop.
