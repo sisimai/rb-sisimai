@@ -346,12 +346,12 @@ module Sisimai
           elsif cr = p.match(/\A([0-2]\d):([0-5]\d)\z/)
             # Time; 12:34 => 12:34:00
             if cr[1].to_i < 24 && cr[2].to_i < 60
-              v[:T] = sprintf('%02d:%02d:00', cr[1], cr[2])
+              v[:T] = sprintf('%02d:%02d:00', cr[1].to_i, cr[2].to_i)
             end
 
           elsif cr = p.match(/\A(\d\d?):(\d\d?)\z/)
             # Time: 1:4 => 01:04:00
-            v[:T] = sprintf('%02d:%02d:00', cr[1], cr[2])
+            v[:T] = sprintf('%02d:%02d:00', cr[1].to_i, cr[2].to_i)
 
           elsif p =~ /\A[APap][Mm]\z/
             # AM or PM
@@ -382,7 +382,7 @@ module Sisimai
                 v[:d] = cr[3].to_i if cr[3].to_i < 32
 
                 if cr[4].to_i < 24 && cr[5].to_i < 60 && cr[6].to_i < 60
-                  v[:T] = sprintf('%02d:%02d:%02d', cr[4], cr[5], cr[6])
+                  v[:T] = sprintf('%02d:%02d:%02d', cr[4].to_i, cr[5].to_i, cr[6].to_i)
                 end
 
               elsif cr = p.match(%r|\A(\d{1,2})/(\d{1,2})/(\d{1,2})\z|)
@@ -400,7 +400,7 @@ module Sisimai
           # +12
           t0 = v[:T]
           t1 = v[:T].split(':')
-          v[:T] = sprintf('%02d:%02d:%02d', t1[0].to_i + 12, t1[1], t1[2])
+          v[:T] = sprintf('%02d:%02d:%02d', t1[0].to_i + 12, t1[1].to_i, t1[2].to_i)
           v[:T] = t0 if t1[0].to_i > 12
         end
         v[:a] ||= 'Thu' # There is no day of week
