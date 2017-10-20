@@ -3,6 +3,14 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.22.2p1
+--------------------------------------------------------------------------------
+- release: "not released yet"
+- version: ""
+- changes:
+  - Issue #88: Fix codes in Sisimai.DateTime.parse() for setting numeric values
+    using sprintf(). Thanks to @phuong1492.
+
 v4.22.2
 --------------------------------------------------------------------------------
 - release: "Fri, 13 Oct 2017 11:59:53 +0900 (JST)"
