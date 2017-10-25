@@ -10,6 +10,8 @@ v4.22.2p1
 - changes:
   - Issue #88: Fix codes in Sisimai.DateTime.parse() for setting numeric values
     using sprintf(). Thanks to @phuong1492.
+  - Import Pull-Request sisimai/p5-Sisimai#239, add error message patterns for
+    laposte.net and orange.fr.
 
 v4.22.2
 --------------------------------------------------------------------------------
