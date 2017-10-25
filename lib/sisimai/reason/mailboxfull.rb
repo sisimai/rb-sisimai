@@ -53,6 +53,7 @@ module Sisimai
               )
             |mailfolder[ ]is[ ]full
             |not[ ]enough[ ]storage[ ]space[ ]in
+            |OFR_417  # orange.fr
             |over[ ]the[ ]allowed[ ]quota
             |quota[ ]exceeded
             |quota[ ]violation[ ]for
