@@ -1,0 +1,38 @@
+From Mailer-Daemon@example.co.uk  Mon Apr 29 23:34:45 2013
+From: Mailer-Daemon@example.co.uk (Mail Delivery System)
+Date: Mon, 29 Apr 2013 23:34:45 +0000
+Subject: Mail delivery failed: returning message to sender
+Message-ID: <NEKO222-NEKO00-C1@example.co.uk>
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  kijitora.cat@wanadoo.example.fr
+    (generated from noraneko.nyaan@example.com)
+    SMTP error from remote mail server after end of data:
+    host smtp.wanadoo.example.fr [192.0.2.1]: 550 5.2.0 Mail rejete. Mail rejected. OFR_506 [506]
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <noranyaans@lists.example.net>
+Received: from [198.51.100.102] (helo=198.51.100.102.static-user.example.br)
+	by example.co.uk with esmtp (Exim 4.69)
+	(envelope-from <noranyaans@lists.example.net>)
+	id NEKO22-NEKO30-FF
+	for noraneko.nyaan@example.com; Mon, 29 Apr 2013 23:34:45 +0000
+Received: from 198.51.100.102(helo=neko.nyaan.example.org)
+	by 198.51.100.102.static-user.example.br with esmtpa (Exim 4.69)
+	(envelope-from )
+	id NEKO42-2222CC-F0
+	for noraneko.nyaan@example.com; Mon, 29 Apr 2013 23:34:45 +0000
+From:  <noraneko.nyaan@example.com>
+To: <noraneko.nyaan@example.com>
+Subject: Nyaan
+Mime-Version: 1.0
+Content-type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Nyaaaaaaaaaaaaaan
+
