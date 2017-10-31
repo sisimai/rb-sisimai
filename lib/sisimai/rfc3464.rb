@@ -372,7 +372,6 @@ module Sisimai
             |Error-for:[ ]+
             |Failed[ ]Recipient:[ ]
             |Failed[ ]to[ ]deliver[ ]to[ ]
-            |generated[ ]from[ ]
             |Intended[ ]recipient:[ ]
             |Mailbox[ ]is[ ]full:[ ]
             |RCPT[ ]To:
@@ -414,7 +413,7 @@ module Sisimai
               b['agent'] = self.smtpagent + '::Fallback'
               recipients += 1
 
-            elsif cv = e.match(/[(]expanded[ ]from:[ ]([^@]+[@][^@]+)[)]/)
+            elsif cv = e.match(/[(](?:expanded|generated)[ ]from:?[ ]([^@]+[@][^@]+)[)]/)
               # (expanded from: neko@example.jp)
               b['alias'] = Sisimai::Address.s3s4(cv[1])
             end
