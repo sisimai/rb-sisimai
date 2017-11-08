@@ -1,0 +1,103 @@
+Delivered-To: sironeko-nyaaaaaaaan@google.example.com
+Received: by 10.200.14.13 with SMTP id a13csp3607368qti;
+        Tue, 31 Oct 2017 00:49:08 -0700 (PDT)
+X-Google-Smtp-Source: ABhQp+TEOvhEnx5pifrf9bMbb4ADCidZeAeMwn51bsVHqNTCO6TJtgOz1ASbAkXhZMCaLFxxukJa
+X-Received: by 10.159.206.198 with SMTP id x6mr1093280plo.35.1509436148474;
+        Tue, 31 Oct 2017 00:49:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1509436148; cv=none;
+        d=google.com; s=arc-20160816;
+        b=O73KsCLR22K+0JoAds28nlhI+q6kCDUCUAxymWvBwaPeNOHI9VhZaBD/iw4HRUY/Kg
+         kppEZYbr96RBjJr2qyPN2VA9sQGdpqSwhLjQrU+wB0ZtBcYg1IgaKiNKBWVAVtSPbFKM
+         jqQg8CSwYNNL+rQJ7LYiI86NjOt/Oeb80mHZa+Bc3XnBCjxy8rrFNit01yfFrrRD+bq7
+         IPpWlyterNJu9DsP9hVEcdWtIXcdulxZTFwdf8r7P8QooCTfc0SPTzJPxfK/VAcc+SrI
+         g1gIf0V54LJbMvxi/SRpxP2sWcV7Qxzc6qQ69narJSSv0LIp1Zrr/SZwMRc38wQttZcc
+         aXXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=auto-submitted:subject:mime-version:to:message-id:from:date
+         :arc-authentication-results;
+        bh=xfAIEkSLIPCpp7MKkJQOPq8jviE7s40LjdeoLXwk0AE=;
+        b=M0z6RYN88Hygph0UTtQqur5nii4nS0VbGLWldBy7yrbjzmvBkxILJbFQhhdpoYo7ln
+         GUPcbqkR08RvmnWlYwjqFdFpnR6G2d6hGYzm/GaYBa0QeocDN+QFpjhV6osEdHwTFv38
+         j+mBuedZWI+ga2fspxZIT9/AlcqECWAzk47b4pFBEK8DdYp41d1n+vNE2tC8wBWCJgsn
+         mKqSPafHwnyRbQ7eixE0Bt6OEiLU4U9AIaCQG4znRiK7xS8CbdlxGpaXxQxYX/3jtP6m
+         gFhpY5eUxuoWSEIOqcDksAKUrcw374Y3HCdiWbjg2Ku+ZAPiWdBgLDay6PkZdWJ6+dW3
+         9yqQ==
+ARC-Authentication-Results: i=1; mx.google.com;
+       spf=pass (google.com: best guess record for domain of postmaster@nijo.example.co.jp designates 192.0.2.222 as permitted sender) smtp.helo=nijo.example.co.jp
+Return-Path: <>
+Received: from nijo.example.co.jp (nijo.example.co.jp. [192.0.2.222])
+        by mx.google.com with ESMTP id d20si1152684plr.763.2017.10.31.00.49.07
+        for <sironeko-nyaaaaaaaan@google.example.com>;
+        Tue, 31 Oct 2017 00:49:08 -0700 (PDT)
+Received-SPF: pass (google.com: best guess record for domain of postmaster@nijo.example.co.jp designates 192.0.2.222 as permitted sender) client-ip=192.0.2.222;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: best guess record for domain of postmaster@nijo.example.co.jp designates 192.0.2.222 as permitted sender) smtp.helo=nijo.example.co.jp
+Received: from localhost (localhost)
+	by nijo.example.co.jp (V8/cf) id v9V7n7VV012705;
+	Tue, 31 Oct 2017 16:49:07 +0900
+Date: Tue, 31 Oct 2017 16:49:07 +0900
+From: Mail Delivery Subsystem <poostmaster@example.co.jp>
+Message-Id: <201710310749.v9V7n7VV012705@nijo.example.co.jp>
+To: <sironeko@example.co.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="v9V7n7VV012705.1509436147/nijo.example.co.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--v9V7n7VV012705.1509436147/nijo.example.co.jp
+
+The original message was received at Tue, 31 Oct 2017 16:48:39 +0900
+from c0022-nekonyan.kyoto.example.ne.jp [203.0.113.22]
+
+   ----- The following addresses had permanent fatal errors -----
+<pseudo-local-part-kijitora-nyaaan@laposte.net>
+    (reason: 550 5.5.0 Adresse destinataire invalide. Invalid recipient. LPN007_416)
+
+   ----- Transcript of session follows -----
+... while talking to smtpz4.laposte.net.:
+>>> DATA
+<<< 550 5.5.0 Adresse destinataire invalide. Invalid recipient. LPN007_416
+550 5.1.1 <pseudo-local-part-kijitora-nyaaan@laposte.net>... User unknown
+<<< 554 5.5.1 Error: no valid recipients
+>>> RSET
+<<< 421 4.7.0 lpn-prd-vrin012 Error: too many errors
+
+--v9V7n7VV012705.1509436147/nijo.example.co.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; nijo.example.co.jp
+Received-From-MTA: DNS; c0022-nekonyan.kyoto.example.ne.jp
+Arrival-Date: Tue, 31 Oct 2017 16:48:39 +0900
+
+Final-Recipient: RFC822; pseudo-local-part-kijitora-nyaaan@laposte.net
+Action: failed
+Status: 5.5.0
+Remote-MTA: DNS; smtpz4.laposte.net
+Diagnostic-Code: SMTP; 550 5.5.0 Adresse destinataire invalide. Invalid recipient. LPN007_416
+Last-Attempt-Date: Tue, 31 Oct 2017 16:49:07 +0900
+
+--v9V7n7VV012705.1509436147/nijo.example.co.jp
+Content-Type: message/rfc822
+
+Return-Path: <sironeko@example.co.jp>
+Received: from [198.51.100.22] (c0022-nekonyan.kyoto.example.ne.jp [203.0.113.22])
+	(authenticated bits=128)
+	by nijo.example.co.jp (V8/cf) with ESMTP id v9V7mcVW012703
+	for <pseudo-local-part-kijitora-nyaaan@laposte.net>; Tue, 31 Oct 2017 16:48:39 +0900
+From: "Nyaan, Sironeko" <sironeko@example.co.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: TEST FOR BOUNCE
+Message-Id: <01C6374D-3231-4B1B-9B39-CD014803FC75@example.co.jp>
+Date: Tue, 31 Oct 2017 16:48:38 +0900
+To: pseudo-local-part-kijitora-nyaaan@laposte.net
+X-Mailer: Apple Mail (2.3273)
+
+Nyaaan
+
+--v9V7n7VV012705.1509436147/nijo.example.co.jp--
+
