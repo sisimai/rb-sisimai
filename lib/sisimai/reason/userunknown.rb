@@ -31,6 +31,7 @@ module Sisimai
              .+[ ]user[ ]unknown
             |[#]5[.]1[.]1[ ]bad[ ]address
             |[<].+[>][ ]not[ ]found
+            |Adresse[ ]d[ ]au[ ]moins[ ]un[ ]destinataire[ ]invalide.+[A-Z]{3}.+(?:416|418)
             |address[ ]does[ ]not[ ]exist
             |address[ ]unknown
             |archived[ ]recipient
@@ -140,7 +141,7 @@ module Sisimai
           return true if argvs.reason == Sisimai::Reason::UserUnknown.text
 
           require 'sisimai/smtp/status'
-          prematches = %w|NoRelaying Blocked MailboxFull HasMoved|
+          prematches = %w|NoRelaying Blocked MailboxFull HasMoved Blocked Rejected|
           matchother = false
           statuscode = argvs.deliverystatus || ''
           diagnostic = argvs.diagnosticcode || ''

@@ -12,6 +12,8 @@ v4.22.2p1
     using sprintf(). Thanks to @phuong1492.
   - Import Pull-Request sisimai/p5-Sisimai#239, add error message patterns for
     laposte.net and orange.fr.
+  - Import Pull-Req sisimai/p5-Sisimai#244 to follow up sisimai/p5-Sisimai#239.
+    More support for Orange and La Poste.
 
 v4.22.2
 --------------------------------------------------------------------------------

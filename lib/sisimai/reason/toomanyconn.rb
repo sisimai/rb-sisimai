@@ -37,6 +37,7 @@ module Sisimai
               |concurrent[ ]SMTP[ ]connections        # Microsoft
               |SMTP[ ]sessions[ ]for[ ]this[ ]host    # Sendmail(daemon.c)
               )
+            |Trop[ ]de[ ]connexions,[ ].+[A-Z]{3}.+104
             )
           }ix
 
