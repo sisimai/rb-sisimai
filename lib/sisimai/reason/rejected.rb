@@ -26,6 +26,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
+          isnot = %r/recipient[ ]address[ ]rejected/xi
           regex = %r{(?>
              [<][>][ ]invalid[ ]sender
             |address[ ]rejected
@@ -38,10 +39,12 @@ module Sisimai
             |closed[ ]mailing[ ]list    # Exim test mail
             |denied[ ]\[bouncedeny\]    # McAfee
             |domain[ ]of[ ]sender[ ]address[ ].+[ ]does[ ]not[ ]exist
+            |Emetteur[ ]invalide.+[A-Z]{3}.+(?:403|405|415)
             |empty[ ]envelope[ ]senders[ ]not[ ]allowed
             |error:[ ]no[ ]third-party[ ]dsns               # SpamWall - block empty sender
             |fully[ ]qualified[ ]email[ ]address[ ]required # McAfee
             |invalid[ ]domain,[ ]see[ ][<]url:.+[>]
+            |Mail[ ]from[ ]not[ ]owned[ ]by[ ]user.+[A-Z]{3}.+421
             |Message[ ]rejected:[ ]Email[ ]address[ ]is[ ]not[ ]verified
             |mx[ ]records[ ]for[ ].+[ ]violate[ ]section[ ].+
             |name[ ]service[ ]error[ ]for[ ]    # Malformed MX RR or host not found
@@ -62,7 +65,8 @@ module Sisimai
             )
           }ix
 
-          return true if argv1 =~ regex
+          return false if argv1 =~ isnot
+          return true  if argv1 =~ regex
           return false
         end
 

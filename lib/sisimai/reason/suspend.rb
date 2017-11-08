@@ -20,7 +20,8 @@ module Sisimai
         def match(argv1)
           return nil unless argv1
           regex = %r{(?>
-             invalid/inactive[ ]user
+             Boite[ ]du[ ]destinataire[ ]archivee.+[A-Z]{3}.+420
+            |invalid/inactive[ ]user
             # http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=20022&&no=1000742
             |email[ ]account[ ]that[ ]you[ ]tried[ ]to[ ]reach[ ]is[ ]disabled
             |is[ ]a[ ]deactivated[ ]mailbox

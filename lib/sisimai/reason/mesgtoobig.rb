@@ -34,6 +34,7 @@ module Sisimai
               |too[ ]large[ ]for[ ]this[ ].+
               )
             |size[ ]limit
+            |Taille[ ]limite[ ]du[ ]message[ ]atteinte.+[A-Z]{3}.+514
             )
           }ix
 

@@ -26,6 +26,7 @@ module Sisimai
               |over[ ]quota
               |temporarily[ ]over[ ]quota
               )
+            |Boite[ ]du[ ]destinataire[ ]pleine.+[A-Z]{3}.+417
             |delivery[ ]failed:[ ]over[ ]quota
             |disc[ ]quota[ ]exceeded
             |does[ ]not[ ]have[ ]enough[ ]space
@@ -53,7 +54,6 @@ module Sisimai
               )
             |mailfolder[ ]is[ ]full
             |not[ ]enough[ ]storage[ ]space[ ]in
-            |OFR_417  # orange.fr
             |over[ ]the[ ]allowed[ ]quota
             |quota[ ]exceeded
             |quota[ ]violation[ ]for
