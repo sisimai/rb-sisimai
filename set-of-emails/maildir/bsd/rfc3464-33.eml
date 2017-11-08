@@ -9,10 +9,10 @@ This message was created automatically by mail delivery software.
 A message that you sent could not be delivered to one or more of its
 recipients. This is a permanent error. The following address(es) failed:
 
-  kijitora.cat@wanadoo.example.fr
+  pseudo-local-part-kijitora@wanadoo.fr
     (generated from noraneko.nyaan@example.com)
     SMTP error from remote mail server after end of data:
-    host smtp.wanadoo.example.fr [192.0.2.1]: 550 5.2.0 Mail rejete. Mail rejected. OFR_506 [506]
+    host smtp.wanadoo.fr [192.0.2.1]: 550 5.2.0 Mail rejete. Mail rejected. OFR_506 [506]
 
 ------ This is a copy of the message, including all the headers. ------
 
