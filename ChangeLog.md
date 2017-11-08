@@ -5,8 +5,8 @@ RELEASE NOTES for Ruby version of Sisimai
 
 v4.22.2p1
 --------------------------------------------------------------------------------
-- release: "not released yet"
-- version: ""
+- release: "Wed,  8 Nov 2017 20:27:07 +0900 (JST)"
+- version: "4.22.2p1"
 - changes:
   - Issue #88: Fix codes in Sisimai.DateTime.parse() for setting numeric values
     using sprintf(). Thanks to @phuong1492.
@@ -18,7 +18,7 @@ v4.22.2p1
 v4.22.2
 --------------------------------------------------------------------------------
 - release: "Fri, 13 Oct 2017 11:59:53 +0900 (JST)"
-- version: "v4.22.2"
+- version: "4.22.2"
 - changes:
   - Apply Pull-Request #84 (issue #83) for setting the value of `softorhard` in 
     `Sisimai::SMTP::Error.soft_or_hard` method. Thanks to @lunatyq.
