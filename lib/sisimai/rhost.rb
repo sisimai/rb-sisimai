@@ -10,6 +10,7 @@ module Sisimai
         %r/\Aaspmx[.]l[.]google[.]com\z/                 => 'GoogleApps',
         %r/[.]protection[.]outlook[.]com\z/              => 'ExchangeOnline',
         %r/\A(?:smtp|mailstore1)[.]secureserver[.]net\z/ => 'GoDaddy',
+        %r/\b(?:laposte[.]net|orange[.]fr)\z/            => 'FrancePTT',
       }.freeze
 
       # Retrun the list of remote hosts Sisimai support

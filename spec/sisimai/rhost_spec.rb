@@ -34,6 +34,8 @@ describe Sisimai::Rhost do
         'neko.protection.outlook.com',
         'smtp.secureserver.net',
         'mailstore1.secureserver.net',
+        'smtpz4.laposte.net',
+        'smtp-in.orange.fr',
       ]
       v.each do |e|
         context "(#{e})" do
