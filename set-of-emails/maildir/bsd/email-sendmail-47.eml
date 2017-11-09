@@ -1,0 +1,102 @@
+Delivered-To: sironeko-nyaan+cr.example.co.jp@google.example.com
+Received: by 10.200.14.13 with SMTP id a13csp1700434qti;
+        Wed, 8 Nov 2017 09:01:37 -0800 (PST)
+X-Google-Smtp-Source: ABhQp+R9YoamkPTJcCHUHQsubwQ43U4q+Ly4Th9wRDcPH81cxx/n9ir5ouLKuPIQLDhYeWx+DGVu
+X-Received: by 10.98.147.23 with SMTP id b23mr1147895pfe.5.1510160497480;
+        Wed, 08 Nov 2017 09:01:37 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1510160497; cv=none;
+        d=google.com; s=arc-20160816;
+        b=T6yb+LXUFDgen66Z6495129ww+ks/8NWXqQ91AQbBUyqSO0D5HZGNcqDgsCk7zgn0o
+         VvkifbR9MSwg1hFvyyDgAs33oiH0dUI0EZBNBffA7OPqDIIkiFdDAdn7Ye2UqPeYiD6u
+         WViHk2/6UNWofSv/Q/C/qPZTuEyWWr9ChoQ/PEA2uTFWQRIfIiPfFKFkxjwxkPcTKb4K
+         JyThN+dpS/I/B5kb68xuvC+EirgxHKbKpUEF5DbNgRtQ9Jyh4ATHz2kd0k6AVyoLrqdw
+         BXwo/7qU22ohjmpEFvX9CHRZDt2T1bSQS2vB7lT8rQIdvuE5oQe+GOZKxLm5s6HE74te
+         tVNQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=auto-submitted:subject:mime-version:to:message-id:from:date
+         :arc-authentication-results;
+        bh=TEjenkEam0gwqm3xXf0uAtZUkQajiETUSPfECbaFoDU=;
+        b=WQaJp7lbQfQjPCGoOWJpp5hKwLEGGpKoshD5F9+7QJZO1cEBrUK2GrQbbe0YlfTIyd
+         xnw6iiBwwHpdqflzvOBsjqP/cWhzOVMZXUuLs8cVZ1uOcXWcfzbeH7k0Hj69dCAuFDMG
+         iBnCMCNDmbPI0bWUdPxNJITrS30aTEtGpdxZTIID/YG660KULbE1YE56JetspnD4/nrY
+         DYDnmmFfth0KZWAHHmvllvbg/gHAGdN8+UbO7gdk2q91x1v1PfhyHAbro/i32zcNCxPZ
+         EeH8yrnVCObS6bIc29KgKdsHBJ3D3SZC1gBQP9uoD+/zCN2ikzQMQ97g2mAySLCb5Srf
+         yYtg==
+ARC-Authentication-Results: i=1; mx.google.com;
+       spf=pass (google.com: best guess record for domain of postmaster@nijo.cr.example.co.jp designates 192.0.2.2 as permitted sender) smtp.helo=nijo.cr.example.co.jp
+Return-Path: <>
+Received: from nijo.cr.example.co.jp (nijo.cr.example.co.jp. [192.0.2.2])
+        by mx.google.com with ESMTP id o61si4302827pld.48.2017.11.08.09.01.35
+        for <sironeko-nyaan+cr.example.co.jp@google.example.com>;
+        Wed, 08 Nov 2017 09:01:36 -0800 (PST)
+Received-SPF: pass (google.com: best guess record for domain of postmaster@nijo.cr.example.co.jp designates 192.0.2.2 as permitted sender) client-ip=192.0.2.2;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: best guess record for domain of postmaster@nijo.cr.example.co.jp designates 192.0.2.2 as permitted sender) smtp.helo=nijo.cr.example.co.jp
+Received: from localhost (localhost)
+	by nijo.cr.example.co.jp (V8/cf) id vA8H1Yix008319;
+	Thu, 9 Nov 2017 02:01:34 +0900
+Date: Thu, 9 Nov 2017 02:01:34 +0900
+From: Mail Delivery Subsystem <poostmaster@cr.example.co.jp>
+Message-Id: <201711081701.vA8H1Yix008319@nijo.cr.example.co.jp>
+To: <azuma@cr.example.co.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="vA8H1Yix008319.1510160494/nijo.cr.example.co.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--vA8H1Yix008319.1510160494/nijo.cr.example.co.jp
+
+The original message was received at Thu, 9 Nov 2017 02:01:32 +0900
+from c22-neko.kyoto.example.ne.jp [198.51.100.22]
+
+   ----- The following addresses had permanent fatal errors -----
+<pseudo-local-part-kijitora-nyaan@free.fr>
+    (reason: 550 5.1.1 user unknown (UserSearch))
+
+   ----- Transcript of session follows -----
+... while talking to mx1.free.fr.:
+>>> RCPT To:<pseudo-local-part-kijitora-nyaan@free.fr>
+<<< 550 5.1.1 user unknown (UserSearch)
+550 5.1.1 <pseudo-local-part-kijitora-nyaan@free.fr>... User unknown
+>>> DATA
+<<< 554 5.5.1 no valid recipients
+
+--vA8H1Yix008319.1510160494/nijo.cr.example.co.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; nijo.cr.example.co.jp
+Received-From-MTA: DNS; c22-neko.kyoto.example.ne.jp
+Arrival-Date: Thu, 9 Nov 2017 02:01:32 +0900
+
+Final-Recipient: RFC822; pseudo-local-part-kijitora-nyaan@free.fr
+Action: failed
+Status: 5.1.1
+Remote-MTA: DNS; mx1.free.fr
+Diagnostic-Code: SMTP; 550 5.1.1 user unknown (UserSearch)
+Last-Attempt-Date: Thu, 9 Nov 2017 02:01:33 +0900
+
+--vA8H1Yix008319.1510160494/nijo.cr.example.co.jp
+Content-Type: message/rfc822
+
+Return-Path: <azuma@cr.example.co.jp>
+Received: from [203.0.113.222] (c22-neko.kyoto.example.ne.jp [198.51.100.22])
+	(authenticated bits=128)
+	by nijo.cr.example.co.jp (V8/cf) with ESMTP id vA8H1Vj0008317
+	for <pseudo-local-part-kijitora-nyaan@free.fr>; Thu, 9 Nov 2017 02:01:32 +0900
+From: "Azuma, Kuniyuki" <azuma@cr.example.co.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: Nyaan
+Message-Id: <87D91304-DE76-4E37-9AD3-CC858AE18C15@cr.example.co.jp>
+Date: Thu, 9 Nov 2017 02:01:31 +0900
+To: pseudo-local-part-kijitora-nyaan@free.fr
+X-Mailer: Apple Mail (2.3273)
+
+Nyaan
+
+--vA8H1Yix008319.1510160494/nijo.cr.example.co.jp--
+

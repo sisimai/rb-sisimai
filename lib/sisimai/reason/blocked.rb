@@ -29,8 +29,9 @@ module Sisimai
             |cannot[ ]resolve[ ]your[ ]address
             |client[ ]host[ ].+[ ]blocked[ ]using
             |client[ ]host[ ]rejected:[ ](?:
-               may[ ]not[ ]be[ ]mail[ ]exchanger
+               Abus[ ]detecte[ ]GU_EIB_0[24]      # SFR
               |cannot[ ]find[ ]your[ ]hostname    # Yahoo!
+              |may[ ]not[ ]be[ ]mail[ ]exchanger
               |was[ ]not[ ]authenticated          # Microsoft
               )
             |confirm[ ]this[ ]mail[ ]server
@@ -63,6 +64,7 @@ module Sisimai
             |SPF[ ]record
             |SPF:[ ].+[ ]is[ ]not[ ]allowed[ ]to[ ]send[ ]mail.+[A-Z]{3}.+401
             |the[ ](?:email|domain|ip).+[ ]is[ ]blacklisted
+            |Too[ ]many[ ]spams[ ]from[ ]your[ ]IP  # free.fr
             |unresolvable[ ]relay[ ]host[ ]name
             |Veuillez[ ]essayer[ ]plus[ ]tard.+[A-Z]{3}.+(?:103|510)
             |your[ ](?:
