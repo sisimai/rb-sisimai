@@ -3,10 +3,10 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.22.2p1
+v4.22.2p2
 --------------------------------------------------------------------------------
-- release: "Wed,  8 Nov 2017 20:27:07 +0900 (JST)"
-- version: "4.22.2p1"
+- release: "not released yet"
+- version: ""
 - changes:
   - Issue #88: Fix codes in Sisimai.DateTime.parse() for setting numeric values
     using sprintf(). Thanks to @phuong1492.
@@ -14,6 +14,8 @@ v4.22.2p1
     laposte.net and orange.fr.
   - Import Pull-Req sisimai/p5-Sisimai#244 to follow up sisimai/p5-Sisimai#239.
     More support for Orange and La Poste.
+  - Import Pull-Request sisimai/p5-Sisimai#245, update error message patterns
+    of SFR and Free.fr.
 
 v4.22.2
 --------------------------------------------------------------------------------
