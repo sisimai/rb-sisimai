@@ -23,6 +23,7 @@ module Sisimai
           regex = %r{(?>
              access[ ]denied[.][ ]IP[ ]name[ ]lookup[ ]failed
             |access[ ]from[ ]ip[ ]address[ ].+[ ]blocked
+            |all[ ]mail[ ]servers[ ]must[ ]have[ ]a[ ]PTR[ ]record[ ]with[ ]a[ ]valid[ ]Reverse[ ]DNS[ ]entry
             |blacklisted[ ]by
             |Blocked[ ]-[ ]see[ ]https://support[.]proofpoint[.]com/dnsbl-lookup[.]cgi[?]ip=.+
             |can[']t[ ]determine[ ]Purported[ ]Responsible[ ]Address
@@ -36,27 +37,50 @@ module Sisimai
               )
             |confirm[ ]this[ ]mail[ ]server
             |connection[ ](?:
-              dropped
-             |refused[ ]by
-             |reset[ ]by[ ]peer
-             |was[ ]dropped[ ]by[ ]remote[ ]host
-             )
+               dropped
+              |refused[ ]by
+              |reset[ ]by[ ]peer
+              |was[ ]dropped[ ]by[ ]remote[ ]host
+              )
+            |Connections[ ](?:
+               not[ ]accepted[ ]from[ ]IP[ ]addresses[ ]on[ ]Spamhaus[ ]XBL
+              |will[ ]not[ ]be[ ]accepted[ ]from[ ].+because[ ]the[ ]ip[ ]is[ ]in[ ]Spamhaus's[ ]list
+              )
             |domain[ ]does[ ]not[ ]exist:
             |domain[ ].+[ ]mismatches[ ]client[ ]ip
             |dns[ ]lookup[ ]failure:[ ].+[ ]try[ ]again[ ]later
             |DNSBL:ATTRBL
+            |Dynamic/zombied/spam[ ]IPs[ ]blocked
+            |Email[ ]blocked[ ]by[ ](?:
+               .+[.]barracudacentral[.]org
+              |SPAMHAUS
+              )
+            |Fix[ ]reverse[ ]DNS[ ]for[ ].+
             |Go[ ]away
             |hosts[ ]with[ ]dynamic[ ]ip
             |IP[ ]\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3}[ ]is[ ]blocked[ ]by[ ]EarthLink # Earthlink
             |IP[/]domain[ ]reputation[ ]problems
-            |is[ ]not[ ]allowed[ ]to[ ]send[ ]mail[ ]from
+            |is[ ](?:
+               in[ ]a[ ]black[ ]list[ ]at[ ].+[.]spamhaus[.]org
+              |not[ ]allowed[ ]to[ ]send[ ]mail[ ]from
+              )
             |mail[ ]server[ ]at[ ].+[ ]is[ ]blocked
             |Messages[ ]from[ ].+[ ]temporarily[ ]deferred[ ]due[ ]to[ ]user[ ]complaints   # Yahoo!
             |no[ ]access[ ]from[ ]mail[ ]server
+            |No[ ]PTR[ ]Record[ ]found[.]
             |Not[ ]currently[ ]accepting[ ]mail[ ]from[ ]your[ ]ip  # Microsoft
+            |part[ ]of[ ]their[ ]network[ ]is[ ]on[ ]our[ ]block[ ]list
             |Please[ ]get[ ]a[ ]custom[ ]reverse[ ]DNS[ ]name[ ]from[ ]your[ ]ISP[ ]for[ ]your[ ]host
             |please[ ]use[ ]the[ ]smtp[ ]server[ ]of[ ]your[ ]ISP
             |Rejecting[ ]open[ ]proxy   # Sendmail(srvrsmtp.c)
+            |Reverse[ ]DNS[ ](?:failed|required)
+            |Reverse[ ]DNS[ ]lookup[ ]for[ ]host[ ].+[ ]failed[ ]permanently
+            |Server[ ]access[ ](?:
+               .+[ ]forbidden[ ]by[ ]invalid[ ]RDNS[ ]record[ ]of[ ]your[ ]mail[ ]server
+              |forbidden[ ]by[ ]your[ ]IP[ ]
+              )
+            |service[ ]permits[ ]\d+[ ]unverifyable[ ]sending[ ]IPs
+            |SMTP[ ]error[ ]from[ ]remote[ ]mail[ ]server[ ]after[ ]initial[ ]connection:   # Exim
             |sorry,[ ](?:
                that[ ]domain[ ]isn'?t[ ]in[ ]my[ ]list[ ]of[ ]allowed[ ]rcpthosts
               |your[ ]remotehost[ ]looks[ ]suspiciously[ ]like[ ]spammer
@@ -64,11 +88,13 @@ module Sisimai
             |SPF[ ]record
             |SPF:[ ].+[ ]is[ ]not[ ]allowed[ ]to[ ]send[ ]mail.+[A-Z]{3}.+401
             |the[ ](?:email|domain|ip).+[ ]is[ ]blacklisted
+            |This[ ]system[ ]will[ ]not[ ]accept[ ]messages[ ]from[ ]servers[/]devices[ ]with[ ]no[ ]reverse[ ]DNS
             |Too[ ]many[ ]spams[ ]from[ ]your[ ]IP  # free.fr
             |unresolvable[ ]relay[ ]host[ ]name
             |Veuillez[ ]essayer[ ]plus[ ]tard.+[A-Z]{3}.+(?:103|510)
             |your[ ](?:
                network[ ]is[ ]temporary[ ]blacklisted
+              |sender's[ ]IP[ ]address[ ]is[ ]listed[ ]at[ ].+[.]abuseat[.]org
               |server[ ]requires[ ]confirmation
               )
             |was[ ]blocked[ ]by[ ].+

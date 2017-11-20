@@ -1,0 +1,42 @@
+Return-path: <>
+Envelope-to: sironeko-nyaan@neko.example.com
+Delivery-date: Thu, 22 Apr 2016 23:34:45 +0900
+Received: from mta2.example.org by neko.example.com with local (Exim 4.86)
+	id neko222-nyaaan-22
+	for sironeko-nyaan@neko.example.com; Thu, 22 Apr 2016 23:34:45 +0900
+X-Failed-Recipients: pseudo-local-part-kijitora-nyaan@comcast.net
+Auto-Submitted: auto-replied
+From: Mail Delivery System <mailer-daemon@neko.example.com>
+To: sironeko-nyaan@neko.example.com
+Subject: Mail delivery failed: returning message to sender
+Message-Id: <neko222-nyaaan-22@neko.example.com>
+Date: Thu, 22 Apr 2016 23:34:45 +0900
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  pseudo-local-part-kijitora-nyaan@comcast.net
+    host mx1.comcast.net [192.0.2.222]
+    SMTP error from remote mail server after initial connection:
+    554 mta1.comcast.net comcast 203.0.113.2 Comcast requires that all mail servers must have a PTR record with a valid Reverse DNS entry. Currently your mail server does not fill that requirement. For more information, refer to:
+    http://postmaster.comcast.net/smtp-error-codes.php#554
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <sironeko-nyaan@neko.example.com>
+Received: from sironeko-nyaan by neko.example.com with local (Exim 4.86)
+	(envelope-from <sironeko-nyaan@neko.example.com>)
+	id neko222-nyaaan-22; Thu, 22 Apr 2016 23:34:45 +0900
+To: pseudo-local-part-kijitora-nyaan@comcast.net
+Subject: Nyaan
+MIME-Version: 1.0
+Content-type: text/html; charset=utf-8
+To: Kijitora <pseudo-local-part-kijitora-nyaan@comcast.net>
+From: Sironeko <sironeko@nyaan.example.com>
+Message-Id: <neko222-nyaaan-22@neko.example.com>
+Date: Thu, 22 Apr 2016 23:34:45 +0900
+
+Nyaan
+

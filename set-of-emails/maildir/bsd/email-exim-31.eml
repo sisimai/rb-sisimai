@@ -1,0 +1,39 @@
+Return-path: <>
+Envelope-to: sironeko-nyaan@neko.example.com
+Delivery-date: Thu, 22 Apr 2016 23:34:45 +0900
+Received: from mta2.example.org by neko.example.com with local (Exim 4.86)
+	id neko222-nyaaan-22
+	for sironeko-nyaan@neko.example.com; Thu, 22 Apr 2016 23:34:45 +0900
+X-Failed-Recipients: kijitora@example.net
+Auto-Submitted: auto-replied
+From: Mail Delivery System <mailer-daemon@neko.example.com>
+To: sironeko-nyaan@neko.example.com
+Subject: Mail delivery failed: returning message to sender
+Message-Id: <neko222-nyaaan-22@neko.example.com>
+Date: Thu, 22 Apr 2016 23:34:45 +0900
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  kijitora@example.net
+    The mail server could not deliver mail to kijitora@example.net.  The account or domain may not exist, they may be blacklisted, or missing the proper dns entries.
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <sironeko-nyaan@neko.example.com>
+Received: from sironeko-nyaan by neko.example.com with local (Exim 4.86)
+	(envelope-from <sironeko-nyaan@neko.example.com>)
+	id neko222-nyaaan-22; Thu, 22 Apr 2016 23:34:45 +0900
+To: kijitora@example.net
+Subject: Nyaan
+MIME-Version: 1.0
+Content-type: text/html; charset=utf-8
+To: Kijitora <kijitora@example.net>
+From: Sironeko <sironeko@sironeko-nyaan.example.org>
+Message-Id: <neko222-nyaaan-22@neko.example.com>
+Date: Thu, 22 Apr 2016 23:34:45 +0900
+
+Nyaan
+

@@ -29,7 +29,9 @@ module Sisimai
         def match(argv1)
           return nil unless argv1
           regex = %r{(?>
-             the[ ]message[ ]was[ ]rejected[ ]because[ ]it[ ]contains[ ]prohibited[ ]virus[ ]or[ ]spam[ ]content
+             it[ ]has[ ]a[ ]potentially[ ]executable[ ]attachment
+            |the[ ]message[ ]was[ ]rejected[ ]because[ ]it[ ]contains[ ]prohibited[ ]virus[ ]or[ ]spam[ ]content
+            |This[ ]form[ ]of[ ]attachment[ ]has[ ]been[ ]used[ ]by[ ]recent[ ]viruses[ ]or[ ]other[ ]malware
             |Your[ ]message[ ]was[ ]infected[ ]with[ ]a[ ]virus
             )
           }ix

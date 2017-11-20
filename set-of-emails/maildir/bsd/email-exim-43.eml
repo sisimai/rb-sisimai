@@ -1,0 +1,60 @@
+Return-path: <>
+Envelope-to: sironeko-nyaan@neko.example.com
+Delivery-date: Thu, 22 Apr 2016 23:34:45 -0500
+Received: from mta2.example.org by neko.example.com with local (Exim 4.86)
+	id neko222-nyaaan-22
+	for sironeko-nyaan@neko.example.com; Thu, 22 Apr 2016 23:34:45 -0500
+X-Failed-Recipients: kijitora@example.net
+Auto-Submitted: auto-replied
+From: Mail Delivery System <mailer-daemon@neko.example.com>
+To: sironeko-nyaan@neko.example.com
+Content-Type: multipart/report; report-type=delivery-status; boundary=152222222-eximdsn-2222
+MIME-Version: 1.0
+Subject: Mail delivery failed: returning message to sender
+Message-Id: <neko222-nyaaan-22@neko.example.com>
+Date: Thu, 22 Apr 2016 23:34:45 -0500
+
+--152222222-eximdsn-2222
+Content-type: text/plain; charset=us-ascii
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  kijitora@example.net
+    host mail-mx1.example.net [192.0.2.222]
+    SMTP error from remote mail server after MAIL FROM:<sironeko-nyaan@neko.example.com>:
+    550 5.7.1 Connections not accepted from servers without a valid sender domain. Fix reverse DNS for 203.0.113.2
+
+--152222222-eximdsn-2222
+Content-type: message/delivery-status
+
+Reporting-MTA: dns; neko.example.com
+
+Action: failed
+Final-Recipient: rfc822;kijitora@example.net
+Status: 5.0.0
+Remote-MTA: dns; mail-mx1.example.net
+Diagnostic-Code: smtp; 550 5.7.1 Connections not accepted from servers without a valid sender domain. Fix reverse DNS for 203.0.113.2
+
+--152222222-eximdsn-2222
+Content-type: message/rfc822
+
+Return-path: <sironeko-nyaan@neko.example.com>
+Received: from sironeko-nyaan by neko.example.com with local (Exim 4.86)
+	(envelope-from <sironeko-nyaan@neko.example.com>)
+	id neko222-nyaaan-22; Thu, 22 Apr 2016 23:34:45 -0500
+To: kijitora@example.net
+Subject: Nyaan
+MIME-Version: 1.0
+Content-type: text/html; charset=utf-8
+To: Kijitora <kijitora@example.net>
+From: Sironeko <sironeko@nyaan.example.com>
+Message-Id: <neko222-nyaaan-22@neko.example.com>
+Date: Thu, 22 Apr 2016 23:34:45 -0500
+
+Nyaan
+
+--152222222-eximdsn-2222--
+

@@ -1,0 +1,41 @@
+Return-path: <>
+Envelope-to: sironeko-nyaan@neko.example.com
+Delivery-date: Thu, 22 Apr 2016 23:34:45 +0900
+Received: from mta2.example.org by neko.example.com with local (Exim 4.86)
+	id neko222-nyaaan-22
+	for sironeko-nyaan@neko.example.com; Thu, 22 Apr 2016 23:34:45 +0900
+X-Failed-Recipients: kijitora@example.edu
+Auto-Submitted: auto-replied
+From: Mail Delivery System <mailer-daemon@neko.example.com>
+To: sironeko-nyaan@neko.example.com
+Subject: Mail delivery failed: returning message to sender
+Message-Id: <neko222-nyaaan-22@neko.example.com>
+Date: Thu, 22 Apr 2016 23:34:45 +0900
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  kijitora@example.edu
+    host mail.example.edu [192.0.2.222]
+    SMTP error from remote mail server after MAIL FROM:<sironeko-nyaan@neko.example.com> SIZE=1024:
+    550 Unroutable sender address
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <sironeko-nyaan@neko.example.com>
+Received: from sironeko-nyaan by neko.example.com with local (Exim 4.86)
+	(envelope-from <sironeko-nyaan@neko.example.com>)
+	id neko222-nyaaan-22; Thu, 22 Apr 2016 23:34:45 +0900
+To: kijitora@example.edu
+Subject: Nyaan
+MIME-Version: 1.0
+Content-type: text/html; charset=utf-8
+To: Kijitora <kijitora@example.edu>
+From: Sironeko <sironeko@nyaan.example.com>
+Message-Id: <neko222-nyaaan-22@neko.example.com>
+Date: Thu, 22 Apr 2016 23:34:45 +0900
+
+Nyaan
+
