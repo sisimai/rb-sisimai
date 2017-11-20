@@ -5,7 +5,7 @@ RELEASE NOTES for Ruby version of Sisimai
 
 v4.22.2p2
 --------------------------------------------------------------------------------
-- release: "not released yet"
+- release: "Mon, 20 Nov 2017 18:02:24 +0900 (JST)"
 - version: ""
 - changes:
   - Issue #88: Fix codes in Sisimai.DateTime.parse() for setting numeric values
@@ -16,6 +16,8 @@ v4.22.2p2
     More support for Orange and La Poste.
   - Import Pull-Request sisimai/p5-Sisimai#245, update error message patterns
     of SFR and Free.fr.
+  - Import Pull-Request sisimai/p5-Sisimai#246, large scale updates for Exim
+    and error message patterns.
 
 v4.22.2
 --------------------------------------------------------------------------------

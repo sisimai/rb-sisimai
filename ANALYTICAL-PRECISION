@@ -10,11 +10,11 @@ Email::Bigfoot ..........    2/0002  1.0000  Bigfoot: http://www.bigfoot.com
 Email::Biglobe ..........    5/0007  0.7143  BIGLOBE: http://www.biglobe.ne.jp
 Email::Courier ..........   14/0016  0.8750  Courier MTA
 Email::Domino ...........    6/0015  0.4000  IBM Domino Server
-Email::EZweb ............  130/0125  1.0000  au EZweb: http://www.au.kddi.com/mobile/
+Email::EZweb ............  130/0123  1.0000  au EZweb: http://www.au.kddi.com/mobile/
 Email::EinsUndEins ......    0/0003  0.0000  1&1: http://www.1and1.de
 Email::Exchange2003 .....    1/0051  0.0196  Microsoft Exchange Server 2003
 Email::Exchange2007 .....    6/0007  0.8571  Microsoft Exchange Server 2007
-Email::Exim .............  146/0176  0.8295  Exim
+Email::Exim .............  220/0266  0.8271  Exim
 Email::Facebook .........    3/0003  1.0000  Facebook: https://www.facebook.com
 Email::GMX ..............    0/0010  0.0000  GMX: http://www.gmx.net
 Email::GSuite ...........    9/0009  1.0000  G Suite: https://gsuite.google.com/
@@ -33,10 +33,10 @@ Email::Notes ............    0/0012  0.0000  Lotus Notes
 Email::Office365 ........    8/0011  0.7273  Microsoft Office 365: http://office.microsoft.com/
 Email::OpenSMTPD ........    6/0024  0.2500  OpenSMTPD
 Email::Outlook ..........   19/0021  0.9048  Microsoft Outlook.com: https://www.outlook.com/
-Email::Postfix ..........  175/0193  0.9067  Postfix
+Email::Postfix ..........  176/0194  0.9072  Postfix
 Email::ReceivingSES .....    0/0007  0.0000  Amazon SES(Receiving): http://aws.amazon.com/ses/
 Email::SendGrid .........    7/0012  0.5833  SendGrid: http://sendgrid.com/
-Email::Sendmail .........  334/0257  1.0000  V8Sendmail: /usr/sbin/sendmail
+Email::Sendmail .........  338/0344  0.9826  V8Sendmail: /usr/sbin/sendmail
 Email::SurfControl ......    6/0008  0.7500  WebSense SurfControl
 Email::V5sendmail .......    0/0386  0.0000  Sendmail version 5
 Email::Verizon ..........    4/0004  1.0000  Verizon Wireless: http://www.verizonwireless.com
@@ -48,13 +48,13 @@ Email::X5 ...............    3/0003  1.0000  Unknown MTA #5
 Email::Yahoo ............    0/0009  0.0000  Yahoo! MAIL: https://www.yahoo.com
 Email::Yandex ...........    4/0007  0.5714  Yandex.Mail: http://www.yandex.ru
 Email::Zoho .............    0/0011  0.0000  Zoho Mail: https://www.zoho.com
-Email::MFILTER ..........    0/0009  0.0000  Digital Arts m-FILTER
-Email::Qmail ............   53/0082  0.6463  qmail
+Email::mFILTER ..........    0/0009  0.0000  Digital Arts m-FILTER
+Email::qmail ............   53/0082  0.6463  qmail
 JSON::AmazonSES .........   22/0031  0.7097  Amazon SES(JSON): http://aws.amazon.com/ses/
 JSON::SendGrid ..........    7/0012  0.5833  SendGrid(JSON): http://sendgrid.com/
 ARF .....................    9/0050  0.1800  Abuse Feedback Reporting Format
-RFC3464 .................  136/0280  0.4857  Fallback Module for MTAs
+RFC3464 .................  137/0284  0.4824  Fallback Module for MTAs
 RFC3834 .................    0/0007  0.0000  Detector for auto replied message
 --------------------------------------------------------------------------------
- bounceHammer 2.7.13p3    1254/2259  0.5551
- Sisimai 4.22.0           2259/2259  1.0000
+ bounceHammer 2.7.13p3    1138/2098  0.5424
+ Sisimai 4.22.2p2         2095/2098  1.0000
