@@ -23,16 +23,17 @@ module Sisimai
         def match(argv1)
           return nil unless argv1
           regex = %r{(?>
-             command[ ](?:
+             \Aprocmail:[ ]    # procmail
+            |bin/(?:procmail|maildrop)
+            |command[ ](?:
                failed:[ ]
               |died[ ]with[ ]status[ ]\d+
               |output:
               )
-            |\Aprocmail:[ ]    # procmail
-            |bin/(?:procmail|maildrop)
-            |mailer[ ]error
-            |X[-]UNIX[;][ ]\d+  # X-UNIX; 127
             |exit[ ]\d+
+            |mailer[ ]error
+            |pipe[ ]to[ ][|][/].+
+            |X[-]UNIX[;][ ]\d+  # X-UNIX; 127
             )
           }ix
 

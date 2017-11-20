@@ -21,6 +21,7 @@ module Sisimai
           return nil unless argv1
           regex = %r{(?>
              exceeded[ ]maximum[ ]inbound[ ]message[ ]size
+            |Line[ ]limit[ ]exceeded
             |max[ ]message[ ]size[ ]exceeded
             |message[ ](?:
                file[ ]too[ ]big

@@ -1,0 +1,34 @@
+Return-path: <>
+Envelope-to: sironeko@neko.example.com
+Delivery-date: Thu, 29 Apr 2016 23:45:56 +0900
+Received: from nekochan by neko.example.com with local (Exim 4.86)
+	id 2neko2-222222-22
+	for sironeko@neko.example.com; Thu, 29 Apr 2016 23:45:56 +0900
+Auto-Submitted: auto-replied
+From: Mail Delivery System <mailer-daemon@neko.example.com>
+To: sironeko@neko.example.com
+Subject: Mail failure - malformed recipient address
+Message-Id: <E2neko2-222222-22@neko.example.com>
+Date: Thu, 29 Apr 2016 23:45:56 +0900
+
+A message that you sent contained one or more recipient addresses that were
+incorrectly constructed:
+
+  kijitora@example.com <neko@example.net>: malformed address: <neko@example.net> may not follow kijitora@example.com 
+
+This address has been ignored. The other addresses in the message were
+syntactically valid and have been passed on for an attempt at delivery.
+
+------ This is a copy of your message, including all the headers. ------
+
+To: neko@example.net
+Subject: Nyaan
+MIME-Version: 1.0
+Content-type: text/html; charset=utf-8
+To: kijitora@example.com <neko@example.net>
+From: "Sironeko" <sironeko@neko.example.com>
+Message-Id: <2222CAT-222222-22@neko.example.com>
+Date: Thu, 29 Apr 2016 23:45:56 +0900
+
+Nyaan
+

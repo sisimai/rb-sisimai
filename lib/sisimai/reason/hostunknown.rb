@@ -34,9 +34,10 @@ module Sisimai
             |name[ ]or[ ]service[ ]not[ ]known
             |no[ ]such[ ]domain
             |recipient[ ](?:
-            address[ ]rejected:[ ]unknown[ ]domain[ ]name
-              domain[ ]must[ ]exist
+               address[ ]rejected:[ ]unknown[ ]domain[ ]name
+              |domain[ ]must[ ]exist
               )
+            |The[ ]account[ ]or[ ]domain[ ]may[ ]not[ ]exist
             |unknown[ ]host
             )
           }ix
