@@ -1,0 +1,40 @@
+Return-path: <>
+Envelope-to: sironeko@node2.example.net
+Delivery-date: Thu, 29 Apr 2016 23:34:45 +0900
+Received: from mta22.example.com by node2.example.net with local (Exim 4.88)
+	id nekochan-nyaaan-22
+	for sironeko@node2.example.net; Thu, 29 Apr 2016 23:34:45 +0900
+X-Failed-Recipients: kijitora@example.com
+Auto-Submitted: auto-replied
+From: Mail Delivery System <Mailer-Daemon@node2.example.net>
+To: sironeko@node2.example.net
+Subject: Mail delivery failed: returning message to sender
+Message-Id: <nekochan-nyaaan-22@node2.example.net>
+Date: Thu, 29 Apr 2016 23:34:45 +0900
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  kijitora@example.com
+    SMTP error from remote mail server after initial connection:
+    host email-22.example.net [192.0.2.222]:
+    554 neko-22.nyaan.r.example.net :
+    CAT : neko22 : CAT : You've reached your daily relay quota - 203.0.113.0
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <sironeko@.example.net>
+Received: from sironeko by node2.example.net with local (Exim 4.88)
+	(envelope-from <sironeko@.example.net>)
+	id nekochan-nyaaan-22
+	for kijitora@example.com; Thu, 29 Apr 2016 23:34:45 +0900
+To: kijitora@example.com
+Subject: Nyaan
+Message-Id: <nekochan-nyaaan-22@node2.example.net>
+From: sironeko@.example.net
+Date: Thu, 29 Apr 2016 23:34:45 +0900
+
+Nyaan
+

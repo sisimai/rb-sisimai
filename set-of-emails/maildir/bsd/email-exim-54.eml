@@ -1,0 +1,40 @@
+Return-path: <>
+Envelope-to: sironeko@example.com
+Delivery-date: Thu, 29 Apr 2015 23:34:45 +0900
+Received: from mail by neko22.example.net with local (Exim 4.88)
+	id nnnnekochan-nyaaan-22
+	for sironeko@example.com; Thu, 29 Apr 2015 23:34:45 +0900
+X-Failed-Recipients: kijitora@example.org
+Auto-Submitted: auto-replied
+From: Mail Delivery System <Mailer-Daemon@neko22.example.net>
+To: sironeko@example.com
+Subject: Mail delivery failed: returning message to sender
+Message-Id: <nnnnekochan-nyaaan-22@neko22.example.net>
+Date: Thu, 29 Apr 2015 23:34:45 +0900
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  kijitora@example.org
+    SMTP error from remote mail server after MAIL FROM:<sironeko@example.com> SIZE=222:
+    host mx4.example.org [192.0.2.22]: 550 NN-222 (NEKO-CAT-222) Unfortunately, messages from 203.0.113.2 weren't sent. Please contact your Internet service provider since part of their network is on our block list. You can also refer your provider to http://example.com/neko/nyaan.html#errors.
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <sironeko@example.com>
+Received: from apache by neko22.example.net with local (Exim 4.88)
+	(envelope-from <sironeko@example.com>)
+	id nnnnekochan-nyaaan-22; Thu, 29 Apr 2015 23:34:45 +0900
+To: kijitora@example.edu
+Subject: Nyaan
+Content-type: text/html; charset=utf-8
+From: Kijitora <kijitora@example.com>
+Reply-To: kijitora@example.com
+Cc: kijitora@example.org
+Message-Id: <nnnnekochan-nyaaan-22@neko22.example.net>
+Date: Thu, 29 Apr 2015 23:34:45 +0900
+
+Nyaan
+
