@@ -78,7 +78,6 @@ module Sisimai
         if type == 'Array'
           # [ {...}, {...}, ... ]
           argv0.each do |e|
-            next unless e.class.to_s == 'Hash'
             list << e
           end
         else
