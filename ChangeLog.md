@@ -3,9 +3,9 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.22.2p2
+v4.22.2p3
 --------------------------------------------------------------------------------
-- release: "Mon, 20 Nov 2017 18:02:24 +0900 (JST)"
+- release: ""
 - version: ""
 - changes:
   - Issue #88: Fix codes in Sisimai.DateTime.parse() for setting numeric values
@@ -18,6 +18,10 @@ v4.22.2p2
     of SFR and Free.fr.
   - Import Pull-Request sisimai/p5-Sisimai#246, large scale updates for Exim
     and error message patterns.
+  - Merge Pull-Request #93 from @subuta to fix issue #92. Sisimai.make() method
+    passes ActiveSupport::HashWithIndifferentAccess object with `input: "json"`
+    parameter.
+
 
 v4.22.2
 --------------------------------------------------------------------------------
