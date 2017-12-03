@@ -233,7 +233,6 @@ module Sisimai::Bite::Email
             break
           end
 
-          e['reason'] ||= Sisimai::SMTP::Status.name(e['status'])
           e['agent']    = self.smtpagent
         end
 
