@@ -203,7 +203,7 @@ isexpected = [
   { 'n' => '01215', 'r' => /spamdetected/ },
   { 'n' => '01216', 'r' => /onhold/ },
   { 'n' => '01217', 'r' => /userunknown/ },
-  { 'n' => '01218', 'r' => /mailboxfull/ },
+  { 'n' => '01218', 'r' => /toomanyconn/ },
   { 'n' => '01219', 'r' => /onhold/ },
   { 'n' => '01220', 'r' => /filtered/ },
   { 'n' => '01221', 'r' => /filtered/ },
@@ -245,6 +245,15 @@ isexpected = [
   { 'n' => '01257', 'r' => /onhold/ },
   { 'n' => '01258', 'r' => /userunknown/ },
   { 'n' => '01259', 'r' => /spamdetected/ },
+  { 'n' => '01260', 'r' => /toomanyconn/ },
+  { 'n' => '01261', 'r' => /policyviolation/ },
+  { 'n' => '01262', 'r' => /expired/ },
+  { 'n' => '01263', 'r' => /networkerror/ },
+  { 'n' => '01264', 'r' => /networkerror/ },
+  { 'n' => '01265', 'r' => /policyviolation/ },
+  { 'n' => '01266', 'r' => /policyviolation/ },
+  { 'n' => '01267', 'r' => /hasmoved/ },
+  { 'n' => '01268', 'r' => /spamdetected/ },
 ]
 Sisimai::Bite::Email::Code.maketest(enginename, isexpected, true)
 
