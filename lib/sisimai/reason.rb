@@ -173,8 +173,8 @@ module Sisimai
               end
             end
 
+            throw :TRY_TO_MATCH
           end
-          throw :TRY_TO_MATCH
         end
         return reasontext
       end
