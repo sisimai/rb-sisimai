@@ -209,6 +209,7 @@ module Sisimai::Bite::Email
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
 
+          e['agent']       = self.smtpagent
           e['diagnosis'] ||= ''
           e['diagnosis']   = e['diagnosis'].gsub(/\\n/, ' ')
           e['diagnosis']   = Sisimai::String.sweep(e['diagnosis'])
@@ -233,7 +234,6 @@ module Sisimai::Bite::Email
             break
           end
 
-          e['agent']    = self.smtpagent
         end
 
         rfc822part = Sisimai::RFC5322.weedout(rfc822list)
