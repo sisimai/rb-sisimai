@@ -40,6 +40,7 @@ module Sisimai
               |SMTP[ ]sessions[ ]for[ ]this[ ]host    # Sendmail(daemon.c)
               )
             |Trop[ ]de[ ]connexions,[ ].+[A-Z]{3}.+104
+            |We[ ]have[ ]already[ ]made[ ]numerous[ ]attempts[ ]to[ ]deliver[ ]this[ ]message
             )
           }ix
 

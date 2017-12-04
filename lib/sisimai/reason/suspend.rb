@@ -36,6 +36,7 @@ module Sisimai
             |sorry[ ]your[ ]message[ ]to[ ].+[ ]cannot[ ]be[ ]delivered[.][ ]this[ ]
               account[ ]has[ ]been[ ]disabled[ ]or[ ]discontinued
             |The[ ]domain[ ].+[ ]is[ ]currently[ ]suspended
+            |User[ ].+[ ]temporary[ ]locked
             |user[ ]suspended   # http://mail.163.com/help/help_spam_16.htm
             |vdelivermail:[ ]account[ ]is[ ]locked[ ]email[ ]bounced
             )

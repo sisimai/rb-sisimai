@@ -16,14 +16,15 @@ module Sisimai
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
         # @return   [True,False]    false: Did not match
-        #                           true: Matched
+        #                           true:  Matched
+        # @since v4.0.0
         def match(argv1)
           return nil unless argv1
           regex = %r{(?>
              domain[ ](?:
                does[ ]not[ ]exist
-              |must[ ]exist
               |is[ ]not[ ]reachable
+              |must[ ]exist
               )
             |host[ ](?:
                or[ ]domain[ ]name[ ]not[ ]found
@@ -39,6 +40,7 @@ module Sisimai
               )
             |The[ ]account[ ]or[ ]domain[ ]may[ ]not[ ]exist
             |unknown[ ]host
+            |Unrouteable[ ]address
             )
           }ix
 
@@ -66,7 +68,8 @@ module Sisimai
           if tempreason == reasontext
             # Status: 5.1.2
             # Diagnostic-Code: SMTP; 550 Host unknown
-            v = true
+            require 'sisimai/reason/networkerror'
+            v = true unless Sisimai::Reason::NetworkError.match(diagnostic)
           else
             # Check the value of Diagnosic-Code: header with patterns
             v = true if Sisimai::Reason::HostUnknown.match(diagnostic)

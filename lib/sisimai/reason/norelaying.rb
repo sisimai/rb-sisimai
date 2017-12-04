@@ -29,8 +29,10 @@ module Sisimai
             |Insecure[ ]Mail[ ]Relay
             |mail[ ]server[ ]requires[ ]authentication[ ]when[ ]attempting[ ]to[ ]
               send[ ]to[ ]a[ ]non-local[ ]e-mail[ ]address    # MailEnable
-            |not[ ]allowed[ ]to[ ]relay[ ]through[ ]this[ ]machine
-            |Not[ ]an[ ]open[ ]relay,[ ]so[ ]get[ ]lost
+            |not[ ](?:
+               allowed[ ]to[ ]relay[ ]through[ ]this[ ]machine
+              |an[ ]open[ ]relay,[ ]so[ ]get[ ]lost
+                   )
             |relay[ ](?:
                access[ ]denied
               |denied
@@ -38,6 +40,7 @@ module Sisimai
               )
             |relaying[ ]denied  # Sendmail
             |that[ ]domain[ ]isn[']t[ ]in[ ]my[ ]list[ ]of[ ]allowed[ ]rcpthost
+            |This[ ]system[ ]is[ ]not[ ]configured[ ]to[ ]relay[ ]mail
             |Unable[ ]to[ ]relay[ ]for
             )
           }ix

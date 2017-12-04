@@ -25,6 +25,7 @@ module Sisimai
           return nil unless argv1
           regex = %r{(?>
              can[']t[ ]create[ ]user[ ]output[ ]file
+            |Could[ ]not[ ]load[ ]DRD[ ]for[ ]domain
             |Internal[ ](?:
                error[ ]reading[ ]data                             # Microsoft
               |server[ ]error:[ ]Operation[ ]now[ ]in[ ]progress  # Microsoft
