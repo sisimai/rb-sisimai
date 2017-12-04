@@ -20,8 +20,15 @@ v4.22.2p3
     and error message patterns.
   - Merge Pull-Request #93 from @subuta to fix issue #92. Sisimai.make() method
     passes ActiveSupport::HashWithIndifferentAccess object with `input: "json"`
-    parameter.
-
+    parameter. Thanks to @subuta.
+  - Import Pull-Request sisimai/p5-Sisimai#247, Add 100+ error message patterns
+    into the following reason classes: Blocked, Expired, Filtered, HostUnknown,
+    PolicyViolation, MailboxFull, NetworkError, NoRelaying, Rejected, Suspend,
+    SpamDetected, SystemError, TooManyConn, and UserUnknown.
+  - Fix bug in a regular expression object for concatenating error messages in
+    Sisimai::Bite::Email::Exim.
+  - Fix a wrong regular expression for detecting a recipient address and error
+    messages in Sisiamai::Bite::Email::IMailServer.
 
 v4.22.2
 --------------------------------------------------------------------------------
