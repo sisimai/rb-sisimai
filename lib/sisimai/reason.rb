@@ -115,7 +115,7 @@ module Sisimai
           loop do
             trytomatch ||= true if reasontext.empty?
             trytomatch ||= true if RetryReasons.index(reasontext)
-            trytomatch ||= true if argvs.diagnostictype == 'SMTP'
+            trytomatch ||= true if argvs.diagnostictype != 'SMTP'
             throw :TRY_TO_MATCH unless trytomatch
 
             # Could not decide the reason by the value of Status:
