@@ -285,7 +285,7 @@ module Sisimai
 
         # CHECK_DELIVERY_STATUS_VALUE:
         # Cleanup the value of "Diagnostic-Code:" header
-        p['diagnosticcode'] = p['diagnosticcode'].sub(/[ \t]+#{EndOfEmail}/, '')
+        p['diagnosticcode'] = p['diagnosticcode'].sub(/[ \t.]+#{EndOfEmail}/, '')
         d = Sisimai::SMTP::Status.find(p['diagnosticcode'])
         if d =~ /\A[45][.][1-9][.][1-9]\z/
           # Use the DSN value in Diagnostic-Code:
