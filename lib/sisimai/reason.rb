@@ -8,7 +8,10 @@ module Sisimai
       # Reason list better to retry detecting an error reason
       # @return   [Array] Reason list
       def retry
-        return %w|undefined onhold systemerror securityerror networkerror|
+        return %w|
+          undefined onhold systemerror securityerror networkerror
+          hostunknown userunknown
+        |
       end
       RetryReasons = Sisimai::Reason.retry
 
@@ -97,6 +100,7 @@ module Sisimai
         statuscode = argvs.deliverystatus || ''
         diagnostic = argvs.diagnosticcode || ''
         commandtxt = argvs.smtpcommand    || ''
+        trytomatch = nil
         reasontext = ''
         classorder = %w|
           MailboxFull SpamDetected PolicyViolation VirusDetected SecurityError
@@ -107,61 +111,70 @@ module Sisimai
         require 'sisimai/smtp/status'
         reasontext = Sisimai::SMTP::Status.name(statuscode)
 
-        if reasontext.empty? || reasontext == 'userunknown' || RetryReasons.index(reasontext)
-          # Could not decide the reason by the value of Status:
-          classorder.each do |e|
-            # Trying to match with other patterns in Sisimai::Reason::* classes
-            p = 'Sisimai::Reason::' + e
-            r = nil
-            begin
-              require p.downcase.gsub('::', '/')
-              r = Module.const_get(p)
-            rescue
-              warn ' ***warning: Failed to load ' + p
-              next
+        catch :TRY_TO_MATCH do
+          loop do
+            trytomatch ||= true if reasontext.empty?
+            trytomatch ||= true if RetryReasons.index(reasontext)
+            trytomatch ||= true if argvs.diagnostictype == 'SMTP'
+            throw :TRY_TO_MATCH unless trytomatch
+
+            # Could not decide the reason by the value of Status:
+            classorder.each do |e|
+              # Trying to match with other patterns in Sisimai::Reason::* classes
+              p = 'Sisimai::Reason::' + e
+              r = nil
+              begin
+                require p.downcase.gsub('::', '/')
+                r = Module.const_get(p)
+              rescue
+                warn ' ***warning: Failed to load ' + p
+                next
+              end
+
+              next unless r.match(diagnostic)
+              reasontext = e.downcase
+              break
             end
 
-            next unless r.match(diagnostic)
-            reasontext = e.downcase
-            break
-          end
+            if reasontext.empty?
+              # Check the value of Status:
+              v = statuscode[0, 3]
+              if v == '5.6' || v == '4.6'
+                #  X.6.0   Other or undefined media error
+                reasontext = 'contenterror'
 
-          if reasontext.empty?
-            # Check the value of Status:
-            v = statuscode[0, 3]
-            if v == '5.6' || v == '4.6'
-              #  X.6.0   Other or undefined media error
-              reasontext = 'contenterror'
+              elsif v == '5.7' || v == '4.7'
+                #  X.7.0   Other or undefined security status
+                reasontext = 'securityerror'
 
-            elsif v == '5.7' || v == '4.7'
-              #  X.7.0   Other or undefined security status
-              reasontext = 'securityerror'
+              elsif argvs.diagnostictype =~ /\AX-(?:UNIX|POSTFIX)\z/
+                # Diagnostic-Code: X-UNIX; ...
+                reasontext = 'mailererror'
 
-            elsif argvs.diagnostictype =~ /\AX-(?:UNIX|POSTFIX)\z/
-              # Diagnostic-Code: X-UNIX; ...
-              reasontext = 'mailererror'
-
-            else
-              # 50X Syntax Error?
-              require 'sisimai/reason/syntaxerror'
-              reasontext = 'syntaxerror' if Sisimai::Reason::SyntaxError.true(argvs)
-            end
-          end
-
-          if reasontext.empty?
-            # Check the value of Action: field, first
-            if argvs.action =~ /\A(?:delayed|expired)/
-              # Action: delayed, expired
-              reasontext = 'expired'
-
-            else
-              # Check the value of SMTP command
-              if commandtxt =~ /\A(?:EHLO|HELO)\z/
-                # Rejected at connection or after EHLO|HELO
-                reasontext = 'blocked'
+              else
+                # 50X Syntax Error?
+                require 'sisimai/reason/syntaxerror'
+                reasontext = 'syntaxerror' if Sisimai::Reason::SyntaxError.true(argvs)
               end
             end
+
+            if reasontext.empty?
+              # Check the value of Action: field, first
+              if argvs.action =~ /\A(?:delayed|expired)/
+                # Action: delayed, expired
+                reasontext = 'expired'
+
+              else
+                # Check the value of SMTP command
+                if commandtxt =~ /\A(?:EHLO|HELO)\z/
+                  # Rejected at connection or after EHLO|HELO
+                  reasontext = 'blocked'
+                end
+              end
+            end
+
           end
+          throw :TRY_TO_MATCH
         end
         return reasontext
       end
