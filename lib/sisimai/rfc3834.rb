@@ -21,7 +21,7 @@ module Sisimai
       Re1 = {
         :boundary => %r/\A__SISIMAI_PSEUDO_BOUNDARY__\z/,
         :endof    => %r/\A__END_OF_EMAIL_MESSAGE__\z/
-      }.freeze
+      }
       Re2 = {
         :subject => %r/(?:
              SECURITY[ ]information[ ]for  # sudo
@@ -97,7 +97,7 @@ module Sisimai
         require 'sisimai/address'
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
+        hasdivided = mbody.scrub('?').split("\n")
         rfc822part = '' # (String) message/rfc822-headers part
         recipients = 0  # (Integer) The number of 'Final-Recipient' header
         maxmsgline = 5  # (Integer) Max message length(lines)
