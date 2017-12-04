@@ -604,6 +604,7 @@ module Sisimai
           :'5.3.5'  => 'systemerror',    # System incorrectly configured
           :'5.4.0'  => 'networkerror',   # Other or undefined network or routing status
           :'5.4.3'  => 'systemerror',    # Directory server failure
+          :'5.4.4'  => 'hostunknown',    # Unable to route
           :'5.5.3'  => 'toomanyconn',    # Too many recipients
           :'5.5.4'  => 'systemerror',    # Invalid command arguments
           :'5.5.5'  => 'systemerror',    # Wrong protocol version
