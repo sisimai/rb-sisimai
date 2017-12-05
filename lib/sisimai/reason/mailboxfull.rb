@@ -21,7 +21,8 @@ module Sisimai
         def match(argv1)
           return nil unless argv1
           regex = %r{(?>
-             account[ ]is[ ](?:
+             Account[ ]disabled[ ]temporarly[ ]for[ ]exceeding[ ]receiving[ ]limits
+            |account[ ]is[ ](?:
                exceeding[ ]their[ ]quota
               |over[ ]quota
               |temporarily[ ]over[ ]quota
@@ -33,8 +34,10 @@ module Sisimai
             |exceeded[ ]storage[ ]allocation
             |exceeding[ ]its[ ]mailbox[ ]quota
             |full[ ]mailbox
-            |is[ ]over[ ]quota[ ]temporarily
-            |is[ ]over[ ]disk[ ]quota
+            |is[ ]over[ ](?:
+               disk[ ]quota
+              |quota[ ]temporarily
+              )
             |mail[ ](?:
                file[ ]size[ ]exceeds[ ]the[ ]maximum[ ]size[ ]allowed[ ]for[ ]mail[ ]delivery
               |quota[ ]exceeded
@@ -55,22 +58,26 @@ module Sisimai
             |mailfolder[ ]is[ ]full
             |not[ ]enough[ ]storage[ ]space[ ]in
             |over[ ]the[ ]allowed[ ]quota
-            |quota[ ]exceeded
-            |quota[ ]violation[ ]for
+            |quota[ ](?:
+               exceeded
+              |violation[ ]for
+              )
             |recipient[ ](?:
                reached[ ]disk[ ]quota
               |rejected:[ ]mailbox[ ]would[ ]exceed[ ]maximum[ ]allowed[ ]storage
               )
-            |The[ ]recipient[ ]mailbox[ ]has[ ]exceeded[ ]its[ ]disk[ ]space[ ]limit
-            |The[ ]user[']s[ ]space[ ]has[ ]been[ ]used[ ]up
+            |The[ ](?:
+               recipient[ ]mailbox[ ]has[ ]exceeded[ ]its[ ]disk[ ]space[ ]limit
+              |user[']s[ ]space[ ]has[ ]been[ ]used[ ]up
+              |user[ ]you[ ]are[ ]trying[ ]to[ ]reach[ ]is[ ]over[ ]quota
+              )
             |too[ ]much[ ]mail[ ]data   # @docomo.ne.jp
             |user[ ](?:
                has[ ](?:
                  exceeded[ ]quota,[ ]bouncing[ ]mail
                 |too[ ]many[ ]messages[ ]on[ ]the[ ]server
                 )
-              |is[ ]over[ ]quota
-              |is[ ]over[ ]the[ ]quota
+              |is[ ]over[ ](?:the[ ])?quota
               |over[ ]quota
               |over[ ]quota[.][ ][(][#]5[.]1[.]1[)]   # qmail-toaster
               )

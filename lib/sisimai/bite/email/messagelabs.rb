@@ -18,7 +18,12 @@ module Sisimai::Bite::Email
         :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ReFailure = {
-        userunknown: %r/No[ ]such[ ]user/x,
+        userunknown: %r{(?:
+           542[ ].+[ ]Rejected
+          |No[ ]such[ ]user
+          )
+        }x,
+        securityerror: %r/Please turn on SMTP Authentication in your mail client/,
       }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 

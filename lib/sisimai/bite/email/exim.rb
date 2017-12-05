@@ -422,7 +422,7 @@ module Sisimai::Bite::Email
           if e['alterrors'] && e['alterrors'].size > 0
             # Copy alternative error message
             if e['diagnosis'].nil? || e['diagnosis'].empty?
-              e['diagnosis'] ||= e['alterrors']
+              e['diagnosis'] = e['alterrors']
             end
 
             if e['diagnosis'] =~ /\A[-]+/ || e['diagnosis'].end_with?('__')
@@ -433,7 +433,7 @@ module Sisimai::Bite::Email
               # Check the both value and try to match
               if e['diagnosis'].size < e['alterrors'].size
                 # Check the value of alterrors
-                rxdiagnosis = %r/#{e['diagnosis']}/i
+                rxdiagnosis = %r/e['diagnosis']/i
                 if e['alterrors'] =~ rxdiagnosis
                   # Override the value of diagnostic code message because
                   # the value of alterrors includes the value of diagnosis.

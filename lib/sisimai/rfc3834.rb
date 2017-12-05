@@ -10,13 +10,18 @@ module Sisimai
         # https://msdn.microsoft.com/en-us/library/ee219609(v=exchg.80).aspx
         :'x-auto-response-suppress' => %r/(?:OOF|AutoReply)/i,
         :'precedence' => %r/\Aauto_reply\z/,
-        :'subject' => %r/\A(?:
+        :'subject' => %r/\A(?>
              Auto:
-            |Out[ ]of[ ]Office:
+            |Auto[ ]Response:
+            |Automatic[ ]reply:
+            |Out[ ]of[ ](?:the[ ])*Office:
           )
         /xi,
       }.freeze
-      Re1 = { :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/ }.freeze
+      Re1 = {
+        :boundary => %r/\A__SISIMAI_PSEUDO_BOUNDARY__\z/,
+        :endof    => %r/\A__END_OF_EMAIL_MESSAGE__\z/
+      }
       Re2 = {
         :subject => %r/(?:
              SECURITY[ ]information[ ]for  # sudo
@@ -26,6 +31,14 @@ module Sisimai
         :from    => %r/(?:root|postmaster|mailer-daemon)[@]/i,
         :to      => %r/root[@]/,
       }.freeze
+      ReV = %r{\A(?>
+         (?:.+?)?Re:
+        |Auto(?:[ ]Response):
+        |Automatic[ ]reply:
+        |Out[ ]of[ ]Office:
+        )
+        [ ]*(.+)\z
+      }xi
 
       def description; 'Detector for auto replied message'; end
       def smtpagent;   'RFC3834'; end
@@ -84,11 +97,13 @@ module Sisimai
         require 'sisimai/address'
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
+        hasdivided = mbody.scrub('?').split("\n")
+        rfc822part = '' # (String) message/rfc822-headers part
         recipients = 0  # (Integer) The number of 'Final-Recipient' header
         maxmsgline = 5  # (Integer) Max message length(lines)
         haveloaded = 0  # (Integer) The number of lines loaded from message body
         blanklines = 0  # (Integer) Counter for countinuous blank lines
+        countuntil = 1  # (Integer) Maximum value of blank lines in the body part
         v = dscontents[-1]
 
         # RECIPIENT_ADDRESS
@@ -107,16 +122,27 @@ module Sisimai
         end
         return nil unless recipients > 0
 
+        if mhead['content-type']
+          # Get the boundary string and set regular expression for matching with
+          # the boundary string.
+          require 'sisimai/mime'
+          b0 = Sisimai::MIME.boundary(mhead['content-type'], 0)
+          Re1[:boundary] = %r/\A\Q#{b0}\E\z/ unless b0.empty?
+        end
+
         # BODY_PARSER: Get vacation message
         hasdivided.each do |e|
           # Read the first 5 lines except a blank line
+          countuntil += 1 if e =~ Re1[:boundary]
+
           unless e.size > 0
             # Check a blank line
             blanklines += 1
-            break if blanklines > 1
+            break if blanklines > countuntil
             next
           end
           next unless e =~ / /
+          next if e =~ /\AContent-(?:Type|Transfer)/
 
           v['diagnosis'] ||= ''
           v['diagnosis']  += e + ' '
@@ -133,7 +159,12 @@ module Sisimai
         v['status']    = ''
 
         v.each_key { |a| v[a] ||= '' }
-        return { 'ds' => dscontents, 'rfc822' => '' }
+
+        if cv = mhead['subject'].match(ReV)
+          # Get the Subject header from the original message
+          rfc822part = sprintf("Subject: %s\n", cv[1])
+        end
+        return { 'ds' => dscontents, 'rfc822' => rfc822part }
       end
 
     end

@@ -24,7 +24,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          regex = %r{(?:
+          regex = %r{(?>
              could[ ]not[ ]connect[ ]and[ ]send[ ]the[ ]mail[ ]to
             |DNS[ ]records[ ]for[ ]the[ ]destination[ ]computer[ ]could[ ]not[ ]be[ ]found
             |Hop[ ]count[ ]exceeded[ ]-[ ]possible[ ]mail[ ]loop
@@ -32,9 +32,17 @@ module Sisimai
             |mail[ ]forwarding[ ]loop[ ]for[ ]
             |malformed[ ]name[ ]server[ ]reply
             |maximum[ ]forwarding[ ]loop[ ]count[ ]exceeded
-            |message[ ]looping
-            |name[ ]service[ ]error
+            |message[ ](?:
+               looping
+              |probably[ ]in[ ]a[ ]routing[ ]loop
+              )
+            |name[ ]service[ ]error[ ]for[ ].+[ ](?:
+               Malformed[ ]or[ ]unexpected[ ]name[ ]server[ ]reply
+              |Host[ ]not[ ]found,[ ]try[ ]again
+              )
+            |No[ ]route[ ]to[ ]host
             |too[ ]many[ ]hops
+            |Unable[ ]to[ ]resolve[ ]route[ ].+[ ]
             |unrouteable[ ]mail[ ]domain
             )
           }ix

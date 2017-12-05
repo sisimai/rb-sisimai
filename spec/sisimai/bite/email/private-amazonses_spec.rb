@@ -20,6 +20,14 @@ isexpected = [
   { 'n' => '01016', 'r' => /feedback/ },
   { 'n' => '01017', 'r' => /delivered/ },
   { 'n' => '01018', 'r' => /delivered/ },
+  { 'n' => '01019', 'r' => /blocked/ },
+  { 'n' => '01020', 'r' => /expired/ },
+  { 'n' => '01021', 'r' => /hostunknown/ },
+  { 'n' => '01022', 'r' => /blocked/ },
+  { 'n' => '01023', 'r' => /suspend/ },
+  { 'n' => '01024', 'r' => /filtered/ },
+  { 'n' => '01025', 'r' => /suspend/ },
+  { 'n' => '01026', 'r' => /norelaying/ },
 ]
 Sisimai::Bite::Email::Code.maketest(enginename, isexpected, true)
 

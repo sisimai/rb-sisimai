@@ -26,7 +26,11 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          isnot = %r/recipient[ ]address[ ]rejected/xi
+          isnot = %r{(?:5[.]1[.]0[ ]Address
+            |Recipient[ ]address
+            |Sender[ ]IP[ ]address
+            )[ ]rejected
+          }xi
           regex = %r{(?>
              [<][>][ ]invalid[ ]sender
             |address[ ]rejected
@@ -39,6 +43,7 @@ module Sisimai
             |bogus[ ]mail[ ]from        # IMail - block empty sender
             |Connections[ ]not[ ]accepted[ ]from[ ]servers[ ]without[ ]a[ ]valid[ ]sender[ ]domain
             |denied[ ]\[bouncedeny\]    # McAfee
+            |Delivery[ ]not[ ]authorized,[ ]message[ ]refused
             |does[ ]not[ ]exist[ ]E2110
             |domain[ ]of[ ]sender[ ]address[ ].+[ ]does[ ]not[ ]exist
             |Emetteur[ ]invalide.+[A-Z]{3}.+(?:403|405|415)
@@ -56,10 +61,12 @@ module Sisimai
             |rfc[ ]1035[ ]violation:[ ]recursive[ ]cname[ ]records[ ]for
             |rule[ ]imposed[ ]mailbox[ ]access[ ]for        # MailMarshal
             |sender[ ](?:
-               verify[ ]failed        # Exim callout
+               email[ ]address[ ]rejected
+              |is[ ]Spammer
               |not[ ]pre[-]approved
               |rejected
               |domain[ ]is[ ]empty
+              |verify[ ]failed        # Exim callout
               )
             |syntax[ ]error:[ ]empty[ ]email[ ]address
             |the[ ]message[ ]has[ ]been[ ]rejected[ ]by[ ]batv[ ]defense
@@ -110,9 +117,9 @@ module Sisimai
                 v = true if Sisimai::Reason::Rejected.match(diagnostic)
               end
             else
-              if tempreason == 'undefined' || tempreason == 'onhold'
+              if tempreason =~ /\A(?:onhold|undefined|securityerror|systemerror)\z/
                 # Try to match with message patterns when the temporary reason
-                # is "onhold" or "undefined"
+                # is "onhold", "undefined", "securityerror", or "systemerror"
                 v = true if Sisimai::Reason::Rejected.match(diagnostic)
               end
             end

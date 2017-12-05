@@ -31,40 +31,51 @@ module Sisimai
              .+[ ]user[ ]unknown
             |[#]5[.]1[.]1[ ]bad[ ]address
             |[<].+[>][ ]not[ ]found
+            |[<].+[@].+[>][.][.][.][ ]Blocked[ ]by[ ]
             |5[.]0[.]0[.][ ]Mail[ ]rejected[.]
+            |5[.]1[.]0[ ]Address[ ]rejected[.]
             |Adresse[ ]d[ ]au[ ]moins[ ]un[ ]destinataire[ ]invalide.+[A-Z]{3}.+(?:416|418)
-            |address[ ]does[ ]not[ ]exist
-            |address[ ]unknown
+            |address[ ](?:does[ ]not[ ]exist|unknown)
             |archived[ ]recipient
             |BAD[-_ ]RECIPIENT
             |can[']t[ ]accept[ ]user
-            |destination[ ]addresses[ ]were[ ]unknown
-            |destination[ ]server[ ]rejected[ ]recipients
-            |email[ ]address[ ]does[ ]not[ ]exist
+            |destination[ ](?:
+               addresses[ ]were[ ]unknown
+              |server[ ]rejected[ ]recipients
+              )
+            |email[ ]address[ ](?:does[ ]not[ ]exist|could[ ]not[ ]be[ ]found)
             |invalid[ ](?:
                address
               |mailbox:
               |mailbox[ ]path
-              |recipient                 # Linkedin
+              |recipient
               )
             |is[ ]not[ ](?:
                a[ ]known[ ]user
+              |a[ ]valid[ ]mailbox
               |an[ ]active[ ]address[ ]at[ ]this[ ]host
               )
             |mailbox[ ](?:
-               not[ ]present
-              |not[ ]found
+               .+[ ]does[ ]not[ ]exist
+              |.+[@].+[ ]unavailable
+              |invalid
+              |is[ ](?:inactive|unavailable)
+              |not[ ](?:present|found)
               |unavailable
               )
             |no[ ](?:
                [ ].+[ ]in[ ]name[ ]directory
               |account[ ]by[ ]that[ ]name[ ]here
+              |existe[ ](?:dicha[ ]persona|ese[ ]usuario[ ])
               |mail[ ]box[ ]available[ ]for[ ]this[ ]user
-              |mailbox[ ]by[ ]that[ ]name[ ]is[ ]currently[ ]available
-              |mailbox[ ]found
+              |mailbox[ ](?:
+                 by[ ]that[ ]name[ ]is[ ]currently[ ]available
+                |found
+                )
               |matches[ ]to[ ]nameserver[ ]query
               |such[ ](?:
-                 mailbox
+                 address[ ]here
+                |mailbox
                 |person[ ]at[ ]this[ ]address
                 |recipient
                 |user(?:[ ]here)?
@@ -76,24 +87,25 @@ module Sisimai
             |not[ ](?:
                a[ ]valid[ ]user[ ]here
               |a[ ]local[ ]address
+              |email[ ]addresses
               )
             |rcpt[ ][<].+[>][ ]does[ ]not[ ]exist
-            |recipient[ ](?:
+            |rece?ipient[ ](?:
                .+[ ]was[ ]not[ ]found[ ]in
               |address[ ]rejected:[ ](?:
-                 invalid[ ]user
+                 Access[ ]denied
+                |invalid[ ]user
                 |user[ ].+[ ]does[ ]not[ ]exist
                 |user[ ]unknown[ ]in[ ].+[ ]table
                 |unknown[ ]user
                 )
               |does[ ]not[ ]exist(?:[ ]on[ ]this[ ]system)?
               |is[ ]not[ ]local
-              |not[ ]found
-              |not[ ]OK
+              |not[ ](?:exist|found|OK)
               |unknown
               )
             |requested[ ]action[ ]not[ ]taken:[ ]mailbox[ ]unavailable
-            |RESOLVER[.]ADR[.]RecipNotFound # Microsoft
+            |RESOLVER[.]ADR[.]Recip(?:ient)NotFound
             |said:[ ]550[-[ ]]5[.]1[.]1[ ].+[ ]user[ ]unknown[ ]
             |SMTP[ ]error[ ]from[ ]remote[ ]mail[ ]server[ ]after[ ]end[ ]of[ ]data:[ ]553.+does[ ]not[ ]exist
             |sorry,[ ](?:
@@ -125,11 +137,11 @@ module Sisimai
               |.+[ ]does[ ]not[ ]exist
               |does[ ]not[ ]exist
               |missing[ ]home[ ]directory
-              |not[ ]found     # 550 User not found. See http://mail.bigmir.net/err/2/
-              |not[ ]known
+              |not[ ](?:active|found|known)
               |unknown
               )
             |vdeliver:[ ]invalid[ ]or[ ]unknown[ ]virtual[ ]user
+            |your[ ]envelope[ ]recipient[ ]is[ ]in[ ]my[ ]badrcptto[ ]list
             )
           }ix
 

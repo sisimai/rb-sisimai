@@ -20,18 +20,22 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          regex = %r{(?:
+          regex = %r{(?>
              connection[ ]timed[ ]out
             |could[ ]not[ ]find[ ]a[ ]gateway[ ]for
             |delivery[ ]time[ ]expired
+            |Failed[ ]to[ ]deliver[ ]to[ ]domain[ ].+[ ]after[ ]\d+[ ]tries
             |giving[ ]up[ ]on
             |it[ ]has[ ]not[ ]been[ ]collected[ ]after
-            |message[ ]expired[ ]after[ ]sitting[ ]in[ ]queue[ ]for
-            |Message[ ]timed[ ]out
+            |message[ ](?:
+               expired[ ]after[ ]sitting[ ]in[ ]queue[ ]for
+              |timed[ ]out
+              )
             |retry[ ]time[ ]not[ ]reached[ ]for[ ]any[ ]host[ ]after[ ]a[ ]long[ ]failure[ ]period
             |server[ ]did[ ]not[ ]respond
             |this[ ]message[ ]has[ ]been[ ]in[ ]the[ ]queue[ ]too[ ]long
             |was[ ]not[ ]reachable[ ]within[ ]the[ ]allowed[ ]queue[ ]period
+            |Your[ ]message[ ]could[ ]not[ ]be[ ]delivered[ ]for[ ]more[ ]than
             )
           }ix
 

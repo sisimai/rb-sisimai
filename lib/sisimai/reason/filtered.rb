@@ -42,6 +42,7 @@ module Sisimai
             |we[ ]failed[ ]to[ ]deliver[ ]mail[ ]because[ ]the[ ]following[ ]address
                 [ ]recipient[ ]id[ ]refuse[ ]to[ ]receive[ ]mail    # Willcom
             )
+            |You[ ]have[ ]been[ ]blocked[ ]by[ ]the[ ]recipient
           }ix
 
           return true if argv1 =~ regex

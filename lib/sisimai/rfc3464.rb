@@ -68,7 +68,7 @@ module Sisimai
         require 'sisimai/address'
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
+        hasdivided = mbody.scrub('?').split("\n")
         havepassed = ['']
         scannedset = Sisimai::MDA.scan(mhead, mbody)
         rfc822list = []   # (Array) Each line in message/rfc822 part string
