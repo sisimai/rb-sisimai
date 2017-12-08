@@ -160,6 +160,9 @@ isexpected = [
   { 'n' => '01160', 'r' => /(?:blocked|userunknown|onhold)/ },
   { 'n' => '01161', 'r' => /mesgtoobig/ },
   { 'n' => '01162', 'r' => /blocked/ },
+  { 'n' => '01163', 'r' => /mailboxfull/ },
+  { 'n' => '01164', 'r' => /blocked/ },
+  { 'n' => '01165', 'r' => /spamdetected/ },
 ]
 Sisimai::Bite::Email::Code.maketest(enginename, isexpected, true)
 

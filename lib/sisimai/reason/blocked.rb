@@ -114,7 +114,11 @@ module Sisimai
                that[ ]domain[ ]isn'?t[ ]in[ ]my[ ]list[ ]of[ ]allowed[ ]rcpthosts
               |your[ ]remotehost[ ]looks[ ]suspiciously[ ]like[ ]spammer
               )
-            |SPF[ ](?:record|check:[ ]fail)
+            |SPF[ ](?:
+               .+[ ]domain[ ]authentication[ ]fail
+              |record
+              |check:[ ]fail
+              )
             |SPF:[ ].+[ ]is[ ]not[ ]allowed[ ]to[ ]send[ ]mail.+[A-Z]{3}.+401
             |the[ ](?:email|domain|ip).+[ ]is[ ]blacklisted
             |This[ ]system[ ]will[ ]not[ ]accept[ ]messages[ ]from[ ]servers[/]devices[ ]with[ ]no[ ]reverse[ ]DNS

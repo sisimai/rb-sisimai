@@ -286,19 +286,41 @@ module Sisimai
         # CHECK_DELIVERY_STATUS_VALUE:
         # Cleanup the value of "Diagnostic-Code:" header
         p['diagnosticcode'] = p['diagnosticcode'].sub(/[ \t.]+#{EndOfEmail}/, '')
-        d = Sisimai::SMTP::Status.find(p['diagnosticcode'])
-        if d =~ /\A[45][.][1-9][.][1-9]\z/
-          # Use the DSN value in Diagnostic-Code:
-          p['deliverystatus'] = d
-        end
 
-        if p['reason'] == 'mailererror'
-          p['diagnostictype'] ||= 'X-UNIX'
-        else
-          unless p['reason'] =~ /\A(?:feedback|vacation)\z/
-            p['diagnostictype'] ||= 'SMTP'
+        if p['diagnosticcode'].size > 0
+          # Count the number of D.S.N. and SMTP Reply Code
+          vs = Sisimai::SMTP::Status.find(p['diagnosticcode'])
+          vr = Sisimai::SMTP::Reply.find(p['diagnosticcode'])
+          vm = 0
+          re = nil
+
+          if vs.size > 0
+            # How many times does the D.S.N. appeared
+            vm += p['diagnosticcode'].scan(/\b#{vs}\b/).size
+            p['deliverystatus'] = vs if vs =~ /\A[45][.][1-9][.][1-9]\z/
+          end
+
+          if vr.size > 0
+            # How many times does the SMTP reply code appeared
+            vm += p['diagnosticcode'].scan(/\b#{vr}\b/).size
+            p['replycode'] ||= vr
+          end
+
+          if vm > 2
+            # Build regular expression for removing string like '550-5.1.1'
+            # from the value of "diagnosticcode"
+            re = %r/[ ]#{vr}[- ](?:#{vs})?/
+
+            # 550-5.7.1 [192.0.2.222] Our system has detected that this message is
+            # 550-5.7.1 likely unsolicited mail. To reduce the amount of spam sent to Gmail,
+            # 550-5.7.1 this message has been blocked. Please visit
+            # 550 5.7.1 https://support.google.com/mail/answer/188131 for more information.
+            p['diagnosticcode'] = p['diagnosticcode'].gsub(re, ' ')
+            p['diagnosticdoee'] = Sisimai::String.sweep(p['diagnosticcode'])
           end
         end
+        p['diagnostictype'] ||= 'X-UNIX' if p['reason'] == 'mailererror'
+        p['diagnostictype'] ||= 'SMTP' unless p['reason'] =~ /\A(?:feedback|vacation)\z/
 
         # Check the value of SMTP command
         p['smtpcommand'] = '' unless p['smtpcommand'] =~ rxcommands
