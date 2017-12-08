@@ -3,9 +3,9 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.22.2p3
+v4.22.2p4
 --------------------------------------------------------------------------------
-- release: "Tue,  5 Dec 2017 10:00:00 +0900 (JST)"
+- release: ""
 - version: ""
 - changes:
   - Issue #88: Fix codes in Sisimai.DateTime.parse() for setting numeric values
@@ -29,6 +29,9 @@ v4.22.2p3
     Sisimai::Bite::Email::Exim.
   - Fix a wrong regular expression for detecting a recipient address and error
     messages in Sisiamai::Bite::Email::IMailServer.
+  - Import Pull-Request sisimai/p5-Sisimai#247: Improved code at Sisimai::Data
+    to remove string like "550-5.1.1" from an error message for to be matched
+    exactly with regular expressions defined in each class of Sisimai::Reason.
 
 v4.22.2
 --------------------------------------------------------------------------------
