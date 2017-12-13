@@ -7,6 +7,8 @@ require 'sisimai/rhost/exchangeonline'
 describe Sisimai::Rhost::ExchangeOnline do
   rs = {
     '01' => { 'status' => %r/\A5[.]7[.]606\z/, 'reason' => %r/blocked/ },
+    '02' => { 'status' => %r/\A5[.]4[.]1\z/,   'reason' => %r/userunknown/ },
+    '03' => { 'status' => %r/\A5[.]1[.]10\z/,  'reason' => %r/userunknown/ },
   }
   describe 'bounce mail from Exchange Online' do
     rs.each_key.each do |n|
@@ -14,7 +16,7 @@ describe Sisimai::Rhost::ExchangeOnline do
       next unless File.exist?(emailfn)
 
       mailbox = Sisimai::Mail.new(emailfn)
-      mtahost = 'example.com.mail.protection.outlook.com'
+      mtahost = %r/.+[.](?:prod|protection)[.]outlook[.]com/
       next unless mailbox
 
       while r = mailbox.read do
@@ -31,13 +33,13 @@ describe Sisimai::Rhost::ExchangeOnline do
             expect(e['recipient']).to match(/\A.+[@].+[.].+\z/)
           end
           example('status is DSN') { expect(e['status']).to match(/\A\d[.]\d[.]\d+\z/) }
-          example('command is SMTP command') { expect(e['command']).to match(/\A[A-Z]{4}\z/) }
+          example('command is ' + e['command']) { expect(e.key?('command')).to be true }
           example('date is not empty') { expect(e['date']).not_to be_empty }
           example('diagnosis is not empty') { expect(e['diagnosis']).not_to be_empty }
           example('action is not empty') { expect(e['action']).not_to be_empty }
-          example('rhost is ' + mtahost) { expect(e['rhost']).to be == mtahost }
-          example('alias is ""') { expect(e['alias']).to be_empty }
-          example('agent is Email::Sendmail') { expect(e['agent']).to be == 'Email::Sendmail' }
+          example('rhost is ' + e['rhost']) { expect(e['rhost']).to match(mtahost) }
+          example('alias is ' + e['alias']) { expect(e.key?('alias')).to be true }
+          example('agent is ' + e['agent']) { expect(e['agent']).to match(/(?:Email::.+|RFC3464)/) }
         end
 
         data = Sisimai::Data.make(data: mesg)

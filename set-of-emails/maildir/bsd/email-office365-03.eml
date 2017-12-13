@@ -1,0 +1,117 @@
+Received: from neko (localhost [127.0.0.1])
+	by mx.example.net (Postfix) with ESMTP id EEEEEEEE2
+	for <sironeko@example.net>; Tue, 29 Apr 2017 23:34:45 +0900 (JST)
+Received: from NEKO-NYAAN-02.outbound.protection.outlook.com (localhost [127.0.0.1])
+	by mx.example.net (Postfix) with ESMTP id FFFFFFFFF
+	for <sironeko@example.net>; Tue, 29 Apr 2017 23:34:45 +0900 (JST)
+Received: from NEKO-NYAAN-02.outbound.protection.outlook.com (mail-nekochan22.outbound.protection.outlook.com [192.0.2.2])
+	by mx.example.net (Postfix) whith ESMTP id AAAAAAAAA2;
+	Tue, 29 Apr 2017 23:34:45 +0900 (JST)
+MIME-Version: 1.0
+From: <postmaster@nekonyaan.example.com>
+To: <sironeko@example.net>
+Date: Tue, 29 Apr 2017 23:34:45 +0000
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="2222ffff-2222-0000-0022-eeeeffeeffee"
+X-MS-Exchange-Message-Is-Ndr:
+Content-Language: en-US
+Message-ID: <eeeeeeeeeeeeeeeeeeeeeeee@neko.nyaan.prod.outlook.com>
+Subject: Undeliverable: Nyaan
+Auto-Submitted: auto-replied
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: 000000000000000:
+X-MS-Office365-Filtering-Correlation-Id: 00000000-0000-0000-0000-222222222222
+Authentication-Results: spf=none (sender IP is ) smtp.mailfrom=<>; 
+X-OriginatorOrg: nekonyaan.example.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2017 23:34:45.9021 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+
+--2222ffff-2222-0000-0022-eeeeffeeffee
+Content-Type: multipart/alternative; differences=Content-Type;
+	boundary="22220000-0000-2222-2200-ccaa55000000"
+
+--22220000-0000-2222-2200-ccaa55000000
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+neko-smtp-02-22.prod.cats.secureserver.net rejected your message to the fol=
+lowing email addresses:
+
+kijitora@example.com<mailto:kijitora@example.com>
+Your message was rejected by the recipient email server. Please check the r=
+ecipient's email address and try resending your message, or contact the rec=
+ipient directly. For more tips to help resolve this issue, see DSN code 5.1=
+.0 in Exchange Online - Office 365<http://go.microsoft.com/fwlink/?LinkId=
+=3D389362>. If the problem continues, contact your email admin.
+
+
+neko-smtp-02-22.prod.cats.secureserver.net gave this error:
+192.0.2.222 is not allowed to send from <example.net> per it's SPF Record. Pl=
+ease inspect your SPF settings, and try again. IB508 <http://x.co/srbounce>
+
+
+
+
+
+
+
+Diagnostic information for administrators:
+
+Generating server: NEKONYAAN22.sotoneko.prod.outlook.com
+
+kijitora@example.com
+neko-smtp-02-22.prod.cats.secureserver.net
+Remote Server returned '550 5.1.0 192.0.2.222 is not allowed to send from=
+ <example.net> per it's SPF Record. Please inspect your SPF settings, and try a=
+gain. IB508 <http://x.co/srbounce>'
+
+Original message headers:
+
+Received: from NEKONYAAN220.sotoneko.prod.outlook.com (198.51.100.22) by
+ NEKONYAAN22.sotoneko.prod.outlook.com (198.51.100.2) with Microsoft
+ SMTP Server (version=3DTLS1_2,
+ cipher=3DTLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1362.18; Tue,=
+ 22
+ Aug 2017 23:34:45 +0000
+Received: from nekochan2.example.org (203.0.113.2) by
+ SN1NAM04FT032.mail.protection.outlook.com (203.0.113.20) with Microsoft S=
+MTP
+ Server (version=3DTLS1_0, cipher=3DTLS_RSA_WITH_AES_256_CBC_SHA) id 15.1.1=
+341.15
+ via Frontend Transport; Tue, 29 Apr 2017 23:34:45 +0000
+Received: from sironeko.example.net (unknown [192.0.2.22])
+        by nekochan2.example.org (Postfix) with ESMTP id 22222222
+        for <info@nekonyaan.example.com>; Tue, 29 Apr 2017 23:34:45 +0900 (JST)
+Received: from [192.0.2.222] (localhost [127.0.0.1])
+        by smtp.example.net (Postfix) with ESMTP id 22222222
+        for <info@nekonyaan.example.com>; Tue, 29 Apr 2017 23:34:45 +0900 (JST)
+Content-Type: text/plain;
+MIME-Version: 1.0
+Subject: Nyaan
+From: "Sironeko" <sironeko@example.com>
+To: <kijitora@nekonyaan.example.com>
+Date: Tue, 29 Apr 2017 23:34:45 +0900
+Message-ID: <000000000000.2222.22222222222200000000@NEKO-NYAAN>
+Return-Path: sironeko@example.net
+
+--22220000-0000-2222-2200-ccaa55000000
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+--22220000-0000-2222-2200-ccaa55000000--
+
+--2222ffff-2222-0000-0022-eeeeffeeffee
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns;NEKONYAAN22.sotoneko.prod.outlook.com
+Received-From-MTA: dns;nekochan2.example.org
+Arrival-Date: Tue, 29 Apr 2017 23:34:45 +0000
+
+Final-Recipient: rfc822;kijitora@example.com
+Action: failed
+Status: 5.1.0
+Diagnostic-Code: smtp;550 5.1.0 192.0.2.222 is not allowed to send from <example.net> per it's SPF Record. Please inspect your SPF settings, and try again. IB508  <http://x.co/srbounce>
+Remote-MTA: dns;neko-smtp-02-22.prod.cats.secureserver.net
+
+--2222ffff-2222-0000-0022-eeeeffeeffee--
+

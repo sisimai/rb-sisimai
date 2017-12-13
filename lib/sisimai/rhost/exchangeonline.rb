@@ -128,6 +128,12 @@ module Sisimai
               :regexp => %r/(?:Invalid[ ]arguments|Routing[ ]loop[ ]detected)/x,
             },
           ],
+          %r/\A5[.]4[.]14\z/ => [
+            {
+              :reason => 'networkerror',
+              :regexp => %r/Hop[ ]count[ ]exceeded/x
+            },
+          ],
           %r/\A5[.]5[.]2\z/ => [
             {
               :reason => 'syntaxerror',
@@ -239,6 +245,18 @@ module Sisimai
             },
           ],
         }.freeze
+        MesgTable = {
+          # Copied and converted from Sisimai::Bite::Email::Exchange2007
+          :expired       => %r/QUEUE[.]Expired/,
+          :hostunknown   => %r/SMTPSEND[.]DNS[.]NonExistentDomain/,
+          :mesgtoobig    => %r/RESOLVER[.]RST[.]Recip(?:ient)?SizeLimit/,
+          :networkerror  => %r/SMTPSEND[.]DNS[.]MxLoopback/,
+          :rejected      => %r/RESOLVER[.]RST[.]NotAuthorized/,
+          :securityerror => %r/RESOLVER[.]RST[.]AuthRequired/,
+          :systemerror   => %r/RESOLVER[.]ADR[.](?:Ambiguous|BadPrimary|InvalidInSmtp)/,
+          :toomanyconn   => %r/RESOLVER[.]ADR[.]Recip(?:ient)?Limit/,
+          :userunknown   => %r/RESOLVER[.]ADR[.](?:Ex)?Recip(?:ient)?NotFound/,
+        }.freeze
 
         # Detect bounce reason from Exchange Online
         # @param    [Sisimai::Data] argvs   Parsed email object
@@ -259,6 +277,17 @@ module Sisimai
               # Try to match with each regular expression of error messages
               next unless statusmesg =~ f[:regexp]
               reasontext = f[:reason]
+              break
+            end
+          end
+
+          if reasontext.empty?
+            # D.S.N. included in the error message did not matched with any key
+            # in CodeTable
+            MesgTable.each_key do |e|
+              # Try to match with error messages defined in MesgTable
+              next unless statusmesg =~ MesgTable[e]
+              reasontext = e.to_s
               break
             end
           end

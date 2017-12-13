@@ -8,7 +8,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Rhost.pm
       RhostClass = {
         %r/\Aaspmx[.]l[.]google[.]com\z/                 => 'GoogleApps',
-        %r/[.]protection[.]outlook[.]com\z/              => 'ExchangeOnline',
+        %r/[.](?:prod|protection)[.]outlook[.]com\z/     => 'ExchangeOnline',
         %r/\A(?:smtp|mailstore1)[.]secureserver[.]net\z/ => 'GoDaddy',
         %r/\b(?:laposte[.]net|orange[.]fr)\z/            => 'FrancePTT',
       }.freeze
