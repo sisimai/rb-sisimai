@@ -32,6 +32,9 @@ v4.22.2p4
   - Import Pull-Request sisimai/p5-Sisimai#247: Improved code at Sisimai::Data
     to remove string like "550-5.1.1" from an error message for to be matched
     exactly with regular expressions defined in each class of Sisimai::Reason.
+  - Fixed issue #91, Import and convert error messages and reasons table from
+    Sisimai::Bite::Email::Exchange2007 into Sisimai::Rhost::ExchangeOnline for
+    detecting an error reason. Thanks to @joaoscotto.
 
 v4.22.2
 --------------------------------------------------------------------------------
