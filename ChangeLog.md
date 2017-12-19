@@ -35,6 +35,8 @@ v4.22.2p4
   - Fixed issue #91, Import and convert error messages and reasons table from
     Sisimai::Bite::Email::Exchange2007 into Sisimai::Rhost::ExchangeOnline for
     detecting an error reason. Thanks to @joaoscotto.
+  - Fix code to avoid an error with "invalid byte sequence in UTF-8" reported
+    at https://heartbeats.jp/hbblog/2017/12/sisimai.html .
 
 v4.22.2
 --------------------------------------------------------------------------------
