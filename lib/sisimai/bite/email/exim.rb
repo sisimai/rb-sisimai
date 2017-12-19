@@ -231,8 +231,8 @@ module Sisimai::Bite::Email
             #    host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
             v = dscontents[-1]
 
-            if cv = e.match(/\A[ \t]+([^ \t]+[@][^ \t]+[.]?[a-zA-Z]+)(:.+)?\z/) ||
-                    e.match(/\A[ \t]+[^ \t]+[@][^ \t]+[.][a-zA-Z]+[ ]<(.+?[@].+?)>:.+\z/) ||
+            if cv = e.match(/\A[ \t]{2}([^ \t]+[@][^ \t]+[.]?[a-zA-Z]+)(:.+)?\z/) ||
+                    e.match(/\A[ \t]{2}[^ \t]+[@][^ \t]+[.][a-zA-Z]+[ ]<(.+?[@].+?)>:.+\z/) ||
                     e.match(Re1[:alias])
               #   kijitora@example.jp
               #   sabineko@example.jp: forced freeze
