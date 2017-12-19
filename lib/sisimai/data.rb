@@ -257,7 +257,7 @@ module Sisimai
 
         # Subject: header of the original message
         p['subject'] = rfc822data['subject'] || ''
-        p['subject'] = p['subject'].gsub(/\r\z/, '')
+        p['subject'] = p['subject'].scrub('?').gsub(/\r\z/, '')
 
         # The value of "List-Id" header
         p['listid'] = rfc822data['list-id'] || ''
