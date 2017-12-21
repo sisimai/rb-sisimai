@@ -53,7 +53,7 @@ Key Features
   * git clone & make
 * __High Precision of Analysis__
   * 2 times higher than bounceHammer
-  * Support 22 known MTAs and 5 unknown MTAs
+  * Support 23 known MTAs and 5 unknown MTAs
   * Support 22 major MSPs(Mail Service Providers)
   * Support 2 major Cloud Email Delivery Services(JSON format)
   * Support Feedback Loop Message(ARF)

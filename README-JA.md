@@ -54,7 +54,7 @@ Key features
   * git clone & make
 * __高い解析精度__
   * 解析精度はbounceHammerの2倍
-  * 27種類のMTAに対応
+  * 28種類のMTAに対応
   * 22種類の著名なMSPに対応
   * 2種類の著名なメール配信クラウドに対応(JSON)
   * Feedback Loopにも対応
