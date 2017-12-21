@@ -429,7 +429,7 @@ module Sisimai
           rfc822list.each do |e|
             # Check To: header in the original message
             next unless cv = e.match(/\ATo:\s*(.+)\z/)
-            r = Sisimai::Address.find(cv[1], true)
+            r = Sisimai::Address.find(cv[1], true) || []
             next if r.empty?
 
             if dscontents.size == recipients
