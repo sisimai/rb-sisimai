@@ -1,0 +1,70 @@
+Return-Path: <2ndml-admin@example.com>
+X-Original-To: 2ndml-admin@example.com
+Delivered-To: 2ndml-admin@example.com
+Received: from example.com (mail.example.com [127.0.0.1])
+	by mail.example.com (Postfix) with ESMTP id C544B22FD056B
+	for <2ndml-admin@example.com>; Mon, 20 Nov 2017 18:10:11 +0900 (JST)
+Date: Mon, 20 Nov 2017 18:10:11 +0900
+From: 2ndml-admin@example.com
+Subject: Loop Alert: Duplicated Message-ID (2ndml ML)
+To: 2ndml-admin@example.com
+Message-Id: <201711201810.FMLAAA26207.2ndml@example.com>
+References: <20171119044659.832032F81073@host.example.org>
+X-MLServer: fml [fml 4.0.3 release (20011202/4.0.3)]
+Mime-Version: 1.0
+Content-Type: text/plain; charset=iso-2022-jp
+
+Duplicated Message-ID in <2ndml@example.com>.
+
+
+Original mail as follows:
+
+   From owner-2ndml@example.com  Mon Nov 20 18:10:11 2017
+   Return-Path: <owner-2ndml@example.com>
+   Delivered-To: 2ndml@example.com
+   Received: from localhost (mail.example.com [127.0.0.1])
+   	by mail.example.com (Postfix) with ESMTP id 8A7F52314F017
+   	for <2ndml@example.com>; Mon, 20 Nov 2017 18:10:11 +0900 (JST)
+   Received: from mail.example.com ([127.0.0.1])
+   	by localhost (example.com [127.0.0.1]) (amavisd-new, port 10024)
+   	with ESMTP id NwsmRJK9Dn_v for <2ndml@example.com>;
+   	Mon, 20 Nov 2017 18:10:09 +0900 (JST)
+   Received: from 5th.example.net (5th.example.net [104.47.93.76])
+   	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+   	(No client certificate requested)
+   	by mail.example.com (Postfix) with ESMTPS id B2D1E2314ADF0
+   	for <2ndml@example.com>; Mon, 20 Nov 2017 18:10:09 +0900 (JST)
+   Received: from 4th.example.net (10.168.43.137) by
+    4th.example.net (10.168.43.137) with ShadowRedundancy
+    id 15.20.239.5; Mon, 20 Nov 2017 09:10:08 +0000
+   Received: from 3rd.example.net (10.167.147.9) by
+    4th.example.net (10.168.43.137) with Microsoft SMTP
+    Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
+    15.20.239.5; Sun, 19 Nov 2017 04:47:01 +0000
+   Received: from 1st.example.net
+    (2a01:111:f400:7e9c::206) by 2nd.example.net
+    (2603:1096:402:19::25) with Microsoft SMTP Server (version=TLS1_2,
+    cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.20.239.5 via Frontend
+    Transport; Sun, 19 Nov 2017 04:47:01 +0000
+   Received: from mail.example.org (192.0.2.2) by
+    1st.example.net (10.152.184.126) with Microsoft
+    SMTP Server id 15.20.197.9 via Frontend Transport; Sun, 19 Nov 2017 04:46:59
+    +0000
+   Received: from host.example.org (unknown [192.0.2.1])
+   	by mail.example.org (Postfix) with ESMTP id 861A81F8A69A
+   	for <1stml@example.org>; Sun, 19 Nov 2017 13:46:59 +0900 (JST)
+   Received: by host.example.org (Postfix, from userid 503)
+   	id 832032F81073; Sun, 19 Nov 2017 13:46:59 +0900 (JST)
+   To: <1stml@example.org>
+   Subject: subject text
+   MIME-Version: 1.0
+   Content-Type: text/plain; charset="iso-2022-jp"
+   Content-Transfer-Encoding: 7bit
+   Date: Sun, 19 Nov 2017 13:46:59 +0900
+   X-Mailer: PHP/5.3.3
+   From: <foo@host.example.org>
+   Message-ID: <20171119044659.832032F81073@host.example.org>
+   
+   本文パート
+   
+

@@ -1,0 +1,44 @@
+Newsgroups: neko.nyaan
+Path: nntp.neko.example.org
+Xref: nntp.neko.example.org neko.nyaan:20222
+Return-Path: <neko-admin@example.org>
+Mailing-List: contact nyaan-help@neko.example.org; run by ezmlm
+Delivered-To: mailing list sironeko@neko.example.org
+Received: (qmail 2022 invoked from network); 29 Apr 2005 23:34:45 -0000
+Received: from n1.example.com (63.251.223.170)
+  by mike.example.com with SMTP; 29 Apr 2005 23:34:45 -0000
+Received: (qmail 2022 invoked by uid 225); 29 Apr 2005 23:34:45 -0000
+Delivered-To: sironeko@neko.example.org
+Received: (qmail 2022 invoked by alias); 29 Apr 2005 23:34:45 -0000
+Received: from aosima.example.org (HELO aosima.example.org) (192.0.2.22)
+  by la.mx.example.com (qpsmtpd/0.27.1) with ESMTP; Thu, 29 Apr 2005 23:34:45 -0700
+Received: from aosima.example.org (localhost [127.0.0.1])
+	by aosima.example.org (8.13.1/8.13.1/Debian-6.6) with ESMTP id j529FF000000
+	for <sironeko@neko.example.org>; Fri, 29 Apr 2005 23:34:45 +0900
+Date: Fri, 29 Apr 2005 23:34:45 +0900
+Subject: You sironeko@neko.example.org are not member (neko-nyaan ML)
+To: sironeko@neko.example.org
+Message-ID: <200504292334.FMLFFFFFF0.neko-nyaan@example.org>
+References: <200504292334.j5290000000022@aosima.example.org>
+X-MLServer: fml [fml 4.0.3 release (20011202/4.0.3)]
+X-ML-Info: If you have a question,
+	please contact neko-admin@example.org;
+	<mailto:neko-admin@example.org>
+List-Subscribe: <mailto:neko-nyaan-ctl@example.org?body=subscribe>
+Approved: news@nntp.neko.example.org
+From: neko-admin@example.org
+
+You are not a member of this mailing list <neko-nyaan@example.org>.
+
+If you know the general guide of this list, please send mail with
+the mail body 
+
+	guide
+
+to the address
+
+	neko-nyaan-ctl@example.org
+
+where guide is equal to GUIDE for case insensitive.
+
+

@@ -28,7 +28,7 @@ module Sisimai
             GMX Bigfoot Facebook Zoho EinsUndEins MessageLabs EZweb KDDI Biglobe
             ApacheJames McAfee MXLogic MailFoundry IMailServer
             MFILTER Activehunter InterScanMSS SurfControl MailMarshalSMTP
-            X1 X2 X3 X4 X5 V5sendmail
+            X1 X2 X3 X4 X5 V5sendmail FML
           |
         end
 
