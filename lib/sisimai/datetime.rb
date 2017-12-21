@@ -391,6 +391,12 @@ module Sisimai
                 v[:d]  = cr[2].to_i
                 v[:Y]  = cr[3].to_i + 2000
                 v[:Y] -= 100 if v[:Y].to_i > ::DateTime.now.year + 1
+
+              elsif cr = p.match(%r|\A(\d{1,2})[-/](\d{1,2})[-/](\d{4})|)
+                # 29-04-2017 22:22
+                v[:d] = cr[1].to_i if cr[1].to_i < 32
+                v[:M] = MonthName[:abbr][cr[2].to_i - 1]
+                v[:Y] = cr[3].to_i
               end
             end
           end
