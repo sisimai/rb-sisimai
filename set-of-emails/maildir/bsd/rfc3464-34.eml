@@ -1,0 +1,53 @@
+Subject: Delayed Mail (still being retried)
+From: MAILER-DAEMON@neko.example.org (Mail Delivery System)
+Date: 29-04-2017 23:34
+To: sironeko@neko.example.org
+
+This is the mail system at host smtp.neko.example.org.
+
+####################################################################
+# THIS IS A WARNING ONLY.  YOU DO NOT NEED TO RESEND YOUR MESSAGE. #
+####################################################################
+
+Your message could not be delivered for more than 2 hour(s).
+It will be retried until it is 4 day(s) old.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@example.com>: connect to
+    nyaan.example.com[192.0.2.2]:25: No route to host
+
+
+
+Reporting-MTA: dns; smtp.neko.example.org
+X-Postfix-Queue-ID: FFFFFFFFFF
+X-Postfix-Sender: rfc822; sironeko@neko.example.org
+Arrival-Date: Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; kijitora@example.com
+Original-Recipient: rfc822;kijitora@example.com
+Action: delayed
+Status: 4.4.1
+Diagnostic-Code: X-Postfix; connect to
+    nyaan.example.com[192.0.2.2]:25: No route to host
+Will-Retry-Until: Sun, 05 May 2017 23:34:45 +0900 (JST)
+
+
+
+Return-Path: <sironeko@neko.example.org>
+Received: from neko (unknown [213.0.113.2])
+	by smtp.neko.example.org (Postfix) with ESMTPSA id 22222222ee;
+	Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+Content-Type: multipart/mixed; boundary="===============002200002222=="
+MIME-Version: 1.0
+Date: Thu, 29 Apr 2017 23:34:45 +0900
+Subject: Nyaan
+From: sironeko@neko.example.org
+To: kijitora@example.com
+Message-Id: <20170429233445.FFFFFFFF02@smtp.neko.example.org>
+

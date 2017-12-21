@@ -35,5 +35,6 @@ isexpected = [
   { 'n' => '31', 's' => /\A5[.]0[.]\d+\z/,   'r' => /virusdetected/, 'a' => /RFC3464/, 'b' => /\A1\z/ },
   { 'n' => '32', 's' => /\A5[.]0[.]\d+\z/,   'r' => /filtered/,    'a' => /RFC3464/, 'b' => /\A1\z/ },
   { 'n' => '33', 's' => /\A5[.]2[.]0\z/,     'r' => /spamdetected/,'a' => /RFC3464/, 'b' => /\A1\z/ },
+  { 'n' => '34', 's' => /\A5[.]0[.]\d+\z/,   'r' => /networkerrro/,'a' => /RFC3464/, 'b' => /\A1\z/ },
 ]
 Sisimai::Bite::Email::Code.maketest(enginename, isexpected)
