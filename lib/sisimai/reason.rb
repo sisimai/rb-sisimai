@@ -75,14 +75,11 @@ module Sisimai
 
           if reasontext == 'undefined' || reasontext.empty?
             # Action: delayed => "expired"
-            if reasontext.nil? || reasontext.empty?
-              reasontext = 'expired' if argvs.action == 'delayed'
-            end
-            if reasontext.nil? || reasontext.empty?
-              reasontext = 'onhold'  if argvs.diagnosticcode.size > 0
-            end
+            reasontext   = nil
+            reasontext ||= 'expired' if argvs.action == 'delayed'
+            reasontext ||= 'onhold'  if argvs.diagnosticcode.size > 0
           end
-          reasontext = 'undefined' if reasontext.nil? || reasontext.empty?
+          reasontext ||= 'undefined'
         end
         return reasontext
       end
