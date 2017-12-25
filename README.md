@@ -85,10 +85,10 @@ Install
 
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-4.22.0.gem (100%)
-Successfully installed sisimai-4.22.0
-Parsing documentation for sisimai-4.22.0
-Installing ri documentation for sisimai-4.22.0
+Fetching: sisimai-4.22.2.gem (100%)
+Successfully installed sisimai-4.22.2
+Parsing documentation for sisimai-4.22.2
+Installing ri documentation for sisimai-4.22.2
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -104,8 +104,8 @@ gem install bundle rake rspec coveralls
 ...
 4 gems installed
 bundle exec rake install
-sisimai 4.22.0 built to pkg/sisimai-4.22.0.gem.
-sisimai (4.22.0) installed.
+sisimai 4.22.2 built to pkg/sisimai-4.22.2.gem.
+sisimai (4.22.2) installed.
 ```
 
 Usage
@@ -240,11 +240,11 @@ and bounceHammer are available at
 | System requirements                         | Ruby 2.1 - 2.4 | Perl 5.10 -   |
 |                                             | JRuby 9.0.4.0- |               |
 | Analytical precision ratio(2000 emails)[1]  | 1.00           | 1.00          |
-| The speed of parsing email(1000 emails)     | 3.30s          | 2.33s         |
+| The speed of parsing email(1000 emails)     | 6.70s          | 2.10s         |
 | How to install                              | gem install    | cpanm, cpm    |
 | Dependencies (Except core modules)          | 1 module       | 2 modules     |
-| LOC:Source lines of code                    | 12700 lines    | 9500 lines    |
-| The number of tests(spec/,t/,xt/) directory | 206000 tests   | 224600 tests  |
+| LOC:Source lines of code                    | 13000 lines    | 9800 lines    |
+| The number of tests(spec/,t/,xt/) directory | 213000 tests   | 230000 tests  |
 | License                                     | BSD 2-Clause   | BSD 2-Clause  |
 | Support Contract provided by Developer      | Coming soon    | Available     |
 
