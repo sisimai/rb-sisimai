@@ -5,8 +5,8 @@ RELEASE NOTES for Ruby version of Sisimai
 
 v4.22.3
 --------------------------------------------------------------------------------
-- release: ""
-- version: ""
+- release: "Tue, 26 Dec 2017 09:22:22 +0900 (JST)"
+- version: "4.22.3"
 - changes:
   - Issue #88: Fix codes in Sisimai.DateTime.parse() for setting numeric values
     using sprintf(). Thanks to @phuong1492.
