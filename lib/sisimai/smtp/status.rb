@@ -580,6 +580,7 @@ module Sisimai
           :'4.7.15' => 'securityerror',  # Priority Level is too low
           :'4.7.16' => 'mesgtoobig',     # Message is too big for the specified priority
           :'4.7.24' => 'securityerror',  # SPF validation error
+          :'4.7.25' => 'blocked',        # Reverse DNS validation failed
           # ------------------------------------------------------------------------------
           :'5.1.0'  => 'userunknown',    # Other address status
           :'5.1.1'  => 'userunknown',    # Bad destination mailbox address

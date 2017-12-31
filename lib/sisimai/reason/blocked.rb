@@ -28,7 +28,10 @@ module Sisimai
             |blacklisted[ ]by
             |(?:Blocked|Refused)[ ]-[ ]see[ ]https?://
             |can[']t[ ]determine[ ]Purported[ ]Responsible[ ]Address
-            |cannot[ ]resolve[ ]your[ ]address
+            |cannot[ ](?:
+               find[ ]your[ ]hostname
+              |resolve[ ]your[ ]address
+              )
             |client[ ]host[ ](?:
                .+[ ]blocked[ ]using
               |rejected:[ ](?:
