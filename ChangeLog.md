@@ -3,6 +3,14 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.22.3p1
+--------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - Import commit sisimai/p5-Sisimai@8c6eb33, Add status code 4.7.25 (RFC-7372)
+    as "blocked".
+
 v4.22.3
 --------------------------------------------------------------------------------
 - release: "Tue, 26 Dec 2017 09:22:22 +0900 (JST)"
