@@ -172,12 +172,12 @@ module Sisimai
               next unless RFC822Head.key?(lhs)
 
               previousfn  = lhs
-              rfc822part << e << "\n"
+              rfc822part << e + "\n"
               rcptintext  = rhs if lhs == 'to'
 
             elsif e =~ /\A[ \t]+/
               # Continued line from the previous line
-              rfc822part << e << "\n" if LongFields.key?(previousfn)
+              rfc822part << e + "\n" if LongFields.key?(previousfn)
               next if e.size > 0
               rcptintext << e if previousfn == 'to'
             end
@@ -278,15 +278,15 @@ module Sisimai
           # There is no "From:" header in the original message
           if commondata[:from].size > 0
             # Append the value of "Original-Mail-From" value as a sender address.
-            rfc822part << 'From: ' << commondata[:from] << "\n"
+            rfc822part << 'From: ' << commondata[:from] + "\n"
           end
         end
 
         if cv = mhead['subject'].match(/complaint about message from (\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3})/)
           # Microsoft ARF: remote host address.
           arfheaders[:rhost] = cv[1]
-          commondata[:diagnosis] =
-            'This is a Microsoft email abuse report for an email message received from IP' << arfheaders[:rhost] << 'on' << mhead['date']
+          commondata[:diagnosis] = 
+            'This is a Microsoft email abuse report for an email message received from IP' << arfheaders[:rhost] + ' on ' << mhead['date']
         end
 
         dscontents.map do |e|
