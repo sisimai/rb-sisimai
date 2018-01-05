@@ -53,7 +53,7 @@ module Sisimai
 
       else
         # Unsupported value in "input"
-        warn ' ***warning: Unsupported value in "input": ' + input.to_s
+        warn ' ***warning: Unsupported value in "input": ' << input.to_s
         return nil
       end
 
@@ -66,7 +66,7 @@ module Sisimai
       begin
         require child.gsub('::', '/').downcase
       rescue LoadError => ce
-        warn ' ***warning: Failed to load module: ' + ce.to_s
+        warn ' ***warning: Failed to load module: ' << ce.to_s
         return nil
       end
 
