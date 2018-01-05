@@ -143,7 +143,7 @@ module Sisimai
           # Sisimai::Bite::Email or Sisimai::Bite::JSON
           Module.const_get(r).send(:index).each do |ee|
             # Load and get the value of "description" from each module
-            rr = sprintf('Sisimai::%s::%s', e, ee)
+            rr = 'Sisimai::' << e + '::' << ee
             require rr.gsub('::', '/').downcase
             table[rr.to_sym] = Module.const_get(rr).send(:description)
           end
