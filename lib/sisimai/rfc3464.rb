@@ -302,7 +302,7 @@ module Sisimai
                   # 500 User Unknown
                   # <kijitora@example.jp> Unknown
                   v['alterrors'] ||= ' '
-                  v['alterrors']  += ' ' + e
+                  v['alterrors']  << ' ' << e
                 end
               end
             end
@@ -418,7 +418,7 @@ module Sisimai
               b['alias'] = Sisimai::Address.s3s4(cv[1])
             end
             b['diagnosis'] ||= ''
-            b['diagnosis']  += ' ' + e
+            b['diagnosis']  << ' ' << e
           end
 
           break

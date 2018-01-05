@@ -219,12 +219,12 @@ module Sisimai
             next unless HeaderIndex.key?(lhs)
 
             previousfn  = lhs
-            rfc822part += e + "\n"
+            rfc822part << e + "\n"
 
           elsif e =~ /\A[ \t]+/
             # Continued line from the previous line
             next if rfc822next[previousfn]
-            rfc822part += e + "\n" if LongHeaders.key?(previousfn)
+            rfc822part << e + "\n" if LongHeaders.key?(previousfn)
 
           else
             # Check the end of headers in rfc822 part
