@@ -24,7 +24,7 @@ module Sisimai
         # Path to mail or '<STDIN>' ?
         if argv1 == '<STDIN>'
           # Sisimai::Mail.new('<STDIN>')
-          classname = sprintf('%s::STDIN', self.class)
+          classname = self.class.to_s << '::STDIN'
           parameter['type'] = 'stdin'
           parameter['path'] = $stdin
         else
@@ -33,12 +33,12 @@ module Sisimai
 
           if mediatype == 'file'
             # The argument is a file, it is an mbox or email file in Maildir/
-            classname = sprintf('%s::Mbox', self.class)
+            classname = self.class.to_s << '::Mbox'
             parameter['type'] = 'mailbox'
 
           elsif mediatype == 'directory'
             # The agument is not a file, it is a Maildir/
-            classname = sprintf('%s::Maildir', self.class)
+            classname = self.class.to_s << '::Maildir'
             parameter['type'] = 'maildir'
           end
         end
@@ -46,7 +46,7 @@ module Sisimai
       elsif argv1.is_a?(IO)
         # Read from STDIN
         # The argument neither a mailbox nor a Maildir/.
-        classname = sprintf('%s::STDIN', self.class)
+        classname = self.class.to_s << '::STDIN'
         parameter['type'] = 'stdin'
       end
 
