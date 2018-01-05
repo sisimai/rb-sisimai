@@ -131,8 +131,8 @@ module Sisimai::Bite::Email
                 elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A[ \t]+(.+)\z/)
                   # Continued line of the value of Diagnostic-Code header
                   v['diagnosis'] ||= ''
-                  v['diagnosis']  += ' ' + cv[1]
-                  havepassed[-1] = 'Diagnostic-Code: ' + e
+                  v['diagnosis'] << ' ' << cv[1]
+                  havepassed[-1] = 'Diagnostic-Code: ' << e
                 end
               end
             else
@@ -166,10 +166,10 @@ module Sisimai::Bite::Email
 
                 if cv = e.match(/\A[Aa]rrival-[Dd]ate: (\d{4})[-](\d{2})[-](\d{2}) (\d{2})[-](\d{2})[-](\d{2})\z/)
                   # Arrival-Date: 2011-08-12 01-05-05
-                  arrivaldate += 'Thu, ' + cv[3] + ' '
-                  arrivaldate += Sisimai::DateTime.monthname(0)[cv[2].to_i - 1]
-                  arrivaldate += ' ' + cv[1] + ' ' + [cv[4], cv[5], cv[6]].join(':')
-                  arrivaldate += ' ' + Sisimai::DateTime.abbr2tz('CDT')
+                  arrivaldate << 'Thu, ' << cv[3] + ' '
+                  arrivaldate << Sisimai::DateTime.monthname(0)[cv[2].to_i - 1]
+                  arrivaldate << ' ' << cv[1] + ' ' << [cv[4], cv[5], cv[6]].join(':')
+                  arrivaldate << ' ' << Sisimai::DateTime.abbr2tz('CDT')
                 end
                 connheader['date'] = arrivaldate
                 connvalues += 1

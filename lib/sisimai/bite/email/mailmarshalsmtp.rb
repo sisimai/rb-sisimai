@@ -54,7 +54,7 @@ module Sisimai::Bite::Email
         boundary00 = Sisimai::MIME.boundary(mhead['content-type']) || ''
         regularexp = if boundary00.size > 0
                        # Convert to regular expression
-                       Regexp.new('\A' + Regexp.escape('--' + boundary00 + '--') + '\z')
+                       Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z')
                      else
                        regularexp = %r/\A[ \t]*[+]+[ \t]*\z/
                      end
@@ -125,7 +125,7 @@ module Sisimai::Bite::Email
                 # Append error messages
                 endoferror = true if e =~ Re1[:rcpts]
                 next if endoferror
-                v['diagnosis']  += ' ' + e
+                v['diagnosis'] << ' ' << e
 
               else
                 # Additional Information
@@ -140,7 +140,7 @@ module Sisimai::Bite::Email
                   # Original Sender:    <originalsender@example.com>
                   # Use this line instead of "From" header of the original
                   # message.
-                  rfc822list << sprintf('From: %s', cv[1])
+                  rfc822list << ('From: ' << cv[1])
 
                 elsif cv = e.match(/\ASender-MTA:[ \t]+[<](.+)[>]\z/)
                   # Sender-MTA:         <10.11.12.13>

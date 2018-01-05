@@ -279,7 +279,7 @@ module Sisimai::Bite::Email
                 # Message *** has been frozen by the system filter.
                 # Message *** was frozen on arrival by ACL.
                 v['alterrors'] ||= ''
-                v['alterrors']  += e + ' '
+                v['alterrors'] <<  e + ' '
 
               else
                 if boundary00.size > 0
@@ -313,7 +313,7 @@ module Sisimai::Bite::Email
                       # Content-type: message/delivery-status
                       havepassed[:deliverystatus] = 1 if e =~ Re1[:deliverystatus]
                       v['alterrors'] ||= ''
-                      v['alterrors']  += e + ' ' if e =~ /\A[ ]+/
+                      v['alterrors'] << e + ' ' if e =~ /\A[ ]+/
                     end
                   end
                 else
@@ -321,7 +321,7 @@ module Sisimai::Bite::Email
                     # Error message
                     next unless e.size
                     v['diagnosis'] ||= ''
-                    v['diagnosis']  += e + '  '
+                    v['diagnosis'] << e + '  '
 
                   else
                     # Error message when email address above does not include '@'
@@ -333,7 +333,7 @@ module Sisimai::Bite::Email
                     else
                       next unless e =~ /\A[ ]{4}/
                       v['alterrors'] ||= ''
-                      v['alterrors']  += e + ' '
+                      v['alterrors'] << e + ' '
                     end
 
                   end
@@ -529,7 +529,7 @@ module Sisimai::Bite::Email
 
           s1  = sv[0, 1].to_i if sv.size > 0
           v1  = s1 + r1
-          v1 += e['status'][0, 1].to_i if e['status']
+          v1 << e['status'][0, 1].to_i if e['status']
 
           if v1 > 0
             # Status or SMTP reply code exists

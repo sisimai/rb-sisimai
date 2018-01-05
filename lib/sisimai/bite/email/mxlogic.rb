@@ -169,7 +169,7 @@ module Sisimai::Bite::Email
               # Error message
               next if e.empty?
               v['diagnosis'] ||= ''
-              v['diagnosis']  += e + ' '
+              v['diagnosis'] << e + ' '
             end
           end
         end

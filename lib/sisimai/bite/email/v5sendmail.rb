@@ -124,7 +124,7 @@ module Sisimai::Bite::Email
               if responding[recipients]
                 # Concatenate the response of the server and error message
                 v['diagnosis'] ||= ''
-                v['diagnosis']  += ': ' + responding[recipients]
+                v['diagnosis'] << ': ' << responding[recipients]
               end
               recipients += 1
 

@@ -118,7 +118,7 @@ module Sisimai::Bite::Email
             else
               next if e =~ /\A[^\w]/
               v['diagnosis'] ||= ''
-              v['diagnosis'] += e + ' '
+              v['diagnosis'] << e + ' '
             end
           end
         end

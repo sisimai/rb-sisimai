@@ -102,7 +102,7 @@ module Sisimai::Bite::Email
             else
               # This user doesn't have a example.com account (kijitora@example.com) [0]
               v['diagnosis'] ||= ''
-              v['diagnosis']  += ' ' + e
+              v['diagnosis'] << ' ' << e
             end
           end
         end

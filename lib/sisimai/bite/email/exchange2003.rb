@@ -182,7 +182,7 @@ module Sisimai::Bite::Email
               elsif cv = e.match(/\A[ \t]+(MSEXCH:.+)\z/)
                 #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
                 v['diagnosis'] ||= ''
-                v['diagnosis']  += cv[1]
+                v['diagnosis'] << cv[1]
 
               else
                 next if v['msexch']
@@ -190,13 +190,13 @@ module Sisimai::Bite::Email
                   # Continued from MEEXCH in the previous line
                   v['msexch'] = true
                   v['diagnosis'] ||= ''
-                  v['diagnosis']  += ' ' + e
+                  v['diagnosis'] <<  ' ' << e
                   statuspart = true
 
                 else
                   # Error message in the body part
                   v['alterrors'] ||= ''
-                  v['alterrors']  += ' ' + e
+                  v['alterrors'] << ' ' << e
                 end
               end
 
@@ -269,9 +269,9 @@ module Sisimai::Bite::Email
 
         if rfc822list.empty?
           # When original message does not included in the bounce message
-          rfc822list << sprintf('From: %s', connheader['to'])
-          rfc822list << sprintf('Date: %s', connheader['date'])
-          rfc822list << sprintf('Subject: %s', connheader['subject'])
+          rfc822list << ('From: ' << connheader['to'])
+          rfc822list << ('Date: ' << connheader['date'])
+          rfc822list << ('Subject: ' << connheader['subject'])
         end
 
         rfc822part = Sisimai::RFC5322.weedout(rfc822list)

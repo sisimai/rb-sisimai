@@ -250,7 +250,7 @@ module Sisimai::Bite::Email
 
             else
               v['diagnosis'] ||= ''
-              v['diagnosis']  += e + ' '
+              v['diagnosis'] << e + ' '
             end
           end
         end

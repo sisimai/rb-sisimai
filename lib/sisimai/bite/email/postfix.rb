@@ -167,8 +167,8 @@ module Sisimai::Bite::Email
                 elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A[ \t]+(.+)\z/)
                   # Continued line of the value of Diagnostic-Code header
                   v['diagnosis'] ||= ''
-                  v['diagnosis']  += ' ' + cv[1]
-                  havepassed[-1] = 'Diagnostic-Code: ' + e
+                  v['diagnosis'] << ' ' << cv[1]
+                  havepassed[-1] = 'Diagnostic-Code: ' << e
                 end
               end
 
@@ -185,13 +185,13 @@ module Sisimai::Bite::Email
                 # 5.1.1 <userunknown@example.co.jp>... User Unknown (in reply to RCPT TO
                 commandset << cv[1]
                 anotherset['diagnosis'] ||= ''
-                anotherset['diagnosis'] += ' ' + e
+                anotherset['diagnosis'] << ' ' << e
 
               elsif cv = e.match(/([A-Z]{4})[ \t]*.*command[)]\z/)
                 # to MAIL command)
                 commandset << cv[1]
                 anotherset['diagnosis'] ||= ''
-                anotherset['diagnosis'] += ' ' + e
+                anotherset['diagnosis'] << ' ' << e
 
               else
                 if cv = e.match(/\A[Rr]eporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
@@ -208,7 +208,7 @@ module Sisimai::Bite::Email
 
                 elsif cv = e.match(/\A(X-Postfix-Sender):[ ]*rfc822;[ ]*(.+)\z/)
                   # X-Postfix-Sender: rfc822; shironeko@example.org
-                  rfc822list << sprintf('%s: %s', cv[1], cv[2])
+                  rfc822list << (cv[1] << ': ' << cv[2])
 
                 else
                   # Alternative error message and recipient
@@ -228,7 +228,7 @@ module Sisimai::Bite::Email
                     next unless anotherset['diagnosis']
                     if e =~ /\A[ \t]{4}(.+)\z/
                       #    host mx.example.jp said:...
-                      anotherset['diagnosis'] += ' ' + e
+                      anotherset['diagnosis'] << ' ' << e
                     end
                   end
 

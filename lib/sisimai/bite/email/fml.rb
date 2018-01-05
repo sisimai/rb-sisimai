@@ -130,7 +130,7 @@ module Sisimai::Bite::Email
               # If you know the general guide of this list, please send mail with
               # the mail body 
               v['diagnosis'] ||= ''
-              v['diagnosis']  += e
+              v['diagnosis'] << e
             end
           end
         end

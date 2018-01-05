@@ -141,7 +141,7 @@ module Sisimai::Bite::Email
 
                     next if endoferror
                     next unless e =~ /\A[ ]/
-                    v['diagnosis'] += e
+                    v['diagnosis'] << e
                   end
                 end
               end
@@ -167,7 +167,7 @@ module Sisimai::Bite::Email
                 # Detect SMTP session error or connection error
                 if e =~ Re1[:error]
                   # The response from the remote server was:
-                  anotherset['diagnosis'] += e
+                  anotherset['diagnosis'] << e
                 else
                   # ** Address not found **
                   #
@@ -187,7 +187,7 @@ module Sisimai::Bite::Email
                       emptylines += 1
                       next
                     end
-                    anotherset['diagnosis'] += ' ' + e
+                    anotherset['diagnosis'] << ' ' << e
                   else
                     # ** Address not found **
                     #
