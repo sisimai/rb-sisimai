@@ -91,7 +91,7 @@ module Sisimai
 
           if argv1.size > plain.size
             plain  = plain.squeeze(' ')
-            plain += "\n"
+            plain << "\n"
           end
         end
 
