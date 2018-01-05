@@ -130,7 +130,7 @@ module Sisimai
             begin
               require v.to_s.gsub('::', '/').downcase
             rescue LoadError
-              warn ' ***warning: Failed to load ' + v
+              warn ' ***warning: Failed to load ' << v
               next
             end
 
@@ -180,7 +180,7 @@ module Sisimai
           # Split email data to headers and a body part.
           if readcursor & Indicators[:endof] > 0
             # The body part of the email
-            aftersplit['body'] += e + "\n"
+            aftersplit['body'] << e + "\n"
 
           else
             # The boundary for splitting headers and a body part does not
@@ -191,7 +191,7 @@ module Sisimai
 
             else
               # The header part of the email
-              aftersplit['header'] += e + "\n"
+              aftersplit['header'] << e + "\n"
               readcursor |= Indicators[:begin]
             end
           end
@@ -262,11 +262,11 @@ module Sisimai
             # Header line continued from the previous line
             if structured[currheader].is_a? Array
               # Concatenate a header which have multi-lines such as 'Received'
-              structured[currheader][-1] += ' ' + cv[1]
+              structured[currheader][-1] << ' ' << cv[1]
 
             else
               structured[currheader] ||= ''
-              structured[currheader]  += ' ' + cv[1]
+              structured[currheader] << ' ' << cv[1]
             end
           end
         end
@@ -332,7 +332,7 @@ module Sisimai
             # Concatenate the line if it is the value of required header
             if Sisimai::MIME.is_mimeencoded(e)
               # The line is MIME-Encoded test
-              takenapart[previousfn] += if previousfn == 'subject'
+              takenapart[previousfn] << if previousfn == 'subject'
                                           # Subject: header
                                           borderline + e
                                         else
@@ -344,7 +344,7 @@ module Sisimai
             else
               # ASCII Characters only: Not MIME-Encoded
               e = e.lstrip
-              takenapart[previousfn]  += e
+              takenapart[previousfn] << e
               mimeborder[previousfn] ||= false
             end
           end
@@ -460,7 +460,7 @@ module Sisimai
             }
             havecaught = hookmethod.call(p)
           rescue StandardError => ce
-            warn sprintf(' ***warning: Something is wrong in hook method :%s', ce.to_s)
+            warn ' ***warning: Something is wrong in hook method :' << ce.to_s
           end
         end
 
@@ -473,9 +473,9 @@ module Sisimai
           bodystring = bodystring.gsub(/^[>]+[ ]/m, '')
           bodystring = bodystring.gsub(/^[>]$/m, '')
         end
-        bodystring += EndOfEmail
-        haveloaded  = {}
-        scannedset  = nil
+        bodystring << EndOfEmail
+        haveloaded = {}
+        scannedset = nil
 
         catch :SCANNER do
           loop do
@@ -498,7 +498,7 @@ module Sisimai
               begin
                 require r.gsub('::', '/').downcase
               rescue LoadError => ce
-                warn ' ***warning: Failed to load ' + ce.to_s
+                warn ' ***warning: Failed to load ' << ce.to_s
                 next
               end
               scannedset = Module.const_get(r).scan(mailheader, bodystring)
@@ -513,7 +513,7 @@ module Sisimai
               begin
                 require r.gsub('::', '/').downcase
               rescue LoadError => ce
-                warn ' ***warning: ' + ce.to_s
+                warn ' ***warning: ' << ce.to_s
                 next
               end
               scannedset = Module.const_get(r).scan(mailheader, bodystring)
@@ -531,7 +531,7 @@ module Sisimai
                 haveloaded[r] = true
                 throw :SCANNER if scannedset
               rescue => ce
-                warn ' ***warning: ' + ce.to_s
+                warn ' ***warning: ' << ce.to_s
                 next
               end
 

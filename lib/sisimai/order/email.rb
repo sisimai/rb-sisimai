@@ -154,7 +154,7 @@ module Sisimai
           # Make default order of MTA modules to be loaded
           rv = []
           begin
-            rv.concat(Sisimai::Bite::Email.index.map { |e| 'Sisimai::Bite::Email::' + e })
+            rv.concat(Sisimai::Bite::Email.index.map { |e| 'Sisimai::Bite::Email::' << e })
           rescue
             # Failed to load an MTA module
             next
@@ -203,7 +203,7 @@ module Sisimai
             begin
               require e.gsub('::', '/').downcase
             rescue LoadError
-              warn ' ***warning: Failed to load ' + e
+              warn ' ***warning: Failed to load ' << e
               next
             end
 

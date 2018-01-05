@@ -64,7 +64,7 @@ module Sisimai::Bite::JSON
             e = e.sub(/!\z/, '')
             foldedline = true
           end
-          jsonstring += e
+          jsonstring << e
         end
 
         begin
@@ -89,7 +89,7 @@ module Sisimai::Bite::JSON
 
         rescue StandardError => ce
           # Something wrong in decoding JSON
-          warn sprintf(' ***warning: Failed to decode JSON: %s', ce.to_s)
+          warn ' ***warning: Failed to decode JSON: ' << ce.to_s
           return nil
         end
 
