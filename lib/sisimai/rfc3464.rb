@@ -310,7 +310,7 @@ module Sisimai
 
         end
 
-        loop do
+        while true
           # Fallback, parse entire message body
           break if recipients > 0
           match = 0

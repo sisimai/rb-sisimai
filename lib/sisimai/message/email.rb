@@ -478,7 +478,7 @@ module Sisimai
         scannedset  = nil
 
         catch :SCANNER do
-          loop do
+          while true
             # 1. Sisimai::ARF
             # 2. User-Defined Module
             # 3. MTA Module Candidates to be tried on first
