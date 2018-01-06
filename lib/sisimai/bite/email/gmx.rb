@@ -132,7 +132,7 @@ module Sisimai::Bite::Email
                   # delivery retry timeout exceeded
                   v['diagnosis'] = e
 
-                elsif v['diagnosis'] =~ /\AReason:\z/
+                elsif v['diagnosis'] == 'Reason:'
                   v['diagnosis'] = e
                 end
               end
