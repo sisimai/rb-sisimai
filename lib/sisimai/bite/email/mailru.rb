@@ -239,7 +239,7 @@ module Sisimai::Bite::Email
             end
 
             # Detect the reason of bounce
-            if e['command'] =~ /\A(?:HELO|EHLO)\z/
+            if ['HELO', 'EHLO'].include?(e['command'])
               # HELO | Connected to 192.0.2.135 but my name was rejected.
               e['reason'] = 'blocked'
 

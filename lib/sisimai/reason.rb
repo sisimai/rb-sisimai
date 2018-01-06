@@ -149,7 +149,7 @@ module Sisimai
                 #  X.7.0   Other or undefined security status
                 reasontext = 'securityerror'
 
-              elsif argvs.diagnostictype =~ /\AX-(?:UNIX|POSTFIX)\z/
+              elsif ['X-UNIX', 'X-POSTFIX'].include?(argvs.diagnostictype)
                 # Diagnostic-Code: X-UNIX; ...
                 reasontext = 'mailererror'
 
@@ -162,13 +162,13 @@ module Sisimai
 
             if reasontext.empty?
               # Check the value of Action: field, first
-              if argvs.action =~ /\A(?:delayed|expired)/
+              if argvs.action.start_with?('delayed') || argvs.action.start_with?('expired')
                 # Action: delayed, expired
                 reasontext = 'expired'
 
               else
                 # Check the value of SMTP command
-                if commandtxt =~ /\A(?:EHLO|HELO)\z/
+                if ['HELO', 'EHLO'].include?(commandtxt)
                   # Rejected at connection or after EHLO|HELO
                   reasontext = 'blocked'
                 end

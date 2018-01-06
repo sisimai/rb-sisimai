@@ -47,7 +47,7 @@ module Sisimai
           diagnostic = argvs.diagnosticcode || ''
           v = false
 
-          if argvs.replycode =~ /\A(?:521|554|556)\z/
+          if [521, 554, 556].include?(argvs.replycode.to_i)
             # SMTP Reply Code is 554 or 556
             v = false
           else

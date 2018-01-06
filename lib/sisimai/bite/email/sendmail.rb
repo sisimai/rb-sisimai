@@ -227,7 +227,7 @@ module Sisimai::Bite::Email
                     anotherset['diagnosis'] ||= ''
                     anotherset['diagnosis']  += ' ' + e
 
-                  elsif e =~ /\A(?:Message|Warning:) /
+                  elsif e.start_with?('Message ') || e.start_with?('Warning: ')
                     # Message could not be delivered for too long
                     # Warning: message still undelivered after 4 hours
                     anotherset['diagnosis'] ||= ''

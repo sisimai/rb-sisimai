@@ -320,7 +320,7 @@ module Sisimai
           end
         end
         p['diagnostictype'] ||= 'X-UNIX' if p['reason'] == 'mailererror'
-        p['diagnostictype'] ||= 'SMTP' unless p['reason'] =~ /\A(?:feedback|vacation)\z/
+        p['diagnostictype'] ||= 'SMTP' unless ['feedback', 'vacation'].include?(p['reason'])
 
         # Check the value of SMTP command
         p['smtpcommand'] = '' unless p['smtpcommand'] =~ rxcommands
@@ -366,7 +366,7 @@ module Sisimai
           o.reason = r
         end
 
-        if o.reason =~ /\A(?:delivered|feedback|vacation)\z/
+        if ['delivered', 'feedback', 'vacation'].include?(o.reason)
           # The value of reason is "vacation" or "feedback"
           o.softbounce = -1
           o.replycode = '' unless o.reason == 'delivered'

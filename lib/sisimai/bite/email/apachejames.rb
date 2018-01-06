@@ -123,7 +123,7 @@ module Sisimai::Bite::Email
               next if gotmessage == 1
               if v['diagnosis']
                 # Get an error message text
-                if e =~ /\AMessage[ ]details:\z/
+                if e.start_with?('Message details:')
                   # Message details:
                   #   Subject: nyaan
                   #   ...

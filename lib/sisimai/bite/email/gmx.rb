@@ -127,7 +127,7 @@ module Sisimai::Bite::Email
 
               else
                 next if e =~ /\A\z/
-                if e =~ /\AReason:\z/
+                if e.start_with?('Reason:')
                   # Reason:
                   # delivery retry timeout exceeded
                   v['diagnosis'] = e

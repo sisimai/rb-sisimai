@@ -112,7 +112,7 @@ module Sisimai::Bite::Email
                 # Remote host said:
                 # 550 5.2.2 <mailboxfull@example.jp>... Mailbox Full
                 # [RCPT_TO]
-                if v['diagnosis'] =~ /\ARemote host said:\z/
+                if v['diagnosis'].start_with?('Remote host said:')
                   # Remote host said:
                   # 550 5.2.2 <mailboxfull@example.jp>... Mailbox Full
                   if cv = e.match(/\[([A-Z]{4}).*\]\z/)

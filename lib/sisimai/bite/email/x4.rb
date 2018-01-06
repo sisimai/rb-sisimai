@@ -272,7 +272,7 @@ module Sisimai::Bite::Email
             # MAIL | Connected to 192.0.2.135 but sender was rejected.
             e['reason'] = 'rejected'
 
-          elsif e['command'] =~ /\A(?:HELO|EHLO)\z/
+          elsif ['HELO', 'EHLO'].include?(e['command'])
             # HELO | Connected to 192.0.2.135 but my name was rejected.
             e['reason'] = 'blocked'
 

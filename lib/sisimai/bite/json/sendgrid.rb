@@ -46,7 +46,7 @@ module Sisimai::Bite::JSON
           #   'smtp-id' => '<201709042010.v84KAQ5T032530@example.nyaan.jp>',
           #   'status' => '5.2.2'
           # },
-          return nil unless argvs['event'] =~ /\A(?:bounce|deferred|delivered|spamreport)\z/
+          return nil unless %w[bounce deferred delivered spamreport].include?(argvs['event'])
           dscontents = [Sisimai::Bite.DELIVERYSTATUS]
           diagnostic = argvs['reason']   || ''
           diagnostic = argvs['response'] || '' if diagnostic.empty?
