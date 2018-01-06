@@ -239,7 +239,7 @@ module Sisimai::Bite::Email
 
           unless e['reason']
             # The value of "reason" is not set yet.
-            unless e['recipient'] =~ /[@]ezweb[.]ne[.]jp\z/
+            unless e['recipient'].end_with?('@ezweb.ne.jp')
               # Deal as "userunknown" when the domain part of the recipient
               # is "ezweb.ne.jp".
               e['reason'] = 'userunknown'
