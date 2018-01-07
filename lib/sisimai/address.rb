@@ -260,12 +260,12 @@ module Sisimai
         # except a domain part is an IP address like neko@[192.0.2.222]
         e[:address] = e[:address].sub(/\A[\[<{('`]/, '')
         e[:address] = e[:address].sub(/['`>})]\z/, '')
-        e[:address] = e[:address].sub(/\]\z/, '') unless e[:address] =~ /[@]\[[0-9A-Z:\.]+\]\z/i
+        e[:address] = e[:address].chomp(']') unless e[:address] =~ /[@]\[[0-9A-Z:\.]+\]\z/i
 
         unless e[:address] =~ /\A["].+["][@]/
           # Remove double-quotations
           e[:address] = e[:address].sub(/\A["]/, '')
-          e[:address] = e[:address].sub(/["]\z/, '')
+          e[:address] = e[:address].chomp('"')
         end
 
         if addrs
@@ -275,14 +275,13 @@ module Sisimai
         else
           # Remove double-quotations, trailing spaces.
           [:name, :comment].each do |f|
-            e[f] = e[f].sub(/\A\s*/, '')
-            e[f] = e[f].sub(/\s*\z/, '')
+            e[f] = e[f].strip
           end
           e[:comment] = '' unless e[:comment] =~ /\A[(].+[)]/
 
           e[:name] = e[:name].squeeze(' ')     unless e[:name] =~ /\A["].+["]\z/
           e[:name] = e[:name].sub(/\A["]/, '') unless e[:name] =~ /\A["].+["][@]/
-          e[:name] = e[:name].sub(/["]\z/, '')
+          e[:name] = e[:name].chomp('"')
         end
         addrtables << e
       end

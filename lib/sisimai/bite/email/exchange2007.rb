@@ -133,7 +133,7 @@ module Sisimai::Bite::Email
               else
                 if v['diagnosis'].to_s.size > 0 && v['diagnosis'].end_with?('=')
                   # Continued line of error messages
-                  v['diagnosis']  = v['diagnosis'].sub(/=\z/, '')
+                  v['diagnosis']  = v['diagnosis'].chomp('=')
                   v['diagnosis'] += e
                 end
               end

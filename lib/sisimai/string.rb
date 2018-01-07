@@ -53,7 +53,7 @@ module Sisimai
         argv1 = argv1.chomp
         argv1 = argv1.squeeze(' ')
         argv1 = argv1.delete("\t")
-        argv1 = argv1.gsub(/\A /, '').gsub(/ \z/, '')
+        argv1 = argv1.strip
         argv1 = argv1.sub(/ [-]{2,}[^ \t].+\z/, '')
 
         return argv1

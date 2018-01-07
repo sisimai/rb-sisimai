@@ -246,7 +246,7 @@ module Sisimai
         %w|rhost lhost|.each do |v|
           p[v] = p[v].delete('[]()')    # Remove square brackets and curly brackets from the host variable
           p[v] = p[v].sub(/\A.+=/, '')  # Remove string before "="
-          p[v] = p[v].gsub(/\r\z/, '')  # Remove CR at the end of the value
+          p[v] = p[v].chomp("\r")       # Remove CR at the end of the value
 
           # Check space character in each value
           if p[v] =~ / /
@@ -257,7 +257,7 @@ module Sisimai
 
         # Subject: header of the original message
         p['subject'] = rfc822data['subject'] || ''
-        p['subject'] = p['subject'].scrub('?').gsub(/\r\z/, '')
+        p['subject'] = p['subject'].scrub('?').chomp("\r")
 
         # The value of "List-Id" header
         p['listid'] = rfc822data['list-id'] || ''
@@ -268,7 +268,7 @@ module Sisimai
             p['listid'] = cv[1]
           end
           p['listid'] = p['listid'].delete('<>')
-          p['listid'] = p['listid'].gsub(/\r\z/, '')
+          p['listid'] = p['listid'].chomp("\r")
           p['listid'] = '' if p['listid'] =~ / /
         end
 
@@ -280,7 +280,7 @@ module Sisimai
             p['messageid'] = cv[1]
           end
           p['messageid'] = p['messageid'].delete('<>')
-          p['messageid'] = p['messageid'].gsub(/\r\z/, '')
+          p['messageid'] = p['messageid'].chomp("\r")
         end
 
         # CHECK_DELIVERY_STATUS_VALUE:
@@ -378,7 +378,7 @@ module Sisimai
           if o.softbounce.to_s.empty?
             # The value is not set yet
             textasargv = sprintf('%s %s', p['deliverystatus'], p['diagnosticcode'])
-            textasargv = textasargv.gsub(/\A[ ]/, '')
+            textasargv = textasargv.lstrip
             softorhard = Sisimai::SMTP::Error.soft_or_hard(o.reason, textasargv)
 
             o.softbounce = if softorhard.size > 0
@@ -393,7 +393,7 @@ module Sisimai
           if o.deliverystatus.empty?
             # Set pseudo status code
             textasargv = sprintf('%s %s', o.replycode, p['diagnosticcode'])
-            textasargv = textasargv.gsub(/\A[ ]/, '')
+            textasargv = textasargv.lstrip
 
             getchecked = Sisimai::SMTP::Error.is_permanent(textasargv)
             tmpfailure = getchecked.nil? ? false : (getchecked ? false : true)
