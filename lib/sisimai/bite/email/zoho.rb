@@ -115,7 +115,7 @@ module Sisimai::Bite::Email
 
               if v['diagnosis'].end_with?('=')
                 # Quoted printable
-                v['diagnosis'] = v['diagnosis'].sub(/=\z/, '')
+                v['diagnosis'] = v['diagnosis'].chomp('=')
                 qprintable = true
               end
               recipients += 1
