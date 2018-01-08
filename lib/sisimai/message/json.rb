@@ -139,7 +139,7 @@ module Sisimai
         end
 
         catch :ADAPTOR do
-          loop do
+          while true
             # 1. User-Defined Module
             # 2. MTA(JSON) Module Candidates to be tried on first
             # 3. Sisimai::Bite::JSON::*

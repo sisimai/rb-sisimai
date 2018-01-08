@@ -114,7 +114,7 @@ module Sisimai
         reasontext = Sisimai::SMTP::Status.name(statuscode)
 
         catch :TRY_TO_MATCH do
-          loop do
+          while true
             trytomatch ||= true if reasontext.empty?
             trytomatch ||= true if RetryReasons.index(reasontext)
             trytomatch ||= true if argvs.diagnostictype != 'SMTP'

@@ -45,7 +45,7 @@ module Sisimai::Bite::Email
         return nil unless mbody
 
         match = -1
-        loop do
+        while true
           # Check the value of "From" header
           break unless mhead['received'].find { |a| a =~ Re0[:received] }
           match = 1 if mhead['from'] =~ Re0[:'vtext.com'][:from]

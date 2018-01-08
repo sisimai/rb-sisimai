@@ -77,7 +77,7 @@ module Sisimai::Bite::Email
 
         match += 1 if mhead['x-ms-embedded-report']
         catch :EXCHANGE_OR_NOT do
-          loop do
+          while true
             throw :EXCHANGE_OR_NOT if match > 0
 
             if mhead['x-mailer']

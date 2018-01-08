@@ -115,7 +115,7 @@ module Sisimai
           else
             # Check all the reasons defined at the above
             catch :SOFT_OR_HARD do
-              loop do
+              while true
                 [:hard, :soft].each do |e|
                   # Soft or Hard?
                   SoftOrHard[e].each do |f|
