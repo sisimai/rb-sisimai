@@ -29,19 +29,17 @@ module Sisimai
       require 'sisimai/data'
       require 'sisimai/message'
 
-      rtype = nil
       input = argv1[:input] || nil
       field = argv1[:field] || []
       raise ' ***error: "field" accepts an array reference only' unless field.is_a? Array
 
       unless input
         # "input" did not specified, try to detect automatically.
-        rtype = argv0.class.to_s
-        if rtype == 'String' || rtype == 'IO'
+        if argv0.is_a?(::String) || argv0.is_a?(IO)
           # The argument may be a path to email
           input = 'email'
 
-        elsif rtype =~ /\A(?:Array|Hash)\z/
+        elsif argv0.is_a?(Array) || argv0.is_a?(Hash)
           # The argument may be a decoded JSON object
           input = 'json'
         end
@@ -139,7 +137,7 @@ module Sisimai
         r = 'Sisimai::' << e
         require r.gsub('::', '/').downcase
 
-        if e =~ /\ABite::(?:Email|JSON)\z/
+        if e.start_with?('Bite::Email') || e.start_with?('Bite::JSON')
           # Sisimai::Bite::Email or Sisimai::Bite::JSON
           Module.const_get(r).send(:index).each do |ee|
             # Load and get the value of "description" from each module

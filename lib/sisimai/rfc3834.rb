@@ -142,7 +142,8 @@ module Sisimai
             next
           end
           next unless e =~ / /
-          next if e =~ /\AContent-(?:Type|Transfer)/
+          next if e.start_with?('Content-Type')
+          next if e.start_with?('Content-Transfer')
 
           v['diagnosis'] ||= ''
           v['diagnosis']  << e + ' '

@@ -105,7 +105,7 @@ module Sisimai::Bite::Email
             #
             v = dscontents[-1]
 
-            if e =~ /\Awas not delivered to:\z/
+            if e.start_with?('was not delivered to:')
               # was not delivered to:
               if v['recipient']
                 # There are multiple recipient addresses in the message body.
@@ -120,7 +120,7 @@ module Sisimai::Bite::Email
               #   kijitora@example.net
               v['recipient'] = Sisimai::Address.s3s4(cv[1])
 
-            elsif e =~ /\Abecause:\z/
+            elsif e.start_with?('because:')
               # because:
               v['diagnosis'] = e
 

@@ -117,7 +117,7 @@ module Sisimai
                 v = true if Sisimai::Reason::Rejected.match(diagnostic)
               end
             else
-              if tempreason =~ /\A(?:onhold|undefined|securityerror|systemerror)\z/
+              if %w[onhold undefined securityerror systemerror].include?(tempreason)
                 # Try to match with message patterns when the temporary reason
                 # is "onhold", "undefined", "securityerror", or "systemerror"
                 v = true if Sisimai::Reason::Rejected.match(diagnostic)

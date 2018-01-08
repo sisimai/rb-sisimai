@@ -74,7 +74,7 @@ module Sisimai
           getchecked = nil
           softorhard = nil
 
-          if argv1 =~ /\A(?:delivered|feedback|vacation)\z/
+          if ['delivered', 'feedback', 'vacation'].include?(argv1)
             # These are not dealt as a bounce reason
             softorhard = ''
 

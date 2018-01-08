@@ -15,7 +15,7 @@ module Sisimai
 
         return true  if argv =~ /[.](?:test|example|invalid|localhost)\z/
         return true  if argv =~ /example[.](?:com|net|org)\z/
-        return true  if argv =~ /example[.]jp\z/
+        return true  if argv.end_with?('example.jp')
         return true  if argv =~ /example[.](?:ac|ad|co|ed|go|gr|lg|ne|or)[.]jp\z/
         return false
       end

@@ -146,7 +146,7 @@ module Sisimai::Bite::Email
             # <head>
             # <meta name="Generator" content="Amazon WorkMail v3.0-2023.77">
             # <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-            break if e =~ /\A[<]!DOCTYPE HTML[>][<]html[>]\z/
+            break if e.start_with?('<!DOCTYPE HTML><html>')
           end
         end
 

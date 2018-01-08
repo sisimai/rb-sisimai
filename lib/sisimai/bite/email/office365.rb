@@ -172,7 +172,7 @@ module Sisimai::Bite::Email
                 # After "Original message headers:"
                 if htmlbegins
                   # <html> .. </html>
-                  htmlbegins = false if e =~ %r|\A[<]/html[>]|
+                  htmlbegins = false if e.start_with?('</html>')
                   next
                 end
 
@@ -198,7 +198,7 @@ module Sisimai::Bite::Email
                   connheader['date'] = cv[1]
 
                 else
-                  htmlbegins = true if e =~ /\A[<]html[>]/
+                  htmlbegins = true if e.start_with?('<html>')
                 end
 
               else

@@ -7,10 +7,13 @@ module Sisimai
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Rhost.pm
       RhostClass = {
-        %r/\Aaspmx[.]l[.]google[.]com\z/                 => 'GoogleApps',
-        %r/[.](?:prod|protection)[.]outlook[.]com\z/     => 'ExchangeOnline',
-        %r/\A(?:smtp|mailstore1)[.]secureserver[.]net\z/ => 'GoDaddy',
-        %r/\b(?:laposte[.]net|orange[.]fr)\z/            => 'FrancePTT',
+        'aspmx.l.google.com'          => 'GoogleApps',
+        '.prod.outlook.com'           => 'ExchangeOnline',
+        '.protection.outlook.com'     => 'ExchangeOnline',
+        'smtp.secureserver.net'       => 'GoDaddy',
+        'mailstore1.secureserver.net' => 'GoDaddy',
+        'laposte.net'                 => 'FrancePTT',
+        'orange.fr'                   => 'FrancePTT',
       }.freeze
 
       # Retrun the list of remote hosts Sisimai support
@@ -32,7 +35,7 @@ module Sisimai
 
         RhostClass.each_key do |e|
           # Try to match with each key of RhostClass
-          next unless host0 =~ e
+          next unless host0.end_with?(e)
           match = true
           break
         end
