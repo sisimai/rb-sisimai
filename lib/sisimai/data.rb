@@ -378,7 +378,7 @@ module Sisimai
           if o.softbounce.to_s.empty?
             # The value is not set yet
             textasargv = p['deliverystatus'] + ' ' + p['diagnosticcode']
-            textasargv = textasargv.gsub(/\A[ ]/, '')
+            textasargv = textasargv.lstrip
             softorhard = Sisimai::SMTP::Error.soft_or_hard(o.reason, textasargv)
 
             o.softbounce = if softorhard.size > 0
@@ -393,7 +393,7 @@ module Sisimai
           if o.deliverystatus.empty?
             # Set pseudo status code
             textasargv = o.replycode + ' ' + p['diagnosticcode']
-            textasargv = textasargv.gsub(/\A[ ]/, '')
+            textasargv = textasargv.lstrip
 
             getchecked = Sisimai::SMTP::Error.is_permanent(textasargv)
             tmpfailure = getchecked.nil? ? false : (getchecked ? false : true)
