@@ -48,7 +48,7 @@ module Sisimai
       addresser: RFC822Head[:addresser],
       recipient: RFC822Head[:recipient],
     }.freeze
-    ActionList = ['failed', 'delayed', 'delivered', 'relayed', 'expanded']
+    ActionList = %w[failed delayed delivered relayed expanded]
     ActionHead = {
       :failure => 'failed',
       :expired => 'delayed',
@@ -110,7 +110,7 @@ module Sisimai
       rfc822data = messageobj.rfc822
       fieldorder = { :recipient => [], :addresser => [] }
       objectlist = []
-      commandset = ['EHLO', 'HELO', 'MAIL', 'RCPT', 'DATA', 'QUIT']
+      commandset = %w[EHLO HELO MAIL RCPT DATA QUIT]
       givenorder = argvs[:order] || {}
       delivered1 = argvs[:delivered] || false
 
@@ -435,7 +435,7 @@ module Sisimai
     def damn
       data = {}
       @@rwaccessors.each do |e|
-        next if ['addresser', 'recipient', 'timestamp'].include?(e.to_s)
+        next if %w[addresser recipient timestamp].include?(e.to_s)
         data[e.to_s] = self.send(e) || ''
       end
       data['addresser'] = self.addresser.address
