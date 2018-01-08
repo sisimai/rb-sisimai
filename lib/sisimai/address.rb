@@ -143,13 +143,13 @@ module Sisimai
               else
                 # Comment: <neko(nyaan)@example.org>
                 readcursor |= indicators[:'comment-block']
-                v[:comment] << ' ' if v[:comment] =~ /[)]\z/
+                v[:comment] << ' ' if v[:comment].end_with?(')')
                 v[:comment] << e
                 p = :comment
               end
             elsif readcursor & indicators[:'comment-block'] > 0
               # Comment at the outside of an email address (...(...)
-              v[:comment] << ' ' if v[:comment] =~ /[)]\z/
+              v[:comment] << ' ' if v[:comment].end_with?(')')
               v[:comment] << e
 
             elsif readcursor & indicators[:'quoted-string'] > 0
@@ -159,7 +159,7 @@ module Sisimai
             else
               # The beginning of a comment block
               readcursor |= indicators[:'comment-block']
-              v[:comment] << ' ' if v[:comment] =~ /[)]\z/
+              v[:comment] << ' ' if v[:comment].end_with?(')')
               v[:comment] << e
               p = :comment
             end
