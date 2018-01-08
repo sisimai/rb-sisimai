@@ -73,7 +73,7 @@ module Sisimai
             begin
               require v.to_s.gsub('::', '/').downcase
             rescue LoadError
-              warn ' ***warning: Failed to load ' + v
+              warn ' ***warning: Failed to load ' << v
               next
             end
             tobeloaded << v
@@ -134,7 +134,7 @@ module Sisimai
             }
             havecaught = hookmethod.call(p)
           rescue StandardError => ce
-            warn sprintf(' ***warning: Something is wrong in hook method :%s', ce.to_s)
+            warn ' ***warning: Something is wrong in hook method :' << ce.to_s
           end
         end
 
@@ -150,7 +150,7 @@ module Sisimai
               begin
                 require r.gsub('::', '/').downcase
               rescue LoadError => ce
-                warn ' ***warning: Failed to load ' + ce.to_s
+                warn ' ***warning: Failed to load ' << ce.to_s
                 next
               end
               hasadapted = Module.const_get(r).adapt(bouncedata)
@@ -165,7 +165,7 @@ module Sisimai
               begin
                 require r.gsub('::', '/').downcase
               rescue LoadError => ce
-                warn ' ***warning: ' + ce.to_s
+                warn ' ***warning: ' << ce.to_s
                 next
               end
               hasadapted = Module.const_get(r).adapt(bouncedata)
@@ -179,7 +179,7 @@ module Sisimai
               begin
                 require r.gsub('::', '/').downcase
               rescue => ce
-                warn ' ***warning: ' + ce.to_s
+                warn ' ***warning: ' << ce.to_s
                 next
               end
 

@@ -93,7 +93,7 @@ module Sisimai::Bite::Email
           b0 = Sisimai::MIME.boundary(mhead['content-type'], 1)
           if b0.size > 0
             # Convert to regular expression
-            rxboundary = Regexp.new('\A' + Regexp.escape(b0) + '\z')
+            rxboundary = Regexp.new('\A' << Regexp.escape(b0) << '\z')
           end
         end
         rxmessages = []
@@ -185,12 +185,12 @@ module Sisimai::Bite::Email
                 if rxmessages.find { |a| e =~ a }
                   # Check with regular expressions of each error
                   v['diagnosis'] ||= ''
-                  v['diagnosis']  += ' ' + e
+                  v['diagnosis'] << ' ' << e
 
                 else
                   # >>> 550
                   v['alterrors'] ||= ''
-                  v['alterrors']  += ' ' + e
+                  v['alterrors'] << ' ' << e
                 end
               end
             end

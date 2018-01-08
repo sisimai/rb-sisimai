@@ -129,7 +129,7 @@ module Sisimai::Bite::Email
 
             else
               # Other error message text
-              v['alterrors']  += ' ' + e if v['alterrors']
+              v['alterrors'] << ' ' << e if v['alterrors']
               if e =~ Re1[:error]
                 # Body of message generated response:
                 v['alterrors'] = e

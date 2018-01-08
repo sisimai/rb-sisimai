@@ -145,7 +145,7 @@ module Sisimai
           next if e =~ /\AContent-(?:Type|Transfer)/
 
           v['diagnosis'] ||= ''
-          v['diagnosis']  += e + ' '
+          v['diagnosis']  << e + ' '
           haveloaded += 1
           break if haveloaded >= maxmsgline
         end
@@ -162,7 +162,7 @@ module Sisimai
 
         if cv = mhead['subject'].match(ReV)
           # Get the Subject header from the original message
-          rfc822part = sprintf("Subject: %s\n", cv[1])
+          rfc822part = 'Subject: ' << cv[1] + "\n"
         end
         return { 'ds' => dscontents, 'rfc822' => rfc822part }
       end

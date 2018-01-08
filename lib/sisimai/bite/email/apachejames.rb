@@ -133,7 +133,7 @@ module Sisimai::Bite::Email
                   #   Error message below:
                   #   550 - Requested action not taken: no such user here
                   v['diagnosis'] ||= ''
-                  v['diagnosis']  += ' ' + e
+                  v['diagnosis'] <<  ' ' << e
                 end
 
               else
@@ -150,7 +150,7 @@ module Sisimai::Bite::Email
         unless rfc822list.find { |a| a =~ /^Subject:/ }
           # Set the value of subjecttxt as a Subject if there is no original
           # message in the bounce mail.
-          rfc822list << sprintf('Subject: %s', subjecttxt)
+          rfc822list << ('Subject: ' << subjecttxt)
         end
 
         dscontents.map do |e|

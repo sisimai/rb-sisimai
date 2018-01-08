@@ -54,13 +54,13 @@ module Sisimai
           classorder.each do |e|
             # Check the value of Diagnostic-Code: and the value of Status:, it is a
             # deliverystats, with true() method in each Sisimai::Reason::* class.
-            p = 'Sisimai::Reason::' + e
+            p = 'Sisimai::Reason::' << e
             r = nil
             begin
               require p.downcase.gsub('::', '/')
               r = Module.const_get(p)
             rescue
-              warn ' ***warning: Failed to load ' + p
+              warn ' ***warning: Failed to load ' << p
               next
             end
             next unless r.true(argvs)
@@ -123,13 +123,13 @@ module Sisimai
             # Could not decide the reason by the value of Status:
             classorder.each do |e|
               # Trying to match with other patterns in Sisimai::Reason::* classes
-              p = 'Sisimai::Reason::' + e
+              p = 'Sisimai::Reason::' << e
               r = nil
               begin
                 require p.downcase.gsub('::', '/')
                 r = Module.const_get(p)
               rescue
-                warn ' ***warning: Failed to load ' + p
+                warn ' ***warning: Failed to load ' << p
                 next
               end
 
@@ -206,13 +206,13 @@ module Sisimai
         classorder.each do |e|
           # Check the value of Diagnostic-Code: and the value of Status:, it is a
           # deliverystats, with true() method in each Sisimai::Reason::* class.
-          p = 'Sisimai::Reason::' + e
+          p = 'Sisimai::Reason::' << e
           r = nil
           begin
             require p.downcase.gsub('::', '/')
             r = Module.const_get(p)
           rescue
-            warn ' ***warning: Failed to load ' + p
+            warn ' ***warning: Failed to load ' << p
             next
           end
 

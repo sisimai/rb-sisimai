@@ -136,7 +136,7 @@ module Sisimai::Bite::Email
               # Continued line
               next unless qprintable
               v['diagnosis'] ||= ''
-              v['diagnosis']  += e
+              v['diagnosis'] << e
 
             end
           end

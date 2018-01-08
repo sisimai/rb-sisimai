@@ -121,7 +121,7 @@ module Sisimai::Bite::Email
             else
               #     As their mailbox is full.
               v['diagnosis'] ||= ''
-              v['diagnosis']  += e + ' ' if e =~ /\A[ \t]+/
+              v['diagnosis'] << e + ' ' if e =~ /\A[ \t]+/
             end
           end
         end

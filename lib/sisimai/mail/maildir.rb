@@ -48,7 +48,7 @@ module Sisimai
             # Read each file in the directory
             next if r == '.' || r == '..'
 
-            emailindir = sprintf('%s/%s', self.dir, r)
+            emailindir = self.dir + '/' + r
             emailindir = emailindir.squeeze('/')
 
             next unless File.ftype(emailindir) == 'file'

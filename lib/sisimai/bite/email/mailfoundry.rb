@@ -110,7 +110,7 @@ module Sisimai::Bite::Email
 
                 # Server mx22.example.org[192.0.2.222] failed with: 550 <kijitora@example.org> No such user here
                 v['diagnosis'] ||= ''
-                v['diagnosis']  += ' ' + e
+                v['diagnosis'] << ' ' << e
               end
             end
           end

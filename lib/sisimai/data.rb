@@ -229,7 +229,7 @@ module Sisimai
           t = Sisimai::Time.strptime(datestring, '%a, %d %b %Y %T')
           p['timestamp'] = (t.to_time.to_i - zoneoffset) || nil
         rescue
-          warn ' ***warning: Failed to strptime ' + datestring.to_s
+          warn ' ***warning: Failed to strptime ' << datestring.to_s
         end
         next unless p['timestamp']
 
@@ -377,7 +377,7 @@ module Sisimai
 
           if o.softbounce.to_s.empty?
             # The value is not set yet
-            textasargv = sprintf('%s %s', p['deliverystatus'], p['diagnosticcode'])
+            textasargv = p['deliverystatus'] + ' ' + p['diagnosticcode']
             textasargv = textasargv.gsub(/\A[ ]/, '')
             softorhard = Sisimai::SMTP::Error.soft_or_hard(o.reason, textasargv)
 
@@ -392,7 +392,7 @@ module Sisimai
 
           if o.deliverystatus.empty?
             # Set pseudo status code
-            textasargv = sprintf('%s %s', o.replycode, p['diagnosticcode'])
+            textasargv = o.replycode + ' ' + p['diagnosticcode']
             textasargv = textasargv.gsub(/\A[ ]/, '')
 
             getchecked = Sisimai::SMTP::Error.is_permanent(textasargv)
@@ -451,12 +451,12 @@ module Sisimai
     #                           argument is neither "json" nor "yaml"
     def dump(type = 'json')
       return nil unless %w|json yaml|.index(type)
-      referclass = sprintf('Sisimai::Data::%s', type.upcase)
+      referclass = 'Sisimai::Data::' << type.upcase
 
       begin
         require referclass.downcase.gsub('::', '/')
       rescue
-        warn '***warning: Failed to load' + referclass
+        warn '***warning: Failed to load' << referclass
       end
 
       dumpeddata = Module.const_get(referclass).dump(self)

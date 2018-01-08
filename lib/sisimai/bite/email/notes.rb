@@ -130,11 +130,11 @@ module Sisimai::Bite::Email
                   encodedmsg = removedmsg
                 end
                 v['diagnosis'] ||= ''
-                v['diagnosis']  += encodedmsg
+                v['diagnosis'] << encodedmsg
               else
                 # Error message does not include multi-byte character
                 v['diagnosis'] ||= ''
-                v['diagnosis']  += e
+                v['diagnosis'] << e
               end
             end
           end

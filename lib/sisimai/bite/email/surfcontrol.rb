@@ -129,8 +129,8 @@ module Sisimai::Bite::Email
               elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A[ ]+(.+)\z/)
                 # Continued line of the value of Diagnostic-Code header
                 v['diagnosis'] ||= ''
-                v['diagnosis']  += ' ' + cv[1]
-                havepassed[-1] = 'Diagnostic-Code: ' + e
+                v['diagnosis'] << ' ' << cv[1]
+                havepassed[-1] = 'Diagnostic-Code: ' << e
 
               elsif cv = e.match(/\A[Aa]ction:[ ]*(.+)\z/)
                 # Action: failed

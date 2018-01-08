@@ -155,8 +155,8 @@ module Sisimai::Bite::Email
                 elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A[ \t]+(.+)\z/)
                   # Continued line of the value of Diagnostic-Code header
                   v['diagnosis'] ||= ''
-                  v['diagnosis']  += ' ' + cv[1]
-                  havepassed[-1] = 'Diagnostic-Code: ' + e
+                  v['diagnosis'] << ' ' << cv[1]
+                  havepassed[-1] = 'Diagnostic-Code: ' << e
                 end
               end
 
@@ -225,13 +225,13 @@ module Sisimai::Bite::Email
                     # 554 5.3.0 unknown mailer error 255
                     anotherset['status'] = cv[1]
                     anotherset['diagnosis'] ||= ''
-                    anotherset['diagnosis']  += ' ' + e
+                    anotherset['diagnosis'] << ' ' << e
 
                   elsif e =~ /\A(?:Message|Warning:) /
                     # Message could not be delivered for too long
                     # Warning: message still undelivered after 4 hours
                     anotherset['diagnosis'] ||= ''
-                    anotherset['diagnosis'] += ' ' + e
+                    anotherset['diagnosis'] << ' ' << e
                   end
                 end
               end

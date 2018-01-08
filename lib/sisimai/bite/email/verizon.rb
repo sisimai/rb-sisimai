@@ -85,7 +85,7 @@ module Sisimai::Bite::Email
 
           if boundary00.size > 0
             # Convert to regular expression
-            re1['rfc822'] = Regexp.new('\A' + Regexp.escape('--' + boundary00 + '--') + '\z')
+            re1['rfc822'] = Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z')
           end
 
           hasdivided.each do |e|
@@ -164,7 +164,7 @@ module Sisimai::Bite::Email
           boundary00 = Sisimai::MIME.boundary(mhead['content-type'])
           if boundary00.size > 0
             # Convert to regular expression
-            re1['rfc822'] = Regexp.new('\A' + Regexp.escape('--' + boundary00 + '--') + '\z')
+            re1['rfc822'] = Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z')
           end
 
           hasdivided.each do |e|
@@ -235,11 +235,11 @@ module Sisimai::Bite::Email
 
         if !rfc822list.find { |a| a =~ /^From: / }
           # Set the value of "MAIL FROM:" or "From:"
-          rfc822list << sprintf('From: %s', senderaddr)
+          rfc822list << ('From: ' << senderaddr)
 
         elsif !rfc822list.find { |a| a =~ /^Subject: / }
           # Set the value of "Subject:"
-          rfc822list << sprintf('Subject: %s', subjecttxt)
+          rfc822list << ('Subject: ' << subjecttxt)
         end
 
         require 'sisimai/string'

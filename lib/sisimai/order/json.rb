@@ -19,7 +19,7 @@ module Sisimai
           # Make default order of MTA(JSON) modules to be loaded
           rv = []
           begin
-            rv.concat(Sisimai::Bite::JSON.index.map { |e| 'Sisimai::Bite::JSON::' + e })
+            rv.concat(Sisimai::Bite::JSON.index.map { |e| 'Sisimai::Bite::JSON::' << e })
           rescue
             # Failed to load MTA(JSON) module
             next

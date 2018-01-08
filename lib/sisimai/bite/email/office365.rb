@@ -215,7 +215,7 @@ module Sisimai::Bite::Email
                     endoferror = true
                     next
                   end
-                  v['diagnosis'] += ' ' + e
+                  v['diagnosis'] << ' ' << e
                 end
               end
             end

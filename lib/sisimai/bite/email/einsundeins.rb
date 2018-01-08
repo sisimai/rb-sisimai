@@ -111,7 +111,7 @@ module Sisimai::Bite::Email
               # Get error message
               if v['diagnosis']
                 # Append error message strings
-                v['diagnosis'] += ' ' + e
+                v['diagnosis'] << ' ' << e
               end
             end
           end

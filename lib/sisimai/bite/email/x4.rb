@@ -232,8 +232,8 @@ module Sisimai::Bite::Email
               # Append error message
               next if e.empty?
               v['diagnosis'] ||= ''
-              v['diagnosis']  += e + ' '
-              v['alterrors']   = e if e =~ Re1[:error]
+              v['diagnosis'] << e + ' '
+              v['alterrors'] = e if e =~ Re1[:error]
 
               next if v['rhost']
               if cv = e.match(ReHost)

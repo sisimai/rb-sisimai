@@ -136,14 +136,14 @@ module Sisimai
       table = {}
 
       names.each do |e|
-        r = 'Sisimai::' + e
+        r = 'Sisimai::' << e
         require r.gsub('::', '/').downcase
 
         if e =~ /\ABite::(?:Email|JSON)\z/
           # Sisimai::Bite::Email or Sisimai::Bite::JSON
           Module.const_get(r).send(:index).each do |ee|
             # Load and get the value of "description" from each module
-            rr = sprintf('Sisimai::%s::%s', e, ee)
+            rr = 'Sisimai::' << e + '::' << ee
             require rr.gsub('::', '/').downcase
             table[rr.to_sym] = Module.const_get(rr).send(:description)
           end
@@ -168,7 +168,7 @@ module Sisimai
 
       names.each do |e|
         # Call .description() method of Sisimai::Reason::*
-        r = 'Sisimai::Reason::' + e
+        r = 'Sisimai::Reason::' << e
         require r.gsub('::', '/').downcase
         table[e.to_sym] = Module.const_get(r).send(:description)
       end

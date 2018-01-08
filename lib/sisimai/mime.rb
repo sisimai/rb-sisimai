@@ -133,8 +133,8 @@ module Sisimai
 
         boundary01 = Sisimai::MIME.boundary(heads['content-type'], 1)
         reboundary = {
-          :begin => Regexp.new('\A' + Regexp.escape(boundary00)),
-          :until => Regexp.new(Regexp.escape(boundary01) + '\z')
+          :begin => Regexp.new('\A' << Regexp.escape(boundary00)),
+          :until => Regexp.new(Regexp.escape(boundary01) << '\z')
         }
         bodystring = ''
         notdecoded = ''
@@ -157,8 +157,8 @@ module Sisimai
               # --=_gy7C4Gpes0RP4V5Bs9cK4o2Us2ZT57b-3OLnRN+4klS8dTmQ
               getencoded = Sisimai::String.to_utf8(notdecoded.unpack('M').first, encodename)
 
-              bodystring += getencoded
-              bodystring += e + "\n"
+              bodystring << getencoded
+              bodystring << e + "\n"
 
               notdecoded = ''
               mimeinside = false
@@ -166,7 +166,7 @@ module Sisimai
               encodename = nil
             else
               # Inside of Queoted printable encoded text
-              notdecoded += e + "\n"
+              notdecoded << e + "\n"
             end
           else
             # NOT Quoted-Printable encoded text block
@@ -178,8 +178,8 @@ module Sisimai
                 boundary00 = e
                 boundary01 = e + '--'
                 reboundary = {
-                  :begin => Regexp.new('\A' + Regexp.escape(boundary00)),
-                  :until => Regexp.new(Regexp.escape(boundary01) + '\z')
+                  :begin => Regexp.new('\A' << Regexp.escape(boundary00)),
+                  :until => Regexp.new(Regexp.escape(boundary01) << '\z')
                 }
               end
             elsif cv = e.match(ReE[:'with-charset']) || e.match(ReE[:'only-charset'])
@@ -198,7 +198,7 @@ module Sisimai
               mimeinside = false
             end
 
-            bodystring += e + "\n"
+            bodystring << e + "\n"
           end
         end
 
@@ -235,8 +235,8 @@ module Sisimai
           #    boundary="n6H9lKZh014511.1247824040/mx.example.jp"
           value = cv[1]
           value = value.delete(%q|'"|)
-          value = sprintf('--%s', value) if start > -1
-          value = sprintf('%s--', value) if start >  0
+          value = '--' + value if start > -1
+          value = value + '--' if start >  0
         end
 
         return value

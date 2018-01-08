@@ -177,13 +177,13 @@ module Sisimai
             #     Recipient address rejected: User unknown in local recipient table
             prematches.each do |e|
               # Check the value of "Diagnostic-Code" with other error patterns.
-              p = 'Sisimai::Reason::' + e
+              p = 'Sisimai::Reason::' << e
               r = nil
               begin
                 require p.downcase.gsub('::', '/')
                 r = Module.const_get(p)
               rescue
-                warn '***warning: Failed to load ' + p
+                warn '***warning: Failed to load ' << p
                 next
               end
 

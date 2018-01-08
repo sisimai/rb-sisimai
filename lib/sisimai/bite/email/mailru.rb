@@ -158,14 +158,14 @@ module Sisimai::Bite::Email
               # Error message
               next if e.empty?
               v['diagnosis'] ||= ''
-              v['diagnosis']  += e + ' '
+              v['diagnosis'] << e + ' '
 
             else
               # Error message when email address above does not include '@'
               # and domain part.
               next unless e =~ /\A[ \t]{4}/
               v['alterrors'] ||= ''
-              v['alterrors']  += e + ' '
+              v['alterrors'] << e + ' '
             end
           end
         end
