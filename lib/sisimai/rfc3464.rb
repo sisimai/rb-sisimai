@@ -249,8 +249,8 @@ module Sisimai
 
               elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A[ \t]+(.+)\z/)
                 # Continued line of the value of Diagnostic-Code header
-                v['diagnosis'] += ' ' + cv[1]
-                e = 'Diagnostic-Code: ' + e
+                v['diagnosis'] << ' ' << cv[1]
+                e = 'Diagnostic-Code: ' << e
 
               else
                 if cv = e.match(/\A[Rr]eporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
