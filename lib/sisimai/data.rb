@@ -48,10 +48,10 @@ module Sisimai
       addresser: RFC822Head[:addresser],
       recipient: RFC822Head[:recipient],
     }.freeze
-    ActionList = %r/\A(?:failed|delayed|delivered|relayed|expanded)\z/
+    ActionList = ['failed', 'delayed', 'delivered', 'relayed', 'expanded']
     ActionHead = {
-      %r/\Afailure\z/ => 'failed',
-      %r/\Aexpired\z/ => 'delayed',
+      :failure => 'failed',
+      :expired => 'delayed',
     }.freeze
 
     # Constructor of Sisimai::Data
@@ -110,7 +110,7 @@ module Sisimai
       rfc822data = messageobj.rfc822
       fieldorder = { :recipient => [], :addresser => [] }
       objectlist = []
-      rxcommands = %r/\A(?:EHLO|HELO|MAIL|RCPT|DATA|QUIT)\z/
+      commandset = ['EHLO', 'HELO', 'MAIL', 'RCPT', 'DATA', 'QUIT']
       givenorder = argvs[:order] || {}
       delivered1 = argvs[:delivered] || false
 
@@ -160,7 +160,7 @@ module Sisimai
         }
         unless delivered1
           # Skip if the value of "deliverystatus" begins with "2." such as 2.1.5
-          next if p['deliverystatus'] =~ /\A2[.]/
+          next if p['deliverystatus'].start_with?('2.')
         end
 
         # EMAIL_ADDRESS:
@@ -323,7 +323,7 @@ module Sisimai
         p['diagnostictype'] ||= 'SMTP' unless ['feedback', 'vacation'].include?(p['reason'])
 
         # Check the value of SMTP command
-        p['smtpcommand'] = '' unless p['smtpcommand'] =~ rxcommands
+        p['smtpcommand'] = '' unless commandset.include?(p['smtpcommand'])
 
         # Check the value of "action"
         if p['action'].size > 0
@@ -332,11 +332,11 @@ module Sisimai
             p['action'] = cv[1]
           end
 
-          unless p['action'] =~ ActionList
+          unless ActionList.include?(p['action'])
             # The value of "action" is not in the following values:
             # "failed" / "delayed" / "delivered" / "relayed" / "expanded"
             ActionHead.each_key do |q|
-              next unless p['action'] =~ q
+              next unless p['action'] == q.to_s
               p['action'] = ActionHead[q]
               break
             end
@@ -435,7 +435,7 @@ module Sisimai
     def damn
       data = {}
       @@rwaccessors.each do |e|
-        next if e.to_s =~ /(?:addresser|recipient|timestamp)/
+        next if ['addresser', 'recipient', 'timestamp'].include?(e.to_s)
         data[e.to_s] = self.send(e) || ''
       end
       data['addresser'] = self.addresser.address
