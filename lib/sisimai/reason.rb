@@ -47,7 +47,7 @@ module Sisimai
           MailboxFull MesgTooBig ExceedLimit Suspend HasMoved NoRelaying UserUnknown
           Filtered Rejected HostUnknown SpamDetected TooManyConn Blocked
         |
-        return 'delivered' if statuscode =~ /\A2[.]/
+        return 'delivered' if statuscode.start_with?('2.')
 
         if argvs.diagnostictype == 'SMTP' || argvs.diagnostictype == ''
           # Diagnostic-Code: SMTP; ... or empty value
