@@ -412,7 +412,7 @@ module Sisimai
         mesgformat = (mailheader['content-type'] || '').downcase
         ctencoding = (mailheader['content-transfer-encoding'] || '').downcase
 
-        if mesgformat =~ %r{text/(?:plain|html);?}
+        if mesgformat.start_with?('text/plain;') || mesgformat.start_with?('text/html;')
           # Content-Type: text/plain; charset=UTF-8
           if ctencoding == 'base64' || ctencoding == 'quoted-printable'
             # Content-Transfer-Encoding: base64
@@ -426,7 +426,7 @@ module Sisimai
                          end
           end
 
-          if mesgformat =~ %r|text/html;?|
+          if mesgformat.start_with?('text/html;')
             # Content-Type: text/html;...
             bodystring = Sisimai::String.to_plain(bodystring, true)
           end
