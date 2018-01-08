@@ -137,7 +137,7 @@ module Sisimai
         r = 'Sisimai::' << e
         require r.gsub('::', '/').downcase
 
-        if e.start_with?('Bite::Email') || e.start_with?('Bite::JSON')
+        if e.start_with?('Bite::Email', 'Bite::JSON')
           # Sisimai::Bite::Email or Sisimai::Bite::JSON
           Module.const_get(r).send(:index).each do |ee|
             # Load and get the value of "description" from each module

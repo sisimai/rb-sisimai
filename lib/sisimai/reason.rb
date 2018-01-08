@@ -162,7 +162,7 @@ module Sisimai
 
             if reasontext.empty?
               # Check the value of Action: field, first
-              if argvs.action.start_with?('delayed') || argvs.action.start_with?('expired')
+              if argvs.action.start_with?('delayed', 'expired')
                 # Action: delayed, expired
                 reasontext = 'expired'
 

@@ -180,10 +180,8 @@ module Sisimai
             # 2. Use IP address as a remote host name
             addrlist.each do |e|
               # Skip if the address is a private address
-              next if e.start_with?('10.')
-              next if e.start_with?('127.')
+              next if e.start_with?('10.', '127.', '192.168.')
               next if e =~ /\A172[.](?:1[6-9]|2[0-9]|3[0-1])[.]/
-              next if e.start_with?('192.168.')
               hostaddr = e
               break
             end
