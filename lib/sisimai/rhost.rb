@@ -57,7 +57,7 @@ module Sisimai
         RhostClass.each_key do |e|
           # Try to match with each key of RhostClass
           next unless remotehost.end_with?(e)
-          modulename = 'Sisimai::Rhost::' + RhostClass[e]
+          modulename = 'Sisimai::Rhost::' << RhostClass[e]
           rhostclass = modulename.gsub('::', '/').downcase
           break
         end
