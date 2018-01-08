@@ -11,8 +11,7 @@ describe Sisimai::Rhost do
       end
       v.each do |e|
         describe e do
-          it('is a String')       { expect(e.is_a?(Regexp)).to be true }
-          #it('is valid hostname') { expect(e).to match(/\A[-.a-z0-9]+\z/) }
+          it('is a String') { expect(e.is_a?(::String)).to be true }
         end
       end
     end
