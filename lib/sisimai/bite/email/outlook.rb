@@ -185,7 +185,7 @@ module Sisimai::Bite::Email
             else
               # Set pseudo diagnostic code message
               e['diagnosis']  = 'Unable to deliver message to the following recipients, '
-              e['diagnosis'] += 'due to being unable to connect successfully to the destination mail server.'
+              e['diagnosis'] << 'due to being unable to connect successfully to the destination mail server.'
             end
           end
 
