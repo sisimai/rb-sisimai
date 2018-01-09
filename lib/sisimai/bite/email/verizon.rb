@@ -233,11 +233,11 @@ module Sisimai::Bite::Email
 
         return nil if recipients.zero?
 
-        if !rfc822list.find { |a| a =~ /^From: / }
+        if !rfc822list.find { |a| a.start_with?('From: ') }
           # Set the value of "MAIL FROM:" or "From:"
           rfc822list << ('From: ' << senderaddr)
 
-        elsif !rfc822list.find { |a| a =~ /^Subject: / }
+        elsif !rfc822list.find { |a| a.start_with?('Subject: ') }
           # Set the value of "Subject:"
           rfc822list << ('Subject: ' << subjecttxt)
         end

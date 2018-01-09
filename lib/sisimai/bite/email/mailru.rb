@@ -204,7 +204,7 @@ module Sisimai::Bite::Email
           if e['alterrors'] && e['alterrors'].size > 0
             # Copy alternative error message
             e['diagnosis'] ||= e['alterrors']
-            if e['diagnosis'] =~ /\A[-]+/ || e['diagnosis'].end_with?('__')
+            if e['diagnosis'].start_with?('-') || e['diagnosis'].end_with?('__')
               # Override the value of diagnostic code message
               e['diagnosis'] = e['alterrors'] if e['alterrors'].size > 0
             end

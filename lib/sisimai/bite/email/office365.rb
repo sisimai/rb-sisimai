@@ -235,7 +235,7 @@ module Sisimai::Bite::Email
           e['status']  ||= ''
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
 
-          if e['status'].empty? || e['status'] =~ /\A\d[.]0[.]0\z/
+          if e['status'].empty? || e['status'].end_with?('.0.0')
             # There is no value of Status header or the value is 5.0.0, 4.0.0
             pseudostatus = Sisimai::SMTP::Status.find(e['diagnosis'])
             e['status'] = pseudostatus if pseudostatus.size > 0

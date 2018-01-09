@@ -220,7 +220,7 @@ module Sisimai
             previousfn  = lhs
             rfc822part << e + "\n"
 
-          elsif e =~ /\A[ \t]+/
+          elsif e.start_with?(' ', "\t")
             # Continued line from the previous line
             next if rfc822next[previousfn]
             rfc822part << e + "\n" if LongHeaders.key?(previousfn)

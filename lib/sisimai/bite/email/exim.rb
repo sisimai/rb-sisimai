@@ -313,7 +313,7 @@ module Sisimai::Bite::Email
                       # Content-type: message/delivery-status
                       havepassed[:deliverystatus] = 1 if e =~ Re1[:deliverystatus]
                       v['alterrors'] ||= ''
-                      v['alterrors'] << e + ' ' if e =~ /\A[ ]+/
+                      v['alterrors'] << e + ' ' if e.start_with?(' ')
                     end
                   end
                 else
@@ -425,7 +425,7 @@ module Sisimai::Bite::Email
               e['diagnosis'] = e['alterrors']
             end
 
-            if e['diagnosis'] =~ /\A[-]+/ || e['diagnosis'].end_with?('__')
+            if e['diagnosis'].start_with?('-') || e['diagnosis'].end_with?('__')
               # Override the value of diagnostic code message
               e['diagnosis'] = e['alterrors'] if e['alterrors'].size > 0
 

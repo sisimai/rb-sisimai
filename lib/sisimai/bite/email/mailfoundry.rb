@@ -106,7 +106,7 @@ module Sisimai::Bite::Email
                 # Detect error message
                 next if e.empty?
                 next if v['diagnosis'].nil? || v['diagnosis'].empty?
-                next if e =~ /\A[-]+/
+                next if e.start_with?('-')
 
                 # Server mx22.example.org[192.0.2.222] failed with: 550 <kijitora@example.org> No such user here
                 v['diagnosis'] ||= ''

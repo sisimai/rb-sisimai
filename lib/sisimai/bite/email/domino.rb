@@ -158,7 +158,7 @@ module Sisimai::Bite::Email
           e.each_key { |a| e[a] ||= '' }
         end
 
-        unless rfc822list.find { |a| a =~ /^Subject:/ }
+        unless rfc822list.find { |a| a.start_with?('Subject:') }
           # Set the value of subjecttxt as a Subject if there is no original
           # message in the bounce mail.
           rfc822list << ('Subject: ' << subjecttxt)

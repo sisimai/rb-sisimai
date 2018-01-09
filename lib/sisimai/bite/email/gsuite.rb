@@ -140,7 +140,7 @@ module Sisimai::Bite::Email
                     endoferror = true if e.start_with?('--')
 
                     next if endoferror
-                    next unless e =~ /\A[ ]/
+                    next unless e.start_with?(' ')
                     v['diagnosis'] << e
                   end
                 end
@@ -224,7 +224,10 @@ module Sisimai::Bite::Email
               as = nil  # status
               ar = nil  # replycode
 
-              if e['status'] == '' || e['status'] =~ /\A[45][.]0[.]0\z/
+              e['status']    ||= ''
+              e['replycode'] ||= ''
+
+              if e['status'] == '' || e['status'].start_with?('4.0.0', '5.0.0')
                 # Check the value of D.S.N. in anotherset
                 as = Sisimai::SMTP::Status.find(anotherset['diagnosis'])
                 if as.size > 0 && as[-3, 3] != '0.0'
@@ -233,7 +236,7 @@ module Sisimai::Bite::Email
                 end
               end
 
-              if e['replycode'] == '' || e['replycode'] =~ /\A[45]00\z/
+              if e['replycode'].empty? || e['replycode'].start_with?('400', '500')
                 # Check the value of SMTP reply code in anotherset
                 ar = Sisimai::SMTP::Reply.find(anotherset['diagnosis'])
                 if ar.size > 0 && ar[-2, 2].to_i != 0

@@ -127,7 +127,7 @@ module Sisimai::Bite::Email
 
               else
                 # 550 5.1.1 unknown user <kijitora@example.jp>
-                next if e =~ /\A[-]+/
+                next if e.start_with?('-')
                 next if v['diagnosis']
                 v['diagnosis'] = e
               end

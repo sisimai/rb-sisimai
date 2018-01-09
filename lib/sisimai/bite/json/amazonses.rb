@@ -52,14 +52,14 @@ module Sisimai::Bite::JSON
         hasdivided.each do |e|
           # Find JSON string from the message body
           next if e.size.zero?
-          break if e =~ /\A[-]{2}\z/
+          break if e == '--'
           break if e == '__END_OF_EMAIL_MESSAGE__'
 
           # The line starts with " ", continued from !\n.
           e = e.lstrip if foldedline
           foldedline = false
 
-          if e =~ /[!]\z/
+          if e.end_with?('!')
             # ... long long line ...![\n]
             e = e.chomp('!')
             foldedline = true

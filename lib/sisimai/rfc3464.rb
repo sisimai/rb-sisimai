@@ -296,7 +296,7 @@ module Sisimai
 
                 else
                   # Get error message
-                  next if e =~ /\A[ -]+/
+                  next if e.start_with?(' ', '-')
                   next unless e =~ Re1[:error]
 
                   # 500 User Unknown
@@ -396,7 +396,7 @@ module Sisimai
 
             next if e.size.zero?
             next if e =~ re_skip
-            next if e =~ /\A[*]/
+            next if e.start_with?('*')
 
             if cv = e.match(re_addr)
               # May be an email address
@@ -453,7 +453,7 @@ module Sisimai
           if e.key?('alterrors') && e['alterrors'].size > 0
             # Copy alternative error message
             e['diagnosis'] ||= e['alterrors']
-            if e['diagnosis'] =~ /\A[-]+/ || e['diagnosis'].end_with?('__')
+            if e['diagnosis'].start_with?('-') || e['diagnosis'].end_with?('__')
               # Override the value of diagnostic code message
               e['diagnosis'] = e['alterrors'] if e['alterrors'].size > 0
             end
