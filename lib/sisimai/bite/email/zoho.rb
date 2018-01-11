@@ -32,7 +32,6 @@ module Sisimai::Bite::Email
       # X-Zoho-Virus-Status: 2
       # X-Mailer: Zoho Mail
       def headerlist;  return ['X-ZohoMail']; end
-      def pattern;     return Re0; end
 
       # Parse bounce messages from Zoho Mail
       # @param         [Hash] mhead       Message headers of a bounce email

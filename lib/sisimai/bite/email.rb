@@ -16,7 +16,6 @@ module Sisimai
           }
         end
         def headerlist; return []; end
-        def pattern;    return []; end
 
         # @abstract MTA list
         # @return   [Array] MTA list with order

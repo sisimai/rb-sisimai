@@ -28,7 +28,6 @@ module Sisimai::Bite::Email
       # X-GMX-Antivirus: 0 (no virus found)
       # X-UI-Out-Filterresults: unknown:0;
       def headerlist;  return ['X-GMX-Antispam']; end
-      def pattern;     return Re0; end
 
       # Parse bounce messages from GMX
       # @param         [Hash] mhead       Message headers of a bounce email

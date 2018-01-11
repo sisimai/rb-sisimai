@@ -32,7 +32,6 @@ module Sisimai::Bite::Email
       # X-SES-Outgoing: 2015.10.01-54.240.27.7
       # Feedback-ID: 1.us-west-2.HX6/J9OVlHTadQhEu1+wdF9DBj6n6Pa9sW5Y/0pSOi8=:AmazonSES
       def headerlist;  return ['X-SES-Outgoing']; end
-      def pattern;     return Re0; end
 
       # Parse bounce messages from Amazon SES/Receiving
       # @param         [Hash] mhead       Message headers of a bounce email

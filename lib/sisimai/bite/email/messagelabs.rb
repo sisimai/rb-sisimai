@@ -36,7 +36,6 @@ module Sisimai::Bite::Email
       # X-StarScan-Version: 6.12.5; banners=-,-,-
       # X-VirusChecked: Checked
       def headerlist;  return ['X-Msg-Ref']; end
-      def pattern;     return Re0; end
 
       # Parse bounce messages from Symantec.cloud(MessageLabs)
       # @param         [Hash] mhead       Message headers of a bounce email

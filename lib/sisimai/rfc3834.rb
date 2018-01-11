@@ -42,7 +42,6 @@ module Sisimai
 
       def description; 'Detector for auto replied message'; end
       def smtpagent;   'RFC3834'; end
-      def pattern;     return Re0; end
       def headerlist
         return [
           'Auto-Submitted',

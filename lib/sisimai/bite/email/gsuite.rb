@@ -27,7 +27,6 @@ module Sisimai::Bite::Email
       def description; return 'G Suite: https://gsuite.google.com'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
       def headerlist;  return ['X-Gm-Message-State']; end
-      def pattern;     return Re0; end
 
       # Parse bounce messages from G Suite (Transfer from G Suite to a destinaion host)
       # @param         [Hash] mhead       Message headers of a bounce email

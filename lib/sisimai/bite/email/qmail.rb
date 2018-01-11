@@ -122,7 +122,6 @@ module Sisimai::Bite::Email
       def description; return 'qmail'; end
       def smtpagent;   return 'Email::qmail'; end
       def headerlist;  return []; end
-      def pattern;     return Re0; end
 
       # Parse bounce messages from qmail
       # @param         [Hash] mhead       Message headers of a bounce email

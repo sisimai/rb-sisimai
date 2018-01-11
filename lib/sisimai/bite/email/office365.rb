@@ -72,7 +72,6 @@ module Sisimai::Bite::Email
           'X-MS-Exchange-Transport-CrossTenantHeadersStamped',
         ]
       end
-      def pattern;     return Re0; end
 
       # Parse bounce messages from Microsoft Office 365
       # @param         [Hash] mhead       Message headers of a bounce email

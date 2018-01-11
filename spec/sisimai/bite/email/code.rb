@@ -45,13 +45,6 @@ module Sisimai
                 end
               end
 
-              describe '.pattern' do
-                it 'returns Hash' do
-                  expect(modulename.pattern).to be_a Hash
-                  expect(modulename.pattern.keys.size).to be > 0
-                end
-              end
-
               describe '.scan' do
                 it('returns nil') { expect(modulename.scan(nil,nil)).to be nil }
               end

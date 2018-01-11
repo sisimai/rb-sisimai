@@ -35,7 +35,6 @@ module Sisimai::Bite::Email
       # X-Outbound-Mail-Relay-Queue-ID: 07391702BF4DC
       # X-Outbound-Mail-Relay-Sender: rfc822; shironeko@aol.example.jp
       def headerlist;  return ['X-AOL-IP']; end
-      def pattern;     return Re0; end
 
       # Parse bounce messages from Aol Mail
       # @param         [Hash] mhead       Message headers of a bounce email

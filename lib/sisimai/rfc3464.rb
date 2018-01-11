@@ -45,7 +45,6 @@ module Sisimai
 
       def description; 'Fallback Module for MTAs'; end
       def smtpagent;   'RFC3464'; end
-      def pattern;     return Re0; end
       def headerlist;  return []; end
 
       # Detect an error for RFC3464

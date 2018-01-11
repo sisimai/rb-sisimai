@@ -22,7 +22,6 @@ module Sisimai::Bite::Email
       def description; return 'Trustwave Secure Email Gateway'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
       def headerlist;  return ['X-Mailer']; end
-      def pattern;     return Re0; end
 
       # Parse bounce messages from MailMarshalSMTP
       # @param         [Hash] mhead       Message headers of a bounce email

@@ -31,7 +31,6 @@ module Sisimai::Bite::Email
       def description; return 'IBM Domino Server'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
       def headerlist;  return []; end
-      def pattern;     return Re0; end
 
       # Parse bounce messages from IBM Domino Server
       # @param         [Hash] mhead       Message headers of a bounce email

@@ -76,7 +76,6 @@ module Sisimai::Bite::Email
       # X-MXL-NoteHash: ffffffffffffffff-0000000000000000000000000000000000000000
       # X-MXL-Hash: 4c9d4d411993da17-bbd4212b6c887f6c23bab7db4bd87ef5edc00758
       def headerlist;  return ['X-MXL-NoteHash', 'X-MXL-Hash', 'X-MX-Bounce']; end
-      def pattern;     return Re0; end
 
       # Parse bounce messages from MXLogic
       # @param         [Hash] mhead       Message headers of a bounce email

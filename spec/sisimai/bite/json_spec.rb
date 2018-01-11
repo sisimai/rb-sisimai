@@ -6,10 +6,6 @@ describe Sisimai::Bite::JSON do
     it('returns Array') { expect(Sisimai::Bite::JSON.headerlist).to be_a Array }
     it('is empty list') { expect(Sisimai::Bite::JSON.headerlist).to be_empty }
   end
-  describe '.pattern' do
-    it('returns Array') { expect(Sisimai::Bite::JSON.pattern).to be_a Array }
-    it('is empty list') { expect(Sisimai::Bite::JSON.pattern).to be_empty }
-  end
   describe '.index' do
     it('returns Array') { expect(Sisimai::Bite::JSON.index).to be_a Array }
     it('is not empty' ) { expect(Sisimai::Bite::JSON.index.size).to be > 0 }

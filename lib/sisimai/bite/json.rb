@@ -7,7 +7,6 @@ module Sisimai
         require 'sisimai/bite'
 
         def headerlist; return []; end
-        def pattern;    return []; end
 
         # MTA list
         # @return   [Array] MTA list with order

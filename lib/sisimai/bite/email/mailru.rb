@@ -63,7 +63,6 @@ module Sisimai::Bite::Email
       def description; return '@mail.ru: https://mail.ru'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
       def headerlist;  return ['X-Failed-Recipients']; end
-      def pattern;     return Re0; end
 
       # Parse bounce messages from @mail.ru
       # @param         [Hash] mhead       Message headers of a bounce email

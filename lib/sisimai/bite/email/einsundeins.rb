@@ -25,7 +25,6 @@ module Sisimai::Bite::Email
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
       # X-UI-Out-Filterresults: unknown:0;
       def headerlist;  return []; end
-      def pattern;     return Re0; end
 
       # Parse bounce messages from 1&1
       # @param         [Hash] mhead       Message headers of a bounce email

@@ -27,7 +27,6 @@ module Sisimai::Bite::Email
       # X-Yandex-Queue-ID: 367D79E130D
       # X-Yandex-Sender: rfc822; shironeko@yandex.example.com
       def headerlist;  return ['X-Yandex-Uniq']; end
-      def pattern;     return Re0; end
 
       # Parse bounce messages from Yandex.Mail
       # @param         [Hash] mhead       Message headers of a bounce email

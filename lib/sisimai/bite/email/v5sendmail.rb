@@ -42,7 +42,6 @@ module Sisimai::Bite::Email
       def description; return 'Sendmail version 5'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
       def headerlist;  return []; end
-      def pattern;     return Re0; end
 
       # Parse bounce messages from Sendmail version 5
       # @param         [Hash] mhead       Message headers of a bounce email

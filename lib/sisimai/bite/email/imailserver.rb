@@ -41,7 +41,6 @@ module Sisimai::Bite::Email
       def description; return 'IPSWITCH IMail Server'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
       def headerlist;  return ['X-Mailer']; end
-      def pattern;     return Re0; end
 
       # Parse bounce messages from IMailServer
       # @param         [Hash] mhead       Message headers of a bounce email

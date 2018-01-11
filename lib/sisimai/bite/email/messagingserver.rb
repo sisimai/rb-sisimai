@@ -26,7 +26,6 @@ module Sisimai::Bite::Email
       def description; return 'Oracle Communications Messaging Server'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
       def headerlist;  return []; end
-      def pattern;     return Re0; end
 
       # Parse bounce messages from MessagingServer
       # @param         [Hash] mhead       Message headers of a bounce email

@@ -22,12 +22,6 @@ module Sisimai::Bite::Email
       def description; return 'Verizon Wireless: http://www.verizonwireless.com'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
       def headerlist;  return []; end
-      def pattern
-        return {
-          :from => %r/(?:\Apost_master[@]vtext[.]com|[<]?sysadmin[@].+[.]vzwpix[.]com[>]?)\z/,
-          :subject => Re0[:'vzwpix.com'][:subject],
-        }
-      end
 
       # Parse bounce messages from Verizon
       # @param         [Hash] mhead       Message headers of a bounce email

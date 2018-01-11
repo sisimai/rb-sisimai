@@ -20,7 +20,6 @@ module Sisimai::Bite::Email
       def description; return 'Unknown MTA #3'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
       def headerlist;  return []; end
-      def pattern;     return Re0; end
 
       # Parse bounce messages from Unknown MTA #3
       # @param         [Hash] mhead       Message headers of a bounce email

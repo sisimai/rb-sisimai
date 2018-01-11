@@ -26,7 +26,6 @@ module Sisimai::Bite::Email
       def description; return 'V8Sendmail: /usr/sbin/sendmail'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
       def headerlist;  return []; end
-      def pattern;     return Re0; end
 
       # Parse bounce messages from Sendmail
       # @param         [Hash] mhead       Message headers of a bounce email
