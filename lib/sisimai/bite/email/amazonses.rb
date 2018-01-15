@@ -20,7 +20,6 @@ module Sisimai::Bite::Email
             )
         /x,
         :rfc822  => %r|\Acontent-type: message/rfc822\z|,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ReFailure = {
         expired: %r/Delivery[ ]expired/x,

@@ -14,7 +14,6 @@ module Sisimai::Bite::Email
         :begin   => %r/\AThis message was created automatically by mail delivery software/,
         :error   => %r/\AFor the following reason:/,
         :rfc822  => %r/\A--- The header of the original message is following/,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ReFailure = {
         mesgtoobig: %r/Mail[ ]size[ ]limit[ ]exceeded/x,

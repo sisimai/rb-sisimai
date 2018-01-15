@@ -15,7 +15,6 @@ module Sisimai::Bite::Email
       Re1 = {
         :begin  => %r/\ATechnical report:\z/,
         :rfc822 => %r|\Acontent-type: message/rfc822\z|,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 

@@ -35,7 +35,6 @@ module Sisimai::Bite::Email
           |No[ ]message[ ]was[ ]collected
           )[ ]-----
         }x,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 

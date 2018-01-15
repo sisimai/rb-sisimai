@@ -17,7 +17,6 @@ module Sisimai::Bite::Email
         :error   => %r/\A-------server message\z/,
         :command => %r/\A-------SMTP command\z/,
         :rfc822  => %r/\A-------original (?:message|mail info)\z/,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 

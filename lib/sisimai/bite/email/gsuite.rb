@@ -15,7 +15,6 @@ module Sisimai::Bite::Email
         :error   => %r/\AThe[ ]response([ ]from[ ]the[ ]remote[ ]server)?[ ]was:\z/,
         :html    => %r{\AContent-Type:[ ]*text/html;[ ]*charset=['"]?(?:UTF|utf)[-]8['"]?\z},
         :rfc822  => %r{\AContent-Type:[ ]*(?:message/rfc822|text/rfc822-headers)\z},
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ErrorMayBe = {
         :userunknown  => %r/because the address couldn't be found/,

@@ -15,7 +15,6 @@ module Sisimai::Bite::Email
       Re1 = {
         :begin  => %r/\AThis message could not be delivered[.]\z/,
         :rfc822 => %r|\Acontent-type: text/rfc822-headers\z|,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ReFailure = {
         # The followings are error messages in Rule sets/*/Actions/Template

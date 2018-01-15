@@ -16,7 +16,6 @@ module Sisimai::Bite::Email
         :error  => %r/[ ]((?:RESOLVER|QUEUE)[.][A-Za-z]+(?:[.]\w+)?);/,
         :rhost  => %r/\AGenerating[ ]server:[ ]?(.*)/,
         :rfc822 => %r/\AOriginal message headers:/,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       NDRSubject = {
         :'SMTPSEND.DNS.NonExistentDomain'=> 'hostunknown',   # 554 5.4.4 SMTPSEND.DNS.NonExistentDomain

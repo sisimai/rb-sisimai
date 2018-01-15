@@ -15,7 +15,6 @@ module Sisimai::Bite::Email
         :begin  => %r/\AYour message could not be sent[.]\z/,
         :error  => %r/\AFailed to send to identified host,\z/,
         :rfc822 => %r|\AContent-Type: message/rfc822\z|,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 

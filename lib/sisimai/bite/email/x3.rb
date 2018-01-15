@@ -13,7 +13,6 @@ module Sisimai::Bite::Email
       Re1 = {
         :begin  => %r/\A[ \t]+This is an automatically generated Delivery Status Notification/,
         :rfc822 => %r|\AContent-Type: message/rfc822|,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 

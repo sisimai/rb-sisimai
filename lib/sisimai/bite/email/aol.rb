@@ -13,7 +13,6 @@ module Sisimai::Bite::Email
       Re1 = {
         :begin   => %r|\AContent-Type: message/delivery-status|,
         :rfc822  => %r|\AContent-Type: message/rfc822|,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ReFailure = {
         hostunknown: %r/Host[ ]or[ ]domain[ ]name[ ]not[ ]found/,

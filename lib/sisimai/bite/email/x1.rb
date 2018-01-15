@@ -12,7 +12,6 @@ module Sisimai::Bite::Email
       }.freeze
       Re1 = {
         :begin   => %r/\AThe original message was received at (.+)\z/,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         :rfc822  => %r/\AReceived: from \d+[.]\d+[.]\d+[.]\d/,
       }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS

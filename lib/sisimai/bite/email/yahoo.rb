@@ -12,7 +12,6 @@ module Sisimai::Bite::Email
       Re1 = {
         :begin   => %r/\ASorry, we were unable to deliver your message/,
         :rfc822  => %r/\A--- Below this line is a copy of the message[.]\z/,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 

@@ -18,7 +18,6 @@ module Sisimai::Bite::Email
       Re1 = {
         :begin  => %r/\AThis message was created automatically by mail delivery/,
         :rfc822 => %r/\AReceived:[ \t]*from mail[.]zoho[.]com/,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ReFailure = {
         expired: %r/Host not reachable/

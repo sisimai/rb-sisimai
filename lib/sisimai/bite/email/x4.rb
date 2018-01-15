@@ -48,7 +48,6 @@ module Sisimai::Bite::Email
         }xi,
         :error  => %r/\ARemote host said:/,
         :sorry  => %r/\A[Ss]orry[,.][ ]/,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ReSMTP = {
         # Error text regular expressions which defined in qmail-remote.c

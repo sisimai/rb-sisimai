@@ -12,7 +12,6 @@ module Sisimai::Bite::Email
       }.freeze
       Re1 = {
         :rfc822  => %r/\AOriginal[ ]mail[ ]as[ ]follows:\z/,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ErrorTitle = {
         :rejected => %r{(?>

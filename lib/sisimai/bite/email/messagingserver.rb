@@ -15,7 +15,6 @@ module Sisimai::Bite::Email
       }.freeze
       Re1 = {
         :begin  => %r/\AThis report relates to a message you sent with the following header fields:/,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         :rfc822 => %r!\A(?:Content-type:[ ]*message/rfc822|Return-path:[ ]*)!x,
       }.freeze
       ReFailure = {

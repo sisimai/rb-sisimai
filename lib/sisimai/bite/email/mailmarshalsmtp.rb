@@ -15,7 +15,6 @@ module Sisimai::Bite::Email
         :rfc822 => nil,
         :error  => %r/\ACould not be delivered because of\z/,
         :rcpts  => %r/\AThe following recipients were affected:/,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 

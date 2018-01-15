@@ -69,7 +69,6 @@ module Sisimai::Bite::Email
           re1 = {
             :begin  => %r/\AError:[ \t]/,
             :rfc822 => %r/\A__BOUNDARY_STRING_HERE__\z/,
-            :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
           }
           reFailure = {
             # The attempted recipient address does not exist.
@@ -150,7 +149,6 @@ module Sisimai::Bite::Email
           re1 = {
             :begin  => %r/\AMessage could not be delivered to mobile/,
             :rfc822 => %r/\A__BOUNDARY_STRING_HERE__\z/,
-            :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
           }
           reFailure = {
             userunknown: %r/No[ ]valid[ ]recipients[ ]for[ ]this[ ]MM/x,

@@ -13,7 +13,6 @@ module Sisimai::Bite::Email
       Re1 = {
         :begin   => %r/\AThis message was created automatically by mail delivery software/,
         :rfc822  => %r/\A--- The header of the original message is following/,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ReFailure = {
         expired: %r/delivery[ ]retry[ ]timeout[ ]exceeded/x,

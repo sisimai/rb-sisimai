@@ -20,7 +20,6 @@ module Sisimai::Bite::Email
         /x,
         :rfc822 => %r|\AContent-Type: message/rfc822\z|,
         :error  => %r/Could not be delivered to:? /,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ReFailure = {
         mailboxfull: %r/As[ ]their[ ]mailbox[ ]is[ ]full/x,

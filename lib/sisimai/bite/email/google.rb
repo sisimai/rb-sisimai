@@ -19,7 +19,6 @@ module Sisimai::Bite::Email
             |[ \t]*-----[ ]Message[ ]header[ ]follows[ ]-----
             )\z
         }x,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ReFailure = {
         expired: %r{(?:

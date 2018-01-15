@@ -23,7 +23,6 @@ module Sisimai::Bite::Email
         :begin  => %r/\AYour message/,
         :error  => %r/\Adid not reach the following recipient[(]s[)]:/,
         :rfc822 => %r|\AContent-Type: message/rfc822|,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       CodeTable = {
         onhold: [

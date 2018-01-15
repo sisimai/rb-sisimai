@@ -14,7 +14,6 @@ module Sisimai::Bite::Email
         :begin  => %r/\AThis is a MIME encoded message\z/,
         :error  => %r/\ADelivery failed for the following reason:\z/,
         :rfc822 => %r|\AContent-Type: message/rfc822\z|,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 

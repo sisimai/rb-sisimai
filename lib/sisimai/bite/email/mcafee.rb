@@ -14,7 +14,6 @@ module Sisimai::Bite::Email
         :begin   => %r/[-]+ The following addresses had delivery problems [-]+\z/,
         :error   => %r|\AContent-Type: [^ ]+/[^ ]+; name="deliveryproblems[.]txt"|,
         :rfc822  => %r|\AContent-Type: message/rfc822\z|,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ReFailure = {
         userunknown: %r{(?:

@@ -39,7 +39,6 @@ module Sisimai::Bite::Email
       Re1 = {
         :begin  => %r/\A[ \t]*This is the MAILER-DAEMON, please DO NOT REPLY to this e[-]?mail[.]\z/,
         :rfc822 => %r/\A[ \t]*Below is a copy of the original message:\z/,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ReFailure = {
         expired: %r{

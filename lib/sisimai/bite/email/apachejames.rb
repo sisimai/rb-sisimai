@@ -18,7 +18,6 @@ module Sisimai::Bite::Email
         :begin  => %r/\AContent-Disposition:[ ]inline/,
         :error  => %r/\AError message below:\z/,
         :rfc822 => %r|\AContent-Type: message/rfc822|,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 

@@ -28,7 +28,6 @@ module Sisimai::Bite::Email
           |text/rfc822-headers
           )\z
         }x,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ReFailure = {
         # courier/module.esmtp/esmtpclient.c:526| hard_error(del, ctf, "No such domain.");

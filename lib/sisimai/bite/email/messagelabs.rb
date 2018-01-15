@@ -15,7 +15,6 @@ module Sisimai::Bite::Email
         :begin   => %r|\AContent-Type: message/delivery-status|,
         :error   => %r/\AReason:[ \t]*(.+)\z/,
         :rfc822  => %r|\AContent-Type: text/rfc822-headers\z|,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ReFailure = {
         userunknown: %r{(?:

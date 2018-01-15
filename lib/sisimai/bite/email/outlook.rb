@@ -16,7 +16,6 @@ module Sisimai::Bite::Email
         :begin  => %r/\AThis is an automatically generated Delivery Status Notification/,
         :error  => %r/\A[.]+ while talking to .+[:]\z/,
         :rfc822 => %r|\AContent-Type: message/rfc822\z|,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ReFailure = {
         hostunknown: %r/The mail could not be delivered to the recipient because the domain is not reachable/,

@@ -24,7 +24,6 @@ module Sisimai::Bite::Email
       Re1 = {
         :rfc822 => %r/\A------ This is a copy of the message.+headers[.] ------\z/,
         :begin  => %r/\AThis message was created automatically by mail delivery software[.]/,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ReCommand = [
         %r/SMTP error from remote (?:mail server|mailer) after ([A-Za-z]{4})/,

@@ -15,7 +15,6 @@ module Sisimai::Bite::Email
         :begin  => %r/\AThis is an automatically generated message from SendGrid[.]\z/,
         :error  => %r/\AIf you require assistance with this, please contact SendGrid support[.]\z/,
         :rfc822 => %r|\AContent-Type: message/rfc822|,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 

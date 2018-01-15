@@ -34,7 +34,6 @@ module Sisimai
           )
         }x,
         :rfc822 => %r[\AContent-Type: (:?message/rfc822|text/rfc822-headers)],
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
       LongFields = Sisimai::RFC5322.LONGFIELDS

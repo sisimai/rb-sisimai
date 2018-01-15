@@ -22,7 +22,6 @@ module Sisimai::Bite::Email
         }x,
         :rfc822   => %r#\A(?:[-]{50}|Content-Type:[ ]*message/rfc822)#,
         :boundary => %r/\A__SISIMAI_PSEUDO_BOUNDARY__\z/,
-        :endof    => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ReFailure = {
         # notaccept: [ %r/The following recipients did not receive this message:/ ],

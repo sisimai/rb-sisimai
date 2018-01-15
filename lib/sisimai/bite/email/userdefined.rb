@@ -23,7 +23,6 @@ module Sisimai::Bite::Email
         :begin   => %r/\A[ \t]+[-]+ Transcript of session follows [-]+\z/,
         :error   => %r/\A[.]+ while talking to .+[:]\z/,
         :rfc822  => %r{\AContent-Type:[ ]*(?:message/rfc822|text/rfc822-headers)\z},
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 

@@ -17,7 +17,6 @@ module Sisimai::Bite::Email
       Re1 = {
         :begin  => %r/\AUnable to deliver message to the following address/,
         :rfc822 => %r/\A--- Original message follows/,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 

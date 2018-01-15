@@ -15,7 +15,6 @@ module Sisimai::Bite::Email
         :begin  => %r/\A\z/,    # Blank line
         :error  => %r/Body of message generated response:/,
         :rfc822 => %r/\AOriginal message follows[.]\z/,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ReSMTP = {
         conn: %r{(?:

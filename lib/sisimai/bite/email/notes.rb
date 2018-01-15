@@ -12,7 +12,6 @@ module Sisimai::Bite::Email
       Re1 = {
         :begin  => %r/\A[-]+[ ]+Failure Reasons[ ]+[-]+\z/,
         :rfc822 => %r/^[-]+[ ]+Returned Message[ ]+[-]+$/,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ReFailure = {
         userunknown: %r{(?:

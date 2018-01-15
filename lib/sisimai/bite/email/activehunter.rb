@@ -15,7 +15,6 @@ module Sisimai::Bite::Email
         :begin   => %r/\A  ----- The following addresses had permanent fatal errors -----\z/,
         :error   => %r/\A  ----- Transcript of session follows -----\z/,
         :rfc822  => %r|\AContent-type: message/rfc822\z|,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 

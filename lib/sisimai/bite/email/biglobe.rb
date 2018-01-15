@@ -14,7 +14,6 @@ module Sisimai::Bite::Email
         :begin  => %r/\A   ----- The following addresses had delivery problems -----\z/,
         :error  => %r/\A   ----- Non-delivered information -----\z/,
         :rfc822 => %r|\AContent-Type: message/rfc822\z|,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ReFailure = {
         filtered:    %r/Mail Delivery Failed[.]+ User unknown/,

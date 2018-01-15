@@ -21,7 +21,6 @@ module Sisimai::Bite::Email
         :error  => %r/\ADiagnostic information for administrators:\z/,
         :eoerr  => %r/\AOriginal message headers:\z/,
         :rfc822 => %r|\AContent-Type: message/rfc822\z|,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       CodeTable = {
         # https://support.office.com/en-us/article/Email-non-delivery-reports-in-Office-365-51daa6b9-2e35-49c4-a0c9-df85bf8533c3

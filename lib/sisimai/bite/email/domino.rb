@@ -12,7 +12,6 @@ module Sisimai::Bite::Email
       Re1 = {
         :begin   => %r/\AYour message/,
         :rfc822  => %r|\AContent-Type: message/delivery-status\z|,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
       ReFailure = {
         userunknown: %r{(?>

@@ -13,7 +13,6 @@ module Sisimai::Bite::Email
       Re1 = {
         :begin   => %r/\AThis message was created automatically by Facebook[.]\z/,
         :rfc822  => %r/\AContent-Disposition: inline\z/,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
 
       # http://postmaster.facebook.com/response_codes
