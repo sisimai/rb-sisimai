@@ -6,10 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Sendmail.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from    => %r/\AMail Delivery Subsystem/,
-        :subject => %r/(?:see transcript for details\z|\AWarning: )/,
-      }.freeze
       # Error text regular expressions which defined in sendmail/savemail.c
       #   savemail.c:1040|if (printheader && !putline("   ----- Transcript of session follows -----\n",
       #   savemail.c:1041|          mci))
@@ -40,12 +36,12 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil unless mhead['subject'] =~ Re0[:subject]
 
+        return nil unless mhead['subject'] =~ /(?:see transcript for details\z|\AWarning: )/
         unless mhead['subject'] =~ /\A[ \t]*Fwd?:/i
           # Fwd: Returned mail: see transcript for details
           # Do not execute this code if the bounce mail is a forwarded message.
-          return nil unless mhead['from'] =~ Re0[:from]
+          return nil unless mhead['from'].start_with?('Mail Delivery Subsystem')
         end
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]

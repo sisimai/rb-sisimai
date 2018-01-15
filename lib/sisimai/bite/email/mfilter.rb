@@ -7,11 +7,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/mFILTER.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'from'     => %r/\AMailer Daemon [<]MAILER-DAEMON[@]/,
-        :'subject'  => %r/\Afailure notice\z/,
-        :'x-mailer' => %r/\Am-FILTER\z/,
-      }.freeze
       Re1 = {
         :begin   => %r/\A[^ ]+[@][^ ]+[.][a-zA-Z]+\z/,
         :error   => %r/\A-------server message\z/,
@@ -38,9 +33,11 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
+
+        # :'from'     => %r/\AMailer Daemon [<]MAILER-DAEMON[@]/,
         return nil unless mhead['x-mailer']
-        return nil unless mhead['x-mailer'] =~ Re0[:'x-mailer']
-        return nil unless mhead['subject']  =~ Re0[:'subject']
+        return nil unless mhead['x-mailer'].start_with?('m-FILTER')
+        return nil unless mhead['subject'].start_with?('failure notice')
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")

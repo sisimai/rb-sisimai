@@ -6,10 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/FML.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'from'       => %r/.+[-]admin[@].+/, 
-        :'message-id' => %r/\A[<]\d+[.]FML.+[@].+[>]\z/,
-      }.freeze
       Re1 = {
         :rfc822  => %r/\AOriginal[ ]mail[ ]as[ ]follows:\z/,
       }.freeze
@@ -70,8 +66,8 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
         return nil unless mhead['x-mlserver']
-        return nil unless mhead['from'] =~ Re0[:from]
-        return nil unless mhead['message-id'] =~ Re0[:'message-id']
+        return nil unless mhead['from'] =~ /.+[-]admin[@].+/
+        return nil unless mhead['message-id'] =~ /\A[<]\d+[.]FML.+[@].+[>]\z/
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")

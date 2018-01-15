@@ -6,9 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Domino.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :subject => %r/\ADELIVERY FAILURE:/,
-      }.freeze
       Re1 = {
         :begin   => %r/\AYour message/,
         :rfc822  => %r|\AContent-Type: message/delivery-status\z|,
@@ -45,7 +42,7 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil unless mhead['subject'] =~ Re0[:subject]
+        return nil unless mhead['subject'].start_with?('DELIVERY FAILURE:')
 
         require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]

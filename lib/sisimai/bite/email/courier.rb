@@ -8,15 +8,6 @@ module Sisimai::Bite::Email
 
       # http://www.courier-mta.org/courierdsn.html
       # courier/module.dsn/dsn*.txt
-      Re0 = {
-        :'from'       => %r/Courier mail server at /,
-        :'subject'    => %r{(?:
-           NOTICE:[ ]mail[ ]delivery[ ]status[.]
-          |WARNING:[ ]delayed[ ]mail[.]
-          )
-        }x,
-        :'message-id' => %r/\A[<]courier[.][0-9A-F]+[.]/,
-      }.freeze
       Re1 = {
         :begin  => %r{(?:
            DELAYS[ ]IN[ ]DELIVERING[ ]YOUR[ ]MESSAGE
@@ -62,11 +53,11 @@ module Sisimai::Bite::Email
         return nil unless mbody
 
         match  = 0
-        match += 1 if mhead['from']    =~ Re0[:from]
-        match += 1 if mhead['subject'] =~ Re0[:subject]
+        match += 1 if mhead['from'] =~ /Courier mail server at /
+        match += 1 if mhead['subject'] =~ /(?:NOTICE: mail delivery status[.]|WARNING: delayed mail[.])/
         if mhead['message-id']
           # Message-ID: <courier.4D025E3A.00001792@5jo.example.org>
-          match += 1 if mhead['message-id'] =~ Re0[:'message-id']
+          match += 1 if mhead['message-id'] =~ /\A[<]courier[.][0-9A-F]+[.]/
         end
         return nil if match.zero?
 

@@ -6,10 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/GSuite.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from    => %r/[@]googlemail[.]com[>]?\z/,
-        :subject => %r/Delivery[ ]Status[ ]Notification/,
-      }.freeze
       Re1 = {
         :begin   => %r/\A[*][*][ ].+[ ][*][*]\z/,
         :error   => %r/\AThe[ ]response([ ]from[ ]the[ ]remote[ ]server)?[ ]was:\z/,
@@ -42,8 +38,8 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
 
-        return nil unless mhead['from']    =~ Re0[:from]
-        return nil unless mhead['subject'] =~ Re0[:subject]
+        return nil unless mhead['from'].include?('<mailer-daemon@googlemail.com>')
+        return nil unless mhead['subject'].include?('Delivery Status Notification')
         return nil unless mhead['x-gm-message-state']
 
         require 'sisimai/address'

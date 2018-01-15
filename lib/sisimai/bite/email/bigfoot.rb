@@ -6,11 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Bigfoot.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from     => %r/[@]bigfoot[.]com[>]/,
-        :subject  => %r/\AReturned mail: /,
-        :received => %r/\w+[.]bigfoot[.]com\b/,
-      }.freeze
       Re1 = {
         :begin  => %r/\A[ \t]+[-]+[ \t]*Transcript of session follows/,
         :rfc822 => %r|\AContent-Type: message/partial|,
@@ -35,10 +30,11 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-
+        
+        # :subject  => %r/\AReturned mail: /,
         match  = 0
-        match += 1 if mhead['from'] =~ Re0[:from]
-        match += 1 if mhead['received'].find { |a| a =~ Re0[:received] }
+        match += 1 if mhead['from'].include?('@bigfoot.com>')
+        match += 1 if mhead['received'].find { |a| a =~ /\w+[.]bigfoot[.]com\b/ }
         return nil if match.zero?
 
         require 'sisimai/address'

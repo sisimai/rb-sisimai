@@ -6,9 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Notes.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'subject' => %r/\AUndeliverable message/,
-      }.freeze
       Re1 = {
         :begin  => %r/\A[-]+[ ]+Failure Reasons[ ]+[-]+\z/,
         :rfc822 => %r/^[-]+[ ]+Returned Message[ ]+[-]+$/,
@@ -41,7 +38,7 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil unless mhead['subject'] =~ Re0[:subject]
+        return nil unless mhead['subject'].start_with?('Undeliverable message')
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")

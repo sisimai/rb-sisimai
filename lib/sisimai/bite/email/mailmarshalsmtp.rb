@@ -7,9 +7,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/MailMarshalSMTP.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :subject  => %r/\AUndeliverable Mail: ["]/,
-      }.freeze
       Re1 = {
         :begin  => %r/\AYour message:\z/,
         :rfc822 => nil,
@@ -36,7 +33,7 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil unless mhead['subject'] =~ Re0[:subject]
+        return nil unless mhead['subject'].start_with?('Undeliverable Mail: "')
 
         require 'sisimai/mime'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]

@@ -6,10 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/GMX.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from    => %r/\AMAILER-DAEMON[@]/,
-        :subject => %r/\AMail delivery failed: returning message to sender\z/,
-      }.freeze
       Re1 = {
         :begin   => %r/\AThis message was created automatically by mail delivery software/,
         :rfc822  => %r/\A--- The header of the original message is following/,
@@ -42,6 +38,9 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
+
+        # :from    => %r/\AMAILER-DAEMON[@]/,
+        # :subject => %r/\AMail delivery failed: returning message to sender\z/,
         return nil unless mhead['x-gmx-antispam']
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]

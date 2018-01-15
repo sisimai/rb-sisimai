@@ -7,16 +7,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Verizon.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'received'  => %r/by .+[.]vtext[.]com /,
-        :'vtext.com' => {
-          :'from' => %r/\Apost_master[@]vtext[.]com\z/,
-        },
-        :'vzwpix.com' => {
-          :'from'    => %r/[<]?sysadmin[@].+[.]vzwpix[.]com[>]?\z/,
-          :'subject' => %r/Undeliverable Message/,
-        },
-      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Verizon Wireless: http://www.verizonwireless.com'; end
@@ -41,9 +31,10 @@ module Sisimai::Bite::Email
         match = -1
         while true
           # Check the value of "From" header
-          break unless mhead['received'].find { |a| a =~ Re0[:received] }
-          match = 1 if mhead['from'] =~ Re0[:'vtext.com'][:from]
-          match = 0 if mhead['from'] =~ Re0[:'vzwpix.com'][:from]
+          # :'subject' => %r/Undeliverable Message/,
+          break unless mhead['received'].find { |a| a =~ /by .+[.]vtext[.]com / }
+          match = 1 if mhead['from'].start_with?('post_master@vtext.com')
+          match = 0 if mhead['from'] =~ /[<]?sysadmin[@].+[.]vzwpix[.]com[>]?\z/
           break
         end
         return nil if match < 0

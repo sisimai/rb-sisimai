@@ -7,14 +7,6 @@ module Sisimai::Bite::Email
       # MTA module for qmail clones
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :subject  => %r{\A(?:
-           failure[ ]notice
-          |Permanent[ ]Delivery[ ]Failure
-          )
-        }xi,
-        :received => %r/\A[(]qmail[ ]+\d+[ ]+invoked[ ]+for[ ]+bounce[)]/,
-      }.freeze
       #  qmail-remote.c:248|    if (code >= 500) {
       #  qmail-remote.c:249|      out("h"); outhost(); out(" does not like recipient.\n");
       #  qmail-remote.c:265|  if (code >= 500) quit("D"," failed on DATA command");
@@ -167,8 +159,8 @@ module Sisimai::Bite::Email
         #   e.g.) Received: (qmail 12345 invoked for bounce); 29 Apr 2009 12:34:56 -0000
         #         Subject: failure notice
         match  = 0
-        match += 1 if mhead['subject'] =~ Re0[:subject]
-        match += 1 if mhead['received'].find { |a| a =~ Re0[:received] }
+        match += 1 if mhead['subject'].start_with?('failure notice', 'Permanent Delivery Failure')
+        match += 1 if mhead['received'].find { |a| a =~ /\A[(]qmail[ ]+\d+[ ]+invoked[ ]+for[ ]+bounce[)]/ }
         return nil if match.zero?
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]

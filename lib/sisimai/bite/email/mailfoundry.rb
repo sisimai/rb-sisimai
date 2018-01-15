@@ -6,10 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/MailFoundry.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :subject  => %r/\AMessage delivery has failed\z/,
-        :received => %r/[(]MAILFOUNDRY[)] id /,
-      }.freeze
       Re1 = {
         :begin  => %r/\AThis is a MIME encoded message\z/,
         :error  => %r/\ADelivery failed for the following reason:\z/,
@@ -35,8 +31,8 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil unless mhead['subject'] =~ Re0[:subject]
-        return nil unless mhead['received'].find { |a| a =~ Re0[:received] }
+        return nil unless mhead['subject'].start_with?('Message delivery has failed')
+        return nil unless mhead['received'].find { |a| a.include?('(MAILFOUNDRY) id ') }
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")

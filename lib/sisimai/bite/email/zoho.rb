@@ -6,15 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Zoho.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'from'     => %r/mailer-daemon[@]mail[.]zoho[.]com\z/,
-        :'subject'  => %r{\A(?:
-             Undelivered[ ]Mail[ ]Returned[ ]to[ ]Sender
-            |Mail[ ]Delivery[ ]Status[ ]Notification
-            )
-        }x,
-        :'x-mailer' => %r/\AZoho Mail\z/,
-      }.freeze
       Re1 = {
         :begin  => %r/\AThis message was created automatically by mail delivery/,
         :rfc822 => %r/\AReceived:[ \t]*from mail[.]zoho[.]com/,
@@ -46,6 +37,14 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
+
+        # :'from'     => %r/mailer-daemon[@]mail[.]zoho[.]com\z/,
+        # :'subject'  => %r{\A(?:
+        #      Undelivered[ ]Mail[ ]Returned[ ]to[ ]Sender
+        #     |Mail[ ]Delivery[ ]Status[ ]Notification
+        #     )
+        # }x,
+        # :'x-mailer' => %r/\AZoho Mail\z/,
         return nil unless mhead['x-zohomail']
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]

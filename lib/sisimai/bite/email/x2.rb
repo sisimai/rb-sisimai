@@ -6,14 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/X2.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from    => %r/MAILER-DAEMON[@]/,
-        :subject => %r{\A(?>
-           Delivery[ ]failure
-          |fail(?:ure|ed)[ ]delivery
-          )
-        }x,
-      }.freeze
       Re1 = {
         :begin  => %r/\AUnable to deliver message to the following address/,
         :rfc822 => %r/\A--- Original message follows/,
@@ -38,8 +30,8 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil unless mhead['subject'] =~ Re0[:subject]
-        return nil unless mhead['from']    =~ Re0[:from]
+        return nil unless mhead['from'].include?('MAILER-DAEMON@')
+        return nil unless mhead['subject'] =~ %r/\A(?>Delivery failure|fail(?:ure|ed) delivery)/
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")

@@ -7,20 +7,6 @@ module Sisimai::Bite::Email
       # Based on Sisimai::Bite::Email::Exim
       require 'sisimai/bite/email'
 
-      Re0 = {
-        # Message-Id: <E1P1YNN-0003AD-Ga@*.mail.ru>
-        :'message-id' => %r/\A[<]\w+[-]\w+[-]\w+[@].*mail[.]ru[>]\z/,
-        :'from'       => %r/[<]?mailer-daemon[@].*mail[.]ru[>]?/i,
-        :'subject'    => %r{(?:
-           Mail[ ]delivery[ ]failed(:[ ]returning[ ]message[ ]to[ ]sender)?
-          |Warning:[ ]message[ ].+[ ]delayed[ ]+
-          |Delivery[ ]Status[ ]Notification
-          |Mail[ ]failure
-          |Message[ ]frozen
-          |error[(]s[)][ ]in[ ]forwarding[ ]or[ ]filtering
-          )
-        }x,
-      }.freeze
       Re1 = {
         :rfc822 => %r/\A------ This is a copy of the message.+headers[.] ------\z/,
         :begin  => %r/\AThis message was created automatically by mail delivery software[.]/,
@@ -77,9 +63,18 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil unless mhead['from']       =~ Re0[:from]
-        return nil unless mhead['subject']    =~ Re0[:subject]
-        return nil unless mhead['message-id'] =~ Re0[:'message-id']
+
+        return nil unless mhead['from'] =~ /[<]?mailer-daemon[@].*mail[.]ru[>]?/i
+        return nil unless mhead['message-id'] =~ /\A[<]\w+[-]\w+[-]\w+[@].*mail[.]ru[>]\z/
+        return nil unless mhead['subject'] =~ %r{(?:
+           Mail[ ]delivery[ ]failed(:[ ]returning[ ]message[ ]to[ ]sender)?
+          |Warning:[ ]message[ ].+[ ]delayed[ ]+
+          |Delivery[ ]Status[ ]Notification
+          |Mail[ ]failure
+          |Message[ ]frozen
+          |error[(]s[)][ ]in[ ]forwarding[ ]or[ ]filtering
+          )
+        }x
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")

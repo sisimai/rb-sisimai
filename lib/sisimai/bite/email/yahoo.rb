@@ -6,9 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Yahoo.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :subject => %r/\AFailure Notice\z/,
-      }.freeze
       Re1 = {
         :begin   => %r/\ASorry, we were unable to deliver your message/,
         :rfc822  => %r/\A--- Below this line is a copy of the message[.]\z/,
@@ -38,6 +35,8 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
+
+        # :subject => %r/\AFailure Notice\z/,
         return nil unless mhead['x-ymailisg']
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]

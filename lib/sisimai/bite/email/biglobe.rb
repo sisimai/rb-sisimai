@@ -6,10 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Biglobe.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :subject => %r/\AReturned mail:/,
-        :from    => %r/postmaster[@](?:biglobe|inacatv|tmtv|ttv)[.]ne[.]jp/,
-      }.freeze
       Re1 = {
         :begin  => %r/\A   ----- The following addresses had delivery problems -----\z/,
         :error  => %r/\A   ----- Non-delivered information -----\z/,
@@ -39,8 +35,8 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil unless mhead['from']    =~ Re0[:from]
-        return nil unless mhead['subject'] =~ Re0[:subject]
+        return nil unless mhead['from'] =~ /postmaster[@](?:biglobe|inacatv|tmtv|ttv)[.]ne[.]jp/
+        return nil unless mhead['subject'].start_with?('Returned mail:')
 
         require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]

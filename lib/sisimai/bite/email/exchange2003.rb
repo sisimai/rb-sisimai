@@ -7,18 +7,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Exchange2003.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        # X-Mailer: Internet Mail Service (5.0.1461.28)
-        # X-Mailer: Microsoft Exchange Server Internet Mail Connector Version ...
-        :'x-mailer'  => %r{\A(?:
-           Internet[ ]Mail[ ]Service[ ][(][\d.]+[)]\z
-          |Microsoft[ ]Exchange[ ]Server[ ]Internet[ ]Mail[ ]Connector
-          )
-        }x,
-        :'x-mimeole' => %r/\AProduced By Microsoft Exchange/,
-        # Received: by ***.**.** with Internet Mail Service (5.5.2657.72)
-        :'received'  => %r/\Aby .+ with Internet Mail Service [(][\d.]+[)]/,
-      }.freeze
       Re1 = {
         :begin  => %r/\AYour message/,
         :error  => %r/\Adid not reach the following recipient[(]s[)]:/,
@@ -72,6 +60,7 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
         match = 0
+        tryto = []
 
         match += 1 if mhead['x-ms-embedded-report']
         catch :EXCHANGE_OR_NOT do
@@ -81,20 +70,21 @@ module Sisimai::Bite::Email
             if mhead['x-mailer']
               # X-Mailer:  Microsoft Exchange Server Internet Mail Connector Version 4.0.994.63
               # X-Mailer: Internet Mail Service (5.5.2232.9)
-              match += 1 if mhead['x-mailer'] =~ Re0[:'x-mailer']
+              tryto = ['Internet Mail Service (', 'Microsoft Exchange Server Internet Mail Connector']
+              match += 1 if mhead['x-mailer'].start_with?(tryto[0], tryto[1])
               throw :EXCHANGE_OR_NOT if match > 0
             end
 
             if mhead['x-mimeole']
               # X-MimeOLE: Produced By Microsoft Exchange V6.5
-              match += 1 if mhead['x-mimeole'] =~ Re0[:'x-mimeole']
+              match += 1 if mhead['x-mimeole'].start_with?('Produced By Microsoft Exchange')
               throw :EXCHANGE_OR_NOT if match > 0
             end
 
             throw :EXCHANGE_OR_NOT if mhead['received'].size.zero?
             mhead['received'].each do |e|
               # Received: by ***.**.** with Internet Mail Service (5.5.2657.72)
-              next unless e =~ Re0[:'received']
+              next unless e =~ /\Aby .+ with Internet Mail Service [(][\d.]+[)]/
               match += 1
               throw :EXCHANGE_OR_NOT
             end

@@ -6,11 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/ApacheJames.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'subject'    => %r/\A\[BOUNCE\]\z/,
-        :'received'   => %r/JAMES SMTP Server/,
-        :'message-id' => %r/\d+[.]JavaMail[.].+[@]/,
-      }.freeze
       Re1 = {
         # apache-james-2.3.2/src/java/org/apache/james/transport/mailets/
         #   AbstractNotify.java|124:  out.println("Error message below:");
@@ -41,9 +36,9 @@ module Sisimai::Bite::Email
         return nil unless mbody
 
         match  = 0
-        match += 1 if mhead['subject'] =~ Re0[:subject]
-        match += 1 if mhead['message-id'] && mhead['message-id'] =~ Re0[:'message-id']
-        match += 1 if mhead['received'].find { |a| a =~ Re0[:received] }
+        match += 1 if mhead['subject'].start_with?('[BOUNCE]')
+        match += 1 if mhead['message-id'] && mhead['message-id'] =~ /\d+[.]JavaMail[.].+[@]/
+        match += 1 if mhead['received'].find { |a| a.include?('JAMES SMTP Server') }
         return if match.zero?
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]

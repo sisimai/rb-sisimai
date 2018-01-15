@@ -6,10 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Google.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from    => %r/[@]googlemail[.]com[>]?\z/,
-        :subject => %r/Delivery[ ]Status[ ]Notification/,
-      }.freeze
       Re1 = {
         :begin   => %r/Delivery to the following recipient/,
         :start   => %r/Technical details of (?:permanent|temporary) failure:/,
@@ -174,8 +170,8 @@ module Sisimai::Bite::Email
         #   The error that the other server returned was:
         #   550 5.1.1 <userunknown@example.jp>... User Unknown
         #
-        return nil unless mhead['from']    =~ Re0[:from]
-        return nil unless mhead['subject'] =~ Re0[:subject]
+        return nil unless mhead['from'].include?('<mailer-daemon@googlemail.com>')
+        return nil unless mhead['subject'].include?('Delivery Status Notification')
 
         require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]

@@ -6,11 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/OpenSMTPD.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from     => %r/\AMailer Daemon [<][^ ]+[@]/,
-        :subject  => %r/\ADelivery status notification/,
-        :received => %r/[ ][(]OpenSMTPD[)][ ]with[ ]/,
-      }.freeze
       # http://www.openbsd.org/cgi-bin/man.cgi?query=smtpd&sektion=8
       # opensmtpd-5.4.2p1/smtpd/
       #   bounce.c/317:#define NOTICE_INTRO \
@@ -96,9 +91,10 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil unless mhead['subject'] =~ Re0[:subject]
-        return nil unless mhead['from']    =~ Re0[:from]
-        return nil unless mhead['received'].find { |a| a =~ Re0[:received] }
+
+        return nil unless mhead['subject'].start_with?('Delivery status notification')
+        return nil unless mhead['from'] =~ /\AMailer Daemon [<][^ ]+[@]/
+        return nil unless mhead['received'].find { |a| a.include?(' (OpenSMTPD) with ') }
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")

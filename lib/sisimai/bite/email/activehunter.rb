@@ -7,10 +7,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Activehunter.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from    => %r/\A"MAILER-DAEMON"/,
-        :subject => %r/FAILURE NOTICE :/,
-      }.freeze
       Re1 = {
         :begin   => %r/\A  ----- The following addresses had permanent fatal errors -----\z/,
         :error   => %r/\A  ----- Transcript of session follows -----\z/,
@@ -36,6 +32,9 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
+
+        # :from    => %r/\A"MAILER-DAEMON"/,
+        # :subject => %r/FAILURE NOTICE :/,
         return nil unless mhead['x-ahmailid']
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]

@@ -3,9 +3,6 @@ module Sisimai
   module MDA
     # Imported from p5-Sisimail/lib/Sisimai/MDA.pm
     class << self
-      Re0 = {
-        :from => %r/\A(?:Mail Delivery Subsystem|MAILER-DAEMON|postmaster)/i,
-      }.freeze
       Re1 = {
         # dovecot/src/deliver/deliver.c
         # 11: #define DEFAULT_MAIL_REJECTION_HUMAN_REASON \
@@ -96,8 +93,7 @@ module Sisimai
         return nil unless mbody
         return nil if mhead.keys.size.zero?
         return nil if mbody.empty?
-
-        return nil unless mhead['from'] =~ Re0[:from]
+        return nil unless mhead['from'] =~ /\A(?:Mail Delivery Subsystem|MAILER-DAEMON|postmaster)/i
 
         agentname0 = ''   # [String] MDA name
         reasonname = ''   # [String] Error reason

@@ -8,10 +8,6 @@ module Sisimai::Bite::Email
       require 'sisimai/bite/email'
 
       # http://aws.amazon.com/ses/
-      Re0 = {
-        :subject  => %r/\ADelivery Status Notification [(]Failure[)]\z/,
-        :received => %r/.+[.]smtp-out[.].+[.]amazonses[.]com\b/,
-      }.freeze
       Re1 = {
         :begin  => %r/\AThis message could not be delivered[.]\z/,
         :rfc822 => %r|\Acontent-type: text/rfc822-headers\z|,
@@ -46,6 +42,9 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
+
+        # :subject  => %r/\ADelivery Status Notification [(]Failure[)]\z/,
+        # :received => %r/.+[.]smtp-out[.].+[.]amazonses[.]com\b/,
         return nil unless mhead['x-ses-outgoing']
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]

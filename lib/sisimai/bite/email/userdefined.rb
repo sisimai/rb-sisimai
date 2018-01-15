@@ -6,13 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/UserDefined.pm
       require 'sisimai/bite/email'
 
-      # Re0 is a regular expression to match with message headers which are
-      # given as the first argument of scan() method.
-      Re0 = {
-        :from    => %r/\AMail Sysmet/,
-        :subject => %r/\AError Mail Report/,
-      }.freeze
-
       # Re1 is delimiter set of these sections:
       #   begin:  The first line of a bounce message to be parsed.
       #   error:  The first line of an error message to get an error reason, recipient
@@ -45,14 +38,14 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
 
-        match = 0
         # 1. Check some value in mhead using regular expression or "==" operator
         #    whether the bounce message should be parsed by this module or not.
         #   - Matched 1 or more values: Proceed to the step 2.
         #   - Did not matched:          return nil
         #
-        match += 1 if mhead['subject'] =~ Re0[:subject]
-        match += 1 if mhead['from']    =~ Re0[:from]
+        match  = 0
+        match += 1 if mhead['subject'].start_with?('Error Mail Report')
+        match += 1 if mhead['from'].include?('Mail System')
         match += 1 if mhead['x-some-userdefined-header']
         return nil if match.zero?
 

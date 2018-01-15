@@ -7,10 +7,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/SurfControl.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'from'     => %r/ [(]Mail Delivery System[)]\z/,
-        :'x-mailer' => %r/\ASurfControl E-mail Filter\z/,
-      }.freeze
       Re1 = {
         :begin  => %r/\AYour message could not be sent[.]\z/,
         :error  => %r/\AFailed to send to identified host,\z/,
@@ -39,9 +35,11 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
+
+        # :'from' => %r/ [(]Mail Delivery System[)]\z/,
         return nil unless mhead['x-sef-processed']
         return nil unless mhead['x-mailer']
-        return nil unless mhead['x-mailer'] =~ Re0[:'x-mailer']
+        return nil unless mhead['x-mailer'].start_with?('SurfControl E-mail Filter')
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")

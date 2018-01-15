@@ -6,9 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Yandex.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from   => %r/\Amailer-daemon[@]yandex[.]ru\z/,
-      }.freeze
       Re1 = {
         :begin  => %r/\AThis is the mail system at host yandex[.]ru[.]/,
         :rfc822 => %r|\AContent-Type: message/rfc822|,
@@ -42,7 +39,7 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
         return nil unless mhead['x-yandex-uniq']
-        return nil unless mhead['from'] =~ Re0[:from]
+        return nil unless mhead['from'].start_with?('mailer-daemon@yandex.ru')
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")

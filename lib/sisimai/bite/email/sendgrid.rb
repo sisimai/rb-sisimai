@@ -6,11 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/SendGrid.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'from'        => %r/\AMAILER-DAEMON\z/,
-        :'return-path' => %r/\A[<]apps[@]sendgrid[.]net[>]\z/,
-        :'subject'     => %r/\AUndelivered Mail Returned to Sender\z/,
-      }.freeze
       Re1 = {
         :begin  => %r/\AThis is an automatically generated message from SendGrid[.]\z/,
         :error  => %r/\AIf you require assistance with this, please contact SendGrid support[.]\z/,
@@ -39,9 +34,11 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
+
+        # :'from'        => %r/\AMAILER-DAEMON\z/,
         return nil unless mhead['return-path']
-        return nil unless mhead['return-path'] =~ Re0[:'return-path']
-        return nil unless mhead['subject']     =~ Re0[:'subject']
+        return nil unless mhead['return-path'].start_with?('<apps@sendgrid.net>')
+        return nil unless mhead['subject'].start_with?('Undelivered Mail Returned to Sender')
 
         require 'sisimai/datetime'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]

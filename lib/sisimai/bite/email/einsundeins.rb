@@ -6,10 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/EinsUndEins.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from    => %r/\A["]Mail Delivery System["]/,
-        :subject => %r/\AMail delivery failed: returning message to sender\z/,
-      }.freeze
       Re1 = {
         :begin   => %r/\AThis message was created automatically by mail delivery software/,
         :error   => %r/\AFor the following reason:/,
@@ -39,8 +35,8 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil unless mhead['from']    =~ Re0[:from]
-        return nil unless mhead['subject'] =~ Re0[:subject]
+        return nil unless mhead['from'].start_with?('"Mail Delivery System"')
+        return nil unless mhead['subject'].start_with?('Mail delivery failed: returning message to sender')
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")

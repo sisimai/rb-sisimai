@@ -7,10 +7,6 @@ module Sisimai::Bite::Email
       require 'sisimai/bite/email'
 
       # Postfix manual - bounce(5) - http://www.postfix.org/bounce.5.html
-      Re0 = {
-        :from    => %r/ [(]Mail Delivery System[)]\z/,
-        :subject => %r/\AUndelivered Mail Returned to Sender\z/,
-      }.freeze
       Re1 = {
         :begin => %r{\A(?>
            [ ]+The[ ](?:
@@ -52,7 +48,9 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil unless mhead['subject'] =~ Re0[:subject]
+
+        # :from => %r/ [(]Mail Delivery System[)]\z/,
+        return nil unless mhead['subject'].start_with?('Undelivered Mail Returned to Sender')
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")

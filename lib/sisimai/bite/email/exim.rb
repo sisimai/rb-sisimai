@@ -6,24 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Exim.pm
       require 'sisimai/bite/email'
 
-      ReE = {
-        :from    => %r/[@].+[.]mail[.]ru[>]?/,
-      }.freeze
-      Re0 = {
-        :from    => %r/\AMail Delivery System/,
-        :subject => %r{(?:
-           Mail[ ]delivery[ ]failed(:[ ]returning[ ]message[ ]to[ ]sender)?
-          |Warning:[ ]message[ ].+[ ]delayed[ ]+
-          |Delivery[ ]Status[ ]Notification
-          |Mail[ ]failure
-          |Message[ ]frozen
-          |error[(]s[)][ ]in[ ]forwarding[ ]or[ ]filtering
-          )
-        }x,
-        # :'message-id' => %r/\A[<]\w+[-]\w+[-]\w+[@].+\z/,
-        # Message-Id: <E1P1YNN-0003AD-Ga@example.org>
-      }.freeze
-
       # Error text regular expressions which defined in exim/src/deliver.c
       #
       # deliver.c:6292| fprintf(f,
@@ -163,9 +145,19 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil if     mhead['from']    =~ ReE[:from]
-        return nil unless mhead['from']    =~ Re0[:from]
-        return nil unless mhead['subject'] =~ Re0[:subject]
+
+        # :'message-id' => %r/\A[<]\w+[-]\w+[-]\w+[@].+\z/,
+        return nil if     mhead['from'] =~ /[@].+[.]mail[.]ru[>]?/
+        return nil unless mhead['from'].start_with?('Mail Delivery System')
+        return nil unless mhead['subject'] =~ %r{(?:
+           Mail[ ]delivery[ ]failed(:[ ]returning[ ]message[ ]to[ ]sender)?
+          |Warning:[ ]message[ ].+[ ]delayed[ ]+
+          |Delivery[ ]Status[ ]Notification
+          |Mail[ ]failure
+          |Message[ ]frozen
+          |error[(]s[)][ ]in[ ]forwarding[ ]or[ ]filtering
+          )
+        }x
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")

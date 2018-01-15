@@ -6,20 +6,6 @@ module Sisimai
       require 'sisimai/bite/email'
 
       # http://tools.ietf.org/html/rfc3464
-      Re0 = {
-        :'from'        => %r/\b(?:postmaster|mailer-daemon|root)[@]/i,
-        :'return-path' => %r/(?:[<][>]|mailer-daemon)/i,
-        :'subject'     => %r{(?>
-           delivery[ ](?:failed|failure|report)
-          |failure[ ]notice
-          |mail[ ](?:delivery|error)
-          |non[-]delivery
-          |returned[ ]mail
-          |undeliverable[ ]mail
-          |Warning:[ ]
-          )
-        }xi,
-      }.freeze
       Re1 = {
         :begin   => %r{\A(?>
            Content-Type:[ ]*(?:
@@ -315,12 +301,21 @@ module Sisimai
           match = 0
 
           # Failed to get a recipient address at code above
-          match += 1 if mhead['from']    =~ Re0[:from]
-          match += 1 if mhead['subject'] =~ Re0[:subject]
+          match += 1 if mhead['from'] =~ /\b(?:postmaster|mailer-daemon|root)[@]/i
+          match += 1 if mhead['subject'] =~ %r{(?>
+             delivery[ ](?:failed|failure|report)
+            |failure[ ]notice
+            |mail[ ](?:delivery|error)
+            |non[-]delivery
+            |returned[ ]mail
+            |undeliverable[ ]mail
+            |Warning:[ ]
+            )
+          }xi
 
           if mhead['return-path']
             # Check the value of Return-Path of the message
-            match += 1 if mhead['return-path'] =~ Re0[:'return-path']
+            match += 1 if mhead['return-path'] =~ /(?:[<][>]|mailer-daemon)/i
           end
           break unless match > 0
 

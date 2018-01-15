@@ -6,10 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Aol.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from    => %r/\APostmaster [<]Postmaster[@]AOL[.]com[>]\z/,
-        :subject => %r/\AUndeliverable: /,
-      }.freeze
       Re1 = {
         :begin   => %r|\AContent-Type: message/delivery-status|,
         :rfc822  => %r|\AContent-Type: message/rfc822|,
@@ -49,6 +45,9 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
+
+        # :from    => %r/\APostmaster [<]Postmaster[@]AOL[.]com[>]\z/,
+        # :subject => %r/\AUndeliverable: /,
         return nil unless mhead['x-aol-ip']
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]

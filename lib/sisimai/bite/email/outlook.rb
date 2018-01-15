@@ -7,11 +7,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/US/Outlook.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from     => %r/postmaster[@]/,
-        :subject  => %r/Delivery Status Notification/,
-        :received => %r/.+[.]hotmail[.]com\b/,
-      }.freeze
       Re1 = {
         :begin  => %r/\AThis is an automatically generated Delivery Status Notification/,
         :error  => %r/\A[.]+ while talking to .+[:]\z/,
@@ -45,11 +40,12 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
 
+        # :from => %r/postmaster[@]/,
         match  = 0
-        match += 1 if mhead['subject']    =~ Re0[:subject]
+        match += 1 if mhead['subject'].include?('Delivery Status Notification')
         match += 1 if mhead['x-message-delivery']
         match += 1 if mhead['x-message-info']
-        match += 1 if mhead['received'].find { |a| a =~ Re0[:received] }
+        match += 1 if mhead['received'].find { |a| a =~ /.+[.]hotmail[.]com\b/ }
         return nil if match < 2
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]

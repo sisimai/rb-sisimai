@@ -7,10 +7,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/MessageLabs.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from    => %r/MAILER-DAEMON[@]messagelabs[.]com/,
-        :subject => %r/\AMail Delivery Failure/,
-      }.freeze
       Re1 = {
         :begin   => %r|\AContent-Type: message/delivery-status|,
         :error   => %r/\AReason:[ \t]*(.+)\z/,
@@ -51,8 +47,8 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
         return nil unless mhead['x-msg-ref']
-        return nil unless mhead['from']    =~ Re0[:from]
-        return nil unless mhead['subject'] =~ Re0[:subject]
+        return nil unless mhead['from'].include?('MAILER-DAEMON@messagelabs.com')
+        return nil unless mhead['subject'].start_with?('Mail Delivery Failure')
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")

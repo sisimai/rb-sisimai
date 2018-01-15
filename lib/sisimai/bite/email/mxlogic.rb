@@ -8,16 +8,6 @@ module Sisimai::Bite::Email
       # Based on Sisimai::Bite::Email::Exim
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'from'      => %r/\AMail Delivery System/,
-        :'subject'   => %r{(?:
-             Mail[ ]delivery[ ]failed(:[ ]returning[ ]message[ ]to[ ]sender)?
-            |Warning:[ ]message[ ].+[ ]delayed[ ]+
-            |Delivery[ ]Status[ ]Notification
-            )
-        }x,
-        :'message-id' => %r/\A[<]mxl[~][0-9a-f]+/,
-      }.freeze
       Re1 = {
         :rfc822 => %r/\AIncluded is a copy of the message header:\z/,
         :begin  => %r/\AThis message was created automatically by mail delivery software[.]\z/,
@@ -91,12 +81,18 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
 
+        # :'message-id' => %r/\A[<]mxl[~][0-9a-f]+/,
         match  = 0
         match += 1 if mhead['x-mx-bounce']
         match += 1 if mhead['x-mxl-hash']
         match += 1 if mhead['x-mxl-notehash']
-        match += 1 if mhead['subject'] =~ Re0[:subject]
-        match += 1 if mhead['from']    =~ Re0[:from]
+        match += 1 if mhead['from'].start_with?('Mail Delivery System')
+        match += 1 if mhead['subject'] =~ %r{(?:
+             Mail[ ]delivery[ ]failed(:[ ]returning[ ]message[ ]to[ ]sender)?
+            |Warning:[ ]message[ ].+[ ]delayed[ ]+
+            |Delivery[ ]Status[ ]Notification
+            )
+        }x
         return nil if match.zero?
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]

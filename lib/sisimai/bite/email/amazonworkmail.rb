@@ -7,11 +7,6 @@ module Sisimai::Bite::Email
       require 'sisimai/bite/email'
 
       # https://aws.amazon.com/workmail/
-      Re0 = {
-        :'subject'  => %r/Delivery[_ ]Status[_ ]Notification[_ ].+Failure/,
-        :'received' => %r/.+[.]smtp-out[.].+[.]amazonses[.]com\b/,
-        :'x-mailer' => %r/\AAmazon WorkMail\z/,
-      }.freeze
       Re1 = {
         :begin  => %r/\ATechnical report:\z/,
         :rfc822 => %r|\Acontent-type: message/rfc822\z|,
@@ -41,6 +36,9 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
 
+        # :'subject'  => %r/Delivery[_ ]Status[_ ]Notification[_ ].+Failure/,
+        # :'received' => %r/.+[.]smtp-out[.].+[.]amazonses[.]com\b/,
+        # :'x-mailer' => %r/\AAmazon WorkMail\z/,
         match = 0
         xmail = mhead['x-original-mailer'] || mhead['x-mailer'] || ''
 
@@ -48,7 +46,7 @@ module Sisimai::Bite::Email
         unless xmail.empty?
           # X-Mailer: Amazon WorkMail
           # X-Original-Mailer: Amazon WorkMail
-          match += 1 if xmail =~ Re0[:'x-mailer']
+          match += 1 if xmail.start_with?('Amazon WorkMail')
         end
         return nil if match < 2
 

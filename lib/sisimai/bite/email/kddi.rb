@@ -6,12 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/KDDI.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'from'       => %r/no-reply[@].+[.]dion[.]ne[.]jp/,
-        :'reply-to'   => %r/\Afrom[ \t]+\w+[.]auone[-]net[.]jp[ \t]/,
-        :'received'   => %r/\Afrom[ ](?:.+[.])?ezweb[.]ne[.]jp[ ]/,
-        :'message-id' => %r/[@].+[.]ezweb[.]ne[.]jp[>]\z/,
-      }.freeze
       Re1 = {
         :begin => %r/\AYour[ ]mail[ ](?:
              sent[ ]on:?[ ][A-Z][a-z]{2}[,]
@@ -47,10 +41,11 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
 
+        # :'message-id' => %r/[@].+[.]ezweb[.]ne[.]jp[>]\z/,
         match  = 0
-        match += 1 if mhead['from']    =~ Re0[:from]
-        match += 1 if mhead['reply-to'] && mhead['reply-to'] =~ Re0[:'reply-to']
-        match += 1 if mhead['received'].find { |a| a =~ Re0[:received] }
+        match += 1 if mhead['from'] =~ /no-reply[@].+[.]dion[.]ne[.]jp/
+        match += 1 if mhead['reply-to'] && mhead['reply-to'] =~ /\Afrom[ \t]+\w+[.]auone[-]net[.]jp[ \t]/
+        match += 1 if mhead['received'].find { |a| a =~ /\Afrom[ ](?:.+[.])?ezweb[.]ne[.]jp[ ]/ }
         return nil if match.zero?
 
         require 'sisimai/string'

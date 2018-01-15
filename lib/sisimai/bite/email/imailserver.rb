@@ -7,10 +7,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite::Email/IMailServer.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'x-mailer' => %r/\A[<]SMTP32 v[\d.]+[>][ ]*\z/,
-        :'subject'  => %r/\AUndeliverable Mail[ ]*\z/,
-      }.freeze
       Re1 = {
         :begin  => %r/\A\z/,    # Blank line
         :error  => %r/Body of message generated response:/,
@@ -57,8 +53,8 @@ module Sisimai::Bite::Email
         return nil unless mbody
 
         match  = 0
-        match += 1 if mhead['subject'] =~ Re0[:subject]
-        match += 1 if mhead['x-mailer'] && mhead['x-mailer'] =~ Re0[:'x-mailer']
+        match += 1 if mhead['subject'] =~ /\AUndeliverable Mail[ ]*\z/
+        match += 1 if mhead['x-mailer'] && mhead['x-mailer'] =~ /\A[<]SMTP32 v[\d.]+[>][ ]*\z/
         return nil if match.zero?
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]

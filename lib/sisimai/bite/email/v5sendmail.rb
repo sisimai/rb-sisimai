@@ -7,10 +7,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/V5sendmail.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from    => %r/\AMail Delivery Subsystem/,
-        :subject => %r/\AReturned mail: [A-Z]/,
-      }.freeze
       # Error text regular expressions which defined in src/savemail.c
       #   savemail.c:485| (void) fflush(stdout);
       #   savemail.c:486| p = queuename(e->e_parent, 'x');
@@ -56,7 +52,9 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil unless mhead['subject'] =~ Re0[:subject]
+
+        # :from => %r/\AMail Delivery Subsystem/,
+        return nil unless mhead['subject'] =~ /\AReturned mail: [A-Z]/
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")

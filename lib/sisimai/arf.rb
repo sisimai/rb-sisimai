@@ -6,16 +6,6 @@ module Sisimai
       require 'sisimai/bite/email'
       require 'sisimai/rfc5322'
 
-      Re0 =  {
-        :'content-type' => %r|multipart/mixed|,
-        :'report-type'  => %r/report-type=["]?feedback-report["]?/,
-        :'from'         => %r{(?:
-           staff[@]hotmail[.]com\z
-          |complaints[@]email-abuse[.]amazonses[.]com\z
-          )
-        }x,
-        :'subject'      => %r/complaint[ ]about[ ]message[ ]from[ ]/,
-      }.freeze
       # http://tools.ietf.org/html/rfc5965
       # http://en.wikipedia.org/wiki/Feedback_loop_(email)
       # http://en.wikipedia.org/wiki/Abuse_Reporting_Format
@@ -52,14 +42,19 @@ module Sisimai
         return false unless heads
         match = false
 
-        if heads['content-type'] =~ Re0[:'report-type']
+        if heads['content-type'] =~ /report-type=["]?feedback-report["]?/
           # Content-Type: multipart/report; report-type=feedback-report; ...
           match = true
 
-        elsif heads['content-type'] =~ Re0[:'content-type']
+        elsif heads['content-type'].include?('multipart/mixed')
           # Microsoft (Hotmail, MSN, Live, Outlook) uses its own report format.
           # Amazon SES Complaints bounces
-          if heads['from'] =~ Re0[:'from'] && heads['subject'] =~ Re0[:'subject']
+          mfrom = %r{(?:
+             staff[@]hotmail[.]com\z
+            |complaints[@]email-abuse[.]amazonses[.]com\z
+            )
+          }x
+          if heads['from'] =~ mfrom && heads['subject'].include?('complaint about message from ')
             # From: staff@hotmail.com
             # From: complaints@email-abuse.amazonses.com
             # Subject: complaint about message from 192.0.2.1

@@ -8,11 +8,6 @@ module Sisimai::Bite::Email
       require 'sisimai/bite/email'
 
       # http://aws.amazon.com/ses/
-      ReE = { :'x-mailer' => %r/Amazon[ ]WorkMail/ }.freeze
-      Re0 = {
-        :from    => %r/\AMAILER-DAEMON[@]email[-]bounces[.]amazonses[.]com\z/,
-        :subject => %r/\ADelivery Status Notification [(]Failure[)]\z/,
-      }.freeze
       Re1 = {
         :begin   => %r/\A(?:
              The[ ]following[ ]message[ ]to[ ][<]
@@ -50,9 +45,11 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
 
-        match = 0
-        return nil if mhead['x-mailer'] =~ ReE[:'x-mailer']
+        # :from    => %r/\AMAILER-DAEMON[@]email[-]bounces[.]amazonses[.]com\z/,
+        # :subject => %r/\ADelivery Status Notification [(]Failure[)]\z/,
+        return nil if mhead['x-mailer'].to_s.include?('Amazon WorkMail')
 
+        match  = 0
         match += 1 if mhead['x-aws-outgoing']
         match += 1 if mhead['x-ses-outgoing']
         return nil if match.zero?

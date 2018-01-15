@@ -6,10 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/McAfee.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'x-nai'   => %r/Modified by McAfee /,
-        :'subject' => %r/\ADelivery Status\z/,
-      }.freeze
       Re1 = {
         :begin   => %r/[-]+ The following addresses had delivery problems [-]+\z/,
         :error   => %r|\AContent-Type: [^ ]+/[^ ]+; name="deliveryproblems[.]txt"|,
@@ -43,8 +39,8 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
         return nil unless mhead['x-nai-header']
-        return nil unless mhead['x-nai-header'] =~ Re0[:'x-nai']
-        return nil unless mhead['subject']      =~ Re0[:'subject']
+        return nil unless mhead['x-nai-header'].include?('Modified by McAfee ')
+        return nil unless mhead['subject'].start_with?('Delivery Status')
 
         require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]

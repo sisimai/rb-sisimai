@@ -6,10 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/X3.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from    => %r/\AMail Delivery System/,
-        :subject => %r/\ADelivery status notification/,
-      }.freeze
       Re1 = {
         :begin  => %r/\A[ \t]+This is an automatically generated Delivery Status Notification/,
         :rfc822 => %r|\AContent-Type: message/rfc822|,
@@ -34,8 +30,8 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil unless mhead['subject'] =~ Re0[:subject]
-        return nil unless mhead['from']    =~ Re0[:from]
+        return nil unless mhead['subject'].start_with?('Delivery status notification')
+        return nil unless mhead['from'].start_with?('Mail Delivery System')
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")

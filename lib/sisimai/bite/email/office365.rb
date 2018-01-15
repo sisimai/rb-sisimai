@@ -7,11 +7,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Office365.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'subject'    => %r/Undeliverable:/,
-        :'received'   => %r/.+[.](?:outbound[.]protection|prod)[.]outlook[.]com\b/,
-        :'message-id' => %r/.+[.](?:outbound[.]protection|prod)[.]outlook[.]com\b/,
-      }.freeze
       Re1 = {
         :begin  => %r{\A(?:
            Delivery[ ]has[ ]failed[ ]to[ ]these[ ]recipients[ ]or[ ]groups:
@@ -88,7 +83,7 @@ module Sisimai::Bite::Email
         return nil unless mbody
 
         match  = 0
-        match += 1 if mhead['subject'] =~ Re0[:subject]
+        match += 1 if mhead['subject'].include?('Undeliverable:')
         match += 1 if mhead['x-ms-exchange-message-is-ndr']
         match += 1 if mhead['x-microsoft-antispam-prvs']
         match += 1 if mhead['x-exchange-antispam-report-test']
@@ -96,10 +91,10 @@ module Sisimai::Bite::Email
         match += 1 if mhead['x-ms-exchange-crosstenant-originalarrivaltime']
         match += 1 if mhead['x-ms-exchange-crosstenant-fromentityheader']
         match += 1 if mhead['x-ms-exchange-transport-crosstenantheadersstamped']
-        match += 1 if mhead['received'].find { |a| a =~ Re0[:received] }
+        match += 1 if mhead['received'].find { |a| a =~ /.+[.](?:outbound[.]protection|prod)[.]outlook[.]com\b/ }
         if mhead['message-id']
           # Message-ID: <00000000-0000-0000-0000-000000000000@*.*.prod.outlook.com>
-          match += 1 if mhead['message-id'] =~ Re0[:'message-id']
+          match += 1 if mhead['message-id'] =~ /.+[.](?:outbound[.]protection|prod)[.]outlook[.]com\b/
         end
         return nil if match < 2
 

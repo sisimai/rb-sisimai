@@ -6,10 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/X1.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from    => %r/["]Mail Deliver System["] /,
-        :subject => %r/\AReturned Mail: /,
-      }.freeze
       Re1 = {
         :begin   => %r/\AThe original message was received at (.+)\z/,
         :rfc822  => %r/\AReceived: from \d+[.]\d+[.]\d+[.]\d/,
@@ -34,8 +30,8 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil unless mhead['subject'] =~ Re0[:subject]
-        return nil unless mhead['from']    =~ Re0[:from]
+        return nil unless mhead['subject'].start_with?('Returned Mail: ')
+        return nil unless mhead['from'].include?('"Mail Deliver System" ')
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")

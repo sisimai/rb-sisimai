@@ -7,10 +7,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Exchange2007.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'subject'          => %r/\AUndeliverable:/,
-        :'content-language' => %r/\A[a-z]{2}(?:[-][A-Z]{2})?\z/,
-      }.freeze
       Re1 = {
         :begin  => %r/[ ]Microsoft[ ]Exchange[ ]Server[ ]20\d{2}/,
         :error  => %r/[ ]((?:RESOLVER|QUEUE)[.][A-Za-z]+(?:[.]\w+)?);/,
@@ -52,9 +48,9 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
 
-        return nil unless mhead['subject'] =~ Re0[:'subject']
+        return nil unless mhead['subject'].start_with?('Undeliverable:')
         return nil unless mhead['content-language']
-        return nil unless mhead['content-language'] =~ Re0[:'content-language']
+        return nil unless mhead['content-language'] =~ /\A[a-z]{2}(?:[-][A-Z]{2})?\z/
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")

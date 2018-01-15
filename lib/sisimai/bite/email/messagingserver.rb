@@ -8,11 +8,6 @@ module Sisimai::Bite::Email
       require 'sisimai/bite'
       require 'sisimai/rfc5322'
 
-      Re0 = {
-        :subject  => %r/\ADelivery Notification: /,
-        :received => %r/[ ][(]MessagingServer[)][ ]with[ ]/,
-        :boundary => %r/Boundary_[(]ID_.+[)]/,
-      }.freeze
       Re1 = {
         :begin  => %r/\AThis report relates to a message you sent with the following header fields:/,
         :rfc822 => %r!\A(?:Content-type:[ ]*message/rfc822|Return-path:[ ]*)!x,
@@ -41,9 +36,10 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
 
+        # :received => %r/[ ][(]MessagingServer[)][ ]with[ ]/,
         match  = 0
-        match += 1 if mhead['content-type'] =~ Re0[:boundary]
-        match += 1 if mhead['subject']      =~ Re0[:subject]
+        match += 1 if mhead['content-type'] =~ /Boundary_[(]ID_.+[)]/
+        match += 1 if mhead['subject'].start_with?('Delivery Notification: ')
         return nil if match.zero?
 
         require 'sisimai/address'

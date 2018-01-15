@@ -6,10 +6,6 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Facebook.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from    => %r/\AFacebook [<]mailer-daemon[@]mx[.]facebook[.]com[>]\z/,
-        :subject => %r/\ASorry, your message could not be delivered\z/,
-      }.freeze
       Re1 = {
         :begin   => %r/\AThis message was created automatically by Facebook[.]\z/,
         :rfc822  => %r/\AContent-Disposition: inline\z/,
@@ -94,8 +90,8 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil unless mhead['from']    =~ Re0[:from]
-        return nil unless mhead['subject'] =~ Re0[:subject]
+        return nil unless mhead['from'].start_with?('Facebook <mailer-daemon@mx.facebook.com>')
+        return nil unless mhead['subject'].start_with?('Sorry, your message could not be delivered')
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
