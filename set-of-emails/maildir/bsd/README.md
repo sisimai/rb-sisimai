@@ -13,173 +13,173 @@ Sisimai::ARF
 
 Sisimai::MTA::Exchange2003
 --------------------------------------------------------------------------------
-* mta-exchange-06.eml
+* email-exchange-06.eml
   * mailman-2.1.15/tests/bounces/groupwise_01.txt
   * Copyright (C) 1989, 1991 Free Software Foundation, Inc. | GPLv2
 
 Sisimai::MTA::Exchange2007
 --------------------------------------------------------------------------------
-* mta-exchange2007-02.eml
+* email-exchange2007-02.eml
   * [message-too-large.msg](https://github.com/rjbs/Mail-DeliveryStatus-BounceParser/blob/master/t/corpus/message-too-large.msg)
   * Copyright (C) 2003-2006 IC Group, Inc. | GPLv2
 
-* mta-exchange2007-03.eml
+* email-exchange2007-03.eml
   * https://github.com/LoneStarInternet/mail_manager/tree/master/spec/test_app/spec/support/files/bounce-mail-box-full.txt
   * Copyright (c) 2015 Lone Star Internet, Inc. | MIT
 
 Sisimai::MTA::Exim
 --------------------------------------------------------------------------------
-* mta-exim-09.eml
+* email-exim-09.eml
   * [13.eml](https://github.com/prasad83/node-bounce-handler/blob/master/eml/13.eml)
   * Copyright (c) 2014 prasad83 | The MIT License
 
-* mta-exim-10.eml
+* email-exim-10.eml
   * [34.eml](https://github.com/prasad83/node-bounce-handler/blob/master/eml/34.eml)
   * Copyright (c) 2014 prasad83 | The MIT License
 
-* mta-exim-11.eml
+* email-exim-11.eml
   * [44.eml](https://github.com/prasad83/node-bounce-handler/blob/master/eml/44.eml)
   * Copyright (c) 2014 prasad83 | The MIT License
 
-* mta-exim-12.eml
+* email-exim-12.eml
   * [0224.CALLER](https://github.com/Exim/exim/blob/master/test/mail/0224.CALLER)
   * Copyright (c) 1995 - 2012 University of Cambridge.
 
-* mta-exim-13.eml
+* email-exim-13.eml
   * [0237.CALLER](https://github.com/Exim/exim/blob/master/test/mail/0237.CALLER)
   * Copyright (c) 1995 - 2012 University of Cambridge.
 
-* mta-exim-14.eml
+* email-exim-14.eml
   * [9001.CALLER](https://github.com/Exim/exim/blob/master/test/mail/9001.CALLER)
   * Copyright (c) 1995 - 2012 University of Cambridge.
 
-* mta-exim-15.eml
+* email-exim-15.eml
   * [0536.oksender](https://github.com/Exim/exim/blob/master/test/mail/0536.oksender)
   * Copyright (c) 1995 - 2012 University of Cambridge.
 
-* mta-exim-16.eml
+* email-exim-16.eml
   * [0522.CALLER](https://github.com/Exim/exim/blob/master/test/mail/0522.CALLER)
   * Copyright (c) 1995 - 2012 University of Cambridge.
 
-* mta-exim-17.eml
+* email-exim-17.eml
   * [0310.CALLER](https://github.com/Exim/exim/blob/master/test/mail/0310.CALLER)
   * Copyright (c) 1995 - 2012 University of Cambridge.
 
-* mta-exim-18.eml
+* email-exim-18.eml
   * [0280.CALLER](https://github.com/Exim/exim/blob/master/test/mail/0280.CALLER)
   * Copyright (c) 1995 - 2012 University of Cambridge.
 
-* mta-exim-19.eml
+* email-exim-19.eml
   * [0174.CALLER](https://github.com/Exim/exim/blob/master/test/mail/0174.CALLER)
   * Copyright (c) 1995 - 2012 University of Cambridge.
 
-* mta-exim-20.eml
+* email-exim-20.eml
   * [0531.CALLER](https://github.com/Exim/exim/blob/master/test/mail/0531.CALLER)
   * Copyright (c) 1995 - 2012 University of Cambridge.
 
-* mta-exim-21.eml
+* email-exim-21.eml
   * [0461.CALLER](https://github.com/Exim/exim/blob/master/test/mail/0461.CALLER)
   * Copyright (c) 1995 - 2012 University of Cambridge.
 
-* mta-exim-22.eml
+* email-exim-22.eml
   * [0321.CALLER](https://github.com/Exim/exim/blob/master/test/mail/0321.CALLER)
   * Copyright (c) 1995 - 2012 University of Cambridge.
 
-* mta-exim-23.eml
+* email-exim-23.eml
   * [0253.lmn](https://github.com/Exim/exim/blob/master/test/mail/0253.lmn)
   * Copyright (c) 1995 - 2012 University of Cambridge.
 
-* mta-exim-24.eml
+* email-exim-24.eml
   * [0136.forwarder](https://github.com/Exim/exim/blob/master/test/mail/0136.forwarder)
   * Copyright (c) 1995 - 2012 University of Cambridge.
 
-* mta-exim-25.eml
+* email-exim-25.eml
   * [0233.me](https://github.com/Exim/exim/blob/master/test/mail/0233.me)
   * Copyright (c) 1995 - 2012 University of Cambridge.
 
-* mta-exim-26.eml
+* email-exim-26.eml
   * [0015.CALLER](https://github.com/Exim/exim/blob/master/test/mail/0015.CALLER)
   * Copyright (c) 1995 - 2012 University of Cambridge.
 
-* mta-exim-27.eml
+* email-exim-27.eml
   * [0211.CALLER](https://github.com/Exim/exim/blob/master/test/mail/0211.CALLER)
   * Copyright (c) 1995 - 2012 University of Cambridge.
 
-* mta-exim-28.eml
+* email-exim-28.eml
   * [0226.CALLER](https://github.com/Exim/exim/blob/master/test/mail/0226.CALLER)
   * Copyright (c) 1995 - 2012 University of Cambridge.
 
 Sisimai::MTA::IMailServer
 --------------------------------------------------------------------------------
-* mta-imailserver-05.eml
+* email-imailserver-05.eml
   * mailman-2.1.15/tests/bounces/smtp32_03.txt
   * Copyright (C) 1989, 1991 Free Software Foundation, Inc. | GPLv2
 
 Sisimai::MTA::InterScanMSS
 --------------------------------------------------------------------------------
-* mta-interscanmss-02.eml
+* email-interscanmss-02.eml
   * mailman-2.1.15/tests/bounces/simple_15.txt
   * Copyright (C) 1989, 1991 Free Software Foundation, Inc. | GPLv2
 
 Sisimai::MTA::Notes
 --------------------------------------------------------------------------------
-* mta-notes-04.eml
+* email-notes-04.eml
   * [msg00154.html](http://osdir.com/ml/org.telecom.india-gii/2003-02/msg00154.html)
   * Copyrighted (c) 2000-2015, but we're happy to let you use what you wish with attribution. OSDir.com
 
 Sisimai::MTA::Postfix
 --------------------------------------------------------------------------------
-* mta-postfix-18.eml
+* email-postfix-18.eml
   * [relay_failed.eml](https://github.com/choonkeat/deliveryboy/blob/master/spec/fixtures/bounce_cases/relay_failed.eml)
   * Copyright (c) 2011 Chew Choon Keat | The MIT License
 
-* mta-postfix-19.eml
+* email-postfix-19.eml
   * [testfile.eml](https://github.com/prasad83/node-bounce-handler/blob/master/eml/testfile.eml)
   * Copyright (c) 2011 Chew Choon Keat | The MIT License
 
-* mta-postfix-20.eml
+* email-postfix-20.eml
   * mailman-2.1.15/tests/bounces/postfix_05.txt
   * Copyright (C) 1989, 1991 Free Software Foundation, Inc. | GPLv2
 
-* mta-postfix-22.eml
+* email-postfix-22.eml
   * https://github.com/LoneStarInternet/mail_manager/tree/master/spec/test_app/spec/support/files/bounce_400.txt
   * Copyright (c) 2015 Lone Star Internet, Inc. | MIT
 
-* mta-postfix-23.eml
+* email-postfix-23.eml
   * https://github.com/LoneStarInternet/mail_manager/tree/master/spec/test_app/spec/support/files/bounce_500.txt
   * Copyright (c) 2015 Lone Star Internet, Inc. | MIT
 
-* mta-postfix-24.eml
+* email-postfix-24.eml
   * https://github.com/LoneStarInternet/mail_manager/tree/master/spec/test_app/spec/support/files/bounce-invalid-address.txt
   * Copyright (c) 2015 Lone Star Internet, Inc. | MIT
 
-* mta-postfix-25.eml
+* email-postfix-25.eml
   * https://github.com/LoneStarInternet/mail_manager/tree/master/spec/test_app/spec/support/files/bounce-smtp-timeout.txt
   * Copyright (c) 2015 Lone Star Internet, Inc. | MIT
 
-* mta-postfix-26.eml
+* email-postfix-26.eml
   * https://github.com/LoneStarInternet/mail_manager/tree/master/spec/test_app/spec/support/files/bounce-unknown_domain.txt
   * Copyright (c) 2015 Lone Star Internet, Inc. | MIT
 
-* mta-postfix-27.eml
+* email-postfix-27.eml
   * https://github.com/rgl/MailBounceDetector/blob/master/MailBounceDetector.Tests/Fixtures/bounce_postfix_non_existing_mailbox.eml
   * Copyright (c) 2015 Rui Lopes (ruilopes.com) | MIT
 
 Sisimai::MTA::qmail
 --------------------------------------------------------------------------------
-* mta-qmail-09.eml
+* email-qmail-09.eml
   * mailman-2.1.15/tests/bounces/qmail_01.txt
   * Copyright (C) 1989, 1991 Free Software Foundation, Inc. | GPLv2
 
-* mta-qmail-10.eml
+* email-qmail-10.eml
   * https://github.com/rgl/MailBounceDetector/blob/master/MailBounceDetector.Tests/Fixtures/bounce_qmail_extra_lines_between_recipient_paragraphs.eml
   * Copyright (c) 2015 Rui Lopes (ruilopes.com) | MIT
 
-* mta-qmail-11.eml
+* email-qmail-11.eml
   * https://github.com/rgl/MailBounceDetector/blob/master/MailBounceDetector.Tests/Fixtures/bounce_qmail_multipart_alternative_non_existing_mailbox.eml
   * Copyright (c) 2015 Rui Lopes (ruilopes.com) | MIT
 
-* mta-qmail-12.eml
+* email-qmail-12.eml
   * https://github.com/rgl/MailBounceDetector/blob/master/MailBounceDetector.Tests/Fixtures/bounce_qmail_no_host_found.eml
   * Copyright (c) 2015 Rui Lopes (ruilopes.com) | MIT
 
@@ -273,55 +273,55 @@ Sisimai::RFC3834
 
 Sisimai::MTA::Sendmail
 --------------------------------------------------------------------------------
-* mta-sendmail-23.eml
+* email-sendmail-23.eml
   * [DSN-spam.eml](https://github.com/sendgrid/go-gmime/blob/master/gmime/fixtures/DSN-spam.eml)
   * Copyright (c) 2014, 2015 SendGrid Inc. | The MIT License
 
 Sisimai::MSP::US::Google
 --------------------------------------------------------------------------------
-* us-msp-google-12.eml
+* email-google-12.eml
   * mailman-2.1.15/tests/bounces/simple_17.txt
   * Copyright (C) 1989, 1991 Free Software Foundation, Inc. | GPLv2
 
-* us-msp-google-13.eml
+* email-google-13.eml
   * mailman-2.1.15/tests/bounces/simple_28.txt
   * Copyright (C) 1989, 1991 Free Software Foundation, Inc. | GPLv2
 
 Sisimai::MSP::US::Outlook
 --------------------------------------------------------------------------------
-* us-msp-outlook-09.eml
+* email-outlook-09.eml
   * [connection_timed_out.eml](https://github.com/choonkeat/deliveryboy/blob/master/spec/fixtures/bounce_cases/connection_timed_out.eml)
   * Copyright (c) 2011 Chew Choon Keat | The MIT License
 
 Sisimai::MTA::X2
 --------------------------------------------------------------------------------
-* mta-x2-05.eml
+* email-x2-05.eml
   * mailman-2.1.15/tests/bounces/yahoo_03.txt
   * Copyright (C) 1989, 1991 Free Software Foundation, Inc. | GPLv2
 
 Sisimai::MTA::X4
 --------------------------------------------------------------------------------
-* mta-x4-01.eml
+* email-x4-01.eml
   * [bounce-secureservers.net-mailfolder_is_full.eml](https://github.com/justingit/dada-mail/blob/master/dada/t/corpus/email_messages/bounce-secureservers.net-mailfolder_is_full.eml)
   * Copyright (c) 1999 - 2015 Justin Simoni | GPL
 
-* mta-x4-02.eml
+* email-x4-02.eml
   * mailman-2.1.15/tests/bounces/newmailru_01.txt
   * Copyright (C) 1989, 1991 Free Software Foundation, Inc. | GPLv2
 
-* mta-x4-03.eml
+* email-x4-03.eml
   * mailman-2.1.15/tests/bounces/qmail_03.txt
   * Copyright (C) 1989, 1991 Free Software Foundation, Inc. | GPLv2
 
-* mta-x4-04.eml
+* email-x4-04.eml
   * mailman-2.1.15/tests/bounces/qmail_04.txt
   * Copyright (C) 1989, 1991 Free Software Foundation, Inc. | GPLv2
 
-* mta-x4-05.eml
+* email-x4-05.eml
   * mailman-2.1.15/tests/bounces/qmail_05.txt
   * Copyright (C) 1989, 1991 Free Software Foundation, Inc. | GPLv2
 
-* mta-x4-06.eml
+* email-x4-06.eml
   * mailman-2.1.15/tests/bounces/qmail_06.txt
   * Copyright (C) 1989, 1991 Free Software Foundation, Inc. | GPLv2
 
