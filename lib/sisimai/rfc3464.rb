@@ -18,7 +18,6 @@ module Sisimai
           |Your[ ]message[ ]was[ ]not[ ]delivered[ ]to[ ]the[ ]following[ ]recipients
           )
         }xi,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
         :rfc822  => %r{\A(?>
            Content-Type:[ ]*(?:message/rfc822|text/rfc822-headers)
           |Return-Path:[ ]*[<].+[>]\z
@@ -384,7 +383,7 @@ module Sisimai
           b = dscontents[-1]
           mbody.split("\n").each do |e|
             # Get the recipient's email address and error messages.
-            break if e =~ Re1[:endof]
+            break if e.start_with?('__END_OF_EMAIL_MESSAGE__')
             break if e =~ Re1[:rfc822]
             break if e =~ re_stop
 
