@@ -13,7 +13,8 @@ module Sisimai::Bite::Email
         message: ['This message could not be delivered.'],
         rfc822:  ['content-type: text/rfc822-headers'],
       }.freeze
-      ReFailures = {
+
+      ReFailure = {
         # The followings are error messages in Rule sets/*/Actions/Template
         filtered:     %r/Mailbox does not exist/,
         mesgtoobig:   %r/Message too large/,
@@ -197,9 +198,9 @@ module Sisimai::Bite::Email
             e['status'] = pseudostatus if pseudostatus.size > 0
           end
 
-          ReFailures.each_key do |r|
+          ReFailure.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailures[r]
+            next unless e['diagnosis'] =~ ReFailure[r]
             e['reason'] = r.to_s
             break
           end
