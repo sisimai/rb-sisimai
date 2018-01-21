@@ -6,10 +6,12 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Notes.pm
       require 'sisimai/bite/email'
 
-      Re1 = {
-        :begin  => %r/\A[-]+[ ]+Failure Reasons[ ]+[-]+\z/,
-        :rfc822 => %r/^[-]+[ ]+Returned Message[ ]+[-]+$/,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      MarkingsOf = {
+        message: %r/\A[-]+[ ]+Failure Reasons[ ]+[-]+\z/,
+        rfc822:  %r/^[-]+[ ]+Returned Message[ ]+[-]+$/,
       }.freeze
+
       ReFailure = {
         userunknown: %r{(?:
            User[ ]not[ ]listed[ ]in[ ]public[ ]Name[ ][&][ ]Address[ ]Book
@@ -18,7 +20,6 @@ module Sisimai::Bite::Email
         }x,
         networkerror: %r/Message has exceeded maximum hop count/,
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Lotus Notes'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -54,7 +55,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -62,7 +63,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
               next
             end

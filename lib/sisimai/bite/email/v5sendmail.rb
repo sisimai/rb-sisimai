@@ -7,32 +7,32 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/V5sendmail.pm
       require 'sisimai/bite/email'
 
-      # Error text regular expressions which defined in src/savemail.c
-      #   savemail.c:485| (void) fflush(stdout);
-      #   savemail.c:486| p = queuename(e->e_parent, 'x');
-      #   savemail.c:487| if ((xfile = fopen(p, "r")) == NULL)
-      #   savemail.c:488| {
-      #   savemail.c:489|   syserr("Cannot open %s", p);
-      #   savemail.c:490|   fprintf(fp, "  ----- Transcript of session is unavailable -----\n");
-      #   savemail.c:491| }
-      #   savemail.c:492| else
-      #   savemail.c:493| {
-      #   savemail.c:494|   fprintf(fp, "   ----- Transcript of session follows -----\n");
-      #   savemail.c:495|   if (e->e_xfp != NULL)
-      #   savemail.c:496|       (void) fflush(e->e_xfp);
-      #   savemail.c:497|   while (fgets(buf, sizeof buf, xfile) != NULL)
-      #   savemail.c:498|       putline(buf, fp, m);
-      #   savemail.c:499|   (void) fclose(xfile);
-      Re1 = {
-        :begin  => %r/\A[ \t]+[-]+ Transcript of session follows [-]+\z/,
-        :error  => %r/\A[.]+ while talking to .+[:]\z/,
-        :rfc822 => %r{\A[ \t]+-----[ ](?:
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      MarkingsOf = {
+        # Error text regular expressions which defined in src/savemail.c
+        #   savemail.c:485| (void) fflush(stdout);
+        #   savemail.c:486| p = queuename(e->e_parent, 'x');
+        #   savemail.c:487| if ((xfile = fopen(p, "r")) == NULL)
+        #   savemail.c:488| {
+        #   savemail.c:489|   syserr("Cannot open %s", p);
+        #   savemail.c:490|   fprintf(fp, "  ----- Transcript of session is unavailable -----\n");
+        #   savemail.c:491| }
+        #   savemail.c:492| else
+        #   savemail.c:493| {
+        #   savemail.c:494|   fprintf(fp, "   ----- Transcript of session follows -----\n");
+        #   savemail.c:495|   if (e->e_xfp != NULL)
+        #   savemail.c:496|       (void) fflush(e->e_xfp);
+        #   savemail.c:497|   while (fgets(buf, sizeof buf, xfile) != NULL)
+        #   savemail.c:498|       putline(buf, fp, m);
+        #   savemail.c:499|   (void) fclose(xfile);
+        message: %r/\A[ \t]+[-]+ Transcript of session follows [-]+\z/,
+        error:   %r/\A[.]+ while talking to .+[:]\z/,
+        rfc822:  %r{\A[ \t]+-----[ ](?:
            Unsent[ ]message[ ]follows
           |No[ ]message[ ]was[ ]collected
           )[ ]-----
         }x,
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Sendmail version 5'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -71,7 +71,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -79,7 +79,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
               next
             end
@@ -138,7 +138,7 @@ module Sisimai::Bite::Email
               # Detect SMTP session error or connection error
               next if v['sessionerr']
 
-              if e =~ Re1[:error]
+              if e =~ MarkingsOf[:error]
                 # ----- Transcript of session follows -----
                 # ... while talking to mta.example.org.:
                 v['sessionerr'] = true

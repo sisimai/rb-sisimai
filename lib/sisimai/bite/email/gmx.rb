@@ -6,14 +6,15 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/GMX.pm
       require 'sisimai/bite/email'
 
-      Re1 = {
-        :begin   => %r/\AThis message was created automatically by mail delivery software/,
-        :rfc822  => %r/\A--- The header of the original message is following/,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['This message was created automatically by mail delivery software'],
+        rfc822:  ['--- The header of the original message is following'],
       }.freeze
+
       ReFailure = {
         expired: %r/delivery[ ]retry[ ]timeout[ ]exceeded/x,
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'GMX: http://www.gmx.net'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -54,7 +55,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -62,7 +63,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end

@@ -7,8 +7,9 @@ module Sisimai::Bite::Email
       require 'sisimai/bite/email'
 
       # Postfix manual - bounce(5) - http://www.postfix.org/bounce.5.html
-      Re1 = {
-        :begin => %r{\A(?>
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      MarkingsOf = {
+        message: %r{\A(?>
            [ ]+The[ ](?:
              Postfix[ ](?:
                program\z              # The Postfix program
@@ -26,9 +27,8 @@ module Sisimai::Bite::Email
             )
           )
         }x,
-        :rfc822 => %r!\AContent-Type:[ \t]*(?:message/rfc822|text/rfc822-headers)\z!x,
+        rfc822: %r!\AContent-Type:[ \t]*(?:message/rfc822|text/rfc822-headers)\z!x,
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Postfix'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -75,7 +75,7 @@ module Sisimai::Bite::Email
 
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -83,7 +83,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
               next
             end

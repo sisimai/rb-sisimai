@@ -8,18 +8,18 @@ module Sisimai::Bite::Email
       require 'sisimai/bite/email'
 
       # http://aws.amazon.com/ses/
-      Re1 = {
-        :begin  => %r/\AThis message could not be delivered[.]\z/,
-        :rfc822 => %r|\Acontent-type: text/rfc822-headers\z|,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['This message could not be delivered.'],
+        rfc822:  ['content-type: text/rfc822-headers'],
       }.freeze
-      ReFailure = {
+      ReFailures = {
         # The followings are error messages in Rule sets/*/Actions/Template
         filtered:     %r/Mailbox does not exist/,
         mesgtoobig:   %r/Message too large/,
         mailboxfull:  %r/Mailbox full/,
         contenterror: %r/Message content rejected/,
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Amazon SES(Receiving): http://aws.amazon.com/ses/'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -68,7 +68,7 @@ module Sisimai::Bite::Email
 
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -76,7 +76,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end
@@ -197,9 +197,9 @@ module Sisimai::Bite::Email
             e['status'] = pseudostatus if pseudostatus.size > 0
           end
 
-          ReFailure.each_key do |r|
+          ReFailures.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailure[r]
+            next unless e['diagnosis'] =~ ReFailures[r]
             e['reason'] = r.to_s
             break
           end

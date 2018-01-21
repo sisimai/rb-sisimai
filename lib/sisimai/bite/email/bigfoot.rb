@@ -6,11 +6,13 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Bigfoot.pm
       require 'sisimai/bite/email'
 
-      Re1 = {
-        :begin  => %r/\A[ \t]+[-]+[ \t]*Transcript of session follows/,
-        :rfc822 => %r|\AContent-Type: message/partial|,
-      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        rfc822: ['Content-Type: message/partial'],
+      }.freeze
+      MarkingsOf = {
+        message: %r/\A[ \t]+[-]+[ \t]*Transcript of session follows/,
+      }.freeze
 
       def description; return 'Bigfoot: http://www.bigfoot.com'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -61,7 +63,7 @@ module Sisimai::Bite::Email
 
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -69,7 +71,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end

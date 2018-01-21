@@ -6,17 +6,17 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Sendmail.pm
       require 'sisimai/bite/email'
 
-      # Error text regular expressions which defined in sendmail/savemail.c
-      #   savemail.c:1040|if (printheader && !putline("   ----- Transcript of session follows -----\n",
-      #   savemail.c:1041|          mci))
-      #   savemail.c:1042|  goto writeerr;
-      #
-      Re1 = {
-        :begin   => %r/\A[ \t]+[-]+ Transcript of session follows [-]+\z/,
-        :error   => %r/\A[.]+ while talking to .+[:]\z/,
-        :rfc822  => %r{\AContent-Type:[ ]*(?:message/rfc822|text/rfc822-headers)\z},
-      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
+      MarkingsOf = {
+        # Error text regular expressions which defined in sendmail/savemail.c
+        #   savemail.c:1040|if (printheader && !putline("   ----- Transcript of session follows -----\n",
+        #   savemail.c:1041|          mci))
+        #   savemail.c:1042|  goto writeerr;
+        #
+        message: %r/\A[ \t]+[-]+ Transcript of session follows [-]+\z/,
+        rfc822:  %r{\AContent-Type:[ ]*(?:message/rfc822|text/rfc822-headers)\z},
+        error:   %r/\A[.]+ while talking to .+[:]\z/,
+      }.freeze
 
       def description; return 'V8Sendmail: /usr/sbin/sendmail'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -69,7 +69,7 @@ module Sisimai::Bite::Email
 
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -77,7 +77,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
               next
             end
@@ -195,7 +195,7 @@ module Sisimai::Bite::Email
               else
                 # Detect SMTP session error or connection error
                 next if sessionerr
-                if e =~ Re1[:error]
+                if e =~ MarkingsOf[:error]
                   # ----- Transcript of session follows -----
                   # ... while talking to mta.example.org.:
                   sessionerr = true

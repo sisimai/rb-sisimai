@@ -6,9 +6,11 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/FML.pm
       require 'sisimai/bite/email'
 
-      Re1 = {
-        :rfc822  => %r/\AOriginal[ ]mail[ ]as[ ]follows:\z/,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        rfc822: ['Original mail as follows:'],
       }.freeze
+      
       ErrorTitle = {
         :rejected => %r{(?>
            (?:Ignored[ ])*NOT[ ]MEMBER[ ]article[ ]from[ ]
@@ -45,7 +47,6 @@ module Sisimai::Bite::Email
         }x,
         :securityerror => %r/Security[ ]alert:/,
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'fml mailing list server/manager'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -81,7 +82,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end

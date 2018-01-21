@@ -6,11 +6,11 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Yandex.pm
       require 'sisimai/bite/email'
 
-      Re1 = {
-        :begin  => %r/\AThis is the mail system at host yandex[.]ru[.]/,
-        :rfc822 => %r|\AContent-Type: message/rfc822|,
-      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['This is the mail system at host yandex.ru.'],
+        rfc822:  ['Content-Type: message/rfc822'],
+      }.freeze
 
       def description; return 'Yandex.Mail: http://www.yandex.ru'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -63,7 +63,7 @@ module Sisimai::Bite::Email
 
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -71,7 +71,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end

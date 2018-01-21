@@ -7,11 +7,11 @@ module Sisimai::Bite::Email
       require 'sisimai/bite/email'
 
       # https://aws.amazon.com/workmail/
-      Re1 = {
-        :begin  => %r/\ATechnical report:\z/,
-        :rfc822 => %r|\Acontent-type: message/rfc822\z|,
-      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['Technical report:'],
+        rfc822:  ['content-type: message/rfc822'],
+      }.freeze
 
       def description; return 'Amazon WorkMail: https://aws.amazon.com/workmail/'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -65,7 +65,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -73,7 +73,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end

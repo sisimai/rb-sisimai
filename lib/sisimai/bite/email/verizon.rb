@@ -6,7 +6,6 @@ module Sisimai::Bite::Email
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Verizon.pm
       require 'sisimai/bite/email'
-
       Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Verizon Wireless: http://www.verizonwireless.com'; end
@@ -50,18 +49,19 @@ module Sisimai::Bite::Email
         senderaddr = ''     # (String) Sender address in the message body
         subjecttxt = ''     # (String) Subject of the original message
 
-        re1        = {}     # (Ref->Hash) Delimiter patterns
-        reFailure  = {}     # (Ref->Hash) Error message patterns
+        markingsof = {}     # (Hash) Delimiter patterns
+        startingof = {}     # (Hash) Delimiter strings
+        reFailures = {}     # (Hash) Error message patterns
         boundary00 = ''     # (String) Boundary string
         v = nil
 
         if match == 1
           # vtext.com
-          re1 = {
-            :begin  => %r/\AError:[ \t]/,
-            :rfc822 => %r/\A__BOUNDARY_STRING_HERE__\z/,
+          markingsof = {
+            message: %r/\AError:[ \t]/,
+            rfc822:  %r/\A__BOUNDARY_STRING_HERE__\z/,
           }
-          reFailure = {
+          reFailures = {
             # The attempted recipient address does not exist.
             userunknown: %r/550[ ][-][ ]Requested[ ]action[ ]not[ ]taken:[ ]no[ ]such[ ]user[ ]here/x,
           }
@@ -69,13 +69,13 @@ module Sisimai::Bite::Email
 
           if boundary00.size > 0
             # Convert to regular expression
-            re1['rfc822'] = Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z')
+            markingsof[:rfc822] = Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z')
           end
 
           hasdivided.each do |e|
             if readcursor.zero?
               # Beginning of the bounce message or delivery status part
-              if e =~ re1[:begin]
+              if e =~ markingsof[:message]
                 readcursor |= Indicators[:deliverystatus]
                 next
               end
@@ -83,7 +83,7 @@ module Sisimai::Bite::Email
 
             if (readcursor & Indicators[:'message-rfc822']).zero?
               # Beginning of the original message part
-              if e =~ re1[:rfc822]
+              if e =~ markingsof[:rfc822]
                 readcursor |= Indicators[:'message-rfc822']
                 next
               end
@@ -137,23 +137,25 @@ module Sisimai::Bite::Email
 
         else
           # vzwpix.com
-          re1 = {
-            :begin  => %r/\AMessage could not be delivered to mobile/,
-            :rfc822 => %r/\A__BOUNDARY_STRING_HERE__\z/,
+          startingof = {
+            message: ['Message could not be delivered to mobile'],
           }
-          reFailure = {
+          markingsof = {
+            rfc822:  %r/\A__BOUNDARY_STRING_HERE__\z/,
+          }
+          reFailures = {
             userunknown: %r/No[ ]valid[ ]recipients[ ]for[ ]this[ ]MM/x,
           }
           boundary00 = Sisimai::MIME.boundary(mhead['content-type'])
           if boundary00.size > 0
             # Convert to regular expression
-            re1['rfc822'] = Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z')
+            markingsof[:rfc822] = Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z')
           end
 
           hasdivided.each do |e|
             if readcursor.zero?
               # Beginning of the bounce message or delivery status part
-              if e =~ re1[:begin]
+              if e.start_with?(startingof[:message][0])
                 readcursor |= Indicators[:deliverystatus]
                 next
               end
@@ -161,7 +163,7 @@ module Sisimai::Bite::Email
 
             if (readcursor & Indicators[:'message-rfc822']).zero?
               # Beginning of the original message part
-              if e =~ re1[:rfc822]
+              if e =~ markingsof[:rfc822]
                 readcursor |= Indicators[:'message-rfc822']
                 next
               end
@@ -230,9 +232,9 @@ module Sisimai::Bite::Email
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
-          reFailure.each_key do |r|
+          reFailures.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ reFailure[r]
+            next unless e['diagnosis'] =~ reFailures[r]
             e['reason'] = r.to_s
             break
           end

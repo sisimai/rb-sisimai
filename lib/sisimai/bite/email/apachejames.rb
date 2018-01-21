@@ -6,15 +6,15 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/ApacheJames.pm
       require 'sisimai/bite/email'
 
-      Re1 = {
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
         # apache-james-2.3.2/src/java/org/apache/james/transport/mailets/
         #   AbstractNotify.java|124:  out.println("Error message below:");
         #   AbstractNotify.java|128:  out.println("Message details:");
-        :begin  => %r/\AContent-Disposition:[ ]inline/,
-        :error  => %r/\AError message below:\z/,
-        :rfc822 => %r|\AContent-Type: message/rfc822|,
+        message: ['Content-Disposition: inline'],
+        rfc822:  ['Content-Type: message/rfc822'],
+        error:   ['Error message below:'],
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Java Apache Mail Enterprise Server'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -55,7 +55,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -63,7 +63,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end
@@ -132,7 +132,7 @@ module Sisimai::Bite::Email
               else
                 # Error message below:
                 # 550 - Requested action not taken: no such user here
-                v['diagnosis'] = e if e =~ Re1[:error]
+                v['diagnosis'] = e if e.start_with?(StartingOf[:error][0])
               end
             end
           end

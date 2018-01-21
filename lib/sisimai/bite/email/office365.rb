@@ -7,16 +7,20 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Office365.pm
       require 'sisimai/bite/email'
 
-      Re1 = {
-        :begin  => %r{\A(?:
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        rfc822: ['Content-Type: message/rfc822'],
+        error:  ['Diagnostic information for administrators:'],
+        eoerr:  ['Original message headers:'],
+      }.freeze
+      MarkingsOf = {
+        message: %r{\A(?:
            Delivery[ ]has[ ]failed[ ]to[ ]these[ ]recipients[ ]or[ ]groups:
           |.+[ ]rejected[ ]your[ ]message[ ]to[ ]the[ ]following[ ]e[-]?mail[ ]addresses:
           )
         }x,
-        :error  => %r/\ADiagnostic information for administrators:\z/,
-        :eoerr  => %r/\AOriginal message headers:\z/,
-        :rfc822 => %r|\AContent-Type: message/rfc822\z|,
       }.freeze
+
       CodeTable = {
         # https://support.office.com/en-us/article/Email-non-delivery-reports-in-Office-365-51daa6b9-2e35-49c4-a0c9-df85bf8533c3
         %r/\A4[.]4[.]7\z/        => 'expired',
@@ -43,7 +47,6 @@ module Sisimai::Bite::Email
         %r/\A5[.]7[.]6[1-4]\d\z/ => 'blocked',
         %r/\A5[.]7[.]7[0-4]\d\z/ => 'toomanyconn',
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Microsoft Office 365: http://office.microsoft.com/'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -112,7 +115,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -120,7 +123,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end
@@ -195,7 +198,7 @@ module Sisimai::Bite::Email
                 end
 
               else
-                if e =~ Re1[:error]
+                if e.start_with?(StartingOf[:error][0])
                   # Diagnostic information for administrators:
                   v['diagnosis'] = e
                 else
@@ -203,7 +206,7 @@ module Sisimai::Bite::Email
                   # Remote Server returned '550 5.1.10 RESOLVER.ADR.RecipientNotFound; Recipien=
                   # t not found by SMTP address lookup'
                   next unless v['diagnosis']
-                  if e =~ Re1[:eoerr]
+                  if e.start_with?(StartingOf[:eoerr][0])
                     # Original message headers:
                     endoferror = true
                     next

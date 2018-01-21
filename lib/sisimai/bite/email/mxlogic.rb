@@ -8,10 +8,12 @@ module Sisimai::Bite::Email
       # Based on Sisimai::Bite::Email::Exim
       require 'sisimai/bite/email'
 
-      Re1 = {
-        :rfc822 => %r/\AIncluded is a copy of the message header:\z/,
-        :begin  => %r/\AThis message was created automatically by mail delivery software[.]\z/,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['This message was created automatically by mail delivery software.'],
+        rfc822:  ['Included is a copy of the message header:'],
       }.freeze
+
       ReCommand = [
         %r/SMTP error from remote (?:mail server|mailer) after ([A-Za-z]{4})/,
         %r/SMTP error from remote (?:mail server|mailer) after end of ([A-Za-z]{4})/,
@@ -57,7 +59,6 @@ module Sisimai::Bite::Email
         |Message[ ].+[ ](?:has[ ]been[ ]frozen|was[ ]frozen[ ]on[ ]arrival[ ]by[ ])
         )
       }x
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'McAfee SaaS'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -107,7 +108,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -115,7 +116,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end

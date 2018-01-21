@@ -8,18 +8,15 @@ module Sisimai::Bite::Email
       require 'sisimai/bite/email'
 
       # http://aws.amazon.com/ses/
-      Re1 = {
-        :begin   => %r/\A(?:
-             The[ ]following[ ]message[ ]to[ ][<]
-            |An[ ]error[ ]occurred[ ]while[ ]trying[ ]to[ ]deliver[ ]the[ ]mail[ ]
-            )
-        /x,
-        :rfc822  => %r|\Acontent-type: message/rfc822\z|,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['The following message to <', 'An error occurred while trying to deliver the mail'],
+        rfc822:  ['content-type: message/rfc822'],
       }.freeze
+
       ReFailure = {
         expired: %r/Delivery[ ]expired/x,
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Amazon SES(Sending): http://aws.amazon.com/ses/'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -74,7 +71,7 @@ module Sisimai::Bite::Email
 
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0], StartingOf[:message][1])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -82,7 +79,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end

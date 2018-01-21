@@ -6,11 +6,11 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Yahoo.pm
       require 'sisimai/bite/email'
 
-      Re1 = {
-        :begin   => %r/\ASorry, we were unable to deliver your message/,
-        :rfc822  => %r/\A--- Below this line is a copy of the message[.]\z/,
-      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['Sorry, we were unable to deliver your message'],
+        rfc822:  ['--- Below this line is a copy of the message.'],
+      }.freeze
 
       def description; return 'Yahoo! MAIL: https://www.yahoo.com'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -50,7 +50,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -58,7 +58,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end

@@ -7,11 +7,11 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/InterScanMSS.pm
       require 'sisimai/bite/email'
 
-      Re1 = {
-        :begin  => %r|\AContent-type: text/plain|,
-        :rfc822 => %r|\AContent-type: message/rfc822|,
-      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['Content-type: text/plain'],
+        rfc822:  ['Content-type: message/rfc822'],
+      }.freeze
 
       def description; return 'Trend Micro InterScan Messaging Security Suite'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -56,7 +56,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -64,7 +64,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end

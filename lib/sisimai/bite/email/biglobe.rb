@@ -6,16 +6,17 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Biglobe.pm
       require 'sisimai/bite/email'
 
-      Re1 = {
-        :begin  => %r/\A   ----- The following addresses had delivery problems -----\z/,
-        :error  => %r/\A   ----- Non-delivered information -----\z/,
-        :rfc822 => %r|\AContent-Type: message/rfc822\z|,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['   ----- The following addresses had delivery problems -----'],
+        error:   ['   ----- Non-delivered information -----'],
+        rfc822:  ['Content-Type: message/rfc822'],
       }.freeze
+
       ReFailure = {
         filtered:    %r/Mail Delivery Failed[.]+ User unknown/,
         mailboxfull: %r/The number of messages in recipient's mailbox exceeded the local limit[.]/,
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'BIGLOBE: http://www.biglobe.ne.jp'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -50,7 +51,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -58,7 +59,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end

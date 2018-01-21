@@ -7,13 +7,12 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/MailMarshalSMTP.pm
       require 'sisimai/bite/email'
 
-      Re1 = {
-        :begin  => %r/\AYour message:\z/,
-        :rfc822 => nil,
-        :error  => %r/\ACould not be delivered because of\z/,
-        :rcpts  => %r/\AThe following recipients were affected:/,
-      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['Your message:'],
+        error:   ['Could not be delivered because of'],
+        rcpts:   ['The following recipients were affected:'],
+      }.freeze
 
       def description; return 'Trustwave Secure Email Gateway'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -57,7 +56,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -110,7 +109,7 @@ module Sisimai::Bite::Email
 
             else
               # Get error message lines
-              if e =~ Re1[:error]
+              if e.start_with?(StartingOf[:error][0])
                 # Could not be delivered because of
                 #
                 # 550 5.1.1 User unknown
@@ -118,7 +117,7 @@ module Sisimai::Bite::Email
 
               elsif v['diagnosis'] && v['diagnosis'].size > 0 && endoferror == false
                 # Append error messages
-                endoferror = true if e =~ Re1[:rcpts]
+                endoferror = true if e.start_with?(StartingOf[:rcpts][0])
                 next if endoferror
                 v['diagnosis'] << ' ' << e
 

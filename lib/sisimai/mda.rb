@@ -3,22 +3,24 @@ module Sisimai
   module MDA
     # Imported from p5-Sisimail/lib/Sisimai/MDA.pm
     class << self
-      Re1 = {
+      AgentNames = {
         # dovecot/src/deliver/deliver.c
         # 11: #define DEFAULT_MAIL_REJECTION_HUMAN_REASON \
         # 12: "Your message to <%t> was automatically rejected:%n%r"
-        :'dovecot'    => %r/\AYour message to .+ was automatically rejected:\z/,
-        :'mail.local' => %r/\Amail[.]local: /,
-        :'procmail'   => %r/\Aprocmail: /,
-        :'maildrop'   => %r/\Amaildrop: /,
-        :'vpopmail'   => %r/\Avdelivermail: /,
-        :'vmailmgr'   => %r/\Avdeliver: /,
+        'dovecot':    %r/\AYour message to .+ was automatically rejected:\z/,
+        'mail.local': %r/\Amail[.]local: /,
+        'procmail':   %r/\Aprocmail: /,
+        'maildrop':   %r/\Amaildrop: /,
+        'vpopmail':   %r/\Avdelivermail: /,
+        'vmailmgr':   %r/\Avdeliver: /,
       }.freeze
-      Re2 = %r{\A(?>
-         Your[ ]message[ ]to[ ].+[ ]was[ ]automatically[ ]rejected:\z
-        |(?:mail[.]local|procmail|maildrop|vdelivermail|vdeliver):[ ]
-        )
-      }x
+      MarkingsOf = {
+        message: %r{\A(?>
+           Your[ ]message[ ]to[ ].+[ ]was[ ]automatically[ ]rejected:\z
+          |(?:mail[.]local|procmail|maildrop|vdelivermail|vdeliver):[ ]
+          )
+        }x
+      }.freeze
 
       # dovecot/src/deliver/mail-send.c:94
       ReFailure = {
@@ -106,11 +108,11 @@ module Sisimai
           if agentname0 == ''
             # Try to match with each regular expression
             next unless e.size > 0
-            next unless e =~ Re2
+            next unless e =~ MarkingsOf[:message]
 
-            Re1.each_key do |f|
+            AgentNames.each_key do |f|
               # Detect the agent name from the line
-              next unless e =~ Re1[f]
+              next unless e =~ AgentNames[f]
               agentname0 = f.to_s
               break
             end

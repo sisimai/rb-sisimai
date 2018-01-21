@@ -6,10 +6,12 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Domino.pm
       require 'sisimai/bite/email'
 
-      Re1 = {
-        :begin   => %r/\AYour message/,
-        :rfc822  => %r|\AContent-Type: message/delivery-status\z|,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['Your message'],
+        rfc822:  ['Content-Type: message/delivery-status'],
       }.freeze
+
       ReFailure = {
         userunknown: %r{(?>
            not[ ]listed[ ]in[ ](?:
@@ -22,7 +24,6 @@ module Sisimai::Bite::Email
         filtered:    %r/Cannot[ ]route[ ]mail[ ]to[ ]user/x,
         systemerror: %r/Several[ ]matches[ ]found[ ]in[ ]Domino[ ]Directory/x,
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'IBM Domino Server'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -59,7 +60,7 @@ module Sisimai::Bite::Email
 
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -67,7 +68,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end

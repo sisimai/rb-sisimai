@@ -6,14 +6,17 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Zoho.pm
       require 'sisimai/bite/email'
 
-      Re1 = {
-        :begin  => %r/\AThis message was created automatically by mail delivery/,
-        :rfc822 => %r/\AReceived:[ \t]*from mail[.]zoho[.]com/,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['This message was created automatically by mail delivery'],
       }.freeze
+      MarkingsOf = {
+        rfc822:  %r/\AReceived:[ \t]*from mail[.]zoho[.]com/,
+      }.freeze
+
       ReFailure = {
         expired: %r/Host not reachable/
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Zoho Mail: https://www.zoho.com'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -59,7 +62,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -67,7 +70,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
               next
             end

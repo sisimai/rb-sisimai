@@ -7,15 +7,23 @@ module Sisimai::Bite::Email
       # MTA module for qmail clones
       require 'sisimai/bite/email'
 
-      #  qmail-remote.c:248|    if (code >= 500) {
-      #  qmail-remote.c:249|      out("h"); outhost(); out(" does not like recipient.\n");
-      #  qmail-remote.c:265|  if (code >= 500) quit("D"," failed on DATA command");
-      #  qmail-remote.c:271|  if (code >= 500) quit("D"," failed after I sent the message");
-      #
-      # Characters: K,Z,D in qmail-qmqpc.c, qmail-send.c, qmail-rspawn.c
-      #  K = success, Z = temporary error, D = permanent error
-      Re1 = {
-        :begin  => %r{\A(?>
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        error:  ['Remote host said:'],
+        rfc822: [
+            '--- Below this line is a copy of the message.',
+            '--- Original message follows.',
+          ],
+      }.freeze
+      MarkingsOf = {
+        #  qmail-remote.c:248|    if (code >= 500) {
+        #  qmail-remote.c:249|      out("h"); outhost(); out(" does not like recipient.\n");
+        #  qmail-remote.c:265|  if (code >= 500) quit("D"," failed on DATA command");
+        #  qmail-remote.c:271|  if (code >= 500) quit("D"," failed after I sent the message");
+        #
+        # Characters: K,Z,D in qmail-qmqpc.c, qmail-send.c, qmail-rspawn.c
+        #  K = success, Z = temporary error, D = permanent error
+        message: %r{\A(?>
            He/Her[ ]is[ ]not.+[ ]user
           |Hi[.][ ].+[ ]unable[ ]to[ ]deliver[ ]your[ ]message[ ]to[ ]
             the[ ]following[ ]addresses
@@ -33,13 +41,6 @@ module Sisimai::Bite::Email
           |We're[ ]sorry[.]
           )
         }ix,
-        :rfc822 => %r{\A(?:
-           ---[ ]Below[ ]this[ ]line[ ]is[ ]a[ ]copy[ ]of[ ]the[ ]message[.]
-          |---[ ]Original[ ]message[ ]follows[.]
-          )
-        }xi,
-        :error  => %r/\ARemote host said:/,
-        :sorry  => %r/\A[Ss]orry[,.][ ]/,
       }.freeze
       ReSMTP = {
         # Error text regular expressions which defined in qmail-remote.c
@@ -132,8 +133,7 @@ module Sisimai::Bite::Email
         systemfull: %r/Requested action not taken: mailbox unavailable [(]not enough free space[)]/,
       }.freeze
       # qmail-send.c:922| ... (&dline[c],"I'm not going to try again; this message has been in the queue too long.\n")) nomem();
-      ReDelayed  = %r/this[ ]message[ ]has[ ]been[ ]in[ ]the[ ]queue[ ]too[ ]long[.]\z/x
-      Indicators = Sisimai::Bite::Email.INDICATORS
+      ReDelayed = %r/this[ ]message[ ]has[ ]been[ ]in[ ]the[ ]queue[ ]too[ ]long[.]\z/x
 
       def description; return 'Unknown MTA #4'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -174,7 +174,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -182,7 +182,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0], StartingOf[:rfc822][1])
               readcursor |= Indicators[:'message-rfc822']
               next
             end
@@ -223,7 +223,7 @@ module Sisimai::Bite::Email
               next if e.empty?
               v['diagnosis'] ||= ''
               v['diagnosis'] << e + ' '
-              v['alterrors'] = e if e =~ Re1[:error]
+              v['alterrors'] = e if e.start_with?(StartingOf[:error][0])
 
               next if v['rhost']
               if cv = e.match(ReHost)

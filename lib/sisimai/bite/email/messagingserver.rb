@@ -8,14 +8,17 @@ module Sisimai::Bite::Email
       require 'sisimai/bite'
       require 'sisimai/rfc5322'
 
-      Re1 = {
-        :begin  => %r/\AThis report relates to a message you sent with the following header fields:/,
-        :rfc822 => %r!\A(?:Content-type:[ ]*message/rfc822|Return-path:[ ]*)!x,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['This report relates to a message you sent with the following header fields:'],
       }.freeze
+      MarkingsOf = {
+        rfc822: %r!\A(?:Content-type:[ ]*message/rfc822|Return-path:[ ]*)!x,
+      }.freeze
+
       ReFailure = {
         hostunknown: %r|Illegal[ ]host/domain[ ]name[ ]found|x,
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Oracle Communications Messaging Server'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -54,7 +57,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -62,7 +65,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
               next
             end
