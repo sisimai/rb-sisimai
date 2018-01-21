@@ -6,17 +6,13 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Bigfoot.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from     => %r/[@]bigfoot[.]com[>]/,
-        :subject  => %r/\AReturned mail: /,
-        :received => %r/\w+[.]bigfoot[.]com\b/,
-      }.freeze
-      Re1 = {
-        :begin  => %r/\A[ \t]+[-]+[ \t]*Transcript of session follows/,
-        :rfc822 => %r|\AContent-Type: message/partial|,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        rfc822: ['Content-Type: message/partial'],
+      }.freeze
+      MarkingsOf = {
+        message: %r/\A[ \t]+[-]+[ \t]*Transcript of session follows/,
+      }.freeze
 
       def description; return 'Bigfoot: http://www.bigfoot.com'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -36,10 +32,11 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-
+        
+        # :subject  => %r/\AReturned mail: /,
         match  = 0
-        match += 1 if mhead['from'] =~ Re0[:from]
-        match += 1 if mhead['received'].find { |a| a =~ Re0[:received] }
+        match += 1 if mhead['from'].include?('@bigfoot.com>')
+        match += 1 if mhead['received'].find { |a| a =~ /\w+[.]bigfoot[.]com\b/ }
         return nil if match.zero?
 
         require 'sisimai/address'
@@ -66,7 +63,7 @@ module Sisimai::Bite::Email
 
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -74,7 +71,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end

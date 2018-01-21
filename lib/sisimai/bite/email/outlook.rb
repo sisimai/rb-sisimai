@@ -7,22 +7,16 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/US/Outlook.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from     => %r/postmaster[@]/,
-        :subject  => %r/Delivery Status Notification/,
-        :received => %r/.+[.]hotmail[.]com\b/,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['This is an automatically generated Delivery Status Notification'],
+        rfc822:  ['Content-Type: message/rfc822'],
       }.freeze
-      Re1 = {
-        :begin  => %r/\AThis is an automatically generated Delivery Status Notification/,
-        :error  => %r/\A[.]+ while talking to .+[:]\z/,
-        :rfc822 => %r|\AContent-Type: message/rfc822\z|,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }.freeze
+
       ReFailure = {
         hostunknown: %r/The mail could not be delivered to the recipient because the domain is not reachable/,
         userunknown: %r/Requested action not taken: mailbox unavailable/,
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Microsoft Outlook.com: https://www.outlook.com/'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -46,11 +40,12 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
 
+        # :from => %r/postmaster[@]/,
         match  = 0
-        match += 1 if mhead['subject']    =~ Re0[:subject]
+        match += 1 if mhead['subject'].include?('Delivery Status Notification')
         match += 1 if mhead['x-message-delivery']
         match += 1 if mhead['x-message-info']
-        match += 1 if mhead['received'].find { |a| a =~ Re0[:received] }
+        match += 1 if mhead['received'].find { |a| a =~ /.+[.]hotmail[.]com\b/ }
         return nil if match < 2
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -74,7 +69,7 @@ module Sisimai::Bite::Email
 
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -82,7 +77,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end

@@ -6,26 +6,18 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/UserDefined.pm
       require 'sisimai/bite/email'
 
-      # Re0 is a regular expression to match with message headers which are
-      # given as the first argument of scan() method.
-      Re0 = {
-        :from    => %r/\AMail Sysmet/,
-        :subject => %r/\AError Mail Report/,
-      }.freeze
-
-      # Re1 is delimiter set of these sections:
-      #   begin:  The first line of a bounce message to be parsed.
-      #   error:  The first line of an error message to get an error reason, recipient
-      #           addresses, or other bounce information.
-      #   rfc822: The first line of the original message.
-      #   endof:  Fixed string ``__END_OF_EMAIL_MESSAGE__''
-      Re1 = {
-        :begin   => %r/\A[ \t]+[-]+ Transcript of session follows [-]+\z/,
-        :error   => %r/\A[.]+ while talking to .+[:]\z/,
-        :rfc822  => %r{\AContent-Type:[ ]*(?:message/rfc822|text/rfc822-headers)\z},
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
+      MarkingsOf = {
+        # MarkingsOf is a delimiter set of these sections:
+        #   message: The first line of a bounce message to be parsed.
+        #   error:   The first line of an error message to get an error reason, recipient
+        #            addresses, or other bounce information.
+        #   rfc822:  The first line of the original message.
+        #   endof:   Fixed string ``__END_OF_EMAIL_MESSAGE__''
+        message: %r/\A[ \t]+[-]+ Transcript of session follows [-]+\z/,
+        error:   %r/\A[.]+ while talking to .+[:]\z/,
+        rfc822:  %r{\AContent-Type:[ ]*(?:message/rfc822|text/rfc822-headers)\z},
+      }.freeze
 
       def description; return 'Module description'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -46,14 +38,14 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
 
-        match = 0
         # 1. Check some value in mhead using regular expression or "==" operator
         #    whether the bounce message should be parsed by this module or not.
         #   - Matched 1 or more values: Proceed to the step 2.
         #   - Did not matched:          return nil
         #
-        match += 1 if mhead['subject'] =~ Re0[:subject]
-        match += 1 if mhead['from']    =~ Re0[:from]
+        match  = 0
+        match += 1 if mhead['subject'].start_with?('Error Mail Report')
+        match += 1 if mhead['from'].include?('Mail System')
         match += 1 if mhead['x-some-userdefined-header']
         return nil if match.zero?
 
@@ -69,7 +61,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -77,7 +69,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
               next
             end

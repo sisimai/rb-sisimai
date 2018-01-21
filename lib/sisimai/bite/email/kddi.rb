@@ -6,28 +6,23 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/KDDI.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'from'       => %r/no-reply[@].+[.]dion[.]ne[.]jp/,
-        :'reply-to'   => %r/\Afrom[ \t]+\w+[.]auone[-]net[.]jp[ \t]/,
-        :'received'   => %r/\Afrom[ ](?:.+[.])?ezweb[.]ne[.]jp[ ]/,
-        :'message-id' => %r/[@].+[.]ezweb[.]ne[.]jp[>]\z/,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        rfc822: ['Content-Type: message/rfc822'],
       }.freeze
-      Re1 = {
-        :begin => %r/\AYour[ ]mail[ ](?:
+      MarkingsOf = {
+        message: %r/\AYour[ ]mail[ ](?:
              sent[ ]on:?[ ][A-Z][a-z]{2}[,]
             |attempted[ ]to[ ]be[ ]delivered[ ]on:?[ ][A-Z][a-z]{2}[,]
             )
         /x,
-        :rfc822 => %r|\AContent-Type: message/rfc822\z|,
-        :error  => %r/Could not be delivered to:? /,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
+
       ReFailure = {
         mailboxfull: %r/As[ ]their[ ]mailbox[ ]is[ ]full/x,
         norelaying:  %r/Due[ ]to[ ]the[ ]following[ ]SMTP[ ]relay[ ]error/x,
         hostunknown: %r/As[ ]the[ ]remote[ ]domain[ ]doesnt[ ]exist/x,
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'au by KDDI: http://www.au.kddi.com'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -48,10 +43,11 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
 
+        # :'message-id' => %r/[@].+[.]ezweb[.]ne[.]jp[>]\z/,
         match  = 0
-        match += 1 if mhead['from']    =~ Re0[:from]
-        match += 1 if mhead['reply-to'] && mhead['reply-to'] =~ Re0[:'reply-to']
-        match += 1 if mhead['received'].find { |a| a =~ Re0[:received] }
+        match += 1 if mhead['from'] =~ /no-reply[@].+[.]dion[.]ne[.]jp/
+        match += 1 if mhead['reply-to'] && mhead['reply-to'] =~ /\Afrom[ \t]+\w+[.]auone[-]net[.]jp[ \t]/
+        match += 1 if mhead['received'].find { |a| a =~ /\Afrom[ ](?:.+[.])?ezweb[.]ne[.]jp[ ]/ }
         return nil if match.zero?
 
         require 'sisimai/string'
@@ -68,7 +64,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -76,7 +72,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end

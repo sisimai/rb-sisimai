@@ -8,15 +8,12 @@ module Sisimai::Bite::Email
       require 'sisimai/bite/email'
 
       # http://aws.amazon.com/ses/
-      Re0 = {
-        :subject  => %r/\ADelivery Status Notification [(]Failure[)]\z/,
-        :received => %r/.+[.]smtp-out[.].+[.]amazonses[.]com\b/,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['This message could not be delivered.'],
+        rfc822:  ['content-type: text/rfc822-headers'],
       }.freeze
-      Re1 = {
-        :begin  => %r/\AThis message could not be delivered[.]\z/,
-        :rfc822 => %r|\Acontent-type: text/rfc822-headers\z|,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }.freeze
+
       ReFailure = {
         # The followings are error messages in Rule sets/*/Actions/Template
         filtered:     %r/Mailbox does not exist/,
@@ -24,7 +21,6 @@ module Sisimai::Bite::Email
         mailboxfull:  %r/Mailbox full/,
         contenterror: %r/Message content rejected/,
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Amazon SES(Receiving): http://aws.amazon.com/ses/'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -47,6 +43,9 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
+
+        # :subject  => %r/\ADelivery Status Notification [(]Failure[)]\z/,
+        # :received => %r/.+[.]smtp-out[.].+[.]amazonses[.]com\b/,
         return nil unless mhead['x-ses-outgoing']
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -70,7 +69,7 @@ module Sisimai::Bite::Email
 
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -78,7 +77,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end

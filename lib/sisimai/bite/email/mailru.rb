@@ -7,25 +7,12 @@ module Sisimai::Bite::Email
       # Based on Sisimai::Bite::Email::Exim
       require 'sisimai/bite/email'
 
-      Re0 = {
-        # Message-Id: <E1P1YNN-0003AD-Ga@*.mail.ru>
-        :'message-id' => %r/\A[<]\w+[-]\w+[-]\w+[@].*mail[.]ru[>]\z/,
-        :'from'       => %r/[<]?mailer-daemon[@].*mail[.]ru[>]?/i,
-        :'subject'    => %r{(?:
-           Mail[ ]delivery[ ]failed(:[ ]returning[ ]message[ ]to[ ]sender)?
-          |Warning:[ ]message[ ].+[ ]delayed[ ]+
-          |Delivery[ ]Status[ ]Notification
-          |Mail[ ]failure
-          |Message[ ]frozen
-          |error[(]s[)][ ]in[ ]forwarding[ ]or[ ]filtering
-          )
-        }x,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['This message was created automatically by mail delivery software.'],
+        rfc822:  ['------ This is a copy of the message, including all the headers. ------'],
       }.freeze
-      Re1 = {
-        :rfc822 => %r/\A------ This is a copy of the message.+headers[.] ------\z/,
-        :begin  => %r/\AThis message was created automatically by mail delivery software[.]/,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }.freeze
+
       ReCommand = [
         %r/SMTP error from remote (?:mail server|mailer) after ([A-Za-z]{4})/,
         %r/SMTP error from remote (?:mail server|mailer) after end of ([A-Za-z]{4})/,
@@ -58,7 +45,6 @@ module Sisimai::Bite::Email
         }x,
         contenterror: %r/Too[ ]many[ ]["]Received["][ ]headers[ ]/x,
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return '@mail.ru: https://mail.ru'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -78,9 +64,18 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil unless mhead['from']       =~ Re0[:from]
-        return nil unless mhead['subject']    =~ Re0[:subject]
-        return nil unless mhead['message-id'] =~ Re0[:'message-id']
+
+        return nil unless mhead['from'] =~ /[<]?mailer-daemon[@].*mail[.]ru[>]?/i
+        return nil unless mhead['message-id'] =~ /\A[<]\w+[-]\w+[-]\w+[@].*mail[.]ru[>]\z/
+        return nil unless mhead['subject'] =~ %r{(?:
+           Mail[ ]delivery[ ]failed(:[ ]returning[ ]message[ ]to[ ]sender)?
+          |Warning:[ ]message[ ].+[ ]delayed[ ]+
+          |Delivery[ ]Status[ ]Notification
+          |Mail[ ]failure
+          |Message[ ]frozen
+          |error[(]s[)][ ]in[ ]forwarding[ ]or[ ]filtering
+          )
+        }x
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -94,7 +89,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -102,7 +97,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end

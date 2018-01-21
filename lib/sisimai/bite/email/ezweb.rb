@@ -6,24 +6,18 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/EZweb.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'from'       => %r/[<]?(?>postmaster[@]ezweb[.]ne[.]jp)[>]?/i,
-        :'subject'    => %r/\AMail System Error - Returned Mail\z/,
-        :'received'   => %r/\Afrom[ ](?:.+[.])?ezweb[.]ne[.]jp[ ]/,
-        :'message-id' => %r/[@].+[.]ezweb[.]ne[.]jp[>]\z/,
-      }.freeze
-      Re1 = {
-        :begin  => %r{\A(?:
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      MarkingsOf = {
+        message: %r{\A(?:
              The[ ]user[(]s[)][ ]
             |Your[ ]message[ ]
             |Each[ ]of[ ]the[ ]following
             |[<][^ ]+[@][^ ]+[>]\z
             )
         }x,
-        :rfc822   => %r#\A(?:[-]{50}|Content-Type:[ ]*message/rfc822)#,
-        :boundary => %r/\A__SISIMAI_PSEUDO_BOUNDARY__\z/,
-        :endof    => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
+        rfc822: %r#\A(?:[-]{50}|Content-Type:[ ]*message/rfc822)#,
       }.freeze
+
       ReFailure = {
         # notaccept: [ %r/The following recipients did not receive this message:/ ],
         mailboxfull: [
@@ -44,7 +38,6 @@ module Sisimai::Bite::Email
           %r/Each of the following recipients was rejected by a remote mail server/,
         ],
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'au EZweb: http://www.au.kddi.com/mobile/'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -66,11 +59,11 @@ module Sisimai::Bite::Email
         return nil unless mbody
 
         match  = 0
-        match += 1 if mhead['from']    =~ Re0[:from]
-        match += 1 if mhead['subject'] =~ Re0[:subject]
-        match += 1 if mhead['received'].find { |a| a =~ Re0[:received] }
+        match += 1 if mhead['from'] =~ /[<]?(?>postmaster[@]ezweb[.]ne[.]jp)[>]?/i
+        match += 1 if mhead['subject'].start_with?('Mail System Error - Returned Mail')
+        match += 1 if mhead['received'].find { |a| a =~ /\Afrom[ ](?:.+[.])?ezweb[.]ne[.]jp[ ]/ }
         if mhead['message-id']
-          match += 1 if mhead['message-id'] =~ Re0[:'message-id']
+          match += 1 if mhead['message-id'] =~ /[@].+[.]ezweb[.]ne[.]jp[>]\z/
         end
         return nil if match < 2
 
@@ -101,12 +94,12 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            readcursor |= Indicators[:deliverystatus] if e =~ Re1[:begin]
+            readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
           end
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822] || e =~ rxboundary
+            if e =~ MarkingsOf[:rfc822] || e =~ rxboundary
               readcursor |= Indicators[:'message-rfc822']
               next
             end

@@ -7,23 +7,11 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/InterScanMSS.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from     => %r/InterScan MSS/,
-        :received => %r/[ ][(]InterScanMSS[)][ ]with[ ]/,
-        :subject  => [
-          'Mail could not be delivered',
-          # メッセージを配信できません。
-          '=?iso-2022-jp?B?GyRCJWElQyU7ITwlOCRyR1s/LiRHJC0kXiQ7JHMhIxsoQg==?=',
-          # メール配信に失敗しました
-          '=?iso-2022-jp?B?GyRCJWEhPCVrR1s/LiRLPDpHVCQ3JF4kNyQ/GyhCDQo=?=',
-        ],
-      }.freeze
-      Re1 = {
-        :begin  => %r|\AContent-type: text/plain|,
-        :rfc822 => %r|\AContent-type: message/rfc822|,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['Content-type: text/plain'],
+        rfc822:  ['Content-type: message/rfc822'],
+      }.freeze
 
       def description; return 'Trend Micro InterScan Messaging Security Suite'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -44,9 +32,17 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
 
-        match  = 0
-        match += 1 if mhead['from'] =~ Re0[:from]
-        match += 1 if Re0[:subject].find { |a| mhead['subject'] == a }
+        # :received => %r/[ ][(]InterScanMSS[)][ ]with[ ]/,
+        match = 0
+        tryto = [
+          'Mail could not be delivered',
+          # メッセージを配信できません。
+          '=?iso-2022-jp?B?GyRCJWElQyU7ITwlOCRyR1s/LiRHJC0kXiQ7JHMhIxsoQg==?=',
+          # メール配信に失敗しました
+          '=?iso-2022-jp?B?GyRCJWEhPCVrR1s/LiRLPDpHVCQ3JF4kNyQ/GyhCDQo=?=',
+        ]
+        match += 1 if mhead['from'].include?('InterScan MSS')
+        match += 1 if tryto.find { |a| mhead['subject'].include?(a) }
         return nil if match.zero?
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -60,7 +56,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -68,7 +64,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end

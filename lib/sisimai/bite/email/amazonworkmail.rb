@@ -7,17 +7,11 @@ module Sisimai::Bite::Email
       require 'sisimai/bite/email'
 
       # https://aws.amazon.com/workmail/
-      Re0 = {
-        :'subject'  => %r/Delivery[_ ]Status[_ ]Notification[_ ].+Failure/,
-        :'received' => %r/.+[.]smtp-out[.].+[.]amazonses[.]com\b/,
-        :'x-mailer' => %r/\AAmazon WorkMail\z/,
-      }.freeze
-      Re1 = {
-        :begin  => %r/\ATechnical report:\z/,
-        :rfc822 => %r|\Acontent-type: message/rfc822\z|,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['Technical report:'],
+        rfc822:  ['content-type: message/rfc822'],
+      }.freeze
 
       def description; return 'Amazon WorkMail: https://aws.amazon.com/workmail/'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -42,6 +36,9 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
 
+        # :'subject'  => %r/Delivery[_ ]Status[_ ]Notification[_ ].+Failure/,
+        # :'received' => %r/.+[.]smtp-out[.].+[.]amazonses[.]com\b/,
+        # :'x-mailer' => %r/\AAmazon WorkMail\z/,
         match = 0
         xmail = mhead['x-original-mailer'] || mhead['x-mailer'] || ''
 
@@ -49,7 +46,7 @@ module Sisimai::Bite::Email
         unless xmail.empty?
           # X-Mailer: Amazon WorkMail
           # X-Original-Mailer: Amazon WorkMail
-          match += 1 if xmail =~ Re0[:'x-mailer']
+          match += 1 if xmail.start_with?('Amazon WorkMail')
         end
         return nil if match < 2
 
@@ -68,7 +65,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -76,7 +73,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end

@@ -7,22 +7,20 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Office365.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'subject'    => %r/Undeliverable:/,
-        :'received'   => %r/.+[.](?:outbound[.]protection|prod)[.]outlook[.]com\b/,
-        :'message-id' => %r/.+[.](?:outbound[.]protection|prod)[.]outlook[.]com\b/,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        rfc822: ['Content-Type: message/rfc822'],
+        error:  ['Diagnostic information for administrators:'],
+        eoerr:  ['Original message headers:'],
       }.freeze
-      Re1 = {
-        :begin  => %r{\A(?:
+      MarkingsOf = {
+        message: %r{\A(?:
            Delivery[ ]has[ ]failed[ ]to[ ]these[ ]recipients[ ]or[ ]groups:
           |.+[ ]rejected[ ]your[ ]message[ ]to[ ]the[ ]following[ ]e[-]?mail[ ]addresses:
           )
         }x,
-        :error  => %r/\ADiagnostic information for administrators:\z/,
-        :eoerr  => %r/\AOriginal message headers:\z/,
-        :rfc822 => %r|\AContent-Type: message/rfc822\z|,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
+
       CodeTable = {
         # https://support.office.com/en-us/article/Email-non-delivery-reports-in-Office-365-51daa6b9-2e35-49c4-a0c9-df85bf8533c3
         %r/\A4[.]4[.]7\z/        => 'expired',
@@ -49,7 +47,6 @@ module Sisimai::Bite::Email
         %r/\A5[.]7[.]6[1-4]\d\z/ => 'blocked',
         %r/\A5[.]7[.]7[0-4]\d\z/ => 'toomanyconn',
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Microsoft Office 365: http://office.microsoft.com/'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -89,7 +86,7 @@ module Sisimai::Bite::Email
         return nil unless mbody
 
         match  = 0
-        match += 1 if mhead['subject'] =~ Re0[:subject]
+        match += 1 if mhead['subject'].include?('Undeliverable:')
         match += 1 if mhead['x-ms-exchange-message-is-ndr']
         match += 1 if mhead['x-microsoft-antispam-prvs']
         match += 1 if mhead['x-exchange-antispam-report-test']
@@ -97,10 +94,10 @@ module Sisimai::Bite::Email
         match += 1 if mhead['x-ms-exchange-crosstenant-originalarrivaltime']
         match += 1 if mhead['x-ms-exchange-crosstenant-fromentityheader']
         match += 1 if mhead['x-ms-exchange-transport-crosstenantheadersstamped']
-        match += 1 if mhead['received'].find { |a| a =~ Re0[:received] }
+        match += 1 if mhead['received'].find { |a| a =~ /.+[.](?:outbound[.]protection|prod)[.]outlook[.]com\b/ }
         if mhead['message-id']
           # Message-ID: <00000000-0000-0000-0000-000000000000@*.*.prod.outlook.com>
-          match += 1 if mhead['message-id'] =~ Re0[:'message-id']
+          match += 1 if mhead['message-id'] =~ /.+[.](?:outbound[.]protection|prod)[.]outlook[.]com\b/
         end
         return nil if match < 2
 
@@ -118,7 +115,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -126,7 +123,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end
@@ -201,7 +198,7 @@ module Sisimai::Bite::Email
                 end
 
               else
-                if e =~ Re1[:error]
+                if e.start_with?(StartingOf[:error][0])
                   # Diagnostic information for administrators:
                   v['diagnosis'] = e
                 else
@@ -209,7 +206,7 @@ module Sisimai::Bite::Email
                   # Remote Server returned '550 5.1.10 RESOLVER.ADR.RecipientNotFound; Recipien=
                   # t not found by SMTP address lookup'
                   next unless v['diagnosis']
-                  if e =~ Re1[:eoerr]
+                  if e.start_with?(StartingOf[:eoerr][0])
                     # Original message headers:
                     endoferror = true
                     next

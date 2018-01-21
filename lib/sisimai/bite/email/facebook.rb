@@ -6,19 +6,15 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Facebook.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from    => %r/\AFacebook [<]mailer-daemon[@]mx[.]facebook[.]com[>]\z/,
-        :subject => %r/\ASorry, your message could not be delivered\z/,
-      }.freeze
-      Re1 = {
-        :begin   => %r/\AThis message was created automatically by Facebook[.]\z/,
-        :rfc822  => %r/\AContent-Disposition: inline\z/,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['This message was created automatically by Facebook.'],
+        rfc822:  ['Content-Disposition: inline'],
       }.freeze
 
-      # http://postmaster.facebook.com/response_codes
-      # NOT TESTD EXCEPT RCP-P2
       ReFailure = {
+        # http://postmaster.facebook.com/response_codes
+        # NOT TESTD EXCEPT RCP-P2
         userunknown: [
           'RCP-P1', # The attempted recipient address does not exist.
           'INT-P1', # The attempted recipient address does not exist.
@@ -75,7 +71,6 @@ module Sisimai::Bite::Email
           'CON-T4', # Your mail server has exceeded the maximum number of recipients for its current connection.
         ],
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Facebook: https://www.facebook.com'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -95,8 +90,8 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil unless mhead['from']    =~ Re0[:from]
-        return nil unless mhead['subject'] =~ Re0[:subject]
+        return nil unless mhead['from'].start_with?('Facebook <mailer-daemon@mx.facebook.com>')
+        return nil unless mhead['subject'].start_with?('Sorry, your message could not be delivered')
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -120,7 +115,7 @@ module Sisimai::Bite::Email
 
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -128,7 +123,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end

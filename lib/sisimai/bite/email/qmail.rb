@@ -6,24 +6,20 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/qmail.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :subject  => %r/\Afailure notice/i,
-        :received => %r/\A[(]qmail[ ]+\d+[ ]+invoked[ ]+(?:for[ ]+bounce|from[ ]+network)[)]/,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        #  qmail-remote.c:248|    if (code >= 500) {
+        #  qmail-remote.c:249|      out("h"); outhost(); out(" does not like recipient.\n");
+        #  qmail-remote.c:265|  if (code >= 500) quit("D"," failed on DATA command");
+        #  qmail-remote.c:271|  if (code >= 500) quit("D"," failed after I sent the message");
+        #
+        # Characters: K,Z,D in qmail-qmqpc.c, qmail-send.c, qmail-rspawn.c
+        #  K = success, Z = temporary error, D = permanent error
+        message: ['Hi. This is the qmail'],
+        rfc822:  ['--- Below this line is a copy of the message.'],
+        error:   ['Remote host said:'],
       }.freeze
-      #  qmail-remote.c:248|    if (code >= 500) {
-      #  qmail-remote.c:249|      out("h"); outhost(); out(" does not like recipient.\n");
-      #  qmail-remote.c:265|  if (code >= 500) quit("D"," failed on DATA command");
-      #  qmail-remote.c:271|  if (code >= 500) quit("D"," failed after I sent the message");
-      #
-      # Characters: K,Z,D in qmail-qmqpc.c, qmail-send.c, qmail-rspawn.c
-      #  K = success, Z = temporary error, D = permanent error
-      Re1 = {
-        :begin  => %r/\AHi[.] This is the qmail/,
-        :rfc822 => %r/\A--- Below this line is a copy of the message[.]\z/,
-        :error  => %r/\ARemote host said:/,
-        :sorry  => %r/\A[Ss]orry[,.][ ]/,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }.freeze
+
       ReSMTP = {
         # Error text regular expressions which defined in qmail-remote.c
         # qmail-remote.c:225|  if (smtpcode() != 220) quit("ZConnected to "," but greeting failed");
@@ -116,8 +112,7 @@ module Sisimai::Bite::Email
         systemfull: %r/Requested action not taken: mailbox unavailable [(]not enough free space[)]/,
       }.freeze
       # qmail-send.c:922| ... (&dline[c],"I'm not going to try again; this message has been in the queue too long.\n")) nomem();
-      ReDelayed  = %r/this[ ]message[ ]has[ ]been[ ]in[ ]the[ ]queue[ ]too[ ]long[.]\z/x
-      Indicators = Sisimai::Bite::Email.INDICATORS
+      ReDelayed = %r/this[ ]message[ ]has[ ]been[ ]in[ ]the[ ]queue[ ]too[ ]long[.]\z/x
 
       def description; return 'qmail'; end
       def smtpagent;   return 'Email::qmail'; end
@@ -142,9 +137,10 @@ module Sisimai::Bite::Email
         # by qmail, see http://cr.yp.to/qmail.html
         #   e.g.) Received: (qmail 12345 invoked for bounce); 29 Apr 2009 12:34:56 -0000
         #         Subject: failure notice
+        tryto  = /\A[(]qmail[ ]+\d+[ ]+invoked[ ]+(?:for[ ]+bounce|from[ ]+network)[)]/
         match  = 0
-        match += 1 if mhead['subject'] =~ Re0[:subject]
-        match += 1 if mhead['received'].find { |a| a =~ Re0[:received] }
+        match += 1 if mhead['subject'].start_with?('failure notice')
+        match += 1 if mhead['received'].find { |a| a =~ tryto }
         return nil if match.zero?
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -158,7 +154,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -166,7 +162,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end
@@ -207,7 +203,7 @@ module Sisimai::Bite::Email
               next if e.empty?
               v['diagnosis'] ||= ''
               v['diagnosis'] << e + ' '
-              v['alterrors'] = e if e =~ Re1[:error]
+              v['alterrors'] = e if e.start_with?(StartingOf[:error][0])
 
               next if v['rhost']
               if cv = e.match(ReHost)

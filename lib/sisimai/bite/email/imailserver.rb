@@ -7,16 +7,15 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite::Email/IMailServer.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'x-mailer' => %r/\A[<]SMTP32 v[\d.]+[>][ ]*\z/,
-        :'subject'  => %r/\AUndeliverable Mail[ ]*\z/,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        rfc822: ['Original message follows.'],
+        error:  ['Body of message generated response:'],
       }.freeze
-      Re1 = {
-        :begin  => %r/\A\z/,    # Blank line
-        :error  => %r/Body of message generated response:/,
-        :rfc822 => %r/\AOriginal message follows[.]\z/,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
+      MarkingsOf = {
+        message: %r/\A\z/,    # Blank line
       }.freeze
+
       ReSMTP = {
         conn: %r{(?:
              SMTP[ ]connection[ ]failed,
@@ -36,7 +35,6 @@ module Sisimai::Bite::Email
         undefined:   %r/\Aundeliverable[ ]to[ ]/x,
         expired:     %r/\ADelivery[ ]failed[ ]\d+[ ]attempts/x,
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'IPSWITCH IMail Server'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -58,8 +56,8 @@ module Sisimai::Bite::Email
         return nil unless mbody
 
         match  = 0
-        match += 1 if mhead['subject'] =~ Re0[:subject]
-        match += 1 if mhead['x-mailer'] && mhead['x-mailer'] =~ Re0[:'x-mailer']
+        match += 1 if mhead['subject'] =~ /\AUndeliverable Mail[ ]*\z/
+        match += 1 if mhead['x-mailer'] && mhead['x-mailer'] =~ /\A[<]SMTP32 v[\d.]+[>][ ]*\z/
         return nil if match.zero?
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -73,7 +71,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -81,7 +79,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end
@@ -129,7 +127,7 @@ module Sisimai::Bite::Email
             else
               # Other error message text
               v['alterrors'] << ' ' << e if v['alterrors']
-              if e =~ Re1[:error]
+              if e.include?(StartingOf[:error][0])
                 # Body of message generated response:
                 v['alterrors'] = e
               end

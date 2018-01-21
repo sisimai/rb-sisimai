@@ -6,20 +6,16 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/EinsUndEins.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from    => %r/\A["]Mail Delivery System["]/,
-        :subject => %r/\AMail delivery failed: returning message to sender\z/,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['This message was created automatically by mail delivery software'],
+        error:   ['For the following reason:'],
+        rfc822:  ['--- The header of the original message is following'],
       }.freeze
-      Re1 = {
-        :begin   => %r/\AThis message was created automatically by mail delivery software/,
-        :error   => %r/\AFor the following reason:/,
-        :rfc822  => %r/\A--- The header of the original message is following/,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }.freeze
+
       ReFailure = {
         mesgtoobig: %r/Mail[ ]size[ ]limit[ ]exceeded/x,
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return '1&1: http://www.1and1.de'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -40,8 +36,8 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil unless mhead['from']    =~ Re0[:from]
-        return nil unless mhead['subject'] =~ Re0[:subject]
+        return nil unless mhead['from'].start_with?('"Mail Delivery System"')
+        return nil unless mhead['subject'].start_with?('Mail delivery failed: returning message to sender')
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -54,7 +50,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -62,7 +58,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end
@@ -102,7 +98,7 @@ module Sisimai::Bite::Email
               v['recipient'] = cv[1]
               recipients += 1
 
-            elsif e =~ Re1[:error]
+            elsif e.start_with?(StartingOf[:error][0])
               # For the following reason:
               v['diagnosis'] = e
 
@@ -121,7 +117,7 @@ module Sisimai::Bite::Email
         dscontents.map do |e|
           e['agent']       = self.smtpagent
           e['diagnosis'] ||= ''
-          e['diagnosis']   = e['diagnosis'].gsub(/\A#{Re1[:error]}/, '')
+          e['diagnosis']   = e['diagnosis'].gsub(/\A#{StartingOf[:error][0]}/, '')
           e['diagnosis']   = Sisimai::String.sweep(e['diagnosis'])
 
           ReFailure.each_key do |r|

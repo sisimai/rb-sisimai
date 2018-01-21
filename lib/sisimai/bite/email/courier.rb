@@ -7,29 +7,15 @@ module Sisimai::Bite::Email
       require 'sisimai/bite/email'
 
       # http://www.courier-mta.org/courierdsn.html
-      # courier/module.dsn/dsn*.txt
-      Re0 = {
-        :'from'       => %r/Courier mail server at /,
-        :'subject'    => %r{(?:
-           NOTICE:[ ]mail[ ]delivery[ ]status[.]
-          |WARNING:[ ]delayed[ ]mail[.]
-          )
-        }x,
-        :'message-id' => %r/\A[<]courier[.][0-9A-F]+[.]/,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        # courier/module.dsn/dsn*.txt
+        message: ['DELAYS IN DELIVERING YOUR MESSAGE', 'UNDELIVERABLE MAIL'],
       }.freeze
-      Re1 = {
-        :begin  => %r{(?:
-           DELAYS[ ]IN[ ]DELIVERING[ ]YOUR[ ]MESSAGE
-          |UNDELIVERABLE[ ]MAIL
-          )
-        }x,
-        :rfc822 => %r{\AContent-Type:[ ]*(?:
-           message/rfc822
-          |text/rfc822-headers
-          )\z
-        }x,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
+      MarkingsOf = {
+        rfc822: %r{\AContent-Type:[ ]*(?:message/rfc822|text/rfc822-headers)\z},
       }.freeze
+
       ReFailure = {
         # courier/module.esmtp/esmtpclient.c:526| hard_error(del, ctf, "No such domain.");
         hostunknown: %r/\ANo[ ]such[ ]domain[.]\z/x,
@@ -41,7 +27,6 @@ module Sisimai::Bite::Email
         # courier/module.esmtp/esmtpclient.c:535| soft_error(del, ctf, "DNS lookup failed.");
         networkerror: %r/\ADNS[ ]lookup[ ]failed[.]\z/x,
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Courier MTA'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -63,11 +48,11 @@ module Sisimai::Bite::Email
         return nil unless mbody
 
         match  = 0
-        match += 1 if mhead['from']    =~ Re0[:from]
-        match += 1 if mhead['subject'] =~ Re0[:subject]
+        match += 1 if mhead['from'] =~ /Courier mail server at /
+        match += 1 if mhead['subject'] =~ /(?:NOTICE: mail delivery status[.]|WARNING: delayed mail[.])/
         if mhead['message-id']
           # Message-ID: <courier.4D025E3A.00001792@5jo.example.org>
-          match += 1 if mhead['message-id'] =~ Re0[:'message-id']
+          match += 1 if mhead['message-id'] =~ /\A[<]courier[.][0-9A-F]+[.]/
         end
         return nil if match.zero?
 
@@ -94,7 +79,7 @@ module Sisimai::Bite::Email
 
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.include?(StartingOf[:message][0]) || e.include?(StartingOf[:message][1])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -102,7 +87,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
               next
             end

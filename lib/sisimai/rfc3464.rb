@@ -6,22 +6,9 @@ module Sisimai
       require 'sisimai/bite/email'
 
       # http://tools.ietf.org/html/rfc3464
-      Re0 = {
-        :'from'        => %r/\b(?:postmaster|mailer-daemon|root)[@]/i,
-        :'return-path' => %r/(?:[<][>]|mailer-daemon)/i,
-        :'subject'     => %r{(?>
-           delivery[ ](?:failed|failure|report)
-          |failure[ ]notice
-          |mail[ ](?:delivery|error)
-          |non[-]delivery
-          |returned[ ]mail
-          |undeliverable[ ]mail
-          |Warning:[ ]
-          )
-        }xi,
-      }.freeze
-      Re1 = {
-        :begin   => %r{\A(?>
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      MarkingsOf = {
+        message: %r{\A(?>
            Content-Type:[ ]*(?:
              message/delivery-status
             |message/disposition-notification
@@ -32,16 +19,14 @@ module Sisimai
           |Your[ ]message[ ]was[ ]not[ ]delivered[ ]to[ ]the[ ]following[ ]recipients
           )
         }xi,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-        :rfc822  => %r{\A(?>
+        rfc822:  %r{\A(?>
            Content-Type:[ ]*(?:message/rfc822|text/rfc822-headers)
           |Return-Path:[ ]*[<].+[>]\z
           )\z
         }xi,
-        :error   => %r/\A(?:[45]\d\d[ \t]+|[<][^@]+[@][^@]+[>]:?[ \t]+)/i,
-        :command => %r/[ ](RCPT|MAIL|DATA)[ ]+command\b/,
+        error:   %r/\A(?:[45]\d\d[ \t]+|[<][^@]+[@][^@]+[>]:?[ \t]+)/i,
+        command: %r/[ ](RCPT|MAIL|DATA)[ ]+command\b/,
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; 'Fallback Module for MTAs'; end
       def smtpagent;   'RFC3464'; end
@@ -88,7 +73,7 @@ module Sisimai
 
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -96,7 +81,7 @@ module Sisimai
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
               next
             end
@@ -296,7 +281,7 @@ module Sisimai
                 else
                   # Get error message
                   next if e.start_with?(' ', '-')
-                  next unless e =~ Re1[:error]
+                  next unless e =~ MarkingsOf[:error]
 
                   # 500 User Unknown
                   # <kijitora@example.jp> Unknown
@@ -315,12 +300,21 @@ module Sisimai
           match = 0
 
           # Failed to get a recipient address at code above
-          match += 1 if mhead['from']    =~ Re0[:from]
-          match += 1 if mhead['subject'] =~ Re0[:subject]
+          match += 1 if mhead['from'] =~ /\b(?:postmaster|mailer-daemon|root)[@]/i
+          match += 1 if mhead['subject'] =~ %r{(?>
+             delivery[ ](?:failed|failure|report)
+            |failure[ ]notice
+            |mail[ ](?:delivery|error)
+            |non[-]delivery
+            |returned[ ]mail
+            |undeliverable[ ]mail
+            |Warning:[ ]
+            )
+          }xi
 
           if mhead['return-path']
             # Check the value of Return-Path of the message
-            match += 1 if mhead['return-path'] =~ Re0[:'return-path']
+            match += 1 if mhead['return-path'] =~ /(?:[<][>]|mailer-daemon)/i
           end
           break unless match > 0
 
@@ -389,8 +383,8 @@ module Sisimai
           b = dscontents[-1]
           mbody.split("\n").each do |e|
             # Get the recipient's email address and error messages.
-            break if e =~ Re1[:endof]
-            break if e =~ Re1[:rfc822]
+            break if e.start_with?('__END_OF_EMAIL_MESSAGE__')
+            break if e =~ MarkingsOf[:rfc822]
             break if e =~ re_stop
 
             next if e.size.zero?
@@ -473,7 +467,7 @@ module Sisimai
           end
 
           e['status'] ||= Sisimai::SMTP::Status.find(e['diagnosis'])
-          if cv = e['diagnosis'].match(Re1[:command])
+          if cv = e['diagnosis'].match(MarkingsOf[:command])
             e['command'] = cv[1]
           end
           e['date'] ||= mhead['date']

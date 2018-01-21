@@ -7,19 +7,15 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/mFILTER.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'from'     => %r/\AMailer Daemon [<]MAILER-DAEMON[@]/,
-        :'subject'  => %r/\Afailure notice\z/,
-        :'x-mailer' => %r/\Am-FILTER\z/,
-      }.freeze
-      Re1 = {
-        :begin   => %r/\A[^ ]+[@][^ ]+[.][a-zA-Z]+\z/,
-        :error   => %r/\A-------server message\z/,
-        :command => %r/\A-------SMTP command\z/,
-        :rfc822  => %r/\A-------original (?:message|mail info)\z/,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        error:   ['-------server message'],
+        command: ['-------SMTP command'],
+        rfc822:  ['-------original message', '--------original mail info'],
+      }.freeze
+      MarkingsOf = {
+        message: %r/\A[^ ]+[@][^ ]+[.][a-zA-Z]+\z/,
+      }.freeze
 
       def description; return 'Digital Arts m-FILTER'; end
       def smtpagent;   return 'Email::mFILTER'; end
@@ -39,9 +35,11 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
+
+        # :'from'     => %r/\AMailer Daemon [<]MAILER-DAEMON[@]/,
         return nil unless mhead['x-mailer']
-        return nil unless mhead['x-mailer'] =~ Re0[:'x-mailer']
-        return nil unless mhead['subject']  =~ Re0[:'subject']
+        return nil unless mhead['x-mailer'].start_with?('m-FILTER')
+        return nil unless mhead['subject'].start_with?('failure notice')
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -55,12 +53,12 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            readcursor |= Indicators[:deliverystatus] if e =~ Re1[:begin]
+            readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
           end
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0], StartingOf[:rfc822][1])
               readcursor |= Indicators[:'message-rfc822']
               next
             end
@@ -116,11 +114,11 @@ module Sisimai::Bite::Email
 
             else
               # Get error message and SMTP command
-              if e =~ Re1[:error]
+              if e.start_with?(StartingOf[:error][0])
                 # -------server message
                 markingset['diagnosis'] = true
 
-              elsif e =~ Re1[:command]
+              elsif e.start_with?(StartingOf[:command][0])
                 # -------SMTP command
                 markingset['command'] = true
 

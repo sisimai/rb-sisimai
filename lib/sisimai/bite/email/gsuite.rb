@@ -6,23 +6,19 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/GSuite.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from    => %r/[@]googlemail[.]com[>]?\z/,
-        :subject => %r/Delivery[ ]Status[ ]Notification/,
-      }.freeze
-      Re1 = {
-        :begin   => %r/\A[*][*][ ].+[ ][*][*]\z/,
-        :error   => %r/\AThe[ ]response([ ]from[ ]the[ ]remote[ ]server)?[ ]was:\z/,
-        :html    => %r{\AContent-Type:[ ]*text/html;[ ]*charset=['"]?(?:UTF|utf)[-]8['"]?\z},
-        :rfc822  => %r{\AContent-Type:[ ]*(?:message/rfc822|text/rfc822-headers)\z},
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }.freeze
-      ErrorMayBe = {
-        :userunknown  => %r/because the address couldn't be found/,
-        :notaccept    => %r/Null MX/,
-        :networkerror => %r/DNS type .+ lookup of .+ responded with code NXDOMAIN/,
-      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
+      MarkingsOf = {
+        message: %r/\A[*][*][ ].+[ ][*][*]\z/,
+        rfc822:  %r{\AContent-Type:[ ]*(?:message/rfc822|text/rfc822-headers)\z},
+        error:   %r/\AThe[ ]response([ ]from[ ]the[ ]remote[ ]server)?[ ]was:\z/,
+        html:    %r{\AContent-Type:[ ]*text/html;[ ]*charset=['"]?(?:UTF|utf)[-]8['"]?\z},
+      }.freeze
+
+      ErrorMayBe = {
+        userunknown:  %r/because the address couldn't be found/,
+        notaccept:    %r/Null MX/,
+        networkerror: %r/DNS type .+ lookup of .+ responded with code NXDOMAIN/,
+      }.freeze
 
       def description; return 'G Suite: https://gsuite.google.com'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -43,8 +39,8 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
 
-        return nil unless mhead['from']    =~ Re0[:from]
-        return nil unless mhead['subject'] =~ Re0[:subject]
+        return nil unless mhead['from'].include?('<mailer-daemon@googlemail.com>')
+        return nil unless mhead['subject'].include?('Delivery Status Notification')
         return nil unless mhead['x-gm-message-state']
 
         require 'sisimai/address'
@@ -67,12 +63,12 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            readcursor |= Indicators[:deliverystatus] if e =~ Re1[:begin]
+            readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
           end
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
               next
             end
@@ -164,7 +160,7 @@ module Sisimai::Bite::Email
 
               else
                 # Detect SMTP session error or connection error
-                if e =~ Re1[:error]
+                if e =~ MarkingsOf[:error]
                   # The response from the remote server was:
                   anotherset['diagnosis'] << e
                 else
@@ -175,7 +171,7 @@ module Sisimai::Bite::Email
                   #
                   # The response from the remote server was:
                   # 550 #5.1.0 Address rejected.
-                  next if e =~ Re1[:html]
+                  next if e =~ MarkingsOf[:html]
 
                   if anotherset['diagnosis']
                     # Continued error messages from the previous line like
@@ -193,7 +189,7 @@ module Sisimai::Bite::Email
                     # Your message wasn't delivered to * because the address couldn't be found.
                     # Check for typos or unnecessary spaces and try again.
                     next if e.empty?
-                    next unless e =~ Re1[:begin]
+                    next unless e =~ MarkingsOf[:message]
                     anotherset['diagnosis'] = e
                   end
                 end

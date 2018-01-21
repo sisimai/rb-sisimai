@@ -7,17 +7,16 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Exchange2007.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'subject'          => %r/\AUndeliverable:/,
-        :'content-language' => %r/\A[a-z]{2}(?:[-][A-Z]{2})?\z/,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        rfc822: ['Original message headers:'],
       }.freeze
-      Re1 = {
-        :begin  => %r/[ ]Microsoft[ ]Exchange[ ]Server[ ]20\d{2}/,
-        :error  => %r/[ ]((?:RESOLVER|QUEUE)[.][A-Za-z]+(?:[.]\w+)?);/,
-        :rhost  => %r/\AGenerating[ ]server:[ ]?(.*)/,
-        :rfc822 => %r/\AOriginal message headers:/,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
+      MarkingsOf = {
+        message: %r/[ ]Microsoft[ ]Exchange[ ]Server[ ]20\d{2}/,
+        error:   %r/[ ]((?:RESOLVER|QUEUE)[.][A-Za-z]+(?:[.]\w+)?);/,
+        rhost:   %r/\AGenerating[ ]server:[ ]?(.*)/,
       }.freeze
+
       NDRSubject = {
         :'SMTPSEND.DNS.NonExistentDomain'=> 'hostunknown',   # 554 5.4.4 SMTPSEND.DNS.NonExistentDomain
         :'SMTPSEND.DNS.MxLoopback'       => 'networkerror',  # 554 5.4.4 SMTPSEND.DNS.MxLoopback
@@ -32,7 +31,6 @@ module Sisimai::Bite::Email
         :'RESOLVER.RST.RecipSizeLimit'   => 'mesgtoobig',    # 550 5.2.3 RESOLVER.RST.RecipSizeLimit
         :'QUEUE.Expired'                 => 'expired',       # 550 4.4.7 QUEUE.Expired
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Microsoft Exchange Server 2007'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -53,9 +51,9 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
 
-        return nil unless mhead['subject'] =~ Re0[:'subject']
+        return nil unless mhead['subject'].start_with?('Undeliverable:')
         return nil unless mhead['content-language']
-        return nil unless mhead['content-language'] =~ Re0[:'content-language']
+        return nil unless mhead['content-language'] =~ /\A[a-z]{2}(?:[-][A-Z]{2})?\z/
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -72,7 +70,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -80,7 +78,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end
@@ -140,7 +138,7 @@ module Sisimai::Bite::Email
               # Diagnostic information for administrators:
               #
               # Generating server: mta22.neko.example.org
-              if cv = e.match(Re1[:rhost])
+              if cv = e.match(MarkingsOf[:rhost])
                 # Generating server: mta22.neko.example.org
                 next if connheader['rhost'].size > 0
                 connheader['rhost'] = cv[1]
@@ -153,7 +151,7 @@ module Sisimai::Bite::Email
 
         require 'sisimai/string'
         dscontents.map do |e|
-          if cv = e['diagnosis'].match(Re1[:error])
+          if cv = e['diagnosis'].match(MarkingsOf[:error])
             # #550 5.1.1 RESOLVER.ADR.RecipNotFound; not found ##
             f = cv[1]
             NDRSubject.each_key do |r|

@@ -6,22 +6,17 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Sendmail.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from    => %r/\AMail Delivery Subsystem/,
-        :subject => %r/(?:see transcript for details\z|\AWarning: )/,
-      }.freeze
-      # Error text regular expressions which defined in sendmail/savemail.c
-      #   savemail.c:1040|if (printheader && !putline("   ----- Transcript of session follows -----\n",
-      #   savemail.c:1041|          mci))
-      #   savemail.c:1042|  goto writeerr;
-      #
-      Re1 = {
-        :begin   => %r/\A[ \t]+[-]+ Transcript of session follows [-]+\z/,
-        :error   => %r/\A[.]+ while talking to .+[:]\z/,
-        :rfc822  => %r{\AContent-Type:[ ]*(?:message/rfc822|text/rfc822-headers)\z},
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
+      MarkingsOf = {
+        # Error text regular expressions which defined in sendmail/savemail.c
+        #   savemail.c:1040|if (printheader && !putline("   ----- Transcript of session follows -----\n",
+        #   savemail.c:1041|          mci))
+        #   savemail.c:1042|  goto writeerr;
+        #
+        message: %r/\A[ \t]+[-]+ Transcript of session follows [-]+\z/,
+        rfc822:  %r{\AContent-Type:[ ]*(?:message/rfc822|text/rfc822-headers)\z},
+        error:   %r/\A[.]+ while talking to .+[:]\z/,
+      }.freeze
 
       def description; return 'V8Sendmail: /usr/sbin/sendmail'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -41,12 +36,12 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil unless mhead['subject'] =~ Re0[:subject]
 
+        return nil unless mhead['subject'] =~ /(?:see transcript for details\z|\AWarning: )/
         unless mhead['subject'] =~ /\A[ \t]*Fwd?:/i
           # Fwd: Returned mail: see transcript for details
           # Do not execute this code if the bounce mail is a forwarded message.
-          return nil unless mhead['from'] =~ Re0[:from]
+          return nil unless mhead['from'].start_with?('Mail Delivery Subsystem')
         end
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -74,7 +69,7 @@ module Sisimai::Bite::Email
 
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -82,7 +77,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
               next
             end
@@ -200,7 +195,7 @@ module Sisimai::Bite::Email
               else
                 # Detect SMTP session error or connection error
                 next if sessionerr
-                if e =~ Re1[:error]
+                if e =~ MarkingsOf[:error]
                   # ----- Transcript of session follows -----
                   # ... while talking to mta.example.org.:
                   sessionerr = true

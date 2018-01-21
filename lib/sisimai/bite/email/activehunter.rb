@@ -7,17 +7,11 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Activehunter.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from    => %r/\A"MAILER-DAEMON"/,
-        :subject => %r/FAILURE NOTICE :/,
-      }.freeze
-      Re1 = {
-        :begin   => %r/\A  ----- The following addresses had permanent fatal errors -----\z/,
-        :error   => %r/\A  ----- Transcript of session follows -----\z/,
-        :rfc822  => %r|\AContent-type: message/rfc822\z|,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['  ----- The following addresses had permanent fatal errors -----'],
+        rfc822:  ['Content-type: message/rfc822'],
+      }.freeze
 
       def description; return 'TransWARE Active!hunter'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -37,6 +31,9 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
+
+        # :from    => %r/\A"MAILER-DAEMON"/,
+        # :subject => %r/FAILURE NOTICE :/,
         return nil unless mhead['x-ahmailid']
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -50,7 +47,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -58,7 +55,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end

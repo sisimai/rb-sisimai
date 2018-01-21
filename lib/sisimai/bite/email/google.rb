@@ -6,21 +6,20 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Google.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from    => %r/[@]googlemail[.]com[>]?\z/,
-        :subject => %r/Delivery[ ]Status[ ]Notification/,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['Delivery to the following recipient'],
+        error:   ['The error that the other server returned was:'],
       }.freeze
-      Re1 = {
-        :begin   => %r/Delivery to the following recipient/,
-        :start   => %r/Technical details of (?:permanent|temporary) failure:/,
-        :error   => %r/The error that the other server returned was:/,
-        :rfc822  => %r{\A(?:
+      MarkingsOf = {
+        start:  %r/Technical details of (?:permanent|temporary) failure:/,
+        rfc822: %r{\A(?:
              -----[ ]Original[ ]message[ ]-----
             |[ \t]*-----[ ]Message[ ]header[ ]follows[ ]-----
             )\z
         }x,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
+
       ReFailure = {
         expired: %r{(?:
              DNS[ ]Error:[ ]Could[ ]not[ ]contact[ ]DNS[ ]servers
@@ -107,7 +106,6 @@ module Sisimai::Bite::Email
         # 550 550 Unknown user *****@***.**.*** (state 18).
         '18' => { 'command' => 'DATA', 'reason' => 'filtered' },
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Google Gmail: https://mail.google.com'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -175,8 +173,8 @@ module Sisimai::Bite::Email
         #   The error that the other server returned was:
         #   550 5.1.1 <userunknown@example.jp>... User Unknown
         #
-        return nil unless mhead['from']    =~ Re0[:from]
-        return nil unless mhead['subject'] =~ Re0[:subject]
+        return nil unless mhead['from'].include?('<mailer-daemon@googlemail.com>')
+        return nil unless mhead['subject'].include?('Delivery Status Notification')
 
         require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -191,12 +189,12 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            readcursor |= Indicators[:deliverystatus] if e =~ Re1[:begin]
+            readcursor |= Indicators[:deliverystatus] if e.include?(StartingOf[:message][0])
           end
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
               next
             end

@@ -6,14 +6,11 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/FML.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'from'       => %r/.+[-]admin[@].+/, 
-        :'message-id' => %r/\A[<]\d+[.]FML.+[@].+[>]\z/,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        rfc822: ['Original mail as follows:'],
       }.freeze
-      Re1 = {
-        :rfc822  => %r/\AOriginal[ ]mail[ ]as[ ]follows:\z/,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }.freeze
+      
       ErrorTitle = {
         :rejected => %r{(?>
            (?:Ignored[ ])*NOT[ ]MEMBER[ ]article[ ]from[ ]
@@ -50,7 +47,6 @@ module Sisimai::Bite::Email
         }x,
         :securityerror => %r/Security[ ]alert:/,
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'fml mailing list server/manager'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -71,8 +67,8 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
         return nil unless mhead['x-mlserver']
-        return nil unless mhead['from'] =~ Re0[:from]
-        return nil unless mhead['message-id'] =~ Re0[:'message-id']
+        return nil unless mhead['from'] =~ /.+[-]admin[@].+/
+        return nil unless mhead['message-id'] =~ /\A[<]\d+[.]FML.+[@].+[>]\z/
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -86,7 +82,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end

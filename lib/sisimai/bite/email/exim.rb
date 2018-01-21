@@ -6,55 +6,42 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Exim.pm
       require 'sisimai/bite/email'
 
-      ReE = {
-        :from    => %r/[@].+[.]mail[.]ru[>]?/,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        deliverystatus: ['Content-type: message/delivery-status'],
+        endof:          ['__END_OF_EMAIL_MESSAGE__'],
       }.freeze
-      Re0 = {
-        :from    => %r/\AMail Delivery System/,
-        :subject => %r{(?:
-           Mail[ ]delivery[ ]failed(:[ ]returning[ ]message[ ]to[ ]sender)?
-          |Warning:[ ]message[ ].+[ ]delayed[ ]+
-          |Delivery[ ]Status[ ]Notification
-          |Mail[ ]failure
-          |Message[ ]frozen
-          |error[(]s[)][ ]in[ ]forwarding[ ]or[ ]filtering
-          )
-        }x,
-        # :'message-id' => %r/\A[<]\w+[-]\w+[-]\w+[@].+\z/,
-        # Message-Id: <E1P1YNN-0003AD-Ga@example.org>
-      }.freeze
-
-      # Error text regular expressions which defined in exim/src/deliver.c
-      #
-      # deliver.c:6292| fprintf(f,
-      # deliver.c:6293|"This message was created automatically by mail delivery software.\n");
-      # deliver.c:6294|        if (to_sender)
-      # deliver.c:6295|          {
-      # deliver.c:6296|          fprintf(f,
-      # deliver.c:6297|"\nA message that you sent could not be delivered to one or more of its\n"
-      # deliver.c:6298|"recipients. This is a permanent error. The following address(es) failed:\n");
-      # deliver.c:6299|          }
-      # deliver.c:6300|        else
-      # deliver.c:6301|          {
-      # deliver.c:6302|          fprintf(f,
-      # deliver.c:6303|"\nA message sent by\n\n  <%s>\n\n"
-      # deliver.c:6304|"could not be delivered to one or more of its recipients. The following\n"
-      # deliver.c:6305|"address(es) failed:\n", sender_address);
-      # deliver.c:6306|          }
-      #
-      # deliver.c:6423|          if (bounce_return_body) fprintf(f,
-      # deliver.c:6424|"------ This is a copy of the message, including all the headers. ------\n");
-      # deliver.c:6425|          else fprintf(f,
-      # deliver.c:6426|"------ This is a copy of the message's headers. ------\n");
-      Re1 = {
-        :alias  => %r/\A([ ]+an[ ]undisclosed[ ]address)\z/,
-        :frozen => %r/\AMessage .+ (?:has been frozen|was frozen on arrival)/,
-        :rfc822 => %r{\A(?:
+      MarkingsOf = {
+        # Error text regular expressions which defined in exim/src/deliver.c
+        #
+        # deliver.c:6292| fprintf(f,
+        # deliver.c:6293|"This message was created automatically by mail delivery software.\n");
+        # deliver.c:6294|        if (to_sender)
+        # deliver.c:6295|          {
+        # deliver.c:6296|          fprintf(f,
+        # deliver.c:6297|"\nA message that you sent could not be delivered to one or more of its\n"
+        # deliver.c:6298|"recipients. This is a permanent error. The following address(es) failed:\n");
+        # deliver.c:6299|          }
+        # deliver.c:6300|        else
+        # deliver.c:6301|          {
+        # deliver.c:6302|          fprintf(f,
+        # deliver.c:6303|"\nA message sent by\n\n  <%s>\n\n"
+        # deliver.c:6304|"could not be delivered to one or more of its recipients. The following\n"
+        # deliver.c:6305|"address(es) failed:\n", sender_address);
+        # deliver.c:6306|          }
+        #
+        # deliver.c:6423|          if (bounce_return_body) fprintf(f,
+        # deliver.c:6424|"------ This is a copy of the message, including all the headers. ------\n");
+        # deliver.c:6425|          else fprintf(f,
+        # deliver.c:6426|"------ This is a copy of the message's headers. ------\n");
+        alias:  %r/\A([ ]+an[ ]undisclosed[ ]address)\z/,
+        frozen: %r/\AMessage .+ (?:has been frozen|was frozen on arrival)/,
+        rfc822: %r{\A(?:
              [-]+[ ]This[ ]is[ ]a[ ]copy[ ]of[ ](?:the|your)[ ]message.+headers[.][ ][-]+
             |Content-Type:[ ]*message/rfc822
             )\z
           }x,
-        :begin  => %r{\A(?>
+        message: %r{\A(?>
            This[ ]message[ ]was[ ]created[ ]automatically[ ]by[ ]mail[ ]delivery[ ]software[.]
           |A[ ]message[ ]that[ ]you[ ]sent[ ]was[ ]rejected[ ]by[ ]the[ ]local[ ]scanning[ ]code
           |A[ ]message[ ]that[ ]you[ ]sent[ ]contained[ ]one[ ]or[ ]more[ ]recipient[ ]addresses[ ]
@@ -62,8 +49,6 @@ module Sisimai::Bite::Email
           |The[ ].+[ ]router[ ]encountered[ ]the[ ]following[ ]error[(]s[)]:
           )
          }x,
-        :deliverystatus => %r|\AContent-type: message/delivery-status|,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
       }.freeze
 
       ReCommand = [
@@ -143,7 +128,6 @@ module Sisimai::Bite::Email
         |Message[ ].+[ ](?:has[ ]been[ ]frozen|was[ ]frozen[ ]on[ ]arrival[ ]by[ ])
         )
       }x
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Exim'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -163,9 +147,19 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil if     mhead['from']    =~ ReE[:from]
-        return nil unless mhead['from']    =~ Re0[:from]
-        return nil unless mhead['subject'] =~ Re0[:subject]
+
+        # :'message-id' => %r/\A[<]\w+[-]\w+[-]\w+[@].+\z/,
+        return nil if     mhead['from'] =~ /[@].+[.]mail[.]ru[>]?/
+        return nil unless mhead['from'].start_with?('Mail Delivery System')
+        return nil unless mhead['subject'] =~ %r{(?:
+           Mail[ ]delivery[ ]failed(:[ ]returning[ ]message[ ]to[ ]sender)?
+          |Warning:[ ]message[ ].+[ ]delayed[ ]+
+          |Delivery[ ]Status[ ]Notification
+          |Mail[ ]failure
+          |Message[ ]frozen
+          |error[(]s[)][ ]in[ ]forwarding[ ]or[ ]filtering
+          )
+        }x
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -188,19 +182,19 @@ module Sisimai::Bite::Email
         end
 
         hasdivided.each do |e|
-          break if e =~ Re1[:endof]
+          break if e.start_with?(StartingOf[:endof][0])
 
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
-              next unless e =~ Re1[:frozen]
+              next unless e =~ MarkingsOf[:frozen]
             end
           end
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
               next
             end
@@ -232,7 +226,7 @@ module Sisimai::Bite::Email
 
             if cv = e.match(/\A[ \t]{2}([^ \t]+[@][^ \t]+[.]?[a-zA-Z]+)(:.+)?\z/) ||
                     e.match(/\A[ \t]{2}[^ \t]+[@][^ \t]+[.][a-zA-Z]+[ ]<(.+?[@].+?)>:.+\z/) ||
-                    e.match(Re1[:alias])
+                    e.match(MarkingsOf[:alias])
               #   kijitora@example.jp
               #   sabineko@example.jp: forced freeze
               #   mikeneko@example.jp <nekochan@example.org>: ...
@@ -274,7 +268,7 @@ module Sisimai::Bite::Email
             else
               next if e.empty?
 
-              if e =~ Re1[:frozen]
+              if e =~ MarkingsOf[:frozen]
                 # Message *** has been frozen by the system filter.
                 # Message *** was frozen on arrival by ACL.
                 v['alterrors'] ||= ''
@@ -310,7 +304,7 @@ module Sisimai::Bite::Email
                     # Error message ?
                     if havepassed[:deliverystatus].zero?
                       # Content-type: message/delivery-status
-                      havepassed[:deliverystatus] = 1 if e =~ Re1[:deliverystatus]
+                      havepassed[:deliverystatus] = 1 if e.start_with?(StartingOf[:deliverystatus][0])
                       v['alterrors'] ||= ''
                       v['alterrors'] << e + ' ' if e.start_with?(' ')
                     end

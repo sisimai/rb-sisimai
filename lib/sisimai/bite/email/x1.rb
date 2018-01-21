@@ -6,16 +6,11 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/X1.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from    => %r/["]Mail Deliver System["] /,
-        :subject => %r/\AReturned Mail: /,
-      }.freeze
-      Re1 = {
-        :begin   => %r/\AThe original message was received at (.+)\z/,
-        :endof   => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-        :rfc822  => %r/\AReceived: from \d+[.]\d+[.]\d+[.]\d/,
-      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
+      MarkingsOf = {
+        message: %r/\AThe original message was received at (.+)\z/,
+        rfc822:  %r/\AReceived: from \d+[.]\d+[.]\d+[.]\d/,
+      }.freeze
 
       def description; return 'Unknown MTA #1'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -35,8 +30,8 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil unless mhead['subject'] =~ Re0[:subject]
-        return nil unless mhead['from']    =~ Re0[:from]
+        return nil unless mhead['subject'].start_with?('Returned Mail: ')
+        return nil unless mhead['from'].include?('"Mail Deliver System" ')
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -50,7 +45,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -58,7 +53,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
               next
             end
@@ -97,7 +92,7 @@ module Sisimai::Bite::Email
               v['diagnosis'] = cv[2]
               recipients += 1
 
-            elsif cv = e.match(Re1[:begin])
+            elsif cv = e.match(MarkingsOf[:message])
               # The original message was received at Thu, 29 Apr 2010 23:34:45 +0900 (JST)
               datestring = cv[1]
             end

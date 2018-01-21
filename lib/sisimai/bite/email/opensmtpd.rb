@@ -6,41 +6,37 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/OpenSMTPD.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :from     => %r/\AMailer Daemon [<][^ ]+[@]/,
-        :subject  => %r/\ADelivery status notification/,
-        :received => %r/[ ][(]OpenSMTPD[)][ ]with[ ]/,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      MarkingsOf = {
+        # http://www.openbsd.org/cgi-bin/man.cgi?query=smtpd&sektion=8
+        # opensmtpd-5.4.2p1/smtpd/
+        #   bounce.c/317:#define NOTICE_INTRO \
+        #   bounce.c/318:    "    Hi!\n\n"    \
+        #   bounce.c/319:    "    This is the MAILER-DAEMON, please DO NOT REPLY to this e-mail.\n"
+        #   bounce.c/320:
+        #   bounce.c/321:const char *notice_error =
+        #   bounce.c/322:    "    An error has occurred while attempting to deliver a message for\n"
+        #   bounce.c/323:    "    the following list of recipients:\n\n";
+        #   bounce.c/324:
+        #   bounce.c/325:const char *notice_warning =
+        #   bounce.c/326:    "    A message is delayed for more than %s for the following\n"
+        #   bounce.c/327:    "    list of recipients:\n\n";
+        #   bounce.c/328:
+        #   bounce.c/329:const char *notice_warning2 =
+        #   bounce.c/330:    "    Please note that this is only a temporary failure report.\n"
+        #   bounce.c/331:    "    The message is kept in the queue for up to %s.\n"
+        #   bounce.c/332:    "    You DO NOT NEED to re-send the message to these recipients.\n\n";
+        #   bounce.c/333:
+        #   bounce.c/334:const char *notice_success =
+        #   bounce.c/335:    "    Your message was successfully delivered to these recipients.\n\n";
+        #   bounce.c/336:
+        #   bounce.c/337:const char *notice_relay =
+        #   bounce.c/338:    "    Your message was relayed to these recipients.\n\n";
+        #   bounce.c/339:
+        message: %r/\A[ \t]*This is the MAILER-DAEMON, please DO NOT REPLY to this e[-]?mail[.]\z/,
+        rfc822:  %r/\A[ \t]*Below is a copy of the original message:\z/,
       }.freeze
-      # http://www.openbsd.org/cgi-bin/man.cgi?query=smtpd&sektion=8
-      # opensmtpd-5.4.2p1/smtpd/
-      #   bounce.c/317:#define NOTICE_INTRO \
-      #   bounce.c/318:    "    Hi!\n\n"    \
-      #   bounce.c/319:    "    This is the MAILER-DAEMON, please DO NOT REPLY to this e-mail.\n"
-      #   bounce.c/320:
-      #   bounce.c/321:const char *notice_error =
-      #   bounce.c/322:    "    An error has occurred while attempting to deliver a message for\n"
-      #   bounce.c/323:    "    the following list of recipients:\n\n";
-      #   bounce.c/324:
-      #   bounce.c/325:const char *notice_warning =
-      #   bounce.c/326:    "    A message is delayed for more than %s for the following\n"
-      #   bounce.c/327:    "    list of recipients:\n\n";
-      #   bounce.c/328:
-      #   bounce.c/329:const char *notice_warning2 =
-      #   bounce.c/330:    "    Please note that this is only a temporary failure report.\n"
-      #   bounce.c/331:    "    The message is kept in the queue for up to %s.\n"
-      #   bounce.c/332:    "    You DO NOT NEED to re-send the message to these recipients.\n\n";
-      #   bounce.c/333:
-      #   bounce.c/334:const char *notice_success =
-      #   bounce.c/335:    "    Your message was successfully delivered to these recipients.\n\n";
-      #   bounce.c/336:
-      #   bounce.c/337:const char *notice_relay =
-      #   bounce.c/338:    "    Your message was relayed to these recipients.\n\n";
-      #   bounce.c/339:
-      Re1 = {
-        :begin  => %r/\A[ \t]*This is the MAILER-DAEMON, please DO NOT REPLY to this e[-]?mail[.]\z/,
-        :rfc822 => %r/\A[ \t]*Below is a copy of the original message:\z/,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }.freeze
+
       ReFailure = {
         expired: %r{
           # smtpd/queue.c:221|  envelope_set_errormsg(&evp, "Envelope expired");
@@ -77,7 +73,6 @@ module Sisimai::Bite::Email
           Could[ ]not[ ]retrieve[ ]credentials
         }x,
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'OpenSMTPD'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -97,9 +92,10 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil unless mhead['subject'] =~ Re0[:subject]
-        return nil unless mhead['from']    =~ Re0[:from]
-        return nil unless mhead['received'].find { |a| a =~ Re0[:received] }
+
+        return nil unless mhead['subject'].start_with?('Delivery status notification')
+        return nil unless mhead['from'] =~ /\AMailer Daemon [<][^ ]+[@]/
+        return nil unless mhead['received'].find { |a| a.include?(' (OpenSMTPD) with ') }
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -112,7 +108,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -120,7 +116,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
               next
             end

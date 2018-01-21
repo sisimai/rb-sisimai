@@ -20,7 +20,6 @@ module Sisimai
       }.freeze
       Re1 = {
         :boundary => %r/\A__SISIMAI_PSEUDO_BOUNDARY__\z/,
-        :endof    => %r/\A__END_OF_EMAIL_MESSAGE__\z/
       }
       Re2 = {
         :subject => %r/(?:

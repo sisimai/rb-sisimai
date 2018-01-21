@@ -6,24 +6,17 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/Zoho.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'from'     => %r/mailer-daemon[@]mail[.]zoho[.]com\z/,
-        :'subject'  => %r{\A(?:
-             Undelivered[ ]Mail[ ]Returned[ ]to[ ]Sender
-            |Mail[ ]Delivery[ ]Status[ ]Notification
-            )
-        }x,
-        :'x-mailer' => %r/\AZoho Mail\z/,
+      Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['This message was created automatically by mail delivery'],
       }.freeze
-      Re1 = {
-        :begin  => %r/\AThis message was created automatically by mail delivery/,
-        :rfc822 => %r/\AReceived:[ \t]*from mail[.]zoho[.]com/,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
+      MarkingsOf = {
+        rfc822:  %r/\AReceived:[ \t]*from mail[.]zoho[.]com/,
       }.freeze
+
       ReFailure = {
         expired: %r/Host not reachable/
       }.freeze
-      Indicators = Sisimai::Bite::Email.INDICATORS
 
       def description; return 'Zoho Mail: https://www.zoho.com'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -47,6 +40,14 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
+
+        # :'from'     => %r/mailer-daemon[@]mail[.]zoho[.]com\z/,
+        # :'subject'  => %r{\A(?:
+        #      Undelivered[ ]Mail[ ]Returned[ ]to[ ]Sender
+        #     |Mail[ ]Delivery[ ]Status[ ]Notification
+        #     )
+        # }x,
+        # :'x-mailer' => %r/\AZoho Mail\z/,
         return nil unless mhead['x-zohomail']
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -61,7 +62,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -69,7 +70,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
               next
             end

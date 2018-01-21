@@ -6,18 +6,11 @@ module Sisimai::Bite::Email
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/SendGrid.pm
       require 'sisimai/bite/email'
 
-      Re0 = {
-        :'from'        => %r/\AMAILER-DAEMON\z/,
-        :'return-path' => %r/\A[<]apps[@]sendgrid[.]net[>]\z/,
-        :'subject'     => %r/\AUndelivered Mail Returned to Sender\z/,
-      }.freeze
-      Re1 = {
-        :begin  => %r/\AThis is an automatically generated message from SendGrid[.]\z/,
-        :error  => %r/\AIf you require assistance with this, please contact SendGrid support[.]\z/,
-        :rfc822 => %r|\AContent-Type: message/rfc822|,
-        :endof  => %r/\A__END_OF_EMAIL_MESSAGE__\z/,
-      }.freeze
       Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        message: ['This is an automatically generated message from SendGrid.'],
+        rfc822:  ['Content-Type: message/rfc822'],
+      }.freeze
 
       def description; return 'SendGrid: http://sendgrid.com/'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -40,9 +33,11 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
+
+        # :'from'        => %r/\AMAILER-DAEMON\z/,
         return nil unless mhead['return-path']
-        return nil unless mhead['return-path'] =~ Re0[:'return-path']
-        return nil unless mhead['subject']     =~ Re0[:'subject']
+        return nil unless mhead['return-path'].start_with?('<apps@sendgrid.net>')
+        return nil unless mhead['subject'].start_with?('Undelivered Mail Returned to Sender')
 
         require 'sisimai/datetime'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -66,7 +61,7 @@ module Sisimai::Bite::Email
 
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ Re1[:begin]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -74,7 +69,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ Re1[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end
