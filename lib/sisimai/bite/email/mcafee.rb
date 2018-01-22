@@ -40,7 +40,7 @@ module Sisimai::Bite::Email
         return nil unless mbody
         return nil unless mhead['x-nai-header']
         return nil unless mhead['x-nai-header'].include?('Modified by McAfee ')
-        return nil unless mhead['subject'].start_with?('Delivery Status')
+        return nil unless mhead['subject'] == 'Delivery Status'
 
         require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -68,7 +68,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e.start_with?(StartingOf[:rfc822][0])
+            if e == StartingOf[:rfc822][0]
               readcursor |= Indicators[:'message-rfc822']
               next
             end

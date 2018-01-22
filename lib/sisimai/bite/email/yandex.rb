@@ -39,7 +39,7 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
         return nil unless mhead['x-yandex-uniq']
-        return nil unless mhead['from'].start_with?('mailer-daemon@yandex.ru')
+        return nil unless mhead['from'] == 'mailer-daemon@yandex.ru'
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")

@@ -36,7 +36,7 @@ module Sisimai::Bite::Email
         return nil unless mbody
 
         match  = 0
-        match += 1 if mhead['subject'].start_with?('[BOUNCE]')
+        match += 1 if mhead['subject'] == '[BOUNCE]'
         match += 1 if mhead['message-id'] && mhead['message-id'] =~ /\d+[.]JavaMail[.].+[@]/
         match += 1 if mhead['received'].find { |a| a.include?('JAMES SMTP Server') }
         return if match.zero?
@@ -132,7 +132,7 @@ module Sisimai::Bite::Email
               else
                 # Error message below:
                 # 550 - Requested action not taken: no such user here
-                v['diagnosis'] = e if e.start_with?(StartingOf[:error][0])
+                v['diagnosis'] = e if e == StartingOf[:error][0]
               end
             end
           end

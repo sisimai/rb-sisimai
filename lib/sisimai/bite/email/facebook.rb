@@ -90,8 +90,8 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-        return nil unless mhead['from'].start_with?('Facebook <mailer-daemon@mx.facebook.com>')
-        return nil unless mhead['subject'].start_with?('Sorry, your message could not be delivered')
+        return nil unless mhead['from'] == 'Facebook <mailer-daemon@mx.facebook.com>'
+        return nil unless mhead['subject'] == 'Sorry, your message could not be delivered'
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -115,7 +115,7 @@ module Sisimai::Bite::Email
 
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e.start_with?(StartingOf[:message][0])
+            if e == StartingOf[:message][0]
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -123,7 +123,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e.start_with?(StartingOf[:rfc822][0])
+            if e == StartingOf[:rfc822][0]
               readcursor |= Indicators[:'message-rfc822']
               next
             end

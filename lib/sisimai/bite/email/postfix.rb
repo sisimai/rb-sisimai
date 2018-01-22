@@ -50,7 +50,7 @@ module Sisimai::Bite::Email
         return nil unless mbody
 
         # :from => %r/ [(]Mail Delivery System[)]\z/,
-        return nil unless mhead['subject'].start_with?('Undelivered Mail Returned to Sender')
+        return nil unless mhead['subject'] == 'Undelivered Mail Returned to Sender'
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
