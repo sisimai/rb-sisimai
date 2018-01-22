@@ -32,7 +32,7 @@ module Sisimai::Bite::Email
           # Check the value of "From" header
           # :'subject' => %r/Undeliverable Message/,
           break unless mhead['received'].find { |a| a =~ /by .+[.]vtext[.]com / }
-          match = 1 if mhead['from'].start_with?('post_master@vtext.com')
+          match = 1 if mhead['from'] == 'post_master@vtext.com'
           match = 0 if mhead['from'] =~ /[<]?sysadmin[@].+[.]vzwpix[.]com[>]?\z/
           break
         end

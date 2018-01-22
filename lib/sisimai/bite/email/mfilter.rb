@@ -38,8 +38,8 @@ module Sisimai::Bite::Email
 
         # :'from'     => %r/\AMailer Daemon [<]MAILER-DAEMON[@]/,
         return nil unless mhead['x-mailer']
-        return nil unless mhead['x-mailer'].start_with?('m-FILTER')
-        return nil unless mhead['subject'].start_with?('failure notice')
+        return nil unless mhead['x-mailer'] == 'm-FILTER'
+        return nil unless mhead['subject'] == 'failure notice'
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -114,11 +114,11 @@ module Sisimai::Bite::Email
 
             else
               # Get error message and SMTP command
-              if e.start_with?(StartingOf[:error][0])
+              if e == StartingOf[:error][0]
                 # -------server message
                 markingset['diagnosis'] = true
 
-              elsif e.start_with?(StartingOf[:command][0])
+              elsif e == StartingOf[:command][0]
                 # -------SMTP command
                 markingset['command'] = true
 

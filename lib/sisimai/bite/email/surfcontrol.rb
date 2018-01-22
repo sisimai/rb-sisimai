@@ -38,7 +38,7 @@ module Sisimai::Bite::Email
         # :'from' => %r/ [(]Mail Delivery System[)]\z/,
         return nil unless mhead['x-sef-processed']
         return nil unless mhead['x-mailer']
-        return nil unless mhead['x-mailer'].start_with?('SurfControl E-mail Filter')
+        return nil unless mhead['x-mailer'] == 'SurfControl E-mail Filter'
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -56,7 +56,7 @@ module Sisimai::Bite::Email
 
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e.start_with?(StartingOf[:message][0])
+            if e == StartingOf[:message][0]
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -64,7 +64,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e.start_with?(StartingOf[:rfc822][0])
+            if e == StartingOf[:rfc822][0]
               readcursor |= Indicators[:'message-rfc822']
               next
             end

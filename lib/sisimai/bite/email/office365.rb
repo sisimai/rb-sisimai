@@ -123,7 +123,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e.start_with?(StartingOf[:rfc822][0])
+            if e == StartingOf[:rfc822][0]
               readcursor |= Indicators[:'message-rfc822']
               next
             end
@@ -198,7 +198,7 @@ module Sisimai::Bite::Email
                 end
 
               else
-                if e.start_with?(StartingOf[:error][0])
+                if e == StartingOf[:error][0]
                   # Diagnostic information for administrators:
                   v['diagnosis'] = e
                 else
@@ -206,7 +206,7 @@ module Sisimai::Bite::Email
                   # Remote Server returned '550 5.1.10 RESOLVER.ADR.RecipientNotFound; Recipien=
                   # t not found by SMTP address lookup'
                   next unless v['diagnosis']
-                  if e.start_with?(StartingOf[:eoerr][0])
+                  if e == StartingOf[:eoerr][0]
                     # Original message headers:
                     endoferror = true
                     next

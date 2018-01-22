@@ -60,7 +60,7 @@ module Sisimai::Bite::Email
 
         match  = 0
         match += 1 if mhead['from'] =~ /[<]?(?>postmaster[@]ezweb[.]ne[.]jp)[>]?/i
-        match += 1 if mhead['subject'].start_with?('Mail System Error - Returned Mail')
+        match += 1 if mhead['subject'] == 'Mail System Error - Returned Mail'
         match += 1 if mhead['received'].find { |a| a =~ /\Afrom[ ](?:.+[.])?ezweb[.]ne[.]jp[ ]/ }
         if mhead['message-id']
           match += 1 if mhead['message-id'] =~ /[@].+[.]ezweb[.]ne[.]jp[>]\z/

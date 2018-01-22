@@ -56,7 +56,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e.start_with?(StartingOf[:message][0])
+            if e == StartingOf[:message][0]
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -109,7 +109,7 @@ module Sisimai::Bite::Email
 
             else
               # Get error message lines
-              if e.start_with?(StartingOf[:error][0])
+              if e == StartingOf[:error][0]
                 # Could not be delivered because of
                 #
                 # 550 5.1.1 User unknown

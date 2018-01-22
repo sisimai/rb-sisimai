@@ -182,7 +182,7 @@ module Sisimai::Bite::Email
         end
 
         hasdivided.each do |e|
-          break if e.start_with?(StartingOf[:endof][0])
+          break if e == StartingOf[:endof][0]
 
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
