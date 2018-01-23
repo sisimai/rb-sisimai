@@ -9,11 +9,9 @@ module Sisimai::Bite::Email
 
       Indicators = Sisimai::Bite::Email.INDICATORS
       StartingOf = {
-        rfc822: ['Original message follows.'],
-        error:  ['Body of message generated response:'],
-      }.freeze
-      MarkingsOf = {
-        message: %r/\A\z/,    # Blank line
+        message: [''],  # Blank line
+        rfc822:  ['Original message follows.'],
+        error:   ['Body of message generated response:'],
       }.freeze
 
       ReSMTP = {
@@ -57,7 +55,7 @@ module Sisimai::Bite::Email
 
         match  = 0
         match += 1 if mhead['subject'] =~ /\AUndeliverable Mail[ ]*\z/
-        match += 1 if mhead['x-mailer'] && mhead['x-mailer'] =~ /\A[<]SMTP32 v[\d.]+[>][ ]*\z/
+        match += 1 if mhead['x-mailer'] && mhead['x-mailer'].start_with?('<SMTP32 v')
         return nil if match.zero?
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -71,7 +69,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ MarkingsOf[:message]
+            if e == StartingOf[:message][0]
               readcursor |= Indicators[:deliverystatus]
               next
             end
