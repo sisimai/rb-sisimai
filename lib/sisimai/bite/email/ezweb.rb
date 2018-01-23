@@ -59,11 +59,11 @@ module Sisimai::Bite::Email
         return nil unless mbody
 
         match  = 0
-        match += 1 if mhead['from'] =~ /[<]?(?>postmaster[@]ezweb[.]ne[.]jp)[>]?/i
+        match += 1 if mhead['from'].include?('Postmaster@ezweb.ne.jp')
         match += 1 if mhead['subject'] == 'Mail System Error - Returned Mail'
         match += 1 if mhead['received'].find { |a| a =~ /\Afrom[ ](?:.+[.])?ezweb[.]ne[.]jp[ ]/ }
         if mhead['message-id']
-          match += 1 if mhead['message-id'] =~ /[@].+[.]ezweb[.]ne[.]jp[>]\z/
+          match += 1 if mhead['message-id'].end_with?('.ezweb.ne.jp>')
         end
         return nil if match < 2
 
