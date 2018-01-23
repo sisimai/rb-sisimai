@@ -11,9 +11,9 @@ module Sisimai::Bite::Email
       StartingOf = {
         # courier/module.dsn/dsn*.txt
         message: ['DELAYS IN DELIVERING YOUR MESSAGE', 'UNDELIVERABLE MAIL'],
+        rfc822:  ['Content-Type: message/rfc822', 'Content-Type: text/rfc822-headers'],
       }.freeze
       MarkingsOf = {
-        rfc822: %r{\AContent-Type:[ ]*(?:message/rfc822|text/rfc822-headers)\z},
       }.freeze
 
       ReFailure = {
@@ -48,7 +48,7 @@ module Sisimai::Bite::Email
         return nil unless mbody
 
         match  = 0
-        match += 1 if mhead['from'] =~ /Courier mail server at /
+        match += 1 if mhead['from'].include?('Courier mail server at ')
         match += 1 if mhead['subject'] =~ /(?:NOTICE: mail delivery status[.]|WARNING: delayed mail[.])/
         if mhead['message-id']
           # Message-ID: <courier.4D025E3A.00001792@5jo.example.org>
@@ -87,7 +87,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ MarkingsOf[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0], StartingOf[:rfc822][1])
               readcursor |= Indicators[:'message-rfc822']
               next
             end
