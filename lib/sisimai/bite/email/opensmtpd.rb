@@ -7,7 +7,7 @@ module Sisimai::Bite::Email
       require 'sisimai/bite/email'
 
       Indicators = Sisimai::Bite::Email.INDICATORS
-      MarkingsOf = {
+      StartingOf = {
         # http://www.openbsd.org/cgi-bin/man.cgi?query=smtpd&sektion=8
         # opensmtpd-5.4.2p1/smtpd/
         #   bounce.c/317:#define NOTICE_INTRO \
@@ -33,8 +33,8 @@ module Sisimai::Bite::Email
         #   bounce.c/337:const char *notice_relay =
         #   bounce.c/338:    "    Your message was relayed to these recipients.\n\n";
         #   bounce.c/339:
-        message: %r/\A[ \t]*This is the MAILER-DAEMON, please DO NOT REPLY to this e[-]?mail[.]\z/,
-        rfc822:  %r/\A[ \t]*Below is a copy of the original message:\z/,
+        message: [' This is the MAILER-DAEMON, please DO NOT REPLY to this '],
+        rfc822:  [' Below is a copy of the original message:'],
       }.freeze
 
       ReFailure = {
@@ -108,7 +108,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ MarkingsOf[:message]
+            if e.include?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -116,7 +116,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ MarkingsOf[:rfc822]
+            if e.include?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end
