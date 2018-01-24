@@ -44,15 +44,8 @@ module Sisimai
     EndOfEmail = Sisimai::String.EOM
     RetryIndex = Sisimai::Reason.retry
     RFC822Head = Sisimai::RFC5322.HEADERFIELDS(:all)
-    AddrHeader = {
-      addresser: RFC822Head[:addresser],
-      recipient: RFC822Head[:recipient],
-    }.freeze
-    ActionList = %w[failed delayed delivered relayed expanded]
-    ActionHead = {
-      :failure => 'failed',
-      :expired => 'delayed',
-    }.freeze
+    AddrHeader = { addresser: RFC822Head[:addresser], recipient: RFC822Head[:recipient] }.freeze
+    ActionHead = { failure: 'failed', expired: 'delayed' }.freeze
 
     # Constructor of Sisimai::Data
     # @param    [Hash] argvs    Data
@@ -332,7 +325,7 @@ module Sisimai
             p['action'] = cv[1]
           end
 
-          unless ActionList.include?(p['action'])
+          unless %w[failed delayed delivered relayed expanded].include?(p['action'])
             # The value of "action" is not in the following values:
             # "failed" / "delayed" / "delivered" / "relayed" / "expanded"
             ActionHead.each_key do |q|
