@@ -7,9 +7,9 @@ module Sisimai::Bite::Email
       require 'sisimai/bite/email'
 
       Indicators = Sisimai::Bite::Email.INDICATORS
-      MarkingsOf = {
-        message: %r/\A[-]+[ ]+Failure Reasons[ ]+[-]+\z/,
-        rfc822:  %r/^[-]+[ ]+Returned Message[ ]+[-]+$/,
+      StartingOf = {
+        message: ['------- Failure Reasons '],
+        rfc822:  ['------- Returned Message '],
       }.freeze
 
       ReFailure = {
@@ -55,7 +55,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ MarkingsOf[:message]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -63,7 +63,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ MarkingsOf[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end
@@ -108,8 +108,8 @@ module Sisimai::Bite::Email
               recipients += 1
 
             else
-              next if e =~ /\A\z/
-              next if e =~ /\A[-]+/
+              next if e.empty?
+              next if e.start_with?('-')
 
               if e =~ /[^\x20-\x7e]/
                 # Error message is not ISO-8859-1
