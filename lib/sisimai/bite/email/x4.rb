@@ -10,10 +10,7 @@ module Sisimai::Bite::Email
       Indicators = Sisimai::Bite::Email.INDICATORS
       StartingOf = {
         error:  ['Remote host said:'],
-        rfc822: [
-            '--- Below this line is a copy of the message.',
-            '--- Original message follows.',
-          ],
+        rfc822: ['--- Below this line is a copy of the message.', '--- Original message follows.'],
       }.freeze
       MarkingsOf = {
         #  qmail-remote.c:248|    if (code >= 500) {
@@ -42,6 +39,7 @@ module Sisimai::Bite::Email
           )
         }ix,
       }.freeze
+
       ReSMTP = {
         # Error text regular expressions which defined in qmail-remote.c
         # qmail-remote.c:225|  if (smtpcode() != 220) quit("ZConnected to "," but greeting failed");
@@ -158,9 +156,10 @@ module Sisimai::Bite::Email
         # by qmail, see http://cr.yp.to/qmail.html
         #   e.g.) Received: (qmail 12345 invoked for bounce); 29 Apr 2009 12:34:56 -0000
         #         Subject: failure notice
+        tryto  = %r/\A[(]qmail[ ]+\d+[ ]+invoked[ ]+for[ ]+bounce[)]/
         match  = 0
         match += 1 if mhead['subject'].start_with?('failure notice', 'Permanent Delivery Failure')
-        match += 1 if mhead['received'].find { |a| a =~ /\A[(]qmail[ ]+\d+[ ]+invoked[ ]+for[ ]+bounce[)]/ }
+        match += 1 if mhead['received'].find { |a| a =~ tryto }
         return nil if match.zero?
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
