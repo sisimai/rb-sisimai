@@ -8,6 +8,9 @@ module Sisimai::Bite::Email
 
       # Postfix manual - bounce(5) - http://www.postfix.org/bounce.5.html
       Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        rfc822: ['Content-Type: message/rfc822', 'Content-Type: text/rfc822-headers'],
+      }.freeze
       MarkingsOf = {
         message: %r{\A(?>
            [ ]+The[ ](?:
@@ -27,7 +30,6 @@ module Sisimai::Bite::Email
             )
           )
         }x,
-        rfc822: %r!\AContent-Type:[ \t]*(?:message/rfc822|text/rfc822-headers)\z!x,
       }.freeze
 
       def description; return 'Postfix'; end
@@ -83,7 +85,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ MarkingsOf[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0], StartingOf[:rfc822][1])
               readcursor |= Indicators[:'message-rfc822']
               next
             end
