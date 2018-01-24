@@ -412,7 +412,7 @@ module Sisimai
         mesgformat = (mailheader['content-type'] || '').downcase
         ctencoding = (mailheader['content-transfer-encoding'] || '').downcase
 
-        if mesgformat.start_with?('text/plain;', 'text/html;')
+        if mesgformat.start_with?('text/plain', 'text/html')
           # Content-Type: text/plain; charset=UTF-8
           if ctencoding == 'base64' || ctencoding == 'quoted-printable'
             # Content-Transfer-Encoding: base64
