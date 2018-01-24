@@ -9,9 +9,7 @@ module Sisimai::Bite::Email
       Indicators = Sisimai::Bite::Email.INDICATORS
       StartingOf = {
         message: ['This message was created automatically by mail delivery'],
-      }.freeze
-      MarkingsOf = {
-        rfc822:  %r/\AReceived:[ \t]*from mail[.]zoho[.]com/,
+        rfc822:  ['from mail.zoho.com by mx.zohomail.com'],
       }.freeze
 
       ReFailure = {
@@ -70,7 +68,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ MarkingsOf[:rfc822]
+            if e.include?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end

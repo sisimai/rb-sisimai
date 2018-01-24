@@ -30,19 +30,17 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead
         return nil unless mbody
-
-        # To: "NotificationRecipients" <...>
-        match  = 0
-        match += 1 if mhead['to'] && mhead['to'] =~ /\bNotificationRecipients\b/
-
         require 'sisimai/mime'
-        if mhead['from'] =~ /\bTWFpbCBEZWxpdmVyeSBTdWJzeXN0ZW0\b/
+
+        match  = 0
+        match += 1 if mhead['to'] && mhead['to'].include?('NotificationRecipients')
+        if mhead['from'].include?('TWFpbCBEZWxpdmVyeSBTdWJzeXN0ZW0')
           # From: "=?iso-2022-jp?B?TWFpbCBEZWxpdmVyeSBTdWJzeXN0ZW0=?=" <...>
           #       Mail Delivery Subsystem
           mhead['from'].split(' ').each do |f|
             # Check each element of From: header
             next unless Sisimai::MIME.is_mimeencoded(f)
-            match += 1 if Sisimai::MIME.mimedecode([f]) =~ /Mail Delivery Subsystem/
+            match += 1 if Sisimai::MIME.mimedecode([f]).include?('Mail Delivery Subsystem')
             break
           end
         end
@@ -50,7 +48,7 @@ module Sisimai::Bite::Email
         if Sisimai::MIME.is_mimeencoded(mhead['subject'])
           # Subject: =?iso-2022-jp?B?UmV0dXJuZWQgbWFpbDogVXNlciB1bmtub3du?=
           plain = Sisimai::MIME.mimedecode([mhead['subject']])
-          match += 1 if plain =~ /Mail Delivery Subsystem/
+          match += 1 if plain.include?('Mail Delivery Subsystem')
         end
         return nil if match < 2
 
