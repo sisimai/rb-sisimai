@@ -8,6 +8,7 @@ module Sisimai::Bite::Email
       require 'sisimai/bite/email'
 
       Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = { message: ['----- Transcript of session follows -----'] };
       MarkingsOf = {
         # Error text regular expressions which defined in src/savemail.c
         #   savemail.c:485| (void) fflush(stdout);
@@ -25,7 +26,6 @@ module Sisimai::Bite::Email
         #   savemail.c:497|   while (fgets(buf, sizeof buf, xfile) != NULL)
         #   savemail.c:498|       putline(buf, fp, m);
         #   savemail.c:499|   (void) fclose(xfile);
-        message: %r/\A[ \t]+[-]+ Transcript of session follows [-]+\z/,
         error:   %r/\A[.]+ while talking to .+[:]\z/,
         rfc822:  %r{\A[ \t]+-----[ ](?:
            Unsent[ ]message[ ]follows
@@ -71,7 +71,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ MarkingsOf[:message]
+            if e.include?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
