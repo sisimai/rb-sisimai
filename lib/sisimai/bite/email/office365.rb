@@ -85,6 +85,7 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
 
+        tryto  = %r/.+[.](?:outbound[.]protection|prod)[.]outlook[.]com\b/
         match  = 0
         match += 1 if mhead['subject'].include?('Undeliverable:')
         match += 1 if mhead['x-ms-exchange-message-is-ndr']
@@ -94,10 +95,10 @@ module Sisimai::Bite::Email
         match += 1 if mhead['x-ms-exchange-crosstenant-originalarrivaltime']
         match += 1 if mhead['x-ms-exchange-crosstenant-fromentityheader']
         match += 1 if mhead['x-ms-exchange-transport-crosstenantheadersstamped']
-        match += 1 if mhead['received'].find { |a| a =~ /.+[.](?:outbound[.]protection|prod)[.]outlook[.]com\b/ }
+        match += 1 if mhead['received'].find { |a| a =~ tryto }
         if mhead['message-id']
           # Message-ID: <00000000-0000-0000-0000-000000000000@*.*.prod.outlook.com>
-          match += 1 if mhead['message-id'] =~ /.+[.](?:outbound[.]protection|prod)[.]outlook[.]com\b/
+          match += 1 if mhead['message-id'] =~ tryto
         end
         return nil if match < 2
 
