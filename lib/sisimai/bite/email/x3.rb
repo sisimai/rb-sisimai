@@ -8,10 +8,8 @@ module Sisimai::Bite::Email
 
       Indicators = Sisimai::Bite::Email.INDICATORS
       StartingOf = {
-        rfc822: ['Content-Type: message/rfc822'],
-      }.freeze
-      MarkingsOf = {
-        message: %r/\A[ \t]+This is an automatically generated Delivery Status Notification/,
+        message: [' This is an automatically generated Delivery Status Notification'],
+        rfc822:  ['Content-Type: message/rfc822'],
       }.freeze
 
       def description; return 'Unknown MTA #3'; end
@@ -46,7 +44,7 @@ module Sisimai::Bite::Email
         hasdivided.each do |e|
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ MarkingsOf[:message]
+            if e.include?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
