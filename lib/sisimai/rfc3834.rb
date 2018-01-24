@@ -4,7 +4,8 @@ module Sisimai
     # Imported from p5-Sisimail/lib/Sisimai/RFC3834.pm
     class << self
       # http://tools.ietf.org/html/rfc3834
-      Re0 = {
+      MarkingsOf = { :boundary => %r/\A__SISIMAI_PSEUDO_BOUNDARY__\z/ }
+      AutoReply1 = {
         # http://www.iana.org/assignments/auto-submitted-keywords/auto-submitted-keywords.xhtml
         :'auto-submitted' => %r/\Aauto-(?:generated|replied|notified)/i,
         # https://msdn.microsoft.com/en-us/library/ee219609(v=exchg.80).aspx
@@ -18,10 +19,7 @@ module Sisimai
           )
         /xi,
       }.freeze
-      Re1 = {
-        :boundary => %r/\A__SISIMAI_PSEUDO_BOUNDARY__\z/,
-      }
-      Re2 = {
+      Excludings = {
         :subject => %r/(?:
              SECURITY[ ]information[ ]for  # sudo
             |Mail[ ]failure[ ][-]          # Exim
@@ -30,7 +28,7 @@ module Sisimai
         :from    => %r/(?:root|postmaster|mailer-daemon)[@]/i,
         :to      => %r/root[@]/,
       }.freeze
-      ReV = %r{\A(?>
+      SubjectSet = %r{\A(?>
          (?:.+?)?Re:
         |Auto(?:[ ]Response):
         |Automatic[ ]reply:
@@ -41,13 +39,7 @@ module Sisimai
 
       def description; 'Detector for auto replied message'; end
       def smtpagent;   'RFC3834'; end
-      def headerlist
-        return [
-          'Auto-Submitted',
-          'Precedence',
-          'X-Auto-Response-Suppress',
-        ]
-      end
+      def headerlist;  return ['Auto-Submitted', 'Precedence', 'X-Auto-Response-Suppress']; end
 
       # Detect auto reply message as RFC3834
       # @param         [Hash] mhead       Message header of a bounce email
@@ -70,22 +62,22 @@ module Sisimai
         match = 0
 
         # DETECT_EXCLUSION_MESSAGE
-        Re2.each_key do |e|
+        Excludings.each_key do |e|
           # Exclude message from root@
           next unless mhead.key?(e.to_s)
           next unless mhead[e.to_s]
-          next unless mhead[e.to_s] =~ Re2[e]
+          next unless mhead[e.to_s] =~ Excludings[e]
           leave = 1
           break
         end
         return nil if leave > 0
 
         # DETECT_AUTO_REPLY_MESSAGE
-        Re0.each_key do |e|
+        AutoReply1.each_key do |e|
           # RFC3834 Auto-Submitted and other headers
           next unless mhead.key?(e.to_s)
           next unless mhead[e.to_s]
-          next unless mhead[e.to_s] =~ Re0[e]
+          next unless mhead[e.to_s] =~ AutoReply1[e]
           match += 1
           break
         end
@@ -125,13 +117,13 @@ module Sisimai
           # the boundary string.
           require 'sisimai/mime'
           b0 = Sisimai::MIME.boundary(mhead['content-type'], 0)
-          Re1[:boundary] = %r/\A\Q#{b0}\E\z/ unless b0.empty?
+          MarkingsOf[:boundary] = %r/\A\Q#{b0}\E\z/ unless b0.empty?
         end
 
         # BODY_PARSER: Get vacation message
         hasdivided.each do |e|
           # Read the first 5 lines except a blank line
-          countuntil += 1 if e =~ Re1[:boundary]
+          countuntil += 1 if e =~ MarkingsOf[:boundary]
 
           unless e.size > 0
             # Check a blank line
@@ -139,7 +131,7 @@ module Sisimai
             break if blanklines > countuntil
             next
           end
-          next unless e =~ / /
+          next unless e.include?(' ')
           next if e.start_with?('Content-Type')
           next if e.start_with?('Content-Transfer')
 
@@ -159,7 +151,7 @@ module Sisimai
 
         v.each_key { |a| v[a] ||= '' }
 
-        if cv = mhead['subject'].match(ReV)
+        if cv = mhead['subject'].match(SubjectSet)
           # Get the Subject header from the original message
           rfc822part = 'Subject: ' << cv[1] + "\n"
         end
