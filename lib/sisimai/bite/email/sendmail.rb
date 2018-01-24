@@ -7,6 +7,9 @@ module Sisimai::Bite::Email
       require 'sisimai/bite/email'
 
       Indicators = Sisimai::Bite::Email.INDICATORS
+      StartingOf = {
+        rfc822: ['Content-Type: message/rfc822', 'Content-Type: text/rfc822-headers']
+      }.freeze
       MarkingsOf = {
         # Error text regular expressions which defined in sendmail/savemail.c
         #   savemail.c:1040|if (printheader && !putline("   ----- Transcript of session follows -----\n",
@@ -14,7 +17,6 @@ module Sisimai::Bite::Email
         #   savemail.c:1042|  goto writeerr;
         #
         message: %r/\A[ \t]+[-]+ Transcript of session follows [-]+\z/,
-        rfc822:  %r{\AContent-Type:[ ]*(?:message/rfc822|text/rfc822-headers)\z},
         error:   %r/\A[.]+ while talking to .+[:]\z/,
       }.freeze
 
@@ -77,7 +79,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ MarkingsOf[:rfc822]
+            if e.start_with?(StartingOf[:rfc822][0], StartingOf[:rfc822][1])
               readcursor |= Indicators[:'message-rfc822']
               next
             end
