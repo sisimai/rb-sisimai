@@ -41,7 +41,7 @@ module Sisimai::Bite::Email
 
         # :received => %r/[ ][(]MessagingServer[)][ ]with[ ]/,
         match  = 0
-        match += 1 if mhead['content-type'] =~ /Boundary_[(]ID_.+[)]/
+        match += 1 if mhead['content-type'].include?('Boundary_(ID_')
         match += 1 if mhead['subject'].start_with?('Delivery Notification: ')
         return nil if match.zero?
 
