@@ -7,15 +7,12 @@ module Sisimai
         :messageid => ['Message-Id'],
         :subject   => ['Subject'],
         :listid    => ['List-Id'],
-        :date      => ['Date', 'Posted-Date', 'Posted', 'Resent-Date'],
-        :addresser => [
-          'From', 'Return-Path', 'Reply-To', 'Errors-To', 'Reverse-Path',
-          'X-Postfix-Sender', 'Envelope-From', 'X-Envelope-From',
+        :date      => %w[Date Posted-Date Posted Resent-Date],
+        :addresser => %w[
+          From Return-Path Reply-To Errors-To Reverse-Path X-Postfix-Sender
+          Envelope-From X-Envelope-From
         ],
-        :recipient => [
-          'To', 'Delivered-To', 'Forward-Path', 'Envelope-To',
-          'X-Envelope-To', 'Resent-To', 'Apparently-To'
-        ],
+        :recipient => %w[To Delivered-To Forward-Path Envelope-To X-Envelope-To Resent-To Apparently-To],
       }.freeze
 
       build_regular_expressions = lambda do
@@ -95,7 +92,7 @@ module Sisimai
       def is_domainpart(dpart)
         return false unless dpart.is_a?(::String)
         return false if dpart =~ /(?:[\x00-\x1f]|\x1f)/
-        return false if dpart =~ /[@]/
+        return false if dpart.include?('@')
         return true  if dpart =~ Re[:domain]
         return false
       end
@@ -144,7 +141,7 @@ module Sisimai
           value['by']   = cr[1]
         end
 
-        if value['from'] =~ / /
+        if value['from'].include?(' ')
           # Received: from [10.22.22.222] (smtp-gateway.kyoto.ocn.ne.jp [192.0.2.222])
           #   (authenticated bits=0)
           #   by nijo.example.jp (V8/cf) with ESMTP id s1QB5ka0018055;
@@ -171,7 +168,7 @@ module Sisimai
 
           namelist.each do |e|
             # 1. Hostname takes priority over all other IP addresses
-            next unless e =~ /[.]/
+            next unless e.include?('.')
             hostname = e
             break
           end
