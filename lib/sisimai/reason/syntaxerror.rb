@@ -15,9 +15,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/SyntaxError.pm
       class << self
         def text; return 'syntaxerror'; end
-        def description
-          return 'Email rejected due to syntax error at sent commands in SMTP session'
-        end
+        def description; return 'Email rejected due to syntax error at sent commands in SMTP session'; end
         def match(*); return nil; end
 
         # Connection rejected due to syntax error or not
@@ -30,7 +28,8 @@ module Sisimai
         def true(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
-          return true if argvs.reason == Sisimai::Reason::SyntaxError.text
+
+          return true if argvs.reason == 'syntaxerror'
           return true if argvs.replycode =~ /\A[45]0[0-7]\z/
           return false
         end

@@ -11,13 +11,8 @@ module Sisimai::Bite::Email
         message: ['--- The following addresses had delivery problems ---'],
         rfc822:  ['Content-Type: message/rfc822'],
       }.freeze
-
-      ReFailure = {
-        userunknown: %r{(?:
-           User[ ][(].+[@].+[)][ ]unknown[.]
-          |550[ ]Unknown[ ]user[ ][^ ]+[@][^ ]+
-          )
-        }x,
+      ReFailures = {
+        userunknown: %r/(?:User [(].+[@].+[)] unknown[.]|550 Unknown user [^ ]+[@][^ ]+)/,
       }.freeze
 
       def description; return 'McAfee Email Appliance'; end
@@ -82,7 +77,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -110,27 +104,25 @@ module Sisimai::Bite::Email
               diagnostic = cv[2]
               recipients += 1
 
-            elsif cv = e.match(/\A[Oo]riginal-[Rr]ecipient:[ ]*([^ ]+)\z/)
+            elsif cv = e.match(/\AOriginal-Recipient:[ ]*([^ ]+)\z/)
               # Original-Recipient: <kijitora@example.co.jp>
               v['alias'] = Sisimai::Address.s3s4(cv[1])
 
-            elsif cv = e.match(/\A[Aa]ction:[ ]*(.+)\z/)
+            elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
               # Action: failed
               v['action'] = cv[1].downcase
 
-            elsif cv = e.match(/\A[Rr]emote-MTA:[ ]*(.+)\z/)
+            elsif cv = e.match(/\ARemote-MTA:[ ]*(.+)\z/)
               # Remote-MTA: 192.0.2.192
               v['rhost'] = cv[1].downcase
-
             else
-              if cv = e.match(/\A[Dd]iagnostic-[Cc]ode:[ ]*(.+?);[ ]*(.+)\z/)
+              if cv = e.match(/\ADiagnostic-Code:[ ]*(.+?);[ ]*(.+)\z/)
                 # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
                 v['spec'] = cv[1].upcase
                 v['diagnosis'] = cv[2]
 
-              elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A[ \t]+(.+)\z/)
+              elsif p.start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
                 # Continued line of the value of Diagnostic-Code header
-                v['diagnosis'] ||= ' '
                 v['diagnosis'] << ' ' << cv[1]
                 havepassed[-1] = 'Diagnostic-Code: ' << e
               end
@@ -138,15 +130,15 @@ module Sisimai::Bite::Email
           end
         end
         return nil if recipients.zero?
-        require 'sisimai/string'
 
+        require 'sisimai/string'
         dscontents.map do |e|
           e['agent']     = smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'] || diagnostic)
 
-          ReFailure.each_key do |r|
+          ReFailures.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailure[r]
+            next unless e['diagnosis'] =~ ReFailures[r]
             e['reason'] = r.to_s
             break
           end

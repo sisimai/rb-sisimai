@@ -17,8 +17,7 @@ module Sisimai::Bite::Email
         }x,
         rfc822: %r#\A(?:[-]{50}|Content-Type:[ ]*message/rfc822)#,
       }.freeze
-
-      ReFailure = {
+      ReFailures = {
         # notaccept: [ %r/The following recipients did not receive this message:/ ],
         mailboxfull: [
           %r/The user[(]s[)] account is temporarily over quota/,
@@ -61,7 +60,7 @@ module Sisimai::Bite::Email
         match  = 0
         match += 1 if mhead['from'].include?('Postmaster@ezweb.ne.jp')
         match += 1 if mhead['subject'] == 'Mail System Error - Returned Mail'
-        match += 1 if mhead['received'].find { |a| a =~ /\Afrom[ ](?:.+[.])?ezweb[.]ne[.]jp[ ]/ }
+        match += 1 if mhead['received'].find { |a| a.include?('ezweb.ne.jp (EZweb Mail) with') }
         if mhead['message-id']
           match += 1 if mhead['message-id'].end_with?('.ezweb.ne.jp>')
         end
@@ -89,7 +88,7 @@ module Sisimai::Bite::Email
           end
         end
         rxmessages = []
-        ReFailure.each_key { |a| rxmessages.concat(ReFailure[a]) }
+        ReFailures.each_key { |a| rxmessages.concat(ReFailures[a]) }
 
         hasdivided.each do |e|
           if readcursor.zero?
@@ -113,7 +112,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -148,37 +146,34 @@ module Sisimai::Bite::Email
                 recipients += 1
               end
 
-            elsif cv = e.match(/\A[Ss]tatus:[ ]*(\d[.]\d+[.]\d+)/)
+            elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
               # Status: 5.1.1
               # Status:5.2.0
               # Status: 5.1.0 (permanent failure)
               v['status'] = cv[1]
 
-            elsif cv = e.match(/\A[Aa]ction:[ ]*(.+)\z/)
+            elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
               # Action: failed
               v['action'] = cv[1].downcase
 
-            elsif cv = e.match(/\A[Rr]emote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
+            elsif cv = e.match(/\ARemote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
               # Remote-MTA: DNS; mx.example.jp
               v['rhost'] = cv[1].downcase
 
-            elsif cv = e.match(/\A[Ll]ast-[Aa]ttempt-[Dd]ate:[ ]*(.+)\z/)
+            elsif cv = e.match(/\ALast-Attempt-Date:[ ]*(.+)\z/)
               # Last-Attempt-Date: Fri, 14 Feb 2014 12:30:08 -0500
               v['date'] = cv[1]
-
             else
               next if Sisimai::String.is_8bit(e)
               if cv = e.match(/\A[ \t]+[>]{3}[ \t]+([A-Z]{4})/)
                 #    >>> RCPT TO:<******@ezweb.ne.jp>
                 v['command'] = cv[1]
-
               else
                 # Check error message
                 if rxmessages.find { |a| e =~ a }
                   # Check with regular expressions of each error
                   v['diagnosis'] ||= ''
                   v['diagnosis'] << ' ' << e
-
                 else
                   # >>> 550
                   v['alterrors'] ||= ''
@@ -191,7 +186,7 @@ module Sisimai::Bite::Email
         return nil if recipients.zero?
 
         dscontents.map do |e|
-          if e['alterrors'] && e['alterrors'].size > 0
+          if e['alterrors'].to_s.size > 0
             # Copy alternative error message
             e['diagnosis'] ||= e['alterrors']
             if e['diagnosis'].start_with?('-') || e['diagnosis'].end_with?('__')
@@ -202,11 +197,10 @@ module Sisimai::Bite::Email
           end
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
-          if mhead['x-spasign'] && mhead['x-spasign'] == 'NG'
+          if mhead['x-spasign'].to_s == 'NG'
             # Content-Type: text/plain; ..., X-SPASIGN: NG (spamghetti, au by EZweb)
             # Filtered recipient returns message that include 'X-SPASIGN' header
             e['reason'] = 'filtered'
-
           else
             if e['command'] == 'RCPT'
               # set "userunknown" when the remote server rejected after RCPT
@@ -215,9 +209,9 @@ module Sisimai::Bite::Email
             else
               # SMTP command is not RCPT
               catch :SESSION do
-                ReFailure.each_key do |r|
+                ReFailures.each_key do |r|
                   # Verify each regular expression of session errors
-                  ReFailure[r].each do |rr|
+                  ReFailures[r].each do |rr|
                     # Check each regular expression
                     next unless e['diagnosis'] =~ rr
                     e['reason'] = r.to_s
@@ -231,11 +225,9 @@ module Sisimai::Bite::Email
 
           unless e['reason']
             # The value of "reason" is not set yet.
-            unless e['recipient'].end_with?('@ezweb.ne.jp')
-              # Deal as "userunknown" when the domain part of the recipient
-              # is "ezweb.ne.jp".
-              e['reason'] = 'userunknown'
-            end
+            # Deal as "userunknown" when the domain part of the recipient
+            # is "ezweb.ne.jp".
+            e['reason'] = 'userunknown' unless e['recipient'].end_with?('@ezweb.ne.jp')
           end
           e['agent'] = self.smtpagent
         end

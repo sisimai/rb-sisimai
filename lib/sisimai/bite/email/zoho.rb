@@ -11,10 +11,7 @@ module Sisimai::Bite::Email
         message: ['This message was created automatically by mail delivery'],
         rfc822:  ['from mail.zoho.com by mx.zohomail.com'],
       }.freeze
-
-      ReFailure = {
-        expired: %r/Host not reachable/
-      }.freeze
+      ReFailures = { expired: %r/Host not reachable/ }.freeze
 
       def description; return 'Zoho Mail: https://www.zoho.com'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -82,7 +79,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -129,27 +125,24 @@ module Sisimai::Bite::Email
               v['recipient'] = cv[1]
               v['diagnosis'] = e
               recipients += 1
-
             else
               # Continued line
               next unless qprintable
-              v['diagnosis'] ||= ''
               v['diagnosis'] << e
-
             end
           end
         end
         return nil if recipients.zero?
-        require 'sisimai/string'
 
+        require 'sisimai/string'
         dscontents.map do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = e['diagnosis'].gsub(/\\n/, ' ')
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
-          ReFailure.each_key do |r|
+          ReFailures.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailure[r]
+            next unless e['diagnosis'] =~ ReFailures[r]
             e['reason'] = r.to_s
             break
           end

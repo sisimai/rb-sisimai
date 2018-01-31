@@ -15,23 +15,19 @@ module Sisimai::Bite::Email
       }.freeze
 
       ReSMTP = {
-        conn: %r{(?:
-             SMTP[ ]connection[ ]failed,
-            |Unexpected[ ]connection[ ]response[ ]from[ ]server:
-            )
-        },
+        conn: %r/(?:SMTP connection failed,|Unexpected connection response from server:)/,
         ehlo: %r|Unexpected response to EHLO/HELO:|,
         mail: %r|Server response to MAIL FROM:|,
         rcpt: %r|Additional RCPT TO generated following response:|,
         data: %r|DATA command generated response:|,
       }.freeze
-      ReFailure = {
-        hostunknown: %r/Unknown[ ]host/x,
-        userunknown: %r/\A(?:Unknown[ ]user|Invalid[ ]final[ ]delivery[ ]userid)/x,
-        mailboxfull: %r/\AUser[ ]mailbox[ ]exceeds[ ]allowed[ ]size/x,
-        securityerr: %r/\ARequested[ ]action[ ]not[ ]taken:[ ]virus[ ]detected/x,
-        undefined:   %r/\Aundeliverable[ ]to[ ]/x,
-        expired:     %r/\ADelivery[ ]failed[ ]\d+[ ]attempts/x,
+      ReFailures = {
+        hostunknown: %r/Unknown host/,
+        userunknown: %r/\A(?:Unknown user|Invalid final delivery userid)/,
+        mailboxfull: %r/\AUser mailbox exceeds allowed size/,
+        securityerr: %r/\ARequested action not taken: virus detected/,
+        undefined:   %r/\Aundeliverable to /,
+        expired:     %r/\ADelivery failed \d+ attempts/,
       }.freeze
 
       def description; return 'IPSWITCH IMail Server'; end
@@ -55,7 +51,7 @@ module Sisimai::Bite::Email
 
         match  = 0
         match += 1 if mhead['subject'] =~ /\AUndeliverable Mail[ ]*\z/
-        match += 1 if mhead['x-mailer'] && mhead['x-mailer'].start_with?('<SMTP32 v')
+        match += 1 if mhead['x-mailer'].to_s.start_with?('<SMTP32 v')
         return nil if match.zero?
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -91,7 +87,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             break if readcursor & Indicators[:'message-rfc822'] > 0
@@ -121,24 +116,20 @@ module Sisimai::Bite::Email
               end
               v['recipient'] = cv[1]
               recipients += 1
-
             else
               # Other error message text
               v['alterrors'] << ' ' << e if v['alterrors']
-              if e.include?(StartingOf[:error][0])
-                # Body of message generated response:
-                v['alterrors'] = e
-              end
+              v['alterrors'] = e if e.include?(StartingOf[:error][0])
             end
           end
         end
         return nil if recipients.zero?
-        require 'sisimai/string'
 
+        require 'sisimai/string'
         dscontents.map do |e|
           e['agent'] = self.smtpagent
 
-          if e['alterrors'] && e['alterrors'].size > 0
+          if e['alterrors'].to_s.size > 0
             # Copy alternative error message
             e['diagnosis'] = if e['diagnosis']
                                e['alterrors'] + ' ' + e['diagnosis']
@@ -157,9 +148,9 @@ module Sisimai::Bite::Email
             break
           end
 
-          ReFailure.each_key do |r|
+          ReFailures.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailure[r]
+            next unless e['diagnosis'] =~ ReFailures[r]
             e['reason'] = r.to_s
             break
           end

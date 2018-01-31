@@ -13,9 +13,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/Filtered.pm
       class << self
         def text; return 'filtered'; end
-        def description
-          return 'Email rejected due to a header content after SMTP DATA command'
-        end
+        def description; return 'Email rejected due to a header content after SMTP DATA command'; end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
@@ -57,47 +55,30 @@ module Sisimai
         def true(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
-          return true if argvs.reason == Sisimai::Reason::Filtered.text
+          return true if argvs.reason == 'filtered'
 
           require 'sisimai/smtp/status'
           require 'sisimai/reason/userunknown'
           commandtxt = argvs.smtpcommand || ''
-          statuscode = argvs.deliverystatus || ''
           diagnostic = argvs.diagnosticcode || ''
-          tempreason = Sisimai::SMTP::Status.name(statuscode)
-          reasontext = Sisimai::Reason::Filtered.text
-          v = false
+          tempreason = Sisimai::SMTP::Status.name(argvs.deliverystatus)
+          alterclass = Sisimai::Reason::UserUnknown
 
           return false if tempreason == 'suspend'
-
-          if tempreason == reasontext
+          if tempreason == 'filtered'
             # Delivery status code points "filtered".
-            if Sisimai::Reason::UserUnknown.match(diagnostic) ||
-               Sisimai::Reason::Filtered.match(diagnostic)
-              v = true
-            end
-          else
+            return true if alterclass.match(diagnostic) || match(diagnostic)
+
+          elsif commandtxt != 'RCPT' && commandtxt != 'MAIL'
             # Check the value of Diagnostic-Code and the last SMTP command
-            if commandtxt != 'RCPT' && commandtxt != 'MAIL'
-              # Check the last SMTP command of the session.
-              if Sisimai::Reason::Filtered.match(diagnostic)
-                # Matched with a pattern in this class
-                v = true
-
-              else
-                # Did not match with patterns in this class,
-                # Check the value of "Diagnostic-Code" with other error patterns.
-                v = true if Sisimai::Reason::UserUnknown.match(diagnostic)
-              end
-            end
+            return true if match(diagnostic)
+            return true if alterclass.match(diagnostic)
           end
-
-          return v
+          return false
         end
 
       end
     end
   end
 end
-
 

@@ -17,9 +17,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/UserUnknown.pm
       class << self
         def text; return 'userunknown'; end
-        def description
-          return "Email rejected due to a local part of a recipient's email address does not exist"
-        end
+        def description; return "Email rejected due to a local part of a recipient's email address does not exist"; end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
@@ -157,24 +155,21 @@ module Sisimai
         def true(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
-          return true if argvs.reason == Sisimai::Reason::UserUnknown.text
+          return true if argvs.reason == 'userunknown'
 
           require 'sisimai/smtp/status'
-          prematches = %w|NoRelaying Blocked MailboxFull HasMoved Blocked Rejected|
-          matchother = false
-          statuscode = argvs.deliverystatus || ''
-          diagnostic = argvs.diagnosticcode || ''
-          reasontext = Sisimai::Reason::UserUnknown.text
-          tempreason = Sisimai::SMTP::Status.name(statuscode)
-          v = false
-
+          diagnostic = argvs.diagnosticcode;
+          tempreason = Sisimai::SMTP::Status.name(argvs.deliverystatus)
           return false if tempreason == 'suspend'
 
-          if tempreason == reasontext
+          if tempreason == 'userunknown'
             # *.1.1 = 'Bad destination mailbox address'
             #   Status: 5.1.1
             #   Diagnostic-Code: SMTP; 550 5.1.1 <***@example.jp>:
             #     Recipient address rejected: User unknown in local recipient table
+            prematches = %w[NoRelaying Blocked MailboxFull HasMoved Blocked Rejected]
+            matchother = false
+
             prematches.each do |e|
               # Check the value of "Diagnostic-Code" with other error patterns.
               p = 'Sisimai::Reason::' << e
@@ -192,20 +187,15 @@ module Sisimai
               matchother = true
               break
             end
+            return true unless matchother # Did not match with other message patterns
 
-            # Did not match with other message patterns
-            v = true unless matchother
-
-          else
-            # Check the last SMTP command of the session.
-            if argvs.smtpcommand == 'RCPT'
-              # When the SMTP command is not "RCPT", the session rejected by other
-              # reason, maybe.
-              v = true if Sisimai::Reason::UserUnknown.match(diagnostic)
-            end
+          elsif argvs.smtpcommand == 'RCPT'
+            # When the SMTP command is not "RCPT", the session rejected by other
+            # reason, maybe.
+            return true if match(diagnostic)
           end
 
-          return v
+          return false
         end
 
       end

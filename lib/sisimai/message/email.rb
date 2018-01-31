@@ -19,10 +19,8 @@ module Sisimai
       EndOfEmail = Sisimai::String.EOM
       RFC822Head = Sisimai::RFC5322.HEADERFIELDS
       RFC3834Set = Sisimai::RFC3834.headerlist.map(&:downcase)
-      HeaderList = [
-        'from', 'to', 'date', 'subject', 'content-type', 'reply-to', 'message-id',
-        'received', 'content-transfer-encoding', 'return-path', 'x-mailer',
-      ].freeze
+      HeaderList = %w[from to date subject content-type reply-to message-id
+                      received content-transfer-encoding return-path x-mailer].freeze
       MultiHeads = { 'received' => true }.freeze
       IgnoreList = { 'dkim-signature' => true }.freeze
       Indicators = {
@@ -115,7 +113,7 @@ module Sisimai
         modulelist = []
         tobeloaded = []
 
-        %w|load order|.each do |e|
+        %w[load order].each do |e|
           # The order of MTA modules specified by user
           next unless argvs.key?(e)
           next unless argvs[e].is_a? Array
@@ -181,14 +179,12 @@ module Sisimai
           if readcursor & Indicators[:endof] > 0
             # The body part of the email
             aftersplit['body'] << e + "\n"
-
           else
             # The boundary for splitting headers and a body part does not
             # appeare yet.
             if e.empty?
               # Blank line, it is a boundary of headers and a body part
               readcursor |= Indicators[:endof] if readcursor & Indicators[:begin] > 0
-
             else
               # The header part of the email
               aftersplit['header'] << e + "\n"
@@ -242,7 +238,6 @@ module Sisimai
               rhs = rhs.tr("\t", ' ')
               rhs = rhs.squeeze(' ')
               structured[currheader] << rhs
-
             else
               # Other headers except "Received" and so on
               if extheaders[currheader]
@@ -254,7 +249,6 @@ module Sisimai
               end
               structured[currheader] = rhs
             end
-
           elsif cv = e.match(/\A[ \t]+(.+?)\z/)
             # Ignore header?
             next if IgnoreList[currheader]
@@ -263,7 +257,6 @@ module Sisimai
             if structured[currheader].is_a? Array
               # Concatenate a header which have multi-lines such as 'Received'
               structured[currheader][-1] << ' ' << cv[1]
-
             else
               structured[currheader] ||= ''
               structured[currheader] << ' ' << cv[1]
@@ -323,7 +316,6 @@ module Sisimai
             next unless RFC822Head.key?(lhs)
             previousfn = lhs
             takenapart[previousfn] = rhs unless takenapart[previousfn]
-
           else
             # Continued line from the previous line
             next unless e.start_with?(' ', "\t")
@@ -340,7 +332,6 @@ module Sisimai
                                           e
                                         end
               mimeborder[previousfn] = true
-
             else
               # ASCII Characters only: Not MIME-Encoded
               e = e.lstrip
@@ -358,7 +349,6 @@ module Sisimai
             # The value of ``Subject'' header is including multibyte character,
             # is not MIME-Encoded text.
             v = 'MULTIBYTE CHARACTERS HAVE BEEN REMOVED'
-
           else
             # MIME-Encoded subject field or ASCII characters only
             r = []
@@ -430,7 +420,6 @@ module Sisimai
             # Content-Type: text/html;...
             bodystring = Sisimai::String.to_plain(bodystring, true)
           end
-
         else
           # NOT text/plain
           if bodystring =~ ReEncoding[:'quoted-print']
@@ -468,7 +457,7 @@ module Sisimai
         # Check whether or not the message is a bounce mail.
         # Pre-Process email body if it is a forwarded bounce message.
         # Get the original text when the subject begins from 'fwd:' or 'fw:'
-        if mailheader['subject'] =~ /\A[ \t]*fwd?:/i
+        if mailheader['subject'].downcase =~ /\A[ \t]*fwd?:/
           # Delete quoted strings, quote symbols(>)
           bodystring = bodystring.gsub(/^[>]+[ ]/m, '')
           bodystring = bodystring.gsub(/^[>]$/m, '')
@@ -534,7 +523,6 @@ module Sisimai
                 warn ' ***warning: ' << ce.to_s
                 next
               end
-
             end
 
             # When the all of Sisimai::Bite::Email::* modules did not return
@@ -560,3 +548,4 @@ module Sisimai
     end
   end
 end
+

@@ -23,7 +23,7 @@ module Sisimai
       }.freeze
 
       # dovecot/src/deliver/mail-send.c:94
-      ReFailure = {
+      ReFailures = {
         :'dovecot' => {
           :userunknown => %r/\AMailbox doesn't exist: /i,
           :mailboxfull => %r{\A(?:
@@ -95,7 +95,7 @@ module Sisimai
         return nil unless mbody
         return nil if mhead.keys.size.zero?
         return nil if mbody.empty?
-        return nil unless mhead['from'] =~ /\A(?:Mail Delivery Subsystem|MAILER-DAEMON|postmaster)/i
+        return nil unless mhead['from'].downcase =~ /\A(?:mail delivery subsystem|mailer-daemon|postmaster)/
 
         agentname0 = ''   # [String] MDA name
         reasonname = ''   # [String] Error reason
@@ -122,15 +122,14 @@ module Sisimai
           linebuffer << e
           break unless e.size > 0
         end
-
         return nil unless agentname0.size > 0
         return nil unless linebuffer.size > 0
 
-        ReFailure[agentname0.to_sym].each_key do |e|
+        ReFailures[agentname0.to_sym].each_key do |e|
           # Detect an error reason from message patterns of the MDA.
           linebuffer.each do |f|
             # Try to match with each regular expression
-            next unless f =~ ReFailure[agentname0.to_sym][e]
+            next unless f =~ ReFailures[agentname0.to_sym][e]
             reasonname = e.to_s
             bouncemesg = f
             break

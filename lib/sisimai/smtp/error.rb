@@ -9,13 +9,12 @@ module Sisimai
         require 'sisimai/smtp/status'
 
         SoftOrHard = {
-          :soft => %w|
+          :soft => %w[
             blocked contenterror exceedlimit expired filtered mailboxfull
             mailererror mesgtoobig networkerror norelaying policyviolation
             rejected securityerror spamdetected suspend syntaxerror systemerror
-            systemfull toomanyconn virusdetected
-          |,
-          :hard => %w|hasmoved hostunknown userunknown|
+            systemfull toomanyconn virusdetected],
+          :hard => %w[hasmoved hostunknown userunknown]
         }.freeze
 
         # Permanent error or not
@@ -49,10 +48,11 @@ module Sisimai
             end
           else
             # Check with regular expression
-            getchecked = if argv1 =~ /(?:temporar|persistent)/i
+            v = argv1.downcase
+            getchecked = if v.include?('temporar') || v.include?('persistent')
                            # Temporary failure
                            false
-                         elsif argv1 =~ /permanent/i
+                         elsif v.include?('permanent')
                            # Permanently failure
                            true
                          end
@@ -74,7 +74,7 @@ module Sisimai
           getchecked = nil
           softorhard = nil
 
-          if ['delivered', 'feedback', 'vacation'].include?(argv1)
+          if %w[delivered feedback vacation].include?(argv1)
             # These are not dealt as a bounce reason
             softorhard = ''
 

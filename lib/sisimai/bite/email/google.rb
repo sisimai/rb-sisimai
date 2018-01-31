@@ -20,7 +20,7 @@ module Sisimai::Bite::Email
         }x,
       }.freeze
 
-      ReFailure = {
+      ReFailures = {
         expired: %r{(?:
              DNS[ ]Error:[ ]Could[ ]not[ ]contact[ ]DNS[ ]servers
             |Delivery[ ]to[ ]the[ ]following[ ]recipient[ ]has[ ]been[ ]delayed
@@ -208,7 +208,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -244,18 +243,16 @@ module Sisimai::Bite::Email
                 v['recipient'] = addr0
                 recipients += 1
               end
-
             else
               v['diagnosis'] ||= ''
               v['diagnosis'] << e + ' '
             end
           end
         end
-
         return nil if recipients.zero?
+
         require 'sisimai/string'
         require 'sisimai/smtp/status'
-
         dscontents.map do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
@@ -284,12 +281,11 @@ module Sisimai::Bite::Email
             # (state *)
             e['reason']  = StateTable[statecode0]['reason']
             e['command'] = StateTable[statecode0]['command']
-
           else
             # No state code
-            ReFailure.each_key do |r|
+            ReFailures.each_key do |r|
               # Verify each regular expression of session errors
-              next unless e['diagnosis'] =~ ReFailure[r]
+              next unless e['diagnosis'] =~ ReFailures[r]
               e['reason'] = r.to_s
               break
             end
@@ -298,10 +294,7 @@ module Sisimai::Bite::Email
 
           # Set pseudo status code
           e['status'] = Sisimai::SMTP::Status.find(e['diagnosis'])
-          if e['status'] =~ /\A[45][.][1-7][.][1-9]\z/
-            # Override bounce reason
-            e['reason'] = Sisimai::SMTP::Status.name(e['status'])
-          end
+          e['reason'] = Sisimai::SMTP::Status.name(e['status']) if e['status'] =~ /\A[45][.][1-7][.][1-9]\z/
         end
 
         rfc822part = Sisimai::RFC5322.weedout(rfc822list)

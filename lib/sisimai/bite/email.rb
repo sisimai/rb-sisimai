@@ -20,15 +20,14 @@ module Sisimai
         # @abstract MTA list
         # @return   [Array] MTA list with order
         def index
-          return %w|
+          return %w[
             Sendmail Postfix Qmail Exim Courier OpenSMTPD Exchange2007 Exchange2003
             Google Yahoo GSuite Aol Outlook Office365 SendGrid AmazonSES MailRu
             Yandex MessagingServer Domino Notes ReceivingSES AmazonWorkMail Verizon
             GMX Bigfoot Facebook Zoho EinsUndEins MessageLabs EZweb KDDI Biglobe
             ApacheJames McAfee MXLogic MailFoundry IMailServer
             MFILTER Activehunter InterScanMSS SurfControl MailMarshalSMTP
-            X1 X2 X3 X4 X5 V5sendmail FML
-          |
+            X1 X2 X3 X4 X5 V5sendmail FML]
         end
 
         # @abstract Parse bounce messages

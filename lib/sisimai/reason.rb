@@ -8,10 +8,7 @@ module Sisimai
       # Reason list better to retry detecting an error reason
       # @return   [Array] Reason list
       def retry
-        return %w|
-          undefined onhold systemerror securityerror networkerror
-          hostunknown userunknown
-        |
+        return %w[undefined onhold systemerror securityerror networkerror hostunknown userunknown]
       end
       RetryReasons = Sisimai::Reason.retry
 
@@ -43,10 +40,10 @@ module Sisimai
 
         statuscode = argvs.deliverystatus || ''
         reasontext = ''
-        classorder = %w|
+        classorder = %w[
           MailboxFull MesgTooBig ExceedLimit Suspend HasMoved NoRelaying UserUnknown
           Filtered Rejected HostUnknown SpamDetected TooManyConn Blocked
-        |
+        ]
         return 'delivered' if statuscode.start_with?('2.')
 
         if argvs.diagnostictype == 'SMTP' || argvs.diagnostictype == ''
@@ -82,7 +79,7 @@ module Sisimai
               require 'sisimai/reason/vacation'
               reasontext = 'vacation' if Sisimai::Reason::Vacation.match(argvs.diagnosticcode)
             end
-            reasontext ||= 'onhold'  if argvs.diagnosticcode.size > 0
+            reasontext ||= 'onhold' if argvs.diagnosticcode.size > 0
           end
           reasontext ||= 'undefined'
         end
@@ -104,11 +101,11 @@ module Sisimai
         commandtxt = argvs.smtpcommand    || ''
         trytomatch = nil
         reasontext = ''
-        classorder = %w|
+        classorder = %w[
           MailboxFull SpamDetected PolicyViolation VirusDetected SecurityError
           SystemError NetworkError Suspend Expired ContentError SystemFull
           NotAccept MailerError
-        |
+        ]
 
         require 'sisimai/smtp/status'
         reasontext = Sisimai::SMTP::Status.name(statuscode)
@@ -149,10 +146,9 @@ module Sisimai
                 #  X.7.0   Other or undefined security status
                 reasontext = 'securityerror'
 
-              elsif ['X-UNIX', 'X-POSTFIX'].include?(argvs.diagnostictype)
+              elsif %w[X-UNIX X-POSTFIX].include?(argvs.diagnostictype)
                 # Diagnostic-Code: X-UNIX; ...
                 reasontext = 'mailererror'
-
               else
                 # 50X Syntax Error?
                 require 'sisimai/reason/syntaxerror'
@@ -165,13 +161,9 @@ module Sisimai
               if argvs.action.start_with?('delayed', 'expired')
                 # Action: delayed, expired
                 reasontext = 'expired'
-
               else
-                # Check the value of SMTP command
-                if ['HELO', 'EHLO'].include?(commandtxt)
-                  # Rejected at connection or after EHLO|HELO
-                  reasontext = 'blocked'
-                end
+                # Rejected at connection or after EHLO|HELO
+                reasontext = 'blocked' if %w[HELO EHLO].index(commandtxt)
               end
             end
 
@@ -190,12 +182,12 @@ module Sisimai
 
         reasontext = ''
         typestring = ''
-        classorder = %w|
+        classorder = %w[
           MailboxFull MesgTooBig ExceedLimit Suspend UserUnknown Filtered Rejected
           HostUnknown SpamDetected TooManyConn Blocked SpamDetected SecurityError
           SystemError NetworkError Suspend Expired ContentError HasMoved SystemFull
           NotAccept MailerError NoRelaying SyntaxError OnHold
-        |
+        ]
 
         statuscode = Sisimai::SMTP::Status.find(argv1)
         if cv = argv1.match(/\A(SMTP|X-.+);/i)

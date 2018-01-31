@@ -12,8 +12,7 @@ module Sisimai::Bite::Email
         error:   ['   ----- Non-delivered information -----'],
         rfc822:  ['Content-Type: message/rfc822'],
       }.freeze
-
-      ReFailure = {
+      ReFailures = {
         filtered:    %r/Mail Delivery Failed[.]+ User unknown/,
         mailboxfull: %r/The number of messages in recipient's mailbox exceeded the local limit[.]/,
       }.freeze
@@ -73,7 +72,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -109,7 +107,6 @@ module Sisimai::Bite::Email
                 v['recipient'] = r
                 recipients += 1
               end
-
             else
               next if e =~ /\A[^\w]/
               v['diagnosis'] ||= ''
@@ -117,17 +114,16 @@ module Sisimai::Bite::Email
             end
           end
         end
-
         return nil if recipients.zero?
-        require 'sisimai/string'
 
+        require 'sisimai/string'
         dscontents.map do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
-          ReFailure.each_key do |r|
+          ReFailures.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailure[r]
+            next unless e['diagnosis'] =~ ReFailures[r]
             e['reason'] = r.to_s
             break
           end

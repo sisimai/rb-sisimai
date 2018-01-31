@@ -31,7 +31,7 @@ module Sisimai::Bite::Email
         while true
           # Check the value of "From" header
           # :'subject' => %r/Undeliverable Message/,
-          break unless mhead['received'].find { |a| a =~ /by .+[.]vtext[.]com / }
+          break unless mhead['received'].find { |a| a.include?('.vtext.com (') }
           match = 1 if mhead['from'] == 'post_master@vtext.com'
           match = 0 if mhead['from'] =~ /[<]?sysadmin[@].+[.]vzwpix[.]com[>]?\z/
           break
@@ -63,7 +63,7 @@ module Sisimai::Bite::Email
           }
           reFailures = {
             # The attempted recipient address does not exist.
-            userunknown: %r/550[ ][-][ ]Requested[ ]action[ ]not[ ]taken:[ ]no[ ]such[ ]user[ ]here/x,
+            userunknown: %r/550 [-] Requested action not taken: no such user here/,
           }
           boundary00 = Sisimai::MIME.boundary(mhead['content-type']) || ''
 
@@ -97,7 +97,6 @@ module Sisimai::Bite::Email
                 next
               end
               rfc822list << e
-
             else
               # Before "message/rfc822"
               next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -127,7 +126,6 @@ module Sisimai::Bite::Email
               elsif cv = e.match(/\A[ \t]+Subject:[ \t](.+)\z/)
                 #   Subject:
                 subjecttxt = cv[1] if subjecttxt.empty?
-
               else
                 # 550 - Requested action not taken: no such user here
                 v['diagnosis'] = e if e =~ /\A(\d{3})[ \t][-][ \t](.*)\z/
@@ -137,16 +135,11 @@ module Sisimai::Bite::Email
 
         else
           # vzwpix.com
-          startingof = {
-            message: ['Message could not be delivered to mobile'],
-          }
-          markingsof = {
-            rfc822:  %r/\A__BOUNDARY_STRING_HERE__\z/,
-          }
-          reFailures = {
-            userunknown: %r/No[ ]valid[ ]recipients[ ]for[ ]this[ ]MM/x,
-          }
+          startingof = { message: ['Message could not be delivered to mobile'] }
+          markingsof = { rfc822:  %r/\A__BOUNDARY_STRING_HERE__\z/ }
+          reFailures = { userunknown: %r/No valid recipients for this MM/ }
           boundary00 = Sisimai::MIME.boundary(mhead['content-type'])
+
           if boundary00.size > 0
             # Convert to regular expression
             markingsof[:rfc822] = Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z')
@@ -177,7 +170,6 @@ module Sisimai::Bite::Email
                 next
               end
               rfc822list << e
-
             else
               # Before "message/rfc822"
               next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -206,7 +198,6 @@ module Sisimai::Bite::Email
               elsif cv = e.match(/\ASubject:[ \t](.+)\z/)
                 #   Subject:
                 subjecttxt = cv[1] if subjecttxt.empty?
-
               else
                 # Message could not be delivered to mobile.
                 # Error: No valid recipients for this MM
@@ -215,7 +206,6 @@ module Sisimai::Bite::Email
             end
           end
         end
-
         return nil if recipients.zero?
 
         if !rfc822list.find { |a| a.start_with?('From: ') }

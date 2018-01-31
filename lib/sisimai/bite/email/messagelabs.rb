@@ -12,13 +12,8 @@ module Sisimai::Bite::Email
         message: ['Content-Type: message/delivery-status'],
         rfc822:  ['Content-Type: text/rfc822-headers'],
       }.freeze
-
-      ReFailure = {
-        userunknown: %r{(?:
-           542[ ].+[ ]Rejected
-          |No[ ]such[ ]user
-          )
-        }x,
+      ReFailures = {
+        userunknown:   %r/(?:542 .+ Rejected|No such user)/,
         securityerror: %r/Please turn on SMTP Authentication in your mail client/,
       }.freeze
 
@@ -94,7 +89,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -134,7 +128,7 @@ module Sisimai::Bite::Email
               # Final-Recipient: rfc822; maria@dest.example.net
               v = dscontents[-1]
 
-              if cv = e.match(/\A[Ff]inal-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
+              if cv = e.match(/\AFinal-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
                 # Final-Recipient: rfc822; maria@dest.example.net
                 if v['recipient']
                   # There are multiple recipient addresses in the message body.
@@ -144,38 +138,35 @@ module Sisimai::Bite::Email
                 v['recipient'] = cv[1]
                 recipients += 1
 
-              elsif cv = e.match(/\A[Aa]ction:[ ]*(.+)\z/)
+              elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
                 # Action: failed
                 v['action'] = cv[1].downcase
 
-              elsif cv = e.match(/\A[Ss]tatus:[ ]*(\d[.]\d+[.]\d+)/)
+              elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
                 # Status: 5.0.0
                 v['status'] = cv[1]
-
               else
-                if cv = e.match(/\A[Dd]iagnostic-[Cc]ode:[ ]*(.+?);[ ]*(.+)\z/)
+                if cv = e.match(/\ADiagnostic-Code:[ ]*(.+?);[ ]*(.+)\z/)
                   # Diagnostic-Code: smtp; 550 maria@dest.example.net... No such user
                   v['spec'] = cv[1].upcase
                   v['diagnosis'] = cv[2]
 
-                elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A[ \t]+(.+)\z/)
+                elsif p.start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
                   # Continued line of the value of Diagnostic-Code header
-                  v['diagnosis'] ||= ''
                   v['diagnosis'] << ' ' << cv[1]
                   havepassed[-1] = 'Diagnostic-Code: ' << e
                 end
               end
-
             else
               # Reporting-MTA: dns; server-15.bemta-3.messagelabs.com
               # Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
-              if cv = e.match(/\A[Rr]eporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
+              if cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                 # Reporting-MTA: dns; server-15.bemta-3.messagelabs.com
                 next if connheader['lhost'].size > 0
                 connheader['lhost'] = cv[1].downcase
                 connvalues += 1
 
-              elsif cv = e.match(/\A[Aa]rrival-[Dd]ate:[ ]*(.+)\z/)
+              elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
                 # Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
                 next if connheader['date'].size > 0
                 connheader['date'] = cv[1]
@@ -185,8 +176,8 @@ module Sisimai::Bite::Email
           end
         end
         return nil if recipients.zero?
-        require 'sisimai/string'
 
+        require 'sisimai/string'
         dscontents.map do |e|
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
@@ -194,9 +185,9 @@ module Sisimai::Bite::Email
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
-          ReFailure.each_key do |r|
+          ReFailures.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailure[r]
+            next unless e['diagnosis'] =~ ReFailures[r]
             e['reason'] = r.to_s
             break
           end

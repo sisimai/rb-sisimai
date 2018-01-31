@@ -66,7 +66,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -98,7 +97,6 @@ module Sisimai::Bite::Email
               end
               v['recipient'] = cv[1]
               recipients += 1
-
             else
               # Detect error message
               if cv = e.match(/\ASMTP:([^ ]+)[ ](.+)\z/)
@@ -113,11 +111,10 @@ module Sisimai::Bite::Email
             end
           end
         end
-
         return nil if recipients.zero?
+
         require 'sisimai/string'
         require 'sisimai/smtp/status'
-
         dscontents.map do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])

@@ -9,9 +9,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/MesgTooBig.pm
       class << self
         def text; return 'mesgtoobig'; end
-        def description
-          return 'Email rejected due to an email size is too big for a destination mail server'
-        end
+        def description; return 'Email rejected due to an email size is too big for a destination mail server'; end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
@@ -51,31 +49,23 @@ module Sisimai
         def true(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
-          return true if argvs.reason == Sisimai::Reason::MesgTooBig.text
+          return true if argvs.reason == 'mesgtoobig'
 
           require 'sisimai/smtp/status'
           statuscode = argvs.deliverystatus || ''
-          diagnostic = argvs.diagnosticcode || ''
-          reasontext = Sisimai::Reason::MesgTooBig.text
           tempreason = Sisimai::SMTP::Status.name(statuscode)
-          v = false
 
-          if tempreason == reasontext
-            # Delivery status code points "mesgtoobig".
-            # Status: 5.3.4
-            # Diagnostic-Code: SMTP; 552 5.3.4 Error: message file too big
-            v = true
-          else
-            if tempreason == 'exceedlimit' || statuscode == '5.2.3'
-              #  5.2.3   Message length exceeds administrative limit
-              v = false
-            else
-              # Check the value of Diagnosic-Code: header with patterns
-              v = true if Sisimai::Reason::MesgTooBig.match(diagnostic)
-            end
-          end
+          # Delivery status code points "mesgtoobig".
+          # Status: 5.3.4
+          # Diagnostic-Code: SMTP; 552 5.3.4 Error: message file too big
+          return true if tempreason == 'mesgtoobig'
 
-          return v
+          #  5.2.3   Message length exceeds administrative limit
+          return false if( tempreason == 'exceedlimit' || statuscode == '5.2.3' )
+
+          # Check the value of Diagnosic-Code: header with patterns
+          return true if match(argvs.diagnosticcode)
+          return false
         end
 
       end

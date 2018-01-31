@@ -10,9 +10,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/HasMoved.pm
       class << self
         def text; return 'hasmoved'; end
-        def description
-          return "Email rejected due to user's mailbox has moved and is not forwarded automatically"
-        end
+        def description; return "Email rejected due to user's mailbox has moved and is not forwarded automatically"; end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
@@ -20,7 +18,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          regex = %r/address[ ].+[ ]has[ ]been[ ]replaced[ ]by[ ]/ix
+          regex = %r/address[ ].+ has been replaced by /i
 
           return true if argv1 =~ regex
           return false
@@ -34,8 +32,9 @@ module Sisimai
         def true(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
-          return true if argvs.reason == Sisimai::Reason::HasMoved.text
-          return true if Sisimai::Reason::HasMoved.match(argvs.diagnosticcode)
+
+          return true if argvs.reason == 'hasmoved'
+          return true if match(argvs.diagnosticcode)
           return false
         end
 
@@ -43,6 +42,4 @@ module Sisimai
     end
   end
 end
-
-
 

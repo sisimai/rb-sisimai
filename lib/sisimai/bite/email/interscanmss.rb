@@ -78,7 +78,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -108,7 +107,6 @@ module Sisimai::Bite::Email
             elsif cv = e.match(/\AReceived[ ]+[>]{3}[ ]+(\d{3}[ ]+.+)\z/)
               # Received >>> 550 5.1.1 <kijitora@example.co.jp>... user unknown
               v['diagnosis'] = cv[1]
-
             else
               # Error message in non-English
               if cv = e.match(/[ ][>]{3}[ ]([A-Z]{4})/)
@@ -123,8 +121,8 @@ module Sisimai::Bite::Email
           end
         end
         return nil if recipients.zero?
-        require 'sisimai/string'
 
+        require 'sisimai/string'
         dscontents.map do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])

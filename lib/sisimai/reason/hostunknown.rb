@@ -9,9 +9,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/HostUnknown.pm
       class << self
         def text; return 'hostunknown'; end
-        def description
-          return "Delivery failed due to a domain part of a recipient's email address does not exist"
-        end
+        def description; return "Delivery failed due to a domain part of a recipient's email address does not exist"; end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
@@ -56,32 +54,27 @@ module Sisimai
         def true(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
-          return true if argvs.reason == Sisimai::Reason::HostUnknown.text
+          return true if argvs.reason == 'hostunknown'
 
           require 'sisimai/smtp/status'
           diagnostic = argvs.diagnosticcode || ''
           statuscode = argvs.deliverystatus || ''
-          tempreason = Sisimai::SMTP::Status.name(statuscode)
-          reasontext = Sisimai::Reason::HostUnknown.text
-          v = false
 
-          if tempreason == reasontext
+          if Sisimai::SMTP::Status.name(statuscode) == 'hostunknown'
             # Status: 5.1.2
             # Diagnostic-Code: SMTP; 550 Host unknown
             require 'sisimai/reason/networkerror'
-            v = true unless Sisimai::Reason::NetworkError.match(diagnostic)
+            return true unless Sisimai::Reason::NetworkError.match(diagnostic)
           else
             # Check the value of Diagnosic-Code: header with patterns
-            v = true if Sisimai::Reason::HostUnknown.match(diagnostic)
+            return true if match(diagnostic)
           end
 
-          return v
+          return false
         end
 
       end
     end
   end
 end
-
-
 

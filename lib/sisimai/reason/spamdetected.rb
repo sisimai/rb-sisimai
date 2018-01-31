@@ -17,9 +17,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/SpamDetected.pm
       class << self
         def text; return 'spamdetected'; end
-        def description
-          return 'Email rejected by spam filter running on the remote host'
-        end
+        def description; return 'Email rejected by spam filter running on the remote host'; end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
@@ -164,24 +162,12 @@ module Sisimai
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
           return nil unless argvs.deliverystatus.size > 0
-          return true if argvs.reason == Sisimai::Reason::SpamDetected.text
+          return true if argvs.reason == 'spamdetected'
 
           require 'sisimai/smtp/status'
-          statuscode = argvs.deliverystatus || ''
-          diagnostic = argvs.diagnosticcode || ''
-          reasontext = Sisimai::Reason::SpamDetected.text
-          v = false
-
-          if Sisimai::SMTP::Status.name(statuscode) == reasontext
-            # Delivery status code points "spamdetected".
-            v = false
-
-          else
-            # Matched with a pattern in this class
-            v = true if Sisimai::Reason::SpamDetected.match(diagnostic)
-          end
-
-          return v
+          return true if Sisimai::SMTP::Status.name(argvs.deliverystatus) == 'spamdetected'
+          return true if match(argvs.diagnosticcode)
+          return false
         end
 
       end

@@ -11,9 +11,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/ContentError.pm
       class << self
         def text; return 'contenterror'; end
-        def description
-          return 'Email rejected due to a header format of the email'
-        end
+        def description; return 'Email rejected due to a header format of the email'; end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
@@ -45,9 +43,7 @@ module Sisimai
         # @return   [True,False]            true: rejected due to content error
         #                                   false: is not content error
         # @see      http://www.ietf.org/rfc/rfc2822.txt
-        def true(_argvs)
-          return nil
-        end
+        def true(_argvs); return nil; end
 
       end
     end

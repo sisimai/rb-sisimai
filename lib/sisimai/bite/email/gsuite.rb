@@ -13,7 +13,6 @@ module Sisimai::Bite::Email
         error:   %r/\AThe[ ]response([ ]from[ ]the[ ]remote[ ]server)?[ ]was:\z/,
         html:    %r{\AContent-Type:[ ]*text/html;[ ]*charset=['"]?(?:UTF|utf)[-]8['"]?\z},
       }.freeze
-
       ErrorMayBe = {
         userunknown:  %r/because the address couldn't be found/,
         notaccept:    %r/Null MX/,
@@ -50,7 +49,7 @@ module Sisimai::Bite::Email
         blanklines = 0      # (Integer) The number of blank lines
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        endoferror = true   # (Integer) Flag for a blank line after error messages
+        endoferror = false  # (Integer) Flag for a blank line after error messages
         anotherset = {}     # (Hash) Another error information
         emptylines = 0      # (Integer) The number of empty lines
         connvalues = 0      # (Integer) Flag, 1 if all the value of connheader have been set
@@ -82,7 +81,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -96,7 +94,7 @@ module Sisimai::Bite::Email
               # Last-Attempt-Date: Fri, 24 Mar 2017 23:34:10 -0700 (PDT)
               v = dscontents[-1]
 
-              if cv = e.match(/\A[Ff]inal-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*(.+)\z/)
+              if cv = e.match(/\AFinal-Recipient:[ ]*(?:RFC|rfc)822;[ ]*(.+)\z/)
                 # Final-Recipient: rfc822; kijitora@example.de
                 if v['recipient']
                   # There are multiple recipient addresses in the message body.
@@ -106,33 +104,32 @@ module Sisimai::Bite::Email
                 v['recipient'] = cv[1]
                 recipients += 1
 
-              elsif cv = e.match(/\A[Aa]ction:[ ]*(.+)\z/)
+              elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
                 # Action: failed
                 v['action'] = cv[1].downcase
 
-              elsif cv = e.match(/\A[Ss]tatus:[ ]*(\d[.]\d+[.]\d+)/)
+              elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
                 # Status: 5.0.0
                 v['status'] = cv[1]
 
-              elsif cv = e.match(/\A[Rr]emote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
+              elsif cv = e.match(/\ARemote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                 # Remote-MTA: dns; 192.0.2.222 (192.0.2.222, the server for the domain.)
                 v['rhost'] = cv[1].downcase
                 v['rhost'] = '' if v['rhost'] =~ /\A\s+\z/  # Remote-MTA: DNS;
 
-              elsif cv = e.match(/\A[Ll]ast-[Aa]ttempt-[Dd]ate:[ ]*(.+)\z/)
+              elsif cv = e.match(/\ALast-Attempt-Date:[ ]*(.+)\z/)
                 # Last-Attempt-Date: Fri, 24 Mar 2017 23:34:10 -0700 (PDT)
                 v['date'] = cv[1]
-
               else
-                if cv = e.match(/\A[Dd]iagnostic-[Cc]ode:[ ]*(.+?);[ ]*(.+)\z/)
+                if cv = e.match(/\ADiagnostic-Code:[ ]*(.+?);[ ]*(.+)\z/)
                   # Diagnostic-Code: smtp; 550 #5.1.0 Address rejected.
                   v['spec'] = cv[1].upcase
                   v['diagnosis'] = cv[2]
                 else
                   # Append error messages continued from the previous line
-                  if endoferror && (v['diagnosis'] && v['diagnosis'].size > 0)
-                    endoferror = true if e.empty?
-                    endoferror = true if e.start_with?('--')
+                  if endoferror == false && v['diagnosis'].to_s.size > 0
+                    endoferror ||= true if e.empty?
+                    endoferror ||= true if e.start_with?('--')
 
                     next if endoferror
                     next unless e.start_with?(' ')
@@ -140,24 +137,22 @@ module Sisimai::Bite::Email
                   end
                 end
               end
-
             else
               # Reporting-MTA: dns; googlemail.com
               # Received-From-MTA: dns; sironeko@example.jp
               # Arrival-Date: Fri, 24 Mar 2017 23:34:07 -0700 (PDT)
               # X-Original-Message-ID: <06C1ED5C-7E02-4036-AEE1-AA448067FB2C@example.jp>
-              if cv = e.match(/\A[Rr]eporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
+              if cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                 # Reporting-MTA: dns; mx.example.jp
                 next if connheader['lhost'].size > 0
                 connheader['lhost'] = cv[1].downcase
                 connvalues += 1
 
-              elsif cv = e.match(/\A[Aa]rrival-[Dd]ate:[ ]*(.+)\z/)
+              elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
                 # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
                 next if connheader['date'].size > 0
                 connheader['date'] = cv[1]
                 connvalues += 1
-
               else
                 # Detect SMTP session error or connection error
                 if e =~ MarkingsOf[:error]
@@ -198,12 +193,11 @@ module Sisimai::Bite::Email
             end
           end
         end
-
         return nil if recipients.zero?
+
         require 'sisimai/string'
         require 'sisimai/smtp/reply'
         require 'sisimai/smtp/status'
-
         dscontents.map do |e|
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
@@ -256,7 +250,6 @@ module Sisimai::Bite::Email
             e['reason'] = q.to_s
             break
           end
-
         end
 
         rfc822part = Sisimai::RFC5322.weedout(rfc822list)

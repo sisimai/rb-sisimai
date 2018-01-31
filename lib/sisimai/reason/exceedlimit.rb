@@ -10,9 +10,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/ExceedLimit.pm
       class << self
         def text; return 'exceedlimit'; end
-        def description
-          return 'Email rejected due to an email exceeded the limit'
-        end
+        def description; return 'Email rejected due to an email exceeded the limit'; end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
@@ -35,25 +33,17 @@ module Sisimai
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
           return nil unless argvs.deliverystatus.size > 0
-          return true if argvs.reason == Sisimai::Reason::ExceedLimit.text
+          return true if argvs.reason == 'exceedlimit'
 
+          # Delivery status code points exceedlimit.
+          # Status: 5.2.3
+          # Diagnostic-Code: SMTP; 552 5.2.3 Message size exceeds fixed maximum message size
           require 'sisimai/smtp/status'
-          diagnostic = argvs.diagnosticcode || ''
-          statuscode = argvs.deliverystatus
-          reasontext = Sisimai::Reason::ExceedLimit.text
-          v = false
+          return true if Sisimai::SMTP::Status.name(argvs.deliverystatus) == 'exceedlimit'
 
-          if Sisimai::SMTP::Status.name(statuscode) == reasontext
-            # Delivery status code points exceedlimit.
-            # Status: 5.2.3
-            # Diagnostic-Code: SMTP; 552 5.2.3 Message size exceeds fixed maximum message size
-            v = true
-          else
-            # Check the value of Diagnosic-Code: header with patterns
-            v = true if Sisimai::Reason::ExceedLimit.match(diagnostic)
-          end
-
-          return v
+          # Check the value of Diagnosic-Code: header with patterns
+          return true if match(argvs.diagnosticcode)
+          return false
         end
 
       end

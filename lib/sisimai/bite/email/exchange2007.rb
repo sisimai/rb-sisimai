@@ -8,15 +8,12 @@ module Sisimai::Bite::Email
       require 'sisimai/bite/email'
 
       Indicators = Sisimai::Bite::Email.INDICATORS
-      StartingOf = {
-        rfc822: ['Original message headers:'],
-      }.freeze
+      StartingOf = { rfc822: ['Original message headers:'] }.freeze
       MarkingsOf = {
-        message: %r/[ ]Microsoft[ ]Exchange[ ]Server[ ]20\d{2}/,
-        error:   %r/[ ]((?:RESOLVER|QUEUE)[.][A-Za-z]+(?:[.]\w+)?);/,
-        rhost:   %r/\AGenerating[ ]server:[ ]?(.*)/,
+        message: %r/ Microsoft Exchange Server 20\d{2}/,
+        error:   %r/ ((?:RESOLVER|QUEUE)[.][A-Za-z]+(?:[.]\w+)?);/,
+        rhost:   %r/\AGenerating server:[ ]?(.*)/,
       }.freeze
-
       NDRSubject = {
         :'SMTPSEND.DNS.NonExistentDomain'=> 'hostunknown',   # 554 5.4.4 SMTPSEND.DNS.NonExistentDomain
         :'SMTPSEND.DNS.MxLoopback'       => 'networkerror',  # 554 5.4.4 SMTPSEND.DNS.MxLoopback
@@ -92,7 +89,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -126,7 +122,6 @@ module Sisimai::Bite::Email
                 v['replycode'] = cv[1]
                 v['status']    = cv[2]
                 v['diagnosis'] = e
-
               else
                 if v['diagnosis'].to_s.size > 0 && v['diagnosis'].end_with?('=')
                   # Continued line of error messages

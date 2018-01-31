@@ -8,11 +8,7 @@ module Sisimai
         require 'sisimai/bite/json'
 
         PatternTable = {
-          'keyname' => {
-            'notificationType' => [
-              'Sisimai::Bite::JSON::AmazonSES',
-            ],
-          },
+          'keyname' => { 'notificationType' => ['Sisimai::Bite::JSON::AmazonSES'] },
         }.freeze
 
         make_default_order = lambda do
@@ -53,5 +49,4 @@ module Sisimai
     end
   end
 end
-
 

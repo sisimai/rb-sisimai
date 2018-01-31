@@ -9,9 +9,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/Suspend.pm
       class << self
         def text; return 'suspend'; end
-        def description
-          return 'Email rejected due to a recipient account is being suspended'
-        end
+        def description; return 'Email rejected due to a recipient account is being suspended'; end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
@@ -55,8 +53,9 @@ module Sisimai
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
           return nil unless argvs.deliverystatus.size > 0
-          return true if argvs.reason == Sisimai::Reason::Suspend.text
-          return true if Sisimai::Reason::Suspend.match(argvs.diagnosticcode)
+
+          return true if argvs.reason == 'suspend'
+          return true if match(argvs.diagnosticcode)
           return false
         end
 

@@ -93,7 +93,6 @@ module Sisimai
           next unless data
           bouncedata.concat(data) if data.size > 0
         end
-
       else
         # The value of "input" neither "email" nor "json"
         raise ' ***error: invalid value of "input"'
@@ -116,7 +115,7 @@ module Sisimai
       return nil unless argv0
 
       nyaan = Sisimai.make(argv0, argv1) || []
-      if RUBY_PLATFORM =~ /java/
+      if RUBY_PLATFORM.include?('java')
         # java-based ruby environment like JRuby.
         require 'jrjackson'
         jsonstring = JrJackson::Json.dump(nyaan)
@@ -130,7 +129,7 @@ module Sisimai
     # Parser engine list (MTA modules)
     # @return   [Hash]     Parser engine table
     def engine
-      names = %w|Bite::Email Bite::JSON ARF RFC3464 RFC3834|
+      names = %w[Bite::Email Bite::JSON ARF RFC3464 RFC3834]
       table = {}
 
       names.each do |e|
@@ -162,8 +161,7 @@ module Sisimai
       names = Sisimai::Reason.index
 
       # These reasons are not included in the results of Sisimai::Reason.index
-      names.concat(%w|Delivered Feedback Undefined Vacation|)
-
+      names.concat(%w[Delivered Feedback Undefined Vacation])
       names.each do |e|
         # Call .description() method of Sisimai::Reason::*
         r = 'Sisimai::Reason::' << e

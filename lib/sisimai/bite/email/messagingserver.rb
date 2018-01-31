@@ -9,16 +9,9 @@ module Sisimai::Bite::Email
       require 'sisimai/rfc5322'
 
       Indicators = Sisimai::Bite::Email.INDICATORS
-      StartingOf = {
-        message: ['This report relates to a message you sent with the following header fields:'],
-      }.freeze
-      MarkingsOf = {
-        rfc822: %r!\A(?:Content-type:[ ]*message/rfc822|Return-path:[ ]*)!x,
-      }.freeze
-
-      ReFailure = {
-        hostunknown: %r|Illegal[ ]host/domain[ ]name[ ]found|x,
-      }.freeze
+      StartingOf = { message: ['This report relates to a message you sent with the following header fields:'] }.freeze
+      MarkingsOf = { rfc822: %r!\A(?:Content-type:[ ]*message/rfc822|Return-path:[ ]*)! }.freeze
+      ReFailures = { hostunknown: %r|Illegal host/domain name found| }.freeze
 
       def description; return 'Oracle Communications Messaging Server'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -79,7 +72,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -145,7 +137,6 @@ module Sisimai::Bite::Email
                 v['lhost'] = cv[1]
                 v['rhost'] = cv[2] unless remotehost =~ /[^.]+[.][^.]+/
               end
-
             else
               # Original-envelope-id: 0NFC009FLKOUVMA0@mr21p30im-asmtp004.me.com
               # Reporting-MTA: dns;mr21p30im-asmtp004.me.com (tcp-daemon)
@@ -159,16 +150,16 @@ module Sisimai::Bite::Email
               #  (6jo.example.jp ESMTP SENDMAIL-VM)
               # Diagnostic-code: smtp;550 5.1.1 <kijitora@example.jp>... User Unknown
               #
-              if cv = e.match(/\A[Ss]tatus:[ ]*(\d[.]\d[.]\d)[ ]*[(](.+)[)]\z/)
+              if cv = e.match(/\AStatus:[ ]*(\d[.]\d[.]\d)[ ]*[(](.+)[)]\z/)
                 # Status: 5.1.1 (Remote SMTP server has rejected address)
                 v['status'] = cv[1]
                 v['diagnosis'] ||= cv[2]
 
-              elsif cv = e.match(/\A[Aa]rrival-[Dd]ate:[ ]*(.+)\z/)
+              elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
                 # Arrival-date: Thu, 29 Apr 2014 23:34:45 +0000 (GMT)
                 v['date'] ||= cv[1]
 
-              elsif cv = e.match(/\A[Rr]eporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
+              elsif cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                 # Reporting-MTA: dns;mr21p30im-asmtp004.me.com (tcp-daemon)
                 localhost = cv[1]
                 v['lhost'] ||= localhost
@@ -178,15 +169,15 @@ module Sisimai::Bite::Email
           end
         end
         return nil if recipients.zero?
-        require 'sisimai/string'
 
+        require 'sisimai/string'
         dscontents.map do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
-          ReFailure.each_key do |r|
+          ReFailures.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailure[r]
+            next unless e['diagnosis'] =~ ReFailures[r]
             e['reason'] = r.to_s
             break
           end

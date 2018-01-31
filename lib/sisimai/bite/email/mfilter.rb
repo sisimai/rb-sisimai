@@ -13,9 +13,7 @@ module Sisimai::Bite::Email
         command: ['-------SMTP command'],
         rfc822:  ['-------original message', '--------original mail info'],
       }.freeze
-      MarkingsOf = {
-        message: %r/\A[^ ]+[@][^ ]+[.][a-zA-Z]+\z/,
-      }.freeze
+      MarkingsOf = { message: %r/\A[^ ]+[@][^ ]+[.][a-zA-Z]+\z/ }.freeze
 
       def description; return 'Digital Arts m-FILTER'; end
       def smtpagent;   return 'Email::mFILTER'; end
@@ -37,8 +35,7 @@ module Sisimai::Bite::Email
         return nil unless mbody
 
         # :'from'     => %r/\AMailer Daemon [<]MAILER-DAEMON[@]/,
-        return nil unless mhead['x-mailer']
-        return nil unless mhead['x-mailer'] == 'm-FILTER'
+        return nil unless mhead['x-mailer'].to_s == 'm-FILTER'
         return nil unless mhead['subject'] == 'failure notice'
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -72,7 +69,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -111,7 +107,6 @@ module Sisimai::Bite::Email
               # DATA
               next if v['command']
               v['command'] = e if markingset['command']
-
             else
               # Get error message and SMTP command
               if e == StartingOf[:error][0]
@@ -121,7 +116,6 @@ module Sisimai::Bite::Email
               elsif e == StartingOf[:command][0]
                 # -------SMTP command
                 markingset['command'] = true
-
               else
                 # 550 5.1.1 unknown user <kijitora@example.jp>
                 next if e.start_with?('-')
@@ -132,8 +126,8 @@ module Sisimai::Bite::Email
           end
         end
         return nil if recipients.zero?
-        require 'sisimai/string'
 
+        require 'sisimai/string'
         dscontents.map do |e|
           if mhead['received'].size > 0
             # Get localhost and remote host name from Received header.
@@ -143,7 +137,7 @@ module Sisimai::Bite::Email
             e['lhost'] ||= Sisimai::RFC5322.received(rheads[0]).shift
             rhosts.each do |ee|
               # Avoid "... by m-FILTER"
-              next unless ee =~ /[.]/
+              next unless ee.include?('.')
               e['rhost'] = ee
             end
           end

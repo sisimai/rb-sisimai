@@ -17,9 +17,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/PolicyViolation.pm
       class << self
         def text; return 'policyviolation'; end
-        def description
-          return 'Email rejected due to policy violation on a destination host'
-        end
+        def description; return 'Email rejected due to policy violation on a destination host'; end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions

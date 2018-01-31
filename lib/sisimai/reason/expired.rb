@@ -10,9 +10,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/Expired.pm
       class << self
         def text; return 'expired'; end
-        def description
-          return 'Delivery time has expired due to a connection failure'
-        end
+        def description; return 'Delivery time has expired due to a connection failure'; end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
@@ -48,9 +46,7 @@ module Sisimai
         # @return   [True,False]            true: is expired
         #                                   false: is not expired
         # @see      http://www.ietf.org/rfc/rfc2822.txt
-        def true(_argvs)
-          return nil
-        end
+        def true(_argvs); return nil; end
 
       end
     end

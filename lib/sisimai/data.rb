@@ -57,7 +57,6 @@ module Sisimai
 
       return nil unless as.is_a? Sisimai::Address
       return nil unless ar.is_a? Sisimai::Address
-
       return nil if as.void
       return nil if ar.void
 
@@ -103,7 +102,6 @@ module Sisimai
       rfc822data = messageobj.rfc822
       fieldorder = { :recipient => [], :addresser => [] }
       objectlist = []
-      commandset = %w[EHLO HELO MAIL RCPT DATA QUIT]
       givenorder = argvs[:order] || {}
       delivered1 = argvs[:delivered] || false
 
@@ -126,10 +124,10 @@ module Sisimai
 
       fieldorder.each_key do |e|
         # If the order is empty, use default order.
-        if fieldorder[e].empty?
-          # Load default order of each accessor.
-          fieldorder[e] = AddrHeader[e]
-        end
+        next if fieldorder[e].size > 0
+
+        # Load default order of each accessor.
+        fieldorder[e] = AddrHeader[e]
       end
 
       messageobj.ds.each do |e|
@@ -184,9 +182,7 @@ module Sisimai
         datestring = nil
         zoneoffset = 0
         datevalues = []
-        if e['date'] && e['date'].size > 0
-          datevalues << e['date']
-        end
+        datevalues << e['date'] if e['date'].to_s.size > 0
 
         # Date information did not exist in message/delivery-status part,...
         RFC822Head[:date].each do |f|
@@ -195,10 +191,8 @@ module Sisimai
           datevalues << rfc822data[f.downcase]
         end
 
-        if datevalues.size < 2
-          # Set "date" getting from the value of "Date" in the bounce message
-          datevalues << messageobj.header['date']
-        end
+        # Set "date" getting from the value of "Date" in the bounce message
+        datevalues << messageobj.header['date'] if datevalues.size < 2
 
         datevalues.each do |v|
           # Parse each date value in the array
@@ -230,22 +224,19 @@ module Sisimai
         recvheader = mailheader['received'] || []
         if recvheader.size > 0
           # Get localhost and remote host name from Received header.
-          %w|lhost rhost|.each { |a| e[a] ||= '' }
+          %w[lhost rhost].each { |a| e[a] ||= '' }
           e['lhost'] = Sisimai::RFC5322.received(recvheader[0]).shift if e['lhost'].empty?
           e['rhost'] = Sisimai::RFC5322.received(recvheader[-1]).pop  if e['rhost'].empty?
         end
 
         # Remove square brackets and curly brackets from the host variable
-        %w|rhost lhost|.each do |v|
+        %w[rhost lhost].each do |v|
           p[v] = p[v].delete('[]()')    # Remove square brackets and curly brackets from the host variable
           p[v] = p[v].sub(/\A.+=/, '')  # Remove string before "="
           p[v] = p[v].chomp("\r")       # Remove CR at the end of the value
 
-          # Check space character in each value
-          if p[v] =~ / /
-            # Get the first element
-            p[v] = p[v].split(' ', 2).shift
-          end
+          # Check space character in each value and get the first element
+          p[v] = p[v].split(' ', 2).shift if p[v].include?(' ')
         end
 
         # Subject: header of the original message
@@ -262,7 +253,7 @@ module Sisimai
           end
           p['listid'] = p['listid'].delete('<>')
           p['listid'] = p['listid'].chomp("\r")
-          p['listid'] = '' if p['listid'] =~ / /
+          p['listid'] = '' if p['listid'].include?(' ')
         end
 
         # The value of "Message-Id" header
@@ -313,10 +304,10 @@ module Sisimai
           end
         end
         p['diagnostictype'] ||= 'X-UNIX' if p['reason'] == 'mailererror'
-        p['diagnostictype'] ||= 'SMTP' unless ['feedback', 'vacation'].include?(p['reason'])
+        p['diagnostictype'] ||= 'SMTP' unless %w[feedback vacation].index(p['reason'])
 
         # Check the value of SMTP command
-        p['smtpcommand'] = '' unless commandset.include?(p['smtpcommand'])
+        p['smtpcommand'] = '' unless %w[EHLO HELO MAIL RCPT DATA QUIT].index(p['smtpcommand'])
 
         # Check the value of "action"
         if p['action'].size > 0
@@ -325,7 +316,7 @@ module Sisimai
             p['action'] = cv[1]
           end
 
-          unless %w[failed delayed delivered relayed expanded].include?(p['action'])
+          unless %w[failed delayed delivered relayed expanded].index(p['action'])
             # The value of "action" is not in the following values:
             # "failed" / "delayed" / "delivered" / "relayed" / "expanded"
             ActionHead.each_key do |q|
@@ -338,7 +329,7 @@ module Sisimai
           if p['reason'] == 'expired'
             # Action: delayed
             p['action'] = 'delayed'
-          elsif p['deliverystatus'] =~ /\A[45]/
+          elsif p['deliverystatus'].start_with?('5', '4')
             # Action: failed
             p['action'] = 'failed'
           end
@@ -350,16 +341,13 @@ module Sisimai
         if o.reason.empty? || RetryIndex.index(o.reason)
           # Decide the reason of email bounce
           r = ''
-          if Sisimai::Rhost.match(o.rhost)
-            # Remote host dependent error
-            r = Sisimai::Rhost.get(o)
-          end
+          r = Sisimai::Rhost.get(o) if Sisimai::Rhost.match(o.rhost) # Remote host dependent error
           r = Sisimai::Reason.get(o) if r.empty?
           r = 'undefined' if r.empty?
           o.reason = r
         end
 
-        if ['delivered', 'feedback', 'vacation'].include?(o.reason)
+        if %w[delivered feedback vacation].index(o.reason)
           # The value of reason is "vacation" or "feedback"
           o.softbounce = -1
           o.replycode = '' unless o.reason == 'delivered'
@@ -428,7 +416,7 @@ module Sisimai
     def damn
       data = {}
       @@rwaccessors.each do |e|
-        next if %w[addresser recipient timestamp].include?(e.to_s)
+        next if %w[addresser recipient timestamp].index(e.to_s)
         data[e.to_s] = self.send(e) || ''
       end
       data['addresser'] = self.addresser.address
@@ -443,7 +431,7 @@ module Sisimai
     # @return   [String, Nil]   Dumped data or nil if the value of the first
     #                           argument is neither "json" nor "yaml"
     def dump(type = 'json')
-      return nil unless %w|json yaml|.index(type)
+      return nil unless %w[json yaml].index(type)
       referclass = 'Sisimai::Data::' << type.upcase
 
       begin

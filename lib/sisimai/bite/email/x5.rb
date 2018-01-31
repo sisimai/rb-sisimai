@@ -33,7 +33,7 @@ module Sisimai::Bite::Email
         require 'sisimai/mime'
 
         match  = 0
-        match += 1 if mhead['to'] && mhead['to'].include?('NotificationRecipients')
+        match += 1 if mhead['to'].to_s.include?('NotificationRecipients')
         if mhead['from'].include?('TWFpbCBEZWxpdmVyeSBTdWJzeXN0ZW0')
           # From: "=?iso-2022-jp?B?TWFpbCBEZWxpdmVyeSBTdWJzeXN0ZW0=?=" <...>
           #       Mail Delivery Subsystem
@@ -87,7 +87,7 @@ module Sisimai::Bite::Email
             next if e.empty?
             v = dscontents[-1]
 
-            if cv = e.match(/\A[Ff]inal-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
+            if cv = e.match(/\AFinal-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
               # Final-Recipient: RFC822; kijitora@example.jp
               if v['recipient']
                 # There are multiple recipient addresses in the message body.
@@ -97,42 +97,40 @@ module Sisimai::Bite::Email
               v['recipient'] = cv[1]
               recipients += 1
 
-            elsif cv = e.match(/\A[Xx]-[Aa]ctual-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/) ||
-                       e.match(/\A[Oo]riginal-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
+            elsif cv = e.match(/\AX-Actual-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/) ||
+                       e.match(/\AOriginal-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
               # X-Actual-Recipient: RFC822; kijitora@example.co.jp
               # Original-Recipient: rfc822;kijitora@example.co.jp
               v['alias'] = cv[1]
 
-            elsif cv = e.match(/\A[Aa]ction:[ ]*(.+)\z/)
+            elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
               # Action: failed
               v['action'] = cv[1].downcase
 
-            elsif cv = e.match(/\A[Ss]tatus:[ ]*(\d[.]\d+[.]\d+)/)
+            elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
               # Status: 5.1.1
               v['status'] = cv[1]
 
-            elsif cv = e.match(/\A[Rr]eporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
+            elsif cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
               # Reporting-MTA: dns; mx.example.jp
               v['lhost'] = cv[1].downcase
 
-            elsif cv = e.match(/\A[Rr]emote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
+            elsif cv = e.match(/\ARemote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
               # Remote-MTA: DNS; mx.example.jp
               v['rhost'] = cv[1].downcase
 
-            elsif cv = e.match(/\A[Ll]ast-[Aa]ttempt-[Dd]ate:[ ]*(.+)\z/)
+            elsif cv = e.match(/\ALast-Attempt-Date:[ ]*(.+)\z/)
               # Last-Attempt-Date: Fri, 14 Feb 2014 12:30:08 -0500
               v['date'] = cv[1]
-
             else
               # Get an error message from Diagnostic-Code: field
-              if cv = e.match(/\A[Dd]iagnostic-[Cc]ode:[ ]*(.+?);[ ]*(.+)\z/)
+              if cv = e.match(/\ADiagnostic-Code:[ ]*(.+?);[ ]*(.+)\z/)
                 # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
                 v['spec'] = cv[1].downcase
                 v['diagnosis'] = cv[2]
 
-              elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A[ \t]+(.+)\z/)
+              elsif p.start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
                 # Continued line of the value of Diagnostic-Code header
-                v['diagnosis'] ||= ''
                 v['diagnosis'] << ' ' << cv[1]
                 havepassed[-1] = 'Diagnostic-Code: ' << e
               end
@@ -148,12 +146,11 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           end
         end
         return nil if recipients.zero?
-        require 'sisimai/string'
 
+        require 'sisimai/string'
         dscontents.map do |e|
           e['agent']       = self.smtpagent
           e['diagnosis'] ||= Sisimai::String.sweep(e['diagnosis'])

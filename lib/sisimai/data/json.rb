@@ -13,7 +13,7 @@ module Sisimai
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
 
-          if RUBY_PLATFORM =~ /java/
+          if RUBY_PLATFORM.include?('java')
             # java-based ruby environment like JRuby.
             begin
               require 'jrjackson'

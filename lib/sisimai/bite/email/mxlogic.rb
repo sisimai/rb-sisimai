@@ -14,14 +14,12 @@ module Sisimai::Bite::Email
         rfc822:  ['Included is a copy of the message header:'],
       }.freeze
 
-      ReCommand = [
+      ReCommands = [
         %r/SMTP error from remote (?:mail server|mailer) after ([A-Za-z]{4})/,
         %r/SMTP error from remote (?:mail server|mailer) after end of ([A-Za-z]{4})/,
       ].freeze
-      ReFailure = {
-        userunknown: %r{
-            user[ ]not[ ]found
-        }x,
+      ReFailures = {
+        userunknown: %r/user not found/,
         hostunknown: %r{(?>
              all[ ](?:
                  host[ ]address[ ]lookups[ ]failed[ ]permanently
@@ -30,12 +28,8 @@ module Sisimai::Bite::Email
             |Unrouteable[ ]address
             )
         }x,
-        mailboxfull: %r{(?:
-             mailbox[ ]is[ ]full:?
-            |error:[ ]quota[ ]exceed
-            )
-        }x,
-        notaccept: %r{(?:
+        mailboxfull: %r/(?:mailbox is full:?|error: quota exceed)/,
+        notaccept:   %r{(?:
              an[ ]MX[ ]or[ ]SRV[ ]record[ ]indicated[ ]no[ ]SMTP[ ]service
             |no[ ]host[ ]found[ ]for[ ]existing[ ]SMTP[ ]connection
             )
@@ -46,11 +40,9 @@ module Sisimai::Bite::Email
             |LMTP[ ]error[ ]after[ ]
             )
         }x,
-        contenterror: %r{
-            Too[ ]many[ ]["]Received["][ ]headers
-        }x,
+        contenterror: %r/Too many ["]Received["] headers/,
       }.freeze
-      ReDelayed = %r{(?:
+      ReDelaying = %r{(?:
          retry[ ]timeout[ ]exceeded
         |No[ ]action[ ]is[ ]required[ ]on[ ]your[ ]part
         |retry[ ]time[ ]not[ ]reached[ ]for[ ]any[ ]host[ ]after[ ]a[ ]long[ ]failure[ ]period
@@ -130,7 +122,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -163,7 +154,6 @@ module Sisimai::Bite::Email
             elsif dscontents.size == recipients
               # Error message
               next if e.empty?
-              v['diagnosis'] ||= ''
               v['diagnosis'] << e + ' '
             end
           end
@@ -194,16 +184,14 @@ module Sisimai::Bite::Email
             end
 
             unless e['rhost']
-              if mhead['received'].size > 0
-                # Get localhost and remote host name from Received header.
-                e['rhost'] = Sisimai::RFC5322.received(mhead['received'][-1]).pop
-              end
+              # Get localhost and remote host name from Received header.
+              e['rhost'] = Sisimai::RFC5322.received(mhead['received'][-1]).pop if mhead['received'].size > 0
             end
           end
 
           unless e['command']
             # Get the SMTP command name for the session
-            ReCommand.each do |r|
+            ReCommands.each do |r|
               # Verify each regular expression of SMTP commands
               if cv = e['diagnosis'].match(r)
                 e['command'] = cv[1].upcase
@@ -216,22 +204,21 @@ module Sisimai::Bite::Email
               # MAIL | Connected to 192.0.2.135 but sender was rejected.
               e['reason'] = 'rejected'
 
-            elsif ['HELO', 'EHLO'].include?(e['command'])
+            elsif %w[HELO EHLO].index(e['command'])
               # HELO | Connected to 192.0.2.135 but my name was rejected.
               e['reason'] = 'blocked'
-
             else
               # Verify each regular expression of session errors
-              ReFailure.each_key do |r|
+              ReFailures.each_key do |r|
                 # Check each regular expression
-                next unless e['diagnosis'] =~ ReFailure[r]
+                next unless e['diagnosis'] =~ ReFailures[r]
                 e['reason'] = r.to_s
                 break
               end
 
               unless e['reason']
                 # The reason "expired"
-                e['reason'] = 'expired' if e['diagnosis'] =~ ReDelayed
+                e['reason'] = 'expired' if e['diagnosis'] =~ ReDelaying
               end
             end
           end

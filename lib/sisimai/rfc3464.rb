@@ -95,15 +95,14 @@ module Sisimai
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next unless readcursor & Indicators[:deliverystatus] > 0
             next unless e.size > 0
 
             v = dscontents[-1]
-            if cv = e.match(/\A(?:[Ff]inal|[Oo]riginal)-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/) ||
-                    e.match(/\A(?:[Ff]inal|[Oo]riginal)-[Rr]ecipient:[ ]*([^ ]+)\z/)
+            if cv = e.match(/\A(?:Final|Original)-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/) ||
+                    e.match(/\A(?:Final|Original)-Recipient:[ ]*([^ ]+)\z/)
               # 2.3.2 Final-Recipient field
               #   The Final-Recipient field indicates the recipient for which this set
               #   of per-recipient fields applies.  This field MUST be present in each
@@ -133,17 +132,15 @@ module Sisimai
               v['recipient'] = y
               recipients += 1
 
-            elsif cv = e.match(/\A[Xx]-[Aa]ctual-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
+            elsif cv = e.match(/\AX-Actual-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
               # X-Actual-Recipient:
               if cv[1] =~ /[ \t]+/
                 # X-Actual-Recipient: RFC822; |IFS=' ' && exec procmail -f- || exit 75 ...
-
               else
                 # X-Actual-Recipient: rfc822; kijitora@neko.example.jp
                 v['alias'] = cv[1]
               end
-
-            elsif cv = e.match(/\A[Aa]ction:[ ]*(.+)\z/)
+            elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
               # 2.3.3 Action field
               #   The Action field indicates the action performed by the Reporting-MTA
               #   as a result of its attempt to deliver the message to this recipient
@@ -163,8 +160,7 @@ module Sisimai
                 # failed (bad destination mailbox address)
                 v['action'] = cv[1]
               end
-
-            elsif cv = e.match(/\A[Ss]tatus:[ ]*(\d[.]\d+[.]\d+)/)
+            elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
               # 2.3.4 Status field
               #   The per-recipient Status field contains a transport-independent
               #   status code that indicates the delivery status of the message to that
@@ -177,11 +173,11 @@ module Sisimai
               #       status-code = DIGIT "." 1*3DIGIT "." 1*3DIGIT
               v['status'] = cv[1]
 
-            elsif cv = e.match(/\A[Ss]tatus:[ ]*(\d+[ ]+.+)\z/)
+            elsif cv = e.match(/\AStatus:[ ]*(\d+[ ]+.+)\z/)
               # Status: 553 Exceeded maximum inbound message size
               v['alterrors'] = cv[1]
 
-            elsif cv = e.match(/\A[Rr]emote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
+            elsif cv = e.match(/\ARemote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
               # 2.3.5 Remote-MTA field
               #   The value associated with the Remote-MTA DSN field is a printable
               #   ASCII representation of the name of the "remote" MTA that reported
@@ -197,7 +193,7 @@ module Sisimai
               #   involved in the attempted delivery of the message to that recipient.
               v['rhost'] = cv[1].downcase
 
-            elsif cv = e.match(/\A[Ll]ast-[Aa]ttempt-[Dd]ate:[ ]*(.+)\z/)
+            elsif cv = e.match(/\ALast-Attempt-Date:[ ]*(.+)\z/)
               # 2.3.7 Last-Attempt-Date field
               #   The Last-Attempt-Date field gives the date and time of the last
               #   attempt to relay, gateway, or deliver the message (whether successful
@@ -211,9 +207,8 @@ module Sisimai
               #
               #       last-attempt-date-field = "Last-Attempt-Date" ":" date-time
               v['date'] = cv[1]
-
             else
-              if cv = e.match(/\A[Dd]iagnostic-[Cc]ode:[ ]*(.+?);[ ]*(.+)\z/)
+              if cv = e.match(/\ADiagnostic-Code:[ ]*(.+?);[ ]*(.+)\z/)
                 # 2.3.6 Diagnostic-Code field
                 #   For a "failed" or "delayed" recipient, the Diagnostic-Code DSN field
                 #   contains the actual diagnostic code issued by the mail transport.
@@ -226,18 +221,17 @@ module Sisimai
                 v['spec'] = cv[1].upcase
                 v['diagnosis'] = cv[2]
 
-              elsif cv = e.match(/\A[Dd]iagnostic-[Cc]ode:[ ]*(.+)\z/)
+              elsif cv = e.match(/\ADiagnostic-Code:[ ]*(.+)\z/)
                 # No value of "diagnostic-type"
                 # Diagnostic-Code: 554 ...
                 v['diagnosis'] = cv[1]
 
-              elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A[ \t]+(.+)\z/)
+              elsif p.start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
                 # Continued line of the value of Diagnostic-Code header
                 v['diagnosis'] << ' ' << cv[1]
                 e = 'Diagnostic-Code: ' << e
-
               else
-                if cv = e.match(/\A[Rr]eporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
+                if cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                   # 2.2.2 The Reporting-MTA DSN field
                   #
                   #       reporting-mta-field =
@@ -252,7 +246,7 @@ module Sisimai
                   #   operation described in the DSN.  This field is required.
                   connheader['rhost'] ||= cv[1].downcase
 
-                elsif cv = e.match(/\A[Rr]eceived-[Ff]rom-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
+                elsif cv = e.match(/\AReceived-From-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                   # 2.2.4 The Received-From-MTA DSN field
                   #   The optional Received-From-MTA field indicates the name of the MTA
                   #   from which the message was received.
@@ -267,7 +261,7 @@ module Sisimai
                   #   parentheses.  (In this case, the MTA-name-type will be "dns".)
                   connheader['lhost'] = cv[1].downcase
 
-                elsif cv = e.match(/\A[Aa]rrival-[Dd]ate:[ ]*(.+)\z/)
+                elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
                   # 2.2.5 The Arrival-Date DSN field
                   #   The optional Arrival-Date field indicates the date and time at which
                   #   the message arrived at the Reporting MTA.  If the Last-Attempt-Date
@@ -277,7 +271,6 @@ module Sisimai
                   #
                   #       arrival-date-field = "Arrival-Date" ":" date-time
                   connheader['date'] = cv[1]
-
                 else
                   # Get error message
                   next if e.start_with?(' ', '-')
@@ -291,7 +284,6 @@ module Sisimai
               end
             end
           end # End of if: rfc822
-
         end
 
         while true
@@ -300,7 +292,7 @@ module Sisimai
           match = 0
 
           # Failed to get a recipient address at code above
-          match += 1 if mhead['from'] =~ /\b(?:postmaster|mailer-daemon|root)[@]/i
+          match += 1 if mhead['from'].downcase =~ /\b(?:postmaster|mailer-daemon|root)[@]/
           match += 1 if mhead['subject'] =~ %r{(?>
              delivery[ ](?:failed|failure|report)
             |failure[ ]notice
@@ -314,7 +306,7 @@ module Sisimai
 
           if mhead['return-path']
             # Check the value of Return-Path of the message
-            match += 1 if mhead['return-path'] =~ /(?:[<][>]|mailer-daemon)/i
+            match += 1 if mhead['return-path'].downcase =~ /(?:[<][>]|mailer-daemon)/
           end
           break unless match > 0
 
@@ -424,21 +416,18 @@ module Sisimai
             next unless cv = e.match(/\ATo:\s*(.+)\z/)
             r = Sisimai::Address.find(cv[1], true) || []
             next if r.empty?
+            dscontents << Sisimai::Bite::Email.DELIVERYSTATUS if dscontents.size == recipients
 
-            if dscontents.size == recipients
-              dscontents << Sisimai::Bite::Email.DELIVERYSTATUS
-            end
             b = dscontents[-1]
             b['recipient'] = r[0][:address]
             b['agent'] = Sisimai::RFC3464.smtpagent + '::Fallback'
             recipients += 1
           end
         end
+        return nil if recipients.zero?
 
-        return nil unless recipients > 0
         require 'sisimai/string'
         require 'sisimai/smtp/status'
-
         dscontents.map do |e|
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
@@ -460,7 +449,6 @@ module Sisimai
             e['reason']    = scannedset['reason'] || 'undefined'
             e['diagnosis'] = scannedset['message'] if scannedset['message'].size > 0
             e['command']   = ''
-
           else
             # Set the value of smtpagent
             e['agent'] = self.smtpagent

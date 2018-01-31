@@ -43,16 +43,16 @@ module Sisimai::Bite::Email
       ReSMTP = {
         # Error text regular expressions which defined in qmail-remote.c
         # qmail-remote.c:225|  if (smtpcode() != 220) quit("ZConnected to "," but greeting failed");
-        conn: %r/(?:Error:)?Connected[ ]to[ ].+[ ]but[ ]greeting[ ]failed[.]/x,
+        conn: %r/(?:Error:)?Connected to .+ but greeting failed[.]/,
         # qmail-remote.c:231|  if (smtpcode() != 250) quit("ZConnected to "," but my name was rejected");
-        ehlo: %r/(?:Error:)?Connected[ ]to[ ].+[ ]but[ ]my[ ]name[ ]was[ ]rejected[.]/x,
+        ehlo: %r/(?:Error:)?Connected to .+ but my name was rejected[.]/,
         # qmail-remote.c:238|  if (code >= 500) quit("DConnected to "," but sender was rejected");
         # reason = rejected
-        mail: %r/(?:Error:)?Connected[ ]to[ ].+[ ]but[ ]sender[ ]was[ ]rejected[.]/x,
+        mail: %r/(?:Error:)?Connected to .+ but sender was rejected[.]/,
         # qmail-remote.c:249|  out("h"); outhost(); out(" does not like recipient.\n");
         # qmail-remote.c:253|  out("s"); outhost(); out(" does not like recipient.\n");
         # reason = userunknown
-        rcpt: %r/(?:Error:)?.+[ ]does[ ]not[ ]like[ ]recipient[.]/x,
+        rcpt: %r/(?:Error:)?.+ does not like recipient[.]/,
         # qmail-remote.c:265|  if (code >= 500) quit("D"," failed on DATA command");
         # qmail-remote.c:266|  if (code >= 400) quit("Z"," failed on DATA command");
         # qmail-remote.c:271|  if (code >= 500) quit("D"," failed after I sent the message");
@@ -96,26 +96,24 @@ module Sisimai::Bite::Email
           )
         }x,
       }.freeze
-      # userunknown + expired
-      ReOnHold  = %r/\A[^ ]+ does not like recipient[.][ ]+.+this message has been in the queue too long[.]\z/
-      # qmail-remote-fallback.patch
-      ReCommand = %r/Sorry,[ ]no[ ]SMTP[ ]connection[ ]got[ ]far[ ]enough;[ ]most[ ]progress[ ]was[ ]([A-Z]{4})[ ]/x
-      ReFailure = {
+
+      # qmail-send.c:922| ... (&dline[c],"I'm not going to try again; this message has been in the queue too long.\n")) nomem();
+      ReDelaying = %r/this message has been in the queue too long[.]\z/
+      ReIsOnHold = %r/\A[^ ]+ does not like recipient[.][ ]+.+this message has been in the queue too long[.]\z/
+      ReCommands = %r/Sorry, no SMTP connection got far enough; most progress was ([A-Z]{4})[ ]/
+      ReFailures = {
         # qmail-local.c:589|  strerr_die1x(100,"Sorry, no mailbox here by that name. (#5.1.1)");
         # qmail-remote.c:253|  out("s"); outhost(); out(" does not like recipient.\n");
-        userunknown: %r{(?:
-           no[ ]mailbox[ ]here[ ]by[ ]that[ ]name
-          |[ ]does[ ]not[ ]like[ ]recipient[.]
-          )
-        }x,
+        userunknown: %r/(?:no mailbox here by that name | does not like recipient[.])/,
         # error_str.c:192|  X(EDQUOT,"disk quota exceeded")
-        mailboxfull: %r/disk[ ]quota[ ]exceeded/x,
+        mailboxfull: %r/disk quota exceeded/,
         # qmail-qmtpd.c:233| ... result = "Dsorry, that message size exceeds my databytes limit (#5.3.4)";
         # qmail-smtpd.c:391| ... out("552 sorry, that message size exceeds my databytes limit (#5.3.4)\r\n"); return;
-        mesgtoobig:  %r/Message[ ]size[ ]exceeds[ ]fixed[ ]maximum[ ]message[ ]size:/x,
+        mesgtoobig:  %r/Message size exceeds fixed maximum message size:/,
         # qmail-remote.c:68|  Sorry, I couldn't find any host by that name. (#4.1.2)\n"); zerodie();
         # qmail-remote.c:78|  Sorry, I couldn't find any host named ");
-        hostunknown: %r/\ASorry[,][ ]I[ ]couldn[']t[ ]find[ ]any[ ]host[ ]/x,
+        hostunknown: %r/\ASorry, I couldn't find any host /,
+        systemfull:  %r/Requested action not taken: mailbox unavailable [(]not enough free space[)]/,
         systemerror: %r{(?>
            bad[ ]interpreter:[ ]No[ ]such[ ]file[ ]or[ ]directory
           |system[ ]error
@@ -128,10 +126,7 @@ module Sisimai::Bite::Email
           |[.][ ]Although[ ]I[']m[ ]listed[ ]as[ ]a[ ]best[-]preference[ ]MX[ ]or[ ]A[ ]for[ ]that[ ]host
           )
         }x,
-        systemfull: %r/Requested action not taken: mailbox unavailable [(]not enough free space[)]/,
       }.freeze
-      # qmail-send.c:922| ... (&dline[c],"I'm not going to try again; this message has been in the queue too long.\n")) nomem();
-      ReDelayed = %r/this[ ]message[ ]has[ ]been[ ]in[ ]the[ ]queue[ ]too[ ]long[.]\z/x
 
       def description; return 'Unknown MTA #4'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -195,7 +190,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -232,8 +226,8 @@ module Sisimai::Bite::Email
           end
         end
         return nil if recipients.zero?
-        require 'sisimai/string'
 
+        require 'sisimai/string'
         dscontents.map do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
@@ -249,7 +243,7 @@ module Sisimai::Bite::Email
 
             unless e['command']
               # Verify each regular expression of patches
-              if cv = e['diagnosis'].match(ReCommand)
+              if cv = e['diagnosis'].match(ReCommands)
                 e['command'] = cv[1].upcase
               end
               e['command'] ||= ''
@@ -261,28 +255,26 @@ module Sisimai::Bite::Email
             # MAIL | Connected to 192.0.2.135 but sender was rejected.
             e['reason'] = 'rejected'
 
-          elsif ['HELO', 'EHLO'].include?(e['command'])
+          elsif %w[HELO EHLO].index(e['command'])
             # HELO | Connected to 192.0.2.135 but my name was rejected.
             e['reason'] = 'blocked'
-
           else
             # Try to match with each error message in the table
-            if e['diagnosis'] =~ ReOnHold
+            if e['diagnosis'] =~ ReIsOnHold
               # To decide the reason require pattern match with
               # Sisimai::Reason::* modules
               e['reason'] = 'onhold'
-
             else
-              ReFailure.each_key do |r|
+              ReFailures.each_key do |r|
                 # Verify each regular expression of session errors
                 if e['alterrors']
                   # Check the value of "alterrors"
-                  next unless e['alterrors'] =~ ReFailure[r]
+                  next unless e['alterrors'] =~ ReFailures[r]
                   e['reason'] = r.to_s
                 end
                 break if e['reason']
 
-                next unless e['diagnosis'] =~ ReFailure[r]
+                next unless e['diagnosis'] =~ ReFailures[r]
                 e['reason'] = r.to_s
                 break
               end
@@ -297,7 +289,7 @@ module Sisimai::Bite::Email
               end
 
               unless e['reason']
-                e['reason'] = 'expired' if e['diagnosis'] =~ ReDelayed
+                e['reason'] = 'expired' if e['diagnosis'] =~ ReDelaying
               end
             end
           end

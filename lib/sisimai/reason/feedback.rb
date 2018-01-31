@@ -6,9 +6,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/Feedback.pm
       class << self
         def text; return 'feedback'; end
-        def description
-          return 'Email forwarded to the sender as a complaint message from your mailbox provider'
-        end
+        def description; return 'Email forwarded to the sender as a complaint message from your mailbox provider'; end
         def match;   return nil; end
         def true(*); return nil; end
       end

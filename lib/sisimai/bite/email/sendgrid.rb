@@ -83,7 +83,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -97,7 +96,7 @@ module Sisimai::Bite::Email
               # Diagnostic-Code: 550 5.1.1 <kijitora@example.jp>... User Unknown
               v = dscontents[-1]
 
-              if cv = e.match(/\A[Ff]inal-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
+              if cv = e.match(/\AFinal-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
                 # Final-Recipient: RFC822; userunknown@example.jp
                 if v['recipient']
                   # There are multiple recipient addresses in the message body.
@@ -107,24 +106,23 @@ module Sisimai::Bite::Email
                 v['recipient'] = cv[1]
                 recipients += 1
 
-              elsif cv = e.match(/\A[Aa]ction:[ ]*(.+)\z/)
+              elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
                 # Action: failed
                 v['action'] = cv[1].downcase
 
-              elsif cv = e.match(/\A[Ss]tatus:[ ]*(\d[.]\d+[.]\d+)/)
+              elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
                 # Status: 5.1.1
                 # Status:5.2.0
                 # Status: 5.1.0 (permanent failure)
                 v['status'] = cv[1]
 
               else
-                if cv = e.match(/\A[Dd]iagnostic-[Cc]ode:[ ]*(.+)\z/)
+                if cv = e.match(/\ADiagnostic-Code:[ ]*(.+)\z/)
                   # Diagnostic-Code: 550 5.1.1 <userunknown@example.jp>... User Unknown
                   v['diagnosis'] = cv[1]
 
-                elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A[ \t]+(.+)\z/)
+                elsif p.start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
                   # Continued line of the value of Diagnostic-Code header
-                  v['diagnosis'] ||= ''
                   v['diagnosis'] << ' ' << cv[1]
                   havepassed[-1] = 'Diagnostic-Code: ' << e
                 end
@@ -153,12 +151,12 @@ module Sisimai::Bite::Email
                 # in RCPT TO, in MAIL FROM, end of DATA
                 commandtxt = cv[1]
 
-              elsif cv = e.match(/\A[Aa]rrival-[Dd]ate:[ ]*(.+)\z/)
+              elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
                 # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
                 next if connheader['date'].size > 0
                 arrivaldate = cv[1]
 
-                if cv = e.match(/\A[Aa]rrival-[Dd]ate: (\d{4})[-](\d{2})[-](\d{2}) (\d{2})[-](\d{2})[-](\d{2})\z/)
+                if cv = e.match(/\AArrival-Date: (\d{4})[-](\d{2})[-](\d{2}) (\d{2})[-](\d{2})[-](\d{2})\z/)
                   # Arrival-Date: 2011-08-12 01-05-05
                   arrivaldate << 'Thu, ' << cv[3] + ' '
                   arrivaldate << Sisimai::DateTime.monthname(0)[cv[2].to_i - 1]
@@ -171,21 +169,20 @@ module Sisimai::Bite::Email
             end
           end
         end
-
         return nil if recipients.zero?
+
         require 'sisimai/string'
         require 'sisimai/smtp/status'
-
         dscontents.map do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
           # Get the value of SMTP status code as a pseudo D.S.N.
           if cv = e['diagnosis'].match(/\b([45])\d\d[ \t]*/)
             # 4xx or 5xx
-            e['status'] = sprintf('%d.0.0', cv[1])
+            e['status'] = cv[1] + '.0.0'
           end
 
-          if e['status'] =~ /[45][.]0[.]0/
+          if e['status'] == '5.0.0' || e['status'] == '4.0.0'
             # Get the value of D.S.N. from the error message or the value of
             # Diagnostic-Code header.
             pseudostatus = Sisimai::SMTP::Status.find(e['diagnosis'])
@@ -195,7 +192,7 @@ module Sisimai::Bite::Email
           if e['action'] == 'expired'
             # Action: expired
             e['reason'] = 'expired'
-            if !e['status'] || e['status'] =~ /[45][.]0[.]0/
+            if !e['status'] || e['status'].end_with?('.0.0')
               # Set pseudo Status code value if the value of Status is not
               # defined or 4.0.0 or 5.0.0.
               pseudostatus = Sisimai::SMTP::Status.code('expired')
