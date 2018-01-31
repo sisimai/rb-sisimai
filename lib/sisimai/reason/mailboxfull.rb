@@ -10,9 +10,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/MailboxFull.pm
       class << self
         def text; return 'mailboxfull'; end
-        def description
-          return "Email rejected due to a recipient's mailbox is full"
-        end
+        def description; return "Email rejected due to a recipient's mailbox is full"; end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
@@ -99,25 +97,17 @@ module Sisimai
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
           return nil unless argvs.deliverystatus.size > 0
-          return true if argvs.reason == Sisimai::Reason::MailboxFull.text
+          return true if argvs.reason == 'mailboxfull'
 
+          # Delivery status code points "mailboxfull".
+          # Status: 4.2.2
+          # Diagnostic-Code: SMTP; 450 4.2.2 <***@example.jp>... Mailbox Full
           require 'sisimai/smtp/status'
-          statuscode = argvs.deliverystatus
-          diagnostic = argvs.diagnosticcode || ''
-          reasontext = Sisimai::Reason::MailboxFull.text
-          v = false
+          return true if Sisimai::SMTP::Status.name(argvs.deliverystatus) == 'mailboxfull'
 
-          if Sisimai::SMTP::Status.name(statuscode) == reasontext
-            # Delivery status code points "mailboxfull".
-            # Status: 4.2.2
-            # Diagnostic-Code: SMTP; 450 4.2.2 <***@example.jp>... Mailbox Full
-            v = true
-          else
-            # Check the value of Diagnosic-Code: header with patterns
-            v = true if Sisimai::Reason::MailboxFull.match(diagnostic)
-          end
-
-          return v
+          # Check the value of Diagnosic-Code: header with patterns
+          return true if match(argvs.diagnosticcode)
+          return false
         end
 
       end

@@ -72,7 +72,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -93,7 +92,6 @@ module Sisimai::Bite::Email
               end
               v['recipient'] = cv[1]
               recipients += 1
-
             else
               if e.start_with?('Remote host said:')
                 # Remote host said: 550 5.1.1 <kijitora@example.org>... User Unknown [RCPT_TO]
@@ -103,7 +101,6 @@ module Sisimai::Bite::Email
                   # Get SMTP command from the value of "Remote host said:"
                   v['command'] = cv[1]
                 end
-
               else
                 # <mailboxfull@example.jp>:
                 # Remote host said:
@@ -120,15 +117,13 @@ module Sisimai::Bite::Email
                     v['diagnosis'] = e
                   end
                 end
-
               end
-
             end
           end
         end
         return nil if recipients.zero?
-        require 'sisimai/string'
 
+        require 'sisimai/string'
         dscontents.map do |e|
           e['diagnosis'] = e['diagnosis'].gsub(/\\n/, ' ')
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])

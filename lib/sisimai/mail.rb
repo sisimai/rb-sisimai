@@ -42,14 +42,12 @@ module Sisimai
             parameter['type'] = 'maildir'
           end
         end
-
       elsif argv1.is_a?(IO)
         # Read from STDIN
         # The argument neither a mailbox nor a Maildir/.
         classname = self.class.to_s << '::STDIN'
         parameter['type'] = 'stdin'
       end
-
       return nil unless classname
 
       classpath = classname.gsub('::', '/').downcase

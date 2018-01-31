@@ -11,8 +11,7 @@ module Sisimai::Bite::Email
         message: ['Your message'],
         rfc822:  ['Content-Type: message/delivery-status'],
       }.freeze
-
-      ReFailure = {
+      ReFailures = {
         userunknown: %r{(?>
            not[ ]listed[ ]in[ ](?:
              Domino[ ]Directory
@@ -21,8 +20,8 @@ module Sisimai::Bite::Email
           |Domino[ ]ディレクトリには見つかりません
           )
         }x,
-        filtered:    %r/Cannot[ ]route[ ]mail[ ]to[ ]user/x,
-        systemerror: %r/Several[ ]matches[ ]found[ ]in[ ]Domino[ ]Directory/x,
+        filtered:    %r/Cannot route mail to user/,
+        systemerror: %r/Several matches found in Domino Directory/,
       }.freeze
 
       def description; return 'IBM Domino Server'; end
@@ -82,7 +81,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -119,10 +117,8 @@ module Sisimai::Bite::Email
             elsif e.start_with?('because:')
               # because:
               v['diagnosis'] = e
-
             else
-
-              if v['diagnosis'] && v['diagnosis'] == 'because:'
+              if v['diagnosis'].to_s == 'because:'
                 # Error message, continued from the line "because:"
                 v['diagnosis'] = e
 
@@ -133,19 +129,18 @@ module Sisimai::Bite::Email
             end
           end
         end
-
         return nil if recipients.zero?
+
         require 'sisimai/string'
         require 'sisimai/smtp/status'
-
         dscontents.map do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           e['recipient'] = Sisimai::Address.s3s4(e['recipient'])
 
-          ReFailure.each_key do |r|
+          ReFailures.each_key do |r|
             # Check each regular expression of Domino error messages
-            next unless e['diagnosis'] =~ ReFailure[r]
+            next unless e['diagnosis'] =~ ReFailures[r]
             e['reason'] = r.to_s
             pseudostatus = Sisimai::SMTP::Status.code(r.to_s, false)
             e['status'] = pseudostatus if pseudostatus.size > 0

@@ -87,7 +87,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -100,7 +99,7 @@ module Sisimai::Bite::Email
               # Status: 4.4.7
               v = dscontents[-1]
 
-              if cv = e.match(/\A[Ff]inal-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
+              if cv = e.match(/\AFinal-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
                 # Final-Recipient: RFC822; kijitora@example.jp
                 if v['recipient']
                   # There are multiple recipient addresses in the message body.
@@ -110,16 +109,15 @@ module Sisimai::Bite::Email
                 v['recipient'] = cv[1]
                 recipients += 1
 
-              elsif cv = e.match(/\A[Aa]ction:[ ]*(.+)\z/)
+              elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
                 # Action: failed
                 v['action'] = cv[1].downcase
 
-              elsif cv = e.match(/\A[Ss]tatus:[ ]*(\d[.]\d+[.]\d+)/)
+              elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
                 # Status: 5.1.1
                 v['status'] = cv[1]
-
               else
-                if cv = e.match(/\A[Dd]iagnostic-[Cc]ode:[ ]*(.+?);[ ]*(.+)\z/)
+                if cv = e.match(/\ADiagnostic-Code:[ ]*(.+?);[ ]*(.+)\z/)
                   # Diagnostic-Code: SMTP; 550 5.1.1 <kijitora@example.jp>... User Unknown
                   v['spec'] = cv[1].upcase
                   v['diagnosis'] = cv[2]
@@ -130,7 +128,7 @@ module Sisimai::Bite::Email
               #
               # Reporting-MTA: dsn; a27-85.smtp-out.us-west-2.amazonses.com
               #
-              if cv = e.match(/\A[Rr]eporting-MTA:[ ]*[DNSdns]+;[ ]*(.+)\z/)
+              if cv = e.match(/\AReporting-MTA:[ ]*[DNSdns]+;[ ]*(.+)\z/)
                 # Reporting-MTA: dns; mx.example.jp
                 next if connheader['lhost'].size > 0
                 connheader['lhost'] = cv[1].downcase
@@ -145,17 +143,15 @@ module Sisimai::Bite::Email
             break if e.start_with?('<!DOCTYPE HTML><html>')
           end
         end
-
         return nil if recipients.zero?
+
         require 'sisimai/string'
         require 'sisimai/smtp/status'
-
         dscontents.map do |e|
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
 
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-
           if e['status'] =~ /\A[45][.][01][.]0\z/
             # Get other D.S.N. value from the error message
             errormessage = e['diagnosis']
@@ -164,6 +160,7 @@ module Sisimai::Bite::Email
               # 5.1.0 - Unknown address error 550-'5.7.1 ...
               errormessage = cv[1]
             end
+
             pseudostatus = Sisimai::SMTP::Status.find(errormessage)
             e['status'] = pseudostatus if pseudostatus.size > 0
           end

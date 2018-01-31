@@ -13,8 +13,7 @@ module Sisimai::Bite::Email
         message: ['This message could not be delivered.'],
         rfc822:  ['content-type: text/rfc822-headers'],
       }.freeze
-
-      ReFailure = {
+      ReFailures = {
         # The followings are error messages in Rule sets/*/Actions/Template
         filtered:     %r/Mailbox does not exist/,
         mesgtoobig:   %r/Message too large/,
@@ -91,7 +90,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -105,7 +103,7 @@ module Sisimai::Bite::Email
               # Status: 5.1.1
               v = dscontents[-1]
 
-              if cv = e.match(/\A[Ff]inal-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
+              if cv = e.match(/\AFinal-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
                 # Final-Recipient: RFC822; kijitora@example.jp
                 if v['recipient']
                   # There are multiple recipient addresses in the message body.
@@ -115,41 +113,38 @@ module Sisimai::Bite::Email
                 v['recipient'] = cv[1]
                 recipients += 1
 
-              elsif cv = e.match(/\A[Xx]-[Aa]ctual-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/) ||
-                         e.match(/\A[Oo]riginal-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
+              elsif cv = e.match(/\AX-Actual-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/) ||
+                         e.match(/\AOriginal-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
                 # X-Actual-Recipient: RFC822; kijitora@example.co.jp
                 # Original-Recipient: rfc822; kijitora@example.co.jp
                 v['alias'] = cv[1]
 
-              elsif cv = e.match(/\A[Aa]ction:[ ]*(.+)\z/)
+              elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
                 # Action: failed
                 v['action'] = cv[1].downcase
 
-              elsif cv = e.match(/\A[Ss]tatus:[ ]*(\d[.]\d+[.]\d+)/)
+              elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
                 # Status: 5.1.1
                 v['status'] = cv[1]
 
-              elsif cv = e.match(/\A[Rr]emote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
+              elsif cv = e.match(/\ARemote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                 # Remote-MTA: DNS; mx.example.jp
                 v['rhost'] = cv[1].downcase
 
-              elsif cv = e.match(/\A[Ll]ast-[Aa]ttempt-[Dd]ate:[ ]*(.+)\z/)
+              elsif cv = e.match(/\ALast-Attempt-Date:[ ]*(.+)\z/)
                 # Last-Attempt-Date: Fri, 14 Feb 2014 12:30:08 -0500
                 v['date'] = cv[1]
-
               else
-                if cv = e.match(/\A[Dd]iagnostic-[Cc]ode:[ ]*(.+?);[ ]*(.+)\z/)
+                if cv = e.match(/\ADiagnostic-Code:[ ]*(.+?);[ ]*(.+)\z/)
                   # Diagnostic-Code: SMTP; 550 5.1.1 <kijitora@example.jp>... User Unknown
                   v['spec'] = cv[1].upcase
                   v['diagnosis'] = cv[2]
 
-                elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A[ \t]+(.+)\z/)
+                elsif p.start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
                   # Continued line of the value of Diagnostic-Code header
-                  v['diagnosis'] ||= ''
                   v['diagnosis'] << ' ' << cv[1]
                   havepassed[-1] = 'Diagnostic-Code: ' << e
                 end
-
               end
             else
               # This message could not be delivered.
@@ -159,13 +154,13 @@ module Sisimai::Bite::Email
               # Content-Description: Delivery Status Notification
               #
               # Reporting-MTA: dns; inbound-smtp.us-west-2.amazonaws.com
-              if cv = e.match(/\A[Rr]eporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
+              if cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                 # Reporting-MTA: dns; mx.example.jp
                 next if connheader['lhost'].size > 0
                 connheader['lhost'] = cv[1].downcase
                 connvalues += 1
 
-              elsif cv = e.match(/\A[Aa]rrival-[Dd]ate:[ ]*(.+)\z/)
+              elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
                 # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
                 next if connheader['date'].size > 0
                 connheader['date'] = cv[1]
@@ -174,11 +169,10 @@ module Sisimai::Bite::Email
             end
           end
         end
-
         return nil if recipients.zero?
+
         require 'sisimai/string'
         require 'sisimai/smtp/status'
-
         dscontents.map do |e|
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
@@ -198,9 +192,9 @@ module Sisimai::Bite::Email
             e['status'] = pseudostatus if pseudostatus.size > 0
           end
 
-          ReFailure.each_key do |r|
+          ReFailures.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailure[r]
+            next unless e['diagnosis'] =~ ReFailures[r]
             e['reason'] = r.to_s
             break
           end

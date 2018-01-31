@@ -7,12 +7,8 @@ module Sisimai::Bite::Email
       require 'sisimai/bite/email'
 
       Indicators = Sisimai::Bite::Email.INDICATORS
-      StartingOf = {
-        rfc822: ['Content-Type: message/partial'],
-      }.freeze
-      MarkingsOf = {
-        message: %r/\A[ \t]+[-]+[ \t]*Transcript of session follows/,
-      }.freeze
+      StartingOf = { rfc822: ['Content-Type: message/partial'] }.freeze
+      MarkingsOf = { message: %r/\A[ \t]+[-]+[ \t]*Transcript of session follows/ }.freeze
 
       def description; return 'Bigfoot: http://www.bigfoot.com'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -85,7 +81,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -100,7 +95,7 @@ module Sisimai::Bite::Email
               # Last-Attempt-Date: Sun, 28 Dec 2014 18:17:16 -0800
               v = dscontents[-1]
 
-              if cv = e.match(/\A[Ff]inal-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
+              if cv = e.match(/\AFinal-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
                 # Final-Recipient: RFC822; <destinaion@example.net>
                 if v['recipient']
                   # There are multiple recipient addresses in the message body.
@@ -110,33 +105,30 @@ module Sisimai::Bite::Email
                 v['recipient'] = Sisimai::Address.s3s4(cv[1])
                 recipients += 1
 
-              elsif cv = e.match(/\A[Aa]ction:[ ]*(.+)\z/)
+              elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
                 # Action: failed
                 v['action'] = cv[1].downcase
 
-              elsif cv = e.match(/\A[Ss]tatus:[ ]*(\d[.]\d+[.]\d+)/)
+              elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
                 # Status: 5.7.1
                 v['status'] = cv[1]
 
-              elsif cv = e.match(/\A[Rr]emote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
+              elsif cv = e.match(/\ARemote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                 # Remote-MTA: DNS; p01c11m075.mx.example.net
                 v['rhost'] = cv[1].downcase
-
               else
                 # Get error message
-                if cv = e.match(/\A[Dd]iagnostic-[Cc]ode:[ ]*(.+?);[ ]*(.+)\z/)
+                if cv = e.match(/\ADiagnostic-Code:[ ]*(.+?);[ ]*(.+)\z/)
                   # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
                   v['spec'] = cv[1].upcase
                   v['diagnosis'] = cv[2]
 
-                elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A[ \t]+(.+)\z/)
+                elsif p.start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
                   # Continued line of the value of Diagnostic-Code header
-                  v['diagnosis'] ||= ''
-                  v['diagnosis'] <<  ' ' << cv[1]
+                  v['diagnosis'] << ' ' << cv[1]
                   havepassed[-1] = 'Diagnostic-Code: ' << e
                 end
               end
-
             else
               #    ----- Transcript of session follows -----
               # >>> RCPT TO:<destinaion@example.net>
@@ -148,18 +140,17 @@ module Sisimai::Bite::Email
               # Reporting-MTA: dns; litemail57.bigfoot.com
               # Arrival-Date: Sun, 28 Dec 2014 18:17:16 -0800
               #
-              if cv = e.match(/\A[Rr]eporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
+              if cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                 # Reporting-MTA: dns; mx.example.jp
                 next if connheader['lhost'].size > 0
                 connheader['lhost'] = cv[1].downcase
                 connvalues += 1
 
-              elsif cv = e.match(/\A[Aa]rrival-[Dd]ate:[ ]*(.+)\z/)
+              elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
                 # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
                 next if connheader['date'].size > 0
                 connheader['date'] = cv[1]
                 connvalues += 1
-
               else
                 #    ----- Transcript of session follows -----
                 # >>> RCPT TO:<destinaion@example.net>
@@ -179,8 +170,8 @@ module Sisimai::Bite::Email
           end
         end
         return nil if recipients.zero?
-        require 'sisimai/string'
 
+        require 'sisimai/string'
         dscontents.map do |e|
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }

@@ -10,9 +10,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/Blocked.pm
       class << self
         def text; return 'blocked'; end
-        def description
-          return 'Email rejected due to client IP address or a hostname'
-        end
+        def description; return 'Email rejected due to client IP address or a hostname'; end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
@@ -161,24 +159,12 @@ module Sisimai
         def true(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
-          return true if argvs.reason == Sisimai::Reason::Blocked.text
+          return true if argvs.reason == 'blocked'
 
           require 'sisimai/smtp/status'
-          diagnostic = argvs.diagnosticcode || ''
-          statuscode = argvs.deliverystatus || ''
-          tempreason = Sisimai::SMTP::Status.name(statuscode)
-          reasontext = Sisimai::Reason::Blocked.text
-          v = false
-
-          if tempreason == reasontext
-            # Delivery status code points "blocked".
-            v = true
-          else
-            # Matched with a pattern in this class
-            v = true if Sisimai::Reason::Blocked.match(diagnostic)
-          end
-
-          return v
+          return true if Sisimai::SMTP::Status.name(argvs.deliverystatus) == 'blocked'
+          return true if match(argvs.diagnosticcode)
+          return false
         end
 
       end

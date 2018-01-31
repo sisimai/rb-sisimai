@@ -9,9 +9,8 @@ module Sisimai
         :listid    => ['List-Id'],
         :date      => %w[Date Posted-Date Posted Resent-Date],
         :addresser => %w[
-          From Return-Path Reply-To Errors-To Reverse-Path X-Postfix-Sender
-          Envelope-From X-Envelope-From
-        ],
+          From Return-Path Reply-To Errors-To Reverse-Path X-Postfix-Sender Envelope-From X-Envelope-From
+          ],
         :recipient => %w[To Delivered-To Forward-Path Envelope-To X-Envelope-To Resent-To Apparently-To],
       }.freeze
 
@@ -110,8 +109,8 @@ module Sisimai
           |\A(?:mailer-daemon|postmaster)\z
           |[ ]?mailer-daemon[ ]
           )
-        /xi
-        return true if email =~ re
+        /x
+        return true if email.downcase =~ re
         return false
       end
 
@@ -158,7 +157,6 @@ module Sisimai
               # [192.0.2.1] or (192.0.2.1)
               e = e.delete('[]()')
               addrlist << e
-
             else
               # hostname
               e = e.delete('()')
@@ -221,7 +219,6 @@ module Sisimai
             # Continued line from the previous line
             next if rfc822next[previousfn]
             rfc822part << e + "\n" if LongHeaders.key?(previousfn)
-
           else
             # Check the end of headers in rfc822 part
             next unless LongHeaders.key?(previousfn)

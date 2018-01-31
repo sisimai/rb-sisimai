@@ -14,9 +14,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/NetworkError.pm
       class << self
         def text; return 'networkerror'; end
-        def description
-          return 'SMTP connection failed due to DNS look up failure or other network problems'
-        end
+        def description; return 'SMTP connection failed due to DNS look up failure or other network problems'; end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions

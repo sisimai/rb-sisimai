@@ -12,9 +12,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/NotAccept.pm
       class << self
         def text; return 'notaccept'; end
-        def description
-          return 'Delivery failed due to a destination mail server does not accept any email'
-        end
+        def description; return 'Delivery failed due to a destination mail server does not accept any email'; end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
@@ -42,23 +40,13 @@ module Sisimai
         def true(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
-          return true if argvs.reason == Sisimai::Reason::NotAccept.text
+          return true if argvs.reason == 'notaccept'
 
-          diagnostic = argvs.diagnosticcode || ''
-          v = false
-
-          if [521, 554, 556].include?(argvs.replycode.to_i)
-            # SMTP Reply Code is 554 or 556
-            v = false
-          else
-            # Check the value of Diagnosic-Code: header with patterns
-            if argvs.smtpcommand == 'MAIL'
-              # Matched with a pattern in this class
-              v = true if Sisimai::Reason::NotAccept.match(diagnostic)
-            end
-          end
-
-          return v
+          # SMTP Reply Code is 554 or 556
+          return true if [521, 554, 556].index(argvs.replycode.to_i)
+          return false if argvs.smtpcommand == 'MAIL'
+          return true if match(argvs.diagnosticcode)
+          return false
         end
 
       end

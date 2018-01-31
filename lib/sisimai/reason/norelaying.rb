@@ -14,9 +14,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/NoRelaying.pm
       class << self
         def text; return 'norelaying'; end
-        def description
-          return 'Email rejected with error message "Relaying Denied"'
-        end
+        def description; return 'Email rejected with error message "Relaying Denied"'; end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
@@ -59,16 +57,13 @@ module Sisimai
           return nil unless argvs.is_a? Sisimai::Data
 
           currreason = argvs.reason || ''
-          reexcludes = %r/\A(?:securityerror|systemerror|undefined)\z/
-
           if currreason.size > 0
             # Do not overwrite the reason
-            return false if currreason =~ reexcludes
+            return false if currreason =~ /\A(?:securityerror|systemerror|undefined)\z/
           else
             # Check the value of Diagnosic-Code: header with patterns
-            return true if Sisimai::Reason::NoRelaying.match(argvs.diagnosticcode)
+            return true if match(argvs.diagnosticcode)
           end
-
           return false
         end
 

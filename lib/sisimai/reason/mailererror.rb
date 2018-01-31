@@ -12,9 +12,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/MailerError.pm
       class << self
         def text; return 'mailererror'; end
-        def description
-          return 'Email returned due to a mailer program has not exited successfully'
-        end
+        def description; return 'Email returned due to a mailer program has not exited successfully'; end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions

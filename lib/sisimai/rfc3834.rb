@@ -39,7 +39,7 @@ module Sisimai
 
       def description; 'Detector for auto replied message'; end
       def smtpagent;   'RFC3834'; end
-      def headerlist;  return ['Auto-Submitted', 'Precedence', 'X-Auto-Response-Suppress']; end
+      def headerlist;  return %w[Auto-Submitted Precedence X-Auto-Response-Suppress]; end
 
       # Detect auto reply message as RFC3834
       # @param         [Hash] mhead       Message header of a bounce email
@@ -85,7 +85,6 @@ module Sisimai
 
         require 'sisimai/bite/email'
         require 'sisimai/address'
-
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.scrub('?').split("\n")
         rfc822part = '' # (String) message/rfc822-headers part
@@ -97,7 +96,7 @@ module Sisimai
         v = dscontents[-1]
 
         # RECIPIENT_ADDRESS
-        ['from', 'return-path'].each do |e|
+        %w[from return-path].each do |e|
           # Try to get the address of the recipient
           next unless mhead.key?(e)
           next unless mhead[e]

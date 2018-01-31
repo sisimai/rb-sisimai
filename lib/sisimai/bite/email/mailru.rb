@@ -13,17 +13,13 @@ module Sisimai::Bite::Email
         rfc822:  ['------ This is a copy of the message, including all the headers. ------'],
       }.freeze
 
-      ReCommand = [
+      ReCommands = [
         %r/SMTP error from remote (?:mail server|mailer) after ([A-Za-z]{4})/,
         %r/SMTP error from remote (?:mail server|mailer) after end of ([A-Za-z]{4})/,
       ].freeze
-      ReFailure = {
-        expired: %r{(?:
-             retry[ ]timeout[ ]exceeded
-            |No[ ]action[ ]is[ ]required[ ]on[ ]your[ ]part
-            )
-        }x,
-        userunknown: %r/user[ ]not[ ]found/x,
+      ReFailures = {
+        expired:     %r/(?:retry timeout exceeded|No action is required on your part)/,
+        userunknown: %r/user not found/,
         hostunknown: %r{(?>
              all[ ](?:
                  host[ ]address[ ]lookups[ ]failed[ ]permanently
@@ -32,18 +28,14 @@ module Sisimai::Bite::Email
             |Unrouteable[ ]address
             )
         }x,
-        mailboxfull: %r/(?:mailbox[ ]is[ ]full:?|error:[ ]quota[ ]exceed)/x,
-        notaccept: %r{(?:
+        mailboxfull: %r/(?:mailbox is full:?|error: quota exceed)/,
+        notaccept:   %r{(?:
              an[ ]MX[ ]or[ ]SRV[ ]record[ ]indicated[ ]no[ ]SMTP[ ]service
             |no[ ]host[ ]found[ ]for[ ]existing[ ]SMTP[ ]connection
             )
         }x,
-        systemerror: %r{(?:
-             delivery[ ]to[ ](?:file|pipe)[ ]forbidden
-            |local[ ]delivery[ ]failed
-            )
-        }x,
-        contenterror: %r/Too[ ]many[ ]["]Received["][ ]headers[ ]/x,
+        systemerror:  %r/(?:delivery to (?:file|pipe) forbidden|local delivery failed)/,
+        contenterror: %r/Too many ["]Received["] headers /,
       }.freeze
 
       def description; return '@mail.ru: https://mail.ru'; end
@@ -66,7 +58,7 @@ module Sisimai::Bite::Email
         return nil unless mbody
 
         return nil unless mhead['from'] =~ /[<]?mailer-daemon[@].*mail[.]ru[>]?/i
-        return nil unless mhead['message-id'] =~ /\A[<]\w+[-]\w+[-]\w+[@].*mail[.]ru[>]\z/
+        return nil unless mhead['message-id'].end_with?('.mail.ru>')
         return nil unless mhead['subject'] =~ %r{(?:
            Mail[ ]delivery[ ]failed(:[ ]returning[ ]message[ ]to[ ]sender)?
           |Warning:[ ]message[ ].+[ ]delayed[ ]+
@@ -112,7 +104,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -153,11 +144,10 @@ module Sisimai::Bite::Email
               next if e.empty?
               v['diagnosis'] ||= ''
               v['diagnosis'] << e + ' '
-
             else
               # Error message when email address above does not include '@'
               # and domain part.
-              next unless e =~ /\A[ \t]{4}/
+              next unless e.start_with?('    ', "\t")
               v['alterrors'] ||= ''
               v['alterrors'] << e + ' '
             end
@@ -195,7 +185,7 @@ module Sisimai::Bite::Email
           # Set default values if each value is empty.
           e['lhost'] ||= localhost0
 
-          if e['alterrors'] && e['alterrors'].size > 0
+          if e['alterrors'].to_s.size > 0
             # Copy alternative error message
             e['diagnosis'] ||= e['alterrors']
             if e['diagnosis'].start_with?('-') || e['diagnosis'].end_with?('__')
@@ -215,16 +205,14 @@ module Sisimai::Bite::Email
             end
 
             unless e['rhost']
-              if mhead['received'].size > 0
-                # Get localhost and remote host name from Received header.
-                e['rhost'] = Sisimai::RFC5322.received(mhead['received'][-1]).pop
-              end
+              # Get localhost and remote host name from Received header.
+              e['rhost'] = Sisimai::RFC5322.received(mhead['received'][-1]).pop if mhead['received'].size > 0
             end
           end
 
           unless e['command']
             # Get the SMTP command name for the session
-            ReCommand.each do |r|
+            ReCommands.each do |r|
               # Verify each regular expression of SMTP commands
               if cv = e['diagnosis'].match(r)
                 e['command'] = cv[1].upcase
@@ -233,19 +221,18 @@ module Sisimai::Bite::Email
             end
 
             # Detect the reason of bounce
-            if ['HELO', 'EHLO'].include?(e['command'])
+            if %w[HELO EHLO].index(e['command'])
               # HELO | Connected to 192.0.2.135 but my name was rejected.
               e['reason'] = 'blocked'
 
             elsif e['command'] == 'MAIL'
               # MAIL | Connected to 192.0.2.135 but sender was rejected.
               e['reason'] = 'rejected'
-
             else
               # Verify each regular expression of session errors
-              ReFailure.each_key do |r|
+              ReFailures.each_key do |r|
                 # Check each regular expression
-                next unless e['diagnosis'] =~ ReFailure[r]
+                next unless e['diagnosis'] =~ ReFailures[r]
                 e['reason'] = r.to_s
                 break
               end

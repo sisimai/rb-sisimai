@@ -7,7 +7,7 @@ module Sisimai
     module FrancePTT
       class << self
         # Imported from p5-Sisimail/lib/Sisimai/Rhost/FrancePTT.pm
-        CodeTable = {
+        ErrorCodes = {
           :'103' => 'blocked',       # Service refuse. Veuillez essayer plus tard.
           :'104' => 'toomanyconn',   # Too many connections, slow down. LPN105_104
           :'105' => nil,             # Veuillez essayer plus tard.
@@ -46,7 +46,7 @@ module Sisimai
           if cv = statusmesg.match(/\b(LPN|OFR|OUK)(_[0-9]{3}|[0-9]{3}[-_][0-9]{3})\b/)
             # OUK_513, LPN105-104, OFR102-104
             v = sprintf("%03d", (cv[1] + cv[2])[-3, 3])
-            reasontext = CodeTable[v.to_sym] || 'undefined'
+            reasontext = ErrorCodes[v.to_sym] || 'undefined'
           end
           return reasontext
         end

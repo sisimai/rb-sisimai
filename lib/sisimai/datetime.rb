@@ -34,20 +34,17 @@ module Sisimai
       }.freeze
 
       MonthName = {
-        full: %w|January February March April May June July August September October November December|,
-        abbr: %w|Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec|,
+        full: %w[January February March April May June July August September October November December],
+        abbr: %w[Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec],
       }.freeze
 
       DayOfWeek = {
-        full: %w|Sunday Monday Tuesday Wednesday Thursday Friday Saturday|,
-        abbr: %w|Sun Mon Tue Wed Thu Fri Sat|,
+        full: %w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday],
+        abbr: %w[Sun Mon Tue Wed Thu Fri Sat],
       }.freeze
 
       HourName = {
-        full: [
-          'Midnight', 1, 2, 3, 4, 5, 'Morning', 7, 8, 9, 10, 11,
-          'Noon', 13, 14, 15, 16, 17, 'Evening', 19, 20, 21, 22, 23,
-        ],
+        full: %w[Midnight 1 2 3 4 5 Morning 7 8 9 10 11 Noon 13 14 15 16 17 Evening 19 20 21 22 23],
         abbr: [0..23],
       }.freeze
 
@@ -207,10 +204,8 @@ module Sisimai
           m = MathematicalConstant[cr[2].to_sym].to_f
           u = cr[3] || 'd'
           getseconds = n * m * TimeUnit[u.to_sym].to_f
-
         else
           getseconds = 0
-
         end
 
         return getseconds
@@ -313,15 +308,12 @@ module Sisimai
             elsif MonthName[:abbr].include?(p)
               # Month name abbr.; Apr, May, ...
               v[:M] = p
-
             end
-
           elsif p =~ /\A\d{1,4}\z/
             # Year or Day; 2005, 31, 04,  1, ...
             if p.to_i > 31
               # The piece is the value of an year
               v[:Y] = p
-
             else
               # The piece is the value of a day
               if v[:d]
@@ -332,23 +324,19 @@ module Sisimai
                 v[:d] = p
               end
             end
-
           elsif cr = p.match(/\A([0-2]\d):([0-5]\d):([0-5]\d)\z/) ||
                      p.match(/\A(\d{1,2})[-:](\d{1,2})[-:](\d{1,2})\z/)
             # Time; 12:34:56, 03:14:15, ...
             # Arrival-Date: 2014-03-26 00-01-19
-
             if cr[1].to_i < 24 && cr[2].to_i < 60 && cr[3].to_i < 60
               # Valid time format, maybe...
               v[:T] = sprintf('%02d:%02d:%02d', cr[1].to_i, cr[2].to_i, cr[3].to_i)
             end
-
           elsif cr = p.match(/\A([0-2]\d):([0-5]\d)\z/)
             # Time; 12:34 => 12:34:00
             if cr[1].to_i < 24 && cr[2].to_i < 60
               v[:T] = sprintf('%02d:%02d:00', cr[1].to_i, cr[2].to_i)
             end
-
           elsif cr = p.match(/\A(\d\d?):(\d\d?)\z/)
             # Time: 1:4 => 01:04:00
             v[:T] = sprintf('%02d:%02d:00', cr[1].to_i, cr[2].to_i)
@@ -356,7 +344,6 @@ module Sisimai
           elsif p =~ /\A[APap][Mm]\z/
             # AM or PM
             afternoon1 = 1
-
           else
             # Timezone offset and others
             if p =~ /\A[-+][01]\d{3}\z/
@@ -366,7 +353,6 @@ module Sisimai
             elsif p =~ /\A[(]?[A-Z]{2,5}[)]?\z/
               # Timezone abbreviation; JST, GMT, UTC, ...
               v[:z] ||= abbr2tz(p) || '+0000'
-
             else
               # Other date format
               if cr = p.match(%r|\A(\d{4})[-/](\d{1,2})[-/](\d{1,2})\z|)
@@ -384,7 +370,6 @@ module Sisimai
                 if cr[4].to_i < 24 && cr[5].to_i < 60 && cr[6].to_i < 60
                   v[:T] = sprintf('%02d:%02d:%02d', cr[4].to_i, cr[5].to_i, cr[6].to_i)
                 end
-
               elsif cr = p.match(%r|\A(\d{1,2})/(\d{1,2})/(\d{1,2})\z|)
                 # 4/29/01 11:34:45 PM
                 v[:M]  = MonthName[:abbr][cr[1].to_i - 1]
@@ -484,7 +469,6 @@ module Sisimai
 
         elsif argv1 =~ /\A[A-Za-z]+\z/
           return tz2second(TimeZoneAbbr[argv1.to_sym])
-
         else
           return nil
         end

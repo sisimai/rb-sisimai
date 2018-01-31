@@ -12,10 +12,7 @@ module Sisimai::Bite::Email
         error:   ['For the following reason:'],
         rfc822:  ['--- The header of the original message is following'],
       }.freeze
-
-      ReFailure = {
-        mesgtoobig: %r/Mail[ ]size[ ]limit[ ]exceeded/x,
-      }.freeze
+      ReFailures = { mesgtoobig: %r/Mail size limit exceeded/ }.freeze
 
       def description; return '1&1: http://www.1and1.de'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -72,7 +69,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -101,28 +97,23 @@ module Sisimai::Bite::Email
             elsif e.start_with?(StartingOf[:error][0])
               # For the following reason:
               v['diagnosis'] = e
-
             else
-              # Get error message
-              if v['diagnosis']
-                # Append error message strings
-                v['diagnosis'] << ' ' << e
-              end
+              # Get error message and append error message strings
+              v['diagnosis'] << ' ' << e if v['diagnosis']
             end
           end
         end
         return nil if recipients.zero?
+
         require 'sisimai/string'
-
         dscontents.map do |e|
-          e['agent']       = self.smtpagent
-          e['diagnosis'] ||= ''
-          e['diagnosis']   = e['diagnosis'].gsub(/\A#{StartingOf[:error][0]}/, '')
-          e['diagnosis']   = Sisimai::String.sweep(e['diagnosis'])
+          e['agent']     = self.smtpagent
+          e['diagnosis'] = e['diagnosis'].to_s.gsub(/\A#{StartingOf[:error][0]}/, '')
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
-          ReFailure.each_key do |r|
+          ReFailures.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailure[r]
+            next unless e['diagnosis'] =~ ReFailures[r]
             e['reason'] = r.to_s
             break
           end

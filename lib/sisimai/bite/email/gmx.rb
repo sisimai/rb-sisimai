@@ -11,10 +11,7 @@ module Sisimai::Bite::Email
         message: ['This message was created automatically by mail delivery software'],
         rfc822:  ['--- The header of the original message is following'],
       }.freeze
-
-      ReFailure = {
-        expired: %r/delivery[ ]retry[ ]timeout[ ]exceeded/x,
-      }.freeze
+      ReFailures = { expired: %r/delivery retry timeout exceeded/ }.freeze
 
       def description; return 'GMX: http://www.gmx.net'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -77,7 +74,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -117,12 +113,10 @@ module Sisimai::Bite::Email
             elsif cv = e.match(/\Ahost:[ \t]*(.+)\z/)
               # host: mx.example.jp
               v['rhost'] = cv[1]
-
             else
               # Get error message
               if e =~ /\b[45][.]\d[.]\d\b/ || e =~ /[<][^ ]+[@][^ ]+[>]/ || e =~ /\b[45]\d{2}\b/
                 v['diagnosis'] ||= e
-
               else
                 next if e.empty?
                 if e.start_with?('Reason:')
@@ -137,19 +131,17 @@ module Sisimai::Bite::Email
             end
           end
         end
-
         return nil if recipients.zero?
-        require 'sisimai/string'
-        require 'sisimai/smtp/status'
 
+        require 'sisimai/string'
         dscontents.map do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = e['diagnosis'].gsub(/\\n/, ' ')
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
-          ReFailure.each_key do |r|
+          ReFailures.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailure[r]
+            next unless e['diagnosis'] =~ ReFailures[r]
             e['reason'] = r.to_s
             break
           end

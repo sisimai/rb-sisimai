@@ -13,9 +13,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/TooManyConn.pm
       class << self
         def text; return 'toomanyconn'; end
-        def description
-          return 'SMTP connection rejected temporarily due to too many concurrency connections to the remote host'
-        end
+        def description; return 'SMTP connection rejected temporarily due to too many concurrency connections to the remote host'; end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
@@ -56,23 +54,12 @@ module Sisimai
         def true(argvs)
           return nil unless argvs
           return nil unless argvs.is_a? Sisimai::Data
-          return true if argvs.reason == Sisimai::Reason::TooManyConn.text
+          return true if argvs.reason == 'toomanyconn'
 
           require 'sisimai/smtp/status'
-          statuscode = argvs.deliverystatus || ''
-          diagnostic = argvs.diagnosticcode || ''
-          reasontext = Sisimai::Reason::TooManyConn.text
-          tempreason = Sisimai::SMTP::Status.name(statuscode)
-          v = false
-
-          if tempreason == reasontext
-            # Delivery status code points "toomanyconn".
-            v = true
-          else
-            # Matched with a pattern in this class
-            v = true if Sisimai::Reason::TooManyConn.match(diagnostic)
-          end
-          return v
+          return true if Sisimai::SMTP::Status.name(argvs.deliverystatus) == 'toomanyconn'
+          return true if match(argvs.diagnosticcode)
+          return false
         end
 
       end

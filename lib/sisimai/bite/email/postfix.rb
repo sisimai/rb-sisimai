@@ -8,9 +8,7 @@ module Sisimai::Bite::Email
 
       # Postfix manual - bounce(5) - http://www.postfix.org/bounce.5.html
       Indicators = Sisimai::Bite::Email.INDICATORS
-      StartingOf = {
-        rfc822: ['Content-Type: message/rfc822', 'Content-Type: text/rfc822-headers'],
-      }.freeze
+      StartingOf = { rfc822: ['Content-Type: message/rfc822', 'Content-Type: text/rfc822-headers'] }.freeze
       MarkingsOf = {
         message: %r{\A(?>
            [ ]+The[ ](?:
@@ -99,7 +97,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -114,7 +111,7 @@ module Sisimai::Bite::Email
               # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
               # Last-Attempt-Date: Fri, 14 Feb 2014 12:30:08 -0500
               v = dscontents[-1]
-              if cv = e.match(/\A[Ff]inal-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*(.+)\z/)
+              if cv = e.match(/\AFinal-Recipient:[ ]*(?:RFC|rfc)822;[ ]*(.+)\z/)
                 # Final-Recipient: RFC822; userunknown@example.jp
                 if v['recipient']
                   # There are multiple recipient addresses in the message body.
@@ -124,27 +121,27 @@ module Sisimai::Bite::Email
                 v['recipient'] = cv[1]
                 recipients += 1
 
-              elsif cv = e.match(/\A[Xx]-[Aa]ctual-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/) ||
-                         e.match(/\A[Oo]riginal-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
+              elsif cv = e.match(/\AX-Actual-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/) ||
+                         e.match(/\AOriginal-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
                 # X-Actual-Recipient: RFC822; kijitora@example.co.jp
                 # Original-Recipient: rfc822;kijitora@example.co.jp
                 v['alias'] = cv[1]
 
-              elsif cv = e.match(/\A[Aa]ction:[ ]*(.+)\z/)
+              elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
                 # Action: failed
                 v['action'] = cv[1].downcase
 
-              elsif cv = e.match(/\A[Ss]tatus:[ ]*(\d[.]\d+[.]\d+)/)
+              elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
                 # Status: 5.1.1
                 # Status:5.2.0
                 # Status: 5.1.0 (permanent failure)
                 v['status'] = cv[1]
 
-              elsif cv = e.match(/\A[Rr]emote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
+              elsif cv = e.match(/\ARemote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                 # Remote-MTA: DNS; mx.example.jp
                 v['rhost'] = cv[1].downcase
 
-              elsif cv = e.match(/\A[Ll]ast-[Aa]ttempt-[Dd]ate:[ ]*(.+)\z/)
+              elsif cv = e.match(/\ALast-Attempt-Date:[ ]*(.+)\z/)
                 # Last-Attempt-Date: Fri, 14 Feb 2014 12:30:08 -0500
                 #
                 # src/bounce/bounce_notify_util.c:
@@ -154,22 +151,19 @@ module Sisimai::Bite::Email
                 #   684                            mail_date(dsn->time));
                 #   685  #endif
                 v['date'] = cv[1]
-
               else
-                if cv = e.match(/\A[Dd]iagnostic-[Cc]ode:[ ]*(.+?);[ ]*(.+)\z/)
+                if cv = e.match(/\ADiagnostic-Code:[ ]*(.+?);[ ]*(.+)\z/)
                   # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
                   v['spec'] = cv[1].upcase
                   v['diagnosis'] = cv[2]
                   v['spec'] = 'SMTP' if v['spec'] == 'X-POSTFIX'
 
-                elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A[ \t]+(.+)\z/)
+                elsif p.start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
                   # Continued line of the value of Diagnostic-Code header
-                  v['diagnosis'] ||= ''
                   v['diagnosis'] << ' ' << cv[1]
                   havepassed[-1] = 'Diagnostic-Code: ' << e
                 end
               end
-
             else
               # If you do so, please include this problem report. You can
               # delete your own text from the attached returned message.
@@ -192,13 +186,13 @@ module Sisimai::Bite::Email
                 anotherset['diagnosis'] << ' ' << e
 
               else
-                if cv = e.match(/\A[Rr]eporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
+                if cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                   # Reporting-MTA: dns; mx.example.jp
                   next if connheader['lhost'].size > 0
                   connheader['lhost'] = cv[1].downcase
                   connvalues += 1
 
-                elsif cv = e.match(/\A[Aa]rrival-[Dd]ate:[ ]*(.+)\z/)
+                elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
                   # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
                   next if connheader['date'].size > 0
                   connheader['date'] = cv[1]
@@ -207,7 +201,6 @@ module Sisimai::Bite::Email
                 elsif cv = e.match(/\A(X-Postfix-Sender):[ ]*rfc822;[ ]*(.+)\z/)
                   # X-Postfix-Sender: rfc822; shironeko@example.org
                   rfc822list << (cv[1] << ': ' << cv[2])
-
                 else
                   # Alternative error message and recipient
                   if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>] [(]expanded from [<](.+)[>][)]:[ \t]*(.+)\z/)
@@ -220,7 +213,6 @@ module Sisimai::Bite::Email
                     # <kijitora@exmaple.jp>: ...
                     anotherset['recipient'] = cv[1]
                     anotherset['diagnosis'] = cv[2]
-
                   else
                     # Get error message continued from the previous line
                     next unless anotherset['diagnosis']
@@ -229,7 +221,6 @@ module Sisimai::Bite::Email
                       anotherset['diagnosis'] << ' ' << e
                     end
                   end
-
                 end
               end
             end
@@ -238,7 +229,7 @@ module Sisimai::Bite::Email
 
         if recipients.zero?
           # Fallback: set recipient address from error message
-          if anotherset['recipient'] && anotherset['recipient'].size > 0
+          if anotherset['recipient'].to_s.size > 0
             # Set recipient address
             dscontents[-1]['recipient'] = anotherset['recipient']
             recipients += 1
@@ -249,7 +240,6 @@ module Sisimai::Bite::Email
         require 'sisimai/string'
         require 'sisimai/smtp/status'
         require 'sisimai/smtp/reply'
-
         dscontents.map do |e|
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }

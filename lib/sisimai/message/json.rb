@@ -58,7 +58,7 @@ module Sisimai
         modulelist = []
         tobeloaded = []
 
-        %w|load order|.each do |e|
+        %w[load order].each do |e|
           # The order of MTA(JSON) modules specified by user
           next unless argvs.key?(e)
           next unless argvs[e].is_a? Array

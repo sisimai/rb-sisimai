@@ -15,9 +15,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/Delivered.pm
       class << self
         def text; return 'delivered'; end
-        def description
-          return 'Email delivered successfully'
-        end
+        def description; return 'Email delivered successfully'; end
         def match;   return nil; end
         def true(*); return nil; end
       end

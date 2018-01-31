@@ -6,9 +6,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/Undefined.pm
       class << self
         def text; return 'undefined'; end
-        def description
-          return 'Sisimai could not detect an error reason'
-        end
+        def description; return 'Sisimai could not detect an error reason'; end
         def match;   return nil; end
         def true(*); return nil; end
       end

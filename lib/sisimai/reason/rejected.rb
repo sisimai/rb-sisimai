@@ -16,9 +16,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/Rejected.pm
       class << self
         def text; return 'rejected'; end
-        def description
-          return "Email rejected due to a sender's email address (envelope from)"
-        end
+        def description; return "Email rejected due to a sender's email address (envelope from)"; end
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
@@ -91,41 +89,30 @@ module Sisimai
           return nil unless argvs.is_a? Sisimai::Data
 
           require 'sisimai/smtp/status'
-          statuscode = argvs.deliverystatus || ''
-          reasontext = Sisimai::Reason::Rejected.text
-
-          return true if argvs.reason == reasontext
-
-          tempreason = Sisimai::SMTP::Status.name(statuscode)
+          tempreason = Sisimai::SMTP::Status.name(argvs.deliverystatus)
           tempreason = 'undefined' if tempreason.empty?
-          diagnostic = argvs.diagnosticcode || ''
-          v = false
+          diagnostic = argvs.diagnosticcode
 
-          if tempreason == reasontext
-            # Delivery status code points "rejected".
-            v = true
-          else
-            # Check the value of Diagnosic-Code: header with patterns
-            if argvs.smtpcommand == 'MAIL'
-              # The session was rejected at 'MAIL FROM' command
-              v = true if Sisimai::Reason::Rejected.match(diagnostic)
+          return true if argvs.reason == 'rejected'
+          return true if tempreason == 'rejected' # Delivery status code points "rejected".
 
-            elsif argvs.smtpcommand == 'DATA'
-              # The session was rejected at 'DATA' command
-              if tempreason != 'userunknown'
-                # Except "userunknown"
-                v = true if Sisimai::Reason::Rejected.match(diagnostic)
-              end
-            else
-              if %w[onhold undefined securityerror systemerror].include?(tempreason)
-                # Try to match with message patterns when the temporary reason
-                # is "onhold", "undefined", "securityerror", or "systemerror"
-                v = true if Sisimai::Reason::Rejected.match(diagnostic)
-              end
+          # Check the value of Diagnosic-Code: header with patterns
+          if argvs.smtpcommand == 'MAIL'
+            # The session was rejected at 'MAIL FROM' command
+            return true if match(diagnostic)
+
+          elsif argvs.smtpcommand == 'DATA'
+            # The session was rejected at 'DATA' command
+            if tempreason != 'userunknown'
+              # Except "userunknown"
+              return true if match(diagnostic)
             end
+          elsif %w[onhold undefined securityerror systemerror].include?(tempreason)
+            # Try to match with message patterns when the temporary reason
+            # is "onhold", "undefined", "securityerror", or "systemerror"
+            return true if match(diagnostic)
           end
-
-          return v
+          return false
         end
 
       end

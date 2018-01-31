@@ -7,10 +7,7 @@ module Sisimai::Bite::Email
       require 'sisimai/bite/email'
 
       Indicators = Sisimai::Bite::Email.INDICATORS
-      StartingOf = {
-        rfc822: ['Original mail as follows:'],
-      }.freeze
-      
+      StartingOf = { rfc822: ['Original mail as follows:'] }.freeze
       ErrorTitle = {
         :rejected => %r{(?>
            (?:Ignored[ ])*NOT[ ]MEMBER[ ]article[ ]from[ ]
@@ -26,7 +23,7 @@ module Sisimai::Bite::Email
           |WARNING:[ ]UNIX[ ]FROM[ ]Loop
           )
         }x,
-        :securityerror => %r/Security[ ]Alert/,
+        :securityerror => %r/Security Alert/,
       }.freeze
       ErrorTable = {
         :rejected => %r{(?>
@@ -45,7 +42,7 @@ module Sisimai::Bite::Email
           |Loop[ ]Back[ ]Warning:
           )
         }x,
-        :securityerror => %r/Security[ ]alert:/,
+        :securityerror => %r/Security alert:/,
       }.freeze
 
       def description; return 'fml mailing list server/manager'; end
@@ -100,8 +97,7 @@ module Sisimai::Bite::Email
               break if blanklines > 1
               next
             end
-            e = e.sub(/\A[ ]{3}/, '')
-            rfc822list << e
+            rfc822list << e.lstrip
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -130,8 +126,8 @@ module Sisimai::Bite::Email
           end
         end
         return nil if recipients.zero?
-        require 'sisimai/string'
 
+        require 'sisimai/string'
         dscontents.map do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           e['agent']     = self.smtpagent

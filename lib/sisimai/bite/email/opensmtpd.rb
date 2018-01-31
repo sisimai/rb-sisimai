@@ -36,25 +36,16 @@ module Sisimai::Bite::Email
         message: [' This is the MAILER-DAEMON, please DO NOT REPLY to this '],
         rfc822:  [' Below is a copy of the original message:'],
       }.freeze
-
-      ReFailure = {
-        expired: %r{
-          # smtpd/queue.c:221|  envelope_set_errormsg(&evp, "Envelope expired");
-          Envelope[ ]expired
-        }x,
-        hostunknown: %r{(?:
-          # smtpd/mta.c:976|  relay->failstr = "Invalid domain name";
-           Invalid[ ]domain[ ]name
-          # smtpd/mta.c:980|  relay->failstr = "Domain does not exist";
-          |Domain[ ]does[ ]not[ ]exist
-          )
-        }x,
-        notaccept: %r{
-          # smtp/mta.c:1085|  relay->failstr = "Destination seem to reject all mails";
-          Destination[ ]seem[ ]to[ ]reject[ ]all[ ]mails
-        }x,
+      ReFailures = {
+        # smtpd/queue.c:221|  envelope_set_errormsg(&evp, "Envelope expired");
+        expired: %r/Envelope expired/,
+        # smtpd/mta.c:976|  relay->failstr = "Invalid domain name";
+        # smtpd/mta.c:980|  relay->failstr = "Domain does not exist";
+        hostunknown: %r/(?:Invalid domain name|Domain does not exist)/,
+        # smtp/mta.c:1085|  relay->failstr = "Destination seem to reject all mails";
+        notaccept: %r/Destination seem to reject all mails/,
+        #  smtpd/mta.c:972|  relay->failstr = "Temporary failure in MX lookup";
         networkerror: %r{(?>
-          #  smtpd/mta.c:972|  relay->failstr = "Temporary failure in MX lookup";
            Address[ ]family[ ]mismatch[ ]on[ ]destination[ ]MXs
           |All[ ]routes[ ]to[ ]destination[ ]blocked
           |bad[ ]DNS[ ]lookup[ ]error[ ]code
@@ -68,10 +59,8 @@ module Sisimai::Bite::Email
           |Temporary[ ]failure[ ]in[ ]MX[ ]lookup
           )
         }x,
-        securityerror: %r{
-          # smtpd/mta.c:1013|  relay->failstr = "Could not retrieve credentials";
-          Could[ ]not[ ]retrieve[ ]credentials
-        }x,
+        # smtpd/mta.c:1013|  relay->failstr = "Could not retrieve credentials";
+        securityerror: %r/Could not retrieve credentials/,
       }.freeze
 
       def description; return 'OpenSMTPD'; end
@@ -94,7 +83,7 @@ module Sisimai::Bite::Email
         return nil unless mbody
 
         return nil unless mhead['subject'].start_with?('Delivery status notification')
-        return nil unless mhead['from'] =~ /\AMailer Daemon [<][^ ]+[@]/
+        return nil unless mhead['from'].start_with?('Mailer Daemon <')
         return nil unless mhead['received'].find { |a| a.include?(' (OpenSMTPD) with ') }
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -130,7 +119,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -162,15 +150,15 @@ module Sisimai::Bite::Email
           end
         end
         return nil if recipients.zero?
-        require 'sisimai/string'
 
+        require 'sisimai/string'
         dscontents.map do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
-          ReFailure.each_key do |r|
+          ReFailures.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailure[r]
+            next unless e['diagnosis'] =~ ReFailures[r]
             e['reason'] = r.to_s
             break
           end

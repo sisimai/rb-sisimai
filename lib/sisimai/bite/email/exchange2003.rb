@@ -13,8 +13,7 @@ module Sisimai::Bite::Email
         error:   ['did not reach the following recipient(s):'],
         rfc822:  ['Content-Type: message/rfc822'],
       }.freeze
-
-      CodeTable = {
+      ErrorCodes = {
         onhold: [
           '000B099C', # Host Unknown, Message exceeds size limit, ...
           '000B09AA', # Unable to relay for, Message exceeds size limit,...
@@ -85,7 +84,7 @@ module Sisimai::Bite::Email
             throw :EXCHANGE_OR_NOT if mhead['received'].size.zero?
             mhead['received'].each do |e|
               # Received: by ***.**.** with Internet Mail Service (5.5.2657.72)
-              next unless e =~ /\Aby .+ with Internet Mail Service [(][\d.]+[)]/
+              next unless e.include?(' with Internet Mail Service (')
               match += 1
               throw :EXCHANGE_OR_NOT
             end
@@ -134,7 +133,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -172,23 +170,19 @@ module Sisimai::Bite::Email
                 #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
                 v['diagnosis'] ||= ''
                 v['diagnosis'] << cv[1]
-
               else
                 next if v['msexch']
-                if v['diagnosis'] =~ /\AMSEXCH:.+/
+                if v['diagnosis'].to_s.start_with?('MSEXCH:')
                   # Continued from MEEXCH in the previous line
                   v['msexch'] = true
-                  v['diagnosis'] ||= ''
-                  v['diagnosis'] <<  ' ' << e
+                  v['diagnosis'] << ' ' << e
                   statuspart = true
-
                 else
                   # Error message in the body part
                   v['alterrors'] ||= ''
                   v['alterrors'] << ' ' << e
                 end
               end
-
             else
               # Your message
               #
@@ -219,11 +213,10 @@ module Sisimai::Bite::Email
             end
           end
         end
-
         return nil if recipients.zero?
+
         require 'sisimai/string'
         require 'sisimai/smtp/status'
-
         dscontents.map do |e|
           if cv = e['diagnosis'].match(/\AMSEXCH:.+[ \t]*[(]([0-9A-F]{8})[)][ \t]*(.*)\z/)
             #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
@@ -231,9 +224,9 @@ module Sisimai::Bite::Email
             errormessage = cv[2]
             pseudostatus = ''
 
-            CodeTable.each_key do |r|
+            ErrorCodes.each_key do |r|
               # Find captured code from the error code table
-              next unless CodeTable[r].index(capturedcode)
+              next unless ErrorCodes[r].index(capturedcode)
               e['reason'] = r.to_s
               pseudostatus = Sisimai::SMTP::Status.code(r.to_s)
               e['status'] = pseudostatus if pseudostatus.size > 0

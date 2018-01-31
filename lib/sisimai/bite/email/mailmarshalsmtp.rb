@@ -78,7 +78,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -106,7 +105,6 @@ module Sisimai::Bite::Email
               end
               v['recipient'] = cv[1]
               recipients += 1
-
             else
               # Get error message lines
               if e == StartingOf[:error][0]
@@ -115,12 +113,11 @@ module Sisimai::Bite::Email
                 # 550 5.1.1 User unknown
                 v['diagnosis'] = e
 
-              elsif v['diagnosis'] && v['diagnosis'].size > 0 && endoferror == false
+              elsif v['diagnosis'].to_s.size > 0 && endoferror == false
                 # Append error messages
                 endoferror = true if e.start_with?(StartingOf[:rcpts][0])
                 next if endoferror
                 v['diagnosis'] << ' ' << e
-
               else
                 # Additional Information
                 # ======================
@@ -149,8 +146,8 @@ module Sisimai::Bite::Email
           end
         end
         return nil if recipients.zero?
-        require 'sisimai/string'
 
+        require 'sisimai/string'
         dscontents.map do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])

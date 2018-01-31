@@ -68,7 +68,7 @@ module Sisimai
         def find(argv1 = '')
           return '' unless argv1
           return '' unless argv1.size > 0
-          return '' if argv1 =~ /X-Unix;/i
+          return '' if argv1.upcase.include?('X-UNIX')
 
           ip4re = %r{\b
             (?:\d|[01]?\d\d|2[0-4]\d|25[0-5])[.]

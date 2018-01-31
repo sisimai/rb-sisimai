@@ -11,7 +11,7 @@ module Sisimai
     #                           nil when the argv1 is neither :r nor :s
     def self.undisclosed(argv1)
       return nil unless argv1
-      return nil unless %w|r s|.index(argv1.to_s)
+      return nil unless %w[r s].index(argv1.to_s)
 
       local = argv1 == :r ? 'recipient' : 'sender'
       return sprintf('undisclosed-%s-in-headers@%s', local, @@undisclosed)
@@ -73,22 +73,18 @@ module Sisimai
 
       argv1.split('').each do |e|
         # Check each characters
-
         if delimiters.detect { |r| r == e }
           # The character is a delimiter character
           if e == ','
             # Separator of email addresses or not
             if v[:address] =~ /\A[<].+[@].+[>]\z/
               # An email address has already been picked
-
               if readcursor & indicators[:'comment-block'] > 0
                 # The cursor is in the comment block (Neko, Nyaan)
                 v[:comment] << e
-
               elsif readcursor & indicators[:'quoted-string'] > 0
                 # "Neko, Nyaan"
                 v[:name] << e
-
               else
                 # The cursor is not in neither the quoted-string nor the comment block
                 readcursor = 0  # reset cursor position
@@ -107,7 +103,6 @@ module Sisimai
             # <: The beginning of an email address or not
             if v[:address].size > 0
               p.size > 0 ? (v[p] << e) : (v[:name] << e)
-
             else
               # <neko@nyaan.example.org>
               readcursor |= indicators[:'email-address']
@@ -136,10 +131,9 @@ module Sisimai
             # The beginning of a comment block or not
             if readcursor & indicators[:'email-address'] > 0
               # <"neko(nyaan)"@example.org> or <neko(nyaan)@example.org>
-              if v[:address] =~ /["]/
+              if v[:address].include?('"')
                 # Quoted local part: <"neko(nyaan)"@example.org>
                 v[:address] << e
-
               else
                 # Comment: <neko(nyaan)@example.org>
                 readcursor |= indicators[:'comment-block']
@@ -155,7 +149,6 @@ module Sisimai
             elsif readcursor & indicators[:'quoted-string'] > 0
               # "Neko, Nyaan(cat)", Deal as a display name
               v[:name] << e
-
             else
               # The beginning of a comment block
               readcursor |= indicators[:'comment-block']
@@ -170,10 +163,9 @@ module Sisimai
             # The end of a comment block or not
             if readcursor & indicators[:'email-address'] > 0
               # <"neko(nyaan)"@example.org> OR <neko(nyaan)@example.org>
-              if v[:address] =~ /["]/
+              if v[:address].include?('"')
                 # Quoted string in the local part: <"neko(nyaan)"@example.org>
                 v[:address] << e
-
               else
                 # Comment: <neko(nyaan)@example.org>
                 readcursor &= ~indicators[:'comment-block']
@@ -185,7 +177,6 @@ module Sisimai
               readcursor &= ~indicators[:'comment-block']
               v[:comment] << e
               p = ''
-
             else
               # Deal as a display name
               readcursor &= ~indicators[:'comment-block']
@@ -228,7 +219,7 @@ module Sisimai
         # No email address like <neko@example.org> in the argument
         if cv = v[:name].match(validemail)
           # String like an email address will be set to the value of "address"
-          v[:address] = sprintf('%s@%s', cv[1], cv[2])
+          v[:address] = cv[1] + '@' + cv[2]
 
         elsif Sisimai::RFC5322.is_mailerdaemon(v[:name])
           # Allow if the argument is MAILER-DAEMON
@@ -310,10 +301,9 @@ module Sisimai
     #   expand_verp('bounce+neko=example.org@example.org') #=> 'neko@example.org'
     def self.expand_verp(email)
       local = email.split('@', 2).first
-      verp0 = ''
 
       if cv = local.match(/\A[-_\w]+?[+](\w[-._\w]+\w)[=](\w[-.\w]+\w)\z/)
-        verp0 = sprintf('%s@%s', cv[1], cv[2])
+        verp0 = cv[1] + '@' + cv[2]
         return verp0 if Sisimai::RFC5322.is_emailaddress(verp0)
       else
         return ''
@@ -331,7 +321,7 @@ module Sisimai
       local = email.split('@')
       value = ''
       if cv = local[0].match(/\A([-_\w]+?)[+].+\z/)
-        value = sprintf('%s@%s', cv[1], local[1])
+        value = cv[1] + '@' + local[1]
       end
       return value
     end
@@ -388,12 +378,11 @@ module Sisimai
         end
         @user    = lpart
         @host    = dpart
-        @address = sprintf('%s@%s', lpart, dpart)
-
+        @address = lpart + '@' + dpart
       else
         # The argument does not include "@"
         return nil unless Sisimai::RFC5322.is_mailerdaemon(thing[:address])
-        return nil if thing[:address] =~ /[ ]/
+        return nil if thing[:address].include?(' ')
 
         # The argument does not include " "
         @user    = thing[:address]

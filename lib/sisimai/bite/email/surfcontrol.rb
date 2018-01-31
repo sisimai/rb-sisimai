@@ -78,7 +78,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -113,25 +112,23 @@ module Sisimai::Bite::Email
               # kijitora@example.com: [192.0.2.5], 550 kijitora@example.com... No such user
               v['rhost'] = cv[1]
               v['diagnosis'] = cv[2]
-
             else
               # Fallback, parse RFC3464 headers.
-              if cv = e.match(/\A[Dd]iagnostic-[Cc]ode:[ ]*(.+?);[ ]*(.+)\z/)
+              if cv = e.match(/\ADiagnostic-Code:[ ]*(.+?);[ ]*(.+)\z/)
                 # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
                 v['spec'] = cv[1].upcase
                 v['diagnosis'] = cv[2]
 
-              elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A[ ]+(.+)\z/)
+              elsif p.start_with?('Diagnostic-Code:') && cv = e.match(/\A[ ]+(.+)\z/)
                 # Continued line of the value of Diagnostic-Code header
-                v['diagnosis'] ||= ''
                 v['diagnosis'] << ' ' << cv[1]
                 havepassed[-1] = 'Diagnostic-Code: ' << e
 
-              elsif cv = e.match(/\A[Aa]ction:[ ]*(.+)\z/)
+              elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
                 # Action: failed
                 v['action'] = cv[1].downcase
 
-              elsif cv = e.match(/\A[Ss]tatus:[ ]*(\d[.]\d+[.]\d+)/)
+              elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
                 # Status: 5.0.-
                 v['status'] = cv[1]
               end
@@ -139,8 +136,8 @@ module Sisimai::Bite::Email
           end
         end
         return nil if recipients.zero?
-        require 'sisimai/string'
 
+        require 'sisimai/string'
         dscontents.map do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])

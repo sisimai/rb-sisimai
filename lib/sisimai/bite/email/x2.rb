@@ -66,7 +66,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -88,7 +87,6 @@ module Sisimai::Bite::Email
               end
               v['recipient'] = cv[1]
               recipients += 1
-
             else
               # This user doesn't have a example.com account (kijitora@example.com) [0]
               v['diagnosis'] ||= ''
@@ -97,8 +95,8 @@ module Sisimai::Bite::Email
           end
         end
         return nil if recipients.zero?
-        require 'sisimai/string'
 
+        require 'sisimai/string'
         dscontents.map do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])

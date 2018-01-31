@@ -7,9 +7,7 @@ module Sisimai::Bite::Email
       require 'sisimai/bite/email'
 
       Indicators = Sisimai::Bite::Email.INDICATORS
-      StartingOf = {
-        rfc822: ['Content-Type: message/rfc822'],
-      }.freeze
+      StartingOf = { rfc822: ['Content-Type: message/rfc822'] }.freeze
       MarkingsOf = {
         message: %r/\AYour[ ]mail[ ](?:
              sent[ ]on:?[ ][A-Z][a-z]{2}[,]
@@ -17,11 +15,10 @@ module Sisimai::Bite::Email
             )
         /x,
       }.freeze
-
-      ReFailure = {
-        mailboxfull: %r/As[ ]their[ ]mailbox[ ]is[ ]full/x,
-        norelaying:  %r/Due[ ]to[ ]the[ ]following[ ]SMTP[ ]relay[ ]error/x,
-        hostunknown: %r/As[ ]the[ ]remote[ ]domain[ ]doesnt[ ]exist/x,
+      ReFailures = {
+        mailboxfull: %r/As their mailbox is full/,
+        norelaying:  %r/Due to the following SMTP relay error/,
+        hostunknown: %r/As the remote domain doesnt exist/,
       }.freeze
 
       def description; return 'au by KDDI: http://www.au.kddi.com'; end
@@ -46,13 +43,12 @@ module Sisimai::Bite::Email
         # :'message-id' => %r/[@].+[.]ezweb[.]ne[.]jp[>]\z/,
         match  = 0
         match += 1 if mhead['from'] =~ /no-reply[@].+[.]dion[.]ne[.]jp/
-        match += 1 if mhead['reply-to'] && mhead['reply-to'] =~ /\Afrom[ \t]+\w+[.]auone[-]net[.]jp[ \t]/
-        match += 1 if mhead['received'].find { |a| a =~ /\Afrom[ ](?:.+[.])?ezweb[.]ne[.]jp[ ]/ }
+        match += 1 if mhead['reply-to'].to_s == 'no-reply@app.auone-net.jp'
+        match += 1 if mhead['received'].find { |a| a.include?('ezweb.ne.jp (') }
         return nil if match.zero?
 
         require 'sisimai/string'
         require 'sisimai/address'
-
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         rfc822list = []     # (Array) Each line in message/rfc822 part string
@@ -86,7 +82,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -112,7 +107,6 @@ module Sisimai::Bite::Email
             elsif cv = e.match(/Your mail sent on: (.+)\z/)
               # Your mail sent on: Thu, 29 Apr 2010 11:04:47 +0900
               v['date'] = cv[1]
-
             else
               #     As their mailbox is full.
               v['diagnosis'] ||= ''
@@ -120,19 +114,17 @@ module Sisimai::Bite::Email
             end
           end
         end
-
         return nil if recipients.zero?
-        require 'sisimai/smtp/status'
 
+        require 'sisimai/smtp/status'
         dscontents.map do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
-          if mhead['x-spasign'] && mhead['x-spasign'] == 'NG'
+          if mhead['x-spasign'].to_s == 'NG'
             # Content-Type: text/plain; ..., X-SPASIGN: NG (spamghetti, au by KDDI)
             # Filtered recipient returns message that include 'X-SPASIGN' header
             e['reason'] = 'filtered'
-
           else
             if e['command'] == 'RCPT'
               # set "userunknown" when the remote server rejected after RCPT
@@ -140,9 +132,9 @@ module Sisimai::Bite::Email
               e['reason'] = 'userunknown'
             else
               # SMTP command is not RCPT
-              ReFailure.each_key do |r|
+              ReFailures.each_key do |r|
                 # Verify each regular expression of session errors
-                next unless e['diagnosis'] =~ ReFailure[r]
+                next unless e['diagnosis'] =~ ReFailures[r]
                 e['reason'] = r.to_s
                 break
               end

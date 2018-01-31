@@ -50,7 +50,6 @@ module Sisimai
         # Sisimai::Message::JSON
         return nil unless email.is_a? Hash
         child = 'Sisimai::Message::JSON'
-
       else
         # Unsupported value in "input"
         warn ' ***warning: Unsupported value in "input": ' << input.to_s

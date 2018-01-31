@@ -11,7 +11,7 @@ module Sisimai
         # MTA list
         # @return   [Array] MTA list with order
         def index
-          return %w|SendGrid AmazonSES|
+          return %w[SendGrid AmazonSES]
         end
 
         # Convert from JSON object to Sisimai::Message

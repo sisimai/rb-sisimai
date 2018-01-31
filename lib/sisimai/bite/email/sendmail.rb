@@ -7,9 +7,7 @@ module Sisimai::Bite::Email
       require 'sisimai/bite/email'
 
       Indicators = Sisimai::Bite::Email.INDICATORS
-      StartingOf = {
-        rfc822: ['Content-Type: message/rfc822', 'Content-Type: text/rfc822-headers']
-      }.freeze
+      StartingOf = { rfc822: ['Content-Type: message/rfc822', 'Content-Type: text/rfc822-headers'] }.freeze
       MarkingsOf = {
         # Error text regular expressions which defined in sendmail/savemail.c
         #   savemail.c:1040|if (printheader && !putline("   ----- Transcript of session follows -----\n",
@@ -40,7 +38,7 @@ module Sisimai::Bite::Email
         return nil unless mbody
 
         return nil unless mhead['subject'] =~ /(?:see transcript for details\z|\AWarning: )/
-        unless mhead['subject'] =~ /\A[ \t]*Fwd?:/i
+        unless mhead['subject'].downcase =~ /\A[ \t]*fwd?:/
           # Fwd: Returned mail: see transcript for details
           # Do not execute this code if the bounce mail is a forwarded message.
           return nil unless mhead['from'].start_with?('Mail Delivery Subsystem')
@@ -93,7 +91,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -109,7 +106,7 @@ module Sisimai::Bite::Email
               # Last-Attempt-Date: Fri, 14 Feb 2014 12:30:08 -0500
               v = dscontents[-1]
 
-              if cv = e.match(/\A[Ff]inal-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
+              if cv = e.match(/\AFinal-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
                 # Final-Recipient: RFC822; userunknown@example.jp
                 if v['recipient']
                   # There are multiple recipient addresses in the message body.
@@ -119,43 +116,40 @@ module Sisimai::Bite::Email
                 v['recipient'] = cv[1]
                 recipients += 1
 
-              elsif cv = e.match(/\A[Xx]-[Aa]ctual-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
+              elsif cv = e.match(/\AX-Actual-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
                 # X-Actual-Recipient: RFC822; kijitora@example.co.jp
                 v['alias'] = cv[1]
 
-              elsif cv = e.match(/\A[Aa]ction:[ ]*(.+)\z/)
+              elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
                 # Action: failed
                 v['action'] = cv[1].downcase
 
-              elsif cv = e.match(/\A[Ss]tatus:[ ]*(\d[.]\d+[.]\d+)/)
+              elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
                 # Status: 5.1.1
                 # Status:5.2.0
                 # Status: 5.1.0 (permanent failure)
                 v['status'] = cv[1]
 
-              elsif cv = e.match(/\A[Rr]emote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
+              elsif cv = e.match(/\ARemote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                 # Remote-MTA: DNS; mx.example.jp
                 v['rhost'] = cv[1].downcase
                 v['rhost'] = '' if v['rhost'] =~ /\A\s+\z/  # Remote-MTA: DNS;
 
-              elsif cv = e.match(/\A[Ll]ast-[Aa]ttempt-[Dd]ate:[ ]*(.+)\z/)
+              elsif cv = e.match(/\ALast-Attempt-Date:[ ]*(.+)\z/)
                 # Last-Attempt-Date: Fri, 14 Feb 2014 12:30:08 -0500
                 v['date'] = cv[1]
-
               else
-                if cv = e.match(/\A[Dd]iagnostic-[Cc]ode:[ ]*(.+?);[ ]*(.+)\z/)
+                if cv = e.match(/\ADiagnostic-Code:[ ]*(.+?);[ ]*(.+)\z/)
                   # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
                   v['spec'] = cv[1].upcase
                   v['diagnosis'] = cv[2]
 
-                elsif p =~ /\A[Dd]iagnostic-[Cc]ode:[ ]*/ && cv = e.match(/\A[ \t]+(.+)\z/)
+                elsif p.start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
                   # Continued line of the value of Diagnostic-Code header
-                  v['diagnosis'] ||= ''
                   v['diagnosis'] << ' ' << cv[1]
                   havepassed[-1] = 'Diagnostic-Code: ' << e
                 end
               end
-
             else
               # ----- Transcript of session follows -----
               # ... while talking to mta.example.org.:
@@ -174,13 +168,13 @@ module Sisimai::Bite::Email
                 # <<< Response
                 esmtpreply = cv[1]
 
-              elsif cv = e.match(/\A[Rr]eporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
+              elsif cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                 # Reporting-MTA: dns; mx.example.jp
                 next if connheader['rhost'].size > 0
                 connheader['rhost'] = cv[1].downcase
                 connvalues += 1
 
-              elsif cv = e.match(/\A[Rr]eceived-[Ff]rom-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
+              elsif cv = e.match(/\AReceived-From-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                 # Received-From-MTA: DNS; x1x2x3x4.dhcp.example.ne.jp
                 next if connheader['lhost']
 
@@ -188,12 +182,11 @@ module Sisimai::Bite::Email
                 connheader['lhost'] = cv[1].downcase
                 connvalues += 1
 
-              elsif cv = e.match(/\A[Aa]rrival-[Dd]ate:[ ]*(.+)\z/)
+              elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
                 # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
                 next if connheader['date'].size > 0
                 connheader['date'] = cv[1]
                 connvalues += 1
-
               else
                 # Detect SMTP session error or connection error
                 next if sessionerr
@@ -208,7 +201,6 @@ module Sisimai::Bite::Email
                   # <kijitora@example.co.jp>... Deferred: Name server: example.co.jp.: host name lookup failure
                   anotherset['recipient'] = cv[1]
                   anotherset['diagnosis'] = cv[2]
-
                 else
                   # ----- Transcript of session follows -----
                   # Message could not be delivered for too long
@@ -235,8 +227,8 @@ module Sisimai::Bite::Email
           end
         end
         return nil if recipients.zero?
-        require 'sisimai/string'
 
+        require 'sisimai/string'
         dscontents.map do |e|
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
@@ -251,11 +243,7 @@ module Sisimai::Bite::Email
             # Copy alternative error message
             e['diagnosis'] = anotherset['diagnosis'] if e['diagnosis'] =~ /\A[ \t]+\z/
             e['diagnosis'] = anotherset['diagnosis'] unless e['diagnosis']
-
-            if e['diagnosis'] =~ /\A\d+\z/
-              # Override the value of diagnostic code message
-              e['diagnosis'] = anotherset['diagnosis']
-            end
+            e['diagnosis'] = anotherset['diagnosis'] if e['diagnosis'] =~ /\A\d+\z/
           end
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 

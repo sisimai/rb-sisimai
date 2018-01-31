@@ -32,7 +32,7 @@ module Sisimai
         piece = []
         mime1 = false
 
-        if argv1 =~ /[ ]/
+        if argv1.include?(' ')
           # Multiple MIME-Encoded strings in a line
           piece = argv1.split(' ')
         else
@@ -58,7 +58,6 @@ module Sisimai
         encodingname = nil
         mimeencoded0 = nil
         decodedtext0 = []
-
         notmimetext0 = ''
         notmimetext1 = ''
 

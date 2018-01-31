@@ -7,7 +7,7 @@ module Sisimai
       class << self
         # Imported from p5-Sisimail/lib/Sisimai/Rhost/GoDaddy.pm
         # https://www.godaddy.com/help/what-does-my-email-bounceback-mean-3568
-        CodeTable = {
+        ErrorCodes = {
           :IB103 => 'blocked',       # 554 Connection refused. This IP has a poor reputation on Cloudmark Sender Intelligence (CSI). IB103
           :IB104 => 'blocked',       # 554 Connection refused. This IP is listed on the Spamhaus Block List (SBL). IB104
           :IB105 => 'blocked',       # 554 Connection refused. This IP is listed on the Exploits Block List (XBL). IB105
@@ -30,26 +30,12 @@ module Sisimai
           :IB607 => 'toomanyconn',   # 550 This IP has sent too many to too many recipients this hour. IB607
           :IB705 => 'virusdetected', # 552 Virus infected message rejected. IB705
         }.freeze
-
-        MesgTable = {
-          :blocked => [
-              %r{\A553 http://www[.]spamhaus[.]org/query/bl[?]ip=.+},
-              %r/\A554 RBL Reject[.]/,
-          ],
-          :expired => [
-              %r/Delivery timeout/,
-              %r/451 Sorry, I wasn't able to establish an SMTP connection[.]/,
-          ],
-          :mailboxfull => [
-              %r/Account storage limit/,
-          ],
-          :userunknown => [
-              %r/Account does not exist/,
-              %r/550 Recipient not found[.]/,
-          ],
-          :suspend => [
-              %r/Account disabled/,
-          ],
+        MessagesOf = {
+            blocked:     ['553 http://www.spamhaus.org/query/bl?ip=', '554 RBL Reject.'],
+            expired:     ['Delivery timeout', "451 Sorry, I wasn't able to establish an SMTP connection."],
+            suspend:     ['Account disabled'],
+            mailboxfull: ['Account storage limit'],
+            userunknown: ['Account does not exist', '550 Recipient not found.'],
         }.freeze
 
         # Detect bounce reason from GoDaddy
@@ -66,15 +52,16 @@ module Sisimai
 
           if cv = statusmesg.match(/\s(IB\d{3})\b/)
             # 192.0.2.22 has sent to too many recipients this hour. IB607 ...
-            reasontext = CodeTable[cv[1].to_sym]
+            reasontext = ErrorCodes[cv[1].to_sym]
           else
             # 553 http://www.spamhaus.org/query/bl?ip=192.0.0.222
-            MesgTable.each_key do |e|
-              MesgTable[e].each do |f|
-                next unless statusmesg =~ f
+            MessagesOf.each_key do |e|
+              MessagesOf[e].each do |f|
+                next unless statusmesg.include?(f)
                 reasontext = e.to_s
                 break
               end
+              break if reasontext.size > 0
             end
           end
           return reasontext

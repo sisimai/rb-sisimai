@@ -37,7 +37,7 @@ module Sisimai::Bite::Email
 
         match  = 0
         match += 1 if mhead['subject'] == '[BOUNCE]'
-        match += 1 if mhead['message-id'] && mhead['message-id'] =~ /\d+[.]JavaMail[.].+[@]/
+        match += 1 if mhead['message-id'].to_s.include?('.JavaMail.')
         match += 1 if mhead['received'].find { |a| a.include?('JAMES SMTP Server') }
         return if match.zero?
 
@@ -77,7 +77,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -111,7 +110,6 @@ module Sisimai::Bite::Email
             elsif cv = e.match(/\A[ ][ ]Subject:[ ](.+)\z/)
               #   Subject: Nyaaan
               subjecttxt = cv[1]
-
             else
               next if gotmessage == 1
               if v['diagnosis']
@@ -125,10 +123,8 @@ module Sisimai::Bite::Email
                   # Append error message text like the followng:
                   #   Error message below:
                   #   550 - Requested action not taken: no such user here
-                  v['diagnosis'] ||= ''
-                  v['diagnosis'] <<  ' ' << e
+                  v['diagnosis'] << ' ' << e
                 end
-
               else
                 # Error message below:
                 # 550 - Requested action not taken: no such user here
@@ -138,7 +134,6 @@ module Sisimai::Bite::Email
           end
         end
         return nil if recipients.zero?
-        require 'sisimai/string'
 
         unless rfc822list.find { |a| a.start_with?('Subject:') }
           # Set the value of subjecttxt as a Subject if there is no original
@@ -146,6 +141,7 @@ module Sisimai::Bite::Email
           rfc822list << ('Subject: ' << subjecttxt)
         end
 
+        require 'sisimai/string'
         dscontents.map do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'] || diagnostic)

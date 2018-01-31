@@ -93,7 +93,6 @@ module Sisimai::Bite::Email
               next
             end
             rfc822list << e
-
           else
             # Before "message/rfc822"
             next if (readcursor & Indicators[:deliverystatus]).zero?
@@ -117,11 +116,8 @@ module Sisimai::Bite::Email
               v['recipient'] = cv[1]
               v['diagnosis'] = cv[2]
 
-              if responding[recipients]
-                # Concatenate the response of the server and error message
-                v['diagnosis'] ||= ''
-                v['diagnosis'] << ': ' << responding[recipients]
-              end
+              # Concatenate the response of the server and error message
+              v['diagnosis'] << ': ' << responding[recipients] if responding[recipients]
               recipients += 1
 
             elsif cv = e.match(/\A[>]{3}[ ]*([A-Z]{4})[ ]*/)
@@ -133,7 +129,6 @@ module Sisimai::Bite::Email
               # <<< 501 <shironeko@example.co.jp>... no access from mail server [192.0.2.55] which is an open relay.
               # <<< 550 Requested User Mailbox not found. No such user here.
               responding[recipients] = cv[1]
-
             else
               # Detect SMTP session error or connection error
               next if v['sessionerr']
@@ -166,14 +161,14 @@ module Sisimai::Bite::Email
           end
         end
         return nil if recipients.zero?
-        require 'sisimai/string'
 
+        require 'sisimai/string'
         dscontents.map do |e|
           errorindex += 1
           e['agent']   = self.smtpagent
           e['command'] = commandset[errorindex] || ''
 
-          e['diagnosis'] ||= if anotherset['diagnosis'] && anotherset['diagnosis'].size > 0
+          e['diagnosis'] ||= if anotherset['diagnosis'].to_s.size > 0
                                # Copy alternative error message
                                anotherset['diagnosis']
                              else

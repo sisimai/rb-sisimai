@@ -68,22 +68,20 @@ module Sisimai::Bite::JSON
         end
 
         begin
-          if RUBY_PLATFORM =~ /java/
+          if RUBY_PLATFORM.include?('java')
             # java-based ruby environment like JRuby.
             require 'jrjackson'
             jsonobject = JrJackson::Json.load(jsonstring)
-            if jsonobject['Message']
-              # 'Message' => '{"notificationType":"Bounce",...
-              jsonthings = JrJackson::Json.load(jsonobject['Message'])
-            end
+
+            # 'Message' => '{"notificationType":"Bounce",...
+            jsonthings = JrJackson::Json.load(jsonobject['Message']) if jsonobject['Message']
           else
             # Matz' Ruby Implementation
             require 'oj'
             jsonobject = Oj.load(jsonstring)
-            if jsonobject['Message']
-              # 'Message' => '{"notificationType":"Bounce",...
-              jsonthings = Oj.load(jsonobject['Message'])
-            end
+
+            # 'Message' => '{"notificationType":"Bounce",...
+            jsonthings = Oj.load(jsonobject['Message']) if jsonobject['Message']
           end
           jsonthings ||= jsonobject
 
@@ -117,7 +115,7 @@ module Sisimai::Bite::JSON
         }
         v = nil
 
-        if ['Bounce', 'Complaint'].include?(argvs['notificationType'])
+        if %w[Bounce Complaint].index(argvs['notificationType'])
           # { "notificationType":"Bounce", "bounce": { "bounceType":"Permanent",...
           o = argvs[argvs['notificationType'].downcase]
           r = o[labeltable[argvs['notificationType'].to_sym]] || []
@@ -167,7 +165,6 @@ module Sisimai::Bite::JSON
                 # },
                 v['reason'] = BounceType[o['bounceType'].to_sym][o['bounceSubType'].to_sym]
               end
-
             else
               # 'complainedRecipients' => [ {
               #   'emailAddress' => 'complaint@simulator.amazonses.com' }, ... ],
@@ -178,7 +175,6 @@ module Sisimai::Bite::JSON
             v['date'] = o['timestamp'] || argvs['mail']['timestamp']
             v['date'] = v['date'].sub(/[.]\d+Z\z/, '')
           end
-
         elsif argvs['notificationType'] == 'Delivery'
           # { "notificationType":"Delivery", "delivery": { ...
           require 'sisimai/smtp/status'
@@ -217,7 +213,6 @@ module Sisimai::Bite::JSON
             v['date'] = o['timestamp'] || argvs['mail']['timestamp']
             v['date'] = v['date'].sub(/[.]\d+Z\z/, '')
           end
-
         else
           # The value of "notificationType" is not any of "Bounce", "Complaint",
           # or "Delivery".
@@ -234,7 +229,7 @@ module Sisimai::Bite::JSON
           # "headers":[ { ...
           argvs['mail']['headers'].each do |e|
             # 'headers' => [ { 'name' => 'From', 'value' => 'neko@nyaan.jp' }, ... ],
-            next unless %w[From To Subject Message-ID Date].include?(e['name'])
+            next unless %w[From To Subject Message-ID Date].index(e['name'])
             rfc822head[e['name'].downcase] = e['value']
           end
         end
