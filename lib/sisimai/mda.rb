@@ -25,57 +25,57 @@ module Sisimai
       # dovecot/src/deliver/mail-send.c:94
       ReFailures = {
         :'dovecot' => {
-          :userunknown => %r/\AMailbox doesn't exist: /i,
+          :userunknown => %r/\Amailbox doesn't exist: /,
           :mailboxfull => %r{\A(?:
-             Quota[ ]exceeded # Dovecot 1.2 dovecot/src/plugins/quota/quota.c
-            |Quota[ ]exceeded[ ][(]mailbox[ ]for[ ]user[ ]is[ ]full[)]  # dovecot/src/plugins/quota/quota.c
-            |Not[ ]enough[ ]disk[ ]space
+             quota[ ]exceeded # Dovecot 1.2 dovecot/src/plugins/quota/quota.c
+            |quota[ ]exceeded[ ][(]mailbox[ ]for[ ]user[ ]is[ ]full[)]  # dovecot/src/plugins/quota/quota.c
+            |not[ ]enough[ ]disk[ ]space
             )
-          }xi,
+          }x,
         },
         :'mail.local' => {
           :userunknown => %r{[:][ ](?:
              unknown[ ]user[:]
-            |User[ ]unknown
-            |Invalid[ ]mailbox[ ]path
-            |User[ ]missing[ ]home[ ]directory
+            |user[ ]unknown
+            |invalid[ ]mailbox[ ]path
+            |user[ ]missing[ ]home[ ]directory
             )
-          }xi,
+          }x,
           :mailboxfull => %r{(?:
-             Disc[ ]quota[ ]exceeded
-            |Mailbox[ ]full[ ]or[ ]quota[ ]exceeded
+             disc[ ]quota[ ]exceeded
+            |mailbox[ ]full[ ]or[ ]quota[ ]exceeded
             )
-          }xi,
-          :systemerror => %r/Temporary file write error/i,
+          }x,
+          :systemerror => %r/temporary file write error/,
         },
         :'procmail' => {
-          :mailboxfull => %r/Quota exceeded while writing/i,
-          :systemfull  => %r/No space left to finish writing/i,
+          :mailboxfull => %r/quota exceeded while writing/,
+          :systemfull  => %r/no space left to finish writing/,
         },
         :'maildrop' => {
           :userunknown => %r{(?:
-             Invalid[ ]user[ ]specified[.]
+             invalid[ ]user[ ]specified[.]
             |Cannot[ ]find[ ]system[ ]user
             )
-          }xi,
-          :mailboxfull => %r/maildir over quota[.]\z/i,
+          }x,
+          :mailboxfull => %r/maildir over quota[.]\z/,
         },
         :'vpopmail' => {
-          :userunknown => %r/Sorry, no mailbox here by that name[.]/i,
+          :userunknown => %r/sorry, no mailbox here by that name[.]/,
           :filtered    => %r{(?:
              account[ ]is[ ]locked[ ]email[ ]bounced
             |user[ ]does[ ]not[ ]exist,[ ]but[ ]will[ ]deliver[ ]to[ ]
             )
-          }xi,
-          :mailboxfull => %r/(?:domain|user) is over quota/i,
+          }x,
+          :mailboxfull => %r/(?:domain|user) is over quota/,
         },
         :'vmailmgr' => {
           :userunknown => %r{(?>
-             Invalid[ ]or[ ]unknown[ ](?:base[ ]user[ ]or[ ]domain|virtual[ ]user)
-            |User[ ]name[ ]does[ ]not[ ]refer[ ]to[ ]a[ ]virtual[ ]user/
+             invalid[ ]or[ ]unknown[ ](?:base[ ]user[ ]or[ ]domain|virtual[ ]user)
+            |user[ ]name[ ]does[ ]not[ ]refer[ ]to[ ]a[ ]virtual[ ]user/
             )
-          }ix,
-          :mailboxfull => %r/Delivery failed due to system quota violation/i,
+          }x,
+          :mailboxfull => %r/delivery failed due to system quota violation/,
         },
       }.freeze
 
@@ -129,7 +129,7 @@ module Sisimai
           # Detect an error reason from message patterns of the MDA.
           linebuffer.each do |f|
             # Try to match with each regular expression
-            next unless f =~ ReFailures[agentname0.to_sym][e]
+            next unless f.downcase =~ ReFailures[agentname0.to_sym][e]
             reasonname = e.to_s
             bouncemesg = f
             break

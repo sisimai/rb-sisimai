@@ -23,10 +23,10 @@ module Sisimai
 
           # Destination mail server does not accept any message
           regex = %r{(?:
-               Name[ ]server:[ ][.]:[ ]host[ ]not[ ]found # Sendmail
+               name[ ]server:[ ][.]:[ ]host[ ]not[ ]found # Sendmail
               |55[46][ ]smtp[ ]protocol[ ]returned[ ]a[ ]permanent[ ]error
             )
-          }ix
+          }x
 
           return true if argv1 =~ regex
           return false
@@ -45,7 +45,7 @@ module Sisimai
           # SMTP Reply Code is 554 or 556
           return true if [521, 554, 556].index(argvs.replycode.to_i)
           return false if argvs.smtpcommand == 'MAIL'
-          return true if match(argvs.diagnosticcode)
+          return true if match(argvs.diagnosticcode.downcase)
           return false
         end
 

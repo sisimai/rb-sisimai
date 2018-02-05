@@ -7,25 +7,25 @@ module Sisimai
       MarkingsOf = { :boundary => %r/\A__SISIMAI_PSEUDO_BOUNDARY__\z/ }
       AutoReply1 = {
         # http://www.iana.org/assignments/auto-submitted-keywords/auto-submitted-keywords.xhtml
-        :'auto-submitted' => %r/\Aauto-(?:generated|replied|notified)/i,
+        :'auto-submitted' => %r/\Aauto-(?:generated|replied|notified)/,
         # https://msdn.microsoft.com/en-us/library/ee219609(v=exchg.80).aspx
-        :'x-auto-response-suppress' => %r/(?:OOF|AutoReply)/i,
+        :'x-auto-response-suppress' => %r/(?:oof|autoreply)/,
         :'precedence' => %r/\Aauto_reply\z/,
         :'subject' => %r/\A(?>
-             Auto:
-            |Auto[ ]Response:
-            |Automatic[ ]reply:
-            |Out[ ]of[ ](?:the[ ])*Office:
+             auto:
+            |auto[ ]response:
+            |automatic[ ]reply:
+            |out[ ]of[ ](?:the[ ])*office:
           )
-        /xi,
+        /x,
       }.freeze
       Excludings = {
         :subject => %r/(?:
-             SECURITY[ ]information[ ]for  # sudo
-            |Mail[ ]failure[ ][-]          # Exim
+             security[ ]information[ ]for  # sudo
+            |mail[ ]failure[ ][-]          # Exim
             )
         /x,
-        :from    => %r/(?:root|postmaster|mailer-daemon)[@]/i,
+        :from    => %r/(?:root|postmaster|mailer-daemon)[@]/,
         :to      => %r/root[@]/,
       }.freeze
       SubjectSet = %r{\A(?>
@@ -66,7 +66,7 @@ module Sisimai
           # Exclude message from root@
           next unless mhead.key?(e.to_s)
           next unless mhead[e.to_s]
-          next unless mhead[e.to_s] =~ Excludings[e]
+          next unless mhead[e.to_s].downcase =~ Excludings[e]
           leave = 1
           break
         end
@@ -77,7 +77,7 @@ module Sisimai
           # RFC3834 Auto-Submitted and other headers
           next unless mhead.key?(e.to_s)
           next unless mhead[e.to_s]
-          next unless mhead[e.to_s] =~ AutoReply1[e]
+          next unless mhead[e.to_s].downcase =~ AutoReply1[e]
           match += 1
           break
         end

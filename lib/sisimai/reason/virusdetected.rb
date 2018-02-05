@@ -29,10 +29,10 @@ module Sisimai
           regex = %r{(?>
              it[ ]has[ ]a[ ]potentially[ ]executable[ ]attachment
             |the[ ]message[ ]was[ ]rejected[ ]because[ ]it[ ]contains[ ]prohibited[ ]virus[ ]or[ ]spam[ ]content
-            |This[ ]form[ ]of[ ]attachment[ ]has[ ]been[ ]used[ ]by[ ]recent[ ]viruses[ ]or[ ]other[ ]malware
-            |Your[ ]message[ ]was[ ]infected[ ]with[ ]a[ ]virus
+            |this[ ]form[ ]of[ ]attachment[ ]has[ ]been[ ]used[ ]by[ ]recent[ ]viruses[ ]or[ ]other[ ]malware
+            |your[ ]message[ ]was[ ]infected[ ]with[ ]a[ ]virus
             )
-          }ix
+          }x
 
           return true if argv1 =~ regex
           return false

@@ -20,6 +20,9 @@ DEPENDENCIES  = bundle rake rspec
 .DEFAULT_GOAL = git-status
 REPOS_TARGETS = git-status git-push git-commit-amend git-tag-list git-diff \
 				git-reset-soft git-rm-cached git-branch
+DEVEL_TARGETS = private-sample
+BENCH_TARGETS = profile speed-test loc
+
 
 # -----------------------------------------------------------------------------
 .PHONY: clean
@@ -69,6 +72,12 @@ patrol:
 
 $(REPOS_TARGETS):
 	$(MAKE) -f Repository.mk $@
+
+$(DEVEL_TARGETS):
+	$(MAKE) -f Developers.mk $@
+
+$(BENCH_TARGETS):
+	$(MAKE) -f Benchmarks.mk $@
 
 diff push branch:
 	@$(MAKE) git-$@

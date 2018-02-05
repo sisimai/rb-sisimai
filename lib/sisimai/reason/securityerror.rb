@@ -29,29 +29,29 @@ module Sisimai
         def match(argv1)
           return nil unless argv1
           regex = %r{(?>
-             Account[ ]not[ ]subscribed[ ]to[ ]SES
-            |Authentification[ ]requise.+[A-Z]{3}.+402
+             account[ ]not[ ]subscribed[ ]to[ ]ses
+            |authentification[ ]requise.+[a-z]{3}.+402
             |authentication[ ](?:
-               Credentials Invalid
+               credentials invalid
               |failure
               |failed;[ ]server[ ].+[ ]said:  # Postfix
               |required
               |turned[ ]on[ ]in[ ]your[ ]email[ ]client
               )
-            |\d+[ ]denied[ ]\[[a-z]+\][ ].+[(]Mode:[ ].+[)]
-            |Codes?[ ]d'?[ ]*authentification[ ]invalide.+[A-Z]{3}.+305
+            |\d+[ ]denied[ ]\[[a-z]+\][ ].+[(]mode:[ ].+[)]
+            |codes?[ ]d'?[ ]*authentification[ ]invalide.+[a-z]{3}.+305
             |domain[ ].+[ ]is[ ]a[ ]dead[ ]domain
-            |Executable[ ]files[ ]are[ ]not[ ]allowed[ ]in[ ]compressed[ ]files
+            |executable[ ]files[ ]are[ ]not[ ]allowed[ ]in[ ]compressed[ ]files
             |insecure[ ]mail[ ]relay
-            |Recipient[ ]address[ ]rejected:[ ]Access[ ]denied
+            |recipient[ ]address[ ]rejected:[ ]access[ ]denied
             |sorry,[ ]you[ ]don'?t[ ]authenticate[ ]or[ ]the[ ]domain[ ]isn'?t[ ]in[ ]
               my[ ]list[ ]of[ ]allowed[ ]rcpthosts
-            |TLS[ ]required[ ]but[ ]not[ ]supported # SendGrid:the recipient mailserver does not support TLS or have a valid certificate
-            |User[ ].+[ ]is[ ]not[ ]authorized[ ]to[ ]perform[ ]ses:SendRawEmail[ ]on[ ]resource
+            |tls[ ]required[ ]but[ ]not[ ]supported # SendGrid:the recipient mailserver does not support TLS or have a valid certificate
+            |user[ ].+[ ]is[ ]not[ ]authorized[ ]to[ ]perform[ ]ses:sendrawemail[ ]on[ ]resource
             |you[ ]are[ ]not[ ]authorized[ ]to[ ]send[ ]mail,[ ]authentication[ ]is[ ]required
             |verification[ ]failure
             )
-          }ix
+          }x
 
           return true if argv1 =~ regex
           return false

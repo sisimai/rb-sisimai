@@ -19,13 +19,13 @@ module Sisimai
         def match(argv1)
           return nil unless argv1
           regex = %r{(?>
-             access[ ]denied[.][ ]IP[ ]name[ ]lookup[ ]failed
+             access[ ]denied[.][ ]ip[ ]name[ ]lookup[ ]failed
             |access[ ]from[ ]ip[ ]address[ ].+[ ]blocked
-            |all[ ]mail[ ]servers[ ]must[ ]have[ ]a[ ]PTR[ ]record[ ]with[ ]a[ ]valid[ ]Reverse[ ]DNS[ ]entry
-            |Bad[ ]sender[ ]IP[ ]address
+            |all[ ]mail[ ]servers[ ]must[ ]have[ ]a[ ]ptr[ ]record[ ]with[ ]a[ ]valid[ ]reverse[ ]dns[ ]entry
+            |bad[ ]sender[ ]ip[ ]address
             |blacklisted[ ]by
-            |(?:Blocked|Refused)[ ]-[ ]see[ ]https?://
-            |can[']t[ ]determine[ ]Purported[ ]Responsible[ ]Address
+            |(?:blocked|refused)[ ]-[ ]see[ ]https?://
+            |can[']t[ ]determine[ ]purported[ ]responsible[ ]address
             |cannot[ ](?:
                find[ ]your[ ]hostname
               |resolve[ ]your[ ]address
@@ -33,7 +33,7 @@ module Sisimai
             |client[ ]host[ ](?:
                .+[ ]blocked[ ]using
               |rejected:[ ](?:
-                 Abus[ ]detecte[ ]GU_EIB_0[24]      # SFR
+                 abus[ ]detecte[ ]gu_eib_0[24]      # SFR
                 |cannot[ ]find[ ]your[ ]hostname    # Yahoo!
                 |may[ ]not[ ]be[ ]mail[ ]exchanger
                 |was[ ]not[ ]authenticated          # Microsoft
@@ -46,106 +46,106 @@ module Sisimai
               |reset[ ]by[ ]peer
               |was[ ]dropped[ ]by[ ]remote[ ]host
               )
-            |Connections[ ](?:
-               not[ ]accepted[ ]from[ ]IP[ ]addresses[ ]on[ ]Spamhaus[ ]XBL
-              |will[ ]not[ ]be[ ]accepted[ ]from[ ].+because[ ]the[ ]ip[ ]is[ ]in[ ]Spamhaus's[ ]list
+            |connections[ ](?:
+               not[ ]accepted[ ]from[ ]ip[ ]addresses[ ]on[ ]spamhaus[ ]xbl
+              |will[ ]not[ ]be[ ]accepted[ ]from[ ].+because[ ]the[ ]ip[ ]is[ ]in[ ]spamhaus's[ ]list
               )
-            |Currently[ ]Sending[ ]Spam[ ]See:[ ]
+            |currently[ ]sending[ ]spam[ ]see:[ ]
             |domain[ ](?:
                .+[ ]mismatches[ ]client[ ]ip
               |does[ ]not[ ]exist:
               )
             |dns[ ]lookup[ ]failure:[ ].+[ ]try[ ]again[ ]later
-            |DNSBL:ATTRBL
-            |Dynamic/zombied/spam[ ]IPs[ ]blocked
-            |Email[ ]blocked[ ]by[ ](?:.+[.]barracudacentral[.]org|SPAMHAUS)
-            |Fix[ ]reverse[ ]DNS[ ]for[ ].+
-            |Go[ ]away
-            |host[ ].+[ ]refused[ ]to[ ]talk[ ]to[ ]me:[ ]\d+[ ]Blocked
+            |dnsbl:attrbl
+            |dynamic/zombied/spam[ ]ips[ ]blocked
+            |email[ ]blocked[ ]by[ ](?:.+[.]barracudacentral[.]org|spamhaus)
+            |fix[ ]reverse[ ]dns[ ]for[ ].+
+            |go[ ]away
+            |host[ ].+[ ]refused[ ]to[ ]talk[ ]to[ ]me:[ ]\d+[ ]blocked
             |hosts[ ]with[ ]dynamic[ ]ip
             |http://(?:
                spf[.]pobox[.]com/why[.]html
               |www[.]spamcop[.]net/bl[.]
               )
-            |INVALID[ ]IP[ ]FOR[ ]SENDING[ ]MAIL[ ]OF[ ]DOMAIN
-            |IP[ ]\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3}[ ]is[ ]blocked[ ]by[ ]EarthLink # Earthlink
-            |IP[/]domain[ ]reputation[ ]problems
+            |invalid[ ]ip[ ]for[ ]sending[ ]mail[ ]of[ ]domain
+            |ip[ ]\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3}[ ]is[ ]blocked[ ]by[ ]EarthLink # Earthlink
+            |ip[/]domain[ ]reputation[ ]problems
             |is[ ](?:
                in[ ]a[ ]black[ ]list[ ]at[ ].+[.]
-              |in[ ]an[ ].*RBL[ ]on[ ].+
+              |in[ ]an[ ].*rbl[ ]on[ ].+
               |not[ ]allowed[ ]to[ ]send[ ](?:
                  mail[ ]from
-                |from[ ].+[ ]per[ ]it's[ ]SPF[ ]Record
+                |from[ ].+[ ]per[ ]it's[ ]spf[ ]record
                 )
               )
             |mail[ ]server[ ]at[ ].+[ ]is[ ]blocked
-            |Mail[ ]from[ ]\d+[.]\d+[.]\d+[.]\d[ ]refused:
-            |Message[ ]from[ ].+[ ]rejected[ ]based[ ]on[ ]blacklist
-            |Messages[ ]from[ ].+[ ]temporarily[ ]deferred[ ]due[ ]to[ ]user[ ]complaints   # Yahoo!
+            |mail[ ]from[ ]\d+[.]\d+[.]\d+[.]\d[ ]refused:
+            |message[ ]from[ ].+[ ]rejected[ ]based[ ]on[ ]blacklist
+            |messages[ ]from[ ].+[ ]temporarily[ ]deferred[ ]due[ ]to[ ]user[ ]complaints   # Yahoo!
             |no[ ](?:
                access[ ]from[ ]mail[ ]server
-              |PTR[ ]Record[ ]found[.]
+              |ptr[ ]record[ ]found[.]
               )
-            |Not[ ]currently[ ]accepting[ ]mail[ ]from[ ]your[ ]ip  # Microsoft
+            |not[ ]currently[ ]accepting[ ]mail[ ]from[ ]your[ ]ip  # Microsoft
             |part[ ]of[ ]their[ ]network[ ]is[ ]on[ ]our[ ]block[ ]list
-            |Please[ ](?:
-               get[ ]a[ ]custom[ ]reverse[ ]DNS[ ]name[ ]from[ ]your[ ]ISP[ ]for[ ]your[ ]host
-              |inspect[ ]your[ ]SPF[ ]settings
-              |use[ ]the[ ]smtp[ ]server[ ]of[ ]your[ ]ISP
+            |please[ ](?:
+               get[ ]a[ ]custom[ ]reverse[ ]dns[ ]name[ ]from[ ]your[ ]isp[ ]for[ ]your[ ]host
+              |inspect[ ]your[ ]spf[ ]settings
+              |use[ ]the[ ]smtp[ ]server[ ]of[ ]your[ ]isp
               )
-            |PTR[ ]record[ ]setup
-            |Rejecting[ ]open[ ]proxy   # Sendmail(srvrsmtp.c)
-            |Reverse[ ]DNS[ ](?:
+            |ptr[ ]record[ ]setup
+            |rejecting[ ]open[ ]proxy   # Sendmail(srvrsmtp.c)
+            |reverse[ ]dns[ ](?:
                failed
               |required
               |lookup[ ]for[ ]host[ ].+[ ]failed[ ]permanently
               )
-            |Sender[ ]IP[ ](?:
+            |sender[ ]ip[ ](?:
                address[ ]rejected
               |reverse[ ]lookup[ ]rejected
               )
-            |Server[ ]access[ ](?:
-               .+[ ]forbidden[ ]by[ ]invalid[ ]RDNS[ ]record[ ]of[ ]your[ ]mail[ ]server
-              |forbidden[ ]by[ ]your[ ]IP[ ]
+            |server[ ]access[ ](?:
+               .+[ ]forbidden[ ]by[ ]invalid[ ]rdns[ ]record[ ]of[ ]your[ ]mail[ ]server
+              |forbidden[ ]by[ ]your[ ]ip[ ]
               )
-            |Server[ ]IP[ ].+[ ]listed[ ]as[ ]abusive
-            |service[ ]permits[ ]\d+[ ]unverifyable[ ]sending[ ]IPs
-            |SMTP[ ]error[ ]from[ ]remote[ ]mail[ ]server[ ]after[ ]initial[ ]connection:   # Exim
+            |server[ ]ip[ ].+[ ]listed[ ]as[ ]abusive
+            |service[ ]permits[ ]\d+[ ]unverifyable[ ]sending[ ]ips
+            |smtp[ ]error[ ]from[ ]remote[ ]mail[ ]server[ ]after[ ]initial[ ]connection:   # Exim
             |sorry,[ ](?:
                that[ ]domain[ ]isn'?t[ ]in[ ]my[ ]list[ ]of[ ]allowed[ ]rcpthosts
               |your[ ]remotehost[ ]looks[ ]suspiciously[ ]like[ ]spammer
               )
-            |SPF[ ](?:
+            |spf[ ](?:
                .+[ ]domain[ ]authentication[ ]fail
               |record
               |check:[ ]fail
               )
-            |SPF:[ ].+[ ]is[ ]not[ ]allowed[ ]to[ ]send[ ]mail.+[A-Z]{3}.+401
+            |spf:[ ].+[ ]is[ ]not[ ]allowed[ ]to[ ]send[ ]mail.+[a-z]{3}.+401
             |the[ ](?:email|domain|ip).+[ ]is[ ]blacklisted
-            |This[ ]system[ ]will[ ]not[ ]accept[ ]messages[ ]from[ ]servers[/]devices[ ]with[ ]no[ ]reverse[ ]DNS
-            |Too[ ]many[ ]spams[ ]from[ ]your[ ]IP  # free.fr
+            |this[ ]system[ ]will[ ]not[ ]accept[ ]messages[ ]from[ ]servers[/]devices[ ]with[ ]no[ ]reverse[ ]dns
+            |too[ ]many[ ]spams[ ]from[ ]your[ ]ip  # free.fr
             |unresolvable[ ]relay[ ]host[ ]name
-            |Veuillez[ ]essayer[ ]plus[ ]tard.+[A-Z]{3}.+(?:103|510)
+            |veuillez[ ]essayer[ ]plus[ ]tard.+[a-z]{3}.+(?:103|510)
             |your[ ](?:
                network[ ]is[ ]temporary[ ]blacklisted
-              |sender's[ ]IP[ ]address[ ]is[ ]listed[ ]at[ ].+[.]abuseat[.]org
+              |sender's[ ]ip[ ]address[ ]is[ ]listed[ ]at[ ].+[.]abuseat[.]org
               |server[ ]requires[ ]confirmation
               )
             |was[ ]blocked[ ]by[ ].+
             |we[ ]do[ ]not[ ]accept[ ]mail[ ]from[ ](?: # @mail.ru
                dynamic[ ]ips
-              |hosts[ ]with[ ]dynamic[ ]IP[ ]or[ ]generic[ ]dns[ ]PTR-records
+              |hosts[ ]with[ ]dynamic[ ]ip[ ]or[ ]generic[ ]dns[ ]ptr-records
               )
-            |You[ ]are[ ](?:
+            |you[ ]are[ ](?:
                not[ ]allowed[ ]to[ ]connect
               |sending[ ]spam
               )
-            |Your[ ](?:
+            |your[ ](?:
                access[ ]to[ ]submit[ ]messages[ ]to[ ]this[ ]e-mail[ ]system[ ]has[ ]been[ ]rejected
               |message[ ]was[ ]rejected[ ]for[ ]possible[ ]spam/virus[ ]content
               )
             )
-          }xi
+          }x
 
           return true if argv1 =~ regex
           return false
@@ -163,7 +163,7 @@ module Sisimai
 
           require 'sisimai/smtp/status'
           return true if Sisimai::SMTP::Status.name(argvs.deliverystatus) == 'blocked'
-          return true if match(argvs.diagnosticcode)
+          return true if match(argvs.diagnosticcode.downcase)
           return false
         end
 

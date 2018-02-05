@@ -24,43 +24,43 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          isnot = %r{(?:5[.]1[.]0[ ]Address
-            |Recipient[ ]address
-            |Sender[ ]IP[ ]address
+          isnot = %r{(?:5[.]1[.]0[ ]address
+            |recipient[ ]address
+            |sender[ ]ip[ ]address
             )[ ]rejected
-          }xi
+          }x
           regex = %r{(?>
              [<][>][ ]invalid[ ]sender
             |address[ ]rejected
-            |Administrative[ ]prohibition
+            |administrative[ ]prohibition
             |batv[ ](?:
                failed[ ]to[ ]verify   # SoniWall
               |validation[ ]failure   # SoniWall
               )
             |backscatter[ ]protection[ ]detected[ ]an[ ]invalid[ ]or[ ]expired[ ]email[ ]address    # MDaemon
             |bogus[ ]mail[ ]from        # IMail - block empty sender
-            |Connections[ ]not[ ]accepted[ ]from[ ]servers[ ]without[ ]a[ ]valid[ ]sender[ ]domain
+            |connections[ ]not[ ]accepted[ ]from[ ]servers[ ]without[ ]a[ ]valid[ ]sender[ ]domain
             |denied[ ]\[bouncedeny\]    # McAfee
-            |Delivery[ ]not[ ]authorized,[ ]message[ ]refused
-            |does[ ]not[ ]exist[ ]E2110
+            |delivery[ ]not[ ]authorized,[ ]message[ ]refused
+            |does[ ]not[ ]exist[ ]e2110
             |domain[ ]of[ ]sender[ ]address[ ].+[ ]does[ ]not[ ]exist
-            |Emetteur[ ]invalide.+[A-Z]{3}.+(?:403|405|415)
+            |emetteur[ ]invalide.+[a-z]{3}.+(?:403|405|415)
             |empty[ ]envelope[ ]senders[ ]not[ ]allowed
             |error:[ ]no[ ]third-party[ ]dsns               # SpamWall - block empty sender
-            |From:[ ]Domain[ ]is[ ]invalid[.][ ]Please[ ]provide[ ]a[ ]valid[ ]From:
+            |from:[ ]domain[ ]is[ ]invalid[.][ ]please[ ]provide[ ]a[ ]valid[ ]from:
             |fully[ ]qualified[ ]email[ ]address[ ]required # McAfee
             |invalid[ ]domain,[ ]see[ ][<]url:.+[>]
-            |Mail[ ]from[ ]not[ ]owned[ ]by[ ]user.+[A-Z]{3}.+421
-            |Message[ ]rejected:[ ]Email[ ]address[ ]is[ ]not[ ]verified
+            |mail[ ]from[ ]not[ ]owned[ ]by[ ]user.+[a-z]{3}.+421
+            |message[ ]rejected:[ ]email[ ]address[ ]is[ ]not[ ]verified
             |mx[ ]records[ ]for[ ].+[ ]violate[ ]section[ ].+
-            |Null[ ]Sender[ ]is[ ]not[ ]allowed
+            |null[ ]sender[ ]is[ ]not[ ]allowed
             |recipient[ ]not[ ]accepted[.][ ][(]batv:[ ]no[ ]tag
             |returned[ ]mail[ ]not[ ]accepted[ ]here
             |rfc[ ]1035[ ]violation:[ ]recursive[ ]cname[ ]records[ ]for
             |rule[ ]imposed[ ]mailbox[ ]access[ ]for        # MailMarshal
             |sender[ ](?:
                email[ ]address[ ]rejected
-              |is[ ]Spammer
+              |is[ ]spammer
               |not[ ]pre[-]approved
               |rejected
               |domain[ ]is[ ]empty
@@ -69,10 +69,10 @@ module Sisimai
             |syntax[ ]error:[ ]empty[ ]email[ ]address
             |the[ ]message[ ]has[ ]been[ ]rejected[ ]by[ ]batv[ ]defense
             |transaction[ ]failed[ ]unsigned[ ]dsn[ ]for
-            |Unroutable[ ]sender[ ]address
+            |unroutable[ ]sender[ ]address
             |you[ ]are[ ]sending[ ]to[/]from[ ]an[ ]address[ ]that[ ]has[ ]been[ ]blacklisted
             )
-          }ix
+          }x
 
           return false if argv1 =~ isnot
           return true  if argv1 =~ regex
@@ -91,7 +91,7 @@ module Sisimai
           require 'sisimai/smtp/status'
           tempreason = Sisimai::SMTP::Status.name(argvs.deliverystatus)
           tempreason = 'undefined' if tempreason.empty?
-          diagnostic = argvs.diagnosticcode
+          diagnostic = argvs.diagnosticcode.downcase
 
           return true if argvs.reason == 'rejected'
           return true if tempreason == 'rejected' # Delivery status code points "rejected".

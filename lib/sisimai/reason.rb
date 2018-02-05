@@ -77,7 +77,7 @@ module Sisimai
             unless reasontext
               # Try to match with message patterns in Sisimai::Reason::Vacation
               require 'sisimai/reason/vacation'
-              reasontext = 'vacation' if Sisimai::Reason::Vacation.match(argvs.diagnosticcode)
+              reasontext = 'vacation' if Sisimai::Reason::Vacation.match(argvs.diagnosticcode.downcase)
             end
             reasontext ||= 'onhold' if argvs.diagnosticcode.size > 0
           end
@@ -97,7 +97,7 @@ module Sisimai
         return argvs.reason if argvs.reason.size > 0
 
         statuscode = argvs.deliverystatus || ''
-        diagnostic = argvs.diagnosticcode || ''
+        diagnostic = argvs.diagnosticcode.downcase || ''
         commandtxt = argvs.smtpcommand    || ''
         trytomatch = nil
         reasontext = ''
@@ -182,6 +182,7 @@ module Sisimai
 
         reasontext = ''
         typestring = ''
+        diagnostic = argv1.downcase
         classorder = %w[
           MailboxFull MesgTooBig ExceedLimit Suspend UserUnknown Filtered Rejected
           HostUnknown SpamDetected TooManyConn Blocked SpamDetected SecurityError
@@ -208,7 +209,7 @@ module Sisimai
             next
           end
 
-          next unless r.match(argv1)
+          next unless r.match(diagnostic)
           reasontext = r.text
           break
         end

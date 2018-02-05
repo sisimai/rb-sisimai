@@ -22,7 +22,7 @@ module Sisimai
              mail[ ]system[ ]full
             |requested[ ]mail[ ]action[ ]aborted:[ ]exceeded[ ]storage[ ]allocation # MS Exchange
             )
-          }ix
+          }x
 
           return true if argv1 =~ regex
           return false

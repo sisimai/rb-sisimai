@@ -24,15 +24,15 @@ module Sisimai
           regex = %r{(?>
              because[ ]the[ ]recipient[ ]is[ ]only[ ]accepting[ ]mail[ ]from[ ]
               specific[ ]email[ ]addresses    # AOL Phoenix
-            |Bounced[ ]Address  # SendGrid|a message to an address has previously been Bounced.
+            |bounced[ ]address  # SendGrid|a message to an address has previously been Bounced.
             |due[ ]to[ ]extended[ ]inactivity[ ]new[ ]mail[ ]is[ ]not[ ]currently[ ]
               being[ ]accepted[ ]for[ ]this[ ]mailbox
-            |has[ ]restricted[ ]SMS[ ]e-mail    # AT&T
+            |has[ ]restricted[ ]sms[ ]e-mail    # AT&T
             |http://postmaster[.]facebook[.]com/.+refused[ ]due[ ]to[ ]recipient[ ]preferences # Facebook
-            |IS[ ]NOT[ ]ACCEPTING[ ]ANY[ ]MAIL
+            |is[ ]not[ ]accepting[ ]any[ ]mail
             |permanent[ ]failure[ ]for[ ]one[ ]or[ ]more[ ]recipients[ ][(].+:blocked[)]
-            |RESOLVER[.]RST[.]NotAuthorized # Microsoft Exchange
-            |This[ ]account[ ]is[ ]protected[ ]by
+            |resolver[.]rst[.]notauthorized # Microsoft Exchange
+            |this[ ]account[ ]is[ ]protected[ ]by
             |user[ ](?:
               not[ ]found  # Filter on MAIL.RU
              |reject
@@ -40,8 +40,8 @@ module Sisimai
             |we[ ]failed[ ]to[ ]deliver[ ]mail[ ]because[ ]the[ ]following[ ]address
                 [ ]recipient[ ]id[ ]refuse[ ]to[ ]receive[ ]mail    # Willcom
             )
-            |You[ ]have[ ]been[ ]blocked[ ]by[ ]the[ ]recipient
-          }ix
+            |you[ ]have[ ]been[ ]blocked[ ]by[ ]the[ ]recipient
+          }x
 
           return true if argv1 =~ regex
           return false
@@ -60,7 +60,7 @@ module Sisimai
           require 'sisimai/smtp/status'
           require 'sisimai/reason/userunknown'
           commandtxt = argvs.smtpcommand || ''
-          diagnostic = argvs.diagnosticcode || ''
+          diagnostic = argvs.diagnosticcode.downcase || ''
           tempreason = Sisimai::SMTP::Status.name(argvs.deliverystatus)
           alterclass = Sisimai::Reason::UserUnknown
 

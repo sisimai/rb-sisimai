@@ -19,13 +19,13 @@ module Sisimai
         def match(argv1)
           return nil unless argv1
           regex = %r{(?>
-             Account[ ]disabled[ ]temporarly[ ]for[ ]exceeding[ ]receiving[ ]limits
+             account[ ]disabled[ ]temporarly[ ]for[ ]exceeding[ ]receiving[ ]limits
             |account[ ]is[ ](?:
                exceeding[ ]their[ ]quota
               |over[ ]quota
               |temporarily[ ]over[ ]quota
               )
-            |Boite[ ]du[ ]destinataire[ ]pleine.+[A-Z]{3}.+417
+            |boite[ ]du[ ]destinataire[ ]pleine.+[a-z]{3}.+417
             |delivery[ ]failed:[ ]over[ ]quota
             |disc[ ]quota[ ]exceeded
             |does[ ]not[ ]have[ ]enough[ ]space
@@ -50,7 +50,7 @@ module Sisimai
               |size[ ]limit[ ]exceeded
               )
             |maildir[ ](?:
-               delivery[ ]failed:[ ](?:User|Domain)disk[ ]quota[ ]?.*[ ]exceeded
+               delivery[ ]failed:[ ](?:user|domain)disk[ ]quota[ ]?.*[ ]exceeded
               |over[ ]quota
               )
             |mailfolder[ ]is[ ]full
@@ -64,7 +64,7 @@ module Sisimai
                reached[ ]disk[ ]quota
               |rejected:[ ]mailbox[ ]would[ ]exceed[ ]maximum[ ]allowed[ ]storage
               )
-            |The[ ](?:
+            |the[ ](?:
                recipient[ ]mailbox[ ]has[ ]exceeded[ ]its[ ]disk[ ]space[ ]limit
               |user[']s[ ]space[ ]has[ ]been[ ]used[ ]up
               |user[ ]you[ ]are[ ]trying[ ]to[ ]reach[ ]is[ ]over[ ]quota
@@ -82,7 +82,7 @@ module Sisimai
             |was[ ]automatically[ ]rejected:[ ]quota[ ]exceeded
             |would[ ]be[ ]over[ ]the[ ]allowed[ ]quota
             )
-          }ix
+          }x
 
           return true if argv1 =~ regex
           return false
@@ -106,7 +106,7 @@ module Sisimai
           return true if Sisimai::SMTP::Status.name(argvs.deliverystatus) == 'mailboxfull'
 
           # Check the value of Diagnosic-Code: header with patterns
-          return true if match(argvs.diagnosticcode)
+          return true if match(argvs.diagnosticcode.downcase)
           return false
         end
 

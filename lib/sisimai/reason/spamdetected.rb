@@ -26,15 +26,15 @@ module Sisimai
         def match(argv1)
           return nil unless argv1
           regex = %r{(?>
-             ["]The[ ]mail[ ]server[ ]detected[ ]your[ ]message[ ]as[ ]spam[ ]and[ ]
+             ["]the[ ]mail[ ]server[ ]detected[ ]your[ ]message[ ]as[ ]spam[ ]and[ ]
                 has[ ]prevented[ ]delivery[.]["]    # CPanel/Exim with SA rejections on
             |(?:\d[.]\d[.]\d|\d{3})[ ]spam\z
             |appears[ ]to[ ]be[ ]unsolicited
-            |Blacklisted[ ]URL[ ]in[ ]message
+            |blacklisted[ ]url[ ]in[ ]message
             |block[ ]for[ ]spam
             |blocked[ ]by[ ](?:
                policy:[ ]no[ ]spam[ ]please
-              |spamAssassin                   # rejected by SpamAssassin
+              |spamassassin                   # rejected by SpamAssassin
               )
             |blocked[ ]for[ ]abuse[.][ ]see[ ]http://att[.]net/blocks   # AT&T
             |bulk[ ]email
@@ -48,7 +48,7 @@ module Sisimai
             |mail[ ](?:
                appears[ ]to[ ]be[ ]unsolicited    # rejected due to spam
               |content[ ]denied   # http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=20022&&no=1000726
-              |rejete.+[A-Z]{3}.+506
+              |rejete.+[a-z]{3}.+506
               )
             |may[ ]consider[ ]spam
             |message[ ](?:
@@ -57,10 +57,10 @@ module Sisimai
               |filtered
               |filtered[.][ ](?:
                  please[ ]see[ ]the[ ]faqs[ ]section[ ]on[ ]spam
-                |Refer[ ]to[ ]the[ ]Troubleshooting[ ]page[ ]at[ ]
+                |refer[ ]to[ ]the[ ]troubleshooting[ ]page[ ]at[ ]
                 )
               |looks[ ]like[ ]spam
-              |not[ ]accepted[ ]for[ ]policy[ ]reasons[.][ ]See[ ]http:   # Yahoo!
+              |not[ ]accepted[ ]for[ ]policy[ ]reasons[.][ ]see[ ]http:   # Yahoo!
               |refused[ ]by[ ]mailmarshal[ ]spamprofiler
               |rejected[ ](?:
                  as[ ]spam
@@ -75,8 +75,8 @@ module Sisimai
               |system[ ]has[ ]detected[ ]that[ ]this[ ]message[ ]is
               )
             |probable[ ]spam
-            |REJECT[ ]bulk[.]advertising
-            |Reject,.+[ ][-][ ]SPAM[.][ ]
+            |reject[ ]bulk[.]advertising
+            |reject,.+[ ][-][ ]spam[.][ ]
             |rejected(?:
                :[ ]spamassassin[ ]score[ ]
               |[ ]by[ ].+[ ][(]spam[)]
@@ -85,7 +85,7 @@ module Sisimai
             |rejecting[ ]banned[ ]content
             |related[ ]to[ ]content[ ]with[ ]spam[-]like[ ]characteristics
             |rule[ ]imposed[ ]as[ ].+is[ ]blacklisted[ ]on              # Mailmarshal RBLs
-            |Sender[ ]domain[ ]listed[ ]at[ ].+
+            |sender[ ]domain[ ]listed[ ]at[ ].+
             |sending[ ]address[ ]not[ ]accepted[ ]due[ ]to[ ]spam[ ]filter
             |spam[ ](?:
                .+[ ]exceeded
@@ -99,18 +99,18 @@ module Sisimai
               |not[ ]accepted
               |refused
               |rejection
-              |Reporting[ ]Address    # SendGrid: a message to an address has previously been marked as Spam by the recipient.
+              |reporting[ ]address    # SendGrid: a message to an address has previously been marked as Spam by the recipient.
               |score[ ]
               )
             |spambouncer[ ]identified[ ]spam    # SpamBouncer identified SPAM
             |spamming[ ]not[ ]allowed
-            |Too[ ]much[ ]spam[.]               # Earthlink
+            |too[ ]much[ ]spam[.]               # Earthlink
             |the[ ]message[ ](?:
                has[ ]been[ ]rejected[ ]by[ ]spam[ ]filtering[ ]engine
               |was[ ]rejected[ ]due[ ]to[ ]classification[ ]as[ ]bulk[ ]mail
               )
-            |The[ ]content[ ]of[ ]this[ ]message[ ]looked[ ]like[ ]spam # SendGrid
-            |This[ ](?:e-mail|mail)[ ](?:
+            |the[ ]content[ ]of[ ]this[ ]message[ ]looked[ ]like[ ]spam # SendGrid
+            |this[ ](?:e-mail|mail)[ ](?:
                cannot[ ]be[ ]forwarded[ ]because[ ]it[ ]was[ ]detected[ ]as[ ]spam
               |is[ ]classified[ ]as[ ]spam[ ]and[ ]is[ ]rejected
               )
@@ -122,7 +122,7 @@ module Sisimai
                 )
               |scored[ ].+[ ]spam[ ]points
               |was[ ]classified[ ]as[ ]spam
-              |was[ ]rejected[ ]by[ ]Recurrent[ ]Pattern[ ]Detection[ ]System
+              |was[ ]rejected[ ]by[ ]recurrent[ ]pattern[ ]detection[ ]system
               )
             |transaction[ ]failed[ ]spam[ ]message[ ]not[ ]queued       # SendGrid
             |we[ ]dont[ ]accept[ ]spam
@@ -130,7 +130,7 @@ module Sisimai
             |your[ ](?:
                email[ ](?:
                  appears[ ]similar[ ]to[ ]spam[ ]we[ ]have[ ]received[ ]before
-                |breaches[ ]local[ ]URIBL[ ]policy
+                |breaches[ ]local[ ]uribl[ ]policy
                 |had[ ]spam[-]like[ ]
                 |is[ ](?:considered|probably)[ ]spam
                 |was[ ]detected[ ]as[ ]spam
@@ -139,15 +139,15 @@ module Sisimai
                  as[ ]spam[ ]and[ ]has[ ]prevented[ ]delivery
                 |has[ ]been[ ](?:
                    temporarily[ ]blocked[ ]by[ ]our[ ]filter
-                  |rejected[ ]because[ ]it[ ]appears[ ]to[ ]be[ ]SPAM
+                  |rejected[ ]because[ ]it[ ]appears[ ]to[ ]be[ ]spam
                   )
-                |has[ ]triggered[ ]a[ ]SPAM[ ]block
+                |has[ ]triggered[ ]a[ ]spam[ ]block
                 |may[ ]contain[ ]the[ ]spam[ ]contents
                 |failed[ ]several[ ]antispam[ ]checks
                 )
               )
             )
-          }ix
+          }x
 
           return true if argv1 =~ regex
           return false
@@ -166,7 +166,7 @@ module Sisimai
 
           require 'sisimai/smtp/status'
           return true if Sisimai::SMTP::Status.name(argvs.deliverystatus) == 'spamdetected'
-          return true if match(argvs.diagnosticcode)
+          return true if match(argvs.diagnosticcode.downcase)
           return false
         end
 

@@ -23,10 +23,10 @@ module Sisimai
           return nil unless argv1
           regex = %r{(?>
              can[']t[ ]create[ ]user[ ]output[ ]file
-            |Could[ ]not[ ]load[ ]DRD[ ]for[ ]domain
-            |Internal[ ](?:
+            |could[ ]not[ ]load[ ]drd[ ]for[ ]domain
+            |internal[ ](?:
                error[ ]reading[ ]data                             # Microsoft
-              |server[ ]error:[ ]Operation[ ]now[ ]in[ ]progress  # Microsoft
+              |server[ ]error:[ ]operation[ ]now[ ]in[ ]progress  # Microsoft
               )
             |interrupted[ ]system[ ]call
             |it[ ](?:
@@ -37,7 +37,7 @@ module Sisimai
                configuration[ ]error
               |error[ ]in[ ]processing
               )
-            |loop[ ]was[ ]found[ ]in[ ]the[ ]Mail[ ]eXchanger
+            |loop[ ]was[ ]found[ ]in[ ]the[ ]mail[ ]exchanger
             |mail[ ](?:
                for[ ].+[ ]loops[ ]back[ ]to[ ]myself
               |system[ ]configuration[ ]error
@@ -45,10 +45,10 @@ module Sisimai
             |server[ ]configuration[ ]error
             |service[ ]currently[ ]unavailable
             |system[ ]config[ ]error
-            |Temporary[ ]local[ ]problem
+            |temporary[ ]local[ ]problem
             |timeout[ ]waiting[ ]for[ ]input
             )
-          }ix
+          }x
 
           return true if argv1 =~ regex
           return false

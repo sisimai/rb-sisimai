@@ -19,7 +19,7 @@ module Sisimai
           return nil unless argv1
           regex = %r{(?>
              exceeded[ ]maximum[ ]inbound[ ]message[ ]size
-            |Line[ ]limit[ ]exceeded
+            |line[ ]limit[ ]exceeded
             |max[ ]message[ ]size[ ]exceeded
             |message[ ](?:
                file[ ]too[ ]big
@@ -33,9 +33,9 @@ module Sisimai
               |too[ ]large[ ]for[ ]this[ ].+
               )
             |size[ ]limit
-            |Taille[ ]limite[ ]du[ ]message[ ]atteinte.+[A-Z]{3}.+514
+            |taille[ ]limite[ ]du[ ]message[ ]atteinte.+[a-z]{3}.+514
             )
-          }ix
+          }x
 
           return true if argv1 =~ regex
           return false
@@ -64,7 +64,7 @@ module Sisimai
           return false if( tempreason == 'exceedlimit' || statuscode == '5.2.3' )
 
           # Check the value of Diagnosic-Code: header with patterns
-          return true if match(argvs.diagnosticcode)
+          return true if match(argvs.diagnosticcode.downcase)
           return false
         end
 

@@ -7,12 +7,12 @@ module Sisimai
       require 'sisimai/string'
 
       ReE = {
-        :'7bit-encoded' => %r/^Content-Transfer-Encoding:[ ]*7bit$/im,
-        :'quoted-print' => %r/^Content-Transfer-Encoding:[ ]*quoted-printable$/im,
-        :'some-iso2022' => %r/^Content-Type:[ ]*.+;[ ]*charset=["']?(iso-2022-[-a-z0-9]+?)['"]?$/im,
-        :'with-charset' => %r/^Content[-]Type:[ ]*.+[;][ ]*charset=['"]?(.+?)['"]?$/i,
-        :'only-charset' => %r/^[\s\t]+charset=['"]?(.+?)['"]?$/i,
-        :'html-message' => %r|^Content-Type:[ ]*text/html;|mi,
+        :'7bit-encoded' => %r/^content-transfer-encoding:[ ]*7bit$/m,
+        :'quoted-print' => %r/^content-transfer-encoding:[ ]*quoted-printable$/m,
+        :'some-iso2022' => %r/^content-type:[ ]*.+;[ ]*charset=["']?(iso-2022-[-a-z0-9]+?)['"]?$/m,
+        :'with-charset' => %r/^content[-]type:[ ]*.+[;][ ]*charset=['"]?(.+?)['"]?$/,
+        :'only-charset' => %r/^[\s\t]+charset=['"]?(.+?)['"]?$/,
+        :'html-message' => %r|^content-type:[ ]*text/html;|m,
       }.freeze
 
       # Make MIME-Encoding and Content-Type related headers regurlar expression
@@ -128,7 +128,7 @@ module Sisimai
         # or "Content-Transfer-Encoding: quoted-printable" are not included in
         # the message body.
         return argv1.unpack('M').first if boundary00.size.zero?
-        return argv1.unpack('M').first unless argv1 =~ ReE[:'quoted-print']
+        return argv1.unpack('M').first unless argv1.downcase =~ ReE[:'quoted-print']
 
         boundary01 = Sisimai::MIME.boundary(heads['content-type'], 1)
         reboundary = {
@@ -138,6 +138,7 @@ module Sisimai
         bodystring = ''
         notdecoded = ''
         getencoded = ''
+        lowercased = ''
 
         encodename = nil
         ctencoding = nil
@@ -169,6 +170,7 @@ module Sisimai
             end
           else
             # NOT Quoted-Printable encoded text block
+            lowercased = e.downcase
             if e =~ /\A[-]{2}[^\s]+[^-]\z/
               # Start of the boundary block
               # --=_gy7C4Gpes0RP4V5Bs9cK4o2Us2ZT57b-3OLnRN+4klS8dTmQ
@@ -181,12 +183,12 @@ module Sisimai
                   :until => Regexp.new(Regexp.escape(boundary01) << '\z')
                 }
               end
-            elsif cv = e.match(ReE[:'with-charset']) || e.match(ReE[:'only-charset'])
+            elsif cv = lowercased.match(ReE[:'with-charset']) || lowercased.match(ReE[:'only-charset'])
               # Content-Type: text/plain; charset=ISO-2022-JP
               encodename = cv[1]
               mimeinside = true if ctencoding
 
-            elsif e =~ ReE[:'quoted-print']
+            elsif lowercased =~ ReE[:'quoted-print']
               # Content-Transfer-Encoding: quoted-printable
               ctencoding = true
               mimeinside = true if encodename
