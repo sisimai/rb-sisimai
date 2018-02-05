@@ -31,9 +31,9 @@ module Sisimai
             |exit[ ]\d+
             |mailer[ ]error
             |pipe[ ]to[ ][|][/].+
-            |X[-]UNIX[;][ ]\d+  # X-UNIX; 127
+            |x[-]unix[;][ ]\d+  # X-UNIX; 127
             )
-          }ix
+          }x
 
           return true if argv1 =~ regex
           return false

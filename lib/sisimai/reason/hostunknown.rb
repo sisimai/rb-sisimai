@@ -29,18 +29,18 @@ module Sisimai
               |unknown
               |unreachable
               )
-            |Mail[ ]domain[ ]mentioned[ ]in[ ]email[ ]address[ ]is[ ]unknown
+            |mail[ ]domain[ ]mentioned[ ]in[ ]email[ ]address[ ]is[ ]unknown
             |name[ ]or[ ]service[ ]not[ ]known
             |no[ ]such[ ]domain
             |recipient[ ](?:
                address[ ]rejected:[ ]unknown[ ]domain[ ]name
               |domain[ ]must[ ]exist
               )
-            |The[ ]account[ ]or[ ]domain[ ]may[ ]not[ ]exist
+            |the[ ]account[ ]or[ ]domain[ ]may[ ]not[ ]exist
             |unknown[ ]host
-            |Unrouteable[ ]address
+            |unrouteable[ ]address
             )
-          }ix
+          }x
 
           return true if argv1 =~ regex
           return false
@@ -57,7 +57,7 @@ module Sisimai
           return true if argvs.reason == 'hostunknown'
 
           require 'sisimai/smtp/status'
-          diagnostic = argvs.diagnosticcode || ''
+          diagnostic = argvs.diagnosticcode.downcase || ''
           statuscode = argvs.deliverystatus || ''
 
           if Sisimai::SMTP::Status.name(statuscode) == 'hostunknown'

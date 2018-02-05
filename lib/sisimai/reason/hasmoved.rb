@@ -18,7 +18,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          regex = %r/address[ ].+ has been replaced by /i
+          regex = %r/address[ ].+ has been replaced by /
 
           return true if argv1 =~ regex
           return false
@@ -34,7 +34,7 @@ module Sisimai
           return nil unless argvs.is_a? Sisimai::Data
 
           return true if argvs.reason == 'hasmoved'
-          return true if match(argvs.diagnosticcode)
+          return true if match(argvs.diagnosticcode.downcase)
           return false
         end
 

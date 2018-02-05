@@ -422,16 +422,17 @@ module Sisimai
           end
         else
           # NOT text/plain
-          if bodystring =~ ReEncoding[:'quoted-print']
+          lowercased = bodystring.downcase
+          if lowercased =~ ReEncoding[:'quoted-print']
             # Content-Transfer-Encoding: quoted-printable
             bodystring = Sisimai::MIME.qprintd(bodystring, mailheader)
           end
 
-          if bodystring =~ ReEncoding[:'7bit-encoded'] &&
-             cv = bodystring.match(ReEncoding[:'some-iso2022'])
+          if lowercased =~ ReEncoding[:'7bit-encoded'] &&
+             cv = lowercased.match(ReEncoding[:'some-iso2022'])
             # Content-Transfer-Encoding: 7bit
             # Content-Type: text/plain; charset=ISO-2022-JP
-            unless cv[1].downcase =~ /(?:us-ascii|utf[-]?8)/
+            unless cv[1] =~ /(?:us-ascii|utf[-]?8)/
               bodystring = Sisimai::String.to_utf8(bodystring, cv[1])
             end
           end

@@ -29,24 +29,24 @@ module Sisimai
           regex = %r{(?>
              because[ ]the[ ]recipient[ ]is[ ]not[ ]accepting[ ]mail[ ]with[ ](?:attachments|embedded[ ]images) # AOL Phoenix
             |closed[ ]mailing[ ]list
-            |Denied[ ]by[ ]policy
+            |denied[ ]by[ ]policy
             |email[ ](?:
                not[ ]accepted[ ]for[ ]policy[ ]reasons
               # http://kb.mimecast.com/Mimecast_Knowledge_Base/Administration_Console/Monitoring/Mimecast_SMTP_Error_Codes#554
               |rejected[ ]due[ ]to[ ]security[ ]policies
               )
             |header[ ](?:are[ ]not[ ]accepted|error)
-            |Mail[ ]from[ ].+[ ]rejected[ ]for[ ]policy[ ]reasons
+            |mail[ ]from[ ].+[ ]rejected[ ]for[ ]policy[ ]reasons
             |message[ ](?:
                given[ ]low[ ]priority
               |not[ ]accepted[ ]for[ ]policy[ ]reasons
               )
-            |Messages[ ]with[ ]multiple[ ]addresses
-            |You[ ]have[ ]exceeded[ ]the[ ]the[ ]allowable[ ]number[ ]of[ ]posts[ ]without[ ]solving[ ]a[ ]captcha
-            |Protocol[ ]violation
-            |The[ ]email[ ]address[ ]used[ ]to[ ]send[ ]your[ ]message[ ]is[ ]not[ ]subscribed[ ]to[ ]this[ ]group
+            |messages[ ]with[ ]multiple[ ]addresses
+            |you[ ]have[ ]exceeded[ ]the[ ]the[ ]allowable[ ]number[ ]of[ ]posts[ ]without[ ]solving[ ]a[ ]captcha
+            |protocol[ ]violation
+            |the[ ]email[ ]address[ ]used[ ]to[ ]send[ ]your[ ]message[ ]is[ ]not[ ]subscribed[ ]to[ ]this[ ]group
             )
-          }ix
+          }x
 
           return true if argv1 =~ regex
           return false

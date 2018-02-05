@@ -18,7 +18,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          regex = %r/message too large/i
+          regex = %r/message too large/
 
           return true if argv1 =~ regex
           return false
@@ -42,7 +42,7 @@ module Sisimai
           return true if Sisimai::SMTP::Status.name(argvs.deliverystatus) == 'exceedlimit'
 
           # Check the value of Diagnosic-Code: header with patterns
-          return true if match(argvs.diagnosticcode)
+          return true if match(argvs.diagnosticcode.downcase)
           return false
         end
 

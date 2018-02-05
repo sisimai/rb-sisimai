@@ -24,7 +24,7 @@ module Sisimai
           return nil unless argv1
           regex = %r{(?>
              as[ ]a[ ]relay
-            |Insecure[ ]Mail[ ]Relay
+            |insecure[ ]mail[ ]relay
             |mail[ ]server[ ]requires[ ]authentication[ ]when[ ]attempting[ ]to[ ]
               send[ ]to[ ]a[ ]non-local[ ]e-mail[ ]address    # MailEnable
             |not[ ](?:
@@ -38,10 +38,10 @@ module Sisimai
               )
             |relaying[ ]denied  # Sendmail
             |that[ ]domain[ ]isn[']t[ ]in[ ]my[ ]list[ ]of[ ]allowed[ ]rcpthost
-            |This[ ]system[ ]is[ ]not[ ]configured[ ]to[ ]relay[ ]mail
-            |Unable[ ]to[ ]relay[ ]for
+            |this[ ]system[ ]is[ ]not[ ]configured[ ]to[ ]relay[ ]mail
+            |unable[ ]to[ ]relay[ ]for
             )
-          }ix
+          }x
 
           return true if argv1 =~ regex
           return false
@@ -62,7 +62,7 @@ module Sisimai
             return false if currreason =~ /\A(?:securityerror|systemerror|undefined)\z/
           else
             # Check the value of Diagnosic-Code: header with patterns
-            return true if match(argvs.diagnosticcode)
+            return true if match(argvs.diagnosticcode.downcase)
           end
           return false
         end

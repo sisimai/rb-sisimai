@@ -251,7 +251,7 @@ module Sisimai
         # except a domain part is an IP address like neko@[192.0.2.222]
         e[:address] = e[:address].sub(/\A[\[<{('`]/, '')
         e[:address] = e[:address].sub(/['`>})]\z/, '')
-        e[:address] = e[:address].chomp(']') unless e[:address] =~ /[@]\[[0-9A-Z:\.]+\]\z/i
+        e[:address] = e[:address].chomp(']') unless e[:address] =~ /[@]\[[0-9A-Za-z:\.]+\]\z/
 
         unless e[:address] =~ /\A["].+["][@]/
           # Remove double-quotations

@@ -58,7 +58,7 @@ reasonchildren.each_key do |e|
     describe '.match' do
       reasonchildren[e].each do |r|
         next if e == 'OnHold'
-        it('returns true') { expect(cn.match(r)).to be true }
+        it('returns true') { expect(cn.match(r.downcase)).to be true }
       end
     end
   end

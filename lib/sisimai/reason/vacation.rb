@@ -15,13 +15,13 @@ module Sisimai
         def match(argv1)
           return nil unless argv1
           regex = %r{(?>
-             I[ ]am[ ](?:
+             i[ ]am[ ](?:
                away[ ](?:on[ ]vacation|until)
               |out[ ]of[ ]the[ ]office
               )
-            |I[ ]will[ ]be[ ]traveling[ ]for[ ]work[ ]on
+            |i[ ]will[ ]be[ ]traveling[ ]for[ ]work[ ]on
           )
-          }ix
+          }x
 
           return true if argv1 =~ regex
           return false

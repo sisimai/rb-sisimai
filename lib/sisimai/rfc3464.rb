@@ -9,22 +9,22 @@ module Sisimai
       Indicators = Sisimai::Bite::Email.INDICATORS
       MarkingsOf = {
         message: %r{\A(?>
-           Content-Type:[ ]*(?:
+           content-type:[ ]*(?:
              message/delivery-status
             |message/disposition-notification
             |text/plain;[ ]charset=
             )
-          |The[ ]original[ ]message[ ]was[ ]received[ ]at[ ]
-          |This[ ]report[ ]relates[ ]to[ ]your[ ]message
-          |Your[ ]message[ ]was[ ]not[ ]delivered[ ]to[ ]the[ ]following[ ]recipients
+          |the[ ]original[ ]message[ ]was[ ]received[ ]at[ ]
+          |this[ ]report[ ]relates[ ]to[ ]your[ ]message
+          |your[ ]message[ ]was[ ]not[ ]delivered[ ]to[ ]the[ ]following[ ]recipients
           )
-        }xi,
+        }x,
         rfc822:  %r{\A(?>
-           Content-Type:[ ]*(?:message/rfc822|text/rfc822-headers)
-          |Return-Path:[ ]*[<].+[>]\z
+           content-type:[ ]*(?:message/rfc822|text/rfc822-headers)
+          |return-path:[ ]*[<].+[>]\z
           )\z
-        }xi,
-        error:   %r/\A(?:[45]\d\d[ \t]+|[<][^@]+[@][^@]+[>]:?[ \t]+)/i,
+        }x,
+        error:   %r/\A(?:[45]\d\d[ \t]+|[<][^@]+[@][^@]+[>]:?[ \t]+)/,
         command: %r/[ ](RCPT|MAIL|DATA)[ ]+command\b/,
       }.freeze
 
@@ -69,11 +69,12 @@ module Sisimai
         hasdivided.each do |e|
           # Save the current line for the next loop
           havepassed << e
+          d = e.downcase
           p = havepassed[-2]
 
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ MarkingsOf[:message]
+            if d =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -81,7 +82,7 @@ module Sisimai
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e =~ MarkingsOf[:rfc822]
+            if d =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
               next
             end
@@ -293,16 +294,16 @@ module Sisimai
 
           # Failed to get a recipient address at code above
           match += 1 if mhead['from'].downcase =~ /\b(?:postmaster|mailer-daemon|root)[@]/
-          match += 1 if mhead['subject'] =~ %r{(?>
+          match += 1 if mhead['subject'].downcase =~ %r{(?>
              delivery[ ](?:failed|failure|report)
             |failure[ ]notice
             |mail[ ](?:delivery|error)
             |non[-]delivery
             |returned[ ]mail
             |undeliverable[ ]mail
-            |Warning:[ ]
+            |warning:[ ]
             )
-          }xi
+          }x
 
           if mhead['return-path']
             # Check the value of Return-Path of the message
@@ -315,35 +316,35 @@ module Sisimai
             |\A\s+\z
             |\A\s*--
             |\A\s+[=]\d+
-            |\AHi[ ][!]
-            |Content-(?:Description|Disposition|Transfer-Encoding|Type):[ ]
+            |\Ahi[ ][!]
+            |content-(?:description|disposition|transfer-encoding|type):[ ]
             |(?:name|charset)=
             |--\z
             |:[ ]--------
             )
-          }xi
+          }x
           re_stop = %r{(?:
              \A[*][*][*][ ].+[ ].+[ ][*][*][*]
-            |\AContent-Type:[ ]message/delivery-status
-            |\AHere[ ]is[ ]a[ ]copy[ ]of[ ]the[ ]first[ ]part[ ]of[ ]the[ ]message
-            |\AThe[ ]non-delivered[ ]message[ ]is[ ]attached[ ]to[ ]this[ ]message.
-            |\AReceived:[ \t]*
-            |\AReceived-From-MTA:[ \t]*
-            |\AReporting-MTA:[ \t]*
-            |\AReturn-Path:[ \t]*
-            |\AA[ ]copy[ ]of[ ]the[ ]original[ ]message[ ]below[ ]this[ ]line:
-            |Attachment[ ]is[ ]a[ ]copy[ ]of[ ]the[ ]message
-            |Below[ ]is[ ]a[ ]copy[ ]of[ ]the[ ]original[ ]message:
-            |Below[ ]this[ ]line[ ]is[ ]a[ ]copy[ ]of[ ]the[ ]message
-            |Message[ ]contains[ ].+[ ]file[ ]attachments
-            |Message[ ]text[ ]follows:[ ]
-            |Original[ ]message[ ]follows
-            |The[ ]attachment[ ]contains[ ]the[ ]original[ ]mail[ ]headers
-            |The[ ]first[ ]\d+[ ]lines[ ]
-            |Unsent[ ]Message[ ]below
-            |Your[ ]message[ ]reads[ ][(]in[ ]part[)]:
+            |\Acontent-type:[ ]message/delivery-status
+            |\Ahere[ ]is[ ]a[ ]copy[ ]of[ ]the[ ]first[ ]part[ ]of[ ]the[ ]message
+            |\Athe[ ]non-delivered[ ]message[ ]is[ ]attached[ ]to[ ]this[ ]message.
+            |\Areceived:[ \t]*
+            |\Areceived-from-mta:[ \t]*
+            |\Areporting-mta:[ \t]*
+            |\Areturn-path:[ \t]*
+            |\Aa[ ]copy[ ]of[ ]the[ ]original[ ]message[ ]below[ ]this[ ]line:
+            |attachment[ ]is[ ]a[ ]copy[ ]of[ ]the[ ]message
+            |below[ ]is[ ]a[ ]copy[ ]of[ ]the[ ]original[ ]message:
+            |below[ ]this[ ]line[ ]is[ ]a[ ]copy[ ]of[ ]the[ ]message
+            |message[ ]contains[ ].+[ ]file[ ]attachments
+            |message[ ]text[ ]follows:[ ]
+            |original[ ]message[ ]follows
+            |the[ ]attachment[ ]contains[ ]the[ ]original[ ]mail[ ]headers
+            |the[ ]first[ ]\d+[ ]lines[ ]
+            |unsent[ ]Message[ ]below
+            |your[ ]message[ ]reads[ ][(]in[ ]part[)]:
             )
-          }xi
+          }x
           re_addr = %r{(?:
              \A\s*
             |\A["].+["]\s*
@@ -376,11 +377,12 @@ module Sisimai
           mbody.split("\n").each do |e|
             # Get the recipient's email address and error messages.
             break if e.start_with?('__END_OF_EMAIL_MESSAGE__')
-            break if e =~ MarkingsOf[:rfc822]
-            break if e =~ re_stop
+            d = e.downcase
+            break if d =~ MarkingsOf[:rfc822]
+            break if d =~ re_stop
 
             next if e.size.zero?
-            next if e =~ re_skip
+            next if d =~ re_skip
             next if e.start_with?('*')
 
             if cv = e.match(re_addr)

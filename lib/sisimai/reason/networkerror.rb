@@ -24,8 +24,8 @@ module Sisimai
           return nil unless argv1
           regex = %r{(?>
              could[ ]not[ ]connect[ ]and[ ]send[ ]the[ ]mail[ ]to
-            |DNS[ ]records[ ]for[ ]the[ ]destination[ ]computer[ ]could[ ]not[ ]be[ ]found
-            |Hop[ ]count[ ]exceeded[ ]-[ ]possible[ ]mail[ ]loop
+            |dns[ ]records[ ]for[ ]the[ ]destination[ ]computer[ ]could[ ]not[ ]be[ ]found
+            |hop[ ]count[ ]exceeded[ ]-[ ]possible[ ]mail[ ]loop
             |host[ ]is[ ]unreachable
             |mail[ ]forwarding[ ]loop[ ]for[ ]
             |malformed[ ]name[ ]server[ ]reply
@@ -35,15 +35,15 @@ module Sisimai
               |probably[ ]in[ ]a[ ]routing[ ]loop
               )
             |name[ ]service[ ]error[ ]for[ ].+[ ](?:
-               Malformed[ ]or[ ]unexpected[ ]name[ ]server[ ]reply
-              |Host[ ]not[ ]found,[ ]try[ ]again
+               malformed[ ]or[ ]unexpected[ ]name[ ]server[ ]reply
+              |host[ ]not[ ]found,[ ]try[ ]again
               )
-            |No[ ]route[ ]to[ ]host
+            |no[ ]route[ ]to[ ]host
             |too[ ]many[ ]hops
-            |Unable[ ]to[ ]resolve[ ]route[ ].+[ ]
+            |unable[ ]to[ ]resolve[ ]route[ ].+[ ]
             |unrouteable[ ]mail[ ]domain
             )
-          }ix
+          }x
 
           return true if argv1 =~ regex
           return false

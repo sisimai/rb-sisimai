@@ -178,7 +178,7 @@ module Sisimai
     def match(argvs = '')
       return nil if argvs.empty?
       require 'sisimai/reason'
-      return Sisimai::Reason.match(argvs)
+      return Sisimai::Reason.match(argvs.downcase)
     end
   end
 end

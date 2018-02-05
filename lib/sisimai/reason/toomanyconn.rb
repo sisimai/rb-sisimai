@@ -22,25 +22,25 @@ module Sisimai
         def match(argv1)
           return nil unless argv1
           regex = %r{(?>
-             All[ ]available[ ]IPs[ ]are[ ]at[ ]maximum[ ]connection[ ]limit    # SendGrid
+             all[ ]available[ ]ips[ ]are[ ]at[ ]maximum[ ]connection[ ]limit    # SendGrid
             |connection[ ]rate[ ]limit[ ]exceeded
             |domain[ ].+[ ]has[ ]exceeded[ ]the[ ]max[ ]emails[ ]per[ ]hour[ ].+[ ]allowed
-            |no[ ]IPs[ ]available[ ][-][ ].+[ ]exceeds[ ]per[-]domain[ ]connection[ ]limit[ ]for
-            |Throttling[ ]failure:[ ](?:
-               Daily[ ]message[ ]quota[ ]exceeded
-              |Maximum[ ]sending[ ]rate[ ]exceeded
+            |no[ ]ips[ ]available[ ][-][ ].+[ ]exceeds[ ]per[-]domain[ ]connection[ ]limit[ ]for
+            |throttling[ ]failure:[ ](?:
+               daily[ ]message[ ]quota[ ]exceeded
+              |maximum[ ]sending[ ]rate[ ]exceeded
               )
-            |Too[ ]many[ ](?:
+            |too[ ]many[ ](?:
                connections
               |connections[ ]from[ ]your[ ]host[.]    # Microsoft
-              |concurrent[ ]SMTP[ ]connections        # Microsoft
-              |errors[ ]from[ ]your[ ]IP              # Free.fr
-              |SMTP[ ]sessions[ ]for[ ]this[ ]host    # Sendmail(daemon.c)
+              |concurrent[ ]smtp[ ]connections        # Microsoft
+              |errors[ ]from[ ]your[ ]ip              # Free.fr
+              |smtp[ ]sessions[ ]for[ ]this[ ]host    # Sendmail(daemon.c)
               )
-            |Trop[ ]de[ ]connexions,[ ].+[A-Z]{3}.+104
-            |We[ ]have[ ]already[ ]made[ ]numerous[ ]attempts[ ]to[ ]deliver[ ]this[ ]message
+            |trop[ ]de[ ]connexions,[ ].+[a-z]{3}.+104
+            |we[ ]have[ ]already[ ]made[ ]numerous[ ]attempts[ ]to[ ]deliver[ ]this[ ]message
             )
-          }ix
+          }x
 
           return true if argv1 =~ regex
           return false
@@ -58,7 +58,7 @@ module Sisimai
 
           require 'sisimai/smtp/status'
           return true if Sisimai::SMTP::Status.name(argvs.deliverystatus) == 'toomanyconn'
-          return true if match(argvs.diagnosticcode)
+          return true if match(argvs.diagnosticcode.downcase)
           return false
         end
 
