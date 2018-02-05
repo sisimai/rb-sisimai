@@ -48,7 +48,7 @@ module Sisimai
             |temporary[ ]local[ ]problem
             |timeout[ ]waiting[ ]for[ ]input
             )
-          }ix
+          }x
 
           return true if argv1 =~ regex
           return false

@@ -37,7 +37,7 @@ module Sisimai::Bite::Email
             )
           |We're[ ]sorry[.]
           )
-        }ix,
+        }x,
       }.freeze
 
       ReSMTP = {

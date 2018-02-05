@@ -32,7 +32,7 @@ module Sisimai
             |this[ ]form[ ]of[ ]attachment[ ]has[ ]been[ ]used[ ]by[ ]recent[ ]viruses[ ]or[ ]other[ ]malware
             |your[ ]message[ ]was[ ]infected[ ]with[ ]a[ ]virus
             )
-          }ix
+          }x
 
           return true if argv1 =~ regex
           return false

@@ -51,7 +51,7 @@ module Sisimai
             |you[ ]are[ ]not[ ]authorized[ ]to[ ]send[ ]mail,[ ]authentication[ ]is[ ]required
             |verification[ ]failure
             )
-          }ix
+          }x
 
           return true if argv1 =~ regex
           return false
