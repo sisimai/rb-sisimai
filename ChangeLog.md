@@ -3,14 +3,15 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.22.3p1
+v4.22.3p3
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
 - changes:
   - Import commit sisimai/p5-Sisimai@8c6eb33, Add status code 4.7.25 (RFC-7372)
     as "blocked".
-  - The following performance improvements makes 1.42 times faster.
+  - The following performance improvements makes 1.47 times faster.
+    - It makes rb-Sisimai on JRuby 1.16 times faster.
     - #96 String#+ and sprintf replaced with String#<< at Pull-Request #103.
     - #98 loop do replaced with while(true) at Pull-Request #104.
     - #99 String#=~ and regular expressions /\A...\z/, /\A.../ or /...\z/ have
@@ -18,6 +19,8 @@ v4.22.3p1
       Array#include?, or String#== at Pull-Request #105, #107, #108.
     - #102 String#sub(/...\z/, '...') has been replaced with String#chomp, or
       String#strip, String#lstrip, String#rstrip at Pull-Request #106.
+    - Import Pull-Request sisimai/p5-Sisimai#258, remove /i modifier from each
+      regular expressions as possible and call String#downcase before matching.
 
 v4.22.3
 --------------------------------------------------------------------------------

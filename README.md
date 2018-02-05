@@ -240,10 +240,10 @@ and bounceHammer are available at
 | System requirements                         | Ruby 2.1 - 2.4 | Perl 5.10 -   |
 |                                             | JRuby 9.0.4.0- |               |
 | Analytical precision ratio(2000 emails)[1]  | 1.00           | 1.00          |
-| The speed of parsing email(1000 emails)     | 6.70s          | 2.10s         |
+| The speed of parsing email(1000 emails)     | 5.36s          | 1.95s         |
 | How to install                              | gem install    | cpanm, cpm    |
 | Dependencies (Except core modules)          | 1 module       | 2 modules     |
-| LOC:Source lines of code                    | 13000 lines    | 9800 lines    |
+| LOC:Source lines of code                    | 12000 lines    | 8700 lines    |
 | The number of tests(spec/,t/,xt/) directory | 213000 tests   | 230000 tests  |
 | License                                     | BSD 2-Clause   | BSD 2-Clause  |
 | Support Contract provided by Developer      | Coming soon    | Available     |
