@@ -3,6 +3,12 @@ module Sisimai
   class Address
     # Imported from p5-Sisimail/lib/Sisimai/Address.pm
     require 'sisimai/rfc5322'
+    Indicators = {
+      :'email-address' => (1 << 0),    # <neko@example.org>
+      :'quoted-string' => (1 << 1),    # "Neko, Nyaan"
+      :'comment-block' => (1 << 2),    # (neko)
+    }
+
     @@undisclosed = 'libsisimai.org.invalid'
 
     # Return pseudo recipient or sender address
@@ -62,11 +68,6 @@ module Sisimai
         (?:([^@\s]+|[0-9A-Za-z:\.]+))   # domain part
         )
       }x
-      indicators = {
-        :'email-address' => (1 << 0),    # <neko@example.org>
-        :'quoted-string' => (1 << 1),    # "Neko, Nyaan"
-        :'comment-block' => (1 << 2),    # (neko)
-      }
 
       v = emailtable  # temporary buffer
       p = ''          # current position
@@ -79,10 +80,10 @@ module Sisimai
             # Separator of email addresses or not
             if v[:address] =~ /\A[<].+[@].+[>]\z/
               # An email address has already been picked
-              if readcursor & indicators[:'comment-block'] > 0
+              if readcursor & Indicators[:'comment-block'] > 0
                 # The cursor is in the comment block (Neko, Nyaan)
                 v[:comment] << e
-              elsif readcursor & indicators[:'quoted-string'] > 0
+              elsif readcursor & Indicators[:'quoted-string'] > 0
                 # "Neko, Nyaan"
                 v[:name] << e
               else
@@ -105,7 +106,7 @@ module Sisimai
               p.size > 0 ? (v[p] << e) : (v[:name] << e)
             else
               # <neko@nyaan.example.org>
-              readcursor |= indicators[:'email-address']
+              readcursor |= Indicators[:'email-address']
               v[:address] << e
               p = :address
             end
@@ -115,9 +116,9 @@ module Sisimai
 
           if e == '>'
             # >: The end of an email address or not
-            if readcursor & indicators[:'email-address'] > 0
+            if readcursor & Indicators[:'email-address'] > 0
               # <neko@example.org>
-              readcursor &= ~indicators[:'email-address']
+              readcursor &= ~Indicators[:'email-address']
               v[:address] << e
               p = ''
             else
@@ -129,29 +130,29 @@ module Sisimai
 
           if e == '('
             # The beginning of a comment block or not
-            if readcursor & indicators[:'email-address'] > 0
+            if readcursor & Indicators[:'email-address'] > 0
               # <"neko(nyaan)"@example.org> or <neko(nyaan)@example.org>
               if v[:address].include?('"')
                 # Quoted local part: <"neko(nyaan)"@example.org>
                 v[:address] << e
               else
                 # Comment: <neko(nyaan)@example.org>
-                readcursor |= indicators[:'comment-block']
+                readcursor |= Indicators[:'comment-block']
                 v[:comment] << ' ' if v[:comment].end_with?(')')
                 v[:comment] << e
                 p = :comment
               end
-            elsif readcursor & indicators[:'comment-block'] > 0
+            elsif readcursor & Indicators[:'comment-block'] > 0
               # Comment at the outside of an email address (...(...)
               v[:comment] << ' ' if v[:comment].end_with?(')')
               v[:comment] << e
 
-            elsif readcursor & indicators[:'quoted-string'] > 0
+            elsif readcursor & Indicators[:'quoted-string'] > 0
               # "Neko, Nyaan(cat)", Deal as a display name
               v[:name] << e
             else
               # The beginning of a comment block
-              readcursor |= indicators[:'comment-block']
+              readcursor |= Indicators[:'comment-block']
               v[:comment] << ' ' if v[:comment].end_with?(')')
               v[:comment] << e
               p = :comment
@@ -161,25 +162,25 @@ module Sisimai
 
           if e == ')'
             # The end of a comment block or not
-            if readcursor & indicators[:'email-address'] > 0
+            if readcursor & Indicators[:'email-address'] > 0
               # <"neko(nyaan)"@example.org> OR <neko(nyaan)@example.org>
               if v[:address].include?('"')
                 # Quoted string in the local part: <"neko(nyaan)"@example.org>
                 v[:address] << e
               else
                 # Comment: <neko(nyaan)@example.org>
-                readcursor &= ~indicators[:'comment-block']
+                readcursor &= ~Indicators[:'comment-block']
                 v[:comment] << e
                 p = :address
               end
-            elsif readcursor & indicators[:'comment-block'] > 0
+            elsif readcursor & Indicators[:'comment-block'] > 0
               # Comment at the outside of an email address (...(...)
-              readcursor &= ~indicators[:'comment-block']
+              readcursor &= ~Indicators[:'comment-block']
               v[:comment] << e
               p = ''
             else
               # Deal as a display name
-              readcursor &= ~indicators[:'comment-block']
+              readcursor &= ~Indicators[:'comment-block']
               v[:name] = e
               p = ''
             end
@@ -194,11 +195,11 @@ module Sisimai
             else
               # Display name
               v[:name] << e
-              if readcursor & indicators[:'quoted-string'] > 0
+              if readcursor & Indicators[:'quoted-string'] > 0
                 # "Neko, Nyaan"
                 unless v[:name] =~ /\x5c["]\z/
                   # "Neko, Nyaan \"...
-                  readcursor &= ~indicators[:'quoted-string']
+                  readcursor &= ~Indicators[:'quoted-string']
                   p = ''
                 end
               end
