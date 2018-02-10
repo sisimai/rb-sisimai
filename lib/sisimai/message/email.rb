@@ -212,6 +212,7 @@ module Sisimai
         structured = {}
         extheaders = argvs['extheaders'] || []
         extrafield = argvs['extrafield'] || []
+        hasdivided = heads.split("\n")
 
         HeaderList.each { |e| structured[e] = nil  }
         HeaderList.each { |e| allheaders[e] = true }
@@ -222,7 +223,7 @@ module Sisimai
           extrafield.each { |e| allheaders[e.downcase] = true }
         end
 
-        heads.split("\n").each do |e|
+        while e = hasdivided.shift do
           # Convert email headers to hash
           if cv = e.match(/\A([^ ]+?)[:][ ]*(.*?)\z/)
             # split the line into a header name and a header content
