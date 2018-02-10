@@ -39,7 +39,9 @@ speed-test:
 
 profile:
 	@ uptime
-	$(RUBY) -rprofile $(COMMANDARGVS) -e $(TOBEEXECUTED) $(SPEEDTESTDIR) > /dev/null
+	$(RUBY) -rprofile $(COMMANDARGVS) -e $(TOBEEXECUTED) $(SPEEDTESTDIR) 2> pf > /dev/null
+	cat ./pf | sed -e 's/^ *//g' | tr -s ' ' | sed -e 's/self self/self  self/' | tr ' ' '\t' > profiling-`date '+%Y-%m-%d-%T'`.txt
+	$(RM) ./pf
 
 loc:
 	@ for v in `find lib -type f -name '*.rb'`; do \
