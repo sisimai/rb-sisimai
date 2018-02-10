@@ -162,7 +162,7 @@ module Sisimai::Bite::Email
             rcptinhead.each { |a| a.delete(' ') }
             recipients = rcptinhead.size
 
-            rcptinhead.each do |e|
+            while e = rcptinhead.shift do
               # Insert each recipient address into dscontents
               dscontents[-1]['recipient'] = e
               next if dscontents.size == recipients

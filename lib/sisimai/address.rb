@@ -55,8 +55,9 @@ module Sisimai
       #   find('Neko <neko(nyaan)@example.org>')
       #   #=> [{ address: 'neko@example.org', name: 'Neko', comment: '(nyaan)'}]
       return nil unless argv1
-      argv1 = argv1.gsub(/[\r\n]/, '')
+      #argv1 = argv1.gsub(/[\r\n]/, '')
 
+      characters = argv1.gsub(/[\r\n]/, '').split('')
       emailtable = { address: '', name: '', comment: '' }
       addrtables = []
       readbuffer = []
@@ -72,7 +73,7 @@ module Sisimai
       v = emailtable  # temporary buffer
       p = ''          # current position
 
-      argv1.split('').each do |e|
+      while e = characters.shift do
         # Check each characters
         if delimiters.detect { |r| r == e }
           # The character is a delimiter character
@@ -239,7 +240,7 @@ module Sisimai
         end
       end
 
-      readbuffer.each do |e|
+      while e = readbuffer.shift do
         # The element must not include any character except from 0x20 to 0x7e.
         next if e[:address] =~ /[^\x20-\x7e]/
 

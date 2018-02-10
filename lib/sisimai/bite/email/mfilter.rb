@@ -135,7 +135,7 @@ module Sisimai::Bite::Email
             rhosts = Sisimai::RFC5322.received(rheads[-1])
 
             e['lhost'] ||= Sisimai::RFC5322.received(rheads[0]).shift
-            rhosts.each do |ee|
+            while ee = rhosts.shift do
               # Avoid "... by m-FILTER"
               next unless ee.include?('.')
               e['rhost'] = ee

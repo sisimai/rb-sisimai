@@ -374,7 +374,8 @@ module Sisimai
           }xi
 
           b = dscontents[-1]
-          mbody.split("\n").each do |e|
+          hasdivided = mbody.split("\n")
+          while e = hasdivided.shift do
             # Get the recipient's email address and error messages.
             break if e.start_with?('__END_OF_EMAIL_MESSAGE__')
             d = e.downcase

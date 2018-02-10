@@ -151,7 +151,7 @@ module Sisimai
           hostname = ''
           hostaddr = ''
 
-          received.each do |e|
+          while e = received.shift do
             # Received: from [10.22.22.222] (smtp-gateway.kyoto.ocn.ne.jp [192.0.2.222])
             if e =~ /\A[\[(]\d+[.]\d+[.]\d+[.]\d+[)\]]\z/
               # [192.0.2.1] or (192.0.2.1)
@@ -164,7 +164,7 @@ module Sisimai
             end
           end
 
-          namelist.each do |e|
+          while e = namelist.shift do
             # 1. Hostname takes priority over all other IP addresses
             next unless e.include?('.')
             hostname = e
@@ -204,7 +204,7 @@ module Sisimai
         rfc822part = '' # (String) message/rfc822-headers part
         previousfn = '' # (String) Previous field name
 
-        argv1.each do |e|
+        while e = argv1.shift do
           # After "message/rfc822"
           if cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*.+\z/)
             # Get required headers

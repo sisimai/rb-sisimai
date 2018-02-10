@@ -174,7 +174,7 @@ module Sisimai
         end
 
         # Split email data to headers and a body part.
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           # Split email data to headers and a body part.
           if readcursor & Indicators[:endof] > 0
             # The body part of the email
@@ -305,7 +305,7 @@ module Sisimai
         borderline = '__MIME_ENCODED_BOUNDARY__'
         mimeborder = {}
 
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           # Header name as a key, The value of header as a value
           if cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*(.*)\z/)
             # Header

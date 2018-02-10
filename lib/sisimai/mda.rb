@@ -103,7 +103,7 @@ module Sisimai
         hasdivided = mbody.split("\n")
         linebuffer = []
 
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           # Check each line with each MDA's symbol regular expression.
           if agentname0 == ''
             # Try to match with each regular expression
