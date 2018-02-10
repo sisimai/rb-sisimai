@@ -180,7 +180,7 @@ module Sisimai::Bite::Email
           boundary00 = Sisimai::MIME.boundary(mhead['content-type']) || ''
         end
 
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           break if e == StartingOf[:endof][0]
 
           if readcursor.zero?

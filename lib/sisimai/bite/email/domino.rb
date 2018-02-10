@@ -54,7 +54,7 @@ module Sisimai::Bite::Email
         subjecttxt = ''     # (String) The value of Subject:
         v = nil
 
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           next if e.empty?
 
           if readcursor.zero?

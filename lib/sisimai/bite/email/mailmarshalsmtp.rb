@@ -53,7 +53,7 @@ module Sisimai::Bite::Email
                        regularexp = %r/\A[ \t]*[+]+[ \t]*\z/
                      end
 
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
             if e == StartingOf[:message][0]

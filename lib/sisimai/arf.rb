@@ -120,7 +120,7 @@ module Sisimai
         #      generator is using to generate the report.  The version number in
         #      this specification is set to "1".
         #
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
             if e =~ MarkingsOf[:message]

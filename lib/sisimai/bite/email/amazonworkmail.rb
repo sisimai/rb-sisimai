@@ -62,7 +62,7 @@ module Sisimai::Bite::Email
         }
         v = nil
 
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
             if e == StartingOf[:message][0]

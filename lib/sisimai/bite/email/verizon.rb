@@ -72,7 +72,7 @@ module Sisimai::Bite::Email
             markingsof[:rfc822] = Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z')
           end
 
-          hasdivided.each do |e|
+          while e = hasdivided.shift do
             if readcursor.zero?
               # Beginning of the bounce message or delivery status part
               if e =~ markingsof[:message]
@@ -145,7 +145,7 @@ module Sisimai::Bite::Email
             markingsof[:rfc822] = Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z')
           end
 
-          hasdivided.each do |e|
+          while e = hasdivided.shift do
             if readcursor.zero?
               # Beginning of the bounce message or delivery status part
               if e.start_with?(startingof[:message][0])

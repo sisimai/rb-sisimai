@@ -76,7 +76,7 @@ module Sisimai::Bite::Email
         v = nil
 
         readcursor |= Indicators[:deliverystatus]
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
             if e == StartingOf[:rfc822][0]

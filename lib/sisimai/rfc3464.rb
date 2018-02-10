@@ -66,7 +66,7 @@ module Sisimai
         }
         v = nil
 
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           # Save the current line for the next loop
           havepassed << e
           d = e.downcase
