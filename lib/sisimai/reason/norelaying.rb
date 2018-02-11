@@ -59,7 +59,7 @@ module Sisimai
           currreason = argvs.reason || ''
           if currreason.size > 0
             # Do not overwrite the reason
-            return false if currreason =~ /\A(?:securityerror|systemerror|undefined)\z/
+            return false if currreason.start_with?('securityerror', 'systemerror', 'undefined')
           else
             # Check the value of Diagnosic-Code: header with patterns
             return true if match(argvs.diagnosticcode.downcase)

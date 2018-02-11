@@ -291,9 +291,10 @@ module Sisimai
           # Fallback, parse entire message body
           break if recipients > 0
           match = 0
+          mfrom = mhead['from'].downcase
 
           # Failed to get a recipient address at code above
-          match += 1 if mhead['from'].downcase =~ /\b(?:postmaster|mailer-daemon|root)[@]/
+          match += 1 if mfrom.include?('postmaster@') || mfrom.include?('mailer-daemon@') || mfrom.include?('root@')
           match += 1 if mhead['subject'].downcase =~ %r{(?>
              delivery[ ](?:failed|failure|report)
             |failure[ ]notice
@@ -307,7 +308,8 @@ module Sisimai
 
           if mhead['return-path']
             # Check the value of Return-Path of the message
-            match += 1 if mhead['return-path'].downcase =~ /(?:[<][>]|mailer-daemon)/
+            rpath  = mhead['return-path'].downcase
+            match += 1 if rpath.include?('<>') || rpath.include?('mailer-daemon')
           end
           break unless match > 0
 

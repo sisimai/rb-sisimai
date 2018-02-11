@@ -55,7 +55,6 @@ module Sisimai
       #   find('Neko <neko(nyaan)@example.org>')
       #   #=> [{ address: 'neko@example.org', name: 'Neko', comment: '(nyaan)'}]
       return nil unless argv1
-      #argv1 = argv1.gsub(/[\r\n]/, '')
 
       characters = argv1.gsub(/[\r\n]/, '').split('')
       emailtable = { address: '', name: '', comment: '' }
@@ -79,7 +78,7 @@ module Sisimai
           # The character is a delimiter character
           if e == ','
             # Separator of email addresses or not
-            if v[:address] =~ /\A[<].+[@].+[>]\z/
+            if v[:address].start_with?('<') && v[:address].end_with?('>') && v[:address].include?('@')
               # An email address has already been picked
               if readcursor & Indicators[:'comment-block'] > 0
                 # The cursor is in the comment block (Neko, Nyaan)
@@ -198,7 +197,7 @@ module Sisimai
               v[:name] << e
               if readcursor & Indicators[:'quoted-string'] > 0
                 # "Neko, Nyaan"
-                unless v[:name] =~ /\x5c["]\z/
+                unless v[:name].end_with?(%Q|\x5c"|)
                   # "Neko, Nyaan \"...
                   readcursor &= ~Indicators[:'quoted-string']
                   p = ''

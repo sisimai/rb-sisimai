@@ -95,7 +95,7 @@ module Sisimai
         return nil unless mbody
         return nil if mhead.keys.size.zero?
         return nil if mbody.empty?
-        return nil unless mhead['from'].downcase =~ /\A(?:mail delivery subsystem|mailer-daemon|postmaster)/
+        return nil unless mhead['from'].downcase.start_with?('mail delivery subsystem','mailer-daemon', 'postmaster')
 
         agentname0 = ''   # [String] MDA name
         reasonname = ''   # [String] Error reason

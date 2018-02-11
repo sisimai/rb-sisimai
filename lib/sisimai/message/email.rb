@@ -157,7 +157,7 @@ module Sisimai
         return {} if email.empty?
 
         email = email.scrub('?')
-        email = email.gsub(/\r\n/, "\n")  if email =~ /\r\n/
+        email = email.gsub(/\r\n/, "\n")  if email.include?("\r\n")
         email = email.gsub(/[ \t]+$/, '') if email =~ /[ \t]+$/
 
         hasdivided = email.split("\n")
@@ -433,7 +433,7 @@ module Sisimai
              cv = lowercased.match(ReEncoding[:'some-iso2022'])
             # Content-Transfer-Encoding: 7bit
             # Content-Type: text/plain; charset=ISO-2022-JP
-            unless cv[1] =~ /(?:us-ascii|utf[-]?8)/
+            if ! cv[1].include?('us-ascii') && ! cv[1].include?('utf-8')
               bodystring = Sisimai::String.to_utf8(bodystring, cv[1])
             end
           end
