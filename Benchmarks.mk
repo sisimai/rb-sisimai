@@ -51,4 +51,4 @@ loc:
 	done | awk '{ s += $$1 } END { print s }'
 
 clean:
-	find . -type f -name 'profiling-*' -ctime +7 -delete
+	find . -type f -name 'profiling-*' -ctime +1 -delete
