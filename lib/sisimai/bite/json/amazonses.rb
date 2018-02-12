@@ -117,7 +117,7 @@ module Sisimai::Bite::JSON
 
         if %w[Bounce Complaint].index(argvs['notificationType'])
           # { "notificationType":"Bounce", "bounce": { "bounceType":"Permanent",...
-          o = argvs[argvs['notificationType'].downcase]
+          o = argvs[argvs['notificationType'].downcase].dup
           r = o[labeltable[argvs['notificationType'].to_sym]] || []
 
           while e = r.shift do
@@ -180,7 +180,7 @@ module Sisimai::Bite::JSON
           require 'sisimai/smtp/status'
           require 'sisimai/smtp/reply'
 
-          o = argvs['delivery']
+          o = argvs['delivery'].dup
           r = o['recipients'] || []
 
           while e = r.shift do
