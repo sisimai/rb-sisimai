@@ -9,10 +9,10 @@ module Sisimai
       # @return   [Hash] SMTP command regular expressions
       def command
         return {
-          :helo => %r/\b(?:HELO|EHLO)\b/,
-          :mail => %r/\bMAIL F(?:ROM|rom)\b/,
-          :rcpt => %r/\bRCPT T[Oo]\b/,
-          :data => %r/\bDATA\b/,
+          helo: %r/\b(?:HELO|EHLO)\b/,
+          mail: %r/\bMAIL F(?:ROM|rom)\b/,
+          rcpt: %r/\bRCPT T[Oo]\b/,
+          data: %r/\bDATA\b/,
         }
       end
 

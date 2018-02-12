@@ -45,7 +45,6 @@ module Sisimai
         end
       end
 
-      methodargv = {}
       delivered1 = argv1[:delivered] || false
       hookmethod = argv1[:hook] || nil
       bouncedata = []
@@ -129,10 +128,9 @@ module Sisimai
     # Parser engine list (MTA modules)
     # @return   [Hash]     Parser engine table
     def engine
-      names = %w[Bite::Email Bite::JSON ARF RFC3464 RFC3834]
       table = {}
 
-      names.each do |e|
+      %w[Bite::Email Bite::JSON ARF RFC3464 RFC3834].each do |e|
         r = 'Sisimai::' << e
         require r.gsub('::', '/').downcase
 

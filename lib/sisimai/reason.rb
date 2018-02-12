@@ -10,7 +10,24 @@ module Sisimai
       def retry
         return %w[undefined onhold systemerror securityerror networkerror hostunknown userunknown]
       end
-      RetryReasons = Sisimai::Reason.retry
+      GetRetried = Sisimai::Reason.retry
+      ClassOrder = [
+        %w[
+          MailboxFull MesgTooBig ExceedLimit Suspend HasMoved NoRelaying UserUnknown
+          Filtered Rejected HostUnknown SpamDetected TooManyConn Blocked
+        ],
+        %w[
+          MailboxFull SpamDetected PolicyViolation VirusDetected SecurityError
+          SystemError NetworkError Suspend Expired ContentError SystemFull
+          NotAccept MailerError
+        ],
+        %w[
+          MailboxFull MesgTooBig ExceedLimit Suspend UserUnknown Filtered Rejected
+          HostUnknown SpamDetected TooManyConn Blocked SpamDetected SecurityError
+          SystemError NetworkError Suspend Expired ContentError HasMoved SystemFull
+          NotAccept MailerError NoRelaying SyntaxError OnHold
+        ]
+      ]
 
       # All the error reason list Sisimai support
       # @return   [Array] Reason list
@@ -32,7 +49,7 @@ module Sisimai
         return nil unless argvs
         return nil unless argvs.is_a? Sisimai::Data
 
-        unless RetryReasons.index(argvs.reason)
+        unless GetRetried.index(argvs.reason)
           # Return reason text already decided except reason match with the
           # regular expression of ->retry() method.
           return argvs.reason if argvs.reason.size > 0
@@ -40,15 +57,11 @@ module Sisimai
 
         statuscode = argvs.deliverystatus || ''
         reasontext = ''
-        classorder = %w[
-          MailboxFull MesgTooBig ExceedLimit Suspend HasMoved NoRelaying UserUnknown
-          Filtered Rejected HostUnknown SpamDetected TooManyConn Blocked
-        ]
         return 'delivered' if statuscode.start_with?('2.')
 
         if argvs.diagnostictype == 'SMTP' || argvs.diagnostictype == ''
           # Diagnostic-Code: SMTP; ... or empty value
-          classorder.each do |e|
+          ClassOrder[0].each do |e|
             # Check the value of Diagnostic-Code: and the value of Status:, it is a
             # deliverystats, with true() method in each Sisimai::Reason::* class.
             p = 'Sisimai::Reason::' << e
@@ -101,11 +114,6 @@ module Sisimai
         commandtxt = argvs.smtpcommand    || ''
         trytomatch = nil
         reasontext = ''
-        classorder = %w[
-          MailboxFull SpamDetected PolicyViolation VirusDetected SecurityError
-          SystemError NetworkError Suspend Expired ContentError SystemFull
-          NotAccept MailerError
-        ]
 
         require 'sisimai/smtp/status'
         reasontext = Sisimai::SMTP::Status.name(statuscode)
@@ -113,12 +121,12 @@ module Sisimai
         catch :TRY_TO_MATCH do
           while true
             trytomatch ||= true if reasontext.empty?
-            trytomatch ||= true if RetryReasons.index(reasontext)
+            trytomatch ||= true if GetRetried.index(reasontext)
             trytomatch ||= true if argvs.diagnostictype != 'SMTP'
             throw :TRY_TO_MATCH unless trytomatch
 
             # Could not decide the reason by the value of Status:
-            classorder.each do |e|
+            ClassOrder[1].each do |e|
               # Trying to match with other patterns in Sisimai::Reason::* classes
               p = 'Sisimai::Reason::' << e
               r = nil
@@ -183,12 +191,6 @@ module Sisimai
         reasontext = ''
         typestring = ''
         diagnostic = argv1.downcase
-        classorder = %w[
-          MailboxFull MesgTooBig ExceedLimit Suspend UserUnknown Filtered Rejected
-          HostUnknown SpamDetected TooManyConn Blocked SpamDetected SecurityError
-          SystemError NetworkError Suspend Expired ContentError HasMoved SystemFull
-          NotAccept MailerError NoRelaying SyntaxError OnHold
-        ]
 
         statuscode = Sisimai::SMTP::Status.find(argv1)
         if cv = argv1.match(/\A(SMTP|X-.+);/i)
@@ -196,7 +198,7 @@ module Sisimai
         end
 
         # Diagnostic-Code: SMTP; ... or empty value
-        classorder.each do |e|
+        ClassOrder[2].each do |e|
           # Check the value of Diagnostic-Code: and the value of Status:, it is a
           # deliverystats, with true() method in each Sisimai::Reason::* class.
           p = 'Sisimai::Reason::' << e

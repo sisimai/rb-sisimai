@@ -16,6 +16,7 @@ module Sisimai
       @@ToBeLoaded = []
       @@TryOnFirst = []
 
+      BorderLine = '__MIME_ENCODED_BOUNDARY__'
       EndOfEmail = Sisimai::String.EOM
       RFC822Head = Sisimai::RFC5322.HEADERFIELDS
       RFC3834Set = Sisimai::RFC3834.headerlist.map(&:downcase)
@@ -62,10 +63,11 @@ module Sisimai
         return nil if aftersplit.empty?
 
         # 2. Convert email headers from text to hash reference
-        headerargv = {}
-        headerargv['extheaders'] = ExtHeaders
-        headerargv['tryonfirst'] = []
-        headerargv['extrafield'] = argvs['field'] || []
+        headerargv = {
+          'extheaders' => ExtHeaders,
+          'tryonfirst' => [],
+          'extrafield' => argvs['field'] || [],
+        }
         processing['from']   = aftersplit['from']
         processing['header'] = Sisimai::Message::Email.headers(aftersplit['header'], headerargv)
 
@@ -165,7 +167,6 @@ module Sisimai
 
         readcursor = 0
         aftersplit = { 'from' => '', 'header' => '', 'body' => '' }
-        pseudofrom = 'MAILER-DAEMON Tue Feb 11 00:00:00 2014'
 
         if hasdivided[0][0, 5] == 'From '
           # From MAILER-DAEMON Tue Feb 11 00:00:00 2014
@@ -195,7 +196,7 @@ module Sisimai
         return {} if aftersplit['header'].empty?
         return {} if aftersplit['body'].empty?
 
-        aftersplit['from'] = pseudofrom if aftersplit['from'].empty?
+        aftersplit['from'] = 'MAILER-DAEMON Tue Feb 11 00:00:00 2014' if aftersplit['from'].empty?
         return aftersplit
       end
 
@@ -207,7 +208,6 @@ module Sisimai
       def self.headers(heads, argvs = {})
         return nil unless heads
 
-        currheader = ''
         allheaders = {}
         structured = {}
         extheaders = argvs['extheaders'] || []
@@ -303,7 +303,6 @@ module Sisimai
         takenapart = {}
         hasdivided = heads.split("\n")
         previousfn = '' # Previous field name
-        borderline = '__MIME_ENCODED_BOUNDARY__'
         mimeborder = {}
 
         while e = hasdivided.shift do
@@ -327,7 +326,7 @@ module Sisimai
               # The line is MIME-Encoded test
               takenapart[previousfn] << if previousfn == 'subject'
                                           # Subject: header
-                                          borderline + e
+                                          BorderLine + e
                                         else
                                           # Is not Subject header
                                           e
@@ -355,7 +354,7 @@ module Sisimai
             r = []
             if mimeborder['subject']
               # split the value of Subject by borderline
-              v.split(borderline).each do |m|
+              v.split(BorderLine).each do |m|
                 # Insert value to the array if the string is MIME encoded text
                 r << m if Sisimai::MIME.is_mimeencoded(m)
               end

@@ -66,8 +66,8 @@ module Sisimai
 
         plain = argv1
         match = {
-          :html => %r|<html[ >].+?</html>|sim,
-          :body => %r|<head>.+</head>.*<body[ >].+</body>|sim,
+          html: %r|<html[ >].+?</html>|sim,
+          body: %r|<head>.+</head>.*<body[ >].+</body>|sim,
         }
 
         if loose || plain =~ match[:html] || plain =~ match[:body]

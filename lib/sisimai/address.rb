@@ -61,20 +61,13 @@ module Sisimai
       addrtables = []
       readbuffer = []
       readcursor = 0
-      delimiters = ['<', '>', '(', ')', '"', ',']
-      validemail = %r{(?>
-        (?:([^\s]+|["].+?["]))          # local part
-        [@]
-        (?:([^@\s]+|[0-9A-Za-z:\.]+))   # domain part
-        )
-      }x
 
       v = emailtable  # temporary buffer
       p = ''          # current position
 
       while e = characters.shift do
         # Check each characters
-        if delimiters.detect { |r| r == e }
+        if %w[< > ( ) " ,].detect { |r| r == e }
           # The character is a delimiter character
           if e == ','
             # Separator of email addresses or not
@@ -218,7 +211,7 @@ module Sisimai
         readbuffer << v
       else
         # No email address like <neko@example.org> in the argument
-        if cv = v[:name].match(validemail)
+        if cv = v[:name].match(/(?>(?:([^\s]+|["].+?["]))[@](?:([^@\s]+|[0-9A-Za-z:\.]+)))/)
           # String like an email address will be set to the value of "address"
           v[:address] = cv[1] + '@' + cv[2]
 
