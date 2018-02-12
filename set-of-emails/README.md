@@ -30,7 +30,7 @@ in this repository are read from `make test` at p5-Sisimai and rb-Sisimai.
 See Also
 ========
 * __Sisimai Project__ | [github.com/sisimai](https://github.com/sisimai)
-* __libsisimai.org__ | [Sisimai — A successor to bounceHammer, Library to parse error mails](http://libsisimai.org/)
+* __libsisimai.org__ | [Sisimai — A successor to bounceHammer, Library to parse error mails](https://libsisimai.org/)
 * __Perl Verson__ | [Perl version of Sisimai(Stable)](https://github.com/sisimai/p5-Sisimai)
 * __Ruby verson__ | [Ruby version of Sisimai(Under the development)](https://github.com/sisimai/rb-Sisimai)
 
