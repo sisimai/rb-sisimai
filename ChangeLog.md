@@ -10,7 +10,7 @@ v4.22.3p3
 - changes:
   - Import commit sisimai/p5-Sisimai@8c6eb33, Add status code 4.7.25 (RFC-7372)
     as "blocked".
-  - The following performance improvements makes 1.47 times faster.
+  - The following performance improvements makes 1.49 times faster.
     - It makes rb-Sisimai on JRuby 1.16 times faster.
     - #96 String#+ and sprintf replaced with String#<< at Pull-Request #103.
     - #98 loop do replaced with while(true) at Pull-Request #104.
@@ -21,6 +21,8 @@ v4.22.3p3
       String#strip, String#lstrip, String#rstrip at Pull-Request #106.
     - Import Pull-Request sisimai/p5-Sisimai#258, remove /i modifier from each
       regular expressions as possible and call String#downcase before matching.
+    - Pull-Request #111, Some Array#each have been replaced with Array#shift in
+      while loop.
 
 v4.22.3
 --------------------------------------------------------------------------------
