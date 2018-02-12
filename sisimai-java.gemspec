@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'Mail Analyzing Interface'
   spec.description   = 'Sisimai is a Ruby library for analyzing RFC5322 bounce emails and generating structured data from parsed results.'
-  spec.homepage      = 'http://libsisimai.org/'
+  spec.homepage      = 'https://libsisimai.org/'
   spec.license       = 'BSD-2-Clause'
   spec.platform      = "java"
 

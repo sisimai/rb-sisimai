@@ -1,4 +1,4 @@
-![](http://libsisimai.org/static/images/logo/sisimai-x01.png)
+![](https://libsisimai.org/static/images/logo/sisimai-x01.png)
 
 [![License](https://img.shields.io/badge/license-BSD%202--Clause-orange.svg)](https://github.com/sisimai/rb-Sisimai/blob/master/LICENSE)
 [![Coverage Status](https://img.shields.io/coveralls/sisimai/rb-Sisimai.svg)](https://coveralls.io/r/sisimai/rb-Sisimai)
@@ -42,7 +42,7 @@ Sisimai is a Ruby library for analyzing RFC5322 bounce emails and generating
 structured data from parsed results. The Ruby version of Sisimai is ported from
 the Perl version of Sisimai at [github.com/sisimai/p5-Sisimai](https://github.com/sisimai/p5-Sisimai/).
 
-![](http://libsisimai.org/static/images/figure/sisimai-overview-1.png)
+![](https://libsisimai.org/static/images/figure/sisimai-overview-1.png)
 
 Key Features
 -------------------------------------------------------------------------------
@@ -63,7 +63,7 @@ Command line demo
 -------------------------------------------------------------------------------
 The following screen shows a demonstration of Sisimai at the command line using
 Ruby(rb-Sisimai) and Perl(p5-Sisimai) version of Sisimai.
-![](http://libsisimai.org/static/images/demo/sisimai-dump-01.gif)
+![](https://libsisimai.org/static/images/demo/sisimai-dump-01.gif)
 
 Setting Up Sisimai
 ===============================================================================
@@ -71,7 +71,7 @@ Setting Up Sisimai
 System requirements
 -------------------------------------------------------------------------------
 More details about system requirements are available at
-[Sisimai | Getting Started](http://libsisimai.org/en/start) page.
+[Sisimai | Getting Started](https://libsisimai.org/en/start/) page.
 
 
 * [Ruby 2.1.0 or later](http://www.ruby-lang.org/)
@@ -207,7 +207,7 @@ puts data[0].catch['x-mailer']      # Apple Mail (2.1283)
 ```
 
 More information about the callback feature is available at
-[Sisimai | How To Parse - Callback](http://libsisimai.org/en/usage/#callback)
+[Sisimai | How To Parse - Callback](https://libsisimai.org/en/usage/#callback)
 Page.
 
 One-Liner
@@ -219,7 +219,7 @@ One-Liner
 
 Output example
 -------------------------------------------------------------------------------
-![](http://libsisimai.org/static/images/demo/sisimai-dump-02.gif)
+![](https://libsisimai.org/static/images/demo/sisimai-dump-02.gif)
 
 ```json
 [{"recipient": "kijitora@example.jp", "addresser": "shironeko@1jo.example.org", "feedbacktype": "", "action": "failed", "subject": "Nyaaaaan", "smtpcommand": "DATA", "diagnosticcode": "550 Unknown user kijitora@example.jp", "listid": "", "destination": "example.jp", "smtpagent": "Email::Courier", "lhost": "1jo.example.org", "deliverystatus": "5.0.0", "timestamp": 1291954879, "messageid": "201012100421.oBA4LJFU042012@1jo.example.org", "diagnostictype": "SMTP", "timezoneoffset": "+0900", "reason": "filtered", "token": "ce999a4c869e3f5e4d8a77b2e310b23960fb32ab", "alias": "", "senderdomain": "1jo.example.org", "rhost": "mfsmax.example.jp"}, {"diagnostictype": "SMTP", "timezoneoffset": "+0900", "reason": "userunknown", "timestamp": 1381900535, "messageid": "E1C50F1B-1C83-4820-BC36-AC6FBFBE8568@example.org", "token": "9fe754876e9133aae5d20f0fd8dd7f05b4e9d9f0", "alias": "", "senderdomain": "example.org", "rhost": "mx.bouncehammer.jp", "action": "failed", "addresser": "kijitora@example.org", "recipient": "userunknown@bouncehammer.jp", "feedbacktype": "", "smtpcommand": "DATA", "subject": "バウンスメールのテスト(日本語)", "destination": "bouncehammer.jp", "listid": "", "diagnosticcode": "550 5.1.1 <userunknown@bouncehammer.jp>... User Unknown", "deliverystatus": "5.1.1", "lhost": "p0000-ipbfpfx00kyoto.kyoto.example.co.jp", "smtpagent": "Email::Sendmail"}]
@@ -233,7 +233,7 @@ Differences between Ruby version and Perl version
 The following table show the differences between Ruby version of Sisimai
 and Perl version of Sisimai. Information about differences between Sisimai
 and bounceHammer are available at
-[Sisimai | Differences](http://libsisimai.org/en/diff) page.
+[Sisimai | Differences](https://libsisimai.org/en/diff/) page.
 
 | Features                                    | Ruby version   | Perl version  |
 |---------------------------------------------|----------------|---------------|
@@ -252,9 +252,9 @@ and bounceHammer are available at
 
 Other specification of Sisimai
 -------------------------------------------------------------------------------
-- [**Parser Engines**](http://libsisimai.org/en/engine)
-- [**Bounce Reason List**](http://libsisimai.org/en/reason)
-- [**Data Structure of Sisimai::Data**](http://libsisimai.org/en/data)
+- [**Parser Engines**](https://libsisimai.org/en/engine/)
+- [**Bounce Reason List**](https://libsisimai.org/en/reason/)
+- [**Data Structure of Sisimai::Data**](https://libsisimai.org/en/data/)
 
 Contributing
 ===============================================================================
@@ -277,7 +277,7 @@ Other Information
 Related Sites
 -------------------------------------------------------------------------------
 * __@libsisimai__ | [Sisimai on Twitter (@libsisimai)](https://twitter.com/libsisimai)
-* __libSISIMAI.ORG__ | [Sisimai | The successor to bounceHammer, Library to parse bounce mails](http://libsisimai.org/)
+* __libSISIMAI.ORG__ | [Sisimai | The successor to bounceHammer, Library to parse bounce mails](https://libsisimai.org/)
 * __Sisimai Blog__ | [blog.libsisimai.org](http://blog.libsisimai.org/)
 * __Facebook Page__ | [facebook.com/libsisimai](https://www.facebook.com/libsisimai/)
 * __GitHub__ | [github.com/sisimai/rb-Sisimai](https://github.com/sisimai/rb-Sisimai)

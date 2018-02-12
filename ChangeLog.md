@@ -203,8 +203,8 @@ v4.19.0 - Callback Feature
 - changes:
   - Implement a callback feature at `Sisimai.make()` and `Sisimai.dump()` methods.
     More imformation about the feature are available at the following pages:
-    - http://libsisimai.org/en/usage#callback
-    - http://libsisimai.org/ja/usage#callback
+    - https://libsisimai.org/en/usage#callback
+    - https://libsisimai.org/ja/usage#callback
   - Implement `Sisimai.match()` method: issue #52.
   - Minor bug fix in `Sisimai::MSP::US::AmazonSES.scan()` method.
 
