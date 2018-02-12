@@ -27,7 +27,7 @@ MTARELATIVES := ARF rfc3464 rfc3834
 
 BENCHMARKDIR := tmp/benchmark
 BENCHMARKSET := tmp/sample
-SPEEDTESTDIR := tmp/emails-for-velocity-measurement
+SPEEDTESTDIR := tmp/emails-for-speed-test
 
 PARSERSCRIPT := $(RUBY) sbin/emparser --delivered
 RELEASEVERMP := $(RUBY) -rsisimai
@@ -44,10 +44,7 @@ MACFORMATSET := $(SET_OF_EMAIL)/maildir/mac
 
 INDEX_LENGTH := 24
 DESCR_LENGTH := 50
-BH_CAN_PARSE := courier exim messagingserver postfix sendmail surfcontrol x5 \
-				ezweb kddi yandex messagelabs amazonses aol bigfoot facebook \
-				outlook verizon
-
+BH_CAN_PARSE := Courier Exim OpenSMTPD Postfix qmail Sendmail EZweb KDDI Facebook Google Verizon
 
 # -----------------------------------------------------------------------------
 .PHONY: clean
@@ -81,15 +78,15 @@ sample:
 		$(CP) $(PRIVATEMAILS)/$$v/* $(BENCHMARKSET)/$$v/ ;\
 	done
 
-samples-for-velocity:
+samples-for-speedtest:
 	@ rm -fr ./$(SPEEDTESTDIR)
 	@ $(MKDIR) $(SPEEDTESTDIR)
 	@ for v in $(BH_CAN_PARSE); do \
-		$(CP) $(PUBLICEMAILS)/email-$$v-*.eml $(SPEEDTESTDIR)/; \
-		test -d $(PRIVATEEMAILS) && $(CP) $(PRIVATEMAILS)/email-$$v/*.eml $(SPEEDTESTDIR)/; \
+		$(CP) $(PUBLICEMAILS)/email-`echo $$v | tr '[A-Z]' '[a-z]'`-*.eml $(SPEEDTESTDIR)/; \
+		test -d $(PRIVATEEMAILS) && $(CP) $(PRIVATEMAILS)/email-`echo $$v | tr '[A-Z]' '[a-z]'`/*.eml $(SPEEDTESTDIR)/; \
 	done
 
-velocity-measurement: samples-for-velocity
+velocity-measurement: samples-for-speedtest
 	@ echo -------------------------------------------------------------------
 	@ echo `$(HOWMANYMAILS)` emails in $(SPEEDTESTDIR)
 	@ echo -n 'Calculating the velocity of parsing 1000 mails: multiply by '
