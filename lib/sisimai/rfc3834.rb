@@ -120,7 +120,7 @@ module Sisimai
         end
 
         # BODY_PARSER: Get vacation message
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           # Read the first 5 lines except a blank line
           countuntil += 1 if e =~ MarkingsOf[:boundary]
 

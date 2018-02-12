@@ -44,7 +44,7 @@ module Sisimai::Bite::Email
         match += 1 if mhead['subject'].include?('Delivery Status Notification')
         match += 1 if mhead['x-message-delivery']
         match += 1 if mhead['x-message-info']
-        match += 1 if mhead['received'].find { |a| a =~ /.+[.]hotmail[.]com\b/ }
+        match += 1 if mhead['received'].find { |a| a.include?('.hotmail.com') }
         return nil if match < 2
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -61,7 +61,7 @@ module Sisimai::Bite::Email
         }
         v = nil
 
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           # Save the current line for the next loop
           havepassed << e
           p = havepassed[-2]

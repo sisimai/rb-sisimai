@@ -194,7 +194,7 @@ module Sisimai
         # Set "date" getting from the value of "Date" in the bounce message
         datevalues << messageobj.header['date'] if datevalues.size < 2
 
-        datevalues.each do |v|
+        while v = datevalues.shift do
           # Parse each date value in the array
           datestring = Sisimai::DateTime.parse(v)
           break if datestring

@@ -53,7 +53,7 @@ module Sisimai::Bite::Email
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
 
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
             if e.start_with?(StartingOf[:message][0])

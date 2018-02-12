@@ -78,7 +78,7 @@ module Sisimai::Bite::Email
         localhost0 = ''     # (String) Local MTA
         v = nil
 
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
             if e.start_with?(StartingOf[:message][0])
@@ -162,7 +162,7 @@ module Sisimai::Bite::Email
             rcptinhead.each { |a| a.delete(' ') }
             recipients = rcptinhead.size
 
-            rcptinhead.each do |e|
+            while e = rcptinhead.shift do
               # Insert each recipient address into dscontents
               dscontents[-1]['recipient'] = e
               next if dscontents.size == recipients

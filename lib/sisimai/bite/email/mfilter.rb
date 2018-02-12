@@ -47,7 +47,7 @@ module Sisimai::Bite::Email
         markingset = { 'diagnosis' => false, 'command' => false }
         v = nil
 
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
             readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
@@ -135,7 +135,7 @@ module Sisimai::Bite::Email
             rhosts = Sisimai::RFC5322.received(rheads[-1])
 
             e['lhost'] ||= Sisimai::RFC5322.received(rheads[0]).shift
-            rhosts.each do |ee|
+            while ee = rhosts.shift do
               # Avoid "... by m-FILTER"
               next unless ee.include?('.')
               e['rhost'] = ee

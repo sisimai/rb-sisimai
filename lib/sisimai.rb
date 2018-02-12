@@ -75,14 +75,14 @@ module Sisimai
 
         if type == 'Array'
           # [ {...}, {...}, ... ]
-          argv0.each do |e|
+          while e = argv0.shift do
             list << e
           end
         else
           list << argv0
         end
 
-        list.each do |e|
+        while e = list.shift do
           methodargv = { data: e, hook: hookmethod, input: 'json' }
           mesg = Sisimai::Message.new(methodargv)
           next if mesg.void

@@ -90,7 +90,7 @@ module Sisimai::Bite::Email
         rxmessages = []
         ReFailures.each_key { |a| rxmessages.concat(ReFailures[a]) }
 
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
             readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]

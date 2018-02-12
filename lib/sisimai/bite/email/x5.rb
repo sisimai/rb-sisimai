@@ -61,7 +61,7 @@ module Sisimai::Bite::Email
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
 
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           # Save the current line for the next loop
           havepassed << e
           p = havepassed[-2]

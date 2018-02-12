@@ -66,7 +66,7 @@ module Sisimai
         }
         v = nil
 
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           # Save the current line for the next loop
           havepassed << e
           d = e.downcase
@@ -291,9 +291,10 @@ module Sisimai
           # Fallback, parse entire message body
           break if recipients > 0
           match = 0
+          mfrom = mhead['from'].downcase
 
           # Failed to get a recipient address at code above
-          match += 1 if mhead['from'].downcase =~ /\b(?:postmaster|mailer-daemon|root)[@]/
+          match += 1 if mfrom.include?('postmaster@') || mfrom.include?('mailer-daemon@') || mfrom.include?('root@')
           match += 1 if mhead['subject'].downcase =~ %r{(?>
              delivery[ ](?:failed|failure|report)
             |failure[ ]notice
@@ -307,7 +308,8 @@ module Sisimai
 
           if mhead['return-path']
             # Check the value of Return-Path of the message
-            match += 1 if mhead['return-path'].downcase =~ /(?:[<][>]|mailer-daemon)/
+            rpath  = mhead['return-path'].downcase
+            match += 1 if rpath.include?('<>') || rpath.include?('mailer-daemon')
           end
           break unless match > 0
 
@@ -374,7 +376,8 @@ module Sisimai
           }xi
 
           b = dscontents[-1]
-          mbody.split("\n").each do |e|
+          hasdivided = mbody.split("\n")
+          while e = hasdivided.shift do
             # Get the recipient's email address and error messages.
             break if e.start_with?('__END_OF_EMAIL_MESSAGE__')
             d = e.downcase

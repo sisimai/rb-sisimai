@@ -62,7 +62,7 @@ module Sisimai::Bite::Email
         }
         v = nil
 
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
             if e == StartingOf[:message][0]
@@ -152,7 +152,7 @@ module Sisimai::Bite::Email
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
 
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-          if e['status'] =~ /\A[45][.][01][.]0\z/
+          if e['status'].to_s.start_with?('5.0.0', '5.1.0', '4.0.0', '4.1.0')
             # Get other D.S.N. value from the error message
             errormessage = e['diagnosis']
 

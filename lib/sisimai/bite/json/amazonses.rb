@@ -49,7 +49,7 @@ module Sisimai::Bite::JSON
         jsonthings = nil
         foldedline = false
 
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           # Find JSON string from the message body
           next if e.size.zero?
           break if e == '--'
@@ -117,10 +117,10 @@ module Sisimai::Bite::JSON
 
         if %w[Bounce Complaint].index(argvs['notificationType'])
           # { "notificationType":"Bounce", "bounce": { "bounceType":"Permanent",...
-          o = argvs[argvs['notificationType'].downcase]
+          o = argvs[argvs['notificationType'].downcase].dup
           r = o[labeltable[argvs['notificationType'].to_sym]] || []
 
-          r.each do |e|
+          while e = r.shift do
             # 'bouncedRecipients' => [ { 'emailAddress' => 'bounce@si...' }, ... ]
             # 'complainedRecipients' => [ { 'emailAddress' => 'complaint@si...' }, ... ]
             next unless Sisimai::RFC5322.is_emailaddress(e['emailAddress'])
@@ -180,10 +180,10 @@ module Sisimai::Bite::JSON
           require 'sisimai/smtp/status'
           require 'sisimai/smtp/reply'
 
-          o = argvs['delivery']
+          o = argvs['delivery'].dup
           r = o['recipients'] || []
 
-          r.each do |e|
+          while e = r.shift do
             # 'delivery' => {
             #       'timestamp' => '2016-11-23T12:01:03.512Z',
             #       'processingTimeMillis' => 3982,

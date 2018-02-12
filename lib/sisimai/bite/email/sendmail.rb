@@ -7,15 +7,15 @@ module Sisimai::Bite::Email
       require 'sisimai/bite/email'
 
       Indicators = Sisimai::Bite::Email.INDICATORS
-      StartingOf = { rfc822: ['Content-Type: message/rfc822', 'Content-Type: text/rfc822-headers'] }.freeze
-      MarkingsOf = {
+      StartingOf = {
         # Error text regular expressions which defined in sendmail/savemail.c
         #   savemail.c:1040|if (printheader && !putline("   ----- Transcript of session follows -----\n",
         #   savemail.c:1041|          mci))
         #   savemail.c:1042|  goto writeerr;
         #
-        message: %r/\A[ \t]+[-]+ Transcript of session follows [-]+\z/,
-        error:   %r/\A[.]+ while talking to .+[:]\z/,
+        rfc822:  ['Content-Type: message/rfc822', 'Content-Type: text/rfc822-headers'],
+        message: ['   ----- Transcript of session follows -----'],
+        error:   ['... while talking to '],
       }.freeze
 
       def description; return 'V8Sendmail: /usr/sbin/sendmail'; end
@@ -62,14 +62,14 @@ module Sisimai::Bite::Email
         anotherset = {}     # Another error information
         v = nil
 
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           # Save the current line for the next loop
           havepassed << e
           p = havepassed[-2]
 
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e =~ MarkingsOf[:message]
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -190,7 +190,7 @@ module Sisimai::Bite::Email
               else
                 # Detect SMTP session error or connection error
                 next if sessionerr
-                if e =~ MarkingsOf[:error]
+                if e.start_with?(StartingOf[:error][0])
                   # ----- Transcript of session follows -----
                   # ... while talking to mta.example.org.:
                   sessionerr = true

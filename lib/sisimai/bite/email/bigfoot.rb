@@ -32,7 +32,7 @@ module Sisimai::Bite::Email
         # :subject  => %r/\AReturned mail: /,
         match  = 0
         match += 1 if mhead['from'].include?('@bigfoot.com>')
-        match += 1 if mhead['received'].find { |a| a =~ /\w+[.]bigfoot[.]com\b/ }
+        match += 1 if mhead['received'].find { |a| a.include?('.bigfoot.com') }
         return nil if match.zero?
 
         require 'sisimai/address'
@@ -52,7 +52,7 @@ module Sisimai::Bite::Email
         }
         v = nil
 
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           # Save the current line for the next loop
           havepassed << e
           p = havepassed[-2]

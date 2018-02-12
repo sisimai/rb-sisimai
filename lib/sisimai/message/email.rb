@@ -157,7 +157,7 @@ module Sisimai
         return {} if email.empty?
 
         email = email.scrub('?')
-        email = email.gsub(/\r\n/, "\n")  if email =~ /\r\n/
+        email = email.gsub(/\r\n/, "\n")  if email.include?("\r\n")
         email = email.gsub(/[ \t]+$/, '') if email =~ /[ \t]+$/
 
         hasdivided = email.split("\n")
@@ -174,7 +174,7 @@ module Sisimai
         end
 
         # Split email data to headers and a body part.
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           # Split email data to headers and a body part.
           if readcursor & Indicators[:endof] > 0
             # The body part of the email
@@ -212,6 +212,7 @@ module Sisimai
         structured = {}
         extheaders = argvs['extheaders'] || []
         extrafield = argvs['extrafield'] || []
+        hasdivided = heads.split("\n")
 
         HeaderList.each { |e| structured[e] = nil  }
         HeaderList.each { |e| allheaders[e] = true }
@@ -222,7 +223,7 @@ module Sisimai
           extrafield.each { |e| allheaders[e.downcase] = true }
         end
 
-        heads.split("\n").each do |e|
+        while e = hasdivided.shift do
           # Convert email headers to hash
           if cv = e.match(/\A([^ ]+?)[:][ ]*(.*?)\z/)
             # split the line into a header name and a header content
@@ -305,7 +306,7 @@ module Sisimai
         borderline = '__MIME_ENCODED_BOUNDARY__'
         mimeborder = {}
 
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           # Header name as a key, The value of header as a value
           if cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*(.*)\z/)
             # Header
@@ -432,7 +433,7 @@ module Sisimai
              cv = lowercased.match(ReEncoding[:'some-iso2022'])
             # Content-Transfer-Encoding: 7bit
             # Content-Type: text/plain; charset=ISO-2022-JP
-            unless cv[1] =~ /(?:us-ascii|utf[-]?8)/
+            if ! cv[1].include?('us-ascii') && ! cv[1].include?('utf-8')
               bodystring = Sisimai::String.to_utf8(bodystring, cv[1])
             end
           end

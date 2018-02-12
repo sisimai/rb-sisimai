@@ -42,7 +42,7 @@ module Sisimai::Bite::Email
         datestring = ''     # (String) Date string
         v = nil
 
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
             if e =~ MarkingsOf[:message]

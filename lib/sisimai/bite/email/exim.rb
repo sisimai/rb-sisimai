@@ -180,7 +180,7 @@ module Sisimai::Bite::Email
           boundary00 = Sisimai::MIME.boundary(mhead['content-type']) || ''
         end
 
-        hasdivided.each do |e|
+        while e = hasdivided.shift do
           break if e == StartingOf[:endof][0]
 
           if readcursor.zero?
@@ -353,7 +353,7 @@ module Sisimai::Bite::Email
             end
             recipients = rcptinhead.size
 
-            rcptinhead.each do |e|
+            while e = rcptinhead.shift do
               # Insert each recipient address into dscontents
               dscontents[-1]['recipient'] = e
               next if dscontents.size == recipients
