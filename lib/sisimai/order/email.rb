@@ -85,7 +85,7 @@ module Sisimai
         # header such as X-AWS-Outgoing, X-Yandex-Uniq.
         PatternTable = {
           'subject' => {
-            %r/delivery/i => [
+            'delivery' => [
               'Sisimai::Bite::Email::Exim',
               'Sisimai::Bite::Email::Courier',
               'Sisimai::Bite::Email::Google',
@@ -99,7 +99,7 @@ module Sisimai
               'Sisimai::Bite::Email::X3',
               'Sisimai::Bite::Email::X2',
             ],
-            %r/noti(?:ce|fi)/i => [
+            'noti' => [
               'Sisimai::Bite::Email::Qmail',
               'Sisimai::Bite::Email::Sendmail',
               'Sisimai::Bite::Email::Google',
@@ -111,7 +111,7 @@ module Sisimai
               'Sisimai::Bite::Email::X3',
               'Sisimai::Bite::Email::MFILTER',
             ],
-            %r/return/i => [
+            'return' => [
               'Sisimai::Bite::Email::Postfix',
               'Sisimai::Bite::Email::Sendmail',
               'Sisimai::Bite::Email::SendGrid',
@@ -121,7 +121,7 @@ module Sisimai
               'Sisimai::Bite::Email::Biglobe',
               'Sisimai::Bite::Email::V5sendmail',
             ],
-            %r/undeliver/i => [
+            'undeliver' => [
               'Sisimai::Bite::Email::Postfix',
               'Sisimai::Bite::Email::Exchange2007',
               'Sisimai::Bite::Email::Exchange2003',
@@ -132,7 +132,7 @@ module Sisimai
               'Sisimai::Bite::Email::IMailServer',
               'Sisimai::Bite::Email::MailMarshalSMTP',
             ],
-            %r/failure/i => [
+            'failure' => [
               'Sisimai::Bite::Email::Qmail',
               'Sisimai::Bite::Email::Domino',
               'Sisimai::Bite::Email::Google',
@@ -142,7 +142,7 @@ module Sisimai
               'Sisimai::Bite::Email::X2',
               'Sisimai::Bite::Email::MFILTER',
             ],
-            %r/warning/i => [
+            'warning' => [
               'Sisimai::Bite::Email::Postfix',
               'Sisimai::Bite::Email::Sendmail',
               'Sisimai::Bite::Email::Exim',
@@ -150,23 +150,10 @@ module Sisimai
           },
         }.freeze
 
-        make_default_order = lambda do
-          # Make default order of MTA modules to be loaded
-          rv = []
-          begin
-            rv.concat(Sisimai::Bite::Email.index.map { |e| 'Sisimai::Bite::Email::' << e })
-          rescue
-            # Failed to load an MTA module
-            next
-          end
-          return rv
-        end
-        DefaultOrder = make_default_order.call
-
         # @abstract Make default order of MTA modules to be loaded
         # @return   [Array] Default order list of MTA modules
         def default
-          return DefaultOrder
+          return Sisimai::Bite::Email.index.map { |e| 'Sisimai::Bite::Email::' << e }
         end
 
         # @abstract Get regular expression patterns for specified field
@@ -194,18 +181,13 @@ module Sisimai
         # @abstract Make email header list in each MTA module
         # @return   [Hash] Header list to be parsed
         def headers
-          order = self.default
+          order = Sisimai::Bite::Email.heads.map { |e| 'Sisimai::Bite::Email::' << e }
           table = {}
           skips = { 'return-path' => 1, 'x-mailer' => 1 }
 
           order.each do |e|
             # Load email headers from each MTA module
-            begin
-              require e.gsub('::', '/').downcase
-            rescue LoadError
-              warn ' ***warning: Failed to load ' << e
-              next
-            end
+            require e.gsub('::', '/').downcase
 
             Module.const_get(e).headerlist.each do |v|
               # Get header name which required each MTA module
