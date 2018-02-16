@@ -3,6 +3,13 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.22.4p1
+--------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - #112 The order to load MTA modules improvement.
+
 v4.22.4
 --------------------------------------------------------------------------------
 - release: "Wed, 14 Feb 2018 10:44:00 +0900 (JST)"
