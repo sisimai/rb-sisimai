@@ -31,7 +31,7 @@ module Sisimai
 
       input = argv1[:input] || nil
       field = argv1[:field] || []
-      raise ' ***error: "field" accepts an array reference only' unless field.is_a? Array
+      raise ' ***error: "field" accepts an array only' unless field.is_a? Array
 
       unless input
         # "input" did not specified, try to detect automatically.
