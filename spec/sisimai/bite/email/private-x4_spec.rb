@@ -24,7 +24,7 @@ isexpected = [
   { 'n' => '01020', 'r' => /mailboxfull/ },
   { 'n' => '01021', 'r' => /networkerror/ },
   { 'n' => '01022', 'r' => /userunknown/ },
-  { 'n' => '01023', 'r' => /mailboxfull/ }
+  { 'n' => '01023', 'r' => /mailboxfull/ },
   { 'n' => '01024', 'r' => /mailboxfull/ },
   { 'n' => '01025', 'r' => /userunknown/ },
   { 'n' => '01026', 'r' => /userunknown/ },
