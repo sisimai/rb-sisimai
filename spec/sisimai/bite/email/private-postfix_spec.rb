@@ -185,6 +185,13 @@ isexpected = [
   { 'n' => '01181', 'r' => /userunknown/ },
   { 'n' => '01182', 'r' => /spamdetected/ },
   { 'n' => '01183', 'r' => /userunknown/ },
+  { 'n' => '01184', 'r' => /norelaying/ },
+  { 'n' => '01185', 'r' => /systemerror/ },
+  { 'n' => '01186', 'r' => /userunknown/ },
+  { 'n' => '01187', 'r' => /userunknown/ },
+  { 'n' => '01188', 'r' => /expired/ },
+  { 'n' => '01189', 'r' => /hostunknown/ },
+  { 'n' => '01190', 'r' => /userunknown/ },
 ]
 Sisimai::Bite::Email::Code.maketest(enginename, isexpected, true)
 

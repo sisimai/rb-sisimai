@@ -163,6 +163,22 @@ isexpected = [
   { 'n' => '01163', 'r' => /mailboxfull/ },
   { 'n' => '01164', 'r' => /blocked/ },
   { 'n' => '01165', 'r' => /spamdetected/ },
+  { 'n' => '01166', 'r' => /(?:hostunknown|expired|undefined)/ },
+  { 'n' => '01167', 'r' => /(?:onhold|undefined|mailererror)/ },
+  { 'n' => '01168', 'r' => /expired/ },
+  { 'n' => '01169', 'r' => /systemerror/ },
+  { 'n' => '01170', 'r' => /systemerror/ },
+  { 'n' => '01171', 'r' => /mailboxfull/ },
+  { 'n' => '01172', 'r' => /hostunknown/ },
+  { 'n' => '01173', 'r' => /networkerror/ },
+  { 'n' => '01174', 'r' => /(?:expired|systemerror)/ },
+  { 'n' => '01175', 'r' => /expired/ },
+  { 'n' => '01176', 'r' => /userunknown/ },
+  { 'n' => '01177', 'r' => /filtered/ },
+  { 'n' => '01178', 'r' => /expired/ },
+  { 'n' => '01179', 'r' => /mailererror/ },
+  { 'n' => '01180', 'r' => /blocked/ },
+  { 'n' => '01181', 'r' => /mailererror/ },
 ]
 Sisimai::Bite::Email::Code.maketest(enginename, isexpected, true)
 
