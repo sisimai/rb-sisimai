@@ -1,0 +1,72 @@
+Return-Path: <>
+Received: from sijo.libsisimai.org (sijo.libsisimai.org [192.0.2.222])
+	by nijo.libsisimai.org (V8/cf) with ESMTP id w2C305EV007094
+	for <sironeko@libsisimai.org>; Mon, 12 Mar 2018 12:00:05 +0900
+Received: by sijo.libsisimai.org (Postfix)
+	id 1548AC6DD0F; Mon, 12 Mar 2018 12:00:05 +0900 (JST)
+Date: Mon, 12 Mar 2018 12:00:05 +0900 (JST)
+From: MAILER-DAEMON@sijo.libsisimai.org (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: sironeko@libsisimai.org
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="5A59CC6DD0E.1520823605/sijo.libsisimai.org"
+Message-Id: <20180312030005.1548AC6DD0F@sijo.libsisimai.org>
+
+This is a MIME-encapsulated message.
+
+--5A59CC6DD0E.1520823605/sijo.libsisimai.org
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host sijo.libsisimai.org.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<"neko....nyaan...."@libsisimai.org>: host mx.libsisimai.org[203.0.113.2] said:
+    550 5.1.1 <"neko....nyaan...."@libsisimai.org>... User Unknown (in reply to
+    RCPT TO command)
+
+--5A59CC6DD0E.1520823605/sijo.libsisimai.org
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; sijo.libsisimai.org
+X-Postfix-Queue-ID: 5A59CC6DD0E
+X-Postfix-Sender: rfc822; sironeko@libsisimai.org
+Arrival-Date: Mon, 12 Mar 2018 11:59:26 +0900 (JST)
+
+Final-Recipient: rfc822; "neko....nyaan...."@libsisimai.org
+Original-Recipient: rfc822;neko....nyaan....@libsisimai.org
+Action: failed
+Status: 5.1.1
+Remote-MTA: dns; mx.libsisimai.org
+Diagnostic-Code: smtp; 550 5.1.1 <"neko....nyaan...."@libsisimai.org>... User
+    Unknown
+
+--5A59CC6DD0E.1520823605/sijo.libsisimai.org
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <sironeko@libsisimai.org>
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by sijo.libsisimai.org (Postfix) with ESMTP id 5A59CC6DD0E
+	for <"neko....nyaan...."@libsisimai.org>; Mon, 12 Mar 2018 11:59:26 +0900 (JST)
+Subject: Nyaan
+From: sironeko@libsisimai.org
+To: "neko....nyaan...."@libsisimai.org
+Message-Id: <20180312025937.5A59CC6DD0E@sijo.libsisimai.org>
+Date: Mon, 12 Mar 2018 11:59:26 +0900 (JST)
+
+Nyaan
+
+--5A59CC6DD0E.1520823605/sijo.libsisimai.org--
