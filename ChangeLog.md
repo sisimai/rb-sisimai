@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.22.4p2
+v4.22.4p3
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -11,6 +11,7 @@ v4.22.4p2
   - #112 The order to load MTA modules improvement.
   - Sample emails in set-of-emails/ which are not owned by Sisimai project have
     been removed.
+  - Update error message patterns in Sisimai::Reason::Expired.
 
 v4.22.4
 --------------------------------------------------------------------------------
