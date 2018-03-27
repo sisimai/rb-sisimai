@@ -19,22 +19,16 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          regex = %r{(?>
-             improper[ ]use[ ]of[ ]8-bit[ ]data[ ]in[ ]message[ ]header
-            |message[ ](?:
-               header[ ]size,[ ]or[ ]recipient[ ]list,[ ]exceeds[ ]policy[ ]limit
-              |mime[ ]complexity[ ]exceeds[ ]the[ ]policy[ ]maximum
-              )
-            |routing[ ]loop[ ]detected[ ][-][-][ ]too[ ]many[ ]received:[ ]headers
-            |this[ ]message[ ]contains?[ ](?:
-               invalid[ ]mime[ ]headers
-              |improperly[-]formatted[ ]binary[ ]content
-              |text[ ]that[ ]uses[ ]unnecessary[ ]base64[ ]encoding
-              )
-            )
-          }x
-
-          return true if argv1 =~ regex
+          index = [
+            'improper use of 8-bit data in message header',
+            'message header size, or recipient list, exceeds policy limit',
+            'message mime complexity exceeds the policy maximum',
+            'routing loop detected -- too many received: headers',
+            'this message contain invalid mime headers',
+            'this message contain improperly-formatted binary content',
+            'this message contain text that uses unnecessary base64 encoding',
+          ]
+          return true if index.find { |a| argv1.include?(a) }
           return false
         end
 

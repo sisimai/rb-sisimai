@@ -26,15 +26,14 @@ module Sisimai
         # @since 4.22.0
         def match(argv1)
           return nil unless argv1
-          regex = %r{(?>
-             it[ ]has[ ]a[ ]potentially[ ]executable[ ]attachment
-            |the[ ]message[ ]was[ ]rejected[ ]because[ ]it[ ]contains[ ]prohibited[ ]virus[ ]or[ ]spam[ ]content
-            |this[ ]form[ ]of[ ]attachment[ ]has[ ]been[ ]used[ ]by[ ]recent[ ]viruses[ ]or[ ]other[ ]malware
-            |your[ ]message[ ]was[ ]infected[ ]with[ ]a[ ]virus
-            )
-          }x
+          index = [
+            'it has a potentially executable attachment',
+            'the message was rejected because it contains prohibited virus or spam content',
+            'this form of attachment has been used by recent viruses or other malware',
+            'your message was infected with a virus',
+          ]
 
-          return true if argv1 =~ regex
+          return true if index.find { |a| argv1.include?(a) }
           return false
         end
 

@@ -18,13 +18,12 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          regex = %r{(?:
-             mail[ ]system[ ]full
-            |requested[ ]mail[ ]action[ ]aborted:[ ]exceeded[ ]storage[ ]allocation # MS Exchange
-            )
-          }x
+          index = [
+            'mail system full',
+            'requested mail action aborted: exceeded storage allocation',   # MS Exchange
+          ]
 
-          return true if argv1 =~ regex
+          return true if index.find { |a| argv1.include?(a) }
           return false
         end
 

@@ -18,9 +18,9 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          regex = %r/address[ ].+ has been replaced by /
+          index = [' has been replaced by ']
 
-          return true if argv1 =~ regex
+          return true if index.find { |a| argv1.include?(a) }
           return false
         end
 
