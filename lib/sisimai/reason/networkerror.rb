@@ -22,30 +22,25 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          regex = %r{(?>
-             could[ ]not[ ]connect[ ]and[ ]send[ ]the[ ]mail[ ]to
-            |dns[ ]records[ ]for[ ]the[ ]destination[ ]computer[ ]could[ ]not[ ]be[ ]found
-            |hop[ ]count[ ]exceeded[ ]-[ ]possible[ ]mail[ ]loop
-            |host[ ]is[ ]unreachable
-            |mail[ ]forwarding[ ]loop[ ]for[ ]
-            |malformed[ ]name[ ]server[ ]reply
-            |maximum[ ]forwarding[ ]loop[ ]count[ ]exceeded
-            |message[ ](?:
-               looping
-              |probably[ ]in[ ]a[ ]routing[ ]loop
-              )
-            |name[ ]service[ ]error[ ]for[ ].+[ ](?:
-               malformed[ ]or[ ]unexpected[ ]name[ ]server[ ]reply
-              |host[ ]not[ ]found,[ ]try[ ]again
-              )
-            |no[ ]route[ ]to[ ]host
-            |too[ ]many[ ]hops
-            |unable[ ]to[ ]resolve[ ]route[ ].+[ ]
-            |unrouteable[ ]mail[ ]domain
-            )
-          }x
+          index = [
+            'could not connect and send the mail to',
+            'dns records for the destination computer could not be found',
+            'hop count exceeded - possible mail loop',
+            'host is unreachable',
+            'host not found, try again',
+            'mail forwarding loop for ',
+            'malformed name server reply',
+            'malformed or unexpected name server reply',
+            'maximum forwarding loop count exceeded',
+            'message looping',
+            'message probably in a routing loop',
+            'no route to host',
+            'too many hops',
+            'unable to resolve route ',
+            'unrouteable mail domain',
+          ]
 
-          return true if argv1 =~ regex
+          return true if index.find { |a| argv1.include?(a) }
           return false
         end
 

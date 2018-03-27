@@ -22,13 +22,12 @@ module Sisimai
           return nil unless argv1
 
           # Destination mail server does not accept any message
-          regex = %r{(?:
-               name[ ]server:[ ][.]:[ ]host[ ]not[ ]found # Sendmail
-              |55[46][ ]smtp[ ]protocol[ ]returned[ ]a[ ]permanent[ ]error
-            )
-          }x
+          index = [
+            'name server: .: host not found',   # Sendmail
+            'smtp protocol returned a permanent error',
+          ]
 
-          return true if argv1 =~ regex
+          return true if index.find { |a| argv1.include?(a) }
           return false
         end
 

@@ -17,27 +17,22 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          regex = %r{(?>
-             exceeded[ ]maximum[ ]inbound[ ]message[ ]size
-            |line[ ]limit[ ]exceeded
-            |max[ ]message[ ]size[ ]exceeded
-            |message[ ](?:
-               file[ ]too[ ]big
-              |length[ ]exceeds[ ]administrative[ ]limit
-              |size[ ]exceeds[ ](?:
-                 fixed[ ]limit
-                |fixed[ ]maximum[ ]message[ ]size
-                |maximum[ ]value
-                )
-              |too[ ]big
-              |too[ ]large[ ]for[ ]this[ ].+
-              )
-            |size[ ]limit
-            |taille[ ]limite[ ]du[ ]message[ ]atteinte.+[a-z]{3}.+514
-            )
-          }x
+          index = [
+            'exceeded maximum inbound message size',
+            'line limit exceeded',
+            'max message size exceeded',
+            'message file too big',
+            'message length exceeds administrative limit',
+            'message size exceeds fixed limit',
+            'message size exceeds fixed maximum message size',
+            'message size exceeds maximum value',
+            'message too big',
+            'message too large for this ',
+            'size limit',
+            'taille limite du message atteinte',
+          ]
 
-          return true if argv1 =~ regex
+          return true if index.find { |a| argv1.include?(a) }
           return false
         end
 

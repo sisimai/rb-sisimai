@@ -24,58 +24,53 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          isnot = %r{(?:5[.]1[.]0[ ]address
-            |recipient[ ]address
-            |sender[ ]ip[ ]address
-            )[ ]rejected
-          }x
-          regex = %r{(?>
-             [<][>][ ]invalid[ ]sender
-            |address[ ]rejected
-            |administrative[ ]prohibition
-            |batv[ ](?:
-               failed[ ]to[ ]verify   # SoniWall
-              |validation[ ]failure   # SoniWall
-              )
-            |backscatter[ ]protection[ ]detected[ ]an[ ]invalid[ ]or[ ]expired[ ]email[ ]address    # MDaemon
-            |bogus[ ]mail[ ]from        # IMail - block empty sender
-            |connections[ ]not[ ]accepted[ ]from[ ]servers[ ]without[ ]a[ ]valid[ ]sender[ ]domain
-            |denied[ ]\[bouncedeny\]    # McAfee
-            |delivery[ ]not[ ]authorized,[ ]message[ ]refused
-            |does[ ]not[ ]exist[ ]e2110
-            |domain[ ]of[ ]sender[ ]address[ ].+[ ]does[ ]not[ ]exist
-            |emetteur[ ]invalide.+[a-z]{3}.+(?:403|405|415)
-            |empty[ ]envelope[ ]senders[ ]not[ ]allowed
-            |error:[ ]no[ ]third-party[ ]dsns               # SpamWall - block empty sender
-            |from:[ ]domain[ ]is[ ]invalid[.][ ]please[ ]provide[ ]a[ ]valid[ ]from:
-            |fully[ ]qualified[ ]email[ ]address[ ]required # McAfee
-            |invalid[ ]domain,[ ]see[ ][<]url:.+[>]
-            |mail[ ]from[ ]not[ ]owned[ ]by[ ]user.+[a-z]{3}.+421
-            |message[ ]rejected:[ ]email[ ]address[ ]is[ ]not[ ]verified
-            |mx[ ]records[ ]for[ ].+[ ]violate[ ]section[ ].+
-            |null[ ]sender[ ]is[ ]not[ ]allowed
-            |recipient[ ]not[ ]accepted[.][ ][(]batv:[ ]no[ ]tag
-            |returned[ ]mail[ ]not[ ]accepted[ ]here
-            |rfc[ ]1035[ ]violation:[ ]recursive[ ]cname[ ]records[ ]for
-            |rule[ ]imposed[ ]mailbox[ ]access[ ]for        # MailMarshal
-            |sender[ ](?:
-               email[ ]address[ ]rejected
-              |is[ ]spammer
-              |not[ ]pre[-]approved
-              |rejected
-              |domain[ ]is[ ]empty
-              |verify[ ]failed        # Exim callout
-              )
-            |syntax[ ]error:[ ]empty[ ]email[ ]address
-            |the[ ]message[ ]has[ ]been[ ]rejected[ ]by[ ]batv[ ]defense
-            |transaction[ ]failed[ ]unsigned[ ]dsn[ ]for
-            |unroutable[ ]sender[ ]address
-            |you[ ]are[ ]sending[ ]to[/]from[ ]an[ ]address[ ]that[ ]has[ ]been[ ]blacklisted
-            )
-          }x
+          isnot = [
+            '5.1.0 address rejected',
+            'recipient address rejected',
+            'sender ip address rejected',
+          ]
+          index = [
+            '<> invalid sender',
+            'address rejected',
+            'administrative prohibition',
+            'batv failed to verify',    # SoniWall
+            'batv validation failure',  # SoniWall
+            'backscatter protection detected an invalid or expired email address',  # MDaemon
+            'bogus mail from',          # IMail - block empty sender
+            'connections not accepted from servers without a valid sender domain',
+            'denied [bouncedeny]',      # McAfee
+            'delivery not authorized, message refused',
+            'does not exist e2110',
+            'domain of sender address ',
+            'emetteur invalide',
+            'empty envelope senders not allowed',
+            'error: no third-party dsns',   # SpamWall - block empty sender
+            'from: domain is invalid. please provide a valid from:',
+            'fully qualified email address required',   # McAfee
+            'invalid domain, see <url:',
+            'mail from not owned by user',
+            'message rejected: email address is not verified',
+            'mx records for ',
+            'null sender is not allowed',
+            'recipient not accepted. (batv: no tag',
+            'returned mail not accepted here',
+            'rfc 1035 violation: recursive cname records for',
+            'rule imposed mailbox access for',  # MailMarshal
+            'sender email address rejected',
+            'sender is spammer',
+            'sender not pre-approved',
+            'sender rejected',
+            'sender domain is empty',
+            'sender verify failed', # Exim callout
+            'syntax error: empty email address',
+            'the message has been rejected by batv defense',
+            'transaction failed unsigned dsn for',
+            'unroutable sender address',
+            'you are sending to/from an address that has been blacklisted',
+          ]
 
-          return false if argv1 =~ isnot
-          return true  if argv1 =~ regex
+          return false if isnot.find { |a| argv1.include?(a) }
+          return true  if index.find { |a| argv1.include?(a) }
           return false
         end
 

@@ -14,16 +14,14 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          regex = %r{(?>
-             i[ ]am[ ](?:
-               away[ ](?:on[ ]vacation|until)
-              |out[ ]of[ ]the[ ]office
-              )
-            |i[ ]will[ ]be[ ]traveling[ ]for[ ]work[ ]on
-          )
-          }x
+          index = [
+            'i am away on vacation',
+            'i am away until',
+            'i am out of the office',
+            'i will be traveling for work on',
+          ]
 
-          return true if argv1 =~ regex
+          return true if index.find { |a| argv1.include?(a) }
           return false
         end
 

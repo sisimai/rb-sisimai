@@ -21,36 +21,27 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          regex = %r{(?>
-             can[']t[ ]create[ ]user[ ]output[ ]file
-            |could[ ]not[ ]load[ ]drd[ ]for[ ]domain
-            |internal[ ](?:
-               error[ ]reading[ ]data                             # Microsoft
-              |server[ ]error:[ ]operation[ ]now[ ]in[ ]progress  # Microsoft
-              )
-            |interrupted[ ]system[ ]call
-            |it[ ](?:
-               encountered[ ]an[ ]error[ ]while[ ]being[ ]processed
-              |would[ ]create[ ]a[ ]mail[ ]loop
-              )
-            |local[ ](?:
-               configuration[ ]error
-              |error[ ]in[ ]processing
-              )
-            |loop[ ]was[ ]found[ ]in[ ]the[ ]mail[ ]exchanger
-            |mail[ ](?:
-               for[ ].+[ ]loops[ ]back[ ]to[ ]myself
-              |system[ ]configuration[ ]error
-              )
-            |server[ ]configuration[ ]error
-            |service[ ]currently[ ]unavailable
-            |system[ ]config[ ]error
-            |temporary[ ]local[ ]problem
-            |timeout[ ]waiting[ ]for[ ]input
-            )
-          }x
+          index = [
+            "can't create user output file",
+            'could not load drd for domain',
+            'internal error reading data',  # Microsoft
+            'internal server error: operation now in progress', # Microsoft
+            'interrupted system call',
+            'it encountered an error while being processed',
+            'it would create a mail loop',
+            'local configuration error',
+            'local error in processing',
+            'loop was found in the mail exchanger',
+            'loops back to myself',
+            'mail system configuration error',
+            'server configuration error',
+            'service currently unavailable',
+            'system config error',
+            'temporary local problem',
+            'timeout waiting for input',
+          ]
 
-          return true if argv1 =~ regex
+          return true if index.find { |a| argv1.include?(a) }
           return false
         end
 

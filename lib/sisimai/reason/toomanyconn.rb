@@ -21,28 +21,23 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          regex = %r{(?>
-             all[ ]available[ ]ips[ ]are[ ]at[ ]maximum[ ]connection[ ]limit    # SendGrid
-            |connection[ ]rate[ ]limit[ ]exceeded
-            |domain[ ].+[ ]has[ ]exceeded[ ]the[ ]max[ ]emails[ ]per[ ]hour[ ].+[ ]allowed
-            |no[ ]ips[ ]available[ ][-][ ].+[ ]exceeds[ ]per[-]domain[ ]connection[ ]limit[ ]for
-            |throttling[ ]failure:[ ](?:
-               daily[ ]message[ ]quota[ ]exceeded
-              |maximum[ ]sending[ ]rate[ ]exceeded
-              )
-            |too[ ]many[ ](?:
-               connections
-              |connections[ ]from[ ]your[ ]host[.]    # Microsoft
-              |concurrent[ ]smtp[ ]connections        # Microsoft
-              |errors[ ]from[ ]your[ ]ip              # Free.fr
-              |smtp[ ]sessions[ ]for[ ]this[ ]host    # Sendmail(daemon.c)
-              )
-            |trop[ ]de[ ]connexions,[ ].+[a-z]{3}.+104
-            |we[ ]have[ ]already[ ]made[ ]numerous[ ]attempts[ ]to[ ]deliver[ ]this[ ]message
-            )
-          }x
+          index = [
+            'all available ips are at maximum connection limit',    # SendGrid
+            'connection rate limit exceeded',
+            'exceeds per-domain connection limit for',
+            'has exceeded the max emails per hour ',
+            'throttling failure: daily message quota exceeded',
+            'throttling failure: maximum sending rate exceeded',
+            'too many connections',
+            'too many connections from your host.', # Microsoft
+            'too many concurrent smtp connections', # Microsoft
+            'too many errors from your ip',         # Free.fr
+            'too many smtp sessions for this host', # Sendmail(daemon.c)
+            'trop de connexions, ',
+            'we have already made numerous attempts to deliver this message',
+          ]
 
-          return true if argv1 =~ regex
+          return true if index.find { |a| argv1.include?(a) }
           return false
         end
 

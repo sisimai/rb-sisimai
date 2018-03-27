@@ -26,29 +26,26 @@ module Sisimai
         # @since 4.22.0
         def match(argv1)
           return nil unless argv1
-          regex = %r{(?>
-             because[ ]the[ ]recipient[ ]is[ ]not[ ]accepting[ ]mail[ ]with[ ](?:attachments|embedded[ ]images) # AOL Phoenix
-            |closed[ ]mailing[ ]list
-            |denied[ ]by[ ]policy
-            |email[ ](?:
-               not[ ]accepted[ ]for[ ]policy[ ]reasons
-              # http://kb.mimecast.com/Mimecast_Knowledge_Base/Administration_Console/Monitoring/Mimecast_SMTP_Error_Codes#554
-              |rejected[ ]due[ ]to[ ]security[ ]policies
-              )
-            |header[ ](?:are[ ]not[ ]accepted|error)
-            |mail[ ]from[ ].+[ ]rejected[ ]for[ ]policy[ ]reasons
-            |message[ ](?:
-               given[ ]low[ ]priority
-              |not[ ]accepted[ ]for[ ]policy[ ]reasons
-              )
-            |messages[ ]with[ ]multiple[ ]addresses
-            |you[ ]have[ ]exceeded[ ]the[ ]the[ ]allowable[ ]number[ ]of[ ]posts[ ]without[ ]solving[ ]a[ ]captcha
-            |protocol[ ]violation
-            |the[ ]email[ ]address[ ]used[ ]to[ ]send[ ]your[ ]message[ ]is[ ]not[ ]subscribed[ ]to[ ]this[ ]group
-            )
-          }x
+          index = [
+            'because the recipient is not accepting mail with ',    # AOL Phoenix
+            'closed mailing list',
+            'denied by policy',
+            'email not accepted for policy reasons',
+            # http://kb.mimecast.com/Mimecast_Knowledge_Base/Administration_Console/Monitoring/Mimecast_SMTP_Error_Codes#554
+            'email rejected due to security policies',
+            'header are not accepted',
+            'header error',
+            'message given low priority',
+            'message not accepted for policy reasons',
+            'messages with multiple addresses',
+            'rejected for policy reasons',
+            'protocol violation',
+            'the email address used to send your message is not subscribed to this group',
+            'you have exceeded the allowable number of posts without solving a captcha',
+            'you have exceeded the the allowable number of posts without solving a captcha',
+          ]
 
-          return true if argv1 =~ regex
+          return true if index.find { |a| argv1.include?(a) }
           return false
         end
 

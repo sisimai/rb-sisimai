@@ -17,30 +17,23 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          regex = %r{(?>
-             boite[ ]du[ ]destinataire[ ]archivee.+[a-z]{3}.+420
-            |email[ ]account[ ]that[ ]you[ ]tried[ ]to[ ]reach[ ]is[ ]disabled
-            |invalid/inactive[ ]user
-            # http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=20022&&no=1000742
-            |is[ ]a[ ]deactivated[ ]mailbox
-            |mailbox[ ](?:
-               currently[ ]suspended
-              |unavailable[ ]or[ ]access[ ]denied
-              )
-            |recipient[ ](?:
-               rejected:[ ]temporarily[ ]inactive
-              |suspend[ ]the[ ]service
-              )
-            |sorry[ ]your[ ]message[ ]to[ ].+[ ]cannot[ ]be[ ]delivered[.][ ]this[ ]
-              account[ ]has[ ]been[ ]disabled[ ]or[ ]discontinued
-            |the[ ]domain[ ].+[ ]is[ ]currently[ ]suspended
-            |user[ ].+[ ]temporary[ ]locked
-            |user[ ]suspended   # http://mail.163.com/help/help_spam_16.htm
-            |vdelivermail:[ ]account[ ]is[ ]locked[ ]email[ ]bounced
-            )
-          }x
+          index = [
+            ' is currently suspended',
+            ' temporary locked',
+            'boite du destinataire archivee',
+            'email account that you tried to reach is disabled',
+            'invalid/inactive user',
+            'is a deactivated mailbox', # http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=20022&&no=1000742
+            'mailbox currently suspended',
+            'mailbox unavailable or access denied',
+            'recipient rejected: temporarily inactive',
+            'recipient suspend the service',
+            'this account has been disabled or discontinued',
+            'user suspended',   # http://mail.163.com/help/help_spam_16.htm
+            'vdelivermail: account is locked email bounced',
+          ]
 
-          return true if argv1 =~ regex
+          return true if index.find { |a| argv1.include?(a) }
           return false
         end
 

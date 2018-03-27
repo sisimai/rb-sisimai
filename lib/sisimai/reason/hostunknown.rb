@@ -18,31 +18,24 @@ module Sisimai
         # @since v4.0.0
         def match(argv1)
           return nil unless argv1
-          regex = %r{(?>
-             domain[ ](?:
-               does[ ]not[ ]exist
-              |is[ ]not[ ]reachable
-              |must[ ]exist
-              )
-            |host[ ](?:
-               or[ ]domain[ ]name[ ]not[ ]found
-              |unknown
-              |unreachable
-              )
-            |mail[ ]domain[ ]mentioned[ ]in[ ]email[ ]address[ ]is[ ]unknown
-            |name[ ]or[ ]service[ ]not[ ]known
-            |no[ ]such[ ]domain
-            |recipient[ ](?:
-               address[ ]rejected:[ ]unknown[ ]domain[ ]name
-              |domain[ ]must[ ]exist
-              )
-            |the[ ]account[ ]or[ ]domain[ ]may[ ]not[ ]exist
-            |unknown[ ]host
-            |unrouteable[ ]address
-            )
-          }x
+          index = [
+            'domain does not exist',
+            'domain is not reachable',
+            'domain must exist',
+            'host or domain name not found',
+            'host unknown',
+            'host unreachable',
+            'mail domain mentioned in email address is unknown',
+            'name or service not known',
+            'no such domain',
+            'recipient address rejected: unknown domain name',
+            'recipient domain must exist',
+            'the account or domain may not exist',
+            'unknown host',
+            'unrouteable address',
+          ]
 
-          return true if argv1 =~ regex
+          return true if index.find { |a| argv1.include?(a) }
           return false
         end
 

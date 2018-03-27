@@ -22,28 +22,22 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          regex = %r{(?>
-             as[ ]a[ ]relay
-            |insecure[ ]mail[ ]relay
-            |mail[ ]server[ ]requires[ ]authentication[ ]when[ ]attempting[ ]to[ ]
-              send[ ]to[ ]a[ ]non-local[ ]e-mail[ ]address    # MailEnable
-            |not[ ](?:
-               allowed[ ]to[ ]relay[ ]through[ ]this[ ]machine
-              |an[ ]open[ ]relay,[ ]so[ ]get[ ]lost
-                   )
-            |relay[ ](?:
-               access[ ]denied
-              |denied
-              |not[ ]permitted
-              )
-            |relaying[ ]denied  # Sendmail
-            |that[ ]domain[ ]isn[']t[ ]in[ ]my[ ]list[ ]of[ ]allowed[ ]rcpthost
-            |this[ ]system[ ]is[ ]not[ ]configured[ ]to[ ]relay[ ]mail
-            |unable[ ]to[ ]relay[ ]for
-            )
-          }x
+          index = [
+            'as a relay',
+            'insecure mail relay',
+            'mail server requires authentication when attempting to send to a non-local e-mail address',    # MailEnable 
+            'not allowed to relay through this machine',
+            'not an open relay, so get lost',
+            'relay access denied',
+            'relay denied',
+            'relay not permitted',
+            'relaying denied',  # Sendmail
+            "that domain isn't in my list of allowed rcpthost",
+            'this system is not configured to relay mail',
+            'unable to relay for',
+          ]
 
-          return true if argv1 =~ regex
+          return true if index.find { |a| argv1.include?(a) }
           return false
         end
 
