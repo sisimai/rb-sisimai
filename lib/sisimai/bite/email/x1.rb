@@ -31,7 +31,7 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
         return nil unless mhead['subject'].start_with?('Returned Mail: ')
-        return nil unless mhead['from'].include?('"Mail Deliver System" ')
+        return nil unless mhead['from'].start_with?('"Mail Deliver System" ')
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")

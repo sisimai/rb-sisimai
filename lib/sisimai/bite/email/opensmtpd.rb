@@ -33,8 +33,8 @@ module Sisimai::Bite::Email
         #   bounce.c/337:const char *notice_relay =
         #   bounce.c/338:    "    Your message was relayed to these recipients.\n\n";
         #   bounce.c/339:
-        message: [' This is the MAILER-DAEMON, please DO NOT REPLY to this '],
-        rfc822:  [' Below is a copy of the original message:'],
+        message: ['    This is the MAILER-DAEMON, please DO NOT REPLY to this '],
+        rfc822:  ['    Below is a copy of the original message:'],
       }.freeze
       ReFailures = {
         # smtpd/queue.c:221|  envelope_set_errormsg(&evp, "Envelope expired");
@@ -97,7 +97,7 @@ module Sisimai::Bite::Email
         while e = hasdivided.shift do
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            if e.include?(StartingOf[:message][0])
+            if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -105,7 +105,7 @@ module Sisimai::Bite::Email
 
           if (readcursor & Indicators[:'message-rfc822']).zero?
             # Beginning of the original message part
-            if e.include?(StartingOf[:rfc822][0])
+            if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
               next
             end
