@@ -12,6 +12,7 @@ v4.22.4p3
   - Sample emails in set-of-emails/ which are not owned by Sisimai project have
     been removed.
   - Update error message patterns in Sisimai::Reason::Expired.
+  - Less regular expression in each child class of Sisimai::Reason #113.
 
 v4.22.4
 --------------------------------------------------------------------------------
