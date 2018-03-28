@@ -45,6 +45,7 @@ module Sisimai::Bite::Email
         match += 1 if mhead['from'] =~ /no-reply[@].+[.]dion[.]ne[.]jp/
         match += 1 if mhead['reply-to'].to_s == 'no-reply@app.auone-net.jp'
         match += 1 if mhead['received'].find { |a| a.include?('ezweb.ne.jp (') }
+        match += 1 if mhead['received'].find { |a| a.include?('.au.com (') }
         return nil if match.zero?
 
         require 'sisimai/string'

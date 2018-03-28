@@ -59,10 +59,12 @@ module Sisimai::Bite::Email
 
         match  = 0
         match += 1 if mhead['from'].include?('Postmaster@ezweb.ne.jp')
+        match += 1 if mhead['from'].include?('Postmaster@au.com')
         match += 1 if mhead['subject'] == 'Mail System Error - Returned Mail'
         match += 1 if mhead['received'].find { |a| a.include?('ezweb.ne.jp (EZweb Mail) with') }
+        match += 1 if mhead['received'].find { |a| a.include?('.au.com (') }
         if mhead['message-id']
-          match += 1 if mhead['message-id'].end_with?('.ezweb.ne.jp>')
+          match += 1 if mhead['message-id'].end_with?('.ezweb.ne.jp>', '.au.com>')
         end
         return nil if match < 2
 
@@ -227,7 +229,7 @@ module Sisimai::Bite::Email
             # The value of "reason" is not set yet.
             # Deal as "userunknown" when the domain part of the recipient
             # is "ezweb.ne.jp".
-            e['reason'] = 'userunknown' unless e['recipient'].end_with?('@ezweb.ne.jp')
+            e['reason'] = 'userunknown' unless e['recipient'].end_with?('@ezweb.ne.jp', '@au.com')
           end
           e['agent'] = self.smtpagent
         end
