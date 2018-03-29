@@ -114,7 +114,7 @@ module Sisimai
       return nil unless argv0
 
       nyaan = Sisimai.make(argv0, argv1) || []
-      if RUBY_PLATFORM.include?('java')
+      if RUBY_PLATFORM.start_with?('java')
         # java-based ruby environment like JRuby.
         require 'jrjackson'
         jsonstring = JrJackson::Json.dump(nyaan)

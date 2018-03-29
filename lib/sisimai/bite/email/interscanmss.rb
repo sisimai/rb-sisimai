@@ -41,7 +41,7 @@ module Sisimai::Bite::Email
           # メール配信に失敗しました
           '=?iso-2022-jp?B?GyRCJWEhPCVrR1s/LiRLPDpHVCQ3JF4kNyQ/GyhCDQo=?=',
         ]
-        match += 1 if mhead['from'].include?('InterScan MSS')
+        match += 1 if mhead['from'].start_with?('"InterScan MSS"')
         match += 1 if tryto.find { |a| mhead['subject'] == a }
         return nil if match.zero?
 

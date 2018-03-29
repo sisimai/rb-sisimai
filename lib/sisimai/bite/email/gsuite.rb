@@ -38,8 +38,8 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
 
-        return nil unless mhead['from'].include?('<mailer-daemon@googlemail.com>')
-        return nil unless mhead['subject'].include?('Delivery Status Notification')
+        return nil unless mhead['from'].end_with?('<mailer-daemon@googlemail.com>')
+        return nil unless mhead['subject'].start_with?('Delivery Status Notification')
         return nil unless mhead['x-gm-message-state']
 
         require 'sisimai/address'

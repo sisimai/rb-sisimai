@@ -173,8 +173,8 @@ module Sisimai::Bite::Email
         #   The error that the other server returned was:
         #   550 5.1.1 <userunknown@example.jp>... User Unknown
         #
-        return nil unless mhead['from'].include?('<mailer-daemon@googlemail.com>')
-        return nil unless mhead['subject'].include?('Delivery Status Notification')
+        return nil unless mhead['from'].end_with?('<mailer-daemon@googlemail.com>')
+        return nil unless mhead['subject'].start_with?('Delivery Status Notification')
 
         require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -189,7 +189,7 @@ module Sisimai::Bite::Email
         while e = hasdivided.shift do
           if readcursor.zero?
             # Beginning of the bounce message or delivery status part
-            readcursor |= Indicators[:deliverystatus] if e.include?(StartingOf[:message][0])
+            readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])
           end
 
           if (readcursor & Indicators[:'message-rfc822']).zero?

@@ -68,7 +68,7 @@ module Sisimai::Bite::JSON
         end
 
         begin
-          if RUBY_PLATFORM.include?('java')
+          if RUBY_PLATFORM.start_with?('java')
             # java-based ruby environment like JRuby.
             require 'jrjackson'
             jsonobject = JrJackson::Json.load(jsonstring)
