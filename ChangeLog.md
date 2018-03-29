@@ -13,6 +13,9 @@ v4.22.4p3
     been removed.
   - Update error message patterns in Sisimai::Reason::Expired.
   - Less regular expression in each child class of Sisimai::Reason #113.
+  - Pre-Updates for au.com, the new domain of EZweb from Apr 2018 announced at
+    http://news.kddi.com/kddi/corporate/newsrelease/2017/08/22/2637.html #114
+  
 
 v4.22.4
 --------------------------------------------------------------------------------
