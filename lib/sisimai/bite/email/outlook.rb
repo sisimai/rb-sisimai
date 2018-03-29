@@ -41,7 +41,7 @@ module Sisimai::Bite::Email
 
         # :from => %r/postmaster[@]/,
         match  = 0
-        match += 1 if mhead['subject'].include?('Delivery Status Notification')
+        match += 1 if mhead['subject'].start_with?('Delivery Status Notification')
         match += 1 if mhead['x-message-delivery']
         match += 1 if mhead['x-message-info']
         match += 1 if mhead['received'].find { |a| a.include?('.hotmail.com') }

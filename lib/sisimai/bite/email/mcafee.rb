@@ -34,7 +34,7 @@ module Sisimai::Bite::Email
         return nil unless mhead
         return nil unless mbody
         return nil unless mhead['x-nai-header']
-        return nil unless mhead['x-nai-header'].include?('Modified by McAfee ')
+        return nil unless mhead['x-nai-header'].start_with?('Modified by McAfee ')
         return nil unless mhead['subject'] == 'Delivery Status'
 
         require 'sisimai/address'

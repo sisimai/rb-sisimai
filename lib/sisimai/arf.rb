@@ -46,7 +46,7 @@ module Sisimai
           # Content-Type: multipart/report; report-type=feedback-report; ...
           match = true
 
-        elsif heads['content-type'].include?('multipart/mixed')
+        elsif heads['content-type'].start_with?('multipart/mixed')
           # Microsoft (Hotmail, MSN, Live, Outlook) uses its own report format.
           # Amazon SES Complaints bounces
           mfrom = %r{(?:

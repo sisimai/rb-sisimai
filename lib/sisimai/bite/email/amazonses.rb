@@ -41,7 +41,7 @@ module Sisimai::Bite::Email
 
         # :from    => %r/\AMAILER-DAEMON[@]email[-]bounces[.]amazonses[.]com\z/,
         # :subject => %r/\ADelivery Status Notification [(]Failure[)]\z/,
-        return nil if mhead['x-mailer'].to_s.include?('Amazon WorkMail')
+        return nil if mhead['x-mailer'].to_s.start_with?('Amazon WorkMail')
 
         match  = 0
         match += 1 if mhead['x-aws-outgoing']
