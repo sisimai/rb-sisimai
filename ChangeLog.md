@@ -3,10 +3,10 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.22.4p3
+v4.22.5
 --------------------------------------------------------------------------------
-- release: ""
-- version: ""
+- release: "Fri, 30 Mar 2018 12:29:36 +0900 (JST)"
+- version: "4.22.5"
 - changes:
   - #112 The order to load MTA modules improvement.
   - Sample emails in set-of-emails/ which are not owned by Sisimai project have
@@ -15,7 +15,6 @@ v4.22.4p3
   - Less regular expression in each child class of Sisimai::Reason #113.
   - Pre-Updates for au.com, the new domain of EZweb from Apr 2018 announced at
     http://news.kddi.com/kddi/corporate/newsrelease/2017/08/22/2637.html #114
-  
 
 v4.22.4
 --------------------------------------------------------------------------------
