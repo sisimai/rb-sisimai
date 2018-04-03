@@ -131,10 +131,6 @@ module Sisimai
         return argv1.unpack('M').first unless argv1.downcase =~ ReE[:'quoted-print']
 
         boundary01 = Sisimai::MIME.boundary(heads['content-type'], 1)
-        reboundary = {
-          :begin => Regexp.new('\A' << Regexp.escape(boundary00)),
-          :until => Regexp.new(Regexp.escape(boundary01) << '\z')
-        }
         bodystring = ''
         notdecoded = ''
         getencoded = ''
@@ -153,7 +149,7 @@ module Sisimai
           # Content-Transfer-Encoding: quoted-printable
           if mimeinside
             # Quoted-Printable encoded text block
-            if e =~ reboundary[:begin]
+            if e == boundary00
               # The next boundary string has appeared
               # --=_gy7C4Gpes0RP4V5Bs9cK4o2Us2ZT57b-3OLnRN+4klS8dTmQ
               getencoded = Sisimai::String.to_utf8(notdecoded.unpack('M').first, encodename)
@@ -179,10 +175,6 @@ module Sisimai
                 # New boundary string has appeared
                 boundary00 = e
                 boundary01 = e + '--'
-                reboundary = {
-                  :begin => Regexp.new('\A' << Regexp.escape(boundary00)),
-                  :until => Regexp.new(Regexp.escape(boundary01) << '\z')
-                }
               end
             elsif cv = lowercased.match(ReE[:'with-charset']) || lowercased.match(ReE[:'only-charset'])
               # Content-Type: text/plain; charset=ISO-2022-JP
@@ -194,7 +186,7 @@ module Sisimai
               ctencoding = true
               mimeinside = true if encodename
 
-            elsif e =~ reboundary[:until]
+            elsif e == boundary01
               # The end of boundary block
               # --=_gy7C4Gpes0RP4V5Bs9cK4o2Us2ZT57b-3OLnRN+4klS8dTmQ--
               mimeinside = false
@@ -204,6 +196,7 @@ module Sisimai
           end
         end
 
+        bodystring << notdecoded unless notdecoded.empty?
         return bodystring
       end
 
