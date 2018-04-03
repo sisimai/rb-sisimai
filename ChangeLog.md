@@ -3,6 +3,13 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.22.5p1
+--------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - #115 Fix bug in Sisimai::MIME.qprintd().
+
 v4.22.5
 --------------------------------------------------------------------------------
 - release: "Fri, 30 Mar 2018 12:29:36 +0900 (JST)"
