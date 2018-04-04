@@ -74,6 +74,7 @@ module Sisimai
               |filters[ ]rate[ ]at[ ]and[ ]above[ ].+[ ]percent[ ]probability[ ]of[ ]being[ ]spam
               |system[ ]has[ ]detected[ ]that[ ]this[ ]message[ ]is
               )
+            |permanent[ ]failure[ ]for[ ]one[ ]or[ ]more[ ]recipients[ ][(].+:blocked[)]
             |probable[ ]spam
             |reject[ ]bulk[.]advertising
             |reject,.+[ ][-][ ]spam[.][ ]

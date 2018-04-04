@@ -9,6 +9,8 @@ v4.22.5p1
 - version: ""
 - changes:
   - #115 Fix bug in Sisimai::MIME.qprintd().
+  - Error message patterns in Sisimai::Reason::Filtered have been replaced with
+    fixed strings.
 
 v4.22.5
 --------------------------------------------------------------------------------
