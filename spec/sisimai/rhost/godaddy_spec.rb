@@ -6,8 +6,8 @@ require 'sisimai/rhost/godaddy'
 
 describe Sisimai::Rhost::GoDaddy do
   rs = {
-    '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/toomanyconn/ },
     '02' => { 'status' => %r/\A5[.]1[.]3\z/, 'reason' => %r/blocked/ },
+    '03' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/toomanyconn/ },
   }
   describe 'bounce mail from GoDaddy' do
     rs.each_key.each do |n|

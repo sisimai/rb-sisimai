@@ -1,0 +1,43 @@
+Received: from MailMarshal.Sender ([127.0.0.1]) by rr1.example.com
+	id <F000000002222>; Thu, 29 Apr 2015 23:34:45 +0000
+Message-ID: <F000000002222@rr1.example.com>
+From: postmaster@neko.example.com
+To: sironeko@example.com
+CC: 
+Date: Thu, 29 Apr 2015 23:34:45 +0000
+Subject: Undeliverable Mail: "Nyaan"
+MIME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="--=00ffff00-0000-0000-0000-eefe00002022"
+
+
+----=00ffff00-0000-0000-0000-eefe00002022
+Content-Type: text/plain;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: 7bit
+
+Your message:
+   From:    sironeko@example.com
+   Subject: Nyaan
+
+Could not be delivered because of
+
+550 5.1.1 User unknown
+
+The following recipients were affected: 
+    kijitora@nyaan.example.com
+
+
+
+
+Additional Information
+======================
+Original Sender:    <sironeko@example.com>
+Sender-MTA:         <192.0.2.250>
+Remote-MTA:			<203.0.113.2>
+Reporting-MTA:      <rr1.example.com>
+MessageName:        <F000000002222.00000000EEEE.0001.mml>
+Last-Attempt-Date:  <23:34:45 qui, 29 Abril 2015>
+
+----=00ffff00-0000-0000-0000-eefe00002022--
+

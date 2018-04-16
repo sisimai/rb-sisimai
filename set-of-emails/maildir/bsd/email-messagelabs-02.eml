@@ -1,0 +1,72 @@
+Received: from [203.0.113.225] by server-00.bemta-0.messagelabs.com id B2/EE-00000-0000FFFF; Thu, 29 Apr 2015 23:34:45 +0000
+X-Msg-Ref: server-00.tower-000.messagelabs.com!0000000022!22222222!2
+X-Originating-IP: [192.0.2.248]
+X-StarScan-Received:
+X-StarScan-Version: 6.12.5; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 22222 invoked from network); 29 Apr 2015 23:34:45 -0000
+Received: from r4.bemta00.messagelabs.com (HELO r9.bemta02.messagelabs.com) (192.0.2.248)
+  by server-00.tower-000.messagelabs.com with DHE-RSA-AES256-SHA encrypted SMTP; 29 Apr 2015 23:34:45 -0000
+Received: by server-00.bemta-0.messagelabs.com id EF/22-00000-22222222; Thu, 29 Apr 2015 23:34:45 +0000
+From: Mail Delivery System <MAILER-DAEMON@messagelabs.com>
+To: <sironeko@example.jp>
+Subject: Mail Delivery Failure
+Date: Thu, 29 Apr 2015 23:34:45 +0000
+Content-Type: multipart/report; report-type=delivery-status;
+  boundary="ffe0e+NekoNyaan/88AFvGeaobiIG0xwio1ab41=="
+
+--ffe0e+NekoNyaan/88AFvGeaobiIG0xwio1ab41==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+This is the mail delivery agent at messagelabs.com.
+
+I was unable to deliver your message to the following addresses:
+
+kijitora@neko.example.org
+
+Reason: 550 kijitora@neko.example.org... No such user
+
+The message subject was: Nyaan
+The message date was: Thu, 29 Apr 2015 23:34:45 +0000
+The message identifier was: B0/22-00000-22222222
+The message reference was: server-00.tower-000.messagelabs.com!0000000022!22=
+222222!2
+
+Please do not reply to this email as it is sent from an unattended mailbox.
+Please visit www.messagelabs.com/support for more details
+about this error message and instructions to resolve this issue.
+
+
+--ffe0e+NekoNyaan/88AFvGeaobiIG0xwio1ab41==
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; server-00.bemta-0.messagelabs.com
+Arrival-Date: Thu, 29 Apr 2015 23:34:45 +0000
+
+Action: failed
+Status: 5.0.0
+Last-Attempt-Date: Thu, 29 Apr 2015 23:34:45 +0000
+Remote-MTA: dns; mail.neko.example.org
+Diagnostic-Code: smtp; 550 kijitora@neko.example.org... No such user
+Final-Recipient: rfc822; kijitora@neko.example.org
+
+--ffe0e+NekoNyaan/88AFvGeaobiIG0xwio1ab41==
+Content-Type: text/rfc822-headers
+
+Return-Path: <sironeko@example.jp>
+Received: from [203.0.113.225] by server-00.bemta-0.messagelabs.com id DB/FE-00000-00000022; Thu, 29 Apr 2015 23:34:45 +0000
+X-Env-Sender: sironeko@example.jp
+X-Msg-Ref: server-00.tower-000.messagelabs.com!0000000022!22222222!2
+Date: Thu, 29 Apr 2015 23:34:45 +0000
+Message-ID: <20150429233445.nekoNyaan.00000@r9.example.jp>
+From: sironeko@example.jp
+To: Kijitora <kijitora@neko.example.org>
+Subject: Nyaan
+Content-Type: text/plain
+MIME-Version: 1.0
+
+Nyaan
+
+--ffe0e+NekoNyaan/88AFvGeaobiIG0xwio1ab41==--
+

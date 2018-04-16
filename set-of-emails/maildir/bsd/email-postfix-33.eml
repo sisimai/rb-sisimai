@@ -1,0 +1,71 @@
+From MAILER-DAEMON  Thu Apr 29 23:34:45 2015
+Return-Path: <>
+X-Original-To: sironeko@libsisimai.org
+Delivered-To: sironeko@libsisimai.org
+Received: by p6.libsisimai.org (Postfix)
+	id 7628420C1A; Thu, 29 Apr 2015 23:34:45 +0000 (UTC)
+Date: Thu, 29 Apr 2015 23:34:45 +0000 (UTC)
+From: MAILER-DAEMON@libsisimai.org (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: sironeko@libsisimai.org
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="BB8FFFFC16.1423222256/p6.libsisimai.org"
+Message-Id: <20150429233445.7620000C1A@p6.libsisimai.org>
+
+This is a MIME-encapsulated message.
+
+--BB8FFFFC16.1423222256/p6.libsisimai.org
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host p6.libsisimai.org.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<userunknown@libsisimai.org>: host mx.libsisimai.org[203.0.113.153] said: 550
+    5.1.1 <userunknown@libsisimai.org>... User Unknown (in reply to RCPT TO
+    command)
+
+--BB8FFFFC16.1423222256/p6.libsisimai.org
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; p6.libsisimai.org
+X-Postfix-Queue-ID: BB8FFFFC16
+X-Postfix-Sender: rfc822; root@p6.libsisimai.org
+Arrival-Date: Thu, 29 Apr 2015 23:34:45 +0000 (UTC)
+
+Final-Recipient: rfc822; userunknown@libsisimai.org
+Original-Recipient: rfc822;userunknown@libsisimai.org
+Action: failed
+Status: 5.1.1
+Remote-MTA: dns; mx.libsisimai.org
+Diagnostic-Code: smtp; 550 5.1.1 <userunknown@libsisimai.org>... User Unknown
+
+--BB8FFFFC16.1423222256/p6.libsisimai.org
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <root@p6.libsisimai.org>
+Received: by p6.libsisimai.org (Postfix, from userid 0)
+	id BB8FFFFC16; Thu, 29 Apr 2015 23:34:45 +0000 (UTC)
+To: userunknown@libsisimai.org
+Subject: Nyaaaan
+Message-Id: <20150429233445.BB8FFFFC16@p6.libsisimai.org>
+Date: Thu, 29 Apr 2015 23:34:45 +0000 (UTC)
+From: root@p6.libsisimai.org (root)
+
+Nyaaan
+
+--BB8FFFFC16.1423222256/p6.libsisimai.org--
+

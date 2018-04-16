@@ -1,0 +1,64 @@
+Return-Path: opendmarc-postmaster@example.net
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=example.net;
+    ...
+From: OpenDMARC Filter <opendmarc-postmaster@example.net>
+To: dmarc-postmaster@example.net
+Date: Thu, 29 Apr 2015 23:34:45 +0000 (UTC)
+Subject: [dmarc-ietf] DMARC test message
+MIME-Version: 1.0
+Content-Type: multipart/report;
+	report-type=feedback-report;
+	boundary="example.net:0022FFEE"
+Message-Id: <20150429233445.0022FFEE0000@example.net>
+
+--example.net:0022FFEE
+Content-Type: text/plain
+
+This is an authentication failure report for an email message received from IP
+203.0.113.2 on Thu, 29 Apr 2015 23:34:45 +0000 (UTC).
+
+--example.net:0022FFEE
+Content-Type: message/feedback-report
+
+Feedback-Type: auth-failure
+Version: 1
+User-Agent: OpenDMARC-Filter/1.3.0
+Auth-Failure: dmarc
+Authentication-Results: example.net; dmarc=fail header.from=example.net
+Original-Envelope-Id: 0022FFEE
+Original-Mail-From: dmarc-bounces@ietf.example.org
+Source-IP: 203.0.113.2
+Reported-Domain: example.net
+
+--example.net:0022FFEE
+Content-Type: text/rfc822-headers
+
+Received-SPF: Pass (sender SPF authorized) identity=mailfrom; client-ip=203.0.113.2; helo=mail.ietf.example.org; envelope-from=dmarc-bounces@ietf.example.org; receiver=ietf@example.net 
+Authentication-Results: example.net;
+	dkim=pass (1024-bit key; unprotected) header.d=ietf.example.org header.i=@ietf.example.org header.b=Nekochan;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=example.net header.i=@example.net header.b=NekoNyaan;
+	dkim-adsp=none (unprotected policy); dkim-atps=neutral
+Received: from ietf.example.com (localhost [IPv6:::1])
+	by ietf.example.com (Postfix) with ESMTP id EEEEEEEEE22;
+	Thu, 29 Apr 2015 23:34:45 +0000 (UTC)
+X-Original-To: dmarc-postmaster@ietf.example.com
+Delivered-To: dmarc-postmaster@ietf.example.com
+Received: from localhost (ietf.example.com [127.0.0.1])
+ by ietf.example.com (Postfix) with ESMTP id FFFFFFFFF00
+ for <dmarc-postmaster@ietf.example.com>; Thu, 29 Apr 2015 23:34:45 +0000 (UTC)
+Received: from smtp.example.net (smtp.example.net [192.0.2.127])
+ (using TLSv1.1 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by ietf.example.com (Postfix) with ESMTPS id AAAAAAAA222
+ for <dmarc-postmaster@ietf.example.org>; Thu, 29 Apr 2015 23:34:45 +0000 (UTC)
+Date: Thu, 29 Apr 2015 23:34:45 +0000 (UTC)
+From: <sironeko@example.net>
+To: <kijitora@example.org>
+Message-ID: <000000000eee@example.net>
+MIME-Version: 1.0
+Subject: Nyaan
+Content-Type: text/plain;
+
+Nyaaan
+
+--example.net:0022FFEE--

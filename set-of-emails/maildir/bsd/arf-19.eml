@@ -1,0 +1,67 @@
+Return-Path: abuse@126.example.com
+Received: from 163.example.com (unknown [192.0.2.4])
+	by mfast1 (Coremail) with SMTP id nekonyaaaaaaaaaaaan22222--.000000;
+	Thu, 29 Apr 2015 23:34:45 +0900 (JST)
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type="feedback-report";
+ boundary="===============00000000002222200=="
+From: <abuse@126.example.com>
+Subject: [dmarc-ietf] DMARC test message
+Date: Thu, 29 Apr 2015 23:34:45 +0900
+To: dmarc@example.net
+X-Originating-IP: [192.0.2.20]
+Message-Id: <NEKO22222.000000.00000@r7038.163.example.com>
+
+--===============00000000002222200==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+This is a spf/dkim authentication-failure report for an email message received from IP 192.0.2.127 on Thu, 29 Apr 2015 23:34:45 +0900.
+Below is some detail information about this message:
+ 1. SPF-authenticated Identifiers: neko.netease.com;
+ 2. DKIM-authenticated Identifiers: none;
+ 3. DMARC Mechanism Check Result: Identifier non-aligned, DMARC mechanism check failures;
+
+For more information please check Aggregate Reports or mail to abuse@126.example.com.
+--===============00000000002222200==
+Content-Type: message/feedback-report
+MIME-Version: 1.0
+
+Feedback-Type: auth-failure
+User-Agent: NtesDmarcReporter/1.0
+Version: 1
+Original-Mail-From: <sironeko@neko.example.com>
+Arrival-Date: Thu, 29 Apr 2015 23:34:45 +0900
+Source-IP: 203.0.113.2
+Reported-Domain: example.net
+Original-Envelope-Id: eeeeeeeeeeeeeeeeeeee00--.000000
+Authentication-Results: 126.example.com; dkim=fail (signature error: RSA verify failed) header.d=ietf.org; dkim=permerror (signature verify error: message body does not hash to bh value) header.d=example.net; spf=pass smtp.mailfrom=sironeko@neko.example.com
+DKIM-Domain: ietf.org; example.net
+Delivery-Result: delivered
+--===============00000000002222200==
+Content-Type: text/rfc822-headers; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+Received: from mail.ietf.org (unknown [198.51.100.22])
+	by nekochan (Coremail) with SMTP id 00000;
+	Thu, 29 Apr 2015 23:34:45 +0900 (JST)
+X-Original-To: dmarc@ietf.example.org
+Delivered-To: dmarc@ietf.example.org
+Received: from localhost (ietf.example.org [127.0.0.1])
+ by ietf.example.org (Postfix) with ESMTP id 0000000000E
+ for <dmarc@ietf.example.org>; Thu, 29 Apr 2015 23:34:45 +0000 (UTC)
+Date: Thu, 29 Apr 2015 23:34:45 +0000 (UTC)
+From: <sironeko@example.net>
+To: <kijitora@example.org>
+Message-ID: <000000000.2222222.0000000000002@example.net>
+MIME-Version: 1.0
+Subject: Nyaan
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+
+Nyaan
+
+--===============00000000002222200==--
+

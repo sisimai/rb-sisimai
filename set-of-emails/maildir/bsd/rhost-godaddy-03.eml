@@ -1,0 +1,81 @@
+From MAILER-DAEMON  Thu Apr 19 23:34:45 2017
+Return-Path: <>
+X-Original-To: sironeko-nyaan@neko.example.org
+Delivered-To: sironeko-nyaan@neko.example.org
+Received: from r5.neko.example.org (r5.neko.example.org [203.0.113.222])
+	by p7.neko.example.org (Postfix) with ESMTP id FFFFFF000000
+	for <sironeko-nyaan@neko.example.org>; Thu, 29 Apr 2017 23:34:45 +0000 (UTC)
+Received: by r5.neko.example.org (Postfix)
+	id EEEEEE22222222 Thu, 29 Apr 2017 23:34:45 +0000 (UTC)
+Date: Thu, 29 Apr 2017 23:34:45 +0000 (UTC)
+From: MAILER-DAEMON@r5.neko.example.org (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: sironeko-nyaan@neko.example.org
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="SS07141015.WK080703/r5.neko.example.org"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20170429233445.0000000002222@r5.neko.example.org>
+
+This is a MIME-encapsulated message.
+
+--SS07141015.WK080703/r5.neko.example.org
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host r5.neko.example.org.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@example.com>: host smtp.secureserver.net[72.167.238.29] said: 550
+    5.1.1 <kijitora@example.com>  - 198.51.100.225 has sent to too many
+    recipients this hour. IB607  <http://x.co/rlbounce> (in reply to RCPT TO
+    command)
+
+--SS07141015.WK080703/r5.neko.example.org
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; r5.neko.example.org
+X-Postfix-Queue-ID: SS07141015
+X-Postfix-Sender: rfc822; sironeko-nyaan@neko.example.org
+Arrival-Date: Thu, 29 Apr 2017 23:34:45 +0000 (UTC)
+
+Final-Recipient: rfc822; kijitora@example.com
+Original-Recipient: rfc822;kijitora@example.com
+Action: failed
+Status: 5.1.1
+Remote-MTA: dns; smtp.secureserver.net
+Diagnostic-Code: smtp; 550 5.1.1 <kijitora@example.com>  - 203.0.113.222 has
+    sent to too many recipients this hour. IB607  <http://x.co/rlbounce>
+
+--SS07141015.WK080703/r5.neko.example.org
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 8bit
+
+Return-Path: <sironeko-nyaan@neko.example.org>
+Received: from p4.example.org (r51.neko.example.org [203.0.113.252])
+	by r5.neko.example.org (Postfix) with ESMTP id SS07141015
+	for <kijitora@example.com>; Thu, 29 Apr 2017 23:34:45 +0000 (UTC)
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Content-Type: text/html
+MIME-Version: 1.0
+Date: Thu, 29 Apr 2017 23:34:45 +0000
+From: "Neko, Nyaan" <sironeko-nyaan@example.com>
+To: "Kijitora" <kijitora@example.com>
+Subject: Nyaan
+
+Nyaan
+
+--SS07141015.WK080703/r5.neko.example.org--

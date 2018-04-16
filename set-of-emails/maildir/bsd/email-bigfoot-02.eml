@@ -1,0 +1,66 @@
+Received: by LITEMAIL00.bigfoot.com (LiteMail v3.03(LITEMAIL00)) with SMTP id
+    1500000000_LITEMAIL00_0000002_2222220; Thu, 29 Apr 2015 23:34:45 -0800
+Date: Thu, 29 Apr 2015 23:34:45 -0800
+From: Mail Delivery Subsystem <MAILER-DAEMON@bigfoot.com>
+Message-Id: <20000000_LITEMAIL00_000000_000000_0000@LITEMAIL00.bigfoot.com>
+To: <sironeko@example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="201504292334450"
+Subject: Returned mail: Requested action not taken: mailbox name not allowed
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--201504292334450
+
+The original message was received at Thu, 29 Apr 2015 23:34:45 -0800
+from LITEMAIL00.bigfoot.com [192.0.2.64]
+
+
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora@example.org>
+
+   ----- Transcript of session follows -----
+>>> RCPT TO:<kijitora@example.org>
+<<< 553 Invalid recipient kijitora@example.org (Mode: normal)
+
+--201504292334450
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; litemail00.bigfoot.com
+Arrival-Date: Thu, 29 Apr 2015 23:34:45 -0800
+
+Final-Recipient: RFC822; <kijitora@example.org>
+Action: failed
+Status: 5.7.1
+Remote-MTA: DNS; neko22.mx.example.org
+Diagnostic-Code: SMTP; 553 Invalid recipient kijitora@example.org (Mode: normal)
+Last-Attempt-Date: Thu, 29 Apr 2015 23:34:45 -0800
+
+
+
+--201504292334450
+Content-Type: message/partial
+
+Received: by LITEMAIL00.bigfoot.com (LiteMail v3.03(LITEMAIL00)) with SMTP id
+    2000000002_LITEMAIL00_0000008_22222220;
+	Thu, 29 Apr 2015 23:34:45 -0800 
+Received: from r4.example.com ([203.0.113.9]) 
+	by litemail00.bigfoot.net with SMTP id 5000000001.00000;
+	Thu, 29 Apr 2015 23:34:45 -0800
+Received: from unknown (HELO nekochan) (198.51.100.224)
+  by q3 with SMTP; 29 Apr 2015 23:34:45 +0000
+Date: Mon, 29 Apr 2015 23:34:45 +0000
+Message-ID: <2015042923344500.neko.nyaan@smtp.r3.example.com>
+From: sironeko@example.jp
+Subject: Nyaaaan
+Content-Type: text/plain; charset=UTF-8;
+MIME-Version: 1.0
+Content-Disposition: inline
+
+Nyaaaaaaaaaan
+
+--201504292334450--
+

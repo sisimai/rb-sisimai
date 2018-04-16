@@ -1,0 +1,69 @@
+Return-Path: <neko-admin@example.co.jp>
+X-Original-To: neko-admin@example.co.jp
+Delivered-To: neko-admin@example.co.jp
+Received: from example.co.jp (smtp.example.co.jp [127.0.0.1])
+	by smtp.example.co.jp (Postfix) with ESMTP id F000000002222
+	for <neko-admin@example.co.jp>; Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+Date: Thu, 29 Apr 2017 23:34:45 +0900
+From: neko-admin@example.co.jp
+Subject: Loop Alert: Duplicated Message-ID (neko ML)
+To: neko-admin@example.co.jp
+Message-Id: <201704292334.FMLFFF00002.neko@example.co.jp>
+References: <201704290000.000000002222@nyaan.example.org>
+X-MLServer: fml [fml 4.0.3 release (20011202/4.0.3)]
+Mime-Version: 1.0
+Content-Type: text/plain; charset=iso-2022-jp
+
+Duplicated Message-ID in <neko@example.co.jp>.
+
+
+Original mail as follows:
+
+   From owner-neko@example.co.jp  Thu Apr 29 23:34:45 2017
+   Return-Path: <owner-neko@example.co.jp>
+   Delivered-To: neko@example.co.jp
+   Received: from localhost (smtp.example.co.jp [127.0.0.1])
+   	by smtp.example.co.jp (Postfix) with ESMTP id 200000000EEEE
+   	for <neko@example.co.jp>; Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+   Received: from smtp.example.co.jp ([127.0.0.1])
+   	by localhost (example.co.jp [127.0.0.1]) (amavisd-new, port 22222)
+   	with ESMTP id NekoNyaan2 for <neko@example.co.jp>;
+   	Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+   Received: from r2.example.net (r2.example.net [192.0.2.22])
+   	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+   	(No client certificate requested)
+   	by smtp.example.co.jp (Postfix) with ESMTPS id EEEE000000000
+   	for <neko@example.co.jp>; Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+   Received: from r0.example.net (203.0.113.225) by
+    r0.example.net (203.0.113.225) with ShadowRedundancy
+    id 15.20.239.5; Thu, 29 Apr 2017 23:34:45 +0000
+   Received: from r5.example.net (198.51.100.127) by
+    r0.example.net (203.0.113.225) with Microsoft SMTP
+    Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
+    00021FFFF02; Thu, 29 Apr 2017 23:34:45 +0000
+   Received: from x1.example.net
+    (2001:db8:2222:2222::222) by e2.example.net
+    (2001:db8:888:ee::22) with Microsoft SMTP Server (version=TLS1_2,
+    cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id ffffffff2.0 via Frontend
+    Transport; Thu, 29 Apr 2017 23:34:45 +0000
+   Received: from smtp.example.org (192.0.2.2) by
+    x1.example.net (192.0.2.64) with Microsoft
+    SMTP Server id 00000000022 via Frontend Transport; Thu, 29 Apr 2017 23:34:45
+    +0000
+   Received: from neko.example.org (unknown [192.0.2.1])
+   	by smtp.example.org (Postfix) with ESMTP id EEEEEEEEE222
+   	for <nyaan@example.org>; Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+   Received: by neko.example.org (Postfix, from userid 1200)
+   	id AAAAAAAAA222; Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+   To: <nyaan@example.org>
+   Subject: Nyaan
+   MIME-Version: 1.0
+   Content-Type: text/plain; charset="iso-2022-jp"
+   Content-Transfer-Encoding: 7bit
+   Date: Thu, 29 Apr 2017 23:34:45 +0900
+   From: <sironeko@neko.example.org>
+   Message-ID: <201704290233445.00000000EEEE@neko.example.org>
+   
+   ニャーン
+   
+

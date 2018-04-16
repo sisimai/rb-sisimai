@@ -1,0 +1,57 @@
+Received: from fbl-001.returnpath.example.net (fbl-001.returnpath.example.net [203.0.113.127])
+	by mta-02.rr.example.net (Postfix) with ESMTP id EEEEEEEEE222222
+	for <feedback-loop@example.com>; Thu, 29 Apr 2015 23:34:45 +0000 (UTC)
+Received: from r1.rr.returnpath.example.net (r1.rr.returnpath.example.net [192.0.2.64])
+	by fbl-001.returnpath.example.net (Postfix) with ESMTP id FFFFFFFFF2
+	for <feedback-loop@example.com>; Thu, 29 Apr 2015 23:34:45 +0000 (UTC)
+Received: by r1.rr.returnpath.example.net (Postfix, from userid 2022)
+	id BBBBBBBBB0; Thu, 29 Apr 2015 23:34:45 +0000 (UTC)
+Content-Transfer-Encoding: binary
+Content-Type: multipart/report; boundary="_----------=_12340000000000022023";
+    report-type="feedback-report"
+MIME-Version: 1.0
+Date: Thu, 29 Apr 2015 23:34:45 +0000
+Subject: Abuse Report
+To: feedback-loop@example.com
+From: feedbackloop@feedback.terra.com
+Message-Id: <20150429233445.4444444440@r1.rr.returnpath.example.net>
+
+This is a multi-part message in MIME format.
+
+--_----------=_12340000000000022023
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
+
+This is a Example email abuse report for an email message received from IP 198.51.100.224 on Thu, 29 Apr 2015 23:34:45 +0000
+
+
+--_----------=_12340000000000022023
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
+Content-Type: message/feedback-report
+
+User-Agent: ReturnPathFBL/1.0
+Abuse-Type: complaint
+Arrival-Date: Thu, 29 Apr 2015 23:34:45 +0000
+Feedback-Type: abuse
+Version: 1
+Source-IP: 198.51.100.224
+Original-Mail-From: sironeko@example.net
+
+--_----------=_12340000000000022023
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Content-Type: message/rfc822
+
+Return-Path: <sironeko@example.net>
+Received: from [203.0.113.225] by rx-smtp-22.example.com;
+  Thu, 29 Apr 2015 23:34:45 +0000 (UTC)
+Date: Thu, 29 Apr 2015 23:34:45 +0000
+To: <kijitora@example.org>
+From: Neko <sironeko@example.net>
+Subject: Nyaan
+Message-ID: <00000000000000000000000022222222@example.net>
+
+Nyaan
+

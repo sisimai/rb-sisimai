@@ -1,0 +1,36 @@
+Return-path: <neko-nyaan-admin@example.org>
+Received: from e3.rr.example.net [203.0.113.225] by r0.example.com [192.0.2.55]
+	with SMTP (postmaster.v3.5.6) for <kijitora@neko.example.com>;
+    Thu, 29 Apr 2005 23:34:45 +0000
+Received: from e3.rr.example.net for kijitora@neko.example.com;
+    Apr 29 23:34:45 2005 +0000
+Message-ID: <20050429233445.999999.ee@e3.rr.example.net>
+Date: 29 Apr 2005 23:34:45 -0000
+From: MAILER-DAEMON@example.net
+To: sironeko@example.org
+Subject: Permanent Delivery Failure
+
+Message from  example.com.
+Unable to deliver message to the following address(es).
+
+<kijitora-nyaan@neko.example.com>:
+Sorry, I wasn't able to establish an SMTP connection. (#4.4.1)
+I'm not going to try again; this message has been in the queue too long.
+
+--- Original message follows.
+
+Return-Path: <postmaster@example.com>
+Received: from r7.e.example.or.jp (HELO localhost) (203.0.113.90)
+  by smtp1.r5.esample.com with SMTP; 29 Apr 2005 23:34:45 +0000
+From: Sironeko <sironeko@example.org>
+To: kijitora-nyaan@neko.example.com
+Date: Thu, 29 Apr 2005 23:34:45 +0000
+Subject: Nyaan
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 7bit
+
+Nyaan
+
+--0000-ffff-0022-x8sub924ga--
+

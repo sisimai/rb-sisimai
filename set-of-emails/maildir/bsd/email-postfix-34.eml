@@ -1,0 +1,54 @@
+Return-Path: <>
+Delivered-To: sironeko@example.com
+Received: by e4.example.com (Postfix) via r2.example.com id FFFFFFFF00;
+    Thu, 29 Apr 2005 23:34:45 +0000 (UTC)
+MIME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="FFFF000020.0000110000/e4.example.com"
+Message-Id: <20050429233445.FFFFFFFF99@e4.example.com>
+From: MAILER-DAEMON@e4.example.com (Mail Delivery System)
+To: sironeko@e4.example.com
+Subject: Undelivered Mail Returned to Sender
+Date: Thu, 29 Apr 2005 23:34:45 +0000 (UTC)
+
+This is a MIME-encapsulated message.
+
+--FFFF000020.0000110000/e4.example.com
+Content-Description: Notification
+Content-Type: text/plain
+
+This is the Postfix program at host e4.example.com.
+
+I'm sorry to have to inform you that the message returned
+below could not be delivered to one or more destinations.
+
+For further assistance, please contact <postmaster@e4.example.com>
+
+If you do so, please include this problem report. You can
+delete your own text from the message returned below.
+
+			The Postfix program
+
+<kijitora@example.com>: Name service error for domain example.com: Host not
+    found, try again
+
+
+--FFFF000020.0000110000/e4.example.com
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Received: by e4.example.com (Postfix, from userid 1)
+	id FFFFFFFF55; Thu, 29 Apr 2005 23:34:45 +0000 (UTC)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <ffffffffffffffff000000002@neko.nyaan.example.jp>
+From: Neko <sironeko@example.or.jp>
+Date: Thu, 29 Apr 2005 23:34:45 +0000
+To: Kijitora <kijitora@example.com>
+Subject: Nyaan
+
+Nyaan
+
+--FFFF000020.0000110000/e4.example.com--
+
