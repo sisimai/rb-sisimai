@@ -1,0 +1,43 @@
+Date: Thu, 29 Apr 1995 23:34:45 +0000
+From: Mail Delivery Subsystem <MAILER-DAEMON@NEKO.EXAMPLE.ORG>
+Subject: Returned mail: User unknown
+To: <sironeko-nyaan@NEKO.EXAMPLE.ORG>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+       boundary="AAA00000.0000110222/NEKO.EXAMPLE.ORG"
+
+--AAA00000.0000110222/NEKO.EXAMPLE.ORG
+content-type: text/plain; charset=us-ascii
+
+       ----- The following addresses had delivery problems -----
+<kijitora@nyaan.example.com> (unrecoverable error)
+<mikeneko@neko.example.or.jp> (unrecoverable error)
+
+ --AAA00000.0000110222/NEKO.EXAMPLE.ORG
+content-type: message/delivery-status
+
+Reporting-MTA: dns; cs.utk.edu
+
+Original-Recipient: rfc822;kijitora@nyaan.example.com
+Final-Recipient: rfc822;kijitora@nyaan.example.com
+Action: failed
+Status: 5.0.0 (permanent failure)
+Diagnostic-Code: smtp;  550 'kijitora@nyaan.example.com' is not a
+ registered gateway user
+Remote-MTA: dns; nyaan.example.com
+
+Original-Recipient: rfc822;sabatora@cat.example.net
+Final-Recipient: rfc822;sabatora@cat.example.net
+Action: delayed
+Status: 4.0.0 (cat.example.net: host name lookup failure)
+
+Original-Recipient: rfc822;mikeneko@neko.example.or.jp
+Final-Recipient: rfc822;mikeneko@neko.example.or.jp
+Action: failed
+Status: 5.0.0
+Diagnostic-Code: smtp; 550 user unknown
+Remote-MTA: dns; neko.example.or.jp
+
+--AAA00000.0000110222/NEKO.EXAMPLE.ORG
+content-type: message/rfc822
+

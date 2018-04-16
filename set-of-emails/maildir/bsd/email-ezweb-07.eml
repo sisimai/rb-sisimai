@@ -1,0 +1,39 @@
+Return-Path: <>
+Received: from ezweb.ne.jp (wmflb00na00.ezweb.ne.jp [203.0.113.225])
+        by mx9.example.jp (8.12.1/8.12.0) with ESMTP id r0000000000002
+        for <sironeko@example.jp>; Thu, 29 Apr 2011 23:34:45 +0900
+Received: from wfilter000 (wfilter000-a2 [192.0.2.169])
+        by wsmtpr00.ezweb.ne.jp (EZweb Mail) with ESMTP id FF0000002
+        for <sironeko@example.jp>; Thu, 29 Apr 2011 23:34:45 +0900 (JST)
+Delivered-To: <sironeko@example.jp>
+To: <sironeko@example.jp>
+From: Postmaster@ezweb.ne.jp
+Message-ID: <ffffffffffffffff000200022000@qq00rrr000.ezweb.ne.jp>
+Date: Thu, 29 Apr 2011 23:34:45 +0900
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="==_FF202/Neko---Nyaaan=/FFE"
+Reply-To: Mail Administrator <Postmaster@ezweb.ne.jp>
+Subject: Mail System Error - Returned Mail
+
+This message is in MIME format.Since your mail reader does not understand this format, some or all of the message may not be legible
+
+--==_FF202/Neko---Nyaaan=/FFE
+Content-Type: text/plain; charset="ISO-2022-JP"
+Content-Transfer-Encoding: 7bit
+
+次のあて先へのメッセージはエラーのため送信できませんでした。
+
+送信先メールアドレスが見つからないか、
+送信先メールサーバの事由により送信できませんでした。
+メールアドレスをご確認の上、再送信してください。
+
+Each of the following recipients was rejected by a remote
+mail server.
+
+    Recipient: <this-local-part-does-not-exist@ezweb.ne.jp>
+    >>> RCPT TO:<this-local-part-does-not-exist@ezweb.ne.jp>
+    <<< 550 <this-local-part-does-not-exist@ezweb.ne.jp>: User unknown
+
+
+
+--==_FF202/Neko---Nyaaan=/FFE--

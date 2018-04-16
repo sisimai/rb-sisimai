@@ -1,37 +1,23 @@
-Return-Path: <>
-X-Original-To: joe@example.com
-Delivered-To: postmaster_bounce@example.com
-Received: from mail.example.com (mail.example.com [8.12.160.195])
-	by mail.example.com (Postfix) with ESMTP id DE32317849E
-	for <joe@example.com>; Fri, 29 May 2009 14:33:03 -0700 (PDT)
-Received: from mail.example.com ([64.233.207.26] helo=mail.example.com)
-	by ASSP.nospam; 29 May 2009 14:33:03 -0700
-Received: from mail.example.com (localhost.localdomain [127.0.0.1])
-	by mail.example.com (8.12.8/8.12.8) with ESMTP id n4TLXDTH003035
-	for <joe@example.com>; Fri, 29 May 2009 16:33:13 -0500
-Received: (from root@localhost)
-	by mail.example.com (8.12.8/8.12.8/Submit) id n4TLXD6Y003033;
-	Fri, 29 May 2009 16:33:13 -0500
-From: Fred Somebody <fred@example.com>
-To: joe@example.com
-Date: Fri, 29 May 2009 14:33:19 -0700
-Subject: Out of Office: I like turtles
-Thread-Topic: I like turtles
-Thread-Index: AcngpRXKiCnU9f1tTOGxwbpbymnvwwAAAALp
-Message-ID: <1234.1212@example.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-acceptlanguage: en-US
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-Assp-Received-RBL: pass
+Return-path: <nyaan@neko.example.org>
+Envelope-to: neko@libsisimai.org
+Delivery-date: Thu, 29 Apr 2005 23:34:45 +0900
+Received: from mta2.relay2.example.org ([192.0.2.222]:22222)
+	by nyaan.example.com with esmtps (TLSv1:DHE-RSA-AES256-SHA:256)
+	(Exim 4.81)
+	(envelope-from <nyaan@neko.example.org>)
+	id 2NEKOS-222222-22
+	for neko@libsisimai.org; Thu, 29 Apr 2005 23:34:45 +0900
+Received: from neko.example.org (neko.soto.example.org [192.0.2.22])
+	by mta2.relay2.example.org (8.12.8/8.12.8) with ESMTP id j3QNaaaa222222
+	for <neko@libsisimai.org>; Thu, 29 Apr 2005 23:34:45 +0900
+Date: Thu, 29 Apr 2005 23:34:45 +0900
+Message-Id: <200503142138.j3QNaaaa222222@neko.example.org>
+To: neko@libsisimai.org
+Auto-Submitted: auto-replied
+From: kijitora@example.net
+Subject: Away until May 5
 
-PG1ldGEgaHR0cC1lcXVpdj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJz
-ZXQ9dXRmLTgiPjxkaXYgY2xhc3M9IkJvZHlGcmFnbWVudCI+Cjxmb250IHNpemU9IjIiPjxkaXYg
-Y2xhc3M9IlBsYWluVGV4dCI+SSBhbSBhd2F5IG9uIHZhY2F0aW9uLCBNb25kYXkgTWF5IDI1IHRo
-cm91Z2ggTWF5IDI5LCAyMDA5LiZuYnNwOyBJIHdpbGwgYmUgYmFjayBpbiB0aGUgb2ZmaWNlIG9u
-IEp1bmUgMS4mbmJzcDsgUGxlYXNlIGNhbGwgNTYyLTkyMi02MjE2IGZvciBpbW1lZGlhdGUgYXNz
-aXRhbmNlLjwvZGl2PjwvZm9udD4KPC9kaXY+Cg==
+I am currently away returning to the office on May 5th. I will have limited access to email and will respond to you upon my return.
+
+Kijitora, Nyaan.
+

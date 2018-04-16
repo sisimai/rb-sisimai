@@ -1,0 +1,51 @@
+Delivered-To: this-local-part-does-not-exist-on-google-mail@gmail.com
+Received: by 192.0.2.222 with SMTP id ffffffff0000;
+    Thu, 29 Apr 2011 23:34:45 -0700 (PDT)
+Received: by 192.0.2.127 with SMTP id eeeeeeeee22222.111.0000000099999;
+    Thu, 29 Apr 2011 23:34:45 -0700 (PDT)
+MIME-Version: 1.0
+Return-Path: <>
+Received: by 192.0.2.32 with SMTP id ffffee0022220000.110; Thu, 29 Apr 2011
+    23:34:45 -0700 (PDT)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+To: this-local-part-does-not-exist-on-google-mail@gmail.com
+X-Failed-Recipients: kijitora@example.or.jp
+Subject: Delivery Status Notification (Failure)
+Message-ID: <0000ffffee2200000000aaaabbcd@google.com>
+Date: Thu, 29 Apr 2011 23:34:45 +0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+Delivery to the following recipient failed permanently:
+
+     kijitora@example.or.jp
+
+Technical details of permanent failure:=20
+Google tried to deliver your message, but it was rejected by the recipient =
+domain. We recommend contacting the other email provider for further inform=
+ation about the cause of this error. The error that the other server return=
+ed was: 550 550 5.1.1 user unknown (UserSearch) (state 14).
+
+----- Original message -----
+
+Received: by 192.0.2.32 with SMTP id r000000002222e.000.1111111222200;
+        Thu, 29 Apr 2011 23:34:45 -0700 (PDT)
+Return-Path: <this-local-part-does-not-exist-on-google-mail@gmail.com>
+Received: from [192.0.2.40] (135.kyoto.example.ne.jp [192.0=
+.2.135])
+        by mx.google.com with ESMTPS id r99999999ffff00.0.2011.04.29.23.34.=
+45
+        (version=3DTLSv1/SSLv3 cipher=3DRC4-MD5);
+        Thu, 029 Apr 2011 23:34:45 -0700 (PDT)
+Message-Id: <FFFFFFFF-2222-0000-0000-EEEEEEEE0000@gmail.com>
+From: this-local-part-does-not-exist-on-google-mail <this-local-part-does-not-exist-on-google-mail@gmail.com>
+To: kijitora@example.or.jp
+Content-Type: text/plain; charset=3DUS-ASCII; format=3Dflowed
+Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Apple Message framework v936)
+Subject: Nyaan
+Date: Thu, 29 Apr 2011 23:34:45 +0900
+X-Mailer: Apple Mail (2.936)
+
+Nyaan
+

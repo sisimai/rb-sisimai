@@ -1,0 +1,63 @@
+From SMTP2 Thu Apr 29 23:34:45 2005
+Return-Path: <postmaster@example.org>
+Delivered-To: sironeko@example.jp
+Received: from mail8.example.org (mail.example.org [192.0.2.222])
+	by r8.example.com (8.12.0/8.12.0) with ESMTP id FFFFFFFF
+	for <sironeko@example.com>; Thu, 29 Apr 2005 23:34:45 +0000
+Received: from [203.0.113.225] (helo=neko.r.example.co.jp)
+	by mail4.example.org with esmtp (Exim 3.22)
+	id 00Neko-000000-00
+	for postmaster@example.org; Thu, 29 Apr 2005 23:34:45 +0000
+Received: by x4.libsisimai.org with Internet Mail Service (5.5.2699.00)
+	id <00000000>; Thu, 29 Apr 2005 23:34:45 +0000
+Message-id: <000000000000000000000000FFFFFFFFFFFF3333@x4.libsisimai.org>
+MIME-version: 1.0
+Content-type: multipart/mixed; boundary="Boundary_(ID_SLGHJBl4284ALG8GLGNlio)"
+Precedence: bulk
+From: Mailer-Daemon <postmaster@x4.libsisimai.org>
+To: sironeko@example.org
+Subject: Undeliverable: Nyaan
+Date: Thu, 29 Apr 2005 23:34:45 +0000
+X-Mailer: Internet Mail Service (5.5.2699.00)
+X-MS-Embedded-Report: 
+
+This message is in MIME format. Since your mail reader does not understand
+this format, some or all of this message may not be legible.
+
+--Boundary_(ID_SLGHJBl4284ALG8GLGNlio)
+Content-type: text/plain
+
+Your message
+
+  To:      kijitora@example.org
+  Subject: Nyaan
+  Sent:    Thu, 29 Apr 2005 23:34:45 +0000
+
+did not reach the following recipient(s):
+
+kijitora@EXAMPLE.ORG on Thu, 29 Apr 2005 23:34:45 +0000
+    The recipient name is not recognized
+	The MTS-ID of the original message is: c=jp;a= ;p=kyoto
+un;l=000000000000000000000000P
+    MSEXCH:IMS:Kyoto Nyaans:NEKO:Nyaan 2 (000C05A6) Unknown
+Recipient
+
+
+
+--Boundary_(ID_SLGHJBl4284ALG8GLGNlio)
+Content-type: message/rfc822
+
+Date: Thu, 29 Apr 2005 23:34:45 +0000
+From: Sironeko <sironeko@example.jp>
+To: Kijitora <kijitora@example.org>
+Message-id: <2005042923344500.R00031@example.jp>
+MIME-version: 1.0
+X-Mailer: Internet Mail Service (5.5.2653.19)
+Subject: Nyaan
+Content-type: text/plain
+X-MS-Embedded-Report:
+
+Nyaaaaaaaaaaan
+
+--Boundary_(ID_SLGHJBl4284ALG8GLGNlio)--
+

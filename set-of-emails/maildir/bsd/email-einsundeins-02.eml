@@ -1,0 +1,45 @@
+From postmaster@kundenserver.example.de Thu Apr 29 23:34:45 2015
+Received: from r1.kundenserver.example.de ([203.0.113.113] verified)
+  by smtp9.example.com (Nyaan SMTP 2.2.22) with ESMTP id 22222222 for
+  sironeko@mail.example.jp; Thu, 29 Apr 2015 23:34:45 +0100
+From: "Mail Delivery System" <mailer-daemon@kundenserver.example.de>
+To: sironeko@example.jp
+Date: Thu, 29 Apr 2015 23:34:45 +0100
+Subject: Mail delivery failed: returning message to sender
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-UI-Out-Filterresults: unknown:0;
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of
+its recipients. This is a permanent error.
+
+The following address failed:
+
+kijitora@example.org
+
+For the following reason:
+
+Mail size limit exceeded. For explanation visit
+http://postmaster.1and1.com/en/error-messages?ip=%1s
+
+--- The header of the original message is following. ---
+
+Received: from mx.example.co.jp (localhost [127.0.0.1])
+	by mx.example.co.jp (8.15.2/8.15.1) with ESMTP id fffff000000002
+	for <kijitora@example.org>; Thu, 29 Apr 2015 23:34:45 +0900
+Received: (from shironeko@localhost)
+    by mx.example.co.jp (8.14.9/8.14.1/Submit) id fff00000ee009
+    for kijitora@example.net; Thu, 29 Apr 2015 23:34:45 +0900
+Date: Thu, 29 Apr 2015 23:34:45 +0000
+Message-ID: <eeeeeeee.neko.000000000nyaaan-00@smtp.example.jp>
+From: sironeko@example.jp
+To: Kijitora <kijitora@example.org>
+Subject: Nyaaan
+Content-Type: text/plain
+MIME-Version: 1.0
+
+Nyaaan
+

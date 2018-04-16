@@ -1,0 +1,17 @@
+Return-Path: <MAILER-DAEMON@example.com>
+Received: from r8-2.example.com (r8-2.example.com [207.115.63.49])
+	by w4-1.example.com (8.13.1/8.13.0) with ESMTP id m3TNYjK31707
+	for <sironeko@example.org>; Thu, 29 Apr 2008 23:34:45 +0000
+Received: (from root@localhost)
+	by r8-2.example.com (8.13.1/8.13.0) id m3TNYjK00002
+	for sironeko@example.org; Thu, 29 Apr 2008 23:34:45 +0000
+From: MAILER-DAEMON@example.com
+Message-Id: <20080429233445.m3TNYjK00000@r8-2.example.com>
+Date: Thu, 29 Apr 2008 23:34:45 +0000
+To: <sironeko@example.org>
+Subject: Returned mail: Nyaan
+
+User's mailbox is full: <kijitora-nyaan@example.jp>
+Unable to deliver mail.
+
+

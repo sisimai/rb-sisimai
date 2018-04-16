@@ -1,0 +1,67 @@
+Return-Path: <>
+Received: from neko-nyaan-2.example.com (neko-nyaan-2.example.com [192.0.2.160])
+	by neko.example.net (Postfix) with ESMTP id FFFFFFFF000
+	for <sironeko-nyaan@example.net>;
+	Thu, 29 Apr 2009 23:34:45 +0000 (UTC)
+Received: from nyaaaaaan.example.com (nyaaaaaan.example.com [192.0.2.127])
+	by neko-nyaan-2.example.com (Postfix) with ESMTP id EEEEEEEE22
+	for <sironeko-nyaan@example.net>;
+	Thu, 29 Apr 2009 23:34:45 +0000 (UTC)
+Date: Thu, 29 Apr 2009 23:34:45 +0000
+From: Mail Delivery System <>
+To: sironeko-nyaan@example.net
+Subject: Delivery status notification
+MIME-Version: 1.0
+Content-Type: multipart/report;
+	boundary="------------R111100022222QQQ1_0000000044402"
+Message-Id: <20090429233445.AAAAAAAA00@neko-nyaan-2.example.com>
+
+This is a multi-part message in MIME format.
+
+--------------R111100022222QQQ1_0000000044402
+Content-Type: text/plain; charset=UTF-8;
+Content-Transfer-Encoding: 8bit
+
+      This is an automatically generated Delivery Status Notification.      
+
+Delivery to the following recipients failed permanently:
+
+   * kijitora@example.or.jp
+
+
+
+--------------R111100022222QQQ1_0000000044402
+Content-Type: message/delivery-status; charset=UFT-8;
+Content-Transfer-Encoding: 8bit
+
+Reporting-MTA: dns; nyaaaaaan.example.com [192.0.2.225]
+Received-From-MTA: dns; neko.example.net [203.0.113.225]
+Arrival-Date: Thu, 29 Apr 2009 23:34:45 +0000
+
+--------------R111100022222QQQ1_0000000044402
+Content-Type: message/rfc822; charset=UFT-8;
+Content-Transfer-Encoding: 8bit
+Content-Disposition: attachment
+
+Received: from neko.example.net (localhost [127.0.0.1])
+	by neko.example.net (Postfix) with ESMTP id BBBBBBBB333;
+	Thu, 29 Apr 2009 23:34:45 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+	by neko.example.net (Postfix) with ESMTP id AAAAAAAA000
+	for <kijitora@example.or.jp>;
+	Thu, 29 Apr 2009 23:34:45 +0000 (UTC)
+Received: from [198.51.100.225] ([198.51.100.225])
+	by neko-nyaan-smtp-out-2.example.co.jp with neko-nyaan-2
+	id ffffffffffff0000000022; Thu, 29 Apr 2009 23:34:45 +0000
+Mime-Version: 1.0
+To: Kijitora <kijitora@example.or.jp>
+From: <sironeko@example.org>
+Date: Thu, 29 Apr 2009 23:34:45 +0000
+Message-Id: <00000000-1111-2222-3333-555555556666@example.com>
+Content-Type: text/plain
+Subject: Nyaan
+
+Nyaan
+
+--------------R111100022222QQQ1_0000000044402--
+

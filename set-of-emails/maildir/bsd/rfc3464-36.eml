@@ -1,0 +1,40 @@
+Date: Thu, 29 Apr 1995 23:34:45 -0800 From: Mail Delivery Subsystem <MAILER-DAEMON@NEKO.EXAMPLE.ORG>
+Message-Id: <19950429233445.EEE00000@NEKO.EXAMPLE.ORG>
+Subject: Returned mail: Cannot send message for 5 days
+To: <sironeko-nyaan@neko.example.org>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+       boundary="EEE00000.0000000011/NEKO.EXAMPLE.ORG"
+
+--EEE00000.0000000011/NEKO.EXAMPLE.ORG
+
+The original message was received at Thu, 9 Apr 1995 23:34:45 -0800
+from sironeko@example.org
+
+    ----- The following addresses had delivery problems -----
+<kijitora@nyaan.example.com>  (unrecoverable error)
+
+----- Transcript of session follows -----
+<kijitora@nyaan.example.com>... Deferred: Connection timed out
+            with nyaan.example.com.
+Message could not be delivered for 5 days
+Message will be deleted from queue
+
+--EEE00000.0000000011/NEKO.EXAMPLE.ORG
+content-type: message/delivery-status
+
+Reporting-MTA: dns; neko.example.org
+
+Original-Recipient: rfc822;kijitora@nyaan.example.com
+Final-Recipient: rfc822;kijitora@nyaan.example.com
+Action: failed
+Status: 4.0.0
+Diagnostic-Code: smtp; 426 connection timed out
+Last-Attempt-Date: Thu, 29 Apr 1995 23:34:45 -0800
+
+--EEE00000.0000000011/NEKO.EXAMPLE.ORG
+content-type: message/rfc822
+
+[original message goes here]
+
+--EEE00000.0000000011/NEKO.EXAMPLE.ORG--

@@ -1,0 +1,115 @@
+Return-Path: <>
+X-Original-To: sironeko-nyaan@neko.example.com
+Delivered-To: sironeko-nyaan@neko.example.com
+Received: from kw8-2.neko.example.com (kw8-2.neko.example.com [203.0.113.82])
+	by neko.example.com (Postfix) with ESMTP id FFFFFFFF00
+	for <sironeko-nyaan@neko.example.com>; Thu, 29 Apr 2010 23:34:45 +0000 (UTC)
+From: postmaster@example.co.jp
+To: sironeko-nyaan@neko.example.com
+Date: Thu, 29 Apr 2010 23:34:45 +0900
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="0000FF00FF=-0000FF00EEEEE222-41488285815.neko.r"
+Message-ID: <000000000000ffffffff@nyaan.neko.example.com>
+Subject: Delivery Status Notification (Failure)
+
+This is a MIME-formatted message.  
+Portions of this message may be unreadable without a MIME-capable mail program.
+
+--0000FF00FF=-0000FF00EEEEE222-41488285815.neko.r
+Content-Type: text/plain; charset=unicode-1-1-utf-7
+
+This is an automatically generated Delivery Status Notification.
+
+Unable to deliver message to the following recipients, because the message was forwarded more than the maximum allowed times. This could indicate a mail loop.
+
+       kijitora@nyaan.neko.example.com
+
+
+
+
+--0000FF00FF=-0000FF00EEEEE222-41488285815.neko.r
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns;r3.p8.neko.example.com
+Received-From-MTA: dns;rr.example.net
+Arrival-Date: Thu,29 Apr 2010 23:34:45 +0900
+
+Final-Recipient: rfc822;kijitora@nyaan.neko.example.com
+Action: failed
+Status: 4.4.6
+
+--0000FF00FF=-0000FF00EEEEE222-41488285815.neko.r
+Content-Type: message/rfc822
+
+Received: from p4.neko.example.net ([198.51.100.225]) by r2.nyaan.neko.example.com with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu,29 Apr 2010 23:34:45 +0900
+Received: from r1.nyaan.neko.example.com ([192.0.2.25]) by p4.neko.example.net with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu,29 Apr 2010 23:34:45 +0900
+Received: from p4.neko.example.net ([198.51.100.225]) by r1.nyaan.neko.example.com with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu,29 Apr 2010 23:34:45 +0900
+Received: from r1.nyaan.neko.example.com ([192.0.2.25]) by p4.neko.example.net with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu,29 Apr 2010 23:34:45 +0900
+Received: from p4.neko.example.net ([198.51.100.225]) by r1.nyaan.neko.example.com with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu,29 Apr 2010 23:34:45 +0900
+Received: from r2.nyaan.neko.example.com ([203.0.113.248]) by p4.neko.example.net with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu,29 Apr 2010 23:34:45 +0900
+Received: from p4.neko.example.net ([198.51.100.225]) by r2.nyaan.neko.example.com with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu,29 Apr 2010 23:34:45 +0900
+Received: from r1.nyaan.neko.example.com ([192.0.2.25]) by p4.neko.example.net with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu, 29 Apr 2010 23:34:45 +0900
+Received: from p4.neko.example.net ([198.51.100.225]) by r1.nyaan.neko.example.com with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu, 29 Apr 2010 23:34:45 +0900
+Received: from r2.nyaan.neko.example.com ([203.0.113.248]) by p4.neko.example.net with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu, 29 Apr 2010 23:34:45 +0900
+Received: from p4.neko.example.net ([198.51.100.225]) by r2.nyaan.neko.example.com with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu, 29 Apr 2010 23:34:45 +0900
+Received: from r2.nyaan.neko.example.com ([203.0.113.248]) by p4.neko.example.net with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu, 29 Apr 2010 23:34:45 +0900
+Received: from p4.neko.example.net ([198.51.100.225]) by r2.nyaan.neko.example.com with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu, 29 Apr 2010 23:34:45 +0900
+Received: from r1.nyaan.neko.example.com ([192.0.2.25]) by p4.neko.example.net with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu, 29 Apr 2010 23:34:45 +0900
+Received: from p4.neko.example.net ([198.51.100.225]) by r1.nyaan.neko.example.com with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu, 29 Apr 2010 23:34:45 +0900
+Received: from r2.nyaan.neko.example.com ([203.0.113.248]) by p4.neko.example.net with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu, 29 Apr 2010 23:34:45 +0900
+Received: from p4.neko.example.net ([198.51.100.225]) by r2.nyaan.neko.example.com with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu, 29 Apr 2010 23:34:45 +0900
+Received: from r1.nyaan.neko.example.com ([192.0.2.25]) by p4.neko.example.net with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu, 29 Apr 2010 23:34:45 +0900
+Received: from p4.neko.example.net ([198.51.100.225]) by r1.nyaan.neko.example.com with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu, 29 Apr 2010 23:34:45 +0900
+Received: from r1.nyaan.neko.example.com ([192.0.2.25]) by p4.neko.example.net with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu, 29 Apr 2010 23:34:45 +0900
+Received: from p4.neko.example.net ([198.51.100.225]) by r1.nyaan.neko.example.com with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu, 29 Apr 2010 23:34:45 +0900
+Received: from r1.nyaan.neko.example.com ([192.0.2.25]) by p4.neko.example.net with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu, 29 Apr 2010 23:34:45 +0900
+Received: from p4.neko.example.net ([198.51.100.225]) by r1.nyaan.neko.example.com with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu, 29 Apr 2010 23:34:45 +0900
+Received: from r2.nyaan.neko.example.com ([203.0.113.248]) by p4.neko.example.net with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu, 29 Apr 2010 23:34:45 +0900
+Received: from p4.neko.example.net ([198.51.100.1]) by r2.nyaan.neko.example.com with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu, 29 Apr 2010 23:34:45 +0900
+Received: from qp4.nyaan.neko.example.com ([203.0.113.192]) by p4.neko.example.net with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu, 29 Apr 2010 23:34:45 +0900
+Received: from qs.neko.example.com ([192.0.2.2]) by qp4.nyaan.neko.example.com with Microsoft SMTPSVC(6.0.3790.3999);
+	 Thu, 29 Apr 2010 23:34:45 +0900
+Received: from neko.example.com ([192.0.2.67])
+  by qs.neko.example.com with ESMTP; 29 Apr 2010 23:34:45 +0900
+Received: from neko.example.com (localhost [127.0.0.1])
+	by neko.example.com (Postfix) with ESMTP id FFFFFF0000
+	for <kijitora@nyaan.neko.example.com>; Thu, 29 Apr 2010 23:34:45 +0000 (UTC)
+Date: Thu, 29 Apr 2010 23:34:45 +0000
+From: Nyaan <sironeko-nyaan@neko.example.com>
+To: kijitora@nyaan.neko.example.com
+Message-Id: <ffffffffffffffffffffffff00000000@example.org>
+Return-Path: sironeko-nyaan@neko.example.com
+Content-Type: text/plain
+Mime-Version: 1.0
+Subject: Nyaan
+
+Nyaan
+
+--0000FF00FF=-0000FF00EEEEE222-41488285815.neko.r--
