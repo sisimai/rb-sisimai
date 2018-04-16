@@ -11,6 +11,9 @@ v4.22.5p1
   - #115 Fix bug in Sisimai::MIME.qprintd().
   - Error message patterns in Sisimai::Reason::Filtered have been replaced with
     fixed strings.
+  - #116 Remove sample email files listed in sisimai/set-of-emails#6 to clarify
+    copyrights.
+
 
 v4.22.5
 --------------------------------------------------------------------------------
