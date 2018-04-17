@@ -13,7 +13,8 @@ v4.22.5p1
     fixed strings.
   - #116 Remove sample email files listed in sisimai/set-of-emails#6 to clarify
     copyrights.
-
+  - The value of "softbounce" in the parsed results is always "1" when a reason
+    is "undefined" or "onhold".
 
 v4.22.5
 --------------------------------------------------------------------------------
