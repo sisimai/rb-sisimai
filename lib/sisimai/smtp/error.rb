@@ -79,18 +79,8 @@ module Sisimai
             softorhard = ''
 
           elsif argv1 == 'onhold' || argv1 == 'undefined'
-            # Check with the value of D.S.N. in argv2
-            getchecked = Sisimai::SMTP::Error.is_permanent(argv2)
-
-            if getchecked.nil?
-              softorhard = ''
-            else
-              softorhard = if getchecked
-                             'hard'
-                           else
-                             'soft'
-                           end
-            end
+            # It should be "soft" when a reason is "onhold" or "undefined"
+            softorhard = 'soft'
 
           elsif argv1 == 'notaccept'
             # NotAccept: 5xx => hard bounce, 4xx => soft bounce

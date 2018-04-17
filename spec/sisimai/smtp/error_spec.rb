@@ -8,10 +8,10 @@ describe Sisimai::SMTP::Error do
     'mailboxfull', 'mailererror', 'mesgtoobig', 'networkerror',
     'norelaying', 'rejected', 'securityerror',
     'spamdetected', 'suspend', 'systemerror', 'systemfull', 'toomanyconn',
+    'undefined', 'onhold',
   ]
   hardbounces = ['userunknown', 'hostunknown', 'hasmoved', 'notaccept']
   isntbounces = ['delivered', 'feedback', 'vacation']
-  dependondsn = ['undefined', 'onhold']
 
   isnterrors = [
     'smtp; 2.1.5 250 OK',
@@ -99,17 +99,6 @@ describe Sisimai::SMTP::Error do
             r = cn.soft_or_hard(e, '409 Not accept any email')
             it('409... returns "soft"') { expect(r).to be == 'soft' }
           end
-        end
-
-        dependondsn.each do |e|
-          q = cn.soft_or_hard(e, '503 Not accept any email')
-          it('503... returns "hard"') { expect(q).to be == 'hard' }
-
-          r = cn.soft_or_hard(e, '409 Not accept any email')
-          it('409... returns "soft"') { expect(r).to be == 'soft' }
-
-          s = cn.soft_or_hard(e, isnterrors.first)
-          it('250... returns ""') { expect(s).to be == '' }
         end
       end
 
