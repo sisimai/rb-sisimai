@@ -13,12 +13,12 @@ module Sisimai::Bite::Email
         message: ['This message could not be delivered.'],
         rfc822:  ['content-type: text/rfc822-headers'],
       }.freeze
-      ReFailures = {
+      MessagesOf = {
         # The followings are error messages in Rule sets/*/Actions/Template
-        filtered:     %r/Mailbox does not exist/,
-        mesgtoobig:   %r/Message too large/,
-        mailboxfull:  %r/Mailbox full/,
-        contenterror: %r/Message content rejected/,
+        filtered:     ['Mailbox does not exist'],
+        mesgtoobig:   ['Message too large'],
+        mailboxfull:  ['Mailbox full'],
+        contenterror: ['Message content rejected'],
       }.freeze
 
       def description; return 'Amazon SES(Receiving): http://aws.amazon.com/ses/'; end
@@ -192,9 +192,9 @@ module Sisimai::Bite::Email
             e['status'] = pseudostatus if pseudostatus.size > 0
           end
 
-          ReFailures.each_key do |r|
+          MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailures[r]
+            next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
             break
           end

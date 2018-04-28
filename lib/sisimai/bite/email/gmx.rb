@@ -11,7 +11,7 @@ module Sisimai::Bite::Email
         message: ['This message was created automatically by mail delivery software'],
         rfc822:  ['--- The header of the original message is following'],
       }.freeze
-      ReFailures = { expired: %r/delivery retry timeout exceeded/ }.freeze
+      MessagesOf = { expired: ['delivery retry timeout exceeded'] }.freeze
 
       def description; return 'GMX: http://www.gmx.net'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -139,9 +139,9 @@ module Sisimai::Bite::Email
           e['diagnosis'] = e['diagnosis'].gsub(/\\n/, ' ')
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
-          ReFailures.each_key do |r|
+          MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailures[r]
+            next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
             break
           end

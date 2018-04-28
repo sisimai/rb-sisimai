@@ -15,10 +15,10 @@ module Sisimai::Bite::Email
             )
         /x,
       }.freeze
-      ReFailures = {
-        mailboxfull: %r/As their mailbox is full/,
-        norelaying:  %r/Due to the following SMTP relay error/,
-        hostunknown: %r/As the remote domain doesnt exist/,
+      MessagesOf = {
+        mailboxfull: ['As their mailbox is full'],
+        norelaying:  ['Due to the following SMTP relay error'],
+        hostunknown: ['As the remote domain doesnt exist'],
       }.freeze
 
       def description; return 'au by KDDI: http://www.au.kddi.com'; end
@@ -133,9 +133,9 @@ module Sisimai::Bite::Email
               e['reason'] = 'userunknown'
             else
               # SMTP command is not RCPT
-              ReFailures.each_key do |r|
+              MessagesOf.each_key do |r|
                 # Verify each regular expression of session errors
-                next unless e['diagnosis'] =~ ReFailures[r]
+                next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
                 e['reason'] = r.to_s
                 break
               end

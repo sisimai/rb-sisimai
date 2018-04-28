@@ -14,16 +14,14 @@ module Sisimai::Bite::Email
         rfc822:  ['Content-Type: message/rfc822', 'Content-Type: text/rfc822-headers'],
       }.freeze
 
-      ReFailures = {
+      MessagesOf = {
         # courier/module.esmtp/esmtpclient.c:526| hard_error(del, ctf, "No such domain.");
-        hostunknown: %r/\ANo such domain[.]\z/,
+        hostunknown: ['No such domain.'],
         # courier/module.esmtp/esmtpclient.c:531| hard_error(del, ctf,
         # courier/module.esmtp/esmtpclient.c:532|  "This domain's DNS violates RFC 1035.");
-        systemerror: %r/\AThis domain's DNS violates RFC 1035[.]\z/,
-      }.freeze
-      ReDelaying = {
+        systemerror: ["This domain's DNS violates RFC 1035."],
         # courier/module.esmtp/esmtpclient.c:535| soft_error(del, ctf, "DNS lookup failed.");
-        networkerror: %r/\ADNS lookup failed[.]\z/,
+        networkerror: ['DNS lookup failed.'],
       }.freeze
 
       def description; return 'Courier MTA'; end
@@ -210,20 +208,11 @@ module Sisimai::Bite::Email
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
-          ReFailures.each_key do |r|
+          MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailures[r]
+            next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
             break
-          end
-
-          unless e['reason']
-            ReDelaying.each_key do |r|
-              # Verify each regular expression of session errors
-              next unless e['diagnosis'] =~ ReDelaying[r]
-              e['reason'] = r.to_s
-              break
-            end
           end
 
           e['agent']     = self.smtpagent

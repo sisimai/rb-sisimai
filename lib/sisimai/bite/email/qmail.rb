@@ -50,62 +50,53 @@ module Sisimai::Bite::Email
         |remote[ ]host[ ]([-0-9a-zA-Z.]+[0-9a-zA-Z])[ ]said:
         )
       }x
-      ReLDAP = {
-        # qmail-ldap-1.03-20040101.patch:19817 - 19866
-        suspend:     %r/Mailaddress is administrative?le?y disabled/,            # 5.2.1
-        userunknown: %r/[Ss]orry, no mailbox here by that name/,                 # 5.1.1
-        exceedlimit: %r/The message exeeded the maximum size the user accepts/,  # 5.2.3
-        systemerror: %r{(?>
-           Automatic[ ]homedir[ ]creator[ ]crashed                    # 4.3.0
-          |Illegal[ ]value[ ]in[ ]LDAP[ ]attribute                    # 5.3.5
-          |LDAP[ ]attribute[ ]is[ ]not[ ]given[ ]but[ ]mandatory      # 5.3.5
-          |Timeout[ ]while[ ]performing[ ]search[ ]on[ ]LDAP[ ]server # 4.4.3
-          |Too[ ]many[ ]results[ ]returned[ ]but[ ]needs[ ]to[ ]be[ ]unique # 5.3.5
-          |Permanent[ ]error[ ]while[ ]executing[ ]qmail[-]forward    # 5.4.4
-          |Temporary[ ](?:
-             error[ ](?:
-               in[ ]automatic[ ]homedir[ ]creation            # 4.3.0 or 5.3.0
-              |while[ ]executing[ ]qmail[-]forward            # 4.4.4
-              )
-            |failure[ ]in[ ]LDAP[ ]lookup                       # 4.4.3
-            )
-          |Unable[ ]to[ ](?:
-             contact[ ]LDAP[ ]server                            # 4.4.3
-            |login[ ]into[ ]LDAP[ ]server,[ ]bad[ ]credentials  # 4.4.3
-            )
-          )
-        }x,
-      }.freeze
 
       # qmail-send.c:922| ... (&dline[c],"I'm not going to try again; this message has been in the queue too long.\n")) nomem();
-      ReDelaying = %r/this message has been in the queue too long[.]\z/
+      HasExpired = 'this message has been in the queue too long.'
       ReCommands = %r/Sorry, no SMTP connection got far enough; most progress was ([A-Z]{4}) /
       ReIsOnHold = %r/\A[^ ]+ does not like recipient[.][ ]+.+this message has been in the queue too long[.]\z/
-      ReFailures = {
+      FailOnLDAP = {
+        # qmail-ldap-1.03-20040101.patch:19817 - 19866
+        suspend:     ['Mailaddress is administrative?le?y disabled'],   # 5.2.1
+        userunknown: ['Sorry, no mailbox here by that name'],           # 5.1.1
+        exceedlimit: ['The message exeeded the maximum size the user accepts'], # 5.2.3
+        systemerror: [
+            'Automatic homedir creator crashed',                # 4.3.0
+            'Illegal value in LDAP attribute',                  # 5.3.5
+            'LDAP attribute is not given but mandatory',        # 5.3.5
+            'Timeout while performing search on LDAP server',   # 4.4.3
+            'Too many results returned but needs to be unique', # 5.3.5
+            'Permanent error while executing qmail-forward',    # 5.4.4
+            'Temporary error in automatic homedir creation',    # 4.3.0 or 5.3.0
+            'Temporary error while executing qmail-forward',    # 4.4.4
+            'Temporary failure in LDAP lookup',                 # 4.4.3
+            'Unable to contact LDAP server',                    # 4.4.3
+            'Unable to login into LDAP server, bad credentials',# 4.4.3
+        ],
+      }.freeze
+      MessagesOf = {
         # qmail-local.c:589|  strerr_die1x(100,"Sorry, no mailbox here by that name. (#5.1.1)");
         # qmail-remote.c:253|  out("s"); outhost(); out(" does not like recipient.\n");
-        userunknown: %r/(?:no mailbox here by that name| does not like recipient[.])/,
+        userunknown: ['no mailbox here by that name', 'does not like recipient.'],
         # error_str.c:192|  X(EDQUOT,"disk quota exceeded")
-        mailboxfull: %r/disk quota exceeded/,
+        mailboxfull: ['disk quota exceeded'],
         # qmail-qmtpd.c:233| ... result = "Dsorry, that message size exceeds my databytes limit (#5.3.4)";
         # qmail-smtpd.c:391| ... out("552 sorry, that message size exceeds my databytes limit (#5.3.4)\r\n"); return;
-        mesgtoobig: %r/Message size exceeds fixed maximum message size:/,
+        mesgtoobig:  ['Message size exceeds fixed maximum message size:'],
         # qmail-remote.c:68|  Sorry, I couldn't find any host by that name. (#4.1.2)\n"); zerodie();
         # qmail-remote.c:78|  Sorry, I couldn't find any host named ");
-        hostunknown: %r/\ASorry, I couldn't find any host /,
-        systemfull:  %r/Requested action not taken: mailbox unavailable [(]not enough free space[)]/,
-        systemerror: %r{(?>
-           bad[ ]interpreter:[ ]No[ ]such[ ]file[ ]or[ ]directory
-          |system[ ]error
-          |Unable[ ]to\b
-          )
-        }x,
-        networkerror: %r{Sorry(?:
-           [,][ ]I[ ]wasn[']t[ ]able[ ]to[ ]establish[ ]an[ ]SMTP[ ]connection
-          |[,][ ]I[ ]couldn[']t[ ]find[ ]a[ ]mail[ ]exchanger[ ]or[ ]IP[ ]address
-          |[.][ ]Although[ ]I[']m[ ]listed[ ]as[ ]a[ ]best[-]preference[ ]MX[ ]or[ ]A[ ]for[ ]that[ ]host
-          )
-        }x,
+        hostunknown: ["Sorry, I couldn't find any host "],
+        systemfull:  ['Requested action not taken: mailbox unavailable (not enough free space)'],
+        systemerror: [
+          'bad interpreter: No such file or directory',
+          'system error',
+          'Unable to',
+        ],
+        networkerror: [
+          "Sorry, I wasn't able to establish an SMTP connection",
+          "Sorry, I couldn't find a mail exchanger or IP address",
+          "Sorry. Although I'm listed as a best-preference MX or A for that host",
+        ],
       }.freeze
 
       def description; return 'qmail'; end
@@ -246,31 +237,31 @@ module Sisimai::Bite::Email
               # Sisimai::Reason::* modules
               e['reason'] = 'onhold'
             else
-              ReFailures.each_key do |r|
+              MessagesOf.each_key do |r|
                 # Verify each regular expression of session errors
                 if e['alterrors']
                   # Check the value of "alterrors"
-                  next unless e['alterrors'] =~ ReFailures[r]
+                  next unless MessagesOf[r].find { |a| e['alterrors'].include?(a) }
                   e['reason'] = r.to_s
                 end
                 break if e['reason']
 
-                next unless e['diagnosis'] =~ ReFailures[r]
+                next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
                 e['reason'] = r.to_s
                 break
               end
 
               unless e['reason']
-                ReLDAP.each_key do |r|
+                FailOnLDAP.each_key do |r|
                   # Verify each regular expression of LDAP errors
-                  next unless e['diagnosis'] =~ ReLDAP[r]
+                  next unless FailOnLDAP[r].find { |a| e['diagnosis'].include?(a) }
                   e['reason'] = r.to_s
                   break
                 end
               end
 
               unless e['reason']
-                e['reason'] = 'expired' if e['diagnosis'] =~ ReDelaying
+                e['reason'] = 'expired' if e['diagnosis'].include?(HasExpired)
               end
             end
           end

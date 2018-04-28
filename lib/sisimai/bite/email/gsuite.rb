@@ -13,10 +13,10 @@ module Sisimai::Bite::Email
         error:   %r/\AThe[ ]response([ ]from[ ]the[ ]remote[ ]server)?[ ]was:\z/,
         html:    %r{\AContent-Type:[ ]*text/html;[ ]*charset=['"]?(?:UTF|utf)[-]8['"]?\z},
       }.freeze
-      ErrorMayBe = {
-        userunknown:  %r/because the address couldn't be found/,
-        notaccept:    %r/Null MX/,
-        networkerror: %r/DNS type .+ lookup of .+ responded with code NXDOMAIN/,
+      MessagesOf = {
+        userunknown:  ["because the address couldn't be found"],
+        notaccept:    ['Null MX'],
+        networkerror: [' responded with code NXDOMAIN'],
       }.freeze
 
       def description; return 'G Suite: https://gsuite.google.com'; end
@@ -244,10 +244,10 @@ module Sisimai::Bite::Email
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           e['agent']     = self.smtpagent
 
-          ErrorMayBe.each_key do |q|
+          MessagesOf.each_key do |r|
             # Guess an reason of the bounce
-            next unless e['diagnosis'] =~ ErrorMayBe[q]
-            e['reason'] = q.to_s
+            next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
+            e['reason'] = r.to_s
             break
           end
         end

@@ -12,9 +12,9 @@ module Sisimai::Bite::Email
         error:   ['   ----- Non-delivered information -----'],
         rfc822:  ['Content-Type: message/rfc822'],
       }.freeze
-      ReFailures = {
-        filtered:    %r/Mail Delivery Failed[.]+ User unknown/,
-        mailboxfull: %r/The number of messages in recipient's mailbox exceeded the local limit[.]/,
+      MessagesOf = {
+        filtered:    ['Mail Delivery Failed... User unknown'],
+        mailboxfull: ["The number of messages in recipient's mailbox exceeded the local limit."],
       }.freeze
 
       def description; return 'BIGLOBE: http://www.biglobe.ne.jp'; end
@@ -121,9 +121,9 @@ module Sisimai::Bite::Email
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
-          ReFailures.each_key do |r|
+          MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailures[r]
+            next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
             break
           end

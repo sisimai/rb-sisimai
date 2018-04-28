@@ -13,7 +13,7 @@ module Sisimai::Bite::Email
         message: ['The following message to <', 'An error occurred while trying to deliver the mail'],
         rfc822:  ['content-type: message/rfc822'],
       }.freeze
-      ReFailures = { expired: %r/Delivery expired/ }.freeze
+      MessagesOf = { expired: ['Delivery expired'] }.freeze
 
       def description; return 'Amazon SES(Sending): http://aws.amazon.com/ses/'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -209,9 +209,9 @@ module Sisimai::Bite::Email
             e['status'] = pseudostatus if pseudostatus.size > 0
           end
 
-          ReFailures.each_key do |r|
+          MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailures[r]
+            next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
             break
           end

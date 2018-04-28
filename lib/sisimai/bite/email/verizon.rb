@@ -51,7 +51,7 @@ module Sisimai::Bite::Email
 
         markingsof = {}     # (Hash) Delimiter patterns
         startingof = {}     # (Hash) Delimiter strings
-        reFailures = {}     # (Hash) Error message patterns
+        messagesof = {}     # (Hash) Error message patterns
         boundary00 = ''     # (String) Boundary string
         v = nil
 
@@ -61,9 +61,9 @@ module Sisimai::Bite::Email
             message: %r/\AError:[ \t]/,
             rfc822:  %r/\A__BOUNDARY_STRING_HERE__\z/,
           }
-          reFailures = {
+          messagesof = {
             # The attempted recipient address does not exist.
-            userunknown: %r/550 [-] Requested action not taken: no such user here/,
+            userunknown: ['550 - Requested action not taken: no such user here'],
           }
           boundary00 = Sisimai::MIME.boundary(mhead['content-type']) || ''
 
@@ -137,7 +137,7 @@ module Sisimai::Bite::Email
           # vzwpix.com
           startingof = { message: ['Message could not be delivered to mobile'] }
           markingsof = { rfc822:  %r/\A__BOUNDARY_STRING_HERE__\z/ }
-          reFailures = { userunknown: %r/No valid recipients for this MM/ }
+          messagesof = { userunknown: ['No valid recipients for this MM'] }
           boundary00 = Sisimai::MIME.boundary(mhead['content-type'])
 
           if boundary00.size > 0
@@ -222,9 +222,9 @@ module Sisimai::Bite::Email
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
-          reFailures.each_key do |r|
+          messagesof.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ reFailures[r]
+            next unless messagesof[r].find { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
             break
           end

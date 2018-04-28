@@ -12,9 +12,9 @@ module Sisimai::Bite::Email
         message: ['This is an automatically generated Delivery Status Notification'],
         rfc822:  ['Content-Type: message/rfc822'],
       }.freeze
-      ReFailures = {
-        hostunknown: %r/The mail could not be delivered to the recipient because the domain is not reachable/,
-        userunknown: %r/Requested action not taken: mailbox unavailable/,
+      MessagesOf = {
+        hostunknown: ['The mail could not be delivered to the recipient because the domain is not reachable'],
+        userunknown: ['Requested action not taken: mailbox unavailable'],
       }.freeze
 
       def description; return 'Microsoft Outlook.com: https://www.outlook.com/'; end
@@ -177,9 +177,9 @@ module Sisimai::Bite::Email
             end
           end
 
-          ReFailures.each_key do |r|
+          MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailures[r]
+            next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
             break
           end
