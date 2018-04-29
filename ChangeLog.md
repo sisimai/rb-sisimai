@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.22.5p1
+v4.22.5p2
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -15,6 +15,7 @@ v4.22.5p1
     copyrights.
   - The value of "softbounce" in the parsed results is always "1" when a reason
     is "undefined" or "onhold".
+  - #117 Less regular expression in each class of Sisimai::Bite::Email.
 
 v4.22.5
 --------------------------------------------------------------------------------
