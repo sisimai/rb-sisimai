@@ -11,7 +11,7 @@ module Sisimai::Bite::Email
       Indicators = Sisimai::Bite::Email.INDICATORS
       StartingOf = { message: ['This report relates to a message you sent with the following header fields:'] }.freeze
       MarkingsOf = { rfc822: %r!\A(?:Content-type:[ ]*message/rfc822|Return-path:[ ]*)! }.freeze
-      ReFailures = { hostunknown: %r|Illegal host/domain name found| }.freeze
+      MessagesOf = { hostunknown: ['Illegal host/domain name found'] }.freeze
 
       def description; return 'Oracle Communications Messaging Server'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -175,9 +175,9 @@ module Sisimai::Bite::Email
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
-          ReFailures.each_key do |r|
+          MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailures[r]
+            next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
             break
           end

@@ -17,25 +17,35 @@ module Sisimai::Bite::Email
         %r/SMTP error from remote (?:mail server|mailer) after ([A-Za-z]{4})/,
         %r/SMTP error from remote (?:mail server|mailer) after end of ([A-Za-z]{4})/,
       ].freeze
-      ReFailures = {
-        expired:     %r/(?:retry timeout exceeded|No action is required on your part)/,
-        userunknown: %r/user not found/,
-        hostunknown: %r{(?>
-             all[ ](?:
-                 host[ ]address[ ]lookups[ ]failed[ ]permanently
-                |relevant[ ]MX[ ]records[ ]point[ ]to[ ]non[-]existent[ ]hosts
-                )
-            |Unrouteable[ ]address
-            )
-        }x,
-        mailboxfull: %r/(?:mailbox is full:?|error: quota exceed)/,
-        notaccept:   %r{(?:
-             an[ ]MX[ ]or[ ]SRV[ ]record[ ]indicated[ ]no[ ]SMTP[ ]service
-            |no[ ]host[ ]found[ ]for[ ]existing[ ]SMTP[ ]connection
-            )
-        }x,
-        systemerror:  %r/(?:delivery to (?:file|pipe) forbidden|local delivery failed)/,
-        contenterror: %r/Too many ["]Received["] headers /,
+      MessagesOf = {
+        expired: [
+          'retry timeout exceeded',
+          'No action is required on your part',
+        ],
+        userunknown: ['user not found'],
+        hostunknown: [
+          'all host address lookups failed permanently',
+          'all relevant MX records point to non-existent hosts',
+          'Unrouteable address',
+        ],
+        mailboxfull: ['mailbox is full', 'error: quota exceed'],
+        notaccept: [
+          'an MX or SRV record indicated no SMTP service',
+          'no host found for existing SMTP connection',
+        ],
+        syntaxerror: [
+          'angle-brackets nested too deep',
+          'expected word or "<"',
+          'domain missing in source-routed address',
+          'malformed address:',
+        ],
+        systemerror: [
+          'delivery to file forbidden',
+          'delivery to pipe forbidden',
+          'local delivery failed',
+          'LMTP error after ',
+        ],
+        contenterror: ['Too many "Received" headers'],
       }.freeze
 
       def description; return '@mail.ru: https://mail.ru'; end
@@ -230,9 +240,9 @@ module Sisimai::Bite::Email
               e['reason'] = 'rejected'
             else
               # Verify each regular expression of session errors
-              ReFailures.each_key do |r|
+              MessagesOf.each_key do |r|
                 # Check each regular expression
-                next unless e['diagnosis'] =~ ReFailures[r]
+                next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
                 e['reason'] = r.to_s
                 break
               end

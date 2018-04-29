@@ -20,18 +20,16 @@ module Sisimai::Bite::Email
         }x,
       }.freeze
 
-      ReFailures = {
-        expired: %r{(?:
-             DNS[ ]Error:[ ]Could[ ]not[ ]contact[ ]DNS[ ]servers
-            |Delivery[ ]to[ ]the[ ]following[ ]recipient[ ]has[ ]been[ ]delayed
-            |The[ ]recipient[ ]server[ ]did[ ]not[ ]accept[ ]our[ ]requests[ ]to[ ]connect
-            )
-        }x,
-        hostunknown: %r{DNS[ ]Error:[ ](?:
-             Domain[ ]name[ ]not[ ]found
-            |DNS[ ]server[ ]returned[ ]answer[ ]with[ ]no[ ]data
-            )
-        }x,
+      MessagesOf = {
+        expired: [
+          'DNS Error: Could not contact DNS servers',
+          'Delivery to the following recipient has been delayed',
+          'The recipient server did not accept our requests to connect',
+        ],
+        hostunknown: [
+          'DNS Error: Domain name not found',
+          'DNS Error: DNS server returned answer with no data',
+        ],
       }.freeze
       StateTable = {
         # Technical details of permanent failure:
@@ -283,9 +281,9 @@ module Sisimai::Bite::Email
             e['command'] = StateTable[statecode0]['command']
           else
             # No state code
-            ReFailures.each_key do |r|
+            MessagesOf.each_key do |r|
               # Verify each regular expression of session errors
-              next unless e['diagnosis'] =~ ReFailures[r]
+              next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
               e['reason'] = r.to_s
               break
             end

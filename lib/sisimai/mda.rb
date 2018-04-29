@@ -23,59 +23,54 @@ module Sisimai
       }.freeze
 
       # dovecot/src/deliver/mail-send.c:94
-      ReFailures = {
+      MessagesOf = {
         :'dovecot' => {
-          :userunknown => %r/\Amailbox doesn't exist: /,
-          :mailboxfull => %r{\A(?:
-             quota[ ]exceeded # Dovecot 1.2 dovecot/src/plugins/quota/quota.c
-            |quota[ ]exceeded[ ][(]mailbox[ ]for[ ]user[ ]is[ ]full[)]  # dovecot/src/plugins/quota/quota.c
-            |not[ ]enough[ ]disk[ ]space
-            )
-          }x,
+          userunknown: ["mailbox doesn't exist: "],
+          mailboxfull: [
+            'quota exceeded',   # Dovecot 1.2 dovecot/src/plugins/quota/quota.c
+            'quota exceeded (mailbox for user is full)',    # dovecot/src/plugins/quota/quota.c
+            'not enough disk space',
+          ],
         },
         :'mail.local' => {
-          :userunknown => %r{[:][ ](?:
-             unknown[ ]user[:]
-            |user[ ]unknown
-            |invalid[ ]mailbox[ ]path
-            |user[ ]missing[ ]home[ ]directory
-            )
-          }x,
-          :mailboxfull => %r{(?:
-             disc[ ]quota[ ]exceeded
-            |mailbox[ ]full[ ]or[ ]quota[ ]exceeded
-            )
-          }x,
-          :systemerror => %r/temporary file write error/,
+          userunknown: [
+            ': unknown user:',
+            ': user unknown',
+            ': invalid mailbox path',
+            ': user missing home directory',
+          ],
+          mailboxfull: [
+            'disc quota exceeded',
+            'mailbox full or quota exceeded',
+          ],
+          systemerror: ['temporary file write error'],
         },
         :'procmail' => {
-          :mailboxfull => %r/quota exceeded while writing/,
-          :systemfull  => %r/no space left to finish writing/,
+          :mailboxfull => ['quota exceeded while writing'],
+          :systemfull  => ['no space left to finish writing'],
         },
         :'maildrop' => {
-          :userunknown => %r{(?:
-             invalid[ ]user[ ]specified[.]
-            |Cannot[ ]find[ ]system[ ]user
-            )
-          }x,
-          :mailboxfull => %r/maildir over quota[.]\z/,
+          :userunknown => [
+            'invalid user specified.',
+            'Cannot find system user',
+          ],
+          :mailboxfull => ['maildir over quota.'],
         },
         :'vpopmail' => {
-          :userunknown => %r/sorry, no mailbox here by that name[.]/,
-          :filtered    => %r{(?:
-             account[ ]is[ ]locked[ ]email[ ]bounced
-            |user[ ]does[ ]not[ ]exist,[ ]but[ ]will[ ]deliver[ ]to[ ]
-            )
-          }x,
-          :mailboxfull => %r/(?:domain|user) is over quota/,
+          :userunknown => ['sorry, no mailbox here by that name.'],
+          :filtered    => [
+            'account is locked email bounced',
+            'user does not exist, but will deliver to '
+          ],
+          :mailboxfull => ['domain is over quota', 'user is over quota'],
         },
         :'vmailmgr' => {
-          :userunknown => %r{(?>
-             invalid[ ]or[ ]unknown[ ](?:base[ ]user[ ]or[ ]domain|virtual[ ]user)
-            |user[ ]name[ ]does[ ]not[ ]refer[ ]to[ ]a[ ]virtual[ ]user/
-            )
-          }x,
-          :mailboxfull => %r/delivery failed due to system quota violation/,
+          :userunknown => [
+            'invalid or unknown base user or domain',
+            'invalid or unknown virtual user',
+            'user name does not refer to a virtual user'
+          ],
+          mailboxfull: ['delivery failed due to system quota violation'],
         },
       }.freeze
 
@@ -125,11 +120,12 @@ module Sisimai
         return nil unless agentname0.size > 0
         return nil unless linebuffer.size > 0
 
-        ReFailures[agentname0.to_sym].each_key do |e|
+        MessagesOf[agentname0.to_sym].each_key do |e|
           # Detect an error reason from message patterns of the MDA.
           linebuffer.each do |f|
-            # Try to match with each regular expression
-            next unless f.downcase =~ ReFailures[agentname0.to_sym][e]
+            # Whether the error message include each message defined in $MessagesOf
+            g = f.downcase
+            next unless MessagesOf[agentname0.to_sym][e].find { |a| g.include?(a) }
             reasonname = e.to_s
             bouncemesg = f
             break

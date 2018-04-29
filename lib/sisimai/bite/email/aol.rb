@@ -11,9 +11,9 @@ module Sisimai::Bite::Email
         message: ['Content-Type: message/delivery-status'],
         rfc822:  ['Content-Type: message/rfc822'],
       }.freeze
-      ReFailures = {
-        hostunknown: %r/Host or domain name not found/,
-        notaccept:   %r/type=MX: Malformed or unexpected name server reply/,
+      MessagesOf = {
+        hostunknown: ['Host or domain name not found'],
+        notaccept:   ['type=MX: Malformed or unexpected name server reply'],
       }.freeze
 
       def description; return 'Aol Mail: http://www.aol.com'; end
@@ -177,9 +177,9 @@ module Sisimai::Bite::Email
           e['diagnosis'] = e['diagnosis'].gsub(/\\n/, ' ')
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
-          ReFailures.each_key do |r|
+          MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailures[r]
+            next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
             break
           end

@@ -11,13 +11,12 @@ module Sisimai::Bite::Email
         message: ['------- Failure Reasons '],
         rfc822:  ['------- Returned Message '],
       }.freeze
-      ReFailures = {
-        userunknown: %r{(?:
-           User[ ]not[ ]listed[ ]in[ ]public[ ]Name[ ][&][ ]Address[ ]Book
-          |ディレクトリのリストにありません
-          )
-        }x,
-        networkerror: %r/Message has exceeded maximum hop count/,
+      MessagesOf = {
+        userunknown: [
+          'User not listed in public Name & Address Book',
+          'ディレクトリのリストにありません',
+        ],
+        networkerror: ['Message has exceeded maximum hop count'],
       }.freeze
 
       def description; return 'Lotus Notes'; end
@@ -152,9 +151,9 @@ module Sisimai::Bite::Email
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           e['recipient'] = Sisimai::Address.s3s4(e['recipient'])
 
-          ReFailures.each_key do |r|
+          MessagesOf.each_key do |r|
             # Check each regular expression of Notes error messages
-            next unless e['diagnosis'] =~ ReFailures[r]
+            next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
             pseudostatus = Sisimai::SMTP::Status.code(r.to_s)
             e['status'] = pseudostatus if pseudostatus.size > 0

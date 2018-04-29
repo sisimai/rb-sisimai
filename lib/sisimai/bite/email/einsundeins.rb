@@ -12,7 +12,7 @@ module Sisimai::Bite::Email
         error:   ['For the following reason:'],
         rfc822:  ['--- The header of the original message is following'],
       }.freeze
-      ReFailures = { mesgtoobig: %r/Mail size limit exceeded/ }.freeze
+      MessagesOf = { mesgtoobig: ['Mail size limit exceeded'] }.freeze
 
       def description; return '1&1: http://www.1and1.de'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -111,9 +111,9 @@ module Sisimai::Bite::Email
           e['diagnosis'] = e['diagnosis'].to_s.gsub(/\A#{StartingOf[:error][0]}/, '')
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
-          ReFailures.each_key do |r|
+          MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailures[r]
+            next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
             break
           end
