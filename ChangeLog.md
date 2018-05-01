@@ -16,6 +16,7 @@ v4.22.5p2
   - The value of "softbounce" in the parsed results is always "1" when a reason
     is "undefined" or "onhold".
   - #117 Less regular expression in each class of Sisimai::Bite::Email.
+  - #118 Cool logo for "set-of-emails". Thanks to @batarian71.
 
 v4.22.5
 --------------------------------------------------------------------------------
