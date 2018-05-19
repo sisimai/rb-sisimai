@@ -1,0 +1,67 @@
+Return-Path: <MAILER-DAEMON@nijo.example.jp>
+Received: from localhost (localhost)
+	by nijo.example.jp (V8/cf) id w4F2NQNE010214;
+	Tue, 15 May 2018 11:23:26 +0900
+Date: Tue, 15 May 2018 11:23:26 +0900
+From: Mail Delivery Subsystem <poostmaster@example.jp>
+Message-Id: <201805150223.w4F2NQNE010214@nijo.example.jp>
+To: <kijitora@example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="w4F2NQNE010214.1526351006/nijo.example.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--w4F2NQNE010214.1526351006/nijo.example.jp
+
+The original message was received at Tue, 15 May 2018 11:23:25 +0900
+from p222200-ip2.kyoto.example.ne.jp [203.0.113.2]
+
+   ----- The following addresses had permanent fatal errors -----
+<this-local-part-does-not-exist-on@au.com>
+    (reason: 550 <this-local-part-does-not-exist-on@au.com>: User unknown)
+
+   ----- Transcript of session follows -----
+... while talking to msmx.au.com.:
+>>> DATA
+<<< 550 <this-local-part-does-not-exist-on@au.com>: User unknown
+550 5.1.1 <this-local-part-does-not-exist-on@au.com>... User unknown
+<<< 554 Error: no valid recipients
+
+--w4F2NQNE010214.1526351006/nijo.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; nijo.example.jp
+Received-From-MTA: DNS; p594067-ipngnfx01kyoto.kyoto.example.ne.jp
+Arrival-Date: Tue, 15 May 2018 11:23:25 +0900
+
+Final-Recipient: RFC822; this-local-part-does-not-exist-on@au.com
+Action: failed
+Status: 5.1.1
+Remote-MTA: DNS; msmx.au.com
+Diagnostic-Code: SMTP; 550 <this-local-part-does-not-exist-on@au.com>: User unknown
+Last-Attempt-Date: Tue, 15 May 2018 11:23:26 +0900
+
+--w4F2NQNE010214.1526351006/nijo.example.jp
+Content-Type: message/rfc822
+
+Return-Path: <kijitora@example.jp>
+Received: from [198.51.100.127] (p222200-ip2.kyoto.example.ne.jp [203.0.113.2])
+	(authenticated bits=128)
+	by nijo.example.jp (V8/cf) with ESMTP id w4F2NPNF010212
+	for <this-local-part-does-not-exist-on@au.com>; Tue, 15 May 2018 11:23:25 +0900
+From: "Neko, Nyaan" <kijitora@example.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Subject: Nyaan
+Message-Id: <141C8737-5D7F-4640-B361-4FDA50E8ACF1@example.jp>
+Date: Tue, 15 May 2018 11:23:25 +0900
+To: this-local-part-does-not-exist-on@au.com
+
+Nyaan
+
+--w4F2NQNE010214.1526351006/nijo.example.jp--
+
