@@ -15,7 +15,6 @@ isexpected = [
   { 'n' => '01011', 'r' => /userunknown/ },
   { 'n' => '01012', 'r' => /userunknown/ },
   { 'n' => '01013', 'r' => /userunknown/ },
-  { 'n' => '01014', 'r' => /userunknown/ },
   { 'n' => '01015', 'r' => /userunknown/ },
   { 'n' => '01016', 'r' => /userunknown/ },
   { 'n' => '01017', 'r' => /filtered/ },

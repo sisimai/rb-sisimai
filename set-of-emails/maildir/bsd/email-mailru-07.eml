@@ -1,0 +1,82 @@
+Delivered-To: azumakuinyuki@mail.example.ru
+Return-path: <>
+Received: from mail by f496.i.mail.ru with local id 1fKd98-0006iF-20
+	for azumakuinyuki@mail.example.ru; Mon, 21 May 2018 08:14:10 +0300
+X-Failed-Recipients: otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+X-Mailer-Daemon-Recipients: otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+Auto-Submitted: auto-replied
+From: mailer-daemon@corp.mail.ru
+To: azumakuinyuki@mail.example.ru
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Subject: =?UTF-8?B?0JLQsNGI0LUg0YHQvtC+0LHRidC10L3QuNC1INC90LUg0LTQvtGB0YLQsNCy0LvQtdC90L4=?=. Mail failure.
+Message-Id: <E1fKd98-0006iF-20@f496.i.mail.ru>
+Date: Mon, 21 May 2018 08:14:10 +0300
+X-Mras: PASS
+Authentication-Results: f496.i.mail.ru; auth=pass smtp.auth=mailer-daemon@corp.mail.ru smtp.mailfrom=mailer-daemon@corp.mail.ru; iprev=pass policy.iprev=127.0.0.1
+X-Mru-Trust-IP: 1
+
+Это письмо создано автоматически сервером Mail.Ru, отвечать на него не нужно.
+
+К сожалению, Ваше письмо не может быть доставлено одному или нескольким получателям:
+
+  otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+    SMTP error from remote mail server after end of data:
+    host lsean.ezweb.ne.jp [27.85.176.228]: 550 :
+    User unknown
+
+Рекомендуем Вам проверить корректность указания адресов получателей.
+
+**********************
+
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+    SMTP error from remote mail server after end of data:
+    host lsean.ezweb.ne.jp [27.85.176.228]: 550 :
+    User unknown
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <azumakuinyuki@mail.example.ru>
+Received: by f496.i.mail.ru with local (envelope-from <azumakuinyuki@mail.example.ru>)
+	id 1fKd96-0006hZ-Ab
+	for otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp; Mon, 21 May 2018 08:14:08 +0300
+Received: by e.mail.ru with HTTP;
+	Mon, 21 May 2018 08:14:08 +0300
+From: =?UTF-8?B?a3VuaXl1a2kgYXp1bWE=?= <azumakuinyuki@mail.example.ru>
+To: otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+Subject: =?UTF-8?B?TnlhYW4=?=
+MIME-Version: 1.0
+X-Mailer: Mail.Ru Mailer 1.0
+X-Originating-IP: [203.0.113.252]
+Date: Mon, 21 May 2018 08:14:08 +0300
+Reply-To: =?UTF-8?B?a3VuaXl1a2kgYXp1bWE=?= <azumakuinyuki@mail.example.ru>
+X-Priority: 3 (Normal)
+Message-ID: <1526879648.849946119@f496.i.mail.ru>
+Content-Type: multipart/alternative;
+	boundary="--ALT--bS459fSfsWJKlhbpwW1b0TWi2QwnN89E1526879648"
+Authentication-Results: f496.i.mail.ru; auth=pass smtp.auth=azumakuinyuki@mail.example.ru smtp.mailfrom=azumakuinyuki@mail.example.ru
+X-7FA49CB5: 0D63561A33F958A56E29D80AA7B674E82716962C22652CDCF94BCAF8487875F4725E5C173C3A84C3B05BC8F5D81C6DE875C2C6D33D188673157381330E1A1978C4224003CC836476C0CAF46E325F83A50BF2EBBBDD9D6B0F5D41B9178041F3E72623479134186CDE6BA297DBC24807EABDAD6C7F3747799A
+X-Mailru-Sender: 052F3EE632032033F266ABDBF075731282EAD045A0F7E2F6016FD100B11F81AD95AB7A8704C6B9B162220DE34F27E6EF1D295F8817E181A9626B1D7BE3F966DCC1066F626AABBBD95843B8C90ECF6809064FDD5B919501F067EA787935ED9F1B
+X-Mras: OK
+X-Spam: undefined
+
+
+----ALT--bS459fSfsWJKlhbpwW1b0TWi2QwnN89E1526879648
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+
+TnlhYW4KCg==
+
+----ALT--bS459fSfsWJKlhbpwW1b0TWi2QwnN89E1526879648
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
+
+CjxIVE1MPjxCT0RZPk55YWFuPGJyPjxicj48L0JPRFk+PC9IVE1MPgo=
+
+----ALT--bS459fSfsWJKlhbpwW1b0TWi2QwnN89E1526879648--

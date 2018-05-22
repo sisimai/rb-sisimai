@@ -1,0 +1,73 @@
+Return-Path: <>
+Received: from sijo.example.jp (sijo.example.jp [192.0.2.225])
+	by nijo.example.jp (V8/cf) with ESMTP id w4M7VRm0031324
+	for <kijitora@example.jp>; Tue, 22 May 2018 16:31:27 +0900
+Received: by sijo.example.jp (Postfix)
+	id AE504C6D941; Tue, 22 May 2018 16:31:27 +0900 (JST)
+Date: Tue, 22 May 2018 16:31:27 +0900 (JST)
+From: MAILER-DAEMON@sijo.example.jp (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: kijitora@example.jp
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="7F59EC6DD0E.1526974287/sijo.example.jp"
+Message-Id: <20180522073127.AE504C6D941@sijo.example.jp>
+
+This is a MIME-encapsulated message.
+
+--7F59EC6DD0E.1526974287/sijo.example.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host sijo.example.jp.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp>: host
+    lsean.ezweb.ne.jp[27.85.176.228] said: 550
+    <otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp>: User unknown (in reply to
+    RCPT TO command)
+
+--7F59EC6DD0E.1526974287/sijo.example.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; sijo.example.jp
+X-Postfix-Queue-ID: 7F59EC6DD0E
+X-Postfix-Sender: rfc822; kijitora@example.jp
+Arrival-Date: Tue, 22 May 2018 16:31:06 +0900 (JST)
+
+Final-Recipient: rfc822; otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+Original-Recipient: rfc822;otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+Action: failed
+Status: 5.0.0
+Remote-MTA: dns; lsean.ezweb.ne.jp
+Diagnostic-Code: smtp; 550 <otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp>:
+    User unknown
+
+--7F59EC6DD0E.1526974287/sijo.example.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <kijitora@example.jp>
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by sijo.example.jp (Postfix) with ESMTP id 7F59EC6DD0E
+	for <otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp>; Tue, 22 May 2018 16:31:06 +0900 (JST)
+From: kijitora@example.jp
+To: otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+Subject: Nyaan
+Message-Id: <20180522073110.7F59EC6DD0E@sijo.example.jp>
+Date: Tue, 22 May 2018 16:31:06 +0900 (JST)
+
+Nyaan
+
+--7F59EC6DD0E.1526974287/sijo.example.jp--

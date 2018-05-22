@@ -237,6 +237,7 @@ module Sisimai
 
           # Check space character in each value and get the first element
           p[v] = p[v].split(' ', 2).shift if p[v].include?(' ')
+          p[v] = p[v].chomp('.')        # Remove "." at the end of the value
         end
 
         # Subject: header of the original message

@@ -1,0 +1,153 @@
+Return-path: <>
+Received: from mr21p30im-asmtp002.me.com ([17.111.174.65])
+ by ms30511.mac.com (Oracle Communications Messaging Server 8.0.1.3.20170906
+ 64bit (built Sep  6 2017)) with ESMTP id <0P92002VBV2SUVC0@ms30511.mac.com>
+ for azumakuniyuki@icloud.example.com; Mon, 21 May 2018 12:08:52 +0000 (GMT)
+Original-recipient: rfc822;azumakuniyuki@icloud.example.com
+Received: from process-daemon.mr21p30im-asmtp002.me.com by
+ mr21p30im-asmtp002.me.com
+ (Oracle Communications Messaging Server 8.0.1.2.20170607 64bit (built Jun  7
+ 2017)) id <0P9200D00TY08300@mr21p30im-asmtp002.me.com> for
+ azumakuniyuki@icloud.example.com (ORCPT azumakuniyuki@icloud.example.com); Mon,
+ 21 May 2018 12:08:52 +0000 (GMT)
+X-CLX-Spam: false
+X-CLX-UnSpecialScore: None
+X-CLX-Score: 1003
+X-CLX-UShades: None
+X-CLX-Shades: None
+X-MANTSH: 1TEIXR1gbG1oaGkNHB0tNT0ReRV9eGRsbGxEKTEMXGx0EGxsbBBsdGQQZGBAbHho
+ fGhEKQ04XGWwab1pmWWFvHGN6SU9vTx0fSR9seGl+AV1wE39DeGsRClhcFxkEGgQZHgcZGxweG
+ xlMEwUbHQQbGxsEGx8fBBsfHBAbHhofGhEKTFkXGxoaGREKTEYXa2tra2tra2tse2sRCk9YFxo
+ RCk5IF05ZRBBOQUNHEEVBEEtQX0dLQV9EQ1NfQUNqQ0lGRV9OBElFRxBDSUZFX04ESUVHEQptf
+ hcaEQpYTRdLEQ==
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:,,
+ definitions=2018-05-21_04:,, signatures=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=1 ndrscore=1
+ suspectscore=3 malwarescore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1003 adjustscore=0 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1707230000 definitions=main-1805210146
+Received: from mr21p30im-asmtp002.me.com
+ (Oracle Communications Messaging Server 8.0.1.2.20170607 64bit (built Jun  7
+ 2017)) id <0P920004MV2RTW00@mr21p30im-asmtp002.me.com>; Mon,
+ 21 May 2018 12:08:51 +0000 (GMT)
+Date: Mon, 21 May 2018 12:08:51 +0000 (GMT)
+From: postmaster@mac.com
+Subject: Delivery Notification: Delivery has failed
+In-reply-to: <1175b14d-4e0b-4e85-82a5-4cae26e7ad9e@me.com>
+To: azumakuniyuki@icloud.example.com
+Message-id: <0P920004PV2RTW00@mr21p30im-asmtp002.me.com>
+MIME-version: 1.0
+Content-type: multipart/report; report-type=delivery-status;
+ boundary="Boundary_(ID_lBovXTkVF+12wc5d6BL8vw)"
+References: <1175b14d-4e0b-4e85-82a5-4cae26e7ad9e@me.com>
+
+
+--Boundary_(ID_lBovXTkVF+12wc5d6BL8vw)
+Content-type: text/plain; charset=us-ascii
+Content-language: en-US
+
+This report relates to a message you sent with the following header fields:
+
+  Message-id: <1175b14d-4e0b-4e85-82a5-4cae26e7ad9e@me.com>
+  Date: Mon, 21 May 2018 12:08:48 +0000 (GMT)
+  From: azumakuniyuki <azumakuniyuki@icloud.example.com>
+  To: otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+  Subject: =?utf-8?B?44OL44Oj44O844Oz?=
+
+Your message cannot be delivered to the following recipients:
+
+  Recipient address: otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+  Reason: Remote SMTP server has rejected address
+  Diagnostic code: smtp;550 <otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp>: User unknown
+  Remote system: dns;lsean.ezweb.ne.jp (TCP|17.111.174.65|31066|27.85.176.228|25) (au mail)
+
+
+--Boundary_(ID_lBovXTkVF+12wc5d6BL8vw)
+Content-type: message/delivery-status
+
+Original-envelope-id: 0P920018CV2OIP30@mr21p30im-asmtp002.me.com
+Reporting-MTA: dns;mr21p30im-asmtp002.me.com (tcp-daemon)
+Arrival-date: Mon, 21 May 2018 12:08:51 +0000 (GMT)
+
+Original-recipient: rfc822;otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+Final-recipient: rfc822;otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+Action: failed
+Status: 5.0.0 (Remote SMTP server has rejected address)
+Remote-MTA: dns;lsean.ezweb.ne.jp (TCP|17.111.174.65|31066|27.85.176.228|25)
+ (au mail)
+Diagnostic-code: smtp;550 <otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp>:
+ User unknown
+
+--Boundary_(ID_lBovXTkVF+12wc5d6BL8vw)
+Content-type: message/rfc822
+
+Return-path: <azumakuniyuki@icloud.example.com>
+Received: from tcp-daemon.mr21p30im-asmtp002.me.com by
+ mr21p30im-asmtp002.me.com
+ (Oracle Communications Messaging Server 8.0.1.2.20170607 64bit (built Jun  7
+ 2017)) id <0P920004MV2RTW00@mr21p30im-asmtp002.me.com>; Mon,
+ 21 May 2018 12:08:51 +0000 (GMT)
+Received: from process-dkim-sign-daemon.mr21p30im-asmtp002.me.com by
+ mr21p30im-asmtp002.me.com
+ (Oracle Communications Messaging Server 8.0.1.2.20170607 64bit (built Jun  7
+ 2017)) id <0P9200P00UVN0100@mr21p30im-asmtp002.me.com> for
+ otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp; Mon,
+ 21 May 2018 12:08:51 +0000 (GMT)
+Received: from localhost (mr21p30im-ztbu08053101.me.com [17.111.153.80])
+ by mr21p30im-asmtp002.me.com
+ (Oracle Communications Messaging Server 8.0.1.2.20170607 64bit (built Jun  7
+ 2017)) with ESMTP id <0P920018BV2OIP30@mr21p30im-asmtp002.me.com> for
+ otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp; Mon,
+ 21 May 2018 12:08:50 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com;	s=04042017;
+ t=1526904531;	bh=o1kYs7V29pGRP+PiDmUbX3uI+m0MZEU3XrePtWs3wyE=;
+	h=To:From:Subject:Date:Message-id:Content-type:MIME-version;
+	b=SZuHaELOI8Q2Q2pTeSjnRhHkHxTFkrUAag0TD3L1p87h+V4ALB/Tf15WPGHM2iSNX
+ i3Iod/7s4kjDIphdH4T26tLHiJNa3+s+5HvZ6oggj50Lj4qzekPZ06LXK7cpNweTrN
+ drDnGr1h441hj+NPVVKSacpkJthRHmdV/5oSPHUs2IJ6eVTnlownz1kx1532IbKvlG
+ sPmK4uzJ+30pRKUQWa3uVj68A9Ff6ebalu5HoO4UUD0V4B21D5/O9jHi/1kdaHLVnW
+ 1iQ+FYkMnrw2OTPKaGcof3eWtu07F1/RpXstMEDVkugJP/qEnlOVQiTeenT2+LN7zq
+ pQgGQ/Vk2Pn5w==
+Date: Mon, 21 May 2018 12:08:48 +0000 (GMT)
+From: azumakuniyuki <azumakuniyuki@icloud.example.com>
+Subject: =?utf-8?B?44OL44Oj44O844Oz?=
+To: otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+Message-id: <1175b14d-4e0b-4e85-82a5-4cae26e7ad9e@me.com>
+MIME-version: 1.0
+X-Mailer: iCloud MailClient1808Project39
+ MailServer1808B28.27280-16A-3134-f4a51c5140c6
+Content-type: multipart/alternative;
+ boundary=Apple-Webmail-42--fbc0988c-a2b9-40e6-8247-c75bd48bb471
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:,,
+ definitions=2018-05-21_04:,, signatures=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=2 spamscore=2
+ clxscore=1011 suspectscore=1 malwarescore=0 phishscore=0 adultscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.0.1-1707230000 definitions=main-1805210146
+
+
+--Apple-Webmail-42--fbc0988c-a2b9-40e6-8247-c75bd48bb471
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+    charset=utf-8;
+    format=flowed
+
+=E3=81=AB=E3=82=83=E3=83=BC=E3=82=93
+--Apple-Webmail-42--fbc0988c-a2b9-40e6-8247-c75bd48bb471
+Content-Type: multipart/related;
+    type="text/html";
+    boundary=Apple-Webmail-86--fbc0988c-a2b9-40e6-8247-c75bd48bb471
+
+
+--Apple-Webmail-86--fbc0988c-a2b9-40e6-8247-c75bd48bb471
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+    charset=utf-8;
+
+<html><body><div>=E3=81=AB=E3=82=83=E3=83=BC=E3=82=93</div></body></html>
+--Apple-Webmail-86--fbc0988c-a2b9-40e6-8247-c75bd48bb471--
+
+--Apple-Webmail-42--fbc0988c-a2b9-40e6-8247-c75bd48bb471--
+
+
+--Boundary_(ID_lBovXTkVF+12wc5d6BL8vw)--

@@ -14,6 +14,8 @@ module Sisimai
         'mailstore1.secureserver.net' => 'GoDaddy',
         'laposte.net'                 => 'FrancePTT',
         'orange.fr'                   => 'FrancePTT',
+        'lsean.ezweb.ne.jp'           => 'KDDI',
+        'msmx.au.com'                 => 'KDDI',
       }.freeze
 
       # Retrun the list of remote hosts Sisimai support
@@ -48,7 +50,6 @@ module Sisimai
       def get(argvs)
         return nil unless argvs
         return nil unless argvs.is_a? Sisimai::Data
-        return argvs.reason if argvs.reason.size > 0
 
         remotehost = argvs.rhost.downcase
         rhostclass = ''

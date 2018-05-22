@@ -1,0 +1,68 @@
+Return-Path: <MAILER-DAEMON@nijo.libsisimai.org>
+Received: from localhost (localhost)
+	by nijo.libsisimai.org (V8/cf) id w4L7A060023868;
+	Mon, 21 May 2018 16:10:00 +0900
+Date: Mon, 21 May 2018 16:10:00 +0900
+From: Mail Delivery Subsystem <poostmaster@libsisimai.org>
+Message-Id: <201805210710.w4L7A060023868@nijo.libsisimai.org>
+To: <kijitora@libsisimai.org>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="w4L7A060023868.1526886600/nijo.libsisimai.org"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--w4L7A060023868.1526886600/nijo.libsisimai.org
+
+The original message was received at Mon, 21 May 2018 16:09:59 +0900
+from p225-ix4.kyoto.example.ne.jp [203.0.113.225]
+
+   ----- The following addresses had permanent fatal errors -----
+<otsu-sakaba-hunter-neko-nyaaaaaaan@au.com>
+    (reason: 550 <otsu-sakaba-hunter-neko-nyaaaaaaan@au.com>: User unknown)
+
+   ----- Transcript of session follows -----
+... while talking to msmx.au.com.:
+>>> DATA
+<<< 550 <otsu-sakaba-hunter-neko-nyaaaaaaan@au.com>: User unknown
+550 5.1.1 <otsu-sakaba-hunter-neko-nyaaaaaaan@au.com>... User unknown
+<<< 554 Error: no valid recipients
+
+--w4L7A060023868.1526886600/nijo.libsisimai.org
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; nijo.libsisimai.org
+Received-From-MTA: DNS; p225-ix4.kyoto.example.ne.jp
+Arrival-Date: Mon, 21 May 2018 16:09:59 +0900
+
+Final-Recipient: RFC822; otsu-sakaba-hunter-neko-nyaaaaaaan@au.com
+Action: failed
+Status: 5.1.1
+Remote-MTA: DNS; msmx.au.com
+Diagnostic-Code: SMTP; 550 <otsu-sakaba-hunter-neko-nyaaaaaaan@au.com>: User unknown
+Last-Attempt-Date: Mon, 21 May 2018 16:10:00 +0900
+
+--w4L7A060023868.1526886600/nijo.libsisimai.org
+Content-Type: message/rfc822
+
+Return-Path: <kijitora@libsisimai.org>
+Received: from [198.51.100.225] (p225-ix4.kyoto.example.ne.jp [203.0.113.225])
+	(authenticated bits=128)
+	by nijo.libsisimai.org (V8/cf) with ESMTP id w4L79x61023866
+	for <otsu-sakaba-hunter-neko-nyaaaaaaan@au.com>; Mon, 21 May 2018 16:09:59 +0900
+From: "Neko, Nyaan" <kijitora@libsisimai.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: =?utf-8?B?44OL44Oj44O844Oz?=
+Message-Id: <C571433A-2457-47FA-B3E0-8F90AF58B3D9@libsisimai.org>
+Date: Mon, 21 May 2018 16:09:58 +0900
+To: otsu-sakaba-hunter-neko-nyaaaaaaan@au.com
+X-Mailer: Apple Mail (2.3273)
+
+44Gr44KD44O844KTDQoNCg==
+
+--w4L7A060023868.1526886600/nijo.libsisimai.org--
+
