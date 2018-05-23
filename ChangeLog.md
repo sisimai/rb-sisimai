@@ -3,9 +3,9 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.22.5p3
+v4.22.6
 --------------------------------------------------------------------------------
-- release: ""
+- release: "Wed, 23 May 2018 20:00:00 +0900 (JST)"
 - version: ""
 - changes:
   - #115 Fix bug in Sisimai::MIME.qprintd().
@@ -19,6 +19,9 @@ v4.22.5p3
   - #118 Cool logo for "set-of-emails". Thanks to @batarian71.
   - #119 Implement Sisimai::Rhost::KDDI for detecting a bounce reason of au via
     msmx.au.com or lsean.ezweb.ne.jp. Thanks to @kokubumotohiro.
+  - Update sample emails and codes for getting error messages in bounced emails
+    on Oath(Yahoo!).
+  - Add many sample emails for "notaccept" and "rejected".
 
 v4.22.5
 --------------------------------------------------------------------------------

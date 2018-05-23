@@ -240,7 +240,7 @@ Differences between Ruby version and Perl version
 | インストール方法                            | gem install    | cpanm, cpm    |
 | 依存モジュール数(コアモジュールを除く)      | 1モジュール    | 2モジュール   |
 | LOC:ソースコードの行数                      | 12000行        | 8600行        |
-| テスト件数(spec/,t/,xt/ディレクトリ)        | 207000件       | 224000件      |
+| テスト件数(spec/,t/,xt/ディレクトリ)        | 212000件       | 229000件      |
 | ライセンス                                  | 二条項BSD      | 二条項BSD     |
 | 開発会社によるサポート契約                  | 準備中         | 提供中        |
 
@@ -294,7 +294,7 @@ Author
 
 Copyright
 ===============================================================================
-Copyright (C) 2015-2017 azumakuniyuki, All Rights Reserved.
+Copyright (C) 2015-2018 azumakuniyuki, All Rights Reserved.
 
 License
 ===============================================================================
