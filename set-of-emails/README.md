@@ -1,9 +1,6 @@
-         ____       _      ___   __   _____                 _ _     
-        / ___|  ___| |_   / _ \ / _| | ____|_ __ ___   __ _(_) |___ 
-        \___ \ / _ \ __| | | | | |_  |  _| | '_ ` _ \ / _` | | / __|
-         ___) |  __/ |_  | |_| |  _| | |___| | | | | | (_| | | \__ \
-        |____/ \___|\__|  \___/|_|   |_____|_| |_| |_|\__,_|_|_|___/
-                                                                    
+<p align="center"><img src="logo/horizontalversions.png" alt="set-of-emails" height="180px"></p>
+
+  
 About "set-of-emails" repository
 ================================================================================
 This repository hold bounce mail collections for developing Sisimai. Email files
@@ -45,4 +42,5 @@ Copyright (C) 2018 azumakuniyuki, All Rights Reserved.
 License
 ===============================================================================
 This software is distributed under The BSD 2-Clause License.
+Files in logo/ created by @batarian71 are distributed under CC BY 4.0
 
