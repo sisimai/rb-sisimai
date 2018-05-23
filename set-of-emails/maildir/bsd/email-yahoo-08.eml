@@ -1,0 +1,75 @@
+X-Apparently-To: azumakuniyuki@y.example.com; Mon, 21 May 2018 12:25:59 +0000
+Return-Path: <>
+Received-SPF: none (domain of sonic311-12.consmr.mail.sg3.yahoo.com does not designate permitted sender hosts)
+X-YMailISG: b9t3tF8WLDuQ3ZVZ0cgoh9rs5PINGyacWRkQFVazjebchExJ
+ _KW.9g4dPcCKlnpRnfLRBng4vaJQ5Xw3ImtMnPn0cxNtD5EATUPdjMRxOiUf
+ FU6n9xHy0iM.JtwKuSFP1c6NwZDqwUS8tOTmyGFsCzeN3UhsTz6__4yhtIjP
+ JZzLSdeKbY9a9sKukaKpaKD3tVj1dM7lTlP0KEpwRAPaLz1kyqtI5t7k..Qf
+ NLDZHMzU3PWI_wxoqPIROKS0oRa7oU52hXBY5P4qrEhM9dQQ8mqhBD3XKxP1
+ NQJXPd1yoRMl9Pt9sQFq8DlTTuKhyiv9xYyZg7yQK5z2_Jc.RPiRrD1DoDmf
+ R2Ve0Fnu9Mp9NS5lyDpzfhMIUMgBo2ySq496UBA6rk_HScEW4v6bAj4xrEOm
+ LUsPM5sQxr6axpZr6JaqD6K19fVwYLQfMMXl7T8nNTRdz7MVwaYuYq1GopmF
+ e7H0pxxyhk1OWYzj5Kh5V0klmqJdDw0EMOsil07W7ynscGLBXiAJDf0U797a
+ KcyCTseWZzR3ZUB26JbgMsX1dsJ5.m5El94aq_KX8Fu5IYN0EwvLIxbT.DAO
+ 7gZWKtSnMnBRkGpAwSYOsbtj5GxSUvC2TnIJUTyeCCD5yj.Pu0Scpbrqf6W8
+ YT2lkIrN9tVRxENywBby8y7e0Ne4MyjS58s4NdZ1QzG.NIzPUleTX9uTKG2q
+ YJ8KI.lAZL2RxVoM9XO1c3MVkiQHR_gvnq8nW..1QxzMHoJwgO2pieZ6aHvS
+ 0KhFxsQ9nWJw7qeDxntyl.8C9N0ZFSu.vBIzMVs3aeRgQZvY_tnjg7M5veOZ
+ UQsVWpaCJH0StotmWkTUy0iVafKgpQh6ZzsK7B9TUGIZ95qBiOdyP9OJBMOZ
+ YxyOrsymZvKJQGAA2iB9uPZHhGuv1V619Tqp7AIIOChgJMBuiTz5qkigmXSp
+ 7W6JO91deI6KPsas6yKwK.dFqeZu4TlOfU74lUZT3Z4pbCRUnrhOkxIvi3bo
+ FeylYFFIPZhU7ltBDk2I5GSlwa_S.AuRERI0WOEFu_I.jqgP4vA7fW0bePeK
+ aBqNA4Vi7jMSn01FvX2L_aG9zJ28rv0zJUwqWeqZz4fMMoyVnEHt.DX81Rg_
+ kKsxLR3Nnl.kF35CjWlcLitox9Q6vD_CkxKNAgZxdhR4VWngwDBXDVzYndXD
+ 0YAV_8dGBFHeW3U5gIz3WdwFTnUZJsXpDIU7Uh9Ad_RHcz4RUBPTDHSnW6LU
+ H1UE1GAf_atdM6MBVprkDePclnZICqjc_g--
+X-Originating-IP: [106.10.244.189]
+Authentication-Results: mta4351.mail.bf1.yahoo.com  from=yahoo.com; domainkeys=neutral (no sig);  from=yahoo.com; dkim=pass (ok)
+Received: from 127.0.0.1  (EHLO sonic311-12.consmr.mail.sg3.yahoo.com) (106.10.244.189)
+  by mta4351.mail.bf1.yahoo.com with SMTPS; Mon, 21 May 2018 12:25:59 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=bounce; t=1526905556; bh=tgiTULMv9m6pR5Y5Wrd/IqcDjqlJuS1+cJcogp6k/K8=; h=Date:From:To:Subject:From:Subject; b=fnqiSOYzx00NiLhx8oFLYbR7LxqPvE7AxngGBQCBQyfiOmixl6DRozTvVIltSfgeGl0Sw84Py6+f5n1PnwKfaUGOMU5fiaSaydLNOn42PdPIPvCsq4gQU8z9YMAdOXsl9rOo7jHQ23Dtktq4suPJ7MZ6DXC2/1AUuq6/eObWR1o=
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic311.consmr.mail.sg3.yahoo.com with HTTP; Mon, 21 May 2018 12:25:56 +0000
+Date: Mon, 21 May 2018 12:25:56 +0000
+From: MAILER-DAEMON@yahoo.com
+To: azumakuniyuki@y.example.com
+Message-ID: <606085446.536432.1526905556800@sonic311.consmr.mail.sg3.yahoo.com>
+Subject: Failure Notice
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Content-Length: 2234
+
+Sorry, we were unable to deliver your message to the following address.
+
+<mailboxfull@libsisimai.org>:
+550: 5.2.2 <mailboxfull@libsisimai.org>... Mailbox Full
+
+--- Below this line is a copy of the message.
+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1526905555; bh=WRkYRwSU0EIKKppaHfmp28cJDAgWJLeR1xnJZVCEQ1g=; h=From:Subject:Date:To:From:Subject; b=LAW09Aii8+KZASfCduwGu6Sm6JFnjFLjtKad0ISWSDUteef5Ka8rRG3o6XfrrIBP3uu+dSVXKOS2QSd03o1z+tFX1RWPDJJqF+o9kj3JziYpqQf6AxeSzb8zSsb9YnfrD0Xrzj9VGCwjnja0z2VjxcI4fLf+9HsA0inoK8OjjIxc4Y7+iy9PfBJ3sJfwxX9BPjLdJVyuESxqqd46v6P3KsLhjCoLBDPSPITVhhIY+GeKUEb0vF+SS6m38oHwVIOXWcN79mXb0/A3wgJPpYqmUG4BWqxfYWQbNN4c/1dPgNnFhrNLUioYQK/GVOwpy3DbZtVpxtvOCT4zjQbSWIlKeg==
+X-YMail-OSG: ct.sDA0VM1lFG9T2mD4wnmr4cCdVOM4_aDl378f2kq5mvPDo.viCTSRweqc1ExN
+ _dgSjrSJr3sLoKnxNUec6.SWLxuA5OmczirnSspdvv7T5rtGQDhbDD7jPqeXZjgcrTZ14t7j40U2
+ CoSNfZEJjqskXMQ1ScTvbh.gf55O8R0T2ESX80J3X2kjhC6fO_HCeC.X7oZ3isPuLxWw0hkeqkLM
+ lj0CGgrWBuJXpxPv2AXubzOcuIAsD5ijZET8AAkT_9pKAdOdrKnI_IcIAjo2sB0im2ZlO2yvCKMe
+ QOD5Wy5KcaATI6FsEtKwBW6o2vldqFHoS8jJcIzp7_sBKFZZMdBibpgJm6KUUlCcbSy8hLo1IDC2
+ VbkQkRvtD62NWdOQKH0KeXFeXZW12e5EzZRS79y9vNfIkpP6qzOMpY7Uojot1L8_VXE.RnZQPCJe
+ 8wV9l9UMRPUvZYlWlwtGIUqxQil6TcGUrIdarfYaj1BIJmgr1Jh1R1HnDbMrymu2abS06z8fZZ27
+ 2zgbYLBfYhMsJJhwOrXOOUR7AMvMAiqJTlXk1G1jrmelgMVMqhhPOMNzNC74ZGCQwmfn5gErpk0u
+ YyxXxnqPk2N7ZLyGkOIKii2QPSDwzItyQKI58gc16DrFLSvLpmL9hb3Z7FH1_MyK_0LD.NdNDTX3
+ 1Qm7u5HNoiIRtRkm_qPSK.G.lrg--
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic311.consmr.mail.sg3.yahoo.com with HTTP; Mon, 21 May 2018 12:25:55 +0000
+Received: from p225-ix7.kyoto.example.ne.jp (EHLO [192.0.2.2]) ([213.0.113.225])
+          by smtp414.mail.sg3.yahoo.com (Oath Hermes SMTP Server) with ESMTPA ID 9a3a7736e9786733ee74cdfac825a603
+          for <mailboxfull@libsisimai.org>;
+          Mon, 21 May 2018 12:21:54 +0000 (UTC)
+From: Kuniyuki Azuma <azumakuniyuki@y.example.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: Nyaan
+Message-Id: <D957E346-5D46-47EE-8CEF-EF76A51AFD20@yahoo.com>
+Date: Mon, 21 May 2018 21:21:51 +0900
+To: mailboxfull@libsisimai.org
+X-Mailer: Apple Mail (2.3273)
+
+Nyaan

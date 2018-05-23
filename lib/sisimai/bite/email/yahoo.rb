@@ -91,6 +91,7 @@ module Sisimai::Bite::Email
                 v = dscontents[-1]
               end
               v['recipient'] = cv[1]
+              v['diagnosis'] = ''
               recipients += 1
             else
               if e.start_with?('Remote host said:')
@@ -116,6 +117,9 @@ module Sisimai::Bite::Email
                     # 550 5.2.2 <mailboxfull@example.jp>... Mailbox Full
                     v['diagnosis'] = e
                   end
+                else
+                  # Error message which does not start with 'Remote host said:'
+                  v['diagnosis'] << ' ' << e
                 end
               end
             end
@@ -128,6 +132,7 @@ module Sisimai::Bite::Email
           e['diagnosis'] = e['diagnosis'].gsub(/\\n/, ' ')
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           e['agent']     = self.smtpagent
+          e['command'] ||= 'RCPT' if e['diagnosis'] =~ /[<].+[@].+[>]/
         end
 
         rfc822part = Sisimai::RFC5322.weedout(rfc822list)
