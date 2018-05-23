@@ -1,0 +1,82 @@
+Delivered-To: azumakuniyuki@mail.example.ru
+Return-path: <>
+Received: from mail by f42.i.mail.ru with local id 1fL1dQ-0003X1-5b
+	for azumakuniyuki@mail.example.ru; Tue, 22 May 2018 10:23:04 +0300
+X-Failed-Recipients: otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+X-Mailer-Daemon-Recipients: otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+Auto-Submitted: auto-replied
+From: mailer-daemon@corp.mail.ru
+To: azumakuniyuki@mail.example.ru
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Subject: =?UTF-8?B?0JLQsNGI0LUg0YHQvtC+0LHRidC10L3QuNC1INC90LUg0LTQvtGB0YLQsNCy0LvQtdC90L4=?=. Mail failure.
+Message-Id: <E1fL1dQ-0003X1-5b@f42.i.mail.ru>
+Date: Tue, 22 May 2018 10:23:04 +0300
+X-Mras: PASS
+Authentication-Results: f42.i.mail.ru; auth=pass smtp.auth=mailer-daemon@corp.mail.ru smtp.mailfrom=mailer-daemon@corp.mail.ru; iprev=pass policy.iprev=127.0.0.1
+X-Mru-Trust-IP: 1
+
+Это письмо создано автоматически сервером Mail.Ru, отвечать на него не нужно.
+
+К сожалению, Ваше письмо не может быть доставлено одному или нескольким получателям:
+
+  otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+    SMTP error from remote mail server after RCPT TO:<otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp>:
+    host lsean.ezweb.ne.jp [27.85.176.228]: 550 <otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp>:
+    User unknown
+
+Рекомендуем Вам проверить корректность указания адресов получателей.
+
+**********************
+
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+    SMTP error from remote mail server after RCPT TO:<otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp>:
+    host lsean.ezweb.ne.jp [27.85.176.228]: 550 <otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp>:
+    User unknown
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <azumakuniyuki@mail.example.ru>
+Received: by f42.i.mail.ru with local (envelope-from <azumakuniyuki@mail.example.ru>)
+	id 1fL1dO-0003WG-OE
+	for otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp; Tue, 22 May 2018 10:23:02 +0300
+Received: by e.mail.ru with HTTP;
+	Tue, 22 May 2018 10:23:02 +0300
+From: =?UTF-8?B?a3VuaXl1a2kgYXp1bWE=?= <azumakuniyuki@mail.example.ru>
+To: otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+Subject: =?UTF-8?B?TnlhYW4=?=
+MIME-Version: 1.0
+X-Mailer: Mail.Ru Mailer 1.0
+X-Originating-IP: [203.0.113.225]
+Date: Tue, 22 May 2018 10:23:02 +0300
+Reply-To: =?UTF-8?B?a3VuaXl1a2kgYXp1bWE=?= <azumakuniyuki@mail.example.ru>
+X-Priority: 3 (Normal)
+Message-ID: <1526973782.485262328@f42.i.mail.ru>
+Content-Type: multipart/alternative;
+	boundary="--ALT--hCjS0rvuQCSZ8WvPkLXVXwHY6vPMRywU1526973782"
+Authentication-Results: f42.i.mail.ru; auth=pass smtp.auth=azumakuniyuki@mail.example.ru smtp.mailfrom=azumakuniyuki@mail.example.ru
+X-7FA49CB5: 0D63561A33F958A526FFB54D7DF92713061FDA85E9BC4A92CE632E9467D598BB725E5C173C3A84C351A35263B7A08AE06607BC31C5F7FD384163C681A99F5D66C4224003CC836476C0CAF46E325F83A50BF2EBBBDD9D6B0F2AF38021CC9F462D574AF45C6390F7469DAA53EE0834AAEE
+X-Mailru-Sender: 052F3EE632032033F266ABDBF0757312C2B089D37C9224007B20CB3BEF06A7EC034742706397ABF4DCD3AD4361FAE7101D295F8817E181A9626B1D7BE3F966DCC1066F626AABBBD95843B8C90ECF6809064FDD5B919501F067EA787935ED9F1B
+X-Mras: OK
+X-Spam: undefined
+
+
+----ALT--hCjS0rvuQCSZ8WvPkLXVXwHY6vPMRywU1526973782
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+
+CgpOeWFhbgoK
+
+----ALT--hCjS0rvuQCSZ8WvPkLXVXwHY6vPMRywU1526973782
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
+
+CjxIVE1MPjxCT0RZPjxicj48YnI+TnlhYW48YnI+PGJyPjwvQk9EWT48L0hUTUw+Cg==
+
+----ALT--hCjS0rvuQCSZ8WvPkLXVXwHY6vPMRywU1526973782--

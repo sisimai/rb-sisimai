@@ -1,0 +1,231 @@
+Delivered-To: azumakuniyuki@google.example.com
+Received: by 2002:ac9:644e:0:0:0:0:0 with SMTP id a14-v6csp1356121ocl;
+        Sun, 20 May 2018 21:42:10 -0700 (PDT)
+X-Received: by 2002:a9d:21ca:: with SMTP id s68-v6mr11790758otb.347.1526877730083;
+        Sun, 20 May 2018 21:42:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1526877730; cv=none;
+        d=google.com; s=arc-20160816;
+        b=nitXWJhiHrs5xZA0cpqnl9ZdfX/HWXlLXkG8gwaf8NW3Vs1YTSE14Z/YPrvNL4wl0Q
+         Gof2pstJ4aS+3SPV1XSc1zHa+yUQS4oOqewnRvEksHr6ruUlExgK5dUhxAXCpcOYzDuD
+         QfC4nXcK7fke+aNP/Vro9/3Cd0FDJvRs0ODWkxMtlQrN2NQUqoYzkuj6mGwCRwqwgWcD
+         njJxr2C6+ixsDuuf187ZXYg8Va95O/FgnCScgx5Yhk++w4YbbJCESNMhb4oj7QA7XZrC
+         OYLg4EeoNsrLv4shCUrqM8uNcQ7EusdjHeuqfUs1EGGWoOE01u1UfLt961s1FEWqJtTP
+         o/jA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=date:message-id:in-reply-to:references:subject:auto-submitted:to
+         :from:dkim-signature:arc-authentication-results;
+        bh=S0zKwmCGfN7Yax+kK5IvhH0sS0rBsf6m++5aWHloiWo=;
+        b=mxcCN6sI+5bgZVSa0x35KYB0Mxyc3bXmzmYRYyQ71HdM4eaHOMnDsdG1BGz/Zw/Bwb
+         ncrEvaWWPGtEeDudAfaQ4jXpeQW3W+sqrg7rKaWw9jVF45f7nb5PJWWTSjMO+bGnykPH
+         Edi1L2oRdh36ctYfNI1nxS6tJprp/4QDHd90l+W92HK5aJKGIYPJ6mpgf0eQgUggP7g5
+         6Jd7vDmBClPWTPg5SN9FYKW0vo1uvy3oehK3UadDNEEpATYSx/6R1gk55NuYGqSMSXVq
+         c3NtO8fZxbzf+R2+032lgv+mcWk7YunqIsQ2gppuVNf1X2jn6VQRXFBPg0c6py29T1Fg
+         qzKw==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@googlemail.com header.s=20161025 header.b=e3vuyqwS;
+       spf=pass (google.com: best guess record for domain of postmaster@mail-sor-f69.google.com designates 209.85.220.69 as permitted sender) smtp.helo=mail-sor-f69.google.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=googlemail.com
+Return-Path: <>
+Received: from mail-sor-f69.google.com (mail-sor-f69.google.com. [209.85.220.69])
+        by mx.google.com with SMTPS id p203-v6sor6543369oic.182.2018.05.20.21.42.10
+        for <azumakuniyuki@google.example.com>
+        (Google Transport Security);
+        Sun, 20 May 2018 21:42:10 -0700 (PDT)
+Received-SPF: pass (google.com: best guess record for domain of postmaster@mail-sor-f69.google.com designates 209.85.220.69 as permitted sender) client-ip=209.85.220.69;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@googlemail.com header.s=20161025 header.b=e3vuyqwS;
+       spf=pass (google.com: best guess record for domain of postmaster@mail-sor-f69.google.com designates 209.85.220.69 as permitted sender) smtp.helo=mail-sor-f69.google.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=googlemail.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20161025;
+        h=from:to:auto-submitted:subject:references:in-reply-to:message-id
+         :date;
+        bh=S0zKwmCGfN7Yax+kK5IvhH0sS0rBsf6m++5aWHloiWo=;
+        b=e3vuyqwSTCIiLo+sWopiOEwD4Rx+E87K9esF1eXfS9HR2IZ0kyHCNdcpoD/vvCpdTW
+         9a+C7WaZRbu3i8jjYI+duXhHcbK4Z74W6ccZfLNOocUSEahFp1Yq+3cl3kF7vt4PT++1
+         0AyzqNVhPZWT9m32Q6BTyLAeGKezyzuHdBsTUhaKcYK1SCUhC+YFxI9i4YYgBQqUNhd1
+         tPe5yymfe+AiJ94ufUoSw4JT7+XiKpZSR1whUFzsrnzvsZUxJrxGDZfUDx5wrjHy1GRR
+         c86IQMmgkgs1xeBUuHgk2OjTg++Yblny1i4TN+Av+Lm1KyszBDT5hz6UUW5rgTfRt6vO
+         SZQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:auto-submitted:subject:references
+         :in-reply-to:message-id:date;
+        bh=S0zKwmCGfN7Yax+kK5IvhH0sS0rBsf6m++5aWHloiWo=;
+        b=lLzOuHCbTn21N7Auttm2TssGFLVel8AIgoXMkyoXXyJWP0OPa7xJx20f1m7vMm24Ck
+         ZBjeAWDbo17IsQdvJgxd3B7argjnhAFMNwUWpeMxPdhll2Yj4T1lJnOqV+PJ1I8opOgi
+         K8ZXcOkKaPVPgZO4Ag6SCdv3Xl4LvU1VGGtGD7liKjSpJlkQPBLvHnzYdwgYo3TkDnJd
+         DirUEiBnkiPy7GVodAqZHjktUBo1F9D5UJVdZl9jUAN2Q5HpVgL7/5E/pDDh+Laaudwk
+         06J0zA/070I4KZY0+UZFYCEmclON1oYXeYli+2Eo1SsqdM8BenMDq+j8/36V5vVLqwCy
+         44ng==
+X-Gm-Message-State: ALKqPweZR17gbLmgnZSSbhKfERZUhCTl/knOumYGmSb+JHC54h/d48Ao
+	NMxI6WfhBf3IXq58kHDE/nlk0pN5yHbI3Hz+Q9pvRQ==
+X-Google-Smtp-Source: AB8JxZoXkzb6rI0GDfxNiZ4dNVVS4+DI/P3Er/kmO0i2Rvsd4y2ou35q+ar9SCYbIODeQfE6R+Zbb5LQe2zu32ovZ6ZkCIr7G86PoPQ=
+X-Received: by 2002:aca:44d:: with SMTP id 74-v6mr10008202oie.299.1526877730007;
+        Sun, 20 May 2018 21:42:10 -0700 (PDT)
+Content-Type: multipart/report; boundary="000000000000b65c60056cafec3b"; report-type=delivery-status
+Return-Path: <>
+Received: by 2002:aca:44d:: with SMTP id 74-v6mr10779444oie.299; Sun, 20 May
+ 2018 21:42:10 -0700 (PDT)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+To: azumakuniyuki@google.example.com
+Auto-Submitted: auto-replied
+Subject: Delivery Status Notification (Failure)
+References: <CAByYQsGNYchW5-rGA6r51tLL-hiL6V-y_KsgPd4LNDvjPWuQww@mail.gmail.com>
+In-Reply-To: <CAByYQsGNYchW5-rGA6r51tLL-hiL6V-y_KsgPd4LNDvjPWuQww@mail.gmail.com>
+X-Failed-Recipients: otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+Message-ID: <5b024e22.1c69fb81.a1a22.fcaa.GMRIR@mx.google.com>
+Date: Sun, 20 May 2018 21:42:10 -0700 (PDT)
+
+--000000000000b65c60056cafec3b
+Content-Type: multipart/related; boundary="000000000000b66665056cafec3c"
+
+--000000000000b66665056cafec3c
+Content-Type: multipart/alternative; boundary="000000000000b66673056cafec3d"
+
+--000000000000b66673056cafec3d
+Content-Type: text/plain; charset="UTF-8"
+
+
+** Address not found **
+
+Your message wasn't delivered to otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp because the address couldn't be found, or is unable to receive mail.
+
+
+
+The response was:
+
+550 : User unknown
+
+--000000000000b66673056cafec3d
+Content-Type: text/html; charset="UTF-8"
+
+
+<html>
+<head>
+<style>
+* {
+font-family:Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+</style>
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" class="email-wrapper" style="padding-top:32px;background-color:#ffffff;"><tbody>
+<tr><td>
+<table cellpadding=0 cellspacing=0><tbody>
+<tr><td style="max-width:560px;padding:24px 24px 32px;background-color:#fafafa;border:1px solid #e0e0e0;border-radius:2px">
+<img style="padding:0 24px 16px 0;float:left" width=72 height=72 alt="Error Icon" src="cid:icon.png">
+<table style="min-width:272px;padding-top:8px"><tbody>
+<tr><td><h2 style="font-size:20px;color:#212121;font-weight:bold;margin:0">
+Address not found
+</h2></td></tr>
+<tr><td style="padding-top:20px;color:#757575;font-size:16px;font-weight:normal;text-align:left">
+Your message wasn't delivered to <a style='color:#212121;text-decoration:none'><b>otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp</b></a> because the address couldn't be found, or is unable to receive mail.
+</td></tr>
+</tbody></table>
+</td></tr>
+</tbody></table>
+</td></tr>
+<tr style="border:none;background-color:#fff;font-size:12.8px;width:90%">
+<td align="left" style="padding:48px 10px">
+The response was:<br/>
+<p style="font-family:monospace">
+550 : User unknown
+</p>
+</td>
+</tr>
+</tbody></table>
+</body>
+</html>
+
+--000000000000b66673056cafec3d--
+--000000000000b66665056cafec3c
+Content-Type: image/png; name="icon.png"
+Content-Disposition: attachment; filename="icon.png"
+Content-Transfer-Encoding: base64
+Content-ID: <icon.png>
+
+iVBORw0KGgoAAAANSUhEUgAAAJAAAACQCAYAAADnRuK4AAAACXBIWXMAABYlAAAWJQFJUiTwAAAA
+GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABTdJREFUeNrsnD9sFEcUh5+PRMqZ
+yA0SPhAUQAQFUkyTgiBASARo6QApqVIkfdxGFJFSgGhJAUIiBaQB0ZIOKVCkwUgURjIg2fxL4kS+
+YDvkbC/388bi8N16Z4/d7J/5PsniuD3fyePP772ZeTsDQRAYQL/UGAJAIEAgQCBAIAAEAgQCBAIE
+AkAgyJT3Mv+Eq7vYK8mTE+MDRCAghQECAeRQA5V2ZOpmg5vDx3NPzRbmGRMEcmTrEbNNB8zWfRD+
+f/Efs2e3zCZvMjaksBg27TfbcuSNPEKP9ZyuAQKtHX2O9ncNgWC57umMPKvRNb0GEKgnLoUyxTQC
+rcns0/6uIRAs8/hGf9cQCJZpTpjdO2f25/03z+mxntM1eLtsZAgiUtX4JcaBCAQIBAgECARQ8CJa
+G5jab4J4pm4WZmO3OALVh802fIwcLkyPkcKAGggAgQCBAIEAgQCBABAIEAjKA/1AnahhbO5FdOOY
+VsrrDbPBYcYKgf5D2wLaV3p+22xh1u17tO3S+DTcvxvagUDeivPgx/a/95J/73w7Sj26Hn4pKo2M
+ehuV/KyBJM6d0f7k6RKx/R63vvL2tmf/ItDdM2ZTP6f7nkp9Y2fDx1v9akmpIU+KSCLVUghUQfSL
+zVKeTklbLxGoctw/nzC5rw8L5KRNbkpnKq6pgSqEClzNnFzY+XnYWrt6VpVk1vbwWvg+RKCKMOUw
+Q1LEOXA+/MX3mpJvGDHb265xtnzmFoUK1HaKQGlMtePYM+q2KKjXuaS1NJYIEKgI8jhEgqHt4cqy
+Ky53j3hyHz2bqSLp2o2LbJ7MxKovkGqXteoWpaOk96O9/yF/dF7NwlS36AuIQIBA5celQK4PIxBE
+4LLzrtoLgaALdSy6CJRkWQCBPGLsTHznomZ9nszUECgJ2ml3WWHe+QVFNPSQx6UdZNtxr9pbEShN
+eTTz8mQXHoHSlke7+Z+c9m6VGoHSkEfs/trLW3wQKApN1V3lGfnGu2Z6BFoLtYCs3GWBPAiUCLVh
+/HoaeRCoT9R873KLM/IgUBfapnCpe5AHgXry4pf412ihEHkQqCdxd5VqrcezhUIESsJMTJ+Pdthp
+Z0WgyNlXXPHc2Mc4IVAELl2Gnh8mhUDvCkfbIVAkcbf/aOoO3fMKhqAD3frTa4quwpn0hUDOkQhI
+YYBAgECAQAAU0QlYObl+5Ug8NcprZkZxjUCxRPVA6zmtEXHCBykskrhjgHXN09PoEcgFl4M4H11j
+nBAoApcj6ZoPGScEAgTKApcDoTw5sgWB+sGlz1n90IBAPdE6j1o21PfcC11jLagL1oFWRyGlKU3p
+OxcSJQ7NZAjkhHp/uG2HFAYIBAgECASAQIBAgECAQAAIBOkxEARBtp9wdVfAMOfIifEBIhCQwgCB
+ABAI0oV2jhxZ+nfBatuPZfgBCy0Eqqo8c01b+uu51XZvzOgDWoHNTGR+pCwpLEd5svuAZXlO2uEr
+PyEQ8hRWHgRCHmqg0sjTnLalv6crJQ8C/U8stqNO0I4+VZOHFIY8COS1PGL2ybd5yUMKK7s8zYmL
+dujyd3n+nESgcsvzZd4/KwIhDwIhT35QA6UyE1qyxZnfvJMHgdKS549JC1qvvJOHFIY8CFR5eV5O
+XimqPAhUdHnmfx+zgxdOFXkoqIGKKs/cswnb/8Oeog8HEai48nxUhiFBIORBIOShBioskkbySCLk
+IQIhDwIhj28p7FApR6b1qlEbHGpkO/rr6215vi/zH1r2x7tApSGFAQIBAgECAQIBIBAgECAQIBBA
+LK8FGADCTxYrr+EVJgAAAABJRU5ErkJggg==
+--000000000000b66665056cafec3c--
+--000000000000b65c60056cafec3b
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; googlemail.com
+Arrival-Date: Sun, 20 May 2018 21:42:08 -0700 (PDT)
+X-Original-Message-ID: <CAByYQsGNYchW5-rGA6r51tLL-hiL6V-y_KsgPd4LNDvjPWuQww@mail.gmail.com>
+
+Final-Recipient: rfc822; otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+Action: failed
+Status: 5.0.0
+Remote-MTA: dns; lsean.ezweb.ne.jp. (27.85.176.228, the server for the domain ezweb.ne.jp.)
+Diagnostic-Code: smtp; 550 : User unknown
+Last-Attempt-Date: Sun, 20 May 2018 21:42:10 -0700 (PDT)
+
+--000000000000b65c60056cafec3b
+Content-Type: message/rfc822
+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to
+         :content-transfer-encoding;
+        bh=iJWYmG8U4lQTIwuCJZ/VoD4lFKTX/OgrF891BKhHwLo=;
+        b=bu2GEcNGFBiyKDWhiG4+j4tBczIG0/6mgQcZwWvh33ScypXhlhIUkPoaDO9rRm88qz
+         wDckwNV2krVz5FaTMeuux+zQGcRRXzS2pOh0zebtIqrYPu381hiwB63i+dMqWhExNRfJ
+         xoAFwRb8RxPsD8eQ80C17F0aDX8KMbAx1j3aoiqmkbRWk5vX1nEUCm4gDgPVSaCTrwrV
+         LuqSHDoyRP3+RUn0GKSWERjO882L/RRhIWQA28L+rOJEwTCjxR2eRjL7js3YzalJUuS/
+         ynUkUgiEBCQkhhe2ve0HjaqEkbSnTEA4ZJLJWn1rK3kmypyob47brv1C6LIaV/pBvzhD
+         4o9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to
+         :content-transfer-encoding;
+        bh=iJWYmG8U4lQTIwuCJZ/VoD4lFKTX/OgrF891BKhHwLo=;
+        b=PhqYl/hlFgAh6SG3VILlp5CCE0ipgCk0UNHH9kbXnMr0NGJoKzisDFXau42fAkOlYR
+         ayrhRQjjQHumI/Ay9HEawwWfsfXZJ3gRC+dlAjmx9JxXFoG9bjDl024HtgHv2b/ysURE
+         /mSP9F/IVuAEakYNuZx4I80is1Rzqz+YeN2WOP3ZLkCc4PM9usMKBALAw/Wwfw2+8buL
+         imVCPtaqHyLCDe50JwqcRsuwW1Cbl5BqxWBHhDALip4rDu5HhK2jtodJ9t3CO5gBlxzb
+         N6lHcokoUzgZkDcrnvvljGPffNTrR3ogEZVsxqCgSsnKh3tSB6WVDPj7m/FJBDNVu3ai
+         aEog==
+X-Gm-Message-State: ALKqPwfmklAaeP3n+LY2gu3M7ZNDg+jsKbxIpLe4DAaLcf3iea2iZTNZ
+	jZ3VvgjTbwis6zoS7yKF8RDsKfop+iJ4lGER4Csc4g==
+X-Google-Smtp-Source: AB8JxZq5x9fMocZzqF3Zv48hKNsKXdLjxTuFlIaxZWWOuQCNHsxxgmYiecbMORytXfYM78z0QEDM1oc5IgD4z3AQk+M=
+X-Received: by 2002:aca:44d:: with SMTP id 74-v6mr10008178oie.299.1526877728766;
+ Sun, 20 May 2018 21:42:08 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.201.93.149 with HTTP; Sun, 20 May 2018 21:41:48 -0700 (PDT)
+From: azumakuniyuki <azumakuniyuki@google.example.com>
+Date: Mon, 21 May 2018 13:41:48 +0900
+Message-ID: <CAByYQsGNYchW5-rGA6r51tLL-hiL6V-y_KsgPd4LNDvjPWuQww@mail.gmail.com>
+Subject: =?UTF-8?B?44OL44Oj44O844Oz?=
+To: otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+
+44OL44Oj44O844OzDQo=
+
+--000000000000b65c60056cafec3b--

@@ -1,0 +1,75 @@
+X-DTI-Virus-Check: checked
+X-DTI-Recipient: <kijitora@neko.example.co.jp>
+Return-Path: <MAILER-DAEMON@store45-fbp.cm.example.co.jp>
+Received: from mx01.cm.example.co.jp (mx01-fbp.cm.example.co.jp [10.236.71.127]) by store45-fbp.cm.example.co.jp (3.10pn) with ESMTP id w4L5RQoM016157 for <kijitora@neko.example.co.jp>; Mon, 21 May 2018 14:27:26 +0900 (JST)
+Received: from imx24.cm2.example.co.jp (imx24.road.example.jp [59.157.133.75]) by mx01.cm.example.co.jp (3.11g) with ESMTP id w4L5RQVd005916 for <kijitora@neko.example.co.jp>; Mon, 21 May 2018 14:27:26 +0900 (JST)
+Received: from scpa213.cm2.example.co.jp (scpa213.cm2.example.co.jp [10.32.11.44]) by imx24.cm2.example.co.jp (3.11g) with ESMTP id w4L5RPG8014032 for <kijitora@neko.example.co.jp>; Mon, 21 May 2018 14:27:25 +0900 (JST)
+Received: from pps.filterd (scpa213.cm2.example.co.jp [127.0.0.1])
+	by scpa213.cm2.example.co.jp (8.15.0.59/8.15.0.59) with SMTP id w4L5LT0W011251
+	for <kijitora@neko.example.co.jp>; Mon, 21 May 2018 14:27:25 +0900
+Received: from smtp08.example.co.jp (smtp08.example.co.jp [202.216.231.143])
+	by scpa213.cm2.example.co.jp with ESMTP id 2j21j2xn2y-1
+	for <kijitora@neko.example.co.jp>; Mon, 21 May 2018 14:27:25 +0900
+Received: from localhost (localhost) by smtp08.example.co.jp (3.11v)id w4L5RPI6027503;Mon, 21 May 2018 14:27:25 +0900 (JST)
+Date: Mon, 21 May 2018 14:27:25 +0900 (JST)
+From: Mail Delivery Subsystem <MAILER-DAEMON@smtp08.example.co.jp>
+Message-Id: <201805210527.w4L5RPI6027503@smtp08.example.co.jp>
+To: <kijitora@neko.example.co.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="w4L5RPI6027503.1526880445/smtp08.example.co.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--w4L5RPI6027503.1526880445/smtp08.example.co.jp
+
+The original message was received at Mon, 21 May 2018 14:27:25 +0900 (JST)
+from p225-ix9.kyoto.example.ne.jp [198.51.100.225]
+
+   ----- The following addresses had permanent fatal errors -----
+<otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp>
+    (reason: 550 : User unknown)
+
+   ----- Transcript of session follows -----
+... while talking to lsean.ezweb.ne.jp.:
+>>> DATA
+<<< 550 : User unknown
+554 5.0.0 Service unavailable
+
+--w4L5RPI6027503.1526880445/smtp08.example.co.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; smtp08.example.co.jp
+Received-From-MTA: DNS; p225-ix9.kyoto.example.ne.jp
+Arrival-Date: Mon, 21 May 2018 14:27:25 +0900 (JST)
+
+Final-Recipient: RFC822; otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+Action: failed
+Status: 5.2.0
+Remote-MTA: DNS; lsean.ezweb.ne.jp
+Diagnostic-Code: SMTP; 550 : User unknown
+Last-Attempt-Date: Mon, 21 May 2018 14:27:25 +0900 (JST)
+
+--w4L5RPI6027503.1526880445/smtp08.example.co.jp
+Content-Type: message/rfc822
+
+Return-Path: <kijitora@neko.example.co.jp>
+Received: from [198.51.100.225] (p225-ix9.kyoto.example.ne.jp [198.51.100.225]) by smtp08.example.co.jp (3.11v) with ESMTP AUTH id w4L5ROI6027501 for <otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp>; Mon, 21 May 2018 14:27:25 +0900 (JST)
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-2022-jp
+From: "Neko, Nyaan" <kijitora@neko.example.co.jp>
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: =?iso-2022-jp?B?GyRCJEskYyE8JHMbKEI=?=
+Message-Id: <DB0F5BDF-661C-4AC2-980F-7447745D478A@neko.example.co.jp>
+Date: Mon, 21 May 2018 14:27:24 +0900
+To: otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+X-Mailer: Apple Mail (2.3273)
+
+ニャーン
+
+
+--w4L5RPI6027503.1526880445/smtp08.example.co.jp--
+
+

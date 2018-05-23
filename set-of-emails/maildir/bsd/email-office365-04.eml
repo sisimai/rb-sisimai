@@ -1,0 +1,635 @@
+Received: from HE1EUR01HT085.eop-EUR01.prod.protection.outlook.com
+ (2603:1096:100:18::29) by SLXP216MB0381.KORP216.PROD.OUTLOOK.COM with HTTPS
+ via SL2P216CA0019.KORP216.PROD.OUTLOOK.COM; Mon, 21 May 2018 05:08:01 +0000
+Received: from HE1EUR01FT042.eop-EUR01.prod.protection.outlook.com
+ (10.152.0.60) by HE1EUR01HT085.eop-EUR01.prod.protection.outlook.com
+ (10.152.1.89) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.20.776.10; Mon, 21
+ May 2018 05:07:58 +0000
+Authentication-Results: spf=pass (sender IP is 104.47.124.246)
+ smtp.helo=APC01-HK2-obe.outbound.protection.outlook.com; outlook.com;
+ dkim=none (message not signed) header.d=none;outlook.com; dmarc=pass
+ action=none header.from=outlook.com;
+Received-SPF: Pass (protection.outlook.com: domain of
+ APC01-HK2-obe.outbound.protection.outlook.com designates 104.47.124.246 as
+ permitted sender) receiver=protection.outlook.com; client-ip=104.47.124.246;
+ helo=APC01-HK2-obe.outbound.protection.outlook.com;
+Received: from APC01-HK2-obe.outbound.protection.outlook.com (104.47.124.246)
+ by HE1EUR01FT042.mail.protection.outlook.com (10.152.0.228) with Microsoft
+ SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.20.776.10 via
+ Frontend Transport; Mon, 21 May 2018 05:07:58 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:2BCF80B5FA02109969FBE338488D0DA4A2560E73630F2ACC940AAB023C98A592;UpperCasedChecksum:34873153144AF1237D20732F3D95FD93B4056057F94B7F0199976D7C22E56DF5;SizeAsReceived:6976;Count:32
+From: Microsoft Outlook <postmaster@outlook.com>
+To: <azumakuniyuki@outlook.example.com>
+Date: Mon, 21 May 2018 05:07:55 +0000
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="b44278a2-9d96-4fd5-bba1-efd949e0de68"
+X-MS-Exchange-Message-Is-Ndr:
+Content-Language: en-US
+Message-ID: <267295c3-c241-44d7-a5b0-202dff1de5b6@SG2APC01HT247.mail.protection.outlook.com>
+In-Reply-To: <SLXP216MB0381A8F03A83505296890D11A9950@SLXP216MB0381.KORP216.PROD.OUTLOOK.COM>
+References: <SLXP216MB0381A8F03A83505296890D11A9950@SLXP216MB0381.KORP216.PROD.OUTLOOK.COM>
+Thread-Topic: =?iso-2022-jp?B?GyRCJUslYyE8JXMbKEI=?=
+Thread-Index: AQHT8MGsDJq0pNzN8kqm6l56g9iVCqQ5ode4
+Subject: =?iso-2022-jp?B?VW5kZWxpdmVyYWJsZTogGyRCJUslYyE8JXMbKEI=?=
+Auto-Submitted: auto-replied
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG2APC01HT247:|HE1EUR01HT085:
+X-Microsoft-Exchange-Diagnostics-untrusted: 1;SG2APC01HT247;25:8LDQ2die/FhzLamI2i3otODQKkYbaEl8HkcDpmrSUpQ0UHEWD8MEQL8+lMjIwQnHtq60YNPBxApti4mrH4YwUs6hYNYY9IfgD9RANWIC06BiJyvFQXcMqUKyzBnYvD+2DkbGiUdXJLSeQ4mJWoEH2B2YOdsPOUBOUisuyt0BOZkQ/LEZCJZV8XV+n5nU2xXJey9PBpcpxMROb7FPGMiAdawXGlB3OSiHgwNjVHKfuzrAvjtgtolahCWJvN1IUmH0u5iNg8ON1Mlp95WMcKAegmby/sg7AJHUagUtDTdoRa+l5X5NVAvEjTpEA+3cCo8ZdMdyrZSd/f84JsReK/yd7Q==;31:HqJY8oIQCpHyCyshaHIit1nsnxu4HP/25a9Tq/JcP4sv++od4vH28jMCDxv7NULvcRDKnLeqbm1TSGcRjnzG9SYbM59qVTuXKFfyexwh6FhZjeQmi4dYeMrTPneVh8J75+8I27HnQC5ZJzENsNpIoQ9d3OiiiM50iYMBN9c50YVGGVOLiger3L1TCnlC4Cj4xM94W+TSamonbRguy66UG8jUCt5kID772fUl0dM35VA=;4:72XYlnb32bTbIu3EAQuCg2FfTNvgY5i4ehPHcnE31xeeIoil6hm5kx/TP8d2lNkhrg/kZTwtZ33dkMz/0yWNX0HpqRmCL30WVL1SoTqM8AnfSnf8IsMj0ZixLLgDLk2r7vUZO7X/iWw2hynckOpVKHmnYOve2s+Yzz0CzHo64/m8lmIzeIX7m7KCfmM5zEWG3Q6mlXPnf9kZZzFKA0HktWyIdRL5WJ87nL1/Q5+ntkrimXI1C6ftYuN+wJz+9XD4tFCynkRRP/b8t1d8daR3CQ==
+X-Exchange-Antispam-Report-CFA-Test: BCL:0;PCL:0;RULEID:(444000031);SRVR:SG2APC01HT247;BCL:0;PCL:0;RULEID:;SRVR:SG2APC01HT247;BCL:0;PCL:0;RULEID:(444111676)(60000075)(52401190)(52601095)(52606095)(52505095)(52406095)(102415395)(82015058);SRVR:HE1EUR01HT085;BCL:0;PCL:0;RULEID:;SRVR:HE1EUR01HT085;
+X-Forefront-PRVS: 06793E740F
+X-Forefront-Antispam-Report-Untrusted: SFV:NSPM;SFS:(10019020)(4640300001)(4630300001)(366004)(199004)(189003)(1930700014)(1476002)(6636002)(82202002)(76176011)(606006)(20460500001)(87572001)(6346003)(102106001)(16586007)(102836004)(31686004)(22452003)(42186006)(106356001)(89962001)(1706002)(59450400001)(11286001)(105586002)(53546011)(6306002)(42882007)(224303003)(6916009)(236005)(7350300001)(486006)(5660300001)(10290500003)(446003)(476003)(11346002)(84326002)(45080400002)(2351001)(81156014)(97736004)(53906005)(31696002)(52396003)(575784001)(68736007)(83832001)(5890100001)(78352004)(19627235001);DIR:OUT;SFP:1501;SCL:1;SRVR:SG2APC01HT247;H:;FPR:;SPF:None;PTR:InfoNoRecords;A:0;MX:0;LANG:;
+Received-SPF: None (protection.outlook.com:  does not designate permitted
+ sender hosts)
+Authentication-Results-Original: spf=none (sender IP is ) smtp.mailfrom=<>; 
+X-Microsoft-Exchange-Diagnostics-untrusted: =?us-ascii?Q?1;SG2APC01HT247;23:k1rHV5/HrwidzxdVJMTX3TnqH5pbMhozVt0SJyhcu?=
+ =?us-ascii?Q?Zy5qdT8vxlvOGIbL6m543vRhJh1ATQjmBQYghwJNpLiFslSuQjiF6HIsf2UZ?=
+ =?us-ascii?Q?tJ3ZoDWzlu1VqJLW6vIY3ZtCYDbLsYyuPld1b4gJ0AMHUvd5Oc9A00jzR3I+?=
+ =?us-ascii?Q?8p/GsbILYS5cbI8KI3cPR8E59HKYdN/LyL+h33Yo0NCpz2VuxstpUXQ7E4PS?=
+ =?us-ascii?Q?4F5QyKCIAlxX9yBNCTV6zjQ+HCqha6RLD2+evPM7QLj7Iuw/NiJJsk7M4rE1?=
+ =?us-ascii?Q?i+LDHyXBY7Q+nlI0+vAK2h3dYBhTlaRnKXUjXq8nYrU5bXlstl/ANVnd3ak1?=
+ =?us-ascii?Q?ZZ6rRYeADn0tbdl/yxaWaT8DE0sk41R4N/xSVr2Q1Mh4jvIid8NlUf9ZArzj?=
+ =?us-ascii?Q?sp3KMWSIbt83Qynb/zhcEIb1IVaa66xTKLi7KFsGS04KgDXA87AT6rSSIuQQ?=
+ =?us-ascii?Q?25VvE0KHnQyrRdNLBUbClloaxixdUP8Q9UD8iAa0TenF0I4NqWBYlkyjnz2l?=
+ =?us-ascii?Q?5bVp9aY1G6k5OcH/b2AkvLtr/HRU9P1qvaTV2a0uwF354EyUA3I4xH91I/w2?=
+ =?us-ascii?Q?y7WpXRSv8bvDnwjxGATxkbDTT0WPqVKvJ60JNlU53UrkMuPW/csaunGMyaNN?=
+ =?us-ascii?Q?HMfU4nCRY1HB23m0Vrsiyn+Etxjlvdl6t2Bs8SBhloI7yGMDTkwfu91EGCc/?=
+ =?us-ascii?Q?3JsoO62nQsH/iUJfXDC2rfAEaVG+OcSKJEy+e7Yl5BUao/EfbS+mB23HyXi/?=
+ =?us-ascii?Q?WIL3r/0nvXPTCjSoLAfTPMtlNnojvbIy9faFGSLkJlhl/luT0hk9+nxeGj+t?=
+ =?us-ascii?Q?BQ7ZLg5ViahaEILljkExE5Aoxt4S8OX2SnCDKWVI07JgX/gt7xjWEeGtRkAl?=
+ =?us-ascii?Q?LDQ5jna933WGNQnijBRlyi31/yeOF8ysi4iBjVvHpbds9hdUtmPi3so1XYBj?=
+ =?us-ascii?Q?ANCqI4g21SyNH5uYIrVflGZrDe0NvvWPCsx24uTKRzsbYQ+QdGewC3Dp3gmV?=
+ =?us-ascii?Q?GdYiCA0Oe/mTM0UciC4KiyErPdRGC6m4mvXTYX8afGq6fOPTHt/cPwpHZKsA?=
+ =?us-ascii?Q?8negnCI8vlPIf4Ap1LMH8VRn7YTi2vYGHA32nF3+pz3Unt9+pGINxcIiVMa9?=
+ =?us-ascii?Q?W5wn23vCj+WDwWsSodrM6gd0P7yBNGrq0/9jofzaBM+SKS8MnOOv0kNNDlEE?=
+ =?us-ascii?Q?9zlKNJGNxjmiX1Dfk9GCO+iqDNF+5/OCE68tE4Fdo3NO4R88smbF22d/5k4e?=
+ =?us-ascii?Q?hLgoLvukk2RDc+oMcria9OnQEDhLAlE7+aVkQaT?=
+X-Microsoft-Antispam-Message-Info-Original: XUd8N9Zrr0TMFwwh0BSzPph34iPqVAeFM32Xt3JsRTPkGdhZ9G/G06mIen2H1grj76ywUA9y3TcH1tubORmJiHleoyvGIkfdPmWG9hm1IbUZ8ZsU7Hfx7c0HsdaQtvBni8+jhy97JmXcFB+ragPxfYt6iUmZFL1j9FqlxuLTI9BXy6ZdYpcKE+oWsw9u88Xe
+X-Microsoft-Exchange-Diagnostics-untrusted: 1;SG2APC01HT247;6:Ln2RrYaoIYrtHZM3SS5Ka97Hjl5i9MlOGGU1N/x/dMSJqDYiDgzW3ECgoMKEzsm5SSQtCQCoFWZYTJ76JM24ctxHgWYvaLac9WE2Z9pIZqaOsMIF+6IA+MSNkXMnpNsPN/9mMqMjn5F+pNovAt6AOQgyuSjnuCymlA+kVTw7/BRXgQJgkix23vQUB/E9kPlFgBbnEiRR6TDzPS9iVTEDhxilRKTirW4V+1NQr9CcnYeSW7HVMiVR2NJ/LnzF++lyhsOJqLldbC+LOXwaxMFHhmm3yYb62HXR5qu4tK2V1gO3ex5k5PhSm5/fyF41C6X1nnFK3MnLRDnG4F5aFJAdX+ZwX0TKbhTsFbC8zs0Utwz8NpsrBUj2T3T1R/R2/a7jUe4RGIKPq8t2ril8mBWM8hppRvCnau4FQpTRFCIVHqozAN1SUyCqo32Ms/nGYZnfjPZ+gM29OHZDXr6ZenjFZg==;5:YLIrtpZpe0yH9REGku4k0KLo9ICVyyBLd78PvUu+1xnLidvkq8s3/84txQrBvdLivGJ2POTMKwRqXqHQxm207r0GZpSwaZFXi3aR7icblO6mkhfJfrJKMTC9LdB8Sau8I01YvydVNquEhEl2R6XcxTYPysc48VEgJJ07hA8HJDE=;24:dDZYgACxHA95gR3D+6+60Mg6P7jW09Zm8SmOpg4g3+tuGWruv7zHZ3EoYb3l9/4HsuLtIjjn3yMTvIDmK316domLeK2XqAv82zoPe+bXtPs=
+X-Microsoft-Exchange-Diagnostics-untrusted: 1;SG2APC01HT247;7:NgDK7jbGASgqN1Vigyqj+5emXss01G76+zfFG2mCPUiMxaUsLyg364DndtVbXY7hWtHX/oLL8uIOMdQHbDGUVoooOghTGQ5bTobeerId5a+e6I6iufbdlybqldlf3p3r6Z5eLm/GgoIPzhW2iunL1mg1Ma+mZrzGevT5BewPlymysgFimYBrxqUsT6xpSNxXvxjZ7symeJR7w1FmDZ1yabzJ5R4VLJZbcRsKfij6+BPzzQWHRzpyVsfVzctq2AZI
+X-MS-Office365-Filtering-Correlation-Id: 7a31dc6f-655e-4f1e-1a40-08d5bed8d20a
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2APC01HT247
+X-IncomingHeaderCount: 32
+Return-Path: <>
+X-MS-Exchange-Organization-ExpirationStartTime: 21 May 2018 05:07:58.8884
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: Original Submit
+X-MS-Exchange-Organization-ExpirationInterval: 2:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: Original Submit
+X-MS-Exchange-Organization-Network-Message-Id: 7a31dc6f-655e-4f1e-1a40-08d5bed8d20a
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: HE1EUR01FT042.eop-EUR01.prod.protection.outlook.com
+X-MS-Exchange-Transport-CrossTenantHeadersPromoted: HE1EUR01FT042.eop-EUR01.prod.protection.outlook.com
+X-Microsoft-Exchange-Diagnostics: 1;HE1EUR01FT042;1:BzaZqmZYDPQBUjveRF/ABWXtYXAsVm9Om7qJOnrNvW3+06mxAlpkgb/1d8BYZqmZc5A68rmXd8Eb9tPvCIP6U6CQKFUnwDQaXTh/Y9JNGETKoOIWML654CRL0jz47vdf
+X-Forefront-Antispam-Report: EFV:NLI;
+X-MS-Exchange-Organization-AuthSource: HE1EUR01FT042.eop-EUR01.prod.protection.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-Microsoft-Antispam: BCL:0;PCL:0;RULEID:(5000109)(4605076)(610169)(650170)(8291501071);SRVR:HE1EUR01HT085;
+X-Microsoft-Exchange-Diagnostics: 1;HE1EUR01HT085;3:aLURpSCOpFJELrBJ+7RyQA4bH15EmrVWCWETOcMrJYOEkDw60siOob3YVN8AP3DjDkUpkg7/pTNbEwObNDRe16fAzO9s0SZTpSgDgY/Eo9nkZzMhYVyoblKuX30LJFeqosdGXO2ESszqnDWIG6Evif3hYlL472WzdsyS6SyLD9EX1i2wjZoboYHOtRLesS1uVS6+3VgDGWwrQZgsbyvLPP9LRGMM16Wr3uWm2Ssy2KhI5GROb4DhgKCdzDwHqQIcz3TiUMpiP2HR77H9H6Dp35XgHEj2DNNRh5qWqXmM/7EbIFX8OyYGcAMtEP4yLop/;25:jlKYm7UJaLQ3VjUGYpvsww17H/aWyN4MeH06fy/To1TPIpZ6aVfYBfqneFJH0ckmr2qbQVsDH4l6czejLnmLjFz/oUZyBLaTBvDnxbQSLZOtXKCk4CumYrrcu2R2gNtAt3uXiUqsGVJcyHcYOb/RsuejTn0KhmnT7yKGrarKbZ+ZSimBAXOiYE8n1JIz0roQF5cXi2zt5SHol+nGVhCuasla5+Q20o+PjTEKf6zWYHnuJTI33IPkyv3B6wuIrxIg1HuKXUeEuWWhyjRP1wQqZTXrHF5fekKZ15s2w1fz53lnGFxSkQxu3M+3VpW7UUBBDfiEq31G24oGPSnPRT6iLQ==;31:foGPnAbDpsk3CCBo/02C0O6oFaIfrNAwG6PitRAbC/SQYK0kKryvi6SKn7Gn1Dmwm7HGxyAeVIKvROniL+maphD+shn7efZtGloa15S8PSlF6Cp/BLyZVUZcnRKdrlOMP0XXgU5zQYN1Vlkr8yApQMr4br5Plt7Kz1JXTL5CSnXbkCNHpUjU7g0KtoH7TStva82UEOat/8Ht0MIw9p9qB9cbEW3lGzqUltO00weYT6s=
+X-MS-Exchange-EOPDirect: true
+X-Sender-IP: 104.47.124.246
+X-SID-PRA: POSTMASTER@OUTLOOK.COM
+X-SID-Result: PASS
+X-MS-Exchange-Organization-PCL: 2
+X-Exchange-Antispam-Report-Test: UriScan:(28532068793085)(158342451672863)(156600954879566)(160011542660777)(158620827444082)(60978268211275)(189930954265078);
+X-Microsoft-Exchange-Diagnostics: 1;HE1EUR01HT085;4:8E42g1IKq8FWAg/wN3iYg8WUicmbVa9oN4V/nvBwaog1Meqq7IX8XerTzj0sPsiWfF7QanrFpcJBWypvGJ2BAlglGf9JHQ7qY9hLj7yNf3rOfPhdkDjo1Div+I020BxQ9MdCdYQN7ueLx0a8/nZqGmo/ASHSMieAnq50N/ctQt6d9/OAe22/v6m80W0NUGrohDqiYPnT1Zl+dF8Chf8+Oa7e2Wkd+1GjIsS90fOgduk4biEuqC4WHvZf9+xl7uJzVOdjoxS1eUZPEhJsSJd6H68f2ix+92+5uXAD28ykqrYt5jkGnHhkuPh56E5Bxcy8MhN22ZtURisboJ2aiGTACbDm+wqem2cLkuQErXkNbiOx0OxKaHqYnGrKZ/EHzHWsGaEkLnmafHYLObkqRQceFmrVFcCLwwUq9dGH+xkfqZ7n9k+eOGYcUqzQ1jHWryPo+zGRX2YPQV4vrNB+ikO5jEgN1tfkijEKOjgt3br/8RT1toBZi4iBxbS1GirwXUXz024lbrfKTU8wg3GfMVOJ2A==
+X-Microsoft-Antispam-Message-Info: Yk/jyHydq2jCCRAJj9PCf3xjLjYnq8Lc/++ji034KzXKG1CKP18I6yVfDzbRUTpNzYHpr6pXTrh/48u574UB6+iC43gqnaYu1Bcw+ilWXvDf+ymfFXQLS2FW8cR6vLzRx7cqkYBvg7AagR3VoC+NdhgOD//3HLu6d0J/qmSUv//CO9OiB6ktXsFujkCQiTPkST5hUgUQWyHRSvLAFYfjscpDXoHMoOpCP6qXaTdXxeM=
+X-Microsoft-Exchange-Diagnostics: 1;HE1EUR01HT085;6:fF7UnSjEQYeveHkX0S8rPQXrcY2zFHJaRHN9RFyANS5V30qsd0JPrhPuDuXClXYzYTMOQAVCqF37ZZJJDdDN4lyA+DPTgbV48zujHGSgKeQzBzSBsCWYUk9HG85Z9JTTShUkSbPA8inWetRK4YyZRopXmBPV9V/OArPycllXb5dnvBjuIbFycefzkJGPlqROa/e0BfNlCQqg7nKo8WDv4tVWtPNN2vSdFlvYv2yvYvhdTPNFdZJqIpaem2SkUqvuCVMBQjjAQ7h719K36EjtKR5FOo2y0N1TqGbQ8CZLgjwkCvWdVUHPWdM8A8INgX4dCSEgldbj/BsA1zwzUippigYZdgqeRlhLnZIN1e5b1s15xbFwdMMbkVIiIzeVjO6R2o9OlwGlHJqprKjHN+f3p7B6wXOSZOD6YVhaW4XPs3YasQPtT6X11hOS0xMXowZ16WXs0wvNT+qSpbO5WlbiQA==;5:qRQmXTYd7xIjY1ABv3EDtyqj47QCPQ9lZBip11j29Imr+xLEABMm1bF7j7QN04143bwEnheNRHY032b5JOOa028+BJgVLrz7TRjWvVvRERE4W8qBJ5WeHvzcFCQYErqm076GbZM/wREOPZI0O5izJQnzbSH0xmEk3PJmD7rO4Js=;7:JwM7JeltCJ0g3719xnicSjL/aWWi2BAX7tLiY4U8bn22lmBM1PsYYNxDxMv8rtzNwSoqAM+nezRsUrlAKFCLDxfzbCz9EKtAcWP25+wMUQUMPw0HjG/AV4ZEia+GTmgmADZ0hHIwrkB4E7b3Hr/3YDjXlzSSOWp086g+mq7OYQDj0efBhLDk9+Gb1i1YMzk5fGpIUJvrTJq8jXXxACXebMV7eFgrkOSRkd0FLqLE2e0cxHAYavyT5mypIlxIrsu5
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2018 05:07:58.2633
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a31dc6f-655e-4f1e-1a40-08d5bed8d20a
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1EUR01HT085
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:02.9336763
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.0776.003
+X-Microsoft-Exchange-Diagnostics:
+	1;SLXP216MB0381;27:IdH7U/WHGgJu6J8lFrE7KvVxhnAwyKrNbSXMFYs3/Gzz6ZdXYYjzHj55K2O+cndpeVwkvBJqmo6y0IF4AhLfHtFzznw/BzhERU6wi/TCWRpyjYuW8v0/aTcflH3oAdgZ4Pwrp7PxLiiA8rYgU/E7SQ==
+X-Microsoft-Antispam-Mailbox-Delivery:
+	abwl:0;wl:0;pcwl:0;kl:0;iwl:0;dwl:0;dkl:0;rwl:0;ex:0;auth:1;dest:I;ENG:(5062000261)(5061607266)(5061608174)(1001195)(4900095)(4920089)(6215004)(4950130)(4990090)(9110004);OFR:SpamFilterPass;
+X-Message-Info:
+	5vMbyqxGkdc5VvMPP6kzgiW88INj3IdX9nScKhT/gqNw5NAF7TW3pJhXDL8FA9VZ7LOQHthhrF02obbwVwVLyNJep8kzEEX0gBuGDOkwa5zG6HpLz9KHYSJcN6/o4/ie5O1X5/nJRnJToqY4mXPvUpl5jXggolSFRZyW6uY6vAiGtVpxkYi7EOwoVFvIbJuYXxNmEH03r7U=
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0yO1NDTD0tMQ==
+X-Microsoft-Antispam-Message-Info:
+	lhJJsPRBb2xfsQ1ARMJxHR5yJoSj527b+dbWGYqidbyyyvHb/zjxB11IyyoBHRECF+NPTRkxhUSuKNbqvqdV3UQugdNceNegp1R+nDEXhjRpHiQiA1X+g7Fc3x5YV11VQbXLghC/0gj6QUFENYnyAKnFrJTLkHvoD5uriAjIDs4AqEiETmTDANGOOjyr+T8vTLgFUcNe8Z3OI2SK1LkNBdEm4nm6jZcjPyloz6F/tAxHJOpZRc+hlyEPVpDFWPkrVrPID1/EN5TR7mEvoxniygJir2ZVMB4CFSDdf0fH8OZ6KA8NmyZbpS2vtPmuVGWgHgnNa3AUgI9gS852SvczzpYHMmjhf4rwpzIFiFFuWaYRXvm/5Ox2ZJclyuiqCf2trMHFKP74g5/eD1RXfTbsXhRi9UIOsuTb6jdpxHFjE2NAL7GYsWEQDCo+DLAcgkky
+MIME-Version: 1.0
+
+--b44278a2-9d96-4fd5-bba1-efd949e0de68
+Content-Type: multipart/alternative; differences=Content-Type;
+	boundary="fa703e28-0970-4d04-880c-fa8365758880"
+X-Microsoft-Exchange-Diagnostics:
+	1;SLXP216MB0381;27:IdH7U/WHGgJu6J8lFrE7KvVxhnAwyKrNbSXMFYs3/Gzz6ZdXYYjzHj55K2O+cndpeVwkvBJqmo6y0IF4AhLfHtFzznw/BzhERU6wi/TCWRpyjYuW8v0/aTcflH3oAdgZ4Pwrp7PxLiiA8rYgU/E7SQ==
+X-Microsoft-Antispam-Mailbox-Delivery:
+	abwl:0;wl:0;pcwl:0;kl:0;iwl:0;dwl:0;dkl:0;rwl:0;ex:0;auth:1;dest:I;ENG:(5062000261)(5061607266)(5061608174)(1001195)(4900095)(4920089)(6215004)(4950130)(4990090)(9110004);OFR:SpamFilterPass;
+X-Message-Info:
+	5vMbyqxGkdc5VvMPP6kzgiW88INj3IdX9nScKhT/gqNw5NAF7TW3pJhXDL8FA9VZ7LOQHthhrF02obbwVwVLyNJep8kzEEX0gBuGDOkwa5zG6HpLz9KHYSJcN6/o4/ie5O1X5/nJRnJToqY4mXPvUpl5jXggolSFRZyW6uY6vAiGtVpxkYi7EOwoVFvIbJuYXxNmEH03r7U=
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0yO1NDTD0tMQ==
+X-Microsoft-Antispam-Message-Info:
+	lhJJsPRBb2xfsQ1ARMJxHR5yJoSj527b+dbWGYqidbyyyvHb/zjxB11IyyoBHRECF+NPTRkxhUSuKNbqvqdV3UQugdNceNegp1R+nDEXhjRpHiQiA1X+g7Fc3x5YV11VQbXLghC/0gj6QUFENYnyAKnFrJTLkHvoD5uriAjIDs4AqEiETmTDANGOOjyr+T8vTLgFUcNe8Z3OI2SK1LkNBdEm4nm6jZcjPyloz6F/tAxHJOpZRc+hlyEPVpDFWPkrVrPID1/EN5TR7mEvoxniygJir2ZVMB4CFSDdf0fH8OZ6KA8NmyZbpS2vtPmuVGWgHgnNa3AUgI9gS852SvczzpYHMmjhf4rwpzIFiFFuWaYRXvm/5Ox2ZJclyuiqCf2trMHFKP74g5/eD1RXfTbsXhRi9UIOsuTb6jdpxHFjE2NAL7GYsWEQDCo+DLAcgkky
+
+--fa703e28-0970-4d04-880c-fa8365758880
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+X-Microsoft-Exchange-Diagnostics:
+	1;SLXP216MB0381;27:IdH7U/WHGgJu6J8lFrE7KvVxhnAwyKrNbSXMFYs3/Gzz6ZdXYYjzHj55K2O+cndpeVwkvBJqmo6y0IF4AhLfHtFzznw/BzhERU6wi/TCWRpyjYuW8v0/aTcflH3oAdgZ4Pwrp7PxLiiA8rYgU/E7SQ==
+X-Microsoft-Antispam-Mailbox-Delivery:
+	abwl:0;wl:0;pcwl:0;kl:0;iwl:0;dwl:0;dkl:0;rwl:0;ex:0;auth:1;dest:I;ENG:(5062000261)(5061607266)(5061608174)(1001195)(4900095)(4920089)(6215004)(4950130)(4990090)(9110004);OFR:SpamFilterPass;
+X-Message-Info:
+	5vMbyqxGkdc5VvMPP6kzgiW88INj3IdX9nScKhT/gqNw5NAF7TW3pJhXDL8FA9VZ7LOQHthhrF02obbwVwVLyNJep8kzEEX0gBuGDOkwa5zG6HpLz9KHYSJcN6/o4/ie5O1X5/nJRnJToqY4mXPvUpl5jXggolSFRZyW6uY6vAiGtVpxkYi7EOwoVFvIbJuYXxNmEH03r7U=
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0yO1NDTD0tMQ==
+X-Microsoft-Antispam-Message-Info:
+	lhJJsPRBb2xfsQ1ARMJxHR5yJoSj527b+dbWGYqidbyyyvHb/zjxB11IyyoBHRECF+NPTRkxhUSuKNbqvqdV3UQugdNceNegp1R+nDEXhjRpHiQiA1X+g7Fc3x5YV11VQbXLghC/0gj6QUFENYnyAKnFrJTLkHvoD5uriAjIDs4AqEiETmTDANGOOjyr+T8vTLgFUcNe8Z3OI2SK1LkNBdEm4nm6jZcjPyloz6F/tAxHJOpZRc+hlyEPVpDFWPkrVrPID1/EN5TR7mEvoxniygJir2ZVMB4CFSDdf0fH8OZ6KA8NmyZbpS2vtPmuVGWgHgnNa3AUgI9gS852SvczzpYHMmjhf4rwpzIFiFFuWaYRXvm/5Ox2ZJclyuiqCf2trMHFKP74g5/eD1RXfTbsXhRi9UIOsuTb6jdpxHFjE2NAL7GYsWEQDCo+DLAcgkky
+
+msmx.au.com rejected your message to the following email addresses:
+
+otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp (otsu-sakaba-hunter-neko-nya=
+aaaaaan@ezweb.ne.jp)<mailto:otsu-sakaba-hunter-nyaaaaaaan@ezweb.ne.jp>
+Your message couldn't be delivered. It appears that the email address you s=
+ent your message to wasn't found at the destination domain, or the recipien=
+t's mailbox is unavailable. The email address might be misspelled or it mig=
+ht not exist. Try to fix the problem by doing one or more of the following:
+
+  *   Send the message again. Before you do, delete and retype the complete=
+ address. If your email program automatically suggests an address to use do=
+n't select it.
+
+  *   Clear the recipient Auto-Complete List entry in your email program by=
+ following the steps in this article<https://go.microsoft.com/fwlink/?LinkI=
+d=3D532972>. Then resend the message, but before you do, delete and retype =
+the complete address. If your email program suggests an address to use don'=
+t select it.
+
+  *   Contact the recipient by some other means (by phone, for example) to =
+confirm you're using the right address. Ask them if they've set up an email=
+ forwarding rule that could be forwarding your message to an incorrect addr=
+ess.
+
+If you're still unable to fix the problem, ask the recipient to tell their =
+email admin about the problem, and give them the server that reported the e=
+rror below.
+
+For Email Admins
+When Office 365 tried to send the message, the external email server return=
+ed the error below. This error was reported by an email server outside Offi=
+ce 365, and if the sender is unable to fix the problem by correcting the re=
+cipient's email address or clearing the Auto-Complete List entry, then it's=
+ likely a problem that only the recipient's email admin can fix.
+
+  *   Check the error for information about where the problem is happening.=
+ For example, look for a domain name. The domain name will tell you which o=
+rganization was responsible for the error. The recipient's email server cou=
+ld be causing the problem, or it could be due to a third-party service that=
+ your organization or the recipient's organization is using to process or f=
+ilter email messages.
+
+  *   If you can't fix the problem, contact the responsible party's email a=
+dmin. This could be the recipient's email admin, your smart host service ad=
+min, or someone similar. Give them the error and the name of the server tha=
+t reported the error to help them troubleshoot the issue.
+
+Unfortunately, Office 365 support is unlikely to be able to help with these=
+ kinds of externally reported errors.
+
+
+
+msmx.au.com gave this error:
+Remote server returned unknown recipient or mailbox unavailable -> 550 : Us=
+er unknown
+
+
+
+
+
+
+
+Diagnostic information for administrators:
+
+Generating server: SG2APC01HT247.mail.protection.outlook.com
+
+otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+msmx.au.com
+Remote Server returned '550 5.1.351 Remote server returned unknown recipien=
+t or mailbox unavailable -> 550 : User unknown'
+
+Original message headers:
+
+DKIM-Signature: v=3D1; a=3Drsa-sha256; c=3Drelaxed/relaxed; d=3Doutlook.com=
+;
+ s=3Dselector1;
+ h=3DFrom:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-S=
+enderADCheck;
+ bh=3DKV1WUsga7ffNS4SNSvorNsKpZzJwv+xn7OB0U+/5stc=3D;
+ b=3DhUaVKVl0mdVvufpR1C2nzYQNBjJKDm7VJW+JG3WjTM9HIkHuBKC8CWU1HGqQSwX0He5Y+k=
+WY7dSCYq9Wlnm666pMNZ+f53lZhe2wqoLILhfXvffTOAphW8fJ83LmGFnm7DdvwQ0n3Lg5RsAAT=
+BtnPOwuMzq9EFrLlSS7Dl5hhJvj0zgyB/r0teeZmH4Ha3A6Jc/oOvooxqqpx9Aiy0n1UOAS9bLY=
+3JDzPD4ACQ8n5cwmCexvz42iRyvRLrvf27uYdzU4b5HHVqxlQ6WZZBH60rHbhwjnobWpCYtpSoN=
+JTYMhcTWYJh0RxtYQE2hqk+fMz9cfxQAU/lzBpKa8ck/WEA=3D=3D
+Received: from SG2APC01FT049.eop-APC01.prod.protection.outlook.com
+ (10.152.250.60) by SG2APC01HT247.eop-APC01.prod.protection.outlook.com
+ (10.152.251.118) with Microsoft SMTP Server (version=3DTLS1_2,
+ cipher=3DTLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.20.696.11; Mon,=
+ 21
+ May 2018 05:07:54 +0000
+Received: from SLXP216MB0381.KORP216.PROD.OUTLOOK.COM (10.152.250.57) by
+ SG2APC01FT049.mail.protection.outlook.com (10.152.251.207) with Microsoft
+ SMTP Server (version=3DTLS1_2,
+ cipher=3DTLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.20.696.11 via
+ Frontend Transport; Mon, 21 May 2018 05:07:54 +0000
+Received: from SLXP216MB0381.KORP216.PROD.OUTLOOK.COM
+ ([fe80::10d2:b426:34cf:d5d0]) by SLXP216MB0381.KORP216.PROD.OUTLOOK.COM
+ ([fe80::10d2:b426:34cf:d5d0%14]) with mapi id 15.20.0776.015; Mon, 21 May
+ 2018 05:07:53 +0000
+From: azuma kuniyuki <azumakuniyuki@outlook.example.com>
+To: "otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp" <otsu-sakaba-hunter-ne=
+ko-nyaaaaaaan@ezweb.ne.jp>
+Subject: =3D?iso-2022-jp?B?GyRCJUslYyE8JXMbKEI=3D?=3D
+Thread-Topic: =3D?iso-2022-jp?B?GyRCJUslYyE8JXMbKEI=3D?=3D
+Thread-Index: AQHT8MGsDJq0pNzN8kqm6l56g9iVCg=3D=3D
+Date: Mon, 21 May 2018 05:07:53 +0000
+Message-ID: <SLXP216MB0381A8F03A83505296890D11A9950@SLXP216MB0381.KORP216.P=
+ROD.OUTLOOK.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-incomingtopheadermarker: OriginalChecksum:84FF7FE54F57E38E42A111D29890FC9=
+21DBB4C6239382E6484038414895C873D;UpperCasedChecksum:3E5D217EF3E5CB5730EF91=
+85F01B8595F9477A9CE2D152AEAC30BA875A21AA7A;SizeAsReceived:6871;Count:44
+x-ms-exchange-messagesentrepresentingtype: 1
+x-tmn: [zBegZ8DMM1joRzNLD16yA4T1KADfslTU]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1;SG2APC01HT247;6:Z2g5cfkA6JTZl6V4cja0nvc=
+eFFsGDe4z3zTgKMxK1CBvYEfJV/SaNdQ4QmW+YYB3/XgwY7pZ7mv9k/SJLfe5M/2XXkPPfJbPKI=
+RPgFgwuvOG+MlxbMv+/qJCIGLHZ5kZ/EIY37DR5DR7f2bcGrMQpmN6+uUP2ISGOG7SLyukNjocV=
+qc3p6ZUnrWZxGeHlF6LulXaABnx1/Z9ryQsZGm5+fJ8cqF4gwyP0Jh5WTFV5XWW2vZgX9mQpMId=
+9nYFC2zHiXdvPg6Vvt5j1ywGPXE8jwAJVcYKN3K4Wd+8A4hivQM7BGw4HzM0e2XW9iCZf9dlRVV=
+Isbmg/ne1DrSZhR9+qahtJX+8jYWW8zW9ebvTPeE=3D;5:WNBdwg0LGgXOI/mny6P+EdfSTpEas=
++eC/q+RxG09NP6qFbOwrxb57jBn91f+hPb3W/uu6y7Csyzre0Fa3VqJD7zJIaEE4fhK349hidJB=
+N7lmSMdzmZFZPJlmF3mDRyo8i8Nl02ruOYVmz4Xl/iuE3knoGtxav3w6z4gponA6Bec=3D;24:u=
+gR4khzIJ5m0UsfOTLUOrP++btqsU9mplqH3pvaG8l90yplWNtbXNrVuakqieKEcGSQfQaVmi9sI=
+GaLWqcITH3i6+N8IAG07yV/UMuxDcKw=3D;7:4lGDAEJp+zY/bnj7pkgFmQrJGwrKT1EPoJJ5Y7=
+DP8Es5XLt59gz88kZl1oGtd/FRVJA3DtKVswgvmF3ltaRUqg+boFX/wFmOd7OTuujvbpFKTOTUq=
+CufvIDfVfeHYfTDN/e0+QsZ5Gq+kOSSEjhBTCzoakpUd5Mj2IvSfnTm/a3d+W2eUUvGldqsy/ff=
+VwNYnFuq22U7Ru2l0N8Kkz4cu23YOC9bPhatqLWy+l4g5avx+OgZx/lF54vnbBkfyKxG
+x-incomingheadercount: 44
+x-eopattributedmessage: 0
+x-microsoft-antispam: UriScan:;BCL:0;PCL:0;RULEID:(7020095)(201702061078)(5=
+061506573)(5061507331)(1603103135)(2017031320274)(2017031324274)(2017031323=
+274)(2017031322404)(1603101448)(1601125466)(1701031045);SRVR:SG2APC01HT247;
+x-ms-traffictypediagnostic: SG2APC01HT247:
+x-exchange-antispam-report-cfa-test: BCL:0;PCL:0;RULEID:(444000031);SRVR:SG=
+2APC01HT247;BCL:0;PCL:0;RULEID:;SRVR:SG2APC01HT247;
+x-forefront-prvs: 06793E740F
+x-forefront-antispam-report: SFV:NSPM;SFS:(7070007)(199004)(189003)(8220200=
+2)(588024002)(54896002)(20460500001)(33656002)(6606003)(8666007)(87572001)(=
+6346003)(102836004)(55016002)(106356001)(558084003)(551214005)(105586002)(5=
+640700003)(86152003)(6436002)(2900100001)(7696005)(224303003)(6916009)(4860=
+06)(25786009)(5660300001)(14454004)(426003)(476003)(26005)(2351001)(8115601=
+4)(3280700002)(3660700001)(97736004)(74316002)(8936002)(86362001)(525010000=
+2)(19627405001)(68736007)(99286004)(104016004)(2501003)(558944008);DIR:OUT;=
+SFP:1901;SCL:1;SRVR:SG2APC01HT247;H:SLXP216MB0381.KORP216.PROD.OUTLOOK.COM;=
+FPR:;SPF:None;PTR:InfoNoRecords;A:1;MX:1;LANG:;
+received-spf: None (protection.outlook.com: outlook.com does not designate
+ permitted sender hosts)
+authentication-results: spf=3Dnone (sender IP is )
+ smtp.mailfrom=3Dazumakuniyuki@outlook.example.com;
+x-microsoft-antispam-message-info: BFhf+7mpHF/7IUr2b2+/UKXDo3KGsfxN00Wbz0z0=
+OVQ/tP0JNnle6C1UnXOIfX+bWRoYFk2wI0iXqAHm1P1VQ/Bzjr5yvaaNixP/GM2pK1zqTYiWDKJ=
+n4KGzGCVFOzuysU3H7E6BKbXKuB6qx/jH1R1E3EW0qzvpnQVt9ZSNdFcALDIP9vMg+8bj/twxyQ=
+Jn
+Content-Type: multipart/alternative;
+        boundary=3D"_000_SLXP216MB0381A8F03A83505296890D11A9950SLXP216MB038=
+1KORP_"
+MIME-Version: 1.0
+X-MS-Office365-Filtering-Correlation-Id: 0dc07ee8-8d59-45a9-5345-08d5bed8cf=
+13
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: d4d70346-2c10-4f39-8c00=
+-e767963926d9
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0dc07ee8-8d59-45a9-5345-08d5b=
+ed8cf13
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: d4d70346-2c10-4f39-8c00=
+-e767963926d9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 May 2018 05:07:53.8375
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Internet
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2APC01HT247
+
+
+--fa703e28-0970-4d04-880c-fa8365758880
+Content-Type: text/html; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+X-Microsoft-Exchange-Diagnostics:
+	1;SLXP216MB0381;27:IdH7U/WHGgJu6J8lFrE7KvVxhnAwyKrNbSXMFYs3/Gzz6ZdXYYjzHj55K2O+cndpeVwkvBJqmo6y0IF4AhLfHtFzznw/BzhERU6wi/TCWRpyjYuW8v0/aTcflH3oAdgZ4Pwrp7PxLiiA8rYgU/E7SQ==
+X-Microsoft-Antispam-Mailbox-Delivery:
+	abwl:0;wl:0;pcwl:0;kl:0;iwl:0;dwl:0;dkl:0;rwl:0;ex:0;auth:1;dest:I;ENG:(5062000261)(5061607266)(5061608174)(1001195)(4900095)(4920089)(6215004)(4950130)(4990090)(9110004);OFR:SpamFilterPass;
+X-Message-Info:
+	5vMbyqxGkdc5VvMPP6kzgiW88INj3IdX9nScKhT/gqNw5NAF7TW3pJhXDL8FA9VZ7LOQHthhrF02obbwVwVLyNJep8kzEEX0gBuGDOkwa5zG6HpLz9KHYSJcN6/o4/ie5O1X5/nJRnJToqY4mXPvUpl5jXggolSFRZyW6uY6vAiGtVpxkYi7EOwoVFvIbJuYXxNmEH03r7U=
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0yO1NDTD0tMQ==
+X-Microsoft-Antispam-Message-Info:
+	lhJJsPRBb2xfsQ1ARMJxHR5yJoSj527b+dbWGYqidbyyyvHb/zjxB11IyyoBHRECF+NPTRkxhUSuKNbqvqdV3UQugdNceNegp1R+nDEXhjRpHiQiA1X+g7Fc3x5YV11VQbXLghC/0gj6QUFENYnyAKnFrJTLkHvoD5uriAjIDs4AqEiETmTDANGOOjyr+T8vTLgFUcNe8Z3OI2SK1LkNBdEm4nm6jZcjPyloz6F/tAxHJOpZRc+hlyEPVpDFWPkrVrPID1/EN5TR7mEvoxniygJir2ZVMB4CFSDdf0fH8OZ6KA8NmyZbpS2vtPmuVGWgHgnNa3AUgI9gS852SvczzpYHMmjhf4rwpzIFiFFuWaYRXvm/5Ox2ZJclyuiqCf2trMHFKP74g5/eD1RXfTbsXhRi9UIOsuTb6jdpxHFjE2NAL7GYsWEQDCo+DLAcgkky
+
+<html><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
+jp"></head><body>
+<p><b><font color=3D"#000066" size=3D"3" face=3D"Arial">msmx.au.com rejecte=
+d your message to the following email addresses:</font></b></p>
+<font color=3D"#000000" size=3D"2" face=3D"Tahoma"><p><a href=3D"mailto:ots=
+u-sakaba-hunter-nyaaaaaaan@ezweb.ne.jp">otsu-sakaba-hunter-neko-nyaaaaaaan@=
+ezweb.ne.jp (otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp)</a><br>
+</font>
+<font color=3D"#000000" size=3D"3" face=3D"Arial">Your message couldn't be =
+delivered. It appears that the email address you sent your message to wasn'=
+t found at the destination domain, or the recipient's mailbox is unavailabl=
+e. The email address might be misspelled or it might not exist. Try to fix =
+the problem by doing one or more of the following:<ul><li><b>Send the messa=
+ge again</b>. Before you do, delete and retype the complete address. If you=
+r email program automatically suggests an address to use don't select it.</=
+li><br><li><b>Clear the recipient Auto-Complete List entry</b> in your emai=
+l program by following the steps in <a href=3D"https://go.microsoft.com/fwl=
+ink/?LinkId=3D532972">this article</a>. Then resend the message, but before=
+ you do, delete and retype the complete address. If your email program sugg=
+ests an address to use don't select it.</li><br><li><b>Contact the recipien=
+t by some other means</b> (by phone, for example) to confirm you're using t=
+he right address. Ask them if they've set up an email forwarding rule that =
+could be forwarding your message to an incorrect address.</li></ul><p>If yo=
+u're still unable to fix the problem, ask the recipient to tell their email=
+ admin about the problem, and give them the server that reported the error =
+below.</p><p><b>For Email Admins</b><br>When Office 365 tried to send the m=
+essage, the external email server returned the error below. This error was =
+reported by an email server outside Office 365, and if the sender is unable=
+ to fix the problem by correcting the recipient's email address or clearing=
+ the Auto-Complete List entry, then it's likely a problem that only the rec=
+ipient's email admin can fix.<ul><li><b>Check the error for information abo=
+ut where the problem is happening.</b> For example, look for a domain name.=
+ The domain name will tell you which organization was responsible for the e=
+rror. The recipient's email server could be causing the problem, or it coul=
+d be due to a third-party service that your organization or the recipient's=
+ organization is using to process or filter email messages.</li><br><li><b>=
+If you can't fix the problem, contact the responsible party's email admin.<=
+/b> This could be the recipient's email admin, your smart host service admi=
+n, or someone similar. Give them the error and the name of the server that =
+reported the error to help them troubleshoot the issue.</li></ul></p><p>Unf=
+ortunately, Office 365 support is unlikely to be able to help with these ki=
+nds of externally reported errors.</p><br>
+</font>
+<font color=3D"#000000" size=3D"2" face=3D"Tahoma"><br>
+
+<p><b>msmx.au.com gave this error:<br>
+Remote server returned unknown recipient or mailbox unavailable -&gt; 550 :=
+ User unknown <br>
+</b></p>
+</p>
+</font>
+<br><br><br><br><br><br>
+<font color=3D"#808080" size=3D"2" face=3D"Tahoma"><p><b>Diagnostic informa=
+tion for administrators:</b></p>
+<p>Generating server: SG2APC01HT247.mail.protection.outlook.com<br>
+</p>
+<p>otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp<br>
+msmx.au.com<br>
+Remote Server  returned '550 5.1.351 Remote server returned unknown recipie=
+nt or mailbox unavailable -&gt; 550 : User unknown'<br>
+</p>
+<p>Original message headers:</p>
+<pre>DKIM-Signature: v=3D1; a=3Drsa-sha256; c=3Drelaxed/relaxed; d=3Doutloo=
+k.com;
+ s=3Dselector1;
+ h=3DFrom:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-S=
+enderADCheck;
+ bh=3DKV1WUsga7ffNS4SNSvorNsKpZzJwv&#43;xn7OB0U&#43;/5stc=3D;
+ b=3DhUaVKVl0mdVvufpR1C2nzYQNBjJKDm7VJW&#43;JG3WjTM9HIkHuBKC8CWU1HGqQSwX0He=
+5Y&#43;kWY7dSCYq9Wlnm666pMNZ&#43;f53lZhe2wqoLILhfXvffTOAphW8fJ83LmGFnm7Ddvw=
+Q0n3Lg5RsAATBtnPOwuMzq9EFrLlSS7Dl5hhJvj0zgyB/r0teeZmH4Ha3A6Jc/oOvooxqqpx9Ai=
+y0n1UOAS9bLY3JDzPD4ACQ8n5cwmCexvz42iRyvRLrvf27uYdzU4b5HHVqxlQ6WZZBH60rHbhwj=
+nobWpCYtpSoNJTYMhcTWYJh0RxtYQE2hqk&#43;fMz9cfxQAU/lzBpKa8ck/WEA=3D=3D
+Received: from SG2APC01FT049.eop-APC01.prod.protection.outlook.com
+ (10.152.250.60) by SG2APC01HT247.eop-APC01.prod.protection.outlook.com
+ (10.152.251.118) with Microsoft SMTP Server (version=3DTLS1_2,
+ cipher=3DTLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.20.696.11; Mon,=
+ 21
+ May 2018 05:07:54 &#43;0000
+Received: from SLXP216MB0381.KORP216.PROD.OUTLOOK.COM (10.152.250.57) by
+ SG2APC01FT049.mail.protection.outlook.com (10.152.251.207) with Microsoft
+ SMTP Server (version=3DTLS1_2,
+ cipher=3DTLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.20.696.11 via
+ Frontend Transport; Mon, 21 May 2018 05:07:54 &#43;0000
+Received: from SLXP216MB0381.KORP216.PROD.OUTLOOK.COM
+ ([fe80::10d2:b426:34cf:d5d0]) by SLXP216MB0381.KORP216.PROD.OUTLOOK.COM
+ ([fe80::10d2:b426:34cf:d5d0%14]) with mapi id 15.20.0776.015; Mon, 21 May
+ 2018 05:07:53 &#43;0000
+From: azuma kuniyuki &lt;azumakuniyuki@outlook.example.com&gt;
+To: &quot;otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp&quot; &lt;otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.=
+jp&gt;
+Subject: =3D?iso-2022-jp?B?GyRCJUslYyE8JXMbKEI=3D?=3D
+Thread-Topic: =3D?iso-2022-jp?B?GyRCJUslYyE8JXMbKEI=3D?=3D
+Thread-Index: AQHT8MGsDJq0pNzN8kqm6l56g9iVCg=3D=3D
+Date: Mon, 21 May 2018 05:07:53 &#43;0000
+Message-ID: &lt;SLXP216MB0381A8F03A83505296890D11A9950@SLXP216MB0381.KORP21=
+6.PROD.OUTLOOK.COM&gt;
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-incomingtopheadermarker: OriginalChecksum:84FF7FE54F57E38E42A111D29890FC9=
+21DBB4C6239382E6484038414895C873D;UpperCasedChecksum:3E5D217EF3E5CB5730EF91=
+85F01B8595F9477A9CE2D152AEAC30BA875A21AA7A;SizeAsReceived:6871;Count:44
+x-ms-exchange-messagesentrepresentingtype: 1
+x-tmn: [zBegZ8DMM1joRzNLD16yA4T1KADfslTU]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1;SG2APC01HT247;6:Z2g5cfkA6JTZl6V4cja0nvc=
+eFFsGDe4z3zTgKMxK1CBvYEfJV/SaNdQ4QmW&#43;YYB3/XgwY7pZ7mv9k/SJLfe5M/2XXkPPfJ=
+bPKIRPgFgwuvOG&#43;MlxbMv&#43;/qJCIGLHZ5kZ/EIY37DR5DR7f2bcGrMQpmN6&#43;uUP2=
+ISGOG7SLyukNjocVqc3p6ZUnrWZxGeHlF6LulXaABnx1/Z9ryQsZGm5&#43;fJ8cqF4gwyP0Jh5=
+WTFV5XWW2vZgX9mQpMId9nYFC2zHiXdvPg6Vvt5j1ywGPXE8jwAJVcYKN3K4Wd&#43;8A4hivQM=
+7BGw4HzM0e2XW9iCZf9dlRVVIsbmg/ne1DrSZhR9&#43;qahtJX&#43;8jYWW8zW9ebvTPeE=3D=
+;5:WNBdwg0LGgXOI/mny6P&#43;EdfSTpEas&#43;eC/q&#43;RxG09NP6qFbOwrxb57jBn91f&=
+#43;hPb3W/uu6y7Csyzre0Fa3VqJD7zJIaEE4fhK349hidJBN7lmSMdzmZFZPJlmF3mDRyo8i8N=
+l02ruOYVmz4Xl/iuE3knoGtxav3w6z4gponA6Bec=3D;24:ugR4khzIJ5m0UsfOTLUOrP&#43;&=
+#43;btqsU9mplqH3pvaG8l90yplWNtbXNrVuakqieKEcGSQfQaVmi9sIGaLWqcITH3i6&#43;N8=
+IAG07yV/UMuxDcKw=3D;7:4lGDAEJp&#43;zY/bnj7pkgFmQrJGwrKT1EPoJJ5Y7DP8Es5XLt59=
+gz88kZl1oGtd/FRVJA3DtKVswgvmF3ltaRUqg&#43;boFX/wFmOd7OTuujvbpFKTOTUqCufvIDf=
+VfeHYfTDN/e0&#43;QsZ5Gq&#43;kOSSEjhBTCzoakpUd5Mj2IvSfnTm/a3d&#43;W2eUUvGldq=
+sy/ffVwNYnFuq22U7Ru2l0N8Kkz4cu23YOC9bPhatqLWy&#43;l4g5avx&#43;OgZx/lF54vnbB=
+kfyKxG
+x-incomingheadercount: 44
+x-eopattributedmessage: 0
+x-microsoft-antispam: UriScan:;BCL:0;PCL:0;RULEID:(7020095)(201702061078)(5=
+061506573)(5061507331)(1603103135)(2017031320274)(2017031324274)(2017031323=
+274)(2017031322404)(1603101448)(1601125466)(1701031045);SRVR:SG2APC01HT247;
+x-ms-traffictypediagnostic: SG2APC01HT247:
+x-exchange-antispam-report-cfa-test: BCL:0;PCL:0;RULEID:(444000031);SRVR:SG=
+2APC01HT247;BCL:0;PCL:0;RULEID:;SRVR:SG2APC01HT247;
+x-forefront-prvs: 06793E740F
+x-forefront-antispam-report: SFV:NSPM;SFS:(7070007)(199004)(189003)(8220200=
+2)(588024002)(54896002)(20460500001)(33656002)(6606003)(8666007)(87572001)(=
+6346003)(102836004)(55016002)(106356001)(558084003)(551214005)(105586002)(5=
+640700003)(86152003)(6436002)(2900100001)(7696005)(224303003)(6916009)(4860=
+06)(25786009)(5660300001)(14454004)(426003)(476003)(26005)(2351001)(8115601=
+4)(3280700002)(3660700001)(97736004)(74316002)(8936002)(86362001)(525010000=
+2)(19627405001)(68736007)(99286004)(104016004)(2501003)(558944008);DIR:OUT;=
+SFP:1901;SCL:1;SRVR:SG2APC01HT247;H:SLXP216MB0381.KORP216.PROD.OUTLOOK.COM;=
+FPR:;SPF:None;PTR:InfoNoRecords;A:1;MX:1;LANG:;
+received-spf: None (protection.outlook.com: outlook.com does not designate
+ permitted sender hosts)
+authentication-results: spf=3Dnone (sender IP is )
+ smtp.mailfrom=3Dazumakuniyuki@outlook.example.com;=20
+x-microsoft-antispam-message-info: BFhf&#43;7mpHF/7IUr2b2&#43;/UKXDo3KGsfxN=
+00Wbz0z0OVQ/tP0JNnle6C1UnXOIfX&#43;bWRoYFk2wI0iXqAHm1P1VQ/Bzjr5yvaaNixP/GM2=
+pK1zqTYiWDKJn4KGzGCVFOzuysU3H7E6BKbXKuB6qx/jH1R1E3EW0qzvpnQVt9ZSNdFcALDIP9v=
+Mg&#43;8bj/twxyQJn
+Content-Type: multipart/alternative;
+	boundary=3D&quot;_000_SLXP216MB0381A8F03A83505296890D11A9950SLXP216MB0381K=
+ORP_&quot;
+MIME-Version: 1.0
+X-MS-Office365-Filtering-Correlation-Id: 0dc07ee8-8d59-45a9-5345-08d5bed8cf=
+13
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: d4d70346-2c10-4f39-8c00=
+-e767963926d9
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0dc07ee8-8d59-45a9-5345-08d5b=
+ed8cf13
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: d4d70346-2c10-4f39-8c00=
+-e767963926d9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 May 2018 05:07:53.8375
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Internet
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2APC01HT247
+</pre>
+</font>
+</body>
+</html>=
+
+--fa703e28-0970-4d04-880c-fa8365758880--
+
+--b44278a2-9d96-4fd5-bba1-efd949e0de68
+Content-Type: message/delivery-status
+X-Microsoft-Exchange-Diagnostics:
+	1;SLXP216MB0381;27:IdH7U/WHGgJu6J8lFrE7KvVxhnAwyKrNbSXMFYs3/Gzz6ZdXYYjzHj55K2O+cndpeVwkvBJqmo6y0IF4AhLfHtFzznw/BzhERU6wi/TCWRpyjYuW8v0/aTcflH3oAdgZ4Pwrp7PxLiiA8rYgU/E7SQ==
+X-Microsoft-Antispam-Mailbox-Delivery:
+	abwl:0;wl:0;pcwl:0;kl:0;iwl:0;dwl:0;dkl:0;rwl:0;ex:0;auth:1;dest:I;ENG:(5062000261)(5061607266)(5061608174)(1001195)(4900095)(4920089)(6215004)(4950130)(4990090)(9110004);OFR:SpamFilterPass;
+X-Message-Info:
+	5vMbyqxGkdc5VvMPP6kzgiW88INj3IdX9nScKhT/gqNw5NAF7TW3pJhXDL8FA9VZ7LOQHthhrF02obbwVwVLyNJep8kzEEX0gBuGDOkwa5zG6HpLz9KHYSJcN6/o4/ie5O1X5/nJRnJToqY4mXPvUpl5jXggolSFRZyW6uY6vAiGtVpxkYi7EOwoVFvIbJuYXxNmEH03r7U=
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0yO1NDTD0tMQ==
+X-Microsoft-Antispam-Message-Info:
+	lhJJsPRBb2xfsQ1ARMJxHR5yJoSj527b+dbWGYqidbyyyvHb/zjxB11IyyoBHRECF+NPTRkxhUSuKNbqvqdV3UQugdNceNegp1R+nDEXhjRpHiQiA1X+g7Fc3x5YV11VQbXLghC/0gj6QUFENYnyAKnFrJTLkHvoD5uriAjIDs4AqEiETmTDANGOOjyr+T8vTLgFUcNe8Z3OI2SK1LkNBdEm4nm6jZcjPyloz6F/tAxHJOpZRc+hlyEPVpDFWPkrVrPID1/EN5TR7mEvoxniygJir2ZVMB4CFSDdf0fH8OZ6KA8NmyZbpS2vtPmuVGWgHgnNa3AUgI9gS852SvczzpYHMmjhf4rwpzIFiFFuWaYRXvm/5Ox2ZJclyuiqCf2trMHFKP74g5/eD1RXfTbsXhRi9UIOsuTb6jdpxHFjE2NAL7GYsWEQDCo+DLAcgkky
+
+Reporting-MTA: dns;SG2APC01HT247.mail.protection.outlook.com
+Received-From-MTA: dns;SLXP216MB0381.KORP216.PROD.OUTLOOK.COM
+Arrival-Date: Mon, 21 May 2018 05:07:54 +0000
+
+Final-Recipient: rfc822;otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+Action: failed
+Status: 5.1.351
+Diagnostic-Code: smtp;550 5.1.351 Remote server returned unknown recipient or mailbox unavailable -> 550 : User unknown
+Remote-MTA: dns;msmx.au.com
+X-Display-Name: otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp
+
+
+--b44278a2-9d96-4fd5-bba1-efd949e0de68
+Content-Type: message/rfc822
+X-Microsoft-Exchange-Diagnostics:
+	1;SLXP216MB0381;27:IdH7U/WHGgJu6J8lFrE7KvVxhnAwyKrNbSXMFYs3/Gzz6ZdXYYjzHj55K2O+cndpeVwkvBJqmo6y0IF4AhLfHtFzznw/BzhERU6wi/TCWRpyjYuW8v0/aTcflH3oAdgZ4Pwrp7PxLiiA8rYgU/E7SQ==
+X-Microsoft-Antispam-Mailbox-Delivery:
+	abwl:0;wl:0;pcwl:0;kl:0;iwl:0;dwl:0;dkl:0;rwl:0;ex:0;auth:1;dest:I;ENG:(5062000261)(5061607266)(5061608174)(1001195)(4900095)(4920089)(6215004)(4950130)(4990090)(9110004);OFR:SpamFilterPass;
+X-Message-Info:
+	5vMbyqxGkdc5VvMPP6kzgiW88INj3IdX9nScKhT/gqNw5NAF7TW3pJhXDL8FA9VZ7LOQHthhrF02obbwVwVLyNJep8kzEEX0gBuGDOkwa5zG6HpLz9KHYSJcN6/o4/ie5O1X5/nJRnJToqY4mXPvUpl5jXggolSFRZyW6uY6vAiGtVpxkYi7EOwoVFvIbJuYXxNmEH03r7U=
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0yO1NDTD0tMQ==
+X-Microsoft-Antispam-Message-Info:
+	lhJJsPRBb2xfsQ1ARMJxHR5yJoSj527b+dbWGYqidbyyyvHb/zjxB11IyyoBHRECF+NPTRkxhUSuKNbqvqdV3UQugdNceNegp1R+nDEXhjRpHiQiA1X+g7Fc3x5YV11VQbXLghC/0gj6QUFENYnyAKnFrJTLkHvoD5uriAjIDs4AqEiETmTDANGOOjyr+T8vTLgFUcNe8Z3OI2SK1LkNBdEm4nm6jZcjPyloz6F/tAxHJOpZRc+hlyEPVpDFWPkrVrPID1/EN5TR7mEvoxniygJir2ZVMB4CFSDdf0fH8OZ6KA8NmyZbpS2vtPmuVGWgHgnNa3AUgI9gS852SvczzpYHMmjhf4rwpzIFiFFuWaYRXvm/5Ox2ZJclyuiqCf2trMHFKP74g5/eD1RXfTbsXhRi9UIOsuTb6jdpxHFjE2NAL7GYsWEQDCo+DLAcgkky
+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KV1WUsga7ffNS4SNSvorNsKpZzJwv+xn7OB0U+/5stc=;
+ b=hUaVKVl0mdVvufpR1C2nzYQNBjJKDm7VJW+JG3WjTM9HIkHuBKC8CWU1HGqQSwX0He5Y+kWY7dSCYq9Wlnm666pMNZ+f53lZhe2wqoLILhfXvffTOAphW8fJ83LmGFnm7DdvwQ0n3Lg5RsAATBtnPOwuMzq9EFrLlSS7Dl5hhJvj0zgyB/r0teeZmH4Ha3A6Jc/oOvooxqqpx9Aiy0n1UOAS9bLY3JDzPD4ACQ8n5cwmCexvz42iRyvRLrvf27uYdzU4b5HHVqxlQ6WZZBH60rHbhwjnobWpCYtpSoNJTYMhcTWYJh0RxtYQE2hqk+fMz9cfxQAU/lzBpKa8ck/WEA==
+Received: from SG2APC01FT049.eop-APC01.prod.protection.outlook.com
+ (10.152.250.60) by SG2APC01HT247.eop-APC01.prod.protection.outlook.com
+ (10.152.251.118) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.20.696.11; Mon, 21
+ May 2018 05:07:54 +0000
+Received: from SLXP216MB0381.KORP216.PROD.OUTLOOK.COM (10.152.250.57) by
+ SG2APC01FT049.mail.protection.outlook.com (10.152.251.207) with Microsoft
+ SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.20.696.11 via
+ Frontend Transport; Mon, 21 May 2018 05:07:54 +0000
+Received: from SLXP216MB0381.KORP216.PROD.OUTLOOK.COM
+ ([fe80::10d2:b426:34cf:d5d0]) by SLXP216MB0381.KORP216.PROD.OUTLOOK.COM
+ ([fe80::10d2:b426:34cf:d5d0%14]) with mapi id 15.20.0776.015; Mon, 21 May
+ 2018 05:07:53 +0000
+From: azuma kuniyuki <azumakuniyuki@outlook.example.com>
+To: "otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp" <otsu-sakaba-hunter-neko-nyaaaaaaan@ezweb.ne.jp>
+Subject: =?iso-2022-jp?B?GyRCJUslYyE8JXMbKEI=?=
+Thread-Topic: =?iso-2022-jp?B?GyRCJUslYyE8JXMbKEI=?=
+Thread-Index: AQHT8MGsDJq0pNzN8kqm6l56g9iVCg==
+Date: Mon, 21 May 2018 05:07:53 +0000
+Message-ID: <SLXP216MB0381A8F03A83505296890D11A9950@SLXP216MB0381.KORP216.PROD.OUTLOOK.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-incomingtopheadermarker: OriginalChecksum:84FF7FE54F57E38E42A111D29890FC921DBB4C6239382E6484038414895C873D;UpperCasedChecksum:3E5D217EF3E5CB5730EF9185F01B8595F9477A9CE2D152AEAC30BA875A21AA7A;SizeAsReceived:6871;Count:44
+x-ms-exchange-messagesentrepresentingtype: 1
+x-tmn: [zBegZ8DMM1joRzNLD16yA4T1KADfslTU]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1;SG2APC01HT247;6:Z2g5cfkA6JTZl6V4cja0nvceFFsGDe4z3zTgKMxK1CBvYEfJV/SaNdQ4QmW+YYB3/XgwY7pZ7mv9k/SJLfe5M/2XXkPPfJbPKIRPgFgwuvOG+MlxbMv+/qJCIGLHZ5kZ/EIY37DR5DR7f2bcGrMQpmN6+uUP2ISGOG7SLyukNjocVqc3p6ZUnrWZxGeHlF6LulXaABnx1/Z9ryQsZGm5+fJ8cqF4gwyP0Jh5WTFV5XWW2vZgX9mQpMId9nYFC2zHiXdvPg6Vvt5j1ywGPXE8jwAJVcYKN3K4Wd+8A4hivQM7BGw4HzM0e2XW9iCZf9dlRVVIsbmg/ne1DrSZhR9+qahtJX+8jYWW8zW9ebvTPeE=;5:WNBdwg0LGgXOI/mny6P+EdfSTpEas+eC/q+RxG09NP6qFbOwrxb57jBn91f+hPb3W/uu6y7Csyzre0Fa3VqJD7zJIaEE4fhK349hidJBN7lmSMdzmZFZPJlmF3mDRyo8i8Nl02ruOYVmz4Xl/iuE3knoGtxav3w6z4gponA6Bec=;24:ugR4khzIJ5m0UsfOTLUOrP++btqsU9mplqH3pvaG8l90yplWNtbXNrVuakqieKEcGSQfQaVmi9sIGaLWqcITH3i6+N8IAG07yV/UMuxDcKw=;7:4lGDAEJp+zY/bnj7pkgFmQrJGwrKT1EPoJJ5Y7DP8Es5XLt59gz88kZl1oGtd/FRVJA3DtKVswgvmF3ltaRUqg+boFX/wFmOd7OTuujvbpFKTOTUqCufvIDfVfeHYfTDN/e0+QsZ5Gq+kOSSEjhBTCzoakpUd5Mj2IvSfnTm/a3d+W2eUUvGldqsy/ffVwNYnFuq22U7Ru2l0N8Kkz4cu23YOC9bPhatqLWy+l4g5avx+OgZx/lF54vnbBkfyKxG
+x-incomingheadercount: 44
+x-eopattributedmessage: 0
+x-microsoft-antispam: UriScan:;BCL:0;PCL:0;RULEID:(7020095)(201702061078)(5061506573)(5061507331)(1603103135)(2017031320274)(2017031324274)(2017031323274)(2017031322404)(1603101448)(1601125466)(1701031045);SRVR:SG2APC01HT247;
+x-ms-traffictypediagnostic: SG2APC01HT247:
+x-exchange-antispam-report-cfa-test: BCL:0;PCL:0;RULEID:(444000031);SRVR:SG2APC01HT247;BCL:0;PCL:0;RULEID:;SRVR:SG2APC01HT247;
+x-forefront-prvs: 06793E740F
+x-forefront-antispam-report: SFV:NSPM;SFS:(7070007)(199004)(189003)(82202002)(588024002)(54896002)(20460500001)(33656002)(6606003)(8666007)(87572001)(6346003)(102836004)(55016002)(106356001)(558084003)(551214005)(105586002)(5640700003)(86152003)(6436002)(2900100001)(7696005)(224303003)(6916009)(486006)(25786009)(5660300001)(14454004)(426003)(476003)(26005)(2351001)(81156014)(3280700002)(3660700001)(97736004)(74316002)(8936002)(86362001)(5250100002)(19627405001)(68736007)(99286004)(104016004)(2501003)(558944008);DIR:OUT;SFP:1901;SCL:1;SRVR:SG2APC01HT247;H:SLXP216MB0381.KORP216.PROD.OUTLOOK.COM;FPR:;SPF:None;PTR:InfoNoRecords;A:1;MX:1;LANG:;
+received-spf: None (protection.outlook.com: outlook.com does not designate
+ permitted sender hosts)
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=azumakuniyuki@outlook.example.com; 
+x-microsoft-antispam-message-info: BFhf+7mpHF/7IUr2b2+/UKXDo3KGsfxN00Wbz0z0OVQ/tP0JNnle6C1UnXOIfX+bWRoYFk2wI0iXqAHm1P1VQ/Bzjr5yvaaNixP/GM2pK1zqTYiWDKJn4KGzGCVFOzuysU3H7E6BKbXKuB6qx/jH1R1E3EW0qzvpnQVt9ZSNdFcALDIP9vMg+8bj/twxyQJn
+Content-Type: multipart/alternative;
+	boundary="_000_SLXP216MB0381A8F03A83505296890D11A9950SLXP216MB0381KORP_"
+X-MS-Office365-Filtering-Correlation-Id: 0dc07ee8-8d59-45a9-5345-08d5bed8cf13
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: d4d70346-2c10-4f39-8c00-e767963926d9
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0dc07ee8-8d59-45a9-5345-08d5bed8cf13
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: d4d70346-2c10-4f39-8c00-e767963926d9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 May 2018 05:07:53.8375
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Internet
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2APC01HT247
+MIME-Version: 1.0
+
+--_000_SLXP216MB0381A8F03A83505296890D11A9950SLXP216MB0381KORP_
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+
+=1B$B$K$c!<$s=1B(B
+
+--_000_SLXP216MB0381A8F03A83505296890D11A9950SLXP216MB0381KORP_
+Content-Type: text/html; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+
+<html><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
+jp">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">=1B$B$K$c!<$s=1B(B</p>
+</div>
+</body>
+</html>
+
+--_000_SLXP216MB0381A8F03A83505296890D11A9950SLXP216MB0381KORP_--
+
+--b44278a2-9d96-4fd5-bba1-efd949e0de68--
+
