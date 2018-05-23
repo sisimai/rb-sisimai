@@ -46,6 +46,9 @@ module Sisimai::Bite::Email
         %r/\A5[.]7[.]6[1-4]\d\z/ => 'blocked',
         %r/\A5[.]7[.]7[0-4]\d\z/ => 'toomanyconn',
       }.freeze
+      ReCommands = {
+        RCPT: %r/unknown recipient or mailbox unavailable ->.+[<].+[@].+[>]/,
+      }.freeze
 
       def description; return 'Microsoft Office 365: http://office.microsoft.com/'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
@@ -230,6 +233,13 @@ module Sisimai::Bite::Email
             # There is no value of Status header or the value is 5.0.0, 4.0.0
             pseudostatus = Sisimai::SMTP::Status.find(e['diagnosis'])
             e['status'] = pseudostatus if pseudostatus.size > 0
+          end
+
+          ReCommands.each_key do |p|
+            # Try to match with regular expressions defined in ReCommands
+            next unless e['diagnosis'] =~ ReCommands[p]
+            e['command'] = p.to_s
+            break
           end
           next unless e['status']
 
