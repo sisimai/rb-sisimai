@@ -14,7 +14,7 @@ module Sisimai::Bite::Email
         html:    %r{\AContent-Type:[ ]*text/html;[ ]*charset=['"]?(?:UTF|utf)[-]8['"]?\z},
       }.freeze
       MessagesOf = {
-        userunknown:  ["because the address couldn't be found"],
+        userunknown:  ["because the address couldn't be found. Check for typos or unnecessary spaces and try again."],
         notaccept:    ['Null MX'],
         networkerror: [' responded with code NXDOMAIN'],
       }.freeze
