@@ -1,0 +1,228 @@
+Delivered-To: azumakuniyuki@google.example.com
+Received: by 2002:ac9:644e:0:0:0:0:0 with SMTP id a14-v6csp713919ocl;
+        Wed, 23 May 2018 01:43:25 -0700 (PDT)
+X-Received: by 2002:aca:4f57:: with SMTP id d84-v6mr928662oib.138.1527065004977;
+        Wed, 23 May 2018 01:43:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1527065004; cv=none;
+        d=google.com; s=arc-20160816;
+        b=aHYfSKL81Miu4eyTML1nqM5iJI1xydmh6WhGTzGGkusCincK65riGxG3uoqIMC1DcM
+         eAjQJpQqMJGt3dgZF9AE+5D/6neU6uVo3CSahKhNejIVuu7qUbgr7OfXQHGDuvYzQUUM
+         6MgG2GwNbnqcaiQOup1GxZMdfyKPG/PVzmw5FXYDkuOdjgdW9Zc6EH9RQrAGN5ATj75/
+         t2Pg8JpbH0sbfUG7SerpSuY/lFfSq56h1C0Dq5EHXxmgfM0HZ9DCFlAcY/lOnNXFWooO
+         uTmC2htvzNWuxP/gbccDUci48ZexonQjfA/oNZ4mLt5KkfZTFsszey5C4hyrnrF1TVMN
+         H3IA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=date:message-id:in-reply-to:references:subject:auto-submitted:to
+         :from:dkim-signature:arc-authentication-results;
+        bh=Z4eQIk+TjCkWMpwW1+xzv1jYOoPgT+DymP1b4sGaRHw=;
+        b=er2FSDhrGZWwQmH+nheGMqeFfNooswWUgoweabbwfJ4yaV1pRbkGwDnPEsdb9Np4Eb
+         wmKLZxxBA4PyqrpTJEh2r5z6ZgkQyiH+MTjsOsvkiFQyxMRGDG1Jcb3nYQ0tM5dDvdNu
+         9gjDpXovbuNjKaOMvIrelm3FpxNFyw2cf3ZtOFX6tkGnuNFIV9phOjP1J3LkDWLqAN8R
+         dLyp+bDJDCOcpzQB1lXmKDWYtbCGCdaFZs1xl4Y44lKVsaQLUtjuTNnjEy0ji+oW67Km
+         LBgIbqOomK5xUeDPwihcmAdDDdM2Mez8ar+isDpgTmP/Y4E2wTpNCb+wlLCGwXt0orG+
+         RGcg==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@googlemail.com header.s=20161025 header.b=Jb9TF7Sa;
+       spf=pass (google.com: best guess record for domain of postmaster@mail-sor-f69.google.com designates 209.85.220.69 as permitted sender) smtp.helo=mail-sor-f69.google.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=googlemail.com
+Return-Path: <>
+Received: from mail-sor-f69.google.com (mail-sor-f69.google.com. [209.85.220.69])
+        by mx.google.com with SMTPS id 15-v6sor8797614ois.145.2018.05.23.01.43.24
+        for <azumakuniyuki@google.example.com>
+        (Google Transport Security);
+        Wed, 23 May 2018 01:43:24 -0700 (PDT)
+Received-SPF: pass (google.com: best guess record for domain of postmaster@mail-sor-f69.google.com designates 209.85.220.69 as permitted sender) client-ip=209.85.220.69;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@googlemail.com header.s=20161025 header.b=Jb9TF7Sa;
+       spf=pass (google.com: best guess record for domain of postmaster@mail-sor-f69.google.com designates 209.85.220.69 as permitted sender) smtp.helo=mail-sor-f69.google.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=googlemail.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20161025;
+        h=from:to:auto-submitted:subject:references:in-reply-to:message-id
+         :date;
+        bh=Z4eQIk+TjCkWMpwW1+xzv1jYOoPgT+DymP1b4sGaRHw=;
+        b=Jb9TF7SaJqF5rzKgkIGzrGaZCKr40RkG1eycdflbnSTtgf2uaZSjNLgmZSdRE6lPiJ
+         XDcoiXL4M16Gv/0oEq4WgP0/gBOyW1RvCs8tlqeSO1w2GgvQRu/jSitMma7Y9Dg9CSZ5
+         DKUibL+8Dtjs/3QjRMPDzQYCTqaO/Fey+kB3Ovvort2HO0+lUh3HhvHHsQLG6o5ai6wP
+         unqBXj4GQnDpJ1fEKHGMzyhxQvbycT10fYC8ZZ45aIWsIsaD3UnH89WBVpF387zdn1S8
+         VUhxxH03oQCgLJ6ZweV/JD3rHsWlRiWH60/UVkd7DSFeWAlhjXjrqfUKuKiBdA0wb6dI
+         WPng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:auto-submitted:subject:references
+         :in-reply-to:message-id:date;
+        bh=Z4eQIk+TjCkWMpwW1+xzv1jYOoPgT+DymP1b4sGaRHw=;
+        b=MnTsxnWpEmlAiYbQstJjdzZd+B6Ux/eQWIVDVcGQOcoWslJ2eEETl+24G+6Wwa8Y+t
+         Y5cPOoMWEaugFt4UIGIW669ulVrFZl4ql6bhaPcSRLRvPWXhqT5Ez3LxIB5qV7+dlNBH
+         RIuRiRmgR6c+p7U0lBiO2j1qum/EYFxs0JlKwlTCYhZjqEpEDxzJdcb/fyCS/LRubq16
+         9HePHs/krkQowI5dTc6eYTIb6vBhXmgb+EU2fnIvunkfGDVKkZpJ7R6JWqHFma5JyHmR
+         +iHYxZQb6jiFtp07IFEgIm54p9YiD3moLC/1h/lS0k9nJKAOQEb947JkQattv5WQUzSI
+         Ue8A==
+X-Gm-Message-State: ALKqPwcX8G4483JEyABxt6PaZnrNfGen+sDmzC4I82eYc22hbSjH8MCv
+	CYkjOMInTrB8wEfzOEgUaE237GGK34cVvvRFtXnrcA==
+X-Google-Smtp-Source: AB8JxZqWcemjLufEs8FNgSFl3+qTqHFEM+bsJZshJAfMwfmRchYBR3RAP05A9aZeVCs40XbX3OddUv/d4zVYSrQChxczkkdQmeYFPZ8=
+X-Received: by 2002:aca:c084:: with SMTP id q126-v6mr925402oif.88.1527065004775;
+        Wed, 23 May 2018 01:43:24 -0700 (PDT)
+Content-Type: multipart/report; boundary="000000000000288e03056cdb87e8"; report-type=delivery-status
+Return-Path: <>
+Received: by 2002:aca:c084:: with SMTP id q126-v6mr1008803oif.88; Wed, 23 May
+ 2018 01:43:24 -0700 (PDT)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+To: azumakuniyuki@google.example.com
+Auto-Submitted: auto-replied
+Subject: Delivery Status Notification (Failure)
+References: <CAByYQsEX6bB+d2sbUd8WPqcEJcxaSNmzSe4mO0fLoAF56Wdo4Q@mail.gmail.com>
+In-Reply-To: <CAByYQsEX6bB+d2sbUd8WPqcEJcxaSNmzSe4mO0fLoAF56Wdo4Q@mail.gmail.com>
+X-Failed-Recipients: kijitora@example.jp
+Message-ID: <5b0529ac.1c69fb81.796d3.17d4.GMRIR@mx.google.com>
+Date: Wed, 23 May 2018 01:43:24 -0700 (PDT)
+
+--000000000000288e03056cdb87e8
+Content-Type: multipart/related; boundary="0000000000002895a8056cdb87e9"
+
+--0000000000002895a8056cdb87e9
+Content-Type: multipart/alternative; boundary="0000000000002895b3056cdb87ea"
+
+--0000000000002895b3056cdb87ea
+Content-Type: text/plain; charset="UTF-8"
+
+
+** Address not found **
+
+Your message wasn't delivered to kijitora@example.jp because the address couldn't be found, or is unable to receive mail.
+
+
+
+The response from the remote server was:
+501 5.1.8 Sender address rejected
+
+--0000000000002895b3056cdb87ea
+Content-Type: text/html; charset="UTF-8"
+
+
+<html>
+<head>
+<style>
+* {
+font-family:Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+</style>
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" class="email-wrapper" style="padding-top:32px;background-color:#ffffff;"><tbody>
+<tr><td>
+<table cellpadding=0 cellspacing=0><tbody>
+<tr><td style="max-width:560px;padding:24px 24px 32px;background-color:#fafafa;border:1px solid #e0e0e0;border-radius:2px">
+<img style="padding:0 24px 16px 0;float:left" width=72 height=72 alt="Error Icon" src="cid:icon.png">
+<table style="min-width:272px;padding-top:8px"><tbody>
+<tr><td><h2 style="font-size:20px;color:#212121;font-weight:bold;margin:0">
+Address not found
+</h2></td></tr>
+<tr><td style="padding-top:20px;color:#757575;font-size:16px;font-weight:normal;text-align:left">
+Your message wasn't delivered to <a style='color:#212121;text-decoration:none'><b>kijitora@example.jp</b></a> because the address couldn't be found, or is unable to receive mail.
+</td></tr>
+</tbody></table>
+</td></tr>
+</tbody></table>
+</td></tr>
+<tr style="border:none;background-color:#fff;font-size:12.8px;width:90%">
+<td align="left" style="padding:48px 10px">
+The response from the remote server was:<br/>
+<p style="font-family:monospace">
+501 5.1.8 Sender address rejected
+</p>
+</td>
+</tr>
+</tbody></table>
+</body>
+</html>
+
+--0000000000002895b3056cdb87ea--
+--0000000000002895a8056cdb87e9
+Content-Type: image/png; name="icon.png"
+Content-Disposition: attachment; filename="icon.png"
+Content-Transfer-Encoding: base64
+Content-ID: <icon.png>
+
+iVBORw0KGgoAAAANSUhEUgAAAJAAAACQCAYAAADnRuK4AAAACXBIWXMAABYlAAAWJQFJUiTwAAAA
+GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABTdJREFUeNrsnD9sFEcUh5+PRMqZ
+yA0SPhAUQAQFUkyTgiBASARo6QApqVIkfdxGFJFSgGhJAUIiBaQB0ZIOKVCkwUgURjIg2fxL4kS+
+YDvkbC/388bi8N16Z4/d7J/5PsniuD3fyePP772ZeTsDQRAYQL/UGAJAIEAgQCBAIAAEAgQCBAIE
+AkAgyJT3Mv+Eq7vYK8mTE+MDRCAghQECAeRQA5V2ZOpmg5vDx3NPzRbmGRMEcmTrEbNNB8zWfRD+
+f/Efs2e3zCZvMjaksBg27TfbcuSNPEKP9ZyuAQKtHX2O9ncNgWC57umMPKvRNb0GEKgnLoUyxTQC
+rcns0/6uIRAs8/hGf9cQCJZpTpjdO2f25/03z+mxntM1eLtsZAgiUtX4JcaBCAQIBAgECARQ8CJa
+G5jab4J4pm4WZmO3OALVh802fIwcLkyPkcKAGggAgQCBAIEAgQCBABAIEAjKA/1AnahhbO5FdOOY
+VsrrDbPBYcYKgf5D2wLaV3p+22xh1u17tO3S+DTcvxvagUDeivPgx/a/95J/73w7Sj26Hn4pKo2M
+ehuV/KyBJM6d0f7k6RKx/R63vvL2tmf/ItDdM2ZTP6f7nkp9Y2fDx1v9akmpIU+KSCLVUghUQfSL
+zVKeTklbLxGoctw/nzC5rw8L5KRNbkpnKq6pgSqEClzNnFzY+XnYWrt6VpVk1vbwWvg+RKCKMOUw
+Q1LEOXA+/MX3mpJvGDHb265xtnzmFoUK1HaKQGlMtePYM+q2KKjXuaS1NJYIEKgI8jhEgqHt4cqy
+Ky53j3hyHz2bqSLp2o2LbJ7MxKovkGqXteoWpaOk96O9/yF/dF7NwlS36AuIQIBA5celQK4PIxBE
+4LLzrtoLgaALdSy6CJRkWQCBPGLsTHznomZ9nszUECgJ2ml3WWHe+QVFNPSQx6UdZNtxr9pbEShN
+eTTz8mQXHoHSlke7+Z+c9m6VGoHSkEfs/trLW3wQKApN1V3lGfnGu2Z6BFoLtYCs3GWBPAiUCLVh
+/HoaeRCoT9R873KLM/IgUBfapnCpe5AHgXry4pf412ihEHkQqCdxd5VqrcezhUIESsJMTJ+Pdthp
+Z0WgyNlXXPHc2Mc4IVAELl2Gnh8mhUDvCkfbIVAkcbf/aOoO3fMKhqAD3frTa4quwpn0hUDOkQhI
+YYBAgECAQAAU0QlYObl+5Ug8NcprZkZxjUCxRPVA6zmtEXHCBykskrhjgHXN09PoEcgFl4M4H11j
+nBAoApcj6ZoPGScEAgTKApcDoTw5sgWB+sGlz1n90IBAPdE6j1o21PfcC11jLagL1oFWRyGlKU3p
+OxcSJQ7NZAjkhHp/uG2HFAYIBAgECASAQIBAgECAQAAIBOkxEARBtp9wdVfAMOfIifEBIhCQwgCB
+ABAI0oV2jhxZ+nfBatuPZfgBCy0Eqqo8c01b+uu51XZvzOgDWoHNTGR+pCwpLEd5svuAZXlO2uEr
+PyEQ8hRWHgRCHmqg0sjTnLalv6crJQ8C/U8stqNO0I4+VZOHFIY8COS1PGL2ybd5yUMKK7s8zYmL
+dujyd3n+nESgcsvzZd4/KwIhDwIhT35QA6UyE1qyxZnfvJMHgdKS549JC1qvvJOHFIY8CFR5eV5O
+XimqPAhUdHnmfx+zgxdOFXkoqIGKKs/cswnb/8Oeog8HEai48nxUhiFBIORBIOShBioskkbySCLk
+IQIhDwIhj28p7FApR6b1qlEbHGpkO/rr6215vi/zH1r2x7tApSGFAQIBAgECAQIBIBAgECAQIBBA
+LK8FGADCTxYrr+EVJgAAAABJRU5ErkJggg==
+--0000000000002895a8056cdb87e9--
+--000000000000288e03056cdb87e8
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; googlemail.com
+Arrival-Date: Wed, 23 May 2018 01:43:21 -0700 (PDT)
+X-Original-Message-ID: <CAByYQsEX6bB+d2sbUd8WPqcEJcxaSNmzSe4mO0fLoAF56Wdo4Q@mail.gmail.com>
+
+Final-Recipient: rfc822; kijitora@example.jp
+Action: failed
+Status: 5.1.8
+Remote-MTA: dns; mx.example.jp. (198.51.100.225, the server for the domain example.jp.)
+Diagnostic-Code: smtp; 501 5.1.8 Sender address rejected
+Last-Attempt-Date: Wed, 23 May 2018 01:43:24 -0700 (PDT)
+
+--000000000000288e03056cdb87e8
+Content-Type: message/rfc822
+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=WRkYRwSU0EIKKppaHfmp28cJDAgWJLeR1xnJZVCEQ1g=;
+        b=u+wJQm4H23zU8yBQXnuw16o/DknaSb1rS/vWwowADuZJDIQt1HlepJZwY1FAA3tbBp
+         fFRGzH1QmAGZddB/AeCzpZlFd1L9Ix4hxhxTTppkjZI2XkRkH/Z9qhnyTFl0RRLGK4kC
+         8joIyWdig5wX/wC0b6uFEgnamts7fGyDutK6fiSGDZ9+zccKDZzg9UKWVGVaDbyN63Vr
+         G2Y4PGLuO+jzPwAZpdp3CxzQdCrnjPBXvF9f/k2IyhwB/x5fKwikxY+MYBJMjuEjwlOu
+         foFSC4G2L5xTbpYiehN7JYjsq/xuYxsxYdIBlAyqHDYytfeh4mrqqROFtCgasMkr9jYJ
+         z4aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=WRkYRwSU0EIKKppaHfmp28cJDAgWJLeR1xnJZVCEQ1g=;
+        b=a/E9ZPQZmP//+69j4beW+ZGboXiyZapLEKpWQfiRvw4j10GbEW5sB4bOEXZAkKvoHh
+         iNoBa69lxUyARjVhP+Pe4UIzRD20YNEQJvkDoxD/5hd9YeeikBDKEbW/EQzllFk0j8cz
+         JUiaJC5RVKdt400GA4JzAiNHtScGgnzw17zeUWTWt8foNLG7xSbU3z6LY93sUqqQSYB8
+         MZq+j2UbLe2H1J5ZNO8FPH11N1+fVZTH0SBR0rJisx4UmcbodJ2OZGvFUXMdmkoBvsCt
+         Q31SNGxicNmVdJmiiEc9ixWb1lr/QapaidmuPQwPaKr7Df2G7KHJlaeK3wKlZoFlSEVb
+         wh2A==
+X-Gm-Message-State: ALKqPwda/1dEjBzToWOUGvU3VC0Wzh2JRCZKBW/+EToQkDUMjd/aTRy0
+	78MU5qc7bNDUj9XGF87wIPTS8gvZ4xDB0mf+zTsQMA==
+X-Google-Smtp-Source: AB8JxZq18LePakrjxrhP73hghYJifXMVPvqxPBOzA3qvzabtXvkWbAfir3T/QowRhl2AmVYqUIH3X8fv/ZAwLNFeB74=
+X-Received: by 2002:aca:c084:: with SMTP id q126-v6mr925324oif.88.1527065001285;
+ Wed, 23 May 2018 01:43:21 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 2002:ac9:6610:0:0:0:0:0 with HTTP; Wed, 23 May 2018 01:43:00
+ -0700 (PDT)
+From: azumakuniyuki <azumakuniyuki@google.example.com>
+Date: Wed, 23 May 2018 17:43:00 +0900
+Message-ID: <CAByYQsEX6bB+d2sbUd8WPqcEJcxaSNmzSe4mO0fLoAF56Wdo4Q@mail.gmail.com>
+Subject: Nyaan
+To: "Azuma, Kuniyuki" <kijitora@example.jp>
+Content-Type: text/plain; charset="UTF-8"
+
+Nyaan
+
+--000000000000288e03056cdb87e8--

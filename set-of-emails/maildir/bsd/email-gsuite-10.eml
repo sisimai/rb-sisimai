@@ -1,0 +1,254 @@
+Delivered-To: azumakuniyuki@google.example.com
+Received: by 2002:ac9:644e:0:0:0:0:0 with SMTP id a14-v6csp714950ocl;
+        Wed, 23 May 2018 01:44:26 -0700 (PDT)
+X-Received: by 2002:a9d:3ea5:: with SMTP id b34-v6mr1057227otc.283.1527065066789;
+        Wed, 23 May 2018 01:44:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1527065066; cv=none;
+        d=google.com; s=arc-20160816;
+        b=u+RxITxN26bKGAIkCv7xMTvvkOFbMpWVwIFqaRugCRwZrR2I/VD7JX3hsj7mRIEcZC
+         DV7BCsBW/yR1LslcydlilGJz9y9FDVxmZd69ys7FEZ0jfn8JzWy7hwUJbYDVnqb5YedG
+         wQl+UwG0y9rJN0KQc1tAlpYYLYeUbMSr05oVnsVYJTmvU77oweDVGGIfmXtCqmD8hSW/
+         Tn8VHzIBLAGnM6ZrpFwAfcOXLJn/hmumdMOGsNRYWCqUmetKjmM5xLtBAdq/MJVtQovo
+         zjMQhYwu3909XQSw5uMHme/jWS6EnTUCxoqakz9TUAqAgYUoLMtr8KeeMxPaviAUoOoQ
+         r76Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=date:message-id:in-reply-to:references:subject:auto-submitted:to
+         :from:dkim-signature:arc-authentication-results;
+        bh=mvC+M64yMZF6GCqFJWCVdFP++gG/PSz5OM5yXPP0T08=;
+        b=si8/0iNKS/tKl5/miLOEYOoh1yVz//OnB2tJz3snTchZ3ybbpOfZEK+KrKsK66lSrc
+         ZsMnYq20TH9SrsrtsfEvOgCy0ky5LKN9HsrHPkjA8go2tUQjLGKV6jYgG9/+EMMQgdS8
+         TCvTOezwk7JAuHz/jKsxcFaCqEUap12HlTlktox2KbYEs8TvXoVFXXI2nIDT+/VShDDQ
+         HBSbaW5tO9rVIesTz9jM5B0xNAH3caaaZTKiEDj51Tj7k5CYlOx3gUZd+VojYISWwllL
+         9lCmGkWr6IB4Y69SNJ/2cchlH+I9rFpFFACpKv4K7HXTDsbGNpBbbIRnjMMDDA1qf5n+
+         FADQ==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@googlemail.com header.s=20161025 header.b=I6sb+J0I;
+       spf=pass (google.com: best guess record for domain of postmaster@mail-sor-f69.google.com designates 209.85.220.69 as permitted sender) smtp.helo=mail-sor-f69.google.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=googlemail.com
+Return-Path: <>
+Received: from mail-sor-f69.google.com (mail-sor-f69.google.com. [209.85.220.69])
+        by mx.google.com with SMTPS id b56-v6sor9938987otd.182.2018.05.23.01.44.26
+        for <azumakuniyuki@google.example.com>
+        (Google Transport Security);
+        Wed, 23 May 2018 01:44:26 -0700 (PDT)
+Received-SPF: pass (google.com: best guess record for domain of postmaster@mail-sor-f69.google.com designates 209.85.220.69 as permitted sender) client-ip=209.85.220.69;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@googlemail.com header.s=20161025 header.b=I6sb+J0I;
+       spf=pass (google.com: best guess record for domain of postmaster@mail-sor-f69.google.com designates 209.85.220.69 as permitted sender) smtp.helo=mail-sor-f69.google.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=googlemail.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20161025;
+        h=from:to:auto-submitted:subject:references:in-reply-to:message-id
+         :date;
+        bh=mvC+M64yMZF6GCqFJWCVdFP++gG/PSz5OM5yXPP0T08=;
+        b=I6sb+J0IWUEB6rQe8DBvunngXG4HA4gYQLvz0WGrWG6HOjsRrofnkVZYnSqjCTsEP6
+         QKi2Ne2oI5ZJvGNveIlz+Cst1amyEb1NvJpNqwYgzG2r5CKI4oJW5iGc5sU0bf989awt
+         mrbHXPBz35+Lb44v4RR17Z99a207WXV6ChEfvv/+qGJcq02C4I4Ta8uyh+y1iORT96OH
+         rZIwy24ydKPb/vapo9l7LpIbSg/V5y7i+UERHIUxXBseUELkGEfEeUFnsxVabQcYgxGp
+         nECmE0iAEblJgNP3P5vTo9qhKgIcZpR0T4sxjoneFmZBEPkzPB0WippYPwd+HO6Hg23p
+         lCfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:auto-submitted:subject:references
+         :in-reply-to:message-id:date;
+        bh=mvC+M64yMZF6GCqFJWCVdFP++gG/PSz5OM5yXPP0T08=;
+        b=pkTNQyvzze54rfY1199o8yDj9UJtfKdC54ZiKQPuNVCpHCWXPILSa7GBmKbMJf8uwI
+         YdCW48gwFt+MsTzFnloIyUeOO/8ukgFUf6/U675aB9PId1jb4j/PCEcJ+K3nD8e4puiD
+         5BerWbJYxnguqkslX462VtT+ZilzNi3LU4mPx+qKEIzaTHDzKrFl8G5ZX1wwVyOQcyCn
+         saeI00fN5lAIq81PLxoaeujdLzWHSQL6k3EsZ+lO8yfbWT/jgMU5w98s9OtxT/u2vC0+
+         ejWGPwhMvCeClC8Xf6JgCzinxCqge49ZxMWnNTXw5gZqqU2RaiFPF9g24oGr4RbkW6tz
+         5dzg==
+X-Gm-Message-State: ALKqPwdS1fcRdVzJ/DSIZ8aMgiPKDBJ8C3EGZzEU3Sm9v1K5DqrOFwrT
+	0BglZPPCK23kTTpUxbwOgJQRf4aTSex+oLqHF/wK1Q==
+X-Google-Smtp-Source: AB8JxZqZsqmbP3zO+lPQDR0sZufzVtitDwT59rmPKEJJdblROLINIn0yk0iphTLT7Tx5Ank224F90XVtbnTtqN9WanVIHSFhw+VGsHE=
+X-Received: by 2002:a9d:e43:: with SMTP id n3-v6mr1080301otd.95.1527065066700;
+        Wed, 23 May 2018 01:44:26 -0700 (PDT)
+Content-Type: multipart/report; boundary="000000000000d972f7056cdb8a6e"; report-type=delivery-status
+Return-Path: <>
+Received: by 2002:a9d:e43:: with SMTP id n3-v6mr1173671otd.95; Wed, 23 May
+ 2018 01:44:26 -0700 (PDT)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+To: azumakuniyuki@google.example.com
+Auto-Submitted: auto-replied
+Subject: Delivery Status Notification (Failure)
+References: <CAByYQsF+iu-pg8_aLPvKr9sJjMqxhsHwLMJjMoozvvwWHH26TA@mail.gmail.com>
+In-Reply-To: <CAByYQsF+iu-pg8_aLPvKr9sJjMqxhsHwLMJjMoozvvwWHH26TA@mail.gmail.com>
+X-Failed-Recipients: neko@libsisimai.org
+Message-ID: <5b0529ea.1c69fb81.7ab7a.1ded.GMRIR@mx.google.com>
+Date: Wed, 23 May 2018 01:44:26 -0700 (PDT)
+
+--000000000000d972f7056cdb8a6e
+Content-Type: multipart/related; boundary="000000000000d97c67056cdb8a6f"
+
+--000000000000d97c67056cdb8a6f
+Content-Type: multipart/alternative; boundary="000000000000d97c77056cdb8a70"
+
+--000000000000d97c77056cdb8a70
+Content-Type: text/plain; charset="UTF-8"
+
+
+** Address not found **
+
+Your message wasn't delivered to neko@libsisimai.org because the domain libsisimai.org couldn't be found. Check for typos or unnecessary spaces and try again.
+
+Learn more here: https://www.rfc-editor.org/info/rfc7505
+(Warning: This link will take you to a third-party site)
+
+The response was:
+
+DNS Error: 24275403 DNS type 'mx' lookup of libsisimai.org responded with code NOERROR
+The domain libsisimai.org doesn't receive email according to the administrator: returned Null MX https://www.rfc-editor.org/info/rfc7505
+
+--000000000000d97c77056cdb8a70
+Content-Type: text/html; charset="UTF-8"
+
+
+<html>
+<head>
+<style>
+* {
+font-family:Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+</style>
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" class="email-wrapper" style="padding-top:32px;background-color:#ffffff;"><tbody>
+<tr><td>
+<table cellpadding=0 cellspacing=0><tbody>
+<tr><td style="max-width:560px;padding:24px 24px 32px;background-color:#fafafa;border:1px solid #e0e0e0;border-radius:2px">
+<img style="padding:0 24px 16px 0;float:left" width=72 height=72 alt="Error Icon" src="cid:icon.png">
+<table style="min-width:272px;padding-top:8px"><tbody>
+<tr><td><h2 style="font-size:20px;color:#212121;font-weight:bold;margin:0">
+Address not found
+</h2></td></tr>
+<tr><td style="padding-top:20px;color:#757575;font-size:16px;font-weight:normal;text-align:left">
+Your message wasn't delivered to <a style='color:#212121;text-decoration:none'><b>neko@libsisimai.org</b></a> because the domain libsisimai.org couldn't be found. Check for typos or unnecessary spaces and try again.
+</td></tr>
+<tr><td style="padding-top:24px;color:#4285F4;font-size:14px;font-weight:bold;text-align:left">
+<a style="text-decoration:none" href="https://www.rfc-editor.org/info/rfc7505">LEARN MORE</a>
+</td></tr>
+<tr><td style="margin-top:8px;font-style:italic;font-size:12px;color:#757575">
+<img style="padding:0 4 0 0;float:left" width=12 height=12 alt="Warning" src="cid:warning_triangle.png">
+This link will take you to a third-party site
+</td></tr>
+</tbody></table>
+</td></tr>
+</tbody></table>
+</td></tr>
+<tr style="border:none;background-color:#fff;font-size:12.8px;width:90%">
+<td align="left" style="padding:48px 10px">
+The response was:<br/>
+<p style="font-family:monospace">
+DNS Error: 24275403 DNS type &#39;mx&#39; lookup of libsisimai.org responded with code NOERROR
+The domain libsisimai.org doesn&#39;t receive email according to the administrator: returned Null MX https://www.rfc-editor.org/info/rfc7505
+</p>
+</td>
+</tr>
+</tbody></table>
+</body>
+</html>
+
+--000000000000d97c77056cdb8a70--
+--000000000000d97c67056cdb8a6f
+Content-Type: image/png; name="icon.png"
+Content-Disposition: attachment; filename="icon.png"
+Content-Transfer-Encoding: base64
+Content-ID: <icon.png>
+
+iVBORw0KGgoAAAANSUhEUgAAAJAAAACQCAYAAADnRuK4AAAACXBIWXMAABYlAAAWJQFJUiTwAAAA
+GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABTdJREFUeNrsnD9sFEcUh5+PRMqZ
+yA0SPhAUQAQFUkyTgiBASARo6QApqVIkfdxGFJFSgGhJAUIiBaQB0ZIOKVCkwUgURjIg2fxL4kS+
+YDvkbC/388bi8N16Z4/d7J/5PsniuD3fyePP772ZeTsDQRAYQL/UGAJAIEAgQCBAIAAEAgQCBAIE
+AkAgyJT3Mv+Eq7vYK8mTE+MDRCAghQECAeRQA5V2ZOpmg5vDx3NPzRbmGRMEcmTrEbNNB8zWfRD+
+f/Efs2e3zCZvMjaksBg27TfbcuSNPEKP9ZyuAQKtHX2O9ncNgWC57umMPKvRNb0GEKgnLoUyxTQC
+rcns0/6uIRAs8/hGf9cQCJZpTpjdO2f25/03z+mxntM1eLtsZAgiUtX4JcaBCAQIBAgECARQ8CJa
+G5jab4J4pm4WZmO3OALVh802fIwcLkyPkcKAGggAgQCBAIEAgQCBABAIEAjKA/1AnahhbO5FdOOY
+VsrrDbPBYcYKgf5D2wLaV3p+22xh1u17tO3S+DTcvxvagUDeivPgx/a/95J/73w7Sj26Hn4pKo2M
+ehuV/KyBJM6d0f7k6RKx/R63vvL2tmf/ItDdM2ZTP6f7nkp9Y2fDx1v9akmpIU+KSCLVUghUQfSL
+zVKeTklbLxGoctw/nzC5rw8L5KRNbkpnKq6pgSqEClzNnFzY+XnYWrt6VpVk1vbwWvg+RKCKMOUw
+Q1LEOXA+/MX3mpJvGDHb265xtnzmFoUK1HaKQGlMtePYM+q2KKjXuaS1NJYIEKgI8jhEgqHt4cqy
+Ky53j3hyHz2bqSLp2o2LbJ7MxKovkGqXteoWpaOk96O9/yF/dF7NwlS36AuIQIBA5celQK4PIxBE
+4LLzrtoLgaALdSy6CJRkWQCBPGLsTHznomZ9nszUECgJ2ml3WWHe+QVFNPSQx6UdZNtxr9pbEShN
+eTTz8mQXHoHSlke7+Z+c9m6VGoHSkEfs/trLW3wQKApN1V3lGfnGu2Z6BFoLtYCs3GWBPAiUCLVh
+/HoaeRCoT9R873KLM/IgUBfapnCpe5AHgXry4pf412ihEHkQqCdxd5VqrcezhUIESsJMTJ+Pdthp
+Z0WgyNlXXPHc2Mc4IVAELl2Gnh8mhUDvCkfbIVAkcbf/aOoO3fMKhqAD3frTa4quwpn0hUDOkQhI
+YYBAgECAQAAU0QlYObl+5Ug8NcprZkZxjUCxRPVA6zmtEXHCBykskrhjgHXN09PoEcgFl4M4H11j
+nBAoApcj6ZoPGScEAgTKApcDoTw5sgWB+sGlz1n90IBAPdE6j1o21PfcC11jLagL1oFWRyGlKU3p
+OxcSJQ7NZAjkhHp/uG2HFAYIBAgECASAQIBAgECAQAAIBOkxEARBtp9wdVfAMOfIifEBIhCQwgCB
+ABAI0oV2jhxZ+nfBatuPZfgBCy0Eqqo8c01b+uu51XZvzOgDWoHNTGR+pCwpLEd5svuAZXlO2uEr
+PyEQ8hRWHgRCHmqg0sjTnLalv6crJQ8C/U8stqNO0I4+VZOHFIY8COS1PGL2ybd5yUMKK7s8zYmL
+dujyd3n+nESgcsvzZd4/KwIhDwIhT35QA6UyE1qyxZnfvJMHgdKS549JC1qvvJOHFIY8CFR5eV5O
+XimqPAhUdHnmfx+zgxdOFXkoqIGKKs/cswnb/8Oeog8HEai48nxUhiFBIORBIOShBioskkbySCLk
+IQIhDwIhj28p7FApR6b1qlEbHGpkO/rr6215vi/zH1r2x7tApSGFAQIBAgECAQIBIBAgECAQIBBA
+LK8FGADCTxYrr+EVJgAAAABJRU5ErkJggg==
+--000000000000d97c67056cdb8a6f
+Content-Type: image/png; name="warning_triangle.png"
+Content-Disposition: attachment; filename="warning_triangle.png"
+Content-Transfer-Encoding: base64
+Content-ID: <warning_triangle.png>
+
+iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAYxJREFUSA3t
+VLFOhEAUBKLFXXMd3VlqZXGJrX6AP+AHWFsZ4CpDoQmBhMTyfkdbEwsrLaiJnQ1XmIAzCuTt3nKs
+xk432fB2dmYeb9+C4/ypEQTBKed3ivZsyavVatd13ZyTsa3OOkFRFBdN0xxwMrZN4NoQ4zj2q6p6
+gfmMfFTxNp1O94G/jumtKoD5TWdOQ8bExsy5P1rBcrlc1HX9AFPlZVBF7XneUZIkj9sSKSITEea3
+ujl5xLhn0khsawJcyTMYHUuBjLlHjsT0eDBBnucTkDMpyLLM5ZQYOS1Xg7+WgwnKsoxAmRtVKjhv
+uSrarowJoijaQ/mhUWEAyaXGsOUYE0CQgswjsh2TVrPB18/TQdPY1LsNph1wgh7dS6pSAb5MD/d7
+9OpJAxlTSw+JKYv1en2OUheSIOOBW9RTqKVHDyDoE6BJM3w413LzJzE96NVpd7oA2a8Q+93a9ER/
+GhOuYX7rdUn8s8lhGPI3/IS19X9eM9WX7+jHYZqmz90R5b9ozmR8UXr+j/ET+ADSfKckAihanAAA
+AABJRU5ErkJggg==
+--000000000000d97c67056cdb8a6f--
+--000000000000d972f7056cdb8a6e
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; googlemail.com
+Arrival-Date: Wed, 23 May 2018 01:44:26 -0700 (PDT)
+X-Original-Message-ID: <CAByYQsF+iu-pg8_aLPvKr9sJjMqxhsHwLMJjMoozvvwWHH26TA@mail.gmail.com>
+
+Final-Recipient: rfc822; neko@libsisimai.org
+Action: failed
+Status: 4.0.0
+Diagnostic-Code: smtp; DNS Error: 24275403 DNS type 'mx' lookup of libsisimai.org responded with code NOERROR
+ The domain libsisimai.org doesn't receive email according to the administrator: returned Null MX https://www.rfc-editor.org/info/rfc7505
+Last-Attempt-Date: Wed, 23 May 2018 01:44:26 -0700 (PDT)
+
+--000000000000d972f7056cdb8a6e
+Content-Type: message/rfc822
+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=WRkYRwSU0EIKKppaHfmp28cJDAgWJLeR1xnJZVCEQ1g=;
+        b=H9AHdqUAbYK7dKlpXw6e4Ed8t/1JbIq3o9zhsniBtuc+ifQqvnu7ECFRBudStuqHkM
+         eiU3CVnsMC5MIt/eyw8Bg0DCvEAkIG9dPtylo7bnkMcAKdQZ+D66vyF0lk/JvCru3tsG
+         G4I1Xv6yVVQCrAgTJ/iuiA/jG827giHXvWe0FzhdpEQ9JsYrnHw9U3Z3CMUvcDvy0gT5
+         21zaJibfzjoU6mst+W1YbOz/dhquneYtKOo1tbO8pUMlYrNPa2v/ehbbBnvu/F6s9p0Y
+         G5GrrN48tMx2LUpT5GkRVdEVkUZBin7ZnbBS0Vz/GJfS8wLo0Wp4I0ViUKyN3KJ++q5l
+         JC4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=WRkYRwSU0EIKKppaHfmp28cJDAgWJLeR1xnJZVCEQ1g=;
+        b=I+Fz8xeJZvzB8nulgr8DzMKN18T3bVkMIGk6Y6sCaQrB+BV7WJ9WIoW1Ec2TxKv8Gh
+         fTmQ0jPFVCfZkmcKlc9HA8s20FoKxi/E/IRIZ1KFmrXapqhlVKR3G3nZdQ2Rso7T/K80
+         MLshbSarNwzhZXO+KOrRw3MOEP4vngcaU7BbZFwYOa2NlbpNclhp7F2WdHTS3CQbvU2F
+         y7JZLUnah/09OnLEyuU1VYB780SOJqBsOWa3EMnMJq4e5jP9s2VeVvx7w9DUuX9JxxC1
+         Nt50tJ+jnNz8/AeP9buqF85b4+WKfwyG33HvxBkTl4LNA2DozK426fdi4BtqrApgz533
+         /JkA==
+X-Gm-Message-State: ALKqPwe0KLllqsbdeZGfplRirfuSWziGeBEZjSfebZis0Z87HVWaUZ2j
+	+zXmtVnG8oV7Hgz5YlFqVCR70jfWyEosbg5mIIVdBw==
+X-Google-Smtp-Source: AB8JxZqMEOIHW/KRkJCUEvOTS0Xtj9wDfUppBfdDNy/vH2zbOgyhHMpRaii125qCej1Ll8h1S4m3VCGwzlXtVptUk9g=
+X-Received: by 2002:a9d:e43:: with SMTP id n3-v6mr1080290otd.95.1527065066387;
+ Wed, 23 May 2018 01:44:26 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 2002:ac9:6610:0:0:0:0:0 with HTTP; Wed, 23 May 2018 01:44:05
+ -0700 (PDT)
+From: azumakuniyuki <azumakuniyuki@google.example.com>
+Date: Wed, 23 May 2018 17:44:05 +0900
+Message-ID: <CAByYQsF+iu-pg8_aLPvKr9sJjMqxhsHwLMJjMoozvvwWHH26TA@mail.gmail.com>
+Subject: Nyaan
+To: neko@libsisimai.org
+Content-Type: text/plain; charset="UTF-8"
+
+Nyaan
+
+--000000000000d972f7056cdb8a6e--

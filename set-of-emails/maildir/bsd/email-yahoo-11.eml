@@ -1,0 +1,80 @@
+X-Apparently-To: azumakuniyuki@y.example.co.jp via 183.79.100.215; Wed, 23 May 2018 17:44:41 +0900
+X-YahooFilteredBulk: 182.22.90.19
+X-YMailISG: vK0bPAcWLDviY4DH.NP0Jl1mATo93WuaeMCOWrBUrx.J9bYm
+ Us0oe8Aru35qFohrUWUaRDdf2hjsdd13BXepqLVZ7jt1XUzO0js4AHQkXefH
+ GGIIjSIsNpLAswNb.jT44xkdGSNK59wOvMlG7_Qfb1SMdEbO15W6lU6KipmP
+ i7Sv96MDvb3bqlprTZiapLpZghhCue6YehkHf7Qg6Y0DUj.f1LyV9vK9fKkU
+ ijScEE7cYzt1PJy199zdHDnaXE6gAi1Amq7N2tv_F4P7k2A1MhwUM67t4.k2
+ STkBlQO47FF3SvV5NltSISLRil_Odd2nGTNf7RFZIJq2MCVJQTCy0xAKubS.
+ Do_.3EykuLwI_JDToCTVNoAGZ7E1uSUNH.hTIjPdILa1ReDJ._dKO4GMCo1w
+ PJERwT9o0n6bdpzxTJRElbwv4ubLuE40cCGiPRkoKSwZDWjhM9X6qhgk_X1F
+ UDTRGGq2ovpeNb6HkqfQ5D8LnxIAEdNSx75DouSrp4v22X4KZTiOpHux6Kv8
+ a7lPEFVqER8pm3VzkzEYx5HsURgMzBVWd.ExXQkigp2TnJXfXhV0X8cYH4xD
+ JF_6GElST2qBXhLgIBL7gglr2YeLSDab6RYy.ZMLD5K2C4WapjzEwmU3420U
+ 6s.H3clMqszKal6Sw36nPXwIefvcCehp2PsJb3vaMzoNFJkhj4R4SkAc7HvK
+ OKj8d3mO0t7C2hLNrpJ3F2OZqOUnpxiF0oH.EfarQ58PRgpZtQR_UU1Dm67v
+ Ab_jo7S74KaplPOhQ3Vj6VcRnVYmVFd1UA4CarIig14yMMibRjXDaXWrBIkA
+ ImquTcDFVLvPcJKFJBI2paWZ0rpLrSLIGGn64Z0BGrk6eJolLqmIx3zxgr3w
+ 7Wm3TxrLjL2ELYNqIkRAnsxabE2q6KqzJ07jIj_6d.PopEAsBbflRDP_gG7D
+ 8vePqRDrefi3RC0bGIt3ToxSHmKPDnTmNWw8zsHZfkoj46N7vqsXQQXnrhhI
+ qk28GhwP249W0JvaFBaUV9DApaGA8qQpk1Lue2VGdRmZLpYO1Lq1pNKNDGBs
+ YD9bxrfSSw2WQpMvUjZjuWXoJYR7g8gItl2qBaiIJf.89.9fMo2Lb3CcEwMT
+ UUjiCzVghiWoA_PW2qGHBG5QeRHtAQ1dNQhJb4d9WEpExFjjCpHrotJcyl8j
+ voVyuUIlfaDA5ySqiDz3T7KXvQ--
+X-Originating-IP: [182.22.90.19]
+Received-SPF: none (nh601-vm10.bullet.mail.ssk.yahoo.co.jp: domain of nh601-vm10.bullet.mail.ssk.yahoo.co.jp does not designate permitted sender hosts)
+Authentication-Results: mta776.mail.djm.yahoo.co.jp  from=yahoo.co.jp; domainkeys=pass (ok); dkim=permerror (bad sig); header.i=@yahoo.co.jp
+Received: from 182.22.90.19  (HELO nh601-vm10.bullet.mail.ssk.yahoo.co.jp) (182.22.90.19)
+  by mta776.mail.djm.yahoo.co.jp with SMTP; Wed, 23 May 2018 17:44:41 +0900
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.co.jp; s=yj20110701; t=1527065081; bh=8XmxtI9d5KocdcIgtYMPBiKgHCIVnTWo8md0iBsujDo=; h=From:To:Date:Subject:X-Yahoo-Newman-Property; b=qG/0U+WvcgiF1tqsd1Ynw2MVvU78aMMQEfLtNQM26n7D9MWiO+lpGJ1rh13mktAIK5YyCieFfvWO8Vw3DJDgqFGpLVzcuC01jPgztZt6vos4xYo8YjPjGwXbDdrd9orQHKkv7s6nK/J12aBLCdyofFEqOZKZ+HcW0opIJhZ4+aY=
+DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=yj20110701; d=yahoo.co.jp;
+	b=LynH5wEc4Irh1TPwdphPxw8lIOH16uUVT0mYFtFXVUFUtuOocpEfTsBvjGuWLNdr9drrITtMU07lCH0wI2q81akswNrjPO98lbuX7eNKV3QdTLhuN7DVBiag9HtW0bBeGU3PV94JE2df8po3T5jNAt9p1M7dUsT2Un4SfS+9iTI=;
+From: MAILER-DAEMON@yahoo.co.jp
+To: azumakuniyuki@y.example.co.jp
+Date: Wed, 23 May 2018 08:44:41 -0000
+Subject: Failure Notice
+
+Sorry, we were unable to deliver your message to the following address.
+
+<kijitora@example.jp>:
+Remote host said: 501 5.1.8 Sender address rejected  [MAIL_FROM]
+
+--- Below this line is a copy of the message.
+
+Received: from [182.22.66.106] by nh601.bullet.mail.ssk.yahoo.co.jp with NNFMP; 23 May 2018 08:44:41 -0000
+Received: from [182.22.91.131] by t604.bullet.mail.ssk.yahoo.co.jp with NNFMP; 23 May 2018 08:44:41 -0000
+Received: from [127.0.0.1] by omp604.mail.ssk.yahoo.co.jp with NNFMP; 23 May 2018 08:44:41 -0000
+X-Yahoo-Newman-Property: ymail-3
+X-Yahoo-Newman-Id: 240023.89217.bm@omp604.mail.ssk.yahoo.co.jp
+Received: (qmail 61083 invoked by uid 60001); 23 May 2018 08:44:41 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.co.jp; s=yj20110701; t=1527065080; bh=pMR5e/CEHk0borq1fIR3rxq1WBMSe+HSXk3UwhhfZf8=; h=Message-ID:X-YMail-OSG:Received:X-Mailer:X-YMail-JAS:Date:From:Reply-To:Subject:To:MIME-Version:Content-Type; b=icuXxLBA+incypDn1YUXVO0k5wpK/2iQ3O8SV+witRMFuN/BCBy4/pgZGWsPL2tOkNwsgEHHfbiOXG6jTD/lTIJG9owtoNRpnzw/h/Qh4Qxp3NzzoROVuenlBCNzTThEMUByMJs8GFh1sp+AAnPbVfTZ1eoyjsX7gEuemLAsx/4=
+DomainKey-Signature:a=rsa-sha1; q=dns; c=nofws;
+  s=yj20110701; d=yahoo.co.jp;
+  h=Message-ID:X-YMail-OSG:Received:X-Mailer:X-YMail-JAS:Date:From:Reply-To:Subject:To:MIME-Version:Content-Type;
+  b=VfbzAStViQKWI+EKOuLMNoXaZ+9JkSfh/YqSvnyDJbF7YgCpq/dIYEOaGjx5jgbZZ3MaU97259S8zB5Lwk+R5249L6OVTfPzK/QjYplFjj/cKBFknECqFsu5vDNlJOEwBb2GGC7+3z44onZGODbG97R2eueJLr4/IS/rxvu6rVg=;
+Message-ID: <967641.42676.qm@web101219.mail.kks.yahoo.co.jp>
+X-YMail-OSG: BRbOnUUVM1kFaMdijk.oHm4yRJNJSgPQO4KzAlA_BXpQ1zit7yMi4_rxrvrxBW9rpvj3DOEcw7SCl_3Z.mhBaCODNK5ZuIsz_rNHIZEOWtg5lgBoQHfbDdWi_GV6u.OhV.j4ZDsPa_ZjNefM1GppfU1ocnkevVRWQ0MR2QKoZU__myrsVJZzENNyBKvMQn1iQA_Tqu3izr3V9e9UfsaSO4yDiqFomtXXJR9AT.6WE_oBoqnlWpcne4LD1xePHYhUfHiCBvSgSSwF6z0J1DLbxzJzdseyxcfZ34JQ4jTfS7tRygCsL6lfLfYqPpv7hdeBo2FYcRrhqZbdb31HOZc1mRkLku_Z_bRvux937g6xF3RsZFscFL3HPfojm7nRtkm03wVeJr7lnXmEs3QtGqEHGTBKqXCQiyt8QUIZR.PScxsFIm5lr8UXN1vsSkbLrDvARoKRnG_CYD2uzMSPjxsL14aWqIc4pYhwLLcFe6iWvgeFdaAnUNv6gk8wscwNuN8Fbw8pPk.o3SJ64vMGTOZ1bXYsUsWWPZPv.Mp48vTYHq_GxTX5eC_UXRb0o90kRWNAi97gTFawlUqH98T4OgKlHpy6UZX7NdWaQ3l.patrS2c1Ri0QplcNrT_lzhijHUlk3gS5umyGz98GG8ocm3jxJg--
+Received: from [153.156.254.67] by web101219.mail.kks.yahoo.co.jp via HTTP; Wed, 23 May 2018 17:44:39 JST
+X-Mailer: YahooMailWebService/0.8.111_74
+X-YMail-JAS: 06yA_j8VM1nLV8_ZcvRGMXJYgeizhmvzwESBbgNB3FnEH1GneF7JwLS.xdAm7d2DcsevlvVtka08OE0wuikmWb72Hn5odvtB7wTvATbeA0Q28PGrCiQs.0mBOiqG2hf3GKXC
+Date: Wed, 23 May 2018 17:44:39 +0900 (JST)
+From: azumakuniyuki@y.example.co.jp
+Reply-To: azumakuniyuki@y.example.co.jp
+Subject: Nyaan
+To: "kijitora@example.jp" <kijitora@example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="1890480597-1109024248-1527065079=:42676"
+
+--1890480597-1109024248-1527065079=:42676
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Nyaan=0A
+--1890480597-1109024248-1527065079=:42676
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><body><div style=3D"color:; background-color:; font-family:MS PGothic=
+, sans-serif;font-size:12pt"><div>Nyaan</div><div><br></div></div></body></=
+html>
+--1890480597-1109024248-1527065079=:42676--

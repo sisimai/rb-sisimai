@@ -1,0 +1,80 @@
+Delivered-To: azumakuniyuki@mail.example.ru
+Return-path: <>
+Received: from mail by f56.i.mail.ru with local id 1fLPPC-0000gK-AJ
+	for azumakuniyuki@mail.example.ru; Wed, 23 May 2018 11:45:58 +0300
+X-Failed-Recipients: kijitora@example.jp
+X-Mailer-Daemon-Recipients: kijitora@example.jp
+Auto-Submitted: auto-replied
+From: mailer-daemon@corp.mail.ru
+To: azumakuniyuki@mail.example.ru
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Subject: =?UTF-8?B?0JLQsNGI0LUg0YHQvtC+0LHRidC10L3QuNC1INC90LUg0LTQvtGB0YLQsNCy0LvQtdC90L4=?=. Mail failure.
+Message-Id: <E1fLPPC-0000gK-AJ@f56.i.mail.ru>
+Date: Wed, 23 May 2018 11:45:58 +0300
+X-Mras: PASS
+Authentication-Results: f56.i.mail.ru; auth=pass smtp.auth=mailer-daemon@corp.mail.ru smtp.mailfrom=mailer-daemon@corp.mail.ru; iprev=pass policy.iprev=127.0.0.1
+X-Mru-Trust-IP: 1
+
+Это письмо создано автоматически сервером Mail.Ru, отвечать на него не нужно.
+
+К сожалению, Ваше письмо не может быть доставлено одному или нескольким получателям:
+
+  kijitora@example.jp
+    SMTP error from remote mail server after MAIL FROM:<azumakuniyuki@mail.example.ru> SIZE=2779:
+    host mx.example.jp [198.51.100.225]: 501 5.1.8 Sender address rejected
+
+Рекомендуем Вам проверить корректность указания адресов получателей.
+
+**********************
+
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  kijitora@example.jp
+    SMTP error from remote mail server after MAIL FROM:<azumakuniyuki@mail.example.ru> SIZE=2779:
+    host mx.example.jp [198.51.100.225]: 501 5.1.8 Sender address rejected
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <azumakuniyuki@mail.example.ru>
+Received: by f56.i.mail.ru with local (envelope-from <azumakuniyuki@mail.example.ru>)
+	id 1fLPP7-0000d2-8t
+	for kijitora@example.jp; Wed, 23 May 2018 11:45:53 +0300
+Received: by e.mail.ru with HTTP;
+	Wed, 23 May 2018 11:45:53 +0300
+From: =?UTF-8?B?a3VuaXl1a2kgYXp1bWE=?= <azumakuniyuki@mail.example.ru>
+To: kijitora@example.jp
+Subject: =?UTF-8?B?TnlhYW4=?=
+MIME-Version: 1.0
+X-Mailer: Mail.Ru Mailer 1.0
+X-Originating-IP: [153.156.254.67]
+Date: Wed, 23 May 2018 11:45:53 +0300
+Reply-To: =?UTF-8?B?a3VuaXl1a2kgYXp1bWE=?= <azumakuniyuki@mail.example.ru>
+X-Priority: 3 (Normal)
+Message-ID: <1527065153.467209091@f56.i.mail.ru>
+Content-Type: multipart/alternative;
+	boundary="--ALT--orQlzZ5V4e2AB9UfMUNgNUdAhhqZavOS1527065153"
+Authentication-Results: f56.i.mail.ru; auth=pass smtp.auth=azumakuniyuki@mail.example.ru smtp.mailfrom=azumakuniyuki@mail.example.ru
+X-7FA49CB5: 0D63561A33F958A504A7B314C441280E88E3C849BB6BA0D1B79BB70FD94E84F6725E5C173C3A84C39EE9F1610E310ECDDC5494537DC62E53C6EABA9B74D0DA47B5C8C57E37DE458B4C7702A67D5C3316FA3894348FB808DBEB6346B700B4D54FE5BFE6E7EFDEDCD789D4C264860C145E
+X-Mailru-Sender: 052F3EE632032033F266ABDBF075731258289C5B5F8D51211EA3B6522075DBEB96811EBA8FCF90E625FE4222FEA7BDCD1D295F8817E181A9626B1D7BE3F966DCC1066F626AABBBD95843B8C90ECF6809064FDD5B919501F067EA787935ED9F1B
+X-Mras: OK
+X-Spam: undefined
+
+
+----ALT--orQlzZ5V4e2AB9UfMUNgNUdAhhqZavOS1527065153
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+
+TnlhYW4KCg==
+
+----ALT--orQlzZ5V4e2AB9UfMUNgNUdAhhqZavOS1527065153
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
+
+CjxIVE1MPjxCT0RZPk55YWFuPGJyPjxicj48L0JPRFk+PC9IVE1MPgo=
+
+----ALT--orQlzZ5V4e2AB9UfMUNgNUdAhhqZavOS1527065153--
