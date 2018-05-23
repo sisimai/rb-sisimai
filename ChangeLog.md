@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.22.5p2
+v4.22.5p3
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -17,6 +17,8 @@ v4.22.5p2
     is "undefined" or "onhold".
   - #117 Less regular expression in each class of Sisimai::Bite::Email.
   - #118 Cool logo for "set-of-emails". Thanks to @batarian71.
+  - #119 Implement Sisimai::Rhost::KDDI for detecting a bounce reason of au via
+    msmx.au.com or lsean.ezweb.ne.jp. Thanks to @kokubumotohiro.
 
 v4.22.5
 --------------------------------------------------------------------------------
