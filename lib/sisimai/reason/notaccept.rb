@@ -24,6 +24,7 @@ module Sisimai
           # Destination mail server does not accept any message
           index = [
             'name server: .: host not found',   # Sendmail
+            'no mx record found for domain=',   # Oath(Yahoo!)
             'smtp protocol returned a permanent error',
           ]
 
