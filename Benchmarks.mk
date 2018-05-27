@@ -17,7 +17,8 @@ EMAILROOTDIR := set-of-emails
 PUBLICEMAILS := $(EMAILROOTDIR)/maildir/bsd
 DOSFORMATSET := $(EMAILROOTDIR)/maildir/dos
 MACFORMATSET := $(EMAILROOTDIR)/maildir/mac
-SPEEDTESTDIR := $(PUBLICEMAILS)
+PRIVATEMAILS := $(EMAILROOTDIR)/private
+SPEEDTESTDIR := tmp/emails-for-speed-test
 
 COMMANDARGVS := -I./lib -rsisimai
 TOBEEXECUTED := 'Sisimai.make($$*.shift, delivered: true)' $(PUBLICMAILS)
@@ -26,7 +27,13 @@ HOWMANYMAILS := $(PERL) $(COMMANDARGVS) -le 'puts Sisimai.make($$*.shift, delive
 # -----------------------------------------------------------------------------
 .PHONY: clean
 
-speed-test:
+emails-for-speed-test:
+	@ rm -fr ./$(SPEEDTESTDIR)
+	@ $(MKDIR) $(SPEEDTESTDIR)
+	@ $(CP) -Rp $(PUBLICEMAILS)/*.eml $(SPEEDTESTDIR)/
+	@ test -d $(PRIVATEMAILS) && find $(PRIVATEMAILS) -type f -name '*.eml' -exec $(CP) -Rp {} $(SPEEDTESTDIR)/ \;
+
+speed-test: emails-for-speed-test
 	@ echo `$(HOWMANYMAILS) $(SPEEDTESTDIR)` emails in $(SPEEDTESTDIR)
 	@ echo -------------------------------------------------------------------
 	@ uptime
