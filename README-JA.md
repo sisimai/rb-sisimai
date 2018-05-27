@@ -236,7 +236,7 @@ Differences between Ruby version and Perl version
 | 動作環境                                    | Ruby 2.1 - 2.5 | Perl 5.10 -   |
 |                                             | JRuby 9.0.4.0- |               |
 | 解析精度の割合(2000通のメール)[1]           | 1.00           | 1.00          |
-| メール解析速度(1000通のメール)              | 5.05秒         | 1.95秒        |
+| メール解析速度(1000通のメール)              | 3.75秒[2]      | 1.70秒        |
 | インストール方法                            | gem install    | cpanm, cpm    |
 | 依存モジュール数(コアモジュールを除く)      | 1モジュール    | 2モジュール   |
 | LOC:ソースコードの行数                      | 12000行        | 8600行        |
@@ -245,6 +245,7 @@ Differences between Ruby version and Perl version
 | 開発会社によるサポート契約                  | 準備中         | 提供中        |
 
 1. [./ANALYTICAL-PRECISION](https://github.com/sisimai/rb-Sisimai/blob/master/ANALYTICAL-PRECISION)を参照
+2. Xeon E5-2640 2.5GHz x 2 cores | 5000 bogomips | 1GB RAM | Ruby 2.3.4
 
 Other spec of Sisimai
 -------------------------------------------------------------------------------

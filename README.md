@@ -240,7 +240,7 @@ and bounceHammer are available at
 | System requirements                         | Ruby 2.1 - 2.5 | Perl 5.10 -   |
 |                                             | JRuby 9.0.4.0- |               |
 | Analytical precision ratio(2000 emails)[1]  | 1.00           | 1.00          |
-| The speed of parsing email(1000 emails)     | 5.05s          | 1.95s         |
+| The speed of parsing email(1000 emails)     | 3.75s[2]       | 1.70s         |
 | How to install                              | gem install    | cpanm, cpm    |
 | Dependencies (Except core modules)          | 1 module       | 2 modules     |
 | LOC:Source lines of code                    | 12000 lines    | 8600 lines    |
@@ -249,6 +249,7 @@ and bounceHammer are available at
 | Support Contract provided by Developer      | Coming soon    | Available     |
 
 1. See [./ANALYTICAL-PRECISION](https://github.com/sisimai/rb-Sisimai/blob/master/ANALYTICAL-PRECISION)
+2. Xeon E5-2640 2.5GHz x 2 cores | 5000 bogomips | 1GB RAM | Ruby 2.3.4
 
 Other specification of Sisimai
 -------------------------------------------------------------------------------
