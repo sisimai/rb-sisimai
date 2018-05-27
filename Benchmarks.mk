@@ -22,7 +22,7 @@ SPEEDTESTDIR := tmp/emails-for-speed-test
 
 COMMANDARGVS := -I./lib -rsisimai
 TOBEEXECUTED := 'Sisimai.make($$*.shift, delivered: true)' $(PUBLICMAILS)
-HOWMANYMAILS := $(PERL) $(COMMANDARGVS) -le 'puts Sisimai.make($$*.shift, delivered: true).size' 
+HOWMANYMAILS := $(RUBY) $(COMMANDARGVS) -le 'puts Sisimai.make($$*.shift, delivered: true).size' 
 
 # -----------------------------------------------------------------------------
 .PHONY: clean
@@ -39,7 +39,7 @@ speed-test: emails-for-speed-test
 	@ uptime
 	@ echo -------------------------------------------------------------------
 	@ n=1; while [ "$$n" -le "10" ]; do \
-		time $(PERL) $(COMMANDARGVS) -e $(TOBEEXECUTED) $(SPEEDTESTDIR) > /dev/null; \
+		time $(RUBY) $(COMMANDARGVS) -e $(TOBEEXECUTED) $(SPEEDTESTDIR) > /dev/null; \
 		sleep 2; \
 		n=`expr $$n + 1`; \
 	done
