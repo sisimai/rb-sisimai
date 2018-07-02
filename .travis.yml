@@ -7,7 +7,6 @@ rvm:
   - 2.5.0
   - jruby-9.0.5.0
   - jruby-9.1.9.0
-  - jruby-9.2.0.0
 before_install:
 script:
   - rake spec
