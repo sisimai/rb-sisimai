@@ -1,0 +1,57 @@
+From MAILER-DAEMON Sat Jun  9 14:15:30 2018
+Date: Sat, 9 Jun 2018 03:06:57 +0900 (JST)
+From: Mail Delivery Subsystem <MAILER-DAEMON@neko.example.jp>
+To: kijitora@neko.example.jp
+Subject: Returned mail: see transcript for details
+
+This is a MIME-encapsulated message
+
+--w58I6rE4086062.1528481217/neko.example.jp
+
+The original message was received at Sun, 3 Jun 2018 14:22:02 +0900 (JST)
+from kijitora@localhost
+
+   ----- The following addresses had permanent fatal errors -----
+kijitora
+    (expanded from: kijitora)
+
+   ----- Transcript of session follows -----
+kijitora... Deferred: Connection refused by [127.0.0.1]
+Message could not be delivered for 5 days
+Message will be deleted from queue
+
+--w58I6rE4086062.1528481217/neko.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; neko.example.jp
+Arrival-Date: Sun, 3 Jun 2018 14:22:02 +0900 (JST)
+
+Final-Recipient: RFC822; kijitora@neko.example.jp
+Action: failed
+Status: 4.4.7
+Remote-MTA: DNS; [127.0.0.1]
+Last-Attempt-Date: Sat, 9 Jun 2018 03:06:57 +0900 (JST)
+
+--w58I6rE4086062.1528481217/neko.example.jp
+Content-Type: message/rfc822
+
+Return-Path: <kijitora@neko.example.jp>
+Received: (from kijitora@localhost)
+        by neko.example.jp (8.15.2/8.15.2/Submit) id w535M2jB065855;
+        Sun, 3 Jun 2018 14:22:02 +0900 (JST)
+        (envelope-from kijitora)
+Date: Sun, 3 Jun 2018 14:22:02 +0900 (JST)
+Message-Id: <201806030522.w535M2jB065855@neko.example.jp>
+From: Cron Daemon <kijitora@neko.example.jp>
+To: kijitora
+Subject: Cron <kijitora@neko> /usr/local/bin/perl /home/kijitora/birdwatching --smtp
+X-Cron-Env: <SHELL=/bin/sh>
+X-Cron-Env: <HOME=/home/kijitora>
+X-Cron-Env: <PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin>
+X-Cron-Env: <LOGNAME=kijitora>
+X-Cron-Env: <USER=kijitora>
+
+Can't call method "mail" on an undefined value at /home/kijitora/birdwatching line 507.
+
+--w58I6rE4086062.1528481217/neko.example.jp--
+

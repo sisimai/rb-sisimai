@@ -24,11 +24,13 @@ module Sisimai::Bite::Email
         # https://support.office.com/en-us/article/Email-non-delivery-reports-in-Office-365-51daa6b9-2e35-49c4-a0c9-df85bf8533c3
         %r/\A4[.]4[.]7\z/        => 'expired',
         %r/\A4[.]4[.]312\z/      => 'networkerror',
+        %r/\A4[.]4[.]316\z/      => 'expired',
         %r/\A4[.]7[.]26\z/       => 'securityerror',
         %r/\A4[.]7[.][56]\d\d\z/ => 'blocked',
         %r/\A4[.]7[.]8[5-9]\d\z/ => 'blocked',
         %r/\A5[.]4[.]1\z/        => 'norelaying',
         %r/\A5[.]4[.]312\z/      => 'networkerror',
+        %r/\A5[.]4[.]316\z/      => 'expired',
         %r/\A5[.]4[.]6\z/        => 'networkerror',
         %r/\A5[.]6[.]11\z/       => 'contenterror',
         %r/\A5[.]7[.]1\z/        => 'rejected',

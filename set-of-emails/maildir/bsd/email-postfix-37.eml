@@ -1,0 +1,76 @@
+From MAILER-DAEMON  Sun Jun 24 06:28:11 2018
+Return-Path: <>
+X-Original-To: neko-errors@neko-nyaan-22.example.de
+Delivered-To: neko-errors@neko-nyaan-22.example.de
+Received: by neko-nyaan-22.example.de (Postfix)
+	id 0000FFFF00EE; Sun, 24 Jun 2018 06:28:11 +0200 (CEST)
+Date: Sun, 24 Jun 2018 06:28:11 +0200 (CEST)
+From: MAILER-DAEMON@neko-nyaan-22.example.de (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: neko-errors@neko-nyaan-22.example.de
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="00EEFEEE00AB.1530000000/neko-nyaan-22.example.de"
+Message-Id: <20180624042811.0000FFFF00EE@neko-nyaan-22.example.de>
+
+This is a MIME-encapsulated message.
+
+--00EEFEEE00AB.1530000000/neko-nyaan-22.example.de
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host neko-nyaan-22.example.de.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<nyaan@example.org>: connect to example.org[203.0.113.225]:25: Connection timed
+    out
+
+--00EEFEEE00AB.1530000000/neko-nyaan-22.example.de
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; neko-nyaan-22.example.de
+X-Postfix-Queue-ID: 00EEFEEE00AB
+X-Postfix-Sender: rfc822; neko-errors@neko-nyaan-22.example.de
+Arrival-Date: Tue, 19 Jun 2018 06:10:31 +0200 (CEST)
+
+Final-Recipient: rfc822; nyaan@example.org
+Original-Recipient: rfc822;nyaan@example.org
+Action: failed
+Status: 4.4.1
+Diagnostic-Code: X-Postfix; connect to example.org[203.0.113.225]:25: Connection
+    timed out
+
+--00EEFEEE00AB.1530000000/neko-nyaan-22.example.de
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <neko-errors@neko-nyaan-22.example.de>
+Received: from localhost.localdomain (neko22.smtp.example.net [192.0.2.2])
+	by neko-nyaan-22.example.de (Postfix) with ESMTP id 00EEFEEE00AB
+	for <nyaan@example.org>; Tue, 19 Jun 2018 06:10:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 neko-nyaan-22.example.de 00EEFEEE00AB
+Date: Tue, 19 Jun 2018 06:10:31 +0200
+MIME-Version: 1.0
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+To: nyaan@example.org
+Subject: Nyaan
+From: "Neko Nyaan" <sironeko@example.ch>
+Message-ID:
+ <3f1e661d2e0be3acd691541721bf8c0d0123456789abcdef@neko-nyaan-22.example.de>
+
+Nyaan
+
+--00EEFEEE00AB.1530000000/neko-nyaan-22.example.de--
+

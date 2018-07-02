@@ -1,0 +1,40 @@
+Return-Path: <>
+X-Original-To: kijitora@example.jp
+Delivered-To: kijitora@example.jp
+Received: from mx4.example.jp (mx4.example.jp [192.0.2.45])
+	by mx.example.jp (Postfix) with ESMTP id 0000000000
+	for <kijitora@example.jp>; Thu, 29 Apr 2018 00:00:00 +0900 (JST)
+Received: (qmail 10000 invoked for bounce); 29 Apr 2018 00:00:00 +0900
+Date: 29 Apr 2018 00:00:00 +0900
+From: MAILER-DAEMON@mx4.example.jp
+To: kijitora@example.jp
+Subject: failure notice
+
+Hi. This is the qmail-send program at sh5.from.co.jp.
+I'm afraid I wasn't able to deliver your message to the following addresses.
+This is a permanent error; I've given up. Sorry it didn't work out.
+<neko@example.co.jp>:
+203.0.113.225 does not like recipient.
+Remote host said: 550 5.7.606 Access denied, banned sending IP [192.0.2.225]. To request removal from this list please visit https://sender.office.com and follow the directions. For more information please go to  http://go.microsoft.com/fwlink/?LinkID=526655 (AS16012609) [NEKONYAAN.CAT-JPN22.prod.protection.outlook.com]
+Giving up on 203.0.113.225.
+
+--- Below this line is a copy of the message.
+
+Return-Path: <kijitora@example.jp>
+Received: (qmail 10000 invoked by uid 999); 29 Apr 2018 00:00:00 +0900
+Delivered-To: sironeko@example.com
+Received: (qmail 88888 invoked from network); 29 Apr 2018 00:00:00 +0900
+Received: from relay13.example.co.jp (HELO rr41.out.example.co.jp) (192.0.2.4)
+  by mx4s.example.jp with SMTP; 29 Apr 2018 00:00:00 +0900
+Message-ID: <000000000.9999999999999.JavaMail.postmaster@mailhub>
+Date: Thu, 29 Apr 2018 00:00:00 +0900 (JST)
+From: Nyanko <kijitora@example.jp>
+Reply-To: nyaaaaaaaan@example.co.jp
+To: sironeko@example.com
+Subject: Nyaan
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ISO-2022-JP
+Content-Transfer-Encoding: 7bit
+
+Nyaan
+

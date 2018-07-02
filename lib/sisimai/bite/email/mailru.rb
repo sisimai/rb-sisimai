@@ -68,7 +68,7 @@ module Sisimai::Bite::Email
         return nil unless mbody
 
         return nil unless mhead['from'] =~ /[<]?mailer-daemon[@].*mail[.]ru[>]?/i
-        return nil unless mhead['message-id'].end_with?('.mail.ru>')
+        return nil unless mhead['message-id'].end_with?('.mail.ru>', 'smailru.net>')
         return nil unless mhead['subject'] =~ %r{(?:
            Mail[ ]delivery[ ]failed(:[ ]returning[ ]message[ ]to[ ]sender)?
           |Warning:[ ]message[ ].+[ ]delayed[ ]+

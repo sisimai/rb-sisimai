@@ -1,0 +1,58 @@
+From MAILER-DAEMON Sat Jun  9 14:56:09 2018
+Date: Sat, 9 Jun 2018 14:56:09 +0900 (JST)
+From: Mail Delivery Subsystem <MAILER-DAEMON>
+To: <kijitora@neko.example.jp>
+Subject: Returned mail: see transcript for details
+
+This is a MIME-encapsulated message
+
+--w595u9fR093279.1528523769/neko.example.jp
+
+The original message was received at Sat, 9 Jun 2018 14:56:08 +0900 (JST)
+from localhost [127.0.0.1]
+
+   ----- The following addresses had permanent fatal errors -----
+<sironeko@example.com>
+    (reason: 550 Unauthenticated senders not allowed)
+
+   ----- Transcript of session follows -----
+... while talking to smtp.sendgrid.net.:
+>>> MAIL From:<kijitora@neko.example.jp> SIZE=378
+<<< 550 Unauthenticated senders not allowed
+554 5.0.0 Service unavailable
+
+--w595u9fR093279.1528523769/neko.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; neko.example.jp
+Received-From-MTA: DNS; localhost
+Arrival-Date: Sat, 9 Jun 2018 14:56:08 +0900 (JST)
+
+Final-Recipient: RFC822; sironeko@example.com
+Action: failed
+Status: 5.0.0
+Diagnostic-Code: SMTP; 550 Unauthenticated senders not allowed
+Last-Attempt-Date: Sat, 9 Jun 2018 14:56:09 +0900 (JST)
+
+--w595u9fR093279.1528523769/neko.example.jp
+Content-Type: message/rfc822
+
+Return-Path: <kijitora@neko.example.jp>
+Received: from neko.example.jp (localhost [127.0.0.1])
+        by neko.example.jp (8.15.2/8.15.2) with ESMTPS id w595u8fS093277
+        (version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO)
+        for <sironeko@example.com>; Sat, 9 Jun 2018 14:56:08 +0900 (JST)
+        (envelope-from kijitora@neko.example.jp)
+Received: (from root@localhost)
+        by neko.example.jp (8.15.2/8.15.2/Submit) id w595u8GZ093276
+        for sironeko@example.com; Sat, 9 Jun 2018 14:56:08 +0900 (JST)
+        (envelope-from ak)
+Date: Sat, 9 Jun 2018 14:56:08 +0900 (JST)
+From: sironeko <kijitora@neko.example.jp>
+Message-Id: <201806090556.w595u8GZ093276@neko.example.jp>
+To: sironeko@example.com
+Subject: Nyaan
+
+neko.example.jp
+
+--w595u9fR093279.1528523769/neko.example.jp--

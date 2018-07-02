@@ -1,0 +1,56 @@
+X-Apparently-To: sironeko@neko.example.jp; Thu, 29 Apr 2017 23:34:45 +0000
+Return-Path: <>
+Received-SPF: none (domain of e22-22.smtp-out.amazonses.com does not designate permitted sender hosts)
+X-Originating-IP: [203.0.113.225]
+Authentication-Results: mta1001.biz.mail.sg3.yahoo.com  from=amazonses.com; domainkeys=neutral (no sig);  from=amazonses.com; dkim=neutral (no sig)
+Received: from 127.0.0.1  (EHLO e22-22.smtp-out.amazonses.com) (203.0.113.225)
+  by mta1001.biz.mail.sg3.yahoo.com with SMTPS; Thu, 29 Apr 2017 23:34:45 +0000
+From: MAILER-DAEMON@amazonses.com
+To: sironeko@neko.example.jp
+Message-ID: <0000000000000000-22222222-eeee-eeee-eeee-000000000000-000000@email.amazonses.com>
+Subject: Delivery Status Notification (Failure)
+MIME-Version: 1.0
+Content-Type: multipart/report; 
+	boundary="----=_Part_65535_000020221.202200220000"; 
+	report-type=delivery-status
+Date: Thu, 29 Apr 2017 23:34:45 +0000
+X-SES-Outgoing: 2017.04.29-203.0.113.225
+Content-Length: 2022
+
+------=_Part_65535_000020221.202200220000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Description: Notification
+
+An error occurred while trying to deliver the mail to the following recipients:
+kijitora@example.com
+------=_Part_65535_000020221.202200220000
+Content-Type: message/delivery-status
+Content-Transfer-Encoding: 7bit
+Content-Description: Delivery Status Notification
+
+Reporting-MTA: dsn; a2-22.smtp-out.amazonses.com
+
+Action: failed
+Final-Recipient: rfc822; kijitora@example.com
+Diagnostic-Code: smtp; 550 5.7.1 <kijitora@example.com>: Recipient address rejected: User kijitora@example.com temporary locked. Please try again later!
+Status: 5.7.1
+
+
+------=_Part_65535_000020221.202200220000
+Content-Type: message/rfc822
+Content-Description: Undelivered Message
+
+Content-Type: text/html; charset=utf-8
+MIME-Version: 1.0
+Date: Thu, 29 Apr 2017 23:34:45 +0000
+Content-Transfer-Encoding: quoted-printable
+Subject: Nyaan
+From: "Neko, Nyaan" <sironeko@neko.example.jp>
+Message-ID: <2222222222222222-00000000-eeee-eeee-eeee-000000000000-000000@email.amazonses.com>
+To: kijitora@example.com
+X-SES-Outgoing: 2017.04.29-192.0.2.225
+
+Nyaan
+
+------=_Part_65535_000020221.202200220000--

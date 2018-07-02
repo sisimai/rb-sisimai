@@ -1,0 +1,84 @@
+Delivered-To: kijitora@mailru.example.com
+Return-path: <>
+Received: from mail by fallback21.m.smailru.net with local id 1fTlFK-00081r-Dp
+	for kijitora@mailru.example.com; Fri, 15 Jun 2018 12:42:18 +0300
+X-Failed-Recipients: neko@sijo.example.jp
+X-Mailer-Daemon-Recipients: neko@sijo.example.jp
+Auto-Submitted: auto-replied
+From: mailer-daemon@corp.mail.ru
+To: kijitora@mailru.example.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Subject: =?UTF-8?B?0JLQsNGI0LUg0YHQvtC+0LHRidC10L3QuNC1INC90LUg0LTQvtGB0YLQsNCy0LvQtdC90L4=?=. Mail failure.
+Message-Id: <E1fTlFK-00081r-Dp@fallback21.m.smailru.net>
+Date: Fri, 15 Jun 2018 12:42:18 +0300
+X-Mru-Recipient-UID: kijitora@mailru.example.com 205807874
+X-Mailru-Intl-Transport: d,6f76a83
+
+Это письмо создано автоматически сервером Mail.Ru, отвечать на него не нужно.
+
+К сожалению, Ваше письмо не может быть доставлено одному или нескольким получателям:
+
+  neko@sijo.example.jp
+    retry timeout exceeded
+
+Рекомендуем Вам проверить корректность указания адресов получателей.
+
+**********************
+
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  neko@sijo.example.jp
+    retry timeout exceeded
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <kijitora@mailru.example.com>
+Received: from [10.161.60.102] (port=37032 helo=f373.i.mail.ru)
+	by fallback21.m.smailru.net with esmtp (envelope-from <kijitora@mailru.example.com>)
+	id 1fTkDu-0005uo-U5
+	for neko@sijo.example.jp; Fri, 15 Jun 2018 11:36:47 +0300
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru; s=mail2;
+	h=Content-Type:Message-ID:Reply-To:Date:MIME-Version:Subject:To:From; bh=2vdDvBhT9YQ/Cf3PwPFXf1767LXyqLq30bPVlZys4e4=;
+	b=tVy7AM5NysRcQwig7TqA4slsM6p30p/rI7N7S9/dIkN3Fn+y+Bdt7uzipE96WdikWuFj2PfEPKMTVBau7C/kjAdYzV6GFnb6WazeIdIMZwlAYMTj6I7yATL0Q0EFSelOx6DNIdwI/Q6B8tFp67RPT2dVWBDR4Gk/kWI591QFNGo=;
+Received: by f373.i.mail.ru with local (envelope-from <kijitora@mailru.example.com>)
+	id 1fTkDi-0007Kb-S3
+	for neko@sijo.example.jp; Fri, 15 Jun 2018 11:36:35 +0300
+Received: by e.mail.ru with HTTP;
+	Fri, 15 Jun 2018 11:36:34 +0300
+From: =?UTF-8?B?a3VuaXl1a2kgYXp1bWE=?= <kijitora@mailru.example.com>
+To: neko@sijo.example.jp
+Subject: =?UTF-8?B?TnlhYW4=?=
+MIME-Version: 1.0
+X-Mailer: Mail.Ru Mailer 1.0
+Date: Fri, 15 Jun 2018 11:36:34 +0300
+Reply-To: =?UTF-8?B?a3VuaXl1a2kgYXp1bWE=?= <kijitora@mailru.example.com>
+X-Priority: 3 (Normal)
+Message-ID: <1529051794.476489614@f373.i.mail.ru>
+Content-Type: multipart/alternative;
+	boundary="--ALT--mKrzZp8t1gtUMjncuhlaOkYzFODli1kT1529051794"
+X-7FA49CB5: 0D63561A33F958A5826E27F917856B8E61CF0EB72DA4A442D53C74F54091F858725E5C173C3A84C3C94022174CF84DAEE8373888AB0BFEADD05AD665AB97B35DC4224003CC836476C0CAF46E325F83A50BF2EBBBDD9D6B0F2AF38021CC9F462D574AF45C6390F7469DAA53EE0834AAEE
+X-Mailru-Sender: 052F3EE632032033F266ABDBF0757312FA1594EF4F32E9D69D709B92090C5BBC57781386C75DA97262FC5AE40BC1F9661D295F8817E181A9626B1D7BE3F966DCC1066F626AABBBD95843B8C90ECF6809064FDD5B919501F067EA787935ED9F1B
+X-Mras: OK
+X-Spam: undefined
+X-7FA49CB5: 0D63561A33F958A53983F44EE430398C0017DEDACA8DA1F05247E01DD2B9CC13462275124DF8B9C99B0B8D173C204012BD9CCCA9EDD067B1EDA766A37F9254B7
+X-Mras: OK
+
+
+----ALT--mKrzZp8t1gtUMjncuhlaOkYzFODli1kT1529051794
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+
+TnlhYW4KCgoK
+
+----ALT--mKrzZp8t1gtUMjncuhlaOkYzFODli1kT1529051794
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
+
+CjxIVE1MPjxCT0RZPk55YWFuPGJyPjxicj48YnI+PGJyPjwvQk9EWT48L0hUTUw+Cg==
+
+----ALT--mKrzZp8t1gtUMjncuhlaOkYzFODli1kT1529051794--

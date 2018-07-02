@@ -27,10 +27,12 @@ module Sisimai
             'has been delayed',
             'it has not been collected after',
             'message expired after sitting in queue for',
+            'message expired, connection refulsed',
             'message timed out',
             'retry time not reached for any host after a long failure period',
             'server did not respond',
             'this message has been in the queue too long',
+            'unable to deliver message after multiple retries',
             'was not reachable within the allowed queue period',
             'your message could not be delivered for more than',
           ]
