@@ -1,0 +1,55 @@
+X-Apparently-To: neko@example.jp; Thu, 29 Apr 2017 23:34:45 +0000
+Return-Path: <>
+X-Originating-IP: [192.0.2.25]
+Authentication-Results: mta2022.biz.mail.sg2.yahoo.com  from=amazonses.com; domainkeys=neutral (no sig);  from=amazonses.com; dkim=neutral (no sig)
+Received: from 127.0.0.1  (EHLO e22-22.smtp-out.amazonses.com) (192.0.2.25)
+  by mta2022.biz.mail.sg2.yahoo.com with SMTPS; Thu, 29 Apr 2017 23:34:45 +0000
+From: MAILER-DAEMON@amazonses.com
+To: neko@example.jp
+Message-ID: <0000000000000000-22222222-0000-3333-3333-000000000000-000000@email.amazonses.com>
+Subject: Delivery Status Notification (Failure)
+MIME-Version: 1.0
+Content-Type: multipart/report; 
+	boundary="----=_Part_20222_2222200022020230052.392"; 
+	report-type=delivery-status
+Date: Thu, 29 Apr 2017 23:34:45 +0000
+X-SES-Outgoing: 2017.04.29-192.0.2.25
+Content-Length: 2022
+
+------=_Part_20222_2222200022020230052.392
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Description: Notification
+
+An error occurred while trying to deliver the mail to the following recipients:
+kijitora@example.com
+------=_Part_20222_2222200022020230052.392
+Content-Type: message/delivery-status
+Content-Transfer-Encoding: 7bit
+Content-Description: Delivery Status Notification
+
+Reporting-MTA: dsn; e2-22.smtp-out.amazonses.com
+
+Action: failed
+Final-Recipient: rfc822; kijitora@example.com
+Diagnostic-Code: smtp; 554 5.7.1 <kijitora@example.com>: Relay access denied
+Status: 5.7.1
+
+
+------=_Part_20222_2222200022020230052.392
+Content-Type: message/rfc822
+Content-Description: Undelivered Message
+
+Content-Type: text/html; charset=utf-8
+MIME-Version: 1.0
+Date: Thu, 29 Apr 2017 23:34:45 +0000
+Content-Transfer-Encoding: quoted-printable
+Subject: Nyaan
+From: "Neko, Nyaan" <neko@example.jp>
+Message-ID: <0000000000000000-22222222-eeee-ffff-ffff-000000000000-000000@email.amazonses.com>
+To: kijitora@example.com
+X-SES-Outgoing: 2017.04.29-192.0.2.22
+
+Nyaan
+
+------=_Part_20222_2222200022020230052.392--

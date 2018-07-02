@@ -1,0 +1,56 @@
+X-Apparently-To: sironeko@neko.example.jp; Thu, 29 Apr 2017 23:34:45 +0000
+Return-Path: <>
+Received-SPF: none (domain of e22-22.smtp-out.amazonses.com does not designate permitted sender hosts)
+X-Originating-IP: [198.51.100.225]
+Authentication-Results: mta2022.biz.mail.sg2.yahoo.com  from=amazonses.com; domainkeys=neutral (no sig);  from=amazonses.com; dkim=neutral (no sig)
+Received: from 127.0.0.1  (EHLO e22-22.smtp-out.amazonses.com) (198.51.100.225)
+  by mta2022.biz.mail.sg2.yahoo.com with SMTPS; Thu, 29 Apr 2017 23:34:45 +0000
+From: MAILER-DAEMON@amazonses.com
+To: sironeko@neko.example.jp
+Message-ID: <2022eeef2200efaa-ffef2022-2022-aaef-ab2e-2022eef2ffee-000000@email.amazonses.com>
+Subject: Delivery Status Notification (Failure)
+MIME-Version: 1.0
+Content-Type: multipart/report; 
+	boundary="----=_Part_127254_2022002200.2022000022002222"; 
+	report-type=delivery-status
+Date: Thu, 29 Apr 2017 23:34:45 +0000
+X-SES-Outgoing: 2017.04.29-198.51.100.225
+Content-Length: 2022
+
+------=_Part_127254_2022002200.2022000022002222
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Description: Notification
+
+An error occurred while trying to deliver the mail to the following recipients:
+kijitora@example.com
+------=_Part_127254_2022002200.2022000022002222
+Content-Type: message/delivery-status
+Content-Transfer-Encoding: 7bit
+Content-Description: Delivery Status Notification
+
+Reporting-MTA: dsn; e2-22.smtp-out.amazonses.com
+
+Action: failed
+Final-Recipient: rfc822; kijitora@example.com
+Diagnostic-Code: smtp; 554 4.4.7 Message expired: unable to deliver in 840 minutes.<421 4.4.2 Connection timed out>
+Status: 4.4.7
+
+
+------=_Part_127254_2022002200.2022000022002222
+Content-Type: message/rfc822
+Content-Description: Undelivered Message
+
+Content-Type: text/html; charset=utf-8
+MIME-Version: 1.0
+Date: Thu, 29 Apr 2017 23:34:45 +0000
+Content-Transfer-Encoding: quoted-printable
+Subject: Nyaan
+From: "Neko, Nyaan" <sironeko@neko.example.jp>
+Message-ID: <20220022eefe0000-20222022-aeef-eefa-eeaf-eefe202200ee-000000@email.amazonses.com>
+To: kijitora@example.com
+X-SES-Outgoing: 2017.04.29-192.0.2.225
+
+Nyaan
+
+------=_Part_127254_2022002200.2022000022002222--

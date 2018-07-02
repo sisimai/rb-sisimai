@@ -1,0 +1,56 @@
+X-Apparently-To: sironeko@example.jp; Thu, 29 Apr 2017 23:34:45 +0000
+Return-Path: <>
+Received-SPF: none (domain of e22-22.smtp-out.amazonses.com does not designate permitted sender hosts)
+X-Originating-IP: [192.0.2.225]
+Authentication-Results: mta2022.biz.mail.sg2.yahoo.com  from=amazonses.com; domainkeys=neutral (no sig);  from=amazonses.com; dkim=neutral (no sig)
+Received: from 127.0.0.1  (EHLO e22-22.smtp-out.amazonses.com) (192.0.2.225)
+  by mta2022.biz.mail.sg2.yahoo.com with SMTPS; Thu, 29 Apr 2017 23:34:45 +0000
+From: MAILER-DAEMON@amazonses.com
+To: sironeko@example.jp
+Message-ID: <20222200eeffeeaa-2022eafa-2022-0000-0000-2022eefaaaef-000000@email.amazonses.com>
+Subject: Delivery Status Notification (Failure)
+MIME-Version: 1.0
+Content-Type: multipart/report; 
+	boundary="----=_Part_2022220_2022002210.2022000000002"; 
+	report-type=delivery-status
+Date: Thu, 29 Apr 2017 23:34:45 +0000
+X-SES-Outgoing: 2017.04.29-192.0.2.225
+Content-Length: 2022
+
+------=_Part_2022220_2022002210.2022000000002
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Description: Notification
+
+An error occurred while trying to deliver the mail to the following recipients:
+kijitora@neko.nyaan.example.edu
+------=_Part_2022220_2022002210.2022000000002
+Content-Type: message/delivery-status
+Content-Transfer-Encoding: 7bit
+Content-Description: Delivery Status Notification
+
+Reporting-MTA: dsn; a8-30.smtp-out.amazonses.com
+
+Action: failed
+Final-Recipient: rfc822; kijitora@neko.nyaan.example.edu
+Diagnostic-Code: smtp; 550 5.4.4 Invalid domain
+Status: 5.4.4
+
+
+------=_Part_2022220_2022002210.2022000000002
+Content-Type: message/rfc822
+Content-Description: Undelivered Message
+
+Content-Type: text/html; charset=utf-8
+MIME-Version: 1.0
+Date: Thu, 29 Apr 2017 23:34:45 +0000
+Content-Transfer-Encoding: quoted-printable
+Subject: Nyaan
+From: "Neko, Nyaan" <sironeko@example.jp>
+Message-ID: <0000000000000000-22222222-ffff-2222-2222-000000000000-000000@email.amazonses.com>
+To: kijitora@neko.nyaan.example.edu
+X-SES-Outgoing: 2017.04.29-192.0.2.224
+
+Nyaan
+
+------=_Part_2022220_2022002210.2022000000002--

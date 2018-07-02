@@ -14,6 +14,14 @@ isexpected = [
   { 'n' => '11', 's' => /\A\z/,          'r' => /feedback/,      'b' => /\A-1\z/},
   { 'n' => '12', 's' => /\A2[.]6[.]0\z/, 'r' => /delivered/,     'b' => /\A-1\z/},
   { 'n' => '13', 's' => /\A2[.]6[.]0\z/, 'r' => /delivered/,     'b' => /\A-1\z/},
+  { 'n' => '14', 's' => /\A5[.]7[.]1\z/, 'r' => /blocked/,       'b' => /\A1\z/ },
+  { 'n' => '15', 's' => /\A5[.]7[.]1\z/, 'r' => /blocked/,       'b' => /\A1\z/ },
+  { 'n' => '16', 's' => /\A5[.]7[.]1\z/, 'r' => /blocked/,       'b' => /\A1\z/ },
+  { 'n' => '17', 's' => /\A4[.]4[.]7\z/, 'r' => /expired/,       'b' => /\A1\z/ },
+  { 'n' => '18', 's' => /\A5[.]4[.]4\z/, 'r' => /hostunknown/,   'b' => /\A0\z/ },
+  { 'n' => '19', 's' => /\A5[.]7[.]1\z/, 'r' => /suspend/,       'b' => /\A1\z/ },
+  { 'n' => '20', 's' => /\A5[.]2[.]1\z/, 'r' => /suspend/,       'b' => /\A1\z/ },
+  { 'n' => '21', 's' => /\A5[.]7[.]1\z/, 'r' => /norelaying/,    'b' => /\A1\z/ },
 ]
 Sisimai::Bite::Email::Code.maketest(enginename, isexpected)
 

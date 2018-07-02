@@ -1,0 +1,105 @@
+Delivered-To: azumakuniyuki@mailru.example.com
+Return-path: <>
+Authentication-Results: mxs.mail.ru; spf=none () smtp.helo=nijo.example.jp
+Received-SPF: none
+Received: from [203.0.113.225] (port=58540 helo=nijo.example.jp)
+	by mx113.mail.ru with esmtp id 1fTo7g-0008Jv-El
+	for azumakuniyuki@mailru.example.com; Fri, 15 Jun 2018 15:46:38 +0300
+Received: from localhost (localhost)
+	by nijo.example.jp (V8/cf) id w5FCkU6I005355;
+	Fri, 15 Jun 2018 21:46:30 +0900
+Date: Fri, 15 Jun 2018 21:46:30 +0900
+From: Mail Delivery Subsystem <poostmaster@example.jp>
+Message-Id: <201806151246.w5FCkU6I005355@nijo.example.jp>
+To: <azumakuniyuki@mailru.example.com>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="w5FCkU6I005355.1529066790/nijo.example.jp"
+Subject: Warning: could not send message for past 4 hours
+Auto-Submitted: auto-generated (warning-timeout)
+X-6b629377: 1
+X-7FA49CB5: A9FCD207E66530D8A18204E546F3947C00AD5422731CA18CD7494F64F9BEE8B42EF20D2F80756B5FBBC930A3941E20C65136D004FC00FE2978DA827A17800CE76D1FDFE1AC45A461EB66585E62EAC104BCA8734010DFDAB0690DBCE64404DB64EF16ED7C73410E2EDC6DB0B82859FA8140A5AABA2AD371193195499CA005F545C09775C1D3CA48CF0BE7EDFAC60F540162C0DB630611AE6CCF19DD082D7633A0072CF9D0EE425E0A3195499CA005F54578DA827A17800CE76EFA725CC2A8A7A643847C11F186F3C5707D568A279F2C58F25A724E5F29A64E9E8FC8737B5C2249D6FBC3EC642A93BBF25A724E5F29A64E395957E7521B51C21B46DCA1A3ECEFC7725E5C173C3A84C3776A0366D588B3C338D433D53B717345BA69B7DF0B3EA92AC6CDE5D1141D2B1C31872D324C5C5881DD7DA23FD17BB7DEE112E8263A623CC6
+X-937A6FF2: 1
+X-DMARC-Policy: no
+X-Mras: OK
+X-Spam: undefined
+X-Mailru-Intl-Transport: d,6f76a83
+
+This is a MIME-encapsulated message
+
+--w5FCkU6I005355.1529066790/nijo.example.jp
+
+    **********************************************
+    **      THIS IS A WARNING MESSAGE ONLY      **
+    **  YOU DO NOT NEED TO RESEND YOUR MESSAGE  **
+    **********************************************
+
+The original message was received at Fri, 15 Jun 2018 17:36:54 +0900
+from f373.i.mail.ru [217.69.141.15]
+
+   ----- Transcript of session follows -----
+451 4.0.0 Operating system error
+Warning: message still undelivered after 4 hours
+Will keep trying until message is 8 hours old
+
+--w5FCkU6I005355.1529066790/nijo.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; nijo.example.jp
+Arrival-Date: Fri, 15 Jun 2018 17:36:54 +0900
+
+Final-Recipient: RFC822; nyaan@example.jp
+X-Actual-Recipient: X-Unix; |/var/adm/sm.bin/neko
+Action: delayed
+Status: 4.5.0
+Diagnostic-Code: X-Unix; 71
+Last-Attempt-Date: Fri, 15 Jun 2018 21:46:30 +0900
+Will-Retry-Until: Sat, 16 Jun 2018 01:36:54 +0900
+
+--w5FCkU6I005355.1529066790/nijo.example.jp
+Content-Type: message/rfc822
+
+Return-Path: <azumakuniyuki@mailru.example.com>
+Received: from f373.i.mail.ru (f373.i.mail.ru [217.69.141.15])
+	by nijo.example.jp (V8/cf) with ESMTP id w5F8arpp004117
+	for <nyaan@example.jp>; Fri, 15 Jun 2018 17:36:54 +0900
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru; s=mail2;
+	h=Content-Type:Message-ID:Reply-To:Date:MIME-Version:Subject:To:From; bh=5pH7Nvn76A3xPKSjT/Rp+mFLp/2V5iNiYzucEf8bNOs=;
+	b=pjUrH3Irlyr89BSPNq9rzc80lh2eFn5zKkagSy3LLF8G3LXUpJqo6yatE3PpMlLQPrCSiuYw9s6vGzgEdnfZTbbLJ/a2fNTL6RtiJ/P2djRpPNJrIGT0lI8oXJTQahX3hyTI4eLGCN0vQwQUMr7vUjsPS8B/abLAJyFA7ez91zo=;
+Received: by f373.i.mail.ru with local (envelope-from <azumakuniyuki@mailru.example.com>)
+	id 1fTkDx-0007RA-UV
+	for nyaan@example.jp; Fri, 15 Jun 2018 11:36:50 +0300
+Received: by e.mail.ru with HTTP;
+	Fri, 15 Jun 2018 11:36:49 +0300
+From: =?UTF-8?B?a3VuaXl1a2kgYXp1bWE=?= <azumakuniyuki@mailru.example.com>
+To: nyaan@example.jp
+Subject: =?UTF-8?B?TnlhYW4=?=
+MIME-Version: 1.0
+X-Mailer: Mail.Ru Mailer 1.0
+Date: Fri, 15 Jun 2018 11:36:49 +0300
+Reply-To: =?UTF-8?B?a3VuaXl1a2kgYXp1bWE=?= <azumakuniyuki@mailru.example.com>
+X-Priority: 3 (Normal)
+Message-ID: <1529051809.26758241@f373.i.mail.ru>
+Content-Type: multipart/alternative;
+	boundary="--ALT--v8I3Hqo6e3DfViW8RDZxR9vfAlqr6NXT1529051809"
+Authentication-Results: f373.i.mail.ru; auth=pass smtp.auth=azumakuniyuki@mailru.example.com smtp.mailfrom=azumakuniyuki@mailru.example.com
+X-7FA49CB5: 0D63561A33F958A57A2A7E8DD5B8002134973D756C320A269422DCBD744031A1725E5C173C3A84C3323A1F0A62E9D12FC532C8B6AA1B66C89E834CA16AA0C2CCC4224003CC836476C0CAF46E325F83A50BF2EBBBDD9D6B0F2AF38021CC9F462D574AF45C6390F7469DAA53EE0834AAEE
+X-Mailru-Sender: 052F3EE632032033F266ABDBF0757312FA1594EF4F32E9D6EC9133F0C8C39DE2CA04B163C213E9B162FC5AE40BC1F9661D295F8817E181A9626B1D7BE3F966DCC1066F626AABBBD95843B8C90ECF6809064FDD5B919501F067EA787935ED9F1B
+X-Mras: OK
+X-Spam: undefined
+
+
+----ALT--v8I3Hqo6e3DfViW8RDZxR9vfAlqr6NXT1529051809
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+
+TnlhYW4KCgoK
+----ALT--v8I3Hqo6e3DfViW8RDZxR9vfAlqr6NXT1529051809
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
+
+CjxIVE1MPjxCT0RZPk55YWFuPGJyPjxicj48YnI+PGJyPjwvQk9EWT48L0hUTUw+Cg==
+----ALT--v8I3Hqo6e3DfViW8RDZxR9vfAlqr6NXT1529051809--
+
+--w5FCkU6I005355.1529066790/nijo.example.jp--
+

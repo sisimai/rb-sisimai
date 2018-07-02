@@ -1,0 +1,58 @@
+X-Apparently-To: kijitora@example.com; Thu, 29 Apr 2017 23:34:45 +0000
+Return-Path: <>
+Received-SPF: none (domain of p12-22.smtp-out.amazonses.com does not designate permitted sender hosts)
+X-Originating-IP: [192.0.2.225]
+Authentication-Results: mx1224.biz.mail.sg1.yahoo.com  from=amazonses.com; domainkeys=neutral (no sig);  from=amazonses.com; dkim=neutral (no sig)
+Received: from 127.0.0.1  (EHLO p12-22.smtp-out.amazonses.com) (192.0.2.225)
+  by mx1224.biz.mail.sg1.yahoo.com with SMTPS; Thu, 29 Apr 2017 23:34:45 +0000
+From: MAILER-DAEMON@amazonses.com
+To: kijitora@example.com
+Message-ID: <00000000ffffeeff-a0001200-eeee-f009-c00d-2222feff0000-000000@email.amazonses.com>
+Subject: Delivery Status Notification (Failure)
+MIME-Version: 1.0
+Content-Type: multipart/report; 
+	boundary="----=_Part_000020_000000013.15000000000"; 
+	report-type=delivery-status
+Date: Thu, 29 Apr 2017 23:34:45 +0000
+X-SES-Outgoing: 2017.04.29-192.0.2.225
+Content-Length: 4401
+
+------=_Part_000020_000000013.15000000000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Description: Notification
+
+An error occurred while trying to deliver the mail to the following recipients:
+sironeko@neko.example.org
+------=_Part_000020_000000013.15000000000
+Content-Type: message/delivery-status
+Content-Transfer-Encoding: 7bit
+Content-Description: Delivery Status Notification
+
+Reporting-MTA: dsn; a8-95.smtp-out.amazonses.com
+
+Action: failed
+Final-Recipient: rfc822; sironeko@neko.example.org
+Diagnostic-Code: smtp; 554 5.7.1 <a8-95.smtp-out.amazonses.com[203.0.113.22]>: Client host rejected: blocked using mail.neko.example.org; Please see http://mail.neko.example.org/rbl/?ip=203.0.113.22 to send.
+Status: 5.7.1
+
+
+------=_Part_000020_000000013.15000000000
+Content-Type: message/rfc822
+Content-Description: Undelivered Message
+
+From: "Neko Nyaan" <kijitora@example.com>
+To: sironeko@neko.example.org
+Subject: Nyaan
+Date: Thu, 29 Apr 2017 23:34:45 +0000
+MIME-Version: 1.0
+Message-ID: <ffffffffffffffff-00000000-2222-2222-2222-111111111111-ffffff@email.amazonses.com>
+Reply-To: kijitora@example.com
+Content-Type: multipart/alternative;
+	boundary="--=_NextPart_FF00FFFF_FF00FFEE_B0FF00EE.EEEE00EE"
+X-SES-Outgoing: 2017.04.29-203.0.113.22
+
+Nyaan
+
+------=_Part_000020_000000013.15000000000--
+

@@ -1,0 +1,87 @@
+X-Apparently-To: azumakuniyuki@aol.example.com; Thu, 14 Jun 2018 07:30:21 +0000
+Return-Path: <>
+Received-SPF: none (domain of sonic307-5.consmr.mail.gq1.yahoo.com does not designate permitted sender hosts)
+X-YMailISG: Y2K0sLgWLDtNfaF6tZxZFqMuGRRWTuiVOHuOmSm2oyQgwPH0
+ Eu6C2AUcyoI9v3DfPeXsHXo1YBx8iubT8xJGdevJXjSkbMMUxNJSbeIuNWa2
+ sCs68s2dOOJnMo6XM6E9VOVZ8kwWEK590.v6SJuMAPzcXGolH3gDqJ3CgpAT
+ AIv6jsDnx17XwrDwa5Jv8pg4Rld47blbtFEM2o.7vVjCEYKsXFskBaQSjd3v
+ hY30okCL9qSc80krkHi6AawMS1SVVL4WOlU_JGt2mGxDMmGhGo5.unrWFj42
+ BpnATyFCoZB2gRmXG0pujIbTh0b8ywdprMUdPj9eHstOUCdJj7kmp7cUmdFa
+ WEWjDE1RJ5i1JaeKBklL3Oa20OQv1o.IBQ5mdUpI_ESkCipIBEZlgfkDa1Nm
+ vXQDvXx.KK1deaN0yCJbqeyVl2G0Ced_Dy_zLWMtiXFQ4N5aBUVfZV7lsrWM
+ rdeFE1ThGQg0zVJpNcoSy72WB1KRnJh3PzeFmIuuslaTi242xqLCcwxRwMZl
+ NXHxRUs5ASZsKEg0Ca07DxSiTQiuvqTjrD1H4Wv7kW0QJQRB9EAHC8n4mB5.
+ sudbL4kepa65OkqHYSf5t9y5BD.Layz2JH61.D0esduuTUoXVOw_w0zk.ObZ
+ mGnMb1ho4yxWm8R9rQV4TWkA_Ye_mtSNUQhnHc3ACv_3eTu5m1Z0dyGRFVGw
+ .5LnyE3qT_DH.2YC3Do.j8V7QpL21qa9w3Vh.SOToldtxO5PFcH2FdalC859
+ v6rL7RMoe7PLe6Yt_VxHh.37klH1_OKfe0O4tL4Af4qFLC9tofncYtIAyGuu
+ WPoiwF4K6hLjDMzAa2BAu2KArlbhb93fl3y1Yz288T7nA6V0Cs6BwllBpyta
+ o73qOx8Tg1eW9lf.Y9E88YILLuaudHEDEjcV9G73aCBHm6RRu8FYKdmZil0h
+ cwmipnoUb92K2cJ1S7GUzEY_7rfSuAMZsVdB3jy2UxdhjS5jnc.7hFY9Fiw1
+ HOcnWjpC9v5es20iJb_kkgFwU4jcvII0ni1VZ56jQxmFhIfBveokcTnspbMz
+ Asm_5CrZbaXbBFLUw4NEwhFq40yUO1e2vrXPL5PzDasIZ4shB8RqEXdEk8us
+ jc.NlNR07P2cAfkX95Tui2oKzB1vxYvvbsnXZN2ZSdJwsI89POeWZmNbB0Qg
+ _0UfMlGPh3ara03Y4CI.7bwSvGCAWmCiUNMG8.FpVk5p0R3SvUXySdGOcHtt
+ Jr3_xiLTLRmtF67Dcaqkx5CEw9KDol6454tM8mg_mC0qbMmOJVsr
+X-Originating-IP: [98.137.64.125]
+Authentication-Results: mta4021.aol.mail.bf1.yahoo.com  from=yahoo.com; domainkeys=neutral (no sig);  from=yahoo.com; dkim=pass (ok)
+Received: from 127.0.0.1  (EHLO sonic307-5.consmr.mail.gq1.yahoo.com) (98.137.64.125)
+  by mta4021.aol.mail.bf1.yahoo.com with SMTPS; Thu, 14 Jun 2018 07:30:20 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=bounce; t=1528961420; bh=8fkFlr5yW6AAdg7+dCDXV5UDo/P4hUgPHB50gbc8uDU=; h=Date:From:To:Subject:From:Subject; b=CXkXWceVBiuJPgAVV52ranq7d7ZQPeDFOD2dZhXfzCTlX3xgKY4FiystUxe0G52JlXX56j9Tjp/W6XHQMls8MuEMIC+C2RZ9MbA7DPB5le2sXBh/IzlwETeqLZ99jkrBV57Dk+iRNm4M0MsZ9A3p31K5HH5H3ptFz6omCdnGKl0=
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic307.consmr.mail.gq1.yahoo.com with HTTP; Thu, 14 Jun 2018 07:30:20 +0000
+Date: Thu, 14 Jun 2018 07:30:20 +0000
+From: MAILER-DAEMON@yahoo.com
+To: azumakuniyuki@aol.example.com
+Message-ID: <1463667408.921622.1528961420321.JavaMail.nobody@sonic307.consmr.mail.gq1.yahoo.com>
+Subject: Failure Notice
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Content-Length: 2836
+
+Sorry, we were unable to deliver your message to the following address.
+
+<kijitora@example.jp>:
+501: 5.1.8 Sender address rejected
+
+--- Below this line is a copy of the message.
+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1528961417; bh=ukQKbLPx9vDGOj6fQ9s/d2DBCblFoN9Nor+DGQA7ONU=; h=Date:From:To:Subject:References:From:Subject; b=k6DUk91CKEMu7VY7dgEOusP4ZvAD62ViY5vGLxokJ95j9FkzvCfNOipD8RTVhpVPhDupoaGmzsYpOZppi/BBqLD6tbD+bIXtWnWKvReqzseY8PJ9BWAAkNybhi+Dr2/GQhlBHWcHrtQjbDX1FOE4zk2aI9w15A+JGQwCB9aXuYgMirYFZmBGeUXcMFvOc9gDAIgyYnI2174sRv1oFU1kglMotHDX0MmRzcXwbOzlROe2rFH3q2wresuKvMENEGivyqLqJ0id/5+NCNwrSIUUiDE8zsQw+pt+vj0amKmXQZn8aFU+0qWJqIRxqSccNdveAU2Z6nn6ICWk3EGdWSLoqw==
+X-YMail-OSG: _yPEivgVM1nZBa9fhzwbY2ovJkUYJhxtYIDklqCLsjoYP34X2JZzZWKoc9gal0S
+ Sza7s4f3zNPiwVfW.Pydgu_TXu84aBonGRo.g7QywduWch73YPxYebcYStU20cXIAPNhHYUOCX87
+ jxM_cJ31GtgCXrNLa1jR3BBwSZst5_8BLKUptaJWNiW_IkGdBPiPMtdVxFmZKM_1B_TR0LCoKLHA
+ .5N5c6V1BX_jMhitEAkCYPypk9Kfuk5CItHX5d9RzwHPRkxMhxgK8.J1tHHp29Kg3sXYkvu.7d6E
+ Pno69BIKmYA86xlEcr_VYiPKgFfoLNcWInM_5rKiuFvTKgzIExWKlce.MVmSsOdZXQdIZ.xfU3W1
+ Y3Ss0lPaFWI1uZyfjldyz1dODEMOwcXVE.x4IGivEa81QRjTin6He9HL8yrQ0FkBhRLlDMfPqv0F
+ q6J0.MiPzbcP_pRNfr.oxcgx2YlO4GRgOJ.R_.Q4OImB7ByXlEjLzTtpjPT72I_PsRFezhEbwnsm
+ 0bcNJUzf3YA38ER7mRHMoVioco4YWa4VARFDnwl2V8F.E9uxHaMEAY1cY_K7m05t.R2eQuUQfY_A
+ nMNZoXrySDN8UDkGJDyO9U.M0pdnmFvApRWKe25stDPXodEeOjXEju9aEgf.7k.liA7wBsPUFCgl
+ mG4VDe4RMmYUt5h2YidtsMQk.yJgVyhCJA1pZr05SJva5NbMeKCuwa54cFiy3.CjFzh4KpS9aLJl
+ KONbADj1nuPzA6qL4pvBoRkJ6t3PiOwW8GmrrNtMCpwvu3VgPFln0qJ5v33ZEg79kyTTcPnZ9S_l
+ Y8.5iu__6d8AGNvcPhkCZeAPn79mqXGzJNmyEjWon.ne7b.q3R19WROzkwqrOoFY8Ltk-
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic307.consmr.mail.gq1.yahoo.com with HTTP; Thu, 14 Jun 2018 07:30:17 +0000
+Date: Thu, 14 Jun 2018 07:26:16 +0000 (UTC)
+From: azumakuniyuki <azumakuniyuki@aol.example.com>
+To: kijitora@example.jp
+Message-ID: <295209069.4014733.1528961176672@mail.yahoo.com>
+Subject: Nyaan
+MIME-Version: 1.0
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_4014732_382536983.1528961176671"
+References: <295209069.4014733.1528961176672.ref@mail.yahoo.com>
+X-Mailer: WebService/1.1.11950 aolwebmail Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36
+Content-Length: 525
+
+------=_Part_4014732_382536983.1528961176671
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Nyaan
+------=_Part_4014732_382536983.1528961176671
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<font color='' size='2' face='Helvetica Neue'>
+<div style="font-family:helvetica,arial;font-size:10pt;color:black"><font color="" size="2" face="Helvetica Neue"><font face="Arial, Helvetica, sans-serif">Nyaan</font></font></div>
+</font>
+------=_Part_4014732_382536983.1528961176671--

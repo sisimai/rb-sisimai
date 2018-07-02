@@ -1,0 +1,186 @@
+Delivered-To: automated-bounces+0000ffee-0020-22ef-ff00-00220000ffee@email.example.com
+Received: by 192.0.2.225 with SMTP id o3T000D95916;
+        Thu, 29 Apr 2010 23:34:45 +0000 (UTC)
+Received: by 192.0.2.224 with SMTP id ffffff000000.00.0000000000;
+        Thu, 29 Apr 2010 23:34:45 +0000 (UTC)
+Return-Path: <>
+Received: from r20-ffe0020.example.com (r20-ffe0020.example.com [203.0.113.225])
+        by mx.google.com with ESMTP id p22ff00000022eee.127.2010.04.29.23.34.45;
+        Thu, 29 Apr 2010 23:34:45 +0000 (UTC)
+Received-SPF: pass (google.com: best guess record for domain of r20-ffe0020.example.com designates 203.0.113.225 as permitted sender) client-ip=203.0.113.225;
+Authentication-Results: mx.google.com; spf=pass (google.com: best guess record for domain of r20-ffe0020.example.com designates 203.0.113.225 as permitted sender) smtp.mail=
+Received: from neko.nyaan.example.jp (nekochan [127.0.0.1])
+	by r20-ffe0020.example.com (8.14.2/8.14.2) with SMTP id o3T000H95924
+	for <automated-bounces+00000000-0020-2022-00FE-EEC00002FFFF@email.example.com>; Thu, 29 Apr 2010 23:34:45 +0000
+MIME-Version: 1.0
+From: <postmaster@example.com>
+To: <automated-bounces+FF00EEEE-0020-2022-00FE-EEC00002FFFF@email.example.com>
+Date: Thu, 29 Apr 2010 23:34:45 +0000
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="ef002222-0000-0000-2022-00000000000"
+Content-Language: en-US
+Message-ID: <ff000000-2202-2222-b020-00002000ffee>
+Subject: Undeliverable: Nyaan
+
+--ef002222-0000-0000-2022-00000000000
+Content-Type: multipart/alternative; differences=Content-Type;
+	boundary="c002ffee-2202-ff00-ffff-000000002222"
+
+--c002ffee-2202-ff00-ffff-000000002222
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Delivery has failed to these recipients or distribution lists:
+
+Kijitora<mailto:kijitora@neko.example.com>
+This message exceeds the maximum message size allowed. Microsoft Exchange w=
+ill not try to redeliver this message for you. Please make the message smal=
+ler -- by removing attachments, for example -- and try sending it again, or=
+ provide the following diagnostic text to your system administrator.
+
+________________________________
+Sent by Microsoft Exchange Server 2007
+
+
+
+
+
+
+Diagnostic information for administrators:
+
+Generating server: neko.example.com
+
+kijitora@neko.example.com
+#550 5.2.3 RESOLVER.RST.RecipSizeLimit; message too large for this recipien=
+t ##
+
+Original message headers:
+
+Received: from neko.nyaan.example.jp (nekochan [127.0.0.1])       by
+ r20-ffe0020.example.com (8.14.2/8.14.2) with SMTP id o3T000R95941 for
+ <kijitora@neko.example.com>; Thu, 29 Apr 2010 23:34:45 +0000
+Received: from r2.example.org (r2.example.org [198.51.100.225]=
+)
+        by r20-ffe0020.example.com with ESMTP id o3T000j95949 for
+ <kijitora@neko.example.com>; Thu, 29 Apr 2010 23:34:45 +0000
+Received: by r2.example.org (Postfix, from userid 1023)   id FFFFFF00=
+EEEE;
+ Thu, 29 Apr 2010 23:34:45 +0000 (UTC)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Type: multipart/related; boundary=3D"_----------=3D_220022222000110=
+2022"
+Date: Thu, 29 Apr 2010 23:34:45 +0000
+From: Neko <sironeko@email.example.com>
+Subject: Nyaan
+To: Kijitora <kijitora@neko.example.com>
+Message-ID: <20100629141825.FF00FFEE0000@r2.example.org>
+Return-Path: automated-bounces+FF00EEEE-0020-2022-00FE-EEC00002FFFF@email.e=
+xample.com
+
+
+--c002ffee-2202-ff00-ffff-000000002222
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<Head></head><body>
+<p><b><font color=3D"#000066" size=3D"3" face=3D"Arial">Delivery has failed=
+ to these recipients or distribution lists:</font></b></p>
+<font color=3D"#000000" size=3D"2" face=3D"Tahoma"><p><a href=3D"mailto:kij=
+itora@neko.example.com">Kijitora</a><br>
+This message exceeds the maximum message size allowed. Microsoft Exchange w=
+ill not try to redeliver this message for you. Please make the message smal=
+ler -- by removing attachments, for example -- and try sending it again, or=
+ provide the following diagnostic text to your system administrator.</p>
+</font>
+<HR/><font color=3D"#808080" size=3D"1" face=3D"Arial">Sent by Microsoft Ex=
+change Server 2007</font>
+<br><br><br><br><br><br>
+<font color=3D"#808080" size=3D"2" face=3D"Tahoma"><p><b>Diagnostic informa=
+tion for administrators:</b></p>
+<p>Generating server: neko.example.com</p>
+<p>kijitora@neko.example.com<br>
+ #550 5.2.3 RESOLVER.RST.RecipSizeLimit; message too large for this recipie=
+nt ##</p>
+<p>Original message headers:</p>
+<pre>Received: from r20-ffe0020.example.com (203.0.113.225) by
+ nyaan-22.neko.example.com (192.0.2.127) with Microsoft SMTP Server id
+ 8.1.393.1; Thu, 29 Apr 2010 23:34:45 +0000
+Received: from neko.nyaan.example.jp (nekochan [127.0.0.1])	by
+ r20-ffe0020.example.com (8.14.2/8.14.2) with SMTP id o3T000m97281 for
+ &lt;kijitora@neko.example.com&gt;; Thu, 29 Apr 2010 23:34:45 +0=
+000
+Received: from r2.example.org (r2.example.org [198.51.100.225]=
+)
+	by r20-ffe0020.example.com with ESMTP id ffffffff0-2	for
+ &lt;kijitora@neko.example.com&gt;; Thu, 29 Apr 2010 23:34:45 +0=
+000
+Received: by r2.example.org (Postfix, from userid 1023)	id FFFFFFFFEE=
+EE;
+ Thu, 29 Apr 2010 23:34:45 +0000 (UTC)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Type: multipart/related; boundary=3D&quot;_----------=3D_2022000222=
+241102022&quot;
+Date: Thu, 29 Apr 2010 23:34:45 +0000
+From: Sironeko &lt;sironeko@email.example.com&gt;
+Subject: Nyaan
+To: Kijitora &lt;kijitora@neko.example.com&gt;
+Message-ID: &lt;20100429233445.FF00FFEE0000@r2.example.org&gt;
+Return-Path: automated-bounces+FF00EEEE-0020-2022-00FE-EEC00002FFFF@email.e=
+xample.com
+</pre>
+</font>
+</body>
+</html>=
+
+--c002ffee-2202-ff00-ffff-000000002222--
+
+--ef002222-0000-0000-2022-00000000000
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns;neko.example.com
+Received-From-MTA: dns;r20-ffe0020.example.com
+Arrival-Date: Thu, 29 Apr 2010 23:34:45 +0000
+
+Final-Recipient: rfc822;kijitora@neko.example.com
+Action: failed
+Status: 5.2.3
+Diagnostic-Code: smtp;550 5.2.3 RESOLVER.RST.RecipSizeLimit; message too large for this recipient
+
+
+--ef002222-0000-0000-2022-00000000000
+Content-Type: message/rfc822
+
+Received: from r20-ffe0020.example.com (203.0.113.225) by
+ nyaan-22.neko.example.com (192.0.2.127) with Microsoft SMTP Server id
+ 8.1.393.1; Thu, 29 Apr 2010 23:34:45 +0000
+Received: from neko.nyaan.example.jp (nekochan [127.0.0.1])	by
+ r20-ffe0020.example.com (8.14.2/8.14.2) with SMTP id o3T000d97298 for
+ <kijitora@neko.example.com>; Thu, 29 Apr 2010 23:34:45 +0000
+Received: from r2.example.org (r2.example.org [198.51.100.225])
+	by r20-ffe0020.example.com with ESMTP id o3T000m95945	for
+ <kijitora@neko.example.com>; Thu, 29 Apr 2010 23:34:45 +0000
+Received: by r2.example.org (Postfix, from userid 1023)	id FF00FFEE0000;
+ Thu, 29 Apr 2010 23:34:45 +0000 (UTC)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Type: multipart/related; boundary="_----------=_00ff0000effe0000-0000"
+Date: Thu, 29 Apr 2010 23:34:45 +0000
+From: Neko <sironeko@email.example.com>
+Subject: Nyaan
+To: Kijitora <kijitora@neko.example.com>
+Message-ID: <20100429233445.FF00FFEE0000@r2.example.org>
+Return-Path: automated-bounces+FF00EEEE-0020-2022-00FE-EEC00002FFFF@email.example.com
+
+--_----------=_00ff0000effe0000-0000
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+
+Nyaan
+
+--_----------=_00ff0000effe0000-0000--
+
+--ef002222-0000-0000-2022-0000000000--

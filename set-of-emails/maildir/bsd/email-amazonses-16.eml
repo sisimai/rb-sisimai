@@ -1,0 +1,67 @@
+X-Apparently-To: sironeko@example.jp; Thu, 29 Apr 2016 23:34:45 +0000
+Return-Path: <>
+Received-SPF: none (domain of e22-22.smtp-out.amazonses.com does not designate permitted sender hosts)
+X-Originating-IP: [192.0.2.225]
+Authentication-Results: mta2022.biz.mail.sg2.yahoo.com  from=amazonses.com; domainkeys=neutral (no sig);  from=amazonses.com; dkim=neutral (no sig)
+Received: from 127.0.0.1  (EHLO e22-22.smtp-out.amazonses.com) (192.0.2.225)
+  by mta2022.biz.mail.sg2.yahoo.com with SMTPS; Thu, 29 Apr 2016 23:34:45 +0000
+From: MAILER-DAEMON@amazonses.com
+To: sironeko@example.jp
+Message-ID: <202222efeeaa00-4044eefe-2022-20e1-cf22-20224044eeef-000000@email.amazonses.com>
+Subject: Delivery Status Notification (Failure)
+MIME-Version: 1.0
+Content-Type: multipart/report; 
+	boundary="----=_Part_65535_12725651200.000020224044"; 
+	report-type=delivery-status
+Date: Thu, 29 Apr 2016 23:34:45 +0000
+X-SES-Outgoing: 2016.04.29-192.0.2.225
+Content-Length: 2022
+
+------=_Part_65535_12725651200.000020224044
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Description: Notification
+
+An error occurred while trying to deliver the mail to the following recipients:
+kijitora@example.com
+------=_Part_65535_12725651200.000020224044
+Content-Type: message/delivery-status
+Content-Transfer-Encoding: 7bit
+Content-Description: Delivery Status Notification
+
+Reporting-MTA: dsn; e22-23.smtp-out.amazonses.com
+
+Action: failed
+Final-Recipient: rfc822; kijitora@example.com
+Diagnostic-Code: smtp; 521-5.7.1 Service unavailable; client [203.0.113.225] blocked using dnsbl.sorbs.net
+ 521 5.7.1 Please see http://support.mailhostbox.com/email-administrators-guide-error-codes/ for explanation of the problem.
+Status: 5.7.1
+
+
+------=_Part_65535_12725651200.000020224044
+Content-Type: message/rfc822
+Content-Description: Undelivered Message
+
+From: "Neko, Nyaan" <sironeko@example.jp>
+To: kijitora@example.com
+Subject: Nyaan
+Date: Thu, 29 Apr 2016 23:34:45 +0000
+MIME-Version: 1.0
+Message-ID: <20222244efee00-2022eefe-e2ee-eee0-aaef-2022eaaf0000-000000@email.amazonses.com>
+Content-Type: multipart/alternative;
+	boundary="--=_NextPart_EFFE0000_FEEE0000_00FE0000.2022FFEE"
+X-SES-Outgoing: 2016.04.29-192.0.2.64
+
+This is a multi-part message in MIME format.
+
+----=_NextPart_EFFE0000_FEEE0000_00FE0000.2022FFEE
+Content-Type: text/plain;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: 7bit
+
+Nyaan
+
+----=_NextPart_EFFE0000_FEEE0000_00FE0000.2022FFEE--
+
+
+------=_Part_65535_12725651200.000020224044--

@@ -206,7 +206,7 @@ module Sisimai
 
         while e = argv1.shift do
           # After "message/rfc822"
-          if cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*.+\z/)
+          if cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*.*\z/)
             # Get required headers
             lhs = cv[1].downcase
             previousfn = ''

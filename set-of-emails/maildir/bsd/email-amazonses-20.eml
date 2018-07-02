@@ -1,0 +1,57 @@
+X-Apparently-To: sironeko@neko.example.jp; Thu, 29 Apr 2017 23:34:45 +0000
+Return-Path: <>
+Received-SPF: none (domain of a22-22.smtp-out.amazonses.com does not designate permitted sender hosts)
+X-Originating-IP: [203.0.113.225]
+Authentication-Results: mta2022.biz.mail.sg2.yahoo.com  from=amazonses.com; domainkeys=neutral (no sig);  from=amazonses.com; dkim=neutral (no sig)
+Received: from 127.0.0.1  (EHLO a22-22.smtp-out.amazonses.com) (203.0.113.225)
+  by mta2022.biz.mail.sg2.yahoo.com with SMTPS; Thu, 29 Apr 2017 23:34:45 +0000
+From: MAILER-DAEMON@amazonses.com
+To: sironeko@neko.example.jp
+Message-ID: <0000000000000000-eeeeeeee-0000-0000-0000-000000000000-000000@email.amazonses.com>
+Subject: Delivery Status Notification (Failure)
+MIME-Version: 1.0
+Content-Type: multipart/report; 
+	boundary="----=_Part_20220_222220022.2022112245144"; 
+	report-type=delivery-status
+Date: Thu, 29 Apr 2017 23:34:45 +0000
+X-SES-Outgoing: 2017.04.29-203.0.113.225
+Content-Length: 2022
+
+------=_Part_20220_222220022.2022112245144
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Description: Notification
+
+An error occurred while trying to deliver the mail to the following recipients:
+kijitora@google.example.com
+------=_Part_20220_222220022.2022112245144
+Content-Type: message/delivery-status
+Content-Transfer-Encoding: 7bit
+Content-Description: Delivery Status Notification
+
+Reporting-MTA: dsn; e2-22.smtp-out.amazonses.com
+
+Action: failed
+Final-Recipient: rfc822; kijitora@google.example.com
+Diagnostic-Code: smtp; 550-5.2.1 The email account that you tried to reach is disabled. Learn more at
+ 550 5.2.1  https://support.google.com/mail/?p=DisabledUser 000000000000eee.000 - gsmtp
+Status: 5.2.1
+
+
+------=_Part_20220_222220022.2022112245144
+Content-Type: message/rfc822
+Content-Description: Undelivered Message
+
+Content-Type: text/html; charset=utf-8
+MIME-Version: 1.0
+Date: Thu, 29 Apr 2017 23:34:45 +0000
+Content-Transfer-Encoding: quoted-printable
+Subject: Nyaan
+From: "Neko, Nyaan" <sironeko@neko.example.jp>
+Message-ID: <0000000000000000-22222222-eeee-eeee-0000-000000000000-000000@email.amazonses.com>
+To: kijitora@google.example.com
+X-SES-Outgoing: 2017.04.29-198.51.100.25
+
+Nyaan
+
+------=_Part_20220_222220022.2022112245144--

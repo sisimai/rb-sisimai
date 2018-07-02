@@ -23,8 +23,10 @@ module Sisimai
             |access[ ]from[ ]ip[ ]address[ ].+[ ]blocked
             |all[ ]mail[ ]servers[ ]must[ ]have[ ]a[ ]ptr[ ]record[ ]with[ ]a[ ]valid[ ]reverse[ ]dns[ ]entry
             |bad[ ]sender[ ]ip[ ]address
+            |banned[ ]sending[ ]ip  # Office365
             |blacklisted[ ]by
             |(?:blocked|refused)[ ]-[ ]see[ ]https?://
+            |blocked[ ]using[ ]
             |can[']t[ ]determine[ ]purported[ ]responsible[ ]address
             |cannot[ ](?:
                find[ ]your[ ]hostname
