@@ -1,0 +1,93 @@
+Received: from neko (localhost [127.0.0.1])
+	by r2.example.net (Postfix) with ESMTP id 11111111
+	for <nekochan@example.net>; Thu, 17 Jul 2017 23:34:45 +0900 (JST)
+Received: from mail0.bemta0.messagelabs.com (localhost [127.0.0.1])
+	by r2.example.net (Postfix) with ESMTP id 22222222B
+	for <nekochan@example.net>; Thu, 17 Jul 2017 23:34:45 +0900 (JST)
+Received: from mail0.bemta0.messagelabs.com (mail0.bemta0.messagelabs.com [198.51.100.25])
+	by r2.example.net (Postfix) whith ESMTP id 44444444EEE;
+	Thu, 17 Jul 2017 23:34:45 +0900 (JST)
+Received: from [203.0.113.1] by server-0.bemta-0.messagelabs.com id EE/EE-00000-00000000; Thu, 17 Jul 2017 23:34:45 +0000
+X-Msg-Ref: server-0.tower-0.messagelabs.com!1111111100!222222220!2
+X-Originating-IP: [192.0.2.225]
+Received: (qmail 2200 invoked from network); 17 Jul 2017 23:34:45 -0000
+Received: from mail0.bemta0.messagelabs.com (HELO mail0.bemta0.messagelabs.com) (192.0.2.225)
+  by server-0.tower-0.messagelabs.com with DHE-RSA-AES256-GCM-SHA384 encrypted SMTP; 17 Jul 2017 23:34:45 -0000
+Received: by server-0.bemta-0.messagelabs.com id 2F/FF-00000-EEEEEEEE; Thu, 17 Jul 2017 23:34:45 +0000
+From: Mail Delivery System <MAILER-DAEMON@messagelabs.com>
+To: <nekochan@example.net>
+Subject: Mail Delivery Failure
+Date: Thu, 17 Jul 2017 23:34:45 +0000
+Content-Type: multipart/report; report-type=delivery-status;
+  boundary="dsn_9273597409704_98239857098"
+Message-Id: <20170824090957.D3CC51735@r2.example.net>
+
+--dsn_9273597409704_98239857098
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+This is the mail delivery agent at Symantec Email Security.cloud.
+
+I was unable to deliver your message to the following addresses:
+
+kijitora@example.org
+
+Reason: 550-Please turn on SMTP Authentication in your mail client.=20
+550-mail0.bemta0.messagelabs.com [198.51.100.21]:22222 is not permitted to
+550 relay through this server without authentication.
+
+The message subject was: Nyaan by Nekochan
+The message date was: Thu, 17 Jul 2017 23:34:45 +0900
+The message identifier was: EE/EE-00000-00000000
+The message reference was: server-0.tower-0.messagelabs.com!0000000002!0000=
+0000!2
+
+Please do not reply to this email as it is sent from an unattended mailbox.
+Contact your email administrator if you need more information, or
+instructions for resolving this issue.
+
+--dsn_9273597409704_98239857098
+Content-Type: message/delivery-status
+
+Arrival-Date: Thu, 17 Jul 2017 23:34:45 +0000
+Reporting-MTA: dns; server-0.bemta-0.messagelabs.com
+
+Last-Attempt-Date: Thu, 17 Jul 2017 23:34:45 +0000
+Diagnostic-Code: smtp; 550-Please turn on SMTP Authentication in your mail client. 
+550-mail0.bemta0.messagelabs.com [198.51.100.21]:11111 is not permitted to
+550 relay through this server without authentication.
+Status: 5.0.0
+Action: failed
+Final-Recipient: rfc822; kijitora@example.org
+
+--dsn_9273597409704_98239857098
+Content-Type: text/rfc822-headers
+
+Return-Path: <nekochan@example.net>
+Received: from [203.0.113.1] by server-0.bemta-0.messagelabs.com id EE/EE-00000-00000000; Thu, 17 Jul 2017 23:34:45 +0000
+Authentication-Results: r2.messagelabs.com; spf=pass 
+  (server-0.tower-0.messagelabs.com: domain of example.net designates 
+  192.0.2.225 as permitted sender)smtp.mailfrom=example.net
+X-Msg-Ref: server-0.tower-0.messagelabs.com!0000000002!00000000!2
+Received: (qmail 2222 invoked from network); 17 Jul 2017 23:34:45 -0000
+Received: from nekochan.example.net (unknown [192.0.2.222])
+	by neko2.example.com (Postfix) with ESMTP id AAAAAAAA
+	for <kijitora@example.org>; Thu, 17 Jul 2017 23:34:45 +0900 (JST)
+Received: from [192.0.2.192] (localhost [127.0.0.1])
+	by smtp.example.net (Postfix) with ESMTPA id BBBBBBBB
+	for <kijitora@example.org>; Thu, 17 Jul 2017 23:34:45 +0900 (JST)
+Received: from [192.0.2.127] (unknown [127.0.0.1])
+	by smtp.example.net (Postfix) whith ESMTP id 00000000AA;
+	Thu, 17 Jul 2017 23:34:45 +0900 (JST)
+Content-Type: text/plain
+MIME-Version: 1.0
+Subject: Nyaan by Nekochan
+From: Nekochan <nekochan@example.com>
+To: kijitora@example.org
+Date: Thu, 17 Jul 2017 23:34:45 +0900
+Message-ID: <000000000222.0000.0000000000000000202@NEKO.NYAAN>
+
+Nyaan
+
+--dsn_9273597409704_98239857098--
+

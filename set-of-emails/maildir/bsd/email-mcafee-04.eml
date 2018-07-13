@@ -1,0 +1,63 @@
+Received: from neko (localhost [127.0.0.1])
+	by r8.example.net (Postfix) with ESMTP id 00000000A
+	for <nekonyaan@example.net>; Thu, 17 Jul 2017 23:34:45 +0900 (JST)
+Received: from smtp2.example.com (smtp2.example.com [203.0.113.45])
+	by r8.example.net (Postfix) whith ESMTP id 1111111122;
+	Thu, 17 Jul 2017 23:34:45 +0900 (JST)
+Date: Thu, 17 Jul 2017 23:34:45 +0900
+To: <nekonyaan@example.net>
+From: <>
+MIME-Version: 1.0
+Content-Type: Multipart/Mixed;
+  boundary="------------Boundary-00=_OAIUGOLJALKJGOIUOWIUOT245"
+X-NAI-Header: Modified by McAfee Email Gateway (4500)
+Subject: Delivery Status
+Message-Id: <20170717233445.AAAAAAAA@r8.example.net>
+
+--------------Boundary-00=_OAIUGOLJALKJGOIUOWIUOT245
+Content-Type: text/plain
+Content-Disposition: inline
+
+    --- The following addresses had delivery problems ---
+
+<kijitora@example.com>   (kijitora@example.com... No such user)
+
+--------------Boundary-00=_OAIUGOLJALKJGOIUOWIUOT245
+Content-Type: message/delivery-status; name="deliverystatus.txt"
+Content-Disposition: attachment; filename="deliverystatus.txt"
+
+Original-Recipient: <kijitora@example.com>
+Action: failed
+Diagnostic-Code: smtp; 550 kijitora@example.com... No such user
+Remote-MTA: 198.51.100.225
+
+
+--------------Boundary-00=_OAIUGOLJALKJGOIUOWIUOT245
+Content-Type: message/rfc822
+Content-Disposition: attachment
+
+Received: from neko2.example.com (neko2.example.com [192.0.2.17]) by smtp2.example.com with smtp
+	(TLS: TLSv1/SSLv3,256bits,DHE-RSA-AES256-SHA)
+	 id 0000_0000_00001111_1111_ffff_ffff_00000000eeee;
+	Thu, 17 Jul 2017 23:34:45 +0900
+Received: from nekonyaan.example.net (unknown [192.0.2.221])
+	by neko2.example.com (Postfix) with ESMTP id 22222222A
+	for <kijitora@example.com>; Thu, 17 Jul 2017 23:34:45 +0900 (JST)
+Received: from [192.0.2.192] (localhost [127.0.0.1])
+	by smtp.example.net (Postfix) with ESMTPA id 00000000
+	for <kijitora@example.com>; Thu, 17 Jul 2017 23:34:45 +0900 (JST)
+Received: from [192.168.1.203] (unknown [203.0.113.25])
+	by smtp.example.net (Postfix) whith ESMTP id 00000000AAA;
+	Thu, 17 Jul 2017 23:34:45 +0900 (JST)
+Content-Type: text/plain
+MIME-Version: 1.0
+Subject: Nyaan
+From: "Neko, Nyaan" <nekonyaan@example.com>
+To: kijitora@example.com
+Date: Thu, 17 Jul 2017 23:34:45 +0900
+Message-ID: <000000000010.0000.1111111111111111AA0@NEKO.NYAAN>
+
+Nyaan
+
+--------------Boundary-00=_OAIUGOLJALKJGOIUOWIUOT245--
+

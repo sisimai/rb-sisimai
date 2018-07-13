@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.22.6p1
+v4.22.6p3
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -12,6 +12,8 @@ v4.22.6p1
   - Fix error message pattern in Sisimai::Reason::SecurityError.
   - Fix code to get the original Message-Id field which continued to the next
     line. Thanks to Andreas Mock.
+  - Update error message pattern in Sisimai::Reason::SpamDetected.
+  - Add some sample emails in set-of-emails/.
 
 v4.22.6
 --------------------------------------------------------------------------------

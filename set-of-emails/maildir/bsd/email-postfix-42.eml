@@ -1,0 +1,78 @@
+Return-Path: <MAILER-DAEMON>
+Received: from r22.qin.example.com (unknown [115.182.8.95])
+	by s151v.qin.example.com (nekomail) with ESMTP id EEEEEEEE000
+	for <nekonyaan22@example.com>; Thu, 17 Jul 2017 23:34:45 +0900 (JST)
+Received: from smtp20.qin.example.com (HELO smtp0.qin.example.com) ([203.0.113.42])
+  by r22.qin.example.com with ESMTP/TLS/DHE-RSA-AES256-SHA; 17 Jul 2017 23:34:45 +0900
+Received: by smtp0.qin.example.com (Postfix)
+	id 77777777EE; Thu, 17 Jul 2017 23:34:45 +0900 (JST)
+Date: Thu, 17 Jul 2017 23:34:45 +0900 (JST)
+From: MAILER-DAEMON@smtp0.qin.example.com (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: nekonyaan22@example.com
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="80000EEF0.1200022204/smtp0.qin.example.com"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20170717233445.000000EEEE@smtp0.qin.example.com>
+
+This is a MIME-encapsulated message.
+
+--80000EEF0.1200022204/smtp0.qin.example.com
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host smtp0.qin.example.com.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@example.com>: host re2.example.com[198.51.100.2] said: 550 Denied by
+    policy (in reply to RCPT TO command)
+
+--80000EEF0.1200022204/smtp0.qin.example.com
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; smtp0.qin.example.com
+X-Postfix-Queue-ID: 80000EEF0
+X-Postfix-Sender: rfc822; nekonyaan22@example.com
+Arrival-Date: Thu, 17 Jul 2017 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; kijitora@example.com
+Original-Recipient: rfc822;kijitora@example.com
+Action: failed
+Status: 5.0.0
+Remote-MTA: dns; re2.example.com
+Diagnostic-Code: smtp; 550 Denied by policy
+
+--80000EEF0.1200022204/smtp0.qin.example.com
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 8bit
+
+Received: from r202.qin.example.com (r202.qin.example.com [192.0.2.220])
+	by smtp0.qin.example.com (Postfix) with ESMTP id 80000EEF0
+	for <kijitora@example.com>; Thu, 17 Jul 2017 23:34:45 +0900 (JST)
+Received: from [192.0.2.80] (unknown [127.0.0.1])
+	(Authenticated sender: nekonyaan22@example.com)
+	by rp01.qin.example.com (nekomail) with ESMTP id CCCCCCCC222
+	for <kijitora@example.com>; Thu, 17 Jul 2017 23:34:45 +0900 (JST)
+Content-Type: text/plain
+MIME-Version: 1.0
+Subject: Nyaan
+From: "Neko, Nyaan" <nekonyaan22@example.com>
+To: kijitora@example.com
+Date: Thu, 17 Jul 2017 23:34:45 +0900
+Message-ID: <000000001111.1111.1111000000002222222@NEKO.NYAAN>
+
+Nyaan
+
+--80000EEF0.1200022204/smtp0.qin.example.com--

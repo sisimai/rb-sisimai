@@ -179,6 +179,7 @@ isexpected = [
   { 'n' => '01179', 'r' => /mailererror/ },
   { 'n' => '01180', 'r' => /blocked/ },
   { 'n' => '01181', 'r' => /mailererror/ },
+  { 'n' => '01182', 'r' => /userunknown/ },
 ]
 Sisimai::Bite::Email::Code.maketest(enginename, isexpected, true)
 

@@ -28,6 +28,13 @@ isexpected = [
   { 'n' => '35', 's' => /\A5[.]0[.]0\z/,   'r' => /filtered/,      'b' => /\A1\z/ },
   { 'n' => '36', 's' => /\A5[.]0[.]0\z/,   'r' => /userunknown/,   'b' => /\A0\z/ },
   { 'n' => '37', 's' => /\A4[.]4[.]1\z/,   'r' => /expired/,       'b' => /\A1\z/ },
+  { 'n' => '38', 's' => /\A4[.]0[.]0\z/,   'r' => /blocked/,       'b' => /\A1\z/ },
+  { 'n' => '39', 's' => /\A5[.]6[.]0\z/,   'r' => /spamdetected/,  'b' => /\A1\z/ },
+  { 'n' => '40', 's' => /\A4[.]0[.]0\z/,   'r' => /systemerror/,   'b' => /\A1\z/ },
+  { 'n' => '41', 's' => /\A5[.]0[.]0\z/,   'r' => /policyviolation/, 'b' => /\A1\z/ },
+  { 'n' => '42', 's' => /\A5[.]0[.]0\z/,   'r' => /policyviolation/, 'b' => /\A1\z/ },
+  { 'n' => '43', 's' => /\A4[.]3[.]0\z/,   'r' => /mailererror/,   'b' => /\A1\z/ },
+  { 'n' => '44', 's' => /\A5[.]7[.]1\z/,   'r' => /norelaying/,    'b' => /\A1\z/ },
 ]
 Sisimai::Bite::Email::Code.maketest(enginename, isexpected)
 

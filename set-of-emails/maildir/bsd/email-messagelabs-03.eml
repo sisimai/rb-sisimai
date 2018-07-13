@@ -1,0 +1,78 @@
+Received: from neko (localhost [127.0.0.1])
+	by smtp4.example.net (Postfix) with ESMTP id 00000000
+	for <nekonyaan@example.net>; Thu, 17 Jul 2017 23:34:45 +0900 (JST)
+Received: from mail0.bemta0.messagelabs.com (localhost [127.0.0.1])
+	by smtp4.example.net (Postfix) with ESMTP id AAAAAAAA
+	for <nekonyaan@example.net>; Thu, 17 Jul 2017 23:34:45 +0900 (JST)
+X-Msg-Ref: server-0.tower-0.messagelabs.com!20000000000!202220022!1
+Received: from mail0.bemta0.messagelabs.com (HELO mail0.bemta0.messagelabs.com) (192.0.2.222)
+  by server-0.tower-0.messagelabs.com with DHE-RSA-AES256-GCM-SHA384 encrypted SMTP; 17 Jul 2017 23:34:45 -0000
+Received: by server-00.bemta-0.messagelabs.com id EE/EE-00000-11111111; Thu, 17 Jul 2017 23:34:45 +0000
+From: Mail Delivery System <MAILER-DAEMON@messagelabs.com>
+To: <nekonyaan@example.net>
+Subject: Mail Delivery Failure
+Date: Thu, 17 Jul 2017 23:34:45 +0000
+Content-Type: multipart/report; report-type=delivery-status;
+  boundary="dsn_20000000000_000002202"
+Message-Id: <20170717233445.EEEEEEEE@smtp4.example.net>
+
+--dsn_20000000000_000002202
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+This is the mail delivery agent at Symantec Email Security.cloud.
+
+I was unable to deliver your message to the following addresses:
+
+kijitora@example.com
+
+Reason: 542 kijitora@example.com Rejected
+
+The message subject was: Nyaan
+The message date was: Thu, 17 Jul 2017 23:34:45 +0900
+The message identifier was: 22/EE-00000-CCCCCCCC
+The message reference was: server-0.tower-0.messagelabs.com!2000000000!000=
+000002!2
+
+Please do not reply to this email as it is sent from an unattended mailbox.
+Contact your email administrator if you need more information, or
+instructions for resolving this issue.
+
+--dsn_20000000000_000002202
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; server-00.bemta-0.messagelabs.com
+Arrival-Date: Thu, 17 Jul 2017 23:34:45 +0000
+
+Action: failed
+Final-Recipient: rfc822; kijitora@example.com
+Last-Attempt-Date: Thu, 17 Jul 2017 23:34:45 +0000
+Diagnostic-Code: smtp; 542 kijitora@example.com Rejected
+Status: 5.0.0
+
+--dsn_20000000000_000002202
+Content-Type: text/rfc822-headers
+
+Return-Path: <nekonyaan@example.net>
+Received: from [192.0.2.225] by server-0.bemta-0.messagelabs.com id 11/44-00000-BBBBBBBB; Thu, 17 Jul 2017 23:34:45 +0000
+X-Msg-Ref: server-5.tower-0.messagelabs.com!2000000002!000000002!2
+Received: from nekonyaan.example.net (unknown [192.0.2.253])
+	by neko2.example.com (Postfix) with ESMTP id AAAAAAAA
+	for <kijitora@example.com>; Thu, 17 Jul 2017 23:34:45 +0900 (JST)
+Received: from [192.0.2.25] (unknown [192.0.2.254])
+	by smtp.example.net (Postfix) whith ESMTP id AAAAAAAA22;
+	Thu, 17 Jul 2017 23:34:45 +0900 (JST)
+Content-Type: text/plain
+MIME-Version: 1.0
+Subject: Nyaan
+From: "Neko, Nyaan" <nekonyaan@example.com>
+To: kijitora@example.com
+Date: Thu, 17 Jul 2017 23:34:45 +0900
+Message-ID: <200000000222.0000.00002222222200002@NEKO.NYAAN>
+
+Nyaan
+
+--dsn_20000000000_000002202--
+
+
+

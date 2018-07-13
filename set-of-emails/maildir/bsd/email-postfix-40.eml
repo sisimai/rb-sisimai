@@ -1,0 +1,82 @@
+Return-path: <>
+Envelope-to: nekonyaan@example.com
+Delivery-date: Thu, 29 Apr 2013 23:34:45 -0500
+Received: from relaying2.example.org ([192.0.2.245]:11111)
+	by neko.example.org with esmtp (Exim 4.80)
+	id 2AAAee-00000X-22
+	for nekonyaan@example.com; Thu, 29 Apr 2013 23:34:45 -0500
+Received: by relaying2.example.org (Postfix)
+	id 0DA99A2844692; Thu, 29 Apr 2013 23:34:45 -0500 (CDT)
+Date: Thu, 29 Apr 2013 23:34:45 -0500 (CDT)
+From: MAILER-DAEMON@relaying2.example.org (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: nekonyaan@example.com
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="FF0FEEAB0020.1200000000/relaying2.example.org"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20130429233445.000000002222A@relaying2.example.org>
+
+This is a MIME-encapsulated message.
+
+--FF0FEEAB0020.1200000000/relaying2.example.org
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host relaying2.example.org.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@example.com>: host
+    example.com.inbound22.mxlogic.net[192.0.2.225] said: 451 Could not load
+    DRD for domain (example.com) rcpt (kijitora@example.com) (in reply
+    to RCPT TO command)
+
+--FF0FEEAB0020.1200000000/relaying2.example.org
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; relaying2.example.org
+X-Postfix-Queue-ID: FF0FEEAB0020
+X-Postfix-Sender: rfc822; nekonyaan@example.com
+Arrival-Date: Thu, 29 Apr 2013 23:34:45 -0500 (CDT)
+
+Final-Recipient: rfc822; kijitora@example.com
+Action: failed
+Status: 4.0.0
+Remote-MTA: dns; example.com.inbound22.mxlogic.net
+Diagnostic-Code: smtp; 451 Could not load DRD for domain (example.com) rcpt
+    (kijitora@example.com)
+
+--FF0FEEAB0020.1200000000/relaying2.example.org
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 8bit
+
+Return-Path: <nekonyaan@example.com>
+Received: by relaying2.example.org (Postfix, from userid 2222)
+	id FF0FEEAB0020; Thu, 29 Apr 2013 23:34:45 -0500 (CDT)
+Received: from nekonyaan by neko.example.org with local (Exim 4.80)
+	(envelope-from <nekonyaan@example.com>)
+	id 2AAAAe-0000RR-RR
+	for kijitora@example.com; Thu, 29 Apr 2013 23:34:45 -0500
+To: kijitora@example.com
+Subject: Nyaan
+Date: Thu, 29 Apr 2013 23:34:45 -0500
+From: "Neko, Nyaan" <nekonyaan@example.com>
+Message-ID: <0c251003b6531a1291b903ac40322163@example.com>
+MIME-Version: 1.0
+Content-Type: text/plain
+
+Nyaan
+
+--FF0FEEAB0020.1200000000/relaying2.example.org--

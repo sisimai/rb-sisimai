@@ -1,0 +1,45 @@
+Return-path: <>
+Envelope-to: nekonyaan@example.com
+jelivery-date: Thu, 17 Jul 2013 23:34:45 -0500
+Received: from smtpd-01.r3.p5.example.net ([192.0.2.23]:2222)
+	by nekonyaan.example.com with esmtp (Exim 4.80)
+	id AAAA22-0000PP-22
+	for nekonyaan@example.com; Thu, 17 Jul 2013 23:34:45 -0500
+Received: (qmail 2200 invoked from network); 17 Jul 2013 23:34:45 -0000
+Date: 17 Jul 2013 23:34:45 -0000
+From: MAILER-DAEMON@psmtpd-01.r3.p5.example.net
+To: nekonyaan@example.com
+Subject: failure notice
+
+Your mail message to the following address(es) could not be delivered. This
+is a permanent error. Please verify the addresses and try again. If you are
+still having difficulty sending mail to these addresses, please contact
+Customer Support at 000-000-4401.
+
+<kijitora@example.com>:
+child status 100...The e-mail message could not be delivered because the user's mailfolder is full.
+
+--- Below this line is a copy of the message.
+
+Return-Path: <nekonyaan@example.com>
+Received: (qmail 3333 invoked by uid 1111); 17 Jul 2013 23:34:45 -0000
+Received: from unknown (HELO smtpd-02-022.r3.p5.example.net) ([203.0.113.31])
+          (envelope-sender <nekonyaan@example.com>)
+          by psmtpd-01.r3.p5.example.net (qmail-1.03) with SMTP
+          for <kijitora@example.com>; 17 Jul 2013 23:34:45 -0000
+Received: from neko.nyaan by nekonyaan.example.com with local (Exim 4.80)
+	(envelope-from <nekonyaan@example.com>)
+	id 555522-000022-PP
+	for kijitora@example.com; Thu, 17 Jul 2013 23:34:45 -0500
+To: kijitora@example.com
+Subject: Nyaan
+Date: Thu, 17 Jul 2013 23:34:45 -0500
+From: "Neko, Nyaan" <nekonyaan@example.com>
+Message-ID: <1d487c58d0faacf5c0cc6519bd15395f@example.com>
+MIME-Version: 1.0
+Content-Type: text/plain
+
+Nyaan
+
+--b1_bc73b51ca5782856a982ebf125ccd8a2--
+

@@ -1,0 +1,77 @@
+From MAILER-DAEMON  Thu Apr 29 23:34:45 2008
+Return-Path: <>
+X-Original-To: nekonyaan@meow.example.com
+Delivered-To: nekonyaan@meow.example.com
+Received: from neko.example.com (neko.example.com [203.0.113.49])
+	by meow.example.com (Postfix) with ESMTP id 0000002222
+	for <nekonyaan@meow.example.com>; Thu, 29 Apr 2008 23:34:45 -0800 (PST)
+Received: by neko.example.com (Postfix)
+	id EEEEEE22222; Thu, 29 Apr 2008 23:34:45 -0800 (PST)
+Date: Thu, 29 Apr 2008 23:34:45 -0800 (PST)
+From: MAILER-DAEMON@neko.example.com (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: nekonyaan@meow.example.com
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="0FFF0EEE22D.1500000000/neko.example.com"
+Message-Id: <20081219233445.CCCCCC00002@neko.example.com>
+
+This is a MIME-encapsulated message.
+
+--0FFF0EEE22D.1500000000/neko.example.com
+Content-Description: Notification
+Content-Type: text/plain
+
+This is the Postfix program at host neko.example.com.
+
+I'm sorry to have to inform you that your message could not be
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to <postmaster>
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+			The Postfix program
+
+<kijitora@example.com>: host mta.example.com[192.0.2.225] said: 554
+    5.6.0 This message has been scored as spam with a probability of more than
+    90% (in reply to end of DATA command)
+
+--0FFF0EEE22D.1500000000/neko.example.com
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; neko.example.com
+X-Postfix-Queue-ID: 0FFF0EEE22D
+X-Postfix-Sender: rfc822; nekonyaan@meow.example.com
+Arrival-Date: Thu, 29 Apr 2008 23:34:45 -0800 (PST)
+
+Final-Recipient: rfc822; kijitora@example.com
+Action: failed
+Status: 5.0.0
+Diagnostic-Code: X-Postfix; host mta.example.com[192.0.2.225] said: 554
+    5.6.0 This message has been scored as spam with a probability of more than
+    90% (in reply to end of DATA command)
+
+--0FFF0EEE22D.1500000000/neko.example.com
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Received: from nyaans.example.com (nyaans.example.com [198.51.100.24])
+	by neko.example.com (Postfix) with ESMTP id AAAAAA00000
+	for <kijitora@example.com>; Thu, 29 Apr 2008 23:34:45 -0800 (PST)
+Received: from meow.example.com (meow.example.com [198.51.100.126])
+	by nyaans.example.com (Postfix) with ESMTP id 8888881111
+	for <kijitora@example.com>; Thu, 29 Apr 2008 23:34:45 -0800 (PST)
+Received: by meow.example.com (Postfix, from userid 1111112)
+	id BBBBBBAAAA; Thu, 29 Apr 2008 23:34:45 -0800 (PST)
+To: kijitora@example.com
+Subject: Nyaan
+From: "Neko, Nyaan" <nekonyaan@neko.example.org>
+Message-Id: <20080429233445.AAAAAAAA22@meow.example.com>
+Date: Thu, 29 Apr 2008 23:34:45 -0800 (PST)
+
+Nyaan
+
+--0FFF0EEE22D.1500000000/neko.example.com--

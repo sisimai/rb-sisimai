@@ -1,0 +1,42 @@
+X-Apparently-To: nekonyaan@example.com; Thu, 17 Jul 2017 23:34:45 +0000
+Return-Path: <>
+Received-SPF: none (domain of a00-00.smtp-out.amazonses.com does not designate permitted sender hosts)
+X-YMailISG: OSDIUGOUnfeojoaiugio3iu89797LAHGOIUBEeR6TSKfx
+X-Originating-IP: [203.0.113.44]
+Received: from 127.0.0.1  (EHLO a00-00.smtp-out.amazonses.com) (203.0.113.44)
+  by mta2022.biz.mail.sg0.yahoo.com with SMTPS; Thu, 17 Jul 2017 23:34:45 +0000
+From: MAILER-DAEMON@amazonses.com
+To: nekonyaan@example.com
+Date: Thu, 17 Jul 2017 23:34:45 +0000
+Subject: Failure Notice
+MIME-Version: 1.0
+Message-ID: <f048f812e05acdab-7179-d9723a5b01c6-0000-0000-0000-000000002222-000000@email.amazonses.com>
+X-SES-Outgoing: 2017.07.17-203.0.113.44
+Content-Length: 22
+
+Sorry, we were unable to deliver your message to the following address.
+
+<kijitora@example.org>:
+Remote host said:
+554 INVALID IP FOR SENDING MAIL OF DOMAIN amazonses.com
+ [RCPT_TO]
+
+--- Below this line is a copy of the message.
+
+Received: from [192.0.2.22] by nm0.bullet.mail.sg0.yahoo.com with ESMTP; 17 Jul 2017 23:34:45 -0000
+Return-Path: <010001570ff018e2-d6debda6-035c-4d27-bd99-ed405041fc0b-000000@amazonses.com>
+X-Originating-IP: [54.240.8.71]
+Received: from 127.0.0.1  (EHLO a00-00.smtp-out.amazonses.com) (198.51.100.1)
+  by mta2020.mail.sg0.yahoo.com with SMTPS; Thu, 17 Jul 2017 23:34:45 +0000
+MIME-Version: 1.0
+From: "Neko, Nyaan" <nekonyaan@example.com>
+To: kijitora@y.example.com
+Date: Thu, 17 Jul 2017 23:34:45 +0000
+Subject: Nyaan
+Content-Type: text/plain; charset=utf-8
+Message-ID: <0000000000000000-00000000-2222-2222-2222-222222220000-000000@email.amazonses.com>
+X-SES-Outgoing: 2017.07.17-192.0.2.222
+Content-Length: 22
+
+Nyaan
+[remainder of message body omitted; too large]

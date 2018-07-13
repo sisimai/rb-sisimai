@@ -1,0 +1,54 @@
+Return-path: <>
+Envelope-to: sironeko@example.com
+Delivery-date: Thu, 29 Apr 2013 23:34:45 +0000
+Received: from mailnull by nyaan.example.net with local (Exim 4.77)
+	id 2Nekos-cat222-N2
+	for sironeko@example.com; Thu, 29 Apr 2013 23:34:45 +0000
+X-Failed-Recipients: kijitora@icloud.example.com
+Auto-Submitted: auto-replied
+From: Mail Delivery System <Mailer-Daemon@nyaan.example.net>
+To: sironeko@example.com
+Subject: Mail delivery failed: returning message to sender
+Message-Id: <E2Nekos-cat222-N2@nyaan.example.net>
+Date: Thu, 29 Apr 2013 23:34:45 +0000
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of its
+recipients. This is a permanent error. The following address(es) failed:
+
+  kijitora@icloud.example.com
+    SMTP error from remote mail server after RCPT TO:<kijitora@icloud.example.com>:
+    host mx2.me.com.akadns.net [192.0.2.17]: 550 5.1.1 unknown or illegal alias:
+    kijitora@icloud.example.com
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <sironeko@example.com>
+Received: from localhost ([::1]:24882 helo=example.com)
+	by nyaan.example.net with esmtpa (Exim 4.77)
+	(envelope-from <sironeko@example.com>)
+	id 2Nekos-0202ne-Cr; Thu, 29 Apr 2013 23:34:45 +0000
+Received: from 203.0.113.22 ([203.0.113.22])
+        (SquirrelMail authenticated user sironeko@example.com)
+        by example.com with HTTP;
+        Thu, 29 Apr 2013 23:34:45 +0000
+Message-ID: <d111875269acf00cb339571a5a2ce349.squirrel@example.com>
+Date: Thu, 29 Apr 2013 23:34:45 +0000
+Subject: Nyaan
+From: sironeko@example.com
+User-Agent: SquirrelMail/1.4.22
+MIME-Version: 1.0
+Content-Type: multipart/mixed;boundary="----=_20130429233445_00202"
+X-Priority: 3 (Normal)
+Importance: Normal
+
+------=_20130429233445_00202
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: 8bit
+
+Nyaan
+
+------=_20130429233445_00202--
+
+
