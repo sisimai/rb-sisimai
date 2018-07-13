@@ -1,0 +1,56 @@
+Received: from blu2-omc4-s22.blu2.hotmail.com ([192.0.2.225]) by bay2-pamc4-f2.Bay2.hotmail.com with Microsoft SMTPSVC(6.0.3300.4400);
+	 Thu, 29 Apr 2012 23:34:45 -0700
+From: postmaster@mail.hotmail.com
+To: sironeko@example.com
+Date: Thu, 29 Apr 2012 23:34:45 -0700
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="0022FEEEFF=____0202222FFFEE0AEF?neko.nyaan.cats"
+Message-ID: <4073f71390419fb17139ca00cf1100b1@blu2-omc4-s22.blu2.hotmail.com>
+Subject: Delivery Status Notification (Failure)
+Return-Path: <>
+
+This is a MIME-formatted message.  
+Portions of this message may be unreadable without a MIME-capable mail program.
+
+--0022FEEEFF=____0202222FFFEE0AEF?neko.nyaan.cats
+Content-Type: text/plain; charset=unicode-1-1-utf-7
+
+This is an automatically generated Delivery Status Notification.
+
+Delivery to the following recipients failed.
+
+       kijitora@example.org
+
+
+
+
+--0022FEEEFF=____0202222FFFEE0AEF?neko.nyaan.cats
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns;blu2-omc4-s22.blu2.hotmail.com
+Received-From-MTA: dns;BLU222-CR22
+Arrival-Date: Thu, 29 Apr 2012 23:34:45 -0700
+
+Final-Recipient: rfc822;kijitora@example.org
+Action: failed
+Status: 5.5.0
+Diagnostic-Code: smtp;550 domain [example.com] mismatches client ip 192.0.2.225. 
+
+--0022FEEEFF=____0202222FFFEE0AEF?neko.nyaan.cats
+Content-Type: message/rfc822
+
+Received: from BLU222-CR22 ([203.0.113.2]) by blu2-omc4-s22.blu2.hotmail.com with Microsoft SMTPSVC(6.0.3300.4400);
+	 Thu, 29 Apr 2012 23:34:45 -0700
+Message-ID: <BLU222-CR22FC17FE7748FA3ABB087581BC0@phx.gbl>
+Return-Path: sironeko@example.com
+From: "Neko, Nyaan" <sironeko@example.com>
+To: "Kijitorajanus" <kijitora@example.org>
+Subject: Nyaan
+Date: Thu, 29 Apr 2012 23:34:45 +0800
+MIME-Version: 1.0
+Content-Type: text/plain;
+
+Nyaan
+
+--0022FEEEFF=____0202222FFFEE0AEF?neko.nyaan.cats--

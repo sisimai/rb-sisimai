@@ -1,0 +1,76 @@
+From MAILER-DAEMON  Thu Jul 17 23:34:45 2008
+Return-Path: <>
+X-Original-To: nekonyaans@p2.example.com
+Delivered-To: nekonyaans@p2.example.com
+Received: from haus.example.com (haus.example.com [203.0.113.55])
+	by p2.example.com (Postfix) with ESMTP id 0000000022
+	for <nekonyaans@p2.example.com>; Thu, 17 Jul 2008 23:34:45 -0800 (PST)
+Received: by haus.example.com (Postfix)
+	id EEEEEEFFFF; Thu, 17 Jul 2008 23:34:45 -0800 (PST)
+Date: Thu, 17 Jul 2008 23:34:45 -0800 (PST)
+From: MAILER-DAEMON@haus.example.com (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: nekonyaans@p2.example.com
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="EF0002EEEF.12000000022/haus.example.com"
+Message-Id: <20080717233445.1A932EE26B@haus.example.com>
+
+This is a MIME-encapsulated message.
+
+--EF0002EEEF.12000000022/haus.example.com
+Content-Description: Notification
+Content-Type: text/plain
+
+This is the Postfix program at host haus.example.com.
+
+I'm sorry to have to inform you that your message could not be
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to <postmaster>
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+			The Postfix program
+
+<kijitora@example.jp>: host nyaan.example.jp[192.0.2.2] said: 501 Rcpt-To
+    validation failed: RCPT TO not accepted: 5.7.1 This system is not
+    configured to relay mail (r) from <nekonyaans@p2.example.com> to
+    <kijitora@example.jp> for 127.0.0.1 (in reply to RCPT TO command)
+
+--EF0002EEEF.12000000022/haus.example.com
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; haus.example.com
+X-Postfix-Queue-ID: EF0002EEEF
+X-Postfix-Sender: rfc822; nekonyaans@p2.example.com
+Arrival-Date: Thu, 17 Jul 2008 23:34:45 -0800 (PST)
+
+Final-Recipient: rfc822; kijitora@example.jp
+Action: failed
+Status: 5.0.0
+Diagnostic-Code: X-Postfix; host nyaan.example.jp[192.0.2.2] said: 501 Rcpt-To
+    validation failed: RCPT TO not accepted: 5.7.1 This system is not
+    configured to relay mail (r) from <nekonyaans@p2.example.com> to
+    <kijitora@example.jp> for 127.0.0.1 (in reply to RCPT TO command)
+
+--EF0002EEEF.12000000022/haus.example.com
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Received: from p2.example.com (p2.example.com [203.0.113.32])
+	by haus.example.com (Postfix) with ESMTP id EF0002EEEF
+	for <kijitora@example.jp>; Thu, 17 Jul 2008 23:34:45 -0800 (PST)
+Received: by p2.example.com (Postfix, from userid 22000)
+	id FFFFFF0000; Thu, 17 Jul 2008 23:34:45 -0800 (PST)
+To: kijitora@example.jp
+Subject: Nyaan
+From: "Neko, Nyaan" <nekonyaan@example.com>
+Message-Id: <20080717233445.00000000AA@p2.example.com>
+Date: Thu, 17 Jul 2008 23:34:45 -0800 (PST)
+
+Nyaan
+
+--EF0002EEEF.12000000022/haus.example.com--

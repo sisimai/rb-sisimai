@@ -1,0 +1,74 @@
+Return-path: <>
+Envelope-to: nekonyaan@p.example.com
+Delivery-date: Thu, 17 Jul 2014 23:34:45 -0300
+Received: from p225-2-0-192.static.example.net ([192.0.2.225]:2222)
+	by r202.r.example.com with esmtp (Exim 4.82)
+	id 2222ee-2222rr-2X
+	for nekonyaan@p.example.com; Thu, 17 Jul 2014 23:34:45 -0300
+Received: by r13.example.net (Postfix)
+	id 222222220000; Thu, 17 Jul 2014 23:34:45 +0900 (JST)
+Date: Thu, 17 Jul 2014 23:34:45 +0900 (JST)
+From: MAILER-DAEMON@example.net (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: nekonyaan@p.example.com
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="CF0020223EEEFF.12010001030/example.net"
+Message-Id: <20140717233445.00000000EEEE@example.net>
+
+This is a MIME-encapsulated message.
+
+--CF0020223EEEFF.12010001030/example.net
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host example.net.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@example.net>: temporary failure
+
+--CF0020223EEEFF.12010001030/example.net
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; example.net
+X-Postfix-Queue-ID: CF0020223EEEFF
+X-Postfix-Sender: rfc822; nekonyaan@p.example.com
+Arrival-Date: Thu, 17 Jul 2014 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; kijitora@example.net
+Action: failed
+Status: 4.3.0
+Diagnostic-Code: x-unix; temporary failure
+
+--CF0020223EEEFF.12010001030/example.net
+Content-Description: Undelivered Message Headers
+Content-Type: text/rfc822-headers
+
+Return-Path: <nekonyaan@p.example.com>
+Received: by example.net (Postfix, from userid 22)
+	id CF0020223EEEFF; Thu, 17 Jul 2014 23:34:45 +0900 (JST)
+Received: from [192.0.2.25] by r202.r.example.com with esmtpsa 
+    (TLSv1:DHE-RSA-AES256-SHA:256) (Exim 4.82)
+	(envelope-from <nekonyaan@p.example.com>)
+	id 000022-000022-EE; Thu, 17 Jul 2014 23:34:45 -0300
+Message-ID: <11DA6AA80A5481396A07708AE233289E@nekonyaan>
+From: "Neko, Nyaan" <nekonyaan@p.example.com>
+To: "Kijitora" <kijitora@example.com>
+Subject: Nyaan
+Date: Thu, 17 Jul 2014 23:34:45 +0900
+MIME-Version: 1.0
+
+Nyaan
+
+--CF0020223EEEFF.12010001030/example.net--

@@ -1,0 +1,72 @@
+From MAILER-DAEMON  Thu Apr 29 23:34:45 2008
+Return-Path: <>
+X-Original-To: sironeko@nekonyaan.example.com
+Delivered-To: sironeko@nekonyaan.example.com
+Received: from nyaan2.example.com (nyaan2.example.com [203.0.113.129])
+	by nekonyaan.example.com (Postfix) with ESMTP id 00000000EE
+	for <sironeko@nekonyaan.example.com>; Thu, 29 Apr 2008 23:34:45 -0800 (PST)
+Received: by nyaan2.example.com (Postfix)
+	id 00000000AA; Thu, 29 Apr 2008 23:34:45 -0800 (PST)
+Date: Thu, 29 Apr 2008 23:34:45 -0800 (PST)
+From: MAILER-DAEMON@nyaan2.example.com (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: sironeko@nekonyaan.example.com
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="FF00FEEEAA0B.1222022324/nyaan2.example.com"
+Message-Id: <20080429233445.8907FEE236@nyaan2.example.com>
+
+This is a MIME-encapsulated message.
+
+--FF00FEEEAA0B.1222022324/nyaan2.example.com
+Content-Description: Notification
+Content-Type: text/plain
+
+This is the Postfix program at host nyaan2.example.com.
+
+I'm sorry to have to inform you that your message could not be
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to <postmaster>
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+			The Postfix program
+
+<kijitora@example.org>: host r2.example.org[198.51.100.24] said: 550 Protocol
+    violation (in reply to DATA command)
+
+--FF00FEEEAA0B.1222022324/nyaan2.example.com
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; nyaan2.example.com
+X-Postfix-Queue-ID: FF00FEEEAA0B
+X-Postfix-Sender: rfc822; sironeko@nekonyaan.example.com
+Arrival-Date: Thu, 29 Apr 2008 23:34:45 -0800 (PST)
+
+Final-Recipient: rfc822; kijitora@example.org
+Action: failed
+Status: 5.0.0
+Diagnostic-Code: X-Postfix; host r2.example.org[198.51.100.24] said: 550
+    Protocol violation (in reply to DATA command)
+
+--FF00FEEEAA0B.1222022324/nyaan2.example.com
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Received: from nekonyaan.example.com (nekonyaan.example.com [203.0.113.13])
+	by nyaan2.example.com (Postfix) with ESMTP id FF00FEEEAA0B
+	for <kijitora@example.org>; Thu, 29 Apr 2008 23:34:45 -0800 (PST)
+Received: by nekonyaan.example.com (Postfix, from userid 2222)
+	id AAAAAA2222; Thu, 29 Apr 2008 23:34:45 -0800 (PST)
+To: kijitora@example.org
+Subject: Nyaan
+From: "Neko, Nyaan" <nekonyaan@example.com>
+Message-Id: <20080429233445.0000000022@nekonyaan.example.com>
+Date: Thu, 29 Apr 2008 23:34:45 -0800 (PST)
+
+Nyaan
+
+--FF00FEEEAA0B.1222022324/nyaan2.example.com--

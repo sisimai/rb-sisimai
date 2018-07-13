@@ -1,0 +1,83 @@
+Return-Path: <MAILER-DAEMON>
+Received: from r22.qin.example.com (unknown [203.0.113.12])
+	by e22r.qin.example.com (Bossmail) with ESMTP id FFFFFFFF000
+	for <nekonyaan@example.com>; Thu, 29 Apr 2017 23:34:45 +0000 (UTC)
+Received: from relay1.qin.example.com (HELO mx100.qin.example.com) ([192.0.2.225])
+  by r22.qin.example.com with ESMTP/TLS/DHE-RSA-AES256-SHA; 29 Apr 2017 23:34:45 +0000
+Received: by mx100.qin.example.com (Postfix)
+	id EEEEEE00000; Thu, 29 Apr 2017 23:34:45 +0000 (UTC)
+Date: Thu, 29 Apr 2017 23:34:45 +0000 (UTC)
+From: MAILER-DAEMON@mx100.qin.example.com (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: nekonyaan@example.com
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="FE00EEEEF02.1600000000/mx100.qin.example.com"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20170429233445.00000000222@mx100.qin.example.com>
+
+This is a MIME-encapsulated message.
+
+--FE00EEEEF02.1600000000/mx100.qin.example.com
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host mx100.qin.example.com.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@example.org>: host r2.example.org[198.51.100.18] refused to talk to me:
+    554 Blocked - see
+    https://support.proofpoint.com/dnsbl-lookup.cgi?ip=192.0.2.225
+
+--FE00EEEEF02.1600000000/mx100.qin.example.com
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx100.qin.example.com
+X-Postfix-Queue-ID: FE00EEEEF02
+X-Postfix-Sender: rfc822; nekonyaan@example.com
+Arrival-Date: Thu, 29 Apr 2017 23:34:45 +0000 (UTC)
+
+Final-Recipient: rfc822; kijitora@example.org
+Original-Recipient: rfc822;kijitora@example.org
+Action: failed
+Status: 4.0.0
+Remote-MTA: dns; r2.example.org
+Diagnostic-Code: smtp; 554 Blocked - see
+    https://support.proofpoint.com/dnsbl-lookup.cgi?ip=192.0.2.225
+
+--FE00EEEEF02.1600000000/mx100.qin.example.com
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 8bit
+
+Received: from r9.qin.example.com (r9.qin.example.com [192.0.2.127])
+	by mx100.qin.example.com (Postfix) with ESMTP id FE00EEEEF02
+	for <kijitora@example.org>; Thu, 29 Apr 2017 23:34:45 +0000 (UTC)
+Received: from e22r.qin.example.com (unknown [192.0.2.245])
+	by r9.qin.example.com (Postfix) with ESMTP id 22222222
+	for <kijitora@example.org>; Thu, 29 Apr 2017 23:34:45 +0000 (UTC)
+Received: from [203.0.113.13] (unknown [127.0.0.1])
+	(Authenticated sender: nekonyaan@example.com)
+	by e22r.qin.example.com (Bossmail) with ESMTP id 99999999000
+	for <kijitora@example.org>; Thu, 29 Apr 2017 23:34:45 +0000 (UTC)
+Content-Type: text/pkain
+MIME-Version: 1.0
+Subject: Nyaan
+From: "Neko, Nyaan" <nekonyaan@example.com>
+To: kijitora@example.org
+Date: Thu, 29 Apr 2017 23:34:45 +0000
+Message-ID: <160000000022.0000.0000000000002222222@NEKO.NYAAN>
+
+Nyaan
+
+--FE00EEEEF02.1600000000/mx100.qin.example.com--
