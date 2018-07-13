@@ -81,7 +81,7 @@ module Sisimai
             |rejected(?:
                :[ ]spamassassin[ ]score[ ]
               |[ ]by[ ].+[ ][(]spam[)]
-              |[ ]due[ ]to[ ]spam[ ]content
+              |[ ]due[ ]to[ ]spam[ ](?:classification|content)
               )
             |rejecting[ ]banned[ ]content
             |related[ ]to[ ]content[ ]with[ ]spam[-]like[ ]characteristics
