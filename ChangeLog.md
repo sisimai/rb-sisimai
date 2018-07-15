@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.22.6p3
+v4.22.6p4
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -13,7 +13,9 @@ v4.22.6p3
   - Fix code to get the original Message-Id field which continued to the next
     line. Thanks to Andreas Mock.
   - Update error message pattern in Sisimai::Reason::SpamDetected.
-  - Add some sample emails in set-of-emails/.
+  - Add 15 sample emails for Postfix, Outlook and others.
+  - Add 3 sample emails for Sisimai::RFC3464.
+  - Add 2 sample vacation emails for Sisimai::RFC3834.
 
 v4.22.6
 --------------------------------------------------------------------------------

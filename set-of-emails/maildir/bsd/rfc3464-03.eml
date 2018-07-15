@@ -1,0 +1,72 @@
+Received: from neko (localhost [127.0.0.1])
+	by r1.example.net (Postfix) with ESMTP id AAAAAAAA2
+	for <nekonyaan@example.net>; Thu, 17 Jul 2017 23:34:45 +0000 (UTC)
+Received: by smtpd-02.example.org (Email Security Gateway)
+	id FFFFFFFF000; Thu, 17 Jul 2017 23:34:45 +0500 (PKT)
+Date: Thu, 17 Jul 2017 23:34:45 +0500 (PKT)
+From: MAILER-DAEMON@EXAMPLE.ORG (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: nekonyaan@example.net
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="FF0E00200000.2000000022/smtpd-02.example.org"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20170717233445.EEEEEEEE00F@smtpd-02.example.org>
+
+This is a MIME-encapsulated message.
+
+--FF0E00200000.2000000022/smtpd-02.example.org
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the Email Security Gateway at host smtpd-02.example.org.
+
+I'm sorry to inform you that the message below could not be delivered.
+When delivery was attempted, the following error was returned.
+
+
+<kijitora@example.com>: host 192.0.2.2[192.0.2.2] said: 554 Mail from
+    nekonyaan@example.net rejected for policy reasons. (in reply to MAIL FROM
+    command)
+
+--FF0E00200000.2000000022/smtpd-02.example.org
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; smtpd-02.example.org
+X-Email-Security-Gateway-Queue-ID: FF0E00200000
+X-Email-Security-Gateway-Sender: rfc822; nekonyaan@example.net
+Arrival-Date: Thu, 17 Jul 2017 23:34:45 +0500 (PKT)
+
+Final-Recipient: rfc822; kijitora@example.com
+Original-Recipient: rfc822;kijitora@example.com
+Action: failed
+Status: 5.0.0
+Remote-MTA: dns; 192.0.2.2
+Diagnostic-Code: smtp; 554 Mail from nekonyaan@example.net rejected for policy
+    reasons.
+
+--FF0E00200000.2000000022/smtpd-02.example.org
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 8bit
+
+Return-Path: <nekonyaan@example.net>
+Received: from neko2.example.com (neko2.example.com [203.0.113.1]) by smtpd-02.example.org with ESMTP id 0000000011111000 for <kijitora@example.com>; Thu, 17 Jul 2017 23:34:45 +0500 (PKT)
+Received: from [192.0.2.192] (unknown [198.51.100.2])
+	by smtp.example.net (Postfix) whith ESMTP id 00000000AAA;
+	Thu, 17 Jul 2017 23:34:45 +0000 (UTC)
+Content-Type: text/plain
+MIME-Version: 1.0
+Subject: Nyaan
+From: "Neko, Nyaan" <nekonyaan@sino-progress.com>
+To: kijitora@example.com
+Date: Thu, 17 Jul 2017 23:34:45 +0000
+Message-ID: <220000000022.0000.0000000000000000222@NEKO.NYAAN>
+
+Nyaan
+
+--FF0E00200000.2000000022/smtpd-02.example.org--
+
+

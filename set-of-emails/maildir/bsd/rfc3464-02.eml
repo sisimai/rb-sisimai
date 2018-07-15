@@ -1,0 +1,66 @@
+Return-Path: <MAILER-DAEMON>
+Received: from r1.qin.example.com (unknown [192.0.2.225])
+	by s151v.qin.example.com (Nekomail) with ESMTP id 11111111000
+	for <nekonyaan@example.com>; Thu, 17 Jul 2017 23:34:45 +0000 (UTC)
+Received: from mx100.qin.example.com (HELO smtpd-2.qin.example.com) ([203.0.113.203])
+  by r1.qin.example.com with ESMTP/TLS/DHE-RSA-AES256-SHA; 17 Jul 2017 23:34:45 +0000
+Received: from neko-nyaan-20.example.com (nyaan29.example.net [198.51.100.4])
+	by smtpd-2.qin.example.com (Postfix) with ESMTP id AAAAAAAA22
+	for <nekonyaan@example.com>; Thu, 17 Jul 2017 23:34:45 +0000 (UTC)
+Content-Type: multipart/mixed; boundary="===============2022000000220202022=="
+MIME-Version: 1.0
+Subject: DELIVERY FAILURE: Error transferring to neko22.example.org; Maximum hop
+ count exceeded.  Message probably in a routing loop. 
+From: Postmaster@example.edu
+To: "Neko, Nyaan" <nekonyaan@example.com>
+Date: Thu, 17 Jul 2017 23:34:45 +0000
+Message-ID: <FF00EE22AA.AA0AFFE2-NEKO000222.002DDADA-B0000304.00222002A@example.edu>
+
+--===============2022000000220202022==
+Content-Type: multipart/report; report-type=delivery-status; boundary="==AAAAANEKONYAAN0000000"
+
+--==AAAAANEKONYAAN0000000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
+
+WW91ciBtZXNzYWdlCgogIFN1YmplY3Q6IE55YWFuCgp3YXMgbm90IGRlbGl2ZXJl
+ZCB0bzoKCiAga2lqaXRvcmFAbmVrby5leGFtcGxlLmNvbQoKYmVjYXVzZToKCiAg
+RXJyb3IgdHJhbnNmZXJyaW5nIHRvIG5la28yMi5leGFtcGxlLm9yZzsgTWF4aW11
+bSBob3AgY291bnQgZXhjZWVkZWQuICBNZXNzYWdlIHByb2JhYmx5IGluIGEgcm91
+dGluZyBsb29wLiAKCg==
+
+--==AAAAANEKONYAAN0000000
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns;relay2.neko.example.org
+
+Final-Recipient: rfc822;kijitora@neko.example.org
+Action: failed
+Status: 5.0.0
+Remote-MTA: smtp;neko22.example.org
+Diagnostic-Code: X-Notes; Error transferring to neko22.example.org; Ma
+ ximum hop count exceeded.  Message probably in a routing loop. 
+
+--==AAAAANEKONYAAN0000000
+Content-Type: message/rfc822
+
+Received: from smtp1.neko.nyaan.example.org ([192.0.2.22])
+          by relay2.neko.example.org (Lotus Domino Release 8.0.2FP6)
+          with ESMTP id 20170717233445-000000 ;
+          Thu,17 Jul 2017 23:34:45 +0200 
+Received: from [192.0.2.192] (unknown [203.0.113.203])
+	(Authenticated sender: nekonyaan@example.com)
+	by r8.qin.example.com (Nekomail) with ESMTP id AAAAAAAA000
+	for <kijitora@neko.example.org>; Thu, 17 Jul 2017 23:34:45 +0000 (UTC)
+MIME-Version: 1.0
+Subject: Nyaan
+From: "Neko, Nyaan" <nekonyaan@example.com>
+To: <kijitora@neko.example.org>
+Date: Thu, 17 Jul 2017 23:34:45 +0000
+Return-Path: nekonyaan@example.com
+Message-ID: <FF00EE22AA.AA0AFFE2-NEKO000222.002DDADA-B0000304.00222002A@example.edu>
+Content-Type: text/plain
+
+Nyaan
+
+--===============2022000000220202022==--
