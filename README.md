@@ -244,7 +244,7 @@ and bounceHammer are available at
 | How to install                              | gem install    | cpanm, cpm    |
 | Dependencies (Except core modules)          | 1 module       | 2 modules     |
 | LOC:Source lines of code                    | 12000 lines    | 8600 lines    |
-| The number of tests(spec/,t/,xt/) directory | 212000 tests   | 229000 tests  |
+| The number of tests(spec/,t/,xt/) directory | 217000 tests   | 235000 tests  |
 | License                                     | BSD 2-Clause   | BSD 2-Clause  |
 | Support Contract provided by Developer      | Coming soon    | Available     |
 

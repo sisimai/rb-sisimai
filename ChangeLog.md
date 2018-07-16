@@ -3,10 +3,10 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.22.6p4
+v4.22.7
 --------------------------------------------------------------------------------
-- release: ""
-- version: ""
+- release: "Mon, 16 Jul 2018 13:02:54 +0900 (JST)"
+- version: "4.22.7"
 - changes:
   - Register D.S.N. "4.4.312" and "5.4.312" on Office 365 as "networkerror".
   - Fix error message pattern in Sisimai::Reason::SecurityError.
