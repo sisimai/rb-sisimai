@@ -10,6 +10,8 @@ isexpected = [
   { 'n' => '06', 's' => /\A5[.]4[.]312\z/,'r' => /networkerror/, 'b' => /\A1\z/ },
   { 'n' => '07', 's' => /\A5[.]1[.]351\z/,'r' => /userunknown/,  'b' => /\A0\z/ },
   { 'n' => '08', 's' => /\A5[.]4[.]316\z/,'r' => /expired/,      'b' => /\A1\z/ },
+  { 'n' => '09', 's' => /\A5[.]1[.]351\z/,'r' => /userunknown/,  'b' => /\A0\z/ },
+  { 'n' => '10', 's' => /\A5[.]1[.]351\z/,'r' => /userunknown/,  'b' => /\A0\z/ },
 ]
 Sisimai::Bite::Email::Code.maketest(enginename, isexpected)
 
