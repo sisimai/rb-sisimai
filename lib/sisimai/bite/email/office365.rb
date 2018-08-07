@@ -51,7 +51,7 @@ module Sisimai::Bite::Email
         %r/\A5[.]7[.]7[0-4]\d\z/ => 'toomanyconn',
       }.freeze
       ReCommands = {
-        RCPT: %r/unknown recipient or mailbox unavailable ->.+[<].+[@].+[>]/,
+        RCPT: %r/unknown recipient or mailbox unavailable ->.+[<]?.+[@].+[.][a-zA-Z]+[>]?/,
       }.freeze
 
       def description; return 'Microsoft Office 365: http://office.microsoft.com/'; end
