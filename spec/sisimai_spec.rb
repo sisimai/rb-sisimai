@@ -6,6 +6,7 @@ describe Sisimai do
   sampleemail = {
     :mailbox => './set-of-emails/mailbox/mbox-0',
     :maildir => './set-of-emails/maildir/bsd',
+    :memory  => './set-of-emails/mailbox/mbox-1',
     :jsonobj => './set-of-emails/jsonobj/json-amazonses-01.json',
   }
   isnotbounce = {
@@ -39,7 +40,7 @@ describe Sisimai do
 
   describe '.make' do
     context 'valid email file' do
-      [:mailbox, :maildir, :jsonobj].each do |e|
+      [:mailbox, :maildir, :jsonobj, :memory].each do |e|
 
         if e.to_s == 'jsonobj' 
           jf = File.open(sampleemail[e], 'r')
@@ -56,6 +57,12 @@ describe Sisimai do
           end
           mail = Sisimai.make(jsonobject, input: 'json')
 
+        elsif e.to_s == 'memory'
+          mf = File.open(sampleemail[e], 'r')
+          ms = mf.read
+          mf.close
+
+          mail = Sisimai.make(ms)
         else
           mail = Sisimai.make(sampleemail[e], input: 'email')
         end
