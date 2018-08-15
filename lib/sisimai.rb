@@ -36,7 +36,7 @@ module Sisimai
       unless input
         # "input" did not specified, try to detect automatically.
         if argv0.is_a?(::String) || argv0.is_a?(IO)
-          # The argument may be a path to email
+          # The argument may be a path to email OR an email text
           input = 'email'
 
         elsif argv0.is_a?(Array) || argv0.is_a?(Hash)

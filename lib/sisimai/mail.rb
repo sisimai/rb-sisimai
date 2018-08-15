@@ -8,7 +8,7 @@ module Sisimai
       :type,  # [String] Data type: mailbox, maildir, or stdin
     ]
     @@rwaccessors = [
-      :mail,  # [Sisimai::Mail::Mbox, Sisimai::Mail::Maildir] Object
+      :mail,  # [Sisimai::Mail::[Mbox,Maildir,Memory,STDIN]] Object
     ]
     @@roaccessors.each { |e| attr_reader   e }
     @@rwaccessors.each { |e| attr_accessor e }
@@ -29,7 +29,7 @@ module Sisimai
           parameter['path'] = $stdin
         else
           # The argumenet is a mailbox or a Maildir/.
-          mediatype = File.ftype(argv1)
+          mediatype = argv1.include?("\n") ? 'memory' : File.ftype(argv1)
 
           if mediatype == 'file'
             # The argument is a file, it is an mbox or email file in Maildir/
@@ -40,6 +40,12 @@ module Sisimai
             # The agument is not a file, it is a Maildir/
             classname = self.class.to_s << '::Maildir'
             parameter['type'] = 'maildir'
+
+          elsif mediatype == 'memory'
+            # The argument is an email string
+            classname = self.class.to_s << '::Memory'
+            parameter['type'] = 'memory'
+            parameter['path'] = 'MEMORY'
           end
         end
       elsif argv1.is_a?(IO)
@@ -52,7 +58,7 @@ module Sisimai
 
       classpath = classname.gsub('::', '/').downcase
       require classpath
-      parameter['mail'] = Module.const_get(classname).new(parameter['path'])
+      parameter['mail'] = Module.const_get(classname).new(argv1)
 
       @path = parameter['path']
       @type = parameter['type']
