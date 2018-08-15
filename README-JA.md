@@ -116,6 +116,10 @@ Basic usage
 require 'sisimai'
 v = Sisimai.make('/path/to/mbox')       # or path to Maildir/
 
+# Read bounce messages from variable instead of a path to mailbox
+f = File.open('/path/to/mbox', 'r');    # or path to Maildir/
+v = Sisimai.make(f.read)
+
 # If you want to get bounce records which reason is "delivered", set "delivered"
 # option to make() method like the following:
 v = Sisimai.make('/path/to/mbox', delivered: true)
@@ -240,7 +244,7 @@ Differences between Ruby version and Perl version
 | インストール方法                            | gem install    | cpanm, cpm    |
 | 依存モジュール数(コアモジュールを除く)      | 1モジュール    | 2モジュール   |
 | LOC:ソースコードの行数                      | 12000行        | 8600行        |
-| テスト件数(spec/,t/,xt/ディレクトリ)        | 217000件       | 235000件      |
+| テスト件数(spec/,t/,xt/ディレクトリ)        | 218000件       | 236000件      |
 | ライセンス                                  | 二条項BSD      | 二条項BSD     |
 | 開発会社によるサポート契約                  | 準備中         | 提供中        |
 

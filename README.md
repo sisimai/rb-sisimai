@@ -121,6 +121,10 @@ messages like following.
 require 'sisimai'
 v = Sisimai.make('/path/to/mbox')       # or path to Maildir/
 
+# Read bounce messages from variable instead of a path to mailbox
+f = File.open('/path/to/mbox', 'r');    # or path to Maildir/
+v = Sisimai.make(f.read)
+
 # If you want to get bounce records which reason is "delivered", set "delivered"
 # option to make() method like the following:
 v = Sisimai.make('/path/to/mbox', delivered: true)
@@ -244,7 +248,7 @@ and bounceHammer are available at
 | How to install                              | gem install    | cpanm, cpm    |
 | Dependencies (Except core modules)          | 1 module       | 2 modules     |
 | LOC:Source lines of code                    | 12000 lines    | 8600 lines    |
-| The number of tests(spec/,t/,xt/) directory | 217000 tests   | 235000 tests  |
+| The number of tests(spec/,t/,xt/) directory | 218000 tests   | 236000 tests  |
 | License                                     | BSD 2-Clause   | BSD 2-Clause  |
 | Support Contract provided by Developer      | Coming soon    | Available     |
 
