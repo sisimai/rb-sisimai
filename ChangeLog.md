@@ -3,13 +3,15 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.22.7p1
+v4.22.7p2
 --------------------------------------------------------------------------------
 - release: ""
-- version: "4.22.7p1"
+- version: "4.22.7p2"
 - changes:
   - Update regular expression in Sisimai::Bite::Email::Office365 for detecting
     failure on SMTP RCPT.
+  - #124 Implement Sisimai::Mail::Memory class for reading bounce messages from
+    memory(variable).
 
 v4.22.7
 --------------------------------------------------------------------------------
