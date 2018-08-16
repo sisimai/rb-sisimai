@@ -95,7 +95,7 @@ module Sisimai::Bite::Email
               #     As their mailbox is full.
               if v['recipient']
                 # There are multiple recipient addresses in the message body.
-                push dscontents << Sisimai::Bite.DELIVERYSTATUS
+                dscontents << Sisimai::Bite.DELIVERYSTATUS
                 v = dscontents[-1]
               end
 
