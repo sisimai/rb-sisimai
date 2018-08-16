@@ -20,7 +20,7 @@ module Sisimai
       # @param    [IO::STDIN] stdin      Standard-In
       # @return   [Sisimai::Mail::STDIN] Object
       def initialize(stdin = $stdin)
-        raise 'is not an IO object' unless stdin.is_a?(IO)
+        raise 'is not an IO object' unless stdin.is_a?(IO) || stdin.is_a?(StringIO)
 
         @path   = '<STDIN>'
         @name   = '<STDIN>'

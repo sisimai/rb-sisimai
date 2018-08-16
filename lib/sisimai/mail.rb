@@ -48,7 +48,7 @@ module Sisimai
             parameter['path'] = 'MEMORY'
           end
         end
-      elsif argv1.is_a?(IO)
+      elsif argv1.is_a?(IO) || argv1.is_a?(StringIO)
         # Read from STDIN
         # The argument neither a mailbox nor a Maildir/.
         classname = self.class.to_s << '::STDIN'
