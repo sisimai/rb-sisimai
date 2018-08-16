@@ -3,15 +3,17 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.22.7p2
+v4.22.7p3
 --------------------------------------------------------------------------------
 - release: ""
-- version: "4.22.7p2"
+- version: ""
 - changes:
   - Update regular expression in Sisimai::Bite::Email::Office365 for detecting
     failure on SMTP RCPT.
   - #124 Implement Sisimai::Mail::Memory class for reading bounce messages from
     memory(variable).
+  - #126 Fix awful bugs(NoMethodError) in Sisimai::Bite::Email::Biglobe, EZweb,
+    and KDDI. Thanks to @rinmu.
 
 v4.22.7
 --------------------------------------------------------------------------------
