@@ -44,10 +44,6 @@ module Sisimai
                   expect(modulename.description.size).to be > 0
                 end
               end
-
-              describe '.scan' do
-                it('returns nil') { expect(modulename.scan(nil,nil)).to be nil }
-              end
             end
 
             isexpected.each do |e|
