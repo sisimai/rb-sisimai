@@ -16,9 +16,6 @@ module Sisimai
         # @param    [Sisimai::Data] argvs   Parsed email object
         # @return   [String]                The bounce reason for au.com or ezweb.ne.jp
         def get(argvs)
-          return nil unless argvs
-          return nil unless argvs.is_a? Sisimai::Data
-
           statusmesg = argvs.diagnosticcode
           reasontext = ''
 

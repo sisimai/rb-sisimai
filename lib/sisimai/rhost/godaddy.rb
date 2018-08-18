@@ -43,8 +43,6 @@ module Sisimai
         # @return   [String]                The bounce reason for GoDaddy
         # @see      https://www.godaddy.com/help/what-does-my-email-bounceback-mean-3568
         def get(argvs)
-          return nil unless argvs
-          return nil unless argvs.is_a? Sisimai::Data
           return argvs.reason if argvs.reason.size > 0
 
           statusmesg = argvs.diagnosticcode
