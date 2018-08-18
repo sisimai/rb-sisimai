@@ -39,8 +39,6 @@ module Sisimai::Bite::JSON
       #                                   the arguments are missing
       # @since v4.20.0
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
         return nil unless mhead['x-amz-sns-message-id']
         return nil unless mhead['x-amz-sns-message-id'].size > 0
 
