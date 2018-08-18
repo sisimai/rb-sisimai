@@ -105,7 +105,6 @@ module Sisimai
       #                                   is missing or invalid object
       # @see get
       def anotherone(argvs)
-        return nil unless argvs
         return nil unless argvs.is_a? Sisimai::Data
         return argvs.reason if argvs.reason.size > 0
 

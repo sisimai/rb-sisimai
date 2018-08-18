@@ -34,12 +34,12 @@ module Sisimai
       raise ' ***error: "field" accepts an array only' unless field.is_a? Array
 
       unless input
+        klass = argv0.class
         # "input" did not specified, try to detect automatically.
-        if argv0.is_a?(::String) || argv0.is_a?(IO)
+        if klass == ::String || klass == IO
           # The argument may be a path to email OR an email text
           input = 'email'
-
-        elsif argv0.is_a?(Array) || argv0.is_a?(Hash)
+        elsif klass == Array || klass == Hash
           # The argument may be a decoded JSON object
           input = 'json'
         end
