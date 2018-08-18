@@ -97,7 +97,7 @@ module Sisimai
         raise ' ***error: invalid value of "input"'
       end
 
-      return nil if bouncedata.size.zero?
+      return nil if bouncedata.size == 0
       return bouncedata
     end
 
