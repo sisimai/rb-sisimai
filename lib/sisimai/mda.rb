@@ -86,10 +86,6 @@ module Sisimai
       #                                   or nil if it failed to parse or the
       #                                   arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-        return nil if mhead.keys.size.zero?
-        return nil if mbody.empty?
         return nil unless mhead['from'].downcase.start_with?('mail delivery subsystem','mailer-daemon', 'postmaster')
 
         agentname0 = ''   # [String] MDA name
