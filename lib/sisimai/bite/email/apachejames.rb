@@ -32,9 +32,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         match  = 0
         match += 1 if mhead['subject'] == '[BOUNCE]'
         match += 1 if mhead['message-id'].to_s.include?('.JavaMail.')

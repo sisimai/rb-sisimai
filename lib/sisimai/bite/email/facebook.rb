@@ -87,8 +87,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
         return nil unless mhead['from'] == 'Facebook <mailer-daemon@mx.facebook.com>'
         return nil unless mhead['subject'] == 'Sorry, your message could not be delivered'
 

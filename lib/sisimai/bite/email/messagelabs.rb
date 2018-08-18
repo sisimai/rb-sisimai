@@ -39,8 +39,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
         return nil unless mhead['x-msg-ref']
         return nil unless mhead['from'].include?('MAILER-DAEMON@messagelabs.com')
         return nil unless mhead['subject'].start_with?('Mail Delivery Failure')

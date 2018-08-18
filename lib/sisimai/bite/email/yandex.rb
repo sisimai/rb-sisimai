@@ -36,8 +36,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
         return nil unless mhead['x-yandex-uniq']
         return nil unless mhead['from'] == 'mailer-daemon@yandex.ru'
 

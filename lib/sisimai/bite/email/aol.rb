@@ -43,9 +43,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         # :from    => %r/\APostmaster [<]Postmaster[@]AOL[.]com[>]\z/,
         # :subject => %r/\AUndeliverable: /,
         return nil unless mhead['x-aol-ip']

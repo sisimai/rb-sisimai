@@ -115,9 +115,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         # Pre process email headers and the body part of the message which generated
         # by qmail, see http://cr.yp.to/qmail.html
         #   e.g.) Received: (qmail 12345 invoked for bounce); 29 Apr 2009 12:34:56 -0000

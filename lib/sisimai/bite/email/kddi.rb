@@ -37,9 +37,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         # :'message-id' => %r/[@].+[.]ezweb[.]ne[.]jp[>]\z/,
         match  = 0
         match += 1 if mhead['from'] =~ /no-reply[@].+[.]dion[.]ne[.]jp/

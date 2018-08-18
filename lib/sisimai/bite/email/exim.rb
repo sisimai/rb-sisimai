@@ -139,9 +139,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         # :'message-id' => %r/\A[<]\w+[-]\w+[-]\w+[@].+\z/,
         return nil if     mhead['from'] =~ /[@].+[.]mail[.]ru[>]?/
         return nil unless mhead['from'].start_with?('Mail Delivery System')

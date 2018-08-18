@@ -121,9 +121,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         # Google Mail
         # From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
         # Received: from vw-in-f109.1e100.net [74.125.113.109] by ...

@@ -45,9 +45,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         return nil unless mhead['subject'].start_with?('Undeliverable:')
         return nil unless mhead['content-language']
         return nil unless mhead['content-language'] =~ /\A[a-z]{2}(?:[-][A-Z]{2})?\z/

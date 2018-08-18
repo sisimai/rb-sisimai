@@ -34,9 +34,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         return nil unless mhead['subject'] =~ /(?:see transcript for details\z|\AWarning: )/
         unless mhead['subject'].downcase =~ /\A[ \t]*fwd?:/
           # Fwd: Returned mail: see transcript for details

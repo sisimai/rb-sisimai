@@ -29,9 +29,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         # :received => %r/[ ][(]MessagingServer[)][ ]with[ ]/,
         match  = 0
         match += 1 if mhead['content-type'].include?('Boundary_(ID_')

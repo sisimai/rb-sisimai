@@ -64,9 +64,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         return nil unless mhead['from'] =~ /[<]?mailer-daemon[@].*mail[.]ru[>]?/i
         return nil unless mhead['message-id'].end_with?('.mail.ru>', 'smailru.net>')
         return nil unless mhead['subject'] =~ %r{(?:

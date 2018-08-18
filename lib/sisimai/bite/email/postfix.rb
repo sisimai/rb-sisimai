@@ -46,9 +46,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         # :from => %r/ [(]Mail Delivery System[)]\z/,
         return nil unless mhead['subject'] == 'Undelivered Mail Returned to Sender'
 

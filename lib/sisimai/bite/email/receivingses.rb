@@ -40,9 +40,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         # :subject  => %r/\ADelivery Status Notification [(]Failure[)]\z/,
         # :received => %r/.+[.]smtp-out[.].+[.]amazonses[.]com\b/,
         return nil unless mhead['x-ses-outgoing']

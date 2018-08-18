@@ -36,9 +36,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         # :from    => %r/\AMAILER-DAEMON[@]email[-]bounces[.]amazonses[.]com\z/,
         # :subject => %r/\ADelivery Status Notification [(]Failure[)]\z/,
         return nil if mhead['x-mailer'].to_s.start_with?('Amazon WorkMail')

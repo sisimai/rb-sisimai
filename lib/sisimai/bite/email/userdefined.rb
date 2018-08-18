@@ -35,9 +35,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         # 1. Check some value in mhead using regular expression or "==" operator
         #    whether the bounce message should be parsed by this module or not.
         #   - Matched 1 or more values: Proceed to the step 2.

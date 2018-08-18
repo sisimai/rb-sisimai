@@ -28,10 +28,7 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
         require 'sisimai/mime'
-
         match  = 0
         match += 1 if mhead['to'].to_s.include?('NotificationRecipients')
         if mhead['from'].include?('TWFpbCBEZWxpdmVyeSBTdWJzeXN0ZW0')

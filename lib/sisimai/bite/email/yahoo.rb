@@ -33,9 +33,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         # :subject => %r/\AFailure Notice\z/,
         return nil unless mhead['x-ymailisg']
 

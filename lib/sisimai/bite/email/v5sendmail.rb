@@ -50,9 +50,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         # :from => %r/\AMail Delivery Subsystem/,
         return nil unless mhead['subject'] =~ /\AReturned mail: [A-Z]/
 

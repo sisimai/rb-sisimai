@@ -34,9 +34,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         # :from    => %r/\AMAILER-DAEMON[@]/,
         # :subject => %r/\AMail delivery failed: returning message to sender\z/,
         return nil unless mhead['x-gmx-antispam']
