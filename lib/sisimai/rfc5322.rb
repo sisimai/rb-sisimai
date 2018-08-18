@@ -171,7 +171,7 @@ module Sisimai
             break
           end
 
-          if hostname.length.zero?
+          if hostname.length == 0
             # 2. Use IP address as a remote host name
             addrlist.each do |e|
               # Skip if the address is a private address
