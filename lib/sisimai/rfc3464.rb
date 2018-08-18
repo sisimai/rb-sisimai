@@ -43,11 +43,6 @@ module Sisimai
       # @return        [Hash, Nil]        Bounce data list and message/rfc822 part
       #                                   or nil if it failed to parse or the
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-        return nil if mhead.keys.size.zero?
-        return nil if mbody.empty?
-
         require 'sisimai/mda'
         require 'sisimai/address'
 
