@@ -47,9 +47,6 @@ module Sisimai
         #                                   false: is not
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return nil unless argvs
-          return nil unless argvs.is_a? Sisimai::Data
-
           r = argvs.reason || ''
           if r.size > 0
             # Do not overwrite the reason

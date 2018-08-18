@@ -42,8 +42,6 @@ module Sisimai
         #                                   false: is not big
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return nil unless argvs
-          return nil unless argvs.is_a? Sisimai::Data
           return true if argvs.reason == 'mesgtoobig'
 
           require 'sisimai/smtp/status'

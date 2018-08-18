@@ -25,8 +25,6 @@ module Sisimai
         #                                   false: is not "onhold"
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return nil unless argvs
-          return nil unless argvs.is_a? Sisimai::Data
           return nil unless argvs.deliverystatus.size > 0
           return true if argvs.reason == 'onhold'
 

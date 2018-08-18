@@ -46,8 +46,6 @@ module Sisimai
         #                                   false: is not filtered
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return nil unless argvs
-          return nil unless argvs.is_a? Sisimai::Data
           return true if argvs.reason == 'filtered'
 
           require 'sisimai/smtp/status'
