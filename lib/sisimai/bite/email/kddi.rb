@@ -43,7 +43,7 @@ module Sisimai::Bite::Email
         match += 1 if mhead['reply-to'].to_s == 'no-reply@app.auone-net.jp'
         match += 1 if mhead['received'].find { |a| a.include?('ezweb.ne.jp (') }
         match += 1 if mhead['received'].find { |a| a.include?('.au.com (') }
-        return nil if match.zero?
+        return nil if match == 0
 
         require 'sisimai/string'
         require 'sisimai/address'
@@ -56,7 +56,7 @@ module Sisimai::Bite::Email
         v = nil
 
         while e = hasdivided.shift do
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
@@ -64,7 +64,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e == StartingOf[:rfc822][0]
               readcursor |= Indicators[:'message-rfc822']
@@ -82,7 +82,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
             v = dscontents[-1]
@@ -112,7 +112,7 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients.zero?
+        return nil if recipients == 0
 
         require 'sisimai/smtp/status'
         dscontents.map do |e|

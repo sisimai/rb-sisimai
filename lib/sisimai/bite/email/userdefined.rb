@@ -44,7 +44,7 @@ module Sisimai::Bite::Email
         match += 1 if mhead['subject'].start_with?('Error Mail Report')
         match += 1 if mhead['from'].include?('Mail System')
         match += 1 if mhead['x-some-userdefined-header']
-        return nil if match.zero?
+        return nil if match == 0
 
         # 2. Parse message body(mbody) of the bounce message. See some modules
         #    in lib/sisimai/bite/email directory to implement codes.
@@ -56,7 +56,7 @@ module Sisimai::Bite::Email
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
 
         while e = hasdivided.shift do
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
@@ -64,7 +64,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -82,7 +82,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
           end
         end
@@ -102,7 +102,7 @@ module Sisimai::Bite::Email
 
         # 3. Return nil when there is no recipient address which is failed to
         #    delivery in the bounce message
-        return nil if recipients.zero?
+        return nil if recipients == 0
 
         # 4. Return the following variable.
         rfc822part = Sisimai::RFC5322.weedout(rfc822list)

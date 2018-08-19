@@ -47,7 +47,7 @@ module Sisimai::Bite::Email
           # Message-ID: <courier.4D025E3A.00001792@5jo.example.org>
           match += 1 if mhead['message-id'] =~ /\A[<]courier[.][0-9A-F]+[.]/
         end
-        return nil if match.zero?
+        return nil if match == 0
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -70,7 +70,7 @@ module Sisimai::Bite::Email
           havepassed << e
           p = havepassed[-2]
 
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e.include?(StartingOf[:message][0]) || e.include?(StartingOf[:message][1])
               readcursor |= Indicators[:deliverystatus]
@@ -78,7 +78,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e.start_with?(StartingOf[:rfc822][0], StartingOf[:rfc822][1])
               readcursor |= Indicators[:'message-rfc822']
@@ -96,7 +96,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
             if connvalues == connheader.keys.size
@@ -197,7 +197,7 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients.zero?
+        return nil if recipients == 0
 
         require 'sisimai/string'
         dscontents.map do |e|

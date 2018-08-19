@@ -63,7 +63,7 @@ module Sisimai::Bite::Email
           havepassed << e
           p = havepassed[-2]
 
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
@@ -71,7 +71,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e == StartingOf[:rfc822][0]
               readcursor |= Indicators[:'message-rfc822']
@@ -89,7 +89,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
             if connvalues == connheader.keys.size
@@ -153,7 +153,7 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients.zero?
+        return nil if recipients == 0
 
         require 'sisimai/string'
         dscontents.map do |e|

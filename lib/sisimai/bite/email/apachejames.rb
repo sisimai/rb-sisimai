@@ -36,7 +36,7 @@ module Sisimai::Bite::Email
         match += 1 if mhead['subject'] == '[BOUNCE]'
         match += 1 if mhead['message-id'].to_s.include?('.JavaMail.')
         match += 1 if mhead['received'].find { |a| a.include?('JAMES SMTP Server') }
-        return if match.zero?
+        return if match == 0
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -50,7 +50,7 @@ module Sisimai::Bite::Email
         v = nil
 
         while e = hasdivided.shift do
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
@@ -58,7 +58,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
@@ -76,7 +76,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
             # Message details:
@@ -130,7 +130,7 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients.zero?
+        return nil if recipients == 0
 
         unless rfc822list.find { |a| a.start_with?('Subject:') }
           # Set the value of subjecttxt as a Subject if there is no original

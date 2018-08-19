@@ -70,7 +70,7 @@ module Sisimai::Bite::Email
           end
 
           while e = hasdivided.shift do
-            if readcursor.zero?
+            if readcursor == 0
               # Beginning of the bounce message or delivery status part
               if e =~ markingsof[:message]
                 readcursor |= Indicators[:deliverystatus]
@@ -78,7 +78,7 @@ module Sisimai::Bite::Email
               end
             end
 
-            if (readcursor & Indicators[:'message-rfc822']).zero?
+            if (readcursor & Indicators[:'message-rfc822']) == 0
               # Beginning of the original message part
               if e =~ markingsof[:rfc822]
                 readcursor |= Indicators[:'message-rfc822']
@@ -96,7 +96,7 @@ module Sisimai::Bite::Email
               rfc822list << e
             else
               # Before "message/rfc822"
-              next if (readcursor & Indicators[:deliverystatus]).zero?
+              next if (readcursor & Indicators[:deliverystatus]) == 0
               next if e.empty?
 
               # Message details:
@@ -143,7 +143,7 @@ module Sisimai::Bite::Email
           end
 
           while e = hasdivided.shift do
-            if readcursor.zero?
+            if readcursor == 0
               # Beginning of the bounce message or delivery status part
               if e.start_with?(startingof[:message][0])
                 readcursor |= Indicators[:deliverystatus]
@@ -151,7 +151,7 @@ module Sisimai::Bite::Email
               end
             end
 
-            if (readcursor & Indicators[:'message-rfc822']).zero?
+            if (readcursor & Indicators[:'message-rfc822']) == 0
               # Beginning of the original message part
               if e =~ markingsof[:rfc822]
                 readcursor |= Indicators[:'message-rfc822']
@@ -169,7 +169,7 @@ module Sisimai::Bite::Email
               rfc822list << e
             else
               # Before "message/rfc822"
-              next if (readcursor & Indicators[:deliverystatus]).zero?
+              next if (readcursor & Indicators[:deliverystatus]) == 0
               next if e.empty?
 
               # Original Message:
@@ -203,7 +203,7 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients.zero?
+        return nil if recipients == 0
 
         if !rfc822list.find { |a| a.start_with?('From: ') }
           # Set the value of "MAIL FROM:" or "From:"

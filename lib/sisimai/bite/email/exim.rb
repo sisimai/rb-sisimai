@@ -175,7 +175,7 @@ module Sisimai::Bite::Email
         while e = hasdivided.shift do
           break if e == StartingOf[:endof][0]
 
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
@@ -183,7 +183,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -201,7 +201,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
             # This message was created automatically by mail delivery software.
@@ -289,7 +289,7 @@ module Sisimai::Bite::Email
                     v['spec'] ||= cv[1].include?('@') ? 'SMTP' : 'X-UNIX'
                   else
                     # Error message ?
-                    if havepassed[:deliverystatus].zero?
+                    if havepassed[:deliverystatus] == 0
                       # Content-type: message/delivery-status
                       havepassed[:deliverystatus] = 1 if e.start_with?(StartingOf[:deliverystatus][0])
                       v['alterrors'] ||= ''
@@ -353,7 +353,7 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients.zero?
+        return nil if recipients == 0
 
         if mhead['received'].size > 0
           # Get the name of local MTA

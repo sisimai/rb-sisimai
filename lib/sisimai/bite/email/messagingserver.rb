@@ -33,7 +33,7 @@ module Sisimai::Bite::Email
         match  = 0
         match += 1 if mhead['content-type'].include?('Boundary_(ID_')
         match += 1 if mhead['subject'].start_with?('Delivery Notification: ')
-        return nil if match.zero?
+        return nil if match == 0
 
         require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -45,7 +45,7 @@ module Sisimai::Bite::Email
         v = nil
 
         while e = hasdivided.shift do
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
@@ -53,7 +53,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -71,7 +71,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
             # --Boundary_(ID_0000000000000000000000)
@@ -165,7 +165,7 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients.zero?
+        return nil if recipients == 0
 
         require 'sisimai/string'
         dscontents.map do |e|

@@ -49,7 +49,7 @@ module Sisimai::Bite::Email
         match  = 0
         match += 1 if mhead['subject'] =~ /\AUndeliverable Mail[ ]*\z/
         match += 1 if mhead['x-mailer'].to_s.start_with?('<SMTP32 v')
-        return nil if match.zero?
+        return nil if match == 0
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -60,7 +60,7 @@ module Sisimai::Bite::Email
         v = nil
 
         while e = hasdivided.shift do
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e == StartingOf[:message][0]
               readcursor |= Indicators[:deliverystatus]
@@ -68,7 +68,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e == StartingOf[:rfc822][0]
               readcursor |= Indicators[:'message-rfc822']
@@ -120,7 +120,7 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients.zero?
+        return nil if recipients == 0
 
         require 'sisimai/string'
         dscontents.map do |e|

@@ -67,7 +67,7 @@ module Sisimai
           d = e.downcase
           p = havepassed[-2]
 
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if d =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
@@ -75,7 +75,7 @@ module Sisimai
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if d =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -379,7 +379,7 @@ module Sisimai
             break if d =~ MarkingsOf[:rfc822]
             break if d =~ re_stop
 
-            next if e.size.zero?
+            next if e.size == 0
             next if d =~ re_skip
             next if e.start_with?('*')
 
@@ -409,7 +409,7 @@ module Sisimai
           break
         end
 
-        if recipients.zero?
+        if recipients == 0
           # Try to get a recipient address from email headers
           rfc822list.each do |e|
             # Check To: header in the original message
@@ -424,7 +424,7 @@ module Sisimai
             recipients += 1
           end
         end
-        return nil if recipients.zero?
+        return nil if recipients == 0
 
         require 'sisimai/string'
         require 'sisimai/smtp/status'

@@ -121,7 +121,7 @@ module Sisimai
         #      this specification is set to "1".
         #
         while e = hasdivided.shift do
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
@@ -129,7 +129,7 @@ module Sisimai
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e.start_with?(StartingOf[:rfc822][0], StartingOf[:rfc822][1])
               readcursor |= Indicators[:'message-rfc822']
@@ -255,7 +255,7 @@ module Sisimai
           commondata[:diagnosis] << ' ' << arfheaders[:authres]
         end
 
-        if recipients.zero?
+        if recipients == 0
           # Insert pseudo recipient address when there is no valid recipient
           # address in the message.
           dscontents[-1]['recipient'] = Sisimai::Address.undisclosed(:r)

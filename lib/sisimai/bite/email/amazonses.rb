@@ -43,7 +43,7 @@ module Sisimai::Bite::Email
         match  = 0
         match += 1 if mhead['x-aws-outgoing']
         match += 1 if mhead['x-ses-outgoing']
-        return nil if match.zero?
+        return nil if match == 0
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -63,7 +63,7 @@ module Sisimai::Bite::Email
           havepassed << e
           p = havepassed[-2]
 
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e.start_with?(StartingOf[:message][0], StartingOf[:message][1])
               readcursor |= Indicators[:deliverystatus]
@@ -71,7 +71,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e == StartingOf[:rfc822][0]
               readcursor |= Indicators[:'message-rfc822']
@@ -90,7 +90,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
             if connvalues == connheader.keys.size
@@ -171,7 +171,7 @@ module Sisimai::Bite::Email
           end
         end
 
-        if recipients.zero? && mbody =~ /notificationType/
+        if recipients == 0 && mbody =~ /notificationType/
           # Try to parse with Sisimai::Bite::JSON::AmazonSES module
           require 'sisimai/bite/json/amazonses'
           j = Sisimai::Bite::JSON::AmazonSES.scan(mhead, mbody)
@@ -182,7 +182,7 @@ module Sisimai::Bite::Email
             recipients = j['ds'].size
           end
         end
-        return nil if recipients.zero?
+        return nil if recipients == 0
 
         require 'sisimai/string'
         require 'sisimai/smtp/status'

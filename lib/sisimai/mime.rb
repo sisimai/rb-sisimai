@@ -97,9 +97,9 @@ module Sisimai
 
         if characterset && encodingname
           # utf8 => UTF-8
-          characterset = 'UTF-8' if characterset.casecmp('UTF8').zero?
+          characterset = 'UTF-8' if characterset.casecmp('UTF8') == 0
 
-          unless characterset.casecmp('UTF-8').zero?
+          unless characterset.casecmp('UTF-8') == 0
             # Characterset is not UTF-8
             begin
               decodedtext1 = decodedtext1.encode('UTF-8', characterset)
@@ -127,7 +127,7 @@ module Sisimai
         # Decoded using unpack('M') entire body string when the boundary string
         # or "Content-Transfer-Encoding: quoted-printable" are not included in
         # the message body.
-        return argv1.unpack('M').first if boundary00.size.zero?
+        return argv1.unpack('M').first if boundary00.size == 0
         return argv1.unpack('M').first unless argv1.downcase =~ ReE[:'quoted-print']
 
         boundary01 = Sisimai::MIME.boundary(heads['content-type'], 1)
