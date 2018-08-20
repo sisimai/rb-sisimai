@@ -25,7 +25,7 @@ module Sisimai
         @data   = []
         @offset = 0
 
-        if argv1[0,5] == 'From '
+        if argv1.start_with?('From ')
           # UNIX mbox
           @data = argv1.split(/^From /).map! { |e| e = 'From ' + e }
           @data.shift
