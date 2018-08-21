@@ -203,7 +203,7 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients == 0
+        return nil unless recipients > 0
 
         if !rfc822list.find { |a| a.start_with?('From: ') }
           # Set the value of "MAIL FROM:" or "From:"

@@ -129,7 +129,7 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients == 0
+        return nil unless recipients > 0
 
         require 'sisimai/string'
         dscontents.map do |e|

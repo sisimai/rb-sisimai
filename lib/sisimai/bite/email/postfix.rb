@@ -224,7 +224,7 @@ module Sisimai::Bite::Email
           end # End of if: rfc822
         end
 
-        if recipients == 0
+        unless recipients > 0
           # Fallback: set recipient address from error message
           if anotherset['recipient'].to_s.size > 0
             # Set recipient address
@@ -232,7 +232,7 @@ module Sisimai::Bite::Email
             recipients += 1
           end
         end
-        return nil if recipients == 0
+        return nil unless recipients > 0
 
         require 'sisimai/string'
         require 'sisimai/smtp/status'

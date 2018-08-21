@@ -49,7 +49,7 @@ module Sisimai::Bite::JSON
 
         while e = hasdivided.shift do
           # Find JSON string from the message body
-          next if e.size == 0
+          next unless e.size > 0
           break if e == '--'
           break if e == '__END_OF_EMAIL_MESSAGE__'
 
@@ -216,7 +216,7 @@ module Sisimai::Bite::JSON
           # or "Delivery".
           return nil
         end
-        return nil if recipients == 0
+        return nil unless recipients > 0
 
         dscontents.each do |e|
           e['agent'] = self.smtpagent

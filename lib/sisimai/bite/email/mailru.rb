@@ -161,7 +161,7 @@ module Sisimai::Bite::Email
           end
         end
 
-        if recipients == 0
+        unless recipients > 0
           # Fallback for getting recipient addresses
           if mhead['x-failed-recipients']
             # X-Failed-Recipients: kijitora@example.jp
@@ -177,7 +177,7 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients == 0
+        return nil unless recipients > 0
 
         if mhead['received'].size > 0
           # Get the name of local MTA

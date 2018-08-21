@@ -123,7 +123,7 @@ module Sisimai::Bite::Email
         match  = 0
         match += 1 if mhead['subject'] == 'failure notice'
         match += 1 if mhead['received'].find { |a| a =~ tryto }
-        return nil if match == 0
+        return nil unless match > 0
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -193,7 +193,7 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients == 0
+        return nil unless recipients > 0
 
         require 'sisimai/string'
         require 'sisimai/smtp/status'

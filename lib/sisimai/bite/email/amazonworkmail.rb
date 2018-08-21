@@ -140,7 +140,7 @@ module Sisimai::Bite::Email
             break if e.start_with?('<!DOCTYPE HTML><html>')
           end
         end
-        return nil if recipients == 0
+        return nil unless recipients > 0
 
         require 'sisimai/string'
         require 'sisimai/smtp/status'

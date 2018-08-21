@@ -40,7 +40,7 @@ module Sisimai::Bite::Email
         ]
         match += 1 if mhead['from'].start_with?('"InterScan MSS"')
         match += 1 if tryto.find { |a| mhead['subject'] == a }
-        return nil if match == 0
+        return nil unless match > 0
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -117,7 +117,7 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients == 0
+        return nil unless recipients > 0
 
         require 'sisimai/string'
         dscontents.map do |e|

@@ -103,7 +103,7 @@ module Sisimai::Bite::Email
             |Delivery[ ]Status[ ]Notification
             )
         }x
-        return nil if match == 0
+        return nil unless match > 0
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -175,7 +175,7 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients == 0
+        return nil unless recipients > 0
 
         if mhead['received'].size > 0
           # Get the name of local MTA

@@ -130,7 +130,7 @@ module Sisimai::Bite::Email
           end
         end
 
-        if recipients == 0
+        unless recipients > 0
           # Fallback: Get the recpient address from RFC822 part
           rfc822list.each do |e|
             next unless cv = e.match(/^To:[ ]*(.+)$/m)
@@ -140,7 +140,7 @@ module Sisimai::Bite::Email
             break
           end
         end
-        return nil if recipients == 0
+        return nil unless recipients > 0
 
         require 'sisimai/string'
         require 'sisimai/smtp/status'

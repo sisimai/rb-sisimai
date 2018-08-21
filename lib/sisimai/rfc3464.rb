@@ -379,7 +379,7 @@ module Sisimai
             break if d =~ MarkingsOf[:rfc822]
             break if d =~ re_stop
 
-            next if e.size == 0
+            next unless e.size > 0
             next if d =~ re_skip
             next if e.start_with?('*')
 
@@ -409,7 +409,7 @@ module Sisimai
           break
         end
 
-        if recipients == 0
+        unless recipients > 0
           # Try to get a recipient address from email headers
           rfc822list.each do |e|
             # Check To: header in the original message
@@ -424,7 +424,7 @@ module Sisimai
             recipients += 1
           end
         end
-        return nil if recipients == 0
+        return nil unless recipients > 0
 
         require 'sisimai/string'
         require 'sisimai/smtp/status'

@@ -48,7 +48,7 @@ module Sisimai
 
           filehandle.each_line do |r|
             # Read the UNIX mbox file from 'From ' to the next 'From '
-            if r[0, 5] == 'From ' && readbuffer.size > 0
+            if r.start_with?('From ') && readbuffer.size > 0
               frombuffer = r
               break
             end

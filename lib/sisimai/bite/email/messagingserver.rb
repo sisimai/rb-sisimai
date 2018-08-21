@@ -33,7 +33,7 @@ module Sisimai::Bite::Email
         match  = 0
         match += 1 if mhead['content-type'].include?('Boundary_(ID_')
         match += 1 if mhead['subject'].start_with?('Delivery Notification: ')
-        return nil if match == 0
+        return nil unless match > 0
 
         require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -165,7 +165,7 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients == 0
+        return nil unless recipients > 0
 
         require 'sisimai/string'
         dscontents.map do |e|

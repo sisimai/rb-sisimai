@@ -134,7 +134,7 @@ module Sisimai::Bite::Email
             end
           else
             # After "message/rfc822"
-            next if recipients == 0
+            next unless recipients > 0
             next if (readcursor & Indicators['deliverystatus']) == 0
 
             if e.empty?
@@ -145,7 +145,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           end
         end
-        return nil if recipients == 0
+        return nil unless recipients > 0
 
         require 'sisimai/string'
         dscontents.map do |e|

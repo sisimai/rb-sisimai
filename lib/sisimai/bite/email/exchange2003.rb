@@ -79,7 +79,7 @@ module Sisimai::Bite::Email
               throw :EXCHANGE_OR_NOT if match > 0
             end
 
-            throw :EXCHANGE_OR_NOT if mhead['received'].size == 0
+            throw :EXCHANGE_OR_NOT unless mhead['received'].size > 0
             mhead['received'].each do |e|
               # Received: by ***.**.** with Internet Mail Service (5.5.2657.72)
               next unless e.include?(' with Internet Mail Service (')
@@ -89,7 +89,7 @@ module Sisimai::Bite::Email
             break
           end
         end
-        return nil if match == 0
+        return nil unless match > 0
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -211,7 +211,7 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients == 0
+        return nil unless recipients > 0
 
         require 'sisimai/string'
         require 'sisimai/smtp/status'

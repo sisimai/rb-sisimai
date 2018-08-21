@@ -30,7 +30,7 @@ module Sisimai::Bite::Email
         match  = 0
         match += 1 if mhead['from'].include?('@bigfoot.com>')
         match += 1 if mhead['received'].find { |a| a.include?('.bigfoot.com') }
-        return nil if match == 0
+        return nil unless match > 0
 
         require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -166,7 +166,7 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients == 0
+        return nil unless recipients > 0
 
         require 'sisimai/string'
         dscontents.map do |e|

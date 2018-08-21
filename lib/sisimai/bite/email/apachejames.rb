@@ -36,7 +36,7 @@ module Sisimai::Bite::Email
         match += 1 if mhead['subject'] == '[BOUNCE]'
         match += 1 if mhead['message-id'].to_s.include?('.JavaMail.')
         match += 1 if mhead['received'].find { |a| a.include?('JAMES SMTP Server') }
-        return if match == 0
+        return nil unless match > 0
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -130,7 +130,7 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients == 0
+        return nil unless recipients > 0
 
         unless rfc822list.find { |a| a.start_with?('Subject:') }
           # Set the value of subjecttxt as a Subject if there is no original

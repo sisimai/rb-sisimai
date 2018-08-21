@@ -171,7 +171,7 @@ module Sisimai
             break
           end
 
-          if hostname.length == 0
+          unless hostname.size > 0
             # 2. Use IP address as a remote host name
             addrlist.each do |e|
               # Skip if the address is a private address
@@ -187,7 +187,7 @@ module Sisimai
 
         %w[from by].each do |e|
           # Copy entries into hosts
-          next unless value[e].length > 0
+          next unless value[e].size > 0
           value[e] = value[e].delete('[]();?')
           hosts << value[e]
         end

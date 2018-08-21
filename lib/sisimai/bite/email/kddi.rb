@@ -43,7 +43,7 @@ module Sisimai::Bite::Email
         match += 1 if mhead['reply-to'].to_s == 'no-reply@app.auone-net.jp'
         match += 1 if mhead['received'].find { |a| a.include?('ezweb.ne.jp (') }
         match += 1 if mhead['received'].find { |a| a.include?('.au.com (') }
-        return nil if match == 0
+        return nil unless match > 0
 
         require 'sisimai/string'
         require 'sisimai/address'
@@ -112,7 +112,7 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients == 0
+        return nil unless recipients > 0
 
         require 'sisimai/smtp/status'
         dscontents.map do |e|

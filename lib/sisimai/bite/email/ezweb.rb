@@ -182,7 +182,7 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients == 0
+        return nil unless recipients > 0
 
         dscontents.map do |e|
           if e['alterrors'].to_s.size > 0

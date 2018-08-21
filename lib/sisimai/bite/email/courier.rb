@@ -47,7 +47,7 @@ module Sisimai::Bite::Email
           # Message-ID: <courier.4D025E3A.00001792@5jo.example.org>
           match += 1 if mhead['message-id'] =~ /\A[<]courier[.][0-9A-F]+[.]/
         end
-        return nil if match == 0
+        return nil unless match > 0
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -197,7 +197,7 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients == 0
+        return nil unless recipients > 0
 
         require 'sisimai/string'
         dscontents.map do |e|
