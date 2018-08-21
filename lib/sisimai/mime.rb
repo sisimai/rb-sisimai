@@ -51,9 +51,6 @@ module Sisimai
       # @param    [Array] argvs   An array including MIME-Encoded text
       # @return   [String]        MIME-Decoded text
       def mimedecode(argvs = [])
-        return '' unless argvs
-        return '' unless argvs.is_a? Array
-
         characterset = nil
         encodingname = nil
         mimeencoded0 = nil
