@@ -17,9 +17,9 @@ module Sisimai
       # @see    http://en.wikipedia.org/wiki/ASCII
       def token(addr1, addr2, epoch)
         return '' unless addr1.is_a?(::String)
-        return '' unless addr1.length > 0
+        return '' unless addr1.size > 0
         return '' unless addr2.is_a?(::String)
-        return '' unless addr2.length > 0
+        return '' unless addr2.size > 0
         return '' unless epoch.is_a?(Integer)
 
         # Format: STX(0x02) Sender-Address RS(0x1e) Recipient-Address ETX(0x03)

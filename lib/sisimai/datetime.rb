@@ -299,7 +299,7 @@ module Sisimai
           # Parse each piece of time
           if p =~ /\A[A-Z][a-z]{2}[,]?\z/
             # Day of week or Day of week; Thu, Apr, ...
-            p.chop if p.length == 4 # Thu, -> Thu
+            p.chop if p.size == 4 # Thu, -> Thu
 
             if DayOfWeek[:abbr].include?(p)
               # Day of week; Mon, Thu, Sun,...
