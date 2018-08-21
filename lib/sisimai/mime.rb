@@ -48,7 +48,7 @@ module Sisimai
       end
 
       # Decode MIME-Encoded string
-      # @param    [Array] argvs   Reference to an array including MIME-Encoded text
+      # @param    [Array] argvs   An array including MIME-Encoded text
       # @return   [String]        MIME-Decoded text
       def mimedecode(argvs = [])
         return '' unless argvs
