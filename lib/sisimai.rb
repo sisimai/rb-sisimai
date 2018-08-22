@@ -160,7 +160,7 @@ module Sisimai
 
       # These reasons are not included in the results of Sisimai::Reason.index
       names.concat(%w[Delivered Feedback Undefined Vacation])
-      names.each do |e|
+      while e = names.shift do
         # Call .description() method of Sisimai::Reason::*
         r = 'Sisimai::Reason::' << e
         require r.gsub('::', '/').downcase

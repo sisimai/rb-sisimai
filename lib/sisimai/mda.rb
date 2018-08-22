@@ -118,7 +118,8 @@ module Sisimai
 
         MessagesOf[agentname0.to_sym].each_key do |e|
           # Detect an error reason from message patterns of the MDA.
-          linebuffer.each do |f|
+          duplicated = linebuffer.dup
+          while f = duplicated.shift do
             # Whether the error message include each message defined in $MessagesOf
             g = f.downcase
             next unless MessagesOf[agentname0.to_sym][e].find { |a| g.include?(a) }

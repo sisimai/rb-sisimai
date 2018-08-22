@@ -185,7 +185,7 @@ module Sisimai
           table = {}
           skips = { 'return-path' => 1, 'x-mailer' => 1 }
 
-          order.each do |e|
+          while e = order.shift do
             # Load email headers from each MTA module
             require e.gsub('::', '/').downcase
 

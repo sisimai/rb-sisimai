@@ -143,7 +143,7 @@ module Sisimai
           end
         end
 
-        modulelist.each do |e|
+        while e = modulelist.shift do
           # Append the custom order of MTA modules
           next if tobeloaded.index(e)
           tobeloaded << e
@@ -466,6 +466,7 @@ module Sisimai
         end
         bodystring << EndOfEmail
         haveloaded = {}
+        defaultset = DefaultSet.dup
         scannedset = nil
 
         catch :SCANNER do
@@ -483,7 +484,7 @@ module Sisimai
               throw :SCANNER if scannedset
             end
 
-            tobeloaded.each do |r|
+            while r = tobeloaded.shift do
               # Call user defined MTA modules
               next if haveloaded[r]
               #require r.gsub('::', '/').downcase
@@ -492,7 +493,7 @@ module Sisimai
               throw :SCANNER if scannedset
             end
 
-            tryonfirst.each do |r|
+            while r = tryonfirst.shift do
               # Try MTA module candidates which are detected from MTA specific
               # mail headers on first
               next if haveloaded.key?(r)
@@ -502,7 +503,7 @@ module Sisimai
               throw :SCANNER if scannedset
             end
 
-            DefaultSet.each do |r|
+            while r = defaultset.shift do
               # MTA modules which does not have MTA specific header and did
               # not match with any regular expressions of Subject header.
               next if haveloaded.key?(r)

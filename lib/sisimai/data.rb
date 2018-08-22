@@ -130,7 +130,8 @@ module Sisimai
         fieldorder[e] = AddrHeader[e]
       end
 
-      messageobj.ds.each do |e|
+      eachobject = messageobj.ds.dup
+      while e = eachobject.shift do
         # Create parameters for new() constructor.
         p = {
           'catch'          => messageobj.catch  || nil,

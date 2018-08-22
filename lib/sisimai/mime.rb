@@ -58,7 +58,7 @@ module Sisimai
         notmimetext0 = ''
         notmimetext1 = ''
 
-        argvs.each do |e|
+        while e = argvs.shift do
           # Check and decode each element
           e = e.strip
           e = e.delete('"')

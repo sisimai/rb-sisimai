@@ -747,7 +747,7 @@ module Sisimai
             %r/\b(2[.][0-7][.][0-7])\b/,              # 2.1.5
           ]
 
-          regularexp.each do |e|
+          while e = regularexp.shift do
             # Get the value of D.S.N. in the text
             next unless r = argv1.match(e)
             foundvalue = r[1]

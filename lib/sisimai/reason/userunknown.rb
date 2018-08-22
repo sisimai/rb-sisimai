@@ -168,7 +168,7 @@ module Sisimai
             prematches = %w[NoRelaying Blocked MailboxFull HasMoved Blocked Rejected]
             matchother = false
 
-            prematches.each do |e|
+            while e = prematches.shift do
               # Check the value of "Diagnostic-Code" with other error patterns.
               p = 'Sisimai::Reason::' << e
               r = nil
