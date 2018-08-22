@@ -184,7 +184,7 @@ module Sisimai::Bite::Email
         end
         return nil unless recipients > 0
 
-        dscontents.map do |e|
+        dscontents.each do |e|
           if e['alterrors'].to_s.size > 0
             # Copy alternative error message
             e['diagnosis'] ||= e['alterrors']

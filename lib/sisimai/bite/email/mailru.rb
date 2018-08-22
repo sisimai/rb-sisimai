@@ -188,7 +188,7 @@ module Sisimai::Bite::Email
         end
         require 'sisimai/string'
 
-        dscontents.map do |e|
+        dscontents.each do |e|
           # Set default values if each value is empty.
           e['lhost'] ||= localhost0
 

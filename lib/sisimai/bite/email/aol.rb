@@ -166,7 +166,7 @@ module Sisimai::Bite::Email
 
         require 'sisimai/string'
         require 'sisimai/smtp/status'
-        dscontents.map do |e|
+        dscontents.each do |e|
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
 

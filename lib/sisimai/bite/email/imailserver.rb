@@ -123,7 +123,7 @@ module Sisimai::Bite::Email
         return nil unless recipients > 0
 
         require 'sisimai/string'
-        dscontents.map do |e|
+        dscontents.each do |e|
           e['agent'] = self.smtpagent
 
           if e['alterrors'].to_s.size > 0

@@ -125,7 +125,7 @@ module Sisimai::Bite::Email
         return nil unless recipients > 0
 
         require 'sisimai/string'
-        dscontents.map do |e|
+        dscontents.each do |e|
           if mhead['received'].size > 0
             # Get localhost and remote host name from Received header.
             rheads = mhead['received']

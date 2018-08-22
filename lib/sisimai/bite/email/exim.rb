@@ -324,7 +324,7 @@ module Sisimai::Bite::Email
 
         if recipients > 0
           # Check "an undisclosed address", "unroutable address"
-          dscontents.map do |q|
+          dscontents.each do |q|
             # Replace the recipient address with the value of "alias"
             next unless q['alias']
             next unless q['alias'].size > 0
@@ -366,7 +366,7 @@ module Sisimai::Bite::Email
         require 'sisimai/string'
         require 'sisimai/smtp/reply'
         require 'sisimai/smtp/status'
-        dscontents.map do |e|
+        dscontents.each do |e|
           # Set default values if each value is empty.
           e['agent']   = self.smtpagent
           e['lhost'] ||= localhost0

@@ -130,7 +130,7 @@ module Sisimai::Bite::Email
         return nil unless recipients > 0
 
         require 'sisimai/string'
-        dscontents.map do |e|
+        dscontents.each do |e|
           e['agent']     = smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'] || diagnostic)
 

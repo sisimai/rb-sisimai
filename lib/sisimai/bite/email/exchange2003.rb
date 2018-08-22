@@ -215,7 +215,7 @@ module Sisimai::Bite::Email
 
         require 'sisimai/string'
         require 'sisimai/smtp/status'
-        dscontents.map do |e|
+        dscontents.each do |e|
           if cv = e['diagnosis'].match(/\AMSEXCH:.+[ \t]*[(]([0-9A-F]{8})[)][ \t]*(.*)\z/)
             #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
             capturedcode = cv[1]

@@ -115,7 +115,7 @@ module Sisimai::Bite::Email
         return nil unless recipients > 0
 
         require 'sisimai/smtp/status'
-        dscontents.map do |e|
+        dscontents.each do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 

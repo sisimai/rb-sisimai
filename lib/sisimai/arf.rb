@@ -275,7 +275,7 @@ module Sisimai
             'This is a Microsoft email abuse report for an email message received from IP' << arfheaders[:rhost] + ' on ' << mhead['date']
         end
 
-        dscontents.map do |e|
+        dscontents.each do |e|
           if e['recipient'] =~ /\A[^ ]+[@]\z/
             # AOL = http://forums.cpanel.net/f43/aol-brutal-work-71473.html
             e['recipient'] = Sisimai::Address.s3s4(rcptintext)

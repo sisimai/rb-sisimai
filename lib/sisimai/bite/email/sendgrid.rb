@@ -170,7 +170,7 @@ module Sisimai::Bite::Email
 
         require 'sisimai/string'
         require 'sisimai/smtp/status'
-        dscontents.map do |e|
+        dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
           # Get the value of SMTP status code as a pseudo D.S.N.

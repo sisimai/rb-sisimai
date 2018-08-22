@@ -144,7 +144,7 @@ module Sisimai::Bite::Email
 
         require 'sisimai/string'
         require 'sisimai/smtp/status'
-        dscontents.map do |e|
+        dscontents.each do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           e['recipient'] = Sisimai::Address.s3s4(e['recipient'])

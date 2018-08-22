@@ -215,7 +215,7 @@ module Sisimai::Bite::Email
         end
 
         require 'sisimai/string'
-        dscontents.map do |e|
+        dscontents.each do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
