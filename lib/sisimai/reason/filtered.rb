@@ -48,7 +48,6 @@ module Sisimai
         def true(argvs)
           return true if argvs.reason == 'filtered'
 
-          require 'sisimai/smtp/status'
           require 'sisimai/reason/userunknown'
           commandtxt = argvs.smtpcommand || ''
           diagnostic = argvs.diagnosticcode.downcase || ''

@@ -48,8 +48,6 @@ module Sisimai
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
           return true if argvs.reason == 'toomanyconn'
-
-          require 'sisimai/smtp/status'
           return true if Sisimai::SMTP::Status.name(argvs.deliverystatus) == 'toomanyconn'
           return true if match(argvs.diagnosticcode.downcase)
           return false

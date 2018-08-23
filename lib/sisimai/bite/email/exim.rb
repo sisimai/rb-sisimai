@@ -168,7 +168,6 @@ module Sisimai::Bite::Email
         if mhead['content-type']
           # Get the boundary string and set regular expression for matching with
           # the boundary string.
-          require 'sisimai/mime'
           boundary00 = Sisimai::MIME.boundary(mhead['content-type']) || ''
         end
 
@@ -363,9 +362,6 @@ module Sisimai::Bite::Email
           end
         end
 
-        require 'sisimai/string'
-        require 'sisimai/smtp/reply'
-        require 'sisimai/smtp/status'
         dscontents.each do |e|
           # Set default values if each value is empty.
           e['agent']   = self.smtpagent

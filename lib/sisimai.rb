@@ -26,9 +26,6 @@ module Sisimai
     def make(argv0, **argv1)
       return nil unless argv0
 
-      require 'sisimai/data'
-      require 'sisimai/message'
-
       input = argv1[:input] || nil
       field = argv1[:field] || []
       raise ' ***error: "field" accepts an array only' unless field.is_a? Array
@@ -49,6 +46,8 @@ module Sisimai
       hookmethod = argv1[:hook] || nil
       bouncedata = []
 
+      require 'sisimai/data'
+      require 'sisimai/message'
       if input == 'email'
         # Path to mailbox or Maildir/, or STDIN: 'input' => 'email'
         require 'sisimai/mail'

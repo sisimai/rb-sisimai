@@ -27,8 +27,6 @@ module Sisimai
         def true(argvs)
           return nil unless argvs.deliverystatus.size > 0
           return true if argvs.reason == 'onhold'
-
-          require 'sisimai/smtp/status'
           return true if Sisimai::SMTP::Status.name(argvs.deliverystatus) == 'onhold'
           return false
         end

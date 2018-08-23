@@ -28,7 +28,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        require 'sisimai/mime'
         match  = 0
         match += 1 if mhead['to'].to_s.include?('NotificationRecipients')
         if mhead['from'].include?('TWFpbCBEZWxpdmVyeSBTdWJzeXN0ZW0')
@@ -147,7 +146,6 @@ module Sisimai::Bite::Email
         end
         return nil unless recipients > 0
 
-        require 'sisimai/string'
         dscontents.each do |e|
           e['agent']       = self.smtpagent
           e['diagnosis'] ||= Sisimai::String.sweep(e['diagnosis'])

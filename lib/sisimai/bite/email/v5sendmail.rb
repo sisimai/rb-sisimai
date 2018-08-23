@@ -159,7 +159,6 @@ module Sisimai::Bite::Email
         end
         return nil unless recipients > 0
 
-        require 'sisimai/string'
         dscontents.each do |e|
           errorindex += 1
           e['agent']   = self.smtpagent

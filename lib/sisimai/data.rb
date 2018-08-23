@@ -3,12 +3,8 @@ module Sisimai
   class Data
     # Imported from p5-Sisimail/lib/Sisimai/Data.pm
     require 'sisimai/address'
-    require 'sisimai/rfc5322'
-    require 'sisimai/smtp/error'
-    require 'sisimai/smtp/reply'
-    require 'sisimai/smtp/status'
-    require 'sisimai/string'
     require 'sisimai/reason'
+    require 'sisimai/string'
     require 'sisimai/rhost'
     require 'sisimai/time'
     require 'sisimai/datetime'

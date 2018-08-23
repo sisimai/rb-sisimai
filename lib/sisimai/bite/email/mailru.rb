@@ -186,7 +186,6 @@ module Sisimai::Bite::Email
             localhost0 = cv[1]
           end
         end
-        require 'sisimai/string'
 
         dscontents.each do |e|
           # Set default values if each value is empty.

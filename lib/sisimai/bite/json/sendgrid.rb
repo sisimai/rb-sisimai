@@ -21,12 +21,6 @@ module Sisimai::Bite::JSON
         return nil unless argvs.key?('email')
         return nil unless Sisimai::RFC5322.is_emailaddress(argvs['email'])
 
-        require 'sisimai/string'
-        require 'sisimai/address'
-        require 'sisimai/datetime'
-        require 'sisimai/smtp/reply'
-        require 'sisimai/smtp/status'
-
         dscontents = nil
         rfc822head = {}
         v = nil

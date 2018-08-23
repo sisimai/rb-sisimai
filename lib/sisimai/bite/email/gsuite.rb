@@ -39,7 +39,6 @@ module Sisimai::Bite::Email
         return nil unless mhead['subject'].start_with?('Delivery Status Notification')
         return nil unless mhead['x-gm-message-state']
 
-        require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         rfc822list = []     # (Array) Each line in message/rfc822 part string
@@ -192,9 +191,6 @@ module Sisimai::Bite::Email
         end
         return nil unless recipients > 0
 
-        require 'sisimai/string'
-        require 'sisimai/smtp/reply'
-        require 'sisimai/smtp/status'
         dscontents.each do |e|
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }

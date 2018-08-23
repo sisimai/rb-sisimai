@@ -36,7 +36,6 @@ module Sisimai::Bite::Email
         return nil unless mhead['return-path'] == '<apps@sendgrid.net>'
         return nil unless mhead['subject'] == 'Undelivered Mail Returned to Sender'
 
-        require 'sisimai/datetime'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         havepassed = ['']
@@ -168,8 +167,6 @@ module Sisimai::Bite::Email
         end
         return nil unless recipients > 0
 
-        require 'sisimai/string'
-        require 'sisimai/smtp/status'
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 

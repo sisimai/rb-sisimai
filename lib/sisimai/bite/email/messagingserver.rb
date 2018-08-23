@@ -5,8 +5,7 @@ module Sisimai::Bite::Email
   module MessagingServer
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite/Email/MessagingServer.pm
-      require 'sisimai/bite'
-      require 'sisimai/rfc5322'
+      require 'sisimai/bite/email'
 
       Indicators = Sisimai::Bite::Email.INDICATORS
       StartingOf = { message: ['This report relates to a message you sent with the following header fields:'] }.freeze
@@ -35,7 +34,6 @@ module Sisimai::Bite::Email
         match += 1 if mhead['subject'].start_with?('Delivery Notification: ')
         return nil unless match > 0
 
-        require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         rfc822list = []     # (Array) Each line in message/rfc822 part string
@@ -167,7 +165,6 @@ module Sisimai::Bite::Email
         end
         return nil unless recipients > 0
 
-        require 'sisimai/string'
         dscontents.each do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])

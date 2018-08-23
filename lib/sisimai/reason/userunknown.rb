@@ -155,7 +155,6 @@ module Sisimai
         def true(argvs)
           return true if argvs.reason == 'userunknown'
 
-          require 'sisimai/smtp/status'
           diagnostic = argvs.diagnosticcode.downcase;
           tempreason = Sisimai::SMTP::Status.name(argvs.deliverystatus)
           return false if tempreason == 'suspend'

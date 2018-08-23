@@ -45,8 +45,6 @@ module Sisimai::Bite::Email
         match += 1 if mhead['received'].any? { |a| a.include?('.au.com (') }
         return nil unless match > 0
 
-        require 'sisimai/string'
-        require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         rfc822list = []     # (Array) Each line in message/rfc822 part string
@@ -114,7 +112,6 @@ module Sisimai::Bite::Email
         end
         return nil unless recipients > 0
 
-        require 'sisimai/smtp/status'
         dscontents.each do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])

@@ -80,7 +80,6 @@ module Sisimai
         #                                   false: is not rejected by the sender
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          require 'sisimai/smtp/status'
           tempreason = Sisimai::SMTP::Status.name(argvs.deliverystatus)
           tempreason = 'undefined' if tempreason.empty?
           diagnostic = argvs.diagnosticcode.downcase

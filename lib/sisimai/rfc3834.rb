@@ -79,7 +79,6 @@ module Sisimai
         return nil if match < 1
 
         require 'sisimai/bite/email'
-        require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.scrub('?').split("\n")
         rfc822part = '' # (String) message/rfc822-headers part
@@ -109,7 +108,6 @@ module Sisimai
         if mhead['content-type']
           # Get the boundary string and set regular expression for matching with
           # the boundary string.
-          require 'sisimai/mime'
           b0 = Sisimai::MIME.boundary(mhead['content-type'], 0)
           MarkingsOf[:boundary] = %r/\A\Q#{b0}\E\z/ unless b0.empty?
         end
@@ -135,8 +133,6 @@ module Sisimai
           break if haveloaded >= maxmsgline
         end
         v['diagnosis'] ||= mhead['subject']
-
-        require 'sisimai/string'
         v['diagnosis'] = Sisimai::String.sweep(v['diagnosis'])
         v['reason']    = 'vacation'
         v['agent']     = self.smtpagent

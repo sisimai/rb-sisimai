@@ -8,9 +8,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Message/Email.pm
       require 'sisimai/arf'
       require 'sisimai/mime'
-      require 'sisimai/string'
       require 'sisimai/rfc3834'
-      require 'sisimai/rfc5322'
       require 'sisimai/order/email'
 
       @@ToBeLoaded = []

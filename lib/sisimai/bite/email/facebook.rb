@@ -206,7 +206,6 @@ module Sisimai::Bite::Email
           end
         end
         return nil unless recipients > 0
-        require 'sisimai/string'
 
         dscontents.each do |e|
           e['lhost']   ||= connheader['lhost']

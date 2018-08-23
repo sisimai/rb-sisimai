@@ -138,7 +138,6 @@ module Sisimai::Bite::Email
           rfc822list << ('Subject: ' << subjecttxt)
         end
 
-        require 'sisimai/string'
         dscontents.each do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'] || diagnostic)

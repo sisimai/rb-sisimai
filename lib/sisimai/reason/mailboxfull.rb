@@ -81,7 +81,6 @@ module Sisimai
           # Delivery status code points "mailboxfull".
           # Status: 4.2.2
           # Diagnostic-Code: SMTP; 450 4.2.2 <***@example.jp>... Mailbox Full
-          require 'sisimai/smtp/status'
           return true if Sisimai::SMTP::Status.name(argvs.deliverystatus) == 'mailboxfull'
 
           # Check the value of Diagnosic-Code: header with patterns

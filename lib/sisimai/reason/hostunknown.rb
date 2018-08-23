@@ -47,7 +47,6 @@ module Sisimai
         def true(argvs)
           return true if argvs.reason == 'hostunknown'
 
-          require 'sisimai/smtp/status'
           diagnostic = argvs.diagnosticcode.downcase || ''
           statuscode = argvs.deliverystatus || ''
 

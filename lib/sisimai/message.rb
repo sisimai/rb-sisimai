@@ -5,12 +5,11 @@ module Sisimai
   # method is not a bounce email, the method returns nil.
   class Message
     # Imported from p5-Sisimail/lib/Sisimai/Message.pm
-    require 'sisimai/arf'
-    require 'sisimai/mime'
     require 'sisimai/order'
     require 'sisimai/string'
-    require 'sisimai/rfc3834'
+    require 'sisimai/address'
     require 'sisimai/rfc5322'
+    require 'sisimai/smtp/error'
 
     @@rwaccessors = [
       :from,    # [String] UNIX From line

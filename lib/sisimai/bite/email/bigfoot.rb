@@ -32,7 +32,6 @@ module Sisimai::Bite::Email
         match += 1 if mhead['received'].any? { |a| a.include?('.bigfoot.com') }
         return nil unless match > 0
 
-        require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         havepassed = ['']
@@ -168,7 +167,6 @@ module Sisimai::Bite::Email
         end
         return nil unless recipients > 0
 
-        require 'sisimai/string'
         dscontents.each do |e|
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }

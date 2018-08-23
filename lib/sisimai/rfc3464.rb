@@ -44,7 +44,6 @@ module Sisimai
       #                                   or nil if it failed to parse or the
       def scan(mhead, mbody)
         require 'sisimai/mda'
-        require 'sisimai/address'
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.scrub('?').split("\n")
@@ -426,8 +425,6 @@ module Sisimai
         end
         return nil unless recipients > 0
 
-        require 'sisimai/string'
-        require 'sisimai/smtp/status'
         dscontents.each do |e|
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }

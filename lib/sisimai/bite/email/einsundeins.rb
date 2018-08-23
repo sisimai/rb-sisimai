@@ -103,7 +103,6 @@ module Sisimai::Bite::Email
         end
         return nil unless recipients > 0
 
-        require 'sisimai/string'
         dscontents.each do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = e['diagnosis'].to_s.gsub(/\A#{StartingOf[:error][0]}/, '')

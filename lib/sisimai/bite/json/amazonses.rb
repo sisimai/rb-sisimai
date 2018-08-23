@@ -103,7 +103,6 @@ module Sisimai::Bite::JSON
         return nil unless argvs.keys.size > 0
         return nil unless argvs.key?('notificationType')
 
-        require 'sisimai/rfc5322'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         rfc822head = {}   # (Hash) Check flags for headers in RFC822 part
         recipients = 0    # (Integer) The number of 'Final-Recipient' header
@@ -175,9 +174,6 @@ module Sisimai::Bite::JSON
           end
         elsif argvs['notificationType'] == 'Delivery'
           # { "notificationType":"Delivery", "delivery": { ...
-          require 'sisimai/smtp/status'
-          require 'sisimai/smtp/reply'
-
           o = argvs['delivery'].dup
           r = o['recipients'] || []
 

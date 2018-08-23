@@ -35,8 +35,6 @@ module Sisimai::Bite::Email
         end
         return nil if match < 0
 
-        require 'sisimai/mime'
-        require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         rfc822list = []     # (Array) Each line in message/rfc822 part string
@@ -214,7 +212,6 @@ module Sisimai::Bite::Email
           rfc822list << ('Subject: ' << subjecttxt)
         end
 
-        require 'sisimai/string'
         dscontents.each do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])

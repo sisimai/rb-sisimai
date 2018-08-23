@@ -112,9 +112,6 @@ module Sisimai
         diagnostic = argvs.diagnosticcode.downcase || ''
         commandtxt = argvs.smtpcommand    || ''
         trytomatch = nil
-        reasontext = ''
-
-        require 'sisimai/smtp/status'
         reasontext = Sisimai::SMTP::Status.name(statuscode)
 
         catch :TRY_TO_MATCH do

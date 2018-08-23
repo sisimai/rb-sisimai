@@ -185,7 +185,6 @@ module Sisimai::Bite::Email
           end
         end
 
-        require 'sisimai/string'
         dscontents.each do |e|
           e['agent'] = self.smtpagent
           e['lhost'] = localhost0

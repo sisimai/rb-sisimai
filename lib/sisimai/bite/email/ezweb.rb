@@ -65,8 +65,6 @@ module Sisimai::Bite::Email
         end
         return nil if match < 2
 
-        require 'sisimai/string'
-        require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         rfc822list = []     # (Array) Each line in message/rfc822 part string
@@ -79,7 +77,6 @@ module Sisimai::Bite::Email
         if mhead['content-type']
           # Get the boundary string and set regular expression for matching with
           # the boundary string.
-          require 'sisimai/mime'
           b0 = Sisimai::MIME.boundary(mhead['content-type'], 1)
           if b0.size > 0
             # Convert to regular expression

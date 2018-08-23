@@ -35,7 +35,6 @@ module Sisimai::Bite::Email
         return nil unless mhead['x-nai-header'].start_with?('Modified by McAfee ')
         return nil unless mhead['subject'] == 'Delivery Status'
 
-        require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         havepassed = ['']
@@ -129,7 +128,6 @@ module Sisimai::Bite::Email
         end
         return nil unless recipients > 0
 
-        require 'sisimai/string'
         dscontents.each do |e|
           e['agent']     = smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'] || diagnostic)

@@ -44,7 +44,6 @@ module Sisimai
         def true(argvs)
           return true if argvs.reason == 'mesgtoobig'
 
-          require 'sisimai/smtp/status'
           statuscode = argvs.deliverystatus || ''
           tempreason = Sisimai::SMTP::Status.name(statuscode)
 

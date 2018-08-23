@@ -4,7 +4,6 @@ module Sisimai
     # Imported from p5-Sisimail/lib/Sisimai/ARF.pm
     class << self
       require 'sisimai/bite/email'
-      require 'sisimai/rfc5322'
 
       # http://tools.ietf.org/html/rfc5965
       # http://en.wikipedia.org/wiki/Feedback_loop_(email)
@@ -78,7 +77,6 @@ module Sisimai
       def scan(mhead, mbody)
         return nil unless self.is_arf(mhead)
 
-        require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         rfc822part = ''   # (String) message/rfc822-headers part

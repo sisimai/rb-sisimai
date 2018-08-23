@@ -141,7 +141,6 @@ module Sisimai::Bite::Email
         end
         return nil unless recipients > 0
 
-        require 'sisimai/string'
         dscontents.each do |e|
           if cv = e['diagnosis'].match(MarkingsOf[:error])
             # #550 5.1.1 RESOLVER.ADR.RecipNotFound; not found ##

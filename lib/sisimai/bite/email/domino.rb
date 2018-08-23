@@ -39,7 +39,6 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead['subject'].start_with?('DELIVERY FAILURE:')
 
-        require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         rfc822list = []     # (Array) Each line in message/rfc822 part string
@@ -126,8 +125,6 @@ module Sisimai::Bite::Email
         end
         return nil unless recipients > 0
 
-        require 'sisimai/string'
-        require 'sisimai/smtp/status'
         dscontents.each do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
