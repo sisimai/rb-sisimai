@@ -191,7 +191,7 @@ module Sisimai::Bite::Email
 
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
+            next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
             break
           end

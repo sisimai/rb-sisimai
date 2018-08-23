@@ -176,7 +176,7 @@ module Sisimai
                 mustencode = true
                 while true do
                   break if e.end_with?(' ', "\t")
-                  break if e.split('').find { |c| c.ord < 32 || c.ord > 126 }
+                  break if e.split('').any? { |c| c.ord < 32 || c.ord > 126 }
                   if e.end_with?('=')
                     # Padding character of Base64 or not
                     break if e =~ /[\+\/0-9A-Za-z]{32,}[=]+\z/

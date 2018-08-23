@@ -121,7 +121,7 @@ module Sisimai
 
           StatusList[statuscode.to_sym].each do |e|
             # Try to match
-            next unless e[:regexp].find { |a| argvs.diagnosticcode.include?(a) }
+            next unless e[:regexp].any? { |a| argvs.diagnosticcode.include?(a) }
             reasontext = e[:reason]
             break
           end

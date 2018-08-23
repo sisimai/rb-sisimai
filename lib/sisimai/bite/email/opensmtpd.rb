@@ -83,7 +83,7 @@ module Sisimai::Bite::Email
       def scan(mhead, mbody)
         return nil unless mhead['subject'].start_with?('Delivery status notification')
         return nil unless mhead['from'].start_with?('Mailer Daemon <')
-        return nil unless mhead['received'].find { |a| a.include?(' (OpenSMTPD) with ') }
+        return nil unless mhead['received'].any? { |a| a.include?(' (OpenSMTPD) with ') }
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -157,7 +157,7 @@ module Sisimai::Bite::Email
 
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
+            next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
             break
           end

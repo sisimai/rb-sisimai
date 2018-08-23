@@ -98,7 +98,7 @@ module Sisimai::Bite::Email
         match += 1 if mhead['x-ms-exchange-crosstenant-originalarrivaltime']
         match += 1 if mhead['x-ms-exchange-crosstenant-fromentityheader']
         match += 1 if mhead['x-ms-exchange-transport-crosstenantheadersstamped']
-        match += 1 if mhead['received'].find { |a| a =~ tryto }
+        match += 1 if mhead['received'].any? { |a| a =~ tryto }
         if mhead['message-id']
           # Message-ID: <00000000-0000-0000-0000-000000000000@*.*.prod.outlook.com>
           match += 1 if mhead['message-id'] =~ tryto

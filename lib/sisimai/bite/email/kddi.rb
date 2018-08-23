@@ -41,8 +41,8 @@ module Sisimai::Bite::Email
         match  = 0
         match += 1 if mhead['from'] =~ /no-reply[@].+[.]dion[.]ne[.]jp/
         match += 1 if mhead['reply-to'].to_s == 'no-reply@app.auone-net.jp'
-        match += 1 if mhead['received'].find { |a| a.include?('ezweb.ne.jp (') }
-        match += 1 if mhead['received'].find { |a| a.include?('.au.com (') }
+        match += 1 if mhead['received'].any? { |a| a.include?('ezweb.ne.jp (') }
+        match += 1 if mhead['received'].any? { |a| a.include?('.au.com (') }
         return nil unless match > 0
 
         require 'sisimai/string'
@@ -132,7 +132,7 @@ module Sisimai::Bite::Email
               # SMTP command is not RCPT
               MessagesOf.each_key do |r|
                 # Verify each regular expression of session errors
-                next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
+                next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
                 e['reason'] = r.to_s
                 break
               end

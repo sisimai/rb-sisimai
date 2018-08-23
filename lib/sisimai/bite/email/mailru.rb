@@ -239,7 +239,7 @@ module Sisimai::Bite::Email
               # Verify each regular expression of session errors
               MessagesOf.each_key do |r|
                 # Check each regular expression
-                next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
+                next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
                 e['reason'] = r.to_s
                 break
               end

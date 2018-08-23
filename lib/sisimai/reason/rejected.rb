@@ -69,8 +69,8 @@ module Sisimai
             'you are sending to/from an address that has been blacklisted',
           ]
 
-          return false if isnot.find { |a| argv1.include?(a) }
-          return true  if index.find { |a| argv1.include?(a) }
+          return false if isnot.any? { |a| argv1.include?(a) }
+          return true  if index.any? { |a| argv1.include?(a) }
           return false
         end
 

@@ -142,7 +142,7 @@ module Sisimai::Bite::Email
         tryto  = %r/\A[(]qmail[ ]+\d+[ ]+invoked[ ]+for[ ]+bounce[)]/
         match  = 0
         match += 1 if mhead['subject'].start_with?('failure notice', 'Permanent Delivery Failure')
-        match += 1 if mhead['received'].find { |a| a =~ tryto }
+        match += 1 if mhead['received'].any? { |a| a =~ tryto }
         return nil unless match > 0
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -257,12 +257,12 @@ module Sisimai::Bite::Email
                 # Verify each regular expression of session errors
                 if e['alterrors']
                   # Check the value of "alterrors"
-                  next unless MessagesOf[r].find { |a| e['alterrors'].include?(a) }
+                  next unless MessagesOf[r].any? { |a| e['alterrors'].include?(a) }
                   e['reason'] = r.to_s
                 end
                 break if e['reason']
 
-                next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
+                next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
                 e['reason'] = r.to_s
                 break
               end
@@ -270,7 +270,7 @@ module Sisimai::Bite::Email
               unless e['reason']
                 FailOnLDAP.each_key do |r|
                   # Verify each regular expression of LDAP errors
-                  next unless FailOnLDAP[r].find { |a| e['diagnosis'].include?(a) }
+                  next unless FailOnLDAP[r].any? { |a| e['diagnosis'].include?(a) }
                   e['reason'] = r.to_s
                   break
                 end

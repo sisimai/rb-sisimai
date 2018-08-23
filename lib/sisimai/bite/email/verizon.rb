@@ -28,7 +28,7 @@ module Sisimai::Bite::Email
         while true
           # Check the value of "From" header
           # :'subject' => %r/Undeliverable Message/,
-          break unless mhead['received'].find { |a| a.include?('.vtext.com (') }
+          break unless mhead['received'].any? { |a| a.include?('.vtext.com (') }
           match = 1 if mhead['from'] == 'post_master@vtext.com'
           match = 0 if mhead['from'] =~ /[<]?sysadmin[@].+[.]vzwpix[.]com[>]?\z/
           break
@@ -205,11 +205,11 @@ module Sisimai::Bite::Email
         end
         return nil unless recipients > 0
 
-        if !rfc822list.find { |a| a.start_with?('From: ') }
+        if rfc822list.none? { |a| a.start_with?('From: ') }
           # Set the value of "MAIL FROM:" or "From:"
           rfc822list << ('From: ' << senderaddr)
 
-        elsif !rfc822list.find { |a| a.start_with?('Subject: ') }
+        elsif rfc822list.none? { |a| a.start_with?('Subject: ') }
           # Set the value of "Subject:"
           rfc822list << ('Subject: ' << subjecttxt)
         end
@@ -221,7 +221,7 @@ module Sisimai::Bite::Email
 
           messagesof.each_key do |r|
             # Verify each regular expression of session errors
-            next unless messagesof[r].find { |a| e['diagnosis'].include?(a) }
+            next unless messagesof[r].any? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
             break
           end

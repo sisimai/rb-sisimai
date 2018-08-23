@@ -135,7 +135,7 @@ module Sisimai::Bite::Email
 
           MessagesOf.each_key do |r|
             # Check each regular expression of Domino error messages
-            next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
+            next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
             pseudostatus = Sisimai::SMTP::Status.code(r.to_s, false)
             e['status'] = pseudostatus if pseudostatus.size > 0
@@ -144,7 +144,7 @@ module Sisimai::Bite::Email
           e.each_key { |a| e[a] ||= '' }
         end
 
-        unless rfc822list.find { |a| a.start_with?('Subject:') }
+        unless rfc822list.any? { |a| a.start_with?('Subject:') }
           # Set the value of subjecttxt as a Subject if there is no original
           # message in the bounce mail.
           rfc822list << ('Subject: ' << subjecttxt)

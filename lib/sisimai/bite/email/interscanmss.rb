@@ -39,7 +39,7 @@ module Sisimai::Bite::Email
           '=?iso-2022-jp?B?GyRCJWEhPCVrR1s/LiRLPDpHVCQ3JF4kNyQ/GyhCDQo=?=',
         ]
         match += 1 if mhead['from'].start_with?('"InterScan MSS"')
-        match += 1 if tryto.find { |a| mhead['subject'] == a }
+        match += 1 if tryto.any? { |a| mhead['subject'] == a }
         return nil unless match > 0
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]

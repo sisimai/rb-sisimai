@@ -58,8 +58,8 @@ module Sisimai::Bite::Email
         match += 1 if mhead['from'].include?('Postmaster@ezweb.ne.jp')
         match += 1 if mhead['from'].include?('Postmaster@au.com')
         match += 1 if mhead['subject'] == 'Mail System Error - Returned Mail'
-        match += 1 if mhead['received'].find { |a| a.include?('ezweb.ne.jp (EZweb Mail) with') }
-        match += 1 if mhead['received'].find { |a| a.include?('.au.com (') }
+        match += 1 if mhead['received'].any? { |a| a.include?('ezweb.ne.jp (EZweb Mail) with') }
+        match += 1 if mhead['received'].any? { |a| a.include?('.au.com (') }
         if mhead['message-id']
           match += 1 if mhead['message-id'].end_with?('.ezweb.ne.jp>', '.au.com>')
         end
@@ -169,7 +169,7 @@ module Sisimai::Bite::Email
                 v['command'] = cv[1]
               else
                 # Check error message
-                if rxmessages.find { |a| e =~ a }
+                if rxmessages.any? { |a| e =~ a }
                   # Check with regular expressions of each error
                   v['diagnosis'] ||= ''
                   v['diagnosis'] << ' ' << e

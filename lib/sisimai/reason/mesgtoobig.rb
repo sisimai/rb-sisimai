@@ -32,7 +32,7 @@ module Sisimai
             'taille limite du message atteinte',
           ]
 
-          return true if index.find { |a| argv1.include?(a) }
+          return true if index.any? { |a| argv1.include?(a) }
           return false
         end
 

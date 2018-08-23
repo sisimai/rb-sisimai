@@ -41,7 +41,7 @@ module Sisimai::Bite::Email
         match += 1 if mhead['subject'].start_with?('Delivery Status Notification')
         match += 1 if mhead['x-message-delivery']
         match += 1 if mhead['x-message-info']
-        match += 1 if mhead['received'].find { |a| a.include?('.hotmail.com') }
+        match += 1 if mhead['received'].any? { |a| a.include?('.hotmail.com') }
         return nil if match < 2
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -176,7 +176,7 @@ module Sisimai::Bite::Email
 
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
+            next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
             break
           end

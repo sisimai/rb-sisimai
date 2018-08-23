@@ -35,7 +35,7 @@ module Sisimai::Bite::Email
         match  = 0
         match += 1 if mhead['subject'] == '[BOUNCE]'
         match += 1 if mhead['message-id'].to_s.include?('.JavaMail.')
-        match += 1 if mhead['received'].find { |a| a.include?('JAMES SMTP Server') }
+        match += 1 if mhead['received'].any? { |a| a.include?('JAMES SMTP Server') }
         return nil unless match > 0
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -132,7 +132,7 @@ module Sisimai::Bite::Email
         end
         return nil unless recipients > 0
 
-        unless rfc822list.find { |a| a.start_with?('Subject:') }
+        unless rfc822list.any? { |a| a.start_with?('Subject:') }
           # Set the value of subjecttxt as a Subject if there is no original
           # message in the bounce mail.
           rfc822list << ('Subject: ' << subjecttxt)

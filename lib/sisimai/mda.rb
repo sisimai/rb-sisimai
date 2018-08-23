@@ -122,7 +122,7 @@ module Sisimai
           while f = duplicated.shift do
             # Whether the error message include each message defined in $MessagesOf
             g = f.downcase
-            next unless MessagesOf[agentname0.to_sym][e].find { |a| g.include?(a) }
+            next unless MessagesOf[agentname0.to_sym][e].any? { |a| g.include?(a) }
             reasonname = e.to_s
             bouncemesg = f
             break

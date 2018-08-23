@@ -30,7 +30,7 @@ module Sisimai::Bite::Email
       #                                   the arguments are missing
       def scan(mhead, mbody)
         return nil unless mhead['subject'] == 'Message delivery has failed'
-        return nil unless mhead['received'].find { |a| a.include?('(MAILFOUNDRY) id ') }
+        return nil unless mhead['received'].any? { |a| a.include?('(MAILFOUNDRY) id ') }
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
