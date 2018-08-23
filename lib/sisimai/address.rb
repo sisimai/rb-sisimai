@@ -67,7 +67,7 @@ module Sisimai
 
       while e = characters.shift do
         # Check each characters
-        if %w[< > ( ) " ,].detect { |r| r == e }
+        if %w[< > ( ) " ,].any? { |r| r == e }
           # The character is a delimiter character
           if e == ','
             # Separator of email addresses or not
