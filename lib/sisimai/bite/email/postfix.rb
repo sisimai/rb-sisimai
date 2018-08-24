@@ -160,7 +160,7 @@ module Sisimai::Bite::Email
 
                 elsif p.start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
                   # Continued line of the value of Diagnostic-Code header
-                  v['diagnosis'] << ' ' << cv[1]
+                  v['diagnosis'] = ' ' << cv[1]
                   havepassed[-1] = 'Diagnostic-Code: ' << e
                 end
               end
