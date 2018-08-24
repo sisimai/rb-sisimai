@@ -110,7 +110,7 @@ module Sisimai::Bite::Email
                 # 550 5.1.1 User unknown
                 v['diagnosis'] = e
 
-              elsif v['diagnosis'].to_s.size > 0 && endoferror == false
+              elsif !v['diagnosis'].to_s.empty? && endoferror == false
                 # Append error messages
                 endoferror = true if e.start_with?(StartingOf[:rcpts][0])
                 next if endoferror

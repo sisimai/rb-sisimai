@@ -95,7 +95,7 @@ module Sisimai
       # @return        [Array]        Order of MTA(JSON) modules
       def self.makeorder(argvs)
         return [] unless argvs
-        return [] unless argvs.keys.size > 0
+        return [] if argvs.empty?
         order = []
 
         # Seek some key names from given argument

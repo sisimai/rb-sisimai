@@ -79,7 +79,7 @@ module Sisimai::Bite::Email
               throw :EXCHANGE_OR_NOT if match > 0
             end
 
-            throw :EXCHANGE_OR_NOT unless mhead['received'].size > 0
+            throw :EXCHANGE_OR_NOT if mhead['received'].empty?
             mhead['received'].each do |e|
               # Received: by ***.**.** with Internet Mail Service (5.5.2657.72)
               next unless e.include?(' with Internet Mail Service (')
@@ -190,13 +190,13 @@ module Sisimai::Bite::Email
               #
               if cv = e.match(/\A[ \t]+To:[ \t]+(.+)\z/)
                 #  To:      shironeko@example.jp
-                next if connheader['to'].size > 0
+                next unless connheader['to'].empty?
                 connheader['to'] = cv[1]
                 connvalues += 1
 
               elsif cv = e.match(/\A[ \t]+Subject:[ \t]+(.+)\z/)
                 #  Subject: ...
-                next if connheader['subject'].size > 0
+                next unless connheader['subject'].empty?
                 connheader['subject'] = cv[1]
                 connvalues += 1
 
@@ -204,7 +204,7 @@ module Sisimai::Bite::Email
                          e.match(%r|\A[ \t]+Sent:[ \t]+(\d+[/]\d+[/]\d+[ \t]+\d+:\d+:\d+[ \t].+)|)
                 #  Sent:    Thu, 29 Apr 2010 18:14:35 +0000
                 #  Sent:    4/29/99 9:19:59 AM
-                next if connheader['date'].size > 0
+                next unless connheader['date'].empty?
                 connheader['date'] = cv[1]
                 connvalues += 1
               end
@@ -225,7 +225,7 @@ module Sisimai::Bite::Email
               next unless ErrorCodes[r].index(capturedcode)
               e['reason'] = r.to_s
               pseudostatus = Sisimai::SMTP::Status.code(r.to_s)
-              e['status'] = pseudostatus if pseudostatus.size > 0
+              e['status'] = pseudostatus unless pseudostatus.empty?
               break
             end
             e['diagnosis'] = errormessage

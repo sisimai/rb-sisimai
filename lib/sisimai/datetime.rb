@@ -278,7 +278,7 @@ module Sisimai
       #   parse("Tue, Nov 3 2015 2:2:2")      #=> Tue, 3 Nov 2015 02:02:02 +0900
       def parse(argv1)
         return nil unless argv1.is_a?(::String)
-        return nil unless argv1.size > 0
+        return nil if argv1.empty?
 
         datestring = argv1
         datestring = datestring.sub(/[,](\d+)/, ', \1')  # Thu,13 -> Thu, 13

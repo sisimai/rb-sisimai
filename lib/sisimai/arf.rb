@@ -167,13 +167,13 @@ module Sisimai
             elsif e.start_with?(' ', "\t")
               # Continued line from the previous line
               rfc822part << e + "\n" if LongFields.key?(previousfn)
-              next if e.size > 0
+              next unless e.empty?
               rcptintext << e if previousfn == 'to'
             end
           else
             # Before "message/rfc822"
             next unless readcursor & Indicators[:deliverystatus] > 0
-            next unless e.size > 0
+            next if e.empty?
 
             # Feedback-Type: abuse
             # User-Agent: SomeGenerator/1.0
@@ -263,7 +263,7 @@ module Sisimai
         unless rfc822part =~ /\bFrom: [^ ]+[@][^ ]+\b/
           # There is no "From:" header in the original message
           # Append the value of "Original-Mail-From" value as a sender address.
-          rfc822part << 'From: ' << commondata[:from] + "\n" if commondata[:from].size > 0
+          rfc822part << 'From: ' << commondata[:from] + "\n" unless commondata[:from].empty?
         end
 
         if cv = mhead['subject'].match(/complaint about message from (\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3})/)

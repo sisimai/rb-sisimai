@@ -61,11 +61,7 @@ module Sisimai::Bite::Email
             userunknown: ['550 - Requested action not taken: no such user here'],
           }
           boundary00 = Sisimai::MIME.boundary(mhead['content-type']) || ''
-
-          if boundary00.size > 0
-            # Convert to regular expression
-            markingsof[:rfc822] = Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z')
-          end
+          markingsof[:rfc822] = Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z') unless boundary00.empty?
 
           while e = hasdivided.shift do
             if readcursor == 0
@@ -134,11 +130,7 @@ module Sisimai::Bite::Email
           markingsof = { rfc822:  %r/\A__BOUNDARY_STRING_HERE__\z/ }
           messagesof = { userunknown: ['No valid recipients for this MM'] }
           boundary00 = Sisimai::MIME.boundary(mhead['content-type'])
-
-          if boundary00.size > 0
-            # Convert to regular expression
-            markingsof[:rfc822] = Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z')
-          end
+          markingsof[:rfc822] = Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z') unless boundary00.empty?
 
           while e = hasdivided.shift do
             if readcursor == 0

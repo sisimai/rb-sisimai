@@ -78,10 +78,7 @@ module Sisimai::Bite::Email
           # Get the boundary string and set regular expression for matching with
           # the boundary string.
           b0 = Sisimai::MIME.boundary(mhead['content-type'], 1)
-          if b0.size > 0
-            # Convert to regular expression
-            rxboundary = Regexp.new('\A' << Regexp.escape(b0) << '\z')
-          end
+          rxboundary = Regexp.new('\A' << Regexp.escape(b0) << '\z') unless b0.empty?
         end
         rxmessages = []
         ReFailures.each_key { |a| rxmessages.concat(ReFailures[a]) }
@@ -182,12 +179,12 @@ module Sisimai::Bite::Email
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          if e['alterrors'].to_s.size > 0
+          unless e['alterrors'].to_s.empty?
             # Copy alternative error message
             e['diagnosis'] ||= e['alterrors']
             if e['diagnosis'].start_with?('-') || e['diagnosis'].end_with?('__')
               # Override the value of diagnostic code message
-              e['diagnosis'] = e['alterrors'] if e['alterrors'].size > 0
+              e['diagnosis'] = e['alterrors'] unless e['alterrors'].empty?
             end
             e.delete('alterrors')
           end

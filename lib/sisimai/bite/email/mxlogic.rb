@@ -177,7 +177,7 @@ module Sisimai::Bite::Email
         end
         return nil unless recipients > 0
 
-        if mhead['received'].size > 0
+        unless mhead['received'].empty?
           # Get the name of local MTA
           # Received: from marutamachi.example.org (c192128.example.net [192.0.2.128])
           if cv = mhead['received'][-1].match(/from[ ]([^ ]+) /)
@@ -201,7 +201,7 @@ module Sisimai::Bite::Email
 
             unless e['rhost']
               # Get localhost and remote host name from Received header.
-              e['rhost'] = Sisimai::RFC5322.received(mhead['received'][-1]).pop if mhead['received'].size > 0
+              e['rhost'] = Sisimai::RFC5322.received(mhead['received'][-1]).pop unless mhead['received'].empty?
             end
           end
 

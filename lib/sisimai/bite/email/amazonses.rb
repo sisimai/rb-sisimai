@@ -162,7 +162,7 @@ module Sisimai::Bite::Email
               #
               if cv = e.match(/\AReporting-MTA:[ ]*[DNSdns]+;[ ]*(.+)\z/)
                 # Reporting-MTA: dns; mx.example.jp
-                next if connheader['lhost'].size > 0
+                next unless connheader['lhost'].empty?
                 connheader['lhost'] = cv[1].downcase
                 connvalues += 1
               end
@@ -201,7 +201,7 @@ module Sisimai::Bite::Email
               errormessage = cv[1]
             end
             pseudostatus = Sisimai::SMTP::Status.find(errormessage)
-            e['status'] = pseudostatus if pseudostatus.size > 0
+            e['status'] = pseudostatus unless pseudostatus.empty?
           end
 
           MessagesOf.each_key do |r|

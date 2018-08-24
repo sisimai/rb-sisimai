@@ -67,7 +67,7 @@ module Sisimai
         #                           did not include SMTP Reply Code value
         def find(argv1 = '')
           return '' unless argv1
-          return '' unless argv1.size > 0
+          return '' if argv1.empty?
           return '' if argv1.upcase.include?('X-UNIX')
 
           ip4re = %r{\b

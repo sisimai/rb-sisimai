@@ -160,13 +160,13 @@ module Sisimai::Bite::Email
               # Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
               if cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                 # Reporting-MTA: dns; server-15.bemta-3.messagelabs.com
-                next if connheader['lhost'].size > 0
+                next unless connheader['lhost'].empty?
                 connheader['lhost'] = cv[1].downcase
                 connvalues += 1
 
               elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
                 # Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
-                next if connheader['date'].size > 0
+                next unless connheader['date'].empty?
                 connheader['date'] = cv[1]
                 connvalues += 1
               end

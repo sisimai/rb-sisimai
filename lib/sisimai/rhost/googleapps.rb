@@ -111,7 +111,7 @@ module Sisimai
         # @return   [String]                The bounce reason for Google Apps
         # @see      https://support.google.com/a/answer/3726730?hl=en
         def get(argvs)
-          return argvs.reason if argvs.reason.size > 0
+          return argvs.reason unless argvs.reason.empty?
 
           reasontext = ''
           statuscode = argvs.deliverystatus.clone

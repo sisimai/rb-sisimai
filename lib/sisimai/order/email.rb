@@ -160,7 +160,7 @@ module Sisimai
         # @param    [String] group  Group name for "ORDER BY"
         # @return   [Hash]          Pattern table for the group
         def by(group = '')
-          return {} unless group.size > 0
+          return {} if group.empty?
           return PatternTable[group] if PatternTable.key?(group)
           return {}
         end

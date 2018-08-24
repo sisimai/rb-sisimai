@@ -98,7 +98,7 @@ module Sisimai
           # Check each line with each MDA's symbol regular expression.
           if agentname0 == ''
             # Try to match with each regular expression
-            next unless e.size > 0
+            next if e.empty?
             next unless e =~ MarkingsOf[:message]
 
             AgentNames.each_key do |f|
@@ -111,10 +111,10 @@ module Sisimai
 
           # Append error message lines to @linebuffer
           linebuffer << e
-          break unless e.size > 0
+          break if e.empty?
         end
-        return nil unless agentname0.size > 0
-        return nil unless linebuffer.size > 0
+        return nil if agentname0.empty?
+        return nil if linebuffer.empty?
 
         MessagesOf[agentname0.to_sym].each_key do |e|
           # Detect an error reason from message patterns of the MDA.

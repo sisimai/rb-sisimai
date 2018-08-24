@@ -43,7 +43,7 @@ module Sisimai
         # @return   [String]                The bounce reason for GoDaddy
         # @see      https://www.godaddy.com/help/what-does-my-email-bounceback-mean-3568
         def get(argvs)
-          return argvs.reason if argvs.reason.size > 0
+          return argvs.reason unless argvs.reason.empty?
 
           statusmesg = argvs.diagnosticcode
           reasontext = ''
@@ -59,7 +59,7 @@ module Sisimai
                 reasontext = e.to_s
                 break
               end
-              break if reasontext.size > 0
+              break unless reasontext.empty?
             end
           end
           return reasontext

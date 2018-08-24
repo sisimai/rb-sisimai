@@ -111,7 +111,7 @@ module Sisimai
         # @param    [Sisimai::Data] argvs   Parsed email object
         # @return   [String]                The bounce reason for Exchange Online
         def get(argvs)
-          return argvs.reason if argvs.reason.size > 0
+          return argvs.reason unless argvs.reason.empty?
 
           statuscode = argvs.deliverystatus
           statusmesg = argvs.diagnosticcode
@@ -126,7 +126,7 @@ module Sisimai
               reasontext = f[:reason]
               break
             end
-            break if reasontext.size > 0
+            break unless reasontext.empty?
           end
 
           if reasontext.empty?
@@ -140,9 +140,9 @@ module Sisimai
                   reasontext = f[:reason]
                   break
                 end
-                break if reasontext.size > 0
+                break unless reasontext.empty?
               end
-              break if reasontext.size > 0
+              break unless reasontext.empty?
             end
 
             if reasontext.empty?
@@ -155,7 +155,7 @@ module Sisimai
                   reasontext = e.to_s
                   break
                 end
-                break if reasontext.size > 0
+                break unless reasontext.empty?
               end
             end
           end

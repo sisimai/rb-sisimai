@@ -149,7 +149,7 @@ module Sisimai::Bite::Email
 
               elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
                 # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
-                next if connheader['date'].size > 0
+                next unless connheader['date'].empty?
                 arrivaldate = cv[1]
 
                 if cv = e.match(/\AArrival-Date: (\d{4})[-](\d{2})[-](\d{2}) (\d{2})[-](\d{2})[-](\d{2})\z/)
@@ -180,7 +180,7 @@ module Sisimai::Bite::Email
             # Get the value of D.S.N. from the error message or the value of
             # Diagnostic-Code header.
             pseudostatus = Sisimai::SMTP::Status.find(e['diagnosis'])
-            e['status'] = pseudostatus if pseudostatus.size > 0
+            e['status'] = pseudostatus unless pseudostatus.empty?
           end
 
           if e['action'] == 'expired'
@@ -190,7 +190,7 @@ module Sisimai::Bite::Email
               # Set pseudo Status code value if the value of Status is not
               # defined or 4.0.0 or 5.0.0.
               pseudostatus = Sisimai::SMTP::Status.code('expired')
-              e['status']  = pseudostatus if pseudostatus.size > 0
+              e['status']  = pseudostatus unless pseudostatus.empty?
             end
           end
 

@@ -63,7 +63,7 @@ module Sisimai
           methodargv = { data: mesg, hook: hookmethod, input: 'email', delivered: delivered1 }
           data = Sisimai::Data.make(methodargv)
           next unless data
-          bouncedata.concat(data) if data.size > 0
+          bouncedata.concat(data) unless data.empty?
         end
 
       elsif input == 'json'
@@ -89,14 +89,14 @@ module Sisimai
           data = Sisimai::Data.make(methodargv)
 
           next unless data
-          bouncedata.concat(data) if data.size > 0
+          bouncedata.concat(data) unless data.empty?
         end
       else
         # The value of "input" neither "email" nor "json"
         raise ' ***error: invalid value of "input"'
       end
 
-      return nil unless bouncedata.size > 0
+      return nil if bouncedata.empty?
       return bouncedata
     end
 

@@ -40,7 +40,7 @@ module Sisimai
 
       if input == 'email'
         # Sisimai::Message::Email
-        return nil unless email.size > 0
+        return nil if email.empty?
         email = email.scrub('?')
         email = email.gsub("\r\n", "\n")
         child = 'Sisimai::Message::Email'

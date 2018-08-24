@@ -179,7 +179,7 @@ module Sisimai::Bite::Email
         end
         return nil unless recipients > 0
 
-        if mhead['received'].size > 0
+        unless mhead['received'].empty?
           # Get the name of local MTA
           # Received: from marutamachi.example.org (c192128.example.net [192.0.2.128])
           if cv = mhead['received'][-1].match(/from[ \t]([^ ]+)/)
@@ -191,12 +191,12 @@ module Sisimai::Bite::Email
           # Set default values if each value is empty.
           e['lhost'] ||= localhost0
 
-          if e['alterrors'].to_s.size > 0
+          unless e['alterrors'].to_s.empty?
             # Copy alternative error message
             e['diagnosis'] ||= e['alterrors']
             if e['diagnosis'].start_with?('-') || e['diagnosis'].end_with?('__')
               # Override the value of diagnostic code message
-              e['diagnosis'] = e['alterrors'] if e['alterrors'].size > 0
+              e['diagnosis'] = e['alterrors'] unless e['alterrors'].empty?
             end
             e.delete('alterrors')
           end
@@ -212,7 +212,7 @@ module Sisimai::Bite::Email
 
             unless e['rhost']
               # Get localhost and remote host name from Received header.
-              e['rhost'] = Sisimai::RFC5322.received(mhead['received'][-1]).pop if mhead['received'].size > 0
+              e['rhost'] = Sisimai::RFC5322.received(mhead['received'][-1]).pop unless mhead['received'].empty?
             end
           end
 

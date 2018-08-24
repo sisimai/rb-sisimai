@@ -231,7 +231,7 @@ module Sisimai::Bite::Email
           if e['status'].empty? || e['status'].end_with?('.0.0')
             # There is no value of Status header or the value is 5.0.0, 4.0.0
             pseudostatus = Sisimai::SMTP::Status.find(e['diagnosis'])
-            e['status'] = pseudostatus if pseudostatus.size > 0
+            e['status'] = pseudostatus unless pseudostatus.empty?
           end
 
           ReCommands.each_key do |p|

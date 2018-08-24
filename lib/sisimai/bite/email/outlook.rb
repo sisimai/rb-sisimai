@@ -140,13 +140,13 @@ module Sisimai::Bite::Email
               # Arrival-Date: Fri, 21 Nov 2014 14:17:34 -0800
               if cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                 # Reporting-MTA: dns;BLU004-OMC3S13.hotmail.example.com
-                next if connheader['lhost'].size > 0
+                next unless connheader['lhost'].empty?
                 connheader['lhost'] = cv[1].downcase
                 connvalues += 1
 
               elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
                 # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
-                next if connheader['date'].size > 0
+                next unless connheader['date'].empty?
                 connheader['date'] = cv[1]
                 connvalues += 1
               end

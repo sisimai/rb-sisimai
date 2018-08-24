@@ -185,13 +185,13 @@ module Sisimai::Bite::Email
               else
                 if cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                   # Reporting-MTA: dns; mx.example.jp
-                  next if connheader['lhost'].size > 0
+                  next unless connheader['lhost'].empty?
                   connheader['lhost'] = cv[1].downcase
                   connvalues += 1
 
                 elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
                   # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
-                  next if connheader['date'].size > 0
+                  next unless connheader['date'].empty?
                   connheader['date'] = cv[1]
                   connvalues += 1
 
@@ -226,7 +226,7 @@ module Sisimai::Bite::Email
 
         unless recipients > 0
           # Fallback: set recipient address from error message
-          if anotherset['recipient'].to_s.size > 0
+          unless anotherset['recipient'].to_s.empty?
             # Set recipient address
             dscontents[-1]['recipient'] = anotherset['recipient']
             recipients += 1
@@ -258,7 +258,7 @@ module Sisimai::Bite::Email
               if e['status'] == '' || e['status'].start_with?('4.0.0', '5.0.0')
                 # Check the value of D.S.N. in anotherset
                 as = Sisimai::SMTP::Status.find(anotherset['diagnosis'])
-                if as.size > 0 && as[-3, 3] != '0.0'
+                if !as.empty? && as[-3, 3] != '0.0'
                   # The D.S.N. is neither an empty nor *.0.0
                   e['status'] = as
                 end
@@ -267,7 +267,7 @@ module Sisimai::Bite::Email
               if e['replycode'] == '' || e['replycode'].start_with?('400', '500')
                 # Check the value of SMTP reply code in anotherset
                 ar = Sisimai::SMTP::Reply.find(anotherset['diagnosis'])
-                if ar.size > 0 && ar[-2, 2].to_i != 0
+                if !ar.empty? && ar[-2, 2].to_i != 0
                   # The SMTP reply code is neither an empty nor *00
                   e['replycode'] = ar
                 end

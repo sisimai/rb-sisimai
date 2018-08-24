@@ -262,7 +262,7 @@ module Sisimai::Bite::Email
                 v['alterrors'] ||= ''
                 v['alterrors'] <<  e + ' '
               else
-                if boundary00.size > 0
+                if !boundary00.empty?
                   # --NNNNNNNNNN-eximdsn-MMMMMMMMMM
                   # Content-type: message/delivery-status
                   # ...
@@ -298,7 +298,7 @@ module Sisimai::Bite::Email
                 else
                   if dscontents.size == recipients
                     # Error message
-                    next unless e.size
+                    next if e.empty?
                     v['diagnosis'] ||= ''
                     v['diagnosis'] << e + '  '
                   else
@@ -326,7 +326,7 @@ module Sisimai::Bite::Email
           dscontents.each do |q|
             # Replace the recipient address with the value of "alias"
             next unless q['alias']
-            next unless q['alias'].size > 0
+            next if q['alias'].empty?
             if q['recipient'].empty? || q['recipient'].include?('@') == false
               # The value of "recipient" is empty or does not include "@"
               q['recipient'] = q['alias']
@@ -354,7 +354,7 @@ module Sisimai::Bite::Email
         end
         return nil unless recipients > 0
 
-        if mhead['received'].size > 0
+        unless mhead['received'].empty?
           # Get the name of local MTA
           # Received: from marutamachi.example.org (c192128.example.net [192.0.2.128])
           if cv = mhead['received'][-1].match(/from[ \t]([^ ]+)/)
@@ -369,7 +369,7 @@ module Sisimai::Bite::Email
 
           unless e['diagnosis']
             # Empty Diagnostic-Code: or error message
-            if boundary00.size > 0
+            unless boundary00.empty?
               # --NNNNNNNNNN-eximdsn-MMMMMMMMMM
               # Content-type: message/delivery-status
               #
@@ -385,14 +385,14 @@ module Sisimai::Bite::Email
               e['diagnosis'] = dscontents[0]['diagnosis'] || ''
               e['spec']    ||= dscontents[0]['spec']
 
-              if dscontents[0]['alterrors'].to_s.size > 0
+              unless dscontents[0]['alterrors'].to_s.empty?
                 # The value of "alterrors" is also copied
                 e['alterrors'] = dscontents[0]['alterrors']
               end
             end
           end
 
-          if e['alterrors'].to_s.size > 0
+          unless e['alterrors'].to_s.empty?
             # Copy alternative error message
             if e['diagnosis'].nil? || e['diagnosis'].empty?
               e['diagnosis'] = e['alterrors']
@@ -400,7 +400,7 @@ module Sisimai::Bite::Email
 
             if e['diagnosis'].start_with?('-') || e['diagnosis'].end_with?('__')
               # Override the value of diagnostic code message
-              e['diagnosis'] = e['alterrors'] if e['alterrors'].size > 0
+              e['diagnosis'] = e['alterrors'] unless e['alterrors'].empty?
             else
               # Check the both value and try to match
               if e['diagnosis'].size < e['alterrors'].size
@@ -425,7 +425,7 @@ module Sisimai::Bite::Email
 
             unless e['rhost']
               # Get localhost and remote host name from Received header.
-              e['rhost'] = Sisimai::RFC5322.received(mhead['received'][-1]).pop if mhead['received'].size > 0
+              e['rhost'] = Sisimai::RFC5322.received(mhead['received'][-1]).pop unless mhead['received'].empty?
             end
           end
 
@@ -496,7 +496,7 @@ module Sisimai::Bite::Email
             break
           end
 
-          s1  = sv[0, 1].to_i if sv.size > 0
+          s1  = sv[0, 1].to_i unless sv.empty?
           v1  = s1 + r1
           v1 << e['status'][0, 1].to_i if e['status']
 

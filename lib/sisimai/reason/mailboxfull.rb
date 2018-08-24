@@ -75,7 +75,7 @@ module Sisimai
         #                                   false: is not mailbox full
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return nil unless argvs.deliverystatus.size > 0
+          return nil  if argvs.deliverystatus.empty?
           return true if argvs.reason == 'mailboxfull'
 
           # Delivery status code points "mailboxfull".

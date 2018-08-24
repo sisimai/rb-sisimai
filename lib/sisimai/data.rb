@@ -106,21 +106,21 @@ module Sisimai
       require 'sisimai/smtp'
 
       # Decide the order of email headers: user specified or system default.
-      if givenorder.is_a?(Hash) && givenorder.keys.size > 0
+      if givenorder.is_a?(Hash) && !givenorder.empty?
         # If the order of headers for searching is specified, use the order
         # for detecting an email address.
         fieldorder.each_key do |e|
           # The order should be "Array Reference".
           next unless givenorder[e]
           next unless givenorder[e].is_a? Array
-          next unless givenorder[e].size > 0
+          next if givenorder[e].empty?
           fieldorder[e].concat(givenorder[e])
         end
       end
 
       fieldorder.each_key do |e|
         # If the order is empty, use default order.
-        next if fieldorder[e].size > 0
+        next unless fieldorder[e].empty?
 
         # Load default order of each accessor.
         fieldorder[e] = AddrHeader[e]
@@ -179,7 +179,7 @@ module Sisimai
         datestring = nil
         zoneoffset = 0
         datevalues = []
-        datevalues << e['date'] if e['date'].to_s.size > 0
+        datevalues << e['date'] unless e['date'].to_s.empty?
 
         # Date information did not exist in message/delivery-status part,...
         RFC822Head[:date].each do |f|
@@ -219,7 +219,7 @@ module Sisimai
 
         # OTHER_TEXT_HEADERS:
         recvheader = mailheader['received'] || []
-        if recvheader.size > 0
+        unless recvheader.empty?
           # Get localhost and remote host name from Received header.
           %w[lhost rhost].each { |a| e[a] ||= '' }
           e['lhost'] = Sisimai::RFC5322.received(recvheader[0]).shift if e['lhost'].empty?
@@ -243,7 +243,7 @@ module Sisimai
 
         # The value of "List-Id" header
         p['listid'] = rfc822data['list-id'] || ''
-        if p['listid'].size > 0
+        unless p['listid'].empty?
           # Get the value of List-Id header
           if cv = p['listid'].match(/\A.*([<].+[>]).*\z/)
             # List name <list-id@example.org>
@@ -256,7 +256,7 @@ module Sisimai
 
         # The value of "Message-Id" header
         p['messageid'] = rfc822data['message-id'] || ''
-        if p['messageid'].size > 0
+        unless p['messageid'].empty?
           # Remove angle brackets
           if cv = p['messageid'].match(/\A([^ ]+)[ ].*/)
             p['messageid'] = cv[1]
@@ -269,20 +269,20 @@ module Sisimai
         # Cleanup the value of "Diagnostic-Code:" header
         p['diagnosticcode'] = p['diagnosticcode'].sub(/[ \t.]+#{EndOfEmail}/, '')
 
-        if p['diagnosticcode'].size > 0
+        unless p['diagnosticcode'].empty?
           # Count the number of D.S.N. and SMTP Reply Code
           vs = Sisimai::SMTP::Status.find(p['diagnosticcode'])
           vr = Sisimai::SMTP::Reply.find(p['diagnosticcode'])
           vm = 0
           re = nil
 
-          if vs.size > 0
+          unless vs.empty?
             # How many times does the D.S.N. appeared
             vm += p['diagnosticcode'].scan(/\b#{vs}\b/).size
             p['deliverystatus'] = vs if vs =~ /\A[45][.][1-9][.][1-9]\z/
           end
 
-          if vr.size > 0
+          unless vr.empty?
             # How many times does the SMTP reply code appeared
             vm += p['diagnosticcode'].scan(/\b#{vr}\b/).size
             p['replycode'] ||= vr
@@ -378,7 +378,7 @@ module Sisimai
             tmpfailure = getchecked.nil? ? false : (getchecked ? false : true)
             pseudocode = Sisimai::SMTP::Status.code(o.reason, tmpfailure)
 
-            if pseudocode.size > 0
+            unless pseudocode.empty?
               # Set the value of "deliverystatus" and "softbounce"
               o.deliverystatus = pseudocode
 
@@ -397,7 +397,7 @@ module Sisimai
             end
           end
 
-          if o.replycode.size > 0
+          unless o.replycode.empty?
             # Check both of the first digit of "deliverystatus" and "replycode"
             o.replycode = '' unless o.replycode[0, 1] == o.deliverystatus[0, 1]
           end

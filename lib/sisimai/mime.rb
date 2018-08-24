@@ -89,7 +89,7 @@ module Sisimai
           end
         end
 
-        return '' unless decodedtext0.size > 0
+        return '' if decodedtext0.empty?
         decodedtext1 = decodedtext0.join('')
 
         if characterset && encodingname
@@ -116,7 +116,7 @@ module Sisimai
       def qprintd(argv1 = nil, heads = {})
         return nil unless argv1
         return argv1.unpack('M').first unless heads['content-type']
-        return argv1.unpack('M').first unless heads['content-type'].size > 0
+        return argv1.unpack('M').first if heads['content-type'].empty?
 
         # Quoted-printable encoded part is the part of the text
         boundary00 = Sisimai::MIME.boundary(heads['content-type'], 0)
@@ -124,7 +124,7 @@ module Sisimai
         # Decoded using unpack('M') entire body string when the boundary string
         # or "Content-Transfer-Encoding: quoted-printable" are not included in
         # the message body.
-        return argv1.unpack('M').first unless boundary00.size > 0
+        return argv1.unpack('M').first if boundary00.empty?
         return argv1.unpack('M').first unless argv1.downcase =~ ReE[:'quoted-print']
 
         boundary01 = Sisimai::MIME.boundary(heads['content-type'], 1)

@@ -125,7 +125,7 @@ module Sisimai::Bite::Email
         dscontents.each do |e|
           e['agent'] = self.smtpagent
 
-          if e['alterrors'].to_s.size > 0
+          unless e['alterrors'].to_s.empty?
             # Copy alternative error message
             e['diagnosis'] = if e['diagnosis']
                                e['alterrors'] + ' ' + e['diagnosis']

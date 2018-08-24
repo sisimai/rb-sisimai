@@ -40,7 +40,7 @@ module Sisimai::Bite::JSON
       # @since v4.20.0
       def scan(mhead, mbody)
         return nil unless mhead['x-amz-sns-message-id']
-        return nil unless mhead['x-amz-sns-message-id'].size > 0
+        return nil if mhead['x-amz-sns-message-id'].empty?
 
         hasdivided = mbody.split("\n")
         jsonstring = ''
@@ -49,7 +49,7 @@ module Sisimai::Bite::JSON
 
         while e = hasdivided.shift do
           # Find JSON string from the message body
-          next unless e.size > 0
+          next if e.empty?
           break if e == '--'
           break if e == '__END_OF_EMAIL_MESSAGE__'
 
@@ -100,7 +100,7 @@ module Sisimai::Bite::JSON
       # @since v4.20.0
       def adapt(argvs)
         return nil unless argvs.is_a? Hash
-        return nil unless argvs.keys.size > 0
+        return nil if argvs.empty?
         return nil unless argvs.key?('notificationType')
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]

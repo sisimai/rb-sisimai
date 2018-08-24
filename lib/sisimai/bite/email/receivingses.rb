@@ -153,13 +153,13 @@ module Sisimai::Bite::Email
               # Reporting-MTA: dns; inbound-smtp.us-west-2.amazonaws.com
               if cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                 # Reporting-MTA: dns; mx.example.jp
-                next if connheader['lhost'].size > 0
+                next unless connheader['lhost'].empty?
                 connheader['lhost'] = cv[1].downcase
                 connvalues += 1
 
               elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
                 # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
-                next if connheader['date'].size > 0
+                next unless connheader['date'].empty?
                 connheader['date'] = cv[1]
                 connvalues += 1
               end
@@ -184,7 +184,7 @@ module Sisimai::Bite::Email
               errormessage = cv[1]
             end
             pseudostatus = Sisimai::SMTP::Status.find(errormessage)
-            e['status'] = pseudostatus if pseudostatus.size > 0
+            e['status'] = pseudostatus unless pseudostatus.empty?
           end
 
           MessagesOf.each_key do |r|

@@ -37,7 +37,7 @@ module Sisimai
       # Memory reader, works as an iterator.
       # @return   [String] Contents of a bounce mail
       def read
-        return nil unless self.data.size > 0
+        return nil if self.data.empty?
         self.offset += 1
         return self.data.shift
       end

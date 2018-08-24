@@ -117,7 +117,7 @@ module Sisimai
           # Read the first 5 lines except a blank line
           countuntil += 1 if e =~ MarkingsOf[:boundary]
 
-          unless e.size > 0
+          if e.empty?
             # Check a blank line
             blanklines += 1
             break if blanklines > countuntil

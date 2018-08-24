@@ -36,7 +36,7 @@ module Sisimai
         # @param    [Sisimai::Data] argvs   Parsed email object
         # @return   [String]                The bounce reason for Orange or La Poste
         def get(argvs)
-          return argvs.reason if argvs.reason.size > 0
+          return argvs.reason unless argvs.reason.empty?
 
           statusmesg = argvs.diagnosticcode
           reasontext = ''

@@ -712,7 +712,7 @@ module Sisimai
         # @see      name
         def code(argv1 = '', argv2 = false)
           return '' unless argv1
-          return '' unless argv1.size > 0
+          return '' if argv1.empty?
 
           table = argv2 ? InternalCode[:temporary] : InternalCode[:permanent]
           code0 = table[argv1.to_sym] || InternalCode[:permanent][argv1.to_sym] || ''
@@ -726,7 +726,6 @@ module Sisimai
         # @see      code
         def name(argv1 = '')
           return '' unless argv1
-          return '' unless argv1.size > 0
           return '' unless argv1 =~ /\A[245][.]\d[.]\d+\z/
           return StandardCode[argv1.to_sym] || ''
         end
@@ -737,7 +736,7 @@ module Sisimai
         #                           not include DSN
         def find(argv1 = '')
           return '' unless argv1
-          return '' unless argv1.size > 0
+          return '' if argv1.empty?
 
           foundvalue = ''
           regularexp = [

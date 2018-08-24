@@ -217,7 +217,7 @@ module Sisimai
         RFC3834Set.each { |e| allheaders[e] = true }
         MultiHeads.each_key { |e| structured[e.downcase] = [] }
         extheaders.each_key { |e| allheaders[e] = true }
-        if extrafield.size > 0
+        unless extrafield.empty?
           extrafield.each { |e| allheaders[e.downcase] = true }
         end
 

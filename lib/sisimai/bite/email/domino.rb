@@ -135,7 +135,7 @@ module Sisimai::Bite::Email
             next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
             pseudostatus = Sisimai::SMTP::Status.code(r.to_s, false)
-            e['status'] = pseudostatus if pseudostatus.size > 0
+            e['status'] = pseudostatus unless pseudostatus.empty?
             break
           end
           e.each_key { |a| e[a] ||= '' }

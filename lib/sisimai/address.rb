@@ -88,7 +88,7 @@ module Sisimai
               end
             else
               # "Neko, Nyaan" <neko@nyaan.example.org> OR <"neko,nyaan"@example.org>
-              p.size > 0 ? (v[p] << e) : (v[:name] << e)
+              p.empty? ? (v[:name] << e) : (v[p] << e)
             end
             next
           end # End of if(',')
@@ -96,7 +96,7 @@ module Sisimai
           if e == '<'
             # <: The beginning of an email address or not
             if v[:address].size > 0
-              p.size > 0 ? (v[p] << e) : (v[:name] << e)
+              p.empty?  ? (v[:name] << e) : (v[p] << e)
             else
               # <neko@nyaan.example.org>
               readcursor |= Indicators[:'email-address']
@@ -116,7 +116,7 @@ module Sisimai
               p = ''
             else
               # a comment block or a display name
-              p.size > 0 ? (v[:comment] << e) : (v[:name] << e)
+              p.empty? ? (v[:name] << e) : (v[:comment] << e)
             end
             next
           end # End of if('>')
@@ -201,7 +201,7 @@ module Sisimai
           end # End of if('"')
         else
           # The character is not a delimiter
-          p.size > 0 ? (v[p] << e) : (v[:name] << e)
+          p.empty? ? (v[:name] << e) : (v[p] << e)
           next
         end
       end
@@ -220,7 +220,7 @@ module Sisimai
           v[:address] = v[:name]
         end
 
-        if v[:address].size > 0
+        unless v[:address].empty?
           # Remove the comment from the address
           if cv = v[:address].match(/(.*)([(].+[)])(.*)/)
             # (nyaan)nekochan@example.org, nekochan(nyaan)cat@example.org or

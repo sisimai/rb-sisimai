@@ -120,7 +120,7 @@ module Sisimai::Bite::Email
                 v['status']    = cv[2]
                 v['diagnosis'] = e
               else
-                if v['diagnosis'].to_s.size > 0 && v['diagnosis'].end_with?('=')
+                if !v['diagnosis'].to_s.empty? && v['diagnosis'].end_with?('=')
                   # Continued line of error messages
                   v['diagnosis']  = v['diagnosis'].chomp('=')
                   v['diagnosis'] << e
@@ -132,7 +132,7 @@ module Sisimai::Bite::Email
               # Generating server: mta22.neko.example.org
               if cv = e.match(MarkingsOf[:rhost])
                 # Generating server: mta22.neko.example.org
-                next if connheader['rhost'].size > 0
+                next unless connheader['rhost'].empty?
                 connheader['rhost'] = cv[1]
                 connvalues += 1
               end
