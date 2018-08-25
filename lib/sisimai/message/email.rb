@@ -71,7 +71,7 @@ module Sisimai
 
         # 3. Check headers for detecting MTA modules
         if headerargv['tryonfirst'].empty?
-          headerargv['tryonfirst'].concat(Sisimai::Message::Email.makeorder(processing['header']))
+          headerargv['tryonfirst'] += Sisimai::Message::Email.makeorder(processing['header'])
         end
 
         # 4. Rewrite message body for detecting the bounce reason
@@ -119,7 +119,7 @@ module Sisimai
           next unless argvs[e].is_a? Array
           next if argvs[e].empty?
 
-          modulelist.concat(argvs['order']) if e == 'order'
+          modulelist += argvs['order'] if e == 'order'
           next unless e == 'load'
 
           # Load user defined MTA module
@@ -280,9 +280,7 @@ module Sisimai
         SubjectTab.each_key do |e|
           # Get MTA list from the subject header
           next unless title.include?(e)
-
-          # Matched and push MTA list
-          order.concat(SubjectTab[e])
+          order += SubjectTab[e]  # Matched and push MTA list
           break
         end
         return order

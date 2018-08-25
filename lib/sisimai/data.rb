@@ -114,7 +114,7 @@ module Sisimai
           next unless givenorder[e]
           next unless givenorder[e].is_a? Array
           next if givenorder[e].empty?
-          fieldorder[e].concat(givenorder[e])
+          fieldorder[e] += givenorder[e]
         end
       end
 

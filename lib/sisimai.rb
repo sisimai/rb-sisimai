@@ -63,7 +63,7 @@ module Sisimai
           methodargv = { data: mesg, hook: hookmethod, input: 'email', delivered: delivered1 }
           data = Sisimai::Data.make(methodargv)
           next unless data
-          bouncedata.concat(data) unless data.empty?
+          bouncedata += data unless data.empty?
         end
 
       elsif input == 'json'
@@ -89,7 +89,7 @@ module Sisimai
           data = Sisimai::Data.make(methodargv)
 
           next unless data
-          bouncedata.concat(data) unless data.empty?
+          bouncedata += data unless data.empty?
         end
       else
         # The value of "input" neither "email" nor "json"
@@ -158,7 +158,7 @@ module Sisimai
       names = Sisimai::Reason.index
 
       # These reasons are not included in the results of Sisimai::Reason.index
-      names.concat(%w[Delivered Feedback Undefined Vacation])
+      names += %w[Delivered Feedback Undefined Vacation]
       while e = names.shift do
         # Call .description() method of Sisimai::Reason::*
         r = 'Sisimai::Reason::' << e

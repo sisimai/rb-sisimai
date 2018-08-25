@@ -169,12 +169,7 @@ module Sisimai
         # @return   [Array] Ordered module list
         def another
           rv = []
-          rv.concat(EngineOrder1)
-          rv.concat(EngineOrder2)
-          rv.concat(EngineOrder3)
-          rv.concat(EngineOrder4)
-          rv.concat(EngineOrder5)
-          rv.concat(EngineOrder9)
+          rv.concat(EngineOrder1, EngineOrder2, EngineOrder3, EngineOrder4, EngineOrder5, EngineOrder9)
           return rv
         end
 
