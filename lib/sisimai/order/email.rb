@@ -169,7 +169,9 @@ module Sisimai
         # @return   [Array] Ordered module list
         def another
           rv = []
-          rv.concat(EngineOrder1, EngineOrder2, EngineOrder3, EngineOrder4, EngineOrder5, EngineOrder9)
+          [EngineOrder1, EngineOrder2, EngineOrder3, EngineOrder4, EngineOrder5, EngineOrder9].each do |e|
+            rv += e
+          end
           return rv
         end
 
