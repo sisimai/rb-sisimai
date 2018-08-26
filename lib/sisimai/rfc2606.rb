@@ -13,9 +13,9 @@ module Sisimai
         return false unless argv
         return false unless argv.is_a?(::String)
 
-        return true  if argv =~ /[.](?:test|example|invalid|localhost)\z/
-        return true  if argv =~ /example[.](?:com|net|org|jp)\z/
-        return true  if argv =~ /example[.](?:ac|ad|co|ed|go|gr|lg|ne|or)[.]jp\z/
+        return true if argv =~ /[.](?:test|example|invalid|localhost)\z/
+        return true if argv =~ /example[.](?:com|net|org|jp)\z/
+        return true if argv =~ /example[.](?:ac|ad|co|ed|go|gr|lg|ne|or)[.]jp\z/
         return false
       end
     end
