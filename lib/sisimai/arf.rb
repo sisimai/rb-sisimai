@@ -48,11 +48,7 @@ module Sisimai
         elsif heads['content-type'].start_with?('multipart/mixed')
           # Microsoft (Hotmail, MSN, Live, Outlook) uses its own report format.
           # Amazon SES Complaints bounces
-          mfrom = %r{(?:
-             staff[@]hotmail[.]com\z
-            |complaints[@]email-abuse[.]amazonses[.]com\z
-            )
-          }x
+          mfrom = %r/(?:staff[@]hotmail[.]com|complaints[@]email-abuse[.]amazonses[.]com)\z/
           if heads['from'] =~ mfrom && heads['subject'].include?('complaint about message from ')
             # From: staff@hotmail.com
             # From: complaints@email-abuse.amazonses.com
