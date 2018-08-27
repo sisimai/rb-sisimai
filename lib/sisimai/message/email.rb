@@ -156,9 +156,9 @@ module Sisimai
       def self.divideup(email)
         return {} if email.empty?
 
-        email = email.scrub('?')
-        email = email.gsub(/\r\n/, "\n")  if email.include?("\r\n")
-        email = email.gsub(/[ \t]+$/, '') if email =~ /[ \t]+$/
+        email.scrub!('?')
+        email.gsub!(/\r\n/, "\n")  if email.include?("\r\n")
+        email.gsub!(/[ \t]+$/, '') if email =~ /[ \t]+$/
 
         hasdivided = email.split("\n")
         return {} if hasdivided.empty?
@@ -234,8 +234,7 @@ module Sisimai
             if MultiHeads.key?(currheader)
               # Such as 'Received' header, there are multiple headers in a single
               # email message.
-              rhs = rhs.tr("\t", ' ')
-              rhs = rhs.squeeze(' ')
+              rhs = rhs.tr("\t", ' ').squeeze(' ')
               structured[currheader] << rhs
             else
               # Other headers except "Received" and so on
@@ -294,8 +293,7 @@ module Sisimai
 
         # 1. Scrub to avoid "invalid byte sequence in UTF-8" exception (#82)
         # 2. Convert from string to hash reference
-        heads = heads.scrub('?')
-        heads = heads.gsub(/^[>]+[ ]/m, '')
+        heads = heads.scrub('?').gsub(/^[>]+[ ]/m, '')
 
         takenapart = {}
         hasdivided = heads.split("\n")
@@ -331,8 +329,7 @@ module Sisimai
               mimeborder[previousfn] = true
             else
               # ASCII Characters only: Not MIME-Encoded
-              e = e.lstrip
-              takenapart[previousfn] << e
+              takenapart[previousfn] << e.lstrip
               mimeborder[previousfn] ||= false
             end
           end
@@ -457,8 +454,7 @@ module Sisimai
         # Get the original text when the subject begins from 'fwd:' or 'fw:'
         if mailheader['subject'].downcase =~ /\A[ \t]*fwd?:/
           # Delete quoted strings, quote symbols(>)
-          bodystring = bodystring.gsub(/^[>]+[ ]/m, '')
-          bodystring = bodystring.gsub(/^[>]$/m, '')
+          bodystring = bodystring.gsub(/^[>]+[ ]/m, '').gsub(/^[>]$/m, '')
         end
         bodystring << EndOfEmail
         haveloaded = {}
@@ -483,7 +479,6 @@ module Sisimai
             while r = tobeloaded.shift do
               # Call user defined MTA modules
               next if haveloaded[r]
-              #require r.gsub('::', '/').downcase
               scannedset = Module.const_get(r).scan(mailheader, bodystring)
               haveloaded[r] = true
               throw :SCANNER if scannedset

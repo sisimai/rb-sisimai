@@ -28,7 +28,7 @@ module Sisimai
       def is_mimeencoded(argv1)
         return false unless argv1
 
-        argv1 = argv1.delete('"')
+        argv1.delete!('"')
         piece = []
         mime1 = false
 
@@ -60,8 +60,7 @@ module Sisimai
 
         while e = argvs.shift do
           # Check and decode each element
-          e = e.strip
-          e = e.delete('"')
+          e = e.strip.delete('"')
 
           if self.is_mimeencoded(e)
             # MIME Encoded string
@@ -99,7 +98,7 @@ module Sisimai
           unless characterset.casecmp('UTF-8') == 0
             # Characterset is not UTF-8
             begin
-              decodedtext1 = decodedtext1.encode('UTF-8', characterset)
+              decodedtext1.encode!('UTF-8', characterset)
             rescue
               decodedtext1 = 'FAILED TO CONVERT THE SUBJECT'
             end
@@ -151,8 +150,7 @@ module Sisimai
               # The next boundary string has appeared
               # --=_gy7C4Gpes0RP4V5Bs9cK4o2Us2ZT57b-3OLnRN+4klS8dTmQ
               getencoded = Sisimai::String.to_utf8(notdecoded.unpack('M').first, encodename)
-              bodystring << getencoded
-              bodystring << e + "\n"
+              bodystring << getencoded << e + "\n"
 
               notdecoded = ''
               mimeinside = false
@@ -258,7 +256,7 @@ module Sisimai
           # Content-Type: multipart/report; report-type=delivery-status;
           #    boundary="n6H9lKZh014511.1247824040/mx.example.jp"
           value = cv[1]
-          value = value.delete(%q|'"|)
+          value.delete!(%q|'"|)
           value = '--' + value if start > -1
           value = value + '--' if start >  0
         end

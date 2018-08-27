@@ -105,8 +105,7 @@ module Sisimai::Bite::Email
 
         dscontents.each do |e|
           e['agent']     = self.smtpagent
-          e['diagnosis'] = e['diagnosis'].to_s.gsub(/\A#{StartingOf[:error][0]}/, '')
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].to_s.gsub(/\A#{StartingOf[:error][0]}/, ''))
 
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors

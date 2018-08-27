@@ -188,9 +188,7 @@ module Sisimai::Bite::Email
         dscontents.each do |e|
           e['agent'] = self.smtpagent
           e['lhost'] = localhost0
-
-          e['diagnosis'] = e['diagnosis'].gsub(/[-]{2}.*\z/, '')
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].gsub(/[-]{2}.*\z/, ''))
 
           unless e['rhost']
             # Get the remote host name

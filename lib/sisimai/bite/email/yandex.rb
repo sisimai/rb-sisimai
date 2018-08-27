@@ -175,8 +175,7 @@ module Sisimai::Bite::Email
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
           e['command']   = commandset.shift || ''
-          e['diagnosis'] = e['diagnosis'].gsub(/\\n/, '')
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].gsub(/\\n/, ''))
           e['agent']     = self.smtpagent
         end
 

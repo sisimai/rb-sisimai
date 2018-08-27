@@ -46,9 +46,7 @@ module Sisimai
         # called from Sisimai::Bite::Email::*
         fv = {}
         HeaderTable.each_value do |e|
-          e.each do |ee|
-            fv[ee.downcase] = 1
-          end
+          e.each { |ee| fv[ee.downcase] = 1 }
         end
         return fv
       end

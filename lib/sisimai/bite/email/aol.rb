@@ -169,8 +169,7 @@ module Sisimai::Bite::Email
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
 
           e['agent']     = self.smtpagent
-          e['diagnosis'] = e['diagnosis'].gsub(/\\n/, ' ')
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].gsub(/\\n/, ' '))
 
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors

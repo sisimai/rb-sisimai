@@ -125,8 +125,7 @@ module Sisimai::Bite::Email
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          e['diagnosis'] = e['diagnosis'].gsub(/\\n/, ' ')
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].gsub(/\\n/, ' '))
           e['agent']     = self.smtpagent
           e['command'] ||= 'RCPT' if e['diagnosis'] =~ /[<].+[@].+[>]/
         end

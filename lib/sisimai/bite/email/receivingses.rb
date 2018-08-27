@@ -171,9 +171,7 @@ module Sisimai::Bite::Email
         dscontents.each do |e|
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
-
-          e['diagnosis'] = e['diagnosis'].gsub(/\\n/, ' ')
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].gsub(/\\n/, ' '))
 
           if e['status'].to_s.start_with?('5.0.0', '5.1.0', '4.0.0', '4.1.0')
             # Get other D.S.N. value from the error message

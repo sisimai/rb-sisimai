@@ -414,7 +414,7 @@ module Sisimai::Bite::Email
             e.delete('alterrors')
           end
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
-          e['diagnosis'] = e['diagnosis'].sub(/\b__.+\z/, '')
+          e['diagnosis'].sub!(/\b__.+\z/, '')
 
           unless e['rhost']
             # Get the remote host name

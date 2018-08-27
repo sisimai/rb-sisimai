@@ -228,13 +228,13 @@ module Sisimai
 
         # Remove square brackets and curly brackets from the host variable
         %w[rhost lhost].each do |v|
-          p[v] = p[v].delete('[]()')    # Remove square brackets and curly brackets from the host variable
-          p[v] = p[v].sub(/\A.+=/, '')  # Remove string before "="
-          p[v] = p[v].chomp("\r")       # Remove CR at the end of the value
+          p[v].delete!('[]()')    # Remove square brackets and curly brackets from the host variable
+          p[v].sub!(/\A.+=/, '')  # Remove string before "="
+          p[v].chomp!("\r")       # Remove CR at the end of the value
 
           # Check space character in each value and get the first element
           p[v] = p[v].split(' ', 2).shift if p[v].include?(' ')
-          p[v] = p[v].chomp('.')        # Remove "." at the end of the value
+          p[v].chomp!('.')        # Remove "." at the end of the value
         end
 
         # Subject: header of the original message
@@ -249,8 +249,7 @@ module Sisimai
             # List name <list-id@example.org>
             p['listid'] = cv[1]
           end
-          p['listid'] = p['listid'].delete('<>')
-          p['listid'] = p['listid'].chomp("\r")
+          p['listid'] = p['listid'].delete('<>').chomp("\r")
           p['listid'] = '' if p['listid'].include?(' ')
         end
 
@@ -261,13 +260,12 @@ module Sisimai
           if cv = p['messageid'].match(/\A([^ ]+)[ ].*/)
             p['messageid'] = cv[1]
           end
-          p['messageid'] = p['messageid'].delete('<>')
-          p['messageid'] = p['messageid'].chomp("\r")
+          p['messageid'] = p['messageid'].delete('<>').chomp("\r")
         end
 
         # CHECK_DELIVERY_STATUS_VALUE:
         # Cleanup the value of "Diagnostic-Code:" header
-        p['diagnosticcode'] = p['diagnosticcode'].sub(/[ \t.]+#{EndOfEmail}/, '')
+        p['diagnosticcode'].sub!(/[ \t.]+#{EndOfEmail}/, '')
 
         unless p['diagnosticcode'].empty?
           # Count the number of D.S.N. and SMTP Reply Code
@@ -297,7 +295,7 @@ module Sisimai
             # 550-5.7.1 likely unsolicited mail. To reduce the amount of spam sent to Gmail,
             # 550-5.7.1 this message has been blocked. Please visit
             # 550 5.7.1 https://support.google.com/mail/answer/188131 for more information.
-            p['diagnosticcode'] = p['diagnosticcode'].gsub(re, ' ')
+            p['diagnosticcode'].gsub!(re, ' ')
             p['diagnosticdoee'] = Sisimai::String.sweep(p['diagnosticcode'])
           end
         end
@@ -356,8 +354,7 @@ module Sisimai
 
           if o.softbounce.to_s.empty?
             # The value is not set yet
-            textasargv = p['deliverystatus'] + ' ' + p['diagnosticcode']
-            textasargv = textasargv.lstrip
+            textasargv = (p['deliverystatus'] + ' ' + p['diagnosticcode']).lstrip
             softorhard = Sisimai::SMTP::Error.soft_or_hard(o.reason, textasargv)
 
             o.softbounce = if softorhard.size > 0
@@ -371,9 +368,7 @@ module Sisimai
 
           if o.deliverystatus.empty?
             # Set pseudo status code
-            textasargv = o.replycode + ' ' + p['diagnosticcode']
-            textasargv = textasargv.lstrip
-
+            textasargv = (o.replycode + ' ' + p['diagnosticcode']).lstrip
             getchecked = Sisimai::SMTP::Error.is_permanent(textasargv)
             tmpfailure = getchecked.nil? ? false : (getchecked ? false : true)
             pseudocode = Sisimai::SMTP::Status.code(o.reason, tmpfailure)

@@ -170,7 +170,7 @@ module Sisimai::Bite::JSON
             end
 
             v['date'] = o['timestamp'] || argvs['mail']['timestamp']
-            v['date'] = v['date'].sub(/[.]\d+Z\z/, '')
+            v['date'].sub!(/[.]\d+Z\z/, '')
           end
         elsif argvs['notificationType'] == 'Delivery'
           # { "notificationType":"Delivery", "delivery": { ...
@@ -205,7 +205,7 @@ module Sisimai::Bite::JSON
             v['action']    = 'deliverable'
 
             v['date'] = o['timestamp'] || argvs['mail']['timestamp']
-            v['date'] = v['date'].sub(/[.]\d+Z\z/, '')
+            v['date'].sub!(/[.]\d+Z\z/, '')
           end
         else
           # The value of "notificationType" is not any of "Bounce", "Complaint",

@@ -24,9 +24,6 @@ module Sisimai
         #                           nil:   is not an error
         # @since v4.17.3
         def is_permanent(argv1 = '')
-          return nil unless argv1
-          return nil if argv1.empty?
-
           getchecked = nil
           statuscode = Sisimai::SMTP::Status.find(argv1)
           statuscode = Sisimai::SMTP::Reply.find(argv1) if statuscode.empty?

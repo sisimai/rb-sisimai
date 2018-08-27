@@ -281,8 +281,8 @@ module Sisimai
         return nil if argv1.empty?
 
         datestring = argv1
-        datestring = datestring.sub(/[,](\d+)/, ', \1')  # Thu,13 -> Thu, 13
-        datestring = datestring.sub(/(\d{1,2}),/, '\1')  # Apr,29 -> Apr 29
+        datestring.sub!(/[,](\d+)/, ', \1') # Thu,13 -> Thu, 13
+        datestring.sub!(/(\d{1,2}),/, '\1') # Apr,29 -> Apr 29
         timetokens = datestring.split(' ')
         afternoon1 = 0    # (Integer) After noon flag
         altervalue = {}   # (Hash) To store alternative values
