@@ -54,10 +54,16 @@ describe Sisimai::Rhost do
   end
 
   describe 'get' do
-    v = nil
-    context '(nil)' do
-      it 'returns nil' do
-        expect(cn.get(v)).to be nil
+    require 'sisimai'
+    require 'sisimai/reason'
+    r = Sisimai::Reason.index.each { |p| p.downcase! }
+    Dir.glob('./set-of-emails/maildir/bsd/rhost-*.eml').each do |e|
+      v = Sisimai.make(e)
+      context 'Sisimai::Data' do
+        it 'returns userunknown' do
+          expect(cn.get(v[0])).to be_a ::String
+          expect(r.include?(cn.get(v[0]))).to be true
+        end
       end
     end
   end
