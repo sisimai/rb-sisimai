@@ -81,7 +81,7 @@ module Sisimai::Bite::Email
           rxboundary = Regexp.new('\A' << Regexp.escape(b0) << '\z') unless b0.empty?
         end
         rxmessages = []
-        ReFailures.each_key { |a| rxmessages += ReFailures[a] }
+        ReFailures.each_value { |a| rxmessages << a }
 
         while e = hasdivided.shift do
           if readcursor == 0
