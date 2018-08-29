@@ -34,10 +34,6 @@ describe Sisimai::MDA do
         end
       end
     end
-    context 'empty headers and message body' do
-      v = Sisimai::MDA.scan({},'')
-      it('returns nil') { expect(v).to be nil }
-    end
     context 'wrong number of arguments' do
       it 'raises ArgumentError' do
         expect { cn.scan }.to raise_error(ArgumentError)

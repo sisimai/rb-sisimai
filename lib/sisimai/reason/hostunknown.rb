@@ -35,7 +35,7 @@ module Sisimai
             'unrouteable address',
           ]
 
-          return true if index.find { |a| argv1.include?(a) }
+          return true if index.any? { |a| argv1.include?(a) }
           return false
         end
 
@@ -45,11 +45,8 @@ module Sisimai
         #                                   false: is not unknown host.
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return nil unless argvs
-          return nil unless argvs.is_a? Sisimai::Data
           return true if argvs.reason == 'hostunknown'
 
-          require 'sisimai/smtp/status'
           diagnostic = argvs.diagnosticcode.downcase || ''
           statuscode = argvs.deliverystatus || ''
 

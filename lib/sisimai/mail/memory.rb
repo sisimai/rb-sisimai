@@ -25,7 +25,7 @@ module Sisimai
         @data   = []
         @offset = 0
 
-        if argv1[0,5] == 'From '
+        if argv1.start_with?('From ')
           # UNIX mbox
           @data = argv1.split(/^From /).map! { |e| e = 'From ' + e }
           @data.shift
@@ -37,7 +37,7 @@ module Sisimai
       # Memory reader, works as an iterator.
       # @return   [String] Contents of a bounce mail
       def read
-        return nil unless self.data.size > 0
+        return nil if self.data.empty?
         self.offset += 1
         return self.data.shift
       end

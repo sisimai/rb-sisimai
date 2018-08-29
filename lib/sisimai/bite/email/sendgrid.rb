@@ -31,15 +31,11 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         # :'from'        => %r/\AMAILER-DAEMON\z/,
         return nil unless mhead['return-path']
         return nil unless mhead['return-path'] == '<apps@sendgrid.net>'
         return nil unless mhead['subject'] == 'Undelivered Mail Returned to Sender'
 
-        require 'sisimai/datetime'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         havepassed = ['']
@@ -59,7 +55,7 @@ module Sisimai::Bite::Email
           havepassed << e
           p = havepassed[-2]
 
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e == StartingOf[:message][0]
               readcursor |= Indicators[:deliverystatus]
@@ -67,7 +63,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e == StartingOf[:rfc822][0]
               readcursor |= Indicators[:'message-rfc822']
@@ -85,7 +81,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
             if connvalues == connheader.keys.size
@@ -153,7 +149,7 @@ module Sisimai::Bite::Email
 
               elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
                 # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
-                next if connheader['date'].size > 0
+                next unless connheader['date'].empty?
                 arrivaldate = cv[1]
 
                 if cv = e.match(/\AArrival-Date: (\d{4})[-](\d{2})[-](\d{2}) (\d{2})[-](\d{2})[-](\d{2})\z/)
@@ -169,11 +165,9 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients.zero?
+        return nil unless recipients > 0
 
-        require 'sisimai/string'
-        require 'sisimai/smtp/status'
-        dscontents.map do |e|
+        dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
           # Get the value of SMTP status code as a pseudo D.S.N.
@@ -186,7 +180,7 @@ module Sisimai::Bite::Email
             # Get the value of D.S.N. from the error message or the value of
             # Diagnostic-Code header.
             pseudostatus = Sisimai::SMTP::Status.find(e['diagnosis'])
-            e['status'] = pseudostatus if pseudostatus.size > 0
+            e['status'] = pseudostatus unless pseudostatus.empty?
           end
 
           if e['action'] == 'expired'
@@ -196,7 +190,7 @@ module Sisimai::Bite::Email
               # Set pseudo Status code value if the value of Status is not
               # defined or 4.0.0 or 5.0.0.
               pseudostatus = Sisimai::SMTP::Status.code('expired')
-              e['status']  = pseudostatus if pseudostatus.size > 0
+              e['status']  = pseudostatus unless pseudostatus.empty?
             end
           end
 

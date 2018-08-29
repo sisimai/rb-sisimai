@@ -61,8 +61,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
         return nil unless mhead['x-mlserver']
         return nil unless mhead['from'] =~ /.+[-]admin[@].+/
         return nil unless mhead['message-id'] =~ /\A[<]\d+[.]FML.+[@].+[>]\z/
@@ -77,7 +75,7 @@ module Sisimai::Bite::Email
 
         readcursor |= Indicators[:deliverystatus]
         while e = hasdivided.shift do
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e == StartingOf[:rfc822][0]
               readcursor |= Indicators[:'message-rfc822']
@@ -100,7 +98,7 @@ module Sisimai::Bite::Email
             rfc822list << e.lstrip
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
             # Duplicated Message-ID in <2ndml@example.com>.
@@ -125,10 +123,9 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients.zero?
+        return nil unless recipients > 0
 
-        require 'sisimai/string'
-        dscontents.map do |e|
+        dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           e['agent']     = self.smtpagent
           e.each_key { |a| e[a] ||= '' }

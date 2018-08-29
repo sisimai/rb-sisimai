@@ -30,11 +30,8 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
         return nil unless mhead['subject'].start_with?('Undeliverable Mail: "')
 
-        require 'sisimai/mime'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         rfc822list = []     # (Array) Each line in message/rfc822 part string
@@ -54,7 +51,7 @@ module Sisimai::Bite::Email
                      end
 
         while e = hasdivided.shift do
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e == StartingOf[:message][0]
               readcursor |= Indicators[:deliverystatus]
@@ -62,7 +59,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e =~ regularexp
               readcursor |= Indicators[:'message-rfc822']
@@ -80,7 +77,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             break if e =~ regularexp
 
             # Your message:
@@ -113,7 +110,7 @@ module Sisimai::Bite::Email
                 # 550 5.1.1 User unknown
                 v['diagnosis'] = e
 
-              elsif v['diagnosis'].to_s.size > 0 && endoferror == false
+              elsif !v['diagnosis'].to_s.empty? && endoferror == false
                 # Append error messages
                 endoferror = true if e.start_with?(StartingOf[:rcpts][0])
                 next if endoferror
@@ -145,10 +142,9 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients.zero?
+        return nil unless recipients > 0
 
-        require 'sisimai/string'
-        dscontents.map do |e|
+        dscontents.each do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           e.each_key { |a| e[a] ||= '' }

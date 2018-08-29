@@ -53,11 +53,6 @@ module Sisimai
       #                                   or nil if it failed to parse or the
       #                                   arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-        return nil if mhead.keys.size.zero?
-        return nil if mbody.size.zero?
-
         leave = 0
         match = 0
 
@@ -84,7 +79,6 @@ module Sisimai
         return nil if match < 1
 
         require 'sisimai/bite/email'
-        require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.scrub('?').split("\n")
         rfc822part = '' # (String) message/rfc822-headers part
@@ -114,7 +108,6 @@ module Sisimai
         if mhead['content-type']
           # Get the boundary string and set regular expression for matching with
           # the boundary string.
-          require 'sisimai/mime'
           b0 = Sisimai::MIME.boundary(mhead['content-type'], 0)
           MarkingsOf[:boundary] = %r/\A\Q#{b0}\E\z/ unless b0.empty?
         end
@@ -124,7 +117,7 @@ module Sisimai
           # Read the first 5 lines except a blank line
           countuntil += 1 if e =~ MarkingsOf[:boundary]
 
-          unless e.size > 0
+          if e.empty?
             # Check a blank line
             blanklines += 1
             break if blanklines > countuntil
@@ -140,8 +133,6 @@ module Sisimai
           break if haveloaded >= maxmsgline
         end
         v['diagnosis'] ||= mhead['subject']
-
-        require 'sisimai/string'
         v['diagnosis'] = Sisimai::String.sweep(v['diagnosis'])
         v['reason']    = 'vacation'
         v['agent']     = self.smtpagent

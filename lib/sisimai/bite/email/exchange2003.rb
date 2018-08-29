@@ -57,8 +57,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
         match = 0
         tryto = []
 
@@ -81,7 +79,7 @@ module Sisimai::Bite::Email
               throw :EXCHANGE_OR_NOT if match > 0
             end
 
-            throw :EXCHANGE_OR_NOT if mhead['received'].size.zero?
+            throw :EXCHANGE_OR_NOT if mhead['received'].empty?
             mhead['received'].each do |e|
               # Received: by ***.**.** with Internet Mail Service (5.5.2657.72)
               next unless e.include?(' with Internet Mail Service (')
@@ -91,7 +89,7 @@ module Sisimai::Bite::Email
             break
           end
         end
-        return nil if match.zero?
+        return nil unless match > 0
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -109,7 +107,7 @@ module Sisimai::Bite::Email
         v = nil
 
         while e = hasdivided.shift do
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
@@ -117,7 +115,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
@@ -135,7 +133,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if statuspart
 
             if connvalues == connheader.keys.size
@@ -192,13 +190,13 @@ module Sisimai::Bite::Email
               #
               if cv = e.match(/\A[ \t]+To:[ \t]+(.+)\z/)
                 #  To:      shironeko@example.jp
-                next if connheader['to'].size > 0
+                next unless connheader['to'].empty?
                 connheader['to'] = cv[1]
                 connvalues += 1
 
               elsif cv = e.match(/\A[ \t]+Subject:[ \t]+(.+)\z/)
                 #  Subject: ...
-                next if connheader['subject'].size > 0
+                next unless connheader['subject'].empty?
                 connheader['subject'] = cv[1]
                 connvalues += 1
 
@@ -206,18 +204,16 @@ module Sisimai::Bite::Email
                          e.match(%r|\A[ \t]+Sent:[ \t]+(\d+[/]\d+[/]\d+[ \t]+\d+:\d+:\d+[ \t].+)|)
                 #  Sent:    Thu, 29 Apr 2010 18:14:35 +0000
                 #  Sent:    4/29/99 9:19:59 AM
-                next if connheader['date'].size > 0
+                next unless connheader['date'].empty?
                 connheader['date'] = cv[1]
                 connvalues += 1
               end
             end
           end
         end
-        return nil if recipients.zero?
+        return nil unless recipients > 0
 
-        require 'sisimai/string'
-        require 'sisimai/smtp/status'
-        dscontents.map do |e|
+        dscontents.each do |e|
           if cv = e['diagnosis'].match(/\AMSEXCH:.+[ \t]*[(]([0-9A-F]{8})[)][ \t]*(.*)\z/)
             #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
             capturedcode = cv[1]
@@ -229,7 +225,7 @@ module Sisimai::Bite::Email
               next unless ErrorCodes[r].index(capturedcode)
               e['reason'] = r.to_s
               pseudostatus = Sisimai::SMTP::Status.code(r.to_s)
-              e['status'] = pseudostatus if pseudostatus.size > 0
+              e['status'] = pseudostatus unless pseudostatus.empty?
               break
             end
             e['diagnosis'] = errormessage

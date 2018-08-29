@@ -54,22 +54,17 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         match  = 0
         match += 1 if mhead['from'].include?('Postmaster@ezweb.ne.jp')
         match += 1 if mhead['from'].include?('Postmaster@au.com')
         match += 1 if mhead['subject'] == 'Mail System Error - Returned Mail'
-        match += 1 if mhead['received'].find { |a| a.include?('ezweb.ne.jp (EZweb Mail) with') }
-        match += 1 if mhead['received'].find { |a| a.include?('.au.com (') }
+        match += 1 if mhead['received'].any? { |a| a.include?('ezweb.ne.jp (EZweb Mail) with') }
+        match += 1 if mhead['received'].any? { |a| a.include?('.au.com (') }
         if mhead['message-id']
           match += 1 if mhead['message-id'].end_with?('.ezweb.ne.jp>', '.au.com>')
         end
         return nil if match < 2
 
-        require 'sisimai/string'
-        require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         rfc822list = []     # (Array) Each line in message/rfc822 part string
@@ -82,23 +77,19 @@ module Sisimai::Bite::Email
         if mhead['content-type']
           # Get the boundary string and set regular expression for matching with
           # the boundary string.
-          require 'sisimai/mime'
           b0 = Sisimai::MIME.boundary(mhead['content-type'], 1)
-          if b0.size > 0
-            # Convert to regular expression
-            rxboundary = Regexp.new('\A' << Regexp.escape(b0) << '\z')
-          end
+          rxboundary = Regexp.new('\A' << Regexp.escape(b0) << '\z') unless b0.empty?
         end
         rxmessages = []
-        ReFailures.each_key { |a| rxmessages.concat(ReFailures[a]) }
+        ReFailures.each_value { |a| rxmessages << a }
 
         while e = hasdivided.shift do
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e =~ MarkingsOf[:rfc822] || e =~ rxboundary
               readcursor |= Indicators[:'message-rfc822']
@@ -116,7 +107,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
             # The user(s) account is disabled.
@@ -172,7 +163,7 @@ module Sisimai::Bite::Email
                 v['command'] = cv[1]
               else
                 # Check error message
-                if rxmessages.find { |a| e =~ a }
+                if rxmessages.any? { |a| e =~ a }
                   # Check with regular expressions of each error
                   v['diagnosis'] ||= ''
                   v['diagnosis'] << ' ' << e
@@ -185,15 +176,15 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients.zero?
+        return nil unless recipients > 0
 
-        dscontents.map do |e|
-          if e['alterrors'].to_s.size > 0
+        dscontents.each do |e|
+          unless e['alterrors'].to_s.empty?
             # Copy alternative error message
             e['diagnosis'] ||= e['alterrors']
             if e['diagnosis'].start_with?('-') || e['diagnosis'].end_with?('__')
               # Override the value of diagnostic code message
-              e['diagnosis'] = e['alterrors'] if e['alterrors'].size > 0
+              e['diagnosis'] = e['alterrors'] unless e['alterrors'].empty?
             end
             e.delete('alterrors')
           end

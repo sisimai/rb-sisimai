@@ -39,10 +39,8 @@ module Sisimai::Bite::JSON
       #                                   the arguments are missing
       # @since v4.20.0
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
         return nil unless mhead['x-amz-sns-message-id']
-        return nil unless mhead['x-amz-sns-message-id'].size > 0
+        return nil if mhead['x-amz-sns-message-id'].empty?
 
         hasdivided = mbody.split("\n")
         jsonstring = ''
@@ -51,7 +49,7 @@ module Sisimai::Bite::JSON
 
         while e = hasdivided.shift do
           # Find JSON string from the message body
-          next if e.size.zero?
+          next if e.empty?
           break if e == '--'
           break if e == '__END_OF_EMAIL_MESSAGE__'
 
@@ -102,10 +100,9 @@ module Sisimai::Bite::JSON
       # @since v4.20.0
       def adapt(argvs)
         return nil unless argvs.is_a? Hash
-        return nil unless argvs.keys.size > 0
+        return nil if argvs.empty?
         return nil unless argvs.key?('notificationType')
 
-        require 'sisimai/rfc5322'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         rfc822head = {}   # (Hash) Check flags for headers in RFC822 part
         recipients = 0    # (Integer) The number of 'Final-Recipient' header
@@ -173,13 +170,10 @@ module Sisimai::Bite::JSON
             end
 
             v['date'] = o['timestamp'] || argvs['mail']['timestamp']
-            v['date'] = v['date'].sub(/[.]\d+Z\z/, '')
+            v['date'].sub!(/[.]\d+Z\z/, '')
           end
         elsif argvs['notificationType'] == 'Delivery'
           # { "notificationType":"Delivery", "delivery": { ...
-          require 'sisimai/smtp/status'
-          require 'sisimai/smtp/reply'
-
           o = argvs['delivery'].dup
           r = o['recipients'] || []
 
@@ -211,14 +205,14 @@ module Sisimai::Bite::JSON
             v['action']    = 'deliverable'
 
             v['date'] = o['timestamp'] || argvs['mail']['timestamp']
-            v['date'] = v['date'].sub(/[.]\d+Z\z/, '')
+            v['date'].sub!(/[.]\d+Z\z/, '')
           end
         else
           # The value of "notificationType" is not any of "Bounce", "Complaint",
           # or "Delivery".
           return nil
         end
-        return nil if recipients.zero?
+        return nil unless recipients > 0
 
         dscontents.each do |e|
           e['agent'] = self.smtpagent

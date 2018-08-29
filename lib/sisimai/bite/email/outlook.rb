@@ -36,15 +36,12 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         # :from => %r/postmaster[@]/,
         match  = 0
         match += 1 if mhead['subject'].start_with?('Delivery Status Notification')
         match += 1 if mhead['x-message-delivery']
         match += 1 if mhead['x-message-info']
-        match += 1 if mhead['received'].find { |a| a.include?('.hotmail.com') }
+        match += 1 if mhead['received'].any? { |a| a.include?('.hotmail.com') }
         return nil if match < 2
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
@@ -66,7 +63,7 @@ module Sisimai::Bite::Email
           havepassed << e
           p = havepassed[-2]
 
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
@@ -74,7 +71,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e == StartingOf[:rfc822][0]
               readcursor |= Indicators[:'message-rfc822']
@@ -92,7 +89,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
             if connvalues == connheader.keys.size
@@ -143,23 +140,22 @@ module Sisimai::Bite::Email
               # Arrival-Date: Fri, 21 Nov 2014 14:17:34 -0800
               if cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                 # Reporting-MTA: dns;BLU004-OMC3S13.hotmail.example.com
-                next if connheader['lhost'].size > 0
+                next unless connheader['lhost'].empty?
                 connheader['lhost'] = cv[1].downcase
                 connvalues += 1
 
               elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
                 # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
-                next if connheader['date'].size > 0
+                next unless connheader['date'].empty?
                 connheader['date'] = cv[1]
                 connvalues += 1
               end
             end
           end
         end
-        return nil if recipients.zero?
+        return nil unless recipients > 0
 
-        require 'sisimai/string'
-        dscontents.map do |e|
+        dscontents.each do |e|
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
           e['agent']     = self.smtpagent
@@ -179,7 +175,7 @@ module Sisimai::Bite::Email
 
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
+            next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
             break
           end

@@ -139,9 +139,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         # :'message-id' => %r/\A[<]\w+[-]\w+[-]\w+[@].+\z/,
         return nil if     mhead['from'] =~ /[@].+[.]mail[.]ru[>]?/
         return nil unless mhead['from'].start_with?('Mail Delivery System')
@@ -171,14 +168,13 @@ module Sisimai::Bite::Email
         if mhead['content-type']
           # Get the boundary string and set regular expression for matching with
           # the boundary string.
-          require 'sisimai/mime'
           boundary00 = Sisimai::MIME.boundary(mhead['content-type']) || ''
         end
 
         while e = hasdivided.shift do
           break if e == StartingOf[:endof][0]
 
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
@@ -186,7 +182,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -204,7 +200,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
             # This message was created automatically by mail delivery software.
@@ -266,7 +262,7 @@ module Sisimai::Bite::Email
                 v['alterrors'] ||= ''
                 v['alterrors'] <<  e + ' '
               else
-                if boundary00.size > 0
+                if !boundary00.empty?
                   # --NNNNNNNNNN-eximdsn-MMMMMMMMMM
                   # Content-type: message/delivery-status
                   # ...
@@ -292,7 +288,7 @@ module Sisimai::Bite::Email
                     v['spec'] ||= cv[1].include?('@') ? 'SMTP' : 'X-UNIX'
                   else
                     # Error message ?
-                    if havepassed[:deliverystatus].zero?
+                    if havepassed[:deliverystatus] == 0
                       # Content-type: message/delivery-status
                       havepassed[:deliverystatus] = 1 if e.start_with?(StartingOf[:deliverystatus][0])
                       v['alterrors'] ||= ''
@@ -302,7 +298,7 @@ module Sisimai::Bite::Email
                 else
                   if dscontents.size == recipients
                     # Error message
-                    next unless e.size
+                    next if e.empty?
                     v['diagnosis'] ||= ''
                     v['diagnosis'] << e + '  '
                   else
@@ -327,10 +323,10 @@ module Sisimai::Bite::Email
 
         if recipients > 0
           # Check "an undisclosed address", "unroutable address"
-          dscontents.map do |q|
+          dscontents.each do |q|
             # Replace the recipient address with the value of "alias"
             next unless q['alias']
-            next unless q['alias'].size > 0
+            next if q['alias'].empty?
             if q['recipient'].empty? || q['recipient'].include?('@') == false
               # The value of "recipient" is empty or does not include "@"
               q['recipient'] = q['alias']
@@ -356,9 +352,9 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients.zero?
+        return nil unless recipients > 0
 
-        if mhead['received'].size > 0
+        unless mhead['received'].empty?
           # Get the name of local MTA
           # Received: from marutamachi.example.org (c192128.example.net [192.0.2.128])
           if cv = mhead['received'][-1].match(/from[ \t]([^ ]+)/)
@@ -366,17 +362,14 @@ module Sisimai::Bite::Email
           end
         end
 
-        require 'sisimai/string'
-        require 'sisimai/smtp/reply'
-        require 'sisimai/smtp/status'
-        dscontents.map do |e|
+        dscontents.each do |e|
           # Set default values if each value is empty.
           e['agent']   = self.smtpagent
           e['lhost'] ||= localhost0
 
           unless e['diagnosis']
             # Empty Diagnostic-Code: or error message
-            if boundary00.size > 0
+            unless boundary00.empty?
               # --NNNNNNNNNN-eximdsn-MMMMMMMMMM
               # Content-type: message/delivery-status
               #
@@ -392,14 +385,14 @@ module Sisimai::Bite::Email
               e['diagnosis'] = dscontents[0]['diagnosis'] || ''
               e['spec']    ||= dscontents[0]['spec']
 
-              if dscontents[0]['alterrors'].to_s.size > 0
+              unless dscontents[0]['alterrors'].to_s.empty?
                 # The value of "alterrors" is also copied
                 e['alterrors'] = dscontents[0]['alterrors']
               end
             end
           end
 
-          if e['alterrors'].to_s.size > 0
+          unless e['alterrors'].to_s.empty?
             # Copy alternative error message
             if e['diagnosis'].nil? || e['diagnosis'].empty?
               e['diagnosis'] = e['alterrors']
@@ -407,7 +400,7 @@ module Sisimai::Bite::Email
 
             if e['diagnosis'].start_with?('-') || e['diagnosis'].end_with?('__')
               # Override the value of diagnostic code message
-              e['diagnosis'] = e['alterrors'] if e['alterrors'].size > 0
+              e['diagnosis'] = e['alterrors'] unless e['alterrors'].empty?
             else
               # Check the both value and try to match
               if e['diagnosis'].size < e['alterrors'].size
@@ -421,7 +414,7 @@ module Sisimai::Bite::Email
             e.delete('alterrors')
           end
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
-          e['diagnosis'] = e['diagnosis'].sub(/\b__.+\z/, '')
+          e['diagnosis'].sub!(/\b__.+\z/, '')
 
           unless e['rhost']
             # Get the remote host name
@@ -432,7 +425,7 @@ module Sisimai::Bite::Email
 
             unless e['rhost']
               # Get localhost and remote host name from Received header.
-              e['rhost'] = Sisimai::RFC5322.received(mhead['received'][-1]).pop if mhead['received'].size > 0
+              e['rhost'] = Sisimai::RFC5322.received(mhead['received'][-1]).pop unless mhead['received'].empty?
             end
           end
 
@@ -458,14 +451,14 @@ module Sisimai::Bite::Email
               # Verify each regular expression of session errors
               MessagesOf.each_key do |r|
                 # Check each regular expression
-                next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
+                next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
                 e['reason'] = r.to_s
                 break
               end
 
               unless e['reason']
                 # The reason "expired"
-                e['reason'] = 'expired' if DelayedFor.find { |a| e['diagnosis'].include?(a) }
+                e['reason'] = 'expired' if DelayedFor.any? { |a| e['diagnosis'].include?(a) }
               end
             end
           end
@@ -503,7 +496,7 @@ module Sisimai::Bite::Email
             break
           end
 
-          s1  = sv[0, 1].to_i if sv.size > 0
+          s1  = sv[0, 1].to_i unless sv.empty?
           v1  = s1 + r1
           v1 << e['status'][0, 1].to_i if e['status']
 

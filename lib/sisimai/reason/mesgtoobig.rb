@@ -32,7 +32,7 @@ module Sisimai
             'taille limite du message atteinte',
           ]
 
-          return true if index.find { |a| argv1.include?(a) }
+          return true if index.any? { |a| argv1.include?(a) }
           return false
         end
 
@@ -42,11 +42,8 @@ module Sisimai
         #                                   false: is not big
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return nil unless argvs
-          return nil unless argvs.is_a? Sisimai::Data
           return true if argvs.reason == 'mesgtoobig'
 
-          require 'sisimai/smtp/status'
           statuscode = argvs.deliverystatus || ''
           tempreason = Sisimai::SMTP::Status.name(statuscode)
 

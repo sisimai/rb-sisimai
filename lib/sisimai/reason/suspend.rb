@@ -33,7 +33,7 @@ module Sisimai
             'vdelivermail: account is locked email bounced',
           ]
 
-          return true if index.find { |a| argv1.include?(a) }
+          return true if index.any? { |a| argv1.include?(a) }
           return false
         end
 
@@ -43,10 +43,7 @@ module Sisimai
         #                                   false: is not suspended
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return nil unless argvs
-          return nil unless argvs.is_a? Sisimai::Data
-          return nil unless argvs.deliverystatus.size > 0
-
+          return nil  if argvs.deliverystatus.empty?
           return true if argvs.reason == 'suspend'
           return true if match(argvs.diagnosticcode.downcase)
           return false

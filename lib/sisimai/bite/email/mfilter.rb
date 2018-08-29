@@ -31,9 +31,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         # :'from'     => %r/\AMailer Daemon [<]MAILER-DAEMON[@]/,
         return nil unless mhead['x-mailer'].to_s == 'm-FILTER'
         return nil unless mhead['subject'] == 'failure notice'
@@ -48,12 +45,12 @@ module Sisimai::Bite::Email
         v = nil
 
         while e = hasdivided.shift do
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e.start_with?(StartingOf[:rfc822][0], StartingOf[:rfc822][1])
               readcursor |= Indicators[:'message-rfc822']
@@ -71,7 +68,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
             # このメールは「m-FILTER」が自動的に生成して送信しています。
@@ -125,11 +122,10 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients.zero?
+        return nil unless recipients > 0
 
-        require 'sisimai/string'
-        dscontents.map do |e|
-          if mhead['received'].size > 0
+        dscontents.each do |e|
+          unless mhead['received'].empty?
             # Get localhost and remote host name from Received header.
             rheads = mhead['received']
             rhosts = Sisimai::RFC5322.received(rheads[-1])

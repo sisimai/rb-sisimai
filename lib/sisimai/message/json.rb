@@ -64,7 +64,7 @@ module Sisimai
           next unless argvs[e].is_a? Array
           next if argvs[e].empty?
 
-          modulelist.concat(argvs['order']) if e == 'order'
+          modulelist += argvs['order'] if e == 'order'
           next unless e == 'load'
 
           # Load user defined MTA(JSON) module
@@ -95,16 +95,14 @@ module Sisimai
       # @return        [Array]        Order of MTA(JSON) modules
       def self.makeorder(argvs)
         return [] unless argvs
-        return [] unless argvs.keys.size > 0
+        return [] if argvs.empty?
         order = []
 
         # Seek some key names from given argument
         ObjectKeys.each_key do |e|
           # Get MTA(JSON) module list matched with a specified key
           next unless argvs.key?(e)
-
-          # Matched and push it into the order list
-          order.concat(ObjectKeys[e])
+          order += ObjectKeys[e] # Matched and push it into the order list
           break
         end
         return order

@@ -35,14 +35,10 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         return nil unless mhead['from'].end_with?('<mailer-daemon@googlemail.com>')
         return nil unless mhead['subject'].start_with?('Delivery Status Notification')
         return nil unless mhead['x-gm-message-state']
 
-        require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         rfc822list = []     # (Array) Each line in message/rfc822 part string
@@ -60,12 +56,12 @@ module Sisimai::Bite::Email
         v = nil
 
         while e = hasdivided.shift do
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -83,7 +79,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
 
             if connvalues == connheader.keys.size
               # Final-Recipient: rfc822; kijitora@example.de
@@ -127,7 +123,7 @@ module Sisimai::Bite::Email
                   v['diagnosis'] = cv[2]
                 else
                   # Append error messages continued from the previous line
-                  if endoferror == false && v['diagnosis'].to_s.size > 0
+                  if endoferror == false && !v['diagnosis'].to_s.empty?
                     endoferror ||= true if e.empty?
                     endoferror ||= true if e.start_with?('--')
 
@@ -144,13 +140,13 @@ module Sisimai::Bite::Email
               # X-Original-Message-ID: <06C1ED5C-7E02-4036-AEE1-AA448067FB2C@example.jp>
               if cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                 # Reporting-MTA: dns; mx.example.jp
-                next if connheader['lhost'].size > 0
+                next unless connheader['lhost'].empty?
                 connheader['lhost'] = cv[1].downcase
                 connvalues += 1
 
               elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
                 # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
-                next if connheader['date'].size > 0
+                next unless connheader['date'].empty?
                 connheader['date'] = cv[1]
                 connvalues += 1
               else
@@ -193,12 +189,9 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients.zero?
+        return nil unless recipients > 0
 
-        require 'sisimai/string'
-        require 'sisimai/smtp/reply'
-        require 'sisimai/smtp/status'
-        dscontents.map do |e|
+        dscontents.each do |e|
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
 
@@ -219,7 +212,7 @@ module Sisimai::Bite::Email
               if e['status'] == '' || e['status'].start_with?('4.0.0', '5.0.0')
                 # Check the value of D.S.N. in anotherset
                 as = Sisimai::SMTP::Status.find(anotherset['diagnosis'])
-                if as.size > 0 && as[-3, 3] != '0.0'
+                if !as.empty? && as[-3, 3] != '0.0'
                   # The D.S.N. is neither an empty nor *.0.0
                   e['status'] = as
                 end
@@ -228,7 +221,7 @@ module Sisimai::Bite::Email
               if e['replycode'].empty? || e['replycode'].start_with?('400', '500')
                 # Check the value of SMTP reply code in anotherset
                 ar = Sisimai::SMTP::Reply.find(anotherset['diagnosis'])
-                if ar.size > 0 && ar[-2, 2].to_i != 0
+                if !ar.empty? && ar[-2, 2].to_i != 0
                   # The SMTP reply code is neither an empty nor *00
                   e['replycode'] = ar
                 end
@@ -246,7 +239,7 @@ module Sisimai::Bite::Email
 
           MessagesOf.each_key do |r|
             # Guess an reason of the bounce
-            next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
+            next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
             break
           end

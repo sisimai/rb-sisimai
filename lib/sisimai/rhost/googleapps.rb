@@ -111,9 +111,7 @@ module Sisimai
         # @return   [String]                The bounce reason for Google Apps
         # @see      https://support.google.com/a/answer/3726730?hl=en
         def get(argvs)
-          return nil unless argvs
-          return nil unless argvs.is_a? Sisimai::Data
-          return argvs.reason if argvs.reason.size > 0
+          return argvs.reason unless argvs.reason.empty?
 
           reasontext = ''
           statuscode = argvs.deliverystatus.clone
@@ -123,7 +121,7 @@ module Sisimai
 
           StatusList[statuscode.to_sym].each do |e|
             # Try to match
-            next unless e[:regexp].find { |a| argvs.diagnosticcode.include?(a) }
+            next unless e[:regexp].any? { |a| argvs.diagnosticcode.include?(a) }
             reasontext = e[:reason]
             break
           end

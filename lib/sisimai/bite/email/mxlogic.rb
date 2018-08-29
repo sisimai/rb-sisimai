@@ -91,9 +91,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         # :'message-id' => %r/\A[<]mxl[~][0-9a-f]+/,
         match  = 0
         match += 1 if mhead['x-mx-bounce']
@@ -106,7 +103,7 @@ module Sisimai::Bite::Email
             |Delivery[ ]Status[ ]Notification
             )
         }x
-        return nil if match.zero?
+        return nil unless match > 0
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -118,7 +115,7 @@ module Sisimai::Bite::Email
         v = nil
 
         while e = hasdivided.shift do
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e == StartingOf[:message][0]
               readcursor |= Indicators[:deliverystatus]
@@ -126,7 +123,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e == StartingOf[:rfc822][0]
               readcursor |= Indicators[:'message-rfc822']
@@ -144,7 +141,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
             # This message was created automatically by mail delivery software.
@@ -178,9 +175,9 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients.zero?
+        return nil unless recipients > 0
 
-        if mhead['received'].size > 0
+        unless mhead['received'].empty?
           # Get the name of local MTA
           # Received: from marutamachi.example.org (c192128.example.net [192.0.2.128])
           if cv = mhead['received'][-1].match(/from[ ]([^ ]+) /)
@@ -188,13 +185,10 @@ module Sisimai::Bite::Email
           end
         end
 
-        require 'sisimai/string'
-        dscontents.map do |e|
+        dscontents.each do |e|
           e['agent'] = self.smtpagent
           e['lhost'] = localhost0
-
-          e['diagnosis'] = e['diagnosis'].gsub(/[-]{2}.*\z/, '')
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].gsub(/[-]{2}.*\z/, ''))
 
           unless e['rhost']
             # Get the remote host name
@@ -205,7 +199,7 @@ module Sisimai::Bite::Email
 
             unless e['rhost']
               # Get localhost and remote host name from Received header.
-              e['rhost'] = Sisimai::RFC5322.received(mhead['received'][-1]).pop if mhead['received'].size > 0
+              e['rhost'] = Sisimai::RFC5322.received(mhead['received'][-1]).pop unless mhead['received'].empty?
             end
           end
 
@@ -231,14 +225,14 @@ module Sisimai::Bite::Email
               # Verify each regular expression of session errors
               MessagesOf.each_key do |r|
                 # Check each regular expression
-                next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
+                next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
                 e['reason'] = r.to_s
                 break
               end
 
               unless e['reason']
                 # The reason "expired"
-                e['reason'] = 'expired' if DelayedFor.find { |a| e['diagnosis'].include?(a) }
+                e['reason'] = 'expired' if DelayedFor.any? { |a| e['diagnosis'].include?(a) }
               end
             end
           end

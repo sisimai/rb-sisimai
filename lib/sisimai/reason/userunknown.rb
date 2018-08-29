@@ -153,11 +153,8 @@ module Sisimai
         #                                   false: is not unknown user.
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return nil unless argvs
-          return nil unless argvs.is_a? Sisimai::Data
           return true if argvs.reason == 'userunknown'
 
-          require 'sisimai/smtp/status'
           diagnostic = argvs.diagnosticcode.downcase;
           tempreason = Sisimai::SMTP::Status.name(argvs.deliverystatus)
           return false if tempreason == 'suspend'
@@ -170,7 +167,7 @@ module Sisimai
             prematches = %w[NoRelaying Blocked MailboxFull HasMoved Blocked Rejected]
             matchother = false
 
-            prematches.each do |e|
+            while e = prematches.shift do
               # Check the value of "Diagnostic-Code" with other error patterns.
               p = 'Sisimai::Reason::' << e
               r = nil

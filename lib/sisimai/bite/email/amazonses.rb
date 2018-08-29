@@ -36,9 +36,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         # :from    => %r/\AMAILER-DAEMON[@]email[-]bounces[.]amazonses[.]com\z/,
         # :subject => %r/\ADelivery Status Notification [(]Failure[)]\z/,
         return nil if mhead['x-mailer'].to_s.start_with?('Amazon WorkMail')
@@ -46,7 +43,7 @@ module Sisimai::Bite::Email
         match  = 0
         match += 1 if mhead['x-aws-outgoing']
         match += 1 if mhead['x-ses-outgoing']
-        return nil if match.zero?
+        return nil unless match > 0
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -66,7 +63,7 @@ module Sisimai::Bite::Email
           havepassed << e
           p = havepassed[-2]
 
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e.start_with?(StartingOf[:message][0], StartingOf[:message][1])
               readcursor |= Indicators[:deliverystatus]
@@ -74,7 +71,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e == StartingOf[:rfc822][0]
               readcursor |= Indicators[:'message-rfc822']
@@ -93,7 +90,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
             if connvalues == connheader.keys.size
@@ -165,7 +162,7 @@ module Sisimai::Bite::Email
               #
               if cv = e.match(/\AReporting-MTA:[ ]*[DNSdns]+;[ ]*(.+)\z/)
                 # Reporting-MTA: dns; mx.example.jp
-                next if connheader['lhost'].size > 0
+                next unless connheader['lhost'].empty?
                 connheader['lhost'] = cv[1].downcase
                 connvalues += 1
               end
@@ -174,7 +171,7 @@ module Sisimai::Bite::Email
           end
         end
 
-        if recipients.zero? && mbody =~ /notificationType/
+        if recipients == 0 && mbody =~ /notificationType/
           # Try to parse with Sisimai::Bite::JSON::AmazonSES module
           require 'sisimai/bite/json/amazonses'
           j = Sisimai::Bite::JSON::AmazonSES.scan(mhead, mbody)
@@ -185,17 +182,14 @@ module Sisimai::Bite::Email
             recipients = j['ds'].size
           end
         end
-        return nil if recipients.zero?
+        return nil unless recipients > 0
 
-        require 'sisimai/string'
-        require 'sisimai/smtp/status'
-        dscontents.map do |e|
+        dscontents.each do |e|
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
 
-          e['agent']     = self.smtpagent
-          e['diagnosis'] = e['diagnosis'].to_s.gsub(/\\n/, ' ')
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+          e['agent'] = self.smtpagent
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].to_s.gsub(/\\n/, ' '))
 
           if e['status'].to_s.start_with?('5.0.0', '5.1.0', '4.0.0', '4.1.0')
             # Get other D.S.N. value from the error message
@@ -206,12 +200,12 @@ module Sisimai::Bite::Email
               errormessage = cv[1]
             end
             pseudostatus = Sisimai::SMTP::Status.find(errormessage)
-            e['status'] = pseudostatus if pseudostatus.size > 0
+            e['status'] = pseudostatus unless pseudostatus.empty?
           end
 
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
+            next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
             break
           end

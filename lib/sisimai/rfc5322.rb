@@ -46,9 +46,7 @@ module Sisimai
         # called from Sisimai::Bite::Email::*
         fv = {}
         HeaderTable.each_value do |e|
-          e.each do |ee|
-            fv[ee.downcase] = 1
-          end
+          e.each { |ee| fv[ee.downcase] = 1 }
         end
         return fv
       end
@@ -60,7 +58,7 @@ module Sisimai
       # @param    [Symbol] group  RFC822 Header group name
       # @return   [Array,Hash]    RFC822 Header list
       def HEADERFIELDS(group = '')
-        return HeaderIndex unless group.size > 0
+        return HeaderIndex if group.empty?
         return HeaderTable[group] if HeaderTable.key?(group)
         return HeaderTable
       end
@@ -171,7 +169,7 @@ module Sisimai
             break
           end
 
-          if hostname.length.zero?
+          if hostname.empty?
             # 2. Use IP address as a remote host name
             addrlist.each do |e|
               # Skip if the address is a private address
@@ -187,7 +185,7 @@ module Sisimai
 
         %w[from by].each do |e|
           # Copy entries into hosts
-          next unless value[e].length > 0
+          next if value[e].empty?
           value[e] = value[e].delete('[]();?')
           hosts << value[e]
         end

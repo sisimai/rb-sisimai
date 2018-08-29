@@ -4,7 +4,6 @@ module Sisimai
     # Imported from p5-Sisimail/lib/Sisimai/ARF.pm
     class << self
       require 'sisimai/bite/email'
-      require 'sisimai/rfc5322'
 
       # http://tools.ietf.org/html/rfc5965
       # http://en.wikipedia.org/wiki/Feedback_loop_(email)
@@ -50,9 +49,9 @@ module Sisimai
           # Microsoft (Hotmail, MSN, Live, Outlook) uses its own report format.
           # Amazon SES Complaints bounces
           mfrom = %r{(?:
-             staff[@]hotmail[.]com\z
-            |complaints[@]email-abuse[.]amazonses[.]com\z
-            )
+             staff[@]hotmail[.]com
+            |complaints[@]email-abuse[.]amazonses[.]com
+            )\z
           }x
           if heads['from'] =~ mfrom && heads['subject'].include?('complaint about message from ')
             # From: staff@hotmail.com
@@ -78,7 +77,6 @@ module Sisimai
       def scan(mhead, mbody)
         return nil unless self.is_arf(mhead)
 
-        require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         rfc822part = ''   # (String) message/rfc822-headers part
@@ -121,7 +119,7 @@ module Sisimai
         #      this specification is set to "1".
         #
         while e = hasdivided.shift do
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
@@ -129,7 +127,7 @@ module Sisimai
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e.start_with?(StartingOf[:rfc822][0], StartingOf[:rfc822][1])
               readcursor |= Indicators[:'message-rfc822']
@@ -169,13 +167,13 @@ module Sisimai
             elsif e.start_with?(' ', "\t")
               # Continued line from the previous line
               rfc822part << e + "\n" if LongFields.key?(previousfn)
-              next if e.size > 0
+              next unless e.empty?
               rcptintext << e if previousfn == 'to'
             end
           else
             # Before "message/rfc822"
             next unless readcursor & Indicators[:deliverystatus] > 0
-            next unless e.size > 0
+            next if e.empty?
 
             # Feedback-Type: abuse
             # User-Agent: SomeGenerator/1.0
@@ -255,7 +253,7 @@ module Sisimai
           commondata[:diagnosis] << ' ' << arfheaders[:authres]
         end
 
-        if recipients.zero?
+        unless recipients > 0
           # Insert pseudo recipient address when there is no valid recipient
           # address in the message.
           dscontents[-1]['recipient'] = Sisimai::Address.undisclosed(:r)
@@ -265,7 +263,7 @@ module Sisimai
         unless rfc822part =~ /\bFrom: [^ ]+[@][^ ]+\b/
           # There is no "From:" header in the original message
           # Append the value of "Original-Mail-From" value as a sender address.
-          rfc822part << 'From: ' << commondata[:from] + "\n" if commondata[:from].size > 0
+          rfc822part << 'From: ' << commondata[:from] + "\n" unless commondata[:from].empty?
         end
 
         if cv = mhead['subject'].match(/complaint about message from (\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3})/)
@@ -275,7 +273,7 @@ module Sisimai
             'This is a Microsoft email abuse report for an email message received from IP' << arfheaders[:rhost] + ' on ' << mhead['date']
         end
 
-        dscontents.map do |e|
+        dscontents.each do |e|
           if e['recipient'] =~ /\A[^ ]+[@]\z/
             # AOL = http://forums.cpanel.net/f43/aol-brutal-work-71473.html
             e['recipient'] = Sisimai::Address.s3s4(rcptintext)

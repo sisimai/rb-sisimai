@@ -159,11 +159,7 @@ module Sisimai
         #                                   false: is not blocked by the client
         # @see      http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return nil unless argvs
-          return nil unless argvs.is_a? Sisimai::Data
           return true if argvs.reason == 'blocked'
-
-          require 'sisimai/smtp/status'
           return true if Sisimai::SMTP::Status.name(argvs.deliverystatus) == 'blocked'
           return true if match(argvs.diagnosticcode.downcase)
           return false

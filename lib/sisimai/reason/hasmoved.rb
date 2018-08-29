@@ -20,7 +20,7 @@ module Sisimai
           return nil unless argv1
           index = [' has been replaced by ']
 
-          return true if index.find { |a| argv1.include?(a) }
+          return true if index.any? { |a| argv1.include?(a) }
           return false
         end
 
@@ -30,9 +30,6 @@ module Sisimai
         #                                   false: Has not moved
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return nil unless argvs
-          return nil unless argvs.is_a? Sisimai::Data
-
           return true if argvs.reason == 'hasmoved'
           return true if match(argvs.diagnosticcode.downcase)
           return false

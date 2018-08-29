@@ -34,9 +34,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         return nil unless mhead['subject'] =~ /(?:see transcript for details\z|\AWarning: )/
         unless mhead['subject'].downcase =~ /\A[ \t]*fwd?:/
           # Fwd: Returned mail: see transcript for details
@@ -67,7 +64,7 @@ module Sisimai::Bite::Email
           havepassed << e
           p = havepassed[-2]
 
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
@@ -75,7 +72,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e.start_with?(StartingOf[:rfc822][0], StartingOf[:rfc822][1])
               readcursor |= Indicators[:'message-rfc822']
@@ -93,7 +90,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
             if connvalues == connheader.keys.size
@@ -170,7 +167,7 @@ module Sisimai::Bite::Email
 
               elsif cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                 # Reporting-MTA: dns; mx.example.jp
-                next if connheader['rhost'].size > 0
+                next unless connheader['rhost'].empty?
                 connheader['rhost'] = cv[1].downcase
                 connvalues += 1
 
@@ -184,7 +181,7 @@ module Sisimai::Bite::Email
 
               elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
                 # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
-                next if connheader['date'].size > 0
+                next unless connheader['date'].empty?
                 connheader['date'] = cv[1]
                 connvalues += 1
               else
@@ -226,17 +223,16 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients.zero?
+        return nil unless recipients > 0
 
-        require 'sisimai/string'
-        dscontents.map do |e|
+        dscontents.each do |e|
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
 
           e['agent']     = self.smtpagent
           e['command'] ||= commandtxt
           if e['command'].empty?
-            e['command'] = 'EHLO' if esmtpreply.size > 0
+            e['command'] = 'EHLO' unless esmtpreply.empty?
           end
 
           if anotherset['diagnosis']

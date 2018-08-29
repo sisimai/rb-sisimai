@@ -8,9 +8,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Message/Email.pm
       require 'sisimai/arf'
       require 'sisimai/mime'
-      require 'sisimai/string'
       require 'sisimai/rfc3834'
-      require 'sisimai/rfc5322'
       require 'sisimai/order/email'
 
       @@ToBeLoaded = []
@@ -73,7 +71,7 @@ module Sisimai
 
         # 3. Check headers for detecting MTA modules
         if headerargv['tryonfirst'].empty?
-          headerargv['tryonfirst'].concat(Sisimai::Message::Email.makeorder(processing['header']))
+          headerargv['tryonfirst'] += Sisimai::Message::Email.makeorder(processing['header'])
         end
 
         # 4. Rewrite message body for detecting the bounce reason
@@ -121,7 +119,7 @@ module Sisimai
           next unless argvs[e].is_a? Array
           next if argvs[e].empty?
 
-          modulelist.concat(argvs['order']) if e == 'order'
+          modulelist += argvs['order'] if e == 'order'
           next unless e == 'load'
 
           # Load user defined MTA module
@@ -143,7 +141,7 @@ module Sisimai
           end
         end
 
-        modulelist.each do |e|
+        while e = modulelist.shift do
           # Append the custom order of MTA modules
           next if tobeloaded.index(e)
           tobeloaded << e
@@ -158,9 +156,9 @@ module Sisimai
       def self.divideup(email)
         return {} if email.empty?
 
-        email = email.scrub('?')
-        email = email.gsub(/\r\n/, "\n")  if email.include?("\r\n")
-        email = email.gsub(/[ \t]+$/, '') if email =~ /[ \t]+$/
+        email.scrub!('?')
+        email.gsub!(/\r\n/, "\n")  if email.include?("\r\n")
+        email.gsub!(/[ \t]+$/, '') if email =~ /[ \t]+$/
 
         hasdivided = email.split("\n")
         return {} if hasdivided.empty?
@@ -219,7 +217,7 @@ module Sisimai
         RFC3834Set.each { |e| allheaders[e] = true }
         MultiHeads.each_key { |e| structured[e.downcase] = [] }
         extheaders.each_key { |e| allheaders[e] = true }
-        if extrafield.size > 0
+        unless extrafield.empty?
           extrafield.each { |e| allheaders[e.downcase] = true }
         end
 
@@ -236,8 +234,7 @@ module Sisimai
             if MultiHeads.key?(currheader)
               # Such as 'Received' header, there are multiple headers in a single
               # email message.
-              rhs = rhs.tr("\t", ' ')
-              rhs = rhs.squeeze(' ')
+              rhs = rhs.tr("\t", ' ').squeeze(' ')
               structured[currheader] << rhs
             else
               # Other headers except "Received" and so on
@@ -282,9 +279,7 @@ module Sisimai
         SubjectTab.each_key do |e|
           # Get MTA list from the subject header
           next unless title.include?(e)
-
-          # Matched and push MTA list
-          order.concat(SubjectTab[e])
+          order += SubjectTab[e]  # Matched and push MTA list
           break
         end
         return order
@@ -298,8 +293,7 @@ module Sisimai
 
         # 1. Scrub to avoid "invalid byte sequence in UTF-8" exception (#82)
         # 2. Convert from string to hash reference
-        heads = heads.scrub('?')
-        heads = heads.gsub(/^[>]+[ ]/m, '')
+        heads = heads.scrub('?').gsub(/^[>]+[ ]/m, '')
 
         takenapart = {}
         hasdivided = heads.split("\n")
@@ -335,8 +329,7 @@ module Sisimai
               mimeborder[previousfn] = true
             else
               # ASCII Characters only: Not MIME-Encoded
-              e = e.lstrip
-              takenapart[previousfn] << e
+              takenapart[previousfn] << e.lstrip
               mimeborder[previousfn] ||= false
             end
           end
@@ -461,11 +454,11 @@ module Sisimai
         # Get the original text when the subject begins from 'fwd:' or 'fw:'
         if mailheader['subject'].downcase =~ /\A[ \t]*fwd?:/
           # Delete quoted strings, quote symbols(>)
-          bodystring = bodystring.gsub(/^[>]+[ ]/m, '')
-          bodystring = bodystring.gsub(/^[>]$/m, '')
+          bodystring = bodystring.gsub(/^[>]+[ ]/m, '').gsub(/^[>]$/m, '')
         end
         bodystring << EndOfEmail
         haveloaded = {}
+        defaultset = DefaultSet.dup
         scannedset = nil
 
         catch :SCANNER do
@@ -483,16 +476,15 @@ module Sisimai
               throw :SCANNER if scannedset
             end
 
-            tobeloaded.each do |r|
+            while r = tobeloaded.shift do
               # Call user defined MTA modules
               next if haveloaded[r]
-              #require r.gsub('::', '/').downcase
               scannedset = Module.const_get(r).scan(mailheader, bodystring)
               haveloaded[r] = true
               throw :SCANNER if scannedset
             end
 
-            tryonfirst.each do |r|
+            while r = tryonfirst.shift do
               # Try MTA module candidates which are detected from MTA specific
               # mail headers on first
               next if haveloaded.key?(r)
@@ -502,7 +494,7 @@ module Sisimai
               throw :SCANNER if scannedset
             end
 
-            DefaultSet.each do |r|
+            while r = defaultset.shift do
               # MTA modules which does not have MTA specific header and did
               # not match with any regular expressions of Subject header.
               next if haveloaded.key?(r)

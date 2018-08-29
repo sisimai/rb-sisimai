@@ -48,9 +48,7 @@ module Sisimai
             # Read each file in the directory
             next if r == '.' || r == '..'
 
-            emailindir = self.dir + '/' + r
-            emailindir = emailindir.squeeze('/')
-
+            emailindir = (self.dir + '/' + r).squeeze('/')
             next unless File.ftype(emailindir) == 'file'
             next unless File.size(emailindir) > 0
             next unless File.readable?(emailindir)

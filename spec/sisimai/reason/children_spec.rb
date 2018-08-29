@@ -49,7 +49,6 @@ reasonchildren.each_key do |e|
     end
 
     describe '.true' do
-      it('returns nil') { expect(cn.true(nil)).to be nil }
       tf = cn.true(ss).to_s
       tf = 'false' if tf.empty?
       it('returns true or false') { expect(tf).to match(/(?:true|false)/) }
@@ -64,7 +63,7 @@ reasonchildren.each_key do |e|
   end
 end
 
-%w|Delivered Feedback Undefined Vacation SyntaxError|.each do |e|
+%w|Delivered Feedback Undefined Vacation|.each do |e|
   rn = 'Sisimai::Reason::' + e
   require rn.downcase.gsub('::', '/')
   cn = Module.const_get(rn)

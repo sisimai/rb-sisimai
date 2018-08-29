@@ -43,13 +43,7 @@ module Sisimai
       # @return        [Hash, Nil]        Bounce data list and message/rfc822 part
       #                                   or nil if it failed to parse or the
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-        return nil if mhead.keys.size.zero?
-        return nil if mbody.empty?
-
         require 'sisimai/mda'
-        require 'sisimai/address'
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.scrub('?').split("\n")
@@ -72,7 +66,7 @@ module Sisimai
           d = e.downcase
           p = havepassed[-2]
 
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if d =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
@@ -80,7 +74,7 @@ module Sisimai
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if d =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -99,7 +93,7 @@ module Sisimai
           else
             # Before "message/rfc822"
             next unless readcursor & Indicators[:deliverystatus] > 0
-            next unless e.size > 0
+            next if e.empty?
 
             v = dscontents[-1]
             if cv = e.match(/\A(?:Final|Original)-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/) ||
@@ -125,7 +119,7 @@ module Sisimai
               x = v['recipienet'] || ''
               y = Sisimai::Address.s3s4(cv[1])
 
-              if x.size > 0 && x != y
+              if !x.empty? && x != y
                 # There are multiple recipient addresses in the message body.
                 dscontents << Sisimai::Bite.DELIVERYSTATUS
                 v = dscontents[-1]
@@ -384,7 +378,7 @@ module Sisimai
             break if d =~ MarkingsOf[:rfc822]
             break if d =~ re_stop
 
-            next if e.size.zero?
+            next if e.empty?
             next if d =~ re_skip
             next if e.start_with?('*')
 
@@ -394,7 +388,7 @@ module Sisimai
               y = Sisimai::Address.s3s4(cv[1])
               next unless Sisimai::RFC5322.is_emailaddress(y)
 
-              if x.size > 0 && x != y
+              if !x.empty? && x != y
                 # There are multiple recipient addresses in the message body.
                 dscontents << Sisimai::Bite.DELIVERYSTATUS
                 b = dscontents[-1]
@@ -414,7 +408,7 @@ module Sisimai
           break
         end
 
-        if recipients.zero?
+        unless recipients > 0
           # Try to get a recipient address from email headers
           rfc822list.each do |e|
             # Check To: header in the original message
@@ -429,20 +423,18 @@ module Sisimai
             recipients += 1
           end
         end
-        return nil if recipients.zero?
+        return nil unless recipients > 0
 
-        require 'sisimai/string'
-        require 'sisimai/smtp/status'
-        dscontents.map do |e|
+        dscontents.each do |e|
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
 
-          if e.key?('alterrors') && e['alterrors'].size > 0
+          if e.key?('alterrors') && !e['alterrors'].empty?
             # Copy alternative error message
             e['diagnosis'] ||= e['alterrors']
             if e['diagnosis'].start_with?('-') || e['diagnosis'].end_with?('__')
               # Override the value of diagnostic code message
-              e['diagnosis'] = e['alterrors'] if e['alterrors'].size > 0
+              e['diagnosis'] = e['alterrors'] unless e['alterrors'].empty?
             end
             e.delete('alterrors')
           end
@@ -452,7 +444,7 @@ module Sisimai
             # Make bounce data by the values returned from Sisimai::MDA->scan()
             e['agent']     = scannedset['mda'] || self.smtpagent
             e['reason']    = scannedset['reason'] || 'undefined'
-            e['diagnosis'] = scannedset['message'] if scannedset['message'].size > 0
+            e['diagnosis'] = scannedset['message'] unless scannedset['message'].empty?
             e['command']   = ''
           else
             # Set the value of smtpagent

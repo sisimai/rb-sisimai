@@ -42,7 +42,7 @@ module Sisimai
         begin
           readhandle = STDIN unless readhandle
           while r = readhandle.gets
-            break if readbuffer.size > 0 && r[0, 5] == 'From '
+            break if readbuffer.size > 0 && r.start_with?('From ')
             readbuffer << r
           end
         ensure

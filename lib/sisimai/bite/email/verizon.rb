@@ -24,22 +24,17 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         match = -1
         while true
           # Check the value of "From" header
           # :'subject' => %r/Undeliverable Message/,
-          break unless mhead['received'].find { |a| a.include?('.vtext.com (') }
+          break unless mhead['received'].any? { |a| a.include?('.vtext.com (') }
           match = 1 if mhead['from'] == 'post_master@vtext.com'
           match = 0 if mhead['from'] =~ /[<]?sysadmin[@].+[.]vzwpix[.]com[>]?\z/
           break
         end
         return nil if match < 0
 
-        require 'sisimai/mime'
-        require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         rfc822list = []     # (Array) Each line in message/rfc822 part string
@@ -66,14 +61,10 @@ module Sisimai::Bite::Email
             userunknown: ['550 - Requested action not taken: no such user here'],
           }
           boundary00 = Sisimai::MIME.boundary(mhead['content-type']) || ''
-
-          if boundary00.size > 0
-            # Convert to regular expression
-            markingsof[:rfc822] = Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z')
-          end
+          markingsof[:rfc822] = Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z') unless boundary00.empty?
 
           while e = hasdivided.shift do
-            if readcursor.zero?
+            if readcursor == 0
               # Beginning of the bounce message or delivery status part
               if e =~ markingsof[:message]
                 readcursor |= Indicators[:deliverystatus]
@@ -81,7 +72,7 @@ module Sisimai::Bite::Email
               end
             end
 
-            if (readcursor & Indicators[:'message-rfc822']).zero?
+            if (readcursor & Indicators[:'message-rfc822']) == 0
               # Beginning of the original message part
               if e =~ markingsof[:rfc822]
                 readcursor |= Indicators[:'message-rfc822']
@@ -99,7 +90,7 @@ module Sisimai::Bite::Email
               rfc822list << e
             else
               # Before "message/rfc822"
-              next if (readcursor & Indicators[:deliverystatus]).zero?
+              next if (readcursor & Indicators[:deliverystatus]) == 0
               next if e.empty?
 
               # Message details:
@@ -139,14 +130,10 @@ module Sisimai::Bite::Email
           markingsof = { rfc822:  %r/\A__BOUNDARY_STRING_HERE__\z/ }
           messagesof = { userunknown: ['No valid recipients for this MM'] }
           boundary00 = Sisimai::MIME.boundary(mhead['content-type'])
-
-          if boundary00.size > 0
-            # Convert to regular expression
-            markingsof[:rfc822] = Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z')
-          end
+          markingsof[:rfc822] = Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z') unless boundary00.empty?
 
           while e = hasdivided.shift do
-            if readcursor.zero?
+            if readcursor == 0
               # Beginning of the bounce message or delivery status part
               if e.start_with?(startingof[:message][0])
                 readcursor |= Indicators[:deliverystatus]
@@ -154,7 +141,7 @@ module Sisimai::Bite::Email
               end
             end
 
-            if (readcursor & Indicators[:'message-rfc822']).zero?
+            if (readcursor & Indicators[:'message-rfc822']) == 0
               # Beginning of the original message part
               if e =~ markingsof[:rfc822]
                 readcursor |= Indicators[:'message-rfc822']
@@ -172,7 +159,7 @@ module Sisimai::Bite::Email
               rfc822list << e
             else
               # Before "message/rfc822"
-              next if (readcursor & Indicators[:deliverystatus]).zero?
+              next if (readcursor & Indicators[:deliverystatus]) == 0
               next if e.empty?
 
               # Original Message:
@@ -206,25 +193,24 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients.zero?
+        return nil unless recipients > 0
 
-        if !rfc822list.find { |a| a.start_with?('From: ') }
+        if rfc822list.none? { |a| a.start_with?('From: ') }
           # Set the value of "MAIL FROM:" or "From:"
           rfc822list << ('From: ' << senderaddr)
 
-        elsif !rfc822list.find { |a| a.start_with?('Subject: ') }
+        elsif rfc822list.none? { |a| a.start_with?('Subject: ') }
           # Set the value of "Subject:"
           rfc822list << ('Subject: ' << subjecttxt)
         end
 
-        require 'sisimai/string'
-        dscontents.map do |e|
+        dscontents.each do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
           messagesof.each_key do |r|
             # Verify each regular expression of session errors
-            next unless messagesof[r].find { |a| e['diagnosis'].include?(a) }
+            next unless messagesof[r].any? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
             break
           end

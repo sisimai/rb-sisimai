@@ -26,20 +26,17 @@ module Sisimai
     def make(argv0, **argv1)
       return nil unless argv0
 
-      require 'sisimai/data'
-      require 'sisimai/message'
-
       input = argv1[:input] || nil
       field = argv1[:field] || []
       raise ' ***error: "field" accepts an array only' unless field.is_a? Array
 
       unless input
+        klass = argv0.class
         # "input" did not specified, try to detect automatically.
-        if argv0.is_a?(::String) || argv0.is_a?(IO)
+        if klass == ::String || klass == IO
           # The argument may be a path to email OR an email text
           input = 'email'
-
-        elsif argv0.is_a?(Array) || argv0.is_a?(Hash)
+        elsif klass == Array || klass == Hash
           # The argument may be a decoded JSON object
           input = 'json'
         end
@@ -49,6 +46,8 @@ module Sisimai
       hookmethod = argv1[:hook] || nil
       bouncedata = []
 
+      require 'sisimai/data'
+      require 'sisimai/message'
       if input == 'email'
         # Path to mailbox or Maildir/, or STDIN: 'input' => 'email'
         require 'sisimai/mail'
@@ -64,7 +63,7 @@ module Sisimai
           methodargv = { data: mesg, hook: hookmethod, input: 'email', delivered: delivered1 }
           data = Sisimai::Data.make(methodargv)
           next unless data
-          bouncedata.concat(data) if data.size > 0
+          bouncedata += data unless data.empty?
         end
 
       elsif input == 'json'
@@ -90,14 +89,14 @@ module Sisimai
           data = Sisimai::Data.make(methodargv)
 
           next unless data
-          bouncedata.concat(data) if data.size > 0
+          bouncedata += data unless data.empty?
         end
       else
         # The value of "input" neither "email" nor "json"
         raise ' ***error: invalid value of "input"'
       end
 
-      return nil if bouncedata.size.zero?
+      return nil if bouncedata.empty?
       return bouncedata
     end
 
@@ -159,8 +158,8 @@ module Sisimai
       names = Sisimai::Reason.index
 
       # These reasons are not included in the results of Sisimai::Reason.index
-      names.concat(%w[Delivered Feedback Undefined Vacation])
-      names.each do |e|
+      names += %w[Delivered Feedback Undefined Vacation]
+      while e = names.shift do
         # Call .description() method of Sisimai::Reason::*
         r = 'Sisimai::Reason::' << e
         require r.gsub('::', '/').downcase

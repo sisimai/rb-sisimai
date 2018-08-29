@@ -135,9 +135,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         # Pre process email headers and the body part of the message which generated
         # by qmail, see http://cr.yp.to/qmail.html
         #   e.g.) Received: (qmail 12345 invoked for bounce); 29 Apr 2009 12:34:56 -0000
@@ -145,8 +142,8 @@ module Sisimai::Bite::Email
         tryto  = %r/\A[(]qmail[ ]+\d+[ ]+invoked[ ]+for[ ]+bounce[)]/
         match  = 0
         match += 1 if mhead['subject'].start_with?('failure notice', 'Permanent Delivery Failure')
-        match += 1 if mhead['received'].find { |a| a =~ tryto }
-        return nil if match.zero?
+        match += 1 if mhead['received'].any? { |a| a =~ tryto }
+        return nil unless match > 0
 
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
@@ -157,7 +154,7 @@ module Sisimai::Bite::Email
         v = nil
 
         while e = hasdivided.shift do
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
@@ -165,7 +162,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e.start_with?(StartingOf[:rfc822][0], StartingOf[:rfc822][1])
               readcursor |= Indicators[:'message-rfc822']
@@ -183,7 +180,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
             # <kijitora@example.jp>:
@@ -216,10 +213,9 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients.zero?
+        return nil unless recipients > 0
 
-        require 'sisimai/string'
-        dscontents.map do |e|
+        dscontents.each do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
@@ -260,12 +256,12 @@ module Sisimai::Bite::Email
                 # Verify each regular expression of session errors
                 if e['alterrors']
                   # Check the value of "alterrors"
-                  next unless MessagesOf[r].find { |a| e['alterrors'].include?(a) }
+                  next unless MessagesOf[r].any? { |a| e['alterrors'].include?(a) }
                   e['reason'] = r.to_s
                 end
                 break if e['reason']
 
-                next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
+                next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
                 e['reason'] = r.to_s
                 break
               end
@@ -273,7 +269,7 @@ module Sisimai::Bite::Email
               unless e['reason']
                 FailOnLDAP.each_key do |r|
                   # Verify each regular expression of LDAP errors
-                  next unless FailOnLDAP[r].find { |a| e['diagnosis'].include?(a) }
+                  next unless FailOnLDAP[r].any? { |a| e['diagnosis'].include?(a) }
                   e['reason'] = r.to_s
                   break
                 end

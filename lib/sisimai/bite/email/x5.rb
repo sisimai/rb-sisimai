@@ -28,10 +28,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-        require 'sisimai/mime'
-
         match  = 0
         match += 1 if mhead['to'].to_s.include?('NotificationRecipients')
         if mhead['from'].include?('TWFpbCBEZWxpdmVyeSBTdWJzeXN0ZW0')
@@ -66,7 +62,7 @@ module Sisimai::Bite::Email
           havepassed << e
           p = havepassed[-2]
 
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
@@ -74,7 +70,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
@@ -137,8 +133,8 @@ module Sisimai::Bite::Email
             end
           else
             # After "message/rfc822"
-            next if recipients.zero?
-            next if (readcursor & Indicators['deliverystatus']).zero?
+            next unless recipients > 0
+            next if (readcursor & Indicators['deliverystatus']) == 0
 
             if e.empty?
               blanklines += 1
@@ -148,10 +144,9 @@ module Sisimai::Bite::Email
             rfc822list << e
           end
         end
-        return nil if recipients.zero?
+        return nil unless recipients > 0
 
-        require 'sisimai/string'
-        dscontents.map do |e|
+        dscontents.each do |e|
           e['agent']       = self.smtpagent
           e['diagnosis'] ||= Sisimai::String.sweep(e['diagnosis'])
           e.each_key { |a| e[a] ||= '' }

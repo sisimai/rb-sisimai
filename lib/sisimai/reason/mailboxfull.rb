@@ -65,7 +65,7 @@ module Sisimai
             'would be over the allowed quota',
           ]            
 
-          return true if index.find { |a| argv1.include?(a) }
+          return true if index.any? { |a| argv1.include?(a) }
           return false
         end
 
@@ -75,15 +75,12 @@ module Sisimai
         #                                   false: is not mailbox full
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return nil unless argvs
-          return nil unless argvs.is_a? Sisimai::Data
-          return nil unless argvs.deliverystatus.size > 0
+          return nil  if argvs.deliverystatus.empty?
           return true if argvs.reason == 'mailboxfull'
 
           # Delivery status code points "mailboxfull".
           # Status: 4.2.2
           # Diagnostic-Code: SMTP; 450 4.2.2 <***@example.jp>... Mailbox Full
-          require 'sisimai/smtp/status'
           return true if Sisimai::SMTP::Status.name(argvs.deliverystatus) == 'mailboxfull'
 
           # Check the value of Diagnosic-Code: header with patterns

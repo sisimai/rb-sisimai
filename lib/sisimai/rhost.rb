@@ -29,7 +29,6 @@ module Sisimai
       # @return   [True,False]    True: matched
       #                           False: did not match
       def match(rhost)
-        return false unless rhost.is_a? ::String
         return false if rhost.empty?
 
         host0 = rhost.downcase
@@ -48,9 +47,6 @@ module Sisimai
       # @param    [Sisimai::Data] argvs   Parsed email object
       # @return   [String]                The value of bounce reason
       def get(argvs)
-        return nil unless argvs
-        return nil unless argvs.is_a? Sisimai::Data
-
         remotehost = argvs.rhost.downcase
         rhostclass = ''
         modulename = ''

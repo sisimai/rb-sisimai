@@ -86,10 +86,6 @@ module Sisimai
       #                                   or nil if it failed to parse or the
       #                                   arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-        return nil if mhead.keys.size.zero?
-        return nil if mbody.empty?
         return nil unless mhead['from'].downcase.start_with?('mail delivery subsystem','mailer-daemon', 'postmaster')
 
         agentname0 = ''   # [String] MDA name
@@ -102,7 +98,7 @@ module Sisimai
           # Check each line with each MDA's symbol regular expression.
           if agentname0 == ''
             # Try to match with each regular expression
-            next unless e.size > 0
+            next if e.empty?
             next unless e =~ MarkingsOf[:message]
 
             AgentNames.each_key do |f|
@@ -115,17 +111,18 @@ module Sisimai
 
           # Append error message lines to @linebuffer
           linebuffer << e
-          break unless e.size > 0
+          break if e.empty?
         end
-        return nil unless agentname0.size > 0
-        return nil unless linebuffer.size > 0
+        return nil if agentname0.empty?
+        return nil if linebuffer.empty?
 
         MessagesOf[agentname0.to_sym].each_key do |e|
           # Detect an error reason from message patterns of the MDA.
-          linebuffer.each do |f|
+          duplicated = linebuffer.dup
+          while f = duplicated.shift do
             # Whether the error message include each message defined in $MessagesOf
             g = f.downcase
-            next unless MessagesOf[agentname0.to_sym][e].find { |a| g.include?(a) }
+            next unless MessagesOf[agentname0.to_sym][e].any? { |a| g.include?(a) }
             reasonname = e.to_s
             bouncemesg = f
             break

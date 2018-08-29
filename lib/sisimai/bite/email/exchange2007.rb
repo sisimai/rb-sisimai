@@ -45,9 +45,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         return nil unless mhead['subject'].start_with?('Undeliverable:')
         return nil unless mhead['content-language']
         return nil unless mhead['content-language'] =~ /\A[a-z]{2}(?:[-][A-Z]{2})?\z/
@@ -65,7 +62,7 @@ module Sisimai::Bite::Email
         v = nil
 
         while e = hasdivided.shift do
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
@@ -73,7 +70,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e.start_with?(StartingOf[:rfc822][0])
               readcursor |= Indicators[:'message-rfc822']
@@ -91,7 +88,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
 
             if connvalues == connheader.keys.size
               # Diagnostic information for administrators:
@@ -123,7 +120,7 @@ module Sisimai::Bite::Email
                 v['status']    = cv[2]
                 v['diagnosis'] = e
               else
-                if v['diagnosis'].to_s.size > 0 && v['diagnosis'].end_with?('=')
+                if !v['diagnosis'].to_s.empty? && v['diagnosis'].end_with?('=')
                   # Continued line of error messages
                   v['diagnosis']  = v['diagnosis'].chomp('=')
                   v['diagnosis'] << e
@@ -135,17 +132,16 @@ module Sisimai::Bite::Email
               # Generating server: mta22.neko.example.org
               if cv = e.match(MarkingsOf[:rhost])
                 # Generating server: mta22.neko.example.org
-                next if connheader['rhost'].size > 0
+                next unless connheader['rhost'].empty?
                 connheader['rhost'] = cv[1]
                 connvalues += 1
               end
             end
           end
         end
-        return nil if recipients.zero?
+        return nil unless recipients > 0
 
-        require 'sisimai/string'
-        dscontents.map do |e|
+        dscontents.each do |e|
           if cv = e['diagnosis'].match(MarkingsOf[:error])
             # #550 5.1.1 RESOLVER.ADR.RecipNotFound; not found ##
             f = cv[1]

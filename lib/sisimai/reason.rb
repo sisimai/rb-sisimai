@@ -52,7 +52,7 @@ module Sisimai
         unless GetRetried.index(argvs.reason)
           # Return reason text already decided except reason match with the
           # regular expression of ->retry() method.
-          return argvs.reason if argvs.reason.size > 0
+          return argvs.reason unless argvs.reason.empty?
         end
 
         statuscode = argvs.deliverystatus || ''
@@ -92,7 +92,7 @@ module Sisimai
               require 'sisimai/reason/vacation'
               reasontext = 'vacation' if Sisimai::Reason::Vacation.match(argvs.diagnosticcode.downcase)
             end
-            reasontext ||= 'onhold' if argvs.diagnosticcode.size > 0
+            reasontext ||= 'onhold' unless argvs.diagnosticcode.empty?
           end
           reasontext ||= 'undefined'
         end
@@ -105,17 +105,13 @@ module Sisimai
       #                                   is missing or invalid object
       # @see get
       def anotherone(argvs)
-        return nil unless argvs
         return nil unless argvs.is_a? Sisimai::Data
-        return argvs.reason if argvs.reason.size > 0
+        return argvs.reason unless argvs.reason.empty?
 
         statuscode = argvs.deliverystatus || ''
         diagnostic = argvs.diagnosticcode.downcase || ''
         commandtxt = argvs.smtpcommand    || ''
         trytomatch = nil
-        reasontext = ''
-
-        require 'sisimai/smtp/status'
         reasontext = Sisimai::SMTP::Status.name(statuscode)
 
         catch :TRY_TO_MATCH do

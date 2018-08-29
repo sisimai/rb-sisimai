@@ -160,7 +160,7 @@ module Sisimai
         # @param    [String] group  Group name for "ORDER BY"
         # @return   [Hash]          Pattern table for the group
         def by(group = '')
-          return {} unless group.size > 0
+          return {} if group.empty?
           return PatternTable[group] if PatternTable.key?(group)
           return {}
         end
@@ -169,12 +169,9 @@ module Sisimai
         # @return   [Array] Ordered module list
         def another
           rv = []
-          rv.concat(EngineOrder1)
-          rv.concat(EngineOrder2)
-          rv.concat(EngineOrder3)
-          rv.concat(EngineOrder4)
-          rv.concat(EngineOrder5)
-          rv.concat(EngineOrder9)
+          [EngineOrder1, EngineOrder2, EngineOrder3, EngineOrder4, EngineOrder5, EngineOrder9].each do |e|
+            rv += e
+          end
           return rv
         end
 
@@ -185,7 +182,7 @@ module Sisimai
           table = {}
           skips = { 'return-path' => 1, 'x-mailer' => 1 }
 
-          order.each do |e|
+          while e = order.shift do
             # Load email headers from each MTA module
             require e.gsub('::', '/').downcase
 

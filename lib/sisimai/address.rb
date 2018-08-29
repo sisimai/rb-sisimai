@@ -8,7 +8,6 @@ module Sisimai
       :'quoted-string' => (1 << 1),    # "Neko, Nyaan"
       :'comment-block' => (1 << 2),    # (neko)
     }
-
     @@undisclosed = 'libsisimai.org.invalid'
 
     # Return pseudo recipient or sender address
@@ -67,7 +66,7 @@ module Sisimai
 
       while e = characters.shift do
         # Check each characters
-        if %w[< > ( ) " ,].detect { |r| r == e }
+        if %w[< > ( ) " ,].any? { |r| r == e }
           # The character is a delimiter character
           if e == ','
             # Separator of email addresses or not
@@ -88,7 +87,7 @@ module Sisimai
               end
             else
               # "Neko, Nyaan" <neko@nyaan.example.org> OR <"neko,nyaan"@example.org>
-              p.size > 0 ? (v[p] << e) : (v[:name] << e)
+              p.empty? ? (v[:name] << e) : (v[p] << e)
             end
             next
           end # End of if(',')
@@ -96,7 +95,7 @@ module Sisimai
           if e == '<'
             # <: The beginning of an email address or not
             if v[:address].size > 0
-              p.size > 0 ? (v[p] << e) : (v[:name] << e)
+              p.empty?  ? (v[:name] << e) : (v[p] << e)
             else
               # <neko@nyaan.example.org>
               readcursor |= Indicators[:'email-address']
@@ -116,7 +115,7 @@ module Sisimai
               p = ''
             else
               # a comment block or a display name
-              p.size > 0 ? (v[:comment] << e) : (v[:name] << e)
+              p.empty? ? (v[:name] << e) : (v[:comment] << e)
             end
             next
           end # End of if('>')
@@ -201,7 +200,7 @@ module Sisimai
           end # End of if('"')
         else
           # The character is not a delimiter
-          p.size > 0 ? (v[p] << e) : (v[:name] << e)
+          p.empty? ? (v[:name] << e) : (v[p] << e)
           next
         end
       end
@@ -220,7 +219,7 @@ module Sisimai
           v[:address] = v[:name]
         end
 
-        if v[:address].size > 0
+        unless v[:address].empty?
           # Remove the comment from the address
           if cv = v[:address].match(/(.*)([(].+[)])(.*)/)
             # (nyaan)nekochan@example.org, nekochan(nyaan)cat@example.org or
@@ -243,15 +242,9 @@ module Sisimai
 
         # Remove angle brackets, other brackets, and quotations: []<>{}'`
         # except a domain part is an IP address like neko@[192.0.2.222]
-        e[:address] = e[:address].sub(/\A[\[<{('`]/, '')
-        e[:address] = e[:address].sub(/['`>})]\z/, '')
-        e[:address] = e[:address].chomp(']') unless e[:address] =~ /[@]\[[0-9A-Za-z:\.]+\]\z/
-
-        unless e[:address] =~ /\A["].+["][@]/
-          # Remove double-quotations
-          e[:address] = e[:address].sub(/\A["]/, '')
-          e[:address] = e[:address].chomp('"')
-        end
+        e[:address] = e[:address].sub(/\A[\[<{('`]/, '').sub(/['`>})]\z/, '')
+        e[:address].chomp!(']') unless e[:address] =~ /[@]\[[0-9A-Za-z:\.]+\]\z/
+        e[:address] = e[:address].sub(/\A["]/, '').chomp('"') unless e[:address] =~ /\A["].+["][@]/
 
         if addrs
           # Almost compatible with parse() method, returns email address only
@@ -259,14 +252,11 @@ module Sisimai
           e.delete(:comment)
         else
           # Remove double-quotations, trailing spaces.
-          [:name, :comment].each do |f|
-            e[f] = e[f].strip
-          end
+          [:name, :comment].each { |f| e[f].strip! }
           e[:comment] = '' unless e[:comment] =~ /\A[(].+[)]/
-
-          e[:name] = e[:name].squeeze(' ')     unless e[:name] =~ /\A["].+["]\z/
-          e[:name] = e[:name].sub(/\A["]/, '') unless e[:name] =~ /\A["].+["][@]/
-          e[:name] = e[:name].chomp('"')
+          e[:name].squeeze!(' ')     unless e[:name] =~ /\A["].+["]\z/
+          e[:name].sub!(/\A["]/, '') unless e[:name] =~ /\A["].+["][@]/
+          e[:name].chomp!('"')
         end
         addrtables << e
       end

@@ -50,9 +50,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         # :from => %r/\AMail Delivery Subsystem/,
         return nil unless mhead['subject'] =~ /\AReturned mail: [A-Z]/
 
@@ -69,7 +66,7 @@ module Sisimai::Bite::Email
         v = nil
 
         while e = hasdivided.shift do
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e.include?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
@@ -77,7 +74,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
@@ -95,7 +92,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
             #    ----- Transcript of session follows -----
@@ -147,9 +144,9 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if (readcursor & Indicators[:'message-rfc822']).zero?
+        return nil if (readcursor & Indicators[:'message-rfc822']) == 0
 
-        if recipients.zero?
+        if recipients == 0
           # Get the recipient address from the original message
           rfc822list.each do |e|
             next unless cv = e.match(/^To: (.+)$/m)
@@ -160,10 +157,9 @@ module Sisimai::Bite::Email
             break
           end
         end
-        return nil if recipients.zero?
+        return nil unless recipients > 0
 
-        require 'sisimai/string'
-        dscontents.map do |e|
+        dscontents.each do |e|
           errorindex += 1
           e['agent']   = self.smtpagent
           e['command'] = commandset[errorindex] || ''

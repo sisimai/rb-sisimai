@@ -160,12 +160,8 @@ module Sisimai
         #                                   false: is not rejected due to spam
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return nil unless argvs
-          return nil unless argvs.is_a? Sisimai::Data
-          return nil unless argvs.deliverystatus.size > 0
+          return nil  if argvs.deliverystatus.empty?
           return true if argvs.reason == 'spamdetected'
-
-          require 'sisimai/smtp/status'
           return true if Sisimai::SMTP::Status.name(argvs.deliverystatus) == 'spamdetected'
           return true if match(argvs.diagnosticcode.downcase)
           return false

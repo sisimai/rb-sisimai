@@ -26,9 +26,6 @@ module Sisimai
         # @since 4.1.25
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return nil unless argvs
-          return nil unless argvs.is_a? Sisimai::Data
-
           return true if argvs.reason == 'syntaxerror'
           return true if argvs.replycode =~ /\A[45]0[0-7]\z/
           return false

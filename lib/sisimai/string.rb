@@ -17,10 +17,10 @@ module Sisimai
       # @see    http://en.wikipedia.org/wiki/ASCII
       def token(addr1, addr2, epoch)
         return '' unless addr1.is_a?(::String)
-        return '' unless addr1.length > 0
         return '' unless addr2.is_a?(::String)
-        return '' unless addr2.length > 0
         return '' unless epoch.is_a?(Integer)
+        return '' if addr1.empty?
+        return '' if addr2.empty?
 
         # Format: STX(0x02) Sender-Address RS(0x1e) Recipient-Address ETX(0x03)
         require 'digest/sha1'
@@ -47,12 +47,8 @@ module Sisimai
       #   sweep('  neko ') #=> 'neko'
       def sweep(argv1)
         return argv1 unless argv1.is_a?(::String)
-
-        argv1 = argv1.chomp
-        argv1 = argv1.squeeze(' ')
-        argv1 = argv1.delete("\t")
-        argv1 = argv1.strip
-        argv1 = argv1.sub(/ [-]{2,}[^ \t].+\z/, '')
+        argv1 = argv1.chomp.squeeze(' ').delete("\t").strip
+        argv1.sub!(/ [-]{2,}[^ \t].+\z/, '')
 
         return argv1
       end
@@ -75,17 +71,14 @@ module Sisimai
           # Rewrite <a> elements
           # 1. <a href = 'http://...'>...</a> to " http://... "
           # 2. <a href = 'mailto:...'>...</a> to " Value <mailto:...> "
-          plain = plain.scrub('?')
-          plain = plain.gsub(%r|<a\s+href\s*=\s*['"](https?://.+?)['"].*?>(.*?)</a>|i, '[\2](\1)')
-          plain = plain.gsub(%r|<a\s+href\s*=\s*["']mailto:([^\s]+?)["']>(.*?)</a>|i, '[\2](mailto:\1)')
+          plain.scrub!('?')
+          plain.gsub!(%r|<a\s+href\s*=\s*['"](https?://.+?)['"].*?>(.*?)</a>|i, '[\2](\1)')
+          plain.gsub!(%r|<a\s+href\s*=\s*["']mailto:([^\s]+?)["']>(.*?)</a>|i, '[\2](mailto:\1)')
 
-          plain = plain.gsub(/<[^<@>]+?>\s*/, ' ')  # Delete HTML tags except <neko@example.jp>
-          plain = plain.gsub(/&lt;/, '<')           # Convert to left angle brackets
-          plain = plain.gsub(/&gt;/, '>')           # Convert to right angle brackets
-          plain = plain.gsub(/&amp;/, '&')          # Convert to "&"
-          plain = plain.gsub(/&quot;/, '"')         # Convert to '"'
-          plain = plain.gsub(/&apos;/, "'")         # Convert to "'"
-          plain = plain.gsub(/&nbsp;/, ' ')         # Convert to ' '
+          plain = plain.gsub(/<[^<@>]+?>\s*/, ' ')              # Delete HTML tags except <neko@example.jp>
+          plain = plain.gsub(/&lt;/, '<').gsub(/&gt;/, '>')     # Convert to angle brackets
+          plain = plain.gsub(/&amp;/, '&').gsub(/&nbsp;/, ' ')  # Convert to "&"
+          plain = plain.gsub(/&quot;/, '"').gsub(/&apos;/, "'") # Convert to " and '
 
           if argv1.size > plain.size
             plain  = plain.squeeze(' ')
@@ -101,7 +94,7 @@ module Sisimai
       # @param    [String] argv2  Encoding name before converting
       # @return   [String]        UTF-8 Encoded string
       def to_utf8(argv1 = '', argv2 = nil)
-        return '' unless argv1.size > 0
+        return '' if argv1.empty?
 
         encodefrom = argv2 || false
         getencoded = ''

@@ -64,9 +64,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         return nil unless mhead['from'] =~ /[<]?mailer-daemon[@].*mail[.]ru[>]?/i
         return nil unless mhead['message-id'].end_with?('.mail.ru>', 'smailru.net>')
         return nil unless mhead['subject'] =~ %r{(?:
@@ -89,7 +86,7 @@ module Sisimai::Bite::Email
         v = nil
 
         while e = hasdivided.shift do
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
@@ -97,7 +94,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e == StartingOf[:rfc822][0]
               readcursor |= Indicators[:'message-rfc822']
@@ -116,7 +113,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
             # Это письмо создано автоматически
@@ -164,7 +161,7 @@ module Sisimai::Bite::Email
           end
         end
 
-        if recipients.zero?
+        unless recipients > 0
           # Fallback for getting recipient addresses
           if mhead['x-failed-recipients']
             # X-Failed-Recipients: kijitora@example.jp
@@ -180,32 +177,31 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients.zero?
+        return nil unless recipients > 0
 
-        if mhead['received'].size > 0
+        unless mhead['received'].empty?
           # Get the name of local MTA
           # Received: from marutamachi.example.org (c192128.example.net [192.0.2.128])
           if cv = mhead['received'][-1].match(/from[ \t]([^ ]+)/)
             localhost0 = cv[1]
           end
         end
-        require 'sisimai/string'
 
-        dscontents.map do |e|
+        dscontents.each do |e|
           # Set default values if each value is empty.
           e['lhost'] ||= localhost0
 
-          if e['alterrors'].to_s.size > 0
+          unless e['alterrors'].to_s.empty?
             # Copy alternative error message
             e['diagnosis'] ||= e['alterrors']
             if e['diagnosis'].start_with?('-') || e['diagnosis'].end_with?('__')
               # Override the value of diagnostic code message
-              e['diagnosis'] = e['alterrors'] if e['alterrors'].size > 0
+              e['diagnosis'] = e['alterrors'] unless e['alterrors'].empty?
             end
             e.delete('alterrors')
           end
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
-          e['diagnosis'] = e['diagnosis'].sub(/\b__.+\z/, '')
+          e['diagnosis'].sub!(/\b__.+\z/, '')
 
           unless e['rhost']
             # Get the remote host name
@@ -216,7 +212,7 @@ module Sisimai::Bite::Email
 
             unless e['rhost']
               # Get localhost and remote host name from Received header.
-              e['rhost'] = Sisimai::RFC5322.received(mhead['received'][-1]).pop if mhead['received'].size > 0
+              e['rhost'] = Sisimai::RFC5322.received(mhead['received'][-1]).pop unless mhead['received'].empty?
             end
           end
 
@@ -242,7 +238,7 @@ module Sisimai::Bite::Email
               # Verify each regular expression of session errors
               MessagesOf.each_key do |r|
                 # Check each regular expression
-                next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
+                next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
                 e['reason'] = r.to_s
                 break
               end

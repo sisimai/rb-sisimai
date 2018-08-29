@@ -17,15 +17,9 @@ module Sisimai::Bite::JSON
       # @since v4.20.0
       def adapt(argvs)
         return nil unless argvs.is_a? Hash
-        return nil unless argvs.keys.size > 0
+        return nil if argvs.empty?
         return nil unless argvs.key?('email')
         return nil unless Sisimai::RFC5322.is_emailaddress(argvs['email'])
-
-        require 'sisimai/string'
-        require 'sisimai/address'
-        require 'sisimai/datetime'
-        require 'sisimai/smtp/reply'
-        require 'sisimai/smtp/status'
 
         dscontents = nil
         rfc822head = {}

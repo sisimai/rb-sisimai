@@ -15,7 +15,7 @@ module Sisimai
           # Make default order of MTA(JSON) modules to be loaded
           rv = []
           begin
-            rv.concat(Sisimai::Bite::JSON.index.map { |e| 'Sisimai::Bite::JSON::' << e })
+            rv += Sisimai::Bite::JSON.index.map { |e| 'Sisimai::Bite::JSON::' << e }
           rescue
             # Failed to load MTA(JSON) module
             next
@@ -40,7 +40,7 @@ module Sisimai
         # @param    [String] group  Group name for "ORDER BY"
         # @return   [Hash]          Pattern table for the group
         def by(group = '')
-          return {} unless group.size > 0
+          return {} if group.empty?
           return PatternTable[group] if PatternTable.key?(group)
           return {}
         end

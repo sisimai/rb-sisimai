@@ -37,11 +37,8 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
         return nil unless mhead['subject'].start_with?('DELIVERY FAILURE:')
 
-        require 'sisimai/address'
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         rfc822list = []     # (Array) Each line in message/rfc822 part string
@@ -54,7 +51,7 @@ module Sisimai::Bite::Email
         while e = hasdivided.shift do
           next if e.empty?
 
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
@@ -62,7 +59,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e == StartingOf[:rfc822][0]
               readcursor |= Indicators[:'message-rfc822']
@@ -80,7 +77,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
 
             # Your message
             #
@@ -126,27 +123,25 @@ module Sisimai::Bite::Email
             end
           end
         end
-        return nil if recipients.zero?
+        return nil unless recipients > 0
 
-        require 'sisimai/string'
-        require 'sisimai/smtp/status'
-        dscontents.map do |e|
+        dscontents.each do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           e['recipient'] = Sisimai::Address.s3s4(e['recipient'])
 
           MessagesOf.each_key do |r|
             # Check each regular expression of Domino error messages
-            next unless MessagesOf[r].find { |a| e['diagnosis'].include?(a) }
+            next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
             pseudostatus = Sisimai::SMTP::Status.code(r.to_s, false)
-            e['status'] = pseudostatus if pseudostatus.size > 0
+            e['status'] = pseudostatus unless pseudostatus.empty?
             break
           end
           e.each_key { |a| e[a] ||= '' }
         end
 
-        unless rfc822list.find { |a| a.start_with?('Subject:') }
+        unless rfc822list.any? { |a| a.start_with?('Subject:') }
           # Set the value of subjecttxt as a Subject if there is no original
           # message in the bounce mail.
           rfc822list << ('Subject: ' << subjecttxt)

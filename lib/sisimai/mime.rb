@@ -28,7 +28,7 @@ module Sisimai
       def is_mimeencoded(argv1)
         return false unless argv1
 
-        argv1 = argv1.delete('"')
+        argv1.delete!('"')
         piece = []
         mime1 = false
 
@@ -48,12 +48,9 @@ module Sisimai
       end
 
       # Decode MIME-Encoded string
-      # @param    [Array] argvs   Reference to an array including MIME-Encoded text
+      # @param    [Array] argvs   An array including MIME-Encoded text
       # @return   [String]        MIME-Decoded text
       def mimedecode(argvs = [])
-        return '' unless argvs
-        return '' unless argvs.is_a? Array
-
         characterset = nil
         encodingname = nil
         mimeencoded0 = nil
@@ -61,10 +58,9 @@ module Sisimai
         notmimetext0 = ''
         notmimetext1 = ''
 
-        argvs.each do |e|
+        while e = argvs.shift do
           # Check and decode each element
-          e = e.strip
-          e = e.delete('"')
+          e = e.strip.delete('"')
 
           if self.is_mimeencoded(e)
             # MIME Encoded string
@@ -92,17 +88,17 @@ module Sisimai
           end
         end
 
-        return '' unless decodedtext0.size > 0
+        return '' if decodedtext0.empty?
         decodedtext1 = decodedtext0.join('')
 
         if characterset && encodingname
           # utf8 => UTF-8
-          characterset = 'UTF-8' if characterset.casecmp('UTF8').zero?
+          characterset = 'UTF-8' if characterset.casecmp('UTF8') == 0
 
-          unless characterset.casecmp('UTF-8').zero?
+          unless characterset.casecmp('UTF-8') == 0
             # Characterset is not UTF-8
             begin
-              decodedtext1 = decodedtext1.encode('UTF-8', characterset)
+              decodedtext1.encode!('UTF-8', characterset)
             rescue
               decodedtext1 = 'FAILED TO CONVERT THE SUBJECT'
             end
@@ -119,7 +115,7 @@ module Sisimai
       def qprintd(argv1 = nil, heads = {})
         return nil unless argv1
         return argv1.unpack('M').first unless heads['content-type']
-        return argv1.unpack('M').first unless heads['content-type'].size > 0
+        return argv1.unpack('M').first if heads['content-type'].empty?
 
         # Quoted-printable encoded part is the part of the text
         boundary00 = Sisimai::MIME.boundary(heads['content-type'], 0)
@@ -127,7 +123,7 @@ module Sisimai
         # Decoded using unpack('M') entire body string when the boundary string
         # or "Content-Transfer-Encoding: quoted-printable" are not included in
         # the message body.
-        return argv1.unpack('M').first if boundary00.size.zero?
+        return argv1.unpack('M').first if boundary00.empty?
         return argv1.unpack('M').first unless argv1.downcase =~ ReE[:'quoted-print']
 
         boundary01 = Sisimai::MIME.boundary(heads['content-type'], 1)
@@ -154,8 +150,7 @@ module Sisimai
               # The next boundary string has appeared
               # --=_gy7C4Gpes0RP4V5Bs9cK4o2Us2ZT57b-3OLnRN+4klS8dTmQ
               getencoded = Sisimai::String.to_utf8(notdecoded.unpack('M').first, encodename)
-              bodystring << getencoded
-              bodystring << e + "\n"
+              bodystring << getencoded << e + "\n"
 
               notdecoded = ''
               mimeinside = false
@@ -179,7 +174,7 @@ module Sisimai
                 mustencode = true
                 while true do
                   break if e.end_with?(' ', "\t")
-                  break if e.split('').find { |c| c.ord < 32 || c.ord > 126 }
+                  break if e.split('').any? { |c| c.ord < 32 || c.ord > 126 }
                   if e.end_with?('=')
                     # Padding character of Base64 or not
                     break if e =~ /[\+\/0-9A-Za-z]{32,}[=]+\z/
@@ -261,7 +256,7 @@ module Sisimai
           # Content-Type: multipart/report; report-type=delivery-status;
           #    boundary="n6H9lKZh014511.1247824040/mx.example.jp"
           value = cv[1]
-          value = value.delete(%q|'"|)
+          value.delete!(%q|'"|)
           value = '--' + value if start > -1
           value = value + '--' if start >  0
         end

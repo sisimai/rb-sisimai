@@ -88,9 +88,6 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        return nil unless mhead
-        return nil unless mbody
-
         tryto  = %r/.+[.](?:outbound[.]protection|prod)[.]outlook[.]com\b/
         match  = 0
         match += 1 if mhead['subject'].include?('Undeliverable:')
@@ -101,7 +98,7 @@ module Sisimai::Bite::Email
         match += 1 if mhead['x-ms-exchange-crosstenant-originalarrivaltime']
         match += 1 if mhead['x-ms-exchange-crosstenant-fromentityheader']
         match += 1 if mhead['x-ms-exchange-transport-crosstenantheadersstamped']
-        match += 1 if mhead['received'].find { |a| a =~ tryto }
+        match += 1 if mhead['received'].any? { |a| a =~ tryto }
         if mhead['message-id']
           # Message-ID: <00000000-0000-0000-0000-000000000000@*.*.prod.outlook.com>
           match += 1 if mhead['message-id'] =~ tryto
@@ -120,7 +117,7 @@ module Sisimai::Bite::Email
         v = nil
 
         while e = hasdivided.shift do
-          if readcursor.zero?
+          if readcursor == 0
             # Beginning of the bounce message or delivery status part
             if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
@@ -128,7 +125,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if (readcursor & Indicators[:'message-rfc822']).zero?
+          if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
             if e == StartingOf[:rfc822][0]
               readcursor |= Indicators[:'message-rfc822']
@@ -146,7 +143,7 @@ module Sisimai::Bite::Email
             rfc822list << e
           else
             # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]).zero?
+            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
             # kijitora@example.com<mailto:kijitora@example.com>
@@ -221,11 +218,9 @@ module Sisimai::Bite::Email
 
           end
         end
-        return nil if recipients.zero?
+        return nil unless recipients > 0
 
-        require 'sisimai/string'
-        require 'sisimai/smtp/status'
-        dscontents.map do |e|
+        dscontents.each do |e|
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
 
@@ -236,7 +231,7 @@ module Sisimai::Bite::Email
           if e['status'].empty? || e['status'].end_with?('.0.0')
             # There is no value of Status header or the value is 5.0.0, 4.0.0
             pseudostatus = Sisimai::SMTP::Status.find(e['diagnosis'])
-            e['status'] = pseudostatus if pseudostatus.size > 0
+            e['status'] = pseudostatus unless pseudostatus.empty?
           end
 
           ReCommands.each_key do |p|
