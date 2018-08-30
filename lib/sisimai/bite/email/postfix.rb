@@ -149,7 +149,7 @@ module Sisimai::Bite::Email
                 #   685  #endif
                 v['date'] = cv[1]
               else
-                if cv = e.match(/\ADiagnostic-Code:[ ]*(.+?);[ ]*(.+)\z/)
+                if cv = e.match(/\ADiagnostic-Code:[ ]*(.+?);[ ]*(.*)\z/)
                   # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
                   v['spec'] = cv[1].upcase
                   v['diagnosis'] = cv[2]
