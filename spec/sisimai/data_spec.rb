@@ -50,8 +50,8 @@ describe Sisimai::Data do
         end
         example('#timestamp#year is 2014') { expect(e.timestamp.year).to be == 2014 }
         example('#timestamp#month is 6') { expect(e.timestamp.month).to be == 6 }
-        example('#timestamp#mday is 21') { expect(e.timestamp.mday).to be == 21 }
-        example('#timestamp#wday is 6') { expect(e.timestamp.cwday).to be == 6 }
+        example('#timestamp#mday is 21 or 22') { expect(e.timestamp.mday.to_s).to match(/\A2[12]\z/) }
+        example('#timestamp#wday is 6 or 7') { expect(e.timestamp.cwday.to_s).to match(/\A[67]\z/) }
 
         example '#addresser is Sisimai::Address object' do
           expect(e.addresser).to be_a Sisimai::Address
@@ -174,8 +174,8 @@ describe Sisimai::Data do
         end
         example('#timestamp#year is 2009') { expect(e.timestamp.year).to be == 2009 }
         example('#timestamp#month is 4') { expect(e.timestamp.month).to be == 4 }
-        example('#timestamp#mday is 29') { expect(e.timestamp.mday).to be == 29 }
-        example('#timestamp#wday is 3') { expect(e.timestamp.cwday).to be == 3 }
+        example('#timestamp#mday is 29 or 30') { expect(e.timestamp.mday.to_s).to match(/\A(?:29|30)\z/) }
+        example('#timestamp#wday is 3 or 4') { expect(e.timestamp.cwday.to_s).to match(/\A[34]\z/) }
 
         example '#addresser is Sisimai::Address object' do
           expect(e.addresser).to be_a Sisimai::Address
