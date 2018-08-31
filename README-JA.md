@@ -80,10 +80,10 @@ Install
 
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-4.22.2.gem (100%)
-Successfully installed sisimai-4.22.2
-Parsing documentation for sisimai-4.22.2
-Installing ri documentation for sisimai-4.22.2
+Fetching: sisimai-4.23.0.gem (100%)
+Successfully installed sisimai-4.23.0
+Parsing documentation for sisimai-4.23.0
+Installing ri documentation for sisimai-4.23.0
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -99,8 +99,8 @@ gem install bundle rake rspec coveralls
 ...
 4 gems installed
 bundle exec rake install
-sisimai 4.22.2 built to pkg/sisimai-4.22.2.gem.
-sisimai (4.22.2) installed.
+sisimai 4.23.0 built to pkg/sisimai-4.23.0.gem.
+sisimai (4.23.0) installed.
 ```
 
 Usage
@@ -116,7 +116,7 @@ Basic usage
 require 'sisimai'
 v = Sisimai.make('/path/to/mbox')       # or path to Maildir/
 
-# Beginning with v4.22.7p2, both make() and dump() method of Sisimai class can
+# Beginning with v4.23.0, both make() and dump() method of Sisimai class can
 # read bounce messages from variable instead of a path to mailbox
 f = File.open('/path/to/mbox', 'r');    # or path to Maildir/
 v = Sisimai.make(f.read)
@@ -244,7 +244,7 @@ Differences between Ruby version and Perl version
 | メール解析速度(1000通のメール)              | 3.75秒[2]      | 1.70秒        |
 | インストール方法                            | gem install    | cpanm, cpm    |
 | 依存モジュール数(コアモジュールを除く)      | 1モジュール    | 2モジュール   |
-| LOC:ソースコードの行数                      | 12000行        | 8600行        |
+| LOC:ソースコードの行数                      | 11700行        | 8500行        |
 | テスト件数(spec/,t/,xt/ディレクトリ)        | 218000件       | 236000件      |
 | ライセンス                                  | 二条項BSD      | 二条項BSD     |
 | 開発会社によるサポート契約                  | 準備中         | 提供中        |

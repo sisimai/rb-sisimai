@@ -85,10 +85,10 @@ Install
 
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-4.22.2.gem (100%)
-Successfully installed sisimai-4.22.2
-Parsing documentation for sisimai-4.22.2
-Installing ri documentation for sisimai-4.22.2
+Fetching: sisimai-4.23.0.gem (100%)
+Successfully installed sisimai-4.23.0
+Parsing documentation for sisimai-4.23.0
+Installing ri documentation for sisimai-4.23.0
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -104,8 +104,8 @@ gem install bundle rake rspec coveralls
 ...
 4 gems installed
 bundle exec rake install
-sisimai 4.22.2 built to pkg/sisimai-4.22.2.gem.
-sisimai (4.22.2) installed.
+sisimai 4.23.0 built to pkg/sisimai-4.23.0.gem.
+sisimai (4.23.0) installed.
 ```
 
 Usage
@@ -121,7 +121,7 @@ messages like following.
 require 'sisimai'
 v = Sisimai.make('/path/to/mbox')       # or path to Maildir/
 
-# Beginning with v4.22.7p2, both make() and dump() method of Sisimai class can
+# Beginning with v4.23.0, both make() and dump() method of Sisimai class can
 # read bounce messages from variable instead of a path to mailbox
 f = File.open('/path/to/mbox', 'r');    # or path to Maildir/
 v = Sisimai.make(f.read)
@@ -248,7 +248,7 @@ and bounceHammer are available at
 | The speed of parsing email(1000 emails)     | 3.75s[2]       | 1.70s         |
 | How to install                              | gem install    | cpanm, cpm    |
 | Dependencies (Except core modules)          | 1 module       | 2 modules     |
-| LOC:Source lines of code                    | 12000 lines    | 8600 lines    |
+| LOC:Source lines of code                    | 11700 lines    | 8500 lines    |
 | The number of tests(spec/,t/,xt/) directory | 218000 tests   | 236000 tests  |
 | License                                     | BSD 2-Clause   | BSD 2-Clause  |
 | Support Contract provided by Developer      | Coming soon    | Available     |
