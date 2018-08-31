@@ -5,7 +5,7 @@ RELEASE NOTES for Ruby version of Sisimai
 
 v4.23.0
 --------------------------------------------------------------------------------
-- release: ""
+- release: "Fri, 31 Aug 2018 20:19:54 +0900 (JST)"
 - version: "4.23.0"
 - changes:
   - #124 Implement Sisimai::Mail::Memory class for reading bounce messages from
@@ -17,6 +17,8 @@ v4.23.0
   - #128 Less method calls: use method chain, bang method.
   - Import commit  sisimai/p5-Sisimai@cccb4ef Some test code have been loosened
     for UTC+13(Pacific/Tongatapu), UTC+14(Pacific/Kiritimati).
+  - #127 Fix "NoMethodError" in Sisimai::Bite::Email::Postfix when the value of
+    Diagnostic-Code field is folded. Thanks to @Unknown22.
 
 v4.22.7
 --------------------------------------------------------------------------------
