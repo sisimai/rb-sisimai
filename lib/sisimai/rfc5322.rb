@@ -8,9 +8,7 @@ module Sisimai
         :subject   => ['Subject'],
         :listid    => ['List-Id'],
         :date      => %w[Date Posted-Date Posted Resent-Date],
-        :addresser => %w[
-          From Return-Path Reply-To Errors-To Reverse-Path X-Postfix-Sender Envelope-From X-Envelope-From
-          ],
+        :addresser => %w[From Return-Path Reply-To Errors-To Reverse-Path X-Postfix-Sender Envelope-From X-Envelope-From],
         :recipient => %w[To Delivered-To Forward-Path Envelope-To X-Envelope-To Resent-To Apparently-To],
       }.freeze
 
