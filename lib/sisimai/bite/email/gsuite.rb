@@ -167,6 +167,7 @@ module Sisimai::Bite::Email
                   if anotherset['diagnosis']
                     # Continued error messages from the previous line like
                     # "550 #5.1.0 Address rejected."
+                    next if e =~ /\AContent-Type:/
                     next if emptylines > 5
                     if e.empty?
                       # Count and next()

@@ -9,7 +9,7 @@ module Sisimai::Bite::Email
 
       Indicators = Sisimai::Bite::Email.INDICATORS
       StartingOf = {
-        message: ['Content-type: text/plain'],
+        message: [''],
         rfc822:  ['Content-type: message/rfc822'],
       }.freeze
 
