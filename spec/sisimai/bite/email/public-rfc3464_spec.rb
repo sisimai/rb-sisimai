@@ -3,7 +3,6 @@ require './spec/sisimai/bite/email/code'
 enginename = 'RFC3464'
 isexpected = [
   { 'n' => '01', 's' => /\A5[.]1[.]1\z/,     'r' => /mailboxfull/, 'a' => /dovecot/, 'b' => /\A1\z/ },
-  { 'n' => '02', 's' => /\A5[.]0[.]0\z/,     'r' => /networkerror/,'a' => /RFC3464/, 'b' => /\A1\z/ },
   { 'n' => '03', 's' => /\A5[.]0[.]0\z/,     'r' => /policyviolation/,'a' => /RFC3464/, 'b' => /\A1\z/ },
   { 'n' => '04', 's' => /\A5[.]5[.]0\z/,     'r' => /mailererror/, 'a' => /RFC3464/, 'b' => /\A1\z/ },
   { 'n' => '05', 's' => /\A5[.]2[.]1\z/,     'r' => /filtered/,    'a' => /RFC3464/,    'b' => /\A1\z/ },

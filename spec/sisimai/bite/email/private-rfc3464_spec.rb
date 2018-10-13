@@ -249,7 +249,6 @@ isexpected = [
   { 'n' => '01261', 'r' => /policyviolation/ },
   { 'n' => '01262', 'r' => /expired/ },
   { 'n' => '01263', 'r' => /networkerror/ },
-  { 'n' => '01264', 'r' => /networkerror/ },
   { 'n' => '01265', 'r' => /policyviolation/ },
   { 'n' => '01266', 'r' => /policyviolation/ },
   { 'n' => '01267', 'r' => /hasmoved/ },
