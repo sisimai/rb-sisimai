@@ -3,6 +3,19 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.23.0p1
+--------------------------------------------------------------------------------
+- release: ""
+- version: "4.23.0p1"
+- changes:
+  - Variable improvement (remove redundant substitution)
+  - Remove Sisimai::RFC2606 (Unused module)
+  - MIME decoding improvement #130 Thanks to @outreach-soren.
+    - Implement Sisimai::MIME.makeflat
+    - Implement Sisimai::MIME.breaksup
+    - Call Sisimai::MIME.makeflat at Sisimai::Message::Email.parse
+    - Other related updates in Sisimai::Bite::Email::*
+
 v4.23.0
 --------------------------------------------------------------------------------
 - release: "Fri, 31 Aug 2018 20:19:54 +0900 (JST)"
