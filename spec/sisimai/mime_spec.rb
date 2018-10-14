@@ -62,15 +62,15 @@ describe Sisimai::MIME do
 
     context 'Irregular MIME encoded test' do
       # Irregular MIME encoded strings
-      b9 = [
+      bE = [
         '[NEKO] =?UTF-8?B?44OL44Oj44O844Oz?=',
         '=?UTF-8?B?44OL44Oj44O844Oz?= [NYAAN]',
         '[NEKO] =?UTF-8?B?44OL44Oj44O844Oz?= [NYAAN]'
       ]
-      b9.each do |e|
-        v9 = cn.mimedecode([e])
+      bE.each do |e|
+        vE = cn.mimedecode([e])
         it('returns true') { expect(cn.is_mimeencoded(e)).to be true }
-        it('matches /ニャーン/') { expect(v9).to match %r/ニャーン/ }
+        it('matches /ニャーン/') { expect(vE).to match %r/ニャーン/ }
       end
     end
 
@@ -81,8 +81,8 @@ describe Sisimai::MIME do
 
   # Base64, Quoted-Printable
   describe '.qprintd' do
-    h7 = { 'content-type' => 'multipart/report; report-type=delivery-status; boundary="b0Nvs+XKfKLLRaP/Qo8jZhQPoiqeWi3KWPXMgw=="' }
-    q7 = '
+    h6 = { 'content-type' => 'multipart/report; report-type=delivery-status; boundary="b0Nvs+XKfKLLRaP/Qo8jZhQPoiqeWi3KWPXMgw=="' }
+    q6 = '
 --b0Nvs+XKfKLLRaP/Qo8jZhQPoiqeWi3KWPXMgw==
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -116,19 +116,19 @@ Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
 
     context 'Quoted-Printable string' do
       it('returns "Neko"') { expect(cn.qprintd('=4e=65=6b=6f')).to be == 'Neko' }
-      d7 = cn.qprintd(q7, h7)
-      it('returns String') { expect(d7).to be_a String }
-      it('returns String') { expect(q7.size).to be > d7.size }
-      it('includes boundary') { expect(d7).to match(%r|[-][-]b0Nvs[+]XKfKLLRaP/Qo8jZhQPoiqeWi3KWPXMgw==|m) }
-      it('does not match 32=') { expect(d7).not_to match(/32=$/m) }
+      v6 = cn.qprintd(q6, h6)
+      it('returns String') { expect(v6).to be_a String }
+      it('returns String') { expect(q6.size).to be > v6.size }
+      it('includes boundary') { expect(v6).to match(%r|[-][-]b0Nvs[+]XKfKLLRaP/Qo8jZhQPoiqeWi3KWPXMgw==|m) }
+      it('does not match 32=') { expect(v6).not_to match(/32=$/m) }
     end
 
-    h8 = { 'content-type' => 'neko/nyan' }
-    q8 = 'neko'
-    d8 = cn.qprintd(q8, h8)
+    h7 = { 'content-type' => 'neko/nyan' }
+    q7 = 'neko'
+    v7 = cn.qprintd(q7, h7)
     context 'Invalid content-type header' do
-      it('returns String') { expect(d8).to be_a String }
-      it('returns ' + q8)  { expect(d8).to be == q8 }
+      it('returns String') { expect(v7).to be_a String }
+      it('returns ' + q7)  { expect(v7).to be == q7 }
     end
 
     context 'wrong number of arguments' do
@@ -138,9 +138,9 @@ Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
 
   describe '.base64d' do
     context 'Base64 string' do
-      b6 = '44Gr44KD44O844KT'
-      p6 = 'にゃーん'
-      it('returns ' + p6) { expect(cn.base64d(b6)).to be == p6 }
+      b8 = '44Gr44KD44O844KT'
+      p8 = 'にゃーん'
+      it('returns ' + p8) { expect(cn.base64d(b8)).to be == p8 }
     end
     context 'wrong number of arguments' do
       it('raises ArgumentError') { expect { cn.base64d(nil,nil) }.to raise_error(ArgumentError) }
@@ -164,7 +164,7 @@ Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
 
   describe '.makeflat' do
     h9 = { 'content-type' => 'multipart/report; report-type=delivery-status; boundary="NekoNyaan--------1"' }
-    b9 = '--NekoNyaan--------1
+    p9 = '--NekoNyaan--------1
 Content-Type: multipart/related; boundary="NekoNyaan--------2"
 
 --NekoNyaan--------2
@@ -215,13 +215,13 @@ Received: ...
 
     '
     context 'mutipart/report message body' do
-      p9 = cn.makeflat(h9['content-type'], b9)
-      it('returns String') { expect(p9).to be_a String }
-      it('contain "text/plain part"') { expect(p9).to match(/sironeko/) }
-      it('does not contain text/html part') { expect(p9).not_to match(/<html>/) }
-      it('does not contain image/jpg part') { expect(p9).not_to match(/4AAQSkZJRgABAQEBLAEsAAD/) }
-      it('contain "message/delivery-status part"') { expect(p9).to match(/kijitora[@]/) }
-      it('contain "message/rfc822 part"') { expect(p9).to match(/Received:/) }
+      v9 = cn.makeflat(h9['content-type'], p9)
+      it('returns String') { expect(v9).to be_a String }
+      it('contain "text/plain part"') { expect(v9).to match(/sironeko/) }
+      it('does not contain text/html part') { expect(v9).not_to match(/<html>/) }
+      it('does not contain image/jpg part') { expect(v9).not_to match(/4AAQSkZJRgABAQEBLAEsAAD/) }
+      it('contain "message/delivery-status part"') { expect(v9).to match(/kijitora[@]/) }
+      it('contain "message/rfc822 part"') { expect(v9).to match(/Received:/) }
       it('returns Nil') { expect(cn.makeflat(nil,nil)).to be_nil }
     end
 
@@ -232,7 +232,7 @@ Received: ...
 
   describe '.breaksup' do
     h10 = 'multipart/alternative'
-    b10 = 'Content-Type: multipart/alternative; boundary="NekoNyaan--------3"
+    p10 = 'Content-Type: multipart/alternative; boundary="NekoNyaan--------3"
 
 --NekoNyaan--------3
 Content-Type: text/plain; charset="UTF-8"
@@ -249,17 +249,16 @@ YWQ+Cjxib2R5PgogICAgPGgxPk5la28gTnlhYW48L2gxPgo8L2JvZHk+CjwvaHRt
 bD4K
     '
     context 'mutipart/alternative part' do
-      p10 = cn.breaksup(b10, h10)
-      it('returns String') { expect(p10).to be_a String }
-      it('contain "text/plain part"') { expect(p10).to match(/sironeko/) }
-      it('does not contain text/html part') { expect(p10).not_to match(/<html>/) }
+      v10 = cn.breaksup(p10, h10)
+      it('returns String') { expect(v10).to be_a String }
+      it('contain "text/plain part"') { expect(v10).to match(/sironeko/) }
+      it('does not contain text/html part') { expect(v10).not_to match(/<html>/) }
       it('returns Nil') { expect(cn.breaksup(nil,nil)).to be_nil }
     end
 
     context 'wrong number of arguments' do
-      it('raises ArgumentError') { expect { cn.makeflat(nil,nil,nil) }.to raise_error(ArgumentError) }
+      it('raises ArgumentError') { expect { cn.breaksup(nil,nil,nil) }.to raise_error(ArgumentError) }
     end
 
   end
-
 end
