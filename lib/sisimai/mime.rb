@@ -7,11 +7,12 @@ module Sisimai
       require 'sisimai/string'
 
       ReE = {
-        :'7bit-encoded' => %r/^content-transfer-encoding:[ ]*7bit$/m,
-        :'quoted-print' => %r/^content-transfer-encoding:[ ]*quoted-printable$/m,
-        :'some-iso2022' => %r/^content-type:[ ]*.+;[ ]*charset=["']?(iso-2022-[-a-z0-9]+?)['"]?$/m,
-        :'with-charset' => %r/^content[-]type:[ ]*.+[;][ ]*charset=['"]?(.+?)['"]?$/,
-        :'only-charset' => %r/^[\s\t]+charset=['"]?(.+?)['"]?$/,
+        :'7bit-encoded' => %r/^content-transfer-encoding:[ ]*7bit/m,
+        :'quoted-print' => %r/^content-transfer-encoding:[ ]*quoted-printable/m,
+        :'some-iso2022' => %r/^content-type:[ ]*.+;[ ]*charset=["']?(iso-2022-[-a-z0-9]+?)['"]?\b/m,
+        :'another-8bit' => %r/^content-type:[ ]*.+;[ ]*charset=["']?(.+?)['"]?\b/m,
+        :'with-charset' => %r/^content[-]type:[ ]*.+[;][ ]*charset=['"]?(.+?)['"]?\b/,
+        :'only-charset' => %r/^[\s\t]+charset=['"]?(.+?)['"]?\b/,
         :'html-message' => %r|^content-type:[ ]*text/html;|m,
       }.freeze
 
@@ -141,8 +142,8 @@ module Sisimai
             if e == boundary00
               # The next boundary string has appeared
               # --=_gy7C4Gpes0RP4V5Bs9cK4o2Us2ZT57b-3OLnRN+4klS8dTmQ
-              getencoded = Sisimai::String.to_utf8(notdecoded.unpack('M').first, encodename)
-              bodystring << getencoded << e + "\n"
+              hasdecoded = Sisimai::String.to_utf8(notdecoded.unpack('M').first, encodename)
+              bodystring << hasdecoded << e + "\n"
 
               notdecoded = ''
               mimeinside = false
@@ -248,15 +249,206 @@ module Sisimai
           # Content-Type: multipart/report; report-type=delivery-status;
           #    boundary="n6H9lKZh014511.1247824040/mx.example.jp"
           value = cv[1]
-          value.delete!(%q|'"|)
+          value.delete!(%q|'";\\|)
           value = '--' + value if start > -1
           value = value + '--' if start >  0
         end
 
         return value
       end
-    end
 
+      # Breaks up each multipart/* block
+      # @param    [String] argv0 Text block of multipart/*
+      # @param    [String] argv1 MIME type of the outside part
+      # @return   [String] Decoded part as a plain text(text part only)
+      def breaksup(argv0 = nil, argv1 = '')
+        return nil unless argv0
+
+        hasflatten = '' # Message body including only text/plain and message/*
+        alsoappend = %r{\A(?:text/rfc822-headers|message/)}
+        thisformat = %r/\A(?:Content-Transfer-Encoding:\s*.+\n)?Content-Type:\s*([^ ;]+)/
+        leavesonly = %r{\A(?>
+           text/(?:plain|html|rfc822-headers)
+          |message/(?:x?delivery-status|rfc822|partial|feedback-report)
+          |multipart/(?:report|alternative|mixed|related|partial)
+          )
+        }x
+
+        mimeformat = '' # MIME type string of this part
+        alternates = argv1.start_with?('multipart/alternative') ? true : false
+
+        if cv = argv0.match(thisformat)
+          # Get MIME type string from Content-Type: "..." field at the first line
+          # or the second line of the part.
+          mimeformat = cv[1].downcase
+        end
+
+        # Sisimai require only MIME types defined in $leavesonly variable
+        return '' unless mimeformat =~ leavesonly
+        return '' if alternates && mimeformat == 'text/html'
+
+        (upperchunk, lowerchunk) = argv0.split(/^$/m, 2)
+        upperchunk.gsub!("\n", ' ').squeeze(' ')
+
+        # Content-Description: Undelivered Message
+        # Content-Type: message/rfc822
+        # <EOM>
+        lowerchunk ||= ''
+
+        if mimeformat.start_with?('multipart/')
+          # Content-Type: multipart/*
+          mpboundary = Regexp.new(Regexp.escape(Sisimai::MIME.boundary(upperchunk, 0)) << "\n")
+          innerparts = lowerchunk.split(mpboundary)
+
+          innerparts.shift if innerparts[0].empty?
+          while e = innerparts.shift do
+            # Find internal multipart/* blocks and decode
+            if cv = e.match(thisformat)
+              # Found "Content-Type" field at the first or second line of this
+              # splitted part
+              nextformat = cv[1].downcase
+
+              next unless nextformat =~ leavesonly
+              next if nextformat == 'text/html'
+
+              hasflatten << Sisimai::MIME.breaksup(e, mimeformat)
+            else
+              # The content of this part is almost '--': a part of boundary
+              # string which is used for splitting multipart/* blocks.
+              hasflatten << "\n"
+            end
+          end
+        else
+          # Is not "Content-Type: multipart/*"
+          if cv = upperchunk.match(/Content-Transfer-Encoding: ([^\s;]+)/)
+            # Content-Transfer-Encoding: quoted-printable|base64|7bit|...
+            ctencoding = cv[1].downcase
+            getdecoded = ''
+
+            if ctencoding == 'quoted-printable'
+              # Content-Transfer-Encoding: quoted-printable
+              getdecoded = Sisimai::MIME.qprintd(lowerchunk)
+
+            elsif ctencoding == 'base64'
+              # Content-Transfer-Encoding: base64
+              getdecoded = Sisimai::MIME.base64d(lowerchunk)
+
+            elsif ctencoding == '7bit'
+              # Content-Transfer-Encoding: 7bit
+              if cv = upperchunk.downcase.match(ReE[:'some-iso2022'])
+                # Content-Type: text/plain; charset=ISO-2022-JP
+                getdecoded = Sisimai::String.to_utf8(lowerchunk, cv[1])
+              else
+                # No "charset" parameter in Content-Type field
+                getdecoded = lowerchunk
+              end
+            else
+              # Content-Transfer-Encoding: 8bit, binary, and so on
+              getdecoded = lowerchunk
+            end
+
+            # - Convert CRLF to LF
+            # - Delete HTML tags inside of text/html part whenever possible
+            getdecoded.gsub!(/\r\n/, "\n")
+            getdecoded.gsub!(/[<][^@ ]+?[>]/, '') if mimeformat == 'text/html'
+
+            if mimeformat =~ alsoappend
+              # Append field when the value of Content-Type: begins with
+              # message/ or equals text/rfc822-headers.
+              upperchunk.sub!(/Content-Transfer-Encoding:.+\z/, '').gsub!(/[ ]\z/, '')
+              hasflatten << upperchunk
+            end
+
+            unless getdecoded.empty?
+              # The string will be encoded to UTF-8 forcely and call String#scrub
+              # method to avoid the following errors:
+              #   - incompatible character encodings: ASCII-8BIT and UTF-8
+              #   - invalid byte sequence in UTF-8
+              unless getdecoded.encoding.to_s == 'UTF-8'
+                if cv = upperchunk.downcase.match(ReE[:'another-8bit'])
+                  # ISO-8859-1, GB2312, and so on
+                  getdecoded = Sisimai::String.to_utf8(getdecoded, cv[1])
+                end
+              end
+              # A part which has no "charset" parameter causes an ArgumentError:
+              # invalid byte sequence in UTF-8 so String#scrub should be called
+              hasflatten << getdecoded.scrub!('?') << "\n\n"
+            end
+          else
+            # Content-Type: text/plain OR text/rfc822-headers OR message/*
+            if mimeformat.start_with?('message/') || mimeformat == 'text/rfc822-headers'
+              # Append headers of multipart/* when the value of "Content-Type"
+              # is inlucded in the following MIME types:
+              #  - message/delivery-status
+              #  - message/rfc822
+              #  - text/rfc822-headers
+              hasflatten << upperchunk
+            end
+            lowerchunk.sub!(/^--\z/m, '')
+            lowerchunk << "\n" unless lowerchunk =~ /\n\z/
+            hasflatten << lowerchunk
+          end
+        end
+
+        return hasflatten
+      end
+
+      # MIME decode entire message body
+      # @param    [String] argv0 Content-Type header
+      # @param    [String] argv1 Entire message body
+      # @return   [String] Decoded message body
+      def makeflat(argv0 = nil, argv1 = nil)
+        return nil unless argv0
+        return nil unless argv1
+
+        ehboundary = Sisimai::MIME.boundary(argv0, 0)
+        mimeformat = ''
+        multiparts = []
+        bodystring = ''
+
+        if cv = argv0.match(%r|\A([0-9a-z]+/[^ ;]+)|)
+          # Get MIME type string from an email header given as the 1st argument
+          mimeformat = cv[1]
+        end
+        return '' unless mimeformat.include?('multipart/')
+        return '' if ehboundary.empty?
+
+        # Some bounce messages include lower-cased "content-type:" field such as
+        #   content-type: message/delivery-status
+        #   content-transfer-encoding: quoted-printable
+        argv1.gsub!(/[Cc]ontent-[Tt]ype:/m, 'Content-Type:')
+        argv1.gsub!(/[Cc]ontent-[Tt]ransfer-[Ee]ncodeing:/m, 'Content-Transfer-Encoding:')
+
+        # 1. Some bounce messages include upper-cased "Content-Transfer-Encoding",
+        #    and "Content-Type" value such as
+        #      - Content-Type: multipart/RELATED;
+        #      - Content-Transfer-Encoding: 7BIT
+        # 2. Unused fields inside of mutipart/* block should be removed
+        argv1.gsub!(/(Content-[A-Za-z-]+?):[ ]*([^\s]+)/) do "#{$1}: #{$2.downcase}" end
+        argv1.gsub!(/^Content-(?:Description|Disposition):.+$/, '')
+
+        multiparts = argv1.split(Regexp.new(Regexp.escape(ehboundary) << "\n"))
+        multiparts.shift if multiparts[0].empty?
+
+        while e = multiparts.shift do
+          # Find internal multipart blocks and decode
+          if e =~ /\A(?:Content-[A-Za-z-]+:.+?\r\n)?Content-Type:[ ]*[^\s]+/
+            # Content-Type: multipart/*
+            bodystring << Sisimai::MIME.breaksup(e, mimeformat)
+          else
+            # Is not multipart/* block
+            e.sub!(%r|^Content-Transfer-Encoding:.+?\n|mi, '')
+            e.sub!(%r|^Content-Type:\s*text/plain.+?\n|mi, '')
+            bodystring << e
+          end
+        end
+        bodystring.gsub!(%r{^(Content-Type:\s*message/(?:rfc822|delivery-status)).+$}, '\1')
+        bodystring.gsub!(/^\n{2,}/, "\n")
+
+        return bodystring
+      end
+
+    end
   end
 end
 

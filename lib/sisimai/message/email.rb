@@ -29,7 +29,6 @@ module Sisimai
       DefaultSet = Sisimai::Order::Email.another
       SubjectTab = Sisimai::Order::Email.by('subject')
       ExtHeaders = Sisimai::Order::Email.headers
-      ReEncoding = Sisimai::MIME.patterns
 
       # Make data structure from the email message(a body part and headers)
       # @param         [Hash] argvs   Email data
@@ -416,19 +415,10 @@ module Sisimai
           end
         else
           # NOT text/plain
-          lowercased = bodystring.downcase
-          if lowercased =~ ReEncoding[:'quoted-print']
-            # Content-Transfer-Encoding: quoted-printable
-            bodystring = Sisimai::MIME.qprintd(bodystring, mailheader)
-          end
-
-          if lowercased =~ ReEncoding[:'7bit-encoded'] &&
-             cv = lowercased.match(ReEncoding[:'some-iso2022'])
-            # Content-Transfer-Encoding: 7bit
-            # Content-Type: text/plain; charset=ISO-2022-JP
-            if ! cv[1].include?('us-ascii') && ! cv[1].include?('utf-8')
-              bodystring = Sisimai::String.to_utf8(bodystring, cv[1])
-            end
+          if mesgformat.start_with?('multipart/')
+            # In case of Content-Type: multipart/*
+            p = Sisimai::MIME.makeflat(mailheader['content-type'], bodystring)
+            bodystring = p unless p.empty?
           end
         end
 

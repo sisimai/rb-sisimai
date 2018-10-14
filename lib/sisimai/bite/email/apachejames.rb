@@ -11,7 +11,7 @@ module Sisimai::Bite::Email
         # apache-james-2.3.2/src/java/org/apache/james/transport/mailets/
         #   AbstractNotify.java|124:  out.println("Error message below:");
         #   AbstractNotify.java|128:  out.println("Message details:");
-        message: ['Content-Disposition: inline'],
+        message: [''],
         rfc822:  ['Content-Type: message/rfc822'],
         error:   ['Error message below:'],
       }.freeze
@@ -46,7 +46,7 @@ module Sisimai::Bite::Email
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         diagnostic = ''     # (String) Alternative diagnostic message
         subjecttxt = nil    # (String) Alternative Subject text
-        gotmessage = -1     # (Integer) Flag for error message
+        gotmessage = nil    # (Boolean) Flag for error message
         v = nil
 
         while e = hasdivided.shift do
@@ -108,14 +108,14 @@ module Sisimai::Bite::Email
               #   Subject: Nyaaan
               subjecttxt = cv[1]
             else
-              next if gotmessage == 1
+              next if gotmessage
               if v['diagnosis']
                 # Get an error message text
                 if e.start_with?('Message details:')
                   # Message details:
                   #   Subject: nyaan
                   #   ...
-                  gotmessage = 1
+                  gotmessage = true
                 else
                   # Append error message text like the followng:
                   #   Error message below:
@@ -126,6 +126,10 @@ module Sisimai::Bite::Email
                 # Error message below:
                 # 550 - Requested action not taken: no such user here
                 v['diagnosis'] = e if e == StartingOf[:error][0]
+                unless gotmessage
+                  v['diagnosis'] ||= ''
+                  v['diagnosis'] << ' ' + e
+                end
               end
             end
           end

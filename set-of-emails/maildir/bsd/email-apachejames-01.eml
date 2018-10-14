@@ -13,8 +13,7 @@ Message-ID: <00000000.000000.0000000000000.JavaMail.c@example.com>
 In-Reply-To: <00000000000000.00000.qmail@example.com>
 Subject: Re:Test message
 MIME-Version: 1.0
-Content-Type: multipart/mixed;
-boundary="----=_Part_000000_0000000.000000000000"
+Content-Type: multipart/mixed; boundary="----=_Part_000000_0000000.000000000000"
 Date: 12 Jun 2013 02:21:53 -0000
 
 ------=_Part_000000_0000000.000000000000

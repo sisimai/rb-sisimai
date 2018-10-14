@@ -112,7 +112,7 @@ Content-Type: message/delivery-status
 Reporting-MTA: dns; server-15.bemta-3.messagelabs.com
 Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
 
-    ';
+    '
 
     context 'Quoted-Printable string' do
       it('returns "Neko"') { expect(cn.qprintd('=4e=65=6b=6f')).to be == 'Neko' }
@@ -160,6 +160,106 @@ Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
     context 'wrong number of arguments' do
       it('raises ArgumentError') { expect { cn.boundary(nil,nil,nil) }.to raise_error(ArgumentError) }
     end
+  end
+
+  describe '.makeflat' do
+    h9 = { 'content-type' => 'multipart/report; report-type=delivery-status; boundary="NekoNyaan--------1"' }
+    b9 = '--NekoNyaan--------1
+Content-Type: multipart/related; boundary="NekoNyaan--------2"
+
+--NekoNyaan--------2
+Content-Type: multipart/alternative; boundary="NekoNyaan--------3"
+
+--NekoNyaan--------3
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+
+c2lyb25la28K
+
+--NekoNyaan--------3
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: base64
+
+PGh0bWw+CjxoZWFkPgogICAgPHRpdGxlPk5la28gTnlhYW48L3RpdGxlPgo8L2hl
+YWQ+Cjxib2R5PgogICAgPGgxPk5la28gTnlhYW48L2gxPgo8L2JvZHk+CjwvaHRt
+bD4K
+
+--NekoNyaan--------2
+Content-Type: image/jpg
+
+/9j/4AAQSkZJRgABAQEBLAEsAAD/7VaWUGhvdG9zaG9wIDMuMAA4QklNBAwAAAAA
+Vk4AAAABAAAArwAAAQAAAAIQAAIQAAAAVjIAGAAB/9j/7gAOQWRvYmUAZAAAAAAB
+/9sAhAAGBAQEBQQGBQUGCQYFBgkLCAYGCAsMCgoLCgoMEAwMDAwMDBAMDAwMDAwM
+DAwMDAwMDAwMDAwMDAwMDAwMDAwMAQcHBw0MDRgQEBgUDg4OFBQODg4OFBEMDAwM
+DBERDAwMDAwMEQwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/wAARCAEAAK8D
+AREAAhEBAxEB/90ABAAW/8QBogAAAAcBAQEBAQAAAAAAAAAABAUDAgYBAAcICQoL
+
+--NekoNyaan--------2
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; example.jp
+Received-From-MTA: dns; neko.example.jp
+Arrival-Date: Thu, 11 Oct 2018 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; kijitora@example.jp
+Action: failed
+Status: 5.1.1
+Diagnostic-Code: User Unknown
+
+--NekoNyaan--------2
+Content-Type: message/rfc822
+
+Received: ...
+
+--NekoNyaan--------2--
+
+    '
+    context 'mutipart/report message body' do
+      p9 = cn.makeflat(h9['content-type'], b9)
+      it('returns String') { expect(p9).to be_a String }
+      it('contain "text/plain part"') { expect(p9).to match(/sironeko/) }
+      it('does not contain text/html part') { expect(p9).not_to match(/<html>/) }
+      it('does not contain image/jpg part') { expect(p9).not_to match(/4AAQSkZJRgABAQEBLAEsAAD/) }
+      it('contain "message/delivery-status part"') { expect(p9).to match(/kijitora[@]/) }
+      it('contain "message/rfc822 part"') { expect(p9).to match(/Received:/) }
+      it('returns Nil') { expect(cn.makeflat(nil,nil)).to be_nil }
+    end
+
+    context 'wrong number of arguments' do
+      it('raises ArgumentError') { expect { cn.makeflat(nil,nil,nil) }.to raise_error(ArgumentError) }
+    end
+  end
+
+  describe '.breaksup' do
+    h10 = 'multipart/alternative'
+    b10 = 'Content-Type: multipart/alternative; boundary="NekoNyaan--------3"
+
+--NekoNyaan--------3
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+
+c2lyb25la28K
+
+--NekoNyaan--------3
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: base64
+
+PGh0bWw+CjxoZWFkPgogICAgPHRpdGxlPk5la28gTnlhYW48L3RpdGxlPgo8L2hl
+YWQ+Cjxib2R5PgogICAgPGgxPk5la28gTnlhYW48L2gxPgo8L2JvZHk+CjwvaHRt
+bD4K
+    '
+    context 'mutipart/alternative part' do
+      p10 = cn.breaksup(b10, h10)
+      it('returns String') { expect(p10).to be_a String }
+      it('contain "text/plain part"') { expect(p10).to match(/sironeko/) }
+      it('does not contain text/html part') { expect(p10).not_to match(/<html>/) }
+      it('returns Nil') { expect(cn.breaksup(nil,nil)).to be_nil }
+    end
+
+    context 'wrong number of arguments' do
+      it('raises ArgumentError') { expect { cn.makeflat(nil,nil,nil) }.to raise_error(ArgumentError) }
+    end
+
   end
 
 end

@@ -10,7 +10,7 @@ module Sisimai
       MarkingsOf = {
         message: %r{\A(?>
            content-type:[ ]*(?:
-             message/delivery-status
+             message/x?delivery-status
             |message/disposition-notification
             |text/plain;[ ]charset=
             )
