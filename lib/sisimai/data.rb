@@ -94,7 +94,6 @@ module Sisimai
       return nil unless data.is_a? Sisimai::Message
 
       messageobj = data
-      mailheader = data.header
       rfc822data = messageobj.rfc822
       fieldorder = { :recipient => [], :addresser => [] }
       objectlist = []
@@ -218,7 +217,7 @@ module Sisimai
         next unless p['timestamp']
 
         # OTHER_TEXT_HEADERS:
-        recvheader = mailheader['received'] || []
+        recvheader = data.header['received'] || []
         unless recvheader.empty?
           # Get localhost and remote host name from Received header.
           %w[lhost rhost].each { |a| e[a] ||= '' }

@@ -128,13 +128,10 @@ module Sisimai
               recipients += 1
 
             elsif cv = e.match(/\AX-Actual-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
-              # X-Actual-Recipient:
-              if cv[1] =~ /[ \t]+/
-                # X-Actual-Recipient: RFC822; |IFS=' ' && exec procmail -f- || exit 75 ...
-              else
-                # X-Actual-Recipient: rfc822; kijitora@neko.example.jp
-                v['alias'] = cv[1]
-              end
+              # X-Actual-Recipient: RFC822; |IFS=' ' && exec procmail -f- || exit 75 ...
+              # X-Actual-Recipient: rfc822; kijitora@neko.example.jp
+              v['alias'] = cv[1] unless cv[1] =~ /[ \t]+/
+
             elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
               # 2.3.3 Action field
               #   The Action field indicates the action performed by the Reporting-MTA

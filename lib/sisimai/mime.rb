@@ -53,10 +53,7 @@ module Sisimai
       def mimedecode(argvs = [])
         characterset = nil
         encodingname = nil
-        mimeencoded0 = nil
         decodedtext0 = []
-        notmimetext0 = ''
-        notmimetext1 = ''
 
         while e = argvs.shift do
           # Check and decode each element
@@ -66,13 +63,11 @@ module Sisimai
             # MIME Encoded string
             if cv = e.match(/\A(.*)=[?]([-_0-9A-Za-z]+)[?]([BbQq])[?](.+)[?]=?(.*)\z/)
               # =?utf-8?B?55m954yr44Gr44KD44KT44GT?=
-              notmimetext0   = cv[1]
               characterset ||= cv[2]
               encodingname ||= cv[3]
               mimeencoded0   = cv[4]
-              notmimetext1   = cv[5]
 
-              decodedtext0 << notmimetext0
+              decodedtext0 << cv[1]
               if encodingname == 'Q'
                 # Quoted-Printable
                 decodedtext0 << mimeencoded0.unpack('M').first
@@ -81,7 +76,7 @@ module Sisimai
                 # Base64
                 decodedtext0 << Base64.decode64(mimeencoded0)
               end
-              decodedtext0 << notmimetext1
+              decodedtext0 << cv[5]
             end
           else
             decodedtext0 << e
@@ -129,13 +124,10 @@ module Sisimai
         boundary01 = Sisimai::MIME.boundary(heads['content-type'], 1)
         bodystring = ''
         notdecoded = ''
-        getencoded = ''
-        lowercased = ''
 
         encodename = nil
         ctencoding = nil
         mimeinside = false
-        mustencode = false
         hasdivided = argv1.split("\n")
 
         while e = hasdivided.shift do
