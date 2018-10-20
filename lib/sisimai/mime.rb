@@ -346,17 +346,18 @@ module Sisimai
               # Content-Transfer-Encoding: 8bit, binary, and so on
               getdecoded = lowerchunk
             end
+            getdecoded.gsub!(/\r\n/, "\n")  # Convert CRLF to LF
 
-            # - Convert CRLF to LF
-            # - Delete HTML tags inside of text/html part whenever possible
-            getdecoded.gsub!(/\r\n/, "\n")
-            getdecoded.gsub!(/[<][^@ ]+?[>]/, '') if mimeformat == 'text/html'
 
             if mimeformat =~ alsoappend
               # Append field when the value of Content-Type: begins with
               # message/ or equals text/rfc822-headers.
               upperchunk.sub!(/Content-Transfer-Encoding:.+\z/, '').gsub!(/[ ]\z/, '')
               hasflatten << upperchunk
+
+            elsif mimeformat == 'text/html'
+              # Delete HTML tags inside of text/html part whenever possible
+              getdecoded.gsub!(/[<][^@ ]+?[>]/, '')
             end
 
             unless getdecoded.empty?
@@ -403,7 +404,6 @@ module Sisimai
 
         ehboundary = Sisimai::MIME.boundary(argv0, 0)
         mimeformat = ''
-        multiparts = []
         bodystring = ''
 
         if cv = argv0.match(%r|\A([0-9a-z]+/[^ ;]+)|)
