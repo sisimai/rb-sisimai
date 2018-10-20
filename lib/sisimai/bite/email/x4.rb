@@ -207,9 +207,8 @@ module Sisimai::Bite::Email
               v['alterrors'] = e if e.start_with?(StartingOf[:error][0])
 
               next if v['rhost']
-              if cv = e.match(ReHost)
-                v['rhost'] = cv[1]
-              end
+              next unless cv = e.match(ReHost)
+              v['rhost'] = cv[1]
             end
           end
         end
@@ -230,9 +229,7 @@ module Sisimai::Bite::Email
 
             unless e['command']
               # Verify each regular expression of patches
-              if cv = e['diagnosis'].match(ReCommands)
-                e['command'] = cv[1].upcase
-              end
+              if cv = e['diagnosis'].match(ReCommands) then e['command'] = cv[1].upcase end
               e['command'] ||= ''
             end
           end

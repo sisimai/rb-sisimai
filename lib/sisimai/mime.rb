@@ -61,24 +61,23 @@ module Sisimai
           e = e.strip.delete('"')
 
           if self.is_mimeencoded(e)
-            # MIME Encoded string
-            if cv = e.match(/\A(.*)=[?]([-_0-9A-Za-z]+)[?]([BbQq])[?](.+)[?]=?(.*)\z/)
-              # =?utf-8?B?55m954yr44Gr44KD44KT44GT?=
-              characterset ||= cv[2]
-              encodingname ||= cv[3]
-              mimeencoded0   = cv[4]
+            # MIME Encoded string like "=?utf-8?B?55m954yr44Gr44KD44KT44GT?="
+            next unless cv = e.match(/\A(.*)=[?]([-_0-9A-Za-z]+)[?]([BbQq])[?](.+)[?]=?(.*)\z/)
 
-              decodedtext0 << cv[1]
-              if encodingname == 'Q'
-                # Quoted-Printable
-                decodedtext0 << mimeencoded0.unpack('M').first
+            characterset ||= cv[2]
+            encodingname ||= cv[3]
+            mimeencoded0   = cv[4]
+            decodedtext0  << cv[1]
 
-              elsif encodingname == 'B'
-                # Base64
-                decodedtext0 << Base64.decode64(mimeencoded0)
-              end
-              decodedtext0 << cv[5]
+            if encodingname == 'Q'
+              # Quoted-Printable
+              decodedtext0 << mimeencoded0.unpack('M').first
+
+            elsif encodingname == 'B'
+              # Base64
+              decodedtext0 << Base64.decode64(mimeencoded0)
             end
+            decodedtext0 << cv[5]
           else
             decodedtext0 << e
           end
@@ -227,10 +226,7 @@ module Sisimai
         return nil unless argv1
 
         plain = nil
-        if cv = argv1.match(%r|([+/\=0-9A-Za-z\r\n]+)|)
-          # Decode BASE64
-          plain = Base64.decode64(cv[1])
-        end
+        if cv = argv1.match(%r|([+/\=0-9A-Za-z\r\n]+)|) then plain = Base64.decode64(cv[1]) end
         return plain.force_encoding('UTF-8')
       end
 
@@ -277,11 +273,9 @@ module Sisimai
         mimeformat = '' # MIME type string of this part
         alternates = argv1.start_with?('multipart/alternative') ? true : false
 
-        if cv = argv0.match(thisformat)
-          # Get MIME type string from Content-Type: "..." field at the first line
-          # or the second line of the part.
-          mimeformat = cv[1].downcase
-        end
+        # Get MIME type string from Content-Type: "..." field at the first line
+        # or the second line of the part.
+        if cv = argv0.match(thisformat) then mimeformat = cv[1].downcase end
 
         # Sisimai require only MIME types defined in $leavesonly variable
         return '' unless mimeformat =~ leavesonly
@@ -346,17 +340,17 @@ module Sisimai
               # Content-Transfer-Encoding: 8bit, binary, and so on
               getdecoded = lowerchunk
             end
-
-            # - Convert CRLF to LF
-            # - Delete HTML tags inside of text/html part whenever possible
-            getdecoded.gsub!(/\r\n/, "\n")
-            getdecoded.gsub!(/[<][^@ ]+?[>]/, '') if mimeformat == 'text/html'
+            getdecoded.gsub!(/\r\n/, "\n")  # Convert CRLF to LF
 
             if mimeformat =~ alsoappend
               # Append field when the value of Content-Type: begins with
               # message/ or equals text/rfc822-headers.
               upperchunk.sub!(/Content-Transfer-Encoding:.+\z/, '').gsub!(/[ ]\z/, '')
               hasflatten << upperchunk
+
+            elsif mimeformat == 'text/html'
+              # Delete HTML tags inside of text/html part whenever possible
+              getdecoded.gsub!(/[<][^@ ]+?[>]/, '')
             end
 
             unless getdecoded.empty?
@@ -403,13 +397,11 @@ module Sisimai
 
         ehboundary = Sisimai::MIME.boundary(argv0, 0)
         mimeformat = ''
-        multiparts = []
         bodystring = ''
 
-        if cv = argv0.match(%r|\A([0-9a-z]+/[^ ;]+)|)
-          # Get MIME type string from an email header given as the 1st argument
-          mimeformat = cv[1]
-        end
+        # Get MIME type string from an email header given as the 1st argument
+        if cv = argv0.match(%r|\A([0-9a-z]+/[^ ;]+)|) then mimeformat = cv[1] end
+
         return '' unless mimeformat.include?('multipart/')
         return '' if ehboundary.empty?
 

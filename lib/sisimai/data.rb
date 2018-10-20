@@ -196,14 +196,12 @@ module Sisimai
           break if datestring
         end
 
-        if datestring
+        if datestring && cv = datestring.match(/\A(.+)[ ]+([-+]\d{4})\z/)
           # Get the value of timezone offset from datestring
-          if cv = datestring.match(/\A(.+)[ ]+([-+]\d{4})\z/)
-            # Wed, 26 Feb 2014 06:05:48 -0500
-            datestring = cv[1]
-            zoneoffset = Sisimai::DateTime.tz2second(cv[2])
-            p['timezoneoffset'] = cv[2]
-          end
+          # Wed, 26 Feb 2014 06:05:48 -0500
+          datestring = cv[1]
+          zoneoffset = Sisimai::DateTime.tz2second(cv[2])
+          p['timezoneoffset'] = cv[2]
         end
 
         begin
@@ -243,11 +241,8 @@ module Sisimai
         # The value of "List-Id" header
         p['listid'] = rfc822data['list-id'] || ''
         unless p['listid'].empty?
-          # Get the value of List-Id header
-          if cv = p['listid'].match(/\A.*([<].+[>]).*\z/)
-            # List name <list-id@example.org>
-            p['listid'] = cv[1]
-          end
+          # Get the value of List-Id header like "List name <list-id@example.org>"
+          if cv = p['listid'].match(/\A.*([<].+[>]).*\z/) then p['listid'] = cv[1] end
           p['listid'] = p['listid'].delete('<>').chomp("\r")
           p['listid'] = '' if p['listid'].include?(' ')
         end
@@ -255,11 +250,9 @@ module Sisimai
         # The value of "Message-Id" header
         p['messageid'] = rfc822data['message-id'] || ''
         unless p['messageid'].empty?
-          # Remove angle brackets
-          if cv = p['messageid'].match(/\A([^ ]+)[ ].*/)
-            p['messageid'] = cv[1]
-          end
-          p['messageid'] = p['messageid'].delete('<>').chomp("\r")
+          # Leave only string inside of angle brackets(<>)
+          if cv = p['messageid'].match(/\A([^ ]+)[ ].*/) then p['messageid'] = cv[1] end
+          if cv = p['messageid'].match(/[<]([^ ]+?)[>]/) then p['messageid'] = cv[1] end
         end
 
         # CHECK_DELIVERY_STATUS_VALUE:
@@ -306,10 +299,8 @@ module Sisimai
 
         # Check the value of "action"
         if p['action'].size > 0
-          if cv = p['action'].match(/\A(.+?) .+/)
-            # Action: expanded (to multi-recipient alias)
-            p['action'] = cv[1]
-          end
+          # Action: expanded (to multi-recipient alias)
+          if cv = p['action'].match(/\A(.+?) .+/) then p['action'] = cv[1] end
 
           unless %w[failed delayed delivered relayed expanded].index(p['action'])
             # The value of "action" is not in the following values:

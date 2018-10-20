@@ -391,22 +391,34 @@ module Sisimai
         mailheader['subject']      ||= ''
         mailheader['content-type'] ||= ''
 
+        if hookmethod.is_a? Proc
+          # Call the hook method
+          begin
+            p = {
+              'datasrc' => 'email',
+              'headers' => mailheader,
+              'message' => bodystring,
+              'bounces' => nil
+            }
+            havecaught = hookmethod.call(p)
+          rescue StandardError => ce
+            warn ' ***warning: Something is wrong in hook method :' << ce.to_s
+          end
+        end
+
         # Decode BASE64 Encoded message body, rewrite.
         mesgformat = (mailheader['content-type'] || '').downcase
         ctencoding = (mailheader['content-transfer-encoding'] || '').downcase
 
         if mesgformat.start_with?('text/plain', 'text/html')
           # Content-Type: text/plain; charset=UTF-8
-          if ctencoding == 'base64' || ctencoding == 'quoted-printable'
+          if ctencoding == 'base64'
             # Content-Transfer-Encoding: base64
+            bodystring = Sisimai::MIME.base64d(bodystring)
+
+          elsif ctencoding == 'quoted-printable'
             # Content-Transfer-Encoding: quoted-printable
-            bodystring = if ctencoding == 'base64'
-                           # Content-Transfer-Encoding: base64
-                           Sisimai::MIME.base64d(bodystring)
-                         else
-                           # Content-Transfer-Encoding: quoted-printable
-                           Sisimai::MIME.qprintd(bodystring)
-                         end
+            bodystring = Sisimai::MIME.qprintd(bodystring)
           end
 
           if mesgformat.start_with?('text/html;')
@@ -419,22 +431,6 @@ module Sisimai
             # In case of Content-Type: multipart/*
             p = Sisimai::MIME.makeflat(mailheader['content-type'], bodystring)
             bodystring = p unless p.empty?
-          end
-        end
-
-        # Call the hook method
-        if hookmethod.is_a? Proc
-          # Execute hook method
-          begin
-            p = {
-              'datasrc' => 'email',
-              'headers' => mailheader,
-              'message' => bodystring,
-              'bounces' => nil
-            }
-            havecaught = hookmethod.call(p)
-          rescue StandardError => ce
-            warn ' ***warning: Something is wrong in hook method :' << ce.to_s
           end
         end
 
@@ -459,7 +455,6 @@ module Sisimai
             # 4. Sisimai::Bite::Email::*
             # 5. Sisimai::RFC3464
             # 6. Sisimai::RFC3834
-            #
             if Sisimai::ARF.is_arf(mailheader)
               # Feedback Loop message
               scannedset = Sisimai::ARF.scan(mailheader, bodystring)

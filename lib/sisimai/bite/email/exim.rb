@@ -357,9 +357,7 @@ module Sisimai::Bite::Email
         unless mhead['received'].empty?
           # Get the name of local MTA
           # Received: from marutamachi.example.org (c192128.example.net [192.0.2.128])
-          if cv = mhead['received'][-1].match(/from[ \t]([^ ]+)/)
-            localhost0 = cv[1]
-          end
+          if cv = mhead['received'][-1].match(/from[ \t]([^ ]+)/) then localhost0 = cv[1] end
         end
 
         dscontents.each do |e|
@@ -418,10 +416,8 @@ module Sisimai::Bite::Email
 
           unless e['rhost']
             # Get the remote host name
-            if cv = e['diagnosis'].match(/host[ \t]+([^ \t]+)[ \t]\[.+\]:[ \t]/)
-              # host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
-              e['rhost'] = cv[1]
-            end
+            # host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
+            if cv = e['diagnosis'].match(/host[ \t]+([^ \t]+)[ \t]\[.+\]:[ \t]/) then e['rhost'] = cv[1] end
 
             unless e['rhost']
               # Get localhost and remote host name from Received header.

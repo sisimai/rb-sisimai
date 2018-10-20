@@ -266,9 +266,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          if cv = e['diagnosis'].match(/[(]state[ ](\d+)[)][.]/)
-            statecode0 = cv[1]
-          end
+          if cv = e['diagnosis'].match(/[(]state[ ](\d+)[)][.]/) then statecode0 = cv[1] end
           if StateTable[statecode0]
             # (state *)
             e['reason']  = StateTable[statecode0]['reason']
