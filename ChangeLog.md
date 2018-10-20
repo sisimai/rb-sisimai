@@ -6,7 +6,7 @@ RELEASE NOTES for Ruby version of Sisimai
 v4.23.0p2
 --------------------------------------------------------------------------------
 - release: ""
-- version: ""
+- version: "4.23.0p2"
 - changes:
   - Variable improvement (remove redundant substitution)
   - Remove Sisimai::RFC2606 (Unused module)
