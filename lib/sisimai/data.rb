@@ -255,11 +255,9 @@ module Sisimai
         # The value of "Message-Id" header
         p['messageid'] = rfc822data['message-id'] || ''
         unless p['messageid'].empty?
-          # Remove angle brackets
-          if cv = p['messageid'].match(/\A([^ ]+)[ ].*/)
-            p['messageid'] = cv[1]
-          end
-          p['messageid'] = p['messageid'].delete('<>').chomp("\r")
+          # Leave only string inside of angle brackets(<>)
+          if cv = p['messageid'].match(/\A([^ ]+)[ ].*/) then p['messageid'] = cv[1] end
+          if cv = p['messageid'].match(/[<]([^ ]+?)[>]/) then p['messageid'] = cv[1] end
         end
 
         # CHECK_DELIVERY_STATUS_VALUE:
