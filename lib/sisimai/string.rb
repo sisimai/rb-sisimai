@@ -62,16 +62,18 @@ module Sisimai
 
         plain = argv1
         match = {
-          html: %r|<html[ >].+?</html>|sim,
-          body: %r|<head>.+</head>.*<body[ >].+</body>|sim,
+          html: %r|<html[ >].+?</html>|im,
+          body: %r|<head>.+</head>.*<body[ >].+</body>|im,
         }
 
         if loose || plain =~ match[:html] || plain =~ match[:body]
-          # <html> ... </html>
-          # Rewrite <a> elements
-          # 1. <a href = 'http://...'>...</a> to " http://... "
-          # 2. <a href = 'mailto:...'>...</a> to " Value <mailto:...> "
+          # 1. Remove <head>...</head>
+          # 2. Remove <style>...</style>
+          # 3. <a href = 'http://...'>...</a> to " http://... "
+          # 4. <a href = 'mailto:...'>...</a> to " Value <mailto:...> "
           plain.scrub!('?')
+          plain.gsub!(%r|<head>.+</head>|im, '')
+          plain.gsub!(%r|<style.+?>.+</style>|im, '')
           plain.gsub!(%r|<a\s+href\s*=\s*['"](https?://.+?)['"].*?>(.*?)</a>|i, '[\2](\1)')
           plain.gsub!(%r|<a\s+href\s*=\s*["']mailto:([^\s]+?)["']>(.*?)</a>|i, '[\2](mailto:\1)')
 
