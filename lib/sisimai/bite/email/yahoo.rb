@@ -95,10 +95,8 @@ module Sisimai::Bite::Email
                 # Remote host said: 550 5.1.1 <kijitora@example.org>... User Unknown [RCPT_TO]
                 v['diagnosis'] = e
 
-                if cv = e.match(/\[([A-Z]{4}).*\]\z/)
-                  # Get SMTP command from the value of "Remote host said:"
-                  v['command'] = cv[1]
-                end
+                # Get SMTP command from the value of "Remote host said:"
+                if cv = e.match(/\[([A-Z]{4}).*\]\z/) then v['command'] = cv[1] end
               else
                 # <mailboxfull@example.jp>:
                 # Remote host said:

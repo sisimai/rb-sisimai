@@ -189,9 +189,7 @@ module Sisimai
         diagnostic = argv1.downcase
 
         statuscode = Sisimai::SMTP::Status.find(argv1)
-        if cv = argv1.match(/\A(SMTP|X-.+);/i)
-          typestring = cv[1].upcase
-        end
+        if cv = argv1.match(/\A(SMTP|X-.+);/i) then typestring = cv[1].upcase end
 
         # Diagnostic-Code: SMTP; ... or empty value
         ClassOrder[2].each do |e|

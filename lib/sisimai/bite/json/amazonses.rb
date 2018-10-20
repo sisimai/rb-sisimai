@@ -149,10 +149,8 @@ module Sisimai::Bite::JSON
                 v['diagnosis'] = e['diagnosticCode']
               end
 
-              if cv = o['reportingMTA'].match(/\Adsn;[ ](.+)\z/)
-                # 'reportingMTA' => 'dsn; a27-23.smtp-out.us-west-2.amazonses.com',
-                v['lhost'] = cv[1]
-              end
+              # 'reportingMTA' => 'dsn; a27-23.smtp-out.us-west-2.amazonses.com',
+              if cv = o['reportingMTA'].match(/\Adsn;[ ](.+)\z/) then v['lhost'] = cv[1] end
 
               if BounceType.key?(o['bounceType'].to_sym) &&
                  BounceType[o['bounceType'].to_sym].key?(o['bounceSubType'].to_sym)

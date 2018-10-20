@@ -148,10 +148,9 @@ module Sisimai
               #   case characters.
               v['action'] = cv[1].downcase
 
-              if cv = v['action'].match(/\A([^ ]+)[ ]/)
-                # failed (bad destination mailbox address)
-                v['action'] = cv[1]
-              end
+              # failed (bad destination mailbox address)
+              if cv = v['action'].match(/\A([^ ]+)[ ]/) then v['action'] = cv[1] end
+
             elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
               # 2.3.4 Status field
               #   The per-recipient Status field contains a transport-independent

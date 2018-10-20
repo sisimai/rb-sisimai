@@ -304,9 +304,7 @@ module Sisimai
 
       local = email.split('@')
       value = ''
-      if cv = local[0].match(/\A([-_\w]+?)[+].+\z/)
-        value = cv[1] + '@' + local[1]
-      end
+      if cv = local[0].match(/\A([-_\w]+?)[+].+\z/) then value = cv[1] + '@' + local[1] end
       return value
     end
 
