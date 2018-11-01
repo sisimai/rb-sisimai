@@ -61,8 +61,10 @@ module Sisimai
             |dnsbl:attrbl
             |dynamic/zombied/spam[ ]ips[ ]blocked
             |email[ ]blocked[ ]by[ ](?:.+[.]barracudacentral[.]org|spamhaus)
+            |esmtp[ ]not[ ]accepting[ ]connections  # icloud.com
             |fix[ ]reverse[ ]dns[ ]for[ ].+
             |go[ ]away
+            |helo[ ]command[ ]rejected:
             |host[ ].+[ ]refused[ ]to[ ]talk[ ]to[ ]me:[ ]\d+[ ]blocked
             |hosts[ ]with[ ]dynamic[ ]ip
             |http://(?:

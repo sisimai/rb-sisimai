@@ -3,10 +3,10 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.23.0p2
+v4.24.0
 --------------------------------------------------------------------------------
 - release: ""
-- version: "4.23.0p2"
+- version: ""
 - changes:
   - Variable improvement (remove redundant substitution)
   - Remove Sisimai::RFC2606 (Unused module)
@@ -16,6 +16,9 @@ v4.23.0p2
     - Call Sisimai::MIME.makeflat at Sisimai::Message::Email.parse
     - Other related updates in Sisimai::Bite::Email::*
   - Tiny improvement in Sisimai::String.to_plain
+  - Update "blocked" error message patterns for iCloud.
+    - A client IP address has no PTR record
+    - Invalid HELO/EHLO name
 
 v4.23.0
 --------------------------------------------------------------------------------
