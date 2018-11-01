@@ -1,0 +1,86 @@
+From MAILER-DAEMON Wed Oct 31 15:53:24 2018
+Return-Path: <MAILER-DAEMON@neko.nyaan.jp>
+Received: from localhost (localhost)
+	by neko.nyaan.jp (8.15.2/8.15.2) id w9V6rObG000973;
+	Wed, 31 Oct 2018 15:53:24 +0900 (JST)
+	(envelope-from MAILER-DAEMON)
+Date: Wed, 31 Oct 2018 15:53:24 +0900 (JST)
+From: Mail Delivery Subsystem <MAILER-DAEMON>
+Message-Id: <201810310653.w9V6rObG000973@neko.nyaan.jp>
+To: <root@neko.nyaan.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="w9V6rObG000973.1540968804/neko.nyaan.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--w9V6rObG000973.1540968804/neko.nyaan.jp
+
+The original message was received at Wed, 31 Oct 2018 15:53:20 +0900 (JST)
+from localhost [127.0.0.1]
+
+   ----- The following addresses had permanent fatal errors -----
+<neko-nyaan@icloud.example.com>
+    (reason: 554 st11p00im-smtpin013.me.com ESMTP not accepting connections)
+
+   ----- Transcript of session follows -----
+... while talking to mx1.mail.icloud.com.:
+<<< 554 st11p00im-smtpin005.me.com ESMTP not accepting connections
+>>> QUIT
+<<< 421 4.7.0 st11p00im-smtpin005.me.com Error: too many errors
+... while talking to mx6.mail.icloud.com.:
+<<< 554 mr28p00im-smtpin040.me.com ESMTP not accepting connections
+... while talking to mx2.mail.icloud.com.:
+<<< 554 pv33p00im-smtpin013.me.com ESMTP not accepting connections
+... while talking to mx4.mail.icloud.com.:
+<<< 554 st11p00im-smtpin019.me.com ESMTP not accepting connections
+>>> QUIT
+<<< 421 4.7.0 st11p00im-smtpin019.me.com Error: too many errors
+... while talking to mx5.mail.icloud.com.:
+<<< 554 st11p00im-smtpin029.me.com ESMTP not accepting connections
+... while talking to mx3.mail.icloud.com.:
+<<< 554 st11p00im-smtpin013.me.com ESMTP not accepting connections
+>>> QUIT
+<<< 421 4.7.0 st11p00im-smtpin013.me.com Error: too many errors
+554 5.0.0 Service unavailable
+
+--w9V6rObG000973.1540968804/neko.nyaan.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; neko.nyaan.jp
+Received-From-MTA: DNS; localhost
+Arrival-Date: Wed, 31 Oct 2018 15:53:20 +0900 (JST)
+
+Final-Recipient: RFC822; neko-nyaan@icloud.example.com
+Action: failed
+Status: 5.5.0
+Diagnostic-Code: SMTP; 554 st11p00im-smtpin013.me.com ESMTP not accepting connections
+Last-Attempt-Date: Wed, 31 Oct 2018 15:53:24 +0900 (JST)
+
+--w9V6rObG000973.1540968804/neko.nyaan.jp
+Content-Type: message/rfc822
+
+Return-Path: <root@neko.nyaan.jp>
+Received: from neko.nyaan.jp (localhost [127.0.0.1])
+	by neko.nyaan.jp (8.15.2/8.15.2) with ESMTPS id w9V6rKbH000971
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO)
+	for <neko-nyaan@icloud.example.com>; Wed, 31 Oct 2018 15:53:20 +0900 (JST)
+	(envelope-from root@neko.nyaan.jp)
+Received: (from root@localhost)
+	by neko.nyaan.jp (8.15.2/8.15.2/Submit) id w9V6rKmd000970
+	for neko-nyaan@icloud.example.com; Wed, 31 Oct 2018 15:53:20 +0900 (JST)
+	(envelope-from root)
+Date: Wed, 31 Oct 2018 15:53:20 +0900 (JST)
+From: Charlie Root <root@neko.nyaan.jp>
+Message-Id: <201810310653.w9V6rKmd000970@neko.nyaan.jp>
+To: neko-nyaan@icloud.example.com
+Subject: Nyaan
+
+Nyaan
+
+--w9V6rObG000973.1540968804/neko.nyaan.jp--
+
+
+
