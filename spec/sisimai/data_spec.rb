@@ -245,13 +245,18 @@ describe Sisimai::Data do
   end
 
   context 'not bounce mail' do
-    file = './set-of-emails/maildir/not/is-not-bounce-01.eml'
-    mail = Sisimai::Mail.new(file)
-    while r = mail.read do
-      mesg = Sisimai::Message.new( data: r )
-      data = Sisimai::Data.make( data: mesg )
-      it('returns Sisimai::Message') { expect(mesg).to be_a Sisimai::Message }
-      it('returns nil') { expect(data).to be nil }
+    file = [
+      './set-of-emails/maildir/not/is-not-bounce-01.eml',
+      './set-of-emails/maildir/not/is-not-bounce-02.eml',
+    ]
+    file.each do |e|
+      mail = Sisimai::Mail.new(e)
+      while r = mail.read do
+        mesg = Sisimai::Message.new( data: r )
+        data = Sisimai::Data.make( data: mesg )
+        it('returns Sisimai::Message') { expect(mesg).to be_a Sisimai::Message }
+        it('returns nil') { expect(data).to be nil }
+      end
     end
   end
 end
