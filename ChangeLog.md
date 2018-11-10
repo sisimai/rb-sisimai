@@ -3,6 +3,14 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.24.0p1
+--------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - Fix bug in Sisimai::RFC3464: scan method unintentionally detects non-bounce
+    mail as a bounce.
+
 v4.24.0
 --------------------------------------------------------------------------------
 - release: "Thu,  1 Nov 2018 18:00:00 +0900 (JST)"
