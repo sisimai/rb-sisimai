@@ -53,6 +53,7 @@ module Sisimai
         blanklines = 0    # (Integer) The number of blank lines
         readcursor = 0    # (Integer) Points the current cursor position
         recipients = 0    # (Integer) The number of 'Final-Recipient' header
+        itisbounce = false
         connheader = {
           'date'  => nil, # The value of Arrival-Date header
           'rhost' => nil, # The value of Reporting-MTA header
@@ -126,6 +127,7 @@ module Sisimai
               end
               v['recipient'] = y
               recipients += 1
+              itisbounce ||= true
 
             elsif cv = e.match(/\AX-Actual-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
               # X-Actual-Recipient: RFC822; |IFS=' ' && exec procmail -f- || exit 75 ...
@@ -392,6 +394,7 @@ module Sisimai
               b['recipient'] = y
               b['agent'] = self.smtpagent + '::Fallback'
               recipients += 1
+              itisbounce ||= true
 
             elsif cv = e.match(/[(](?:expanded|generated)[ ]from:?[ ]([^@]+[@][^@]+)[)]/)
               # (expanded from: neko@example.jp)
@@ -403,6 +406,7 @@ module Sisimai
 
           break
         end
+        return nil unless itisbounce
 
         unless recipients > 0
           # Try to get a recipient address from email headers
