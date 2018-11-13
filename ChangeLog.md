@@ -10,6 +10,7 @@ v4.24.0p1
 - changes:
   - Fix bug in Sisimai::RFC3464: scan method unintentionally detects non-bounce
     mail as a bounce.
+  - Remove unused method Sisimai::DateTime.o2d
 
 v4.24.0
 --------------------------------------------------------------------------------
