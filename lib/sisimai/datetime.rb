@@ -244,30 +244,6 @@ module Sisimai
         return HourName[value]
       end
 
-      # Convert from date offset to date string
-      # @param    [Integer] argv1 Offset of
-      # @param    [String]  argv2 Delimiter character: default is '-'
-      # @return   [String]        Date string
-      # @example  Get the value of n days before(today is 2015/11/04)
-      #   o2d(1)      #=> 2015-11-03
-      #   o2d(2,'/')  #=> 2015/11/02
-      def o2d(argv1 = 0, argv2 = '-')
-        piece = ::DateTime.now
-
-        return piece.strftime('%Y/%m/%d') unless argv1 =~ /\A[-]?\d+\z/
-        epoch = piece.to_time.to_i - argv1 * 86400
-
-        if epoch < 0
-          # Negative value
-          epoch = 0
-
-        elsif epoch >= 2**31
-          # See http://en.wikipedia.org/wiki/Year_2038_problem
-          epoch = 2**31 - 1
-        end
-        return Time.at(epoch).strftime('%Y' + argv2 + '%m' + argv2 + '%d')
-      end
-
       # Parse date string; strptime() wrapper
       # @param    [String] argv1  Date string
       # @return   [String]        Converted date string
