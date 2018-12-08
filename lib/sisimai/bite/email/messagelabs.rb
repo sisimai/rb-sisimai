@@ -43,6 +43,10 @@ module Sisimai::Bite::Email
         return nil unless mhead['from'].include?('MAILER-DAEMON@messagelabs.com')
         return nil unless mhead['subject'].start_with?('Mail Delivery Failure')
 
+        require 'sisimai/rfc1894'
+        fieldtable = Sisimai::RFC1894.FIELDTABLE
+        permessage = {}     # (Hash) Store values of each Per-Message field
+
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         havepassed = ['']
@@ -51,11 +55,6 @@ module Sisimai::Bite::Email
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         commandset = []     # (Array) ``in reply to * command'' list
-        connvalues = 0      # (Integer) Flag, 1 if all the value of connheader have been set
-        connheader = {
-          'date'  => '',    # The value of Arrival-Date header
-          'lhost' => '',    # The value of Reporting-MTA header
-        }
         v = nil
 
         while e = hasdivided.shift do
@@ -64,7 +63,7 @@ module Sisimai::Bite::Email
           p = havepassed[-2]
 
           if readcursor == 0
-            # Beginning of the bounce message or delivery status part
+            # Beginning of the bounce message or message/delivery-status part
             if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
@@ -72,7 +71,7 @@ module Sisimai::Bite::Email
           end
 
           if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
+            # Beginning of the original message part(message/rfc822)
             if e == StartingOf[:rfc822][0]
               readcursor |= Indicators[:'message-rfc822']
               next
@@ -80,7 +79,7 @@ module Sisimai::Bite::Email
           end
 
           if readcursor & Indicators[:'message-rfc822'] > 0
-            # After "message/rfc822"
+            # message/rfc822 OR text/rfc822-headers part
             if e.empty?
               blanklines += 1
               break if blanklines > 1
@@ -88,96 +87,59 @@ module Sisimai::Bite::Email
             end
             rfc822list << e
           else
-            # Before "message/rfc822"
+            # message/delivery-status part
             next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
-            if connvalues == connheader.keys.size
-              # This is the mail delivery agent at messagelabs.com.
-              #
-              # I was unable to deliver your message to the following addresses:
-              #
-              # maria@dest.example.net
-              #
-              # Reason: 550 maria@dest.example.net... No such user
-              #
-              # The message subject was: Re: BOAS FESTAS!
-              # The message date was: Tue, 23 Dec 2014 20:39:24 +0000
-              # The message identifier was: DB/3F-17375-60D39495
-              # The message reference was: server-5.tower-143.messagelabs.com!1419367172!32=
-              # 691968!1
-              #
-              # Please do not reply to this email as it is sent from an unattended mailbox.
-              # Please visit www.messagelabs.com/support for more details
-              # about this error message and instructions to resolve this issue.
-              #
-              #
-              # --b0Nvs+XKfKLLRaP/Qo8jZhQPoiqeWi3KWPXMgw==
-              # Content-Type: message/delivery-status
-              #
-              # Reporting-MTA: dns; server-15.bemta-3.messagelabs.com
-              # Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
-              #
-              # Action: failed
-              # Status: 5.0.0
-              # Last-Attempt-Date: Tue, 23 Dec 2014 20:39:35 +0000
-              # Remote-MTA: dns; mail.dest.example.net
-              # Diagnostic-Code: smtp; 550 maria@dest.example.net... No such user
-              # Final-Recipient: rfc822; maria@dest.example.net
+            if f = Sisimai::RFC1894.match(e)
+              # "e" matched with any field defined in RFC3464
+              o = Sisimai::RFC1894.field(e) || next
               v = dscontents[-1]
 
-              if cv = e.match(/\AFinal-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
-                # Final-Recipient: rfc822; maria@dest.example.net
-                if v['recipient']
-                  # There are multiple recipient addresses in the message body.
-                  dscontents << Sisimai::Bite.DELIVERYSTATUS
-                  v = dscontents[-1]
+              if o[-1] == 'addr'
+                # Final-Recipient: rfc822; kijitora@example.jp
+                # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                if o[0] == 'final-recipient'
+                  # Final-Recipient: rfc822; kijitora@example.jp
+                  if v['recipient']
+                    # There are multiple recipient addresses in the message body.
+                    dscontents << Sisimai::Bite.DELIVERYSTATUS
+                    v = dscontents[-1]
+                  end
+                  v['recipient'] = o[2]
+                  recipients += 1
+                else
+                  # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                  v['alias'] = o[2]
                 end
-                v['recipient'] = cv[1]
-                recipients += 1
-
-              elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
-                # Action: failed
-                v['action'] = cv[1].downcase
-
-              elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
-                # Status: 5.0.0
-                v['status'] = cv[1]
+              elsif o[-1] == 'code'
+                # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
+                v['spec'] = o[1]
+                v['diagnosis'] = o[2]
               else
-                if cv = e.match(/\ADiagnostic-Code:[ ]*(.+?);[ ]*(.+)\z/)
-                  # Diagnostic-Code: smtp; 550 maria@dest.example.net... No such user
-                  v['spec'] = cv[1].upcase
-                  v['diagnosis'] = cv[2]
+                # Other DSN fields defined in RFC3464
+                next unless fieldtable.key?(o[0].to_sym)
+                v[fieldtable[o[0].to_sym]] = o[2]
 
-                elsif p.start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
-                  # Continued line of the value of Diagnostic-Code header
-                  v['diagnosis'] << ' ' << cv[1]
-                  havepassed[-1] = 'Diagnostic-Code: ' << e
-                end
+                next unless f == 1
+                permessage[fieldtable[o[0].to_sym]] = o[2]
               end
             else
-              # Reporting-MTA: dns; server-15.bemta-3.messagelabs.com
-              # Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
-              if cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
-                # Reporting-MTA: dns; server-15.bemta-3.messagelabs.com
-                next unless connheader['lhost'].empty?
-                connheader['lhost'] = cv[1].downcase
-                connvalues += 1
-
-              elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
-                # Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
-                next unless connheader['date'].empty?
-                connheader['date'] = cv[1]
-                connvalues += 1
+              # The line does not begin with a DSN field defined in RFC3464
+              if p.start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
+                # Continued line of the value of Diagnostic-Code header
+                v['diagnosis'] << ' ' << cv[1]
+                havepassed[-1] = 'Diagnostic-Code: ' << e
               end
             end
-          end
+          end # End of message/delivery-status
         end
         return nil unless recipients > 0
 
         dscontents.each do |e|
           # Set default values if each value is empty.
-          connheader.each_key { |a| e[a] ||= connheader[a] || '' }
+          e['lhost'] ||= permessage['rhost']
+          permessage.each_key { |a| e[a] ||= permessage[a] || '' }
           e['command']   = commandset.shift || ''
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])

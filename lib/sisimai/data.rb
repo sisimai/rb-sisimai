@@ -41,7 +41,6 @@ module Sisimai
     RetryIndex = Sisimai::Reason.retry
     RFC822Head = Sisimai::RFC5322.HEADERFIELDS(:all)
     AddrHeader = { addresser: RFC822Head[:addresser], recipient: RFC822Head[:recipient] }.freeze
-    ActionHead = { failure: 'failed', expired: 'delayed' }.freeze
 
     # Constructor of Sisimai::Data
     # @param    [Hash] argvs    Data
@@ -297,21 +296,8 @@ module Sisimai
         # Check the value of SMTP command
         p['smtpcommand'] = '' unless %w[EHLO HELO MAIL RCPT DATA QUIT].index(p['smtpcommand'])
 
-        # Check the value of "action"
-        if p['action'].size > 0
-          # Action: expanded (to multi-recipient alias)
-          if cv = p['action'].match(/\A(.+?) .+/) then p['action'] = cv[1] end
-
-          unless %w[failed delayed delivered relayed expanded].index(p['action'])
-            # The value of "action" is not in the following values:
-            # "failed" / "delayed" / "delivered" / "relayed" / "expanded"
-            ActionHead.each_key do |q|
-              next unless p['action'] == q.to_s
-              p['action'] = ActionHead[q]
-              break
-            end
-          end
-        else
+        if p['action'].empty?
+          # Check the value of "action"
           if p['reason'] == 'expired'
             # Action: delayed
             p['action'] = 'delayed'

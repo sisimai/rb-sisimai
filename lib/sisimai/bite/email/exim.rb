@@ -152,6 +152,8 @@ module Sisimai::Bite::Email
           )
         }x
 
+        require 'sisimai/rfc1894'
+        fieldtable = Sisimai::RFC1894.FIELDTABLE
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         rfc822list = []     # (Array) Each line in message/rfc822 part string
@@ -175,7 +177,7 @@ module Sisimai::Bite::Email
           break if e == StartingOf[:endof][0]
 
           if readcursor == 0
-            # Beginning of the bounce message or delivery status part
+            # Beginning of the bounce message or message/delivery-status part
             if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
               next unless e =~ MarkingsOf[:frozen]
@@ -183,7 +185,7 @@ module Sisimai::Bite::Email
           end
 
           if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
+            # Beginning of the original message part(message/rfc822)
             if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
               next
@@ -191,7 +193,7 @@ module Sisimai::Bite::Email
           end
 
           if readcursor & Indicators[:'message-rfc822'] > 0
-            # After "message/rfc822"
+            # message/rfc822 OR text/rfc822-headers part
             if e.empty?
               blanklines += 1
               break if blanklines > 1
@@ -199,7 +201,7 @@ module Sisimai::Bite::Email
             end
             rfc822list << e
           else
-            # Before "message/rfc822"
+            # message/delivery-status part
             next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
@@ -266,34 +268,34 @@ module Sisimai::Bite::Email
                   # --NNNNNNNNNN-eximdsn-MMMMMMMMMM
                   # Content-type: message/delivery-status
                   # ...
-                  if cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
-                    # Reporting-MTA: dns; mx.example.jp
-                    v['lhost'] = cv[1]
+                  if Sisimai::RFC1894.match(e)
+                    # "e" matched with any field defined in RFC3464
+                    o = Sisimai::RFC1894.field(e) || next
 
-                  elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
-                    # Action: failed
-                    v['action'] = cv[1].downcase
+                    if o[-1] == 'addr'
+                      # Final-Recipient: rfc822; kijitora@example.jp
+                      # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                      next unless o[0] == 'final-recipient'
+                      v['spec'] ||= o[2].include?('@') ? 'SMTP' : 'X-UNIX'
 
-                  elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
-                    # Status: 5.0.0
-                    v['status'] = cv[1]
+                    elsif o[-1] == 'code'
+                      # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
+                      v['spec'] = o[1]
+                      v['diagnosis'] = o[2]
 
-                  elsif cv = e.match(/\ADiagnostic-Code:[ ]*(.+?);[ ]*(.+)\z/)
-                    # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
-                    v['spec'] = cv[1].upcase
-                    v['diagnosis'] = cv[2]
-
-                  elsif cv = e.match(/\AFinal-Recipient:[ ]*(?:RFC|rfc)822;[ ]*(.+)\z/)
-                    # Final-Recipient: rfc822;|/bin/echo "Some pipe output"
-                    v['spec'] ||= cv[1].include?('@') ? 'SMTP' : 'X-UNIX'
+                    else
+                      # Other DSN fields defined in RFC3464
+                      next unless fieldtable.key?(o[0].to_sym)
+                      v[fieldtable[o[0].to_sym]] = o[2]
+                    end
                   else
                     # Error message ?
-                    if havepassed[:deliverystatus] == 0
-                      # Content-type: message/delivery-status
-                      havepassed[:deliverystatus] = 1 if e.start_with?(StartingOf[:deliverystatus][0])
-                      v['alterrors'] ||= ''
-                      v['alterrors'] << e + ' ' if e.start_with?(' ')
-                    end
+                    next if havepassed[:deliverystatus] == 1
+
+                    # Content-type: message/delivery-status
+                    havepassed[:deliverystatus] = 1 if e.start_with?(StartingOf[:deliverystatus][0])
+                    v['alterrors'] ||= ''
+                    v['alterrors'] << e + ' ' if e.start_with?(' ')
                   end
                 else
                   if dscontents.size == recipients
@@ -313,12 +315,11 @@ module Sisimai::Bite::Email
                       v['alterrors'] ||= ''
                       v['alterrors'] << e + ' '
                     end
-
                   end
                 end
               end
             end
-          end
+          end # End of message/delivery-status
         end
 
         if recipients > 0

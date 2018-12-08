@@ -47,21 +47,21 @@ module Sisimai::Bite::Email
         end
         return nil if match < 2
 
+        require 'sisimai/rfc1894'
+        fieldtable = Sisimai::RFC1894.FIELDTABLE
+        permessage = {}     # (Hash) Store values of each Per-Message field
+
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         rfc822list = []     # (Array) Each line in message/rfc822 part string
         blanklines = 0      # (Integer) The number of blank lines
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        connvalues = 0      # (Integer) Flag, 1 if all the value of connheader have been set
-        connheader = {
-          'lhost' => '',    # The value of Reporting-MTA header
-        }
         v = nil
 
         while e = hasdivided.shift do
           if readcursor == 0
-            # Beginning of the bounce message or delivery status part
+            # Beginning of the bounce message or message/delivery-status part
             if e == StartingOf[:message][0]
               readcursor |= Indicators[:deliverystatus]
               next
@@ -69,7 +69,7 @@ module Sisimai::Bite::Email
           end
 
           if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
+            # Beginning of the original message part(message/rfc822)
             if e == StartingOf[:rfc822][0]
               readcursor |= Indicators[:'message-rfc822']
               next
@@ -77,7 +77,7 @@ module Sisimai::Bite::Email
           end
 
           if readcursor & Indicators[:'message-rfc822'] > 0
-            # After "message/rfc822"
+            # message/rfc822 OR text/rfc822-headers part
             if e.empty?
               blanklines += 1
               break if blanklines > 1
@@ -85,51 +85,42 @@ module Sisimai::Bite::Email
             end
             rfc822list << e
           else
-            # Before "message/rfc822"
+            # message/delivery-status part
             next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
-            if connvalues == connheader.keys.size
-              # Action: failed
-              # Final-Recipient: rfc822; kijitora@libsisimai.org
-              # Diagnostic-Code: smtp; 554 4.4.7 Message expired: unable to deliver in 840 minutes.<421 4.4.2 Connection timed out>
-              # Status: 4.4.7
+            if f = Sisimai::RFC1894.match(e)
+              # "e" matched with any field defined in RFC3464
+              o = Sisimai::RFC1894.field(e) || next
               v = dscontents[-1]
 
-              if cv = e.match(/\AFinal-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
-                # Final-Recipient: RFC822; kijitora@example.jp
-                if v['recipient']
-                  # There are multiple recipient addresses in the message body.
-                  dscontents << Sisimai::Bite.DELIVERYSTATUS
-                  v = dscontents[-1]
+              if o[-1] == 'addr'
+                # Final-Recipient: rfc822; kijitora@example.jp
+                # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                if o[0] == 'final-recipient'
+                  # Final-Recipient: rfc822; kijitora@example.jp
+                  if v['recipient']
+                    # There are multiple recipient addresses in the message body.
+                    dscontents << Sisimai::Bite.DELIVERYSTATUS
+                    v = dscontents[-1]
+                  end
+                  v['recipient'] = o[2]
+                  recipients += 1
+                else
+                  # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                  v['alias'] = o[2]
                 end
-                v['recipient'] = cv[1]
-                recipients += 1
-
-              elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
-                # Action: failed
-                v['action'] = cv[1].downcase
-
-              elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
-                # Status: 5.1.1
-                v['status'] = cv[1]
+              elsif o[-1] == 'code'
+                # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
+                v['spec'] = o[1]
+                v['diagnosis'] = o[2]
               else
-                if cv = e.match(/\ADiagnostic-Code:[ ]*(.+?);[ ]*(.+)\z/)
-                  # Diagnostic-Code: SMTP; 550 5.1.1 <kijitora@example.jp>... User Unknown
-                  v['spec'] = cv[1].upcase
-                  v['diagnosis'] = cv[2]
-                end
-              end
-            else
-              # Technical report:
-              #
-              # Reporting-MTA: dsn; a27-85.smtp-out.us-west-2.amazonses.com
-              #
-              if cv = e.match(/\AReporting-MTA:[ ]*[DNSdns]+;[ ]*(.+)\z/)
-                # Reporting-MTA: dns; mx.example.jp
-                next unless connheader['lhost'].empty?
-                connheader['lhost'] = cv[1].downcase
-                connvalues += 1
+                # Other DSN fields defined in RFC3464
+                next unless fieldtable.key?(o[0].to_sym)
+                v[fieldtable[o[0].to_sym]] = o[2]
+
+                next unless f == 1
+                permessage[fieldtable[o[0].to_sym]] = o[2]
               end
             end
 
@@ -138,13 +129,14 @@ module Sisimai::Bite::Email
             # <meta name="Generator" content="Amazon WorkMail v3.0-2023.77">
             # <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
             break if e.start_with?('<!DOCTYPE HTML><html>')
-          end
+          end # End of message/delivery-status
         end
         return nil unless recipients > 0
 
         dscontents.each do |e|
           # Set default values if each value is empty.
-          connheader.each_key { |a| e[a] ||= connheader[a] || '' }
+          e['lhost'] ||= permessage['rhost']
+          permessage.each_key { |a| e[a] ||= permessage[a] || '' }
 
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           if e['status'].to_s.start_with?('5.0.0', '5.1.0', '4.0.0', '4.1.0')

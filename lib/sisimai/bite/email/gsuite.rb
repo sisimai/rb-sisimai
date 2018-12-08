@@ -39,6 +39,10 @@ module Sisimai::Bite::Email
         return nil unless mhead['subject'].start_with?('Delivery Status Notification')
         return nil unless mhead['x-gm-message-state']
 
+        require 'sisimai/rfc1894'
+        fieldtable = Sisimai::RFC1894.FIELDTABLE
+        permessage = {}     # (Hash) Store values of each Per-Message field
+
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         rfc822list = []     # (Array) Each line in message/rfc822 part string
@@ -48,21 +52,16 @@ module Sisimai::Bite::Email
         endoferror = false  # (Integer) Flag for a blank line after error messages
         anotherset = {}     # (Hash) Another error information
         emptylines = 0      # (Integer) The number of empty lines
-        connvalues = 0      # (Integer) Flag, 1 if all the value of connheader have been set
-        connheader = {
-          'date'  => '',    # The value of Arrival-Date header
-          'lhost' => '',    # The value of Reporting-MTA header
-        }
         v = nil
 
         while e = hasdivided.shift do
           if readcursor == 0
-            # Beginning of the bounce message or delivery status part
+            # Beginning of the bounce message or message/delivery-status part
             readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
           end
 
           if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
+            # Beginning of the original message part(message/rfc822)
             if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
               next
@@ -70,7 +69,7 @@ module Sisimai::Bite::Email
           end
 
           if readcursor & Indicators[:'message-rfc822'] > 0
-            # After "message/rfc822"
+            # message/rfc822 OR text/rfc822-headers part
             if e.empty?
               blanklines += 1
               break if blanklines > 1
@@ -78,123 +77,96 @@ module Sisimai::Bite::Email
             end
             rfc822list << e
           else
-            # Before "message/rfc822"
+            # message/delivery-status part
             next if (readcursor & Indicators[:deliverystatus]) == 0
 
-            if connvalues == connheader.keys.size
-              # Final-Recipient: rfc822; kijitora@example.de
-              # Action: failed
-              # Status: 5.0.0
-              # Remote-MTA: dns; 192.0.2.222 (192.0.2.222, the server for the domain.)
-              # Diagnostic-Code: smtp; 550 #5.1.0 Address rejected.
-              # Last-Attempt-Date: Fri, 24 Mar 2017 23:34:10 -0700 (PDT)
+            if f = Sisimai::RFC1894.match(e)
+              # "e" matched with any field defined in RFC3464
+              o = Sisimai::RFC1894.field(e) || next
               v = dscontents[-1]
 
-              if cv = e.match(/\AFinal-Recipient:[ ]*(?:RFC|rfc)822;[ ]*(.+)\z/)
-                # Final-Recipient: rfc822; kijitora@example.de
-                if v['recipient']
-                  # There are multiple recipient addresses in the message body.
-                  dscontents << Sisimai::Bite.DELIVERYSTATUS
-                  v = dscontents[-1]
-                end
-                v['recipient'] = cv[1]
-                recipients += 1
-
-              elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
-                # Action: failed
-                v['action'] = cv[1].downcase
-
-              elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
-                # Status: 5.0.0
-                v['status'] = cv[1]
-
-              elsif cv = e.match(/\ARemote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
-                # Remote-MTA: dns; 192.0.2.222 (192.0.2.222, the server for the domain.)
-                v['rhost'] = cv[1].downcase
-                v['rhost'] = '' if v['rhost'] =~ /\A\s+\z/  # Remote-MTA: DNS;
-
-              elsif cv = e.match(/\ALast-Attempt-Date:[ ]*(.+)\z/)
-                # Last-Attempt-Date: Fri, 24 Mar 2017 23:34:10 -0700 (PDT)
-                v['date'] = cv[1]
-              else
-                if cv = e.match(/\ADiagnostic-Code:[ ]*(.+?);[ ]*(.+)\z/)
-                  # Diagnostic-Code: smtp; 550 #5.1.0 Address rejected.
-                  v['spec'] = cv[1].upcase
-                  v['diagnosis'] = cv[2]
-                else
-                  # Append error messages continued from the previous line
-                  if endoferror == false && !v['diagnosis'].to_s.empty?
-                    endoferror ||= true if e.empty?
-                    endoferror ||= true if e.start_with?('--')
-
-                    next if endoferror
-                    next unless e.start_with?(' ')
-                    v['diagnosis'] << e
+              if o[-1] == 'addr'
+                # Final-Recipient: rfc822; kijitora@example.jp
+                # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                if o[0] == 'final-recipient'
+                  # Final-Recipient: rfc822; kijitora@example.jp
+                  if v['recipient']
+                    # There are multiple recipient addresses in the message body.
+                    dscontents << Sisimai::Bite.DELIVERYSTATUS
+                    v = dscontents[-1]
                   end
+                  v['recipient'] = o[2]
+                  recipients += 1
+                else
+                  # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                  v['alias'] = o[2]
                 end
+              elsif o[-1] == 'code'
+                # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
+                v['spec'] = o[1]
+                v['diagnosis'] = o[2]
+              else
+                # Other DSN fields defined in RFC3464
+                next unless fieldtable.key?(o[0].to_sym)
+                v[fieldtable[o[0].to_sym]] = o[2]
+
+                next unless f == 1
+                permessage[fieldtable[o[0].to_sym]] = o[2]
               end
             else
-              # Reporting-MTA: dns; googlemail.com
-              # Received-From-MTA: dns; sironeko@example.jp
-              # Arrival-Date: Fri, 24 Mar 2017 23:34:07 -0700 (PDT)
-              # X-Original-Message-ID: <06C1ED5C-7E02-4036-AEE1-AA448067FB2C@example.jp>
-              if cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
-                # Reporting-MTA: dns; mx.example.jp
-                next unless connheader['lhost'].empty?
-                connheader['lhost'] = cv[1].downcase
-                connvalues += 1
+              # The line does not begin with a DSN field defined in RFC3464
+              # Append error messages continued from the previous line
+              if endoferror == false && v && ! v['diagnosis'].to_s.empty?
+                endoferror ||= true if e.empty?
 
-              elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
-                # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
-                next unless connheader['date'].empty?
-                connheader['date'] = cv[1]
-                connvalues += 1
-              else
+                next if endoferror
+                next unless e.start_with?(' ')
+                v['diagnosis'] << e
+
+              elsif e =~ MarkingsOf[:error]
                 # Detect SMTP session error or connection error
-                if e =~ MarkingsOf[:error]
-                  # The response from the remote server was:
-                  anotherset['diagnosis'] << e
+                # The response from the remote server was:
+                anotherset['diagnosis'] << e
+              else
+                # ** Address not found **
+                #
+                # Your message wasn't delivered to * because the address couldn't be found.
+                # Check for typos or unnecessary spaces and try again.
+                #
+                # The response from the remote server was:
+                # 550 #5.1.0 Address rejected.
+                next if e =~ MarkingsOf[:html]
+
+                if anotherset['diagnosis']
+                  # Continued error messages from the previous line like
+                  # "550 #5.1.0 Address rejected."
+                  next if e =~ /\AContent-Type:/
+                  next if emptylines > 5
+                  if e.empty?
+                    # Count and next()
+                    emptylines += 1
+                    next
+                  end
+                  anotherset['diagnosis'] << ' ' << e
                 else
                   # ** Address not found **
                   #
                   # Your message wasn't delivered to * because the address couldn't be found.
                   # Check for typos or unnecessary spaces and try again.
-                  #
-                  # The response from the remote server was:
-                  # 550 #5.1.0 Address rejected.
-                  next if e =~ MarkingsOf[:html]
-
-                  if anotherset['diagnosis']
-                    # Continued error messages from the previous line like
-                    # "550 #5.1.0 Address rejected."
-                    next if e =~ /\AContent-Type:/
-                    next if emptylines > 5
-                    if e.empty?
-                      # Count and next()
-                      emptylines += 1
-                      next
-                    end
-                    anotherset['diagnosis'] << ' ' << e
-                  else
-                    # ** Address not found **
-                    #
-                    # Your message wasn't delivered to * because the address couldn't be found.
-                    # Check for typos or unnecessary spaces and try again.
-                    next if e.empty?
-                    next unless e =~ MarkingsOf[:message]
-                    anotherset['diagnosis'] = e
-                  end
+                  next if e.empty?
+                  next unless e =~ MarkingsOf[:message]
+                  anotherset['diagnosis'] = e
                 end
-
               end
             end
-          end
+          end # End of message/delivery-status
         end
         return nil unless recipients > 0
 
         dscontents.each do |e|
           # Set default values if each value is empty.
-          connheader.each_key { |a| e[a] ||= connheader[a] || '' }
+          e['lhost'] ||= permessage['rhost']
+          permessage.each_key { |a| e[a] ||= permessage[a] || '' }
 
           if anotherset['diagnosis']
             # Copy alternative error message

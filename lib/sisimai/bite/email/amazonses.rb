@@ -45,6 +45,10 @@ module Sisimai::Bite::Email
         match += 1 if mhead['x-ses-outgoing']
         return nil unless match > 0
 
+        require 'sisimai/rfc1894'
+        fieldtable = Sisimai::RFC1894.FIELDTABLE
+        permessage = {}     # (Hash) Store values of each Per-Message field
+
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         havepassed = ['']
@@ -52,10 +56,6 @@ module Sisimai::Bite::Email
         blanklines = 0      # (Integer) The number of blank lines
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        connvalues = 0      # (Integer) Flag, 1 if all the value of connheader have been set
-        connheader = {
-          'lhost' => '',    # The value of Reporting-MTA header
-        }
         v = nil
 
         while e = hasdivided.shift do
@@ -64,7 +64,7 @@ module Sisimai::Bite::Email
           p = havepassed[-2]
 
           if readcursor == 0
-            # Beginning of the bounce message or delivery status part
+            # Beginning of the bounce message or message/delivery-status part
             if e.start_with?(StartingOf[:message][0], StartingOf[:message][1])
               readcursor |= Indicators[:deliverystatus]
               next
@@ -72,7 +72,7 @@ module Sisimai::Bite::Email
           end
 
           if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
+            # Beginning of the original message part(message/rfc822)
             if e == StartingOf[:rfc822][0]
               readcursor |= Indicators[:'message-rfc822']
               next
@@ -80,8 +80,7 @@ module Sisimai::Bite::Email
           end
 
           if readcursor & Indicators[:'message-rfc822'] > 0
-            # After "message/rfc822"
-            # After "message/rfc822"
+            # message/rfc822 OR text/rfc822-headers part
             if e.empty?
               blanklines += 1
               break if blanklines > 1
@@ -89,86 +88,52 @@ module Sisimai::Bite::Email
             end
             rfc822list << e
           else
-            # Before "message/rfc822"
+            # message/delivery-status part
             next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
-            if connvalues == connheader.keys.size
-              # Final-Recipient: rfc822;kijitora@example.jp
-              # Action: failed
-              # Status: 5.0.0 (permanent failure)
-              # Remote-MTA: dns; [192.0.2.9]
-              # Diagnostic-Code: smtp; 5.1.0 - Unknown address error 550-'5.7.1
-              #  <000001321defbd2a-788e31c8-2be1-422f-a8d4-cf7765cc9ed7-000000@email-bounces.amazonses.com>...
-              #  Access denied' (delivery attempts: 0)
-              #
-              # --JuU8e.4gyIcCrxq.1RFbQY.3Vu7Hs+
-              # content-type: message/rfc822
+            if f = Sisimai::RFC1894.match(e)
+              # "e" matched with any field defined in RFC3464
+              o = Sisimai::RFC1894.field(e) || next
               v = dscontents[-1]
 
-              if cv = e.match(/\AFinal-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
-                # Final-Recipient: RFC822; userunknown@example.jp
-                if v['recipient']
-                  # There are multiple recipient addresses in the message body.
-                  dscontents << Sisimai::Bite.DELIVERYSTATUS
-                  v = dscontents[-1]
+              if o[-1] == 'addr'
+                # Final-Recipient: rfc822; kijitora@example.jp
+                # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                if o[0] == 'final-recipient'
+                  # Final-Recipient: rfc822; kijitora@example.jp
+                  if v['recipient']
+                    # There are multiple recipient addresses in the message body.
+                    dscontents << Sisimai::Bite.DELIVERYSTATUS
+                    v = dscontents[-1]
+                  end
+                  v['recipient'] = o[2]
+                  recipients += 1
+                else
+                  # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                  v['alias'] = o[2]
                 end
-                v['recipient'] = cv[1]
-                recipients += 1
-
-              elsif cv = e.match(/\AX-Actual-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
-                # X-Actual-Recipient: RFC822; kijitora@example.co.jp
-                v['alias'] = cv[1]
-
-              elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
-                # Action: failed
-                v['action'] = cv[1].downcase
-
-              elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
-                # Status: 5.1.1
-                # Status:5.2.0
-                # Status: 5.1.0 (permanent failure)
-                v['status'] = cv[1]
-
-              elsif cv = e.match(/\ARemote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
-                # Remote-MTA: DNS; mx.example.jp
-                v['rhost'] = cv[1].downcase
-
-              elsif cv = e.match(/\ALast-Attempt-Date:[ ]*(.+)\z/)
-                # Last-Attempt-Date: Fri, 14 Feb 2014 12:30:08 -0500
-                v['date'] = cv[1]
+              elsif o[-1] == 'code'
+                # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
+                v['spec'] = o[1]
+                v['diagnosis'] = o[2]
               else
-                if cv = e.match(/\ADiagnostic-Code:[ ]*(.+?);[ ]*(.+)\z/)
-                  # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
-                  v['spec'] = cv[1].upcase
-                  v['diagnosis'] = cv[2]
+                # Other DSN fields defined in RFC3464
+                next unless fieldtable.key?(o[0].to_sym)
+                v[fieldtable[o[0].to_sym]] = o[2]
 
-                elsif p.start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
-                  # Continued line of the value of Diagnostic-Code header
-                  v['diagnosis'] << ' ' << cv[1]
-                  havepassed[-1] = 'Diagnostic-Code: ' << e
-                end
+                next unless f == 1
+                permessage[fieldtable[o[0].to_sym]] = o[2]
               end
             else
-              # The following message to <kijitora@example.jp> was undeliverable.
-              # The reason for the problem:
-              # 5.1.0 - Unknown address error 550-'5.7.1 <0000000000000000-00000000-0000-00=
-              # 00-0000-000000000000-000000@email-bounces.amazonses.com>... Access denied'
-              #
-              # --JuU8e.4gyIcCrxq.1RFbQY.3Vu7Hs+
-              # content-type: message/delivery-status
-              #
-              # Reporting-MTA: dns; a192-79.smtp-out.amazonses.com
-              #
-              if cv = e.match(/\AReporting-MTA:[ ]*[DNSdns]+;[ ]*(.+)\z/)
-                # Reporting-MTA: dns; mx.example.jp
-                next unless connheader['lhost'].empty?
-                connheader['lhost'] = cv[1].downcase
-                connvalues += 1
+              # The line does not begin with a DSN field defined in RFC3464
+              if p.start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
+                # Continued line of the value of Diagnostic-Code header
+                v['diagnosis'] << ' ' << cv[1]
+                havepassed[-1] = 'Diagnostic-Code: ' << e
               end
-
             end
-          end
+          end # End of message/delivery-status
         end
 
         if recipients == 0 && mbody =~ /notificationType/
@@ -186,7 +151,8 @@ module Sisimai::Bite::Email
 
         dscontents.each do |e|
           # Set default values if each value is empty.
-          connheader.each_key { |a| e[a] ||= connheader[a] || '' }
+          e['lhost'] ||= permessage['rhost']
+          permessage.each_key { |a| e[a] ||= permessage[a] || '' }
 
           e['agent'] = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].to_s.gsub(/\\n/, ' '))
