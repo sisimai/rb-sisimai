@@ -47,18 +47,18 @@ module Sisimai
 
       Correction = { action: { failure: 'failed', expired: 'delayed' } }
       FieldGroup = {
-        'original-recipient':    'addr',
-        'final-recipient':       'addr',
-        'x-actual-recipient':    'addr',
-        'diagnostic-code':       'code',
-        'arrival-date':          'date',
-        'last-attempt-date':     'date',
-        'received-from-mta':     'host',
-        'remote-mta':            'host',
-        'reporting-mta':         'host',
-        'action':                'list',
-        'status':                'stat',
-        'x-original-message-id': 'text',
+        :'original-recipient'    => 'addr',
+        :'final-recipient'       => 'addr',
+        :'x-actual-recipient'    => 'addr',
+        :'diagnostic-code'       => 'code',
+        :'arrival-date'          => 'date',
+        :'last-attempt-date'     => 'date',
+        :'received-from-mta'     => 'host',
+        :'remote-mta'            => 'host',
+        :'reporting-mta'         => 'host',
+        :'action'                => 'list',
+        :'status'                => 'stat',
+        :'x-original-message-id' => 'text',
       }.freeze
 
       # Table to be converted to key name defined in Sisimai::Bite class
@@ -66,17 +66,17 @@ module Sisimai
       # @return   [Array,Hash]    RFC822 Header list
       def FIELDTABLE
         return {
-          'action':             'action',
-          'arrival-date':       'date',
-          'diagnostic-code':    'diagnosis',
-          'final-recipient':    'recipient',
-          'last-attempt-date':  'date',
-          'original-recipient': 'alias',
-          'received-from-mta':  'lhost',
-          'remote-mta':         'rhost',
-          'reporting-mta':      'rhost',
-          'status':             'status',
-          'x-actual-recipient': 'alias',
+          :'action'             => 'action',
+          :'arrival-date'       => 'date',
+          :'diagnostic-code'    => 'diagnosis',
+          :'final-recipient'    => 'recipient',
+          :'last-attempt-date'  => 'date',
+          :'original-recipient' => 'alias',
+          :'received-from-mta'  => 'lhost',
+          :'remote-mta'         => 'rhost',
+          :'reporting-mta'      => 'rhost',
+          :'status'             => 'status',
+          :'x-actual-recipient' => 'alias',
         }
       end
 
