@@ -182,11 +182,11 @@ module Sisimai::Bite::Email
                   end
                 end
               else
-                if p.start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
-                  # Continued line of the value of Diagnostic-Code header
-                  v['diagnosis'] << ' ' << cv[1]
-                  havepassed[-1] = 'Diagnostic-Code: ' << e
-                end
+                # Continued line of the value of Diagnostic-Code header
+                next unless p.start_with?('Diagnostic-Code:')
+                next unless cv = e.match(/\A[ \t]+(.+)\z/)
+                v['diagnosis'] << ' ' << cv[1]
+                havepassed[-1] = 'Diagnostic-Code: ' << e
               end
             end
           end # End of message/delivery-status
