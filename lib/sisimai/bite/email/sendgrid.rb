@@ -139,11 +139,11 @@ module Sisimai::Bite::Email
                 # in RCPT TO, in MAIL FROM, end of DATA
                 commandtxt = cv[1]
               else
-                if p.start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
-                  # Continued line of the value of Diagnostic-Code header
-                  v['diagnosis'] << ' ' << cv[1]
-                  havepassed[-1] = 'Diagnostic-Code: ' << e
-                end
+                # Continued line of the value of Diagnostic-Code field
+                next unless p.start_with?('Diagnostic-Code:')
+                next unless cv = e.match(/\A[ \t]+(.+)\z/)
+                v['diagnosis'] << ' ' << cv[1]
+                havepassed[-1] = 'Diagnostic-Code: ' << e
               end
             end
           end # End of message/delivery-status

@@ -182,7 +182,7 @@ module Sisimai::Bite::Email
                   end
                 end
               else
-                # Continued line of the value of Diagnostic-Code header
+                # Continued line of the value of Diagnostic-Code field
                 next unless p.start_with?('Diagnostic-Code:')
                 next unless cv = e.match(/\A[ \t]+(.+)\z/)
                 v['diagnosis'] << ' ' << cv[1]

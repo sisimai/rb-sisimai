@@ -116,12 +116,11 @@ module Sisimai::Bite::Email
                 v[fieldtable[o[0].to_sym]] = o[2]
               end
             else
-              # The line does not begin with a DSN field defined in RFC3464
-              if p.start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
-                # Continued line of the value of Diagnostic-Code header
-                v['diagnosis'] << ' ' << cv[1]
-                havepassed[-1] = 'Diagnostic-Code: ' << e
-              end
+              # Continued line of the value of Diagnostic-Code field
+              next unless p.start_with?('Diagnostic-Code:')
+              next unless cv = e.match(/\A[ \t]+(.+)\z/)
+              v['diagnosis'] << ' ' << cv[1]
+              havepassed[-1] = 'Diagnostic-Code: ' << e
             end
           else
             # message/rfc822 OR text/rfc822-headers part
