@@ -151,9 +151,8 @@ module Sisimai::Bite::Email
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-
           # Get the value of SMTP status code as a pseudo D.S.N.
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           if cv = e['diagnosis'].match(/\b([45])\d\d[ \t]*/)
             # 4xx or 5xx
             e['status'] = cv[1] + '.0.0'
