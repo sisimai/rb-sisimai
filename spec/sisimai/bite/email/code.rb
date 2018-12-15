@@ -289,13 +289,19 @@ module Sisimai
                         it sprintf("%s #token matches with the valid format", lb) do
                           expect(pr.token).to match /\A([0-9a-f]{40})\z/ 
                         end
-                        it sprintf("%s #alias does not include [ ]", lb) do
-                          expect(pr.alias).not_to match /[ ]/
+                        it sprintf("%s #alias does not include %s", lb, '\r') do
+                          expect(pr.alias).not_to match /[\r]/
                         end
 
                         %w|smtpcommand lhost rhost alias listid action messageid|.each do |pp|
-                          it sprintf("%s #%s does not include [ ]", lb, pp) do
-                            expect(pr.send(pp)).not_to match(/[ \r]/)
+                          if pp == 'alias'
+                            it sprintf("%s #%s does not include %s", lb, pp, '\r') do
+                              expect(pr.send(pp)).not_to match(/[\r]/)
+                            end
+                          else
+                            it sprintf("%s #%s does not include [ ]", lb, pp) do
+                              expect(pr.send(pp)).not_to match(/[ \r]/)
+                            end
                           end
                         end
 

@@ -36,6 +36,10 @@ module Sisimai::Bite::Email
         return nil unless mhead['return-path'] == '<apps@sendgrid.net>'
         return nil unless mhead['subject'] == 'Undelivered Mail Returned to Sender'
 
+        require 'sisimai/rfc1894'
+        fieldtable = Sisimai::RFC1894.FIELDTABLE
+        permessage = {}     # (Hash) Store values of each Per-Message field
+
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         havepassed = ['']
@@ -44,10 +48,6 @@ module Sisimai::Bite::Email
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         commandtxt = ''     # (String) SMTP Command name begin with the string '>>>'
-        connvalues = 0      # (Integer) Flag, 1 if all the value of connheader have been set
-        connheader = {
-          'date' => '',     # The value of Arrival-Date header
-        }
         v = nil
 
         while e = hasdivided.shift do
@@ -56,7 +56,7 @@ module Sisimai::Bite::Email
           p = havepassed[-2]
 
           if readcursor == 0
-            # Beginning of the bounce message or delivery status part
+            # Beginning of the bounce message or message/delivery-status part
             if e == StartingOf[:message][0]
               readcursor |= Indicators[:deliverystatus]
               next
@@ -64,7 +64,7 @@ module Sisimai::Bite::Email
           end
 
           if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
+            # Beginning of the original message part(message/rfc822)
             if e == StartingOf[:rfc822][0]
               readcursor |= Indicators[:'message-rfc822']
               next
@@ -72,7 +72,7 @@ module Sisimai::Bite::Email
           end
 
           if readcursor & Indicators[:'message-rfc822'] > 0
-            # After "message/rfc822"
+            # message/rfc822 OR text/rfc822-headers part
             if e.empty?
               blanklines += 1
               break if blanklines > 1
@@ -80,97 +80,79 @@ module Sisimai::Bite::Email
             end
             rfc822list << e
           else
-            # Before "message/rfc822"
+            # message/delivery-status part
             next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
-            if connvalues == connheader.keys.size
-              # Final-Recipient: rfc822; kijitora@example.jp
-              # Original-Recipient: rfc822; kijitora@example.jp
-              # Action: failed
-              # Status: 5.1.1
-              # Diagnostic-Code: 550 5.1.1 <kijitora@example.jp>... User Unknown
+            if f = Sisimai::RFC1894.match(e)
+              # "e" matched with any field defined in RFC3464
+              o = Sisimai::RFC1894.field(e)
               v = dscontents[-1]
 
-              if cv = e.match(/\AFinal-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
-                # Final-Recipient: RFC822; userunknown@example.jp
-                if v['recipient']
-                  # There are multiple recipient addresses in the message body.
-                  dscontents << Sisimai::Bite.DELIVERYSTATUS
-                  v = dscontents[-1]
+              unless o
+                # Fallback code for empty value or invalid formatted value
+                # - Status: (empty)
+                # - Diagnostic-Code: 550 5.1.1 ... (No "diagnostic-type" sub field)
+                next unless cv = e.match(/\ADiagnostic-Code:[ ]*(.+)/)
+                v['diagnosis'] = cv[1]
+                next;
+              end
+
+              if o[-1] == 'addr'
+                # Final-Recipient: rfc822; kijitora@example.jp
+                # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                if o[0] == 'final-recipient'
+                  # Final-Recipient: rfc822; kijitora@example.jp
+                  if v['recipient']
+                    # There are multiple recipient addresses in the message body.
+                    dscontents << Sisimai::Bite.DELIVERYSTATUS
+                    v = dscontents[-1]
+                  end
+                  v['recipient'] = o[2]
+                  recipients += 1
+                else
+                  # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                  v['alias'] = o[2]
                 end
-                v['recipient'] = cv[1]
-                recipients += 1
-
-              elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
-                # Action: failed
-                v['action'] = cv[1].downcase
-
-              elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
-                # Status: 5.1.1
-                # Status:5.2.0
-                # Status: 5.1.0 (permanent failure)
-                v['status'] = cv[1]
-
+              elsif o[-1] == 'code'
+                # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
+                v['spec'] = o[1]
+                v['diagnosis'] = o[2]
+              elsif o[-1] == 'date'
+                # Arrival-Date: 2012-12-31 23-59-59
+                next unless cv = e.match(/\AArrival-Date: (\d{4})[-](\d{2})[-](\d{2}) (\d{2})[-](\d{2})[-](\d{2})\z/)
+                o[1] << 'Thu, ' << cv[3] + ' '
+                o[1] << Sisimai::DateTime.monthname(0)[cv[2].to_i - 1]
+                o[1] << ' ' << cv[1] + ' ' << [cv[4], cv[5], cv[6]].join(':')
+                o[1] << ' ' << Sisimai::DateTime.abbr2tz('CDT')
               else
-                if cv = e.match(/\ADiagnostic-Code:[ ]*(.+)\z/)
-                  # Diagnostic-Code: 550 5.1.1 <userunknown@example.jp>... User Unknown
-                  v['diagnosis'] = cv[1]
+                # Other DSN fields defined in RFC3464
+                next unless fieldtable.key?(o[0].to_sym)
+                v[fieldtable[o[0].to_sym]] = o[2]
 
-                elsif p.start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
-                  # Continued line of the value of Diagnostic-Code header
-                  v['diagnosis'] << ' ' << cv[1]
-                  havepassed[-1] = 'Diagnostic-Code: ' << e
-                end
+                next unless f == 1
+                permessage[fieldtable[o[0].to_sym]] = o[2]
               end
             else
-              # This is an automatically generated message from SendGrid.
-              #
-              # I'm sorry to have to tell you that your message was not able to be
-              # delivered to one of its intended recipients.
-              #
-              # If you require assistance with this, please contact SendGrid support.
-              #
-              # shironekochan:000000:<kijitora@example.jp> : 192.0.2.250 : mx.example.jp:[192.0.2.153] :
-              #   550 5.1.1 <userunknown@cubicroot.jp>... User Unknown  in RCPT TO
-              #
-              # ------------=_1351676802-30315-116783
-              # Content-Type: message/delivery-status
-              # Content-Disposition: inline
-              # Content-Transfer-Encoding: 7bit
-              # Content-Description: Delivery Report
-              #
-              # X-SendGrid-QueueID: 959479146
-              # X-SendGrid-Sender: <bounces+61689-10be-kijitora=example.jp@sendgrid.info>
-              # Arrival-Date: 2012-12-31 23-59-59
+              # The line does not begin with a DSN field defined in RFC3464
               if cv = e.match(/.+ in (?:End of )?([A-Z]{4}).*\z/)
                 # in RCPT TO, in MAIL FROM, end of DATA
                 commandtxt = cv[1]
-
-              elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
-                # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
-                next unless connheader['date'].empty?
-                arrivaldate = cv[1]
-
-                if cv = e.match(/\AArrival-Date: (\d{4})[-](\d{2})[-](\d{2}) (\d{2})[-](\d{2})[-](\d{2})\z/)
-                  # Arrival-Date: 2011-08-12 01-05-05
-                  arrivaldate << 'Thu, ' << cv[3] + ' '
-                  arrivaldate << Sisimai::DateTime.monthname(0)[cv[2].to_i - 1]
-                  arrivaldate << ' ' << cv[1] + ' ' << [cv[4], cv[5], cv[6]].join(':')
-                  arrivaldate << ' ' << Sisimai::DateTime.abbr2tz('CDT')
-                end
-                connheader['date'] = arrivaldate
-                connvalues += 1
+              else
+                # Continued line of the value of Diagnostic-Code field
+                next unless p.start_with?('Diagnostic-Code:')
+                next unless cv = e.match(/\A[ \t]+(.+)\z/)
+                v['diagnosis'] << ' ' << cv[1]
+                havepassed[-1] = 'Diagnostic-Code: ' << e
               end
             end
-          end
+          end # End of message/delivery-status
         end
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-
           # Get the value of SMTP status code as a pseudo D.S.N.
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           if cv = e['diagnosis'].match(/\b([45])\d\d[ \t]*/)
             # 4xx or 5xx
             e['status'] = cv[1] + '.0.0'
@@ -194,6 +176,7 @@ module Sisimai::Bite::Email
             end
           end
 
+          e['lhost'] ||= permessage['rhost']
           e['agent']   = self.smtpagent
           e['command'] = commandtxt
         end

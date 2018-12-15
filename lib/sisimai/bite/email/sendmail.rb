@@ -41,6 +41,10 @@ module Sisimai::Bite::Email
           return nil unless mhead['from'].start_with?('Mail Delivery Subsystem')
         end
 
+        require 'sisimai/rfc1894'
+        fieldtable = Sisimai::RFC1894.FIELDTABLE
+        permessage = {}     # (Hash) Store values of each Per-Message field
+
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         havepassed = ['']
@@ -51,11 +55,6 @@ module Sisimai::Bite::Email
         commandtxt = ''     # (String) SMTP Command name begin with the string '>>>'
         esmtpreply = ''     # (String) Reply from remote server on SMTP session
         sessionerr = false  # (Boolean) Flag, "true" if it is SMTP session error
-        connvalues = 0      # (Integer) Flag, 1 if all the value of connheader have been set
-        connheader = {
-          'date'  => '',    # The value of Arrival-Date header
-          'rhost' => '',    # The value of Reporting-MTA header
-        }
         anotherset = {}     # Another error information
         v = nil
 
@@ -65,7 +64,7 @@ module Sisimai::Bite::Email
           p = havepassed[-2]
 
           if readcursor == 0
-            # Beginning of the bounce message or delivery status part
+            # Beginning of the bounce message or message/delivery-status part
             if e.start_with?(StartingOf[:message][0])
               readcursor |= Indicators[:deliverystatus]
               next
@@ -73,7 +72,7 @@ module Sisimai::Bite::Email
           end
 
           if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
+            # Beginning of the original message part(message/rfc822)
             if e.start_with?(StartingOf[:rfc822][0], StartingOf[:rfc822][1])
               readcursor |= Indicators[:'message-rfc822']
               next
@@ -81,7 +80,7 @@ module Sisimai::Bite::Email
           end
 
           if readcursor & Indicators[:'message-rfc822'] > 0
-            # After "message/rfc822"
+            # message/rfc822 OR text/rfc822-headers part
             if e.empty?
               blanklines += 1
               break if blanklines > 1
@@ -89,65 +88,46 @@ module Sisimai::Bite::Email
             end
             rfc822list << e
           else
-            # Before "message/rfc822"
+            # message/delivery-status part
             next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
-            if connvalues == connheader.keys.size
-              # Final-Recipient: RFC822; userunknown@example.jp
-              # X-Actual-Recipient: RFC822; kijitora@example.co.jp
-              # Action: failed
-              # Status: 5.1.1
-              # Remote-MTA: DNS; mx.example.jp
-              # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
-              # Last-Attempt-Date: Fri, 14 Feb 2014 12:30:08 -0500
+            if f = Sisimai::RFC1894.match(e)
+              # "e" matched with any field defined in RFC3464
+              o = Sisimai::RFC1894.field(e) || next
               v = dscontents[-1]
 
-              if cv = e.match(/\AFinal-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
-                # Final-Recipient: RFC822; userunknown@example.jp
-                if v['recipient']
-                  # There are multiple recipient addresses in the message body.
-                  dscontents << Sisimai::Bite.DELIVERYSTATUS
-                  v = dscontents[-1]
+              if o[-1] == 'addr'
+                # Final-Recipient: rfc822; kijitora@example.jp
+                # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                if o[0] == 'final-recipient'
+                  # Final-Recipient: rfc822; kijitora@example.jp
+                  if v['recipient']
+                    # There are multiple recipient addresses in the message body.
+                    dscontents << Sisimai::Bite.DELIVERYSTATUS
+                    v = dscontents[-1]
+                  end
+                  v['recipient'] = o[2]
+                  recipients += 1
+                else
+                  # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                  v['alias'] = o[2]
                 end
-                v['recipient'] = cv[1]
-                recipients += 1
-
-              elsif cv = e.match(/\AX-Actual-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
-                # X-Actual-Recipient: RFC822; kijitora@example.co.jp
-                v['alias'] = cv[1]
-
-              elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
-                # Action: failed
-                v['action'] = cv[1].downcase
-
-              elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
-                # Status: 5.1.1
-                # Status:5.2.0
-                # Status: 5.1.0 (permanent failure)
-                v['status'] = cv[1]
-
-              elsif cv = e.match(/\ARemote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
-                # Remote-MTA: DNS; mx.example.jp
-                v['rhost'] = cv[1].downcase
-                v['rhost'] = '' if v['rhost'] =~ /\A\s+\z/  # Remote-MTA: DNS;
-
-              elsif cv = e.match(/\ALast-Attempt-Date:[ ]*(.+)\z/)
-                # Last-Attempt-Date: Fri, 14 Feb 2014 12:30:08 -0500
-                v['date'] = cv[1]
+              elsif o[-1] == 'code'
+                # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
+                v['spec'] = o[1]
+                v['diagnosis'] = o[2]
               else
-                if cv = e.match(/\ADiagnostic-Code:[ ]*(.+?);[ ]*(.+)\z/)
-                  # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
-                  v['spec'] = cv[1].upcase
-                  v['diagnosis'] = cv[2]
+                # Other DSN fields defined in RFC3464
+                next unless fieldtable.key?(o[0].to_sym)
+                v[fieldtable[o[0].to_sym]] = o[2]
 
-                elsif p.start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
-                  # Continued line of the value of Diagnostic-Code header
-                  v['diagnosis'] << ' ' << cv[1]
-                  havepassed[-1] = 'Diagnostic-Code: ' << e
-                end
+                next unless f == 1
+                permessage[fieldtable[o[0].to_sym]] = o[2]
               end
             else
+              # The line does not begin with a DSN field defined in RFC3464
+              #
               # ----- Transcript of session follows -----
               # ... while talking to mta.example.org.:
               # >>> DATA
@@ -157,77 +137,66 @@ module Sisimai::Bite::Email
               # Reporting-MTA: dns; mx.example.jp
               # Received-From-MTA: DNS; x1x2x3x4.dhcp.example.ne.jp
               # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
-              if cv = e.match(/\A[>]{3}[ ]+([A-Z]{4})[ ]?/)
-                # >>> DATA
-                commandtxt = cv[1]
+              if e =~ /\A[^ ]/
+                if cv = e.match(/\A[>]{3}[ ]+([A-Z]{4})[ ]?/)
+                  # >>> DATA
+                  commandtxt = cv[1]
 
-              elsif cv = e.match(/\A[<]{3}[ ]+(.+)\z/)
-                # <<< Response
-                esmtpreply = cv[1]
-
-              elsif cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
-                # Reporting-MTA: dns; mx.example.jp
-                next unless connheader['rhost'].empty?
-                connheader['rhost'] = cv[1].downcase
-                connvalues += 1
-
-              elsif cv = e.match(/\AReceived-From-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
-                # Received-From-MTA: DNS; x1x2x3x4.dhcp.example.ne.jp
-                next if connheader['lhost']
-
-                # The value of "lhost" is optional
-                connheader['lhost'] = cv[1].downcase
-                connvalues += 1
-
-              elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
-                # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
-                next unless connheader['date'].empty?
-                connheader['date'] = cv[1]
-                connvalues += 1
-              else
-                # Detect SMTP session error or connection error
-                next if sessionerr
-                if e.start_with?(StartingOf[:error][0])
-                  # ----- Transcript of session follows -----
-                  # ... while talking to mta.example.org.:
-                  sessionerr = true
-                  next
-                end
-
-                if cv = e.match(/\A[<](.+)[>][.]+ (.+)\z/)
-                  # <kijitora@example.co.jp>... Deferred: Name server: example.co.jp.: host name lookup failure
-                  anotherset['recipient'] = cv[1]
-                  anotherset['diagnosis'] = cv[2]
+                elsif cv = e.match(/\A[<]{3}[ ]+(.+)\z/)
+                  # <<< Response
+                  esmtpreply = cv[1]
                 else
-                  # ----- Transcript of session follows -----
-                  # Message could not be delivered for too long
-                  # Message will be deleted from queue
-                  next if e =~ /\A[ \t]*[-]+/
-                  if cv = e.match(/\A[45]\d\d[ \t]([45][.]\d[.]\d)[ \t].+/)
-                    # 550 5.1.2 <kijitora@example.org>... Message
-                    #
-                    # DBI connect('dbname=...')
-                    # 554 5.3.0 unknown mailer error 255
-                    anotherset['status'] = cv[1]
-                    anotherset['diagnosis'] ||= ''
-                    anotherset['diagnosis'] << ' ' << e
+                  # Detect SMTP session error or connection error
+                  next if sessionerr
+                  if e.start_with?(StartingOf[:error][0])
+                    # ----- Transcript of session follows -----
+                    # ... while talking to mta.example.org.:
+                    sessionerr = true
+                    next
+                  end
 
-                  elsif e.start_with?('Message ', 'Warning: ')
+                  if cv = e.match(/\A[<](.+)[>][.]+ (.+)\z/)
+                    # <kijitora@example.co.jp>... Deferred: Name server: example.co.jp.: host name lookup failure
+                    anotherset['recipient'] = cv[1]
+                    anotherset['diagnosis'] = cv[2]
+                  else
+                    # ----- Transcript of session follows -----
                     # Message could not be delivered for too long
-                    # Warning: message still undelivered after 4 hours
-                    anotherset['diagnosis'] ||= ''
-                    anotherset['diagnosis'] << ' ' << e
+                    # Message will be deleted from queue
+                    next if e =~ /\A[ \t]*[-]+/
+                    if cv = e.match(/\A[45]\d\d[ \t]([45][.]\d[.]\d)[ \t].+/)
+                      # 550 5.1.2 <kijitora@example.org>... Message
+                      #
+                      # DBI connect('dbname=...')
+                      # 554 5.3.0 unknown mailer error 255
+                      anotherset['status'] = cv[1]
+                      anotherset['diagnosis'] ||= ''
+                      anotherset['diagnosis'] << ' ' << e
+
+                    elsif e.start_with?('Message ', 'Warning: ')
+                      # Message could not be delivered for too long
+                      # Warning: message still undelivered after 4 hours
+                      anotherset['diagnosis'] ||= ''
+                      anotherset['diagnosis'] << ' ' << e
+                    end
                   end
                 end
+              else
+                # Continued line of the value of Diagnostic-Code field
+                next unless p.start_with?('Diagnostic-Code:')
+                next unless cv = e.match(/\A[ \t]+(.+)\z/)
+                v['diagnosis'] << ' ' << cv[1]
+                havepassed[-1] = 'Diagnostic-Code: ' << e
               end
             end
-          end
+          end # End of message/delivery-status
         end
         return nil unless recipients > 0
 
         dscontents.each do |e|
           # Set default values if each value is empty.
-          connheader.each_key { |a| e[a] ||= connheader[a] || '' }
+          e['lhost'] ||= permessage['rhost']
+          permessage.each_key { |a| e[a] ||= permessage[a] || '' }
 
           e['agent']     = self.smtpagent
           e['command'] ||= commandtxt
