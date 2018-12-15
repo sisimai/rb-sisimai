@@ -3,6 +3,14 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.24.1p1
+--------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - Experimental implementation: Sisimai::RFC1894 is a common class for parsing
+    message/delivery-status part. #133
+
 v4.24.1
 --------------------------------------------------------------------------------
 - release: "Wed, 14 Nov 2018 11:09:44 +0900 (JST)"
