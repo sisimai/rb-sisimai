@@ -77,7 +77,7 @@ module Sisimai::Bite::Email
           end
 
           if readcursor & Indicators[:'message-rfc822'] > 0
-            # After "message/rfc822"
+            # Inside of the original message part
             if e.empty?
               blanklines += 1
               break if blanklines > 1
@@ -85,7 +85,7 @@ module Sisimai::Bite::Email
             end
             rfc822list << e
           else
-            # Before "message/rfc822"
+            # Error message part
             break if readcursor & Indicators[:'message-rfc822'] > 0
 
             # Unknown user: kijitora@example.com
