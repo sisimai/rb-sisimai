@@ -80,19 +80,19 @@ module Sisimai
         #                                   false: is not rejected by the sender
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
+          return true if argvs.reason == 'rejected'
           tempreason = Sisimai::SMTP::Status.name(argvs.deliverystatus)
           tempreason = 'undefined' if tempreason.empty?
-          diagnostic = argvs.diagnosticcode.downcase
-
-          return true if argvs.reason == 'rejected'
           return true if tempreason == 'rejected' # Delivery status code points "rejected".
 
           # Check the value of Diagnosic-Code: header with patterns
-          if argvs.smtpcommand == 'MAIL'
+          diagnostic = argvs.diagnosticcode.downcase
+          commandtxt = argvs.smtpcommand
+          if commandtxt == 'MAIL'
             # The session was rejected at 'MAIL FROM' command
             return true if match(diagnostic)
 
-          elsif argvs.smtpcommand == 'DATA'
+          elsif commandtxt == 'DATA'
             # The session was rejected at 'DATA' command
             if tempreason != 'userunknown'
               # Except "userunknown"
