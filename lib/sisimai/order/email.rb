@@ -58,12 +58,12 @@ module Sisimai
         EngineOrder5 = [
           # These modules have one or more MTA specific headers but other headers
           # also required for detecting MTA name
-          'Sisimai::Bite::Email::Google',
           'Sisimai::Bite::Email::Outlook',
           'Sisimai::Bite::Email::MailRu',
           'Sisimai::Bite::Email::MessageLabs',
           'Sisimai::Bite::Email::MailMarshalSMTP',
           'Sisimai::Bite::Email::MFILTER',
+          'Sisimai::Bite::Email::Google',
         ].freeze
         EngineOrder9 = [
           # These modules have one or more MTA specific headers
@@ -88,7 +88,6 @@ module Sisimai
             'delivery' => [
               'Sisimai::Bite::Email::Exim',
               'Sisimai::Bite::Email::Courier',
-              'Sisimai::Bite::Email::Google',
               'Sisimai::Bite::Email::Outlook',
               'Sisimai::Bite::Email::Domino',
               'Sisimai::Bite::Email::OpenSMTPD',
@@ -98,11 +97,11 @@ module Sisimai
               'Sisimai::Bite::Email::X4',
               'Sisimai::Bite::Email::X3',
               'Sisimai::Bite::Email::X2',
+              'Sisimai::Bite::Email::Google',
             ],
             'noti' => [
               'Sisimai::Bite::Email::Qmail',
               'Sisimai::Bite::Email::Sendmail',
-              'Sisimai::Bite::Email::Google',
               'Sisimai::Bite::Email::Outlook',
               'Sisimai::Bite::Email::Courier',
               'Sisimai::Bite::Email::MessagingServer',
@@ -110,6 +109,7 @@ module Sisimai
               'Sisimai::Bite::Email::X4',
               'Sisimai::Bite::Email::X3',
               'Sisimai::Bite::Email::MFILTER',
+              'Sisimai::Bite::Email::Google',
             ],
             'return' => [
               'Sisimai::Bite::Email::Postfix',
@@ -135,12 +135,12 @@ module Sisimai
             'failure' => [
               'Sisimai::Bite::Email::Qmail',
               'Sisimai::Bite::Email::Domino',
-              'Sisimai::Bite::Email::Google',
               'Sisimai::Bite::Email::Outlook',
               'Sisimai::Bite::Email::MailRu',
               'Sisimai::Bite::Email::X4',
               'Sisimai::Bite::Email::X2',
               'Sisimai::Bite::Email::MFILTER',
+              'Sisimai::Bite::Email::Google',
             ],
             'warning' => [
               'Sisimai::Bite::Email::Postfix',
