@@ -43,11 +43,6 @@ module Sisimai
         abbr: %w[Sun Mon Tue Wed Thu Fri Sat],
       }.freeze
 
-      HourName = {
-        full: %w[Midnight 1 2 3 4 5 Morning 7 8 9 10 11 Noon 13 14 15 16 17 Evening 19 20 21 22 23],
-        abbr: [0..23],
-      }.freeze
-
       TimeZoneAbbr = {
         # http://en.wikipedia.org/wiki/List_of_time_zone_abbreviations
         # ACDT:  '+1030', # Australian Central Daylight Time  UTC+10:30
@@ -231,17 +226,6 @@ module Sisimai
       def dayofweek(argv1 = 0)
         value = argv1 > 0 ? :full : :abbr
         return DayOfWeek[value]
-      end
-
-      # Hour name list
-      # @param    [Integer] argv1 Require full name
-      # @return   [Array, String] Month name
-      # @example  Get the names of each hour
-      #   hourname()  #=> [ 0, 1, 2, ... 23 ]
-      #   hourname(1) #=> [ 'Midnight', 1, 2, ... 'Morning', 7, ... 'Noon', ... 23 ]
-      def hourname(argv1 = 1)
-        value = argv1 > 0 ? :full : :abbr
-        return HourName[value]
       end
 
       # Parse date string; strptime() wrapper
