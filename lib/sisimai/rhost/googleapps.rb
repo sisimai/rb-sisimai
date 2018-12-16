@@ -113,12 +113,10 @@ module Sisimai
         def get(argvs)
           return argvs.reason unless argvs.reason.empty?
 
-          reasontext = ''
-          statuscode = argvs.deliverystatus.clone
-
-          statuscode[0] = 'X'
+          (statuscode = argvs.deliverystatus.clone)[0] = 'X'
           return '' unless StatusList[statuscode.to_sym]
 
+          reasontext = ''
           StatusList[statuscode.to_sym].each do |e|
             # Try to match
             next unless e[:regexp].any? { |a| argvs.diagnosticcode.include?(a) }
