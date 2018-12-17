@@ -232,11 +232,10 @@ module Sisimai::Bite::Email
                 v = dscontents[-1]
               end
 
-              addr0 = Sisimai::Address.s3s4(cv[1])
-              if Sisimai::RFC5322.is_emailaddress(addr0)
-                v['recipient'] = addr0
-                recipients += 1
-              end
+              r = Sisimai::Address.s3s4(cv[1])
+              next unless Sisimai::RFC5322.is_emailaddress(r)
+              v['recipient'] = r
+              recipients += 1
             else
               v['diagnosis'] ||= ''
               v['diagnosis'] << e + ' '

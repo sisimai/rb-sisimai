@@ -47,7 +47,6 @@ module Sisimai::Bite::Email
         markingsof = {}     # (Hash) Delimiter patterns
         startingof = {}     # (Hash) Delimiter strings
         messagesof = {}     # (Hash) Error message patterns
-        boundary00 = ''     # (String) Boundary string
         v = nil
 
         if match == 1

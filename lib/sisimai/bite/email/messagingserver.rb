@@ -126,12 +126,11 @@ module Sisimai::Bite::Email
               sessionlog = cv[2]  # smtp session
               v['rhost'] = remotehost
 
-              if cv = sessionlog.match(/\A[(]TCP|(.+)|\d+|(.+)|\d+[)]/)
-                # The value does not include ".", use IP address instead.
-                # (TCP|17.111.174.67|47323|192.0.2.225|25)
-                v['lhost'] = cv[1]
-                v['rhost'] = cv[2] unless remotehost =~ /[^.]+[.][^.]+/
-              end
+              # The value does not include ".", use IP address instead.
+              # (TCP|17.111.174.67|47323|192.0.2.225|25)
+              next unless cv = sessionlog.match(/\A[(]TCP|(.+)|\d+|(.+)|\d+[)]/)
+              v['lhost'] = cv[1]
+              v['rhost'] = cv[2] unless remotehost =~ /[^.]+[.][^.]+/
             else
               # Original-envelope-id: 0NFC009FLKOUVMA0@mr21p30im-asmtp004.me.com
               # Reporting-MTA: dns;mr21p30im-asmtp004.me.com (tcp-daemon)

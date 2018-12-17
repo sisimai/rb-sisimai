@@ -125,21 +125,21 @@ module Sisimai::Bite::Email
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          unless mhead['received'].empty?
-            # Get localhost and remote host name from Received header.
-            rheads = mhead['received']
-            rhosts = Sisimai::RFC5322.received(rheads[-1])
-
-            e['lhost'] ||= Sisimai::RFC5322.received(rheads[0]).shift
-            while ee = rhosts.shift do
-              # Avoid "... by m-FILTER"
-              next unless ee.include?('.')
-              e['rhost'] = ee
-            end
-          end
+          e.each_key { |a| e[a] ||= '' }
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           e['agent']     = self.smtpagent
-          e.each_key { |a| e[a] ||= '' }
+
+          # Get localhost and remote host name from Received header.
+          next if mhead['received'].empty?
+          rheads = mhead['received']
+          rhosts = Sisimai::RFC5322.received(rheads[-1])
+
+          e['lhost'] ||= Sisimai::RFC5322.received(rheads[0]).shift
+          while ee = rhosts.shift do
+            # Avoid "... by m-FILTER"
+            next unless ee.include?('.')
+            e['rhost'] = ee
+          end
         end
 
         rfc822part = Sisimai::RFC5322.weedout(rfc822list)

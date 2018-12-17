@@ -149,9 +149,8 @@ module Sisimai::Bite::Email
         if recipients == 0
           # Get the recipient address from the original message
           rfc822list.each do |e|
-            next unless cv = e.match(/^To: (.+)$/m)
-
             # The value of To: header in the original message
+            next unless cv = e.match(/^To: (.+)$/m)
             dscontents[0]['recipient'] = Sisimai::Address.s3s4(cv[1])
             recipients = 1
             break
