@@ -37,6 +37,8 @@ module Sisimai::Bite::Email
         return nil unless mhead['x-mailer']
         return nil unless mhead['x-mailer'] == 'SurfControl E-mail Filter'
 
+        require 'sisimai/rfc1894'
+        fieldtable = Sisimai::RFC1894.FIELDTABLE
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         havepassed = ['']
@@ -111,23 +113,18 @@ module Sisimai::Bite::Email
               v['diagnosis'] = cv[2]
             else
               # Fallback, parse RFC3464 headers.
-              if cv = e.match(/\ADiagnostic-Code:[ ]*(.+?);[ ]*(.+)\z/)
-                # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
-                v['spec'] = cv[1].upcase
-                v['diagnosis'] = cv[2]
-
-              elsif p.start_with?('Diagnostic-Code:') && cv = e.match(/\A[ ]+(.+)\z/)
-                # Continued line of the value of Diagnostic-Code header
+              if f = Sisimai::RFC1894.match(e)
+                # "e" matched with any field defined in RFC3464
+                next unless o = Sisimai::RFC1894.field(e)
+                next if o[1] == 'final-recipient'
+                next unless fieldtable.key?(o[0].to_sym)
+                v[fieldtable[o[0].to_sym]] = o[2]
+              else
+                # Continued line of the value of Diagnostic-Code field
+                next unless p.start_with?('Diagnostic-Code:')
+                next unless cv = e.match(/\A[ \t]+(.+)\z/)
                 v['diagnosis'] << ' ' << cv[1]
                 havepassed[-1] = 'Diagnostic-Code: ' << e
-
-              elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
-                # Action: failed
-                v['action'] = cv[1].downcase
-
-              elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
-                # Status: 5.0.-
-                v['status'] = cv[1]
               end
             end
           end
