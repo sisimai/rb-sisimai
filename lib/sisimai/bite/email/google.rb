@@ -282,8 +282,8 @@ module Sisimai::Bite::Email
           next unless e['reason']
 
           # Set pseudo status code
-          e['status'] = Sisimai::SMTP::Status.find(e['diagnosis'])
-          e['reason'] = Sisimai::SMTP::Status.name(e['status']) if e['status'] =~ /\A[45][.][1-7][.][1-9]\z/
+          e['status'] = Sisimai::SMTP::Status.find(e['diagnosis']) || ''
+          e['reason'] = Sisimai::SMTP::Status.name(e['status']).to_s if e['status'] =~ /\A[45][.][1-7][.][1-9]\z/
         end
 
         rfc822part = Sisimai::RFC5322.weedout(rfc822list)

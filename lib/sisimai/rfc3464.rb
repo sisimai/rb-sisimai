@@ -451,7 +451,7 @@ module Sisimai
             e['agent'] = self.smtpagent
           end
 
-          e['status'] ||= Sisimai::SMTP::Status.find(e['diagnosis'])
+          e['status'] ||= Sisimai::SMTP::Status.find(e['diagnosis']) || ''
           if cv = e['diagnosis'].match(MarkingsOf[:command])
             e['command'] = cv[1]
           end

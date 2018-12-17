@@ -178,7 +178,7 @@ module Sisimai::Bite::Email
                 next if o[0] =~ /\A(?:diagnostic-code|final-recipient)\z/
                 v[fieldtable[o[0].to_sym]] = o[2]
 
-                next unless f = 1
+                next unless f == 1
                 permessage[fieldtable[o[0].to_sym]] = o[2]
               else
                 if e == StartingOf[:error][0]
@@ -213,8 +213,7 @@ module Sisimai::Bite::Email
 
           if e['status'].empty? || e['status'].end_with?('.0.0')
             # There is no value of Status header or the value is 5.0.0, 4.0.0
-            pseudostatus = Sisimai::SMTP::Status.find(e['diagnosis'])
-            e['status'] = pseudostatus unless pseudostatus.empty?
+            e['status'] = Sisimai::SMTP::Status.find(e['diagnosis']) || ''
           end
 
           ReCommands.each_key do |p|

@@ -45,7 +45,7 @@ module Sisimai
           return true if argvs.reason == 'mesgtoobig'
 
           statuscode = argvs.deliverystatus || ''
-          tempreason = Sisimai::SMTP::Status.name(statuscode)
+          tempreason = Sisimai::SMTP::Status.name(statuscode) || ''
 
           # Delivery status code points "mesgtoobig".
           # Status: 5.3.4

@@ -226,8 +226,7 @@ module Sisimai::Bite::Email
               # Find captured code from the error code table
               next unless ErrorCodes[r].index(capturedcode)
               e['reason'] = r.to_s
-              pseudostatus = Sisimai::SMTP::Status.code(r.to_s)
-              e['status'] = pseudostatus unless pseudostatus.empty?
+              e['status'] = Sisimai::SMTP::Status.code(r.to_s) || ''
               break
             end
             e['diagnosis'] = errormessage

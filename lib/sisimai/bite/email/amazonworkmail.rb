@@ -143,18 +143,21 @@ module Sisimai::Bite::Email
             # Get other D.S.N. value from the error message
             errormessage = e['diagnosis']
 
-            # 5.1.0 - Unknown address error 550-'5.7.1 ...
-            if cv = e['diagnosis'].match(/["'](\d[.]\d[.]\d.+)['"]/) then errormessage = cv[1] end
+            if cv = e['diagnosis'].match(/["'](\d[.]\d[.]\d.+)['"]/)
+              # 5.1.0 - Unknown address error 550-'5.7.1 ...
+              errormessage = cv[1]
+            end
 
-            pseudostatus = Sisimai::SMTP::Status.find(errormessage)
-            e['status'] = pseudostatus unless pseudostatus.empty?
+            e['status'] = Sisimai::SMTP::Status.find(errormessage) || ''
           end
 
-          # 554 4.4.7 Message expired: unable to deliver in 840 minutes.
-          # <421 4.4.2 Connection timed out>
-          if cv = e['diagnosis'].match(/[<]([245]\d\d)[ ].+[>]/) then e['replycode'] = cv[1] end
+          if cv = e['diagnosis'].match(/[<]([245]\d\d)[ ].+[>]/)
+            # 554 4.4.7 Message expired: unable to deliver in 840 minutes.
+            # <421 4.4.2 Connection timed out>
+            e['replycode'] = cv[1]
+          end
 
-          e['reason'] ||= Sisimai::SMTP::Status.name(e['status'])
+          e['reason'] ||= Sisimai::SMTP::Status.name(e['status']) || ''
           e['agent']    = self.smtpagent
         end
 

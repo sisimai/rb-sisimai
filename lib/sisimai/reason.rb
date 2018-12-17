@@ -112,7 +112,7 @@ module Sisimai
         diagnostic = argvs.diagnosticcode.downcase || ''
         commandtxt = argvs.smtpcommand    || ''
         trytomatch = nil
-        reasontext = Sisimai::SMTP::Status.name(statuscode)
+        reasontext = Sisimai::SMTP::Status.name(statuscode) || ''
 
         catch :TRY_TO_MATCH do
           while true
@@ -180,12 +180,9 @@ module Sisimai
       # @return   [String]        Bounce reason
       def match(argv1)
         return nil unless argv1
-        require 'sisimai/smtp/status'
 
         reasontext = ''
         diagnostic = argv1.downcase
-
-        statuscode = Sisimai::SMTP::Status.find(argv1)
 
         # Diagnostic-Code: SMTP; ... or empty value
         ClassOrder[2].each do |e|
@@ -207,16 +204,20 @@ module Sisimai
         end
         return reasontext unless reasontext.empty?
 
-        # Check the value of typestring
         typestring = ''
-        if cv = argv1.match(/\A(SMTP|X-.+);/i) then typestring = cv[1].upcase end
+        if cv = argv1.match(/\A(SMTP|X-.+);/i)
+          # Check the value of typestring
+          typestring = cv[1].upcase
+        end
+
         if typestring == 'X-UNIX'
           # X-Unix; ...
           reasontext = 'mailererror'
         else
           # Detect the bounce reason from "Status:" code
+          require 'sisimai/smtp/status'
+          statuscode = Sisimai::SMTP::Status.find(argv1) || ''
           reasontext = Sisimai::SMTP::Status.name(statuscode) || 'undefined'
-          reasontext = 'undefined' if reasontext.empty?
         end
         return reasontext
       end

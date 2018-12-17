@@ -50,7 +50,7 @@ module Sisimai
           diagnostic = argvs.diagnosticcode.downcase || ''
           statuscode = argvs.deliverystatus || ''
 
-          if Sisimai::SMTP::Status.name(statuscode) == 'hostunknown'
+          if Sisimai::SMTP::Status.name(statuscode).to_s == 'hostunknown'
             # Status: 5.1.2
             # Diagnostic-Code: SMTP; 550 Host unknown
             require 'sisimai/reason/networkerror'

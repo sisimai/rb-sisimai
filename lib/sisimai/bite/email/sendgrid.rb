@@ -161,8 +161,7 @@ module Sisimai::Bite::Email
           if e['status'] == '5.0.0' || e['status'] == '4.0.0'
             # Get the value of D.S.N. from the error message or the value of
             # Diagnostic-Code header.
-            pseudostatus = Sisimai::SMTP::Status.find(e['diagnosis'])
-            e['status'] = pseudostatus unless pseudostatus.empty?
+            e['status'] = Sisimai::SMTP::Status.find(e['diagnosis']) || ''
           end
 
           if e['action'] == 'expired'
@@ -171,8 +170,7 @@ module Sisimai::Bite::Email
             if !e['status'] || e['status'].end_with?('.0.0')
               # Set pseudo Status code value if the value of Status is not
               # defined or 4.0.0 or 5.0.0.
-              pseudostatus = Sisimai::SMTP::Status.code('expired')
-              e['status']  = pseudostatus unless pseudostatus.empty?
+              e['status'] = Sisimai::SMTP::Status.code('expired') || ''
             end
           end
 

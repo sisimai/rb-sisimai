@@ -78,7 +78,7 @@ module Sisimai
       @feedbacktype   = argvs['feedbacktype']   || ''
       @action         = argvs['action']         || ''
       @replycode      = argvs['replycode']      || ''
-      @replycode      = Sisimai::SMTP::Reply.find(argvs['diagnosticcode']) if @replycode.empty?
+      @replycode      = Sisimai::SMTP::Reply.find(argvs['diagnosticcode']).to_s if @replycode.empty?
       @softbounce     = argvs['softbounce']     || ''
     end
 
@@ -265,13 +265,13 @@ module Sisimai
           vm = 0
           re = nil
 
-          unless vs.empty?
+          if vs
             # How many times does the D.S.N. appeared
             vm += p['diagnosticcode'].scan(/\b#{vs}\b/).size
             p['deliverystatus'] = vs if vs =~ /\A[45][.][1-9][.][1-9]\z/
           end
 
-          unless vr.empty?
+          if vr
             # How many times does the SMTP reply code appeared
             vm += p['diagnosticcode'].scan(/\b#{vr}\b/).size
             p['replycode'] ||= vr
@@ -349,7 +349,7 @@ module Sisimai
             tmpfailure = getchecked.nil? ? false : (getchecked ? false : true)
             pseudocode = Sisimai::SMTP::Status.code(o.reason, tmpfailure)
 
-            unless pseudocode.empty?
+            if pseudocode
               # Set the value of "deliverystatus" and "softbounce"
               o.deliverystatus = pseudocode
 

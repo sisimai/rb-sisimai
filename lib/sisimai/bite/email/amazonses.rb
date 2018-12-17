@@ -162,8 +162,7 @@ module Sisimai::Bite::Email
 
             # 5.1.0 - Unknown address error 550-'5.7.1 ...
             if cv = e['diagnosis'].match(/["'](\d[.]\d[.]\d.+)['"]/) then errormessage = cv[1] end
-            pseudostatus = Sisimai::SMTP::Status.find(errormessage)
-            e['status'] = pseudostatus unless pseudostatus.empty?
+            e['status'] = Sisimai::SMTP::Status.find(errormessage) || ''
           end
 
           MessagesOf.each_key do |r|

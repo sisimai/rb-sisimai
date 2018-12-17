@@ -25,8 +25,7 @@ module Sisimai
         # @since v4.17.3
         def is_permanent(argv1 = '')
           getchecked = nil
-          statuscode = Sisimai::SMTP::Status.find(argv1)
-          statuscode = Sisimai::SMTP::Reply.find(argv1) if statuscode.empty?
+          statuscode = Sisimai::SMTP::Status.find(argv1) || Sisimai::SMTP::Reply.find(argv1) || '0'
           classvalue = statuscode[0, 1].to_i
 
           if classvalue > 0
@@ -81,8 +80,7 @@ module Sisimai
             # NotAccept: 5xx => hard bounce, 4xx => soft bounce
             if argv2.size > 0
               # Get D.S.N. or SMTP reply code from The 2nd argument string
-              statuscode = Sisimai::SMTP::Status.find(argv2)
-              statuscode = Sisimai::SMTP::Reply.find(argv2) if statuscode.empty?
+              statuscode = Sisimai::SMTP::Status.find(argv2) || Sisimai::SMTP::Reply.find(argv2) || '0'
               classvalue = statuscode[0, 1].to_i
 
               value = if classvalue == 4

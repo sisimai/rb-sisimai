@@ -81,8 +81,7 @@ module Sisimai
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
           return true if argvs.reason == 'rejected'
-          tempreason = Sisimai::SMTP::Status.name(argvs.deliverystatus)
-          tempreason = 'undefined' if tempreason.empty?
+          tempreason = Sisimai::SMTP::Status.name(argvs.deliverystatus) || 'undefined'
           return true if tempreason == 'rejected' # Delivery status code points "rejected".
 
           # Check the value of Diagnosic-Code: header with patterns

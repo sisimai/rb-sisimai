@@ -114,7 +114,7 @@ module Sisimai::Bite::Email
         dscontents.each do |e|
           e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-          e['status']    = Sisimai::SMTP::Status.find(e['diagnosis'])
+          e['status']    = Sisimai::SMTP::Status.find(e['diagnosis']) || ''
           e.each_key { |a| e[a] ||= '' }
         end
 
