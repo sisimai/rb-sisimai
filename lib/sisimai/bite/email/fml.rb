@@ -97,7 +97,7 @@ module Sisimai::Bite::Email
             end
             rfc822list << e.lstrip
           else
-            # Before "message/rfc822"
+            # Error message part
             next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 

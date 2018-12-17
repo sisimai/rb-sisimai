@@ -116,7 +116,7 @@ module Sisimai
 
         catch :TRY_TO_MATCH do
           while true
-            trytomatch ||= true if reasontext.empty?
+            trytomatch   = true if reasontext.empty?
             trytomatch ||= true if GetRetried.index(reasontext)
             trytomatch ||= true if argvs.diagnostictype != 'SMTP'
             throw :TRY_TO_MATCH unless trytomatch
@@ -159,18 +159,16 @@ module Sisimai
                 reasontext = 'syntaxerror' if Sisimai::Reason::SyntaxError.true(argvs)
               end
             end
+            throw :TRY_TO_MATCH unless reasontext.empty?
 
-            if reasontext.empty?
-              # Check the value of Action: field, first
-              if argvs.action.start_with?('delayed', 'expired')
-                # Action: delayed, expired
-                reasontext = 'expired'
-              else
-                # Rejected at connection or after EHLO|HELO
-                reasontext = 'blocked' if %w[HELO EHLO].index(commandtxt)
-              end
+            # Check the value of Action: field, first
+            if argvs.action.start_with?('delayed', 'expired')
+              # Action: delayed, expired
+              reasontext = 'expired'
+            else
+              # Rejected at connection or after EHLO|HELO
+              reasontext = 'blocked' if %w[HELO EHLO].index(commandtxt)
             end
-
             throw :TRY_TO_MATCH
           end
         end
@@ -185,11 +183,9 @@ module Sisimai
         require 'sisimai/smtp/status'
 
         reasontext = ''
-        typestring = ''
         diagnostic = argv1.downcase
 
         statuscode = Sisimai::SMTP::Status.find(argv1)
-        if cv = argv1.match(/\A(SMTP|X-.+);/i) then typestring = cv[1].upcase end
 
         # Diagnostic-Code: SMTP; ... or empty value
         ClassOrder[2].each do |e|
@@ -209,17 +205,18 @@ module Sisimai
           reasontext = r.text
           break
         end
+        return reasontext unless reasontext.empty?
 
-        if reasontext.empty?
-          # Check the value of typestring
-          if typestring == 'X-UNIX'
-            # X-Unix; ...
-            reasontext = 'mailererror'
-          else
-            # Detect the bounce reason from "Status:" code
-            reasontext = Sisimai::SMTP::Status.name(statuscode) || 'undefined'
-            reasontext = 'undefined' if reasontext.empty?
-          end
+        # Check the value of typestring
+        typestring = ''
+        if cv = argv1.match(/\A(SMTP|X-.+);/i) then typestring = cv[1].upcase end
+        if typestring == 'X-UNIX'
+          # X-Unix; ...
+          reasontext = 'mailererror'
+        else
+          # Detect the bounce reason from "Status:" code
+          reasontext = Sisimai::SMTP::Status.name(statuscode) || 'undefined'
+          reasontext = 'undefined' if reasontext.empty?
         end
         return reasontext
       end

@@ -83,6 +83,7 @@ module Sisimai
       # Check the argument matches with a field defined in RFC3464
       # @param    [String] argv0 A line inlcuding field and value defined in RFC3464
       # @return   [Integer]      0: did not matched, 1,2: matched
+      # @since v4.25.0
       def match(argv0 = '')
         return nil if argv0.empty?
         return 1 if FieldNames[0].any? { |a| argv0.start_with?(a) }
@@ -93,6 +94,7 @@ module Sisimai
       # Check the argument is including field defined in RFC3464 and return values
       # @param    [String] argv0 A line inlcuding field and value defined in RFC3464
       # @return   [Array]        ['field-name', 'value-type', 'Value', 'field-group']
+      # @since v4.25.0
       def field(argv0 = '')
         return nil if argv0.empty?
         group = FieldGroup[argv0.split(':',2).shift.downcase.to_sym] || ''

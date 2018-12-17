@@ -1,4 +1,4 @@
-module Sisimai
+  module Sisimai
   module Bite
     # Sisimai::Bite::Email- Base class for Sisimai::Bite::Email::*
     module Email
@@ -22,22 +22,22 @@ module Sisimai
         def index
           return %w[
             Sendmail Postfix Qmail Exim Courier OpenSMTPD Exchange2007 Exchange2003
-            Google Yahoo GSuite Aol Outlook Office365 SendGrid AmazonSES MailRu
-            Yandex MessagingServer Domino Notes ReceivingSES AmazonWorkMail Verizon
+            Yahoo GSuite Aol Outlook Office365 SendGrid AmazonSES MailRu Yandex
+            MessagingServer Domino Notes ReceivingSES AmazonWorkMail Verizon
             GMX Bigfoot Facebook Zoho EinsUndEins MessageLabs EZweb KDDI Biglobe
             ApacheJames McAfee MXLogic MailFoundry IMailServer
             MFILTER Activehunter InterScanMSS SurfControl MailMarshalSMTP
-            X1 X2 X3 X4 X5 V5sendmail FML]
+            X1 X2 X3 X4 X5 V5sendmail FML Google]
         end
 
         # @abstract MTA list which have one or more extra headers
         # @return   [Array] MTA list (have extra headers)
         def heads
           return %w[
-            Exim Exchange2007 Exchange2003 Google GSuite Office365 Outlook SendGrid
+            Exim Exchange2007 Exchange2003 GSuite Office365 Outlook SendGrid
             AmazonSES ReceivingSES AmazonWorkMail Aol GMX MailRu MessageLabs Yahoo
             Yandex Zoho EinsUndEins MXLogic McAfee MFILTER EZweb Activehunter IMailServer
-            SurfControl FML
+            SurfControl FML Google
           ]
         end
 

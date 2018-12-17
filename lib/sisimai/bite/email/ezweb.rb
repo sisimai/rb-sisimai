@@ -65,6 +65,8 @@ module Sisimai::Bite::Email
         end
         return nil if match < 2
 
+        require 'sisimai/rfc1894'
+        fieldtable = Sisimai::RFC1894.FIELDTABLE
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         rfc822list = []     # (Array) Each line in message/rfc822 part string
@@ -98,7 +100,7 @@ module Sisimai::Bite::Email
           end
 
           if readcursor & Indicators[:'message-rfc822'] > 0
-            # After "message/rfc822"
+            # Inside of the original message part
             if e.empty?
               blanklines += 1
               break if blanklines > 1
@@ -106,7 +108,7 @@ module Sisimai::Bite::Email
             end
             rfc822list << e
           else
-            # Before "message/rfc822"
+            # Error message part
             next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
@@ -134,29 +136,18 @@ module Sisimai::Bite::Email
               end
 
               r = Sisimai::Address.s3s4(cv[1])
-              if Sisimai::RFC5322.is_emailaddress(r)
-                v['recipient'] = r
-                recipients += 1
-              end
+              next unless Sisimai::RFC5322.is_emailaddress(r)
+              v['recipient'] = r
+              recipients += 1
 
-            elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
-              # Status: 5.1.1
-              # Status:5.2.0
-              # Status: 5.1.0 (permanent failure)
-              v['status'] = cv[1]
+            elsif f = Sisimai::RFC1894.match(e)
+              # "e" matched with any field defined in RFC3464
+              next unless o = Sisimai::RFC1894.field(e)
+              next unless fieldtable.key?(o[0].to_sym)
+              v[fieldtable[o[0].to_sym]] = o[2]
 
-            elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
-              # Action: failed
-              v['action'] = cv[1].downcase
-
-            elsif cv = e.match(/\ARemote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
-              # Remote-MTA: DNS; mx.example.jp
-              v['rhost'] = cv[1].downcase
-
-            elsif cv = e.match(/\ALast-Attempt-Date:[ ]*(.+)\z/)
-              # Last-Attempt-Date: Fri, 14 Feb 2014 12:30:08 -0500
-              v['date'] = cv[1]
             else
+              # The line does not begin with a DSN field defined in RFC3464
               next if Sisimai::String.is_8bit(e)
               if cv = e.match(/\A[ \t]+[>]{3}[ \t]+([A-Z]{4})/)
                 #    >>> RCPT TO:<******@ezweb.ne.jp>
@@ -179,6 +170,8 @@ module Sisimai::Bite::Email
         return nil unless recipients > 0
 
         dscontents.each do |e|
+          e['agent'] = self.smtpagent
+
           unless e['alterrors'].to_s.empty?
             # Copy alternative error message
             e['diagnosis'] ||= e['alterrors']
@@ -215,14 +208,9 @@ module Sisimai::Bite::Email
 
             end
           end
-
-          unless e['reason']
-            # The value of "reason" is not set yet.
-            # Deal as "userunknown" when the domain part of the recipient
-            # is "ezweb.ne.jp".
-            e['reason'] = 'userunknown' unless e['recipient'].end_with?('@ezweb.ne.jp', '@au.com')
-          end
-          e['agent'] = self.smtpagent
+          next if e['reason']
+          next if e['recipient'].end_with?('@ezweb.ne.jp', '@au.com')
+          e['reason'] = 'userunknown'
         end
 
         rfc822part = Sisimai::RFC5322.weedout(rfc822list)

@@ -79,7 +79,7 @@ module Sisimai::Bite::Email
           end
 
           if readcursor & Indicators[:'message-rfc822'] > 0
-            # After "message/rfc822"
+            # Inside of the original message part
             if e.empty?
               blanklines += 1
               break if blanklines > 1
@@ -87,7 +87,7 @@ module Sisimai::Bite::Email
             end
             rfc822list << e
           else
-            # Before "message/rfc822"
+            # Error message part
             next if (readcursor & Indicators[:deliverystatus]) == 0
 
             if connvalues == connheader.keys.size
@@ -120,22 +120,20 @@ module Sisimai::Bite::Email
                 v['status']    = cv[2]
                 v['diagnosis'] = e
               else
-                if !v['diagnosis'].to_s.empty? && v['diagnosis'].end_with?('=')
-                  # Continued line of error messages
-                  v['diagnosis']  = v['diagnosis'].chomp('=')
-                  v['diagnosis'] << e
-                end
+                # Continued line of error messages
+                next if v['diagnosis'].to_s.empty?
+                next unless v['diagnosis'].end_with?('=')
+                v['diagnosis']  = v['diagnosis'].chomp('=')
+                v['diagnosis'] << e
               end
             else
               # Diagnostic information for administrators:
               #
               # Generating server: mta22.neko.example.org
-              if cv = e.match(MarkingsOf[:rhost])
-                # Generating server: mta22.neko.example.org
-                next unless connheader['rhost'].empty?
-                connheader['rhost'] = cv[1]
-                connvalues += 1
-              end
+              next unless cv = e.match(MarkingsOf[:rhost])
+              next unless connheader['rhost'].empty?
+              connheader['rhost'] = cv[1]
+              connvalues += 1
             end
           end
         end

@@ -270,7 +270,7 @@ module Sisimai::Bite::Email
                   # ...
                   if Sisimai::RFC1894.match(e)
                     # "e" matched with any field defined in RFC3464
-                    o = Sisimai::RFC1894.field(e) || next
+                    next unless o = Sisimai::RFC1894.field(e)
 
                     if o[-1] == 'addr'
                       # Final-Recipient: rfc822; kijitora@example.jp

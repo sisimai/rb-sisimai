@@ -105,6 +105,10 @@ module Sisimai::Bite::Email
         end
         return nil if match < 2
 
+        require 'sisimai/rfc1894'
+        fieldtable = Sisimai::RFC1894.FIELDTABLE
+        permessage = {}     # (Hash) Store values of each Per-Message field
+
         dscontents = [Sisimai::Bite.DELIVERYSTATUS]
         hasdivided = mbody.split("\n")
         rfc822list = []     # (Array) Each line in message/rfc822 part string
@@ -134,7 +138,7 @@ module Sisimai::Bite::Email
           end
 
           if readcursor & Indicators[:'message-rfc822'] > 0
-            # After "message/rfc822"
+            # Inside of the original message part
             if e.empty?
               blanklines += 1
               break if blanklines > 1
@@ -142,7 +146,7 @@ module Sisimai::Bite::Email
             end
             rfc822list << e
           else
-            # Before "message/rfc822"
+            # Error message part
             next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
@@ -168,35 +172,14 @@ module Sisimai::Bite::Email
             else
               if endoferror
                 # After "Original message headers:"
-                if htmlbegins
-                  # <html> .. </html>
-                  htmlbegins = false if e.start_with?('</html>')
-                  next
-                end
+                next unless f = Sisimai::RFC1894.match(e)
+                next unless o = Sisimai::RFC1894.field(e)
+                next unless fieldtable.key?(o[0].to_sym)
+                next if o[0] =~ /\A(?:diagnostic-code|final-recipient)\z/
+                v[fieldtable[o[0].to_sym]] = o[2]
 
-                if cv = e.match(/\AAction:[ ]*(.+)\z/)
-                  # Action: failed
-                  v['action'] = cv[1].downcase
-
-                elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
-                  # Status:5.2.0
-                  v['status'] = cv[1]
-
-                elsif cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
-                  # Reporting-MTA: dns;BLU004-OMC3S13.hotmail.example.com
-                  connheader['lhost'] = cv[1].downcase
-
-                elsif cv = e.match(/\AReceived-From-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
-                  # Reporting-MTA: dns;BLU004-OMC3S13.hotmail.example.com
-                  connheader['rhost'] = cv[1].downcase
-
-                elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
-                  # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
-                  next if connheader['date']
-                  connheader['date'] = cv[1]
-                else
-                  htmlbegins = true if e.start_with?('<html>')
-                end
+                next unless f = 1
+                permessage[fieldtable[o[0].to_sym]] = o[2]
               else
                 if e == StartingOf[:error][0]
                   # Diagnostic information for administrators:
@@ -222,7 +205,7 @@ module Sisimai::Bite::Email
 
         dscontents.each do |e|
           # Set default values if each value is empty.
-          connheader.each_key { |a| e[a] ||= connheader[a] || '' }
+          permessage.each_key { |a| e[a] ||= permessage[a] || '' }
 
           e['agent']     = self.smtpagent
           e['status']  ||= ''

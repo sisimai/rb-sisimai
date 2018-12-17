@@ -124,7 +124,7 @@ module Sisimai::Bite::Email
           end
 
           if readcursor & Indicators[:'message-rfc822'] > 0
-            # After "message/rfc822"
+            # Inside of the original message part
             if e.empty?
               blanklines += 1
               break if blanklines > 1
@@ -132,7 +132,7 @@ module Sisimai::Bite::Email
             end
             rfc822list << e
           else
-            # Before "message/rfc822"
+            # Error message part
             next if (readcursor & Indicators[:deliverystatus]) == 0
             next if statuspart
 
@@ -214,6 +214,8 @@ module Sisimai::Bite::Email
         return nil unless recipients > 0
 
         dscontents.each do |e|
+          e['agent'] = self.smtpagent
+          e.delete('msexch')
           if cv = e['diagnosis'].match(/\AMSEXCH:.+[ \t]*[(]([0-9A-F]{8})[)][ \t]*(.*)\z/)
             #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
             capturedcode = cv[1]
@@ -233,15 +235,14 @@ module Sisimai::Bite::Email
 
           unless e['reason']
             # Could not detect the reason from the value of "diagnosis".
-            if e['alterrors']
-              # Copy alternative error message
-              e['diagnosis'] = e['alterrors'] + ' ' + e['diagnosis']
-              e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-              e.delete('alterrors')
-            end
+            next unless e['alterrors']
+            next if e['alterrors'].empty?
+
+            # Copy alternative error message
+            e['diagnosis'] = e['alterrors'] + ' ' + e['diagnosis']
+            e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+            e.delete('alterrors')
           end
-          e['agent'] = self.smtpagent
-          e.delete('msexch')
           e.each_key { |a| e[a] ||= '' }
         end
 

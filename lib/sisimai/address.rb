@@ -286,12 +286,9 @@ module Sisimai
     def self.expand_verp(email)
       local = email.split('@', 2).first
 
-      if cv = local.match(/\A[-_\w]+?[+](\w[-._\w]+\w)[=](\w[-.\w]+\w)\z/)
-        verp0 = cv[1] + '@' + cv[2]
-        return verp0 if Sisimai::RFC5322.is_emailaddress(verp0)
-      else
-        return ''
-      end
+      return '' unless cv = local.match(/\A[-_\w]+?[+](\w[-._\w]+\w)[=](\w[-.\w]+\w)\z/)
+      verp0 = cv[1] + '@' + cv[2]
+      return verp0 if Sisimai::RFC5322.is_emailaddress(verp0)
     end
 
     # Expand alias: remove from '+' to '@'
@@ -303,9 +300,8 @@ module Sisimai
       return '' unless Sisimai::RFC5322.is_emailaddress(email)
 
       local = email.split('@')
-      value = ''
-      if cv = local[0].match(/\A([-_\w]+?)[+].+\z/) then value = cv[1] + '@' + local[1] end
-      return value
+      return '' unless cv = local[0].match(/\A([-_\w]+?)[+].+\z/)
+      return cv[1] + '@' + local[1]
     end
 
     @@roaccessors = [

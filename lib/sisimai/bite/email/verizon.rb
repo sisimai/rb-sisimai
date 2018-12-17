@@ -47,7 +47,6 @@ module Sisimai::Bite::Email
         markingsof = {}     # (Hash) Delimiter patterns
         startingof = {}     # (Hash) Delimiter strings
         messagesof = {}     # (Hash) Error message patterns
-        boundary00 = ''     # (String) Boundary string
         v = nil
 
         if match == 1
@@ -81,7 +80,7 @@ module Sisimai::Bite::Email
             end
 
             if readcursor & Indicators[:'message-rfc822'] > 0
-              # After "message/rfc822"
+              # Inside of the original message part
               if e.empty?
                 blanklines += 1
                 break if blanklines > 1
@@ -89,7 +88,7 @@ module Sisimai::Bite::Email
               end
               rfc822list << e
             else
-              # Before "message/rfc822"
+              # Error message part
               next if (readcursor & Indicators[:deliverystatus]) == 0
               next if e.empty?
 
@@ -150,7 +149,7 @@ module Sisimai::Bite::Email
             end
 
             if readcursor & Indicators[:'message-rfc822'] > 0
-              # After "message/rfc822"
+              # Inside of the original message part
               if e.empty?
                 blanklines += 1
                 break if blanklines > 1
@@ -158,7 +157,7 @@ module Sisimai::Bite::Email
               end
               rfc822list << e
             else
-              # Before "message/rfc822"
+              # Error message part
               next if (readcursor & Indicators[:deliverystatus]) == 0
               next if e.empty?
 

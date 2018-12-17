@@ -49,12 +49,13 @@ module Sisimai
           return true if argvs.reason == 'filtered'
 
           require 'sisimai/reason/userunknown'
+          tempreason = Sisimai::SMTP::Status.name(argvs.deliverystatus)
+          return false if tempreason == 'suspend'
+
           commandtxt = argvs.smtpcommand || ''
           diagnostic = argvs.diagnosticcode.downcase || ''
-          tempreason = Sisimai::SMTP::Status.name(argvs.deliverystatus)
           alterclass = Sisimai::Reason::UserUnknown
 
-          return false if tempreason == 'suspend'
           if tempreason == 'filtered'
             # Delivery status code points "filtered".
             return true if alterclass.match(diagnostic) || match(diagnostic)

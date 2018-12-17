@@ -120,7 +120,7 @@ module Sisimai
         #
         while e = hasdivided.shift do
           if readcursor == 0
-            # Beginning of the bounce message or delivery status part
+            # Beginning of the bounce message or message/delivery-status part
             if e =~ MarkingsOf[:message]
               readcursor |= Indicators[:deliverystatus]
               next
@@ -136,7 +136,7 @@ module Sisimai
           end
 
           if readcursor & Indicators[:'message-rfc822'] > 0
-            # After "message/rfc822"
+            # message/rfc822 OR text/rfc822-headers part
             if cv = e.match(/X-HmXmrOriginalRecipient:[ ]*(.+)\z/)
               # Microsoft ARF: original recipient.
               dscontents[-1]['recipient'] = Sisimai::Address.s3s4(cv[1])
@@ -171,7 +171,7 @@ module Sisimai
               rcptintext << e if previousfn == 'to'
             end
           else
-            # Before "message/rfc822"
+            # message/delivery-status part
             next unless readcursor & Indicators[:deliverystatus] > 0
             next if e.empty?
 
@@ -284,26 +284,22 @@ module Sisimai
           e['softbounce'] = -1
           e['diagnosis']  = commondata[:diagnosis] unless e['diagnosis']
           e['date']       = mhead['date'] if e['date'].empty?
+          e['reason']     = 'feedback'
+          e['agent']      = self.smtpagent if e['agent'].empty?
+          %w[command action status alias].each { |a| e[a] = '' }
 
-          if e['rhost'].empty?
-            # Get the remote IP address from the message body
-            if commondata[:rhost].size > 0
-              # The value of "Reporting-MTA" header
-              e['rhost'] = commondata[:rhost]
+          # Get the remote IP address from the message body
+          next unless e['rhost'].empty?
+          if commondata[:rhost].size > 0
+            # The value of "Reporting-MTA" header
+            e['rhost'] = commondata[:rhost]
 
-            elsif cv = e['diagnosis'].match(/\breceived from IP address ([^ ]+)/)
-              # This is an email abuse report for an email message received
-              # from IP address 24.64.1.1 on Thu, 29 Apr 2010 00:00:00 +0000
-              e['rhost'] = cv[1]
-            end
+          elsif cv = e['diagnosis'].match(/\breceived from IP address ([^ ]+)/)
+            # This is an email abuse report for an email message received
+            # from IP address 24.64.1.1 on Thu, 29 Apr 2010 00:00:00 +0000
+            e['rhost'] = cv[1]
           end
 
-          e['reason']  = 'feedback'
-          e['command'] = ''
-          e['action']  = ''
-          e['status']  = ''
-          e['alias']   = ''
-          e['agent']   = self.smtpagent if e['agent'].empty?
         end
         return { 'ds' => dscontents, 'rfc822' => rfc822part }
       end

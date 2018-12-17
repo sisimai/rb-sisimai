@@ -109,30 +109,6 @@ describe Sisimai::DateTime do
     end
   end
 
-  describe '.hourname' do
-    hourname1 = Sisimai::DateTime.hourname(1)
-
-    context 'integer' do
-      example('1 returns Array') { expect(hourname1.is_a?(Array)).to be true }
-
-      describe '(1)' do
-        it 'returns hour name' do
-          expect(hourname1[0]).to be == 'Midnight'
-          expect(hourname1[6]).to be == 'Morning'
-          expect(hourname1[12]).to be == 'Noon'
-          expect(hourname1[18]).to be == 'Evening'
-        end
-      end
-    end
-
-    context 'wrong number of arguments' do
-      it 'raises ArgumentError' do
-        expect { Sisimai::DateTime.hourname('x') }.to raise_error(ArgumentError)
-        expect { Sisimai::DateTime.hourname('x', 'y') }.to raise_error(ArgumentError)
-      end
-    end
-  end
-
   describe 'parse' do
     context 'valid date string' do
       datestrings = [

@@ -67,17 +67,15 @@ module Sisimai
         # @since v4.17.3
         def soft_or_hard(argv1 = '', argv2 = '')
           return '' if argv1.empty?
-
-          getchecked = nil
-          softorhard = nil
+          value = nil
 
           if %w[delivered feedback vacation].include?(argv1)
             # These are not dealt as a bounce reason
-            softorhard = ''
+            value = ''
 
           elsif argv1 == 'onhold' || argv1 == 'undefined'
             # It should be "soft" when a reason is "onhold" or "undefined"
-            softorhard = 'soft'
+            value = 'soft'
 
           elsif argv1 == 'notaccept'
             # NotAccept: 5xx => hard bounce, 4xx => soft bounce
@@ -87,7 +85,7 @@ module Sisimai
               statuscode = Sisimai::SMTP::Reply.find(argv2) if statuscode.empty?
               classvalue = statuscode[0, 1].to_i
 
-              softorhard = if classvalue == 4
+              value = if classvalue == 4
                              # Deal as a "soft bounce"
                              'soft'
                            else
@@ -96,7 +94,7 @@ module Sisimai
                            end
             else
               # "notaccept" is a hard bounce
-              softorhard = 'hard'
+              value = 'hard'
             end
 
           else
@@ -108,7 +106,7 @@ module Sisimai
                   SoftOrHard[e].each do |f|
                     # Hard bounce?
                     next unless argv1 == f
-                    softorhard = e.to_s
+                    value = e.to_s
                     throw :SOFT_OR_HARD
                   end
                 end
@@ -118,7 +116,7 @@ module Sisimai
             end
           end
 
-          return softorhard
+          return value
         end
 
       end

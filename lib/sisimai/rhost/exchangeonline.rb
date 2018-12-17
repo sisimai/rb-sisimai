@@ -128,36 +128,34 @@ module Sisimai
             end
             break unless reasontext.empty?
           end
+          return reasontext unless reasontext.empty?
 
-          if reasontext.empty?
-            ReStatuses.each_key do |e|
-              # Try to compare with each string of delivery status codes
-              next unless statuscode =~ e
-              ReStatuses[e].each do |f|
-                # Try to compare with each string of error messages
-                f[:string].each do |g|
-                  next unless statusmesg.include?(g)
-                  reasontext = f[:reason]
-                  break
-                end
-                break unless reasontext.empty?
+          ReStatuses.each_key do |e|
+            # Try to compare with each string of delivery status codes
+            next unless statuscode =~ e
+            ReStatuses[e].each do |f|
+              # Try to compare with each string of error messages
+              f[:string].each do |g|
+                next unless statusmesg.include?(g)
+                reasontext = f[:reason]
+                break
               end
               break unless reasontext.empty?
             end
+            break unless reasontext.empty?
+          end
+          return reasontext unless reasontext.empty?
 
-            if reasontext.empty?
-              # D.S.N. included in the error message did not matched with any
-              # key in ReStatuses
-              MessagesOf.each_key do |e|
-                # Try to compare with error messages defined in MessagesOf
-                MessagesOf[e].each do |f|
-                  next unless statusmesg.include?(f)
-                  reasontext = e.to_s
-                  break
-                end
-                break unless reasontext.empty?
-              end
+          # D.S.N. included in the error message did not matched with any
+          # key in ReStatuses
+          MessagesOf.each_key do |e|
+            # Try to compare with error messages defined in MessagesOf
+            MessagesOf[e].each do |f|
+              next unless statusmesg.include?(f)
+              reasontext = e.to_s
+              break
             end
+            break unless reasontext.empty?
           end
           return reasontext
         end
