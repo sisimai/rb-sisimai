@@ -142,7 +142,7 @@ module Sisimai::Bite::Email
 
             elsif f = Sisimai::RFC1894.match(e)
               # "e" matched with any field defined in RFC3464
-              o = Sisimai::RFC1894.field(e) || next
+              next unless o = Sisimai::RFC1894.field(e)
               next unless fieldtable.key?(o[0].to_sym)
               v[fieldtable[o[0].to_sym]] = o[2]
 

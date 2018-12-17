@@ -83,7 +83,7 @@ module Sisimai::Bite::Email
 
             if f = Sisimai::RFC1894.match(e)
               # "e" matched with any field defined in RFC3464
-              o = Sisimai::RFC1894.field(e) || next
+              next unless o = Sisimai::RFC1894.field(e)
               v = dscontents[-1]
 
               if o[-1] == 'addr'
