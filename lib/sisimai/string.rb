@@ -16,11 +16,11 @@ module Sisimai
       # @return [String]        Blank/failed to create token
       # @see    http://en.wikipedia.org/wiki/ASCII
       def token(addr1, addr2, epoch)
-        return '' unless addr1.is_a?(::String)
-        return '' unless addr2.is_a?(::String)
-        return '' unless epoch.is_a?(Integer)
-        return '' if addr1.empty?
-        return '' if addr2.empty?
+        return nil unless addr1.is_a?(::String)
+        return nil unless addr2.is_a?(::String)
+        return nil unless epoch.is_a?(Integer)
+        return nil if addr1.empty?
+        return nil if addr2.empty?
 
         # Format: STX(0x02) Sender-Address RS(0x1e) Recipient-Address ETX(0x03)
         require 'digest/sha1'
@@ -58,7 +58,7 @@ module Sisimai
       # @param    [Boolean] loose Loose check flag
       # @return   [String]  Plain text
       def to_plain(argv1 = '', loose = false)
-        return '' if argv1.empty?
+        return nil if argv1.empty?
 
         plain = argv1
         match = {
@@ -96,7 +96,7 @@ module Sisimai
       # @param    [String] argv2  Encoding name before converting
       # @return   [String]        UTF-8 Encoded string
       def to_utf8(argv1 = '', argv2 = nil)
-        return '' if argv1.empty?
+        return nil if argv1.empty?
 
         encodefrom = argv2 || false
         getencoded = ''

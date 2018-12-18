@@ -15,9 +15,9 @@ describe Sisimai::String do
     context 'valid arguments' do
       it("returns #{t}") { expect(Sisimai::String.token(s,r,1)).to eq t }
       it('returns a token') { expect(Sisimai::String.token(s,r,0)).not_to be_empty }
-      it('returns ""') { expect(Sisimai::String.token('', '', 0)).to be_empty }
-      it("returns ''") { expect(Sisimai::String.token(s, '', 0)).to be_empty }
-      it("returns ''") { expect(Sisimai::String.token('', r, 0)).to be_empty }
+      it('returns nil') { expect(Sisimai::String.token('', '', 0)).to be_nil }
+      it("returns nil") { expect(Sisimai::String.token(s, '', 0)).to be_nil }
+      it("returns nil") { expect(Sisimai::String.token('', r, 0)).to be_nil }
     end
 
     context 'wrong number of arguments' do
@@ -102,6 +102,10 @@ describe Sisimai::String do
         expect(Sisimai::String.to_plain(parts, false)).to match(/Nyaan/)
         expect(Sisimai::String.to_plain(parts, false)).to match(/<body>/)
       }
+    end
+
+    context 'empty string' do
+      it('returns nil') { expect(Sisimai::String.to_plain('')).to be_nil }
     end
 
     context 'wrong number of arguments' do
