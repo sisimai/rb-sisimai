@@ -185,16 +185,12 @@ module Sisimai
               # email-address or comment-block
               v[p] << e
             else
-              # Display name
+              # Display name like "Neko, Nyaan"
               v[:name] << e
-              if readcursor & Indicators[:'quoted-string'] > 0
-                # "Neko, Nyaan"
-                unless v[:name].end_with?(%Q|\x5c"|)
-                  # "Neko, Nyaan \"...
-                  readcursor &= ~Indicators[:'quoted-string']
-                  p = ''
-                end
-              end
+              next unless readcursor & Indicators[:'quoted-string'] > 0
+              next if v[:name].end_with?(%Q|\x5c"|) # "Neko, Nyaan \"...
+              readcursor &= ~Indicators[:'quoted-string']
+              p = ''
             end
             next
           end # End of if('"')
