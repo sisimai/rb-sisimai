@@ -108,15 +108,14 @@ module Sisimai
         return nil unless argvs.is_a? Sisimai::Data
         return argvs.reason unless argvs.reason.empty?
 
+        require 'sisimai/smtp/status'
         statuscode = argvs.deliverystatus || ''
-        diagnostic = argvs.diagnosticcode.downcase || ''
-        commandtxt = argvs.smtpcommand    || ''
-        trytomatch = nil
         reasontext = Sisimai::SMTP::Status.name(statuscode) || ''
 
         catch :TRY_TO_MATCH do
           while true
-            trytomatch   = true if reasontext.empty?
+            diagnostic   = argvs.diagnosticcode.downcase || ''
+            trytomatch   = reasontext.empty? ? true : false
             trytomatch ||= true if GetRetried.index(reasontext)
             trytomatch ||= true if argvs.diagnostictype != 'SMTP'
             throw :TRY_TO_MATCH unless trytomatch
@@ -138,26 +137,25 @@ module Sisimai
               reasontext = e.downcase
               break
             end
+            throw :TRY_TO_MATCH unless reasontext.empty?
 
-            if reasontext.empty?
-              # Check the value of Status:
-              v = statuscode[0, 3]
-              if v == '5.6' || v == '4.6'
-                #  X.6.0   Other or undefined media error
-                reasontext = 'contenterror'
+            # Check the value of Status:
+            v = statuscode[0, 3]
+            if v == '5.6' || v == '4.6'
+              #  X.6.0   Other or undefined media error
+              reasontext = 'contenterror'
 
-              elsif v == '5.7' || v == '4.7'
-                #  X.7.0   Other or undefined security status
-                reasontext = 'securityerror'
+            elsif v == '5.7' || v == '4.7'
+              #  X.7.0   Other or undefined security status
+              reasontext = 'securityerror'
 
-              elsif %w[X-UNIX X-POSTFIX].include?(argvs.diagnostictype)
-                # Diagnostic-Code: X-UNIX; ...
-                reasontext = 'mailererror'
-              else
-                # 50X Syntax Error?
-                require 'sisimai/reason/syntaxerror'
-                reasontext = 'syntaxerror' if Sisimai::Reason::SyntaxError.true(argvs)
-              end
+            elsif %w[X-UNIX X-POSTFIX].include?(argvs.diagnostictype)
+              # Diagnostic-Code: X-UNIX; ...
+              reasontext = 'mailererror'
+            else
+              # 50X Syntax Error?
+              require 'sisimai/reason/syntaxerror'
+              reasontext = 'syntaxerror' if Sisimai::Reason::SyntaxError.true(argvs)
             end
             throw :TRY_TO_MATCH unless reasontext.empty?
 
@@ -167,6 +165,7 @@ module Sisimai
               reasontext = 'expired'
             else
               # Rejected at connection or after EHLO|HELO
+              commandtxt = argvs.smtpcommand || ''
               reasontext = 'blocked' if %w[HELO EHLO].index(commandtxt)
             end
             throw :TRY_TO_MATCH
