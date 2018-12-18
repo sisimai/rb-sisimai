@@ -234,8 +234,7 @@ module Sisimai
       while e = readbuffer.shift do
         # The element must not include any character except from 0x20 to 0x7e.
         next if e[:address] =~ /[^\x20-\x7e]/
-
-        unless e[:address] =~ /\A.+[@].+\z/
+        unless e[:address]  =~ /\A.+[@].+\z/
           # Allow if the argument is MAILER-DAEMON
           next unless Sisimai::RFC5322.is_mailerdaemon(e[:address])
         end
@@ -284,9 +283,8 @@ module Sisimai
     # @example  Expand VERP address
     #   expand_verp('bounce+neko=example.org@example.org') #=> 'neko@example.org'
     def self.expand_verp(email)
-      local = email.split('@', 2).first
-
-      return '' unless cv = local.match(/\A[-_\w]+?[+](\w[-._\w]+\w)[=](\w[-.\w]+\w)\z/)
+      return nil unless email.is_a? Object::String
+      return nil unless cv = email.split('@', 2).first.match(/\A[-_\w]+?[+](\w[-._\w]+\w)[=](\w[-.\w]+\w)\z/)
       verp0 = cv[1] + '@' + cv[2]
       return verp0 if Sisimai::RFC5322.is_emailaddress(verp0)
     end
@@ -297,10 +295,10 @@ module Sisimai
     # @example  Expand alias
     #   expand_alias('neko+straycat@example.org') #=> 'neko@example.org'
     def self.expand_alias(email)
-      return '' unless Sisimai::RFC5322.is_emailaddress(email)
+      return nil unless Sisimai::RFC5322.is_emailaddress(email)
 
       local = email.split('@')
-      return '' unless cv = local[0].match(/\A([-_\w]+?)[+].+\z/)
+      return nil unless cv = local[0].match(/\A([-_\w]+?)[+].+\z/)
       return cv[1] + '@' + local[1]
     end
 
@@ -338,9 +336,9 @@ module Sisimai
         email = Sisimai::Address.expand_verp(thing[:address])
         aname = nil
 
-        if email.empty?
+        unless email
           # Is not VERP address, try to expand the address as an alias
-          email = Sisimai::Address.expand_alias(thing[:address])
+          email = Sisimai::Address.expand_alias(thing[:address]) || ''
           aname = true unless email.empty?
         end
 
