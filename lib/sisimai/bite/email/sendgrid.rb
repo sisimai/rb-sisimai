@@ -170,7 +170,7 @@ module Sisimai::Bite::Email
             if !e['status'] || e['status'].end_with?('.0.0')
               # Set pseudo Status code value if the value of Status is not
               # defined or 4.0.0 or 5.0.0.
-              e['status'] = Sisimai::SMTP::Status.code('expired') || ''
+              e['status'] = Sisimai::SMTP::Status.code('expired') || e['status']
             end
           end
 

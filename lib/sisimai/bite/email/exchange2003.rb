@@ -220,7 +220,6 @@ module Sisimai::Bite::Email
             #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
             capturedcode = cv[1]
             errormessage = cv[2]
-            pseudostatus = ''
 
             ErrorCodes.each_key do |r|
               # Find captured code from the error code table

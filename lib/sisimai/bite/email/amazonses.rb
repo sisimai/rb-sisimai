@@ -160,9 +160,11 @@ module Sisimai::Bite::Email
             # Get other D.S.N. value from the error message
             errormessage = e['diagnosis']
 
-            # 5.1.0 - Unknown address error 550-'5.7.1 ...
-            if cv = e['diagnosis'].match(/["'](\d[.]\d[.]\d.+)['"]/) then errormessage = cv[1] end
-            e['status'] = Sisimai::SMTP::Status.find(errormessage) || ''
+            if cv = e['diagnosis'].match(/["'](\d[.]\d[.]\d.+)['"]/)
+              # 5.1.0 - Unknown address error 550-'5.7.1 ...
+              errormessage = cv[1]
+            end
+            e['status'] = Sisimai::SMTP::Status.find(errormessage) || e['status']
           end
 
           MessagesOf.each_key do |r|
