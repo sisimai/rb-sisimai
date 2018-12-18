@@ -442,9 +442,9 @@ module Sisimai
       #   second2tz(12345)    #=> '+0325'
       def second2tz(argv1)
         return '+0000' unless argv1.is_a?(Number)
-        digit = { :operator => '+' }
+        return nil if argv1.abs > TZ_OFFSET  # UTC+14 + 1(DST?)
 
-        return '' if argv1.abs > TZ_OFFSET  # UTC+14 + 1(DST?)
+        digit = { :operator => '+' }
         digit[:operator] = '-' if argv1 < 0
         digit[:hours]    = (argv1.abs / 3600).to_i
         digit[:minutes]  = ((argv1.abs % 3600) / 60).to_i

@@ -65,7 +65,7 @@ module Sisimai
         #                           '':     May not be bounce ?
         # @since v4.17.3
         def soft_or_hard(argv1 = '', argv2 = '')
-          return '' if argv1.empty?
+          return nil if argv1.empty?
           value = nil
 
           if %w[delivered feedback vacation].include?(argv1)

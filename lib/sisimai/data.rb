@@ -330,9 +330,8 @@ module Sisimai
 
           if o.softbounce.to_s.empty?
             # The value is not set yet
-            textasargv = (p['deliverystatus'] + ' ' + p['diagnosticcode']).lstrip
-            softorhard = Sisimai::SMTP::Error.soft_or_hard(o.reason, textasargv)
-
+            textasargv   = (p['deliverystatus'] + ' ' + p['diagnosticcode']).lstrip
+            softorhard   = Sisimai::SMTP::Error.soft_or_hard(o.reason, textasargv) || ''
             o.softbounce = if softorhard.size > 0
                              # Returned value is "soft" or "hard"
                              (softorhard == 'soft') ? 1 : 0

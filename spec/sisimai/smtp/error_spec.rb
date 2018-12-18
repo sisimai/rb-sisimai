@@ -72,7 +72,7 @@ describe Sisimai::SMTP::Error do
   describe '.soft_or_hard' do
     context 'empty string' do
       subject { cn.soft_or_hard('') }
-      it('returns ""') { is_expected.to be_empty }
+      it('returns nil') { is_expected.to be_nil }
     end
 
     context 'valid arguments' do
