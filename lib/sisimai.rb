@@ -51,8 +51,7 @@ module Sisimai
       if input == 'email'
         # Path to mailbox or Maildir/, or STDIN: 'input' => 'email'
         require 'sisimai/mail'
-        mail = Sisimai::Mail.new(argv0)
-        return nil unless mail
+        return nil unless mail = Sisimai::Mail.new(argv0)
 
         while r = mail.read do
           # Read and parse each mail file
@@ -61,8 +60,7 @@ module Sisimai
           next if mesg.void
 
           methodargv = { data: mesg, hook: hookmethod, input: 'email', delivered: delivered1 }
-          data = Sisimai::Data.make(methodargv)
-          next unless data
+          next unless data = Sisimai::Data.make(methodargv)
           bouncedata += data unless data.empty?
         end
 
@@ -86,9 +84,7 @@ module Sisimai
           next if mesg.void
 
           methodargv = { data: mesg, hook: hookmethod, input: 'json', delivered: delivered1 }
-          data = Sisimai::Data.make(methodargv)
-
-          next unless data
+          next unless data = Sisimai::Data.make(methodargv)
           bouncedata += data unless data.empty?
         end
       else

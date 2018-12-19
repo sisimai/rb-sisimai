@@ -103,8 +103,8 @@ module Sisimai::Bite::JSON
             v['status'] = statuscode
           end
 
-          v['status']    ||= Sisimai::SMTP::Status.find(diagnostic)
-          v['replycode'] ||= Sisimai::SMTP::Reply.find(diagnostic)
+          v['status']    ||= Sisimai::SMTP::Status.find(diagnostic) || ''
+          v['replycode'] ||= Sisimai::SMTP::Reply.find(diagnostic)  || ''
           v['diagnosis']   = argvs['reason'] || ''
           v['agent']       = self.smtpagent
 

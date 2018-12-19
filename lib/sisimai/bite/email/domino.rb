@@ -134,8 +134,7 @@ module Sisimai::Bite::Email
             # Check each regular expression of Domino error messages
             next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
-            pseudostatus = Sisimai::SMTP::Status.code(r.to_s, false)
-            e['status'] = pseudostatus unless pseudostatus.empty?
+            e['status'] = Sisimai::SMTP::Status.code(r.to_s, false) || ''
             break
           end
           e.each_key { |a| e[a] ||= '' }

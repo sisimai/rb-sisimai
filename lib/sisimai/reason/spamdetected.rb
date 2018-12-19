@@ -162,7 +162,7 @@ module Sisimai
         def true(argvs)
           return nil  if argvs.deliverystatus.empty?
           return true if argvs.reason == 'spamdetected'
-          return true if Sisimai::SMTP::Status.name(argvs.deliverystatus) == 'spamdetected'
+          return true if Sisimai::SMTP::Status.name(argvs.deliverystatus).to_s == 'spamdetected'
           return true if match(argvs.diagnosticcode.downcase)
           return false
         end

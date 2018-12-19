@@ -87,14 +87,14 @@ module Sisimai
             # Action: delayed => "expired"
             reasontext   = nil
             reasontext ||= 'expired' if argvs.action == 'delayed'
-            unless reasontext
-              # Try to match with message patterns in Sisimai::Reason::Vacation
-              require 'sisimai/reason/vacation'
-              reasontext = 'vacation' if Sisimai::Reason::Vacation.match(argvs.diagnosticcode.downcase)
-            end
-            reasontext ||= 'onhold' unless argvs.diagnosticcode.empty?
+            return reasontext if reasontext
+
+            # Try to match with message patterns in Sisimai::Reason::Vacation
+            require 'sisimai/reason/vacation'
+            reasontext   = 'vacation' if Sisimai::Reason::Vacation.match(argvs.diagnosticcode.downcase)
+            reasontext ||= 'onhold'   unless argvs.diagnosticcode.empty?
+            reasontext ||= 'undefined'
           end
-          reasontext ||= 'undefined'
         end
         return reasontext
       end
@@ -108,15 +108,14 @@ module Sisimai
         return nil unless argvs.is_a? Sisimai::Data
         return argvs.reason unless argvs.reason.empty?
 
+        require 'sisimai/smtp/status'
         statuscode = argvs.deliverystatus || ''
-        diagnostic = argvs.diagnosticcode.downcase || ''
-        commandtxt = argvs.smtpcommand    || ''
-        trytomatch = nil
-        reasontext = Sisimai::SMTP::Status.name(statuscode)
+        reasontext = Sisimai::SMTP::Status.name(statuscode) || ''
 
         catch :TRY_TO_MATCH do
           while true
-            trytomatch   = true if reasontext.empty?
+            diagnostic   = argvs.diagnosticcode.downcase || ''
+            trytomatch   = reasontext.empty? ? true : false
             trytomatch ||= true if GetRetried.index(reasontext)
             trytomatch ||= true if argvs.diagnostictype != 'SMTP'
             throw :TRY_TO_MATCH unless trytomatch
@@ -138,26 +137,25 @@ module Sisimai
               reasontext = e.downcase
               break
             end
+            throw :TRY_TO_MATCH unless reasontext.empty?
 
-            if reasontext.empty?
-              # Check the value of Status:
-              v = statuscode[0, 3]
-              if v == '5.6' || v == '4.6'
-                #  X.6.0   Other or undefined media error
-                reasontext = 'contenterror'
+            # Check the value of Status:
+            v = statuscode[0, 3]
+            if v == '5.6' || v == '4.6'
+              #  X.6.0   Other or undefined media error
+              reasontext = 'contenterror'
 
-              elsif v == '5.7' || v == '4.7'
-                #  X.7.0   Other or undefined security status
-                reasontext = 'securityerror'
+            elsif v == '5.7' || v == '4.7'
+              #  X.7.0   Other or undefined security status
+              reasontext = 'securityerror'
 
-              elsif %w[X-UNIX X-POSTFIX].include?(argvs.diagnostictype)
-                # Diagnostic-Code: X-UNIX; ...
-                reasontext = 'mailererror'
-              else
-                # 50X Syntax Error?
-                require 'sisimai/reason/syntaxerror'
-                reasontext = 'syntaxerror' if Sisimai::Reason::SyntaxError.true(argvs)
-              end
+            elsif %w[X-UNIX X-POSTFIX].include?(argvs.diagnostictype)
+              # Diagnostic-Code: X-UNIX; ...
+              reasontext = 'mailererror'
+            else
+              # 50X Syntax Error?
+              require 'sisimai/reason/syntaxerror'
+              reasontext = 'syntaxerror' if Sisimai::Reason::SyntaxError.true(argvs)
             end
             throw :TRY_TO_MATCH unless reasontext.empty?
 
@@ -167,6 +165,7 @@ module Sisimai
               reasontext = 'expired'
             else
               # Rejected at connection or after EHLO|HELO
+              commandtxt = argvs.smtpcommand || ''
               reasontext = 'blocked' if %w[HELO EHLO].index(commandtxt)
             end
             throw :TRY_TO_MATCH
@@ -180,12 +179,9 @@ module Sisimai
       # @return   [String]        Bounce reason
       def match(argv1)
         return nil unless argv1
-        require 'sisimai/smtp/status'
 
         reasontext = ''
         diagnostic = argv1.downcase
-
-        statuscode = Sisimai::SMTP::Status.find(argv1)
 
         # Diagnostic-Code: SMTP; ... or empty value
         ClassOrder[2].each do |e|
@@ -207,16 +203,20 @@ module Sisimai
         end
         return reasontext unless reasontext.empty?
 
-        # Check the value of typestring
         typestring = ''
-        if cv = argv1.match(/\A(SMTP|X-.+);/i) then typestring = cv[1].upcase end
+        if cv = argv1.match(/\A(SMTP|X-.+);/i)
+          # Check the value of typestring
+          typestring = cv[1].upcase
+        end
+
         if typestring == 'X-UNIX'
           # X-Unix; ...
           reasontext = 'mailererror'
         else
           # Detect the bounce reason from "Status:" code
+          require 'sisimai/smtp/status'
+          statuscode = Sisimai::SMTP::Status.find(argv1) || ''
           reasontext = Sisimai::SMTP::Status.name(statuscode) || 'undefined'
-          reasontext = 'undefined' if reasontext.empty?
         end
         return reasontext
       end

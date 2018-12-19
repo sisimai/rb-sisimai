@@ -63,12 +63,12 @@ module Sisimai
       class << self
         # Get SMTP Reply Code from the given string
         # @param    [String] argv1  String including SMTP Reply Code like 550
-        # @return   [String]        SMTP Reply Code or empty if the first argument
+        # @return   [String]        SMTP Reply Code or Nil if the first argument
         #                           did not include SMTP Reply Code value
-        def find(argv1 = '')
-          return '' unless argv1
-          return '' if argv1.empty?
-          return '' if argv1.upcase.include?('X-UNIX')
+        def find(argv1 = nil)
+          return nil unless argv1
+          return nil if argv1.empty?
+          return nil if argv1.upcase.include?('X-UNIX')
 
           # Convert found IPv4 addresses to '***.***.***.***' to avoid that
           # the following code detects an octet of the IPv4 adress as an SMTP
@@ -85,7 +85,7 @@ module Sisimai
             # 550, 447, or 250
             return cv[1]
           else
-            return ''
+            return nil
           end
         end
 

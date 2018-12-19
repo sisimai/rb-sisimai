@@ -258,7 +258,7 @@ module Sisimai::Bite::Email
             end
           end
 
-          e['status'] = Sisimai::SMTP::Status.find(e['diagnosis'])
+          e['status'] = Sisimai::SMTP::Status.find(e['diagnosis']) || ''
           e.each_key { |a| e[a] ||= '' }
         end
 

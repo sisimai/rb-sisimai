@@ -708,37 +708,37 @@ module Sisimai
         # @param    [String]     argv1  Reason name
         # @param    [True,False] argv2  false: Permanent error
         #                               true:  Temporary error
-        # @return   [String] DSN or empty if the 1st argument is missing
+        # @return   [String, Nil]       DSN or Nil if the 1st argument is missing
         # @see      name
-        def code(argv1 = '', argv2 = false)
-          return '' unless argv1
-          return '' if argv1.empty?
+        def code(argv1 = nil, argv2 = false)
+          return nil unless argv1
+          return nil if argv1.empty?
 
           table = argv2 ? InternalCode[:temporary] : InternalCode[:permanent]
-          code0 = table[argv1.to_sym] || InternalCode[:permanent][argv1.to_sym] || ''
+          code0 = table[argv1.to_sym] || InternalCode[:permanent][argv1.to_sym] || nil
           return code0
         end
 
         # Convert from the status code to the reason string
         # @param    [String] argv1  Status code(DSN)
-        # @return   [String]        Reason name or empty if the first argument did
+        # @return   [String, Nil]   Reason name or Nil if the first argument did
         #                           not match with values in Sisimai's reason list
         # @see      code
-        def name(argv1 = '')
-          return '' unless argv1
-          return '' unless argv1 =~ /\A[245][.]\d[.]\d+\z/
-          return StandardCode[argv1.to_sym] || ''
+        def name(argv1 = nil)
+          return nil unless argv1
+          return nil unless argv1 =~ /\A[245][.]\d[.]\d+\z/
+          return StandardCode[argv1.to_sym] || nil
         end
 
         # Get a DSN code value from given string including DSN
         # @param    [String] argv1  String including DSN
-        # @return   [String]        DSN or empty string if the first agument did
-        #                           not include DSN
-        def find(argv1 = '')
-          return '' unless argv1
-          return '' if argv1.empty?
+        # @return   [String, Nil]   DSN or Nil if the first agument did not
+        #                           include DSN
+        def find(argv1 = nil)
+          return nil unless argv1
+          return nil if argv1.empty?
 
-          foundvalue = ''
+          foundvalue = nil
           regularexp = [
             %r/[ ]?[(][#]([45][.]\d[.]\d+)[)]?[ ]?/,  # #5.5.1
             %r/\b\d{3}[- ][#]?([45][.]\d[.]\d+)\b/,   # 550-5.1.1 OR 550 5.5.1
@@ -753,7 +753,7 @@ module Sisimai
 
             if argv1 =~ /\b(?:#{foundvalue}[.]\d{1,3}|\d{1,3}[.]#{foundvalue})\b/
               # Clear and skip if the value is an IPv4 address
-              foundvalue = ''
+              foundvalue = nil
               next
             end
             break

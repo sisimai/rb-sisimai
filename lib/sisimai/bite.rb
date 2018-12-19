@@ -30,7 +30,6 @@ module Sisimai
 
       def smtpagent(v = ''); return v.to_s.sub(/\ASisimai::Bite::/, ''); end
       def description; return ''; end
-
     end
   end
 end

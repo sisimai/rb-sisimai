@@ -151,8 +151,7 @@ module Sisimai::Bite::Email
             # Check each regular expression of Notes error messages
             next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r.to_s
-            pseudostatus = Sisimai::SMTP::Status.code(r.to_s)
-            e['status'] = pseudostatus unless pseudostatus.empty?
+            e['status'] = Sisimai::SMTP::Status.code(r.to_s) || ''
             break
           end
           e.each_key { |a| e[a] ||= '' }

@@ -474,10 +474,10 @@ module Sisimai::Bite::Email
           s1 = 0  # First character of Status as integer
           r1 = 0  # First character of SMTP reply code as integer
 
-          # "Status:" field did not exist in the bounce message
           while true
-            break unless sv.empty?
-            break if rv.empty?
+            # "Status:" field did not exist in the bounce message
+            break if sv
+            break unless rv
 
             # Check SMTP reply code
             # Generate pseudo DSN code from SMTP reply code
@@ -493,8 +493,8 @@ module Sisimai::Bite::Email
             break
           end
 
-          s1  = sv[0, 1].to_i unless sv.empty?
-          v1  = s1 + r1
+          s1 = sv[0, 1].to_i if sv
+          v1 = s1 + r1
           v1 << e['status'][0, 1].to_i if e['status']
 
           if v1 > 0
@@ -511,7 +511,7 @@ module Sisimai::Bite::Email
                    Sisimai::SMTP::Status.code(e['reason'], false)
                  end
           end
-          e['status'] ||= sv
+          e['status'] ||= sv.to_s
           e.each_key { |a| e[a] ||= '' }
         end
 

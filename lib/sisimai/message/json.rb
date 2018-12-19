@@ -37,14 +37,12 @@ module Sisimai
 
         # Rewrite message body for detecting the bounce reason
         methodargv = { 'hook' => hookmethod, 'json' => argvs['data'] }
-        bouncedata = Sisimai::Message::JSON.parse(methodargv)
-
-        return nil unless bouncedata
+        return nil unless bouncedata = Sisimai::Message::JSON.parse(methodargv)
         return nil if bouncedata.empty?
+
         processing['ds']     = bouncedata['ds']
         processing['catch']  = bouncedata['catch']
         processing['rfc822'] = bouncedata['rfc822']
-
         return processing
       end
 

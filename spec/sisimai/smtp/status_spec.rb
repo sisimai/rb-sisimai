@@ -38,7 +38,7 @@ describe Sisimai::SMTP::Status do
   describe '.code' do
     context 'empty string' do
       subject { cn.code('') }
-      it('returns ""') { expect(cn.code('')).to be_empty }
+      it('returns nil') { expect(cn.code('')).to be_nil }
     end
 
     context 'no 2nd argument' do
@@ -65,7 +65,7 @@ describe Sisimai::SMTP::Status do
   describe '.name' do
     context 'empty string' do
       subject { cn.name('') }
-      it('returns ""') { is_expected.to be_empty }
+      it('returns nil') { is_expected.to be_nil }
     end
 
     context 'standard status code' do
@@ -91,7 +91,7 @@ describe Sisimai::SMTP::Status do
   describe '.find' do
     context 'empty string' do
       subject { cn.find('') }
-      it('returns ""') { is_expected.to be_empty }
+      it('returns nil') { is_expected.to be_nil }
     end
 
     context 'error message including DSN' do

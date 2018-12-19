@@ -56,8 +56,7 @@ module Sisimai
         tobeloaded = Sisimai::Message::Email.load(methodargv)
 
         # 1. Split email data to headers and a body part.
-        aftersplit = Sisimai::Message::Email.divideup(email)
-        return nil if aftersplit.empty?
+        return nil unless aftersplit = Sisimai::Message::Email.divideup(email)
 
         # 2. Convert email headers from text to hash reference
         headerargv = {
@@ -81,9 +80,7 @@ module Sisimai
           'tryonfirst' => headerargv['tryonfirst'],
           'tobeloaded' => tobeloaded,
         }
-        bouncedata = Sisimai::Message::Email.parse(methodargv)
-
-        return nil unless bouncedata
+        return nil unless bouncedata = Sisimai::Message::Email.parse(methodargv)
         return nil if bouncedata.empty?
         processing['ds']    = bouncedata['ds']
         processing['catch'] = bouncedata['catch']
@@ -153,14 +150,14 @@ module Sisimai
       # @param         [String] email  Email data
       # @return        [Hash]          Email data after split
       def self.divideup(email)
-        return {} if email.empty?
+        return nil if email.empty?
 
         email.scrub!('?')
         email.gsub!(/\r\n/, "\n")  if email.include?("\r\n")
         email.gsub!(/[ \t]+$/, '') if email =~ /[ \t]+$/
 
         hasdivided = email.split("\n")
-        return {} if hasdivided.empty?
+        return nil if hasdivided.empty?
 
         readcursor = 0
         aftersplit = { 'from' => '', 'header' => '', 'body' => '' }
@@ -190,8 +187,8 @@ module Sisimai
             end
           end
         end
-        return {} if aftersplit['header'].empty?
-        return {} if aftersplit['body'].empty?
+        return nil if aftersplit['header'].empty?
+        return nil if aftersplit['body'].empty?
 
         aftersplit['from'] = 'MAILER-DAEMON Tue Feb 11 00:00:00 2014' if aftersplit['from'].empty?
         return aftersplit

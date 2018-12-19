@@ -330,6 +330,8 @@ describe Sisimai::Address do
         expect(q).to be == 'neko@example.jp'
         expect(e).to be == r.verp
       end
+      it('returns nil') { expect(Sisimai::Address.expand_verp(nil)).to be_nil }
+      it('returns nil') { expect(Sisimai::Address.expand_verp('2')).to be_nil }
     end
 
     describe '.alias' do
@@ -340,6 +342,8 @@ describe Sisimai::Address do
         expect(q).to be == 'neko@example.jp'
         expect(e).to be == r.alias
       end
+      it('returns nil') { expect(Sisimai::Address.expand_alias(nil)).to be_nil }
+      it('returns nil') { expect(Sisimai::Address.expand_alias('2')).to be_nil }
     end
 
     describe '.undisclosed' do

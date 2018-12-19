@@ -27,7 +27,7 @@ module Sisimai
       # @return   [True,False]    false: Not MIME encoded string
       #                           true:  MIME encoded string
       def is_mimeencoded(argv1)
-        return false unless argv1
+        return nil unless argv1
 
         argv1.delete!('"')
         piece = []

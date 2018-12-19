@@ -89,16 +89,16 @@ describe Sisimai::SMTP::Reply do
       end
     end
     context '("neko")' do
-      it('returns empty string') { expect(cn.find('neko')).to be_empty }
+      it('returns nil') { expect(cn.find('neko')).to be_nil }
     end
     context '("")' do
-      it('returns empty string') { expect(cn.find('')).to be_empty }
+      it('returns nil') { expect(cn.find('')).to be_nil }
     end
     context '(nil)' do
-      it('returns empty string') { expect(cn.find(nil)).to be_empty }
+      it('returns nil') { expect(cn.find(nil)).to be_nil }
     end
     context '()' do
-      it('returns empty string') { expect(cn.find).to be_empty }
+      it('returns nil') { expect(cn.find).to be_nil }
     end
 
     context 'wrong number of arguments' do

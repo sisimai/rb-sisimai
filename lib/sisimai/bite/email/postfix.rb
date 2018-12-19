@@ -224,7 +224,7 @@ module Sisimai::Bite::Email
               if e['status'] == '' || e['status'].start_with?('4.0.0', '5.0.0')
                 # Check the value of D.S.N. in anotherset
                 as = Sisimai::SMTP::Status.find(anotherset['diagnosis'])
-                if !as.empty? && as[-3, 3] != '0.0'
+                if as && as[-3, 3] != '0.0'
                   # The D.S.N. is neither an empty nor *.0.0
                   e['status'] = as
                 end
@@ -233,7 +233,7 @@ module Sisimai::Bite::Email
               if e['replycode'] == '' || e['replycode'].start_with?('400', '500')
                 # Check the value of SMTP reply code in anotherset
                 ar = Sisimai::SMTP::Reply.find(anotherset['diagnosis'])
-                if !ar.empty? && ar[-2, 2].to_i != 0
+                if ar && ar[-2, 2].to_i != 0
                   # The SMTP reply code is neither an empty nor *00
                   e['replycode'] = ar
                 end

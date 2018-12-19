@@ -149,8 +149,7 @@ module Sisimai::Bite::Email
               # 5.1.0 - Unknown address error 550-'5.7.1 ...
               errormessage = cv[1]
             end
-            pseudostatus = Sisimai::SMTP::Status.find(errormessage)
-            e['status'] = pseudostatus unless pseudostatus.empty?
+            e['status'] = Sisimai::SMTP::Status.find(errormessage) || e['status']
           end
 
           MessagesOf.each_key do |r|
@@ -160,7 +159,7 @@ module Sisimai::Bite::Email
             break
           end
 
-          e['reason'] ||= Sisimai::SMTP::Status.name(e['status'])
+          e['reason'] ||= Sisimai::SMTP::Status.name(e['status']) || ''
           e['agent']    = self.smtpagent
         end
 
