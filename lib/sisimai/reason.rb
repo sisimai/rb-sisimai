@@ -87,14 +87,14 @@ module Sisimai
             # Action: delayed => "expired"
             reasontext   = nil
             reasontext ||= 'expired' if argvs.action == 'delayed'
-            unless reasontext
-              # Try to match with message patterns in Sisimai::Reason::Vacation
-              require 'sisimai/reason/vacation'
-              reasontext = 'vacation' if Sisimai::Reason::Vacation.match(argvs.diagnosticcode.downcase)
-            end
-            reasontext ||= 'onhold' unless argvs.diagnosticcode.empty?
+            return reasontext if reasontext
+
+            # Try to match with message patterns in Sisimai::Reason::Vacation
+            require 'sisimai/reason/vacation'
+            reasontext   = 'vacation' if Sisimai::Reason::Vacation.match(argvs.diagnosticcode.downcase)
+            reasontext ||= 'onhold'   unless argvs.diagnosticcode.empty?
+            reasontext ||= 'undefined'
           end
-          reasontext ||= 'undefined'
         end
         return reasontext
       end
