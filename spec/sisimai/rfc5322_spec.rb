@@ -103,30 +103,6 @@ describe Sisimai::RFC5322 do
     end
   end
 
-  describe '.is_domainpart' do
-    describe 'Valid Domain String' do
-      ['example.jp', 'example.cat'].each do |e|
-        context "(#{e})" do
-          it('returns true') { expect(cn.is_domainpart(e)).to be true }
-        end
-      end
-    end
-
-    describe 'Invalid Domain String' do
-      emailaddrs.each do |e|
-        context "(#{e})" do
-          it('returns false') { expect(cn.is_domainpart(e)).to be false }
-        end
-      end
-
-      ['[', ')', ';', nil].each do |e|
-        context "(#{e})" do
-          it('returns false') { expect(cn.is_domainpart(e)).to be false }
-        end
-      end
-    end
-  end
-
   describe '.is_mailerdaemon' do
     describe 'Valid MAILER-DAEMON Address String' do
       postmaster.each do |e|

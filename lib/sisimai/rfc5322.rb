@@ -80,18 +80,6 @@ module Sisimai
         return false
       end
 
-      # Check that the argument is an domain part of email address or not
-      # @param    [String] dpart  Domain part of the email address
-      # @return   [True,False]    true: Valid domain part
-      #                           false: Not a valid domain part
-      def is_domainpart(dpart)
-        return false unless dpart.is_a?(::String)
-        return false if dpart =~ /(?:[\x00-\x1f]|\x1f)/
-        return false if dpart.include?('@')
-        return true  if dpart =~ Re[:domain]
-        return false
-      end
-
       # Check that the argument is mailer-daemon or not
       # @param    [String] email  Email address
       # @return   [True,False]    true: mailer-daemon

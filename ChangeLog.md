@@ -10,7 +10,8 @@ v4.24.1p3
 - changes:
   - Experimental implementation: Sisimai::RFC1894 is a common class for parsing
     message/delivery-status part. #133
-  - Remove unused method Sisimai::DateTime->hourname and $HourNames.
+  - Remove unused method Sisimai::DateTime.hourname and HourNames.
+  - Remove unused method Sisimai::RFC5322.is_domainpart.
   - Code refactoring: less lines of code and shallower indentation.
 
 v4.24.1
