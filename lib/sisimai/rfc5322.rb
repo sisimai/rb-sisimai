@@ -4,13 +4,20 @@ module Sisimai
     # Imported from p5-Sisimail/lib/Sisimai/RFC5322.pm
     class << self
       HeaderTable = {
-        :messageid => ['Message-Id'],
-        :subject   => ['Subject'],
-        :listid    => ['List-Id'],
-        :date      => %w[Date Posted-Date Posted Resent-Date],
-        :addresser => %w[From Return-Path Reply-To Errors-To Reverse-Path X-Postfix-Sender Envelope-From X-Envelope-From],
-        :recipient => %w[To Delivered-To Forward-Path Envelope-To X-Envelope-To Resent-To Apparently-To],
+        :messageid => %w[message-id],
+        :subject   => %w[subject],
+        :listid    => %w[list-id],
+        :date      => %w[date posted-date posted resent-date],
+        :addresser => %w[from return-path reply-to errors-to reverse-path x-postfix-sender envelope-from x-envelope-from],
+        :recipient => %w[to delivered-to forward-path envelope-to x-envelope-to resent-to apparently-to],
       }.freeze
+      ReMailerDaemon = %r/(?:
+         (?:mailer-daemon|postmaster)[@]
+        |[<(](?:mailer-daemon|postmaster)[)>]
+        |\A(?:mailer-daemon|postmaster)\z
+        |[ ]?mailer-daemon[ ]
+        )
+      /x.freeze
 
       build_regular_expressions = lambda do
         # See http://www.ietf.org/rfc/rfc5322.txt
@@ -44,7 +51,7 @@ module Sisimai
         # called from Sisimai::Bite::Email::*
         fv = {}
         HeaderTable.each_value do |e|
-          e.each { |ee| fv[ee.downcase] = 1 }
+          e.each { |ee| fv[ee] = true }
         end
         return fv
       end
@@ -86,15 +93,7 @@ module Sisimai
       #                           false: Not mailer-daemon
       def is_mailerdaemon(email)
         return false unless email.is_a?(::String)
-
-        re = %r/(?:
-           (?:mailer-daemon|postmaster)[@]
-          |[<(](?:mailer-daemon|postmaster)[)>]
-          |\A(?:mailer-daemon|postmaster)\z
-          |[ ]?mailer-daemon[ ]
-          )
-        /x
-        return true if email.downcase =~ re
+        return true if email.downcase =~ ReMailerDaemon
         return false
       end
 
@@ -190,24 +189,21 @@ module Sisimai
 
         while e = argv1.shift do
           # After "message/rfc822"
-          if cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*.*\z/)
-            # Get required headers
-            lhs = cv[1].downcase
+          if e.start_with?(' ', "\t")
+            # Continued line from the previous line
+            next if rfc822next[previousfn]
+            rfc822part << e + "\n" if LongHeaders.key?(previousfn)
+          else
+            # Get required headers only
+            (lhs, rhs) = e.split(/:[ ]*/, 2)
+            next unless lhs
+            lhs.downcase!
+
             previousfn = ''
             next unless HeaderIndex.key?(lhs)
 
             previousfn  = lhs
             rfc822part << e + "\n"
-
-          elsif e.start_with?(' ', "\t")
-            # Continued line from the previous line
-            next if rfc822next[previousfn]
-            rfc822part << e + "\n" if LongHeaders.key?(previousfn)
-          else
-            # Check the end of headers in rfc822 part
-            next unless LongHeaders.key?(previousfn)
-            next unless e.empty?
-            rfc822next[previousfn] = true
           end
         end
 

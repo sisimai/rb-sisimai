@@ -149,6 +149,7 @@ module Sisimai
             ],
           },
         }.freeze
+        Skips = { 'return-path' => 1, 'x-mailer' => 1 }.freeze
 
         # @abstract Make default order of MTA modules to be loaded
         # @return   [Array] Default order list of MTA modules
@@ -180,7 +181,6 @@ module Sisimai
         def headers
           order = Sisimai::Bite::Email.heads.map { |e| 'Sisimai::Bite::Email::' << e }
           table = {}
-          skips = { 'return-path' => 1, 'x-mailer' => 1 }
 
           while e = order.shift do
             # Load email headers from each MTA module
@@ -188,10 +188,9 @@ module Sisimai
 
             Module.const_get(e).headerlist.each do |v|
               # Get header name which required each MTA module
-              q = v.downcase
-              next if skips.key?(q)
-              table[q]  ||= {}
-              table[q][e] = 1
+              next if Skips.key?(v)
+              table[v]  ||= {}
+              table[v][e] = 1
             end
           end
           return table

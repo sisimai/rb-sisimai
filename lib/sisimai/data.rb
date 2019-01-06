@@ -153,11 +153,11 @@ module Sisimai
         # Detect email address from message/rfc822 part
         fieldorder[:addresser].each do |f|
           # Check each header in message/rfc822 part
-          h = f.downcase
-          next unless rfc822data.key?(h)
-          next if rfc822data[h].empty?
+          next unless rfc822data.key?(f)
+          next unless rfc822data[f]
+          next if rfc822data[f].empty?
 
-          j = Sisimai::Address.find(rfc822data[h]) || []
+          j = Sisimai::Address.find(rfc822data[f]) || []
           next if j.empty?
           p['addresser'] = j[0]
           break
@@ -182,8 +182,8 @@ module Sisimai
         # Date information did not exist in message/delivery-status part,...
         RFC822Head[:date].each do |f|
           # Get the value of Date header or other date related header.
-          next unless rfc822data[f.downcase]
-          datevalues << rfc822data[f.downcase]
+          next unless rfc822data[f]
+          datevalues << rfc822data[f]
         end
 
         # Set "date" getting from the value of "Date" in the bounce message
@@ -226,23 +226,25 @@ module Sisimai
         %w[rhost lhost].each do |v|
           p[v].delete!('[]()')    # Remove square brackets and curly brackets from the host variable
           p[v].sub!(/\A.+=/, '')  # Remove string before "="
-          p[v].chomp!("\r")       # Remove CR at the end of the value
+          p[v].chomp!("\r") if p[v].end_with?("\r") # Remove CR at the end of the value
 
           # Check space character in each value and get the first element
           p[v] = p[v].split(' ', 2).shift if p[v].include?(' ')
-          p[v].chomp!('.')        # Remove "." at the end of the value
+          p[v].chomp!('.') if p[v].end_with?('.')   # Remove "." at the end of the value
         end
 
         # Subject: header of the original message
         p['subject'] = rfc822data['subject'] || ''
-        p['subject'] = p['subject'].scrub('?').chomp("\r")
+        p['subject'].scrub!('?')
+        p['subject'].chomp!("\r") if p['subject'].end_with?("\r");
 
         # The value of "List-Id" header
         p['listid'] = rfc822data['list-id'] || ''
         unless p['listid'].empty?
           # Get the value of List-Id header like "List name <list-id@example.org>"
           if cv = p['listid'].match(/\A.*([<].+[>]).*\z/) then p['listid'] = cv[1] end
-          p['listid'] = p['listid'].delete('<>').chomp("\r")
+          p['listid'].delete!('<>')
+          p['listid'].chomp!("\r") if p['listid'].end_with?("\r")
           p['listid'] = '' if p['listid'].include?(' ')
         end
 
@@ -291,10 +293,10 @@ module Sisimai
           end
         end
         p['diagnostictype'] ||= 'X-UNIX' if p['reason'] == 'mailererror'
-        p['diagnostictype'] ||= 'SMTP' unless %w[feedback vacation].index(p['reason'])
+        p['diagnostictype'] ||= 'SMTP' unless %w[feedback vacation].include?(p['reason'])
 
         # Check the value of SMTP command
-        p['smtpcommand'] = '' unless %w[EHLO HELO MAIL RCPT DATA QUIT].index(p['smtpcommand'])
+        p['smtpcommand'] = '' unless %w[EHLO HELO MAIL RCPT DATA QUIT].include?(p['smtpcommand'])
 
         if p['action'].empty?
           # Check the value of "action"
@@ -310,7 +312,7 @@ module Sisimai
         o = Sisimai::Data.new(p)
         next unless o.recipient
 
-        if o.reason.empty? || RetryIndex.index(o.reason)
+        if o.reason.empty? || RetryIndex.include?(o.reason)
           # Decide the reason of email bounce
           r = ''
           r = Sisimai::Rhost.get(o) if Sisimai::Rhost.match(o.rhost) # Remote host dependent error
@@ -319,7 +321,7 @@ module Sisimai
           o.reason = r
         end
 
-        if %w[delivered feedback vacation].index(o.reason)
+        if %w[delivered feedback vacation].include?(o.reason)
           # The value of reason is "vacation" or "feedback"
           o.softbounce = -1
           o.replycode = '' unless o.reason == 'delivered'
@@ -384,7 +386,7 @@ module Sisimai
     def damn
       data = {}
       @@rwaccessors.each do |e|
-        next if %w[addresser recipient timestamp].index(e.to_s)
+        next if %w[addresser recipient timestamp].include?(e.to_s)
         data[e.to_s] = self.send(e) || ''
       end
       data['addresser'] = self.addresser.address
@@ -399,7 +401,7 @@ module Sisimai
     # @return   [String, Nil]   Dumped data or nil if the value of the first
     #                           argument is neither "json" nor "yaml"
     def dump(type = 'json')
-      return nil unless %w[json yaml].index(type)
+      return nil unless %w[json yaml].include?(type)
       referclass = 'Sisimai::Data::' << type.upcase
 
       begin
