@@ -26,7 +26,7 @@ module Sisimai::Bite::Email
 
       # X-SES-Outgoing: 2015.10.01-54.240.27.7
       # Feedback-ID: 1.us-west-2.HX6/J9OVlHTadQhEu1+wdF9DBj6n6Pa9sW5Y/0pSOi8=:AmazonSES
-      def headerlist;  return ['X-SES-Outgoing']; end
+      def headerlist;  return %w[x-ses-outgoing]; end
 
       # Parse bounce messages from Amazon SES/Receiving
       # @param         [Hash] mhead       Message headers of a bounce email
@@ -139,7 +139,7 @@ module Sisimai::Bite::Email
           # Set default values if each value is empty.
           e['lhost'] ||= permessage['rhost']
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].gsub(/\\n/, ' '))
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].tr("\n", ' '))
 
           if e['status'].to_s.start_with?('5.0.0', '5.1.0', '4.0.0', '4.1.0')
             # Get other D.S.N. value from the error message

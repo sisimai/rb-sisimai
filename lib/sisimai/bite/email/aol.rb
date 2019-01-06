@@ -29,7 +29,7 @@ module Sisimai::Bite::Email
       # X-BounceIO-Id: 9D38DE46-21BC-4309-83E1-5F0D788EFF1F.1_0
       # X-Outbound-Mail-Relay-Queue-ID: 07391702BF4DC
       # X-Outbound-Mail-Relay-Sender: rfc822; shironeko@aol.example.jp
-      def headerlist;  return ['X-AOL-IP']; end
+      def headerlist;  return %w[x-aol-ip]; end
 
       # Parse bounce messages from Aol Mail
       # @param         [Hash] mhead       Message headers of a bounce email
@@ -144,7 +144,7 @@ module Sisimai::Bite::Email
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
 
           e['agent']     = self.smtpagent
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].gsub(/\\n/, ' '))
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].tr("\n", ' '))
 
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors

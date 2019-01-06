@@ -21,7 +21,7 @@ module Sisimai::Bite::Email
 
       def description; return 'Module description'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
-      def headerlist;  return ['X-Some-UserDefined-Header']; end
+      def headerlist;  return %w[x-some-userdefined-header]; end
 
       # @abstract Template for User-Defined MTA module
       # @param         [Hash] mhead       Message headers of a bounce email

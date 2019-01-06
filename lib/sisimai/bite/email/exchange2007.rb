@@ -31,7 +31,7 @@ module Sisimai::Bite::Email
 
       def description; return 'Microsoft Exchange Server 2007'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
-      def headerlist;  return ['Content-Language']; end
+      def headerlist;  return %w[content-language]; end
 
       # Parse bounce messages from Microsoft Exchange Server 2007
       # @param         [Hash] mhead       Message headers of a bounce email

@@ -116,7 +116,7 @@ module Sisimai::Bite::Email
               end
             else
               # The line does not begin with a DSN field defined in RFC3464
-              if e =~ /\A[^ ]/
+              unless e.start_with?(' ')
                 #    ----- Transcript of session follows -----
                 # >>> RCPT TO:<destinaion@example.net>
                 # <<< 553 Invalid recipient destinaion@example.net (Mode: normal)

@@ -17,7 +17,7 @@ module Sisimai::Bite::Email
 
       # Return-Path: <apps@sendgrid.net>
       # X-Mailer: MIME-tools 5.502 (Entity 5.502)
-      def headerlist;  return ['Return-Path', 'X-Mailer']; end
+      def headerlist;  return %w[return-path x-mailer]; end
 
       # Parse bounce messages from SendGrid
       # @param         [Hash] mhead       Message headers of a bounce email

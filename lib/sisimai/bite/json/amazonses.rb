@@ -54,12 +54,12 @@ module Sisimai::Bite::JSON
           break if e == '__END_OF_EMAIL_MESSAGE__'
 
           # The line starts with " ", continued from !\n.
-          e = e.lstrip if foldedline
+          e.lstrip! if foldedline
           foldedline = false
 
           if e.end_with?('!')
             # ... long long line ...![\n]
-            e = e.chomp('!')
+            e.chomp!('!')
             foldedline = true
           end
           jsonstring << e

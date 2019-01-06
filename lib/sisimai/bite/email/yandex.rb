@@ -22,7 +22,7 @@ module Sisimai::Bite::Email
       # X-Yandex-Forward: 10104c00ad0726da5f37374723b1e0c8
       # X-Yandex-Queue-ID: 367D79E130D
       # X-Yandex-Sender: rfc822; shironeko@yandex.example.com
-      def headerlist;  return ['X-Yandex-Uniq']; end
+      def headerlist;  return %w[x-yandex-uniq]; end
 
       # Parse bounce messages from Yandex.Mail
       # @param         [Hash] mhead       Message headers of a bounce email
@@ -147,7 +147,7 @@ module Sisimai::Bite::Email
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
 
           e['command']   = commandset.shift || ''
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].gsub(/\\n/, ''))
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].tr("\n", ' '))
           e['agent']     = self.smtpagent
         end
 

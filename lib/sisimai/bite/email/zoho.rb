@@ -19,7 +19,7 @@ module Sisimai::Bite::Email
       # X-ZohoMail: Si CHF_MF_NL SS_10 UW48 UB48 FMWL UW48 UB48 SGR3_1_09124_42
       # X-Zoho-Virus-Status: 2
       # X-Mailer: Zoho Mail
-      def headerlist;  return ['X-ZohoMail']; end
+      def headerlist;  return %w[x-zohomail]; end
 
       # Parse bounce messages from Zoho Mail
       # @param         [Hash] mhead       Message headers of a bounce email
@@ -133,7 +133,7 @@ module Sisimai::Bite::Email
 
         dscontents.each do |e|
           e['agent']     = self.smtpagent
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].gsub(/\\n/, ' '))
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].tr("\n", ' '))
 
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors

@@ -22,7 +22,7 @@ module Sisimai::Bite::Email
 
       # X-Message-Delivery: Vj0xLjE7RD0wO0dEPTA7U0NMPTk7bD0xO3VzPTE=
       # X-Message-Info: AuEzbeVr9u5fkDpn2vR5iCu5wb6HBeY4iruBjnutBzpStnUabbM...
-      def headerlist;  return ['X-Message-Delivery', 'X-Message-Info']; end
+      def headerlist;  return %w[x-message-delivery x-message-info]; end
 
       # Parse bounce messages from Microsoft Outlook.com
       # @param         [Hash] mhead       Message headers of a bounce email
