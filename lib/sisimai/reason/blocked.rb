@@ -149,7 +149,7 @@ module Sisimai
               |message[ ]was[ ]rejected[ ]for[ ]possible[ ]spam/virus[ ]content
               )
             )
-          }x
+          }x.freeze
 
           return true if argv1 =~ regex
           return false
