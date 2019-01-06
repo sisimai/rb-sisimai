@@ -11,13 +11,6 @@ module Sisimai
         :addresser => %w[from return-path reply-to errors-to reverse-path x-postfix-sender envelope-from x-envelope-from],
         :recipient => %w[to delivered-to forward-path envelope-to x-envelope-to resent-to apparently-to],
       }.freeze
-      ReMailerDaemon = %r/(?:
-         (?:mailer-daemon|postmaster)[@]
-        |[<(](?:mailer-daemon|postmaster)[)>]
-        |\A(?:mailer-daemon|postmaster)\z
-        |[ ]?mailer-daemon[ ]
-        )
-      /x.freeze
 
       build_regular_expressions = lambda do
         # See http://www.ietf.org/rfc/rfc5322.txt
@@ -93,7 +86,14 @@ module Sisimai
       #                           false: Not mailer-daemon
       def is_mailerdaemon(email)
         return false unless email.is_a?(::String)
-        return true if email.downcase =~ ReMailerDaemon
+        regex = %r/(?:
+           (?:mailer-daemon|postmaster)[@]
+          |[<(](?:mailer-daemon|postmaster)[)>]
+          |\A(?:mailer-daemon|postmaster)\z
+          |[ ]?mailer-daemon[ ]
+          )
+        /x.freeze
+        return true if email.downcase =~ regex
         return false
       end
 
