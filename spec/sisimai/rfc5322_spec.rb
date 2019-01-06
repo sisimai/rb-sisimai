@@ -10,8 +10,7 @@ describe Sisimai::RFC5322 do
         expect(v).to be_a_kind_of(Hash)
         v.each_key do |e|
           expect(e).to match(/\A[a-z-]+\z/)
-          expect(v[e]).to be_a_kind_of(Integer)
-          expect(v[e]).to eq 1
+          expect(v[e]).to be true
         end
       end
     end
