@@ -3,6 +3,11 @@ module Sisimai
   module String
     # Imported from p5-Sisimail/lib/Sisimai/String.pm
     class << self
+      Match = {
+        html: %r|<html[ >].+?</html>|im,
+        body: %r|<head>.+</head>.*<body[ >].+</body>|im,
+      }
+
       # End of email message as a sentinel for parsing bounce messages
       # @private
       # @return   [String] Fixed length string like a constant
@@ -61,12 +66,8 @@ module Sisimai
         return nil if argv1.empty?
 
         plain = argv1
-        match = {
-          html: %r|<html[ >].+?</html>|im,
-          body: %r|<head>.+</head>.*<body[ >].+</body>|im,
-        }
 
-        if loose || plain =~ match[:html] || plain =~ match[:body]
+        if loose || plain =~ Match[:html] || plain =~ Match[:body]
           # 1. Remove <head>...</head>
           # 2. Remove <style>...</style>
           # 3. <a href = 'http://...'>...</a> to " http://... "
