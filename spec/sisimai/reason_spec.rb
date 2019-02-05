@@ -118,7 +118,7 @@ describe Sisimai::Reason do
   end
 
   describe '.retry' do
-    it('returns Array') { expect(cn.retry).to be_a Array }
+    it('returns Hash') { expect(cn.retry).to be_a Hash }
     it('include reasons') { expect(cn.retry.size).to be > 0 }
   end
 
