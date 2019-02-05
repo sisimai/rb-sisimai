@@ -312,7 +312,7 @@ module Sisimai
         o = Sisimai::Data.new(p)
         next unless o.recipient
 
-        if o.reason.empty? || RetryIndex.include?(o.reason)
+        if o.reason.empty? || RetryIndex.key?(o.reason)
           # Decide the reason of email bounce
           r = ''
           r = Sisimai::Rhost.get(o) if Sisimai::Rhost.match(o.rhost) # Remote host dependent error

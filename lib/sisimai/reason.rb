@@ -8,7 +8,10 @@ module Sisimai
       # Reason list better to retry detecting an error reason
       # @return   [Array] Reason list
       def retry
-        return %w[undefined onhold systemerror securityerror networkerror hostunknown userunknown]
+        return { 
+          'undefined' => 1, 'onhold' => 1, 'systemerror' => 1, 'securityerror' => 1,
+          'networkerror' => 1, 'hostunknown' => 1, 'userunknown' => 1
+        }.freeze
       end
       GetRetried = Sisimai::Reason.retry
       ClassOrder = [
@@ -49,7 +52,7 @@ module Sisimai
         return nil unless argvs
         return nil unless argvs.is_a? Sisimai::Data
 
-        unless GetRetried.include?(argvs.reason)
+        unless GetRetried.key?(argvs.reason)
           # Return reason text already decided except reason match with the
           # regular expression of retry() method.
           return argvs.reason unless argvs.reason.empty?
@@ -116,7 +119,7 @@ module Sisimai
           while true
             diagnostic   = argvs.diagnosticcode.downcase || ''
             trytomatch   = reasontext.empty? ? true : false
-            trytomatch ||= true if GetRetried.include?(reasontext)
+            trytomatch ||= true if GetRetried.key?(reasontext)
             trytomatch ||= true if argvs.diagnostictype != 'SMTP'
             throw :TRY_TO_MATCH unless trytomatch
 
