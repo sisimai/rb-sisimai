@@ -19,6 +19,34 @@ module Sisimai
     module SecurityError
       # Imported from p5-Sisimail/lib/Sisimai/Reason/SecurityError.pm
       class << self
+        Regex = %r{(?>
+           account[ ]not[ ]subscribed[ ]to[ ]ses
+          |authentification[ ]requise.+[a-z]{3}.+402
+          |authentication[ ](?:
+             credentials invalid
+            |failure
+            |failed;[ ]server[ ].+[ ]said:  # Postfix
+            |required
+            |turned[ ]on[ ]in[ ]your[ ]email[ ]client
+            )
+          |\d+[ ]denied[ ]\[[a-z]+\][ ].+[(]mode:[ ].+[)]
+          |codes?[ ]d'?[ ]*authentification[ ]invalide.+[a-z]{3}.+305
+          |domain[ ].+[ ]is[ ]a[ ]dead[ ]domain
+          |executable[ ]files[ ]are[ ]not[ ]allowed[ ]in[ ]compressed[ ]files
+          |insecure[ ]mail[ ]relay
+          |recipient[ ]address[ ]rejected:[ ]access[ ]denied
+          |sorry,[ ]you[ ]don'?t[ ]authenticate[ ]or[ ]the[ ]domain[ ]isn'?t[ ]in[ ]
+            my[ ]list[ ]of[ ]allowed[ ]rcpthosts
+          |tls[ ]required[ ]but[ ]not[ ]supported # SendGrid:the recipient mailserver does not support TLS or have a valid certificate
+          |user[ ].+[ ]is[ ]not[ ]authorized[ ]to[ ]perform[ ]ses:sendrawemail[ ]on[ ]resource
+          |tls[ ]required[ ]but[ ]not[ ]supported # SendGrid:the recipient mailserver does not support TLS or have a valid certificate
+          |unauthenticated[ ]senders[ ]not[ ]allowed
+          |user[ ].+[ ]is[ ]not[ ]authorized[ ]to[ ]perform[ ]ses:sendrawemail[ ]on[ ]resource
+          |you[ ]are[ ]not[ ]authorized[ ]to[ ]send[ ]mail,[ ]authentication[ ]is[ ]required
+          |verification[ ]failure
+          )
+        }x
+
         def text; return 'securityerror'; end
         def description; return 'Email rejected due to security violation was detected on a destination host'; end
 
@@ -28,35 +56,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          regex = %r{(?>
-             account[ ]not[ ]subscribed[ ]to[ ]ses
-            |authentification[ ]requise.+[a-z]{3}.+402
-            |authentication[ ](?:
-               credentials invalid
-              |failure
-              |failed;[ ]server[ ].+[ ]said:  # Postfix
-              |required
-              |turned[ ]on[ ]in[ ]your[ ]email[ ]client
-              )
-            |\d+[ ]denied[ ]\[[a-z]+\][ ].+[(]mode:[ ].+[)]
-            |codes?[ ]d'?[ ]*authentification[ ]invalide.+[a-z]{3}.+305
-            |domain[ ].+[ ]is[ ]a[ ]dead[ ]domain
-            |executable[ ]files[ ]are[ ]not[ ]allowed[ ]in[ ]compressed[ ]files
-            |insecure[ ]mail[ ]relay
-            |recipient[ ]address[ ]rejected:[ ]access[ ]denied
-            |sorry,[ ]you[ ]don'?t[ ]authenticate[ ]or[ ]the[ ]domain[ ]isn'?t[ ]in[ ]
-              my[ ]list[ ]of[ ]allowed[ ]rcpthosts
-            |tls[ ]required[ ]but[ ]not[ ]supported # SendGrid:the recipient mailserver does not support TLS or have a valid certificate
-            |user[ ].+[ ]is[ ]not[ ]authorized[ ]to[ ]perform[ ]ses:sendrawemail[ ]on[ ]resource
-            |tls[ ]required[ ]but[ ]not[ ]supported # SendGrid:the recipient mailserver does not support TLS or have a valid certificate
-            |unauthenticated[ ]senders[ ]not[ ]allowed
-            |user[ ].+[ ]is[ ]not[ ]authorized[ ]to[ ]perform[ ]ses:sendrawemail[ ]on[ ]resource
-            |you[ ]are[ ]not[ ]authorized[ ]to[ ]send[ ]mail,[ ]authentication[ ]is[ ]required
-            |verification[ ]failure
-            )
-          }x
-
-          return true if argv1 =~ regex
+          return true if argv1 =~ Regex
           return false
         end
 

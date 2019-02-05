@@ -12,6 +12,22 @@ module Sisimai
     module TooManyConn
       # Imported from p5-Sisimail/lib/Sisimai/Reason/TooManyConn.pm
       class << self
+        Index = [
+          'all available ips are at maximum connection limit',    # SendGrid
+          'connection rate limit exceeded',
+          'exceeds per-domain connection limit for',
+          'has exceeded the max emails per hour ',
+          'throttling failure: daily message quota exceeded',
+          'throttling failure: maximum sending rate exceeded',
+          'too many connections',
+          'too many connections from your host.', # Microsoft
+          'too many concurrent smtp connections', # Microsoft
+          'too many errors from your ip',         # Free.fr
+          'too many smtp sessions for this host', # Sendmail(daemon.c)
+          'trop de connexions, ',
+          'we have already made numerous attempts to deliver this message',
+        ]
+
         def text; return 'toomanyconn'; end
         def description; return 'SMTP connection rejected temporarily due to too many concurrency connections to the remote host'; end
 
@@ -21,23 +37,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          index = [
-            'all available ips are at maximum connection limit',    # SendGrid
-            'connection rate limit exceeded',
-            'exceeds per-domain connection limit for',
-            'has exceeded the max emails per hour ',
-            'throttling failure: daily message quota exceeded',
-            'throttling failure: maximum sending rate exceeded',
-            'too many connections',
-            'too many connections from your host.', # Microsoft
-            'too many concurrent smtp connections', # Microsoft
-            'too many errors from your ip',         # Free.fr
-            'too many smtp sessions for this host', # Sendmail(daemon.c)
-            'trop de connexions, ',
-            'we have already made numerous attempts to deliver this message',
-          ]
-
-          return true if index.any? { |a| argv1.include?(a) }
+          return true if Index.any? { |a| argv1.include?(a) }
           return false
         end
 

@@ -9,6 +9,11 @@ module Sisimai
     module SystemFull
       # Imported from p5-Sisimail/lib/Sisimai/Reason/SystemFull.pm
       class << self
+        Index = [
+          'mail system full',
+          'requested mail action aborted: exceeded storage allocation',   # MS Exchange
+        ]
+
         def text; return 'systemfull'; end
         def description; return "Email rejected due to a destination mail server's disk is full"; end
 
@@ -18,12 +23,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          index = [
-            'mail system full',
-            'requested mail action aborted: exceeded storage allocation',   # MS Exchange
-          ]
-
-          return true if index.any? { |a| argv1.include?(a) }
+          return true if Index.any? { |a| argv1.include?(a) }
           return false
         end
 

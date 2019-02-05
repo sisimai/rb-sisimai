@@ -12,6 +12,21 @@ module Sisimai
     module Filtered
       # Imported from p5-Sisimail/lib/Sisimai/Reason/Filtered.pm
       class << self
+        Index = [
+          'because the recipient is only accepting mail from specific email addresses',   # AOL Phoenix
+          'bounced address',  # SendGrid|a message to an address has previously been Bounced.
+          'due to extended inactivity new mail is not currently being accepted for this mailbox',
+          'has restricted sms e-mail',    # AT&T
+          'is not accepting any mail',
+          'refused due to recipient preferences', # Facebook
+          'resolver.rst.notauthorized',   # Microsoft Exchange
+          'this account is protected by',
+          'user not found',   # Filter on MAIL.RU
+          'user reject',
+          'we failed to deliver mail because the following address recipient id refuse to receive mail',  # Willcom
+          'you have been blocked by the recipient',
+        ]
+
         def text; return 'filtered'; end
         def description; return 'Email rejected due to a header content after SMTP DATA command'; end
 
@@ -21,22 +36,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          index = [
-            'because the recipient is only accepting mail from specific email addresses',   # AOL Phoenix
-            'bounced address',  # SendGrid|a message to an address has previously been Bounced.
-            'due to extended inactivity new mail is not currently being accepted for this mailbox',
-            'has restricted sms e-mail',    # AT&T
-            'is not accepting any mail',
-            'refused due to recipient preferences', # Facebook
-            'resolver.rst.notauthorized',   # Microsoft Exchange
-            'this account is protected by',
-            'user not found',   # Filter on MAIL.RU
-            'user reject',
-            'we failed to deliver mail because the following address recipient id refuse to receive mail',  # Willcom
-            'you have been blocked by the recipient',
-          ]
-
-          return true if index.any? { |a| argv1.include?(a) }
+          return true if Index.any? { |a| argv1.include?(a) }
           return false
         end
 

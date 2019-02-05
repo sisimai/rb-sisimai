@@ -13,6 +13,21 @@ module Sisimai
     module NoRelaying
       # Imported from p5-Sisimail/lib/Sisimai/Reason/NoRelaying.pm
       class << self
+        Index = [
+          'as a relay',
+          'insecure mail relay',
+          'mail server requires authentication when attempting to send to a non-local e-mail address',    # MailEnable 
+          'not allowed to relay through this machine',
+          'not an open relay, so get lost',
+          'relay access denied',
+          'relay denied',
+          'relay not permitted',
+          'relaying denied',  # Sendmail
+          "that domain isn't in my list of allowed rcpthost",
+          'this system is not configured to relay mail',
+          'unable to relay for',
+        ]
+
         def text; return 'norelaying'; end
         def description; return 'Email rejected with error message "Relaying Denied"'; end
 
@@ -22,22 +37,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          index = [
-            'as a relay',
-            'insecure mail relay',
-            'mail server requires authentication when attempting to send to a non-local e-mail address',    # MailEnable 
-            'not allowed to relay through this machine',
-            'not an open relay, so get lost',
-            'relay access denied',
-            'relay denied',
-            'relay not permitted',
-            'relaying denied',  # Sendmail
-            "that domain isn't in my list of allowed rcpthost",
-            'this system is not configured to relay mail',
-            'unable to relay for',
-          ]
-
-          return true if index.any? { |a| argv1.include?(a) }
+          return true if Index.any? { |a| argv1.include?(a) }
           return false
         end
 

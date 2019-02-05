@@ -16,6 +16,25 @@ module Sisimai
     module PolicyViolation
       # Imported from p5-Sisimail/lib/Sisimai/Reason/PolicyViolation.pm
       class << self
+        Index = [
+          'because the recipient is not accepting mail with ',    # AOL Phoenix
+          'closed mailing list',
+          'denied by policy',
+          'email not accepted for policy reasons',
+          # http://kb.mimecast.com/Mimecast_Knowledge_Base/Administration_Console/Monitoring/Mimecast_SMTP_Error_Codes#554
+          'email rejected due to security policies',
+          'header are not accepted',
+          'header error',
+          'message given low priority',
+          'message not accepted for policy reasons',
+          'messages with multiple addresses',
+          'rejected for policy reasons',
+          'protocol violation',
+          'the email address used to send your message is not subscribed to this group',
+          'you have exceeded the allowable number of posts without solving a captcha',
+          'you have exceeded the the allowable number of posts without solving a captcha',
+        ]
+
         def text; return 'policyviolation'; end
         def description; return 'Email rejected due to policy violation on a destination host'; end
 
@@ -26,26 +45,7 @@ module Sisimai
         # @since 4.22.0
         def match(argv1)
           return nil unless argv1
-          index = [
-            'because the recipient is not accepting mail with ',    # AOL Phoenix
-            'closed mailing list',
-            'denied by policy',
-            'email not accepted for policy reasons',
-            # http://kb.mimecast.com/Mimecast_Knowledge_Base/Administration_Console/Monitoring/Mimecast_SMTP_Error_Codes#554
-            'email rejected due to security policies',
-            'header are not accepted',
-            'header error',
-            'message given low priority',
-            'message not accepted for policy reasons',
-            'messages with multiple addresses',
-            'rejected for policy reasons',
-            'protocol violation',
-            'the email address used to send your message is not subscribed to this group',
-            'you have exceeded the allowable number of posts without solving a captcha',
-            'you have exceeded the the allowable number of posts without solving a captcha',
-          ]
-
-          return true if index.any? { |a| argv1.include?(a) }
+          return true if Index.any? { |a| argv1.include?(a) }
           return false
         end
 

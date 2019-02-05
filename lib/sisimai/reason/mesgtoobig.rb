@@ -8,6 +8,21 @@ module Sisimai
     module MesgTooBig
       # Imported from p5-Sisimail/lib/Sisimai/Reason/MesgTooBig.pm
       class << self
+        Index = [
+          'exceeded maximum inbound message size',
+          'line limit exceeded',
+          'max message size exceeded',
+          'message file too big',
+          'message length exceeds administrative limit',
+          'message size exceeds fixed limit',
+          'message size exceeds fixed maximum message size',
+          'message size exceeds maximum value',
+          'message too big',
+          'message too large for this ',
+          'size limit',
+          'taille limite du message atteinte',
+        ]
+
         def text; return 'mesgtoobig'; end
         def description; return 'Email rejected due to an email size is too big for a destination mail server'; end
 
@@ -17,22 +32,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          index = [
-            'exceeded maximum inbound message size',
-            'line limit exceeded',
-            'max message size exceeded',
-            'message file too big',
-            'message length exceeds administrative limit',
-            'message size exceeds fixed limit',
-            'message size exceeds fixed maximum message size',
-            'message size exceeds maximum value',
-            'message too big',
-            'message too large for this ',
-            'size limit',
-            'taille limite du message atteinte',
-          ]
-
-          return true if index.any? { |a| argv1.include?(a) }
+          return true if Index.any? { |a| argv1.include?(a) }
           return false
         end
 

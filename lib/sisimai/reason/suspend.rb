@@ -8,6 +8,22 @@ module Sisimai
     module Suspend
       # Imported from p5-Sisimail/lib/Sisimai/Reason/Suspend.pm
       class << self
+        Index = [
+          ' is currently suspended',
+          ' temporary locked',
+          'boite du destinataire archivee',
+          'email account that you tried to reach is disabled',
+          'invalid/inactive user',
+          'is a deactivated mailbox', # http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=20022&&no=1000742
+          'mailbox currently suspended',
+          'mailbox unavailable or access denied',
+          'recipient rejected: temporarily inactive',
+          'recipient suspend the service',
+          'this account has been disabled or discontinued',
+          'user suspended',   # http://mail.163.com/help/help_spam_16.htm
+          'vdelivermail: account is locked email bounced',
+        ]
+
         def text; return 'suspend'; end
         def description; return 'Email rejected due to a recipient account is being suspended'; end
 
@@ -17,23 +33,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          index = [
-            ' is currently suspended',
-            ' temporary locked',
-            'boite du destinataire archivee',
-            'email account that you tried to reach is disabled',
-            'invalid/inactive user',
-            'is a deactivated mailbox', # http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=20022&&no=1000742
-            'mailbox currently suspended',
-            'mailbox unavailable or access denied',
-            'recipient rejected: temporarily inactive',
-            'recipient suspend the service',
-            'this account has been disabled or discontinued',
-            'user suspended',   # http://mail.163.com/help/help_spam_16.htm
-            'vdelivermail: account is locked email bounced',
-          ]
-
-          return true if index.any? { |a| argv1.include?(a) }
+          return true if Index.any? { |a| argv1.include?(a) }
           return false
         end
 

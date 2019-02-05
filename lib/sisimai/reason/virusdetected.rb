@@ -16,6 +16,13 @@ module Sisimai
     module VirusDetected
       # Imported from p5-Sisimail/lib/Sisimai/Reason/VirusDetected.pm
       class << self
+        Index = [
+          'it has a potentially executable attachment',
+          'the message was rejected because it contains prohibited virus or spam content',
+          'this form of attachment has been used by recent viruses or other malware',
+          'your message was infected with a virus',
+        ]
+
         def text; return 'virusdetected'; end
         def description; return 'Email rejected due to a virus scanner on a destination host'; end
 
@@ -26,14 +33,7 @@ module Sisimai
         # @since 4.22.0
         def match(argv1)
           return nil unless argv1
-          index = [
-            'it has a potentially executable attachment',
-            'the message was rejected because it contains prohibited virus or spam content',
-            'this form of attachment has been used by recent viruses or other malware',
-            'your message was infected with a virus',
-          ]
-
-          return true if index.any? { |a| argv1.include?(a) }
+          return true if Index.any? { |a| argv1.include?(a) }
           return false
         end
 

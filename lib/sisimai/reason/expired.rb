@@ -9,6 +9,25 @@ module Sisimai
     module Expired
       # Imported from p5-Sisimail/lib/Sisimai/Reason/Expired.pm
       class << self
+        Index = [
+          'connection timed out',
+          'could not find a gateway for',
+          'delivery time expired',
+          'failed to deliver to domain ',
+          'giving up on',
+          'has been delayed',
+          'it has not been collected after',
+          'message expired after sitting in queue for',
+          'message expired, connection refulsed',
+          'message timed out',
+          'retry time not reached for any host after a long failure period',
+          'server did not respond',
+          'this message has been in the queue too long',
+          'unable to deliver message after multiple retries',
+          'was not reachable within the allowed queue period',
+          'your message could not be delivered for more than',
+        ]
+
         def text; return 'expired'; end
         def description; return 'Delivery time has expired due to a connection failure'; end
 
@@ -18,26 +37,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          index = [
-            'connection timed out',
-            'could not find a gateway for',
-            'delivery time expired',
-            'failed to deliver to domain ',
-            'giving up on',
-            'has been delayed',
-            'it has not been collected after',
-            'message expired after sitting in queue for',
-            'message expired, connection refulsed',
-            'message timed out',
-            'retry time not reached for any host after a long failure period',
-            'server did not respond',
-            'this message has been in the queue too long',
-            'unable to deliver message after multiple retries',
-            'was not reachable within the allowed queue period',
-            'your message could not be delivered for more than',
-          ]
-
-          return true if index.any? { |a| argv1.include?(a) }
+          return true if Index.any? { |a| argv1.include?(a) }
           return false
         end
 
