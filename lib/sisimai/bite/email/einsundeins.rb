@@ -16,7 +16,6 @@ module Sisimai::Bite::Email
 
       def description; return '1&1: http://www.1and1.de'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
-      # X-UI-Out-Filterresults: unknown:0;
       def headerlist;  return []; end
 
       # Parse bounce messages from 1&1

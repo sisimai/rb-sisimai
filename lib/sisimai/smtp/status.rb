@@ -540,6 +540,12 @@ module Sisimai
     module Status
       # Imported from p5-Sisimail/lib/Sisimai/SMTP/Status.pm
       class << self
+        CodePatterns = [
+          %r/[ ]?[(][#]([45][.]\d[.]\d+)[)]?[ ]?/,  # #5.5.1
+          %r/\b\d{3}[- ][#]?([45][.]\d[.]\d+)\b/,   # 550-5.1.1 OR 550 5.5.1
+          %r/\b([45][.]\d[.]\d+)\b/,                # 5.5.1
+          %r/\b(2[.][0-7][.][0-7])\b/,              # 2.1.5
+        ]
         StandardCode = {
           :'2.1.5'  => 'delivered',      # Successfully delivered
           # ------------------------------------------------------------------------------
@@ -738,28 +744,21 @@ module Sisimai
           return nil unless argv1
           return nil if argv1.empty?
 
-          foundvalue = nil
-          regularexp = [
-            %r/[ ]?[(][#]([45][.]\d[.]\d+)[)]?[ ]?/,  # #5.5.1
-            %r/\b\d{3}[- ][#]?([45][.]\d[.]\d+)\b/,   # 550-5.1.1 OR 550 5.5.1
-            %r/\b([45][.]\d[.]\d+)\b/,                # 5.5.1
-            %r/\b(2[.][0-7][.][0-7])\b/,              # 2.1.5
-          ]
-
-          while e = regularexp.shift do
+          found = nil
+          CodePatterns.each do |e|
             # Get the value of D.S.N. in the text
             next unless r = argv1.match(e)
-            foundvalue = r[1]
+            found = r[1]
 
-            if argv1 =~ /\b(?:#{foundvalue}[.]\d{1,3}|\d{1,3}[.]#{foundvalue})\b/
+            if argv1 =~ /\b(?:#{found}[.]\d{1,3}|\d{1,3}[.]#{found})\b/
               # Clear and skip if the value is an IPv4 address
-              foundvalue = nil
+              found = nil
               next
             end
             break
           end
 
-          return foundvalue
+          return found
         end
 
       end

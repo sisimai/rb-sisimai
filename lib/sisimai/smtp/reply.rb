@@ -61,6 +61,13 @@ module Sisimai
     module Reply
       # Imported from p5-Sisimail/lib/Sisimai/SMTP/Reply.pm
       class << self
+        IP4Re = %r{\b
+          (?:\d|[01]?\d\d|2[0-4]\d|25[0-5])[.]
+          (?:\d|[01]?\d\d|2[0-4]\d|25[0-5])[.]
+          (?:\d|[01]?\d\d|2[0-4]\d|25[0-5])[.]
+          (?:\d|[01]?\d\d|2[0-4]\d|25[0-5])
+        \b}x
+
         # Get SMTP Reply Code from the given string
         # @param    [String] argv1  String including SMTP Reply Code like 550
         # @return   [String]        SMTP Reply Code or Nil if the first argument
@@ -73,13 +80,7 @@ module Sisimai
           # Convert found IPv4 addresses to '***.***.***.***' to avoid that
           # the following code detects an octet of the IPv4 adress as an SMTP
           # reply code.
-          ip4re = %r{\b
-            (?:\d|[01]?\d\d|2[0-4]\d|25[0-5])[.]
-            (?:\d|[01]?\d\d|2[0-4]\d|25[0-5])[.]
-            (?:\d|[01]?\d\d|2[0-4]\d|25[0-5])[.]
-            (?:\d|[01]?\d\d|2[0-4]\d|25[0-5])
-          \b}x
-          argv1 = argv1.gsub(/#{ip4re}/, '***.***.***.***') if argv1 =~ ip4re
+          argv1 = argv1.gsub(/#{IP4Re}/, '***.***.***.***') if argv1 =~ IP4Re
 
           if cv = argv1.match(/\b([45][0-5][0-9])\b/) || argv1.match(/\b(25[0-3])\b/)
             # 550, 447, or 250

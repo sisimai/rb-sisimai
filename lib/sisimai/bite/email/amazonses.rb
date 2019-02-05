@@ -22,7 +22,7 @@ module Sisimai::Bite::Email
       # X-Original-To: 000001321defbd2a-788e31c8-2be1-422f-a8d4-cf7765cc9ed7-000000@email-bounces.amazonses.com
       # X-AWS-Outgoing: 199.255.192.156
       # X-SES-Outgoing: 2016.10.12-54.240.27.6
-      def headerlist;  return ['X-AWS-Outgoing', 'X-SES-Outgoing', 'x-amz-sns-message-id']; end
+      def headerlist;  return %w[x-aws-outgoing x-ses-outgoing x-amz-sns-message-id]; end
 
       # Parse bounce messages from Amazon SES
       # @param         [Hash] mhead       Message headers of a bounce email
@@ -154,7 +154,7 @@ module Sisimai::Bite::Email
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
 
           e['agent'] = self.smtpagent
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].to_s.gsub(/\\n/, ' '))
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].to_s.tr("\n", ' '))
 
           if e['status'].to_s.start_with?('5.0.0', '5.1.0', '4.0.0', '4.1.0')
             # Get other D.S.N. value from the error message

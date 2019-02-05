@@ -5,6 +5,13 @@ module Sisimai
     module Vacation
       # Imported from p5-Sisimail/lib/Sisimai/Reason/Vacation.pm
       class << self
+        Index = [
+          'i am away on vacation',
+          'i am away until',
+          'i am out of the office',
+          'i will be traveling for work on',
+        ]
+
         def text; return 'vacation'; end
         def description; return 'Email replied automatically due to a recipient is out of office'; end
 
@@ -14,14 +21,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          index = [
-            'i am away on vacation',
-            'i am away until',
-            'i am out of the office',
-            'i will be traveling for work on',
-          ]
-
-          return true if index.any? { |a| argv1.include?(a) }
+          return true if Index.any? { |a| argv1.include?(a) }
           return false
         end
 

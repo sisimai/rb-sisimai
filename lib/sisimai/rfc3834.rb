@@ -35,11 +35,11 @@ module Sisimai
         |Out[ ]of[ ]Office:
         )
         [ ]*(.+)\z
-      }xi
+      }xi.freeze
 
       def description; 'Detector for auto replied message'; end
       def smtpagent;   'RFC3834'; end
-      def headerlist;  return %w[Auto-Submitted Precedence X-Auto-Response-Suppress]; end
+      def headerlist;  return %w[auto-submitted precedence x-auto-response-suppress]; end
 
       # Detect auto reply message as RFC3834
       # @param         [Hash] mhead       Message header of a bounce email

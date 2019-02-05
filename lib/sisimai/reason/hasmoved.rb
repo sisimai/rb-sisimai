@@ -9,6 +9,8 @@ module Sisimai
     module HasMoved
       # Imported from p5-Sisimail/lib/Sisimai/Reason/HasMoved.pm
       class << self
+        Index = [' has been replaced by ']
+
         def text; return 'hasmoved'; end
         def description; return "Email rejected due to user's mailbox has moved and is not forwarded automatically"; end
 
@@ -18,9 +20,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          index = [' has been replaced by ']
-
-          return true if index.any? { |a| argv1.include?(a) }
+          return true if Index.any? { |a| argv1.include?(a) }
           return false
         end
 

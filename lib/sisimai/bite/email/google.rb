@@ -107,7 +107,7 @@ module Sisimai::Bite::Email
 
       def description; return 'Google Gmail: https://mail.google.com'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
-      def headerlist;  return ['X-Failed-Recipients']; end
+      def headerlist;  return %w[x-failed-recipients]; end
 
       # Parse bounce messages from Google Gmail
       # @param         [Hash] mhead       Message headers of a bounce email

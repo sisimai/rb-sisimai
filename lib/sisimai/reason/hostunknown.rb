@@ -8,6 +8,23 @@ module Sisimai
     module HostUnknown
       # Imported from p5-Sisimail/lib/Sisimai/Reason/HostUnknown.pm
       class << self
+        Index = [
+          'domain does not exist',
+          'domain is not reachable',
+          'domain must exist',
+          'host or domain name not found',
+          'host unknown',
+          'host unreachable',
+          'mail domain mentioned in email address is unknown',
+          'name or service not known',
+          'no such domain',
+          'recipient address rejected: unknown domain name',
+          'recipient domain must exist',
+          'the account or domain may not exist',
+          'unknown host',
+          'unrouteable address',
+        ]
+
         def text; return 'hostunknown'; end
         def description; return "Delivery failed due to a domain part of a recipient's email address does not exist"; end
 
@@ -18,24 +35,7 @@ module Sisimai
         # @since v4.0.0
         def match(argv1)
           return nil unless argv1
-          index = [
-            'domain does not exist',
-            'domain is not reachable',
-            'domain must exist',
-            'host or domain name not found',
-            'host unknown',
-            'host unreachable',
-            'mail domain mentioned in email address is unknown',
-            'name or service not known',
-            'no such domain',
-            'recipient address rejected: unknown domain name',
-            'recipient domain must exist',
-            'the account or domain may not exist',
-            'unknown host',
-            'unrouteable address',
-          ]
-
-          return true if index.any? { |a| argv1.include?(a) }
+          return true if Index.any? { |a| argv1.include?(a) }
           return false
         end
 

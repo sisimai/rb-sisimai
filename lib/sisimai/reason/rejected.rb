@@ -15,6 +15,51 @@ module Sisimai
     module Rejected
       # Imported from p5-Sisimail/lib/Sisimai/Reason/Rejected.pm
       class << self
+        IsNot = [
+          '5.1.0 address rejected',
+          'recipient address rejected',
+          'sender ip address rejected',
+        ]
+        Index = [
+          '<> invalid sender',
+          'address rejected',
+          'administrative prohibition',
+          'batv failed to verify',    # SoniWall
+          'batv validation failure',  # SoniWall
+          'backscatter protection detected an invalid or expired email address',  # MDaemon
+          'bogus mail from',          # IMail - block empty sender
+          'connections not accepted from servers without a valid sender domain',
+          'denied [bouncedeny]',      # McAfee
+          'delivery not authorized, message refused',
+          'does not exist e2110',
+          'domain of sender address ',
+          'emetteur invalide',
+          'empty envelope senders not allowed',
+          'error: no third-party dsns',   # SpamWall - block empty sender
+          'from: domain is invalid. please provide a valid from:',
+          'fully qualified email address required',   # McAfee
+          'invalid domain, see <url:',
+          'mail from not owned by user',
+          'message rejected: email address is not verified',
+          'mx records for ',
+          'null sender is not allowed',
+          'recipient not accepted. (batv: no tag',
+          'returned mail not accepted here',
+          'rfc 1035 violation: recursive cname records for',
+          'rule imposed mailbox access for',  # MailMarshal
+          'sender email address rejected',
+          'sender is spammer',
+          'sender not pre-approved',
+          'sender rejected',
+          'sender domain is empty',
+          'sender verify failed', # Exim callout
+          'syntax error: empty email address',
+          'the message has been rejected by batv defense',
+          'transaction failed unsigned dsn for',
+          'unroutable sender address',
+          'you are sending to/from an address that has been blacklisted',
+        ]
+
         def text; return 'rejected'; end
         def description; return "Email rejected due to a sender's email address (envelope from)"; end
 
@@ -24,53 +69,8 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          isnot = [
-            '5.1.0 address rejected',
-            'recipient address rejected',
-            'sender ip address rejected',
-          ]
-          index = [
-            '<> invalid sender',
-            'address rejected',
-            'administrative prohibition',
-            'batv failed to verify',    # SoniWall
-            'batv validation failure',  # SoniWall
-            'backscatter protection detected an invalid or expired email address',  # MDaemon
-            'bogus mail from',          # IMail - block empty sender
-            'connections not accepted from servers without a valid sender domain',
-            'denied [bouncedeny]',      # McAfee
-            'delivery not authorized, message refused',
-            'does not exist e2110',
-            'domain of sender address ',
-            'emetteur invalide',
-            'empty envelope senders not allowed',
-            'error: no third-party dsns',   # SpamWall - block empty sender
-            'from: domain is invalid. please provide a valid from:',
-            'fully qualified email address required',   # McAfee
-            'invalid domain, see <url:',
-            'mail from not owned by user',
-            'message rejected: email address is not verified',
-            'mx records for ',
-            'null sender is not allowed',
-            'recipient not accepted. (batv: no tag',
-            'returned mail not accepted here',
-            'rfc 1035 violation: recursive cname records for',
-            'rule imposed mailbox access for',  # MailMarshal
-            'sender email address rejected',
-            'sender is spammer',
-            'sender not pre-approved',
-            'sender rejected',
-            'sender domain is empty',
-            'sender verify failed', # Exim callout
-            'syntax error: empty email address',
-            'the message has been rejected by batv defense',
-            'transaction failed unsigned dsn for',
-            'unroutable sender address',
-            'you are sending to/from an address that has been blacklisted',
-          ]
-
-          return false if isnot.any? { |a| argv1.include?(a) }
-          return true  if index.any? { |a| argv1.include?(a) }
+          return false if IsNot.any? { |a| argv1.include?(a) }
+          return true  if Index.any? { |a| argv1.include?(a) }
           return false
         end
 

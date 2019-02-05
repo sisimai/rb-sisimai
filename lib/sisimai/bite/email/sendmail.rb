@@ -137,7 +137,7 @@ module Sisimai::Bite::Email
               # Reporting-MTA: dns; mx.example.jp
               # Received-From-MTA: DNS; x1x2x3x4.dhcp.example.ne.jp
               # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
-              if e =~ /\A[^ ]/
+              unless e.start_with?(' ')
                 if cv = e.match(/\A[>]{3}[ ]+([A-Z]{4})[ ]?/)
                   # >>> DATA
                   commandtxt = cv[1]

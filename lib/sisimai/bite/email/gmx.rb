@@ -20,7 +20,7 @@ module Sisimai::Bite::Email
       # X-GMX-Antispam: 0 (Mail was not recognized as spam); Detail=V3;
       # X-GMX-Antivirus: 0 (no virus found)
       # X-UI-Out-Filterresults: unknown:0;
-      def headerlist;  return ['X-GMX-Antispam']; end
+      def headerlist;  return %w[x-gmx-antispam]; end
 
       # Parse bounce messages from GMX
       # @param         [Hash] mhead       Message headers of a bounce email
@@ -132,7 +132,7 @@ module Sisimai::Bite::Email
 
         dscontents.each do |e|
           e['agent']     = self.smtpagent
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].gsub(/\\n/, ' '))
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].tr("\n", ' '))
 
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors

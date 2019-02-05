@@ -17,7 +17,7 @@ module Sisimai::Bite::Email
 
       def description; return 'Digital Arts m-FILTER'; end
       def smtpagent;   return 'Email::mFILTER'; end
-      def headerlist;  return ['X-Mailer']; end
+      def headerlist;  return %w[x-mailer]; end
 
       # Parse bounce messages from Digital Arts m-FILTER
       # @param         [Hash] mhead       Message headers of a bounce email

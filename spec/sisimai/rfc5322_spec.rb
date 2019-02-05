@@ -10,8 +10,7 @@ describe Sisimai::RFC5322 do
         expect(v).to be_a_kind_of(Hash)
         v.each_key do |e|
           expect(e).to match(/\A[a-z-]+\z/)
-          expect(v[e]).to be_a_kind_of(Integer)
-          expect(v[e]).to eq 1
+          expect(v[e]).to be true
         end
       end
     end
@@ -98,30 +97,6 @@ describe Sisimai::RFC5322 do
       isnotaddrs.each do |e|
         context "(#{e})" do
           it('returns false') { expect(cn.is_emailaddress(e)).to be false }
-        end
-      end
-    end
-  end
-
-  describe '.is_domainpart' do
-    describe 'Valid Domain String' do
-      ['example.jp', 'example.cat'].each do |e|
-        context "(#{e})" do
-          it('returns true') { expect(cn.is_domainpart(e)).to be true }
-        end
-      end
-    end
-
-    describe 'Invalid Domain String' do
-      emailaddrs.each do |e|
-        context "(#{e})" do
-          it('returns false') { expect(cn.is_domainpart(e)).to be false }
-        end
-      end
-
-      ['[', ')', ';', nil].each do |e|
-        context "(#{e})" do
-          it('returns false') { expect(cn.is_domainpart(e)).to be false }
         end
       end
     end

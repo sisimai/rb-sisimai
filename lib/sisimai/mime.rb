@@ -15,6 +15,14 @@ module Sisimai
         :'only-charset' => %r/^[\s\t]+charset=['"]?(.+?)['"]?\b/,
         :'html-message' => %r|^content-type:[ ]*text/html;|m,
       }.freeze
+      AlsoAppend = %r{\A(?:text/rfc822-headers|message/)}.freeze
+      ThisFormat = %r/\A(?:Content-Transfer-Encoding:\s*.+\n)?Content-Type:\s*([^ ;]+)/.freeze
+      LeavesOnly = %r{\A(?>
+         text/(?:plain|html|rfc822-headers)
+        |message/(?:x?delivery-status|rfc822|partial|feedback-report)
+        |multipart/(?:report|alternative|mixed|related|partial)
+        )
+      }x.freeze
 
       # Make MIME-Encoding and Content-Type related headers regurlar expression
       # @return   [Array] Regular expressions related to MIME encoding
@@ -261,28 +269,19 @@ module Sisimai
         return nil unless argv0
 
         hasflatten = '' # Message body including only text/plain and message/*
-        alsoappend = %r{\A(?:text/rfc822-headers|message/)}
-        thisformat = %r/\A(?:Content-Transfer-Encoding:\s*.+\n)?Content-Type:\s*([^ ;]+)/
-        leavesonly = %r{\A(?>
-           text/(?:plain|html|rfc822-headers)
-          |message/(?:x?delivery-status|rfc822|partial|feedback-report)
-          |multipart/(?:report|alternative|mixed|related|partial)
-          )
-        }x
-
         mimeformat = '' # MIME type string of this part
         alternates = argv1.start_with?('multipart/alternative') ? true : false
 
         # Get MIME type string from Content-Type: "..." field at the first line
         # or the second line of the part.
-        if cv = argv0.match(thisformat) then mimeformat = cv[1].downcase end
+        if cv = argv0.match(ThisFormat) then mimeformat = cv[1].downcase end
 
-        # Sisimai require only MIME types defined in $leavesonly variable
-        return '' unless mimeformat =~ leavesonly
+        # Sisimai require only MIME types defined in LeavesOnly variable
+        return '' unless mimeformat =~ LeavesOnly
         return '' if alternates && mimeformat == 'text/html'
 
         (upperchunk, lowerchunk) = argv0.split(/^$/m, 2)
-        upperchunk.gsub!("\n", ' ').squeeze(' ')
+        upperchunk.tr!("\n", ' ').squeeze(' ')
 
         # Content-Description: Undelivered Message
         # Content-Type: message/rfc822
@@ -297,12 +296,12 @@ module Sisimai
           innerparts.shift if innerparts[0].empty?
           while e = innerparts.shift do
             # Find internal multipart/* blocks and decode
-            if cv = e.match(thisformat)
+            if cv = e.match(ThisFormat)
               # Found "Content-Type" field at the first or second line of this
               # splitted part
               nextformat = cv[1].downcase
 
-              next unless nextformat =~ leavesonly
+              next unless nextformat =~ LeavesOnly
               next if nextformat == 'text/html'
 
               hasflatten << Sisimai::MIME.breaksup(e, mimeformat)
@@ -340,12 +339,12 @@ module Sisimai
               # Content-Transfer-Encoding: 8bit, binary, and so on
               getdecoded = lowerchunk
             end
-            getdecoded.gsub!(/\r\n/, "\n")  # Convert CRLF to LF
+            getdecoded.gsub!(/\r\n/, "\n") if getdecoded.include?("\r\n") # Convert CRLF to LF
 
-            if mimeformat =~ alsoappend
+            if mimeformat =~ AlsoAppend
               # Append field when the value of Content-Type: begins with
               # message/ or equals text/rfc822-headers.
-              upperchunk.sub!(/Content-Transfer-Encoding:.+\z/, '').gsub!(/[ ]\z/, '')
+              upperchunk.sub!(/Content-Transfer-Encoding:.+\z/, '').rstrip!
               hasflatten << upperchunk
 
             elsif mimeformat == 'text/html'

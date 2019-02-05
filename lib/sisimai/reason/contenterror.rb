@@ -10,6 +10,16 @@ module Sisimai
     module ContentError
       # Imported from p5-Sisimail/lib/Sisimai/Reason/ContentError.pm
       class << self
+        Index = [
+          'improper use of 8-bit data in message header',
+          'message header size, or recipient list, exceeds policy limit',
+          'message mime complexity exceeds the policy maximum',
+          'routing loop detected -- too many received: headers',
+          'this message contain invalid mime headers',
+          'this message contain improperly-formatted binary content',
+          'this message contain text that uses unnecessary base64 encoding',
+        ]
+
         def text; return 'contenterror'; end
         def description; return 'Email rejected due to a header format of the email'; end
 
@@ -19,16 +29,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          index = [
-            'improper use of 8-bit data in message header',
-            'message header size, or recipient list, exceeds policy limit',
-            'message mime complexity exceeds the policy maximum',
-            'routing loop detected -- too many received: headers',
-            'this message contain invalid mime headers',
-            'this message contain improperly-formatted binary content',
-            'this message contain text that uses unnecessary base64 encoding',
-          ]
-          return true if index.any? { |a| argv1.include?(a) }
+          return true if Index.any? { |a| argv1.include?(a) }
           return false
         end
 

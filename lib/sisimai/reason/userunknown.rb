@@ -16,6 +16,124 @@ module Sisimai
     module UserUnknown
       # Imported from p5-Sisimail/lib/Sisimai/Reason/UserUnknown.pm
       class << self
+        Regex = %r{(?>
+           .+[ ]user[ ]unknown
+          |[#]5[.]1[.]1[ ]bad[ ]address
+          |[<].+[>][ ]not[ ]found
+          |[<].+[@].+[>][.][.][.][ ]blocked[ ]by[ ]
+          |5[.]0[.]0[.][ ]mail[ ]rejected[.]
+          |5[.]1[.]0[ ]address[ ]rejected[.]
+          |adresse[ ]d[ ]au[ ]moins[ ]un[ ]destinataire[ ]invalide.+[a-z]{3}.+(?:416|418)
+          |address[ ](?:does[ ]not[ ]exist|unknown)
+          |archived[ ]recipient
+          |bad[-_ ]recipient
+          |can[']t[ ]accept[ ]user
+          |destination[ ](?:
+             addresses[ ]were[ ]unknown
+            |server[ ]rejected[ ]recipients
+            )
+          |email[ ]address[ ](?:does[ ]not[ ]exist|could[ ]not[ ]be[ ]found)
+          |invalid[ ](?:
+             address
+            |mailbox:
+            |mailbox[ ]path
+            |recipient
+            )
+          |is[ ]not[ ](?:
+             a[ ]known[ ]user
+            |a[ ]valid[ ]mailbox
+            |an[ ]active[ ]address[ ]at[ ]this[ ]host
+            )
+          |mailbox[ ](?:
+             .+[ ]does[ ]not[ ]exist
+            |.+[@].+[ ]unavailable
+            |invalid
+            |is[ ](?:inactive|unavailable)
+            |not[ ](?:present|found)
+            |unavailable
+            )
+          |no[ ](?:
+             [ ].+[ ]in[ ]name[ ]directory
+            |account[ ]by[ ]that[ ]name[ ]here
+            |existe[ ](?:dicha[ ]persona|ese[ ]usuario[ ])
+            |mail[ ]box[ ]available[ ]for[ ]this[ ]user
+            |mailbox[ ](?:
+               by[ ]that[ ]name[ ]is[ ]currently[ ]available
+              |found
+              )
+            |matches[ ]to[ ]nameserver[ ]query
+            |such[ ](?:
+               address[ ]here
+              |mailbox
+              |person[ ]at[ ]this[ ]address
+              |recipient
+              |user(?:[ ]here)?
+              )
+            |thank[ ]you[ ]rejected:[ ]account[ ]unavailable:
+            |valid[ ]recipients[,][ ]bye    # Microsoft
+            )
+          |non[- ]?existent[ ]user
+          |not[ ](?:
+             a[ ]valid[ ]user[ ]here
+            |a[ ]local[ ]address
+            |email[ ]addresses
+            )
+          |rcpt[ ][<].+[>][ ]does[ ]not[ ]exist
+          |rece?ipient[ ](?:
+             .+[ ]was[ ]not[ ]found[ ]in
+            |address[ ]rejected:[ ](?:
+               access[ ]denied
+              |invalid[ ]user
+              |user[ ].+[ ]does[ ]not[ ]exist
+              |user[ ]unknown[ ]in[ ].+[ ]table
+              |unknown[ ]user
+              )
+            |does[ ]not[ ]exist(?:[ ]on[ ]this[ ]system)?
+            |is[ ]not[ ]local
+            |not[ ](?:exist|found|ok)
+            |unknown
+            )
+          |requested[ ]action[ ]not[ ]taken:[ ]mailbox[ ]unavailable
+          |resolver[.]adr[.]recip(?:ient)notfound
+          |said:[ ]550[-[ ]]5[.]1[.]1[ ].+[ ]user[ ]unknown[ ]
+          |smtp[ ]error[ ]from[ ]remote[ ]mail[ ]server[ ]after[ ]end[ ]of[ ]data:[ ]553.+does[ ]not[ ]exist
+          |sorry,[ ](?:
+             user[ ]unknown
+            |badrcptto
+            |no[ ]mailbox[ ]here[ ]by[ ]that[ ]name
+            )
+          |the[ ](?:
+             email[ ]account[ ]that[ ]you[ ]tried[ ]to[ ]reach[ ]does[ ]not[ ]exist
+            |following[ ]recipients[ ]was[ ]undeliverable
+            |user[']s[ ]email[ ]name[ ]is[ ]not[ ]found
+            )
+          |there[ ]is[ ]no[ ]one[ ]at[ ]this[ ]address
+          |this[ ](?:
+             address[ ]no[ ]longer[ ]accepts[ ]mail
+            |email[ ]address[ ]is[ ]wrong[ ]or[ ]no[ ]longer[ ]valid
+            |spectator[ ]does[ ]not[ ]exist
+            |user[ ]doesn[']?t[ ]have[ ]a[ ].+[ ]account
+            )
+          |unknown[ ](?:
+             e[-]?mail[ ]address
+            |local[- ]part
+            |mailbox
+            |recipient
+            |user
+            )
+          |user[ ](?:
+             .+[ ]was[ ]not[ ]found
+            |.+[ ]does[ ]not[ ]exist
+            |does[ ]not[ ]exist
+            |missing[ ]home[ ]directory
+            |not[ ](?:active|found|known)
+            |unknown
+            )
+          |vdeliver:[ ]invalid[ ]or[ ]unknown[ ]virtual[ ]user
+          |your[ ]envelope[ ]recipient[ ]is[ ]in[ ]my[ ]badrcptto[ ]list
+          )
+        }x
+
         def text; return 'userunknown'; end
         def description; return "Email rejected due to a local part of a recipient's email address does not exist"; end
 
@@ -25,125 +143,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          regex = %r{(?>
-             .+[ ]user[ ]unknown
-            |[#]5[.]1[.]1[ ]bad[ ]address
-            |[<].+[>][ ]not[ ]found
-            |[<].+[@].+[>][.][.][.][ ]blocked[ ]by[ ]
-            |5[.]0[.]0[.][ ]mail[ ]rejected[.]
-            |5[.]1[.]0[ ]address[ ]rejected[.]
-            |adresse[ ]d[ ]au[ ]moins[ ]un[ ]destinataire[ ]invalide.+[a-z]{3}.+(?:416|418)
-            |address[ ](?:does[ ]not[ ]exist|unknown)
-            |archived[ ]recipient
-            |bad[-_ ]recipient
-            |can[']t[ ]accept[ ]user
-            |destination[ ](?:
-               addresses[ ]were[ ]unknown
-              |server[ ]rejected[ ]recipients
-              )
-            |email[ ]address[ ](?:does[ ]not[ ]exist|could[ ]not[ ]be[ ]found)
-            |invalid[ ](?:
-               address
-              |mailbox:
-              |mailbox[ ]path
-              |recipient
-              )
-            |is[ ]not[ ](?:
-               a[ ]known[ ]user
-              |a[ ]valid[ ]mailbox
-              |an[ ]active[ ]address[ ]at[ ]this[ ]host
-              )
-            |mailbox[ ](?:
-               .+[ ]does[ ]not[ ]exist
-              |.+[@].+[ ]unavailable
-              |invalid
-              |is[ ](?:inactive|unavailable)
-              |not[ ](?:present|found)
-              |unavailable
-              )
-            |no[ ](?:
-               [ ].+[ ]in[ ]name[ ]directory
-              |account[ ]by[ ]that[ ]name[ ]here
-              |existe[ ](?:dicha[ ]persona|ese[ ]usuario[ ])
-              |mail[ ]box[ ]available[ ]for[ ]this[ ]user
-              |mailbox[ ](?:
-                 by[ ]that[ ]name[ ]is[ ]currently[ ]available
-                |found
-                )
-              |matches[ ]to[ ]nameserver[ ]query
-              |such[ ](?:
-                 address[ ]here
-                |mailbox
-                |person[ ]at[ ]this[ ]address
-                |recipient
-                |user(?:[ ]here)?
-                )
-              |thank[ ]you[ ]rejected:[ ]account[ ]unavailable:
-              |valid[ ]recipients[,][ ]bye    # Microsoft
-              )
-            |non[- ]?existent[ ]user
-            |not[ ](?:
-               a[ ]valid[ ]user[ ]here
-              |a[ ]local[ ]address
-              |email[ ]addresses
-              )
-            |rcpt[ ][<].+[>][ ]does[ ]not[ ]exist
-            |rece?ipient[ ](?:
-               .+[ ]was[ ]not[ ]found[ ]in
-              |address[ ]rejected:[ ](?:
-                 access[ ]denied
-                |invalid[ ]user
-                |user[ ].+[ ]does[ ]not[ ]exist
-                |user[ ]unknown[ ]in[ ].+[ ]table
-                |unknown[ ]user
-                )
-              |does[ ]not[ ]exist(?:[ ]on[ ]this[ ]system)?
-              |is[ ]not[ ]local
-              |not[ ](?:exist|found|ok)
-              |unknown
-              )
-            |requested[ ]action[ ]not[ ]taken:[ ]mailbox[ ]unavailable
-            |resolver[.]adr[.]recip(?:ient)notfound
-            |said:[ ]550[-[ ]]5[.]1[.]1[ ].+[ ]user[ ]unknown[ ]
-            |smtp[ ]error[ ]from[ ]remote[ ]mail[ ]server[ ]after[ ]end[ ]of[ ]data:[ ]553.+does[ ]not[ ]exist
-            |sorry,[ ](?:
-               user[ ]unknown
-              |badrcptto
-              |no[ ]mailbox[ ]here[ ]by[ ]that[ ]name
-              )
-            |the[ ](?:
-               email[ ]account[ ]that[ ]you[ ]tried[ ]to[ ]reach[ ]does[ ]not[ ]exist
-              |following[ ]recipients[ ]was[ ]undeliverable
-              |user[']s[ ]email[ ]name[ ]is[ ]not[ ]found
-              )
-            |there[ ]is[ ]no[ ]one[ ]at[ ]this[ ]address
-            |this[ ](?:
-               address[ ]no[ ]longer[ ]accepts[ ]mail
-              |email[ ]address[ ]is[ ]wrong[ ]or[ ]no[ ]longer[ ]valid
-              |spectator[ ]does[ ]not[ ]exist
-              |user[ ]doesn[']?t[ ]have[ ]a[ ].+[ ]account
-              )
-            |unknown[ ](?:
-               e[-]?mail[ ]address
-              |local[- ]part
-              |mailbox
-              |recipient
-              |user
-              )
-            |user[ ](?:
-               .+[ ]was[ ]not[ ]found
-              |.+[ ]does[ ]not[ ]exist
-              |does[ ]not[ ]exist
-              |missing[ ]home[ ]directory
-              |not[ ](?:active|found|known)
-              |unknown
-              )
-            |vdeliver:[ ]invalid[ ]or[ ]unknown[ ]virtual[ ]user
-            |your[ ]envelope[ ]recipient[ ]is[ ]in[ ]my[ ]badrcptto[ ]list
-            )
-          }x
-
-          return true if argv1 =~ regex
+          return true if argv1 =~ Regex
           return false
         end
 

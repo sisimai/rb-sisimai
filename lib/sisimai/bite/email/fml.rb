@@ -47,7 +47,7 @@ module Sisimai::Bite::Email
 
       def description; return 'fml mailing list server/manager'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
-      def headerlist;  return ['X-MLServer']; end
+      def headerlist;  return %w[x-mlserver]; end
 
       # Parse bounce messages from fml mailling list server/manager
       # @param         [Hash] mhead       Message headers of a bounce email

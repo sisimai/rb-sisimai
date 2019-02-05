@@ -12,6 +12,26 @@ module Sisimai
     module SystemError
       # Imported from p5-Sisimail/lib/Sisimai/Reason/SystemError.pm
       class << self
+        Index = [
+          "can't create user output file",
+          'could not load drd for domain',
+          'internal error reading data',  # Microsoft
+          'internal server error: operation now in progress', # Microsoft
+          'interrupted system call',
+          'it encountered an error while being processed',
+          'it would create a mail loop',
+          'local configuration error',
+          'local error in processing',
+          'loop was found in the mail exchanger',
+          'loops back to myself',
+          'mail system configuration error',
+          'server configuration error',
+          'service currently unavailable',
+          'system config error',
+          'temporary local problem',
+          'timeout waiting for input',
+        ]
+
         def text; return 'systemerror'; end
         def description; return 'Email returned due to system error on the remote host'; end
 
@@ -21,27 +41,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          index = [
-            "can't create user output file",
-            'could not load drd for domain',
-            'internal error reading data',  # Microsoft
-            'internal server error: operation now in progress', # Microsoft
-            'interrupted system call',
-            'it encountered an error while being processed',
-            'it would create a mail loop',
-            'local configuration error',
-            'local error in processing',
-            'loop was found in the mail exchanger',
-            'loops back to myself',
-            'mail system configuration error',
-            'server configuration error',
-            'service currently unavailable',
-            'system config error',
-            'temporary local problem',
-            'timeout waiting for input',
-          ]
-
-          return true if index.any? { |a| argv1.include?(a) }
+          return true if Index.any? { |a| argv1.include?(a) }
           return false
         end
 

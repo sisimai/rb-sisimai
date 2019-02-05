@@ -152,10 +152,17 @@ module Sisimai
               # Microsoft ARF: original sender.
               commondata[:from] = Sisimai::Address.s3s4(cv[1]) if commondata[:from].empty?
 
-            elsif cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*(.+)\z/)
+            elsif e.start_with?(' ', "\t")
+              # Continued line from the previous line
+              rfc822part << e + "\n" if LongFields.key?(previousfn)
+              next unless e.empty?
+              rcptintext << e if previousfn == 'to'
+
+            else
               # Get required headers only
-              lhs = cv[1].downcase
-              rhs = cv[2]
+              (lhs, rhs) = e.split(/:[ ]*/, 2)
+              next unless lhs
+              lhs.downcase!
 
               previousfn = ''
               next unless RFC822Head.key?(lhs)
@@ -163,12 +170,6 @@ module Sisimai
               previousfn  = lhs
               rfc822part << e + "\n"
               rcptintext  = rhs if lhs == 'to'
-
-            elsif e.start_with?(' ', "\t")
-              # Continued line from the previous line
-              rfc822part << e + "\n" if LongFields.key?(previousfn)
-              next unless e.empty?
-              rcptintext << e if previousfn == 'to'
             end
           else
             # message/delivery-status part

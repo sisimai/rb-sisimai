@@ -13,6 +13,24 @@ module Sisimai
     module NetworkError
       # Imported from p5-Sisimail/lib/Sisimai/Reason/NetworkError.pm
       class << self
+        Index = [
+          'could not connect and send the mail to',
+          'dns records for the destination computer could not be found',
+          'hop count exceeded - possible mail loop',
+          'host is unreachable',
+          'host not found, try again',
+          'mail forwarding loop for ',
+          'malformed name server reply',
+          'malformed or unexpected name server reply',
+          'maximum forwarding loop count exceeded',
+          'message looping',
+          'message probably in a routing loop',
+          'no route to host',
+          'too many hops',
+          'unable to resolve route ',
+          'unrouteable mail domain',
+        ]
+
         def text; return 'networkerror'; end
         def description; return 'SMTP connection failed due to DNS look up failure or other network problems'; end
 
@@ -22,25 +40,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          index = [
-            'could not connect and send the mail to',
-            'dns records for the destination computer could not be found',
-            'hop count exceeded - possible mail loop',
-            'host is unreachable',
-            'host not found, try again',
-            'mail forwarding loop for ',
-            'malformed name server reply',
-            'malformed or unexpected name server reply',
-            'maximum forwarding loop count exceeded',
-            'message looping',
-            'message probably in a routing loop',
-            'no route to host',
-            'too many hops',
-            'unable to resolve route ',
-            'unrouteable mail domain',
-          ]
-
-          return true if index.any? { |a| argv1.include?(a) }
+          return true if Index.any? { |a| argv1.include?(a) }
           return false
         end
 

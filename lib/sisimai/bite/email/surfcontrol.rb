@@ -18,7 +18,7 @@ module Sisimai::Bite::Email
       # X-SEF-ZeroHour-RefID: fgs=000000000
       # X-SEF-Processed: 0_0_0_000__2010_04_29_23_34_45
       # X-Mailer: SurfControl E-mail Filter
-      def headerlist;  return ['X-SEF-Processed', 'X-Mailer']; end
+      def headerlist;  return %w[x-sef-processed x-mailer]; end
 
       # Parse bounce messages from SurfControl
       # @param         [Hash] mhead       Message headers of a bounce email

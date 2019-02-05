@@ -7,8 +7,8 @@ module Sisimai
       :'email-address' => (1 << 0),    # <neko@example.org>
       :'quoted-string' => (1 << 1),    # "Neko, Nyaan"
       :'comment-block' => (1 << 2),    # (neko)
-    }
-    @@undisclosed = 'libsisimai.org.invalid'
+    }.freeze
+    Delimiters  = { '<' => 1, '>' => 1, '(' => 1, ')' => 1, '"' => 1, ',' => 1 }.freeze
 
     # Return pseudo recipient or sender address
     # @param    [Symbol] argv1  Address type: :r or :s
@@ -19,7 +19,7 @@ module Sisimai
       return nil unless %w[r s].index(argv1.to_s)
 
       local = argv1 == :r ? 'recipient' : 'sender'
-      return sprintf('undisclosed-%s-in-headers@%s', local, @@undisclosed)
+      return sprintf('undisclosed-%s-in-headers@libsisimai.org.invalid', local)
     end
 
     # New constructor of Sisimai::Address
@@ -55,7 +55,6 @@ module Sisimai
       #   #=> [{ address: 'neko@example.org', name: 'Neko', comment: '(nyaan)'}]
       return nil unless argv1
 
-      characters = argv1.gsub(/[\r\n]/, '').split('')
       emailtable = { address: '', name: '', comment: '' }
       addrtables = []
       readbuffer = []
@@ -64,9 +63,13 @@ module Sisimai
       v = emailtable  # temporary buffer
       p = ''          # current position
 
+      argv1.delete!("\r") if argv1.include?("\r")
+      argv1.delete!("\n") if argv1.include?("\n")
+      characters = argv1.split('')
+
       while e = characters.shift do
         # Check each characters
-        if %w[< > ( ) " ,].any? { |r| r == e }
+        if Delimiters.key?(e)
           # The character is a delimiter character
           if e == ','
             # Separator of email addresses or not
@@ -372,15 +375,6 @@ module Sisimai
     # @return        [True,False]   returns true if the object is void
     def void
       return true unless @address
-      return false
-    end
-
-    # Check the "address" is an undisclosed address or not
-    # @param    [None]
-    # @return   [Boolean] true:  Undisclosed address
-    #                     false: Is not undisclosed address
-    def is_undisclosed
-      return true if self.host == @@undisclosed
       return false
     end
 

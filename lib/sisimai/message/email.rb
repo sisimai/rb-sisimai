@@ -17,15 +17,10 @@ module Sisimai
       BorderLine = '__MIME_ENCODED_BOUNDARY__'
       EndOfEmail = Sisimai::String.EOM
       RFC822Head = Sisimai::RFC5322.HEADERFIELDS
-      RFC3834Set = Sisimai::RFC3834.headerlist.map(&:downcase)
+      RFC3834Set = Sisimai::RFC3834.headerlist
       HeaderList = %w[from to date subject content-type reply-to message-id
-                      received content-transfer-encoding return-path x-mailer].freeze
-      MultiHeads = { 'received' => true }.freeze
-      IgnoreList = { 'dkim-signature' => true }.freeze
-      Indicators = {
-        :begin => (1 << 1),
-        :endof => (1 << 2),
-      }.freeze
+                      received content-transfer-encoding return-path x-mailer]
+      IsMultiple = { 'received' => true }
       DefaultSet = Sisimai::Order::Email.another
       SubjectTab = Sisimai::Order::Email.by('subject')
       ExtHeaders = Sisimai::Order::Email.headers
@@ -152,46 +147,25 @@ module Sisimai
       def self.divideup(email)
         return nil if email.empty?
 
+        block = { 'from' => '', 'header' => '', 'body' => '' }
         email.scrub!('?')
         email.gsub!(/\r\n/, "\n")  if email.include?("\r\n")
         email.gsub!(/[ \t]+$/, '') if email =~ /[ \t]+$/
 
-        hasdivided = email.split("\n")
-        return nil if hasdivided.empty?
+        (block['header'], block['body']) = email.split(/\n\n/, 2)
+        return nil unless block['header']
+        return nil unless block['body']
 
-        readcursor = 0
-        aftersplit = { 'from' => '', 'header' => '', 'body' => '' }
-
-        if hasdivided[0][0, 5] == 'From '
+        if block['header'][0, 5] == 'From '
           # From MAILER-DAEMON Tue Feb 11 00:00:00 2014
-          aftersplit['from'] = hasdivided.shift
-          aftersplit['from'] = aftersplit['from'].delete("\n").delete("\r")
+          block['from'] = block['header'].split(/\n/, 2)[0].delete("\r").delete("\r")
+        else
+          # Set pseudo UNIX From line
+          block['from'] = 'MAILER-DAEMON Tue Feb 11 00:00:00 2014'
         end
 
-        # Split email data to headers and a body part.
-        while e = hasdivided.shift do
-          # Split email data to headers and a body part.
-          if readcursor & Indicators[:endof] > 0
-            # The body part of the email
-            aftersplit['body'] << e + "\n"
-          else
-            # The boundary for splitting headers and a body part does not
-            # appeare yet.
-            if e.empty?
-              # Blank line, it is a boundary of headers and a body part
-              readcursor |= Indicators[:endof] if readcursor & Indicators[:begin] > 0
-            else
-              # The header part of the email
-              aftersplit['header'] << e + "\n"
-              readcursor |= Indicators[:begin]
-            end
-          end
-        end
-        return nil if aftersplit['header'].empty?
-        return nil if aftersplit['body'].empty?
-
-        aftersplit['from'] = 'MAILER-DAEMON Tue Feb 11 00:00:00 2014' if aftersplit['from'].empty?
-        return aftersplit
+        block['body'] << "\n"
+        return block
       end
 
       # Convert email headers from text to hash reference
@@ -202,6 +176,7 @@ module Sisimai
       def self.headers(heads, argvs = {})
         return nil unless heads
 
+        currheader = ''
         allheaders = {}
         structured = {}
         extheaders = argvs['extheaders'] || []
@@ -211,26 +186,37 @@ module Sisimai
         HeaderList.each { |e| structured[e] = nil  }
         HeaderList.each { |e| allheaders[e] = true }
         RFC3834Set.each { |e| allheaders[e] = true }
-        MultiHeads.each_key { |e| structured[e.downcase] = [] }
+        IsMultiple.each_key { |e| structured[e] = [] }
         extheaders.each_key { |e| allheaders[e] = true }
         unless extrafield.empty?
-          extrafield.each { |e| allheaders[e.downcase] = true }
+          extrafield.each { |e| allheaders[e] = true }
         end
 
         while e = hasdivided.shift do
           # Convert email headers to hash
-          if cv = e.match(/\A([^ ]+?)[:][ ]*(.*?)\z/)
-            # split the line into a header name and a header content
-            lhs = cv[1]
-            rhs = cv[2]
-
-            currheader = lhs.downcase
+          if cv = e.match(/\A[ \t]+(.+)\z/)
+            # Continued (foled) header value from the previous line
             next unless allheaders.key?(currheader)
 
-            if MultiHeads.key?(currheader)
+            # Header line continued from the previous line
+            if structured[currheader].is_a? Array
+              # Concatenate a header which have multi-lines such as 'Received'
+              structured[currheader][-1] << ' ' << cv[1]
+            else
+              structured[currheader] ||= ''
+              structured[currheader] << ' ' << cv[1]
+            end
+          else
+            # split the line into a header name and a header content
+            (lhs, rhs) = e.split(/:[ ]*/, 2)
+            currheader = lhs ? lhs.downcase : ''
+            next unless allheaders.key?(currheader)
+
+            if IsMultiple.key?(currheader)
               # Such as 'Received' header, there are multiple headers in a single
               # email message.
-              rhs = rhs.tr("\t", ' ').squeeze(' ')
+              #rhs = rhs.tr("\t", ' ').squeeze(' ')
+              rhs = rhs.tr("\t", ' ')
               structured[currheader] << rhs
             else
               # Other headers except "Received" and so on
@@ -242,18 +228,6 @@ module Sisimai
                 end
               end
               structured[currheader] = rhs
-            end
-          elsif cv = e.match(/\A[ \t]+(.+?)\z/)
-            # Ignore header?
-            next if IgnoreList[currheader]
-
-            # Header line continued from the previous line
-            if structured[currheader].is_a? Array
-              # Concatenate a header which have multi-lines such as 'Received'
-              structured[currheader][-1] << ' ' << cv[1]
-            else
-              structured[currheader] ||= ''
-              structured[currheader] << ' ' << cv[1]
             end
           end
         end
@@ -291,72 +265,68 @@ module Sisimai
         # 2. Convert from string to hash reference
         heads = heads.scrub('?').gsub(/^[>]+[ ]/m, '')
 
-        takenapart = {}
-        hasdivided = heads.split("\n")
         previousfn = '' # Previous field name
-        mimeborder = {}
+        asciiarmor = {} # Header names which has MIME encoded value
+        headerpart = {} # Required headers in the original message part
+        hasdivided = heads.split("\n")
 
         while e = hasdivided.shift do
           # Header name as a key, The value of header as a value
-          if cv = e.match(/\A([-0-9A-Za-z]+?)[:][ ]*(.*)\z/)
-            # Header
-            lhs = cv[1].downcase
-            rhs = cv[2]
-            previousfn = ''
-
-            next unless RFC822Head.key?(lhs)
-            previousfn = lhs
-            takenapart[previousfn] = rhs unless takenapart[previousfn]
-          else
-            # Continued line from the previous line
-            next unless e.start_with?(' ', "\t")
+          if e.start_with?(' ', "\t")
+            # Continued (foled) header value from the previous line
             next if previousfn.empty?
 
             # Concatenate the line if it is the value of required header
             if Sisimai::MIME.is_mimeencoded(e)
               # The line is MIME-Encoded test
-              takenapart[previousfn] << if previousfn == 'subject'
+              headerpart[previousfn] << if previousfn == 'subject'
                                           # Subject: header
                                           BorderLine + e
                                         else
                                           # Is not Subject header
                                           e
                                         end
-              mimeborder[previousfn] = true
+              asciiarmor[previousfn] = true
             else
               # ASCII Characters only: Not MIME-Encoded
-              takenapart[previousfn] << e.lstrip
-              mimeborder[previousfn] ||= false
+              headerpart[previousfn] << e.lstrip
+              asciiarmor[previousfn] ||= false
             end
-          end
-        end
-
-        if takenapart['subject']
-          # Convert MIME-Encoded subject
-          v = takenapart['subject']
-
-          if Sisimai::String.is_8bit(v)
-            # The value of ``Subject'' header is including multibyte character,
-            # is not MIME-Encoded text.
-            v = 'MULTIBYTE CHARACTERS HAVE BEEN REMOVED'
           else
-            # MIME-Encoded subject field or ASCII characters only
-            r = []
-            if mimeborder['subject']
-              # split the value of Subject by borderline
-              v.split(BorderLine).each do |m|
-                # Insert value to the array if the string is MIME encoded text
-                r << m if Sisimai::MIME.is_mimeencoded(m)
-              end
-            else
-              # Subject line is not MIME encoded
-              r << v
-            end
-            v = Sisimai::MIME.mimedecode(r)
+            # Header name as a key, The value of header as a value
+            (lhs, rhs) = e.split(/:[ ]*/, 2)
+            next unless lhs
+            lhs.downcase!
+            previousfn = ''
+
+            next unless RFC822Head.key?(lhs)
+            previousfn = lhs
+            headerpart[previousfn] = rhs unless headerpart[previousfn]
           end
-          takenapart['subject'] = v
         end
-        return takenapart
+        return headerpart unless headerpart['subject']
+
+        # Convert MIME-Encoded subject
+        if Sisimai::String.is_8bit(headerpart['subject'])
+          # The value of ``Subject'' header is including multibyte character,
+          # is not MIME-Encoded text.
+          headerpart['subject'] = 'MULTIBYTE CHARACTERS HAVE BEEN REMOVED'
+        else
+          # MIME-Encoded subject field or ASCII characters only
+          r = []
+          if asciiarmor['subject']
+            # split the value of Subject by borderline
+            headerpart['subject'].split(BorderLine).each do |v|
+              # Insert value to the array if the string is MIME encoded text
+              r << v if Sisimai::MIME.is_mimeencoded(v)
+            end
+          else
+            # Subject line is not MIME encoded
+            r << headerpart['subject']
+          end
+          headerpart['subject'] = Sisimai::MIME.mimedecode(r)
+        end
+        return headerpart
       end
 
       # @abstract Parse bounce mail with each MTA module

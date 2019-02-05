@@ -11,6 +11,14 @@ module Sisimai
     module NotAccept
       # Imported from p5-Sisimail/lib/Sisimai/Reason/NotAccept.pm
       class << self
+        # Destination mail server does not accept any message
+        Index = [
+          'host/domain does not accept mail', # iCloud
+          'name server: .: host not found',   # Sendmail
+          'no mx record found for domain=',   # Oath(Yahoo!)
+          'smtp protocol returned a permanent error',
+        ]
+
         def text; return 'notaccept'; end
         def description; return 'Delivery failed due to a destination mail server does not accept any email'; end
 
@@ -20,16 +28,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-
-          # Destination mail server does not accept any message
-          index = [
-            'host/domain does not accept mail', # iCloud
-            'name server: .: host not found',   # Sendmail
-            'no mx record found for domain=',   # Oath(Yahoo!)
-            'smtp protocol returned a permanent error',
-          ]
-
-          return true if index.any? { |a| argv1.include?(a) }
+          return true if Index.any? { |a| argv1.include?(a) }
           return false
         end
 

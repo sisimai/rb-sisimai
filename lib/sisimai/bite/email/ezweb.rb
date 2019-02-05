@@ -40,7 +40,7 @@ module Sisimai::Bite::Email
 
       def description; return 'au EZweb: http://www.au.kddi.com/mobile/'; end
       def smtpagent;   return Sisimai::Bite.smtpagent(self); end
-      def headerlist;  return ['X-SPASIGN']; end
+      def headerlist;  return %w[x-spasign]; end
 
       # Parse bounce messages from au EZweb
       # @param         [Hash] mhead       Message headers of a bounce email

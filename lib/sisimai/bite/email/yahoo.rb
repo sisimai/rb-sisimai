@@ -19,7 +19,7 @@ module Sisimai::Bite::Email
       # X-YMail-JAS: Pb65aU4VM1mei...
       # X-YMail-OSG: bTIbpDEVM1lHz...
       # X-Originating-IP: [192.0.2.9]
-      def headerlist;  return ['X-YMailISG']; end
+      def headerlist;  return %w[x-ymailisg]; end
 
       # Parse bounce messages from Yahoo! MAIL
       # @param         [Hash] mhead       Message headers of a bounce email

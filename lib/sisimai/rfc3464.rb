@@ -27,6 +27,68 @@ module Sisimai
         error:   %r/\A(?:[45]\d\d[ \t]+|[<][^@]+[@][^@]+[>]:?[ \t]+)/,
         command: %r/[ ](RCPT|MAIL|DATA)[ ]+command\b/,
       }.freeze
+      ReSkip = %r{(?>
+         \A[-]+=
+        |\A\s+\z
+        |\A\s*--
+        |\A\s+[=]\d+
+        |\Ahi[ ][!]
+        |content-(?:description|disposition|transfer-encoding|type):[ ]
+        |(?:name|charset)=
+        |--\z
+        |:[ ]--------
+        )
+      }x.freeze
+      ReStop = %r{(?:
+         \A[*][*][*][ ].+[ ].+[ ][*][*][*]
+        |\Acontent-type:[ ]message/delivery-status
+        |\Ahere[ ]is[ ]a[ ]copy[ ]of[ ]the[ ]first[ ]part[ ]of[ ]the[ ]message
+        |\Athe[ ]non-delivered[ ]message[ ]is[ ]attached[ ]to[ ]this[ ]message.
+        |\Areceived:[ \t]*
+        |\Areceived-from-mta:[ \t]*
+        |\Areporting-mta:[ \t]*
+        |\Areturn-path:[ \t]*
+        |\Aa[ ]copy[ ]of[ ]the[ ]original[ ]message[ ]below[ ]this[ ]line:
+        |attachment[ ]is[ ]a[ ]copy[ ]of[ ]the[ ]message
+        |below[ ]is[ ]a[ ]copy[ ]of[ ]the[ ]original[ ]message:
+        |below[ ]this[ ]line[ ]is[ ]a[ ]copy[ ]of[ ]the[ ]message
+        |message[ ]contains[ ].+[ ]file[ ]attachments
+        |message[ ]text[ ]follows:[ ]
+        |original[ ]message[ ]follows
+        |the[ ]attachment[ ]contains[ ]the[ ]original[ ]mail[ ]headers
+        |the[ ]first[ ]\d+[ ]lines[ ]
+        |unsent[ ]Message[ ]below
+        |your[ ]message[ ]reads[ ][(]in[ ]part[)]:
+        )
+      }x.freeze
+      ReAddr = %r{(?:
+         \A\s*
+        |\A["].+["]\s*
+        |\A[ \t]*Recipient:[ \t]*
+        |\A[ ]*Address:[ ]
+        |addressed[ ]to[ ]
+        |Could[ ]not[ ]be[ ]delivered[ ]to:[ ]
+        |delivered[ ]to[ ]+
+        |delivery[ ]failed:[ ]
+        |Did[ ]not[ ]reach[ ]the[ ]following[ ]recipient:[ ]
+        |Error-for:[ ]+
+        |Failed[ ]Recipient:[ ]
+        |Failed[ ]to[ ]deliver[ ]to[ ]
+        |Intended[ ]recipient:[ ]
+        |Mailbox[ ]is[ ]full:[ ]
+        |RCPT[ ]To:
+        |SMTP[ ]Server[ ][<].+[>][ ]rejected[ ]recipient[ ]
+        |The[ ]following[ ]recipients[ ]returned[ ]permanent[ ]errors:[ ]
+        |The[ ]following[ ]message[ ]to[ ]
+        |Unknown[ ]User:[ ]
+        |undeliverable[ ]to[ ]
+        |Undeliverable[ ]Address:[ ]*
+        |You[ ]sent[ ]mail[ ]to[ ]
+        |Your[ ]message[ ]to[ ]
+        )
+        ['"]?[<]?([^\s\n\r@=<>]+[@][-.0-9A-Za-z]+[.][0-9A-Za-z]+)[>]?['"]?
+      }xi.freeze
+
 
       def description; 'Fallback Module for MTAs'; end
       def smtpagent;   'RFC3464'; end
@@ -305,68 +367,6 @@ module Sisimai
           end
           break unless match > 0
 
-          re_skip = %r{(?>
-             \A[-]+=
-            |\A\s+\z
-            |\A\s*--
-            |\A\s+[=]\d+
-            |\Ahi[ ][!]
-            |content-(?:description|disposition|transfer-encoding|type):[ ]
-            |(?:name|charset)=
-            |--\z
-            |:[ ]--------
-            )
-          }x
-          re_stop = %r{(?:
-             \A[*][*][*][ ].+[ ].+[ ][*][*][*]
-            |\Acontent-type:[ ]message/delivery-status
-            |\Ahere[ ]is[ ]a[ ]copy[ ]of[ ]the[ ]first[ ]part[ ]of[ ]the[ ]message
-            |\Athe[ ]non-delivered[ ]message[ ]is[ ]attached[ ]to[ ]this[ ]message.
-            |\Areceived:[ \t]*
-            |\Areceived-from-mta:[ \t]*
-            |\Areporting-mta:[ \t]*
-            |\Areturn-path:[ \t]*
-            |\Aa[ ]copy[ ]of[ ]the[ ]original[ ]message[ ]below[ ]this[ ]line:
-            |attachment[ ]is[ ]a[ ]copy[ ]of[ ]the[ ]message
-            |below[ ]is[ ]a[ ]copy[ ]of[ ]the[ ]original[ ]message:
-            |below[ ]this[ ]line[ ]is[ ]a[ ]copy[ ]of[ ]the[ ]message
-            |message[ ]contains[ ].+[ ]file[ ]attachments
-            |message[ ]text[ ]follows:[ ]
-            |original[ ]message[ ]follows
-            |the[ ]attachment[ ]contains[ ]the[ ]original[ ]mail[ ]headers
-            |the[ ]first[ ]\d+[ ]lines[ ]
-            |unsent[ ]Message[ ]below
-            |your[ ]message[ ]reads[ ][(]in[ ]part[)]:
-            )
-          }x
-          re_addr = %r{(?:
-             \A\s*
-            |\A["].+["]\s*
-            |\A[ \t]*Recipient:[ \t]*
-            |\A[ ]*Address:[ ]
-            |addressed[ ]to[ ]
-            |Could[ ]not[ ]be[ ]delivered[ ]to:[ ]
-            |delivered[ ]to[ ]+
-            |delivery[ ]failed:[ ]
-            |Did[ ]not[ ]reach[ ]the[ ]following[ ]recipient:[ ]
-            |Error-for:[ ]+
-            |Failed[ ]Recipient:[ ]
-            |Failed[ ]to[ ]deliver[ ]to[ ]
-            |Intended[ ]recipient:[ ]
-            |Mailbox[ ]is[ ]full:[ ]
-            |RCPT[ ]To:
-            |SMTP[ ]Server[ ][<].+[>][ ]rejected[ ]recipient[ ]
-            |The[ ]following[ ]recipients[ ]returned[ ]permanent[ ]errors:[ ]
-            |The[ ]following[ ]message[ ]to[ ]
-            |Unknown[ ]User:[ ]
-            |undeliverable[ ]to[ ]
-            |Undeliverable[ ]Address:[ ]*
-            |You[ ]sent[ ]mail[ ]to[ ]
-            |Your[ ]message[ ]to[ ]
-            )
-            ['"]?[<]?([^\s\n\r@=<>]+[@][-.0-9A-Za-z]+[.][0-9A-Za-z]+)[>]?['"]?
-          }xi
-
           b = dscontents[-1]
           hasdivided = mbody.split("\n")
           while e = hasdivided.shift do
@@ -374,13 +374,13 @@ module Sisimai
             break if e.start_with?('__END_OF_EMAIL_MESSAGE__')
             d = e.downcase
             break if d =~ MarkingsOf[:rfc822]
-            break if d =~ re_stop
+            break if d =~ ReStop
 
             next if e.empty?
-            next if d =~ re_skip
+            next if d =~ ReSkip
             next if e.start_with?('*')
 
-            if cv = e.match(re_addr)
+            if cv = e.match(ReAddr)
               # May be an email address
               x = b['recipient'] || ''
               y = Sisimai::Address.s3s4(cv[1])

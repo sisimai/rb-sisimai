@@ -65,14 +65,14 @@ module Sisimai::Bite::Email
         # X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2015 23:34:45.6789 (JST)
         # X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
         # X-MS-Exchange-Transport-CrossTenantHeadersStamped: ...
-        return [
-          'X-MS-Exchange-Message-Is-Ndr',
-          'X-Microsoft-Antispam-PRVS',
-          'X-Exchange-Antispam-Report-Test',
-          'X-Exchange-Antispam-Report-CFA-Test',
-          'X-MS-Exchange-CrossTenant-OriginalArrivalTime',
-          'X-MS-Exchange-CrossTenant-FromEntityHeader',
-          'X-MS-Exchange-Transport-CrossTenantHeadersStamped',
+        return %w[
+          x-ms-exchange-message-is-ndr
+          x-microsoft-antispam-prvs
+          x-exchange-antispam-report-test
+          x-exchange-antispam-report-cfa-test
+          x-ms-exchange-crosstenant-originalarrivaltime
+          x-ms-exchange-crosstenant-fromentityheader
+          x-ms-exchange-transport-crosstenantheadersstamped
         ]
       end
 

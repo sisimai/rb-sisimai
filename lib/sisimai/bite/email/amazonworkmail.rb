@@ -19,7 +19,7 @@ module Sisimai::Bite::Email
       # X-Mailer: Amazon WorkMail
       # X-Original-Mailer: Amazon WorkMail
       # X-Ses-Outgoing: 2016.01.14-54.240.27.159
-      def headerlist;  return ['X-SES-Outgoing', 'X-Original-Mailer']; end
+      def headerlist;  return %w[x-ses-outgoing x-original-mailer]; end
 
       # Parse bounce messages from Amazon WorkMail
       # @param         [Hash] mhead       Message headers of a bounce email

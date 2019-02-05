@@ -11,6 +11,21 @@ module Sisimai
     module MailerError
       # Imported from p5-Sisimail/lib/Sisimai/Reason/MailerError.pm
       class << self
+        Regex = %r{(?>
+           \Aprocmail:[ ]    # procmail
+          |bin/(?:procmail|maildrop)
+          |command[ ](?:
+             failed:[ ]
+            |died[ ]with[ ]status[ ]\d+
+            |output:
+            )
+          |exit[ ]\d+
+          |mailer[ ]error
+          |pipe[ ]to[ ][|][/].+
+          |x[-]unix[;][ ]\d+  # X-UNIX; 127
+          )
+        }x
+
         def text; return 'mailererror'; end
         def description; return 'Email returned due to a mailer program has not exited successfully'; end
 
@@ -20,22 +35,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          regex = %r{(?>
-             \Aprocmail:[ ]    # procmail
-            |bin/(?:procmail|maildrop)
-            |command[ ](?:
-               failed:[ ]
-              |died[ ]with[ ]status[ ]\d+
-              |output:
-              )
-            |exit[ ]\d+
-            |mailer[ ]error
-            |pipe[ ]to[ ][|][/].+
-            |x[-]unix[;][ ]\d+  # X-UNIX; 127
-            )
-          }x
-
-          return true if argv1 =~ regex
+          return true if argv1 =~ Regex
           return false
         end
 
