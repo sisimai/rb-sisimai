@@ -8,7 +8,7 @@ module Sisimai
       :'quoted-string' => (1 << 1),    # "Neko, Nyaan"
       :'comment-block' => (1 << 2),    # (neko)
     }.freeze
-    Delimiters  = { :'<' => 1, :'>' => 1, :'(' => 1, :')' => 1, :'"' => 1, :',' => 1 }.freeze
+    Delimiters  = { '<' => 1, '>' => 1, '(' => 1, ')' => 1, '"' => 1, ',' => 1 }.freeze
 
     # Return pseudo recipient or sender address
     # @param    [Symbol] argv1  Address type: :r or :s
@@ -69,7 +69,7 @@ module Sisimai
 
       while e = characters.shift do
         # Check each characters
-        if Delimiters.key?(e.to_sym)
+        if Delimiters.key?(e)
           # The character is a delimiter character
           if e == ','
             # Separator of email addresses or not
