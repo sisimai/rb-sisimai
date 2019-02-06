@@ -13,6 +13,8 @@ v4.24.1p4
   - Remove unused method Sisimai::DateTime.hourname and HourNames.
   - Remove unused method Sisimai::RFC5322.is_domainpart.
   - Code refactoring: less lines of code and shallower indentation.
+  - Build test for JRuby on Travis CI was temporarily disabled. #138
+  - Sisimai works on Ruby 2.6.0
 
 v4.24.1
 --------------------------------------------------------------------------------
