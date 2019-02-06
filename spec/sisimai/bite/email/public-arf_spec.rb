@@ -15,6 +15,7 @@ isexpected = [
   { 'n' => '20', 's' => /\A\z/, 'r' => /feedback/, 'f' => /auth-failure/, 'b' => /\A-1\z/ },
   { 'n' => '21', 's' => /\A\z/, 'r' => /feedback/, 'f' => /abuse/, 'b' => /\A-1\z/ },
   { 'n' => '22', 's' => /\A\z/, 'r' => /feedback/, 'f' => /abuse/, 'b' => /\A-1\z/ },
+  { 'n' => '23', 's' => /\A\z/, 'r' => /feedback/, 'f' => /abuse/, 'b' => /\A-1\z/ },
 ]
 Sisimai::Bite::Email::Code.maketest(enginename, isexpected)
 
