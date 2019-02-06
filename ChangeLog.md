@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.24.1p4
+v4.24.1p5
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -15,6 +15,7 @@ v4.24.1p4
   - Code refactoring: less lines of code and shallower indentation.
   - Build test for JRuby on Travis CI was temporarily disabled. #138
   - Sisimai works on Ruby 2.6.0
+  - Fix Sisimai::ARF.is_arf method to remove angle brackets from From: header.
 
 v4.24.1
 --------------------------------------------------------------------------------
