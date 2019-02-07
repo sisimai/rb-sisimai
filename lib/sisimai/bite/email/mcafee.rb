@@ -12,7 +12,7 @@ module Sisimai::Bite::Email
         rfc822:  ['Content-Type: message/rfc822'],
       }.freeze
       ReFailures = {
-        userunknown: %r/(?:User [(].+[@].+[)] unknown[.]|550 Unknown user [^ ]+[@][^ ]+)/,
+        'userunknown' => %r/(?:User [(].+[@].+[)] unknown[.]|550 Unknown user [^ ]+[@][^ ]+)/,
       }.freeze
 
       def description; return 'McAfee Email Appliance'; end
@@ -135,7 +135,7 @@ module Sisimai::Bite::Email
           ReFailures.each_key do |r|
             # Verify each regular expression of session errors
             next unless e['diagnosis'] =~ ReFailures[r]
-            e['reason'] = r.to_s
+            e['reason'] = r
             break
           end
           e.each_key { |a| e[a] ||= '' }

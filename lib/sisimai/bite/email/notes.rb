@@ -12,7 +12,7 @@ module Sisimai::Bite::Email
         rfc822:  ['------- Returned Message '],
       }.freeze
       MessagesOf = {
-        userunknown: [
+        'userunknown' => [
           'User not listed in public Name & Address Book',
           'ディレクトリのリストにありません',
         ],
@@ -150,7 +150,7 @@ module Sisimai::Bite::Email
           MessagesOf.each_key do |r|
             # Check each regular expression of Notes error messages
             next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
-            e['reason'] = r.to_s
+            e['reason'] = r
             e['status'] = Sisimai::SMTP::Status.code(r.to_s) || ''
             break
           end

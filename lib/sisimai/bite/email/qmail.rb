@@ -23,21 +23,21 @@ module Sisimai::Bite::Email
       ReSMTP = {
         # Error text regular expressions which defined in qmail-remote.c
         # qmail-remote.c:225|  if (smtpcode() != 220) quit("ZConnected to "," but greeting failed");
-        conn: %r/(?:Error:)?Connected to .+ but greeting failed[.]/,
+        'conn' => %r/(?:Error:)?Connected to .+ but greeting failed[.]/,
         # qmail-remote.c:231|  if (smtpcode() != 250) quit("ZConnected to "," but my name was rejected");
-        ehlo: %r/(?:Error:)?Connected to .+ but my name was rejected[.]/,
+        'ehlo' => %r/(?:Error:)?Connected to .+ but my name was rejected[.]/,
         # qmail-remote.c:238|  if (code >= 500) quit("DConnected to "," but sender was rejected");
         # reason = rejected
-        mail: %r/(?:Error:)?Connected to .+ but sender was rejected[.]/,
+        'mail' => %r/(?:Error:)?Connected to .+ but sender was rejected[.]/,
         # qmail-remote.c:249|  out("h"); outhost(); out(" does not like recipient.\n");
         # qmail-remote.c:253|  out("s"); outhost(); out(" does not like recipient.\n");
         # reason = userunknown
-        rcpt: %r/(?:Error:)?.+ does not like recipient[.]/,
+        'rcpt' => %r/(?:Error:)?.+ does not like recipient[.]/,
         # qmail-remote.c:265|  if (code >= 500) quit("D"," failed on DATA command");
         # qmail-remote.c:266|  if (code >= 400) quit("Z"," failed on DATA command");
         # qmail-remote.c:271|  if (code >= 500) quit("D"," failed after I sent the message");
         # qmail-remote.c:272|  if (code >= 400) quit("Z"," failed after I sent the message");
-        data: %r{(?:
+        'data' => %r{(?:
            (?:Error:)?.+[ ]failed[ ]on[ ]DATA[ ]command[.]
           |(?:Error:)?.+[ ]failed[ ]after[ ]I[ ]sent[ ]the[ ]message[.]
           )
@@ -57,10 +57,10 @@ module Sisimai::Bite::Email
       ReIsOnHold = %r/\A[^ ]+ does not like recipient[.][ ]+.+this message has been in the queue too long[.]\z/
       FailOnLDAP = {
         # qmail-ldap-1.03-20040101.patch:19817 - 19866
-        suspend:     ['Mailaddress is administrative?le?y disabled'],   # 5.2.1
-        userunknown: ['Sorry, no mailbox here by that name'],           # 5.1.1
-        exceedlimit: ['The message exeeded the maximum size the user accepts'], # 5.2.3
-        systemerror: [
+        'suspend'     => ['Mailaddress is administrative?le?y disabled'],   # 5.2.1
+        'userunknown' => ['Sorry, no mailbox here by that name'],           # 5.1.1
+        'exceedlimit' => ['The message exeeded the maximum size the user accepts'], # 5.2.3
+        'systemerror' => [
             'Automatic homedir creator crashed',                # 4.3.0
             'Illegal value in LDAP attribute',                  # 5.3.5
             'LDAP attribute is not given but mandatory',        # 5.3.5
@@ -77,22 +77,22 @@ module Sisimai::Bite::Email
       MessagesOf = {
         # qmail-local.c:589|  strerr_die1x(100,"Sorry, no mailbox here by that name. (#5.1.1)");
         # qmail-remote.c:253|  out("s"); outhost(); out(" does not like recipient.\n");
-        userunknown: ['no mailbox here by that name', 'does not like recipient.'],
+        'userunknown'  => ['no mailbox here by that name', 'does not like recipient.'],
         # error_str.c:192|  X(EDQUOT,"disk quota exceeded")
-        mailboxfull: ['disk quota exceeded'],
+        'mailboxfull'  => ['disk quota exceeded'],
         # qmail-qmtpd.c:233| ... result = "Dsorry, that message size exceeds my databytes limit (#5.3.4)";
         # qmail-smtpd.c:391| ... out("552 sorry, that message size exceeds my databytes limit (#5.3.4)\r\n"); return;
-        mesgtoobig:  ['Message size exceeds fixed maximum message size:'],
+        'mesgtoobig'   => ['Message size exceeds fixed maximum message size:'],
         # qmail-remote.c:68|  Sorry, I couldn't find any host by that name. (#4.1.2)\n"); zerodie();
         # qmail-remote.c:78|  Sorry, I couldn't find any host named ");
-        hostunknown: ["Sorry, I couldn't find any host "],
-        systemfull:  ['Requested action not taken: mailbox unavailable (not enough free space)'],
-        systemerror: [
+        'hostunknown'  => ["Sorry, I couldn't find any host "],
+        'systemfull'   => ['Requested action not taken: mailbox unavailable (not enough free space)'],
+        'systemerror'  => [
           'bad interpreter: No such file or directory',
           'system error',
           'Unable to',
         ],
-        networkerror: [
+        'networkerror' => [
           "Sorry, I wasn't able to establish an SMTP connection",
           "Sorry, I couldn't find a mail exchanger or IP address",
           "Sorry. Although I'm listed as a best-preference MX or A for that host",
@@ -203,7 +203,7 @@ module Sisimai::Bite::Email
             ReSMTP.each_key do |r|
               # Verify each regular expression of SMTP commands
               next unless e['diagnosis'] =~ ReSMTP[r]
-              e['command'] = r.to_s.upcase
+              e['command'] = r.upcase
               break
             end
 
@@ -234,12 +234,12 @@ module Sisimai::Bite::Email
                 if e['alterrors']
                   # Check the value of "alterrors"
                   next unless MessagesOf[r].any? { |a| e['alterrors'].include?(a) }
-                  e['reason'] = r.to_s
+                  e['reason'] = r
                 end
                 break if e['reason']
 
                 next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
-                e['reason'] = r.to_s
+                e['reason'] = r
                 break
               end
 
@@ -247,7 +247,7 @@ module Sisimai::Bite::Email
                 FailOnLDAP.each_key do |r|
                   # Verify each regular expression of LDAP errors
                   next unless FailOnLDAP[r].any? { |a| e['diagnosis'].include?(a) }
-                  e['reason'] = r.to_s
+                  e['reason'] = r
                   break
                 end
               end

@@ -31,11 +31,11 @@ module Sisimai
           'IB705' => 'virusdetected', # 552 Virus infected message rejected. IB705
         }.freeze
         MessagesOf = {
-            blocked:     ['553 http://www.spamhaus.org/query/bl?ip=', '554 RBL Reject.'],
-            expired:     ['Delivery timeout', "451 Sorry, I wasn't able to establish an SMTP connection."],
-            suspend:     ['Account disabled'],
-            mailboxfull: ['Account storage limit'],
-            userunknown: ['Account does not exist', '550 Recipient not found.'],
+            'blocked'     => ['553 http://www.spamhaus.org/query/bl?ip=', '554 RBL Reject.'],
+            'expired'     => ['Delivery timeout', "451 Sorry, I wasn't able to establish an SMTP connection."],
+            'suspend'     => ['Account disabled'],
+            'mailboxfull' => ['Account storage limit'],
+            'userunknown' => ['Account does not exist', '550 Recipient not found.'],
         }.freeze
 
         # Detect bounce reason from GoDaddy
@@ -56,7 +56,7 @@ module Sisimai
             MessagesOf.each_key do |e|
               MessagesOf[e].each do |f|
                 next unless statusmesg.include?(f)
-                reasontext = e.to_s
+                reasontext = e
                 break
               end
               break unless reasontext.empty?

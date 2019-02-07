@@ -91,15 +91,15 @@ module Sisimai
         }.freeze
         MessagesOf = {
           # Copied and converted from Sisimai::Bite::Email::Exchange2007
-          expired:       ['QUEUE.Expired'],
-          hostunknown:   ['SMTPSEND.DNS.NonExistentDomain'],
-          mesgtoobig:    ['RESOLVER.RST.RecipSizeLimit', 'RESOLVER.RST.RecipientSizeLimit'],
-          networkerror:  ['SMTPSEND.DNS.MxLoopback'],
-          rejected:      ['RESOLVER.RST.NotAuthorized'],
-          securityerror: ['RESOLVER.RST.AuthRequired'],
-          systemerror:   ['RESOLVER.ADR.Ambiguous', 'RESOLVER.ADR.BadPrimary', 'RESOLVER.ADR.InvalidInSmtp'],
-          toomanyconn:   ['RESOLVER.ADR.RecipLimit', 'RESOLVER.ADR.RecipientLimit'],
-          userunknown:   [
+          'expired'       => ['QUEUE.Expired'],
+          'hostunknown'   => ['SMTPSEND.DNS.NonExistentDomain'],
+          'mesgtoobig'    => ['RESOLVER.RST.RecipSizeLimit', 'RESOLVER.RST.RecipientSizeLimit'],
+          'networkerror'  => ['SMTPSEND.DNS.MxLoopback'],
+          'rejected'      => ['RESOLVER.RST.NotAuthorized'],
+          'securityerror' => ['RESOLVER.RST.AuthRequired'],
+          'systemerror'   => ['RESOLVER.ADR.Ambiguous', 'RESOLVER.ADR.BadPrimary', 'RESOLVER.ADR.InvalidInSmtp'],
+          'toomanyconn'   => ['RESOLVER.ADR.RecipLimit', 'RESOLVER.ADR.RecipientLimit'],
+          'userunknown'   => [
             'RESOLVER.ADR.RecipNotFound',
             'RESOLVER.ADR.RecipientNotFound',
             'RESOLVER.ADR.ExRecipNotFound',
@@ -152,7 +152,7 @@ module Sisimai
             # Try to compare with error messages defined in MessagesOf
             MessagesOf[e].each do |f|
               next unless statusmesg.include?(f)
-              reasontext = e.to_s
+              reasontext = e
               break
             end
             break unless reasontext.empty?

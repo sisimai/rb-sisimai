@@ -14,9 +14,9 @@ module Sisimai::Bite::Email
         html:    %r{\AContent-Type:[ ]*text/html;[ ]*charset=['"]?(?:UTF|utf)[-]8['"]?\z},
       }.freeze
       MessagesOf = {
-        userunknown:  ["because the address couldn't be found. Check for typos or unnecessary spaces and try again."],
-        notaccept:    ['Null MX'],
-        networkerror: [' responded with code NXDOMAIN'],
+        'userunknown'  => ["because the address couldn't be found. Check for typos or unnecessary spaces and try again."],
+        'notaccept'    => ['Null MX'],
+        'networkerror' => [' responded with code NXDOMAIN'],
       }.freeze
 
       def description; return 'G Suite: https://gsuite.google.com'; end
@@ -213,7 +213,7 @@ module Sisimai::Bite::Email
           MessagesOf.each_key do |r|
             # Guess an reason of the bounce
             next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
-            e['reason'] = r.to_s
+            e['reason'] = r
             break
           end
         end

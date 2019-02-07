@@ -9,24 +9,24 @@ module Sisimai::Bite::Email
       Indicators = Sisimai::Bite::Email.INDICATORS
       StartingOf = { rfc822: ['Original mail as follows:'] }.freeze
       ErrorTitle = {
-        :rejected => %r{(?>
+        'rejected' => %r{(?>
            (?:Ignored[ ])*NOT[ ]MEMBER[ ]article[ ]from[ ]
           |reject[ ]mail[ ](?:.+:|from)[ ],
           |Spam[ ]mail[ ]from[ ]a[ ]spammer[ ]is[ ]rejected
           |You[ ].+[ ]are[ ]not[ ]member
           )
         }x,
-        :systemerror => %r{(?:
+        'systemerror' => %r{(?:
            fml[ ]system[ ]error[ ]message
           |Loop[ ]Alert:[ ]
           |Loop[ ]Back[ ]Warning:[ ]
           |WARNING:[ ]UNIX[ ]FROM[ ]Loop
           )
         }x,
-        :securityerror => %r/Security Alert/,
+        'securityerror' => %r/Security Alert/,
       }.freeze
       ErrorTable = {
-        :rejected => %r{(?>
+        'rejected' => %r{(?>
           (?:Ignored[ ])*NOT[ ]MEMBER[ ]article[ ]from[ ]
           |reject[ ](?:
              mail[ ]from[ ].+[@].+
@@ -36,13 +36,13 @@ module Sisimai::Bite::Email
           |You[ ]are[ ]not[ ]a[ ]member[ ]of[ ]this[ ]mailing[ ]list
           )
         }x,
-        :systemerror => %r{(?:
+        'systemerror' => %r{(?:
            Duplicated[ ]Message-ID
           |fml[ ].+[ ]has[ ]detected[ ]a[ ]loop[ ]condition[ ]so[ ]that
           |Loop[ ]Back[ ]Warning:
           )
         }x,
-        :securityerror => %r/Security alert:/,
+        'securityerror' => %r/Security alert:/,
       }.freeze
 
       def description; return 'fml mailing list server/manager'; end
@@ -133,7 +133,7 @@ module Sisimai::Bite::Email
           ErrorTable.each_key do |f|
             # Try to match with error messages defined in ErrorTable
             next unless e['diagnosis'] =~ ErrorTable[f]
-            e['reason'] = f.to_s
+            e['reason'] = f
             break
           end
 
@@ -142,7 +142,7 @@ module Sisimai::Bite::Email
             ErrorTitle.each_key do |f|
               # Try to match with the Subject string
               next unless mhead['subject'] =~ ErrorTitle[f]
-              e['reason'] = f.to_s
+              e['reason'] = f
               break
             end
           end

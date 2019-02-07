@@ -15,19 +15,19 @@ module Sisimai::Bite::Email
       }.freeze
 
       ReSMTP = {
-        conn: %r/(?:SMTP connection failed,|Unexpected connection response from server:)/,
-        ehlo: %r|Unexpected response to EHLO/HELO:|,
-        mail: %r|Server response to MAIL FROM:|,
-        rcpt: %r|Additional RCPT TO generated following response:|,
-        data: %r|DATA command generated response:|,
+        'conn' => %r/(?:SMTP connection failed,|Unexpected connection response from server:)/,
+        'ehlo' => %r|Unexpected response to EHLO/HELO:|,
+        'mail' => %r|Server response to MAIL FROM:|,
+        'rcpt' => %r|Additional RCPT TO generated following response:|,
+        'data' => %r|DATA command generated response:|,
       }.freeze
       ReFailures = {
-        hostunknown: %r/Unknown host/,
-        userunknown: %r/\A(?:Unknown user|Invalid final delivery userid)/,
-        mailboxfull: %r/\AUser mailbox exceeds allowed size/,
-        securityerr: %r/\ARequested action not taken: virus detected/,
-        undefined:   %r/\Aundeliverable to /,
-        expired:     %r/\ADelivery failed \d+ attempts/,
+        'hostunknown' => %r/Unknown host/,
+        'userunknown' => %r/\A(?:Unknown user|Invalid final delivery userid)/,
+        'mailboxfull' => %r/\AUser mailbox exceeds allowed size/,
+        'securityerr' => %r/\ARequested action not taken: virus detected/,
+        'undefined'   => %r/\Aundeliverable to /,
+        'expired'     => %r/\ADelivery failed \d+ attempts/,
       }.freeze
 
       def description; return 'IPSWITCH IMail Server'; end
@@ -140,14 +140,14 @@ module Sisimai::Bite::Email
           ReSMTP.each_key do |r|
             # Detect SMTP command from the message
             next unless e['diagnosis'] =~ ReSMTP[r]
-            e['command'] = r.to_s.upcase
+            e['command'] = r.upcase
             break
           end
 
           ReFailures.each_key do |r|
             # Verify each regular expression of session errors
             next unless e['diagnosis'] =~ ReFailures[r]
-            e['reason'] = r.to_s
+            e['reason'] = r
             break
           end
           e.each_key { |a| e[a] ||= '' }

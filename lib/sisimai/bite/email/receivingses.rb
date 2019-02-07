@@ -15,10 +15,10 @@ module Sisimai::Bite::Email
       }.freeze
       MessagesOf = {
         # The followings are error messages in Rule sets/*/Actions/Template
-        filtered:     ['Mailbox does not exist'],
-        mesgtoobig:   ['Message too large'],
-        mailboxfull:  ['Mailbox full'],
-        contenterror: ['Message content rejected'],
+        'filtered'     => ['Mailbox does not exist'],
+        'mesgtoobig'   => ['Message too large'],
+        'mailboxfull'  => ['Mailbox full'],
+        'contenterror' => ['Message content rejected'],
       }.freeze
 
       def description; return 'Amazon SES(Receiving): http://aws.amazon.com/ses/'; end
@@ -155,7 +155,7 @@ module Sisimai::Bite::Email
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
             next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
-            e['reason'] = r.to_s
+            e['reason'] = r
             break
           end
 

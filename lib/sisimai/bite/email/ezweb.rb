@@ -19,21 +19,21 @@ module Sisimai::Bite::Email
       }.freeze
       ReFailures = {
         # notaccept: [ %r/The following recipients did not receive this message:/ ],
-        mailboxfull: [
+        'mailboxfull' => [
           %r/The user[(]s[)] account is temporarily over quota/,
         ],
-        suspend: [
+        'suspend' => [
           # http://www.naruhodo-au.kddi.com/qa3429203.html
           # The recipient may be unpaid user...?
           %r/The user[(]s[)] account is disabled[.]/,
           %r/The user[(]s[)] account is temporarily limited[.]/,
         ],
-        expired: [
+        'expired' => [
           # Your message was not delivered within 0 days and 1 hours.
           # Remote host is not responding.
           %r/Your message was not delivered within /,
         ],
-        onhold: [
+        'onhold' => [
           %r/Each of the following recipients was rejected by a remote mail server/,
         ],
       }.freeze
@@ -200,7 +200,7 @@ module Sisimai::Bite::Email
                   ReFailures[r].each do |rr|
                     # Check each regular expression
                     next unless e['diagnosis'] =~ rr
-                    e['reason'] = r.to_s
+                    e['reason'] = r
                     throw :SESSION
                   end
                 end

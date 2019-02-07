@@ -7,11 +7,11 @@ module Sisimai
       MarkingsOf = { :boundary => %r/\A__SISIMAI_PSEUDO_BOUNDARY__\z/ }
       AutoReply1 = {
         # http://www.iana.org/assignments/auto-submitted-keywords/auto-submitted-keywords.xhtml
-        :'auto-submitted' => %r/\Aauto-(?:generated|replied|notified)/,
+        'auto-submitted' => %r/\Aauto-(?:generated|replied|notified)/,
         # https://msdn.microsoft.com/en-us/library/ee219609(v=exchg.80).aspx
-        :'x-auto-response-suppress' => %r/(?:oof|autoreply)/,
-        :'precedence' => %r/\Aauto_reply\z/,
-        :'subject' => %r/\A(?>
+        'x-auto-response-suppress' => %r/(?:oof|autoreply)/,
+        'precedence' => %r/\Aauto_reply\z/,
+        'subject' => %r/\A(?>
              auto:
             |auto[ ]response:
             |automatic[ ]reply:
@@ -20,13 +20,13 @@ module Sisimai
         /x,
       }.freeze
       Excludings = {
-        :subject => %r/(?:
+        'subject' => %r/(?:
              security[ ]information[ ]for  # sudo
             |mail[ ]failure[ ][-]          # Exim
             )
         /x,
-        :from    => %r/(?:root|postmaster|mailer-daemon)[@]/,
-        :to      => %r/root[@]/,
+        'from' => %r/(?:root|postmaster|mailer-daemon)[@]/,
+        'to'   => %r/root[@]/,
       }.freeze
       SubjectSet = %r{\A(?>
          (?:.+?)?Re:
@@ -59,9 +59,9 @@ module Sisimai
         # DETECT_EXCLUSION_MESSAGE
         Excludings.each_key do |e|
           # Exclude message from root@
-          next unless mhead.key?(e.to_s)
-          next unless mhead[e.to_s]
-          next unless mhead[e.to_s].downcase =~ Excludings[e]
+          next unless mhead.key?(e)
+          next unless mhead[e]
+          next unless mhead[e].downcase =~ Excludings[e]
           leave = 1
           break
         end
@@ -70,9 +70,9 @@ module Sisimai
         # DETECT_AUTO_REPLY_MESSAGE
         AutoReply1.each_key do |e|
           # RFC3834 Auto-Submitted and other headers
-          next unless mhead.key?(e.to_s)
-          next unless mhead[e.to_s]
-          next unless mhead[e.to_s].downcase =~ AutoReply1[e]
+          next unless mhead.key?(e)
+          next unless mhead[e]
+          next unless mhead[e].downcase =~ AutoReply1[e]
           match += 1
           break
         end

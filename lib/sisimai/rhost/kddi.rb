@@ -8,8 +8,8 @@ module Sisimai
       class << self
         # Imported from p5-Sisimail/lib/Sisimai/Rhost/KDDI.pm
         MessagesOf = {
-          filtered:    '550 : User unknown',  # The response was: 550 : User unknown
-          userunknown: '>: User unknown',     # The response was: 550 <...>: User unknown
+          'filtered'    => '550 : User unknown',  # The response was: 550 : User unknown
+          'userunknown' => '>: User unknown',     # The response was: 550 <...>: User unknown
         }.freeze
 
         # Detect bounce reason from au (KDDI)
@@ -22,7 +22,7 @@ module Sisimai
           MessagesOf.each_key do |e|
             # Try to match the error message with message patterns defined in $MessagesOf
             next unless statusmesg.end_with?(MessagesOf[e])
-            reasontext = e.to_s
+            reasontext = e
             break
           end
 

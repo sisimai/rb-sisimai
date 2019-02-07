@@ -21,11 +21,11 @@ module Sisimai::Bite::Email
       MessagesOf = {
         # find exim/ -type f -exec grep 'message = US' {} /dev/null \;
         # route.c:1158|  DEBUG(D_uid) debug_printf("getpwnam() returned NULL (user not found)\n");
-        userunknown: ['user not found'],
+        'userunknown' => ['user not found'],
         # transports/smtp.c:3524|  addr->message = US"all host address lookups failed permanently";
         # routers/dnslookup.c:331|  addr->message = US"all relevant MX records point to non-existent hosts";
         # route.c:1826|  uschar *message = US"Unrouteable address";
-        hostunknown: [
+        'hostunknown' => [
           'all host address lookups failed permanently',
           'all relevant MX records point to non-existent hosts',
           'Unrouteable address',
@@ -33,10 +33,10 @@ module Sisimai::Bite::Email
         # transports/appendfile.c:2567|  addr->user_message = US"mailbox is full";
         # transports/appendfile.c:3049|  addr->message = string_sprintf("mailbox is full "
         # transports/appendfile.c:3050|  "(quota exceeded while writing to file %s)", filename);
-        mailboxfull: ['mailbox is full', 'error: quota exceed'],
+        'mailboxfull' => ['mailbox is full', 'error: quota exceed'],
         # routers/dnslookup.c:328|  addr->message = US"an MX or SRV record indicated no SMTP service";
         # transports/smtp.c:3502|  addr->message = US"no host found for existing SMTP connection";
-        notaccept: [
+        'notaccept'   => [
           'an MX or SRV record indicated no SMTP service',
           'no host found for existing SMTP connection',
         ],
@@ -44,7 +44,7 @@ module Sisimai::Bite::Email
         # parser.c:701| if(bracket_count++ > 5) FAILED(US"angle-brackets nested too deep");
         # parser.c:738| FAILED(US"domain missing in source-routed address");
         # parser.c:747| : string_sprintf("malformed address: %.32s may not follow %.*s",
-        syntaxerror: [
+        'syntaxerror' => [
           'angle-brackets nested too deep',
           'expected word or "<"',
           'domain missing in source-routed address',
@@ -53,14 +53,14 @@ module Sisimai::Bite::Email
         # deliver.c:5614|  addr->message = US"delivery to file forbidden";
         # deliver.c:5624|  addr->message = US"delivery to pipe forbidden";
         # transports/pipe.c:1156|  addr->user_message = US"local delivery failed";
-        systemerror: [
+        'systemerror' => [
           'delivery to file forbidden',
           'delivery to pipe forbidden',
           'local delivery failed',
           'LMTP error after ',
         ],
         # deliver.c:5425|  new->message = US"Too many \"Received\" headers - suspected mail loop";
-        contenterror: ['Too many "Received" headers'],
+        'contenterror' => ['Too many "Received" headers'],
       }.freeze
       DelayedFor = [
         'retry timeout exceeded',
@@ -222,7 +222,7 @@ module Sisimai::Bite::Email
               MessagesOf.each_key do |r|
                 # Check each regular expression
                 next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
-                e['reason'] = r.to_s
+                e['reason'] = r
                 break
               end
 
