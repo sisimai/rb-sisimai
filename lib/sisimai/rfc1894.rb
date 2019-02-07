@@ -35,30 +35,30 @@ module Sisimai
       ].freeze
 
       CapturesOn = {
-        addr: %r/\A((?:Original|Final|X-Actual)-Recipient):[ ]*(.+?);[ ]*(.+)/,
-        code: %r/\A(Diagnostic-Code):[ ]*(.+?);[ ]*(.*)/,
-        date: %r/\A((?:Arrival|Last-Attempt)-Date):[ ]*(.+)/,
-        host: %r/\A((?:Reporting|Received-From|Remote)-MTA):[ ]*(.+?);[ ]*(.+)/,
-        list: %r/\A(Action):[ ]*(failed|delayed|delivered|relayed|expanded|expired|failure)/i,
-        stat: %r/\A(Status):[ ]*([245][.]\d+[.]\d+)/,
-        text: %r/\A(X-Original-Message-ID):[ ]*(.+)/,
+        'addr' => %r/\A((?:Original|Final|X-Actual)-Recipient):[ ]*(.+?);[ ]*(.+)/,
+        'code' => %r/\A(Diagnostic-Code):[ ]*(.+?);[ ]*(.*)/,
+        'date' => %r/\A((?:Arrival|Last-Attempt)-Date):[ ]*(.+)/,
+        'host' => %r/\A((?:Reporting|Received-From|Remote)-MTA):[ ]*(.+?);[ ]*(.+)/,
+        'list' => %r/\A(Action):[ ]*(failed|delayed|delivered|relayed|expanded|expired|failure)/i,
+        'stat' => %r/\A(Status):[ ]*([245][.]\d+[.]\d+)/,
+        'text' => %r/\A(X-Original-Message-ID):[ ]*(.+)/,
        #text: %r/\A(Original-Envelope-Id|Final-Log-ID):[ ]*(.+)/,
       }.freeze
 
-      Correction = { action: { failure: 'failed', expired: 'delayed' } }
+      Correction = { action: { 'failure' => 'failed', 'expired' => 'delayed' } }
       FieldGroup = {
-        :'original-recipient'    => 'addr',
-        :'final-recipient'       => 'addr',
-        :'x-actual-recipient'    => 'addr',
-        :'diagnostic-code'       => 'code',
-        :'arrival-date'          => 'date',
-        :'last-attempt-date'     => 'date',
-        :'received-from-mta'     => 'host',
-        :'remote-mta'            => 'host',
-        :'reporting-mta'         => 'host',
-        :'action'                => 'list',
-        :'status'                => 'stat',
-        :'x-original-message-id' => 'text',
+        'original-recipient'    => 'addr',
+        'final-recipient'       => 'addr',
+        'x-actual-recipient'    => 'addr',
+        'diagnostic-code'       => 'code',
+        'arrival-date'          => 'date',
+        'last-attempt-date'     => 'date',
+        'received-from-mta'     => 'host',
+        'remote-mta'            => 'host',
+        'reporting-mta'         => 'host',
+        'action'                => 'list',
+        'status'                => 'stat',
+        'x-original-message-id' => 'text',
       }.freeze
 
       # Table to be converted to key name defined in Sisimai::Bite class
@@ -66,17 +66,17 @@ module Sisimai
       # @return   [Array,Hash]    RFC822 Header list
       def FIELDTABLE
         return {
-          :'action'             => 'action',
-          :'arrival-date'       => 'date',
-          :'diagnostic-code'    => 'diagnosis',
-          :'final-recipient'    => 'recipient',
-          :'last-attempt-date'  => 'date',
-          :'original-recipient' => 'alias',
-          :'received-from-mta'  => 'lhost',
-          :'remote-mta'         => 'rhost',
-          :'reporting-mta'      => 'rhost',
-          :'status'             => 'status',
-          :'x-actual-recipient' => 'alias',
+          'action'             => 'action',
+          'arrival-date'       => 'date',
+          'diagnostic-code'    => 'diagnosis',
+          'final-recipient'    => 'recipient',
+          'last-attempt-date'  => 'date',
+          'original-recipient' => 'alias',
+          'received-from-mta'  => 'lhost',
+          'remote-mta'         => 'rhost',
+          'reporting-mta'      => 'rhost',
+          'status'             => 'status',
+          'x-actual-recipient' => 'alias',
         }
       end
 
@@ -97,13 +97,13 @@ module Sisimai
       # @since v4.25.0
       def field(argv0 = '')
         return nil if argv0.empty?
-        group = FieldGroup[argv0.split(':',2).shift.downcase.to_sym] || ''
+        group = FieldGroup[argv0.split(':',2).shift.downcase] || ''
         match = []
 
         return nil if group.empty?
-        return nil unless CapturesOn[group.to_sym]
+        return nil unless CapturesOn[group]
 
-        while cv = argv0.match(CapturesOn[group.to_sym])
+        while cv = argv0.match(CapturesOn[group])
           # Try to match with each pattern of Per-Message field, Per-Recipient field
           # - 0: Field-Name
           # - 1: Sub Type: RFC822, DNS, X-Unix, and so on)
@@ -127,8 +127,8 @@ module Sisimai
 
             # Correct invalid value in Action field:
             break unless group == 'list'
-            break unless Correction[:action].key?(match[2].to_sym)
-            match[2] = Correction[:action][match[2].to_sym]
+            break unless Correction[:action].key?(match[2])
+            match[2] = Correction[:action][match[2]]
           end
           break
         end

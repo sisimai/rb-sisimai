@@ -143,8 +143,8 @@ module Sisimai::Bite::Email
             elsif f = Sisimai::RFC1894.match(e)
               # "e" matched with any field defined in RFC3464
               next unless o = Sisimai::RFC1894.field(e)
-              next unless fieldtable.key?(o[0].to_sym)
-              v[fieldtable[o[0].to_sym]] = o[2]
+              next unless fieldtable.key?(o[0])
+              v[fieldtable[o[0]]] = o[2]
 
             else
               # The line does not begin with a DSN field defined in RFC3464

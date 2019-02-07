@@ -121,11 +121,11 @@ module Sisimai::Bite::Email
                 v['diagnosis'] = o[2]
               else
                 # Other DSN fields defined in RFC3464
-                next unless fieldtable.key?(o[0].to_sym)
-                v[fieldtable[o[0].to_sym]] = o[2]
+                next unless fieldtable.key?(o[0])
+                v[fieldtable[o[0]]] = o[2]
 
                 next unless f == 1
-                permessage[fieldtable[o[0].to_sym]] = o[2]
+                permessage[fieldtable[o[0]]] = o[2]
               end
             else
               # Continued line of the value of Diagnostic-Code field

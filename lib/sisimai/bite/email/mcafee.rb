@@ -114,8 +114,8 @@ module Sisimai::Bite::Email
                 end
                 next
               end
-              next unless fieldtable.key?(o[0].to_sym)
-              v[fieldtable[o[0].to_sym]] = o[2]
+              next unless fieldtable.key?(o[0])
+              v[fieldtable[o[0]]] = o[2]
 
             else
               # Continued line of the value of Diagnostic-Code field

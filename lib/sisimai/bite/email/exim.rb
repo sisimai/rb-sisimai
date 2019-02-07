@@ -285,8 +285,8 @@ module Sisimai::Bite::Email
 
                     else
                       # Other DSN fields defined in RFC3464
-                      next unless fieldtable.key?(o[0].to_sym)
-                      v[fieldtable[o[0].to_sym]] = o[2]
+                      next unless fieldtable.key?(o[0])
+                      v[fieldtable[o[0]]] = o[2]
                     end
                   else
                     # Error message ?
