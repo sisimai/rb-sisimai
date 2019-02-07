@@ -9,17 +9,17 @@ module Sisimai::Bite::JSON
 
       # https://docs.aws.amazon.com/en_us/ses/latest/DeveloperGuide/notification-contents.html
       BounceType = {
-        :Permanent => {
-          :General    => '',
-          :NoEmail    => '',
-          :Suppressed => '',
+        'Permanent' => {
+          'General'    => '',
+          'NoEmail'    => '',
+          'Suppressed' => '',
         },
-        :Transient => {
-          :General            => '',
-          :MailboxFull        => 'mailboxfull',
-          :MessageTooLarge    => 'mesgtoobig',
-          :ContentRejected    => '',
-          :AttachmentRejected => '',
+        'Transient' => {
+          'General'            => '',
+          'MailboxFull'        => 'mailboxfull',
+          'MessageTooLarge'    => 'mesgtoobig',
+          'ContentRejected'    => '',
+          'AttachmentRejected' => '',
         },
       }.freeze
 
@@ -107,15 +107,15 @@ module Sisimai::Bite::JSON
         rfc822head = {}   # (Hash) Check flags for headers in RFC822 part
         recipients = 0    # (Integer) The number of 'Final-Recipient' header
         labeltable = {
-          :Bounce    => 'bouncedRecipients',
-          :Complaint => 'complainedRecipients',
+          'Bounce'    => 'bouncedRecipients',
+          'Complaint' => 'complainedRecipients',
         }
         v = nil
 
         if %w[Bounce Complaint].index(argvs['notificationType'])
           # { "notificationType":"Bounce", "bounce": { "bounceType":"Permanent",...
           o = argvs[argvs['notificationType'].downcase].dup
-          r = o[labeltable[argvs['notificationType'].to_sym]] || []
+          r = o[labeltable[argvs['notificationType']]] || []
 
           while e = r.shift do
             # 'bouncedRecipients' => [ { 'emailAddress' => 'bounce@si...' }, ... ]
@@ -152,13 +152,13 @@ module Sisimai::Bite::JSON
               # 'reportingMTA' => 'dsn; a27-23.smtp-out.us-west-2.amazonses.com',
               if cv = o['reportingMTA'].match(/\Adsn;[ ](.+)\z/) then v['lhost'] = cv[1] end
 
-              if BounceType.key?(o['bounceType'].to_sym) &&
-                 BounceType[o['bounceType'].to_sym].key?(o['bounceSubType'].to_sym)
+              if BounceType.key?(o['bounceType']) &&
+                 BounceType[o['bounceType']].key?(o['bounceSubType'])
                 # 'bounce' => {
                 #       'bounceType' => 'Permanent',
                 #       'bounceSubType' => 'General'
                 # },
-                v['reason'] = BounceType[o['bounceType'].to_sym][o['bounceSubType'].to_sym]
+                v['reason'] = BounceType[o['bounceType']][o['bounceSubType']]
               end
             else
               # 'complainedRecipients' => [ {
