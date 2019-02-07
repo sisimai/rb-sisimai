@@ -9,12 +9,12 @@ module Sisimai
         require 'sisimai/smtp/status'
 
         SoftOrHard = {
-          :soft => %w[
+          'soft' => %w[
             blocked contenterror exceedlimit expired filtered mailboxfull
             mailererror mesgtoobig networkerror norelaying policyviolation
             rejected securityerror spamdetected suspend syntaxerror systemerror
             systemfull toomanyconn virusdetected],
-          :hard => %w[hasmoved hostunknown userunknown]
+          'hard' => %w[hasmoved hostunknown userunknown]
         }.freeze
 
         # Permanent error or not
@@ -96,12 +96,12 @@ module Sisimai
             # Check all the reasons defined at the above
             catch :SOFT_OR_HARD do
               while true
-                [:hard, :soft].each do |e|
+                %w[hard soft].each do |e|
                   # Soft or Hard?
                   SoftOrHard[e].each do |f|
                     # Hard bounce?
                     next unless argv1 == f
-                    value = e.to_s
+                    value = e
                     throw :SOFT_OR_HARD
                   end
                 end
