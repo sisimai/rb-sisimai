@@ -16,6 +16,8 @@ v4.24.1p5
   - Build test for JRuby on Travis CI was temporarily disabled. #138
   - Sisimai works on Ruby 2.6.0
   - Fix Sisimai::ARF.is_arf method to remove angle brackets from From: header.
+  - Fix serious bug (Hash key typo) in Sisimai::Rhost::Google
+  - Less Symbol, less String#to_sym.
 
 v4.24.1
 --------------------------------------------------------------------------------
