@@ -57,7 +57,7 @@ module Sisimai::Bite::Email
           }
           messagesof = {
             # The attempted recipient address does not exist.
-            userunknown: ['550 - Requested action not taken: no such user here'],
+            'userunknown' => ['550 - Requested action not taken: no such user here'],
           }
           boundary00 = Sisimai::MIME.boundary(mhead['content-type']) || ''
           markingsof[:rfc822] = Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z') unless boundary00.empty?
@@ -127,7 +127,7 @@ module Sisimai::Bite::Email
           # vzwpix.com
           startingof = { message: ['Message could not be delivered to mobile'] }
           markingsof = { rfc822:  %r/\A__BOUNDARY_STRING_HERE__\z/ }
-          messagesof = { userunknown: ['No valid recipients for this MM'] }
+          messagesof = { 'userunknown' => ['No valid recipients for this MM'] }
           boundary00 = Sisimai::MIME.boundary(mhead['content-type'])
           markingsof[:rfc822] = Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z') unless boundary00.empty?
 
@@ -210,7 +210,7 @@ module Sisimai::Bite::Email
           messagesof.each_key do |r|
             # Verify each regular expression of session errors
             next unless messagesof[r].any? { |a| e['diagnosis'].include?(a) }
-            e['reason'] = r.to_s
+            e['reason'] = r
             break
           end
         end

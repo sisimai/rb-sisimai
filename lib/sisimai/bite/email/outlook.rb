@@ -13,8 +13,8 @@ module Sisimai::Bite::Email
         rfc822:  ['Content-Type: message/rfc822'],
       }.freeze
       MessagesOf = {
-        hostunknown: ['The mail could not be delivered to the recipient because the domain is not reachable'],
-        userunknown: ['Requested action not taken: mailbox unavailable'],
+        'hostunknown' => ['The mail could not be delivered to the recipient because the domain is not reachable'],
+        'userunknown' => ['Requested action not taken: mailbox unavailable'],
       }.freeze
 
       def description; return 'Microsoft Outlook.com: https://www.outlook.com/'; end
@@ -118,11 +118,11 @@ module Sisimai::Bite::Email
                 v['diagnosis'] = o[2]
               else
                 # Other DSN fields defined in RFC3464
-                next unless fieldtable.key?(o[0].to_sym)
-                v[fieldtable[o[0].to_sym]] = o[2]
+                next unless fieldtable.key?(o[0])
+                v[fieldtable[o[0]]] = o[2]
 
                 next unless f == 1
-                permessage[fieldtable[o[0].to_sym]] = o[2]
+                permessage[fieldtable[o[0]]] = o[2]
               end
             else
               # Continued line of the value of Diagnostic-Code field
@@ -158,7 +158,7 @@ module Sisimai::Bite::Email
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
             next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
-            e['reason'] = r.to_s
+            e['reason'] = r
             break
           end
         end

@@ -14,23 +14,23 @@ module Sisimai
       TZ_OFFSET = 54000               # Max time zone offset, 54000 seconds
 
       TimeUnit = {
-        o: (BASE_D * BASE_Y * 4), # Olympiad, 4 years
-        y: (BASE_D * BASE_Y),     # Year, Gregorian Calendar
-        q: (BASE_D * BASE_Y / 4), # Quarter, year/4
-        l: (BASE_D * BASE_L),     # Lunar month
-        f: (BASE_D * 14),         # Fortnight, 2 weeks
-        w: (BASE_D * 7),          # Week, 604800 seconds
-        d: BASE_D,                # Day
-        h: 3600,                  # Hour
-        b: 86.4,                  # Beat, Swatch internet time: 1000b = 1d
-        m: 60,                    # Minute,
-        s: 1,                     # Second
+        'o' => (BASE_D * BASE_Y * 4), # Olympiad, 4 years
+        'y' => (BASE_D * BASE_Y),     # Year, Gregorian Calendar
+        'q' => (BASE_D * BASE_Y / 4), # Quarter, year/4
+        'l' => (BASE_D * BASE_L),     # Lunar month
+        'f' => (BASE_D * 14),         # Fortnight, 2 weeks
+        'w' => (BASE_D * 7),          # Week, 604800 seconds
+        'd' => BASE_D,                # Day
+        'h' => 3600,                  # Hour
+        'b' => 86.4,                  # Beat, Swatch internet time: 1000b = 1d
+        'm' => 60,                    # Minute,
+        's' => 1,                     # Second
       }.freeze
 
       MathematicalConstant = {
-        e: CONST_E,
-        p: CONST_P,
-        g: CONST_E**CONST_P,
+        'e' => CONST_E,
+        'p' => CONST_P,
+        'g' => CONST_E**CONST_P,
       }.freeze
 
       MonthName = {
@@ -45,131 +45,131 @@ module Sisimai
 
       TimeZoneAbbr = {
         # http://en.wikipedia.org/wiki/List_of_time_zone_abbreviations
-        # ACDT:  '+1030', # Australian Central Daylight Time  UTC+10:30
-        # ACST:  '+0930', # Australian Central Standard Time  UTC+09:30
-        # ACT:   '+0800', # ASEAN Common Time                 UTC+08:00
-        ADT:     '-0300', # Atlantic Daylight Time            UTC-03:00
-        # AEDT:  '+1100', # Australian Eastern Daylight Time  UTC+11:00
-        # AEST:  '+1000', # Australian Eastern Standard Time  UTC+10:00
-        # AFT:   '+0430', # Afghanistan Time                  UTC+04:30
-        AKDT:    '-0800', # Alaska Daylight Time              UTC-08:00
-        AKST:    '-0900', # Alaska Standard Time              UTC-09:00
-        # AMST   '+0500', # Armenia Summer Time               UTC+05:00
-        # AMT    '+0400', # Armenia Time                      UTC+04:00
-        # ART    '-0300', # Argentina Time                    UTC+03:00
-        # AST    '+0300', # Arab Standard Time (Kuwait, Riyadh)       UTC+03:00
-        # AST    '+0400', # Arabian Standard Time (Abu Dhabi, Muscat) UTC+04:00
-        # AST    '+0300', # Arabic Standard Time (Baghdad)    UTC+03:00
-        AST:     '-0400', # Atlantic Standard Time            UTC-04:00
-        # AWDT:  '+0900', # Australian Western Daylight Time  UTC+09:00
-        # AWST:  '+0800', # Australian Western Standard Time  UTC+08:00
-        # AZOST: '-0100', # Azores Standard Time              UTC-01:00
-        # AZT:   '+0400', # Azerbaijan Time                   UTC+04:00
-        # BDT:   '+0800', # Brunei Time                       UTC+08:00
-        # BIOT:  '+0600', # British Indian Ocean Time         UTC+06:00
-        # BIT:   '-1200', # Baker Island Time                 UTC-12:00
-        # BOT:   '-0400', # Bolivia Time                      UTC-04:00
-        # BRT:   '-0300', # Brasilia Time                     UTC-03:00
-        # BST:   '+0600', # Bangladesh Standard Time          UTC+06:00
-        # BST:   '+0100', # British Summer Time (British Standard Time from Feb 1968 to Oct 1971) UTC+01:00
-        # BTT:   '+0600', # Bhutan Time                       UTC+06:00
-        # CAT:   '+0200', # Central Africa Time               UTC+02:00
-        # CCT:   '+0630', # Cocos Islands Time                UTC+06:30
-        CDT:     '-0500', # Central Daylight Time (North America)     UTC-05:00
-        # CEDT:  '+0200', # Central European Daylight Time    UTC+02:00
-        # CEST:  '+0200', # Central European Summer Time      UTC+02:00
-        # CET:   '+0100', # Central European Time             UTC+01:00
-        # CHAST: '+1245', # Chatham Standard Time             UTC+12:45
-        # CIST:  '-0800', # Clipperton Island Standard Time   UTC-08:00
-        # CKT:   '-1000', # Cook Island Time                  UTC-10:00
-        # CLST   '-0300', # Chile Summer Time                 UTC-03:00
-        # CLT    '-0400', # Chile Standard Time               UTC-04:00
-        # COST   '-0400', # Colombia Summer Time              UTC-04:00
-        # COT    '-0500', # Colombia Time                     UTC-05:00
-        CST:     '-0600', # Central Standard Time (North America) UTC-06:00
-        # CST:   '+0800', # China Standard Time               UTC+08:00
-        # CVT:   '-0100', # Cape Verde Time                   UTC-01:00
-        # CXT:   '+0700', # Christmas Island Time             UTC+07:00
-        # ChST:  '+1000', # Chamorro Standard Time            UTC+10:00
-        # DST:   ''       # Daylight saving time              Depending
-        # DFT:   '+0100', # AIX specific equivalent of Central European Time  UTC+01:00
-        # EAST:  '-0600', # Easter Island Standard Time       UTC-06:00
-        # EAT:   '+0300', # East Africa Time                  UTC+03:00
-        # ECT:   '-0400', # Eastern Caribbean Time (does not recognise DST)   UTC-04:00
-        # ECT:   '-0500', # Ecuador Time                      UTC-05:00
-        EDT:     '-0400', # Eastern Daylight Time (North America)     UTC-04:00
-        # EEDT:  '+0300', # Eastern European Daylight Time    UTC+03:00
-        # EEST:  '+0300', # Eastern European Summer Time      UTC+03:00
-        # EET:   '+0200', # Eastern European Time             UTC+02:00
-        EST:     '+0500', # Eastern Standard Time (North America) UTC-05:00
-        # FJT:   '+1200', # Fiji Time                         UTC+12:00
-        # FKST:  '-0400', # Falkland Islands Standard Time    UTC-04:00
-        # GALT:  '-0600', # Galapagos Time                    UTC-06:00
-        # GET:   '+0400', # Georgia Standard Time             UTC+04:00
-        # GFT:   '-0300', # French Guiana Time                UTC-03:00
-        # GILT:  '+1200', # Gilbert Island Time               UTC+12:00
-        # GIT:   '-0900', # Gambier Island Time               UTC-09:00
-        GMT:     '+0000', # Greenwich Mean Time               UTC
-        # :GST   '-0200', # South Georgia and the South Sandwich Islands  UTC-02:00
-        # :GYT   '-0400', # Guyana Time                       UTC-04:00
-        HADT:    '-0900', # Hawaii-Aleutian Daylight Time     UTC-09:00
-        HAST:    '-1000', # Hawaii-Aleutian Standard Time     UTC-10:00
-        # HKT:   '+0800', # Hong Kong Time                    UTC+08:00
-        # HMT:   '+0500', # Heard and McDonald Islands Time   UTC+05:00
-        HST:     '-1000', # Hawaii Standard Time              UTC-10:00
-        # IRKT:  '+0800', # Irkutsk Time                      UTC+08:00
-        # IRST:  '+0330', # Iran Standard Time                UTC+03:30
-        # IST:   '+0530', # Indian Standard Time              UTC+05:30
-        # IST:   '+0100', # Irish Summer Time                 UTC+01:00
-        # IST:   '+0200', # Israel Standard Time              UTC+02:00
-        JST:     '+0900', # Japan Standard Time               UTC+09:00
-        # KRAT:  '+0700', # Krasnoyarsk Time                  UTC+07:00
-        # KST:   '+0900', # Korea Standard Time               UTC+09:00
-        # LHST:  '+1030', # Lord Howe Standard Time           UTC+10:30
-        # LINT:  '+1400', # Line Islands Time                 UTC+14:00
-        # MAGT:  '+1100', # Magadan Time                      UTC+11:00
-        MDT:     '-0600', # Mountain Daylight Time(North America) UTC-06:00
-        # MIT:   '-0930', # Marquesas Islands Time            UTC-09:30
-        # MSD:   '+0400', # Moscow Summer Time                UTC+04:00
-        # MSK:   '+0300', # Moscow Standard Time              UTC+03:00
-        # MST:   '+0800', # Malaysian Standard Time           UTC+08:00
-        MST:     '-0700', # Mountain Standard Time(North America) UTC-07:00
-        # MST:   '+0630', # Myanmar Standard Time             UTC+06:30
-        # MUT:   '+0400', # Mauritius Time                    UTC+04:00
-        # NDT:   '-0230', # Newfoundland Daylight Time        UTC-02:30
-        # NFT:   '+1130', # Norfolk Time[1]                   UTC+11:30
-        # NPT:   '+0545', # Nepal Time                        UTC+05:45
-        # NST:   '-0330', # Newfoundland Standard Time        UTC-03:30
-        # NT:    '-0330', # Newfoundland Time                 UTC-03:30
-        # OMST:  '+0600', # Omsk Time                         UTC+06:00
-        PDT:     '-0700', # Pacific Daylight Time(North America)  UTC-07:00
-        # PETT:  '+1200', # Kamchatka Time                    UTC+12:00
-        # PHOT:  '+1300', # Phoenix Island Time               UTC+13:00
-        # PKT:   '+0500', # Pakistan Standard Time            UTC+05:00
-        PST:     '-0800', # Pacific Standard Time (North America) UTC-08:00
-        # PST:   '+0800', # Philippine Standard Time          UTC+08:00
-        # RET:   '+0400', # Reunion Time                      UTC+04:00
-        # SAMT:  '+0400', # Samara Time                       UTC+04:00
-        # SAST:  '+0200', # South African Standard Time       UTC+02:00
-        # SBT:   '+1100', # Solomon Islands Time              UTC+11:00
-        # SCT:   '+0400', # Seychelles Time                   UTC+04:00
-        # SLT:   '+0530', # Sri Lanka Time                    UTC+05:30
-        # SST:   '-1100', # Samoa Standard Time               UTC-11:00
-        # SST:   '+0800', # Singapore Standard Time           UTC+08:00
-        # TAHT:  '-1000', # Tahiti Time                       UTC-10:00
-        # THA:   '+0700', # Thailand Standard Time            UTC+07:00
-        UT:      '-0000', # Coordinated Universal Time        UTC
-        UTC:     '-0000', # Coordinated Universal Time        UTC
-        # UYST:  '-0200', # Uruguay Summer Time               UTC-02:00
-        # UYT:   '-0300', # Uruguay Standard Time             UTC-03:00
-        # VET:   '-0430', # Venezuelan Standard Time          UTC-04:30
-        # VLAT:  '+1000', # Vladivostok Time                  UTC+10:00
-        # WAT:   '+0100', # West Africa Time                  UTC+01:00
-        # WEDT:  '+0100', # Western European Daylight Time    UTC+01:00
-        # WEST:  '+0100', # Western European Summer Time      UTC+01:00
-        # WET:   '-0000', # Western European Time             UTC
-        # YAKT:  '+0900', # Yakutsk Time                      UTC+09:00
-        # YEKT:  '+0500', # Yekaterinburg Time                UTC+05:00
+        #'ACDT' => '+1030', # Australian Central Daylight Time  UTC+10:30
+        #'ACST' => '+0930', # Australian Central Standard Time  UTC+09:30
+        #'ACT'  => '+0800', # ASEAN Common Time                 UTC+08:00
+        'ADT'   => '-0300', # Atlantic Daylight Time            UTC-03:00
+        #'AEDT' => '+1100', # Australian Eastern Daylight Time  UTC+11:00
+        #'AEST' => '+1000', # Australian Eastern Standard Time  UTC+10:00
+        #'AFT'  => '+0430', # Afghanistan Time                  UTC+04:30
+        'AKDT'  => '-0800', # Alaska Daylight Time              UTC-08:00
+        'AKST'  => '-0900', # Alaska Standard Time              UTC-09:00
+        #'AMST' => '+0500', # Armenia Summer Time               UTC+05:00
+        #'AMT'  => '+0400', # Armenia Time                      UTC+04:00
+        #'ART'  => '-0300', # Argentina Time                    UTC+03:00
+        #'AST'  => '+0300', # Arab Standard Time (Kuwait, Riyadh)       UTC+03:00
+        #'AST'  => '+0400', # Arabian Standard Time (Abu Dhabi, Muscat) UTC+04:00
+        #'AST'  => '+0300', # Arabic Standard Time (Baghdad)    UTC+03:00
+        'AST'   => '-0400', # Atlantic Standard Time            UTC-04:00
+        #'AWDT' => '+0900', # Australian Western Daylight Time  UTC+09:00
+        #'AWST' => '+0800', # Australian Western Standard Time  UTC+08:00
+        #'AZOST'=> '-0100', # Azores Standard Time              UTC-01:00
+        #'AZT'  => '+0400', # Azerbaijan Time                   UTC+04:00
+        #'BDT'  => '+0800', # Brunei Time                       UTC+08:00
+        #'BIOT' => '+0600', # British Indian Ocean Time         UTC+06:00
+        #'BIT'  => '-1200', # Baker Island Time                 UTC-12:00
+        #'BOT'  => '-0400', # Bolivia Time                      UTC-04:00
+        #'BRT'  => '-0300', # Brasilia Time                     UTC-03:00
+        #'BST'  => '+0600', # Bangladesh Standard Time          UTC+06:00
+        #'BST'  => '+0100', # British Summer Time (British Standard Time from Feb 1968 to Oct 1971) UTC+01:00
+        #'BTT'  => '+0600', # Bhutan Time                       UTC+06:00
+        #'CAT'  => '+0200', # Central Africa Time               UTC+02:00
+        #'CCT'  => '+0630', # Cocos Islands Time                UTC+06:30
+        'CDT'   => '-0500', # Central Daylight Time (North America)     UTC-05:00
+        #'CEDT' => '+0200', # Central European Daylight Time    UTC+02:00
+        #'CEST' => '+0200', # Central European Summer Time      UTC+02:00
+        #'CET'  => '+0100', # Central European Time             UTC+01:00
+        #'CHAST'=> '+1245', # Chatham Standard Time             UTC+12:45
+        #'CIST' => '-0800', # Clipperton Island Standard Time   UTC-08:00
+        #'CKT'  => '-1000', # Cook Island Time                  UTC-10:00
+        #'CLST' => '-0300', # Chile Summer Time                 UTC-03:00
+        #'CLT'  => '-0400', # Chile Standard Time               UTC-04:00
+        #'COST' => '-0400', # Colombia Summer Time              UTC-04:00
+        #'COT'  => '-0500', # Colombia Time                     UTC-05:00
+        'CST'   => '-0600', # Central Standard Time (North America) UTC-06:00
+        #'CST'  => '+0800', # China Standard Time               UTC+08:00
+        #'CVT'  => '-0100', # Cape Verde Time                   UTC-01:00
+        #'CXT'  => '+0700', # Christmas Island Time             UTC+07:00
+        #'ChST' => '+1000', # Chamorro Standard Time            UTC+10:00
+        # 'DST' => ''       # Daylight saving time              Depending
+        #'DFT'  => '+0100', # AIX specific equivalent of Central European Time  UTC+01:00
+        #'EAST' => '-0600', # Easter Island Standard Time       UTC-06:00
+        #'EAT'  => '+0300', # East Africa Time                  UTC+03:00
+        #'ECT'  => '-0400', # Eastern Caribbean Time (does not recognise DST)   UTC-04:00
+        #'ECT'  => '-0500', # Ecuador Time                      UTC-05:00
+        'EDT'   => '-0400', # Eastern Daylight Time (North America)     UTC-04:00
+        #'EEDT' => '+0300', # Eastern European Daylight Time    UTC+03:00
+        #'EEST' => '+0300', # Eastern European Summer Time      UTC+03:00
+        #'EET'  => '+0200', # Eastern European Time             UTC+02:00
+        'EST'   => '+0500', # Eastern Standard Time (North America) UTC-05:00
+        #'FJT'  => '+1200', # Fiji Time                         UTC+12:00
+        #'FKST' => '-0400', # Falkland Islands Standard Time    UTC-04:00
+        #'GALT' => '-0600', # Galapagos Time                    UTC-06:00
+        #'GET'  => '+0400', # Georgia Standard Time             UTC+04:00
+        #'GFT'  => '-0300', # French Guiana Time                UTC-03:00
+        #'GILT' => '+1200', # Gilbert Island Time               UTC+12:00
+        #'GIT'  => '-0900', # Gambier Island Time               UTC-09:00
+        'GMT'   => '+0000', # Greenwich Mean Time               UTC
+        #'GST'  => '-0200', # South Georgia and the South Sandwich Islands  UTC-02:00
+        #'GYT'  => '-0400', # Guyana Time                       UTC-04:00
+        'HADT'  => '-0900', # Hawaii-Aleutian Daylight Time     UTC-09:00
+        'HAST'  => '-1000', # Hawaii-Aleutian Standard Time     UTC-10:00
+        #'HKT'  => '+0800', # Hong Kong Time                    UTC+08:00
+        #'HMT'  => '+0500', # Heard and McDonald Islands Time   UTC+05:00
+        'HST'   => '-1000', # Hawaii Standard Time              UTC-10:00
+        #'IRKT' => '+0800', # Irkutsk Time                      UTC+08:00
+        #'IRST' => '+0330', # Iran Standard Time                UTC+03:30
+        #'IST'  => '+0530', # Indian Standard Time              UTC+05:30
+        #'IST'  => '+0100', # Irish Summer Time                 UTC+01:00
+        #'IST'  => '+0200', # Israel Standard Time              UTC+02:00
+        'JST'   => '+0900', # Japan Standard Time               UTC+09:00
+        #'KRAT' => '+0700', # Krasnoyarsk Time                  UTC+07:00
+        #'KST'  => '+0900', # Korea Standard Time               UTC+09:00
+        #'LHST' => '+1030', # Lord Howe Standard Time           UTC+10:30
+        #'LINT' => '+1400', # Line Islands Time                 UTC+14:00
+        #'MAGT' => '+1100', # Magadan Time                      UTC+11:00
+        'MDT'   => '-0600', # Mountain Daylight Time(North America) UTC-06:00
+        #'MIT'  => '-0930', # Marquesas Islands Time            UTC-09:30
+        #'MSD'  => '+0400', # Moscow Summer Time                UTC+04:00
+        #'MSK'  => '+0300', # Moscow Standard Time              UTC+03:00
+        #'MST'  => '+0800', # Malaysian Standard Time           UTC+08:00
+        'MST'   => '-0700', # Mountain Standard Time(North America) UTC-07:00
+        #'MST'  => '+0630', # Myanmar Standard Time             UTC+06:30
+        #'MUT'  => '+0400', # Mauritius Time                    UTC+04:00
+        #'NDT'  => '-0230', # Newfoundland Daylight Time        UTC-02:30
+        #'NFT'  => '+1130', # Norfolk Time[1]                   UTC+11:30
+        #'NPT'  => '+0545', # Nepal Time                        UTC+05:45
+        #'NST'  => '-0330', # Newfoundland Standard Time        UTC-03:30
+        #'NT'   => '-0330', # Newfoundland Time                 UTC-03:30
+        #'OMST' => '+0600', # Omsk Time                         UTC+06:00
+        'PDT'   => '-0700', # Pacific Daylight Time(North America)  UTC-07:00
+        #'PETT' => '+1200', # Kamchatka Time                    UTC+12:00
+        #'PHOT' => '+1300', # Phoenix Island Time               UTC+13:00
+        #'PKT'  => '+0500', # Pakistan Standard Time            UTC+05:00
+        'PST'   => '-0800', # Pacific Standard Time (North America) UTC-08:00
+        #'PST'  => '+0800', # Philippine Standard Time          UTC+08:00
+        #'RET'  => '+0400', # Reunion Time                      UTC+04:00
+        #'SAMT' => '+0400', # Samara Time                       UTC+04:00
+        #'SAST' => '+0200', # South African Standard Time       UTC+02:00
+        #'SBT'  => '+1100', # Solomon Islands Time              UTC+11:00
+        #'SCT'  => '+0400', # Seychelles Time                   UTC+04:00
+        #'SLT'  => '+0530', # Sri Lanka Time                    UTC+05:30
+        #'SST'  => '-1100', # Samoa Standard Time               UTC-11:00
+        #'SST'  => '+0800', # Singapore Standard Time           UTC+08:00
+        #'TAHT' => '-1000', # Tahiti Time                       UTC-10:00
+        #'THA'  => '+0700', # Thailand Standard Time            UTC+07:00
+        'UT'    => '-0000', # Coordinated Universal Time        UTC
+        'UTC'   => '-0000', # Coordinated Universal Time        UTC
+        #'UYST' => '-0200', # Uruguay Summer Time               UTC-02:00
+        #'UYT'  => '-0300', # Uruguay Standard Time             UTC-03:00
+        #'VET'  => '-0430', # Venezuelan Standard Time          UTC-04:30
+        #'VLAT' => '+1000', # Vladivostok Time                  UTC+10:00
+        #'WAT'  => '+0100', # West Africa Time                  UTC+01:00
+        #'WEDT' => '+0100', # Western European Daylight Time    UTC+01:00
+        #'WEST' => '+0100', # Western European Summer Time      UTC+01:00
+        #'WET'  => '-0000', # Western European Time             UTC
+        #'YAKT' => '+0900', # Yakutsk Time                      UTC+09:00
+        #'YEKT' => '+0500', # Yekaterinburg Time                UTC+05:00
       }.freeze
 
       # Convert to second
@@ -190,15 +190,15 @@ module Sisimai
           # 1d, 1.5w
           n = cr[1].to_f
           u = cr[2] || 'd'
-          getseconds = n * TimeUnit[u.to_sym].to_f
+          getseconds = n * TimeUnit[u].to_f
 
         elsif cr = argv1.match(/\A(\d+|\d+[.]\d+)?([#{mathconsts}])([#{unitoftime}])?\z/)
           # 1pd, 1.5pw
           n = cr[1].to_f || 1
           n = 1 if n.to_i == 0
-          m = MathematicalConstant[cr[2].to_sym].to_f
+          m = MathematicalConstant[cr[2]].to_f
           u = cr[3] || 'd'
-          getseconds = n * m * TimeUnit[u.to_sym].to_f
+          getseconds = n * m * TimeUnit[u].to_f
         else
           getseconds = 0
         end
@@ -399,7 +399,7 @@ module Sisimai
       #   abbr2tz('JST')  #=> '+0900'
       def abbr2tz(argv1)
         return nil unless argv1.is_a?(::String)
-        return TimeZoneAbbr[argv1.to_sym]
+        return TimeZoneAbbr[argv1]
       end
 
       # Convert to second
@@ -428,7 +428,7 @@ module Sisimai
           return ztime
 
         elsif argv1 =~ /\A[A-Za-z]+\z/
-          return tz2second(TimeZoneAbbr[argv1.to_sym])
+          return tz2second(TimeZoneAbbr[argv1])
         else
           return nil
         end

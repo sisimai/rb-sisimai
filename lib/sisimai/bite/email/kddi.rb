@@ -16,9 +16,9 @@ module Sisimai::Bite::Email
         /x,
       }.freeze
       MessagesOf = {
-        mailboxfull: ['As their mailbox is full'],
-        norelaying:  ['Due to the following SMTP relay error'],
-        hostunknown: ['As the remote domain doesnt exist'],
+        'mailboxfull' => ['As their mailbox is full'],
+        'norelaying'  => ['Due to the following SMTP relay error'],
+        'hostunknown' => ['As the remote domain doesnt exist'],
       }.freeze
 
       def description; return 'au by KDDI: http://www.au.kddi.com'; end
@@ -128,7 +128,7 @@ module Sisimai::Bite::Email
               MessagesOf.each_key do |r|
                 # Verify each regular expression of session errors
                 next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
-                e['reason'] = r.to_s
+                e['reason'] = r
                 break
               end
             end

@@ -86,16 +86,16 @@ module Sisimai
         recipients = 0    # (Integer) The number of 'Final-Recipient' header
         rcptintext = ''   # (String) Recipient address in the message body
         commondata = {
-          :diagnosis => '',  # Error message
-          :from      => '',  # Original-Mail-From:
-          :rhost     => '',  # Reporting-MTA:
+          'diagnosis' => '',  # Error message
+          'from'      => '',  # Original-Mail-From:
+          'rhost'     => '',  # Reporting-MTA:
         }
         arfheaders = {
-          :feedbacktype => nil,   # FeedBack-Type:
-          :rhost        => nil,   # Source-IP:
-          :agent        => nil,   # User-Agent:
-          :date         => nil,   # Arrival-Date:
-          :authres      => nil,   # Authentication-Results:
+          'feedbacktype' => nil,   # FeedBack-Type:
+          'rhost'        => nil,   # Source-IP:
+          'agent'        => nil,   # User-Agent:
+          'date'         => nil,   # Arrival-Date:
+          'authres'      => nil,   # Authentication-Results:
         }
         v = nil
 
@@ -146,12 +146,12 @@ module Sisimai
               # The "X-HmXmrOriginalRecipient" header appears only once so
               # we take this opportunity to hard-code ARF headers missing in
               # Microsoft's implementation.
-              arfheaders[:feedbacktype] = 'abuse'
-              arfheaders[:agent] = 'Microsoft Junk Mail Reporting Program'
+              arfheaders['feedbacktype'] = 'abuse'
+              arfheaders['agent'] = 'Microsoft Junk Mail Reporting Program'
 
             elsif cv = e.match(/\AFrom:[ ]*(.+)\z/)
               # Microsoft ARF: original sender.
-              commondata[:from] = Sisimai::Address.s3s4(cv[1]) if commondata[:from].empty?
+              commondata['from'] = Sisimai::Address.s3s4(cv[1]) if commondata['from'].empty?
 
             elsif e.start_with?(' ', "\t")
               # Continued line from the previous line
@@ -203,7 +203,7 @@ module Sisimai
             elsif cv = e.match(/\AFeedback-Type:[ ]*([^ ]+)\z/)
               # The header field MUST appear exactly once.
               # Feedback-Type: abuse
-              arfheaders[:feedbacktype] = cv[1]
+              arfheaders['feedbacktype'] = cv[1]
 
             elsif cv = e.match(/\AAuthentication-Results:[ ]*(.+)\z/)
               # "Authentication-Results" indicates the result of one or more
@@ -211,68 +211,68 @@ module Sisimai
               #
               # Authentication-Results: mail.example.com;
               #   spf=fail smtp.mail=somespammer@example.com
-              arfheaders[:authres] = cv[1]
+              arfheaders['authres'] = cv[1]
 
             elsif cv = e.match(/\AUser-Agent:[ ]*(.+)\z/)
               # The header field MUST appear exactly once.
               # User-Agent: SomeGenerator/1.0
-              arfheaders[:agent] = cv[1]
+              arfheaders['agent'] = cv[1]
 
             elsif cv = e.match(/\A(?:Received|Arrival)-Date:[ ]*(.+)\z/)
               # Arrival-Date header is optional and MUST NOT appear more than
               # once.
               # Received-Date: Thu, 29 Apr 2010 00:00:00 JST
               # Arrival-Date: Thu, 29 Apr 2010 00:00:00 +0000
-              arfheaders[:date] = cv[1]
+              arfheaders['date'] = cv[1]
 
             elsif cv = e.match(/\AReporting-MTA:[ ]*dns;[ ]*(.+)\z/)
               # The header is optional and MUST NOT appear more than once.
               # Reporting-MTA: dns; mx.example.jp
-              commondata[:rhost] = cv[1]
+              commondata['rhost'] = cv[1]
 
             elsif cv = e.match(/\ASource-IP:[ ]*(.+)\z/)
               # The header is optional and MUST NOT appear more than once.
               # Source-IP: 192.0.2.45
-              arfheaders[:rhost] = cv[1]
+              arfheaders['rhost'] = cv[1]
 
             elsif cv = e.match(/\AOriginal-Mail-From:[ ]*(.+)\z/)
               # the header is optional and MUST NOT appear more than once.
               # Original-Mail-From: <somespammer@example.net>
-              commondata[:from] = Sisimai::Address.s3s4(cv[1]) if commondata[:from].empty?
+              commondata['from'] = Sisimai::Address.s3s4(cv[1]) if commondata['from'].empty?
 
             elsif e =~ MarkingsOf[:message]
               # This is an email abuse report for an email message with the
               #   message-id of 0000-000000000000000000000000000000000@mx
               #   received from IP address 192.0.2.1 on
               #   Thu, 29 Apr 2010 00:00:00 +0900 (JST)
-              commondata[:diagnosis] = e
+              commondata['diagnosis'] = e
             end
           end
         end
 
-        if arfheaders[:feedbacktype] == 'auth-failure' && arfheaders[:authres]
+        if arfheaders['feedbacktype'] == 'auth-failure' && arfheaders['authres']
           # Append the value of Authentication-Results header
-          commondata[:diagnosis] << ' ' << arfheaders[:authres]
+          commondata['diagnosis'] << ' ' << arfheaders['authres']
         end
 
         unless recipients > 0
           # Insert pseudo recipient address when there is no valid recipient
           # address in the message.
-          dscontents[-1]['recipient'] = Sisimai::Address.undisclosed(:r)
+          dscontents[-1]['recipient'] = Sisimai::Address.undisclosed('r')
           recipients = 1
         end
 
         unless rfc822part =~ /\bFrom: [^ ]+[@][^ ]+\b/
           # There is no "From:" header in the original message
           # Append the value of "Original-Mail-From" value as a sender address.
-          rfc822part << 'From: ' << commondata[:from] + "\n" unless commondata[:from].empty?
+          rfc822part << 'From: ' << commondata['from'] + "\n" unless commondata['from'].empty?
         end
 
         if cv = mhead['subject'].match(/complaint about message from (\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3})/)
           # Microsoft ARF: remote host address.
-          arfheaders[:rhost] = cv[1]
-          commondata[:diagnosis] = 
-            'This is a Microsoft email abuse report for an email message received from IP' << arfheaders[:rhost] + ' on ' << mhead['date']
+          arfheaders['rhost'] = cv[1]
+          commondata['diagnosis'] = 
+            'This is a Microsoft email abuse report for an email message received from IP' << arfheaders['rhost'] + ' on ' << mhead['date']
         end
 
         dscontents.each do |e|
@@ -280,11 +280,11 @@ module Sisimai
             # AOL = http://forums.cpanel.net/f43/aol-brutal-work-71473.html
             e['recipient'] = Sisimai::Address.s3s4(rcptintext)
           end
-          arfheaders.each_key { |a| e[a.to_s] ||= arfheaders[a] || '' }
+          arfheaders.each_key { |a| e[a] ||= arfheaders[a] || '' }
           e.delete('authres')
 
           e['softbounce'] = -1
-          e['diagnosis']  = commondata[:diagnosis] unless e['diagnosis']
+          e['diagnosis']  = commondata['diagnosis'] unless e['diagnosis']
           e['date']       = mhead['date'] if e['date'].empty?
           e['reason']     = 'feedback'
           e['agent']      = self.smtpagent if e['agent'].empty?
@@ -292,9 +292,9 @@ module Sisimai
 
           # Get the remote IP address from the message body
           next unless e['rhost'].empty?
-          if commondata[:rhost].size > 0
+          if commondata['rhost'].size > 0
             # The value of "Reporting-MTA" header
-            e['rhost'] = commondata[:rhost]
+            e['rhost'] = commondata['rhost']
 
           elsif cv = e['diagnosis'].match(/\breceived from IP address ([^ ]+)/)
             # This is an email abuse report for an email message received

@@ -7,12 +7,12 @@ module Sisimai
         # dovecot/src/deliver/deliver.c
         # 11: #define DEFAULT_MAIL_REJECTION_HUMAN_REASON \
         # 12: "Your message to <%t> was automatically rejected:%n%r"
-        :'dovecot'    => %r/\AYour message to .+ was automatically rejected:\z/,
-        :'mail.local' => %r/\Amail[.]local: /,
-        :'procmail'   => %r/\Aprocmail: /,
-        :'maildrop'   => %r/\Amaildrop: /,
-        :'vpopmail'   => %r/\Avdelivermail: /,
-        :'vmailmgr'   => %r/\Avdeliver: /,
+        'dovecot'    => %r/\AYour message to .+ was automatically rejected:\z/,
+        'mail.local' => %r/\Amail[.]local: /,
+        'procmail'   => %r/\Aprocmail: /,
+        'maildrop'   => %r/\Amaildrop: /,
+        'vpopmail'   => %r/\Avdelivermail: /,
+        'vmailmgr'   => %r/\Avdeliver: /,
       }.freeze
       MarkingsOf = {
         message: %r{\A(?>
@@ -24,53 +24,53 @@ module Sisimai
 
       # dovecot/src/deliver/mail-send.c:94
       MessagesOf = {
-        :'dovecot' => {
-          userunknown: ["mailbox doesn't exist: "],
-          mailboxfull: [
+        'dovecot' => {
+          'userunknown' => ["mailbox doesn't exist: "],
+          'mailboxfull' => [
             'quota exceeded',   # Dovecot 1.2 dovecot/src/plugins/quota/quota.c
             'quota exceeded (mailbox for user is full)',    # dovecot/src/plugins/quota/quota.c
             'not enough disk space',
           ],
         },
-        :'mail.local' => {
-          userunknown: [
+        'mail.local' => {
+          'userunknown' => [
             ': unknown user:',
             ': user unknown',
             ': invalid mailbox path',
             ': user missing home directory',
           ],
-          mailboxfull: [
+          'mailboxfull' => [
             'disc quota exceeded',
             'mailbox full or quota exceeded',
           ],
-          systemerror: ['temporary file write error'],
+          'systemerror' => ['temporary file write error'],
         },
-        :'procmail' => {
-          :mailboxfull => ['quota exceeded while writing'],
-          :systemfull  => ['no space left to finish writing'],
+        'procmail' => {
+          'mailboxfull' => ['quota exceeded while writing'],
+          'systemfull'  => ['no space left to finish writing'],
         },
-        :'maildrop' => {
-          :userunknown => [
+        'maildrop' => {
+          'userunknown' => [
             'invalid user specified.',
             'Cannot find system user',
           ],
-          :mailboxfull => ['maildir over quota.'],
+          'mailboxfull' => ['maildir over quota.'],
         },
-        :'vpopmail' => {
-          :userunknown => ['sorry, no mailbox here by that name.'],
-          :filtered    => [
+        'vpopmail' => {
+          'userunknown' => ['sorry, no mailbox here by that name.'],
+          'filtered'    => [
             'account is locked email bounced',
             'user does not exist, but will deliver to '
           ],
-          :mailboxfull => ['domain is over quota', 'user is over quota'],
+          'mailboxfull' => ['domain is over quota', 'user is over quota'],
         },
-        :'vmailmgr' => {
-          :userunknown => [
+        'vmailmgr' => {
+          'userunknown' => [
             'invalid or unknown base user or domain',
             'invalid or unknown virtual user',
             'user name does not refer to a virtual user'
           ],
-          mailboxfull: ['delivery failed due to system quota violation'],
+          'mailboxfull' => ['delivery failed due to system quota violation'],
         },
       }.freeze
 
@@ -104,7 +104,7 @@ module Sisimai
             AgentNames.each_key do |f|
               # Detect the agent name from the line
               next unless e =~ AgentNames[f]
-              agentname0 = f.to_s
+              agentname0 = f
               break
             end
           end
@@ -116,13 +116,13 @@ module Sisimai
         return nil if agentname0.empty?
         return nil if linebuffer.empty?
 
-        MessagesOf[agentname0.to_sym].each_key do |e|
+        MessagesOf[agentname0].each_key do |e|
           # Detect an error reason from message patterns of the MDA.
           duplicated = linebuffer.dup
           while f = duplicated.shift do
             # Whether the error message include each message defined in $MessagesOf
-            next unless MessagesOf[agentname0.to_sym][e].any? { |a| f.downcase.include?(a) }
-            reasonname = e.to_s
+            next unless MessagesOf[agentname0][e].any? { |a| f.downcase.include?(a) }
+            reasonname = e
             bouncemesg = f
             break
           end

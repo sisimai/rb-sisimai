@@ -174,12 +174,12 @@ module Sisimai::Bite::Email
                 # After "Original message headers:"
                 next unless f = Sisimai::RFC1894.match(e)
                 next unless o = Sisimai::RFC1894.field(e)
-                next unless fieldtable.key?(o[0].to_sym)
+                next unless fieldtable.key?(o[0])
                 next if o[0] =~ /\A(?:diagnostic-code|final-recipient)\z/
-                v[fieldtable[o[0].to_sym]] = o[2]
+                v[fieldtable[o[0]]] = o[2]
 
                 next unless f == 1
-                permessage[fieldtable[o[0].to_sym]] = o[2]
+                permessage[fieldtable[o[0]]] = o[2]
               else
                 if e == StartingOf[:error][0]
                   # Diagnostic information for administrators:

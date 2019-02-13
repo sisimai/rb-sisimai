@@ -21,12 +21,12 @@ module Sisimai::Bite::Email
       }.freeze
 
       MessagesOf = {
-        expired: [
+        'expired' => [
           'DNS Error: Could not contact DNS servers',
           'Delivery to the following recipient has been delayed',
           'The recipient server did not accept our requests to connect',
         ],
-        hostunknown: [
+        'hostunknown' => [
           'DNS Error: Domain name not found',
           'DNS Error: DNS server returned answer with no data',
         ],
@@ -275,7 +275,7 @@ module Sisimai::Bite::Email
             MessagesOf.each_key do |r|
               # Verify each regular expression of session errors
               next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
-              e['reason'] = r.to_s
+              e['reason'] = r
               break
             end
           end

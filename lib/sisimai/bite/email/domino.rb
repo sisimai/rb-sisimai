@@ -12,13 +12,13 @@ module Sisimai::Bite::Email
         rfc822:  ['Content-Type: message/delivery-status'],
       }.freeze
       MessagesOf = {
-        userunknown: [
+        'userunknown' => [
           'not listed in Domino Directory',
           'not listed in public Name & Address Book',
           'Domino ディレクトリには見つかりません',
         ],
-        filtered:    ['Cannot route mail to user'],
-        systemerror: ['Several matches found in Domino Directory'],
+        'filtered' => ['Cannot route mail to user'],
+        'systemerror' => ['Several matches found in Domino Directory'],
       }.freeze
 
       def description; return 'IBM Domino Server'; end
@@ -133,7 +133,7 @@ module Sisimai::Bite::Email
           MessagesOf.each_key do |r|
             # Check each regular expression of Domino error messages
             next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
-            e['reason'] = r.to_s
+            e['reason'] = r
             e['status'] = Sisimai::SMTP::Status.code(r.to_s, false) || ''
             break
           end

@@ -18,34 +18,34 @@ module Sisimai::Bite::Email
         %r/SMTP error from remote (?:mail server|mailer) after end of ([A-Za-z]{4})/,
       ].freeze
       MessagesOf = {
-        expired: [
+        'expired' => [
           'retry timeout exceeded',
           'No action is required on your part',
         ],
-        userunknown: ['user not found'],
-        hostunknown: [
+        'userunknown' => ['user not found'],
+        'hostunknown' => [
           'all host address lookups failed permanently',
           'all relevant MX records point to non-existent hosts',
           'Unrouteable address',
         ],
-        mailboxfull: ['mailbox is full', 'error: quota exceed'],
-        notaccept: [
+        'mailboxfull' => ['mailbox is full', 'error: quota exceed'],
+        'notaccept' => [
           'an MX or SRV record indicated no SMTP service',
           'no host found for existing SMTP connection',
         ],
-        syntaxerror: [
+        'syntaxerror' => [
           'angle-brackets nested too deep',
           'expected word or "<"',
           'domain missing in source-routed address',
           'malformed address:',
         ],
-        systemerror: [
+        'systemerror' => [
           'delivery to file forbidden',
           'delivery to pipe forbidden',
           'local delivery failed',
           'LMTP error after ',
         ],
-        contenterror: ['Too many "Received" headers'],
+        'contenterror' => ['Too many "Received" headers'],
       }.freeze
 
       def description; return '@mail.ru: https://mail.ru'; end
@@ -234,7 +234,7 @@ module Sisimai::Bite::Email
               MessagesOf.each_key do |r|
                 # Check each regular expression
                 next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
-                e['reason'] = r.to_s
+                e['reason'] = r
                 break
               end
             end

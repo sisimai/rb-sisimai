@@ -16,9 +16,9 @@ module Sisimai
     #                           nil when the argv1 is neither :r nor :s
     def self.undisclosed(argv1)
       return nil unless argv1
-      return nil unless %w[r s].index(argv1.to_s)
+      return nil unless %w[r s].index(argv1)
 
-      local = argv1 == :r ? 'recipient' : 'sender'
+      local = argv1 == 'r' ? 'recipient' : 'sender'
       return sprintf('undisclosed-%s-in-headers@libsisimai.org.invalid', local)
     end
 

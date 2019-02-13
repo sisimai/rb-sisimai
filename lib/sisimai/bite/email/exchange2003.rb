@@ -14,29 +14,29 @@ module Sisimai::Bite::Email
         rfc822:  ['Content-Type: message/rfc822'],
       }.freeze
       ErrorCodes = {
-        onhold: [
+        'onhold' => [
           '000B099C', # Host Unknown, Message exceeds size limit, ...
           '000B09AA', # Unable to relay for, Message exceeds size limit,...
           '000B09B6', # Error messages by remote MTA
         ],
-        userunknown: [
+        'userunknown' => [
           '000C05A6', # Unknown Recipient,
         ],
-        systemerror: [
+        'systemerror' => [
           '00010256', # Too many recipients.
           '000D06B5', # No proxy for recipient (non-smtp mail?)
         ],
-        networkerror: [
+        'networkerror' => [
           '00120270', # Too Many Hops
         ],
-        contenterr: [
+        'contenterr' => [
           '00050311', # Conversion to Internet format failed
           '000502CC', # Conversion to Internet format failed
         ],
-        securityerr: [
+        'securityerr' => [
           '000B0981', # 502 Server does not support AUTH
         ],
-        filtered: [
+        'filtered' => [
           '000C0595', # Ambiguous Recipient
         ],
       }.freeze
@@ -224,7 +224,7 @@ module Sisimai::Bite::Email
             ErrorCodes.each_key do |r|
               # Find captured code from the error code table
               next unless ErrorCodes[r].index(capturedcode)
-              e['reason'] = r.to_s
+              e['reason'] = r
               e['status'] = Sisimai::SMTP::Status.code(r.to_s) || ''
               break
             end

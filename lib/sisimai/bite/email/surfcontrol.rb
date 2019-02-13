@@ -117,8 +117,8 @@ module Sisimai::Bite::Email
                 # "e" matched with any field defined in RFC3464
                 next unless o = Sisimai::RFC1894.field(e)
                 next if o[1] == 'final-recipient'
-                next unless fieldtable.key?(o[0].to_sym)
-                v[fieldtable[o[0].to_sym]] = o[2]
+                next unless fieldtable.key?(o[0])
+                v[fieldtable[o[0]]] = o[2]
               else
                 # Continued line of the value of Diagnostic-Code field
                 next unless p.start_with?('Diagnostic-Code:')

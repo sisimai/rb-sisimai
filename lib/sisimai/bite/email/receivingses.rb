@@ -15,10 +15,10 @@ module Sisimai::Bite::Email
       }.freeze
       MessagesOf = {
         # The followings are error messages in Rule sets/*/Actions/Template
-        filtered:     ['Mailbox does not exist'],
-        mesgtoobig:   ['Message too large'],
-        mailboxfull:  ['Mailbox full'],
-        contenterror: ['Message content rejected'],
+        'filtered'     => ['Mailbox does not exist'],
+        'mesgtoobig'   => ['Message too large'],
+        'mailboxfull'  => ['Mailbox full'],
+        'contenterror' => ['Message content rejected'],
       }.freeze
 
       def description; return 'Amazon SES(Receiving): http://aws.amazon.com/ses/'; end
@@ -118,11 +118,11 @@ module Sisimai::Bite::Email
                 v['diagnosis'] = o[2]
               else
                 # Other DSN fields defined in RFC3464
-                next unless fieldtable.key?(o[0].to_sym)
-                v[fieldtable[o[0].to_sym]] = o[2]
+                next unless fieldtable.key?(o[0])
+                v[fieldtable[o[0]]] = o[2]
 
                 next unless f == 1
-                permessage[fieldtable[o[0].to_sym]] = o[2]
+                permessage[fieldtable[o[0]]] = o[2]
               end
             else
               # Continued line of the value of Diagnostic-Code field
@@ -155,7 +155,7 @@ module Sisimai::Bite::Email
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
             next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
-            e['reason'] = r.to_s
+            e['reason'] = r
             break
           end
 
