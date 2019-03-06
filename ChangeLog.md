@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.24.1p6
+v4.24.1p7
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -18,6 +18,8 @@ v4.24.1p6
   - Fix Sisimai::ARF.is_arf method to remove angle brackets from From: header.
   - Fix serious bug (Hash key typo) in Sisimai::Rhost::Google
   - Less Symbol, less String#to_sym.
+  - Remove set-of-emails/logo directory because we cannot change the license of
+    each file in the directory to The 2-Clause BSD License.
 
 v4.24.1
 --------------------------------------------------------------------------------
