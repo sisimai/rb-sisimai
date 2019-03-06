@@ -1,6 +1,3 @@
-<p align="center"><img src="logo/horizontalversions.png" alt="set-of-emails" height="180px"></p>
-
-  
 About "set-of-emails" repository
 ================================================================================
 This repository hold bounce mail collections for developing Sisimai. Email files
@@ -37,10 +34,9 @@ Author
 
 Copyright
 ===============================================================================
-Copyright (C) 2018 azumakuniyuki, All Rights Reserved.
+Copyright (C) 2018-2019 azumakuniyuki, All Rights Reserved.
 
 License
 ===============================================================================
 This software is distributed under The BSD 2-Clause License.
-Files in logo/ created by @batarian71 are distributed under CC BY 4.0
 
