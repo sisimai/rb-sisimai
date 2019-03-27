@@ -9,7 +9,7 @@ isexpected = [
   { 'n' => '01005', 'r' => /mailboxfull/ },
   { 'n' => '01006', 'r' => /mesgtoobig/ },
   { 'n' => '01007', 'r' => /mailboxfull/ },
-  
+  { 'n' => '01008', 'r' => /securityerror/ },
 ]
 Sisimai::Bite::Email::Code.maketest(enginename, isexpected, true)
 

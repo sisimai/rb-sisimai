@@ -10,7 +10,7 @@ module Sisimai::Bite::Email
       Indicators = Sisimai::Bite::Email.INDICATORS
       StartingOf = { rfc822: ['Original message headers:'] }.freeze
       MarkingsOf = {
-        message: %r/ Microsoft Exchange Server 20\d{2}/,
+        message: %r/\ADiagnostic[ ]information[ ]for[ ]administrators:/,
         error:   %r/ ((?:RESOLVER|QUEUE)[.][A-Za-z]+(?:[.]\w+)?);/,
         rhost:   %r/\AGenerating server:[ ]?(.*)/,
       }.freeze
@@ -23,7 +23,7 @@ module Sisimai::Bite::Email
         'RESOLVER.ADR.RecipLimit'        => 'toomanyconn',   # 550 5.5.3 RESOLVER.ADR.RecipLimit
         'RESOLVER.ADR.InvalidInSmtp'     => 'systemerror',   # 550 5.1.0 RESOLVER.ADR.InvalidInSmtp
         'RESOLVER.ADR.Ambiguous'         => 'systemerror',   # 550 5.1.4 RESOLVER.ADR.Ambiguous, 420 4.2.0 RESOLVER.ADR.Ambiguous
-        'RESOLVER.RST.AuthRequired'      => 'filtered',      # 550 5.7.1 RESOLVER.RST.AuthRequired
+        'RESOLVER.RST.AuthRequired'      => 'securityerror', # 550 5.7.1 RESOLVER.RST.AuthRequired
         'RESOLVER.RST.NotAuthorized'     => 'rejected',      # 550 5.7.1 RESOLVER.RST.NotAuthorized
         'RESOLVER.RST.RecipSizeLimit'    => 'mesgtoobig',    # 550 5.2.3 RESOLVER.RST.RecipSizeLimit
         'QUEUE.Expired'                  => 'expired',       # 550 4.4.7 QUEUE.Expired

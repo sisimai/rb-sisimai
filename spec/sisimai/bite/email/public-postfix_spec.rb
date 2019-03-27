@@ -36,6 +36,14 @@ isexpected = [
   { 'n' => '43', 's' => /\A4[.]3[.]0\z/,   'r' => /mailererror/,   'b' => /\A1\z/ },
   { 'n' => '44', 's' => /\A5[.]7[.]1\z/,   'r' => /norelaying/,    'b' => /\A1\z/ },
   { 'n' => '45', 's' => /\A4[.]3[.]0\z/,   'r' => /mailboxfull/,   'b' => /\A1\z/ },
+  { 'n' => '46', 's' => /\A5[.]0[.]0\z/,   'r' => /userunknown/,   'b' => /\A0\z/ },
+  { 'n' => '47', 's' => /\A5[.]0[.]0\z/,   'r' => /systemerror/,   'b' => /\A1\z/ },
+  { 'n' => '48', 's' => /\A5[.]0[.]0\z/,   'r' => /toomanyconn/,   'b' => /\A1\z/ },
+  { 'n' => '49', 's' => /\A4[.]0[.]0\z/,   'r' => /blocked/,       'b' => /\A1\z/ },
+  { 'n' => '50', 's' => /\A4[.]0[.]0\z/,   'r' => /blocked/,       'b' => /\A1\z/ },
+  { 'n' => '51', 's' => /\A5[.]7[.]0\z/,   'r' => /policyviolation/,'b' => /\A1\z/ },
+  { 'n' => '52', 's' => /\A5[.]0[.]0\z/,   'r' => /suspend/,       'b' => /\A1\z/ },
+  { 'n' => '53', 's' => /\A5[.]0[.]0\z/,   'r' => /syntaxerror/,   'b' => /\A1\z/ },
 ]
 Sisimai::Bite::Email::Code.maketest(enginename, isexpected)
 

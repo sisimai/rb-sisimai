@@ -30,6 +30,7 @@ module Sisimai
           'system config error',
           'temporary local problem',
           'timeout waiting for input',
+          'transaction failed',
         ]
 
         def text; return 'systemerror'; end

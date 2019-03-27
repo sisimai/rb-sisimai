@@ -123,9 +123,9 @@ module Sisimai
             ],
             'undeliver' => [
               'Sisimai::Bite::Email::Postfix',
+              'Sisimai::Bite::Email::Office365',
               'Sisimai::Bite::Email::Exchange2007',
               'Sisimai::Bite::Email::Exchange2003',
-              'Sisimai::Bite::Email::Office365',
               'Sisimai::Bite::Email::SendGrid',
               'Sisimai::Bite::Email::Notes',
               'Sisimai::Bite::Email::Verizon',
@@ -189,8 +189,8 @@ module Sisimai
             Module.const_get(e).headerlist.each do |v|
               # Get header name which required each MTA module
               next if Skips.key?(v)
-              table[v]  ||= {}
-              table[v][e] = 1
+              table[v] ||= []
+              table[v] << e
             end
           end
           return table

@@ -33,10 +33,8 @@ module Sisimai::Bite::Email
         match = 0
         tryto = [
           'Mail could not be delivered',
-          # メッセージを配信できません。
-          '=?iso-2022-jp?B?GyRCJWElQyU7ITwlOCRyR1s/LiRHJC0kXiQ7JHMhIxsoQg==?=',
-          # メール配信に失敗しました
-          '=?iso-2022-jp?B?GyRCJWEhPCVrR1s/LiRLPDpHVCQ3JF4kNyQ/GyhCDQo=?=',
+          'メッセージを配信できません。',
+          'メール配信に失敗しました',
         ]
         match += 1 if mhead['from'].start_with?('"InterScan MSS"')
         match += 1 if tryto.any? { |a| mhead['subject'] == a }

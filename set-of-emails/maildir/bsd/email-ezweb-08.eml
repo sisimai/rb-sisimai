@@ -1,0 +1,49 @@
+Return-Path: <MAILER-DAEMON>
+X-Spam-Checker-Version: SpamAssassin 3.2.5 (2008-06-10) on neko.example.jp
+X-Spam-Level: 
+X-Spam-Status: No, score=-99.1 required=15.0 tests=AWL,BAYES_50,
+	CONTENT_TYPE_PRESENT,ISO2022JP_BODY,JPHANDPHONE,ONLY1HOPDIRECT,
+	USER_IN_WHITELIST autolearn=no version=3.2.5
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.example.jp (Postfix) with ESMTP id 2022202EEFF0
+	for <neko-nyaan@example.org>; Thu, 29 Apr 2012 23:34:45 +0900 (JST)
+X-Virus-Scanned: amavisd-new at neko.example.jp
+Received: from mail.example.jp ([127.0.0.1])
+	by localhost (neko.example.jp [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id ee+NekoNyaan for <neko-nyaan@example.org>;
+	Thu, 29 Apr 2012 23:34:45 +0900 (JST)
+Received: from ezweb.ne.jp (mail101.ezweb.ne.jp [111.86.156.22])
+	by mail.example.jp (Postfix) with SMTP id 2EE2022EF000
+	for <neko-nyaan@example.org>; Thu, 29 Apr 2012 23:34:45 +0900 (JST)
+To: <neko-nyaan@example.org>
+From: Postmaster@ezweb.ne.jp
+Message-ID: <201204290000202200000222NEKO@nm20lds029.ezweb.ne.jp>
+Date: Thu,29 Apr 2012 23:34:45 +0900
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="==_NEKO/NyaanNekochan=/CAT"
+Reply-To: Mail Administrator <Postmaster@ezweb.ne.jp>
+Subject: Mail System Error - Returned Mail
+
+This message is in MIME format.Since your mail reader does not understand this format, some or all of the message may not be legible
+
+--==_NEKO/NyaanNekochan=/CAT
+Content-Type: text/plain; charset="ISO-2022-JP"
+Content-Transfer-Encoding: 7bit
+
+次のあて先へのメッセージはエラーのため送信できませんでした。
+
+送信先メールアドレスが見つからないか、
+送信先メールサーバの事由により送信できませんでした。
+メールアドレスをご確認の上、再送信してください。
+
+Each of the following recipients was rejected by a remote
+mail server.
+
+    Recipient: <kijitora-neko-nyaan-22222-cats@hotmail.com>
+    >>> MAIL FROM:<neko-nyaan@example.org>
+    <<< 550 SC-004 (COL0-MC1-F1) Unfortunately, messages from 111.86.156.22 weren't sent. We recommend that you contact your Internet service provider. The problem is that too many unwanted messages have been sent from the following IP address above. You can also refer your provider to http://mail.live.com/mail/troubleshooting.aspx#errors.
+
+
+
+--==_NEKO/NyaanNekochan=/CAT--
+

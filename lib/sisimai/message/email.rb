@@ -158,7 +158,7 @@ module Sisimai
 
         if block['header'][0, 5] == 'From '
           # From MAILER-DAEMON Tue Feb 11 00:00:00 2014
-          block['from'] = block['header'].split(/\n/, 2)[0].delete("\r").delete("\r")
+          block['from'] = block['header'].split(/\n/, 2)[0].delete("\r")
         else
           # Set pseudo UNIX From line
           block['from'] = 'MAILER-DAEMON Tue Feb 11 00:00:00 2014'
@@ -222,7 +222,7 @@ module Sisimai
               # Other headers except "Received" and so on
               if extheaders[currheader]
                 # MTA specific header
-                extheaders[currheader].keys.each do |r|
+                extheaders[currheader].each do |r|
                   next if argvs['tryonfirst'].index(r)
                   argvs['tryonfirst'] << r
                 end
@@ -408,10 +408,13 @@ module Sisimai
         if mailheader['subject'].downcase =~ /\A[ \t]*fwd?:/
           # Delete quoted strings, quote symbols(>)
           bodystring = bodystring.gsub(/^[>]+[ ]/m, '').gsub(/^[>]$/m, '')
+        elsif Sisimai::MIME.is_mimeencoded(mailheader['subject'])
+          # Decode MIME-Encoded "Subject:" header
+          mailheader['subject'] = Sisimai::MIME.mimedecode(mailheader['subject'].split(/[ ]/))
+          mailheader['subject'].scrub!('?')
         end
         bodystring << EndOfEmail
         haveloaded = {}
-        defaultset = DefaultSet.dup
         scannedset = nil
 
         catch :SCANNER do
@@ -436,19 +439,9 @@ module Sisimai
               throw :SCANNER if scannedset
             end
 
+            tryonfirst.concat(DefaultSet)
             while r = tryonfirst.shift do
-              # Try MTA module candidates which are detected from MTA specific
-              # mail headers on first
-              next if haveloaded.key?(r)
-              require r.gsub('::', '/').downcase
-              scannedset = Module.const_get(r).scan(mailheader, bodystring)
-              haveloaded[r] = true
-              throw :SCANNER if scannedset
-            end
-
-            while r = defaultset.shift do
-              # MTA modules which does not have MTA specific header and did
-              # not match with any regular expressions of Subject header.
+              # Try MTA module candidates
               next if haveloaded.key?(r)
               require r.gsub('::', '/').downcase
               scannedset = Module.const_get(r).scan(mailheader, bodystring)

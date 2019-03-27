@@ -25,6 +25,7 @@ module Sisimai
           'email rejected due to security policies',
           'header are not accepted',
           'header error',
+          'local policy violation',
           'message given low priority',
           'message not accepted for policy reasons',
           'messages with multiple addresses',
