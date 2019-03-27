@@ -415,7 +415,6 @@ module Sisimai
         end
         bodystring << EndOfEmail
         haveloaded = {}
-        defaultset = DefaultSet.dup
         scannedset = nil
 
         catch :SCANNER do
@@ -440,19 +439,9 @@ module Sisimai
               throw :SCANNER if scannedset
             end
 
-            tryonfirst.each do |r|
-              # Try MTA module candidates which are detected from MTA specific
-              # mail headers on first
-              next if haveloaded.key?(r)
-              require r.gsub('::', '/').downcase
-              scannedset = Module.const_get(r).scan(mailheader, bodystring)
-              haveloaded[r] = true
-              throw :SCANNER if scannedset
-            end
-
-            while r = defaultset.shift do
-              # MTA modules which does not have MTA specific header and did
-              # not match with any regular expressions of Subject header.
+            tryonfirst.concat(DefaultSet)
+            while r = tryonfirst.shift do
+              # Try MTA module candidates
               next if haveloaded.key?(r)
               require r.gsub('::', '/').downcase
               scannedset = Module.const_get(r).scan(mailheader, bodystring)
