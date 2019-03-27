@@ -3,23 +3,42 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.24.1p7
+v4.24.1p8
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
 - changes:
-  - Experimental implementation: Sisimai::RFC1894 is a common class for parsing
-    message/delivery-status part. #133
-  - Remove unused method Sisimai::DateTime.hourname and HourNames.
-  - Remove unused method Sisimai::RFC5322.is_domainpart.
+  - Implement new class `Sisimai::RFC1894` for parsing message/delivery-status
+    part. #133
+  - Remove unused methods and variables
+    - `Sisimai::DateTime.hourname`
+    - `$Sisimai::DateTime::HourNames`
+    - `Sisimai::RFC5322.is_domainpart`
   - Code refactoring: less lines of code and shallower indentation.
   - Build test for JRuby on Travis CI was temporarily disabled. #138
   - Sisimai works on Ruby 2.6.0
-  - Fix Sisimai::ARF.is_arf method to remove angle brackets from From: header.
-  - Fix serious bug (Hash key typo) in Sisimai::Rhost::Google
-  - Less Symbol, less String#to_sym.
-  - Remove set-of-emails/logo directory because we cannot change the license of
-    each file in the directory to The 2-Clause BSD License.
+  - Fix `Sisimai::ARF.is_arf` method to remove angle brackets:`<` and `>` from
+    `From:` header.
+  - Fix serious bug (Hash key typo) in `Sisimai::Rhost::Google`
+  - Less Symbol, less `String#to_sym`.
+  - Remove `set-of-emails/logo` directory because we cannot change the license
+    of each file in the directory to The 2-Clause BSD License.
+  - Update error message patterns in the following modules:
+    - `Sisimai::Reason::Blocked` (hotmail, ntt docomo)
+    - `Sisimai::Reason::SystemError` (hotmail)
+    - `Sisimai::Reason::TooManyConn` (ntt docomo)
+    - `Sisimai::Reason::UserUnknown` (hotmail)
+    - `Sisimai::Reason::PolicyViolation` (postfix)
+    - `Sisimai::Bite::Email::McAfee` (userunknown)
+    - `Sisimai::Bite::Email::Exchange2007` (securityerror)
+  - The order of `Sisimai::Bite::Email` modules to be loaded has been changed:
+    Load Office365 and Outlook prior to Exchange2007 and Exchange2003.
+  - Update the followng MTA modules for improvements and bug fixes:
+    - `Sisimai::Bite::Email::Exchange2007`
+  - MIME Decoding in `Subject:` header improved.
+  - Bug fix in `Sisimai::MIME.is_mimeencoded` method.
+  - Make stable the order of MTA modules which have MTA specific email headers
+    at `Sisimai::Order::Email.headers` method.
 
 v4.24.1
 --------------------------------------------------------------------------------
