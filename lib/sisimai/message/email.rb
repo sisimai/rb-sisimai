@@ -158,7 +158,7 @@ module Sisimai
 
         if block['header'][0, 5] == 'From '
           # From MAILER-DAEMON Tue Feb 11 00:00:00 2014
-          block['from'] = block['header'].split(/\n/, 2)[0].delete("\r").delete("\r")
+          block['from'] = block['header'].split(/\n/, 2)[0].delete("\r")
         else
           # Set pseudo UNIX From line
           block['from'] = 'MAILER-DAEMON Tue Feb 11 00:00:00 2014'
