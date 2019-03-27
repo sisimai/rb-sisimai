@@ -1,0 +1,74 @@
+Return-Path: <>
+X-Original-To: neko-nyaan@example.com
+Delivered-To: neko-nyaan@example.com
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.example.jp (Postfix) with ESMTP id B59087985AAC
+	for <neko-nyaan@example.com>; Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+Received: from mail.example.jp ([127.0.0.1])
+	by localhost (neko1.example.jp [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id hmLco6-KOBcSi-LF for <neko-nyaan@example.com>;
+	Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+Received: from mxr.example.co.jp (mxr.example.co.jp [198.51.100.2])
+	by mail.example.jp (Postfix) with ESMTP id A21744BDF258
+	for <neko-nyaan@example.com>; Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+Received: from cat.example.co.jp ([192.0.2.202])
+	by mxr.example.co.jp (8.15.0/8.15.0) with SMTP id iGTbMHA7069583
+	for <neko-nyaan@example.com>; Thu, 29 Apr 2018 23:34:45 +0900
+Message-Id: <201804290000.iGTbMHA7069583@mxr.example.co.jp>
+Date: Thu, 29 Apr 2018 23:34:45 +0900
+To: <neko-nyaan@example.com>
+From: <MAILER-DAEMON@example.co.jp>
+MIME-Version: 1.0
+Content-Type: Multipart/Mixed;
+  boundary="------------Boundary-00=7D8DF4AE651B54E5BB51BF62"
+X-NAI-Header: Modified by McAfee Email and Web Security Virtual Appliance
+Subject: Delivery Status
+
+--------------Boundary-00=7D8DF4AE651B54E5BB51BF62
+Content-Type: text/plain; name="deliveryproblems.txt"
+Content-Disposition: attachment; filename="deliveryproblems.txt"
+
+    --- The following addresses had delivery problems ---
+
+<kijitora-nyaan@example.co.jp>   (<kijitora-nyaan@example.co.jp>... User not exist)
+
+--------------Boundary-00=7D8DF4AE651B54E5BB51BF62
+Content-Type: message/delivery-status; name="deliverystatus.txt"
+Content-Disposition: attachment; filename="deliverystatus.txt"
+
+Original-Recipient: <kijitora-nyaan@example.co.jp>
+Action: failed
+Diagnostic-Code: smtp; 550 <kijitora-nyaan@example.co.jp>... User not exist
+Remote-MTA: 192.0.2.202
+
+
+--------------Boundary-00=7D8DF4AE651B54E5BB51BF62
+Content-Type: message/rfc822
+Content-Disposition: attachment
+
+Received: from (unknown [192.0.2.202]) by cat.example.co.jp with smtp
+	 id SsPJmP-dwPFlG-vn; Thu, 29 Apr 2018 23:34:45 +0900
+Received: from mail.example.jp (neko1.example.jp [203.0.113.55])
+	by mxr.example.co.jp (8.15.0/8.15.0) with ESMTP id 6i6et7wY020859
+	for <kijitora-nyaan@example.co.jp>; Thu, 29 Apr 2018 23:34:45 +0900
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.example.jp (Postfix) with ESMTP id 7DEEFF93299B
+	for <kijitora-nyaan@example.co.jp>; Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+Received: from mail.example.jp ([127.0.0.1])
+	by localhost (neko1.example.jp [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id MrsYwjyBtLzCVpJZ for <kijitora-nyaan@example.co.jp>;
+	Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+Received: by mail.example.jp (Postfix, from userid 500)
+	id B290529C56A9; Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+To: kijitora-nyaan@example.co.jp
+Subject: Nyaan
+From: neko@nyaan.example.org
+Message-Id: <65ca27d43dc8fb3f37cb5053218cab56@example.net>
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Date: Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+
+Nyaan
+
+--------------Boundary-00=7D8DF4AE651B54E5BB51BF62--

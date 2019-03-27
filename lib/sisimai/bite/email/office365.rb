@@ -66,6 +66,7 @@ module Sisimai::Bite::Email
         # X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
         # X-MS-Exchange-Transport-CrossTenantHeadersStamped: ...
         return %w[
+          content-language
           x-ms-exchange-message-is-ndr
           x-microsoft-antispam-prvs
           x-exchange-antispam-report-test

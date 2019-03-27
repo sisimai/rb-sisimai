@@ -1,0 +1,50 @@
+Return-Path: <MAILER-DAEMON>
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by nyaan.example.jp (Postfix) with ESMTP id 000000002222
+	for <neko-nyaan@example.org>; Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+X-Virus-Scanned: amavisd-new at neko.example.jp
+Received: from nyaan.example.jp ([127.0.0.1])
+	by localhost (neko.example.jp [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id sebdeostOdla for <neko-nyaan@example.org>;
+	Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+Received: from example.co.jp (neko2.example.co.jp [203.0.113.222])
+	by nyaan.example.jp (Postfix) with SMTP id 55555555BBBB
+	for <neko-nyaan@example.org>; Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+Received: (qmail 2222 invoked for bounce);29 Apr 2017 23:34:45 +0900
+Date:29 Apr 2017 23:34:45 +0900
+From: MAILER-DAEMON@example.co.jp
+To: neko-nyaan@example.org
+Subject: failure notice
+Message-Id: <20170429233445.222222222222@nyaan.example.jp>
+
+Hi. This is the qmail-send program at example.co.jp.
+I'm afraid I wasn't able to deliver your message to the following addresses.
+This is a permanent error; I've given up. Sorry it didn't work out.
+
+<kijitora@neko2.example.co.jp>:
+vdelivermail: account is locked email bounced kijitora@neko2.example.co.jp
+
+--- Below this line is a copy of the message.
+
+Return-Path: <neko-nyaan@example.org>
+Received: (qmail 2222 invoked by uid 1024);29 Apr 2017 23:34:45 +0900
+Received: from mx.example.net (mx.example.net [192.0.2.20])
+	by neko2.example.co.jp (Postfix) with ESMTP id 2222222200
+	for <kijitora@neko2.example.co.jp>; Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+	(envelope-from neko-nyaan@example.org)
+Received: from nyaan.example.jp ([127.0.0.1])
+	by localhost (neko.example.jp [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id VuWryilrejdu for <kijitora@neko2.example.co.jp>;
+	Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by nyaan.example.jp (Postfix) with ESMTP id 1DD8CE77EB00
+	for <kijitora@neko2.example.co.jp>; Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+From: neko-nyaan@example.org
+To: kijitora@neko2.example.co.jp
+Subject: Nyaan
+Content-type: text/plain; charset=ISO-2022-JP
+Message-Id: <20170429233445.15707033D948@nyaan.example.jp>
+Date: Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+
+Nyaan
+

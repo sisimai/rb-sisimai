@@ -1,0 +1,79 @@
+Return-Path: <>
+X-Original-To: kijitora@example.com
+Delivered-To: kijitora@example.com
+Received: by mail.example.org (Postfix)
+	id 8D9F790F370B; Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+Date: Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+From: MAILER-DAEMON@mail.example.org (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: kijitora@example.com
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="846A8512FD4E.1916825687/mail.example.org"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20180429233445.1FEB4CF7DCC9@mail.example.org>
+
+This is a MIME-encapsulated message.
+
+--846A8512FD4E.1916825687/mail.example.org
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host mail.example.org.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to <postmaster>
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@example.co.jp>: host mx3.mail.example.co.jp[203.0.113.22] said: 554
+    delivery error: dd Sorry your message to kijitora@example.co.jp cannot be
+    delivered. This account has been disabled or discontinued [#102]. -
+    mta222.mail.neko.example.co.jp (in reply to end of DATA command)
+
+--846A8512FD4E.1916825687/mail.example.org
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mail.example.org
+X-Postfix-Queue-ID: 846A8512FD4E
+X-Postfix-Sender: rfc822; kijitora@example.com
+Arrival-Date: Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; kijitora@example.co.jp
+Original-Recipient: rfc822;kijitora@example.co.jp
+Action: failed
+Status: 5.0.0
+Remote-MTA: dns; mx3.mail.example.co.jp
+Diagnostic-Code: smtp; 554 delivery error: dd Sorry your message to
+    kijitora@example.co.jp cannot be delivered. This account has been
+    disabled or discontinued [#102]. - mta222.mail.neko.example.co.jp
+
+--846A8512FD4E.1916825687/mail.example.org
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 7bit
+
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.example.org (Postfix) with ESMTP id 846A8512FD4E
+	for <kijitora@example.co.jp>; Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+Received: by mail.example.org (Postfix, from userid 808)
+	id 067578D8807A; Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+To: "Kijitora" <kijitora@example.co.jp>
+Subject: Nyaan
+From: neko@example.jp
+Message-Id: <5bef54197003099438d2f5509afc38b7@example.net>
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Date: Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+
+Nyaan
+
+--846A8512FD4E.1916825687/mail.example.org--

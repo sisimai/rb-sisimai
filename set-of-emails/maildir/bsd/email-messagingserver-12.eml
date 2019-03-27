@@ -1,0 +1,99 @@
+Return-Path: <MAILER-DAEMON>
+X-Spam-Checker-Version: SpamAssassin 3.2.5 (2008-06-10) on neko.example.jp
+X-Spam-Level: *******
+X-Spam-Status: No, score=7.1 required=15.0 tests=AWL,BAYES_99,
+	UNPARSEABLE_RELAY,URIBL_RHS_AHBL autolearn=no version=3.2.5
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.example.jp (Postfix) with ESMTP id E00000000222
+	for <sironeko@example.net>; Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+X-Virus-Scanned: amavisd-new at neko.example.jp
+Received: from mail.example.jp ([127.0.0.1])
+	by localhost (neko.example.jp [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id virShetIccef for <sironeko@example.net>;
+	Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+Received: from st11p00im-asmtp001.me.com (st11p00im-asmtp001.me.com [17.0.0.22])
+	by mail.example.jp (Postfix) with ESMTP id EEEEEEEE2222
+	for <sironeko@example.net>; Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+Received: from process-dkim-sign-daemon.st11p00im-asmtp001.me.com by
+ st11p00im-asmtp001.me.com
+ (Oracle Communications Messaging Server 7.0.5.38.0 64bit (built Feb 26 2017))
+ id <NEKONYAAN0022@st11p00im-asmtp001.me.com> for sironeko@example.net; Thu, 29
+ Apr 2017 23:34:45 +0000 (GMT)
+Received: from st11p02im-mail02525a.me.com ([17.0.0.22])
+ by st11p00im-asmtp001.me.com
+ (Oracle Communications Messaging Server 7.0.5.38.0 64bit (built Feb 26 2017))
+ with ESMTP id <EEEEEEEEEEEE2222@st11p00im-asmtp001.me.com> for 
+ sironeko@example.net; Thu, 29 Apr 2017 23:34:45 +0000 (GMT)
+Received: from process-daemon.ms02222.mac.com by ms02222.mac.com
+ (Oracle Communications Messaging Server 7.0.5.38.0 64bit (built Aug  1 2017))
+ id <FFFFFFFFFFFF0000@ms02222.mac.com> for sironeko@example.net; Thu,
+ 29 Apr 2017 23:34:45 +0000 (GMT)
+Received: from ms02222.mac.com
+ (Oracle Communications Messaging Server 7.0.5.38.0 64bit (built Aug  1 2017))
+ id <EEEEEE2222220000@ms02222.mac.com>; Thu, 29 Apr 2017 23:34:45 +0000 (GMT)
+Date: Thu, 29 Apr 2017 23:34:45 +0000 (GMT)
+From: Internet Mail Delivery <postmaster@mac.com>
+Subject: Delivery Notification: Delivery has failed
+To: sironeko@example.net
+Message-id: <2222AAAABBBB0000@ms02222.mac.com>
+MIME-version: 1.0
+Content-type: multipart/report; report-type=delivery-status;
+ boundary="Boundary_(ID_neysOfWifWotFacjekPows)"
+
+
+--Boundary_(ID_neysOfWifWotFacjekPows)
+Content-type: text/plain; charset=us-ascii
+Content-language: en-US
+
+This report relates to a message you sent with the following header fields:
+
+  Message-id: <neko-nyaan.2.2.22_12afde0517e7661cc3bf31aa5c2dc7ef@example.net>
+  Date: Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+  From: nekochan@example.org
+  To: pseudo-local-part-kijitora-neko-nyaan@mac.com
+  Subject: Nyaan
+
+Your message cannot be delivered to the following recipients:
+
+  Recipient address: pseudo-local-part-kijitora-neko-nyaan@mac.com
+  Reason: Over quota
+
+
+--Boundary_(ID_neysOfWifWotFacjekPows)
+Content-type: message/delivery-status
+
+Reporting-MTA: dns;ms02222.mac.com (ims-ms-daemon)
+Arrival-date: Thu, 29 Apr 2017 23:34:45 +0000 (GMT)
+
+Original-recipient: rfc822;pseudo-local-part-kijitora-neko-nyaan@mac.com
+Final-recipient: rfc822;pseudo-local-part-kijitora-neko-nyaan@mac.com
+Action: failed
+Status: 4.2.2 (Over quota)
+
+--Boundary_(ID_neysOfWifWotFacjekPows)
+Content-type: message/rfc822
+
+Return-path: <sironeko@example.net>
+Received: from ims-ms-daemon.ms02222.mac.com by ms02222.mac.com
+ (Oracle Communications Messaging Server 7.0.5.38.0 64bit (built Aug  1 2017))
+ id <0OHY00E29GQQ7900@ms02222.mac.com>; Thu, 29 Apr 2017 23:34:45 +0000 (GMT)
+Received: by mail.example.jp (Postfix, from userid 500)	id CCCCCCCC2222; Thu,
+ 29 Apr 2017 23:34:45 +0900 (JST)
+Received-SPF: softfail (pv22p00im-spfmilter022.me.com: domain of transitioning
+ sironeko@example.net does not designate 192.0.2.222 as permitted sender)
+ receiver=pv22p00im-spfmilter022.me.com; client-ip=192.0.2.222;
+ helo=mail.example.jp; envelope-from=sironeko@example.net;
+Date: Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+From: nekochan@example.org
+Subject: Nyaan
+To: pseudo-local-part-kijitora-neko-nyaan@mac.com
+Message-id: <neko-nyaan.2.2.22_12afde0517e7661cc3bf31aa5c2dc7ef@example.net>
+MIME-version: 1.0
+Content-type: text/plain; charset=iso-2022-jp
+Content-transfer-encoding: 7bit
+X-Virus-Scanned: amavisd-new at neko.example.jp
+
+Nyaan
+
+--Boundary_(ID_neysOfWifWotFacjekPows)--
+

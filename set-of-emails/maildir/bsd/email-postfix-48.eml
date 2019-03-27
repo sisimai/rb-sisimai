@@ -1,0 +1,79 @@
+Return-Path: <MAILER-DAEMON>
+Received: by mail.example.com (Postfix)
+	id 1F443FF97158; Thu, 29 Apr 2016 23:34:45 +0900 (JST)
+Date: Thu, 29 Apr 2016 23:34:45 +0900 (JST)
+From: MAILER-DAEMON@mail.example.com (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: kijitora-nyaan@example.jp
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="D1B8A64E1A0F.1592091996/mail.example.com"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20160429233445.1F443FF97158@mail.example.com>
+
+This is a MIME-encapsulated message.
+
+--D1B8A64E1A0F.1592091996/mail.example.com
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host mail.example.com.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to <postmaster>
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<neko-nyaan@ntt.example.net>: host mfsmax.docomo.ne.jp[198.51.100.202] said:
+    552 Too many recipients (in reply to RCPT TO command)
+
+--D1B8A64E1A0F.1592091996/mail.example.com
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mail.example.com
+X-Postfix-Queue-ID: D1B8A64E1A0F
+X-Postfix-Sender: rfc822; kijitora-nyaan@example.jp
+Arrival-Date: Thu, 29 Apr 2016 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; neko-nyaan@ntt.example.net
+Original-Recipient: rfc822;neko-nyaan@ntt.example.net
+Action: failed
+Status: 5.0.0
+Remote-MTA: dns; mfsmax.docomo.ne.jp
+Diagnostic-Code: smtp; 552 Too many recipients
+
+--D1B8A64E1A0F.1592091996/mail.example.com
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 7bit
+
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.example.com (Postfix) with ESMTP id D1B8A64E1A0F
+	for <neko-nyaan@ntt.example.net>; Thu, 29 Apr 2016 23:34:45 +0900 (JST)
+Received: from mail.example.com ([127.0.0.1])
+	by localhost (sv1.example.com [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id LidwyibGupht for <neko-nyaan@ntt.example.net>;
+	Thu, 29 Apr 2016 23:34:45 +0900 (JST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.example.com (Postfix) with ESMTP id 55C7DF44BE50
+	for <neko-nyaan@ntt.example.net>; Thu, 29 Apr 2016 23:34:45 +0900 (JST)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=Shift_JIS
+Content-Transfer-Encoding: quoted-printable
+From: kijitora-nyaan@example.jp
+To: neko-nyaan@ntt.example.net
+Subject: Nyaan
+Message-Id: <20160429233445.8FDCD7D68ECB@mail.example.com>
+Date: Thu, 29 Apr 2016 23:34:45 +0900 (JST)
+
+Nyaan
+
+--D1B8A64E1A0F.1592091996/mail.example.com--
+

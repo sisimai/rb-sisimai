@@ -21,9 +21,9 @@
         # @return   [Array] MTA list with order
         def index
           return %w[
-            Sendmail Postfix Qmail Exim Courier OpenSMTPD Exchange2007 Exchange2003
-            Yahoo GSuite Aol Outlook Office365 SendGrid AmazonSES MailRu Yandex
-            MessagingServer Domino Notes ReceivingSES AmazonWorkMail Verizon
+            Sendmail Postfix Qmail Exim Courier OpenSMTPD Office365 Outlook
+            Exchange2007 Exchange2003 Yahoo GSuite Aol SendGrid AmazonSES MailRu
+            Yandex MessagingServer Domino Notes ReceivingSES AmazonWorkMail Verizon
             GMX Bigfoot Facebook Zoho EinsUndEins MessageLabs EZweb KDDI Biglobe
             ApacheJames McAfee MXLogic MailFoundry IMailServer
             MFILTER Activehunter InterScanMSS SurfControl MailMarshalSMTP
@@ -34,7 +34,7 @@
         # @return   [Array] MTA list (have extra headers)
         def heads
           return %w[
-            Exim Exchange2007 Exchange2003 GSuite Office365 Outlook SendGrid
+            Exim Office365 Outlook Exchange2007 Exchange2003 GSuite SendGrid
             AmazonSES ReceivingSES AmazonWorkMail Aol GMX MailRu MessageLabs Yahoo
             Yandex Zoho EinsUndEins MXLogic McAfee MFILTER EZweb Activehunter IMailServer
             SurfControl FML Google

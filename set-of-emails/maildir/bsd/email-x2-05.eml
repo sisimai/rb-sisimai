@@ -1,0 +1,38 @@
+Return-Path: <MAILER-DAEMON>
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.example.jp (Postfix) with ESMTP id 896F754098B2
+	for <neko-nyaan@example.com>; Thu, 29 Apr 2015 23:34:45 +0900 (JST)
+Received: from mail.example.jp ([127.0.0.1])
+	by localhost (neko2.example.jp [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id klar4P8j028197 for <neko-nyaan@example.com>;
+	Thu, 29 Apr 2015 23:34:45 +0900 (JST)
+Received: from mta000.mail.kks.yahoo.co.jp (mta000.mail.kks.yahoo.co.jp [192.0.2.2])
+	by mail.example.jp (Postfix) with SMTP id 30F425DFDFB1
+	for <neko-nyaan@example.com>; Thu, 29 Apr 2015 23:34:45 +0900 (JST)
+Date:29 Apr 2015 23:34:45 -0000
+MIME-version: 1.0
+Content-type: text/plain; charset="ISO-2022-JP"; format=flowed
+Content-transfer-encoding: 7bit
+From: MAILER-DAEMON@yahoo.co.jp
+To: neko-nyaan@example.com
+Subject: failure delivery
+Message-Id: <20150429233445.30F425DFDFB1@mail.example.jp>
+
+Message from  yahoo.co.jp.
+Unable to deliver message to the following address(es).
+
+<kijitora@y.example.com>:
+Resources temporarily unavailable, please try again later [#4.1.9].
+/I'm not going to try again; this message has been in the queue too long.
+
+--- Original message follows.
+
+Return-Path: <neko-nyaan@example.com>
+
+The original message is over 5k.  Message truncated to 1K.
+
+Return-Path: <neko-nyaan@example.com>
+*** MESSAGE TRUNCATED ***
+
+
+

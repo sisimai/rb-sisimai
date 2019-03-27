@@ -12,7 +12,13 @@ module Sisimai::Bite::Email
         rfc822:  ['Content-Type: message/rfc822'],
       }.freeze
       ReFailures = {
-        'userunknown' => %r/(?:User [(].+[@].+[)] unknown[.]|550 Unknown user [^ ]+[@][^ ]+)/,
+        'userunknown' => %r{(?:
+           [ ]User[ ][(].+[@].+[)][ ]unknown[.][ ]
+          |550[ ]Unknown[ ]user[ ][^ ]+[@][^ ]+
+          |550[ ][<].+?[@].+?[>][.]+[ ]User[ ]not[ ]exist
+          |No[ ]such[ ]user
+          )
+        }x,
       }.freeze
 
       def description; return 'McAfee Email Appliance'; end

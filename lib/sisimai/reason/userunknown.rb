@@ -79,6 +79,7 @@ module Sisimai
             |email[ ]addresses
             )
           |rcpt[ ][<].+[>][ ]does[ ]not[ ]exist
+          |recipient[ ]address[ ]rejected[.][ ][(]in[ ]reply[ ]to[ ]rcpt[ ]to[ ]command[)]
           |rece?ipient[ ](?:
              .+[ ]was[ ]not[ ]found[ ]in
             |address[ ]rejected:[ ](?:
@@ -126,7 +127,7 @@ module Sisimai
             |.+[ ]does[ ]not[ ]exist
             |does[ ]not[ ]exist
             |missing[ ]home[ ]directory
-            |not[ ](?:active|found|known)
+            |not[ ](?:active|exist|found|known)
             |unknown
             )
           |vdeliver:[ ]invalid[ ]or[ ]unknown[ ]virtual[ ]user

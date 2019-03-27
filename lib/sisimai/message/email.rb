@@ -222,7 +222,7 @@ module Sisimai
               # Other headers except "Received" and so on
               if extheaders[currheader]
                 # MTA specific header
-                extheaders[currheader].keys.each do |r|
+                extheaders[currheader].each do |r|
                   next if argvs['tryonfirst'].index(r)
                   argvs['tryonfirst'] << r
                 end
@@ -408,6 +408,10 @@ module Sisimai
         if mailheader['subject'].downcase =~ /\A[ \t]*fwd?:/
           # Delete quoted strings, quote symbols(>)
           bodystring = bodystring.gsub(/^[>]+[ ]/m, '').gsub(/^[>]$/m, '')
+        elsif Sisimai::MIME.is_mimeencoded(mailheader['subject'])
+          # Decode MIME-Encoded "Subject:" header
+          mailheader['subject'] = Sisimai::MIME.mimedecode(mailheader['subject'].split(/[ ]/))
+          mailheader['subject'].scrub!('?')
         end
         bodystring << EndOfEmail
         haveloaded = {}
@@ -436,7 +440,7 @@ module Sisimai
               throw :SCANNER if scannedset
             end
 
-            while r = tryonfirst.shift do
+            tryonfirst.each do |r|
               # Try MTA module candidates which are detected from MTA specific
               # mail headers on first
               next if haveloaded.key?(r)

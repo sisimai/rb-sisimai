@@ -18,12 +18,12 @@ describe Sisimai::Order::Email do
     subject { headers }
     it('returns Hash') { is_expected.to be_a Hash }
     headers.each_key do |e|
-      it('has a Hash') { expect(headers[e]).to be_a Hash }
-      it 'have some header names' do
-        expect(headers[e].keys.size).to be > 0
+      it('has an Array') { expect(headers[e]).to be_a Array }
+      it 'have some module names' do
+        expect(headers[e].size).to be > 0
       end
-      headers[e].each_key do |f|
-        it('has a value(1)') { expect(headers[e][f]).to be == 1 }
+      headers[e].each do |f|
+        it('has a String') { expect(f).to be_a String }
       end
     end
   end

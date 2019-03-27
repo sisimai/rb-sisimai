@@ -37,15 +37,15 @@ module Sisimai
       def is_mimeencoded(argv1)
         return nil unless argv1
 
-        argv1.delete!('"')
-        piece = []
+        text1 = argv1.delete('"')
         mime1 = false
+        piece = []
 
-        if argv1.include?(' ')
+        if text1.include?(' ')
           # Multiple MIME-Encoded strings in a line
-          piece = argv1.split(' ')
+          piece = text1.split(' ')
         else
-          piece << argv1
+          piece << text1
         end
 
         while e = piece.shift do
@@ -75,19 +75,17 @@ module Sisimai
             characterset ||= cv[2]
             encodingname ||= cv[3]
             mimeencoded0   = cv[4]
-            decodedtext0  << cv[1]
 
-            if encodingname == 'Q'
-              # Quoted-Printable
-              decodedtext0 << mimeencoded0.unpack('M').first
-
-            elsif encodingname == 'B'
-              # Base64
-              decodedtext0 << Base64.decode64(mimeencoded0)
-            end
+            decodedtext0 << cv[1]
+            decodedtext0 << if encodingname == 'B'
+                              Base64.decode64(mimeencoded0)
+                            else
+                              mimeencoded0.unpack('M').first
+                            end
+            decodedtext0[-1].gsub!(/\r\n/, '')
             decodedtext0 << cv[5]
           else
-            decodedtext0 << e
+            decodedtext0 << if decodedtext0.empty? then e else ' ' << e end
           end
         end
 
