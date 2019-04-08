@@ -12,7 +12,7 @@ Received: from mail.example.jp ([127.0.0.1])
 	by localhost (neko.example.jp [127.0.0.1]) (amavisd-new, port 10024)
 	with ESMTP id ee+NekoNyaan for <neko-nyaan@example.org>;
 	Thu, 29 Apr 2012 23:34:45 +0900 (JST)
-Received: from ezweb.ne.jp (mail101.ezweb.ne.jp [111.86.156.22])
+Received: from ezweb.ne.jp (mail101.ezweb.ne.jp [111.86.156.36])
 	by mail.example.jp (Postfix) with SMTP id 2EE2022EF000
 	for <neko-nyaan@example.org>; Thu, 29 Apr 2012 23:34:45 +0900 (JST)
 To: <neko-nyaan@example.org>
