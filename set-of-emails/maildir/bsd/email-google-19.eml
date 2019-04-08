@@ -1,0 +1,67 @@
+Return-Path: <MAILER-DAEMON>
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.example.com (Postfix) with ESMTP id 172AD57D0796
+	for <kijitora@example.net>; Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+Received: from mail.example.com ([127.0.0.1])
+	by localhost (neko1.example.com [127.0.0.1]) (amavisd-new, port 24)
+	with ESMTP id rwF5ruf4044425 for <kijitora@example.net>;
+	Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+Received: from mail-pf2-f222.google.com (mail-pf2-f222.google.com [192.0.2.2])
+	by mail.example.com (Postfix) with ESMTP id A3589A15684E
+	for <kijitora@example.net>; Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+Received: by mail-pf2-f222.google.com with SMTP id 5akNnvW3080309.2
+        for <kijitora@example.net>; Thu, 29 Apr 2017 23:34:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+    d=googlemail.com; s=20120113;
+    h=mime-version:from:to:subject:message-id:date:content-transfer-encoding;
+    ...
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+    d=1e100.net; s=20130820;
+    h=x-gm-message-state:mime-version:from:to:subject:message-id:date
+    ...
+X-Gm-Message-State: Mzc3RjUwNEM5OENBCg...
+MIME-Version: 1.0
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+To: kijitora@example.net
+Subject: Delivery Status Notification (Failure)
+X-Failed-Recipients: neko-nyaan@google.example.com
+Message-ID: <12bdbe7a4a7e3940ab3ee3ef74db77e0@google.com>
+Date: Thu, 29 Apr 2017 23:34:45 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Delivery to the following recipient failed permanently:
+
+     neko-nyaan@google.example.com
+
+Technical details of permanent failure:=20
+Storage quota exceeded
+
+----- Original message -----
+
+Delivered-To: neko-nyaan@google.example.com
+Received: by 10.66.175.70 with SMTP id OomPrrCp074387;
+    Thu,29 Apr 2017 23:34:45 -0700 (PDT)
+X-Received: by 10.98.65.139 with SMTP id A6LjBUYa089874.222.1721646558;
+    Thu, 29 Apr 2017 23:34:45 -0700 (PDT)
+Return-Path: <kijitora@example.net>
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.example.com (Postfix) with ESMTP idA8C7C0206174 
+	for <neko-nyaan@google.example.com>; Thu, 29 Apr 2017 23:34:45 +0900 (J=
+ST)
+Received: from mail.example.com ([127.0.0.1])
+	by localhost (neko1.example.com [127.0.0.1]) (amavisd-new, port 24)
+	with ESMTP id JmlcmnZHtJzdRljY for <neko-nyaan@google.example.com>;
+	Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.example.com (Postfix) with ESMTP id ACB8AAB3D895
+	for <neko-nyaan@google.example.com>; Thu, 29 Apr 2017 23:34:45 +0900 (J=
+ST)
+From: kijitora@example.org
+To: neko-nyaan@google.example.com
+Subject: Nyaan
+Content-type: text/plain; charset=3DISO-2022-JP
+Message-Id: <20170429233445.9C8036C2E7D8@mail.example.com>
+Date: Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+
+Nyaan

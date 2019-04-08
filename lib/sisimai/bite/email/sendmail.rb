@@ -12,7 +12,10 @@ module Sisimai::Bite::Email
         #   savemail.c:1040|if (printheader && !putline("   ----- Transcript of session follows -----\n",
         #   savemail.c:1041|          mci))
         #   savemail.c:1042|  goto writeerr;
-        #
+        #   savemail.c:1360|if (!putline(
+        #   savemail.c:1361|    sendbody
+        #   savemail.c:1362|    ? "   ----- Original message follows -----\n"
+        #   savemail.c:1363|    : "   ----- Message header follows -----\n",
         rfc822:  ['Content-Type: message/rfc822', 'Content-Type: text/rfc822-headers'],
         message: ['   ----- Transcript of session follows -----'],
         error:   ['... while talking to '],

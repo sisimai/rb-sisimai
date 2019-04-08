@@ -1,0 +1,84 @@
+Return-Path: <>
+X-Original-To: kijitora-neko@example.com
+Delivered-To: kijitora-neko@example.com
+Received: by mail.example.co.jp (Postfix)
+	id 30EDC7807231; Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+Date: Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+From: MAILER-DAEMON@mail.example.co.jp (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: kijitora-neko@example.com
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="9DD98D518C62.1219773614/mail.example.co.jp"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20180429233445.FD0D225823D5@mail.example.co.jp>
+
+This is a MIME-encapsulated message.
+
+--9DD98D518C62.1219773614/mail.example.co.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host mail.example.co.jp.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to <postmaster>
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<neko@qq.example.com>: host mx3.qq.com[103.7.30.40] said: 550 Connection
+    frequency limited [Q1YzZ3kxdnRYYnpkbVZ0MAo+QTMzMTMzRjUxNzQ4Cg/MTI3MTY2MDge=
+    Blocked IP 192.0.2.22].
+    http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=20022&&no=1000722 (in
+    reply to end of DATA command)
+
+--9DD98D518C62.1219773614/mail.example.co.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mail.example.co.jp
+X-Postfix-Queue-ID: 9DD98D518C62
+X-Postfix-Sender: rfc822; kijitora-neko@example.com
+Arrival-Date: Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; neko@qq.example.com
+Original-Recipient: rfc822;neko@qq.example.com
+Action: failed
+Status: 5.0.0
+Remote-MTA: dns; mx3.qq.com
+Diagnostic-Code: smtp; 550 Connection frequency limited
+    [Q1YzZ3kxdnRYYnpkbVZ0MAo+QTMzMTMzRjUxNzQ4Cg/MTI3MTY2MDge= Blocked IP
+    192.0.2.22].
+    http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=20022&&no=1000722
+
+--9DD98D518C62.1219773614/mail.example.co.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 7bit
+
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.example.co.jp (Postfix) with ESMTP id 90B28F34CE21
+	for <neko@qq.example.com>; Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+Received: from mail.example.co.jp ([127.0.0.1])
+	by localhost (neko1.example.co.jp [127.0.0.1]) (amavisd-new, port 24)
+	with ESMTP id 9WGfDFvM9hzgWRVW for <neko@qq.example.com>;
+	Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.example.co.jp (Postfix) with ESMTP id AB2A08507515
+	for <neko@qq.example.com>; Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+From: "Kijitora" <kijitora-neko@example.com>
+To: "Nyaan" <neko@qq.example.com>
+Subject: Nyaan
+Content-type: text/plain; charset=ISO-2022-JP
+Message-Id: <20180429233445.4278803910AC@mail.example.co.jp>
+Date: Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+
+Nyaan
+
+--9DD98D518C62.1219773614/mail.example.co.jp--

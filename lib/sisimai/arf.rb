@@ -4,6 +4,7 @@ module Sisimai
     # Imported from p5-Sisimail/lib/Sisimai/ARF.pm
     class << self
       require 'sisimai/bite/email'
+      require 'sisimai/rfc5322'
 
       # http://tools.ietf.org/html/rfc5965
       # http://en.wikipedia.org/wiki/Feedback_loop_(email)

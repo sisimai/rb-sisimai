@@ -16,6 +16,7 @@ module Sisimai
         'orange.fr'                   => 'FrancePTT',
         'lsean.ezweb.ne.jp'           => 'KDDI',
         'msmx.au.com'                 => 'KDDI',
+        '.qq.com'                     => 'TencentQQ',
       }.freeze
 
       # Retrun the list of remote hosts Sisimai support

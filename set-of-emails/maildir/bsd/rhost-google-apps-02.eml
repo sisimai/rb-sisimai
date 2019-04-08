@@ -1,0 +1,88 @@
+Return-Path: <>
+X-Original-To: kijitora@example.com
+Delivered-To: kijitora@example.com
+Received: by mail.example.co.jp (Postfix)
+	id 49E71FA97E1D; Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+Date: Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+From: MAILER-DAEMON@mail.example.co.jp (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: kijitora@example.com
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="AA92C1B23442.1720293561/mail.example.co.jp"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20180429233445.A7470DDE1C65@mail.example.co.jp>
+
+This is a MIME-encapsulated message.
+
+--AA92C1B23442.1528513261/mail.example.co.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host mail.example.co.jp.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to <postmaster>
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<neko-nyaan@example.org>: host aspmx.l.google.com[108.177.97.26]
+    said: 550-5.1.1 The email account that you tried to reach does not exist.
+    Please try 550-5.1.1 double-checking the recipient's email address for
+    typos or 550-5.1.1 unnecessary spaces. Learn more at 550 5.1.1
+    https://support.google.com/mail/?p=NoSuchUser e22-n7GpZmsf093195.222 -
+    gsmtp (in reply to RCPT TO command)
+
+--AA92C1B23442.1528513261/mail.example.co.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mail.example.co.jp
+X-Postfix-Queue-ID: AA92C1B23442
+X-Postfix-Sender: rfc822; kijitora@example.com
+Arrival-Date: Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; neko-nyaan@example.org
+Original-Recipient: rfc822;neko-nyaan@example.org
+Action: failed
+Status: 5.1.1
+Remote-MTA: dns; aspmx.l.google.com
+Diagnostic-Code: smtp; 550-5.1.1 The email account that you tried to reach does
+    not exist. Please try 550-5.1.1 double-checking the recipient's email
+    address for typos or 550-5.1.1 unnecessary spaces. Learn more at 550 5.1.1
+    https://support.google.com/mail/?p=NoSuchUser e22-n7GpZmsf093195.222 -
+    gsmtp
+
+--AA92C1B23442.1528513261/mail.example.co.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 7bit
+
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.example.co.jp (Postfix) with ESMTP id AA92C1B23442
+	for <neko-nyaan@example.org>; Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+Received: from mail.example.co.jp ([127.0.0.1])
+	by localhost (neko1.example.co.jp [127.0.0.1]) (amavisd-new, port 24)
+	with ESMTP id F3BzCS-VimHsu-rf for <neko-nyaan@example.org>;
+	Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.example.co.jp (Postfix) with ESMTP id 567963C3A261
+	for <neko-nyaan@example.org>; Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ISO-2022-JP
+Content-Transfer-Encoding: quoted-printable
+From: "Neko" <kijitora@example.com>
+To: neko-nyaan@example.org
+Subject: Nyaan
+Message-Id: <2018042233445.A95F8E533589@mail.example.co.jp>
+Date: Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+
+Nyaan
+
+--AA92C1B23442.1528513261/mail.example.co.jp--
