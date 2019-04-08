@@ -2,7 +2,7 @@
  MTA MODULE NAME          CAN PARSE   RATIO   NOTES
 --------------------------------------------------------------------------------
 Email::Activehunter .....    0/0014  0.0000  TransWARE Active!hunter
-Email::Amavis ...........    4/0004  1.0000  amavisd-new
+Email::Amavis ...........    4/0004  1.0000  amavisd-new: https://www.amavis.org/
 Email::AmazonSES ........   40/0049  0.8163  Amazon SES(Sending): http://aws.amazon.com/ses/
 Email::AmazonWorkMail ...    9/0013  0.6923  Amazon WorkMail: https://aws.amazon.com/workmail/
 Email::Aol ..............   20/0023  0.8696  Aol Mail: http://www.aol.com
