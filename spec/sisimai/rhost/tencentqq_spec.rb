@@ -2,20 +2,21 @@ require 'spec_helper'
 require 'sisimai/mail'
 require 'sisimai/data'
 require 'sisimai/message'
-require 'sisimai/rhost/googleapps'
+require 'sisimai/rhost/tencentqq'
 
-describe Sisimai::Rhost::GoogleApps do
+describe Sisimai::Rhost::TencentQQ do
   rs = {
-    '01' => { 'status' => %r/\A5[.]2[.]1\z/, 'reason' => %r/suspend/ },
-    '02' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
+    '01' => { 'status' => %r/\A5[.]0[.]0\z/, 'reason' => %r/toomanyconn/ },
+    '02' => { 'status' => %r/\A5[.]0[.]0\z/, 'reason' => %r/toomanyconn/ },
+    '03' => { 'status' => %r/\A5[.]0[.]0\z/, 'reason' => %r/blocked/ },
   }
-  describe 'bounce mail from GoogleApps' do
+  describe 'bounce mail from TencentQQ' do
     rs.each_key.each do |n|
-      emailfn = sprintf('./set-of-emails/maildir/bsd/rhost-google-apps-%02d.eml', n)
+      emailfn = sprintf('./set-of-emails/maildir/bsd/rhost-tencentqq-%02d.eml', n)
       next unless File.exist?(emailfn)
 
       mailbox = Sisimai::Mail.new(emailfn)
-      mtahost = 'aspmx.l.google.com'
+      mtahost = %r/\Amx[0-9]+[.]qq[.]com\z/
       next unless mailbox
 
       while r = mailbox.read do
@@ -36,7 +37,7 @@ describe Sisimai::Rhost::GoogleApps do
           example('date is not empty') { expect(e['date']).not_to be_empty }
           example('diagnosis is not empty') { expect(e['diagnosis']).not_to be_empty }
           example('action is not empty') { expect(e['action']).not_to be_empty }
-          example('rhost is ' + mtahost) { expect(e['rhost']).to be == mtahost }
+          example('rhost is mx*.qq.com') { expect(e['rhost']).to match(mtahost) }
           example('alias exists') { expect(e['alias']).not_to be_nil }
           example('agent is Email::*') { expect(e['agent']).to match(/\AEmail::/) }
         end

@@ -68,13 +68,13 @@ update-other-format-emails:
 	done
 
 emails-for-precision:
-	for v in `$(LS) ./$(MAILCLASSDIR)/*.rb | grep -v userdefined`; do \
+	@ for v in `$(LS) ./$(MAILCLASSDIR)/*.rb | grep -v userdefined`; do \
 		MTA=`echo $$v | cut -d/ -f6 | tr '[A-Z]' '[a-z]' | sed 's/.rb//g'` ;\
 		$(MKDIR) $(PRECISIONDIR)/email-$$MTA ;\
 		$(CP) $(PUBLICEMAILS)/email-$$MTA-*.eml $(PRECISIONDIR)/email-$$MTA/ ;\
 		$(CP) $(PRIVATEMAILS)/email-$$MTA/* $(PRECISIONDIR)/email-$$MTA/ ;\
 	done
-	for v in arf rfc3464 rfc3834; do \
+	@ for v in arf rfc3464 rfc3834; do \
 		$(MKDIR) $(PRECISIONDIR)/$$v ;\
 		$(CP) $(PUBLICEMAILS)/$$v*.eml $(PRECISIONDIR)/$$v/ ;\
 		$(CP) $(PRIVATEMAILS)/$$v/* $(PRECISIONDIR)/$$v/ ;\

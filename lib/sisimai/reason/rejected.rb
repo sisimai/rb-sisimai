@@ -22,6 +22,7 @@ module Sisimai
         ]
         Index = [
           '<> invalid sender',
+          'access denied (in reply to mail from command)',
           'address rejected',
           'administrative prohibition',
           'batv failed to verify',    # SoniWall

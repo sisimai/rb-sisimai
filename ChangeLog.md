@@ -3,13 +3,16 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.24.1p8
+v4.25.0
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
 - changes:
   - Implement new class `Sisimai::RFC1894` for parsing message/delivery-status
     part. #133
+  - Experimental implementation at the following MTA, Rhost modules:
+    - `Sisimai::Bite::Email::Amavis`: amavisd-new
+    - `Sisimai::Rhost::TencentQQ`: Tencent QQ (mail.qq.com)
   - Remove unused methods and variables
     - `Sisimai::DateTime.hourname`
     - `$Sisimai::DateTime::HourNames`
@@ -25,10 +28,11 @@ v4.24.1p8
     of each file in the directory to The 2-Clause BSD License.
   - Update error message patterns in the following modules:
     - `Sisimai::Reason::Blocked` (hotmail, ntt docomo)
+    - `Sisimai::Reason::PolicyViolation` (postfix)
+    - `Sisimai::Reason::Rejected` (postfix)
     - `Sisimai::Reason::SystemError` (hotmail)
     - `Sisimai::Reason::TooManyConn` (ntt docomo)
     - `Sisimai::Reason::UserUnknown` (hotmail)
-    - `Sisimai::Reason::PolicyViolation` (postfix)
     - `Sisimai::Bite::Email::McAfee` (userunknown)
     - `Sisimai::Bite::Email::Exchange2007` (securityerror)
   - The order of `Sisimai::Bite::Email` modules to be loaded has been changed:

@@ -37,6 +37,7 @@ module Sisimai
           'Sisimai::Bite::Email::Bigfoot',
           'Sisimai::Bite::Email::EinsUndEins',
           'Sisimai::Bite::Email::MXLogic',
+          'Sisimai::Bite::Email::Amavis',
           'Sisimai::Bite::Email::IMailServer',
           'Sisimai::Bite::Email::X4',
         ].freeze
@@ -129,6 +130,7 @@ module Sisimai
               'Sisimai::Bite::Email::SendGrid',
               'Sisimai::Bite::Email::Notes',
               'Sisimai::Bite::Email::Verizon',
+              'Sisimai::Bite::Email::Amavis',
               'Sisimai::Bite::Email::IMailServer',
               'Sisimai::Bite::Email::MailMarshalSMTP',
             ],

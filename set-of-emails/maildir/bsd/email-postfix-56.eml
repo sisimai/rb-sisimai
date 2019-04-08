@@ -1,0 +1,78 @@
+Return-Path: <>
+X-Original-To: kijitora@example.net
+Delivered-To: kijitora@example.net
+Received: by mail.example.com (Postfix)
+	id ABF0E0D7D406; Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+Date: Thu, 29 Apr 2018 23:34:45 +0900 (JST)
+From: MAILER-DAEMON@mail.example.com (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: kijitora@example.net
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="75FDC12192A3.1298094786/mail.example.com"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20180429233445.AE84E2AD4FE9@mail.example.com>
+
+This is a MIME-encapsulated message.
+
+--75FDC12192A3.1298094786/mail.example.com
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host mail.example.com.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to <postmaster>
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<nyaan@qq.example.com>: lost connection with mx2.qq.com[184.105.206.86] while
+    performing the HELO handshake
+
+--75FDC12192A3.1298094786/mail.example.com
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mail.example.com
+X-Postfix-Queue-ID: 75FDC12192A3
+X-Postfix-Sender: rfc822; kijitora@example.net
+Arrival-Date: Wed,  4 Apr 2018 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; nyaan@qq.example.com
+Original-Recipient: rfc822;nyaan@qq.example.com
+Action: failed
+Status: 4.4.2
+Diagnostic-Code: X-Postfix; lost connection with mx2.qq.com[184.105.206.86]
+    while performing the HELO handshake
+
+--75FDC12192A3.1298094786/mail.example.com
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 7bit
+
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.example.com (Postfix) with ESMTP id 75FDC12192A3
+	for <nyaan@qq.example.com>; Wed,  4 Apr 2018 23:34:45 +0900 (JST)
+Received: from mail.example.com ([127.0.0.1])
+	by localhost (neko1.example.com [127.0.0.1]) (amavisd-new, port 24)
+	with ESMTP id Vuol4J39074096 for <nyaan@qq.example.com>;
+	Wed,  4 Apr 2018 23:34:45 +0900 (JST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.example.com (Postfix) with ESMTP id 28A289DFBF74
+	for <nyaan@qq.example.com>; Wed,  4 Apr 2018 23:34:45 +0900 (JST)
+From: "Kijitora, Nyaan" <kijitora@example.net>
+To: "Nekochan" <nyaan@qq.example.com>
+Subject: Nyaan
+Content-type: text/plain; charset=ISO-2022-JP
+Message-Id: <20180429233445.75F8111A6040@mail.example.com>
+Date: Wed,  4 Apr 2018 23:34:45 +0900 (JST)
+
+Nyaan
+
+--75FDC12192A3.1298094786/mail.example.com--
