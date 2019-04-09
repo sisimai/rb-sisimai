@@ -4,7 +4,7 @@
 [![Coverage Status](https://img.shields.io/coveralls/sisimai/rb-Sisimai.svg)](https://coveralls.io/r/sisimai/rb-Sisimai)
 [![Build Status](https://travis-ci.org/sisimai/rb-Sisimai.svg?branch=master)](https://travis-ci.org/sisimai/rb-Sisimai) 
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/38340177e6284a65be69c0c7c3dc2b58)](https://www.codacy.com/app/azumakuniyuki/rb-Sisimai)
-[![Ruby](https://img.shields.io/badge/ruby-v2.1.0--v2.4.0-red.svg)](https://www.ruby-lang.org/)
+[![Ruby](https://img.shields.io/badge/ruby-v2.1.0--v2.6.0-red.svg)](https://www.ruby-lang.org/)
 [![Gem Version](https://badge.fury.io/rb/sisimai.svg)](https://badge.fury.io/rb/sisimai)
 
 - [**README(English)**](README.md)
@@ -54,7 +54,7 @@ Key features
   * git clone & make
 * __高い解析精度__
   * 解析精度はbounceHammerの2倍
-  * 28種類のMTAに対応
+  * 29種類のMTAに対応
   * 22種類の著名なMSPに対応
   * 2種類の著名なメール配信クラウドに対応(JSON)
   * Feedback Loopにも対応
@@ -80,10 +80,10 @@ Install
 
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-4.23.0.gem (100%)
-Successfully installed sisimai-4.23.0
-Parsing documentation for sisimai-4.23.0
-Installing ri documentation for sisimai-4.23.0
+Fetching: sisimai-4.25.0.gem (100%)
+Successfully installed sisimai-4.25.0
+Parsing documentation for sisimai-4.25.0
+Installing ri documentation for sisimai-4.25.0
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -99,8 +99,8 @@ gem install bundle rake rspec coveralls
 ...
 4 gems installed
 bundle exec rake install
-sisimai 4.23.0 built to pkg/sisimai-4.23.0.gem.
-sisimai (4.23.0) installed.
+sisimai 4.25.0 built to pkg/sisimai-4.25.0.gem.
+sisimai (4.25.0) installed.
 ```
 
 Usage
@@ -238,14 +238,14 @@ Differences between Ruby version and Perl version
 
 | 機能                                        | Ruby version   | Perl version  |
 |---------------------------------------------|----------------|---------------|
-| 動作環境                                    | Ruby 2.1 - 2.5 | Perl 5.10 -   |
+| 動作環境                                    | Ruby 2.1 - 2.6 | Perl 5.10 -   |
 |                                             | JRuby 9.0.4.0- |               |
 | 解析精度の割合(2000通のメール)[1]           | 1.00           | 1.00          |
-| メール解析速度(1000通のメール)              | 3.20秒[2]      | 1.60秒        |
+| メール解析速度(1000通のメール)              | 2.22秒[2]      | 1.50秒        |
 | インストール方法                            | gem install    | cpanm, cpm    |
 | 依存モジュール数(コアモジュールを除く)      | 1モジュール    | 2モジュール   |
-| LOC:ソースコードの行数                      | 11700行        | 8600行        |
-| テスト件数(spec/,t/,xt/ディレクトリ)        | 218000件       | 236600件      |
+| LOC:ソースコードの行数                      | 11700行        | 8200行        |
+| テスト件数(spec/,t/,xt/ディレクトリ)        | 224000件       | 242000件      |
 | ライセンス                                  | 二条項BSD      | 二条項BSD     |
 | 開発会社によるサポート契約                  | 準備中         | 提供中        |
 
@@ -300,7 +300,7 @@ Author
 
 Copyright
 ===============================================================================
-Copyright (C) 2015-2018 azumakuniyuki, All Rights Reserved.
+Copyright (C) 2015-2019 azumakuniyuki, All Rights Reserved.
 
 License
 ===============================================================================

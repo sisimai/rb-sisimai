@@ -5,8 +5,8 @@ RELEASE NOTES for Ruby version of Sisimai
 
 v4.25.0
 --------------------------------------------------------------------------------
-- release: ""
-- version: ""
+- release: "Tue,  9 Apr 2019 11:22:22 +0900 (JST)"
+- version: "4.25.0"
 - changes:
   - Implement new class `Sisimai::RFC1894` for parsing message/delivery-status
     part. #133

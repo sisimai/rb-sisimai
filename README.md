@@ -4,7 +4,7 @@
 [![Coverage Status](https://img.shields.io/coveralls/sisimai/rb-Sisimai.svg)](https://coveralls.io/r/sisimai/rb-Sisimai)
 [![Build Status](https://travis-ci.org/sisimai/rb-Sisimai.svg?branch=master)](https://travis-ci.org/sisimai/rb-Sisimai) 
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/38340177e6284a65be69c0c7c3dc2b58)](https://www.codacy.com/app/azumakuniyuki/rb-Sisimai)
-[![Ruby](https://img.shields.io/badge/ruby-v2.1.0--v2.4.0-red.svg)](https://www.ruby-lang.org/)
+[![Ruby](https://img.shields.io/badge/ruby-v2.1.0--v2.6.0-red.svg)](https://www.ruby-lang.org/)
 [![Gem Version](https://badge.fury.io/rb/sisimai.svg)](https://badge.fury.io/rb/sisimai)
 
 - [**README-JA(日本語)**](README-JA.md)
@@ -53,7 +53,7 @@ Key Features
   * git clone & make
 * __High Precision of Analysis__
   * 2 times higher than bounceHammer
-  * Support 23 known MTAs and 5 unknown MTAs
+  * Support 24 known MTAs and 5 unknown MTAs
   * Support 22 major MSPs(Mail Service Providers)
   * Support 2 major Cloud Email Delivery Services(JSON format)
   * Support Feedback Loop Message(ARF)
@@ -85,10 +85,10 @@ Install
 
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-4.23.0.gem (100%)
-Successfully installed sisimai-4.23.0
-Parsing documentation for sisimai-4.23.0
-Installing ri documentation for sisimai-4.23.0
+Fetching: sisimai-4.25.0.gem (100%)
+Successfully installed sisimai-4.25.0
+Parsing documentation for sisimai-4.25.0
+Installing ri documentation for sisimai-4.25.0
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -104,8 +104,8 @@ gem install bundle rake rspec coveralls
 ...
 4 gems installed
 bundle exec rake install
-sisimai 4.23.0 built to pkg/sisimai-4.23.0.gem.
-sisimai (4.23.0) installed.
+sisimai 4.25.0 built to pkg/sisimai-4.25.0.gem.
+sisimai (4.25.0) installed.
 ```
 
 Usage
@@ -242,14 +242,14 @@ and bounceHammer are available at
 
 | Features                                    | Ruby version   | Perl version  |
 |---------------------------------------------|----------------|---------------|
-| System requirements                         | Ruby 2.1 - 2.5 | Perl 5.10 -   |
+| System requirements                         | Ruby 2.1 - 2.6 | Perl 5.10 -   |
 |                                             | JRuby 9.0.4.0- |               |
 | Analytical precision ratio(2000 emails)[1]  | 1.00           | 1.00          |
-| The speed of parsing email(1000 emails)     | 3.20s[2]       | 1.60s         |
+| The speed of parsing email(1000 emails)     | 2.22s[2]       | 1.50s         |
 | How to install                              | gem install    | cpanm, cpm    |
 | Dependencies (Except core modules)          | 1 module       | 2 modules     |
-| LOC:Source lines of code                    | 11700 lines    | 8600 lines    |
-| The number of tests(spec/,t/,xt/) directory | 218000 tests   | 236600 tests  |
+| LOC:Source lines of code                    | 11700 lines    | 8200 lines    |
+| The number of tests(spec/,t/,xt/) directory | 224000 tests   | 242000 tests  |
 | License                                     | BSD 2-Clause   | BSD 2-Clause  |
 | Support Contract provided by Developer      | Coming soon    | Available     |
 
@@ -306,7 +306,7 @@ Author
 
 Copyright
 ===============================================================================
-Copyright (C) 2015-2018 azumakuniyuki, All Rights Reserved.
+Copyright (C) 2015-2019 azumakuniyuki, All Rights Reserved.
 
 License
 ===============================================================================
