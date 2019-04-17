@@ -3,6 +3,16 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.25.0p1
+--------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - Check the format of the value of `Message-Id` header for detecting a bounce
+    mail from Exim or not.
+  - Call `Sisimai::Rhost::FrancePTT` module when the value of `rhost` includes
+    `.wanadoo.fr`.
+
 v4.25.0
 --------------------------------------------------------------------------------
 - release: "Tue,  9 Apr 2019 11:22:22 +0900 (JST)"
