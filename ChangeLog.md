@@ -12,6 +12,8 @@ v4.25.0p1
     mail from Exim or not.
   - Call `Sisimai::Rhost::FrancePTT` module when the value of `rhost` includes
     `.wanadoo.fr`.
+  - Fix code at `Sisimai::Message::Email.takeapart` method to decode a Subject
+    header of the original message.
 
 v4.25.0
 --------------------------------------------------------------------------------
