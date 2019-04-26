@@ -263,7 +263,7 @@ module Sisimai
 
         # 1. Scrub to avoid "invalid byte sequence in UTF-8" exception (#82)
         # 2. Convert from string to hash reference
-        heads = heads.scrub('?').gsub(/^[>]+[ ]/m, '')
+        heads = heads.scrub('?').gsub(/^[>]+[ ]/m, '').gsub(/=[ ]+=/, "=\n =")
 
         previousfn = '' # Previous field name
         asciiarmor = {} # Header names which has MIME encoded value

@@ -14,6 +14,7 @@ module Sisimai
         'mailstore1.secureserver.net' => 'GoDaddy',
         'laposte.net'                 => 'FrancePTT',
         'orange.fr'                   => 'FrancePTT',
+        'wanadoo.fr'                  => 'FrancePTT',
         'lsean.ezweb.ne.jp'           => 'KDDI',
         'msmx.au.com'                 => 'KDDI',
         '.qq.com'                     => 'TencentQQ',

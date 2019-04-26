@@ -139,10 +139,13 @@ module Sisimai::Bite::Email
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def scan(mhead, mbody)
-        # :'message-id' => %r/\A[<]\w+[-]\w+[-]\w+[@].+\z/,
-        return nil if     mhead['from'] =~ /[@].+[.]mail[.]ru[>]?/
-        return nil unless mhead['from'].start_with?('Mail Delivery System')
-        return nil unless mhead['subject'] =~ %r{(?:
+        return nil if mhead['from'] =~ /[@].+[.]mail[.]ru[>]?/
+
+        # Message-Id: <E1P1YNN-0003AD-Ga@example.org>
+        match  = 0
+        match += 1 if mhead['from'].start_with?('Mail Delivery System')
+        match += 1 if mhead['message-id'].to_s =~ %r/\A[<]\w{7}[-]\w{6}[-]\w{2}[@]/
+        match += 1 if mhead['subject'] =~ %r{(?:
            Mail[ ]delivery[ ]failed(:[ ]returning[ ]message[ ]to[ ]sender)?
           |Warning:[ ]message[ ].+[ ]delayed[ ]+
           |Delivery[ ]Status[ ]Notification
@@ -151,6 +154,7 @@ module Sisimai::Bite::Email
           |error[(]s[)][ ]in[ ]forwarding[ ]or[ ]filtering
           )
         }x
+        return nil if match < 2
 
         require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
