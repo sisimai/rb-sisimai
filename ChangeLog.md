@@ -14,6 +14,7 @@ v4.25.0p1
     `.wanadoo.fr`.
   - Fix code at `Sisimai::Message::Email.takeapart` method to decode a Subject
     header of the original message.
+  - #147 Update error messages for Low Reputation Error from Gmail.
 
 v4.25.0
 --------------------------------------------------------------------------------
