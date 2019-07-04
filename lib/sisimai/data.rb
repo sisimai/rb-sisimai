@@ -288,10 +288,10 @@ module Sisimai
             # 550-5.7.1 likely unsolicited mail. To reduce the amount of spam sent to Gmail,
             # 550-5.7.1 this message has been blocked. Please visit
             # 550 5.7.1 https://support.google.com/mail/answer/188131 for more information.
-            p['diagnosticcode'].gsub!(re, ' ')
-            p['diagnosticdoee'] = Sisimai::String.sweep(p['diagnosticcode'])
+            p['diagnosticcode'] = Sisimai::String.sweep(p['diagnosticcode'].gsub(re, ' '))
           end
         end
+
         p['diagnostictype'] ||= 'X-UNIX' if p['reason'] == 'mailererror'
         p['diagnostictype'] ||= 'SMTP' unless %w[feedback vacation].include?(p['reason'])
 
