@@ -8,6 +8,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Rhost.pm
       RhostClass = {
         'aspmx.l.google.com'          => 'GoogleApps',
+        'gmail-smtp-in.l.google.com'  => 'GoogleApps',
         '.prod.outlook.com'           => 'ExchangeOnline',
         '.protection.outlook.com'     => 'ExchangeOnline',
         'smtp.secureserver.net'       => 'GoDaddy',

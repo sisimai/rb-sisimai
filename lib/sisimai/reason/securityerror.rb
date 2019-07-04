@@ -11,7 +11,7 @@ module Sisimai
     # of email bounce if the value of Status: field in a bounce email is "5.7.*".
     #
     #   Action: failed
-    #   Status: 5.7.0
+    #   Status: 5.7.1
     #   Remote-MTA: DNS; gmail-smtp-in.l.google.com
     #   Diagnostic-Code: SMTP; 552-5.7.0 Our system detected an illegal attachment on your message. Please
     #   Last-Attempt-Date: Tue, 28 Apr 2009 11:02:45 +0900 (JST)
