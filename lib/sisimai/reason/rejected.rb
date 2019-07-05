@@ -44,6 +44,7 @@ module Sisimai
           'message rejected: email address is not verified',
           'mx records for ',
           'null sender is not allowed',
+          'recipient addresses rejected : access denied',
           'recipient not accepted. (batv: no tag',
           'returned mail not accepted here',
           'rfc 1035 violation: recursive cname records for',
