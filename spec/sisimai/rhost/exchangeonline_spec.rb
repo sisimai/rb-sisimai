@@ -7,7 +7,7 @@ require 'sisimai/rhost/exchangeonline'
 describe Sisimai::Rhost::ExchangeOnline do
   rs = {
     '01' => { 'status' => %r/\A5[.]7[.]606\z/, 'reason' => %r/blocked/ },
-    '02' => { 'status' => %r/\A5[.]4[.]1\z/,   'reason' => %r/userunknown/ },
+    '02' => { 'status' => %r/\A5[.]4[.]1\z/,   'reason' => %r/rejected/ },
     '03' => { 'status' => %r/\A5[.]1[.]10\z/,  'reason' => %r/userunknown/ },
   }
   describe 'bounce mail from Exchange Online' do

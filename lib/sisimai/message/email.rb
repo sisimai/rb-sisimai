@@ -413,6 +413,7 @@ module Sisimai
           mailheader['subject'] = Sisimai::MIME.mimedecode(mailheader['subject'].split(/[ ]/))
           mailheader['subject'].scrub!('?')
         end
+        bodystring = bodystring.scrub('?').delete("\r")
         bodystring << EndOfEmail
         haveloaded = {}
         scannedset = nil

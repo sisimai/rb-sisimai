@@ -15,6 +15,9 @@ v4.25.0p1
   - Fix code at `Sisimai::Message::Email.takeapart` method to decode a Subject
     header of the original message.
   - #147 Update error messages for Low Reputation Error from Gmail.
+  - Parser code to read bounce mails from m-FILTER at `Sisimai::Message::Email`
+    has been improved.
+  - Status 5.4.1 from Exchange Online is classified into "rejected" reason.
 
 v4.25.0
 --------------------------------------------------------------------------------

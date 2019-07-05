@@ -9,6 +9,7 @@ isexpected = [
   { 'n' => '01005', 'r' => /userunknown/ },
   { 'n' => '01006', 'r' => /filtered/ },
   { 'n' => '01007', 'r' => /filtered/ },
+  { 'n' => '01008', 'r' => /rejected/ },
 ]
 Sisimai::Bite::Email::Code.maketest(enginename, isexpected, true)
 
