@@ -358,21 +358,6 @@ module Sisimai
         mailheader['subject']      ||= ''
         mailheader['content-type'] ||= ''
 
-        if hookmethod.is_a? Proc
-          # Call the hook method
-          begin
-            p = {
-              'datasrc' => 'email',
-              'headers' => mailheader,
-              'message' => bodystring,
-              'bounces' => nil
-            }
-            havecaught = hookmethod.call(p)
-          rescue StandardError => ce
-            warn ' ***warning: Something is wrong in hook method :' << ce.to_s
-          end
-        end
-
         # Decode BASE64 Encoded message body, rewrite.
         mesgformat = (mailheader['content-type'] || '').downcase
         ctencoding = (mailheader['content-transfer-encoding'] || '').downcase
@@ -414,6 +399,22 @@ module Sisimai
           mailheader['subject'].scrub!('?')
         end
         bodystring = bodystring.scrub('?').delete("\r")
+
+        if hookmethod.is_a? Proc
+          # Call the hook method
+          begin
+            p = {
+              'datasrc' => 'email',
+              'headers' => mailheader,
+              'message' => bodystring,
+              'bounces' => nil
+            }
+            havecaught = hookmethod.call(p)
+          rescue StandardError => ce
+            warn ' ***warning: Something is wrong in hook method :' << ce.to_s
+          end
+        end
+
         bodystring << EndOfEmail
         haveloaded = {}
         scannedset = nil
