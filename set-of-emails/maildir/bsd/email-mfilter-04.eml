@@ -1,0 +1,39 @@
+From MAILER-DAEMON  Thu Apr 29 23:34:45 2019
+Return-Path: <>
+X-Original-To: postmaster@neko.example.co.jp
+Delivered-To: sironeko@nyaan.example.co.jp
+Received: from NEKONYAAN.example.co.jp (ip-192-0-2-22.ap-northeast-1.compute.internal [192.0.2.22]) by neko1..example.co.jp (unknown) with ESMTP id 1D047D35DB1C
+	for <postmaster@neko.example.co.jp>; Thu, 22 Apr 2019 23:34:45 +0900 (JST)
+Received: from NEKOCHAN.example.co.jp (localhost [127.0.0.1]) by mta1.neko (unknown) with ESMTP id 2984BACC7F4F
+	for <postmaster@neko.example.co.jp>; Thu, 22 Apr 2019 23:34:45 +0900 (JST)
+Received: from SOTONEKO.nyaan.local (unknown [203.0.113.22]) by NEKO.example.co.jp (unknown) with ESMTP id B13EEEFEC132
+	for <postmaster@neko.example.co.jp>; Thu, 22 Apr 2019 23:34:45 +0900 (JST)
+Received: from 127.0.0.1 (127.0.0.1) by m-FILTER with ESMTP; Thu, 22 Apr 2019 23:34:45 +0900
+X-Mailer: m-FILTER
+Message-Id: <2019429233455.2222.2032202.NEKONYAAN@EXAMPLE.CO.JP>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: Base64
+From: <>
+To: postmaster@neko.example.co.jp
+Date: Thu, 22 Apr 2019 23:34:45 +0900
+Subject: failure notice
+
+44GT44Gu44Oh44O844Or44Gv44CMbS1GSUxURVLjgI3jgYzoh6rli5XnmoTjgavn
+lJ/miJDjgZfjgabpgIHkv6HjgZfjgabjgYTjgb7jgZnjgIIK44Oh44O844Or44K1
+44O844OQ44O844Go44Gu6YCa5L+h5Lit44CB5LiL6KiY44Gu55CG55Sx44Gr44KI
+44KKCuOBk+OBruODoeODvOODq+OBr+mAgeS/oeOBp+OBjeOBvuOBm+OCk+OBp+OB
+l+OBn+OAggoK5Lul5LiL44Gu44Oh44O844Or44Ki44OJ44Os44K544G444Gu6YCB
+5L+h44Gr5aSx5pWX44GX44G+44GX44Gf44CCCmtpaml0b3JhQGxpYmlzaXNtYWku
+b3JnCgoKLS0tLS0tLXNlcnZlciBtZXNzYWdlCjU1MCA1LjQuMSBBbGwgcmVjaXBp
+ZW50IGFkZHJlc3NlcyByZWplY3RlZCA6IEFjY2VzcyBkZW5pZWQgW05FS09OWUFB
+Ti5jYXQtSlBOMjIucHJvZC5wcm90ZWN0aW9uLm91dGxvb2suY29tXQoKLS0tLS0t
+LVNNVFAgY29tbWFuZApEQVRBCgotLS0tLS0tb3JpZ2luYWwgbWFpbCBpbmZvCkZy
+b206IHBvc3RtYXN0ZXJAZXhhbXBsZS5vcmcKU3ViamVjdDog44Gr44KD44O844KT
+CkRhdGU6IFRodSwgMjkgQXByIDIwMTkgMjI6MjI6MjIgKzA5MDAgKEpTVCkKTWVz
+c2FnZS1JRDogPDIwMTkwNDI5MjIyMjIyLkZGRkZGRkZGMDAyQG5la28ubnlhYW4u
+ZXhhbXBsZS5jby5qcD4KQk9EWToKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoK44OL44Oj44O844OzCgotLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgo=
+
+
