@@ -186,10 +186,10 @@ isexpected = [
   { 'n' => '01184', 'r' => /filtered/ },
   { 'n' => '01185', 'r' => /expired/ },
   { 'n' => '01186', 'r' => /policyviolation/ },
-  { 'n' => '01187', 'r' => /policyviolation/ },
+  { 'n' => '01187', 'r' => /blocked/ },
   { 'n' => '01188', 'r' => /userunknown/ },
   { 'n' => '01189', 'r' => /expired/ },
-  { 'n' => '01190', 'r' => /securityerror/ }, # spamdetected
+  { 'n' => '01190', 'r' => /spamdetected/ },
   { 'n' => '01191', 'r' => /suspend/ },
   { 'n' => '01192', 'r' => /userunknown/ },
   { 'n' => '01193', 'r' => /userunknown/ },
@@ -202,7 +202,7 @@ isexpected = [
   { 'n' => '01200', 'r' => /hostunknown/ },
   { 'n' => '01201', 'r' => /spamdetected/ },
   { 'n' => '01202', 'r' => /systemfull/ },
-  { 'n' => '01203', 'r' => /securityerror/ }, # spamdetected
+  { 'n' => '01203', 'r' => /spamdetected/ },
   { 'n' => '01204', 'r' => /suspend/ },
   { 'n' => '01205', 'r' => /userunknown/ },
   { 'n' => '01206', 'r' => /systemerror/ },
