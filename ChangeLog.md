@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.0p5
+v4.25.0p6
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -20,6 +20,8 @@ v4.25.0p5
   - Status 5.4.1 from Exchange Online is classified into "rejected" reason.
   - Callback method specified at `Sisimai::Message.new()` with `hook` is called
     just before calling `scan()` method of each `Sisimai::Bite::Email` module.
+  - Code improvement in `Sisimai::Bite::Email::Sendmail` for getting error mes-
+    sages returned from Google.
 
 v4.25.0
 --------------------------------------------------------------------------------

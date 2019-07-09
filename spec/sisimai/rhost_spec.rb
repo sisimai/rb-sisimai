@@ -30,11 +30,13 @@ describe Sisimai::Rhost do
     context 'valid argument string' do
       v = [
         'aspmx.l.google.com',
+        'gmail-smtp-in.l.google.com',
         'neko.protection.outlook.com',
         'smtp.secureserver.net',
         'mailstore1.secureserver.net',
         'smtpz4.laposte.net',
         'smtp-in.orange.fr',
+        'mx2.qq.com',
       ]
       v.each do |e|
         context "(#{e})" do
@@ -60,10 +62,8 @@ describe Sisimai::Rhost do
     Dir.glob('./set-of-emails/maildir/bsd/rhost-*.eml').each do |e|
       v = Sisimai.make(e)
       context 'Sisimai::Data' do
-        it 'returns userunknown' do
-          expect(cn.get(v[0])).to be_a ::String
-          expect(r.include?(cn.get(v[0]))).to be true
-        end
+        it('has valid reason value') { expect(v[0].reason.size).to be > 0 }
+        it('has valid rhost value')  { expect(v[0].rhost.size).to be > 0 }
       end
     end
   end
