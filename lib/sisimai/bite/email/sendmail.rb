@@ -56,7 +56,7 @@ module Sisimai::Bite::Email
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         commandtxt = ''     # (String) SMTP Command name begin with the string '>>>'
-        esmtpreply = ''     # (String) Reply from remote server on SMTP session
+        esmtpreply = []     # (Array) Reply from remote server on SMTP session
         sessionerr = false  # (Boolean) Flag, "true" if it is SMTP session error
         anotherset = {}     # Another error information
         v = nil
@@ -147,7 +147,7 @@ module Sisimai::Bite::Email
 
                 elsif cv = e.match(/\A[<]{3}[ ]+(.+)\z/)
                   # <<< Response
-                  esmtpreply = cv[1]
+                  esmtpreply << cv[1] unless esmtpreply.index(cv[1])
                 else
                   # Detect SMTP session error or connection error
                   next if sessionerr
@@ -212,6 +212,11 @@ module Sisimai::Bite::Email
             e['diagnosis'] = anotherset['diagnosis'] if e['diagnosis'] =~ /\A[ \t]+\z/
             e['diagnosis'] = anotherset['diagnosis'] unless e['diagnosis']
             e['diagnosis'] = anotherset['diagnosis'] if e['diagnosis'] =~ /\A\d+\z/
+          end
+          unless esmtpreply.empty?
+            # Replace the error message in "diagnosis" with the ESMTP Reply
+            r = esmtpreply.join(' ')
+            e['diagnosis'] = r if r.size > e['diagnosis'].to_s.size
           end
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
