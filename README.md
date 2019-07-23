@@ -85,10 +85,10 @@ Install
 
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-4.25.0.gem (100%)
-Successfully installed sisimai-4.25.0
-Parsing documentation for sisimai-4.25.0
-Installing ri documentation for sisimai-4.25.0
+Fetching: sisimai-4.25.1.gem (100%)
+Successfully installed sisimai-4.25.1
+Parsing documentation for sisimai-4.25.1
+Installing ri documentation for sisimai-4.25.1
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -104,8 +104,8 @@ gem install bundle rake rspec coveralls
 ...
 4 gems installed
 bundle exec rake install
-sisimai 4.25.0 built to pkg/sisimai-4.25.0.gem.
-sisimai (4.25.0) installed.
+sisimai 4.25.1 built to pkg/sisimai-4.25.1.gem.
+sisimai (4.25.1) installed.
 ```
 
 Usage
@@ -249,9 +249,9 @@ and bounceHammer are available at
 | How to install                              | gem install    | cpanm, cpm    |
 | Dependencies (Except core modules)          | 1 module       | 2 modules     |
 | LOC:Source lines of code                    | 11700 lines    | 8200 lines    |
-| The number of tests(spec/,t/,xt/) directory | 224000 tests   | 242000 tests  |
+| The number of tests(spec/,t/,xt/) directory | 225000 tests   | 242000 tests  |
 | License                                     | BSD 2-Clause   | BSD 2-Clause  |
-| Support Contract provided by Developer      | Coming soon    | Available     |
+| Support Contract provided by Developer      | Available      | Available     |
 
 1. See [./ANALYTICAL-PRECISION](https://github.com/sisimai/rb-Sisimai/blob/master/ANALYTICAL-PRECISION)
 2. Xeon E5-2640 2.5GHz x 2 cores | 5000 bogomips | 1GB RAM | Ruby 2.3.4p301

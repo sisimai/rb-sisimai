@@ -80,10 +80,10 @@ Install
 
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-4.25.0.gem (100%)
-Successfully installed sisimai-4.25.0
-Parsing documentation for sisimai-4.25.0
-Installing ri documentation for sisimai-4.25.0
+Fetching: sisimai-4.25.1.gem (100%)
+Successfully installed sisimai-4.25.1
+Parsing documentation for sisimai-4.25.1
+Installing ri documentation for sisimai-4.25.1
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -99,8 +99,8 @@ gem install bundle rake rspec coveralls
 ...
 4 gems installed
 bundle exec rake install
-sisimai 4.25.0 built to pkg/sisimai-4.25.0.gem.
-sisimai (4.25.0) installed.
+sisimai 4.25.1 built to pkg/sisimai-4.25.1.gem.
+sisimai (4.25.1) installed.
 ```
 
 Usage
@@ -245,9 +245,9 @@ Differences between Ruby version and Perl version
 | インストール方法                            | gem install    | cpanm, cpm    |
 | 依存モジュール数(コアモジュールを除く)      | 1モジュール    | 2モジュール   |
 | LOC:ソースコードの行数                      | 11700行        | 8200行        |
-| テスト件数(spec/,t/,xt/ディレクトリ)        | 224000件       | 242000件      |
+| テスト件数(spec/,t/,xt/ディレクトリ)        | 225000件       | 242000件      |
 | ライセンス                                  | 二条項BSD      | 二条項BSD     |
-| 開発会社によるサポート契約                  | 準備中         | 提供中        |
+| 開発会社によるサポート契約                  | 提供中         | 提供中        |
 
 1. [./ANALYTICAL-PRECISION](https://github.com/sisimai/rb-Sisimai/blob/master/ANALYTICAL-PRECISION)を参照
 2. Xeon E5-2640 2.5GHz x 2 cores | 5000 bogomips | 1GB RAM | Ruby 2.3.4p301
