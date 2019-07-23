@@ -3,10 +3,10 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.0p6
+v4.25.1
 --------------------------------------------------------------------------------
-- release: ""
-- version: ""
+- release: "4.25.1"
+- version: ""Tue, 23 Jul 2019 10:00:00 +0900 (JST)
 - changes:
   - Check the format of the value of `Message-Id` header for detecting a bounce
     mail from Exim or not.
