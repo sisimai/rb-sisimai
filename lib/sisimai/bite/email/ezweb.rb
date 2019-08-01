@@ -136,7 +136,6 @@ module Sisimai::Bite::Email
               end
 
               r = Sisimai::Address.s3s4(cv[1])
-              next unless Sisimai::RFC5322.is_emailaddress(r)
               v['recipient'] = r
               recipients += 1
 

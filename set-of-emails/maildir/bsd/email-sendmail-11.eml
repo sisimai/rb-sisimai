@@ -17,7 +17,7 @@ X-Virus-Status: Clean
 
 This is a MIME-encapsulated message
 
---q0000098000000.1267617874/mx.example.com
+--q0000098000000.0000000004/mx.example.com
 
 The original message was received at Thu, 29 Apr 2012 12:46:19 +0900
 from c134.example.jp [192.0.2.90]
@@ -31,7 +31,7 @@ with id q000000Of019233
 Message could not be delivered for 8 hours
 Message will be deleted from queue
 
---q0000098000000.0000000000/mx.example.com
+--q0000098000000.0000000004/mx.example.com
 Content-Type: message/delivery-status
 
 Reporting-MTA: dns; mx.example.com
@@ -43,7 +43,7 @@ Status: 4.4.7
 Remote-MTA: DNS; example.co.jp
 Last-Attempt-Date: Thu, 29 Apr 2012 23:45:34 +0900
 
---q0000098000000.0000000000/mx.example.com
+--q0000098000000.0000000004/mx.example.com
 Content-Type: text/rfc822-headers
 
 Return-Path: <shironeko@example.or.jp>
@@ -56,5 +56,5 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="ISO-2022-JP"
 Content-Transfer-Encoding: 7bit
 
---q0000098000000.0000000000/mx.example.com--
+--q0000098000000.0000000004/mx.example.com--
 

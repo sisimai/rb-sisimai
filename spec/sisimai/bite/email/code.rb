@@ -51,6 +51,7 @@ module Sisimai
               samplefile = nil
               mailobject = nil
               indexlabel = sprintf("%02d", e['n'].to_i)
+              haveparsed = 0
 
               if onlydebugs
                 # Debug mode
@@ -87,7 +88,6 @@ module Sisimai
                 it('could be generated Sisimai::Mail object') { expect(mailobject).to be_a Sisimai::Mail }
 
                 while r = mailobject.read do
-                  
                   describe Sisimai::Mail do
                     mesgsource = r.to_s
                     mesgobject = nil
@@ -106,6 +106,7 @@ module Sisimai
                     mesgobject = Sisimai::Message.new(data: r, input: 'email')
                     next unless mesgobject
                     next if mesgobject.void
+                    haveparsed += 1
 
                     describe Sisimai::Message do
                       it('#class returns Sisimai::Message') { expect(mesgobject).to be_a Sisimai::Message }
@@ -327,19 +328,16 @@ module Sisimai
                             end
                           end
                         end
+                      end # End of the loop for checking each Sisimai::Data object
+                      emailindex += 1
 
-                      end
-                    end
+                    end # End of each email
+                    it('parsed 1 or more email') { expect(haveparsed).to be > 0 }
 
                   end # End of Sisimai::Mail
-
                 end
-
               end
-
-
             end
-
 
           end
 

@@ -16,7 +16,7 @@ module Sisimai
         :'html-message' => %r|^content-type:[ ]*text/html;|m,
       }.freeze
       AlsoAppend = %r{\A(?:text/rfc822-headers|message/)}.freeze
-      ThisFormat = %r/\A(?:Content-Transfer-Encoding:\s*.+\n)?Content-Type:\s*([^ ;]+)/.freeze
+      ThisFormat = %r/\A(?:Content-Transfer-Encoding:\s*.+\n)?Content-Type:\s*([^ ;\s]+)/.freeze
       LeavesOnly = %r{\A(?>
          text/(?:plain|html|rfc822-headers)
         |message/(?:x?delivery-status|rfc822|partial|feedback-report)
@@ -414,13 +414,31 @@ module Sisimai
         #      - Content-Transfer-Encoding: 7BIT
         # 2. Unused fields inside of mutipart/* block should be removed
         argv1.gsub!(/(Content-[A-Za-z-]+?):[ ]*([^\s]+)/) do "#{$1}: #{$2.downcase}" end
-        argv1.gsub!(/^Content-(?:Description|Disposition):.+$/, '')
+        argv1.gsub!(/^Content-(?:Description|Disposition):.+?$/, '')
 
         multiparts = argv1.split(Regexp.new(Regexp.escape(ehboundary) << "\n"))
         multiparts.shift if multiparts[0].empty?
 
         while e = multiparts.shift do
           # Find internal multipart blocks and decode
+          catch :XCCT do
+            while true
+              # Remove fields except Content-Type, Content-Transfer-Encoding in
+              # each part such as the following:
+              #   Date: Thu, 29 Apr 2018 22:22:22 +0900
+              #   MIME-Version: 1.0
+              #   Message-ID: ...
+              #   Content-Transfer-Encoding: quoted-printable
+              #   Content-Type: text/plain; charset=us-ascii
+              throw :XCCT if e =~ /\AContent-T[ry]/
+              if cv = e.match(/\A(.+?)Content-Type:/)
+                throw :XCCT if cv[1] =~ /\n\n/
+              end
+              e.sub!(/\A.+?(Content-T[ry].+)\z/, '\1')
+              throw :XCCT
+            end
+          end
+
           if e =~ /\A(?:Content-[A-Za-z-]+:.+?\r\n)?Content-Type:[ ]*[^\s]+/
             # Content-Type: multipart/*
             bodystring << Sisimai::MIME.breaksup(e, mimeformat)
