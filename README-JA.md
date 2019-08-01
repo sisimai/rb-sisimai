@@ -80,10 +80,10 @@ Install
 
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-4.25.1.gem (100%)
-Successfully installed sisimai-4.25.1
-Parsing documentation for sisimai-4.25.1
-Installing ri documentation for sisimai-4.25.1
+Fetching: sisimai-4.25.2.gem (100%)
+Successfully installed sisimai-4.25.2
+Parsing documentation for sisimai-4.25.2
+Installing ri documentation for sisimai-4.25.2
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -99,8 +99,8 @@ gem install bundle rake rspec coveralls
 ...
 4 gems installed
 bundle exec rake install
-sisimai 4.25.1 built to pkg/sisimai-4.25.1.gem.
-sisimai (4.25.1) installed.
+sisimai 4.25.2 built to pkg/sisimai-4.25.2.gem.
+sisimai (4.25.2) installed.
 ```
 
 Usage
@@ -244,8 +244,8 @@ Differences between Ruby version and Perl version
 | メール解析速度(1000通のメール)              | 2.22秒[2]      | 1.50秒        |
 | インストール方法                            | gem install    | cpanm, cpm    |
 | 依存モジュール数(コアモジュールを除く)      | 1モジュール    | 2モジュール   |
-| LOC:ソースコードの行数                      | 11700行        | 8200行        |
-| テスト件数(spec/,t/,xt/ディレクトリ)        | 225000件       | 242000件      |
+| LOC:ソースコードの行数                      | 11700行        | 8300行        |
+| テスト件数(spec/,t/,xt/ディレクトリ)        | 227000件       | 248000件      |
 | ライセンス                                  | 二条項BSD      | 二条項BSD     |
 | 開発会社によるサポート契約                  | 提供中         | 提供中        |
 

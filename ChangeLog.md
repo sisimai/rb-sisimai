@@ -3,10 +3,20 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.25.2
+--------------------------------------------------------------------------------
+- release: "Thu,  1 Aug 2019 20:00:00 +0900 (JST)"
+- version: "4.25.2"
+- changes:
+  - THIS RELEASE IS TO FIX SERIOUS BUGS IN ONLY THE PERL VERSION OF SISIMAI
+  - Import Pull-Request from https://github.com/sisimai/p5-Sisimai/pull/324
+  - Improved MIME decoding code in Sisimai::MIME
+  - Strictly checks the number of parsed emails in `make test`
+
 v4.25.1
 --------------------------------------------------------------------------------
 - release: "4.25.1"
-- version: ""Tue, 23 Jul 2019 10:00:00 +0900 (JST)
+- version: "Tue, 23 Jul 2019 10:00:00 +0900 (JST)"
 - changes:
   - Check the format of the value of `Message-Id` header for detecting a bounce
     mail from Exim or not.
