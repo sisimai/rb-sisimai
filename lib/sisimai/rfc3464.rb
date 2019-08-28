@@ -112,6 +112,7 @@ module Sisimai
         havepassed = ['']
         scannedset = Sisimai::MDA.scan(mhead, mbody)
         rfc822list = []   # (Array) Each line in message/rfc822 part string
+        maybealias = nil  # (String) Original-Recipient Field
         blanklines = 0    # (Integer) The number of blank lines
         readcursor = 0    # (Integer) Points the current cursor position
         recipients = 0    # (Integer) The number of 'Final-Recipient' header
@@ -159,8 +160,7 @@ module Sisimai
             next if e.empty?
 
             v = dscontents[-1]
-            if cv = e.match(/\A(?:Final|Original)-[Rr]ecipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/) ||
-                    e.match(/\A(?:Final|Original)-[Rr]ecipient:[ ]*([^ ]+)\z/)
+            if cv = e.match(/\A(Final|Original)-[Rr]ecipient:[ ]*.+;[ ]*([^ ]+)\z/)
               # 2.3.2 Final-Recipient field
               #   The Final-Recipient field indicates the recipient for which this set
               #   of per-recipient fields applies.  This field MUST be present in each
@@ -179,17 +179,27 @@ module Sisimai
               #           "Original-Recipient" ":" address-type ";" generic-address
               #
               #       generic-address = *text
-              x = v['recipienet'] || ''
-              y = Sisimai::Address.s3s4(cv[1])
+              if cv[1] == 'Original'
+                # Original-Recipient: ...
+                maybealias = cv[2]
+              else
+                # Final-Recipient: ...
+                x = v['recipienet'] || ''
+                y = Sisimai::Address.s3s4(cv[2])
+                y = maybealias unless Sisimai::RFC5322.is_emailaddress(y)
 
-              if !x.empty? && x != y
-                # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::Bite.DELIVERYSTATUS
-                v = dscontents[-1]
+                if !x.empty? && x != y
+                  # There are multiple recipient addresses in the message body.
+                  dscontents << Sisimai::Bite.DELIVERYSTATUS
+                  v = dscontents[-1]
+                end
+                v['recipient'] = y
+                recipients += 1
+                itisbounce ||= true
+
+                v['alias'] ||= maybealias
+                maybealias = nil
               end
-              v['recipient'] = y
-              recipients += 1
-              itisbounce ||= true
 
             elsif cv = e.match(/\AX-Actual-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
               # X-Actual-Recipient: RFC822; |IFS=' ' && exec procmail -f- || exit 75 ...
