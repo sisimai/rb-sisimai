@@ -23,6 +23,9 @@ module Sisimai
               'exists' => %w|date spec reason status command action alias rhost lhost
                 diagnosis feedbacktype softbounce|,
             }
+            getskipped = {
+              'undisclosed' => %r/\AARF-(?:11|12|15|1010|1011)/,
+            }
             v = nil
 
             if outofemail.include? enginename
@@ -165,7 +168,13 @@ module Sisimai
 
                           pp = 'recipient'
                           re = /[0-9A-Za-z@-_.]+/
+                          lb = sprintf("%02d-%02d", e['n'].to_i, foundindex)
                           it(sprintf("%s [%s] matches %s", lb, pp, re.to_s)) { expect(ds[pp]).to match re }
+
+                          if sprintf("%s-%s", enginename, lb) =~ getskipped['undisclosed']
+                            re = %r/[@]libsisimai[.]org[.]invalid/
+                            it(sprintf("%s [%s] matches %s", lb, pp, re.to_s)) { expect(ds[pp]).to match(re) }
+                          end
 
                           pp = 'command'
                           it(sprintf("%s [%s] does not match /[ ]/", lb, pp)) { expect(ds[pp]).not_to match /[ ]/ }

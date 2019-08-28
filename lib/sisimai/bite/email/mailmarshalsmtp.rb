@@ -137,6 +137,11 @@ module Sisimai::Bite::Email
                 elsif cv = e.match(/\AReporting-MTA:[ \t]+[<](.+)[>]\z/)
                   # Reporting-MTA:      <relay.xxxxxxxxxxxx.com>
                   v['rhost'] = cv[1]
+
+                elsif cv = e.match(/\A\s+(From|Subject):\s*(.+)\z/)
+                  #    From:    originalsender@example.com
+                  #    Subject: ...
+                  rfc822list << sprintf("%s: %s", cv[1], cv[2])
                 end
               end
             end

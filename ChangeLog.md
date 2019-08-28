@@ -3,6 +3,19 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.25.2p1
+--------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - Fix code for getting a recipient address from the original message part at
+    `Sisimai::ARF`
+  - Fix code for getting a recipient mail address and a subject string from the
+    original messaage part at `Sisimai::Bite::Email::MailMarshalSMTP`
+  - Fix code to delete unused multipart headers at `Sisimai::MIME.breaksup`
+  - Fix code for getting a recipient email address and an expanded address from
+    `Final-Recipient:` and `Original-Recipient:` field at `Sisimai::RFC3464`
+
 v4.25.2
 --------------------------------------------------------------------------------
 - release: "Thu,  1 Aug 2019 20:00:00 +0900 (JST)"

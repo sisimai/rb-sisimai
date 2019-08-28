@@ -257,9 +257,15 @@ module Sisimai
         end
 
         unless recipients > 0
-          # Insert pseudo recipient address when there is no valid recipient
-          # address in the message.
-          dscontents[-1]['recipient'] = Sisimai::Address.undisclosed('r')
+          # The original recipient address was not found
+          if cv = rfc822part.match(/^To: (.+[@].+)$/)
+            # pick the address from To: header in message/rfc822 part.
+            dscontents[-1]['recipient'] = Sisimai::Address.s3s4(cv[1])
+          else
+            # Insert pseudo recipient address when there is no valid recipient
+            # address in the message.
+            dscontents[-1]['recipient'] = Sisimai::Address.undisclosed('r')
+          end
           recipients = 1
         end
 
