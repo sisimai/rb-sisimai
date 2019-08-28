@@ -20,9 +20,9 @@ module Sisimai
           Filtered Rejected HostUnknown SpamDetected TooManyConn Blocked
         ],
         %w[
-          MailboxFull SpamDetected PolicyViolation VirusDetected SecurityError
-          SystemError NetworkError Suspend Expired ContentError SystemFull
-          NotAccept MailerError
+          MailboxFull SpamDetected PolicyViolation VirusDetected NoRelaying
+          SecurityError SystemError NetworkError Suspend Expired ContentError
+          SystemFull NotAccept MailerError
         ],
         %w[
           MailboxFull MesgTooBig ExceedLimit Suspend UserUnknown Filtered Rejected
