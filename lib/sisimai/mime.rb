@@ -342,7 +342,7 @@ module Sisimai
             if mimeformat =~ AlsoAppend
               # Append field when the value of Content-Type: begins with
               # message/ or equals text/rfc822-headers.
-              upperchunk.sub!(/Content-Transfer-Encoding:.+\z/, '').rstrip!
+              upperchunk.sub!(/Content-Transfer-Encoding:\s*[^\s]+./, '').strip!
               hasflatten << upperchunk
 
             elsif mimeformat == 'text/html'
