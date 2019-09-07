@@ -1,0 +1,75 @@
+Return-Path: <>
+X-Original-To: nyaan@example.co.jp
+Delivered-To: nyaan@example.co.jp
+Received: by mail.example.co.jp (Postfix)
+	id 5B8101331DA0; Thu, 29 Apr 2019 23:34:45 +0900 (JST)
+Date: Thu, 29 Apr 2019 23:34:45 +0900 (JST)
+From: MAILER-DAEMON@example.co.jp (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: nyaan@example.co.jp
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="2871D228E7A9.1998833439/mail.example.co.jp"
+Message-Id: <20190429233445.5B8101331DA0@mail.example.co.jp>
+
+This is a MIME-encapsulated message.
+
+--2871D228E7A9.1998833439/mail.example.co.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host mail.example.co.jp.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<neko@mail.example.jp>: host mx01.mail.com[74.208.5.22] refused to talk to me:
+    554-mail.com (mxgmxus002) Nemesis ESMTP Service not available 554-No SMTP
+    service 554-Bad DNS PTR resource record. 554 For explanation visit
+    http://postmaster.gmx.com/en/error-messages?ip=192.0.2.22&c=rdns
+
+--2871D228E7A9.1998833439/mail.example.co.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mail.example.co.jp
+X-Postfix-Queue-ID: 2871D228E7A9
+X-Postfix-Sender: rfc822; nyaan@example.co.jp
+Arrival-Date: Thu, 29 Apr 2019 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; neko@mail.example.jp
+Action: failed
+Status: 4.0.0
+Remote-MTA: dns; mx01.mail.com
+Diagnostic-Code: smtp; 554-mail.com (mxgmxus002) Nemesis ESMTP Service not
+    available 554-No SMTP service 554-Bad DNS PTR resource record. 554 For
+    explanation visit
+    http://postmaster.gmx.com/en/error-messages?ip=192.0.2.22&c=rdns
+
+--2871D228E7A9.1998833439/mail.example.co.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <nyaan@example.co.jp>
+Received: by mail.example.co.jp (Postfix, from userid 2020)
+	id 2871D228E7A9; Thu, 29 Apr 2019 23:34:45 +0900 (JST)
+To: neko@mail.example.jp
+Subject: Nyaan
+From: <kijitora@example.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ISO-2022-JP
+Content-Transfer-Encoding: 7bit
+Message-Id: <20190429233445.2871D228E7A9@mail.example.co.jp>
+Date: Thu, 29 Apr 2019 23:34:45 +0900 (JST)
+
+Nyaan
+
+--2871D228E7A9.1998833439/mail.example.co.jp--

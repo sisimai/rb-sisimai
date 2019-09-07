@@ -50,6 +50,7 @@ isexpected = [
   { 'n' => '57', 's' => /\A5[.]2[.]1\z/,   'r' => /userunknown/,   'b' => /\A0\z/ },
   { 'n' => '58', 's' => /\A5[.]7[.]1\z/,   'r' => /blocked/,       'b' => /\A1\z/ },
   { 'n' => '59', 's' => /\A5[.]2[.]1\z/,   'r' => /exceedlimit/,   'b' => /\A1\z/ },
+  { 'n' => '60', 's' => /\A4[.]0[.]0\z/,   'r' => /blocked/,       'b' => /\A1\z/ },
 ]
 Sisimai::Bite::Email::Code.maketest(enginename, isexpected)
 
