@@ -35,7 +35,7 @@ Email::Notes ............    0/0013  0.0000  Lotus Notes
 Email::Office365 ........   26/0029  0.8966  Microsoft Office 365: http://office.microsoft.com/
 Email::OpenSMTPD ........    6/0024  0.2500  OpenSMTPD
 Email::Outlook ..........   21/0023  0.9130  Microsoft Outlook.com: https://www.outlook.com/
-Email::Postfix ..........  251/0268  0.9366  Postfix
+Email::Postfix ..........  260/0277  0.9386  Postfix
 Email::ReceivingSES .....    0/0007  0.0000  Amazon SES(Receiving): http://aws.amazon.com/ses/
 Email::SendGrid .........    7/0012  0.5833  SendGrid: http://sendgrid.com/
 Email::Sendmail .........  354/0278  1.0000  V8Sendmail: /usr/sbin/sendmail
@@ -55,8 +55,8 @@ Email::qmail ............   58/0087  0.6667  qmail
 JSON::AmazonSES .........   40/0049  0.8163  Amazon SES(JSON): http://aws.amazon.com/ses/
 JSON::SendGrid ..........    7/0012  0.5833  SendGrid(JSON): http://sendgrid.com/
 ARF .....................    8/0038  0.2105  Abuse Feedback Reporting Format
-RFC3464 .................  151/0290  0.5207  Fallback Module for MTAs
+RFC3464 .................  151/0322  0.4689  Fallback Module for MTAs
 RFC3834 .................    0/0014  0.0000  Detector for auto replied message
 --------------------------------------------------------------------------------
- bounceHammer 2.7.13p3    1561/2589  0.6029
- Sisimai 4.25.2           2589/2589  1.0000
+ bounceHammer 2.7.13p3    1570/2630  0.5970
+ Sisimai 4.25.3           2630/2630  1.0000
