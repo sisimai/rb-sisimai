@@ -3,10 +3,10 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.2p1
+v4.25.3
 --------------------------------------------------------------------------------
-- release: ""
-- version: ""
+- release: ""Sat,  7 Sep 2019 15:00:22 +0900 (JST)
+- version: "4.25.3"
 - changes:
   - Fix code for getting a recipient address from the original message part at
     `Sisimai::ARF`
@@ -15,6 +15,13 @@ v4.25.2p1
   - Fix code to delete unused multipart headers at `Sisimai::MIME.breaksup`
   - Fix code for getting a recipient email address and an expanded address from
     `Final-Recipient:` and `Original-Recipient:` field at `Sisimai::RFC3464`
+  - Update code for matching error message "The user you are trying to contact
+    is receiving mail at a rate that prevents additional messages from being
+    delivered." at `Sisimai::Rhost::GoogleApps`
+  - Update error message pattern for "blocked" reason from GMX: "ESMTP Service
+    not available No SMTP service Bad DNS PTR resource record."
+  - Update error message pattern for "suspend" reason responded from i.ua MTA:
+    "550 Mailbox is frozen."
 
 v4.25.2
 --------------------------------------------------------------------------------
