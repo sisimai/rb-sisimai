@@ -16,6 +16,7 @@ module Sisimai
           'invalid/inactive user',
           'is a deactivated mailbox', # http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=20022&&no=1000742
           'mailbox currently suspended',
+          'mailbox is frozen',
           'mailbox unavailable or access denied',
           'recipient rejected: temporarily inactive',
           'recipient suspend the service',
