@@ -3,6 +3,13 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.25.3p1
+--------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - Update error message pattern for ClamSMTP at "virusdetected" reason.
+
 v4.25.3
 --------------------------------------------------------------------------------
 - release: ""Sat,  7 Sep 2019 15:00:22 +0900 (JST)
