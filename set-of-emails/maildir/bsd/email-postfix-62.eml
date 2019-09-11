@@ -1,0 +1,105 @@
+Return-Path: <>
+Received: from mbox.example.jp (nk2-222-22222.example.net [192.0.2.222])
+	by neko.example.jp (V8/cf) with ESMTP id F999qh7kHVz8H7GB
+	for <kijitora@example.jp>; Thu, 29 Apr 2019 23:34:45 +0900
+Received: by mbox.example.jp (Postfix)
+	id 9pm5Tbp1R2zH0Y30; Thu, 29 Apr 2019 23:34:45 +0900 (JST)
+Date: Thu, 29 Apr 2019 23:34:45 +0900 (JST)
+From: MAILER-DAEMON@mbox.example.jp (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: kijitora@example.jp
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="Qm1YKRKmlKzmt4fX.1374019311/mbox.example.jp"
+Message-Id: <9pm5Tbp1R2zH0Y30@mbox.example.jp>
+
+This is a MIME-encapsulated message.
+
+--Qm1YKRKmlKzmt4fX.1374019311/mbox.example.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host mbox.example.jp.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<nyaan@libsisimai.org>: host 127.0.0.1[127.0.0.1] said: 550 Virus Detected;
+    Content Rejected (in reply to end of DATA command)
+
+--Qm1YKRKmlKzmt4fX.1374019311/mbox.example.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mbox.example.jp
+X-Postfix-Queue-ID: Qm1YKRKmlKzmt4fX
+X-Postfix-Sender: rfc822; kijitora@example.jp
+Arrival-Date: Thu, 29 Apr 2019 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; nyaan@libsisimai.org
+Original-Recipient: rfc822;nyaan@libsisimai.org
+Action: failed
+Status: 5.0.0
+Remote-MTA: dns; 127.0.0.1
+Diagnostic-Code: smtp; 550 Virus Detected; Content Rejected
+
+--Qm1YKRKmlKzmt4fX.1374019311/mbox.example.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <kijitora@example.jp>
+Received: from neko.example.jp (neko.example.jp [203.0.113.2])
+	by mbox.example.jp (Postfix) with ESMTP id Qm1YKRKmlKzmt4fX
+	for <nyaan@libsisimai.org>; Thu, 29 Apr 2019 23:34:45 +0900 (JST)
+Received: from [198.51.100.22] (neko-nyaan.kyoto.ocn.ne.jp [192.0.2.220])
+	(authenticated bits=128)
+	by neko.example.jp (V8/cf) with ESMTP id HJYsemrG003723
+	for <nyaan@libsisimai.org>; Thu, 29 Apr 2019 23:34:45 +0900
+From: "Neko, Kijitora" <kijitora@example.jp>
+Content-Type: multipart/mixed;
+ boundary="Apple-Mail=_C3E8E6AE-9B40-2202-2022-A5B2EB19638C"
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: Nyaaaaaan
+Message-Id: <50505A88-D01F-4B28-97F7-2DCBEAB7E0F0@example.jp>
+Date: Thu, 29 Apr 2019 23:34:45 +0900
+To: azumakuniyuki <nyaan@libsisimai.org>
+X-Mailer: Apple Mail (2.3273)
+
+
+--Apple-Mail=_C3E8E6AE-9B40-2202-2022-A5B2EB19638C
+Content-Transfer-Encoding: base64
+Content-Type: text/plain;
+	charset=utf-8
+
+44OL44Oj44O844OzDQo=
+--Apple-Mail=_C3E8E6AE-9B40-2202-2022-A5B2EB19638C
+Content-Disposition: attachment;
+	filename=nyaan.zip
+Content-Type: application/zip;
+	x-unix-mode=0644;
+	name="nyaan.zip"
+Content-Transfer-Encoding: base64
+
+UEsDBAoAAAAAALc2KE8AAAAAAAAAAAAAAAADABwAYWEvVVQJAAPpJnRdBEZ5XXV4
+CwABBPUBAAAEFAAAAFBLAQIeAwoAAAAAALc2KE8AAAAAAAAAAAAAAAADABgAAAAA
+AAAAEADtQQAAAABhYS9VVAUAA+kmdF11eAsAAQT1AQAABBQAAABQSwUGAAAAAAEA
+AQBJAAAAPQAAAAAA
+--Apple-Mail=_C3E8E6AE-9B40-2202-2022-A5B2EB19638C
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+	charset=us-ascii
+
+
+
+
+--Apple-Mail=_C3E8E6AE-9B40-2202-2022-A5B2EB19638C--
+
+--Qm1YKRKmlKzmt4fX.1374019311/mbox.example.jp--

@@ -20,6 +20,7 @@ module Sisimai
           'it has a potentially executable attachment',
           'the message was rejected because it contains prohibited virus or spam content',
           'this form of attachment has been used by recent viruses or other malware',
+          'virus detected',
           'your message was infected with a virus',
         ]
 
