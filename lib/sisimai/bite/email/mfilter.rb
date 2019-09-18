@@ -11,7 +11,7 @@ module Sisimai::Bite::Email
       StartingOf = {
         error:   ['-------server message'],
         command: ['-------SMTP command'],
-        rfc822:  ['-------original message', '--------original mail info'],
+        rfc822:  ['-------original message', '-------original mail info'],
       }.freeze
       MarkingsOf = { message: %r/\A[^ ]+[@][^ ]+[.][a-zA-Z]+\z/ }.freeze
 
