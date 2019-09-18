@@ -226,6 +226,7 @@ module Sisimai
 
                         it(sprintf("%s #replycode is not nil", lb))      { expect(pr.replycode).not_to be nil }
                         it(sprintf("%s #subject is not nil", lb))        { expect(pr.subject).not_to be nil }
+                        it(sprintf("%s #subject is a valid string", lb)) { expect(pr.subject).not_to match(/\AMULTIBYTE/) }
                         it(sprintf("%s #smtpcommand is not nil", lb))    { expect(pr.smtpcommand).not_to be nil }
                         it(sprintf("%s #diagnosticcode is not nil", lb)) { expect(pr.diagnosticcode).not_to be nil }
                         it(sprintf("%s #diagnostictype is not nil", lb)) { expect(pr.diagnostictype).not_to be nil }
