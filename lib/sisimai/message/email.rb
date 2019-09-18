@@ -310,7 +310,7 @@ module Sisimai
         if Sisimai::String.is_8bit(headerpart['subject'])
           # The value of ``Subject'' header is including multibyte character,
           # is not MIME-Encoded text.
-          headerpart['subject'] = 'MULTIBYTE CHARACTERS HAVE BEEN REMOVED'
+          headerpart['subject'].scrub!('?')
         else
           # MIME-Encoded subject field or ASCII characters only
           r = []
