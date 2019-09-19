@@ -9,6 +9,10 @@ v4.25.3p1
 - version: ""
 - changes:
   - Update error message pattern for ClamSMTP at "virusdetected" reason.
+  - Fix an indicator string for detecting the beginning of the original message
+    part at `Sisimai::Bite::Email::MFILTER`
+  - Multibyte characters in the original subject header will not be removed and
+    replaced with "MULTIBYTE CHARACTERS HAS BEEN REMOVED"
 
 v4.25.3
 --------------------------------------------------------------------------------
