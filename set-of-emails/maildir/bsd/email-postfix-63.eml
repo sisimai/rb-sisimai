@@ -1,0 +1,85 @@
+Return-Path: <>
+Received: from smtp3.example.com ([192.0.2.222])
+	by 2jo.example.jp (V8/cf) with ESMTP id x98I0l7A018839
+	for <neko@example.jp>; Wed, 9 Oct 2019 03:00:47 +0900
+Received: by smtp3.example.com (Postfix)
+	id 46nlWg3hh8z5d5; Wed,  9 Oct 2019 03:00:47 +0900 (JST)
+Date: Wed,  9 Oct 2019 03:00:47 +0900 (JST)
+From: MAILER-DAEMON@smtp3.example.com (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: neko@example.jp
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="46nlWg27Dqz5dF.1570557647/smtp3.example.com"
+Message-Id: <46nlWg3hh8z5d5@smtp3.example.com>
+
+This is a MIME-encapsulated message.
+
+--46nlWg27Dqz5dF.1570557647/smtp3.example.com
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host smtp3.example.com.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<neko@nyaaan.example.org>: host smtp3.example.com[private/dovecot-lmtp] said:
+    552 5.2.2 <neko@nyaaan.example.org> Quota exceeded (mailbox for user is
+    full) (in reply to end of DATA command)
+
+--46nlWg27Dqz5dF.1570557647/smtp3.example.com
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; smtp3.example.com
+X-Postfix-Queue-ID: 46nlWg27Dqz5dF
+X-Postfix-Sender: rfc822; neko@example.jp
+Arrival-Date: Wed,  9 Oct 2019 03:00:47 +0900 (JST)
+
+Final-Recipient: rfc822; neko@nyaaan.example.org
+Original-Recipient: rfc822;neko@nyaaan.example.org
+Action: failed
+Status: 5.2.2
+Remote-MTA: dns; smtp3.example.com
+Diagnostic-Code: smtp; 552 5.2.2 <neko@nyaaan.example.org> Quota exceeded
+    (mailbox for user is full)
+
+--46nlWg27Dqz5dF.1570557647/smtp3.example.com
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <neko@example.jp>
+Received: from smtp3.example.com (localhost [127.0.0.1])
+	by smtp3.example.com (Postfix) with ESMTP id 46nlWg27Dqz5dF
+	for <neko@nyaaan.example.org>; Wed,  9 Oct 2019 03:00:47 +0900 (JST)
+Received: from 2jo.example.jp (2jo.example.jp [203.0.113.22])
+	by smtp3.example.com (Postfix) with ESMTP id 46nlWg1CNHz5d5
+	for <neko@nyaaan.example.org>; Wed,  9 Oct 2019 03:00:47 +0900 (JST)
+Received: from [198.51.100.22] (p22-ipngnfx22-kyoto.kyoto.ocn.ne.jp [198.51.100.252])
+	(authenticated bits=128)
+	by 2jo.example.jp (V8/cf) with ESMTP id x98I0k0f018835
+	for <neko@nyaaan.example.org>; Wed, 9 Oct 2019 03:00:46 +0900
+From: "Neko, Nyaan" <neko@example.jp>
+Content-Type: text/plain;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
+Subject: =?utf-8?B?44OL44Oj44O844Oz?=
+Message-Id: <BA77602D-7E1E-4C1B-92C9-4A2324E3E141@example.jp>
+Date: Wed, 9 Oct 2019 03:00:46 +0900
+To: neko@nyaaan.example.org
+X-Mailer: Apple Mail (2.3445.104.11)
+X-Virus-Scanned: ClamAV using ClamSMTP
+
+=E3=81=AB=E3=82=83=E3=83=BC=E3=82=93
+
+--46nlWg27Dqz5dF.1570557647/smtp3.example.com--
