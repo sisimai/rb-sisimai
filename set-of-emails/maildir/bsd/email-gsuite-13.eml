@@ -1,0 +1,261 @@
+From () 2019-10-02 05:04:34 +0000
+Delivered-To: azumakuniyuki@google.example.com
+Received: by 2002:ac9:2aea:0:0:0:0:0 with SMTP id d42csp534584ocb;
+        Tue, 1 Oct 2019 22:04:34 -0700 (PDT)
+X-Received: by 2002:a05:6830:12d5:: with SMTP id a21mr1130562otq.213.1569992674308;
+        Tue, 01 Oct 2019 22:04:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1569992674; cv=none;
+        d=google.com; s=arc-20160816;
+        b=s466c2AEgP7pmPxnTYGeGxkejICx0Ltt4sfJLVszS4Cn4KlMApryzc0vjPZBuOEYKe
+         1mPCvhbwCpIAM7m3dFLWbmChC0WQ7EwyZyVrPmNQxUXahFcAVwFhzxTZCRlfxel6NsQQ
+         xc8Qq0Bk1/s0LK8y7+pjEtqE2JHVx5EyT4+tXaVnI27moHyrk0EcUPUSkjBmaZgYVDK/
+         oRie4GdvO5HFA2mhYhfKf9VB8GCBxCTulisJrW4fzJGPunpmAfNKKu3bwkW1XqDmWJZA
+         IofgDmVLoODRdS1XB03JAPPm5tSsd9aG2R/aP/mqnnSSC14q63iY6i+rwz9u0GAhWMzb
+         UwQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=date:message-id:in-reply-to:references:subject:auto-submitted:to
+         :from:dkim-signature;
+        bh=ABzdzVizjj/kHrdgqBAl8z5Z6H5rKtiQoBrmAtVq3Es=;
+        b=yrNiOCezCBbUuY5FJAcl0ijmJafMo8IbsfUtJjqEOe5nDjZYUESTGwnvizX727UbMV
+         vfhidjTRXgq6t0T7eWi87lrQ7njpaviu8C8RTB+NT0LeZclAS1wCLy7xjla5Vod0HkZI
+         x4vAd60s1186fkui4eUEt9+jlYd7gnx2IQzuEjIj1R1O9G3QZftx010Oxovzxr2/IOcU
+         PaHuoem7Wyv1b7KAHJbdmfJMonZyIS9yWJXp1cVxIRHscGaZw82/5lFbcxP6bKRGfzZD
+         GTHLx1rdmMBHfzCfT80y3eMfnK00UEQNpie/mi2cVbb0bNpwIzvX72UiARNiji//TtGV
+         4m0A==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@googlemail.com header.s=20161025 header.b=p4F0L6jw;
+       spf=pass (google.com: best guess record for domain of postmaster@mail-sor-f69.google.com designates 209.85.220.69 as permitted sender) smtp.helo=mail-sor-f69.google.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=googlemail.com
+Return-Path: <>
+Received: from mail-sor-f69.google.com (mail-sor-f69.google.com. [209.85.220.69])
+        by mx.google.com with SMTPS id r6sor10081403oib.155.2019.10.01.22.04.34
+        for <azumakuniyuki@google.example.com>
+        (Google Transport Security);
+        Tue, 01 Oct 2019 22:04:34 -0700 (PDT)
+Received-SPF: pass (google.com: best guess record for domain of postmaster@mail-sor-f69.google.com designates 209.85.220.69 as permitted sender) client-ip=209.85.220.69;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@googlemail.com header.s=20161025 header.b=p4F0L6jw;
+       spf=pass (google.com: best guess record for domain of postmaster@mail-sor-f69.google.com designates 209.85.220.69 as permitted sender) smtp.helo=mail-sor-f69.google.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=googlemail.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20161025;
+        h=from:to:auto-submitted:subject:references:in-reply-to:message-id
+         :date;
+        bh=ABzdzVizjj/kHrdgqBAl8z5Z6H5rKtiQoBrmAtVq3Es=;
+        b=p4F0L6jwQvHTIx17rsIxbm2mzXk23xMyP+YoIccrhIMBjy2V0OA80EgS5Iw54tCHgR
+         nO77MTmN6zinC+8nhfHc/JcYgqHIa72xDS+qRtuMdJa46oV0g8CDMad1t7PvSSNJKc3z
+         2J9Lo7ORtabDiMMFET0QbkyRFeMmqhVGb+hTiZ+RDemLgPdzDGi3NEFiLMz2QTLUeju+
+         wiL5QdV8drN7Giwhk45adWyqPAezHMalM07IIRugBqUg7tld1GO+YMjygQTJ9D/SB1XE
+         bLvziPOnvGUChdmulse0fdrKjdBZ2GYuKDAgtjopRHYKoCkOARJBT5za44f+lr0zI6zq
+         rG/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:auto-submitted:subject:references
+         :in-reply-to:message-id:date;
+        bh=ABzdzVizjj/kHrdgqBAl8z5Z6H5rKtiQoBrmAtVq3Es=;
+        b=VCELwDywaW5aD99lqqP+Ys2VWuhYA+frdRbDobkoB5lSmGzob2J4+rKrcuEb6Xeulp
+         dETZr4P6eNyeWn0YWitE8iO1/clsCSdAvEcA9wxnyIqRYe/XJ/KwGMCxCWms99FTBkWg
+         GXjh7Smja6dAn6q27TRNZmgNPF5iys/I1Sd3m9L4V3IMhAude567vTB2dUmmbBZv/+rR
+         Z1juefz/kYeNAJkVoSGD7O2yYCeA8nXxH3iUHnU0I3OdgkBxxaDgMiy/0EGsGCsa0SOX
+         2hWmYqAtE9xUHV/U3LwBCRFSZXYpeT6xYvBLLpJ+K/huk3X9CT38mqXV57HRKICuLZGs
+         LQeA==
+X-Gm-Message-State: APjAAAXdv+LgKbYtwZ/CV5W06t6Lnr/T95bL5LBrqyaibxzJj29Lx6xE
+	JjDiVF2D98tMAZ3arb4jRna8DR7jxwQc4aXBzIgYUg==
+X-Google-Smtp-Source: APXvYqybvlkLi7lmekk+MhahgOE+QPesBUPkdBuCJyzTJBu1qfccPpWSD/mU7gQ07APc5oINAh7q5C4769sp9QqbyIVecP2BGoCVAbU=
+X-Received: by 2002:aca:ad13:: with SMTP id w19mr1368275oie.166.1569992674224;
+        Tue, 01 Oct 2019 22:04:34 -0700 (PDT)
+Content-Type: multipart/report; boundary="000000000000a59fc80593e667a0"; report-type=delivery-status
+Return-Path: <>
+Received: by 2002:aca:ad13:: with SMTP id w19mr1276139oie.166; Tue, 01 Oct
+ 2019 22:04:34 -0700 (PDT)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+To: azumakuniyuki@google.example.com
+Auto-Submitted: auto-replied
+Subject: Delivery Status Notification (Failure)
+References: <CAByYQsEsy_6KEHCuspEbEKOo1p=Y5Q-xE3PbJQokvWTuC=X5Rw@mail.gmail.com>
+In-Reply-To: <CAByYQsEsy_6KEHCuspEbEKOo1p=Y5Q-xE3PbJQokvWTuC=X5Rw@mail.gmail.com>
+X-Failed-Recipients: nekonyaan@gmal.com
+Message-ID: <5d942fe2.1c69fb81.d8c36.3654.GMR@mx.google.com>
+Date: Tue, 01 Oct 2019 22:04:34 -0700 (PDT)
+
+--000000000000a59fc80593e667a0
+Content-Type: multipart/related; boundary="000000000000a5a7020593e667ad"
+
+--000000000000a5a7020593e667ad
+Content-Type: multipart/alternative; boundary="000000000000a5a70d0593e667ae"
+
+--000000000000a5a70d0593e667ae
+Content-Type: text/plain; charset="UTF-8"
+
+
+** Address not found **
+
+Your message wasn't delivered to nekonyaan@gmal.com because the domain gmal.com couldn't be found. Check for typos or unnecessary spaces and try again.
+
+
+
+The response was:
+
+DNS Error: 16578478 DNS type 'mx' lookup of gmal.com responded with code NOERROR
+16578478 DNS type 'mx' lookup of gmal.com had no relevant answers.
+16578478 DNS type 'aaaa' lookup of gmal.com responded with code NOERROR
+16578478 DNS type 'aaaa' lookup of gmal.com had no relevant answers.
+16578478 DNS type 'a' lookup of gmal.com responded with code NOERROR
+16578478 DNS type 'a' lookup of gmal.com had no relevant answers.
+
+--000000000000a5a70d0593e667ae
+Content-Type: text/html; charset="UTF-8"
+
+
+<html>
+<head>
+<style>
+* {
+font-family:Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+</style>
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" class="email-wrapper" style="padding-top:32px;background-color:#ffffff;"><tbody>
+<tr><td>
+<table cellpadding=0 cellspacing=0><tbody>
+<tr><td style="max-width:560px;padding:24px 24px 32px;background-color:#fafafa;border:1px solid #e0e0e0;border-radius:2px">
+<img style="padding:0 24px 16px 0;float:left" width=72 height=72 alt="Error Icon" src="cid:icon.png">
+<table style="min-width:272px;padding-top:8px"><tbody>
+<tr><td><h2 style="font-size:20px;color:#212121;font-weight:bold;margin:0">
+Address not found
+</h2></td></tr>
+<tr><td style="padding-top:20px;color:#757575;font-size:16px;font-weight:normal;text-align:left">
+Your message wasn't delivered to <a style='color:#212121;text-decoration:none'><b>nekonyaan@gmal.com</b></a> because the domain gmal.com couldn't be found. Check for typos or unnecessary spaces and try again.
+</td></tr>
+</tbody></table>
+</td></tr>
+</tbody></table>
+</td></tr>
+<tr style="border:none;background-color:#fff;font-size:12.8px;width:90%">
+<td align="left" style="padding:48px 10px">
+The response was:<br/>
+<p style="font-family:monospace">
+DNS Error: 16578478 DNS type &#39;mx&#39; lookup of gmal.com responded with code NOERROR
+16578478 DNS type &#39;mx&#39; lookup of gmal.com had no relevant answers.
+16578478 DNS type &#39;aaaa&#39; lookup of gmal.com responded with code NOERROR
+16578478 DNS type &#39;aaaa&#39; lookup of gmal.com had no relevant answers.
+16578478 DNS type &#39;a&#39; lookup of gmal.com responded with code NOERROR
+16578478 DNS type &#39;a&#39; lookup of gmal.com had no relevant answers.
+</p>
+</td>
+</tr>
+</tbody></table>
+</body>
+</html>
+
+--000000000000a5a70d0593e667ae--
+--000000000000a5a7020593e667ad
+Content-Type: image/png; name="icon.png"
+Content-Disposition: attachment; filename="icon.png"
+Content-Transfer-Encoding: base64
+Content-ID: <icon.png>
+
+iVBORw0KGgoAAAANSUhEUgAAAJAAAACQCAYAAADnRuK4AAAACXBIWXMAABYlAAAWJQFJUiTwAAAA
+GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABTdJREFUeNrsnD9sFEcUh5+PRMqZ
+yA0SPhAUQAQFUkyTgiBASARo6QApqVIkfdxGFJFSgGhJAUIiBaQB0ZIOKVCkwUgURjIg2fxL4kS+
+YDvkbC/388bi8N16Z4/d7J/5PsniuD3fyePP772ZeTsDQRAYQL/UGAJAIEAgQCBAIAAEAgQCBAIE
+AkAgyJT3Mv+Eq7vYK8mTE+MDRCAghQECAeRQA5V2ZOpmg5vDx3NPzRbmGRMEcmTrEbNNB8zWfRD+
+f/Efs2e3zCZvMjaksBg27TfbcuSNPEKP9ZyuAQKtHX2O9ncNgWC57umMPKvRNb0GEKgnLoUyxTQC
+rcns0/6uIRAs8/hGf9cQCJZpTpjdO2f25/03z+mxntM1eLtsZAgiUtX4JcaBCAQIBAgECARQ8CJa
+G5jab4J4pm4WZmO3OALVh802fIwcLkyPkcKAGggAgQCBAIEAgQCBABAIEAjKA/1AnahhbO5FdOOY
+VsrrDbPBYcYKgf5D2wLaV3p+22xh1u17tO3S+DTcvxvagUDeivPgx/a/95J/73w7Sj26Hn4pKo2M
+ehuV/KyBJM6d0f7k6RKx/R63vvL2tmf/ItDdM2ZTP6f7nkp9Y2fDx1v9akmpIU+KSCLVUghUQfSL
+zVKeTklbLxGoctw/nzC5rw8L5KRNbkpnKq6pgSqEClzNnFzY+XnYWrt6VpVk1vbwWvg+RKCKMOUw
+Q1LEOXA+/MX3mpJvGDHb265xtnzmFoUK1HaKQGlMtePYM+q2KKjXuaS1NJYIEKgI8jhEgqHt4cqy
+Ky53j3hyHz2bqSLp2o2LbJ7MxKovkGqXteoWpaOk96O9/yF/dF7NwlS36AuIQIBA5celQK4PIxBE
+4LLzrtoLgaALdSy6CJRkWQCBPGLsTHznomZ9nszUECgJ2ml3WWHe+QVFNPSQx6UdZNtxr9pbEShN
+eTTz8mQXHoHSlke7+Z+c9m6VGoHSkEfs/trLW3wQKApN1V3lGfnGu2Z6BFoLtYCs3GWBPAiUCLVh
+/HoaeRCoT9R873KLM/IgUBfapnCpe5AHgXry4pf412ihEHkQqCdxd5VqrcezhUIESsJMTJ+Pdthp
+Z0WgyNlXXPHc2Mc4IVAELl2Gnh8mhUDvCkfbIVAkcbf/aOoO3fMKhqAD3frTa4quwpn0hUDOkQhI
+YYBAgECAQAAU0QlYObl+5Ug8NcprZkZxjUCxRPVA6zmtEXHCBykskrhjgHXN09PoEcgFl4M4H11j
+nBAoApcj6ZoPGScEAgTKApcDoTw5sgWB+sGlz1n90IBAPdE6j1o21PfcC11jLagL1oFWRyGlKU3p
+OxcSJQ7NZAjkhHp/uG2HFAYIBAgECASAQIBAgECAQAAIBOkxEARBtp9wdVfAMOfIifEBIhCQwgCB
+ABAI0oV2jhxZ+nfBatuPZfgBCy0Eqqo8c01b+uu51XZvzOgDWoHNTGR+pCwpLEd5svuAZXlO2uEr
+PyEQ8hRWHgRCHmqg0sjTnLalv6crJQ8C/U8stqNO0I4+VZOHFIY8COS1PGL2ybd5yUMKK7s8zYmL
+dujyd3n+nESgcsvzZd4/KwIhDwIhT35QA6UyE1qyxZnfvJMHgdKS549JC1qvvJOHFIY8CFR5eV5O
+XimqPAhUdHnmfx+zgxdOFXkoqIGKKs/cswnb/8Oeog8HEai48nxUhiFBIORBIOShBioskkbySCLk
+IQIhDwIhj28p7FApR6b1qlEbHGpkO/rr6215vi/zH1r2x7tApSGFAQIBAgECAQIBIBAgECAQIBBA
+LK8FGADCTxYrr+EVJgAAAABJRU5ErkJggg==
+--000000000000a5a7020593e667ad--
+--000000000000a59fc80593e667a0
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; googlemail.com
+Arrival-Date: Tue, 01 Oct 2019 22:04:33 -0700 (PDT)
+X-Original-Message-ID: <CAByYQsEsy_6KEHCuspEbEKOo1p=Y5Q-xE3PbJQokvWTuC=X5Rw@mail.gmail.com>
+
+Final-Recipient: rfc822; nekonyaan@gmal.com
+Action: failed
+Status: 4.0.0
+Diagnostic-Code: smtp; DNS Error: 16578478 DNS type 'mx' lookup of gmal.com responded with code NOERROR
+ 16578478 DNS type 'mx' lookup of gmal.com had no relevant answers.
+ 16578478 DNS type 'aaaa' lookup of gmal.com responded with code NOERROR
+ 16578478 DNS type 'aaaa' lookup of gmal.com had no relevant answers.
+ 16578478 DNS type 'a' lookup of gmal.com responded with code NOERROR
+ 16578478 DNS type 'a' lookup of gmal.com had no relevant answers.
+Last-Attempt-Date: Tue, 01 Oct 2019 22:04:34 -0700 (PDT)
+
+--000000000000a59fc80593e667a0
+Content-Type: message/rfc822
+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=4QC6t0pAnuCZL9IecOAvTw9vE2yfk3lDg6ZcRdMt8n0=;
+        b=aoVOIVVU4O1Y3frWdTzY8k/aXPCxkSdycXhN3U8B9bkbxgZ29WiZUxAm7xMh+gPlkz
+         nMiLhV2z3X6dGUJyK7qMqlxLNACSg8h7UftraAwIxdgIxgn92k7aB+QW6BaNdcCClMpj
+         GFVqtVoptRN+W+WUY64d7pW+m8pn6Y/xXRCWUL+xil7KnzcUQLCf/RnHimP3sDapjtvv
+         +Hx9mHjBC6H+TieAN4l1RQhs9vLC85Y6WE7IzweWBTvsPBKMQ5fX/73crc0e8KHNM+3x
+         tfkW5xVvRm2116VyxE+DVN7Osyntt/C87NtMbVsBqTcssqq8w+z37ygleYKOZfeSeewd
+         CunQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=4QC6t0pAnuCZL9IecOAvTw9vE2yfk3lDg6ZcRdMt8n0=;
+        b=o3cfJkKm/cjWccXNGMvTFb+p7jOtkZBhAHrANiUAf8oCRlpdqKyzuKE3tM6u38wBtV
+         1r6fM8cizSBYZXciTCaLaUStQCXkCq/Yu4jEvaS9zj0XoxpHwoxFC1S6Ecl9FZ/9XK79
+         loGy/pxoh9lHbOxQELLLwISNkQxhfbaD+thYj8ZGC7a/NW8Glv6zPHx0sLdjM813s5RL
+         GMVgZFu0vyZedhWy3ii1xvCFhoJizEe5TmG4Mv0Aoj2kz9tS6qQBZ0Mnq6EySlF5hLUV
+         HtBSbAOjfYJkUa0L6i+bzHLRzu1C37f9fJN9rUHOd7WWGstKmkBnpcPPxSf6dSZF47pG
+         rGlA==
+X-Gm-Message-State: APjAAAVE3sEzh1mcYew9MeyIkg5T4L3uGEAgjP9v8WynzCL9Ai6cLFup
+	iJyZ8EVHPbSTwlTz2DRmLk+Qv36ztGhDisMRh2Xha+wx
+X-Google-Smtp-Source: APXvYqxde9cSUIkZ02OgVGdXyQ/HXk0cMHD5OElcjFWglJVfV/Si/mPUVpMdGg01zcPiHXN8LJym3kOgljTJkKSOGNY=
+X-Received: by 2002:aca:ad13:: with SMTP id w19mr1368240oie.166.1569992673656;
+ Tue, 01 Oct 2019 22:04:33 -0700 (PDT)
+MIME-Version: 1.0
+From: azumakuniyuki <azumakuniyuki@google.example.com>
+Date: Wed, 2 Oct 2019 14:04:23 +0900
+Message-ID: <CAByYQsEsy_6KEHCuspEbEKOo1p=Y5Q-xE3PbJQokvWTuC=X5Rw@mail.gmail.com>
+Subject: Nyaaaaaaaan
+To: "Neko Nyaan" <nekonyaan@gmal.com>
+Content-Type: multipart/alternative; boundary="0000000000009d034f0593e6679a"
+
+--0000000000009d034f0593e6679a
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+
+IF8gICBfICAgICAgXyAgICAgICAgICAgXyAgIF8gICAgICAgICAgICAgICAgICAg
+ICAgICAgCnwgXCB8IHwgX19ffCB8IF9fX19fICAgfCBcIHwgfF8gICBfICBfXyBf
+ICBfXyBfIF8gX18gIAp8ICBcfCB8LyBfIFwgfC8gLyBfIFwgIHwgIFx8IHwgfCB8
+IHwvIF9gIHwvIF9gIHwgJ18gXCAKfCB8XCAgfCAgX18vICAgPCAoXykgfCB8IHxc
+ICB8IHxffCB8IChffCB8IChffCB8IHwgfCB8CnxffCBcX3xcX19ffF98XF9cX19f
+LyAgfF98IFxffFxfXywgfFxfXyxffFxfXyxffF98IHxffAogICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICB8X19fLyAgICAgICAgICAgICAgICAgICAK
+--0000000000009d034f0593e6679a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<p class=3D"p1" style=3D"margin:0px 0px 3px;font-stretch:normal;font-size:2=
+5.5px;l
+----- Message truncated -----
+--0000000000009d034f0593e6679a--
+--000000000000a59fc80593e667a0--
+
+
