@@ -16,7 +16,7 @@ module Sisimai::Bite::Email
       MessagesOf = {
         'userunknown'  => ["because the address couldn't be found. Check for typos or unnecessary spaces and try again."],
         'notaccept'    => ['Null MX'],
-        'networkerror' => [' responded with code NXDOMAIN'],
+        'networkerror' => [' had no relevant answers.', ' responded with code NXDOMAIN'],
       }.freeze
 
       def description; return 'G Suite: https://gsuite.google.com'; end
