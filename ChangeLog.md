@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.3p1
+v4.25.3p2
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -13,6 +13,8 @@ v4.25.3p1
     part at `Sisimai::Bite::Email::MFILTER`
   - Multibyte characters in the original subject header will not be removed and
     replaced with "MULTIBYTE CHARACTERS HAS BEEN REMOVED"
+  - Error message `... had no relevant answers.` from GSuite is classified into
+    "networkerror" reason.
 
 v4.25.3
 --------------------------------------------------------------------------------
