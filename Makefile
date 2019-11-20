@@ -59,6 +59,9 @@ release:
 
 test: cruby-test
 
+check:
+	find lib -type f -exec grep -E ' $$' {} /dev/null \;
+
 cruby-test:
 	$(RAKE) spec
 
