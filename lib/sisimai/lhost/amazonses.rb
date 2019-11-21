@@ -35,7 +35,7 @@ module Sisimai::Lhost
       # @return        [Hash, Nil]        Bounce data list and message/rfc822
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
-      def scan(mhead, mbody)
+      def make(mhead, mbody)
         # :from    => %r/\AMAILER-DAEMON[@]email[-]bounces[.]amazonses[.]com\z/,
         # :subject => %r/\ADelivery Status Notification [(]Failure[)]\z/,
         return nil if mhead['x-mailer'].to_s.start_with?('Amazon WorkMail')

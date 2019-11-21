@@ -44,7 +44,7 @@ module Sisimai::Lhost
       # @return        [Hash, Nil]        Bounce data list and message/rfc822
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
-      def scan(mhead, mbody)
+      def make(mhead, mbody)
         return nil unless mhead['subject'].start_with?('Undeliverable:')
         return nil unless mhead['content-language']
         return nil unless mhead['content-language'] =~ /\A[a-z]{2}(?:[-][A-Z]{2})?\z/

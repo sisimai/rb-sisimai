@@ -39,7 +39,7 @@ module Sisimai::Lhost
       # @return        [Hash, Nil]        Bounce data list and message/rfc822
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
-      def scan(mhead, mbody)
+      def make(mhead, mbody)
         # :subject  => %r/\ADelivery Status Notification [(]Failure[)]\z/,
         # :received => %r/.+[.]smtp-out[.].+[.]amazonses[.]com\b/,
         return nil unless mhead['x-ses-outgoing']

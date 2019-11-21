@@ -114,7 +114,7 @@ module Sisimai::Lhost
       # @return        [Hash, Nil]        Bounce data list and message/rfc822
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
-      def scan(mhead, mbody)
+      def make(mhead, mbody)
         # Pre process email headers and the body part of the message which generated
         # by qmail, see http://cr.yp.to/qmail.html
         #   e.g.) Received: (qmail 12345 invoked for bounce); 29 Apr 2009 12:34:56 -0000

@@ -36,7 +36,7 @@ module Sisimai::Lhost
       # @return        [Hash, Nil]        Bounce data list and message/rfc822
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
-      def scan(mhead, mbody)
+      def make(mhead, mbody)
         return nil unless mhead['x-nai-header']
         return nil unless mhead['x-nai-header'].start_with?('Modified by McAfee ')
         return nil unless mhead['subject'] == 'Delivery Status'

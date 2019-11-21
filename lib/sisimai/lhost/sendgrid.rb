@@ -30,7 +30,7 @@ module Sisimai::Lhost
       # @return        [Hash, Nil]        Bounce data list and message/rfc822
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
-      def scan(mhead, mbody)
+      def make(mhead, mbody)
         # :'from'        => %r/\AMAILER-DAEMON\z/,
         return nil unless mhead['return-path']
         return nil unless mhead['return-path'] == '<apps@sendgrid.net>'

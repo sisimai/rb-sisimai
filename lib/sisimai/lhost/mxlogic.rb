@@ -90,7 +90,7 @@ module Sisimai::Lhost
       # @return        [Hash, Nil]        Bounce data list and message/rfc822
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
-      def scan(mhead, mbody)
+      def make(mhead, mbody)
         # :'message-id' => %r/\A[<]mxl[~][0-9a-f]+/,
         match  = 0
         match += 1 if mhead['x-mx-bounce']

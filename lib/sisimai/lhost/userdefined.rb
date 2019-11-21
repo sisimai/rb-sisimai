@@ -34,7 +34,7 @@ module Sisimai::Lhost
       # @return        [Hash, Nil]        Bounce data list and message/rfc822
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
-      def scan(mhead, mbody)
+      def make(mhead, mbody)
         # 1. Check some value in mhead using regular expression or "==" operator
         #    whether the bounce message should be parsed by this module or not.
         #   - Matched 1 or more values: Proceed to the step 2.

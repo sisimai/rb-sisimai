@@ -120,7 +120,7 @@ module Sisimai::Lhost
       # @return        [Hash, Nil]        Bounce data list and message/rfc822
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
-      def scan(mhead, mbody)
+      def make(mhead, mbody)
         # Google Mail
         # From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
         # Received: from vw-in-f109.1e100.net [74.125.113.109] by ...
