@@ -12,7 +12,7 @@ module Sisimai::Lhost
         rfc822:  ['Content-Type: message/rfc822'],
       }.freeze
 
-      def description; return 'Yandex.Mail: http://www.yandex.ru'; end
+      def description; return 'Yandex.Mail: https://www.yandex.ru'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
 
       # X-Yandex-Front: mxback1h.mail.yandex.net

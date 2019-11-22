@@ -13,7 +13,7 @@ module Sisimai::Lhost
       }.freeze
       MessagesOf = { 'expired' => ['delivery retry timeout exceeded'] }.freeze
 
-      def description; return 'GMX: http://www.gmx.net'; end
+      def description; return 'GMX: https://www.gmx.net'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
 
       # Envelope-To: <kijitora@mail.example.com>

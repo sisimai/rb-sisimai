@@ -6,7 +6,7 @@ module Sisimai::Lhost
       # Imported from p5-Sisimail/lib/Sisimai/Lhost/Courier.pm
       require 'sisimai/lhost'
 
-      # http://www.courier-mta.org/courierdsn.html
+      # https://www.courier-mta.org/courierdsn.html
       Indicators = Sisimai::Lhost.INDICATORS
       StartingOf = {
         # courier/module.dsn/dsn*.txt

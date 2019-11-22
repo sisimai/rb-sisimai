@@ -7,7 +7,7 @@ module Sisimai::Lhost
       # Imported from p5-Sisimail/lib/Sisimai/Lhost/ReceivingSES.pm
       require 'sisimai/lhost'
 
-      # http://aws.amazon.com/ses/
+      # https://aws.amazon.com/ses/
       Indicators = Sisimai::Lhost.INDICATORS
       StartingOf = {
         message: ['This message could not be delivered.'],
@@ -21,7 +21,7 @@ module Sisimai::Lhost
         'contenterror' => ['Message content rejected'],
       }.freeze
 
-      def description; return 'Amazon SES(Receiving): http://aws.amazon.com/ses/'; end
+      def description; return 'Amazon SES(Receiving): https://aws.amazon.com/ses/'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
 
       # X-SES-Outgoing: 2015.10.01-54.240.27.7

@@ -14,7 +14,7 @@ module Sisimai::Lhost
       }.freeze
       MessagesOf = { 'mesgtoobig' => ['Mail size limit exceeded'] }.freeze
 
-      def description; return '1&1: http://www.1and1.de'; end
+      def description; return '1&1: https://www.1und1.de'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
       def headerlist;  return []; end
 

@@ -17,7 +17,7 @@ module Sisimai::Lhost
         'mailboxfull' => ["The number of messages in recipient's mailbox exceeded the local limit."],
       }.freeze
 
-      def description; return 'BIGLOBE: http://www.biglobe.ne.jp'; end
+      def description; return 'BIGLOBE: https://www.biglobe.ne.jp'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
       def headerlist;  return []; end
 

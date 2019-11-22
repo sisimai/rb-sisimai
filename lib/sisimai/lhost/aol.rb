@@ -16,7 +16,7 @@ module Sisimai::Lhost
         'notaccept'   => ['type=MX: Malformed or unexpected name server reply'],
       }.freeze
 
-      def description; return 'Aol Mail: http://www.aol.com'; end
+      def description; return 'Aol Mail: https://www.aol.com'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
 
       # X-AOL-IP: 192.0.2.135

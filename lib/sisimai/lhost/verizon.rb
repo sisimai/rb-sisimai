@@ -8,7 +8,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
       Indicators = Sisimai::Lhost.INDICATORS
 
-      def description; return 'Verizon Wireless: http://www.verizonwireless.com'; end
+      def description; return 'Verizon Wireless: https://www.verizonwireless.com'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
       def headerlist;  return []; end
 

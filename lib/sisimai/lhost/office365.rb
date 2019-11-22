@@ -54,7 +54,7 @@ module Sisimai::Lhost
         RCPT: %r/unknown recipient or mailbox unavailable ->.+[<]?.+[@].+[.][a-zA-Z]+[>]?/,
       }.freeze
 
-      def description; return 'Microsoft Office 365: http://office.microsoft.com/'; end
+      def description; return 'Microsoft Office 365: https://office.microsoft.com/'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
 
       def headerlist

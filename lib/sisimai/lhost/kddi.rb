@@ -21,7 +21,7 @@ module Sisimai::Lhost
         'hostunknown' => ['As the remote domain doesnt exist'],
       }.freeze
 
-      def description; return 'au by KDDI: http://www.au.kddi.com'; end
+      def description; return 'au by KDDI: https://www.au.kddi.com'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
       def headerlist;  return []; end
 
