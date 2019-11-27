@@ -52,7 +52,7 @@ module Sisimai
       # @return        [Hash, Nil]        Bounce data list and message/rfc822 part
       #                                   or nil if it failed to parse or the
       #                                   arguments are missing
-      def scan(mhead, mbody)
+      def make(mhead, mbody)
         leave = 0
         match = 0
 
@@ -78,8 +78,8 @@ module Sisimai
         end
         return nil if match < 1
 
-        require 'sisimai/bite/email'
-        dscontents = [Sisimai::Bite.DELIVERYSTATUS]
+        require 'sisimai/lhost'
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         hasdivided = mbody.scrub('?').split("\n")
         rfc822part = '' # (String) message/rfc822-headers part
         recipients = 0  # (Integer) The number of 'Final-Recipient' header
