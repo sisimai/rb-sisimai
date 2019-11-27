@@ -31,7 +31,7 @@ module Sisimai
           'IB705' => 'virusdetected', # 552 Virus infected message rejected. IB705
         }.freeze
         MessagesOf = {
-            'blocked'     => ['553 https://www.spamhaus.org/query/bl?ip=', '554 RBL Reject.'],
+            'blocked'     => ['www.spamhaus.org/query/bl?ip=', '554 RBL Reject.'],
             'expired'     => ['Delivery timeout', "451 Sorry, I wasn't able to establish an SMTP connection."],
             'suspend'     => ['Account disabled'],
             'mailboxfull' => ['Account storage limit'],
@@ -52,7 +52,7 @@ module Sisimai
             # 192.0.2.22 has sent to too many recipients this hour. IB607 ...
             reasontext = ErrorCodes[cv[1]]
           else
-            # 553 https://www.spamhaus.org/query/bl?ip=192.0.0.222
+            # 553 http://www.spamhaus.org/query/bl?ip=192.0.0.222
             MessagesOf.each_key do |e|
               MessagesOf[e].each do |f|
                 next unless statusmesg.include?(f)
