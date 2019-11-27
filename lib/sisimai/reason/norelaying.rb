@@ -16,7 +16,7 @@ module Sisimai
         Index = [
           'as a relay',
           'insecure mail relay',
-          'mail server requires authentication when attempting to send to a non-local e-mail address',    # MailEnable 
+          'mail server requires authentication when attempting to send to a non-local e-mail address', # MailEnable
           'not allowed to relay through this machine',
           'not an open relay, so get lost',
           'relay access denied',
