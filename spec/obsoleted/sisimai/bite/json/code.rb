@@ -80,6 +80,7 @@ module Sisimai
                 samplefile = sprintf("./%s/json-%s-%02d.json", samplepath, enginename.downcase, e['n'].to_i)
               end
             end
+            next unless Dir.exist?(samplepath)
 
             if privateset
               next unless samplefile
