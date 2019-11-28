@@ -7,7 +7,6 @@ describe Sisimai do
     :mailbox => './set-of-emails/mailbox/mbox-0',
     :maildir => './set-of-emails/maildir/bsd',
     :memory  => './set-of-emails/mailbox/mbox-1',
-    :jsonobj => './set-of-emails/jsonobj/json-amazonses-01.json',
   }
   isnotbounce = {
     :maildir => './set-of-emails/maildir/not',
@@ -40,24 +39,8 @@ describe Sisimai do
 
   describe '.make' do
     context 'valid email file' do
-      [:mailbox, :maildir, :jsonobj, :memory].each do |e|
-
-        if e.to_s == 'jsonobj' 
-          jf = File.open(sampleemail[e], 'r')
-          js = jf.read
-          jf.close
-
-          if RUBY_PLATFORM =~ /java/
-            # java-based ruby environment like JRuby.
-            require 'jrjackson'
-            jsonobject = JrJackson::Json.load(js)
-          else
-            require 'oj'
-            jsonobject = Oj.load(js)
-          end
-          mail = Sisimai.make(jsonobject, input: 'json')
-
-        elsif e.to_s == 'memory'
+      [:mailbox, :maildir, :memory].each do |e|
+        if e.to_s == 'memory'
           mf = File.open(sampleemail[e], 'r')
           ms = mf.read
           mf.close
@@ -146,96 +129,62 @@ describe Sisimai do
 
         end
 
-        if e.to_s == 'jsonobj'
-          callbackto = lambda do |argv|
-            data = { 'feedbackid' => '', 'account-id'  => '', 'source-arn'  => '' }
-            data['type'] = argv['datasrc']
-            data['feedbackid'] = argv['bounces']['bounce']['feedbackId'] || ''
-            data['account-id'] = argv['bounces']['mail']['sendingAccountId'] || ''
-            data['source-arn'] = argv['bounces']['mail']['sourceArn'] || ''
-            return data
+        callbackto = lambda do |argv|
+          data = {
+            'x-mailer' => '',
+            'return-path' => '',
+            'type' => argv['datasrc'],
+            'x-virus-scanned' => '',
+          }
+          if cv = argv['message'].match(/^X-Mailer:\s*(.+)$/)
+              data['x-mailer'] = cv[1]
           end
 
-          jf = File.open(sampleemail[e], 'r')
-          js = jf.read
-          jf.close
-
-          if RUBY_PLATFORM =~ /java/
-            # java-based ruby environment like JRuby.
-            require 'jrjackson'
-            jsonobject = JrJackson::Json.load(js)
-          else
-            require 'oj'
-            jsonobject = Oj.load(js)
+          if cv = argv['message'].match(/^Return-Path:\s*(.+)$/)
+              data['return-path'] = cv[1]
           end
-          havecaught = Sisimai.make(jsonobject, hook: callbackto, input: 'json')
-
-        else
-          callbackto = lambda do |argv|
-            data = {
-              'x-mailer' => '',
-              'return-path' => '',
-              'type' => argv['datasrc'],
-              'x-virus-scanned' => '',
-            }
-            if cv = argv['message'].match(/^X-Mailer:\s*(.+)$/)
-                data['x-mailer'] = cv[1]
-            end
-
-            if cv = argv['message'].match(/^Return-Path:\s*(.+)$/)
-                data['return-path'] = cv[1]
-            end
-            data['from'] = argv['headers']['from'] || ''
-            data['x-virus-scanned'] = argv['headers']['x-virus-scanned'] || ''
-            return data
-          end
-          havecaught = Sisimai.make(sampleemail[e],
-                                    hook: callbackto,
-                                    input: 'email',
-                                    field: ['X-Virus-Scanned'])
+          data['from'] = argv['headers']['from'] || ''
+          data['x-virus-scanned'] = argv['headers']['x-virus-scanned'] || ''
+          return data
         end
+        havecaught = Sisimai.make(sampleemail[e],
+                                  hook: callbackto,
+                                  input: 'email',
+                                  field: ['X-Virus-Scanned'])
 
         havecaught.each do |ee|
           it('is Sisimai::Data') { expect(ee).to be_a Sisimai::Data }
           it('is Hash') { expect(ee.catch).to be_a Hash }
+          it('"type" is "email"') { expect(ee.catch['type']).to be == 'email' }
+          it('exists "x-mailer" key') { expect(ee.catch.key?('x-mailer')).to be true }
 
-          if e.to_s == 'jsonobj'
-            it('"type" is "json"') { expect(ee.catch['type']).to be == 'json' }
-            it('exists "feedbackid" key') { expect(ee.catch.key?('feedbackid')).to be true }
-            it('exists "account-id" key') { expect(ee.catch.key?('account-id')).to be true }
-            it('exists "source-arn" key') { expect(ee.catch.key?('source-arn')).to be true }
-
-          else
-            it('"type" is "email"') { expect(ee.catch['type']).to be == 'email' }
-            it('exists "x-mailer" key') { expect(ee.catch.key?('x-mailer')).to be true }
-            if ee.catch['x-mailer'].size > 0
-              it 'matches with X-Mailer' do
-                expect(ee.catch['x-mailer']).to match(/[A-Z]/)
-              end
+          if ee.catch['x-mailer'].size > 0
+            it 'matches with X-Mailer' do
+              expect(ee.catch['x-mailer']).to match(/[A-Z]/)
             end
-
-            it('exists "return-path" key') { expect(ee.catch.key?('return-path')).to be true }
-            if ee.catch['return-path'].size > 0
-              it 'matches with Return-Path' do
-                expect(ee.catch['return-path']).to match(/(?:<>|.+[@].+|<mailer-daemon>)/i)
-              end
-            end
-
-            it('exists "from" key') { expect(ee.catch.key?('from')).to be true }
-            if ee.catch['from'].size > 0
-              it 'matches with From' do
-                expect(ee.catch['from']).to match(/(?:<>|.+[@].+|<?mailer-daemon>?)/i)
-              end
-            end
-
-            it('exists "x-virus-scanned" key') { expect(ee.catch.key?('x-virus-scanned')).to be true }
-            if ee.catch['x-virus-scanned'].size > 0
-              it 'matches with Clam or Amavis' do
-                expect(ee.catch['x-virus-scanned']).to match(/(?:amavis|clam)/i)
-              end
-            end
-
           end
+
+          it('exists "return-path" key') { expect(ee.catch.key?('return-path')).to be true }
+          if ee.catch['return-path'].size > 0
+            it 'matches with Return-Path' do
+              expect(ee.catch['return-path']).to match(/(?:<>|.+[@].+|<mailer-daemon>)/i)
+            end
+          end
+
+          it('exists "from" key') { expect(ee.catch.key?('from')).to be true }
+          if ee.catch['from'].size > 0
+            it 'matches with From' do
+              expect(ee.catch['from']).to match(/(?:<>|.+[@].+|<?mailer-daemon>?)/i)
+            end
+          end
+
+          it('exists "x-virus-scanned" key') { expect(ee.catch.key?('x-virus-scanned')).to be true }
+          if ee.catch['x-virus-scanned'].size > 0
+            it 'matches with Clam or Amavis' do
+              expect(ee.catch['x-virus-scanned']).to match(/(?:amavis|clam)/i)
+            end
+          end
+
         end
 
         isntmethod = Sisimai.make(sampleemail[e], hook: {})
