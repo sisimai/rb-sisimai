@@ -130,7 +130,7 @@ module Sisimai
         r = 'Sisimai::' << e
         require r.gsub('::', '/').downcase
 
-        if e.start_with?('Lhost')
+        if e == 'Lhost'
           # Sisimai::Lhost::*
           Module.const_get(r).send(:index).each do |ee|
             # Load and get the value of "description" from each module
