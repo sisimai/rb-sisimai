@@ -193,6 +193,7 @@ describe Sisimai do
 
     context 'valid JSON file' do
       samplejsons.each do |e|
+        break unless Dir.exist?('./set-of-emails/obsoleted')
         jf = File.open('./set-of-emails/obsoleted/' + e, 'r')
         js = jf.read
         jf.close
