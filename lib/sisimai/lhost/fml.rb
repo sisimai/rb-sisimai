@@ -117,7 +117,7 @@ module Sisimai::Lhost
               recipients += 1
             else
               # If you know the general guide of this list, please send mail with
-              # the mail body 
+              # the mail body
               v['diagnosis'] ||= ''
               v['diagnosis'] << e
             end
