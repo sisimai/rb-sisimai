@@ -8,7 +8,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      StartingOf = { message: ['----- Transcript of session follows -----'] };
+      StartingOf = { message: ['----- Transcript of session follows -----'] }
       MarkingsOf = {
         # Error text regular expressions which defined in src/savemail.c
         #   savemail.c:485| (void) fflush(stdout);

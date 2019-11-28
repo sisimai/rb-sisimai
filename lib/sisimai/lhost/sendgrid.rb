@@ -95,7 +95,7 @@ module Sisimai::Lhost
                 # - Diagnostic-Code: 550 5.1.1 ... (No "diagnostic-type" sub field)
                 next unless cv = e.match(/\ADiagnostic-Code:[ ]*(.+)/)
                 v['diagnosis'] = cv[1]
-                next;
+                next
               end
 
               if o[-1] == 'addr'
