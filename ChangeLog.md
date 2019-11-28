@@ -8,6 +8,31 @@ v4.25.3p2
 - release: ""
 - version: ""
 - changes:
+  - **FEATURE FOR READING JSON STRING AS AN INPUT SOURCE AND FOR PARSING JSON
+    FORMATTED BOUNCE MESSAGE WILL NOT BE SUPPORTED AT Sisimai 4.25.5** #152
+  - **The following modules for reading json string as an input source, and for
+    parsing json formatted bounce message will be removed at Sisimai 4.25.5**
+    - `Sisimai::Message::JSON`
+    - `Sisimai::Bite::JSON`
+    - `Sisimai::Bite::JSON::AmazonSES`
+    - `Sisimai::Bite::JSON::SendGrid`
+    - `Sisimai::Order::JSON`
+  - Implement a new MTA module class `Sisimai::Lhost`, it is a parent class of
+    all the MTA modules for a bounce mail returned as an email message via SMTP
+    and **THE FOLLOWING NAME SPACES WERE MARKED AS OBSOLETED OR REMOVED** #153
+    - `Sisimai::Bite`: Use `Sisimai::Lhost` instead
+    - `Sisimai::Bite::Email`: Merged into `Sisimai::Lhost`
+    - `Sisimai::Bite::Email::*`: Moved under `Sisimai::Lhost` as the same named
+      MTA module
+  - The following modules were marked as obsoleted, will be removed and merged
+    into each parent class
+    - `Sisimai::Message::Email`
+    - `Sisimai::Order::Email`
+  - USAGE AND PARAMETERS FOR THE FOLLOWING METHODS HAVE NOT BEEN CHANGED AT ALL
+    AND WILL NOT BE CHANGED AFTER Sisimai 4.25.5
+    - `Sisimai.make`
+    - `Sisimai.dump`
+    - `Sisimai::Message.new`
   - Update error message pattern for ClamSMTP at "virusdetected" reason.
   - Fix an indicator string for detecting the beginning of the original message
     part at `Sisimai::Bite::Email::MFILTER`
