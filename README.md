@@ -56,6 +56,7 @@ Key Features
   * Support 24 known MTAs and 5 unknown MTAs
   * Support 22 major MSPs(Mail Service Providers)
   * Support 2 major Cloud Email Delivery Services(JSON format)
+    * **WILL BE REMOVED AT Sisimai 4.25.5**
   * Support Feedback Loop Message(ARF)
   * Can detect 29 error reasons
 
@@ -165,9 +166,11 @@ puts Sisimai.dump('/path/to/mbox', delivered: true)
 
 Read bounce object
 -------------------------------------------------------------------------------
+**THIS FEATURE WILL BE REMOVED AT SISIMAI 4.25.5**
+
 The way to read a bounce object retrived from Cloud Email Services as JSON using
-their API is the following code. This feature is available at Sisimai 4.20.0 or
-later.
+their API is the following code. This feature is available at between v4.20.0
+and **v4.25.5**.
 
 ```ruby
 #! /usr/bin/env ruby
