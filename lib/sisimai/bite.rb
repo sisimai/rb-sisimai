@@ -31,7 +31,7 @@ module Sisimai
 
       def smtpagent(v = '')
         Sisimai::Lhost.warn(self.name)
-        return v.to_s.sub(/\ASisimai::Bite::/, '') 
+        return v.to_s.sub(/\ASisimai::Bite::/, '')
       end
 
       def description; Sisimai::Lhost.warn; return ''; end
