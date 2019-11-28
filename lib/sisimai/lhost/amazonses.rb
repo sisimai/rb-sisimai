@@ -36,7 +36,7 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
-        if mbody.start_with('{')
+        if mbody.start_with?('{')
           # The message body is JSON string
           return nil unless mhead['x-amz-sns-message-id']
           return nil if mhead['x-amz-sns-message-id'].empty?
@@ -88,7 +88,7 @@ module Sisimai::Lhost
             return nil
           end
 
-          return json(sespaylod)
+          return json(sespayload)
         else
           # The message body is an email
 
