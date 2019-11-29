@@ -192,7 +192,7 @@ module Sisimai::Lhost
           end
 
           if recipients == 0 && mbody =~ /notificationType/
-            # Try to parse with Sisimai::Lhost::JSON::AmazonSES module
+            # Try to parse with Sisimai::Lhost::AmazonSES module
             j = Sisimai::Lhost::AmazonSES.json(mhead, mbody)
 
             if j['ds'].is_a? Array

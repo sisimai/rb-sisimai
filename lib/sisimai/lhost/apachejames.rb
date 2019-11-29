@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::::Email::ApacheJames parses a bounce email which created by
-  # ApacheJames. Methods in the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::ApacheJames parses a bounce email which created by ApacheJames.
+  # Methods in the module are called from only Sisimai::Message.
   module ApacheJames
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Lhost/ApacheJames.pm
