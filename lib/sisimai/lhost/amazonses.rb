@@ -193,8 +193,7 @@ module Sisimai::Lhost
 
           if recipients == 0 && mbody =~ /notificationType/
             # Try to parse with Sisimai::Lhost::JSON::AmazonSES module
-            require 'sisimai/bite/json/amazonses'
-            j = Sisimai::Lhost::JSON::AmazonSES.scan(mhead, mbody)
+            j = Sisimai::Lhost::AmazonSES.json(mhead, mbody)
 
             if j['ds'].is_a? Array
               # Update dscontents
