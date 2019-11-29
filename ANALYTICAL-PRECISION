@@ -52,11 +52,9 @@ Email::Yandex ...........    4/0007  0.5714  Yandex.Mail: http://www.yandex.ru
 Email::Zoho .............    0/0011  0.0000  Zoho Mail: https://www.zoho.com
 Email::mFILTER ..........    0/0012  0.0000  Digital Arts m-FILTER
 Email::qmail ............   58/0087  0.6667  qmail
-JSON::AmazonSES .........   40/0049  0.8163  Amazon SES(JSON): http://aws.amazon.com/ses/
-JSON::SendGrid ..........    7/0012  0.5833  SendGrid(JSON): http://sendgrid.com/
 ARF .....................    8/0038  0.2105  Abuse Feedback Reporting Format
 RFC3464 .................  151/0322  0.4689  Fallback Module for MTAs
 RFC3834 .................    0/0014  0.0000  Detector for auto replied message
 --------------------------------------------------------------------------------
- bounceHammer 2.7.13p3    1570/2630  0.5970
- Sisimai 4.25.3           2630/2630  1.0000
+ bounceHammer 2.7.13p3    1523/2569  0.5928
+ Sisimai 4.25.3p2         2569/2569  1.0000

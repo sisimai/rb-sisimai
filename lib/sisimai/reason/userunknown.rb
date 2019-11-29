@@ -159,7 +159,7 @@ module Sisimai
           tempreason = Sisimai::SMTP::Status.name(argvs.deliverystatus) || ''
           return false if tempreason == 'suspend'
 
-          diagnostic = argvs.diagnosticcode.downcase;
+          diagnostic = argvs.diagnosticcode.downcase
           if tempreason == 'userunknown'
             # *.1.1 = 'Bad destination mailbox address'
             #   Status: 5.1.1

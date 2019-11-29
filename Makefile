@@ -59,6 +59,10 @@ release:
 
 test: cruby-test
 
+check:
+	find lib -type f -exec grep --color -E ' $$' {} /dev/null \;
+	find lib -type f -exec grep --color -E '[;][ ]*$$' {} /dev/null \;
+
 cruby-test:
 	$(RAKE) spec
 

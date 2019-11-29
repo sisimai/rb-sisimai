@@ -3,10 +3,10 @@ module Sisimai
   module RFC3464
     # Imported from p5-Sisimail/lib/Sisimai/RFC3464.pm
     class << self
-      require 'sisimai/bite/email'
+      require 'sisimai/lhost'
 
       # http://tools.ietf.org/html/rfc3464
-      Indicators = Sisimai::Bite::Email.INDICATORS
+      Indicators = Sisimai::Lhost.INDICATORS
       MarkingsOf = {
         message: %r{\A(?>
            content-type:[ ]*(?:
@@ -104,13 +104,13 @@ module Sisimai
       # @param         [String] mbody     Message body of a bounce email
       # @return        [Hash, Nil]        Bounce data list and message/rfc822 part
       #                                   or nil if it failed to parse or the
-      def scan(mhead, mbody)
+      def make(mhead, mbody)
         require 'sisimai/mda'
 
-        dscontents = [Sisimai::Bite.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         hasdivided = mbody.scrub('?').split("\n")
         havepassed = ['']
-        scannedset = Sisimai::MDA.scan(mhead, mbody)
+        mdabounced = Sisimai::MDA.make(mhead, mbody)
         rfc822list = []   # (Array) Each line in message/rfc822 part string
         maybealias = nil  # (String) Original-Recipient Field
         blanklines = 0    # (Integer) The number of blank lines
@@ -190,7 +190,7 @@ module Sisimai
 
                 if !x.empty? && x != y
                   # There are multiple recipient addresses in the message body.
-                  dscontents << Sisimai::Bite.DELIVERYSTATUS
+                  dscontents << Sisimai::Lhost.DELIVERYSTATUS
                   v = dscontents[-1]
                 end
                 v['recipient'] = y
@@ -398,7 +398,7 @@ module Sisimai
 
               if !x.empty? && x != y
                 # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::Bite.DELIVERYSTATUS
+                dscontents << Sisimai::Lhost.DELIVERYSTATUS
                 b = dscontents[-1]
               end
               b['recipient'] = y
@@ -425,7 +425,7 @@ module Sisimai
             next unless cv = e.match(/\ATo:\s*(.+)\z/)
             r = Sisimai::Address.find(cv[1], true) || []
             next if r.empty?
-            dscontents << Sisimai::Bite::Email.DELIVERYSTATUS if dscontents.size == recipients
+            dscontents << Sisimai::Lhost.DELIVERYSTATUS if dscontents.size == recipients
 
             b = dscontents[-1]
             b['recipient'] = r[0][:address]
@@ -450,11 +450,11 @@ module Sisimai
           end
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
 
-          if scannedset
-            # Make bounce data by the values returned from Sisimai::MDA->scan()
-            e['agent']     = scannedset['mda'] || self.smtpagent
-            e['reason']    = scannedset['reason'] || 'undefined'
-            e['diagnosis'] = scannedset['message'] unless scannedset['message'].empty?
+          if mdabounced
+            # Make bounce data by the values returned from Sisimai::MDA.make()
+            e['agent']     = mdabounced['mda'] || self.smtpagent
+            e['reason']    = mdabounced['reason'] || 'undefined'
+            e['diagnosis'] = mdabounced['message'] unless mdabounced['message'].empty?
             e['command']   = ''
           else
             # Set the value of smtpagent

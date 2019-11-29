@@ -61,7 +61,7 @@ module Sisimai
         'x-original-message-id' => 'text',
       }.freeze
 
-      # Table to be converted to key name defined in Sisimai::Bite class
+      # Table to be converted to key name defined in Sisimai::Lhost class
       # @param    [Symbol] group  RFC822 Header group name
       # @return   [Array,Hash]    RFC822 Header list
       def FIELDTABLE
@@ -118,7 +118,7 @@ module Sisimai
             # - Remote-MTA: DNS; mx.example.jp
             match[1] = cv[2].upcase
             match[2] = group == 'host' ? cv[3].downcase : cv[3]
-            match[2] = '' if match[2] =~ /\A\s+\z/  # Remote-MTA: dns; 
+            match[2] = '' if match[2] =~ /\A\s+\z/  # Remote-MTA: dns;
           else
             # - Action: failed
             # - Status: 5.2.2

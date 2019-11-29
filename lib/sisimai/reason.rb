@@ -8,7 +8,7 @@ module Sisimai
       # Reason list better to retry detecting an error reason
       # @return   [Array] Reason list
       def retry
-        return { 
+        return {
           'undefined' => 1, 'onhold' => 1, 'systemerror' => 1, 'securityerror' => 1,
           'networkerror' => 1, 'hostunknown' => 1, 'userunknown' => 1
         }.freeze

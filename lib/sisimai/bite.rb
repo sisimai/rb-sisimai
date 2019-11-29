@@ -3,12 +3,13 @@ module Sisimai
   module Bite
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Bite.pm
-      require 'sisimai/rfc5322'
+      require 'sisimai/lhost'
 
       # Data structure for parsed bounce messages
       # @return [Hash] Data structure for delivery status
       # @private
       def DELIVERYSTATUS
+        Sisimai::Lhost.warn
         return {
           'spec'         => nil,  # Protocl specification
           'date'         => nil,  # The value of Last-Attempt-Date header
@@ -28,8 +29,12 @@ module Sisimai
         }
       end
 
-      def smtpagent(v = ''); return v.to_s.sub(/\ASisimai::Bite::/, ''); end
-      def description; return ''; end
+      def smtpagent(v = '')
+        Sisimai::Lhost.warn(self.name)
+        return v.to_s.sub(/\ASisimai::Bite::/, '')
+      end
+
+      def description; Sisimai::Lhost.warn; return ''; end
     end
   end
 end

@@ -27,7 +27,7 @@ module Sisimai
           '423' => nil,             # Service refused, please try later. LPN105_423
           '424' => nil,             # Veuillez essayer plus tard. LPN105_424
           '506' => 'spamdetected',  # Mail rejete. Mail rejected. OFR_506 [506]
-          '510' => 'blocked',       # Veuillez essayer plus tard. service refused, please try later. LPN004_510 
+          '510' => 'blocked',       # Veuillez essayer plus tard. service refused, please try later. LPN004_510
           '513' => nil,             # Mail rejete. Mail rejected. OUK_513
           '514' => 'mesgtoobig',    # Taille limite du message atteinte
         }.freeze

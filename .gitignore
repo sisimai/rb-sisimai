@@ -8,5 +8,6 @@
 /sbin
 /spec/reports/
 /set-of-emails/private/
+/set-of-emails/obsoleted/
 /tmp/
 .rubocop_todo.yml

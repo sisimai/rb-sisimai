@@ -66,6 +66,7 @@ module Sisimai
 
       elsif input == 'json'
         # Decoded JSON object: 'input' => 'json'
+        warn ' ***warning: input: "json" is marked as obsoleted'
         type = argv0.class.to_s
         list = []
 
@@ -125,12 +126,12 @@ module Sisimai
     def engine
       table = {}
 
-      %w[Bite::Email Bite::JSON ARF RFC3464 RFC3834].each do |e|
+      %w[Lhost ARF RFC3464 RFC3834].each do |e|
         r = 'Sisimai::' << e
         require r.gsub('::', '/').downcase
 
-        if e.start_with?('Bite::Email', 'Bite::JSON')
-          # Sisimai::Bite::Email or Sisimai::Bite::JSON
+        if e == 'Lhost'
+          # Sisimai::Lhost::*
           Module.const_get(r).send(:index).each do |ee|
             # Load and get the value of "description" from each module
             rr = 'Sisimai::' << e + '::' << ee

@@ -18,11 +18,11 @@ describe Sisimai::MDA do
   message = nil
   headers = { 'from' => 'Mail Delivery Subsystem' }
 
-  describe '.scan' do
+  describe '.make' do
     context 'valid mailbox data' do
       while r = mailbox.read do
         smtperrors.each do |e|
-          v = cn.scan(headers,e)
+          v = cn.make(headers,e)
           it('returns Hash') { expect(v).to be_a Hash }
           it('has "mda" key') { expect(v['mda']).to be_a String }
           it('has "reason" key') { expect(v['reason']).to be_a String }
@@ -36,13 +36,13 @@ describe Sisimai::MDA do
     end
     context 'wrong number of arguments' do
       it 'raises ArgumentError' do
-        expect { cn.scan }.to raise_error(ArgumentError)
+        expect { cn.make }.to raise_error(ArgumentError)
       end
       it 'raises ArgumentError' do
-        expect { cn.scan(nil) }.to raise_error(ArgumentError)
+        expect { cn.make(nil) }.to raise_error(ArgumentError)
       end
       it 'raises ArgumentError' do
-        expect { cn.scan(nil,nil,nil) }.to raise_error(ArgumentError)
+        expect { cn.make(nil,nil,nil) }.to raise_error(ArgumentError)
       end
     end
   end

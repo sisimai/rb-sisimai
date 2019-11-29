@@ -1,0 +1,222 @@
+module Sisimai::Lhost
+  # Sisimai::Lhost::EZweb parses a bounce email which created by au EZweb.
+  # Methods in the module are called from only Sisimai::Message.
+  module EZweb
+    class << self
+      # Imported from p5-Sisimail/lib/Sisimai/Lhost/EZweb.pm
+      require 'sisimai/lhost'
+
+      Indicators = Sisimai::Lhost.INDICATORS
+      MarkingsOf = {
+        message: %r{\A(?:
+             The[ ]user[(]s[)][ ]
+            |Your[ ]message[ ]
+            |Each[ ]of[ ]the[ ]following
+            |[<][^ ]+[@][^ ]+[>]\z
+            )
+        }x,
+        rfc822: %r#\A(?:[-]{50}|Content-Type:[ ]*message/rfc822)#,
+      }.freeze
+      ReFailures = {
+        # notaccept: [ %r/The following recipients did not receive this message:/ ],
+        'mailboxfull' => [
+          %r/The user[(]s[)] account is temporarily over quota/,
+        ],
+        'suspend' => [
+          # http://www.naruhodo-au.kddi.com/qa3429203.html
+          # The recipient may be unpaid user...?
+          %r/The user[(]s[)] account is disabled[.]/,
+          %r/The user[(]s[)] account is temporarily limited[.]/,
+        ],
+        'expired' => [
+          # Your message was not delivered within 0 days and 1 hours.
+          # Remote host is not responding.
+          %r/Your message was not delivered within /,
+        ],
+        'onhold' => [
+          %r/Each of the following recipients was rejected by a remote mail server/,
+        ],
+      }.freeze
+
+      def description; return 'au EZweb: http://www.au.kddi.com/mobile/'; end
+      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
+      def headerlist;  return %w[x-spasign]; end
+
+      # Parse bounce messages from au EZweb
+      # @param         [Hash] mhead       Message headers of a bounce email
+      # @options mhead [String] from      From header
+      # @options mhead [String] date      Date header
+      # @options mhead [String] subject   Subject header
+      # @options mhead [Array]  received  Received headers
+      # @options mhead [String] others    Other required headers
+      # @param         [String] mbody     Message body of a bounce email
+      # @return        [Hash, Nil]        Bounce data list and message/rfc822
+      #                                   part or nil if it failed to parse or
+      #                                   the arguments are missing
+      def make(mhead, mbody)
+        match  = 0
+        match += 1 if mhead['from'].include?('Postmaster@ezweb.ne.jp')
+        match += 1 if mhead['from'].include?('Postmaster@au.com')
+        match += 1 if mhead['subject'] == 'Mail System Error - Returned Mail'
+        match += 1 if mhead['received'].any? { |a| a.include?('ezweb.ne.jp (EZweb Mail) with') }
+        match += 1 if mhead['received'].any? { |a| a.include?('.au.com (') }
+        if mhead['message-id']
+          match += 1 if mhead['message-id'].end_with?('.ezweb.ne.jp>', '.au.com>')
+        end
+        return nil if match < 2
+
+        require 'sisimai/rfc1894'
+        fieldtable = Sisimai::RFC1894.FIELDTABLE
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        hasdivided = mbody.split("\n")
+        rfc822list = []     # (Array) Each line in message/rfc822 part string
+        blanklines = 0      # (Integer) The number of blank lines
+        readcursor = 0      # (Integer) Points the current cursor position
+        recipients = 0      # (Integer) The number of 'Final-Recipient' header
+        rxboundary = %r/\A__SISIMAI_PSEUDO_BOUNDARY__\z/
+        v = nil
+
+        if mhead['content-type']
+          # Get the boundary string and set regular expression for matching with
+          # the boundary string.
+          b0 = Sisimai::MIME.boundary(mhead['content-type'], 1)
+          rxboundary = Regexp.new('\A' << Regexp.escape(b0) << '\z') unless b0.empty?
+        end
+        rxmessages = []
+        ReFailures.each_value { |a| rxmessages << a }
+
+        while e = hasdivided.shift do
+          if readcursor == 0
+            # Beginning of the bounce message or delivery status part
+            readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
+          end
+
+          if (readcursor & Indicators[:'message-rfc822']) == 0
+            # Beginning of the original message part
+            if e =~ MarkingsOf[:rfc822] || e =~ rxboundary
+              readcursor |= Indicators[:'message-rfc822']
+              next
+            end
+          end
+
+          if readcursor & Indicators[:'message-rfc822'] > 0
+            # Inside of the original message part
+            if e.empty?
+              blanklines += 1
+              break if blanklines > 1
+              next
+            end
+            rfc822list << e
+          else
+            # Error message part
+            next if (readcursor & Indicators[:deliverystatus]) == 0
+            next if e.empty?
+
+            # The user(s) account is disabled.
+            #
+            # <***@ezweb.ne.jp>: 550 user unknown (in reply to RCPT TO command)
+            #
+            #  -- OR --
+            # Each of the following recipients was rejected by a remote
+            # mail server.
+            #
+            #    Recipient: <******@ezweb.ne.jp>
+            #    >>> RCPT TO:<******@ezweb.ne.jp>
+            #    <<< 550 <******@ezweb.ne.jp>: User unknown
+            v = dscontents[-1]
+
+            if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>]\z/) ||
+                    e.match(/\A[<]([^ ]+[@][^ ]+)[>]:?(.*)\z/) ||
+                    e.match(/\A[ \t]+Recipient: [<]([^ ]+[@][^ ]+)[>]/)
+
+              if v['recipient']
+                # There are multiple recipient addresses in the message body.
+                dscontents << Sisimai::Lhost.DELIVERYSTATUS
+                v = dscontents[-1]
+              end
+
+              r = Sisimai::Address.s3s4(cv[1])
+              v['recipient'] = r
+              recipients += 1
+
+            elsif f = Sisimai::RFC1894.match(e)
+              # "e" matched with any field defined in RFC3464
+              next unless o = Sisimai::RFC1894.field(e)
+              next unless fieldtable.key?(o[0])
+              v[fieldtable[o[0]]] = o[2]
+
+            else
+              # The line does not begin with a DSN field defined in RFC3464
+              next if Sisimai::String.is_8bit(e)
+              if cv = e.match(/\A[ \t]+[>]{3}[ \t]+([A-Z]{4})/)
+                #    >>> RCPT TO:<******@ezweb.ne.jp>
+                v['command'] = cv[1]
+              else
+                # Check error message
+                if rxmessages.any? { |a| e =~ a }
+                  # Check with regular expressions of each error
+                  v['diagnosis'] ||= ''
+                  v['diagnosis'] << ' ' << e
+                else
+                  # >>> 550
+                  v['alterrors'] ||= ''
+                  v['alterrors'] << ' ' << e
+                end
+              end
+            end
+          end
+        end
+        return nil unless recipients > 0
+
+        dscontents.each do |e|
+          e['agent'] = self.smtpagent
+
+          unless e['alterrors'].to_s.empty?
+            # Copy alternative error message
+            e['diagnosis'] ||= e['alterrors']
+            if e['diagnosis'].start_with?('-') || e['diagnosis'].end_with?('__')
+              # Override the value of diagnostic code message
+              e['diagnosis'] = e['alterrors'] unless e['alterrors'].empty?
+            end
+            e.delete('alterrors')
+          end
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+
+          if mhead['x-spasign'].to_s == 'NG'
+            # Content-Type: text/plain; ..., X-SPASIGN: NG (spamghetti, au by EZweb)
+            # Filtered recipient returns message that include 'X-SPASIGN' header
+            e['reason'] = 'filtered'
+          else
+            if e['command'] == 'RCPT'
+              # set "userunknown" when the remote server rejected after RCPT
+              # command.
+              e['reason'] = 'userunknown'
+            else
+              # SMTP command is not RCPT
+              catch :SESSION do
+                ReFailures.each_key do |r|
+                  # Verify each regular expression of session errors
+                  ReFailures[r].each do |rr|
+                    # Check each regular expression
+                    next unless e['diagnosis'] =~ rr
+                    e['reason'] = r
+                    throw :SESSION
+                  end
+                end
+              end
+
+            end
+          end
+          next if e['reason']
+          next if e['recipient'].end_with?('@ezweb.ne.jp', '@au.com')
+          e['reason'] = 'userunknown'
+        end
+
+        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
+        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+      end
+
+    end
+  end
+end
+
