@@ -8,8 +8,8 @@ v4.25.3p2
 - release: ""
 - version: ""
 - changes:
-  - **FEATURE FOR READING JSON STRING AS AN INPUT SOURCE AND FOR PARSING JSON
-    FORMATTED BOUNCE MESSAGE WILL NOT BE SUPPORTED AT Sisimai 4.25.5** #152
+  - #152 **THE ABILITY TO READ JSON STRING AS AN INPUT SOURCE AND TO PARSE JSON
+    FORMATTED BOUNCE MESSAGE WILL NOT BE SUPPORTED AT Sisimai 4.25.5**
   - **The following modules for reading json string as an input source, and for
     parsing json formatted bounce message will be removed at Sisimai 4.25.5**
     - `Sisimai::Message::JSON`
