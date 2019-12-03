@@ -16,6 +16,7 @@ module Sisimai
         'mailstore1.secureserver.net' => 'GoDaddy',
         'aspmx.l.google.com'          => 'GoogleApps',
         'gmail-smtp-in.l.google.com'  => 'GoogleApps',
+        '.email.ua'                   => 'IUA',
         'lsean.ezweb.ne.jp'           => 'KDDI',
         'msmx.au.com'                 => 'KDDI',
         '.qq.com'                     => 'TencentQQ',
