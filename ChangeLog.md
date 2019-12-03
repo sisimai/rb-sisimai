@@ -3,10 +3,10 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.3p2
+v4.25.4
 --------------------------------------------------------------------------------
-- release: ""
-- version: ""
+- release: "Tue,  3 Dec 2019 12:34:45 +0900 (JST)"
+- version: "4.25.4"
 - changes:
   - #152 **THE ABILITY TO READ JSON STRING AS AN INPUT SOURCE AND TO PARSE JSON
     FORMATTED BOUNCE MESSAGE WILL NOT BE SUPPORTED AT Sisimai 4.25.5**
@@ -33,6 +33,7 @@ v4.25.3p2
     - `Sisimai.make`
     - `Sisimai.dump`
     - `Sisimai::Message.new`
+  - Implement `Sisimai::Rhost::IUA` for SMTP error codes at https://www.i.ua/.
   - Update error message pattern for ClamSMTP at "virusdetected" reason.
   - Fix an indicator string for detecting the beginning of the original message
     part at `Sisimai::Bite::Email::MFILTER`
