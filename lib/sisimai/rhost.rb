@@ -7,15 +7,15 @@ module Sisimai
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Rhost.pm
       RhostClass = {
-        'aspmx.l.google.com'          => 'GoogleApps',
-        'gmail-smtp-in.l.google.com'  => 'GoogleApps',
         '.prod.outlook.com'           => 'ExchangeOnline',
         '.protection.outlook.com'     => 'ExchangeOnline',
-        'smtp.secureserver.net'       => 'GoDaddy',
-        'mailstore1.secureserver.net' => 'GoDaddy',
         'laposte.net'                 => 'FrancePTT',
         'orange.fr'                   => 'FrancePTT',
         'wanadoo.fr'                  => 'FrancePTT',
+        'smtp.secureserver.net'       => 'GoDaddy',
+        'mailstore1.secureserver.net' => 'GoDaddy',
+        'aspmx.l.google.com'          => 'GoogleApps',
+        'gmail-smtp-in.l.google.com'  => 'GoogleApps',
         'lsean.ezweb.ne.jp'           => 'KDDI',
         'msmx.au.com'                 => 'KDDI',
         '.qq.com'                     => 'TencentQQ',
