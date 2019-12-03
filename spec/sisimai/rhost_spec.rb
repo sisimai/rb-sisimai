@@ -37,6 +37,7 @@ describe Sisimai::Rhost do
         'smtpz4.laposte.net',
         'smtp-in.orange.fr',
         'mx2.qq.com',
+        'mx3.email.ua',
       ]
       v.each do |e|
         context "(#{e})" do
