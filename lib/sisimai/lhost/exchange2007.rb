@@ -8,11 +8,24 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      StartingOf = { rfc822: ['Original message headers:'] }.freeze
       MarkingsOf = {
-        message: %r/\ADiagnostic[ ]information[ ]for[ ]administrators:/,
+        message: %r{\A(?:
+           Diagnostic[ ]information[ ]for[ ]administrators:               # en-US
+          |Informations[ ]de[ ]diagnostic[ ]pour[ ]les[ ]administrateurs  # fr-FR
+          )
+        }x,
+        rfc822:  %r{(?:
+           Original[ ]message[ ]headers:     # en-US
+          |[ ]de[ ]message[ ]d'origine[ ]:   # fr-FR/En-têtes de message d'origine
+          )
+        }x,
         error:   %r/ ((?:RESOLVER|QUEUE)[.][A-Za-z]+(?:[.]\w+)?);/,
-        rhost:   %r/\AGenerating server:[ ]?(.*)/,
+        rhost:   %r{\A(?:
+           Generating[ ]server            # en-US
+          |Serveur[ ]de[ ]g.+ration[ ]    # fr-FR/Serveur de génération
+          ):[ ]?(.*)
+        }x,
+        subject: %r/\A(?:Undeliverable|Non_remis_):/,
       }.freeze
       NDRSubject = {
         'SMTPSEND.DNS.NonExistentDomain' => 'hostunknown',   # 554 5.4.4 SMTPSEND.DNS.NonExistentDomain
@@ -45,7 +58,7 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
-        return nil unless mhead['subject'].start_with?('Undeliverable:')
+        return nil unless mhead['subject'] =~ MarkingsOf[:subject]
         return nil unless mhead['content-language']
         return nil unless mhead['content-language'] =~ /\A[a-z]{2}(?:[-][A-Z]{2})?\z/
 
@@ -72,7 +85,7 @@ module Sisimai::Lhost
 
           if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
-            if e.start_with?(StartingOf[:rfc822][0])
+            if e =~ MarkingsOf[:rfc822]
               readcursor |= Indicators[:'message-rfc822']
               next
             end
@@ -112,10 +125,11 @@ module Sisimai::Lhost
                 v['diagnosis'] = ''
                 recipients += 1
 
-              elsif cv = e.match(/\A[#]([45]\d{2})[ ]([45][.]\d[.]\d+)[ ].+\z/)
+              elsif cv = e.match(/([45]\d{2})[ ]([45][.]\d[.]\d+)[ ].+\z/)
                 # #550 5.1.1 RESOLVER.ADR.RecipNotFound; not found ##
-                # #550 5.2.3 RESOLVER.RST.RecipSizeLimit; message too large for this recipien=
-                # t ##
+                # #550 5.2.3 RESOLVER.RST.RecipSizeLimit; message too large for this recipient ##
+                # Remote Server returned '550 5.1.1 RESOLVER.ADR.RecipNotFound; not found'
+                # 3/09/2016 8:05:56 PM - Remote Server at mydomain.com (10.1.1.3) returned '550 4.4.7 QUEUE.Expired; message expired'
                 v['replycode'] = cv[1]
                 v['status']    = cv[2]
                 v['diagnosis'] = e
