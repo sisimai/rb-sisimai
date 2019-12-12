@@ -20,6 +20,15 @@ module Sisimai::Lhost
           )
         }x,
       }.freeze
+      Headers365 = %w[
+        x-ms-exchange-message-is-ndr
+        x-microsoft-antispam-prvs
+        x-exchange-antispam-report-test
+        x-exchange-antispam-report-cfa-test
+        x-ms-exchange-crosstenant-originalarrivaltime
+        x-ms-exchange-crosstenant-fromentityheader
+        x-ms-exchange-transport-crosstenantheadersstamped
+      ]
       StatusList = {
         # https://support.office.com/en-us/article/Email-non-delivery-reports-in-Office-365-51daa6b9-2e35-49c4-a0c9-df85bf8533c3
         %r/\A4[.]4[.]7\z/        => 'expired',
@@ -92,13 +101,11 @@ module Sisimai::Lhost
         tryto  = %r/.+[.](?:outbound[.]protection|prod)[.]outlook[.]com\b/
         match  = 0
         match += 1 if mhead['subject'].include?('Undeliverable:')
-        match += 1 if mhead['x-ms-exchange-message-is-ndr']
-        match += 1 if mhead['x-microsoft-antispam-prvs']
-        match += 1 if mhead['x-exchange-antispam-report-test']
-        match += 1 if mhead['x-exchange-antispam-report-cfa-test']
-        match += 1 if mhead['x-ms-exchange-crosstenant-originalarrivaltime']
-        match += 1 if mhead['x-ms-exchange-crosstenant-fromentityheader']
-        match += 1 if mhead['x-ms-exchange-transport-crosstenantheadersstamped']
+        Headers365.each do |e|
+          next if mhead[e].nil?
+          next if mhead[e].empty?
+          match += 1
+        end
         match += 1 if mhead['received'].any? { |a| a =~ tryto }
         if mhead['message-id']
           # Message-ID: <00000000-0000-0000-0000-000000000000@*.*.prod.outlook.com>

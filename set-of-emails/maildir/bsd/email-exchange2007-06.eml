@@ -1,0 +1,764 @@
+Return-Path: <>
+X-Original-To: ha3dsljxgizc2mjrgq2dkobx@mb.newsletter-autos.fr
+Delivered-To: retregie2@mindbounce1.odiso.net
+Received: by mindbounce1.odiso.net (Postfix)
+ id 60BC5105C2CC; Wed, 13 Dec 2017 16:10:03 +0100 (CET)
+Delivered-To: retregie@mindbounce1.odiso.net
+Received: from mx.ville-saumur.fr (mx.ville-saumur.fr [185.87.100.136])
+ by mindbounce1.odiso.net (Postfix) with ESMTP id 3C9D4105B7FE
+ for <ha3dsljxgizc2mjrgq2dkobx@mb.newsletter-autos.fr>; Wed, 13 Dec 2017 16:10:03 +0100 (CET)
+Received: from mx.ville-saumur.fr (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id E608E280633
+ for <ha3dsljxgizc2mjrgq2dkobx@mb.newsletter-autos.fr>; Wed, 13 Dec 2017 16:10:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ville-saumur.fr;
+ s=imsva; t=1513177802;
+ bh=+fQEOwk4gRGyIEFRVJYuB3UnB9iVRE1SVJOpQLUziBI=; h=From:To:Date;
+ b=TbY5nRFzdIujhOFgvu6dBpvGTQzMGhFDEydsvJyJ++ZNRR9fZ1+XMYjdCEdmK2l/R
+  XMrARCIBt7pcz+9rvbfLf0nksmk5l3SBfFdrE72URcG1CxJAJlYoOa6+7UiqfVjzaF
+  hOmAr7IpmKgRYli/TdXRRMiK567JtmqiXnz3T40U=
+Received: from imsva82a.ville-saumur.fr (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id BC1E5280631
+ for <ha3dsljxgizc2mjrgq2dkobx@mb.newsletter-autos.fr>; Wed, 13 Dec 2017 16:10:01 +0100 (CET)
+Received: from wm.ville-saumur.fr (unknown [10.1.0.124])
+ by imsva82a.ville-saumur.fr (Postfix) with ESMTPS
+ for <ha3dsljxgizc2mjrgq2dkobx@mb.newsletter-autos.fr>; Wed, 13 Dec 2017 16:10:01 +0100 (CET)
+MIME-Version: 1.0
+From: <postmaster@ville-saumur.fr>
+To: <ha3dsljxgizc2mjrgq2dkobx@mb.newsletter-autos.fr>
+Date: Wed, 13 Dec 2017 16:10:01 +0100
+Content-Type: multipart/report; report-type=delivery-status;
+ boundary="8bffb426-6123-43e5-9dab-20b1585123e2"
+X-MS-Exchange-Message-Is-Ndr:
+Content-Language: fr-FR
+Message-ID: <60bd7793-7f39-49d0-9f91-4969ba3a6c25@SRV124.ville-saumur.fr>
+In-Reply-To: <1513177790.ha3dsljxgizc2mjrgq2dkobx@mb.newsletter-autos.fr>
+References: <1513177790.ha3dsljxgizc2mjrgq2dkobx@mb.newsletter-autos.fr>
+Subject: =?iso-8859-1?Q?Non_remis_:_Votre_deuxi=E8me_paire_de_chaussures_=E0_5_eur?=
+ =?iso-8859-1?Q?os?=
+Auto-Submitted: auto-replied
+X-TM-AS-GCONF: 11111111
+X-TM-AS-SMTP: 1.0 LQ== LQ==
+X-TM-AS-ERS: 10.1.0.124-127.5.254.15
+X-TM-AS-Product-Ver: IMSVA-9.1.0.1631-8.2.0.1013-23528.000
+X-TM-AS-Result: No--7.363-5.0-31-10
+X-imss-scan-details: No--7.363-5.0-31-10
+X-TMASE-Version: IMSVA-9.1.0.1631-8.2.1013-23528.000
+X-TMASE-Result: 10--7.362900-10.000000
+X-TMASE-MatchedRID: OoEa6u7Uk59qjxjQhPpumIrZkzMMRAtw/+IVM0HqyVJeta3d1q4tNz9j
+ ze3XaHgOBypCqliZQDJgkFaDub1+zxGIZyLWiD804dDbWPxG2mXRHSR2OvHkkFIEeE9EDVxedTy
+ E9iCgMPn1gZn3ZH6qG4YVNpt8g9BE7T+j7/gPsPPOAzDMFUjn7N4DafIOGBfY4I/r0/g0c4QREd
+ y4UIYKZt8vJq4Bc0EC596FIjp5Y3MTaWey1CvC6gy5PqjEOm2XGUjB+u9XpAf3h6GQGePcPiisx
+ DzpNDLX4YS6FyG8vyjyUQNiagGSs9szWfm77NPrdcbbjnFUAzAkvo4CXV1B876+F8za0bM2zh9/
+ JTWzqExXfyJjJyOvlYbKKfqixrF9nTqdU4w65WkcDDLReGt4PfmUDxpFogQXSV/yBKtVmpbXy9W
+ kB3xLM2jXG+JH7VI6P1DisKR/e5SIRG6EbDQlQDqCio6PxgXRRSjhBTCB4m/Effi2Qh7UxjB+uI
+ /RgoO9edKufSszF8kHQetSnxTP0FIPg7du9z6TY/tnrmO0q/v5mhsMNUGm4GDso3VqoaEftn7hi
+ s9zi8cTmjUk2NA2S3Lw1r9RKgOgG66tuBin4dDFPIkC/8l5ST0xA7cxL5gk/B+ZbDJ0sUm7Cny+
+ 2yOst1VIpaYvubsyoH22ADlVKXiNzYJBKgDdEdB67dTBeETm4pinC0b7AdXAhmyW1RcNIzT6+3+
+ sQxw4K4N5A+ADaGBSMZjuun6XDkHrI6vFzzG7V3TFVaszFQaXgiEiwswK5KUyUU8RUGsueWleV0
+ 6xcOQjGtzozoJsmwDIyPV0+BTjqeKvrWP6460rISWsnRVGP5soi2XrUn/JlR1cT9YafQV8xV+8y
+ Tp8+QKptUMJRSxQVqOtKX78ZnTd0T72oA/znrPBHyH5KhYzdeUkgoTygTtdLOvsicsBPz8SZRLu
+ /pPOXC8FdRLPDjDp9ZUhtDPhLB3ZqgdpWBdtPAaRNY38lObYDpe9GBVdR1QUzMd3dErR2aWIdsq
+ RbKqwXSrN3bNtCC0Z1/7eb8Rj9SgHMZ5baBzIzTtxalGYfkmma3V/xsSCzdAfQVZTF3Q2aFvmL0
+ nHhb6LqwH1+oXK4eZLp8bTU/Q=
+X-TMASE-SNAP-Result: 1.821001.0001-0-1-12:0,22:0,33:0,34:0,39:0-0
+
+--8bffb426-6123-43e5-9dab-20b1585123e2
+Content-Type: multipart/alternative; differences=Content-Type;
+ boundary="dba03067-b37f-49a1-b483-2ab42a1ec8e7"
+
+--dba03067-b37f-49a1-b483-2ab42a1ec8e7
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+=C9chec de la remise pour ces destinataires ou groupes :
+
+transports@agglo-saumur.fr<mailto:transports@agglo-saumur.fr>
+L'adresse de messagerie que vous avez entr=E9e est introuvable. V=E9rifiez =
+l'adresse de messagerie du destinataire et essayez de renvoyer le message. =
+Si le probl=E8me persiste, contactez le support technique de votre organisa=
+tion.
+
+
+
+
+
+
+
+
+Informations de diagnostic pour les administrateurs :
+
+Serveur de g=E9n=E9ration : SRV124.ville-saumur.fr
+
+transports@agglo-saumur.fr
+Remote Server returned '550 5.1.1 RESOLVER.ADR.RecipNotFound; not found'
+
+En-t=EAtes de message d'origine :
+
+Received: from SRV124.ville-saumur.fr (10.1.0.124) by SRV124.ville-saumur.f=
+r
+ (10.1.0.124) with Microsoft SMTP Server (TLS) id 15.0.1178.4; Wed, 13 Dec
+ 2017 16:10:01 +0100
+Received: from mx.ville-saumur.fr (10.100.0.27) by SRV124.ville-saumur.fr
+ (10.1.0.124) with Microsoft SMTP Server (TLS) id 15.0.1178.4 via Frontend
+ Transport; Wed, 13 Dec 2017 16:10:01 +0100
+Received: from mx.ville-saumur.fr (unknown [127.0.0.1])
+        by IMSVA (Postfix) with ESMTP id DDEF1280633
+        for <transports@agglo-saumur.fr>; Wed, 13 Dec 2017 16:10:00 +0100 (=
+CET)
+Received: from imsva82a.ville-saumur.fr (unknown [127.0.0.1])
+        by IMSVA (Postfix) with ESMTP id AEAB9280631
+        for <transports@agglo-saumur.fr>; Wed, 13 Dec 2017 16:10:00 +0100 (=
+CET)
+Received: from Prefilter-postMTA10.emailsecurity.trendmicro.eu (unknown [15=
+0.70.236.146])
+        by imsva82a.ville-saumur.fr (Postfix) with ESMTPS
+        for <transports@agglo-saumur.fr>; Wed, 13 Dec 2017 16:10:00 +0100 (=
+CET)
+Received: from hes.trendmicro.com (unknown [10.36.141.75])
+        by Prefilter-postMTA10.emailsecurity.trendmicro.eu (Postfix) with S=
+MTP id 6B4376C0296
+        for <transports@agglo-saumur.fr>; Wed, 13 Dec 2017 15:10:00 +0000 (=
+UTC)
+Received: from regiesmtp1151-1.odiso.net (unknown [89.248.219.79])
+        by prefilter-premta15.muc1 (Postfix) with ESMTP id F1ADF4E0031
+        for <transports@agglo-saumur.fr>; Wed, 13 Dec 2017 15:09:50 +0000 (=
+UTC)
+Message-ID: <1513177790.ha3dsljxgizc2mjrgq2dkobx@mb.newsletter-autos.fr>
+Feedback-Id: 317:869
+Dkim-Signature: v=3D1; a=3Drsa-sha1; c=3Drelaxed; d=3Dmb.newsletter-autos.f=
+r; h=3Dmessage-id:list-unsubscribe:from:to:reply-to:content-type:subject:co=
+ntent-transfer-encoding:mime-version:date; s=3Dselector1; bh=3DEUgx6DV9EKBU=
+E7bK/ghWzJT4CkE=3D; b=3DqhBtU27k/TVcJsungkq/gOOLjxErfp7Cgs2pH8go5dgUSDPMbFX=
+T1JVKtlXB7/6vE009GkOHQbAYRFN6IKGJZVgdIbdxlzwTQac8s+a5kI9SScW7Fce1XlLtTCLIKN=
+hSACDE1hM4uWi/e9tlqd4UP3iZPRuyEcOJIH+ziFJUh4Q=3D
+List-Unsubscribe: <mailto:ha3dsljxgizc2mjrgq2dkobx@lu.mb.newsletter-autos.f=
+r>
+Precedence: bulk
+From: =3D?UTF-8?Q?Tati_-_AdM?=3D <newsletter@mb.newsletter-autos.fr>
+To: <transports@agglo-saumur.fr>
+Reply-To: newsletter@mb.newsletter-autos.fr
+Content-Type: multipart/alternative;
+        boundary=3D"_----------=3D_1513177790252370"
+Subject: =3D?UTF-8?Q?Votre_deuxi=3DC3=3DA8me_paire_de_chaussures_=3DC3=3DA0=
+_5_euros?=3D
+MIME-Version: 1.0
+X-Mailer: MIME::Lite 3.030 (F2.85; T2.09; A2.13; B3.14; Q3.13)
+Date: Wed, 13 Dec 2017 16:09:50 +0100
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 11111111
+X-TM-AS-SMTP: 1.0
+        UHJlZmlsdGVyLXBvc3RNVEExMC5lbWFpbHNlY3VyaXR5LnRyZW5kbWljcm8uZXU=3D
+        aGEzZHNsanhnaXpjMm1qcmdxMmRrb2J4QG1iLm5ld3NsZXR0ZXItYXV0b3MuZnI=3D
+X-TM-AS-ERS: 150.70.236.146-127.2.0.1
+X-TM-AS-Product-Ver: IMSVA-9.1.0.1631-8.2.0.1013-23528.000
+X-TM-AS-Result: No-2.177-5.0-31-10
+X-imss-scan-details: No-2.177-5.0-31-10
+X-TMASE-Version: IMSVA-9.1.0.1631-8.2.1013-23528.000
+X-TMASE-Result: 10-2.176800-10.000000
+X-TMASE-MatchedRID: flB6T5oFUOG9Kv/10f43C2csZoSFOH3NY5tzpc6U41teiZtkAw19jtt=
+n
+        IlAw5OtvJtPtdHb5AVCIRG6EbDQlQDqCio6PxgXRRSjhBTCB4m+YWary0xmPWCFp1qi=
+KhmwCNtm
+        bUiv8JIqCeoACUnt+kUim+3pSpOPvhuxnKU8erYLejs/DUNX6H7DG/SWRjAWTxfqWqT=
+gUDaatv2
+        L8rp8wDnGT6kwYVy/xQr2qXCJMSV98yGO3dvk8/UrRZP/NcCCSr1mTostAo49Ey+L1h=
+9unlhIGV
+        1AUBgcucX/dhsxYJQmdCtkMrsOtOpkShYcLpGH98gW3ugGq8mL2tny05XshuJO5MheD=
+HerMNid+
+        2TRXuOoeszLHPCQb9Dqf0DtPln4nAAKeQY7XbxWTHH8954RP8PYV+0g4ZB1VWV916O3=
+mRv5iK2z
+        fMUqB7IBnqVrykRvFh80rxgFhR2QJMLs/8/GbekIjuk0uJKN9ZssMASAsm75BOq1LSI=
+bi+5CBCp
+        iPBEnDmxh0gY/o+VkTqkzLw5R0LmPRQPg64rFKFRlN8zTSzj5qRyrZEAcpylprRr3O6=
+87j660+D
+        qvfilPfX2sZfyOJoZ4CIKY/Hg3AaZGo0EeYG97zVcS9oBLzOIq6dXL5V9BGaSrMgBAZ=
+dKG7BImx
+        r//NmcUGZ0Kwi4SAIacEPGsrqo8wTtWW0vTRuPIVg5Bxdd7eNOS6tvXJTUWKsCvF32F=
+Ni3HikUs
+        KreV0bQqXiWz3lqWI8v6ED7vD28KSUVn8jgTXPFZyMml8HAKjjACJTpCNlcek5YV6H6=
+2Cw2Qrxk
+        +1gNDenUDPbTUZ3Bo+vfwNxatwJjn6J820XhunvCfR08Ny/to0vurG59uKhyz+woFna=
+QVtiYY1M
+        pZUY2cjFnImzvyS
+X-TMASE-SNAP-Result: 1.821001.0001-0-1-12:0,22:0,33:0,34:0,39:0-0
+Return-Path: ha3dsljxgizc2mjrgq2dkobx@mb.newsletter-autos.fr
+
+
+--dba03067-b37f-49a1-b483-2ab42a1ec8e7
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<Head></head><body>
+<p><b><font color=3D"#000066" size=3D"3" face=3D"Arial">=C9chec de la remis=
+e pour ces destinataires ou groupes=A0:</font></b></p>
+<font color=3D"#000000" size=3D"2" face=3D"Tahoma"><p><a href=3D"mailto:tra=
+nsports@agglo-saumur.fr">transports@agglo-saumur.fr</a><br>
+</font>
+<font color=3D"#000000" size=3D"3" face=3D"Arial">L'adresse de messagerie q=
+ue vous avez entr=E9e est introuvable. V=E9rifiez l'adresse de messagerie d=
+u destinataire et essayez de renvoyer le message. Si le probl=E8me persiste=
+, contactez le support technique de votre organisation.<br>
+</font>
+<font color=3D"#000000" size=3D"2" face=3D"Tahoma"><br>
+</p>
+</font>
+<br><br><br><br><br><br>
+<font color=3D"#808080" size=3D"2" face=3D"Tahoma"><p><b>Informations de di=
+agnostic pour les administrateurs :</b></p>
+<p>Serveur de g=E9n=E9ration : SRV124.ville-saumur.fr<br>
+</p>
+<p>transports@agglo-saumur.fr<br>
+Remote Server  returned '550 5.1.1 RESOLVER.ADR.RecipNotFound; not found'<b=
+r>
+</p>
+<p>En-t=EAtes de message d'origine :</p>
+<pre>Received: from SRV124.ville-saumur.fr (10.1.0.124) by SRV124.ville-sau=
+mur.fr
+ (10.1.0.124) with Microsoft SMTP Server (TLS) id 15.0.1178.4; Wed, 13 Dec
+ 2017 16:10:01 +0100
+Received: from mx.ville-saumur.fr (10.100.0.27) by SRV124.ville-saumur.fr
+ (10.1.0.124) with Microsoft SMTP Server (TLS) id 15.0.1178.4 via Frontend
+ Transport; Wed, 13 Dec 2017 16:10:01 +0100
+Received: from mx.ville-saumur.fr (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id DDEF1280633
+ for &lt;transports@agglo-saumur.fr&gt;; Wed, 13 Dec 2017 16:10:00 +0100 (C=
+ET)
+Received: from imsva82a.ville-saumur.fr (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id AEAB9280631
+ for &lt;transports@agglo-saumur.fr&gt;; Wed, 13 Dec 2017 16:10:00 +0100 (C=
+ET)
+Received: from Prefilter-postMTA10.emailsecurity.trendmicro.eu (unknown [15=
+0.70.236.146])
+ by imsva82a.ville-saumur.fr (Postfix) with ESMTPS
+ for &lt;transports@agglo-saumur.fr&gt;; Wed, 13 Dec 2017 16:10:00 +0100 (C=
+ET)
+Received: from hes.trendmicro.com (unknown [10.36.141.75])
+ by Prefilter-postMTA10.emailsecurity.trendmicro.eu (Postfix) with SMTP id =
+6B4376C0296
+ for &lt;transports@agglo-saumur.fr&gt;; Wed, 13 Dec 2017 15:10:00 +0000 (U=
+TC)
+Received: from regiesmtp1151-1.odiso.net (unknown [89.248.219.79])
+ by prefilter-premta15.muc1 (Postfix) with ESMTP id F1ADF4E0031
+ for &lt;transports@agglo-saumur.fr&gt;; Wed, 13 Dec 2017 15:09:50 +0000 (U=
+TC)
+Message-ID: &lt;1513177790.ha3dsljxgizc2mjrgq2dkobx@mb.newsletter-autos.fr&=
+gt;
+Feedback-Id: 317:869
+Dkim-Signature: v=3D1; a=3Drsa-sha1; c=3Drelaxed; d=3Dmb.newsletter-autos.f=
+r; h=3Dmessage-id:list-unsubscribe:from:to:reply-to:content-type:subject:co=
+ntent-transfer-encoding:mime-version:date; s=3Dselector1; bh=3DEUgx6DV9EKBU=
+E7bK/ghWzJT4CkE=3D; b=3DqhBtU27k/TVcJsungkq/gOOLjxErfp7Cgs2pH8go5dgUSDPMbFX=
+T1JVKtlXB7/6vE009GkOHQbAYRFN6IKGJZVgdIbdxlzwTQac8s+a5kI9SScW7Fce1XlLtTCLIKN=
+hSACDE1hM4uWi/e9tlqd4UP3iZPRuyEcOJIH+ziFJUh4Q=3D
+List-Unsubscribe: &lt;mailto:ha3dsljxgizc2mjrgq2dkobx@lu.mb.newsletter-auto=
+s.fr&gt;
+Precedence: bulk
+From: =3D?UTF-8?Q?Tati_-_AdM?=3D &lt;newsletter@mb.newsletter-autos.fr&gt;
+To: &lt;transports@agglo-saumur.fr&gt;
+Reply-To: newsletter@mb.newsletter-autos.fr
+Content-Type: multipart/alternative;
+ boundary=3D&quot;_----------=3D_1513177790252370&quot;
+Subject: =3D?UTF-8?Q?Votre_deuxi=3DC3=3DA8me_paire_de_chaussures_=3DC3=3DA0=
+_5_euros?=3D
+MIME-Version: 1.0
+X-Mailer: MIME::Lite 3.030 (F2.85; T2.09; A2.13; B3.14; Q3.13)
+Date: Wed, 13 Dec 2017 16:09:50 +0100
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 11111111
+X-TM-AS-SMTP: 1.0=20
+ UHJlZmlsdGVyLXBvc3RNVEExMC5lbWFpbHNlY3VyaXR5LnRyZW5kbWljcm8uZXU=3D=20
+ aGEzZHNsanhnaXpjMm1qcmdxMmRrb2J4QG1iLm5ld3NsZXR0ZXItYXV0b3MuZnI=3D
+X-TM-AS-ERS: 150.70.236.146-127.2.0.1
+X-TM-AS-Product-Ver: IMSVA-9.1.0.1631-8.2.0.1013-23528.000
+X-TM-AS-Result: No-2.177-5.0-31-10
+X-imss-scan-details: No-2.177-5.0-31-10
+X-TMASE-Version: IMSVA-9.1.0.1631-8.2.1013-23528.000
+X-TMASE-Result: 10-2.176800-10.000000
+X-TMASE-MatchedRID: flB6T5oFUOG9Kv/10f43C2csZoSFOH3NY5tzpc6U41teiZtkAw19jtt=
+n
+ IlAw5OtvJtPtdHb5AVCIRG6EbDQlQDqCio6PxgXRRSjhBTCB4m+YWary0xmPWCFp1qiKhmwCNt=
+m
+ bUiv8JIqCeoACUnt+kUim+3pSpOPvhuxnKU8erYLejs/DUNX6H7DG/SWRjAWTxfqWqTgUDaatv=
+2
+ L8rp8wDnGT6kwYVy/xQr2qXCJMSV98yGO3dvk8/UrRZP/NcCCSr1mTostAo49Ey+L1h9unlhIG=
+V
+ 1AUBgcucX/dhsxYJQmdCtkMrsOtOpkShYcLpGH98gW3ugGq8mL2tny05XshuJO5MheDHerMNid=
++
+ 2TRXuOoeszLHPCQb9Dqf0DtPln4nAAKeQY7XbxWTHH8954RP8PYV+0g4ZB1VWV916O3mRv5iK2=
+z
+ fMUqB7IBnqVrykRvFh80rxgFhR2QJMLs/8/GbekIjuk0uJKN9ZssMASAsm75BOq1LSIbi+5CBC=
+p
+ iPBEnDmxh0gY/o+VkTqkzLw5R0LmPRQPg64rFKFRlN8zTSzj5qRyrZEAcpylprRr3O687j660+=
+D
+ qvfilPfX2sZfyOJoZ4CIKY/Hg3AaZGo0EeYG97zVcS9oBLzOIq6dXL5V9BGaSrMgBAZdKG7BIm=
+x
+ r//NmcUGZ0Kwi4SAIacEPGsrqo8wTtWW0vTRuPIVg5Bxdd7eNOS6tvXJTUWKsCvF32FNi3HikU=
+s
+ KreV0bQqXiWz3lqWI8v6ED7vD28KSUVn8jgTXPFZyMml8HAKjjACJTpCNlcek5YV6H62Cw2Qrx=
+k
+ +1gNDenUDPbTUZ3Bo+vfwNxatwJjn6J820XhunvCfR08Ny/to0vurG59uKhyz+woFnaQVtiYY1=
+M
+ pZUY2cjFnImzvyS
+X-TMASE-SNAP-Result: 1.821001.0001-0-1-12:0,22:0,33:0,34:0,39:0-0
+Return-Path: ha3dsljxgizc2mjrgq2dkobx@mb.newsletter-autos.fr
+</pre>
+</font>
+</body>
+</html>=
+
+--dba03067-b37f-49a1-b483-2ab42a1ec8e7--
+
+--8bffb426-6123-43e5-9dab-20b1585123e2
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns;SRV124.ville-saumur.fr
+Received-From-MTA: dns;mx.ville-saumur.fr
+Arrival-Date: Wed, 13 Dec 2017 15:10:01 +0000
+
+Original-Recipient: rfc822;transports@agglo-saumur.fr
+Final-Recipient: rfc822;transports@agglo-saumur.fr
+Action: failed
+Status: 5.1.1
+Diagnostic-Code: smtp;550 5.1.1 RESOLVER.ADR.RecipNotFound; not found
+
+
+--8bffb426-6123-43e5-9dab-20b1585123e2
+Content-Type: message/rfc822
+
+Received: from SRV124.ville-saumur.fr (10.1.0.124) by SRV124.ville-saumur.fr
+ (10.1.0.124) with Microsoft SMTP Server (TLS) id 15.0.1178.4; Wed, 13 Dec
+ 2017 16:10:01 +0100
+Received: from mx.ville-saumur.fr (10.100.0.27) by SRV124.ville-saumur.fr
+ (10.1.0.124) with Microsoft SMTP Server (TLS) id 15.0.1178.4 via Frontend
+ Transport; Wed, 13 Dec 2017 16:10:01 +0100
+Received: from mx.ville-saumur.fr (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id DDEF1280633
+ for <transports@agglo-saumur.fr>; Wed, 13 Dec 2017 16:10:00 +0100 (CET)
+Received: from imsva82a.ville-saumur.fr (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id AEAB9280631
+ for <transports@agglo-saumur.fr>; Wed, 13 Dec 2017 16:10:00 +0100 (CET)
+Received: from Prefilter-postMTA10.emailsecurity.trendmicro.eu (unknown [150.70.236.146])
+ by imsva82a.ville-saumur.fr (Postfix) with ESMTPS
+ for <transports@agglo-saumur.fr>; Wed, 13 Dec 2017 16:10:00 +0100 (CET)
+Received: from hes.trendmicro.com (unknown [10.36.141.75])
+ by Prefilter-postMTA10.emailsecurity.trendmicro.eu (Postfix) with SMTP id 6B4376C0296
+ for <transports@agglo-saumur.fr>; Wed, 13 Dec 2017 15:10:00 +0000 (UTC)
+Received: from regiesmtp1151-1.odiso.net (unknown [89.248.219.79])
+ by prefilter-premta15.muc1 (Postfix) with ESMTP id F1ADF4E0031
+ for <transports@agglo-saumur.fr>; Wed, 13 Dec 2017 15:09:50 +0000 (UTC)
+Message-ID: <1513177790.ha3dsljxgizc2mjrgq2dkobx@mb.newsletter-autos.fr>
+Feedback-Id: 317:869
+Dkim-Signature: v=1; a=rsa-sha1; c=relaxed; d=mb.newsletter-autos.fr; h=message-id:list-unsubscribe:from:to:reply-to:content-type:subject:content-transfer-encoding:mime-version:date; s=selector1; bh=EUgx6DV9EKBUE7bK/ghWzJT4CkE=; b=qhBtU27k/TVcJsungkq/gOOLjxErfp7Cgs2pH8go5dgUSDPMbFXT1JVKtlXB7/6vE009GkOHQbAYRFN6IKGJZVgdIbdxlzwTQac8s+a5kI9SScW7Fce1XlLtTCLIKNhSACDE1hM4uWi/e9tlqd4UP3iZPRuyEcOJIH+ziFJUh4Q=
+List-Unsubscribe: <mailto:ha3dsljxgizc2mjrgq2dkobx@lu.mb.newsletter-autos.fr>
+Precedence: bulk
+From: =?UTF-8?Q?Tati_-_AdM?= <newsletter@mb.newsletter-autos.fr>
+To: <transports@agglo-saumur.fr>
+Reply-To: <newsletter@mb.newsletter-autos.fr>
+Content-Type: multipart/alternative;
+ boundary="_----------=_1513177790252370"
+Subject: =?UTF-8?Q?Votre_deuxi=C3=A8me_paire_de_chaussures_=C3=A0_5_euros?=
+MIME-Version: 1.0
+X-Mailer: MIME::Lite 3.030 (F2.85; T2.09; A2.13; B3.14; Q3.13)
+Date: Wed, 13 Dec 2017 16:09:50 +0100
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 11111111
+X-TM-AS-SMTP: 1.0 
+ UHJlZmlsdGVyLXBvc3RNVEExMC5lbWFpbHNlY3VyaXR5LnRyZW5kbWljcm8uZXU= 
+ aGEzZHNsanhnaXpjMm1qcmdxMmRrb2J4QG1iLm5ld3NsZXR0ZXItYXV0b3MuZnI=
+X-TM-AS-ERS: 150.70.236.146-127.2.0.1
+X-TM-AS-Product-Ver: IMSVA-9.1.0.1631-8.2.0.1013-23528.000
+X-TM-AS-Result: No-2.177-5.0-31-10
+X-imss-scan-details: No-2.177-5.0-31-10
+X-TMASE-Version: IMSVA-9.1.0.1631-8.2.1013-23528.000
+X-TMASE-Result: 10-2.176800-10.000000
+X-TMASE-MatchedRID: flB6T5oFUOG9Kv/10f43C2csZoSFOH3NY5tzpc6U41teiZtkAw19jttn
+ IlAw5OtvJtPtdHb5AVCIRG6EbDQlQDqCio6PxgXRRSjhBTCB4m+YWary0xmPWCFp1qiKhmwCNtm
+ bUiv8JIqCeoACUnt+kUim+3pSpOPvhuxnKU8erYLejs/DUNX6H7DG/SWRjAWTxfqWqTgUDaatv2
+ L8rp8wDnGT6kwYVy/xQr2qXCJMSV98yGO3dvk8/UrRZP/NcCCSr1mTostAo49Ey+L1h9unlhIGV
+ 1AUBgcucX/dhsxYJQmdCtkMrsOtOpkShYcLpGH98gW3ugGq8mL2tny05XshuJO5MheDHerMNid+
+ 2TRXuOoeszLHPCQb9Dqf0DtPln4nAAKeQY7XbxWTHH8954RP8PYV+0g4ZB1VWV916O3mRv5iK2z
+ fMUqB7IBnqVrykRvFh80rxgFhR2QJMLs/8/GbekIjuk0uJKN9ZssMASAsm75BOq1LSIbi+5CBCp
+ iPBEnDmxh0gY/o+VkTqkzLw5R0LmPRQPg64rFKFRlN8zTSzj5qRyrZEAcpylprRr3O687j660+D
+ qvfilPfX2sZfyOJoZ4CIKY/Hg3AaZGo0EeYG97zVcS9oBLzOIq6dXL5V9BGaSrMgBAZdKG7BImx
+ r//NmcUGZ0Kwi4SAIacEPGsrqo8wTtWW0vTRuPIVg5Bxdd7eNOS6tvXJTUWKsCvF32FNi3HikUs
+ KreV0bQqXiWz3lqWI8v6ED7vD28KSUVn8jgTXPFZyMml8HAKjjACJTpCNlcek5YV6H62Cw2Qrxk
+ +1gNDenUDPbTUZ3Bo+vfwNxatwJjn6J820XhunvCfR08Ny/to0vurG59uKhyz+woFnaQVtiYY1M
+ pZUY2cjFnImzvyS
+X-TMASE-SNAP-Result: 1.821001.0001-0-1-12:0,22:0,33:0,34:0,39:0-0
+Return-Path: ha3dsljxgizc2mjrgq2dkobx@mb.newsletter-autos.fr
+
+--_----------=_1513177790252370
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+
+Si ce message ne s'affiche pas correctement, suivez ce lien http://mirror.m=
+b.newsletter-autos.fr/?e=3Dtransports@agglo-saumur.fr&s=3D722&b=3D869=0D
+News - TATI
+=C2=A0
+
+ FEMME (http://stats.digital-metric.com/stclk/91d444560e56e157dea1bd885dad5=
+ff8/7Tm/49468/5?)=20
+
+HOMME (http://stats.digital-metric.com/stclk/91d444560e56e157dea1bd885dad5f=
+f8/7Tn/49468/6?)=20
+
+ENFANT (http://stats.digital-metric.com/stclk/91d444560e56e157dea1bd885dad5=
+ff8/7To/49468/7?)=20
+
+CHAUSSURES (http://stats.digital-metric.com/stclk/91d444560e56e157dea1bd885=
+dad5ff8/7Tp/49468/8?)=20
+
+MAISON (http://stats.digital-metric.com/stclk/91d444560e56e157dea1bd885dad5=
+ff8/7Tq/49468/9?)=20
+
+MEUBLES (http://stats.digital-metric.com/stclk/91d444560e56e157dea1bd885dad=
+5ff8/7Tr/49468/10?)=20
+
+MARIAGE (http://stats.digital-metric.com/stclk/91d444560e56e157dea1bd885dad=
+5ff8/7Ts/49468/11?)=20
+
+DU 11 AU 13 D=C3=89CEMBRE 2017 MINUIT (http://stats.digital-metric.com/stcl=
+k/91d444560e56e157dea1bd885dad5ff8/7Tt/49468/14?)=20
+ (http://stats.digital-metric.com/stclk/91d444560e56e157dea1bd885dad5ff8/7T=
+t/49468/15?)=20
+
+ (http://stats.digital-metric.com/stclk/91d444560e56e157dea1bd885dad5ff8/7T=
+t/49468/16?)=20
+ (http://stats.digital-metric.com/stclk/91d444560e56e157dea1bd885dad5ff8/7T=
+u/49468/17?)=20
+DEC17
+ (http://stats.digital-metric.com/stclk/91d444560e56e157dea1bd885dad5ff8/7T=
+t/49468/18?)=20
+J'EN PROFITE ! (http://stats.digital-metric.com/stclk/91d444560e56e157dea1b=
+d885dad5ff8/7Tt/49468/19?)=20
+ (http://stats.digital-metric.com/stclk/91d444560e56e157dea1bd885dad5ff8/7T=
+t/49468/20?)=20
+
+ (http://stats.digital-metric.com/stclk/91d444560e56e157dea1bd885dad5ff8/7T=
+t/49468/21?)=20
+ (http://stats.digital-metric.com/stclk/91d444560e56e157dea1bd885dad5ff8/7T=
+u/49468/22?)=20
+ (http://stats.digital-metric.com/stclk/91d444560e56e157dea1bd885dad5ff8/7T=
+v/49468/23?)=20
+ (http://stats.digital-metric.com/stclk/91d444560e56e157dea1bd885dad5ff8/7T=
+v/49468/24?)=20
+ (http://stats.digital-metric.com/stclk/91d444560e56e157dea1bd885dad5ff8/7T=
+v/49468/25?)=20
+
+=20
+=20
+CETTE SEMAINE SUR TATI:
+
+5=E2=82=AC la 2=C3=A8me paire de chaussures pour toute la famille
+
+Profitez-en vite, c'est jusqu'au 13 d=C3=A9cembre 2017 minuit
+
+=20
+
+=20=20
+Offre "1 paire de chaussures achet=C3=A9e, la 2=C3=A8me =C3=A0 5 euros" val=
+able du 11 au 13 d=C3=A9cembre=C2=A0 2017 jusqu'=C3=A0 minuit pour une comm=
+ande r=C3=A9alis=C3=A9e sur le site tati sur une s=C3=A9lection de produits=
+ de la boutique Chaussures identifi=C3=A9s par un pictogramme "5=E2=82=AC l=
+a 2=C3=A8me chaussures". L'article =C3=A0 5 euros est le moins cher des art=
+icles mis au panier de commande. Dans la limite de 4 produits =C3=A0 5=E2=
+=82=AC. Offre non cumulable avec d'autres promotions en cours. Ce code prom=
+otionnel ne peut faire l'objet d'aucun remboursement en esp=C3=A8ces ni d'a=
+ucune contrepartie de quelque nature que ce soit.
+
+
+
+=0D
+Pour vous d=C3=A9sabonner, suivez ce lien http://unsub.mb.newsletter-autos.=
+fr/?e=3Dtransports@agglo-saumur.fr&s=3D722&b=3D869=0D
+
+--_----------=_1513177790252370
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="utf-8"
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.=
+w3.org/TR/html4/loose.dtd">=0D
+<html>=0D
+<head>=0D
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8">=0D
+<META HTTP-EQUIV=3D"imagetoolbar" CONTENT=3D"no">=0D
+<title>News - TATI</title>=0D
+<style type=3D"text/css">=0D
+table {=0D
+border-collapse:collapse;=0D
+}=0D
+</style>=0D
+</head>=0D
+<body bgcolor=3D"#ffffff" text=3D"#3D494B" link=3D"#3D494B" vlink=3D"#3D494=
+B" alink=3D"#3D494B">  <table style=3D"width: 100%;margin:auto;text-align:c=
+enter;font-family:Lucida Grande,Verdana,sans-serif;"><tr><td>Si ce message =
+ne s'affiche pas correctement, <a href=3D"http://t.mb.newsletter-autos.fr/c=
+/?t=3D9ec00f7-1i3-z81-1wk-z5wkq" target=3D"_blank">cliquez-ici</a></td></tr=
+></table>=0D
+<table border=3D"0" align=3D"center" cellpadding=3D"0" cellspacing=3D"0" bg=
+color=3D"#ffffff">=0D
+<tr>=0D
+<td colspan=3D"3" align=3D"center" valign=3D"bottom">=0D
+<table border=3D"0" align=3D"center" cellpadding=3D"0" cellspacing=3D"0" bg=
+color=3D"#ffffff" width=3D"676" height=3D"53">=0D
+<tr>=0D
+<td width=3D"100"><a href=3D"http://t.mb.newsletter-autos.fr/c/?t=3D9ec00f7=
+-1i3-z84-1wk-z5wkq" target=3D"_blank" title=3D"TATI.fr"><img src=3D"http://=
+img.tati.fr/news/advertise_offreboots_20171211/img/tati.jpg" width=3D"76" h=
+eight=3D"53" border=3D"0" style=3D"vertical-align:bottom;" alt=3D"TATI.fr">=
+</a></td>=0D
+<td height=3D"19" valign=3D"bottom" style=3D"font-family: Arial, Helvetica,=
+ sans-serif; font-size: 8px; color: #A2A2A2; vertical-align: bottom;">&nbsp=
+;&nbsp;<a href=3D"http://t.mb.newsletter-autos.fr/c/?t=3D9ec00f7-1i3-z8z-1w=
+k-z5wkq" target=3D"_blank" style=3D"text-decoration:none; color: #A2A2A2;">=
+PARRAINAGE</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href=3D"http://t.mb.newsletter-au=
+tos.fr/c/?t=3D9ec00f7-1i3-z88-1wk-z5wkq" title=3D"" target=3D"_blank" style=
+=3D"text-decoration:none; color: #000000;"><img src=3D"http://img.tati.fr/n=
+ews/advertise_offreboots_20171211/img/carte.jpg" width=3D"33" height=3D"19"=
+ border=3D"0" style=3D"vertical-align:middle;" alt=3D"">&nbsp;&nbsp;D&Eacut=
+e;COUVREZ LA <span style=3D"color: #E4027F;">CARTE TATI</span></a>&nbsp;&nb=
+sp;|&nbsp;&nbsp;<a href=3D"http://t.mb.newsletter-autos.fr/c/?t=3D9ec00f7-1=
+i3-z82-1wk-z5wkq" target=3D"_blank" style=3D"text-decoration:none; color: #=
+A2A2A2;"><img src=3D"http://img.tati.fr/news/advertise_offreboots_20171211/=
+img/magasin.jpg" width=3D"11" height=3D"17" border=3D"0" style=3D"vertical-=
+align:middle;" alt=3D"">&nbsp;&nbsp;TROUVEZ VOTRE MAGASIN</a>=0D
+</td>=0D
+</tr>=0D
+</table>=0D
+<table border=3D"0" align=3D"center" cellpadding=3D"0" cellspacing=3D"0" bg=
+color=3D"#ffffff" width=3D"676" height=3D"15">=0D
+<tr><td height=3D"15">&nbsp;</td></tr>=0D
+</table>=0D
+</td>=0D
+</tr>=0D
+<tr>=0D
+<td align=3D"center" valign=3D"bottom" colspan=3D"3">=0D
+ <table border=3D"0" align=3D"center" cellpadding=3D"0" cellspacing=3D"0" b=
+gcolor=3D"#E3E3E3" width=3D"676" height=3D"25">=0D
+<tr>=0D
+<td align=3D"center" valign=3D"middle" style=3D"padding: 0; vertical-align:=
+ middle;"><a href=3D"http://t.mb.newsletter-autos.fr/c/?t=3D9ec00f7-1i3-z8!=
+-1wk-z5wkq" title=3D"FEMME" target=3D"_blank" style=3D"font-family: Arial, =
+Helvetica, sans-serif; font-size: 14px; color: #000000; font-weight: bold; =
+text-decoration:none;">FEMME</a></td>=0D
+<td width=3D"1" height=3D"31" style=3D"vertical-align: middle;"><img src=3D=
+"http://img.tati.fr/news/advertise_offreboots_20171211/img/menu_sep.jpg" al=
+t=3D"|" width=3D"1" height=3D"31" border=3D"0" /></td>=0D
+<td align=3D"center" valign=3D"middle" style=3D"padding: 0; vertical-align:=
+ middle;"><a href=3D"http://t.mb.newsletter-autos.fr/c/?t=3D9ec00f7-1i3-z89=
+-1wk-z5wkq" title=3D"HOMME" target=3D"_blank" style=3D"font-family:Arial, H=
+elvetica, sans-serif; font-size: 14px; color: #000000; font-weight: bold; t=
+ext-decoration:none;">HOMME</a></td>=0D
+<td width=3D"1" height=3D"31" style=3D"vertical-align: middle;"><img src=3D=
+"http://img.tati.fr/news/advertise_offreboots_20171211/img/menu_sep.jpg" al=
+t=3D"|" width=3D"1" height=3D"31" border=3D"0" /></td>=0D
+<td align=3D"center" valign=3D"middle" style=3D"padding: 0; vertical-align:=
+ middle;"><a href=3D"http://t.mb.newsletter-autos.fr/c/?t=3D9ec00f7-1i3-z8a=
+-1wk-z5wkq" title=3D"ENFANT" target=3D"_blank" style=3D"font-family:Arial, =
+Helvetica, sans-serif; font-size: 14px; color: #000000; font-weight: bold; =
+text-decoration:none;">ENFANT</a></td>=0D
+<td width=3D"1" height=3D"31" style=3D"vertical-align: middle;"><img src=3D=
+"http://img.tati.fr/news/advertise_offreboots_20171211/img/menu_sep.jpg" al=
+t=3D"|" width=3D"1" height=3D"31" border=3D"0" /></td>=0D
+<td align=3D"center" valign=3D"middle" style=3D"padding: 0; vertical-align:=
+ middle;"><a href=3D"http://t.mb.newsletter-autos.fr/c/?t=3D9ec00f7-1i3-z8w=
+-1wk-z5wkq" title=3D"CHAUSSURES" target=3D"_blank" style=3D"font-family:Ari=
+al, Helvetica, sans-serif; font-size: 14px; color: #000000; font-weight: bo=
+ld; text-decoration:none;">CHAUSSURES</a></td>=0D
+<td width=3D"1" height=3D"31" style=3D"vertical-align: middle;"><img src=3D=
+"http://img.tati.fr/news/advertise_offreboots_20171211/img/menu_sep.jpg" al=
+t=3D"|" width=3D"1" height=3D"31" border=3D"0" /></td>=0D
+<td align=3D"center" valign=3D"middle" style=3D"padding: 0; vertical-align:=
+ middle;"><a href=3D"http://t.mb.newsletter-autos.fr/c/?t=3D9ec00f7-1i3-z83=
+-1wk-z5wkq" title=3D"MAISON" target=3D"_blank" style=3D"font-family:Arial, =
+Helvetica, sans-serif; font-size: 14px; color: #000000; font-weight: bold; =
+text-decoration:none;">MAISON</a></td>=0D
+<td width=3D"1" height=3D"31" style=3D"vertical-align: middle;"><img src=3D=
+"http://img.tati.fr/news/advertise_offreboots_20171211/img/menu_sep.jpg" al=
+t=3D"|" width=3D"1" height=3D"31" border=3D"0" /></td>=0D
+<td align=3D"center" valign=3D"middle" style=3D"padding: 0; vertical-align:=
+ middle;"><a href=3D"http://t.mb.newsletter-autos.fr/c/?t=3D9ec00f7-1i3-z8s=
+-1wk-z5wkq" title=3D"MEUBLES" target=3D"_blank" style=3D"font-family:Arial,=
+ Helvetica, sans-serif; font-size: 14px; color: #000000; font-weight: bold;=
+ text-decoration:none;">MEUBLES</a></td>=0D
+<td width=3D"1" height=3D"31" style=3D"vertical-align: middle;"><img src=3D=
+"http://img.tati.fr/news/advertise_offreboots_20171211/img/menu_sep.jpg" al=
+t=3D"|" width=3D"1" height=3D"31" border=3D"0" /></td>=0D
+<td align=3D"center" valign=3D"middle" style=3D"padding: 0; vertical-align:=
+ middle;"><a href=3D"http://t.mb.newsletter-autos.fr/c/?t=3D9ec00f7-1i3-z8f=
+-1wk-z5wkq" title=3D"MARIAGE" target=3D"_blank" style=3D"font-family:Arial,=
+ Helvetica, sans-serif; font-size: 14px; color: #000000; font-weight: bold;=
+ text-decoration:none;">MARIAGE</a></td>=0D
+</tr>=0D
+</table></td>=0D
+ </tr>=0D
+ <tr>=0D
+ <td align=3D"center" valign=3D"bottom">=0D
+<table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" wi=
+dth=3D"778">=0D
+<tr><td align=3D"center" valign=3D"bottom"><a href=3D"http://t.mb.newslette=
+r-autos.fr/c/?t=3D9ec00f7-1i3-z8e-1wk-z5wkq" target=3D"_blank" title=3D"DU =
+11 AU 13 D=C3=89CEMBRE 2017 MINUIT"><img name=3D"visu_01" src=3D"http://img=
+.tati.fr/news/advertise_offreboots_20171211/img/visu_01.jpg" border=3D"0" s=
+tyle=3D"vertical-align:bottom;" width=3D"778" height=3D"31" id=3D"visu_01" =
+alt=3D"DU 11 AU 13 D=C3=89CEMBRE 2017 MINUIT" /></a></td></tr>=0D
+<tr><td align=3D"center" valign=3D"bottom"><table border=3D"0" cellspacing=
+=3D"0" cellpadding=3D"0">=0D
+<tr>=0D
+<td width=3D"213" height=3D"28"><a href=3D"http://t.mb.newsletter-autos.fr/=
+c/?t=3D9ec00f7-1i3-z8q-1wk-z5wkq" target=3D"_blank" title=3D"DU 11 AU 13 D=
+=C3=89CEMBRE 2017 MINUIT"><img name=3D"visu_02" src=3D"http://img.tati.fr/n=
+ews/advertise_offreboots_20171211/img/visu_02.jpg" border=3D"0" style=3D"ve=
+rtical-align:bottom;" width=3D"213" height=3D"28" id=3D"visu_02" alt=3D"DU =
+11 AU 13 D=C3=89CEMBRE 2017 MINUIT" /></a></td>=0D
+<td width=3D"348" height=3D"28" bgcolor=3D"#C2EDF6" align=3D"center" valign=
+=3D"middle"><a href=3D"http://t.mb.newsletter-autos.fr/c/?t=3D9ec00f7-1i3-z=
+80-1wk-z5wkq" target=3D"_blank" title=3D"DU 11 AU 13 D=C3=89CEMBRE 2017 MIN=
+UIT" style=3D"text-decoration:none; font-size:18px;font-family: Arial, Helv=
+etica, sans-serif; display: block; color: #00376A;">DU 11 AU 13 D=C3=89CEMB=
+RE 2017 MINUIT</a></td>=0D
+<td width=3D"217" height=3D"28"><a href=3D"http://t.mb.newsletter-autos.fr/=
+c/?t=3D9ec00f7-1i3-z8i-1wk-z5wkq" target=3D"_blank" title=3D"DU 11 AU 13 D=
+=C3=89CEMBRE 2017 MINUIT"><img name=3D"visu_04" src=3D"http://img.tati.fr/n=
+ews/advertise_offreboots_20171211/img/visu_04.jpg" border=3D"0" style=3D"ve=
+rtical-align:bottom;" width=3D"217" height=3D"28" id=3D"visu_04" alt=3D"DU =
+11 AU 13 D=C3=89CEMBRE 2017 MINUIT" /></a></td>=0D
+</tr>=0D
+</table>=0D
+</td></tr>=0D
+<tr><td align=3D"center" valign=3D"bottom"><a href=3D"http://t.mb.newslette=
+r-autos.fr/c/?t=3D9ec00f7-1i3-z8k-1wk-z5wkq" target=3D"_blank" title=3D"5=
+=E2=82=AC LA 2EME PAIRE DE CHAUSSURES SUR LA S=C3=89LECTION IDENTIFI=C3=89E=
+"><img name=3D"visu_05" src=3D"http://img.tati.fr/news/advertise_offreboots=
+_20171211/img/visu_05.jpg" border=3D"0" style=3D"vertical-align:bottom;" wi=
+dth=3D"778" height=3D"465" id=3D"visu_05" alt=3D"5=E2=82=AC LA 2EME PAIRE D=
+E CHAUSSURES SUR LA S=C3=89LECTION IDENTIFI=C3=89E" /></a></td></tr>=0D
+<tr><td align=3D"center" valign=3D"bottom"><table width=3D"0%" border=3D"0"=
+ cellspacing=3D"0" cellpadding=3D"0">=0D
+<tr>=0D
+<td width=3D"205" height=3D"40"><a href=3D"http://t.mb.newsletter-autos.fr/=
+c/?t=3D9ec00f7-1i3-z21-1wk-z5wkq" target=3D"_blank" title=3D"Avec le code p=
+romo:"><img name=3D"visu_06" src=3D"http://img.tati.fr/news/advertise_offre=
+boots_20171211/img/visu_06.jpg" border=3D"0" style=3D"vertical-align:bottom=
+;" width=3D"205" height=3D"40" id=3D"visu_06" alt=3D"Avec le code promo:" /=
+></a></td>=0D
+<td width=3D"110" height=3D"40" align=3D"center" valign=3D"middle" style=3D=
+"font-family: Arial, Helvetica, sans-serif; text-decoration: none; color: #=
+EF018D; font-size: 28px;">DEC17</td>=0D
+<td width=3D"137" height=3D"40"><a href=3D"http://t.mb.newsletter-autos.fr/=
+c/?t=3D9ec00f7-1i3-z85-1wk-z5wkq" target=3D"_blank" title=3D"J'EN PROFITE !=
+"><img name=3D"visu_08" src=3D"http://img.tati.fr/news/advertise_offreboots=
+_20171211/img/visu_08.jpg" border=3D"0" style=3D"vertical-align:bottom;" wi=
+dth=3D"137" height=3D"40" id=3D"visu_08" alt=3D"J'EN PROFITE !" /></a>=0D
+</td>=0D
+<td width=3D"238" height=3D"40" align=3D"center" valign=3D"middle" bgcolor=
+=3D"#EF018D"><a href=3D"http://t.mb.newsletter-autos.fr/c/?t=3D9ec00f7-1i3-=
+z8l-1wk-z5wkq" target=3D"_blank" title=3D"J'EN PROFITE !" style=3D"text-dec=
+oration:none; font-size:20px;font-family: Arial, Helvetica, sans-serif; dis=
+play: block; color: #fff;" ><strong>J'EN PROFITE !</strong></a>=0D
+</td>=0D
+<td width=3D"88" height=3D"40"><a href=3D"http://t.mb.newsletter-autos.fr/c=
+/?t=3D9ec00f7-1i3-z8m-1wk-z5wkq" target=3D"_blank" title=3D"J'EN PROFITE !"=
+><img name=3D"visu_11" src=3D"http://img.tati.fr/news/advertise_offreboots_=
+20171211/img/visu_11.jpg" border=3D"0" style=3D"vertical-align:bottom;" wid=
+th=3D"88" height=3D"40" id=3D"visu_11" alt=3D"J'EN PROFITE !" /></a></td>=0D
+</tr>=0D
+</table>=0D
+</td></tr>=0D
+<tr><td align=3D"center" valign=3D"bottom"><a href=3D"http://t.mb.newslette=
+r-autos.fr/c/?t=3D9ec00f7-1i3-z2x-1wk-z5wkq" target=3D"_blank" title=3D"J'E=
+N PROFITE !"><img name=3D"visu_12" src=3D"http://img.tati.fr/news/advertise=
+_offreboots_20171211/img/visu_12.jpg" border=3D"0" style=3D"vertical-align:=
+bottom;" width=3D"778" height=3D"20" id=3D"visu_12" alt=3D"J'EN PROFITE !" =
+/></a></td></tr>=0D
+<tr><td align=3D"center" valign=3D"bottom"><a href=3D"http://t.mb.newslette=
+r-autos.fr/c/?t=3D9ec00f7-1i3-z2c-1wk-z5wkq" target=3D"_blank" title=3D"LES=
+ TOPS PRODUITS TATI"><img name=3D"visu_13" src=3D"http://img.tati.fr/news/a=
+dvertise_offreboots_20171211/img/visu_13.jpg" border=3D"0" style=3D"vertica=
+l-align:bottom;" width=3D"778" height=3D"45" id=3D"visu_13" alt=3D"LES TOPS=
+ PRODUITS TATI" /></a></td></tr>=0D
+<tr><td align=3D"center" valign=3D"bottom">=0D
+<table cellpadding=3D"0" cellspacing=3D"0" align=3D"center">=0D
+<tr>=0D
+<td>=0D
+<a href=3D"http://t.mb.newsletter-autos.fr/c/?t=3D9ec00f7-1i3-z24-1wk-z5wkq=
+" target=3D"_blank" title=3D"BOTTES FEMME"><img name=3D"visu_14" src=3D"htt=
+p://img.tati.fr/news/advertise_offreboots_20171211/img/visu_14.jpg" border=
+=3D"0" style=3D"vertical-align:bottom;" width=3D"269" height=3D"243" id=3D"=
+visu_14" alt=3D"BOTTES FEMME" /></a>=0D
+</td>=0D
+<td>=0D
+<a href=3D"http://t.mb.newsletter-autos.fr/c/?t=3D9ec00f7-1i3-z2z-1wk-z5wkq=
+" target=3D"_blank" title=3D"BOOTS FEMME"><img name=3D"visu_15" src=3D"http=
+://img.tati.fr/news/advertise_offreboots_20171211/img/visu_15.jpg" border=
+=3D"0" style=3D"vertical-align:bottom;" width=3D"244" height=3D"243" id=3D"=
+visu_15" alt=3D"BOOTS FEMME" /></a>=0D
+</td>=0D
+<td>=0D
+<a href=3D"http://t.mb.newsletter-autos.fr/c/?t=3D9ec00f7-1i3-z28-1wk-z5wkq=
+" target=3D"_blank" title=3D"BOTTES FILLE"><img name=3D"visu_16" src=3D"htt=
+p://img.tati.fr/news/advertise_offreboots_20171211/img/visu_16.jpg" border=
+=3D"0" style=3D"vertical-align:bottom;" width=3D"265" height=3D"243" id=3D"=
+visu_16" alt=3D"BOTTES FILLE" /></a>=0D
+</td>=0D
+</tr>=0D
+</table>=0D
+</td></tr>=0D
+</table>=0D
+ </td>=0D
+ </tr>=0D
+<tr>=0D
+<td align=3D"center">=0D
+<table cellpadding=3D"0" cellspacing=3D"0" width=3D"676" style=3D"border-ri=
+ght:1px solid #DADADA;border-bottom:1px solid #DADADA;border-left:1px solid=
+ #DADADA;">=0D
+<tr>=0D
+<td align=3D"center" valign=3D"top" style=3D"font-family:Arial, Helvetica, =
+sans-serif;font-size:12px;color:#010101;"><span style=3D"color:#EB2A97;font=
+-size:14px;"><strong><br>CETTE SEMAINE SUR TATI:</a></strong></span><br /><=
+br />=0D
+<strong>5=E2=82=AC la 2=C3=A8me paire de chaussures pour toute la famille</=
+strong><br/><br/>=0D
+<strong>Profitez-en vite, c'est jusqu'au 13 d=C3=A9cembre 2017 minuit</stro=
+ng><br />=0D
+<br />=0D
+ </td></tr>=0D
+</table>=0D
+</td>=0D
+ </tr>=0D
+ <tr>=0D
+<td align=3D"center">=0D
+<table cellpadding=3D"0" cellspacing=3D"0" width=3D"676" style=3D"">=0D
+<tr>=0D
+<td align=3D"justify" valign=3D"top" style=3D"font-family:Arial, Helvetica,=
+ sans-serif;font-size:11px;color:#3C3C3C;"><br>Offre &quot;1 paire de chaus=
+sures achet&eacute;e, la 2&egrave;me &agrave; 5 euros&quot; valable du 11 a=
+u 13 d&eacute;cembre&nbsp; 2017 jusqu'&agrave; minuit pour une commande r&e=
+acute;alis&eacute;e sur le site tati sur une s&eacute;lection de produits d=
+e la boutique Chaussures identifi&eacute;s par un pictogramme &quot;5&euro;=
+ la 2&egrave;me chaussures&quot;. L'article &agrave; 5 euros est le moins c=
+her des articles mis au panier de commande. Dans la limite de 4 produits &a=
+grave; 5&euro;. Offre non cumulable avec d'autres promotions en cours. Ce c=
+ode promotionnel ne peut faire l'objet d'aucun remboursement en esp&egrave;=
+ces ni d'aucune contrepartie de quelque nature que ce soit.<br><br></td></t=
+r>=0D
+</table>=0D
+</td>=0D
+</tr>=0D
+</table>=0D
+<img src=3D"http://stats.digital-metric.com/stcvw/91d444560e56e157dea1bd885=
+dad5ff8/49468" alt=3D"" width=3D"1" height=3D"1" /> <table style=3D"width: =
+100%;margin:auto;text-align:center;font-family:Lucida Grande,Verdana,sans-s=
+erif;"><tr><td>Pour vous d=C3=A9sabonner, <a href=3D"http://t.mb.newsletter=
+-autos.fr/c/?t=3D9ec00f7-1i3-z8c-1wk-z5wkq" target=3D"_blank">cliquez-ici</=
+a></td></tr></table>  <img src=3D"http://t.mb.newsletter-autos.fr/o/?t=3D1i=
+3-1wk-z5wkq" width=3D"1" height=3D"1" alt=3D""/> </body>=0D
+</html>=
+
+--_----------=_1513177790252370--
+
+--8bffb426-6123-43e5-9dab-20b1585123e2--
+
