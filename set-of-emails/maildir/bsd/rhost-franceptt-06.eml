@@ -1,0 +1,100 @@
+Return-Path: <>
+X-Original-To: xxxx@xxxx.fr
+Delivered-To: xxxx@xxxx.xxxx.net
+Received: by xxxx.xxxx.net (Postfix)
+	id E1A613286A2; Tue, 17 Dec 2019 10:13:17 +0100 (CET)
+Delivered-To: xxxx@xxxx.odiso.net
+Received: from xxxx.xxxx.net (unknown [10.0.0.1])
+	by xxxx.xxxx.net (Postfix) with ESMTP id E048632869C
+	for <xxxx@xxxx.fr>; Tue, 17 Dec 2019 10:13:17 +0100 (CET)
+Received: by xxxx.xxxx.net (Postfix)
+	id DEAF61BDC61DB; Tue, 17 Dec 2019 10:13:17 +0100 (CET)
+Date: Tue, 17 Dec 2019 10:13:17 +0100 (CET)
+From: MAILER-DAEMON@xxxx.xxxx.net (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: xxxx@xxxx.fr
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="3E2481BC80849.1576573997/xxxx.xxxx.net"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20191217091317.xxxx@xxxx.xxxx.net>
+
+This is a MIME-encapsulated message.
+
+--3E2481BC80849.1576573997/xxxx.xxxx.net
+Content-Description: Notification
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+This is the mail system at host xxxx.xxxx.net.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<xxxx@orange.fr>: host smtp-in.orange.fr[193.252.22.65] refused to
+    talk to me: 550 mwinf5c04 ME Adresse IP source bloquee pour incident de
+    spam. Client host blocked for spamming issues. OFR006_102 Ref
+    http://csi.cloudmark.com/reset-request/?ip=10.0.0.1 [102]
+
+--3E2481BC80849.1576573997/xxxx.xxxx.net
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; xxxx.xxxx.net
+X-Postfix-Queue-ID: 3E2481BC80849
+X-Postfix-Sender: rfc822; xxxx@xxxx.fr
+Arrival-Date: Mon, 16 Dec 2019 22:00:18 +0100 (CET)
+
+Final-Recipient: rfc822; xxxx@orange.fr
+Original-Recipient: rfc822;xxxx@orange.fr
+Action: failed
+Status: 4.0.0
+Remote-MTA: dns; smtp-in.orange.fr
+Diagnostic-Code: smtp; 550 mwinf5c04 ME Adresse IP source bloquee pour incident
+    de spam. Client host blocked for spamming issues. OFR006_102 Ref
+    http://csi.cloudmark.com/reset-request/?ip=10.0.0.1 [102]
+
+--3E2481BC80849.1576573997/xxxx.xxxx.net
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 8bit
+
+Return-Path: <xxxx@xxxx.fr>
+Message-Id: <1576530018.xxxxx@xxxx.fr>
+Feedback-Id: 807:1400
+Precedence: bulk
+From: <xxxx@xxxx.fr>
+To: xxxxx@orange.fr
+Content-Type: multipart/alternative; boundary="_----------=_1576530018239330"
+Subject: xxxxx
+Content-Transfer-Encoding: binary
+MIME-Version: 1.0
+Date: Mon, 16 Dec 2019 22:00:18 +0100
+
+This is a multi-part message in MIME format.
+
+--_----------=_1576530018239330
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+
+xxxxx
+
+--_----------=_1576530018239330
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=utf-8
+
+xxxxx
+
+--_----------=_1576530018239330--
+
+--3E2481BC80849.1576573997/xxxxx.odiso.net--
