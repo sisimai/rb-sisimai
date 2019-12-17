@@ -1,0 +1,66 @@
+Return-Path: <>
+From: "Mail Delivery System" <mailer-daemon@kundenserver.de>
+To: xxxx@xxxx.fr
+Subject: Mail delivery failed: returning message to sender
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-UI-Out-Filterresults: unknown:0;V03:K0:Kcn/zdAZw0Y=:T7VNfNUTHnyf4qzwjmCtIA
+ ==
+
+This message was created automatically by mail delivery software.
+
+A message that you sent could not be delivered to one or more of
+its recipients. This is a permanent error. The following address(es)
+failed:
+
+xxxx@xxxx.fr:
+SMTP error from remote server for TEXT command, host: smtp-in.orange.fr (193.252.22.65) reason: 550 5.2.0 Mail rejete. Mail rejected. ofr_506 [506]
+
+
+
+--- The header of the original message is following. ---
+
+Received: from [212.227.15.41] ([212.227.15.41]) by mx.kundenserver.de
+ (mxeue010 [212.227.15.41]) with ESMTP (Nemesis) id 1MQvwN-1iJ0J61sAR-00O9vb
+ for <xxxx@xxxxx.fr>; Mon, 16 Dec 2019 14:22:07 +0100
+Received: from regiesmtp1792-2.odiso.net ([185.251.132.146]) by
+ mx.kundenserver.de (mxeue010 [212.227.15.41]) with ESMTP (Nemesis) id
+ 1MOBJp-1iMreo1s6L-00OhMP for <xxxx@xxxx.com>; Mon, 16 Dec 2019 14:22:07
+ +0100
+Message-Id: <1576497267.@xxxx.xxxx>
+Feedback-Id: 22:1693
+Precedence: bulk
+From: <xxxx@xxxx.fr>
+To: xxxx@xxxx.com
+Reply-To: <xxxxx@xxxx.fr>
+Content-Type: text/html; charset=utf-8
+Subject: xxxxxx
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Date: Mon, 16 Dec 2019 12:54:27 +0100
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:bNR20cJ6slw=:420XAXjcgAf15+npPybzpF
+ kCV+AJjbiKSMG3sAhI9YjJfQ8gB/i66pY1cU7g3Rz+By/+na6v7UbFidb17A8ug8KeOMFyHza
+ tJ8DfnOPaq+jEWytlpOQ+xzTRIYersZFYLsATQQGU+IFqs5ftFir5JllSf2rvkAuUOqGdh94P
+ okuFRqflpoKOw0ChfgwNzgW/UYsdHoZL/JRzR24NnoeoTnIp8oWstELobGnLrT3CJeOesuGW/
+ 4lpi0xouFF5woDYUE2zVuBHKNteM5U6sqLgL/S4+tIj62V9exm0Z4woutbQBBrdmDn945Q+MU
+ XoFQtVuDxiZUYTLpCRbUHzCL9R9dYdClzbR2VVWTxjmpMNEsFcIn1mqkU8N+wroz3u8YC2R8h
+ s8j7gLFDx3kx8xL5b7yoyaj/KyHWf2DfyBA/qfQrjeCgm9Jz+CWrq6IyyjdAI/Eu+21ahc6og
+ W0QsYKrdDJKNPMEm3WCzX09sfKTgUYzfVzttRl2xU7cJxW2mv194qzDWr2fQSIuntnM6MN2NQ
+ skoPfZFkFr8v9hlyIuIr7zfsqGeRBscmpvh2NVqg0LOTvQnZBDUNrPtmoROX0dviHfKUVG+UT
+ FwVv6XuJyqcUlcTrS7CLg8Jo7mpy+67Mys0+RRA+Iw6D9J0HnH24ktG57c7whPI0jpLDXE8o2
+ njmUJpmJPpBLcNllcuXQntI1pShnl0rG6ILvXcTi5nZ7EU2WbzgWzoE3ZbSWu4cwYywz5e4nw
+ 8USo8EZhGbwwyoPs2UojquXB7tRtMPFoIr17c1+KU6BEw3xNhhrakrXElxaYgqhpU1JxUtiEA
+ eIjbL1XPkzDX/HjEDG0qwUBxN16BVZvV1l/st3lhDfgRSAqbnEU3EEyqkER3RwPTJszRoh/u8
+ LIlXhSswmJG2A/OqhbVnyZAsr+UX/TAi6aEFcfjzy89NTKR6qhhlC97kca4dRA81VFI3dYjBg
+ rv421zHHGAymgpixtDXlcv67B+XqQWtEnKU5naxGZK+8nglSKjCemO5jCe5duETtLLBMtblE9
+ IGhQs23v8JQBc+gfqBXRcLcrt6NCcHI2JLr6EPWCmhFW9ftVDn0P8W12dnwdrIfQ6gP744Fe5
+ EAi4HFGFkQMBKs4zI9VMbu0gIwut7QsZzS7lzpOcZgQzeTF+X2RsyhWXjFkfrXq2MwsuldC48
+ O6g42PJkE6z1jlt+7Vg+r2xDyybq6dubLUzxgQyGUJ295sFKI3A3igccSUN8pz5ZNdGmxUShs
+ wugaqOcxx2ekbo1Sr8agWIYuTYkC3OGu6CerZDS/LdbQpNywpWtvGreFKmYbuqYEzazY1WT5J
+ qpMi1jdgw+iEv0f9FLeUDxIxLI7PNSeQnoVGksGQvWmiWkkaknQ=
+
+
