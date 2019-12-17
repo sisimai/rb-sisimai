@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.4p1
+v4.25.4p2
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -12,6 +12,15 @@ v4.25.4p1
     or not at `Sisimai::Lhost::Office365`
   - Import Pull-Request sisimai/p5-Sisimai#342. Fix parser code to get an error
     message which is not beginning with # character at Exchange2007.
+  - Support case insensitive error code at `Sisimai::Rhost::FrancePTT`, import
+    from sisimai/p5-Sisimai#347
+  - Code improvement at `Sisimai::Lhost::EinsUndEins` for detecting errors and
+    setting the value of `rhost`, import from sisimai/p5-Sisimai#348
+  - Import Pull-Request from sisimai/p5-Sisimai#349, Add 2 error code values at
+    `Sisimai::Rhost::FrancePTT`, add 3 sample emails into set-of-emails/ dir:
+    rhost-franceptt-04.eml, 05, and 06.
+  - Code improvement at `Sisimai::Lhost::Postfix` for setting `HELO` into the
+    value of `smtpcommand` in the parsed results. import sisimai/p5-Sisimai#350
 
 v4.25.4
 --------------------------------------------------------------------------------
