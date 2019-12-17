@@ -9,6 +9,9 @@ describe Sisimai::Rhost::FrancePTT do
     '01' => { 'status' => %r/\A5[.]1[.]1\z/, 'reason' => %r/userunknown/ },
     '02' => { 'status' => %r/\A5[.]5[.]0\z/, 'reason' => %r/userunknown/ },
     '03' => { 'status' => %r/\A5[.]2[.]0\z/, 'reason' => %r/spamdetected/ },
+    '04' => { 'status' => %r/\A5[.]2[.]0\z/, 'reason' => %r/spamdetected/ },
+    '05' => { 'status' => %r/\A5[.]5[.]0\z/, 'reason' => %r/suspend/ },
+    '06' => { 'status' => %r/\A4[.]0[.]0\z/, 'reason' => %r/blocked/ },
   }
   describe 'bounce mail from FrancePTT' do
     rs.each_key.each do |n|
@@ -28,15 +31,15 @@ describe Sisimai::Rhost::FrancePTT do
         it('has From line in "from" accessor' ) { expect(mesg.from.size).to be > 0 }
 
         mesg.ds.each do |e|
-          example('spec is a String') { expect(e['spec']).to be_a ::String }
+          example('Key "spec" exists') { expect(e.has_key?('spec')).to be true }
           example 'recipient is email address' do
             expect(e['recipient']).to match(/\A.+[@].+[.].+\z/)
           end
           example('status is DSN') { expect(e['status']).to match(/\A\d[.]\d[.]\d\z/) }
           example('command is SMTP command') { expect(e['command']).to match(/\A[A-Z]{4}\z/) }
-          example('date is a String') { expect(e['date']).to be_a ::String }
+          example('Key "date" exists') { expect(e.has_key?('date')).to be true }
           example('diagnosis is not empty') { expect(e['diagnosis']).not_to be_empty }
-          example('action is a String') { expect(e['action']).to be_a ::String }
+          example('Key "action" exists') { expect(e.has_key?('action')).to be true }
           example('rhost is ' + e['rhost']) { expect(e['rhost']).to match(mtahost) }
           example('alias exists') { expect(e.key?('alias')).to be true }
           example('agent matches Email::*') { expect(e['agent']).to match(/\AEmail::.+/) }

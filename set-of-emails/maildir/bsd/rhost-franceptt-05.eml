@@ -1,0 +1,96 @@
+Return-Path: <>
+Delivered-To: xxxx@xxxx.net
+Received: by xxxx.net (Postfix)
+	id EF1C23286A2; Tue, 17 Dec 2019 08:13:44 +0100 (CET)
+Delivered-To: xxxx@xxxx.net
+Received: from xxxx.net (unknown [10.0.0.1])
+	by xxxx.xxxx.net (Postfix) with ESMTP id EDDC032869C
+	for <xxxx@xxxx.com>; Tue, 17 Dec 2019 08:13:44 +0100 (CET)
+Received: by xxxx.xxxx.net (Postfix)
+	id EC450123FF328; Tue, 17 Dec 2019 08:13:44 +0100 (CET)
+Date: Tue, 17 Dec 2019 08:13:44 +0100 (CET)
+From: MAILER-DAEMON@xxxx.xxxx.net (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: xxxx@xxxx.com
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="C56F3123FEEAF.1576566824/xxxx.xxxx.net"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20191217071344.EC450123FF328@xxxx.xxxx.net>
+
+This is a MIME-encapsulated message.
+
+--C56F3123FEEAF.1576566824/xxxx.xxxx.net
+Content-Description: Notification
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+This is the mail system at host xxxx.xxxx.net.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<xxxx@laposte.net>: host smtpz4.laposte.net[194.117.213.1] said: 550
+    5.5.0 Le compte du destinataire est bloque. The recipient account is
+    blocked. LPN007_426 (in reply to RCPT TO command)
+
+--C56F3123FEEAF.1576566824/xxxx.xxxx.net
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; xxxx.xxxx.net
+X-Postfix-Queue-ID: C56F3123FEEAF
+X-Postfix-Sender: rfc822; xxxx@xxxx.com
+Arrival-Date: Tue, 17 Dec 2019 08:13:41 +0100 (CET)
+
+Final-Recipient: rfc822; xxxx@laposte.net
+Original-Recipient: rfc822;xxxx@laposte.net
+Action: failed
+Status: 5.5.0
+Remote-MTA: dns; smtpz4.laposte.net
+Diagnostic-Code: smtp; 550 5.5.0 Le compte du destinataire est bloque. The
+    recipient account is blocked. LPN007_426
+
+--C56F3123FEEAF.1576566824/xxxx.xxxx.net
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 8bit
+
+Return-Path: <xxxx@xxxx.com>
+Message-Id: <1576566821.xxxx@xxxx.com>
+Feedback-Id: 4214:504
+Precedence: bulk
+From: <xxxx@xxxx.com>
+To: xxxx@laposte.net
+Content-Type: multipart/alternative; boundary="_----------=_157656682151791"
+Subject: xxxxx
+Content-Transfer-Encoding: binary
+MIME-Version: 1.0
+Date: Tue, 17 Dec 2019 08:13:41 +0100
+
+This is a multi-part message in MIME format.
+
+--_----------=_157656682151791
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+
+xxxxx
+--_----------=_157656682151791
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=utf-8
+
+xxxxx
+
+--_----------=_157656682151791--
+
+--C56F3123FEEAF.1576566824/xxxx.xxxx.net--

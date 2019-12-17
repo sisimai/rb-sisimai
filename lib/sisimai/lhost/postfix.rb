@@ -204,9 +204,6 @@ module Sisimai::Lhost
           e['lhost'] ||= permessage['rhost']
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
 
-          e['agent']   = self.smtpagent
-          e['command'] = commandset.shift || ''
-
           if anotherset['diagnosis']
             # Copy alternative error message
             e['diagnosis'] = anotherset['diagnosis'] unless e['diagnosis']
@@ -247,7 +244,10 @@ module Sisimai::Lhost
           end
 
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+          e['command']   = commandset.shift || nil
+          e['command'] ||= 'HELO' if e['diagnosis'] =~ /refused to talk to me:/
           e['spec']    ||= 'SMTP' if e['diagnosis'] =~ /host .+ said:/
+          e['agent']     = self.smtpagent
           e.each_key { |a| e[a] ||= '' }
         end
 

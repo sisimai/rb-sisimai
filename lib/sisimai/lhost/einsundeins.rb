@@ -95,16 +95,39 @@ module Sisimai::Lhost
               # For the following reason:
               v['diagnosis'] = e
             else
-              # Get error message and append error message strings
-              v['diagnosis'] << ' ' << e if v['diagnosis']
+              if v['diagnosis']
+                # Get error message and append error message strings
+                v['diagnosis'] << ' ' << e
+              else
+                # OR the following format:
+                #   neko@example.fr:
+                #   SMTP error from remote server for TEXT command, host: ...
+                v['alterrors'] ||= ''
+                v['alterrors'] << ' ' << e
+              end
             end
           end
         end
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          e['agent']     = self.smtpagent
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].to_s.gsub(/\A#{StartingOf[:error][0]}/, ''))
+          e['agent']       = self.smtpagent
+          e['diagnosis'] ||= ''
+          e['diagnosis']   = e['alterrors'] if e['diagnosis'].empty?
+
+          if cv = e['diagnosis'].match(/host:[ ]+(.+?)[ ]+.+[ ]+reason:.+/)
+            # SMTP error from remote server for TEXT command,
+            #   host: smtp-in.orange.fr (193.252.22.65)
+            #   reason: 550 5.2.0 Mail rejete. Mail rejected. ofr_506 [506]
+            e['rhost']   = cv[1]
+            e['command'] = 'DATA' if e['diagnosis'] =~ /for TEXT command/
+            e['spec']    = 'SMTP' if e['diagnosis'] =~ /SMTP error/
+            e['status']  = Sisimai::SMTP::Status.find(e['diagnosis'])
+          else
+            # For the following reason:
+            e['diagnosis'].gsub(/\A#{StartingOf[:error][0]}/, '')
+          end
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
