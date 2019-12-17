@@ -10,6 +10,8 @@ describe Sisimai::Rhost::FrancePTT do
     '02' => { 'status' => %r/\A5[.]5[.]0\z/, 'reason' => %r/userunknown/ },
     '03' => { 'status' => %r/\A5[.]2[.]0\z/, 'reason' => %r/spamdetected/ },
     '04' => { 'status' => %r/\A5[.]2[.]0\z/, 'reason' => %r/spamdetected/ },
+    '05' => { 'status' => %r/\A5[.]5[.]0\z/, 'reason' => %r/suspend/ },
+    '06' => { 'status' => %r/\A4[.]0[.]0\z/, 'reason' => %r/blocked/ },
   }
   describe 'bounce mail from FrancePTT' do
     rs.each_key.each do |n|
