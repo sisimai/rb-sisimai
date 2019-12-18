@@ -10,6 +10,7 @@ module Sisimai
         'auto-submitted' => %r/\Aauto-(?:generated|replied|notified)/,
         # https://msdn.microsoft.com/en-us/library/ee219609(v=exchg.80).aspx
         'x-auto-response-suppress' => %r/(?:oof|autoreply)/,
+        'x-apple-action' => %r/\Avacation\z/,
         'precedence' => %r/\Aauto_reply\z/,
         'subject' => %r/\A(?>
              auto:
@@ -39,7 +40,7 @@ module Sisimai
 
       def description; 'Detector for auto replied message'; end
       def smtpagent;   'RFC3834'; end
-      def headerlist;  return %w[auto-submitted precedence x-auto-response-suppress]; end
+      def headerlist;  return %w[auto-submitted precedence x-auto-response-suppress x-apple-action]; end
 
       # Detect auto reply message as RFC3834
       # @param         [Hash] mhead       Message header of a bounce email
