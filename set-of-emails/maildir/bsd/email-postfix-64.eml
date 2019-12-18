@@ -1,0 +1,96 @@
+Return-Path: <>
+X-Original-To: xxxx@nxxx.com
+Delivered-To: xxxx@xxxx.xxxx.net
+Received: by xxxx.xxxx.net (Postfix)
+	id 5963029668; Tue, 17 Dec 2019 03:52:24 +0100 (CET)
+Delivered-To: xxxx@xxxx.xxxx.net
+Received: from xxxx.xxxx.net (unknown [10.0.0.1])
+	by xxxx.odiso.net (Postfix) with ESMTP id 5880E2966A
+	for <xxxx@xxxx.xxxx.fr>; Tue, 17 Dec 2019 03:52:24 +0100 (CET)
+Received: by xxxx.xxxx.net (Postfix)
+	id C55BA4339902; Tue, 17 Dec 2019 02:58:51 +0100 (CET)
+Date: Tue, 17 Dec 2019 02:58:51 +0100 (CET)
+From: MAILER-DAEMON@regiesmtp454.odiso.net (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: xxxx@xxxx.fr
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="B1C79423C925.1576547931/xxxx.xxxx.net"
+Content-Transfer-Encoding: 8bit
+Message-Id: <xxxx@xxxx.odiso.net>
+
+This is a MIME-encapsulated message.
+
+--B1C79423C925.1576547931/xxxx.xxxx.net
+Content-Description: Notification
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+This is the mail system at host xxxx.xxxx.net.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+	--- Delivery report unavailable ---
+
+--B1C79423C925.1576547931/xxxx.xxxx.net
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; xxxx.xxxx.net
+X-Postfix-Queue-ID: B1C79423C925
+X-Postfix-Sender: rfc822; xxxx@xxxx.fr
+Arrival-Date: Mon, 16 Dec 2019 14:12:15 +0100 (CET)
+
+--B1C79423C925.1576547931/xxxx.xxxx.net
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 8bit
+
+Return-Path: <xxxx@xxxx.fr>
+Message-Id: <1576501935.xxxx@xxxx.fr>
+Feedback-Id: 10345:200
+Precedence: bulk
+From: <xxxx@xxxx.fr>
+To: xxxx@wanadoo.fr
+Reply-To: xxxx@xxxx.fr
+Content-Type: multipart/alternative; boundary="_----------=_1576501935191290"
+Subject: xxxx
+Content-Transfer-Encoding: binary
+MIME-Version: 1.0
+Date: Mon, 16 Dec 2019 14:12:15 +0100
+
+This is a multi-part message in MIME format.
+
+--_----------=_1576501935191290
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+
+=0D
+=0D
+
+=0D
+
+--_----------=_1576501935191290
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=utf-8
+
+=0D
+ =0D
+  =0D
+ =0D
+
+
+--_----------=_1576501935191290--
+
+--B1C79423C925.1576547931/regiesmtp454.odiso.net--
