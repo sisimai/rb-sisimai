@@ -54,6 +54,7 @@ isexpected = [
   { 'n' => '61', 's' => /\A5[.]0[.]0\z/,   'r' => /suspend/,       'b' => /\A1\z/ },
   { 'n' => '62', 's' => /\A5[.]0[.]0\z/,   'r' => /virusdetected/, 'b' => /\A1\z/ },
   { 'n' => '63', 's' => /\A5[.]2[.]2\z/,   'r' => /mailboxfull/,   'b' => /\A1\z/ },
+  { 'n' => '64', 's' => /\A5[.]0[.]\d+\z/, 'r' => /undefined/,     'b' => /\A1\z/ },
 ]
 Sisimai::Lhost::Code.maketest(enginename, isexpected)
 

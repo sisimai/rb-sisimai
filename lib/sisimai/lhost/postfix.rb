@@ -28,6 +28,7 @@ module Sisimai::Lhost
             )
           )
         }x,
+        # :from => %r/ [(]Mail Delivery System[)]\z/,
       }.freeze
 
       def description; return 'Postfix'; end
@@ -46,10 +47,10 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
-        # :from => %r/ [(]Mail Delivery System[)]\z/,
         return nil unless mhead['subject'] == 'Undelivered Mail Returned to Sender'
 
         require 'sisimai/rfc1894'
+        require 'sisimai/address'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         permessage = {}     # (Hash) Store values of each Per-Message field
 
@@ -60,6 +61,7 @@ module Sisimai::Lhost
         blanklines = 0      # (Integer) The number of blank lines
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
+        nomessages = false  # (Boolean) Delivery report unavailable
         commandset = []     # (Array) ``in reply to * command'' list
         anotherset = {}     # Another error information
         v = nil
@@ -164,37 +166,59 @@ module Sisimai::Lhost
                   anotherset['diagnosis'] << ' ' << e
 
                 else
-                    # Alternative error message and recipient
-                    if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>] [(]expanded from [<](.+)[>][)]:[ \t]*(.+)\z/)
-                      # <r@example.ne.jp> (expanded from <kijitora@example.org>): user ...
-                      anotherset['recipient'] = cv[1]
-                      anotherset['alias']     = cv[2]
-                      anotherset['diagnosis'] = cv[3]
+                  # Alternative error message and recipient
+                  if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>] [(]expanded from [<](.+)[>][)]:[ \t]*(.+)\z/)
+                    # <r@example.ne.jp> (expanded from <kijitora@example.org>): user ...
+                    anotherset['recipient'] = cv[1]
+                    anotherset['alias']     = cv[2]
+                    anotherset['diagnosis'] = cv[3]
 
-                    elsif cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>]:(.*)\z/)
-                      # <kijitora@exmaple.jp>: ...
-                      anotherset['recipient'] = cv[1]
-                      anotherset['diagnosis'] = cv[2]
-                    else
-                      # Get error message continued from the previous line
-                      next unless anotherset['diagnosis']
-                      if e =~ /\A[ \t]{4}(.+)\z/
-                        #    host mx.example.jp said:...
-                        anotherset['diagnosis'] << ' ' << e
-                      end
+                  elsif cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>]:(.*)\z/)
+                    # <kijitora@exmaple.jp>: ...
+                    anotherset['recipient'] = cv[1]
+                    anotherset['diagnosis'] = cv[2]
+
+                  elsif e.include?('--- Delivery report unavailable ---')
+                    # postfix-3.1.4/src/bounce/bounce_notify_util.c
+                    # bounce_notify_util.c:602|if (bounce_info->log_handle == 0
+                    # bounce_notify_util.c:602||| bounce_log_rewind(bounce_info->log_handle)) {
+                    # bounce_notify_util.c:602|if (IS_FAILURE_TEMPLATE(bounce_info->template)) {
+                    # bounce_notify_util.c:602|    post_mail_fputs(bounce, "");
+                    # bounce_notify_util.c:602|    post_mail_fputs(bounce, "\t--- delivery report unavailable ---");
+                    # bounce_notify_util.c:602|    count = 1;              /* xxx don't abort */
+                    # bounce_notify_util.c:602|}
+                    # bounce_notify_util.c:602|} else {
+                    nomessages = true
+                  else
+                    # Get error message continued from the previous line
+                    next unless anotherset['diagnosis']
+                    if e =~ /\A[ \t]{4}(.+)\z/
+                      #    host mx.example.jp said:...
+                      anotherset['diagnosis'] << ' ' << e
                     end
                   end
+                end
               end
             end
           end # End of message/delivery-status
         end
 
         unless recipients > 0
-          # Fallback: set recipient address from error message
-          unless anotherset['recipient'].to_s.empty?
-            # Set recipient address
+          # Fallback: get a recipient address from error messages
+          if anotherset['recipient'].to_s.size > 0
+            # Set a recipient address
             dscontents[-1]['recipient'] = anotherset['recipient']
             recipients += 1
+          else
+            # Get a recipient address from message/rfc822 part if the delivery
+            # report was unavailable: '--- Delivery report unavailable ---'
+            if nomessages
+              # Try to get a recipient address from To: field in the original
+              # message at message/rfc822 part
+              e = rfc822list.select { |e| e =~ /\ATo:[ ]*.+/ }.shift
+              dscontents[-1]['recipient'] = Sisimai::Address.s3s4(e)
+              recipients += 1
+            end
           end
         end
         return nil unless recipients > 0
