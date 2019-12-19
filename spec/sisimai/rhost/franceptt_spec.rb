@@ -17,7 +17,7 @@ describe Sisimai::Rhost::FrancePTT do
   }
   describe 'bounce mail from FrancePTT' do
     rs.each_key.each do |n|
-      emailfn = sprintf('./set-of-emails/maildir/bsd/rhost-franceptt-%02d.eml', n)
+      emailfn = sprintf('./set-of-emails/maildir/bsd/rhost-franceptt-%02d.eml', n.to_i)
       next unless File.exist?(emailfn)
 
       mailbox = Sisimai::Mail.new(emailfn)
