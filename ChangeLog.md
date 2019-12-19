@@ -34,6 +34,9 @@ v4.25.4p4
   - Import sisimai/p5-Sisimai#353 and sisimai/p5-Sisimai@a3e73f86 at FrancePTT
     - Add 2 error codes from Orange: `505` is `systemerror`, `999` is `blocked`
     - Add 2 sample emails: rhost-franceptt-07.eml, 08.eml at set-of-emails/
+  - Import sisimai/p5-Sisimai#357 and sisimai/p5-Sisimai#358 at FrancePTT
+    - Add 2 sample emails: rhost-franceptt-10.eml, 11.eml at set-of-emails/
+    - Add many error codes and error messages from Orange and La Poste
 
 v4.25.4
 --------------------------------------------------------------------------------
