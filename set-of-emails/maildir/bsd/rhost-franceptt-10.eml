@@ -1,0 +1,79 @@
+Return-Path: <>
+Delivered-To: xxxx@xxxx.xxxx.net
+Received: by xxxx.xxxx.net (Postfix)
+	id 1D72C25C26; Wed, 18 Dec 2019 08:25:18 +0100 (CET)
+Delivered-To: xxxx@xxxx.xxxx.net
+Received: from xxxx.xxxx.net (unknown [10.0.0.1])
+	by xxxx.xxxx.net (Postfix) with ESMTP id 1C5D125C25
+	for <xxxx@xxxx.fr>; Wed, 18 Dec 2019 08:25:18 +0100 (CET)
+Received: by xxxx.xxxx.net (Postfix)
+	id 1B7967DBA34E; Wed, 18 Dec 2019 08:25:18 +0100 (CET)
+Date: Wed, 18 Dec 2019 08:25:18 +0100 (CET)
+From: MAILER-DAEMON@xxxx.xxxx.net (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: xxxx@xxxx.fr
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="9CEAB7B6FDBE.1576653918/xxxx.xxxx.net"
+Message-Id: <20191218072518.1B7967DBA34E@xxxx.xxxx.net>
+
+This is a MIME-encapsulated message.
+
+--9CEAB7B6FDBE.1576653918/xxxx.xxxx.net
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host xxxx.xxxx.net.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<xxxx@laposte.net>: host smtpz4.laposte.net[194.117.213.1] refused to
+    talk to me: 550 5.5.0 Service refuse. Veuillez essayer plus tard. service
+    refused, please try later. LPN001_108
+
+--9CEAB7B6FDBE.1576653918/xxxx.xxxx.net
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; xxxx.xxxx.net
+X-Postfix-Queue-ID: 9CEAB7B6FDBE
+X-Postfix-Sender: rfc822; xxxx@xxxx.fr
+Arrival-Date: Tue, 17 Dec 2019 20:09:31 +0100 (CET)
+
+Final-Recipient: rfc822; xxxx@laposte.net
+Original-Recipient: rfc822;xxxx@laposte.net
+Action: failed
+Status: 4.5.0
+Remote-MTA: dns; smtpz4.laposte.net
+Diagnostic-Code: smtp; 550 5.5.0 Service refuse. Veuillez essayer plus tard.
+    service refused, please try later. LPN001_108
+
+--9CEAB7B6FDBE.1576653918/xxxx.xxxx.net
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <xxxxx@xxxx.fr>
+Message-Id: <1576609771.xxxx@xxxx.fr>
+Feedback-Id: 14:1685
+Precedence: bulk
+From: <xxxx@xxxx.fr>
+To: xxxx@laposte.net
+Content-Type: text/html; charset=utf-8
+Subject: xxxxx
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Date: Tue, 17 Dec 2019 20:09:31 +0100
+
+xxx
+
+--9CEAB7B6FDBE.1576653918/xxxx.xxxx.net--

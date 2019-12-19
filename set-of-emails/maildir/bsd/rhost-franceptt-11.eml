@@ -1,0 +1,96 @@
+Delivered-To: xxxx@xxxx.net
+Received: by xxxx.xxxx.net (Postfix)
+	id 2499E64B6; Tue, 17 Dec 2019 23:29:03 +0100 (CET)
+Delivered-To: xxxx@xxxx.xxxx.net
+Received: from xxxx.xxxx.net (unknown [10.0.0.1])
+	by xxx.xxxx.net (Postfix) with ESMTP id 2229C2B7DA
+	for <xxxx@xxxx.net>; Tue, 17 Dec 2019 23:29:03 +0100 (CET)
+Received: by xxxx.xxxx.net (Postfix)
+	id 1FD4C145C18D3; Tue, 17 Dec 2019 23:29:03 +0100 (CET)
+Date: Tue, 17 Dec 2019 23:29:03 +0100 (CET)
+From: MAILER-DAEMON@xxxx.xxxx.net (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: xxxx@xxxx.net
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="018DD143C5860.1576621743/xxxx.xxxx.net"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20191217222903.xxxx@xxxx.net>
+
+This is a MIME-encapsulated message.
+
+--018DD143C5860.1576621743/xxxx.xxxx.net
+Content-Description: Notification
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+This is the mail system at host xxxx.xxxx.net.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<xxxx@laposte.net>: host smtpz4.laposte.net[194.117.213.1] refused to talk
+    to me: 220-laposte 421 4.2.1 Service refuse. Veuillez essayer plus tard.
+    Service refused, please try later. LPN006_107
+
+--018DD143C5860.1576621743/xxxx.xxxx.net
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; xxxx.xxxx..net
+X-Postfix-Queue-ID: 018DD143C5860
+X-Postfix-Sender: rfc822; xxxx@xxxx.net
+Arrival-Date: Tue, 17 Dec 2019 11:06:02 +0100 (CET)
+
+Final-Recipient: rfc822; xxxx@laposte.net
+Original-Recipient: rfc822;xxxx@laposte.net
+Action: failed
+Status: 4.2.1
+Remote-MTA: dns; smtpz4.laposte.net
+Diagnostic-Code: smtp; 220-laposte 421 4.2.1 Service refuse. Veuillez essayer
+    plus tard. Service refused, please try later. LPN006_107
+
+--018DD143C5860.1576621743/xxxx.xxxx.net
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 8bit
+
+Return-Path: <xxxx@xxxx.net>
+Message-Id: <1576577162.xxxx@xxxx.net>
+Feedback-Id: 1099:1430
+Precedence: bulk
+From: <xxxx@xxxx.net>
+To: xxxx@laposte.net
+Content-Type: multipart/alternative; boundary="_----------=_1576577162247210"
+Subject: xxxx
+Content-Transfer-Encoding: binary
+MIME-Version: 1.0
+Date: Tue, 17 Dec 2019 11:06:02 +0100
+
+This is a multi-part message in MIME format.
+
+--_----------=_1576577162247210
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+
+xxxx
+
+--_----------=_1576577162247210
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=utf-8
+
+xxxx
+
+--_----------=_1576577162247210--
+
+--018DD143C5860.1576621743/xxxx.xxxx.net--
