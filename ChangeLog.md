@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.4p3
+v4.25.4p4
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -31,6 +31,9 @@ v4.25.4p3
   - Import sisimai/p5-Sisimai#352
     - Code improvements at `Sisimai::RFC3834` for parsing a vacation message
       replied automatically from iCloud.
+  - Import sisimai/p5-Sisimai#353 and sisimai/p5-Sisimai@a3e73f86
+    - Add 2 error codes from Orange: `505` is `systemerror`, `999` is `blocked`
+    - Add 2 sample emails: rhost-franceptt-07.eml, 08.eml at set-of-emails/
 
 v4.25.4
 --------------------------------------------------------------------------------
