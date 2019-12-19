@@ -1,0 +1,97 @@
+Return-Path: <>
+Delivered-To: xxxx@xxxx.xxxx.net
+Received: by xxxx.xxxxx.net (Postfix)
+	id 4034925C28; Wed, 18 Dec 2019 09:20:03 +0100 (CET)
+Delivered-To: xxxx@xxxx.net
+Received: from xxxx.xxxx.net (unknown [10.0.0.1])
+	by xxxx.xxxx.net (Postfix) with ESMTP id 3C46E25C35
+	for <xxxx@xxxx.com>; Wed, 18 Dec 2019 09:20:03 +0100 (CET)
+Received: by xxxx.xxxx.net (Postfix)
+	id 3276AE873312; Wed, 18 Dec 2019 09:20:00 +0100 (CET)
+Date: Wed, 18 Dec 2019 09:20:00 +0100 (CET)
+From: MAILER-DAEMON@xxxx.xxxx.net (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: xxxxx@xxxx.com
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="AFBEFE4C38DB.1576657200/xxx.xxxx.net"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20191218082000.3276AE873312@xxxx.xxxx.net>
+
+This is a MIME-encapsulated message.
+
+--AFBEFE4C38DB.1576657200/xxxx.xxxx.net
+Content-Description: Notification
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+This is the mail system at host xxxx.xxxx.net.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<xxxx@wanadoo.fr>: host smtp-in.orange.fr[193.252.22.65] refused to
+    talk to me: 421 mwinf5c77 ME Service refuse. Veuillez essayer plus tard.
+    Service refused, please try later. OFR_999 [999]
+
+--AFBEFE4C38DB.1576657200/xxxx.xxxx.net
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; xxxx.xxxxx.net
+X-Postfix-Queue-ID: AFBEFE4C38DB
+X-Postfix-Sender: rfc822; xxxx@xxxx.com
+Arrival-Date: Tue, 17 Dec 2019 20:56:02 +0100 (CET)
+
+Final-Recipient: rfc822; xxxx@wanadoo.fr
+Original-Recipient: rfc822;xxxx@wanadoo.fr
+Action: failed
+Status: 4.0.0
+Remote-MTA: dns; smtp-in.orange.fr
+Diagnostic-Code: smtp; 421 mwinf5c77 ME Service refuse. Veuillez essayer plus
+    tard. Service refused, please try later. OFR_999 [999]
+
+--AFBEFE4C38DB.1576657200/xxxx.xxxx.net
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 8bit
+
+Return-Path: <xxxx@xxxx.com>
+Message-Id: <1576612562.xxxx@xxxx.com>
+Feedback-Id: 184:1649
+Precedence: bulk
+From: <xxxx@xxxx.com>
+To: xxxx@wanadoo.fr
+Content-Type: multipart/alternative; boundary="_----------=_1576612562192960"
+Subject: xxxx
+Content-Transfer-Encoding: binary
+MIME-Version: 1.0
+Date: Tue, 17 Dec 2019 20:56:02 +0100
+
+This is a multi-part message in MIME format.
+
+--_----------=_1576612562192960
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+
+xxxx
+
+--_----------=_1576612562192960
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=utf-8
+
+xxxx
+
+--_----------=_1576612562192960--
+
+--AFBEFE4C38DB.1576657200/xxxx.xxxx.net--
