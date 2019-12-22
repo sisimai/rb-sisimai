@@ -36,15 +36,33 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        recipients = 0  # (Integer) The number of 'Final-Recipient' header
+
         if mbody.start_with?('{')
           # The message body is JSON string
           return nil unless mhead['x-amz-sns-message-id']
           return nil if mhead['x-amz-sns-message-id'].empty?
 
-          hasdivided = mbody.split("\n")
+          # https://docs.aws.amazon.com/en_us/ses/latest/DeveloperGuide/notification-contents.html
+          bouncetype = {
+            'Permanent' => {
+              'General'    => '',
+              'NoEmail'    => '',
+              'Suppressed' => '',
+            },
+            'Transient' => {
+              'General'            => '',
+              'MailboxFull'        => 'mailboxfull',
+              'MessageTooLarge'    => 'mesgtoobig',
+              'ContentRejected'    => '',
+              'AttachmentRejected' => '',
+            },
+          }.freeze
           jsonstring = ''
           sespayload = nil
           foldedline = false
+          hasdivided = mbody.split("\n")
 
           while e = hasdivided.shift do
             # Find JSON string from the message body
@@ -88,10 +106,139 @@ module Sisimai::Lhost
             return nil
           end
 
-          return json(sespayload)
+          rfc822head = {}   # (Hash) Check flags for headers in RFC822 part
+          labeltable = {
+            'Bounce'    => 'bouncedRecipients',
+            'Complaint' => 'complainedRecipients',
+          }
+          p = sespayload
+          v = nil
+
+          if %w[Bounce Complaint].index(p['notificationType'])
+            # { "notificationType":"Bounce", "bounce": { "bounceType":"Permanent",...
+            o = p[p['notificationType'].downcase].dup
+            r = o[labeltable[p['notificationType']]] || []
+
+            while e = r.shift do
+              # 'bouncedRecipients' => [ { 'emailAddress' => 'bounce@si...' }, ... ]
+              # 'complainedRecipients' => [ { 'emailAddress' => 'complaint@si...' }, ... ]
+              next unless Sisimai::RFC5322.is_emailaddress(e['emailAddress'])
+
+              v = dscontents[-1]
+              if v['recipient']
+                # There are multiple recipient addresses in the message body.
+                dscontents << Sisimai::Lhost.DELIVERYSTATUS
+                v = dscontents[-1]
+              end
+              recipients += 1
+              v['recipient'] = e['emailAddress']
+
+              if p['notificationType'] == 'Bounce'
+                # 'bouncedRecipients => [ {
+                #   'emailAddress' => 'bounce@simulator.amazonses.com',
+                #   'action' => 'failed',
+                #   'status' => '5.1.1',
+                #   'diagnosticCode' => 'smtp; 550 5.1.1 user unknown'
+                # }, ... ]
+                v['action'] = e['action']
+                v['status'] = e['status']
+
+                if cv = e['diagnosticCode'].match(/\A(.+?);[ ]*(.+)\z/)
+                  # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
+                  v['spec'] = cv[1].upcase
+                  v['diagnosis'] = cv[2]
+                else
+                  v['diagnosis'] = e['diagnosticCode']
+                end
+
+                # 'reportingMTA' => 'dsn; a27-23.smtp-out.us-west-2.amazonses.com',
+                if cv = o['reportingMTA'].match(/\Adsn;[ ](.+)\z/) then v['lhost'] = cv[1] end
+
+                if bouncetype.key?(o['bounceType']) &&
+                   bouncetype[o['bounceType']].key?(o['bounceSubType'])
+                  # 'bounce' => {
+                  #       'bounceType' => 'Permanent',
+                  #       'bounceSubType' => 'General'
+                  # },
+                  v['reason'] = bouncetype[o['bounceType']][o['bounceSubType']]
+                end
+              else
+                # 'complainedRecipients' => [ {
+                #   'emailAddress' => 'complaint@simulator.amazonses.com' }, ... ],
+                v['reason'] = 'feedback'
+                v['feedbacktype'] = o['complaintFeedbackType'] || ''
+              end
+
+              v['date'] = o['timestamp'] || p['mail']['timestamp']
+              v['date'].sub!(/[.]\d+Z\z/, '')
+            end
+          elsif p['notificationType'] == 'Delivery'
+            # { "notificationType":"Delivery", "delivery": { ...
+            o = p['delivery'].dup
+            r = o['recipients'] || []
+
+            while e = r.shift do
+              # 'delivery' => {
+              #       'timestamp' => '2016-11-23T12:01:03.512Z',
+              #       'processingTimeMillis' => 3982,
+              #       'reportingMTA' => 'a27-29.smtp-out.us-west-2.amazonses.com',
+              #       'recipients' => [
+              #           'success@simulator.amazonses.com'
+              #       ],
+              #       'smtpResponse' => '250 2.6.0 Message received'
+              #   },
+              next unless Sisimai::RFC5322.is_emailaddress(e)
+
+              v = dscontents[-1]
+              if v['recipient']
+                # There are multiple recipient addresses in the message body.
+                dscontents << Sisimai::Lhost.DELIVERYSTATUS
+                v = dscontents[-1]
+              end
+              recipients += 1
+              v['recipient'] = e
+              v['lhost']     = o['reportingMTA'] || ''
+              v['diagnosis'] = o['smtpResponse'] || ''
+              v['status']    = Sisimai::SMTP::Status.find(v['diagnosis']) || ''
+              v['replycode'] = Sisimai::SMTP::Reply.find(v['diagnosis'])  || ''
+              v['reason']    = 'delivered'
+              v['action']    = 'deliverable'
+
+              v['date'] = o['timestamp'] || p['mail']['timestamp']
+              v['date'].sub!(/[.]\d+Z\z/, '')
+            end
+          else
+            # The value of "notificationType" is not any of "Bounce", "Complaint",
+            # or "Delivery".
+            return nil
+          end
+          return nil unless recipients > 0
+
+          dscontents.each do |e|
+            e['agent'] = self.smtpagent
+          end
+
+          if p['mail']['headers']
+            # "headersTruncated":false,
+            # "headers":[ { ...
+            p['mail']['headers'].each do |e|
+              # 'headers' => [ { 'name' => 'From', 'value' => 'neko@nyaan.jp' }, ... ],
+              next unless %w[From To Subject Message-ID Date].index(e['name'])
+              rfc822head[e['name'].downcase] = e['value']
+            end
+          end
+
+          unless rfc822head['message-id']
+            # Try to get the value of "Message-Id".
+            if p['mail']['messageId']
+              # 'messageId' => '01010157e48f9b9b-891e9a0e-9c9d-4773-9bfe-608f2ef4756d-000000'
+              rfc822head['message-id'] = p['mail']['messageId']
+            end
+          end
+          return { 'ds' => dscontents, 'rfc822' => rfc822head }
+
         else
           # The message body is an email
-
           # :from    => %r/\AMAILER-DAEMON[@]email[-]bounces[.]amazonses[.]com\z/,
           # :subject => %r/\ADelivery Status Notification [(]Failure[)]\z/,
           return nil if mhead['x-mailer'].to_s.start_with?('Amazon WorkMail')
@@ -105,13 +252,11 @@ module Sisimai::Lhost
           fieldtable = Sisimai::RFC1894.FIELDTABLE
           permessage = {}     # (Hash) Store values of each Per-Message field
 
-          dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
           hasdivided = mbody.split("\n")
           havepassed = ['']
           rfc822list = []     # (Array) Each line in message/rfc822 part string
           blanklines = 0      # (Integer) The number of blank lines
           readcursor = 0      # (Integer) Points the current cursor position
-          recipients = 0      # (Integer) The number of 'Final-Recipient' header
           v = nil
 
           while e = hasdivided.shift do
@@ -228,174 +373,12 @@ module Sisimai::Lhost
               e['reason'] = r
               break
             end
-
           end
 
           rfc822part = Sisimai::RFC5322.weedout(rfc822list)
           return { 'ds' => dscontents, 'rfc822' => rfc822part }
         end # END of a parser for email message
       end # END of def make()
-
-      # @abstract Adapt Amazon SES bounce object for Sisimai::Message format
-      # @param        [Hash] argvs  bounce object(JSON) retrieved from Amazon SNS
-      # @return       [Hash, Nil]   Bounce data list and message/rfc822 part or
-      #                             nil if it failed to parse or the
-      #                             arguments are missing
-      # @since v4.20.0
-      # @until v4.25.5
-      def json(argvs)
-        return nil unless argvs.is_a? Hash
-        return nil if argvs.empty?
-        return nil unless argvs.key?('notificationType')
-
-        # https://docs.aws.amazon.com/en_us/ses/latest/DeveloperGuide/notification-contents.html
-        bouncetype = {
-          'Permanent' => {
-            'General'    => '',
-            'NoEmail'    => '',
-            'Suppressed' => '',
-          },
-          'Transient' => {
-            'General'            => '',
-            'MailboxFull'        => 'mailboxfull',
-            'MessageTooLarge'    => 'mesgtoobig',
-            'ContentRejected'    => '',
-            'AttachmentRejected' => '',
-          },
-        }.freeze
-
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        rfc822head = {}   # (Hash) Check flags for headers in RFC822 part
-        recipients = 0    # (Integer) The number of 'Final-Recipient' header
-        labeltable = {
-          'Bounce'    => 'bouncedRecipients',
-          'Complaint' => 'complainedRecipients',
-        }
-        v = nil
-
-        if %w[Bounce Complaint].index(argvs['notificationType'])
-          # { "notificationType":"Bounce", "bounce": { "bounceType":"Permanent",...
-          o = argvs[argvs['notificationType'].downcase].dup
-          r = o[labeltable[argvs['notificationType']]] || []
-
-          while e = r.shift do
-            # 'bouncedRecipients' => [ { 'emailAddress' => 'bounce@si...' }, ... ]
-            # 'complainedRecipients' => [ { 'emailAddress' => 'complaint@si...' }, ... ]
-            next unless Sisimai::RFC5322.is_emailaddress(e['emailAddress'])
-
-            v = dscontents[-1]
-            if v['recipient']
-              # There are multiple recipient addresses in the message body.
-              dscontents << Sisimai::Lhost.DELIVERYSTATUS
-              v = dscontents[-1]
-            end
-            recipients += 1
-            v['recipient'] = e['emailAddress']
-
-            if argvs['notificationType'] == 'Bounce'
-              # 'bouncedRecipients => [ {
-              #   'emailAddress' => 'bounce@simulator.amazonses.com',
-              #   'action' => 'failed',
-              #   'status' => '5.1.1',
-              #   'diagnosticCode' => 'smtp; 550 5.1.1 user unknown'
-              # }, ... ]
-              v['action'] = e['action']
-              v['status'] = e['status']
-
-              if cv = e['diagnosticCode'].match(/\A(.+?);[ ]*(.+)\z/)
-                # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
-                v['spec'] = cv[1].upcase
-                v['diagnosis'] = cv[2]
-              else
-                v['diagnosis'] = e['diagnosticCode']
-              end
-
-              # 'reportingMTA' => 'dsn; a27-23.smtp-out.us-west-2.amazonses.com',
-              if cv = o['reportingMTA'].match(/\Adsn;[ ](.+)\z/) then v['lhost'] = cv[1] end
-
-              if bouncetype.key?(o['bounceType']) &&
-                 bouncetype[o['bounceType']].key?(o['bounceSubType'])
-                # 'bounce' => {
-                #       'bounceType' => 'Permanent',
-                #       'bounceSubType' => 'General'
-                # },
-                v['reason'] = bouncetype[o['bounceType']][o['bounceSubType']]
-              end
-            else
-              # 'complainedRecipients' => [ {
-              #   'emailAddress' => 'complaint@simulator.amazonses.com' }, ... ],
-              v['reason'] = 'feedback'
-              v['feedbacktype'] = o['complaintFeedbackType'] || ''
-            end
-
-            v['date'] = o['timestamp'] || argvs['mail']['timestamp']
-            v['date'].sub!(/[.]\d+Z\z/, '')
-          end
-        elsif argvs['notificationType'] == 'Delivery'
-          # { "notificationType":"Delivery", "delivery": { ...
-          o = argvs['delivery'].dup
-          r = o['recipients'] || []
-
-          while e = r.shift do
-            # 'delivery' => {
-            #       'timestamp' => '2016-11-23T12:01:03.512Z',
-            #       'processingTimeMillis' => 3982,
-            #       'reportingMTA' => 'a27-29.smtp-out.us-west-2.amazonses.com',
-            #       'recipients' => [
-            #           'success@simulator.amazonses.com'
-            #       ],
-            #       'smtpResponse' => '250 2.6.0 Message received'
-            #   },
-            next unless Sisimai::RFC5322.is_emailaddress(e)
-
-            v = dscontents[-1]
-            if v['recipient']
-              # There are multiple recipient addresses in the message body.
-              dscontents << Sisimai::Lhost.DELIVERYSTATUS
-              v = dscontents[-1]
-            end
-            recipients += 1
-            v['recipient'] = e
-            v['lhost']     = o['reportingMTA'] || ''
-            v['diagnosis'] = o['smtpResponse'] || ''
-            v['status']    = Sisimai::SMTP::Status.find(v['diagnosis']) || ''
-            v['replycode'] = Sisimai::SMTP::Reply.find(v['diagnosis'])  || ''
-            v['reason']    = 'delivered'
-            v['action']    = 'deliverable'
-
-            v['date'] = o['timestamp'] || argvs['mail']['timestamp']
-            v['date'].sub!(/[.]\d+Z\z/, '')
-          end
-        else
-          # The value of "notificationType" is not any of "Bounce", "Complaint",
-          # or "Delivery".
-          return nil
-        end
-        return nil unless recipients > 0
-
-        dscontents.each do |e|
-          e['agent'] = self.smtpagent
-        end
-
-        if argvs['mail']['headers']
-          # "headersTruncated":false,
-          # "headers":[ { ...
-          argvs['mail']['headers'].each do |e|
-            # 'headers' => [ { 'name' => 'From', 'value' => 'neko@nyaan.jp' }, ... ],
-            next unless %w[From To Subject Message-ID Date].index(e['name'])
-            rfc822head[e['name'].downcase] = e['value']
-          end
-        end
-
-        unless rfc822head['message-id']
-          # Try to get the value of "Message-Id".
-          if argvs['mail']['messageId']
-            # 'messageId' => '01010157e48f9b9b-891e9a0e-9c9d-4773-9bfe-608f2ef4756d-000000'
-            rfc822head['message-id'] = argvs['mail']['messageId']
-          end
-        end
-        return { 'ds' => dscontents, 'rfc822' => rfc822head }
-      end
 
     end
   end
