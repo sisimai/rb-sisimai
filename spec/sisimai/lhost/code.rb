@@ -105,7 +105,7 @@ module Sisimai
                   lb = nil  # Label
                   re = nil  # Regular expression
 
-                  mesgobject = Sisimai::Message.new(data: r, input: 'email')
+                  mesgobject = Sisimai::Message.new(data: r)
                   next unless mesgobject
                   next if mesgobject.void
                   haveparsed += 1

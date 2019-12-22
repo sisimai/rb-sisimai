@@ -19,28 +19,14 @@ module Sisimai
     # @param         [Hash]   argv1      Parser options(delivered=false)
     # @options argv1 [Boolean] delivered true: Include "delivered" reason
     # @options argv1 [Lambda]  hook      Lambda object to be called back
-    # @options argv1 [String]  input     Input data format: 'email', 'json'
     # @options argv1 [Array]   field     Email header name to be captured
     # @return        [Array]             Parsed objects
     # @return        [nil]               nil if the argument was wrong or an empty array
     def make(argv0, **argv1)
       return nil unless argv0
 
-      input = argv1[:input] || nil
       field = argv1[:field] || []
       raise ' ***error: "field" accepts an array only' unless field.is_a? Array
-
-      unless input
-        klass = argv0.class
-        # "input" did not specified, try to detect automatically.
-        if klass == ::String || klass == IO
-          # The argument may be a path to email OR an email text
-          input = 'email'
-        elsif klass == Array || klass == Hash
-          # The argument may be a decoded JSON object
-          input = 'json'
-        end
-      end
 
       delivered1 = argv1[:delivered] || false
       hookmethod = argv1[:hook] || nil
@@ -48,49 +34,18 @@ module Sisimai
 
       require 'sisimai/data'
       require 'sisimai/message'
-      if input == 'email'
-        # Path to mailbox or Maildir/, or STDIN: 'input' => 'email'
-        require 'sisimai/mail'
-        return nil unless mail = Sisimai::Mail.new(argv0)
+      require 'sisimai/mail'
 
-        while r = mail.read do
-          # Read and parse each mail file
-          methodargv = { data: r, hook: hookmethod, input: 'email', field: field }
-          mesg = Sisimai::Message.new(methodargv)
-          next if mesg.void
+      return nil unless mail = Sisimai::Mail.new(argv0)
+      while r = mail.read do
+        # Read and parse each mail file
+        methodargv = { data: r, hook: hookmethod, field: field }
+        mesg = Sisimai::Message.new(methodargv)
+        next if mesg.void
 
-          methodargv = { data: mesg, hook: hookmethod, input: 'email', delivered: delivered1 }
-          next unless data = Sisimai::Data.make(methodargv)
-          bouncedata += data unless data.empty?
-        end
-
-      elsif input == 'json'
-        # Decoded JSON object: 'input' => 'json'
-        warn ' ***warning: input: "json" is marked as obsoleted'
-        type = argv0.class.to_s
-        list = []
-
-        if type == 'Array'
-          # [ {...}, {...}, ... ]
-          while e = argv0.shift do
-            list << e
-          end
-        else
-          list << argv0
-        end
-
-        while e = list.shift do
-          methodargv = { data: e, hook: hookmethod, input: 'json' }
-          mesg = Sisimai::Message.new(methodargv)
-          next if mesg.void
-
-          methodargv = { data: mesg, hook: hookmethod, input: 'json', delivered: delivered1 }
-          next unless data = Sisimai::Data.make(methodargv)
-          bouncedata += data unless data.empty?
-        end
-      else
-        # The value of "input" neither "email" nor "json"
-        raise ' ***error: invalid value of "input"'
+        methodargv = { data: mesg, hook: hookmethod, delivered: delivered1 }
+        next unless data = Sisimai::Data.make(methodargv)
+        bouncedata += data unless data.empty?
       end
 
       return nil if bouncedata.empty?
@@ -104,7 +59,6 @@ module Sisimai
     # @param         [Hash] argv1        Parser options
     # @options argv1 [Integer] delivered true: Include "delivered" reason
     # @options argv1 [Lambda]  hook      Lambda object to be called back
-    # @options argv1 [String]  input     Input data format: 'email', 'json'
     # @return        [String]            Parsed data as JSON text
     def dump(argv0, **argv1)
       return nil unless argv0

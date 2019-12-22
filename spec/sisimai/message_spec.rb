@@ -19,7 +19,7 @@ describe Sisimai::Message do
     return data
   end
 
-  messageobj = cn.new( data: mailstring, hook: callbackto, input: 'email')
+  messageobj = cn.new( data: mailstring, hook: callbackto)
   describe 'class method' do
     describe '.new' do
       it('returns Sisimai::Message object') { expect(messageobj).to be_a cn }
@@ -34,7 +34,6 @@ describe Sisimai::Message do
   messageobj = cn.new(
     data: mailstring, 
     hook: callbackto, 
-    input: 'email',
     order:
       %w[Sisimai::Lhost::Sendmail Sisimai::Lhost::Postfix Sisimai::Lhost::Qmail
          Sisimai::Lhost::Exchange2003 Sisimai::Lhost::Google Sisimai::Lhost::Verizon

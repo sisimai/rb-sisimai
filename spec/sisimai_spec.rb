@@ -47,7 +47,7 @@ describe Sisimai do
 
           mail = Sisimai.make(ms)
         else
-          mail = Sisimai.make(sampleemail[e], input: 'email')
+          mail = Sisimai.make(sampleemail[e])
         end
         subject { mail }
         it('is Array') { is_expected.to be_a Array }
@@ -149,7 +149,6 @@ describe Sisimai do
         end
         havecaught = Sisimai.make(sampleemail[e],
                                   hook: callbackto,
-                                  input: 'email',
                                   field: ['X-Virus-Scanned'])
 
         havecaught.each do |ee|
@@ -216,7 +215,6 @@ describe Sisimai do
     context 'Invalid value in arguments' do
       it 'raises RuntimeError' do
         expect { Sisimai.make('/dev/null', field: 'neko') }.to raise_error(RuntimeError)
-        expect { Sisimai.make('/dev/null', input: 'neko') }.to raise_error(RuntimeError)
       end
     end
   end

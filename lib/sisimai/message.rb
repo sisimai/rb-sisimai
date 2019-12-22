@@ -47,15 +47,8 @@ module Sisimai
     def initialize(data: '', **argvs)
       return nil if data.empty?
 
-      email = data
-      input = email.is_a?(Hash) ? 'json' : 'email'
+      email = data.scrub('?').gsub("\r\n", "\n")
       field = argvs[:field] || []
-
-      if input == 'email'
-        # Email message
-        return nil if email.empty?
-        email = email.scrub('?').gsub("\r\n", "\n")
-      end
 
       unless field.is_a? Array
         # Unsupported value in "field"
@@ -63,12 +56,7 @@ module Sisimai
         return nil
       end
 
-      methodargv = {
-        'data'  => email,
-        'hook'  => argvs[:hook] || nil,
-        'field' => field,
-        'input' => input,
-      }
+      methodargv = { 'data'  => email, 'hook' => argvs[:hook] || nil, 'field' => field }
       [:load, :order].each do |e|
         # Order of MTA modules
         next unless argvs.key?(e)
@@ -120,52 +108,39 @@ module Sisimai
       }
       tobeloaded = Sisimai::Message.load(methodargv)
 
-      if argvs['input'] == 'email'
-        # Email message
-        # 1. Split email data to headers and a body part.
-        return nil unless aftersplit = Sisimai::Message.divideup(email)
+      # 1. Split email data to headers and a body part.
+      return nil unless aftersplit = Sisimai::Message.divideup(email)
 
-        # 2. Convert email headers from text to hash reference
-        headerargv = {
-          'extheaders' => ExtHeaders,
-          'tryonfirst' => [],
-          'extrafield' => argvs['field'] || [],
-        }
-        processing['from']   = aftersplit['from']
-        processing['header'] = Sisimai::Message.headers(aftersplit['header'], headerargv)
+      # 2. Convert email headers from text to hash reference
+      headerargv = {
+        'extheaders' => ExtHeaders,
+        'tryonfirst' => [],
+        'extrafield' => argvs['field'] || [],
+      }
+      processing['from']   = aftersplit['from']
+      processing['header'] = Sisimai::Message.headers(aftersplit['header'], headerargv)
 
-        # 3. Check headers for detecting MTA modules
-        if headerargv['tryonfirst'].empty?
-          headerargv['tryonfirst'] += Sisimai::Message.makeorder(processing['header'])
-        end
-
-        # 4. Rewrite message body for detecting the bounce reason
-        methodargv = {
-          'hook' => hookmethod,
-          'mail' => processing,
-          'body' => aftersplit['body'],
-          'tryonfirst' => headerargv['tryonfirst'],
-          'tobeloaded' => tobeloaded,
-        }
-        return nil unless bouncedata = Sisimai::Message.parse(methodargv)
-      else
-        # JSON object
-        methodargv = {
-          'hook' => hookmethod,
-          'json' => argvs['data'],
-          'tobeloaded' => tobeloaded.concat(Sisimai::Order.forjson),
-        }
-        return nil unless bouncedata = Sisimai::Message.adapt(methodargv)
+      # 3. Check headers for detecting MTA modules
+      if headerargv['tryonfirst'].empty?
+        headerargv['tryonfirst'] += Sisimai::Message.makeorder(processing['header'])
       end
+
+      # 4. Rewrite message body for detecting the bounce reason
+      methodargv = {
+        'hook' => hookmethod,
+        'mail' => processing,
+        'body' => aftersplit['body'],
+        'tryonfirst' => headerargv['tryonfirst'],
+        'tobeloaded' => tobeloaded,
+      }
+      return nil unless bouncedata = Sisimai::Message.parse(methodargv)
       return nil if bouncedata.empty?
-
       %w|ds catch rfc822|.each { |e| processing[e] = bouncedata[e] }
-      if argvs['input'] == 'email'
-        # 5. Rewrite headers of the original message in the body part
-        p = bouncedata['rfc822']
-        p = aftersplit['body'] if p.empty?
-        processing['rfc822'] = p.is_a?(::String) ? Sisimai::Message.takeapart(p) : p
-      end
+
+      # 5. Rewrite headers of the original message in the body part
+      p = bouncedata['rfc822']
+      p = aftersplit['body'] if p.empty?
+      processing['rfc822'] = p.is_a?(::String) ? Sisimai::Message.takeapart(p) : p
 
       return processing
     end
@@ -198,7 +173,6 @@ module Sisimai
             warn ' ***warning: Failed to load ' << v
             next
           end
-          next unless argvs.input == 'email'
 
           Module.const_get(v).headerlist.each do |w|
             # Get header name which required user defined MTA module

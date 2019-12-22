@@ -24,7 +24,7 @@ describe 'CallbackMethod' do
     mailstring = File.open(pathtomail).read
     example(pathtomail + 'is not empty') { expect(mailstring.size).to be > 0 }
 
-    messageobj = Sisimai::Message.new(data: mailstring, hook: callbackto, input: 'email')
+    messageobj = Sisimai::Message.new(data: mailstring, hook: callbackto)
     describe '.new' do
       it('returns Sisimai::Message object') { expect(messageobj).to be_a Sisimai::Message }
       example('#header returns Hash') { expect(messageobj.header).to be_a Hash }
