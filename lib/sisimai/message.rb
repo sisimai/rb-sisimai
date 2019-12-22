@@ -521,66 +521,6 @@ module Sisimai
       return parseddata
     end
 
-    # Parse bounce object with each MTA(JSON) module
-    # @param               [Hash] argvs    Processing message entity.
-    # @param options argvs [Hash] json     Decoded bounce object
-    # @param options argvs [Proc] hook     Hook method to be called
-    # @return              [Hash]          Parsed and structured bounce mails
-    def self.adapt(argvs)
-      Sisimai::Message.warn(self.name, 'gone')
-      bouncedata = argvs['json'] || {}
-      hookmethod = argvs['hook'] || nil
-      havecaught = nil
-      haveloaded = {}
-      parseddata = nil
-
-      # Call the hook method
-      if hookmethod.is_a? Proc
-        # Execute hook method
-        begin
-          p = {
-            'datasrc' => 'json',
-            'headers' => nil,
-            'message' => nil,
-            'bounces' => argvs['json']
-          }
-          havecaught = hookmethod.call(p)
-        rescue StandardError => ce
-          warn ' ***warning: Something is wrong in hook method :' << ce.to_s
-        end
-      end
-
-      catch :ADAPTOR do
-        while true
-          # 1. User-Defined Module
-          # 2. MTA(JSON) Module Candidates to be tried on first
-          # 3. Sisimai::Lhost::*
-          #
-          argvs['tobeloaded'].each do |r|
-            # Call user defined MTA(JSON) modules
-            next if haveloaded[r]
-            begin
-              require r.gsub('::', '/').downcase
-            rescue LoadError => ce
-              warn ' ***warning: Failed to load ' << ce.to_s
-              next
-            end
-            parseddata = Module.const_get(r).json(bouncedata)
-            haveloaded[r] = true
-            throw :ADAPTOR if parseddata
-          end
-
-          break # as of now, we have no sample JSON data for coding this block
-        end
-      end
-      return nil unless parseddata
-      return nil unless parseddata['ds']
-
-      parseddata['catch'] = havecaught
-      parseddata['ds'].each { |e| e['agent'].sub!(/\AEmail::/, 'JSON::') }
-      return parseddata
-    end
-
     # @abstract Print warnings about an obsoleted method. This method will be
     #           removed at the future release of Sisimai
     # @until    v4.25.5
