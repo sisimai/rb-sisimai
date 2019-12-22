@@ -28,28 +28,25 @@ module Sisimai
       field = argv1[:field] || []
       raise ' ***error: "field" accepts an array only' unless field.is_a? Array
 
-      delivered1 = argv1[:delivered] || false
-      hookmethod = argv1[:hook] || nil
-      bouncedata = []
-
       require 'sisimai/data'
       require 'sisimai/message'
       require 'sisimai/mail'
 
+      list = []
       return nil unless mail = Sisimai::Mail.new(argv0)
       while r = mail.read do
         # Read and parse each mail file
-        methodargv = { data: r, hook: hookmethod, field: field }
+        methodargv = { data: r, hook: argv1[:hook], field: field }
         mesg = Sisimai::Message.new(methodargv)
         next if mesg.void
 
-        methodargv = { data: mesg, hook: hookmethod, delivered: delivered1 }
+        methodargv = { data: mesg, delivered: argv1[:delivered] }
         next unless data = Sisimai::Data.make(methodargv)
-        bouncedata += data unless data.empty?
+        list += data unless data.empty?
       end
 
-      return nil if bouncedata.empty?
-      return bouncedata
+      return nil if list.empty?
+      return list 
     end
 
     # Wrapper method to parse mailbox/Maildir and dump as JSON
