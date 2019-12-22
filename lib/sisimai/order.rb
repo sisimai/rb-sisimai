@@ -218,20 +218,6 @@ module Sisimai
         return table
       end
 
-      # @abstract Print warnings about an obsoleted method. This method will be
-      #           removed at the future release of Sisimai
-      # @until    v4.25.6
-      def warn(whois = '', useit = nil)
-        label = ' ***warning:'
-        methodname = caller[0][/`.*'/][1..-2]
-        messageset = sprintf("%s %s.%s is marked as obsoleted", label, whois, methodname)
-
-        useit ||= methodname
-        messageset << sprintf(" and will be removed at %s.", Sisimai::Lhost.removedat)
-        messageset << sprintf(" Use %s.%s instead.\n", self.name, useit) if useit != 'gone'
-        Kernel.warn messageset
-      end
-
     end
   end
 end
