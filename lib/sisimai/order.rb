@@ -79,12 +79,6 @@ module Sisimai
         'Sisimai::Lhost::SurfControl',
       ].freeze
 
-      OrderJ1 = [
-        # These modules support JSON structure
-        'Sisimai::Lhost::AmazonSES',
-        'Sisimai::Lhost::SendGrid',
-      ].freeze
-
       # This variable don't hold MTA name which have one or more MTA specific
       # header such as X-AWS-Outgoing, X-Yandex-Uniq.
       Pattern = {
@@ -223,11 +217,6 @@ module Sisimai
         end
         return table
       end
-
-      # @abstract Make default order of MTA(JSON) modules to be loaded
-      # @return   [Array] Default order list of MTA(JSON) modules
-      # @until    v4.25.5
-      def forjson; return OrderJ1; end
 
       # @abstract Print warnings about an obsoleted method. This method will be
       #           removed at the future release of Sisimai
