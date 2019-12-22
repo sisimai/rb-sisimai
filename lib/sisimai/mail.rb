@@ -3,15 +3,11 @@ module Sisimai
   # wrapper class of Sisimai::Mail::Mbox and Sisimai::Mail::Maildir classes.
   class Mail
     # Imported from p5-Sisimail/lib/Sisimai/Mail.pm
-    @@roaccessors = [
-      :path,  # [String] path to mbox or Maildir/
-      :type,  # [String] Data type: mailbox, maildir, or stdin
-    ]
-    @@rwaccessors = [
-      :mail,  # [Sisimai::Mail::[Mbox,Maildir,Memory,STDIN]] Object
-    ]
-    @@roaccessors.each { |e| attr_reader   e }
-    @@rwaccessors.each { |e| attr_accessor e }
+    # :path [String] path to mbox or Maildir/
+    # :type [String] Data type: mailbox, maildir, or stdin
+    # :mail [Sisimai::Mail::[Mbox,Maildir,Memory,STDIN]] Object
+    attr_reader   :path, :type
+    attr_accessor :mail
 
     # Constructor of Sisimai::Mail
     # @param    [String] argv1        Path to mbox or Maildir/

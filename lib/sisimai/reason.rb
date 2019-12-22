@@ -57,11 +57,9 @@ module Sisimai
           # regular expression of retry() method.
           return argvs.reason unless argvs.reason.empty?
         end
+        return 'delivered' if argvs.deliverystatus.start_with?('2.')
 
-        statuscode = argvs.deliverystatus || ''
         reasontext = ''
-        return 'delivered' if statuscode.start_with?('2.')
-
         if argvs.diagnostictype == 'SMTP' || argvs.diagnostictype == ''
           # Diagnostic-Code: SMTP; ... or empty value
           ClassOrder[0].each do |e|

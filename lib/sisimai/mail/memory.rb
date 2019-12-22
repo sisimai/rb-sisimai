@@ -3,15 +3,11 @@ module Sisimai
     # Sisimai::Mail::Memory is a class for reading an email string
     class Memory
       # Imported from p5-Sisimail/lib/Sisimai/Mail/Memory.pm
-      @@roaccessors = [
-        :size,    # [Integer] data size of the email text
-      ]
-      @@rwaccessors = [
-        :data,    # [Array]   Entire bounce mail message
-        :offset,  # [Integer] Index of ":data"
-      ]
-      @@roaccessors.each { |e| attr_reader   e }
-      @@rwaccessors.each { |e| attr_accessor e }
+      # :size   [Integer] data size of the email text
+      # :data   [Array]   Entire bounce mail message
+      # :offset [Integer] Index of ":data"
+      attr_reader :size
+      attr_accessor :data, :offset
 
       # Constructor of Sisimai::Mail::Memory
       # @param    [String] argv1              Entire email string

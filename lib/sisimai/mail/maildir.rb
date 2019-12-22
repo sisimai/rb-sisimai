@@ -4,19 +4,15 @@ module Sisimai
     # Maildir/ directory.
     class Maildir
       # Imported from p5-Sisimail/lib/Sisimai/Mail/Maildir.pm
-      @@roaccessors = [
-        :dir,     # [String] Path to Maildir/
-        :size,    # [Integer] The number of entires in the directory
-      ]
-      @@rwaccessors = [
-        :path,    # [String] Path to each file
-        :file,    # [String] Each file name of a mail in the Maildir/
-        :inodes,  # [Array]  i-node List of files in the Maildir/
-        :count,   # [Integer] The number of file has read
-        :handle,  # [IO::Dir] Directory handle
-      ]
-      @@roaccessors.each { |e| attr_reader   e }
-      @@rwaccessors.each { |e| attr_accessor e }
+      # :dir    [String] Path to Maildir/
+      # :size   [Integer] The number of entires in the directory
+      # :path   [String] Path to each file
+      # :file,  [String] Each file name of a mail in the Maildir/
+      # :inodes [Array]  i-node List of files in the Maildir/
+      # :count  [Integer] The number of file has read
+      # :handle [IO::Dir] Directory handle
+      attr_reader :dir, :size
+      attr_accessor :path, :file, :inodes, :count, :handle
 
       # Constructor of Sisimai::Mail::Maildir
       # @param    [String] argvs                Path to Maildir/

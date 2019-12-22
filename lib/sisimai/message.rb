@@ -5,6 +5,13 @@ module Sisimai
   # method is not a bounce email, the method returns nil.
   class Message
     # Imported from p5-Sisimail/lib/Sisimai/Message.pm
+    # :from   [String] UNIX From line
+    # :header [Hash]   Header part of an email
+    # :ds     [Array]  Parsed data by Sisimai::Lhost::* module
+    # :rfc822 [Hash]   Header part of the original message
+    # :catch  [Any]    The results returned by hook method
+    attr_accessor :from, :header, :ds, :rfc822, :catch
+
     require 'sisimai/arf'
     require 'sisimai/mime'
     require 'sisimai/order'
@@ -13,15 +20,6 @@ module Sisimai
     require 'sisimai/rfc5322'
     require 'sisimai/rfc3834'
     require 'sisimai/smtp/error'
-
-    @@rwaccessors = [
-      :from,    # [String] UNIX From line
-      :header,  # [Hash]   Header part of an email
-      :ds,      # [Array]  Parsed data by Sisimai::Lhost::* module
-      :rfc822,  # [Hash]   Header part of the original message
-      :catch,   # [Any]      The results returned by hook method
-    ]
-    @@rwaccessors.each { |e| attr_accessor e }
 
     DefaultSet = Sisimai::Order.another
     ExtHeaders = Sisimai::Order.headers
@@ -56,7 +54,7 @@ module Sisimai
         return nil
       end
 
-      methodargv = { 'data'  => email, 'hook' => argvs[:hook] || nil, 'field' => field }
+      methodargv = { 'data' => email, 'hook' => argvs[:hook] || nil, 'field' => field }
       [:load, :order].each do |e|
         # Order of MTA modules
         next unless argvs.key?(e)
@@ -519,20 +517,6 @@ module Sisimai
 
       parseddata['catch'] = havecaught if parseddata
       return parseddata
-    end
-
-    # @abstract Print warnings about an obsoleted method. This method will be
-    #           removed at the future release of Sisimai
-    # @until    v4.25.5
-    def self.warn(whois = '', useit = nil)
-      label = ' ***warning:'
-      methodname = caller[0][/`.*'/][1..-2]
-      messageset = sprintf("%s %s.%s is marked as obsoleted", label, whois, methodname)
-
-      useit ||= methodname
-      messageset << sprintf(" and will be removed at %s.", Sisimai::Lhost.removedat)
-      messageset << sprintf(" Use %s.%s instead.\n", self.name, useit) if useit != 'gone'
-      Kernel.warn messageset
     end
 
   end

@@ -283,7 +283,7 @@ module Sisimai
     #   expand_verp('bounce+neko=example.org@example.org') #=> 'neko@example.org'
     def self.expand_verp(email)
       return nil unless email.is_a? Object::String
-      return nil unless cv = email.split('@', 2).first.match(/\A[-_\w]+?[+](\w[-._\w]+\w)[=](\w[-.\w]+\w)\z/)
+      return nil unless cv = email.split('@', 2).first.match(/\A[-\w]+?[+](\w[-.\w]+\w)[=](\w[-.\w]+\w)\z/)
       verp0 = cv[1] + '@' + cv[2]
       return verp0 if Sisimai::RFC5322.is_emailaddress(verp0)
     end
@@ -297,23 +297,19 @@ module Sisimai
       return nil unless Sisimai::RFC5322.is_emailaddress(email)
 
       local = email.split('@')
-      return nil unless cv = local[0].match(/\A([-_\w]+?)[+].+\z/)
+      return nil unless cv = local[0].match(/\A([-\w]+?)[+].+\z/)
       return cv[1] + '@' + local[1]
     end
 
-    @@roaccessors = [
-      :address, # [String] Email address
-      :user,    # [String] local part of the email address
-      :host,    # [String] domain part of the email address
-      :verp,    # [String] VERP
-      :alias,   # [String] alias of the email address
-    ]
-    @@rwaccessors = [
-      :name,    # [String] Display name
-      :comment, # [String] Comment
-    ]
-    @@roaccessors.each { |e| attr_reader   e }
-    @@rwaccessors.each { |e| attr_accessor e }
+    # :address, # [String] Email address
+    # :user,    # [String] local part of the email address
+    # :host,    # [String] domain part of the email address
+    # :verp,    # [String] VERP
+    # :alias,   # [String] alias of the email address
+    # :name,    # [String] Display name
+    # :comment, # [String] Comment
+    attr_reader   :address, :user, :host, :verp, :alias
+    attr_accessor :name, :comment
 
     # Constructor of Sisimai::Address
     # @param <str>  [String] argv1          Email address

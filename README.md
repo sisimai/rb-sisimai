@@ -19,7 +19,6 @@
 - [Usage](#usage)
     - [Basic usage](#basic-usage)
     - [Convert to JSON](#convert-to-json)
-    - [Read bounce object](#read-bounce-object)
     - [Callback feature](#callback-feature)
     - [One-Liner](#one-liner)
     - [Output example](#output-example)
@@ -55,8 +54,6 @@ Key Features
   * 2 times higher than bounceHammer
   * Support 24 known MTAs and 5 unknown MTAs
   * Support 22 major MSPs(Mail Service Providers)
-  * Support 2 major Cloud Email Delivery Services(JSON format)
-    * **WILL BE REMOVED AT Sisimai 4.25.5**
   * Support Feedback Loop Message(ARF)
   * Can detect 29 error reasons
 
@@ -163,30 +160,6 @@ puts Sisimai.dump('/path/to/mbox')  # or path to Maildir/
 # dump() method also accepts "delivered" option like the following code:
 puts Sisimai.dump('/path/to/mbox', delivered: true)
 ```
-
-Read bounce object
--------------------------------------------------------------------------------
-**THIS FEATURE WILL BE REMOVED AT SISIMAI 4.25.5**
-
-The way to read a bounce object retrived from Cloud Email Services as JSON using
-their API is the following code. This feature is available at between v4.20.0
-and **v4.25.5**.
-
-```ruby
-#! /usr/bin/env ruby
-require 'json'
-require 'sisimai'
-
-j = JSON.load('{"notificationType"=>"Bounce", "bounce"=>{"...') # JSON String
-v = Sisimai.make(j, input: 'json')
-
-if v.is_a? Array
-  v.each do |e|
-    ...
-  end
-end
-```
-As of present, Only Amazon SES and SendGrid are supported.
 
 Callback feature
 -------------------------------------------------------------------------------

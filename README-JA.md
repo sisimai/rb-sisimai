@@ -19,7 +19,6 @@
 - [使い方 | Usage](#usage)
     - [基本的な使い方 | Basic usage](#basic-usage)
     - [解析結果をJSONで得る | Convert to JSON](#convert-to-json)
-    - [バウンスオブジェクトを読む | Read bounce object](#read-bounce-object)
     - [コールバック機能 | Callback feature](#callback-feature)
     - [ワンライナー | One-Liner](#one-liner)
     - [出力例 | Output example](#output-example)
@@ -56,8 +55,6 @@ Key features
   * 解析精度はbounceHammerの2倍
   * 29種類のMTAに対応
   * 22種類の著名なMSPに対応
-  * 2種類の著名なメール配信クラウドに対応(JSON)
-    * **Sisimai 4.25.5で削除予定**
   * Feedback Loopにも対応
   * 29種類のエラー理由を検出
 
@@ -158,30 +155,6 @@ puts Sisimai.dump('/path/to/mbox')  # or path to Maildir/
 # dump() method also accepts "delivered" option like the following code:
 puts Sisimai.dump('/path/to/mbox', delivered: true)
 ```
-
-Read bounce object
--------------------------------------------------------------------------------
-**この機能はSisimai 4.25.5で削除されます**
-
-メール配信クラウドからAPIで取得したバウンスオブジェクト(JSON)を読んで解析する
-場合は、次のようなコードを書いてください。この機能はSisimai v4.20.0で実装され
-ました。
-
-```ruby
-#! /usr/bin/env ruby
-require 'json'
-require 'sisimai'
-
-j = JSON.load('{"notificationType"=>"Bounce", "bounce"=>{"...') # JSON String
-v = Sisimai.make(j, input: 'json')
-
-if v.is_a? Array
-  v.each do |e|
-    ...
-  end
-end
-```
-現時点ではAmazon SESとSendGridのみをサポートしています。
 
 Callback feature
 -------------------------------------------------------------------------------

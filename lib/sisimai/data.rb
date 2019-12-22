@@ -35,7 +35,7 @@ module Sisimai
       :deliverystatus,  # [String] Delivery Status(DSN)
       :timezoneoffset,  # [Integer] Time zone offset(seconds)
     ]
-    @@rwaccessors.each { |e| attr_accessor e }
+    attr_accessor(*@@rwaccessors)
 
     EndOfEmail = Sisimai::String.EOM
     RetryIndex = Sisimai::Reason.retry
@@ -348,9 +348,8 @@ module Sisimai
             textasargv = (o.replycode + ' ' + p['diagnosticcode']).lstrip
             getchecked = Sisimai::SMTP::Error.is_permanent(textasargv)
             tmpfailure = getchecked.nil? ? false : (getchecked ? false : true)
-            pseudocode = Sisimai::SMTP::Status.code(o.reason, tmpfailure)
 
-            if pseudocode
+            if pseudocode = Sisimai::SMTP::Status.code(o.reason, tmpfailure)
               # Set the value of "deliverystatus" and "softbounce"
               o.deliverystatus = pseudocode
 
