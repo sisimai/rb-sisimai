@@ -283,7 +283,7 @@ module Sisimai
     #   expand_verp('bounce+neko=example.org@example.org') #=> 'neko@example.org'
     def self.expand_verp(email)
       return nil unless email.is_a? Object::String
-      return nil unless cv = email.split('@', 2).first.match(/\A[-_\w]+?[+](\w[-._\w]+\w)[=](\w[-.\w]+\w)\z/)
+      return nil unless cv = email.split('@', 2).first.match(/\A[-\w]+?[+](\w[-.\w]+\w)[=](\w[-.\w]+\w)\z/)
       verp0 = cv[1] + '@' + cv[2]
       return verp0 if Sisimai::RFC5322.is_emailaddress(verp0)
     end
@@ -297,7 +297,7 @@ module Sisimai
       return nil unless Sisimai::RFC5322.is_emailaddress(email)
 
       local = email.split('@')
-      return nil unless cv = local[0].match(/\A([-_\w]+?)[+].+\z/)
+      return nil unless cv = local[0].match(/\A([-\w]+?)[+].+\z/)
       return cv[1] + '@' + local[1]
     end
 
