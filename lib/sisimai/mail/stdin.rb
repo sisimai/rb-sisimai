@@ -4,17 +4,13 @@ module Sisimai
     # STDIN
     class STDIN
       # Imported from p5-Sisimail/lib/Sisimai/Mail/STDIN.pm
-      @@roaccessors = [
-        :path,    # [String]  Path to mbox
-        :name,    # [String]  File name of the mbox
-        :size,    # [Integer] File size of the mbox
-      ]
-      @@rwaccessors = [
-        :offset,  # [Integer]  Offset position for seeking
-        :handle,  # [IO::File] File handle
-      ]
-      @@roaccessors.each { |e| attr_reader   e }
-      @@rwaccessors.each { |e| attr_accessor e }
+      # :path   [String]  Path to mbox
+      # :name   [String]  File name of the mbox
+      # :size   [Integer] File size of the mbox
+      # :offset [Integer]  Offset position for seeking
+      # :handle [IO::File] File handle
+      attr_reader :path, :name, :size
+      attr_accessor :offset, :handle
 
       # Constructor of Sisimai::Mail::STDIN
       # @param    [IO::STDIN] stdin      Standard-In

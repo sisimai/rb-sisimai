@@ -5,6 +5,13 @@ module Sisimai
   # method is not a bounce email, the method returns nil.
   class Message
     # Imported from p5-Sisimail/lib/Sisimai/Message.pm
+    # :from   [String] UNIX From line
+    # :header [Hash]   Header part of an email
+    # :ds     [Array]  Parsed data by Sisimai::Lhost::* module
+    # :rfc822 [Hash]   Header part of the original message
+    # :catch  [Any]    The results returned by hook method
+    attr_accessor :from, :header, :ds, :rfc822, :catch
+
     require 'sisimai/arf'
     require 'sisimai/mime'
     require 'sisimai/order'
@@ -13,15 +20,6 @@ module Sisimai
     require 'sisimai/rfc5322'
     require 'sisimai/rfc3834'
     require 'sisimai/smtp/error'
-
-    @@rwaccessors = [
-      :from,    # [String] UNIX From line
-      :header,  # [Hash]   Header part of an email
-      :ds,      # [Array]  Parsed data by Sisimai::Lhost::* module
-      :rfc822,  # [Hash]   Header part of the original message
-      :catch,   # [Any]      The results returned by hook method
-    ]
-    @@rwaccessors.each { |e| attr_accessor e }
 
     DefaultSet = Sisimai::Order.another
     ExtHeaders = Sisimai::Order.headers

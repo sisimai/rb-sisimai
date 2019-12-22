@@ -301,19 +301,15 @@ module Sisimai
       return cv[1] + '@' + local[1]
     end
 
-    @@roaccessors = [
-      :address, # [String] Email address
-      :user,    # [String] local part of the email address
-      :host,    # [String] domain part of the email address
-      :verp,    # [String] VERP
-      :alias,   # [String] alias of the email address
-    ]
-    @@rwaccessors = [
-      :name,    # [String] Display name
-      :comment, # [String] Comment
-    ]
-    @@roaccessors.each { |e| attr_reader   e }
-    @@rwaccessors.each { |e| attr_accessor e }
+    # :address, # [String] Email address
+    # :user,    # [String] local part of the email address
+    # :host,    # [String] domain part of the email address
+    # :verp,    # [String] VERP
+    # :alias,   # [String] alias of the email address
+    # :name,    # [String] Display name
+    # :comment, # [String] Comment
+    attr_reader   :address, :user, :host, :verp, :alias
+    attr_accessor :name, :comment
 
     # Constructor of Sisimai::Address
     # @param <str>  [String] argv1          Email address

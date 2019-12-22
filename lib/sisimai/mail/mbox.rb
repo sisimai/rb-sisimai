@@ -3,18 +3,14 @@ module Sisimai
     # Sisimai::Mail::Mbox is a mailbox file (UNIX mbox) reader.
     class Mbox
       # Imported from p5-Sisimail/lib/Sisimai/Mail/Mbox.pm
-      @@roaccessors = [
-        :dir,     # [String]  Directory name of the mbox
-        :file,    # [String]  File name of the mbox
-        :path,    # [String]  Path to mbox
-        :size,    # [Integer] File size of the mbox
-      ]
-      @@rwaccessors = [
-        :offset,  # [Integer]  Offset position for seeking
-        :handle,  # [IO::File] File handle
-      ]
-      @@roaccessors.each { |e| attr_reader   e }
-      @@rwaccessors.each { |e| attr_accessor e }
+      # :dir    [String]  Directory name of the mbox
+      # :file   [String]  File name of the mbox
+      # :path   [String]  Path to mbox
+      # :size   [Integer] File size of the mbox
+      # :offset [Integer]  Offset position for seeking
+      # :handle [IO::File] File handle
+      attr_reader :dir, :file, :path, :size
+      attr_accessor :offset, :handle
 
       # Constructor of Sisimai::Mail::Mbox
       # @param    [String] argv1            Path to mbox
