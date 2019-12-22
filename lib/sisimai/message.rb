@@ -54,7 +54,7 @@ module Sisimai
         return nil
       end
 
-      methodargv = { 'data'  => email, 'hook' => argvs[:hook] || nil, 'field' => field }
+      methodargv = { 'data' => email, 'hook' => argvs[:hook] || nil, 'field' => field }
       [:load, :order].each do |e|
         # Order of MTA modules
         next unless argvs.key?(e)
