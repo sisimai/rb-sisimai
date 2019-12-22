@@ -35,7 +35,7 @@ module Sisimai
       :deliverystatus,  # [String] Delivery Status(DSN)
       :timezoneoffset,  # [Integer] Time zone offset(seconds)
     ]
-    @@rwaccessors.each { |e| attr_accessor e }
+    attr_accessor(*@@rwaccessors)
 
     EndOfEmail = Sisimai::String.EOM
     RetryIndex = Sisimai::Reason.retry
