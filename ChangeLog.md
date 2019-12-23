@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.4p5
+v4.25.4p6
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -44,6 +44,13 @@ v4.25.4p5
     - `Sisimai::Order::JSON`
     - `Sisimai::Bite::Email`
     - `Sisimai::Bite::JSON`
+  - Accessor improvements in the following classes:
+    - `Sisimai::Message`
+    - `Sisimai::Data`
+    - `Sisimai::Mail` and child classes in `sisimai/mail` directory
+  - Fix duplicated ranges in some regular expressions at `Sisimai::Address`
+  - **JSON READING AS A INPUT SOURCE AND JSON PARSING AS A BOUNCE OBJECT ARE NO
+    LONGER PROVIDED AS OF v4.25.5**
 
 v4.25.4
 --------------------------------------------------------------------------------
