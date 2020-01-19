@@ -9,9 +9,9 @@ module Sisimai::Lhost
 
       # https://aws.amazon.com/ses/
       Indicators = Sisimai::Lhost.INDICATORS
+      ReBackbone = %r|^content-type:[ ]message/rfc822|.freeze
       StartingOf = {
         message: ['The following message to <', 'An error occurred while trying to deliver the mail'],
-        rfc822:  ['content-type: message/rfc822'],
       }.freeze
       MessagesOf = { 'expired' => ['Delivery expired'] }.freeze
 
@@ -46,11 +46,7 @@ module Sisimai::Lhost
 
           # https://docs.aws.amazon.com/en_us/ses/latest/DeveloperGuide/notification-contents.html
           bouncetype = {
-            'Permanent' => {
-              'General'    => '',
-              'NoEmail'    => '',
-              'Suppressed' => '',
-            },
+            'Permanent' => { 'General' => '', 'NoEmail' => '', 'Suppressed' => '' },
             'Transient' => {
               'General'            => '',
               'MailboxFull'        => 'mailboxfull',
@@ -62,9 +58,9 @@ module Sisimai::Lhost
           jsonstring = ''
           sespayload = nil
           foldedline = false
-          hasdivided = mbody.split("\n")
+          bodyslices = mbody.split("\n")
 
-          while e = hasdivided.shift do
+          while e = bodyslices.shift do
             # Find JSON string from the message body
             next if e.empty?
             break if e == '--'
@@ -214,10 +210,7 @@ module Sisimai::Lhost
           end
           return nil unless recipients > 0
 
-          dscontents.each do |e|
-            e['agent'] = self.smtpagent
-          end
-
+          dscontents.each { |e| e['agent'] = self.smtpagent }
           if p['mail']['headers']
             # "headersTruncated":false,
             # "headers":[ { ...
@@ -252,17 +245,16 @@ module Sisimai::Lhost
           fieldtable = Sisimai::RFC1894.FIELDTABLE
           permessage = {}     # (Hash) Store values of each Per-Message field
 
-          hasdivided = mbody.split("\n")
-          havepassed = ['']
-          rfc822list = []     # (Array) Each line in message/rfc822 part string
-          blanklines = 0      # (Integer) The number of blank lines
+          emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+          bodyslices = emailsteak[0].split("\n")
+          readslices = ['']
           readcursor = 0      # (Integer) Points the current cursor position
           v = nil
 
-          while e = hasdivided.shift do
-            # Save the current line for the next loop
-            havepassed << e
-            p = havepassed[-2]
+          while e = bodyslices.shift do
+            # Read error messages and delivery status lines from the head of the email
+            # to the previous line of the beginning of the original message.
+            readslices << e # Save the current line for the next loop
 
             if readcursor == 0
               # Beginning of the bounce message or message/delivery-status part
@@ -271,69 +263,49 @@ module Sisimai::Lhost
                 next
               end
             end
+            next if (readcursor & Indicators[:deliverystatus]) == 0
+            next if e.empty?
 
-            if (readcursor & Indicators[:'message-rfc822']) == 0
-              # Beginning of the original message part(message/rfc822)
-              if e == StartingOf[:rfc822][0]
-                readcursor |= Indicators[:'message-rfc822']
-                next
-              end
-            end
+            if f = Sisimai::RFC1894.match(e)
+              # "e" matched with any field defined in RFC3464
+              next unless o = Sisimai::RFC1894.field(e)
+              v = dscontents[-1]
 
-            if readcursor & Indicators[:'message-rfc822'] > 0
-              # message/rfc822 OR text/rfc822-headers part
-              if e.empty?
-                blanklines += 1
-                break if blanklines > 1
-                next
-              end
-              rfc822list << e
-            else
-              # message/delivery-status part
-              next if (readcursor & Indicators[:deliverystatus]) == 0
-              next if e.empty?
-
-              if f = Sisimai::RFC1894.match(e)
-                # "e" matched with any field defined in RFC3464
-                next unless o = Sisimai::RFC1894.field(e)
-                v = dscontents[-1]
-
-                if o[-1] == 'addr'
+              if o[-1] == 'addr'
+                # Final-Recipient: rfc822; kijitora@example.jp
+                # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                if o[0] == 'final-recipient'
                   # Final-Recipient: rfc822; kijitora@example.jp
-                  # X-Actual-Recipient: rfc822; kijitora@example.co.jp
-                  if o[0] == 'final-recipient'
-                    # Final-Recipient: rfc822; kijitora@example.jp
-                    if v['recipient']
-                      # There are multiple recipient addresses in the message body.
-                      dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                      v = dscontents[-1]
-                    end
-                    v['recipient'] = o[2]
-                    recipients += 1
-                  else
-                    # X-Actual-Recipient: rfc822; kijitora@example.co.jp
-                    v['alias'] = o[2]
+                  if v['recipient']
+                    # There are multiple recipient addresses in the message body.
+                    dscontents << Sisimai::Lhost.DELIVERYSTATUS
+                    v = dscontents[-1]
                   end
-                elsif o[-1] == 'code'
-                  # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
-                  v['spec'] = o[1]
-                  v['diagnosis'] = o[2]
+                  v['recipient'] = o[2]
+                  recipients += 1
                 else
-                  # Other DSN fields defined in RFC3464
-                  next unless fieldtable.key?(o[0])
-                  v[fieldtable[o[0]]] = o[2]
-
-                  next unless f == 1
-                  permessage[fieldtable[o[0]]] = o[2]
+                  # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                  v['alias'] = o[2]
                 end
+              elsif o[-1] == 'code'
+                # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
+                v['spec'] = o[1]
+                v['diagnosis'] = o[2]
               else
-                # Continued line of the value of Diagnostic-Code field
-                next unless p.start_with?('Diagnostic-Code:')
-                next unless cv = e.match(/\A[ \t]+(.+)\z/)
-                v['diagnosis'] << ' ' << cv[1]
-                havepassed[-1] = 'Diagnostic-Code: ' << e
+                # Other DSN fields defined in RFC3464
+                next unless fieldtable.key?(o[0])
+                v[fieldtable[o[0]]] = o[2]
+
+                next unless f == 1
+                permessage[fieldtable[o[0]]] = o[2]
               end
-            end # End of message/delivery-status
+            else
+              # Continued line of the value of Diagnostic-Code field
+              next unless readslices[-2].start_with?('Diagnostic-Code:')
+              next unless cv = e.match(/\A[ \t]+(.+)\z/)
+              v['diagnosis'] << ' ' << cv[1]
+              readslices[-1] = 'Diagnostic-Code: ' << e
+            end
           end
 
           if recipients == 0 && mbody =~ /notificationType/
@@ -375,11 +347,10 @@ module Sisimai::Lhost
             end
           end
 
-          rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-          return { 'ds' => dscontents, 'rfc822' => rfc822part }
+          return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
         end # END of a parser for email message
-      end # END of def make()
 
+      end # END of def make()
     end
   end
 end

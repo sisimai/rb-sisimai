@@ -8,10 +8,8 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      StartingOf = {
-        message: ['  ----- The following addresses had permanent fatal errors -----'],
-        rfc822:  ['Content-type: message/rfc822'],
-      }.freeze
+      ReBackbone = %r|^Content-type:[ ]message/rfc822|.freeze
+      StartingOf = { message: ['  ----- The following addresses had permanent fatal errors -----'] }.freeze
 
       def description; return 'TransWARE Active!hunter'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
@@ -34,68 +32,47 @@ module Sisimai::Lhost
         return nil unless mhead['x-ahmailid']
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
-        rfc822list = []     # (Array) Each line in message/rfc822 part string
-        blanklines = 0      # (Integer) The number of blank lines
+        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+        bodyslices = emailsteak[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
 
-        while e = hasdivided.shift do
+        while e = bodyslices.shift do
+          # Read error messages and delivery status lines from the head of the email
+          # to the previous line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            if e == StartingOf[:message][0]
-              readcursor |= Indicators[:deliverystatus]
-              next
-            end
+            readcursor |= Indicators[:deliverystatus] if e == StartingOf[:message][0]
+            next
           end
+          next if (readcursor & Indicators[:deliverystatus]) == 0
+          next if e.empty?
 
-          if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
-            if e == StartingOf[:rfc822][0]
-              readcursor |= Indicators[:'message-rfc822']
-              next
-            end
-          end
+          #  ----- The following addresses had permanent fatal errors -----
+          #
+          # >>> kijitora@example.org <kijitora@example.org>
+          #
+          #  ----- Transcript of session follows -----
+          # 550 sorry, no mailbox here by that name (#5.1.1 - chkusr)
+          v = dscontents[-1]
 
-          if readcursor & Indicators[:'message-rfc822'] > 0
-            # Inside of the original message part
-            if e.empty?
-              blanklines += 1
-              break if blanklines > 1
-              next
-            end
-            rfc822list << e
-          else
-            # Error message part
-            next if (readcursor & Indicators[:deliverystatus]) == 0
-            next if e.empty?
-
-            #  ----- The following addresses had permanent fatal errors -----
-            #
+          if cv = e.match(/\A[>]{3}[ \t]+.+[<]([^ ]+?[@][^ ]+?)[>]\z/)
             # >>> kijitora@example.org <kijitora@example.org>
-            #
+            if v['recipient']
+              # There are multiple recipient addresses in the message body.
+              dscontents << Sisimai::Lhost.DELIVERYSTATUS
+              v = dscontents[-1]
+            end
+            v['recipient'] = cv[1]
+            v['diagnosis'] = ''
+            recipients += 1
+          else
             #  ----- Transcript of session follows -----
             # 550 sorry, no mailbox here by that name (#5.1.1 - chkusr)
-            v = dscontents[-1]
-
-            if cv = e.match(/\A[>]{3}[ \t]+.+[<]([^ ]+?[@][^ ]+?)[>]\z/)
-              # >>> kijitora@example.org <kijitora@example.org>
-              if v['recipient']
-                # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                v = dscontents[-1]
-              end
-              v['recipient'] = cv[1]
-              v['diagnosis'] = ''
-              recipients += 1
-            else
-              #  ----- Transcript of session follows -----
-              # 550 sorry, no mailbox here by that name (#5.1.1 - chkusr)
-              next unless e =~ /\A[0-9A-Za-z]+/
-              next unless v['diagnosis'].empty?
-              v['diagnosis'] = e
-            end
+            next unless e =~ /\A[0-9A-Za-z]+/
+            next unless v['diagnosis'].empty?
+            v['diagnosis'] = e
           end
         end
         return nil unless recipients > 0
@@ -107,8 +84,7 @@ module Sisimai::Lhost
           e.each_key { |a| e[a] ||= '' }
         end
 
-        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
 
     end
