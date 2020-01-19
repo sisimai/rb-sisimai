@@ -7,19 +7,12 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
+      ReBackbone = %r/^[ ]*-----[ ](?:Original[ ]message|Message[ ]header[ ]follows)[ ]-----/.freeze
       StartingOf = {
         message: ['Delivery to the following recipient'],
         error:   ['The error that the other server returned was:'],
       }.freeze
-      MarkingsOf = {
-        start:  %r/Technical details of (?:permanent|temporary) failure:/,
-        rfc822: %r{\A(?:
-             -----[ ]Original[ ]message[ ]-----
-            |[ \t]*-----[ ]Message[ ]header[ ]follows[ ]-----
-            )\z
-        }x,
-      }.freeze
-
+      MarkingsOf = { start: %r/Technical details of (?:permanent|temporary) failure:/ }.freeze
       MessagesOf = {
         'expired' => [
           'DNS Error: Could not contact DNS servers',
@@ -172,74 +165,55 @@ module Sisimai::Lhost
         return nil unless mhead['subject'].start_with?('Delivery Status Notification')
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
-        rfc822list = []     # (Array) Each line in message/rfc822 part string
-        blanklines = 0      # (Integer) The number of blank lines
+        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+        bodyslices = emailsteak[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         statecode0 = 0      # (Integer) The value of (state *) in the error message
         v = nil
 
-        while e = hasdivided.shift do
+        while e = bodyslices.shift do
+          # Read error messages and delivery status lines from the head of the email
+          # to the previous line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
             readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])
           end
+          next if (readcursor & Indicators[:deliverystatus]) == 0
+          next if e.empty?
 
-          if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
-            if e =~ MarkingsOf[:rfc822]
-              readcursor |= Indicators[:'message-rfc822']
-              next
-            end
-          end
+          # Technical details of permanent failure:=20
+          # Google tried to deliver your message, but it was rejected by the recipient =
+          # domain. We recommend contacting the other email provider for further inform=
+          # ation about the cause of this error. The error that the other server return=
+          # ed was: 554 554 5.7.0 Header error (state 18).
+          #
+          # -- OR --
+          #
+          # Technical details of permanent failure:=20
+          # Google tried to deliver your message, but it was rejected by the server for=
+          # the recipient domain example.jp by mx.example.jp. [192.0.2.49].
+          #
+          # The error that the other server returned was:
+          # 550 5.1.1 <userunknown@example.jp>... User Unknown
+          #
+          v = dscontents[-1]
 
-          if readcursor & Indicators[:'message-rfc822'] > 0
-            # Inside of the original message part
-            if e.empty?
-              blanklines += 1
-              break if blanklines > 1
-              next
+          if cv = e.match(/\A[ \t]+([^ ]+[@][^ ]+)\z/)
+            # kijitora@example.jp: 550 5.2.2 <kijitora@example>... Mailbox Full
+            if v['recipient']
+              # There are multiple recipient addresses in the message body.
+              dscontents << Sisimai::Lhost.DELIVERYSTATUS
+              v = dscontents[-1]
             end
-            rfc822list << e
+
+            r = Sisimai::Address.s3s4(cv[1])
+            next unless Sisimai::RFC5322.is_emailaddress(r)
+            v['recipient'] = r
+            recipients += 1
           else
-            # Error message part
-            next if (readcursor & Indicators[:deliverystatus]) == 0
-            next if e.empty?
-
-            # Technical details of permanent failure:=20
-            # Google tried to deliver your message, but it was rejected by the recipient =
-            # domain. We recommend contacting the other email provider for further inform=
-            # ation about the cause of this error. The error that the other server return=
-            # ed was: 554 554 5.7.0 Header error (state 18).
-            #
-            # -- OR --
-            #
-            # Technical details of permanent failure:=20
-            # Google tried to deliver your message, but it was rejected by the server for=
-            # the recipient domain example.jp by mx.example.jp. [192.0.2.49].
-            #
-            # The error that the other server returned was:
-            # 550 5.1.1 <userunknown@example.jp>... User Unknown
-            #
-            v = dscontents[-1]
-
-            if cv = e.match(/\A[ \t]+([^ ]+[@][^ ]+)\z/)
-              # kijitora@example.jp: 550 5.2.2 <kijitora@example>... Mailbox Full
-              if v['recipient']
-                # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                v = dscontents[-1]
-              end
-
-              r = Sisimai::Address.s3s4(cv[1])
-              next unless Sisimai::RFC5322.is_emailaddress(r)
-              v['recipient'] = r
-              recipients += 1
-            else
-              v['diagnosis'] ||= ''
-              v['diagnosis'] << e + ' '
-            end
+            v['diagnosis'] ||= ''
+            v['diagnosis'] << e + ' '
           end
         end
         return nil unless recipients > 0
@@ -286,8 +260,7 @@ module Sisimai::Lhost
           e['reason'] = Sisimai::SMTP::Status.name(e['status']).to_s if e['status'] =~ /\A[45][.][1-7][.][1-9]\z/
         end
 
-        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
 
     end
