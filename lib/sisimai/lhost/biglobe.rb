@@ -7,10 +7,10 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
+      ReBackbone = %r|^Content-Type:[ ]message/rfc822|.freeze
       StartingOf = {
         message: ['   ----- The following addresses had delivery problems -----'],
         error:   ['   ----- Non-delivered information -----'],
-        rfc822:  ['Content-Type: message/rfc822'],
       }.freeze
       MessagesOf = {
         'filtered'    => ['Mail Delivery Failed... User unknown'],
@@ -37,77 +37,56 @@ module Sisimai::Lhost
         return nil unless mhead['subject'].start_with?('Returned mail:')
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
-        rfc822list = []     # (Array) Each line in message/rfc822 part string
-        blanklines = 0      # (Integer) The number of blank lines
+        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+        bodyslices = emailsteak[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
 
-        while e = hasdivided.shift do
+        while e = bodyslices.shift do
+          # Read error messages and delivery status lines from the head of the email
+          # to the previous line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            if e == StartingOf[:message][0]
-              readcursor |= Indicators[:deliverystatus]
-              next
-            end
+            readcursor |= Indicators[:deliverystatus] if e == StartingOf[:message][0]
+            next
           end
+          next if (readcursor & Indicators[:deliverystatus]) == 0
+          next if e.empty?
 
-          if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
-            if e == StartingOf[:rfc822][0]
-              readcursor |= Indicators[:'message-rfc822']
-              next
-            end
-          end
+          # This is a MIME-encapsulated message.
+          #
+          # ----_Biglobe000000/00000.biglobe.ne.jp
+          # Content-Type: text/plain; charset="iso-2022-jp"
+          #
+          #    ----- The following addresses had delivery problems -----
+          # ********@***.biglobe.ne.jp
+          #
+          #    ----- Non-delivered information -----
+          # The number of messages in recipient's mailbox exceeded the local limit.
+          #
+          # ----_Biglobe000000/00000.biglobe.ne.jp
+          # Content-Type: message/rfc822
+          #
+          v = dscontents[-1]
 
-          if readcursor & Indicators[:'message-rfc822'] > 0
-            # Inside of the original message part
-            if e.empty?
-              blanklines += 1
-              break if blanklines > 1
-              next
-            end
-            rfc822list << e
-          else
-            # Error message part
-            next if (readcursor & Indicators[:deliverystatus]) == 0
-            next if e.empty?
-
-            # This is a MIME-encapsulated message.
-            #
-            # ----_Biglobe000000/00000.biglobe.ne.jp
-            # Content-Type: text/plain; charset="iso-2022-jp"
-            #
+          if cv = e.match(/\A([^ ]+[@][^ ]+)\z/)
             #    ----- The following addresses had delivery problems -----
             # ********@***.biglobe.ne.jp
-            #
-            #    ----- Non-delivered information -----
-            # The number of messages in recipient's mailbox exceeded the local limit.
-            #
-            # ----_Biglobe000000/00000.biglobe.ne.jp
-            # Content-Type: message/rfc822
-            #
-            v = dscontents[-1]
-
-            if cv = e.match(/\A([^ ]+[@][^ ]+)\z/)
-              #    ----- The following addresses had delivery problems -----
-              # ********@***.biglobe.ne.jp
-              if v['recipient']
-                # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                v = dscontents[-1]
-              end
-
-              r = Sisimai::Address.s3s4(cv[1])
-              next unless Sisimai::RFC5322.is_emailaddress(r)
-              v['recipient'] = r
-              recipients += 1
-            else
-              next if e =~ /\A[^\w]/
-              v['diagnosis'] ||= ''
-              v['diagnosis'] << e + ' '
+            if v['recipient']
+              # There are multiple recipient addresses in the message body.
+              dscontents << Sisimai::Lhost.DELIVERYSTATUS
+              v = dscontents[-1]
             end
+
+            r = Sisimai::Address.s3s4(cv[1])
+            next unless Sisimai::RFC5322.is_emailaddress(r)
+            v['recipient'] = r
+            recipients += 1
+          else
+            next if e =~ /\A[^\w]/
+            v['diagnosis'] ||= ''
+            v['diagnosis'] << e + ' '
           end
         end
         return nil unless recipients > 0
@@ -124,8 +103,7 @@ module Sisimai::Lhost
           end
         end
 
-        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
 
     end
