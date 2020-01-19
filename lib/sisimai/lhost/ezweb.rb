@@ -7,6 +7,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
+      ReBackbone = %r<^(?:[-]{50}|Content-Type:[ ]*message/rfc822)>.freeze
       MarkingsOf = {
         message: %r{\A(?:
              The[ ]user[(]s[)][ ]
@@ -15,7 +16,6 @@ module Sisimai::Lhost
             |[<][^ ]+[@][^ ]+[>]\z
             )
         }x,
-        rfc822: %r#\A(?:[-]{50}|Content-Type:[ ]*message/rfc822)#,
       }.freeze
       ReFailures = {
         # notaccept: [ %r/The following recipients did not receive this message:/ ],
@@ -68,9 +68,8 @@ module Sisimai::Lhost
         require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
-        rfc822list = []     # (Array) Each line in message/rfc822 part string
-        blanklines = 0      # (Integer) The number of blank lines
+        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+        bodyslices = emailsteak[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         rxboundary = %r/\A__SISIMAI_PSEUDO_BOUNDARY__\z/
@@ -85,83 +84,65 @@ module Sisimai::Lhost
         rxmessages = []
         ReFailures.each_value { |a| rxmessages << a }
 
-        while e = hasdivided.shift do
+        while e = bodyslices.shift do
+          # Read error messages and delivery status lines from the head of the email
+          # to the previous line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
             readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
           end
+          next if (readcursor & Indicators[:deliverystatus]) == 0
+          next if e.empty?
 
-          if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
-            if e =~ MarkingsOf[:rfc822] || e =~ rxboundary
-              readcursor |= Indicators[:'message-rfc822']
-              next
-            end
-          end
+          # The user(s) account is disabled.
+          #
+          # <***@ezweb.ne.jp>: 550 user unknown (in reply to RCPT TO command)
+          #
+          #  -- OR --
+          # Each of the following recipients was rejected by a remote
+          # mail server.
+          #
+          #    Recipient: <******@ezweb.ne.jp>
+          #    >>> RCPT TO:<******@ezweb.ne.jp>
+          #    <<< 550 <******@ezweb.ne.jp>: User unknown
+          v = dscontents[-1]
 
-          if readcursor & Indicators[:'message-rfc822'] > 0
-            # Inside of the original message part
-            if e.empty?
-              blanklines += 1
-              break if blanklines > 1
-              next
+          if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>]\z/) ||
+                  e.match(/\A[<]([^ ]+[@][^ ]+)[>]:?(.*)\z/) ||
+                  e.match(/\A[ \t]+Recipient: [<]([^ ]+[@][^ ]+)[>]/)
+
+            if v['recipient']
+              # There are multiple recipient addresses in the message body.
+              dscontents << Sisimai::Lhost.DELIVERYSTATUS
+              v = dscontents[-1]
             end
-            rfc822list << e
+
+            r = Sisimai::Address.s3s4(cv[1])
+            v['recipient'] = r
+            recipients += 1
+
+          elsif f = Sisimai::RFC1894.match(e)
+            # "e" matched with any field defined in RFC3464
+            next unless o = Sisimai::RFC1894.field(e)
+            next unless fieldtable.key?(o[0])
+            v[fieldtable[o[0]]] = o[2]
+
           else
-            # Error message part
-            next if (readcursor & Indicators[:deliverystatus]) == 0
-            next if e.empty?
-
-            # The user(s) account is disabled.
-            #
-            # <***@ezweb.ne.jp>: 550 user unknown (in reply to RCPT TO command)
-            #
-            #  -- OR --
-            # Each of the following recipients was rejected by a remote
-            # mail server.
-            #
-            #    Recipient: <******@ezweb.ne.jp>
-            #    >>> RCPT TO:<******@ezweb.ne.jp>
-            #    <<< 550 <******@ezweb.ne.jp>: User unknown
-            v = dscontents[-1]
-
-            if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>]\z/) ||
-                    e.match(/\A[<]([^ ]+[@][^ ]+)[>]:?(.*)\z/) ||
-                    e.match(/\A[ \t]+Recipient: [<]([^ ]+[@][^ ]+)[>]/)
-
-              if v['recipient']
-                # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                v = dscontents[-1]
-              end
-
-              r = Sisimai::Address.s3s4(cv[1])
-              v['recipient'] = r
-              recipients += 1
-
-            elsif f = Sisimai::RFC1894.match(e)
-              # "e" matched with any field defined in RFC3464
-              next unless o = Sisimai::RFC1894.field(e)
-              next unless fieldtable.key?(o[0])
-              v[fieldtable[o[0]]] = o[2]
-
+            # The line does not begin with a DSN field defined in RFC3464
+            next if Sisimai::String.is_8bit(e)
+            if cv = e.match(/\A[ \t]+[>]{3}[ \t]+([A-Z]{4})/)
+              #    >>> RCPT TO:<******@ezweb.ne.jp>
+              v['command'] = cv[1]
             else
-              # The line does not begin with a DSN field defined in RFC3464
-              next if Sisimai::String.is_8bit(e)
-              if cv = e.match(/\A[ \t]+[>]{3}[ \t]+([A-Z]{4})/)
-                #    >>> RCPT TO:<******@ezweb.ne.jp>
-                v['command'] = cv[1]
+              # Check error message
+              if rxmessages.any? { |a| e =~ a }
+                # Check with regular expressions of each error
+                v['diagnosis'] ||= ''
+                v['diagnosis'] << ' ' << e
               else
-                # Check error message
-                if rxmessages.any? { |a| e =~ a }
-                  # Check with regular expressions of each error
-                  v['diagnosis'] ||= ''
-                  v['diagnosis'] << ' ' << e
-                else
-                  # >>> 550
-                  v['alterrors'] ||= ''
-                  v['alterrors'] << ' ' << e
-                end
+                # >>> 550
+                v['alterrors'] ||= ''
+                v['alterrors'] << ' ' << e
               end
             end
           end
@@ -212,8 +193,7 @@ module Sisimai::Lhost
           e['reason'] = 'userunknown'
         end
 
-        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
 
     end

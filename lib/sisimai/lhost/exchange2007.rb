@@ -8,15 +8,15 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
+      ReBackbone = %r{^(?:
+         Original[ ]message[ ]headers:            # en-US
+        |En-t.tes[ ]de[ ]message[ ]d'origine[ ]:  # fr-FR/En-têtes de message d'origine
+        )
+      }x.freeze
       MarkingsOf = {
         message: %r{\A(?:
            Diagnostic[ ]information[ ]for[ ]administrators:               # en-US
           |Informations[ ]de[ ]diagnostic[ ]pour[ ]les[ ]administrateurs  # fr-FR
-          )
-        }x,
-        rfc822:  %r{(?:
-           Original[ ]message[ ]headers:     # en-US
-          |[ ]de[ ]message[ ]d'origine[ ]:   # fr-FR/En-têtes de message d'origine
           )
         }x,
         error:   %r/ ((?:RESOLVER|QUEUE)[.][A-Za-z]+(?:[.]\w+)?);/,
@@ -63,9 +63,8 @@ module Sisimai::Lhost
         return nil unless mhead['content-language'] =~ /\A[a-z]{2}(?:[-][A-Z]{2})?\z/
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
-        rfc822list = []     # (Array) Each line in message/rfc822 part string
-        blanklines = 0      # (Integer) The number of blank lines
+        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+        bodyslices = emailsteak[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         connvalues = 0      # (Integer) Flag, 1 if all the value of connheader have been set
@@ -74,81 +73,61 @@ module Sisimai::Lhost
         }
         v = nil
 
-        while e = hasdivided.shift do
+        while e = bodyslices.shift do
+          # Read error messages and delivery status lines from the head of the email
+          # to the previous line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            if e =~ MarkingsOf[:message]
-              readcursor |= Indicators[:deliverystatus]
-              next
-            end
+            readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
+            next
           end
+          next if (readcursor & Indicators[:deliverystatus]) == 0
 
-          if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
-            if e =~ MarkingsOf[:rfc822]
-              readcursor |= Indicators[:'message-rfc822']
-              next
-            end
-          end
+          if connvalues == connheader.keys.size
+            # Diagnostic information for administrators:
+            #
+            # Generating server: mta2.neko.example.jp
+            #
+            # kijitora@example.jp
+            # #550 5.1.1 RESOLVER.ADR.RecipNotFound; not found ##
+            #
+            # Original message headers:
+            v = dscontents[-1]
 
-          if readcursor & Indicators[:'message-rfc822'] > 0
-            # Inside of the original message part
-            if e.empty?
-              blanklines += 1
-              break if blanklines > 1
-              next
-            end
-            rfc822list << e
-          else
-            # Error message part
-            next if (readcursor & Indicators[:deliverystatus]) == 0
-
-            if connvalues == connheader.keys.size
-              # Diagnostic information for administrators:
-              #
-              # Generating server: mta2.neko.example.jp
-              #
+            if cv = e.match(/\A([^ @]+[@][^ @]+)\z/)
               # kijitora@example.jp
-              # #550 5.1.1 RESOLVER.ADR.RecipNotFound; not found ##
-              #
-              # Original message headers:
-              v = dscontents[-1]
-
-              if cv = e.match(/\A([^ @]+[@][^ @]+)\z/)
-                # kijitora@example.jp
-                if v['recipient']
-                  # There are multiple recipient addresses in the message body.
-                  dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                  v = dscontents[-1]
-                end
-                v['recipient'] = cv[1]
-                v['diagnosis'] = ''
-                recipients += 1
-
-              elsif cv = e.match(/([45]\d{2})[ ]([45][.]\d[.]\d+)[ ].+\z/)
-                # #550 5.1.1 RESOLVER.ADR.RecipNotFound; not found ##
-                # #550 5.2.3 RESOLVER.RST.RecipSizeLimit; message too large for this recipient ##
-                # Remote Server returned '550 5.1.1 RESOLVER.ADR.RecipNotFound; not found'
-                # 3/09/2016 8:05:56 PM - Remote Server at mydomain.com (10.1.1.3) returned '550 4.4.7 QUEUE.Expired; message expired'
-                v['replycode'] = cv[1]
-                v['status']    = cv[2]
-                v['diagnosis'] = e
-              else
-                # Continued line of error messages
-                next if v['diagnosis'].to_s.empty?
-                next unless v['diagnosis'].end_with?('=')
-                v['diagnosis']  = v['diagnosis'].chomp('=')
-                v['diagnosis'] << e
+              if v['recipient']
+                # There are multiple recipient addresses in the message body.
+                dscontents << Sisimai::Lhost.DELIVERYSTATUS
+                v = dscontents[-1]
               end
+              v['recipient'] = cv[1]
+              v['diagnosis'] = ''
+              recipients += 1
+
+            elsif cv = e.match(/([45]\d{2})[ ]([45][.]\d[.]\d+)[ ].+\z/)
+              # #550 5.1.1 RESOLVER.ADR.RecipNotFound; not found ##
+              # #550 5.2.3 RESOLVER.RST.RecipSizeLimit; message too large for this recipient ##
+              # Remote Server returned '550 5.1.1 RESOLVER.ADR.RecipNotFound; not found'
+              # 3/09/2016 8:05:56 PM - Remote Server at mydomain.com (10.1.1.3) returned '550 4.4.7 QUEUE.Expired; message expired'
+              v['replycode'] = cv[1]
+              v['status']    = cv[2]
+              v['diagnosis'] = e
             else
-              # Diagnostic information for administrators:
-              #
-              # Generating server: mta22.neko.example.org
-              next unless cv = e.match(MarkingsOf[:rhost])
-              next unless connheader['rhost'].empty?
-              connheader['rhost'] = cv[1]
-              connvalues += 1
+              # Continued line of error messages
+              next if v['diagnosis'].to_s.empty?
+              next unless v['diagnosis'].end_with?('=')
+              v['diagnosis']  = v['diagnosis'].chomp('=')
+              v['diagnosis'] << e
             end
+          else
+            # Diagnostic information for administrators:
+            #
+            # Generating server: mta22.neko.example.org
+            next unless cv = e.match(MarkingsOf[:rhost])
+            next unless connheader['rhost'].empty?
+            connheader['rhost'] = cv[1]
+            connvalues += 1
           end
         end
         return nil unless recipients > 0
@@ -168,8 +147,7 @@ module Sisimai::Lhost
           e['agent']     = self.smtpagent
         end
 
-        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
 
     end
