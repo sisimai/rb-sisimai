@@ -7,7 +7,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      StartingOf = { rfc822: ['Content-Type: message/rfc822'] }.freeze
+      ReBackbone = %r|^Content-Type:[ ]message/rfc822|.freeze
       MarkingsOf = {
         message: %r/\AYour[ ]mail[ ](?:
              sent[ ]on:?[ ][A-Z][a-z]{2}[,]
@@ -46,66 +46,45 @@ module Sisimai::Lhost
         return nil unless match > 0
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
-        rfc822list = []     # (Array) Each line in message/rfc822 part string
-        blanklines = 0      # (Integer) The number of blank lines
+        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+        bodyslices = emailsteak[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
 
-        while e = hasdivided.shift do
+        while e = bodyslices.shift do
+          # Read error messages and delivery status lines from the head of the email
+          # to the previous line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            if e =~ MarkingsOf[:message]
-              readcursor |= Indicators[:deliverystatus]
-              next
-            end
+            readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
+            next
           end
+          next if (readcursor & Indicators[:deliverystatus]) == 0
+          next if e.empty?
 
-          if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
-            if e == StartingOf[:rfc822][0]
-              readcursor |= Indicators[:'message-rfc822']
-              next
+          v = dscontents[-1]
+          if cv = e.match(/\A[ \t]+Could not be delivered to: [<]([^ ]+[@][^ ]+)[>]/)
+            # Your mail sent on: Thu, 29 Apr 2010 11:04:47 +0900
+            #     Could not be delivered to: <******@**.***.**>
+            #     As their mailbox is full.
+            if v['recipient']
+              # There are multiple recipient addresses in the message body.
+              dscontents << Sisimai::Lhost.DELIVERYSTATUS
+              v = dscontents[-1]
             end
-          end
+            r = Sisimai::Address.s3s4(cv[1])
+            next unless Sisimai::RFC5322.is_emailaddress(r)
+            v['recipient'] = r
+            recipients += 1
 
-          if readcursor & Indicators[:'message-rfc822'] > 0
-            # Inside of the original message part
-            if e.empty?
-              blanklines += 1
-              break if blanklines > 1
-              next
-            end
-            rfc822list << e
+          elsif cv = e.match(/Your mail sent on: (.+)\z/)
+            # Your mail sent on: Thu, 29 Apr 2010 11:04:47 +0900
+            v['date'] = cv[1]
           else
-            # Error message part
-            next if (readcursor & Indicators[:deliverystatus]) == 0
-            next if e.empty?
-
-            v = dscontents[-1]
-            if cv = e.match(/\A[ \t]+Could not be delivered to: [<]([^ ]+[@][^ ]+)[>]/)
-              # Your mail sent on: Thu, 29 Apr 2010 11:04:47 +0900
-              #     Could not be delivered to: <******@**.***.**>
-              #     As their mailbox is full.
-              if v['recipient']
-                # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                v = dscontents[-1]
-              end
-              r = Sisimai::Address.s3s4(cv[1])
-              next unless Sisimai::RFC5322.is_emailaddress(r)
-              v['recipient'] = r
-              recipients += 1
-
-            elsif cv = e.match(/Your mail sent on: (.+)\z/)
-              # Your mail sent on: Thu, 29 Apr 2010 11:04:47 +0900
-              v['date'] = cv[1]
-            else
-              #     As their mailbox is full.
-              v['diagnosis'] ||= ''
-              v['diagnosis'] << e + ' ' if e.start_with?(' ', "\t")
-            end
+            #     As their mailbox is full.
+            v['diagnosis'] ||= ''
+            v['diagnosis'] << e + ' ' if e.start_with?(' ', "\t")
           end
         end
         return nil unless recipients > 0
@@ -136,8 +115,7 @@ module Sisimai::Lhost
 
         end
 
-        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
 
     end
