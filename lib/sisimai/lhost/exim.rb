@@ -7,6 +7,15 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
+      # deliver.c:6423|          if (bounce_return_body) fprintf(f,
+      # deliver.c:6424|"------ This is a copy of the message, including all the headers. ------\n");
+      # deliver.c:6425|          else fprintf(f,
+      # deliver.c:6426|"------ This is a copy of the message's headers. ------\n");
+      ReBackbone = %r{^(?:
+         [-]+[ ]This[ ]is[ ]a[ ]copy[ ]of[ ](?:the|your)[ ]message.+headers[.][ ][-]+
+        |Content-Type:[ ]*message/rfc822
+        )
+      }x.freeze
       StartingOf = {
         deliverystatus: ['Content-type: message/delivery-status'],
         endof:          ['__END_OF_EMAIL_MESSAGE__'],
@@ -29,18 +38,8 @@ module Sisimai::Lhost
         # deliver.c:6304|"could not be delivered to one or more of its recipients. The following\n"
         # deliver.c:6305|"address(es) failed:\n", sender_address);
         # deliver.c:6306|          }
-        #
-        # deliver.c:6423|          if (bounce_return_body) fprintf(f,
-        # deliver.c:6424|"------ This is a copy of the message, including all the headers. ------\n");
-        # deliver.c:6425|          else fprintf(f,
-        # deliver.c:6426|"------ This is a copy of the message's headers. ------\n");
-        alias:  %r/\A([ ]+an undisclosed address)\z/,
-        frozen: %r/\AMessage .+ (?:has been frozen|was frozen on arrival)/,
-        rfc822: %r{\A(?:
-             [-]+[ ]This[ ]is[ ]a[ ]copy[ ]of[ ](?:the|your)[ ]message.+headers[.][ ][-]+
-            |Content-Type:[ ]*message/rfc822
-            )\z
-          }x,
+        alias:   %r/\A([ ]+an undisclosed address)\z/,
+        frozen:  %r/\AMessage .+ (?:has been frozen|was frozen on arrival)/,
         message: %r{\A(?>
            This[ ]message[ ]was[ ]created[ ]automatically[ ]by[ ]mail[ ]delivery[ ]software[.]
           |A[ ]message[ ]that[ ]you[ ]sent[ ]was[ ]rejected[ ]by[ ]the[ ]local[ ]scanning[ ]code
@@ -159,16 +158,13 @@ module Sisimai::Lhost
         require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
-        rfc822list = []     # (Array) Each line in message/rfc822 part string
-        blanklines = 0      # (Integer) The number of blank lines
+        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+        bodyslices = emailsteak[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
+        nextcursor = 0
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         localhost0 = ''     # (String) Local MTA
         boundary00 = ''     # (String) Boundary string
-        havepassed = {
-          :deliverystatus => 0
-        }
         v = nil
 
         if mhead['content-type']
@@ -177,7 +173,9 @@ module Sisimai::Lhost
           boundary00 = Sisimai::MIME.boundary(mhead['content-type']) || ''
         end
 
-        while e = hasdivided.shift do
+        while e = bodyslices.shift do
+          # Read error messages and delivery status lines from the head of the email
+          # to the previous line of the beginning of the original message.
           break if e == StartingOf[:endof][0]
 
           if readcursor == 0
@@ -187,143 +185,123 @@ module Sisimai::Lhost
               next unless e =~ MarkingsOf[:frozen]
             end
           end
+          next if (readcursor & Indicators[:deliverystatus]) == 0
+          next if e.empty?
 
-          if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part(message/rfc822)
-            if e =~ MarkingsOf[:rfc822]
-              readcursor |= Indicators[:'message-rfc822']
-              next
-            end
-          end
+          # This message was created automatically by mail delivery software.
+          #
+          # A message that you sent could not be delivered to one or more of its
+          # recipients. This is a permanent error. The following address(es) failed:
+          #
+          #  kijitora@example.jp
+          #    SMTP error from remote mail server after RCPT TO:<kijitora@example.jp>:
+          #    host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
+          v = dscontents[-1]
 
-          if readcursor & Indicators[:'message-rfc822'] > 0
-            # message/rfc822 OR text/rfc822-headers part
-            if e.empty?
-              blanklines += 1
-              break if blanklines > 1
-              next
+          if cv = e.match(/\A[ \t]{2}([^ \t]+[@][^ \t]+[.]?[a-zA-Z]+)(:.+)?\z/) ||
+                  e.match(/\A[ \t]{2}[^ \t]+[@][^ \t]+[.][a-zA-Z]+[ ]<(.+?[@].+?)>:.+\z/) ||
+                  e.match(MarkingsOf[:alias])
+            #   kijitora@example.jp
+            #   sabineko@example.jp: forced freeze
+            #   mikeneko@example.jp <nekochan@example.org>: ...
+            #
+            # deliver.c:4549|  printed = US"an undisclosed address";
+            #   an undisclosed address
+            #     (generated from kijitora@example.jp)
+            r = cv[1]
+
+            if v['recipient']
+              # There are multiple recipient addresses in the message body.
+              dscontents << Sisimai::Lhost.DELIVERYSTATUS
+              v = dscontents[-1]
             end
-            rfc822list << e
+            # v['recipient'] = cv[1]
+
+            if cv = e.match(/\A[ \t]+[^ \t]+[@][^ \t]+[.][a-zA-Z]+[ ]<(.+?[@].+?)>:.+\z/)
+              # parser.c:743| while (bracket_count-- > 0) if (*s++ != '>')
+              # parser.c:744|   {
+              # parser.c:745|   *errorptr = s[-1] == 0
+              # parser.c:746|     ? US"'>' missing at end of address"
+              # parser.c:747|     : string_sprintf("malformed address: %.32s may not follow %.*s",
+              # parser.c:748|     s-1, (int)(s - US mailbox - 1), mailbox);
+              # parser.c:749|   goto PARSE_FAILED;
+              # parser.c:750|   }
+              r = cv[1]
+              v['diagnosis'] = e
+            end
+            v['recipient'] = r
+            recipients += 1
+
+          elsif cv = e.match(/\A[ ]+[(]generated[ ]from[ ](.+)[)]\z/) ||
+                     e.match(/\A[ ]+generated[ ]by[ ]([^ \t]+[@][^ \t]+)/)
+            #     (generated from kijitora@example.jp)
+            #  pipe to |/bin/echo "Some pipe output"
+            #    generated by userx@myhost.test.ex
+            v['alias'] = cv[1]
           else
-            # message/delivery-status part
-            next if (readcursor & Indicators[:deliverystatus]) == 0
             next if e.empty?
 
-            # This message was created automatically by mail delivery software.
-            #
-            # A message that you sent could not be delivered to one or more of its
-            # recipients. This is a permanent error. The following address(es) failed:
-            #
-            #  kijitora@example.jp
-            #    SMTP error from remote mail server after RCPT TO:<kijitora@example.jp>:
-            #    host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
-            v = dscontents[-1]
-
-            if cv = e.match(/\A[ \t]{2}([^ \t]+[@][^ \t]+[.]?[a-zA-Z]+)(:.+)?\z/) ||
-                    e.match(/\A[ \t]{2}[^ \t]+[@][^ \t]+[.][a-zA-Z]+[ ]<(.+?[@].+?)>:.+\z/) ||
-                    e.match(MarkingsOf[:alias])
-              #   kijitora@example.jp
-              #   sabineko@example.jp: forced freeze
-              #   mikeneko@example.jp <nekochan@example.org>: ...
-              #
-              # deliver.c:4549|  printed = US"an undisclosed address";
-              #   an undisclosed address
-              #     (generated from kijitora@example.jp)
-              r = cv[1]
-
-              if v['recipient']
-                # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                v = dscontents[-1]
-              end
-              # v['recipient'] = cv[1]
-
-              if cv = e.match(/\A[ \t]+[^ \t]+[@][^ \t]+[.][a-zA-Z]+[ ]<(.+?[@].+?)>:.+\z/)
-                # parser.c:743| while (bracket_count-- > 0) if (*s++ != '>')
-                # parser.c:744|   {
-                # parser.c:745|   *errorptr = s[-1] == 0
-                # parser.c:746|     ? US"'>' missing at end of address"
-                # parser.c:747|     : string_sprintf("malformed address: %.32s may not follow %.*s",
-                # parser.c:748|     s-1, (int)(s - US mailbox - 1), mailbox);
-                # parser.c:749|   goto PARSE_FAILED;
-                # parser.c:750|   }
-                r = cv[1]
-                v['diagnosis'] = e
-              end
-              v['recipient'] = r
-              recipients += 1
-
-            elsif cv = e.match(/\A[ ]+[(]generated[ ]from[ ](.+)[)]\z/) ||
-                       e.match(/\A[ ]+generated[ ]by[ ]([^ \t]+[@][^ \t]+)/)
-              #     (generated from kijitora@example.jp)
-              #  pipe to |/bin/echo "Some pipe output"
-              #    generated by userx@myhost.test.ex
-              v['alias'] = cv[1]
+            if e =~ MarkingsOf[:frozen]
+              # Message *** has been frozen by the system filter.
+              # Message *** was frozen on arrival by ACL.
+              v['alterrors'] ||= ''
+              v['alterrors'] <<  e + ' '
             else
-              next if e.empty?
+              if !boundary00.empty?
+                # --NNNNNNNNNN-eximdsn-MMMMMMMMMM
+                # Content-type: message/delivery-status
+                # ...
+                if Sisimai::RFC1894.match(e)
+                  # "e" matched with any field defined in RFC3464
+                  next unless o = Sisimai::RFC1894.field(e)
 
-              if e =~ MarkingsOf[:frozen]
-                # Message *** has been frozen by the system filter.
-                # Message *** was frozen on arrival by ACL.
-                v['alterrors'] ||= ''
-                v['alterrors'] <<  e + ' '
-              else
-                if !boundary00.empty?
-                  # --NNNNNNNNNN-eximdsn-MMMMMMMMMM
-                  # Content-type: message/delivery-status
-                  # ...
-                  if Sisimai::RFC1894.match(e)
-                    # "e" matched with any field defined in RFC3464
-                    next unless o = Sisimai::RFC1894.field(e)
+                  if o[-1] == 'addr'
+                    # Final-Recipient: rfc822; kijitora@example.jp
+                    # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                    next unless o[0] == 'final-recipient'
+                    v['spec'] ||= o[2].include?('@') ? 'SMTP' : 'X-UNIX'
 
-                    if o[-1] == 'addr'
-                      # Final-Recipient: rfc822; kijitora@example.jp
-                      # X-Actual-Recipient: rfc822; kijitora@example.co.jp
-                      next unless o[0] == 'final-recipient'
-                      v['spec'] ||= o[2].include?('@') ? 'SMTP' : 'X-UNIX'
+                  elsif o[-1] == 'code'
+                    # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
+                    v['spec'] = o[1]
+                    v['diagnosis'] = o[2]
 
-                    elsif o[-1] == 'code'
-                      # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
-                      v['spec'] = o[1]
-                      v['diagnosis'] = o[2]
-
-                    else
-                      # Other DSN fields defined in RFC3464
-                      next unless fieldtable.key?(o[0])
-                      v[fieldtable[o[0]]] = o[2]
-                    end
                   else
-                    # Error message ?
-                    next if havepassed[:deliverystatus] == 1
-
-                    # Content-type: message/delivery-status
-                    havepassed[:deliverystatus] = 1 if e.start_with?(StartingOf[:deliverystatus][0])
-                    v['alterrors'] ||= ''
-                    v['alterrors'] << e + ' ' if e.start_with?(' ')
+                    # Other DSN fields defined in RFC3464
+                    next unless fieldtable.key?(o[0])
+                    v[fieldtable[o[0]]] = o[2]
                   end
                 else
-                  if dscontents.size == recipients
-                    # Error message
-                    next if e.empty?
-                    v['diagnosis'] ||= ''
-                    v['diagnosis'] << e + '  '
+                  # Error message ?
+                  next if nextcursor == 1
+
+                  # Content-type: message/delivery-status
+                  nextcursor = 1 if e.start_with?(StartingOf[:deliverystatus][0])
+                  v['alterrors'] ||= ''
+                  v['alterrors'] << e + ' ' if e.start_with?(' ')
+                end
+              else
+                if dscontents.size == recipients
+                  # Error message
+                  next if e.empty?
+                  v['diagnosis'] ||= ''
+                  v['diagnosis'] << e + '  '
+                else
+                  # Error message when email address above does not include '@'
+                  # and domain part.
+                  if e =~ %r<\A[ ]+pipe[ ]to[ ][|]/.+>
+                    # pipe to |/path/to/prog ...
+                    #   generated by kijitora@example.com
+                    v['diagnosis'] = e
                   else
-                    # Error message when email address above does not include '@'
-                    # and domain part.
-                    if e =~ %r<\A[ ]+pipe[ ]to[ ][|]/.+>
-                      # pipe to |/path/to/prog ...
-                      #   generated by kijitora@example.com
-                      v['diagnosis'] = e
-                    else
-                      next unless e.start_with?('    ')
-                      v['alterrors'] ||= ''
-                      v['alterrors'] << e + ' '
-                    end
+                    next unless e.start_with?('    ')
+                    v['alterrors'] ||= ''
+                    v['alterrors'] << e + ' '
                   end
                 end
               end
             end
-          end # End of message/delivery-status
+          end
         end
 
         if recipients > 0
@@ -519,8 +497,7 @@ module Sisimai::Lhost
           e.each_key { |a| e[a] ||= '' }
         end
 
-        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
 
     end

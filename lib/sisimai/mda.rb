@@ -91,10 +91,10 @@ module Sisimai
         agentname0 = ''   # [String] MDA name
         reasonname = ''   # [String] Error reason
         bouncemesg = ''   # [String] Error message
-        hasdivided = mbody.split("\n")
+        bodyslices = mbody.split("\n")
         linebuffer = []
 
-        while e = hasdivided.shift do
+        while e = bodyslices.shift do
           # Check each line with each MDA's symbol regular expression.
           if agentname0 == ''
             # Try to match with each regular expression

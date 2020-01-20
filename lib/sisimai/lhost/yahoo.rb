@@ -7,10 +7,8 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      StartingOf = {
-        message: ['Sorry, we were unable to deliver your message'],
-        rfc822:  ['--- Below this line is a copy of the message.'],
-      }.freeze
+      ReBackbone = %r|^--- Below this line is a copy of the message[.]|.freeze
+      StartingOf = { message: ['Sorry, we were unable to deliver your message'] }.freeze
 
       def description; return 'Yahoo! MAIL: https://www.yahoo.com'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
@@ -37,85 +35,64 @@ module Sisimai::Lhost
         return nil unless mhead['x-ymailisg']
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
-        rfc822list = []     # (Array) Each line in message/rfc822 part string
-        blanklines = 0      # (Integer) The number of blank lines
+        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+        bodyslices = emailsteak[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
 
-        while e = hasdivided.shift do
+        while e = bodyslices.shift do
+          # Read error messages and delivery status lines from the head of the email
+          # to the previous line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            if e.start_with?(StartingOf[:message][0])
-              readcursor |= Indicators[:deliverystatus]
-              next
-            end
+            readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])
+            next
           end
+          next if (readcursor & Indicators[:deliverystatus]) == 0
+          next if e.empty?
 
-          if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
-            if e == StartingOf[:rfc822][0]
-              readcursor |= Indicators[:'message-rfc822']
-              next
-            end
-          end
+          # Sorry, we were unable to deliver your message to the following address.
+          #
+          # <kijitora@example.org>:
+          # Remote host said: 550 5.1.1 <kijitora@example.org>... User Unknown [RCPT_TO]
+          v = dscontents[-1]
 
-          if readcursor & Indicators[:'message-rfc822'] > 0
-            # Inside of the original message part
-            if e.empty?
-              blanklines += 1
-              break if blanklines > 1
-              next
-            end
-            rfc822list << e
-          else
-            # Error message part
-            next if (readcursor & Indicators[:deliverystatus]) == 0
-            next if e.empty?
-
-            # Sorry, we were unable to deliver your message to the following address.
-            #
+          if cv = e.match(/\A[<](.+[@].+)[>]:[ \t]*\z/)
             # <kijitora@example.org>:
-            # Remote host said: 550 5.1.1 <kijitora@example.org>... User Unknown [RCPT_TO]
-            v = dscontents[-1]
+            if v['recipient']
+              # There are multiple recipient addresses in the message body.
+              dscontents << Sisimai::Lhost.DELIVERYSTATUS
+              v = dscontents[-1]
+            end
+            v['recipient'] = cv[1]
+            v['diagnosis'] = ''
+            recipients += 1
+          else
+            if e.start_with?('Remote host said:')
+              # Remote host said: 550 5.1.1 <kijitora@example.org>... User Unknown [RCPT_TO]
+              v['diagnosis'] = e
 
-            if cv = e.match(/\A[<](.+[@].+)[>]:[ \t]*\z/)
-              # <kijitora@example.org>:
-              if v['recipient']
-                # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                v = dscontents[-1]
-              end
-              v['recipient'] = cv[1]
-              v['diagnosis'] = ''
-              recipients += 1
+              # Get SMTP command from the value of "Remote host said:"
+              if cv = e.match(/\[([A-Z]{4}).*\]\z/) then v['command'] = cv[1] end
             else
-              if e.start_with?('Remote host said:')
-                # Remote host said: 550 5.1.1 <kijitora@example.org>... User Unknown [RCPT_TO]
-                v['diagnosis'] = e
-
-                # Get SMTP command from the value of "Remote host said:"
-                if cv = e.match(/\[([A-Z]{4}).*\]\z/) then v['command'] = cv[1] end
-              else
-                # <mailboxfull@example.jp>:
+              # <mailboxfull@example.jp>:
+              # Remote host said:
+              # 550 5.2.2 <mailboxfull@example.jp>... Mailbox Full
+              # [RCPT_TO]
+              if v['diagnosis'].start_with?('Remote host said:')
                 # Remote host said:
                 # 550 5.2.2 <mailboxfull@example.jp>... Mailbox Full
-                # [RCPT_TO]
-                if v['diagnosis'].start_with?('Remote host said:')
-                  # Remote host said:
-                  # 550 5.2.2 <mailboxfull@example.jp>... Mailbox Full
-                  if cv = e.match(/\[([A-Z]{4}).*\]\z/)
-                    # [RCPT_TO]
-                    v['command'] = cv[1]
-                  else
-                    # 550 5.2.2 <mailboxfull@example.jp>... Mailbox Full
-                    v['diagnosis'] = e
-                  end
+                if cv = e.match(/\[([A-Z]{4}).*\]\z/)
+                  # [RCPT_TO]
+                  v['command'] = cv[1]
                 else
-                  # Error message which does not start with 'Remote host said:'
-                  v['diagnosis'] << ' ' << e
+                  # 550 5.2.2 <mailboxfull@example.jp>... Mailbox Full
+                  v['diagnosis'] = e
                 end
+              else
+                # Error message which does not start with 'Remote host said:'
+                v['diagnosis'] << ' ' << e
               end
             end
           end
@@ -128,8 +105,7 @@ module Sisimai::Lhost
           e['command'] ||= 'RCPT' if e['diagnosis'] =~ /[<].+[@].+[>]/
         end
 
-        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
 
     end

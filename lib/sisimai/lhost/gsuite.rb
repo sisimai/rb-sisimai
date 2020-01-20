@@ -7,9 +7,9 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
+      ReBackbone = %r<^Content-Type:[ ](?:message/rfc822|text/rfc822-headers)>.freeze
       MarkingsOf = {
         message: %r/\A[*][*][ ].+[ ][*][*]\z/,
-        rfc822:  %r{\AContent-Type:[ ]*(?:message/rfc822|text/rfc822-headers)\z},
         error:   %r/\AThe[ ]response([ ]from[ ]the[ ]remote[ ]server)?[ ]was:\z/,
         html:    %r{\AContent-Type:[ ]*text/html;[ ]*charset=['"]?(?:UTF|utf)[-]8['"]?\z},
       }.freeze
@@ -44,9 +44,8 @@ module Sisimai::Lhost
         permessage = {}     # (Hash) Store values of each Per-Message field
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
-        rfc822list = []     # (Array) Each line in message/rfc822 part string
-        blanklines = 0      # (Integer) The number of blank lines
+        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+        bodyslices = emailsteak[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         endoferror = false  # (Integer) Flag for a blank line after error messages
@@ -54,112 +53,94 @@ module Sisimai::Lhost
         emptylines = 0      # (Integer) The number of empty lines
         v = nil
 
-        while e = hasdivided.shift do
+        while e = bodyslices.shift do
+          # Read error messages and delivery status lines from the head of the email
+          # to the previous line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or message/delivery-status part
             readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
           end
+          next if (readcursor & Indicators[:deliverystatus]) == 0
 
-          if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part(message/rfc822)
-            if e =~ MarkingsOf[:rfc822]
-              readcursor |= Indicators[:'message-rfc822']
-              next
-            end
-          end
+          if f = Sisimai::RFC1894.match(e)
+            # "e" matched with any field defined in RFC3464
+            next unless o = Sisimai::RFC1894.field(e)
+            v = dscontents[-1]
 
-          if readcursor & Indicators[:'message-rfc822'] > 0
-            # message/rfc822 OR text/rfc822-headers part
-            if e.empty?
-              blanklines += 1
-              break if blanklines > 1
-              next
-            end
-            rfc822list << e
-          else
-            # message/delivery-status part
-            next if (readcursor & Indicators[:deliverystatus]) == 0
-
-            if f = Sisimai::RFC1894.match(e)
-              # "e" matched with any field defined in RFC3464
-              next unless o = Sisimai::RFC1894.field(e)
-              v = dscontents[-1]
-
-              if o[-1] == 'addr'
+            if o[-1] == 'addr'
+              # Final-Recipient: rfc822; kijitora@example.jp
+              # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+              if o[0] == 'final-recipient'
                 # Final-Recipient: rfc822; kijitora@example.jp
-                # X-Actual-Recipient: rfc822; kijitora@example.co.jp
-                if o[0] == 'final-recipient'
-                  # Final-Recipient: rfc822; kijitora@example.jp
-                  if v['recipient']
-                    # There are multiple recipient addresses in the message body.
-                    dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                    v = dscontents[-1]
-                  end
-                  v['recipient'] = o[2]
-                  recipients += 1
-                else
-                  # X-Actual-Recipient: rfc822; kijitora@example.co.jp
-                  v['alias'] = o[2]
+                if v['recipient']
+                  # There are multiple recipient addresses in the message body.
+                  dscontents << Sisimai::Lhost.DELIVERYSTATUS
+                  v = dscontents[-1]
                 end
-              elsif o[-1] == 'code'
-                # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
-                v['spec'] = o[1]
-                v['diagnosis'] = o[2]
+                v['recipient'] = o[2]
+                recipients += 1
               else
-                # Other DSN fields defined in RFC3464
-                next unless fieldtable.key?(o[0])
-                v[fieldtable[o[0]]] = o[2]
-
-                next unless f == 1
-                permessage[fieldtable[o[0]]] = o[2]
+                # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                v['alias'] = o[2]
               end
+            elsif o[-1] == 'code'
+              # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
+              v['spec'] = o[1]
+              v['diagnosis'] = o[2]
             else
-              # The line does not begin with a DSN field defined in RFC3464
-              # Append error messages continued from the previous line
-              if endoferror == false && v && ! v['diagnosis'].to_s.empty?
-                endoferror ||= true if e.empty?
+              # Other DSN fields defined in RFC3464
+              next unless fieldtable.key?(o[0])
+              v[fieldtable[o[0]]] = o[2]
 
-                next if endoferror
-                next unless e.start_with?(' ')
-                v['diagnosis'] << e
+              next unless f == 1
+              permessage[fieldtable[o[0]]] = o[2]
+            end
+          else
+            # The line does not begin with a DSN field defined in RFC3464
+            # Append error messages continued from the previous line
+            if endoferror == false && v && ! v['diagnosis'].to_s.empty?
+              endoferror ||= true if e.empty?
 
-              elsif e =~ MarkingsOf[:error]
-                # Detect SMTP session error or connection error
-                # The response from the remote server was:
-                anotherset['diagnosis'] << e
+              next if endoferror
+              next unless e.start_with?(' ')
+              v['diagnosis'] << e
+
+            elsif e =~ MarkingsOf[:error]
+              # Detect SMTP session error or connection error
+              # The response from the remote server was:
+              anotherset['diagnosis'] << e
+            else
+              # ** Address not found **
+              #
+              # Your message wasn't delivered to * because the address couldn't be found.
+              # Check for typos or unnecessary spaces and try again.
+              #
+              # The response from the remote server was:
+              # 550 #5.1.0 Address rejected.
+              next if e =~ MarkingsOf[:html]
+
+              if anotherset['diagnosis']
+                # Continued error messages from the previous line like
+                # "550 #5.1.0 Address rejected."
+                next if e =~ /\AContent-Type:/
+                next if emptylines > 5
+                if e.empty?
+                  # Count and next()
+                  emptylines += 1
+                  next
+                end
+                anotherset['diagnosis'] << ' ' << e
               else
                 # ** Address not found **
                 #
                 # Your message wasn't delivered to * because the address couldn't be found.
                 # Check for typos or unnecessary spaces and try again.
-                #
-                # The response from the remote server was:
-                # 550 #5.1.0 Address rejected.
-                next if e =~ MarkingsOf[:html]
-
-                if anotherset['diagnosis']
-                  # Continued error messages from the previous line like
-                  # "550 #5.1.0 Address rejected."
-                  next if e =~ /\AContent-Type:/
-                  next if emptylines > 5
-                  if e.empty?
-                    # Count and next()
-                    emptylines += 1
-                    next
-                  end
-                  anotherset['diagnosis'] << ' ' << e
-                else
-                  # ** Address not found **
-                  #
-                  # Your message wasn't delivered to * because the address couldn't be found.
-                  # Check for typos or unnecessary spaces and try again.
-                  next if e.empty?
-                  next unless e =~ MarkingsOf[:message]
-                  anotherset['diagnosis'] = e
-                end
+                next if e.empty?
+                next unless e =~ MarkingsOf[:message]
+                anotherset['diagnosis'] = e
               end
             end
-          end # End of message/delivery-status
+          end
         end
         return nil unless recipients > 0
 
@@ -218,8 +199,7 @@ module Sisimai::Lhost
           end
         end
 
-        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
 
     end

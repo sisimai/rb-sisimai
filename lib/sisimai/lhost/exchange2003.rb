@@ -8,10 +8,10 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
+      ReBackbone = %r|^Content-Type:[ ]message/rfc822|.freeze
       StartingOf = {
         message: ['Your message'],
         error:   ['did not reach the following recipient(s):'],
-        rfc822:  ['Content-Type: message/rfc822'],
       }.freeze
       ErrorCodes = {
         'onhold' => [
@@ -92,9 +92,8 @@ module Sisimai::Lhost
         return nil unless match > 0
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
-        rfc822list = []     # (Array) Each line in message/rfc822 part string
-        blanklines = 0      # (Integer) The number of blank lines
+        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+        bodyslices = emailsteak[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         statuspart = false  # (Boolean) Flag, true = have got delivery status part.
@@ -106,108 +105,88 @@ module Sisimai::Lhost
         }
         v = nil
 
-        while e = hasdivided.shift do
+        while e = bodyslices.shift do
+          # Read error messages and delivery status lines from the head of the email
+          # to the previous line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            if e.start_with?(StartingOf[:message][0])
-              readcursor |= Indicators[:deliverystatus]
-              next
-            end
+            readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])
+            next
           end
+          next if (readcursor & Indicators[:deliverystatus]) == 0
+          next if statuspart
 
-          if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
-            if e.start_with?(StartingOf[:rfc822][0])
-              readcursor |= Indicators[:'message-rfc822']
-              next
-            end
-          end
+          if connvalues == connheader.keys.size
+            # did not reach the following recipient(s):
+            #
+            # kijitora@example.co.jp on Thu, 29 Apr 2007 16:51:51 -0500
+            #     The recipient name is not recognized
+            #     The MTS-ID of the original message is: c=jp;a= ;p=neko
+            # ;l=EXCHANGE000000000000000000
+            #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
+            # mikeneko@example.co.jp on Thu, 29 Apr 2007 16:51:51 -0500
+            #     The recipient name is not recognized
+            #     The MTS-ID of the original message is: c=jp;a= ;p=neko
+            # ;l=EXCHANGE000000000000000000
+            #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
+            v = dscontents[-1]
 
-          if readcursor & Indicators[:'message-rfc822'] > 0
-            # Inside of the original message part
-            if e.empty?
-              blanklines += 1
-              break if blanklines > 1
-              next
-            end
-            rfc822list << e
-          else
-            # Error message part
-            next if (readcursor & Indicators[:deliverystatus]) == 0
-            next if statuspart
-
-            if connvalues == connheader.keys.size
-              # did not reach the following recipient(s):
-              #
+            if cv = e.match(/\A[ \t]*([^ ]+[@][^ ]+) on[ \t]*.*\z/) ||
+                    e.match(/\A[ \t]*.+(?:SMTP|smtp)=([^ ]+[@][^ ]+) on[ \t]*.*\z/)
               # kijitora@example.co.jp on Thu, 29 Apr 2007 16:51:51 -0500
-              #     The recipient name is not recognized
-              #     The MTS-ID of the original message is: c=jp;a= ;p=neko
-              # ;l=EXCHANGE000000000000000000
-              #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
-              # mikeneko@example.co.jp on Thu, 29 Apr 2007 16:51:51 -0500
-              #     The recipient name is not recognized
-              #     The MTS-ID of the original message is: c=jp;a= ;p=neko
-              # ;l=EXCHANGE000000000000000000
-              #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
-              v = dscontents[-1]
-
-              if cv = e.match(/\A[ \t]*([^ ]+[@][^ ]+) on[ \t]*.*\z/) ||
-                      e.match(/\A[ \t]*.+(?:SMTP|smtp)=([^ ]+[@][^ ]+) on[ \t]*.*\z/)
-                # kijitora@example.co.jp on Thu, 29 Apr 2007 16:51:51 -0500
-                #   kijitora@example.com on 4/29/99 9:19:59 AM
-                if v['recipient']
-                  # There are multiple recipient addresses in the message body.
-                  dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                  v = dscontents[-1]
-                end
-                v['recipient'] = cv[1]
-                v['msexch'] = false
-                recipients += 1
-
-              elsif cv = e.match(/\A[ \t]+(MSEXCH:.+)\z/)
-                #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
-                v['diagnosis'] ||= ''
-                v['diagnosis'] << cv[1]
-              else
-                next if v['msexch']
-                if v['diagnosis'].to_s.start_with?('MSEXCH:')
-                  # Continued from MEEXCH in the previous line
-                  v['msexch'] = true
-                  v['diagnosis'] << ' ' << e
-                  statuspart = true
-                else
-                  # Error message in the body part
-                  v['alterrors'] ||= ''
-                  v['alterrors'] << ' ' << e
-                end
+              #   kijitora@example.com on 4/29/99 9:19:59 AM
+              if v['recipient']
+                # There are multiple recipient addresses in the message body.
+                dscontents << Sisimai::Lhost.DELIVERYSTATUS
+                v = dscontents[-1]
               end
+              v['recipient'] = cv[1]
+              v['msexch'] = false
+              recipients += 1
+
+            elsif cv = e.match(/\A[ \t]+(MSEXCH:.+)\z/)
+              #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
+              v['diagnosis'] ||= ''
+              v['diagnosis'] << cv[1]
             else
-              # Your message
-              #
-              #  To:      shironeko@example.jp
-              #  Subject: ...
-              #  Sent:    Thu, 29 Apr 2010 18:14:35 +0000
-              #
-              if cv = e.match(/\A[ \t]+To:[ \t]+(.+)\z/)
-                #  To:      shironeko@example.jp
-                next unless connheader['to'].empty?
-                connheader['to'] = cv[1]
-                connvalues += 1
-
-              elsif cv = e.match(/\A[ \t]+Subject:[ \t]+(.+)\z/)
-                #  Subject: ...
-                next unless connheader['subject'].empty?
-                connheader['subject'] = cv[1]
-                connvalues += 1
-
-              elsif cv = e.match(%r|\A[ \t]+Sent:[ \t]+([A-Z][a-z]{2},.+[-+]\d{4})\z|) ||
-                         e.match(%r|\A[ \t]+Sent:[ \t]+(\d+[/]\d+[/]\d+[ \t]+\d+:\d+:\d+[ \t].+)|)
-                #  Sent:    Thu, 29 Apr 2010 18:14:35 +0000
-                #  Sent:    4/29/99 9:19:59 AM
-                next unless connheader['date'].empty?
-                connheader['date'] = cv[1]
-                connvalues += 1
+              next if v['msexch']
+              if v['diagnosis'].to_s.start_with?('MSEXCH:')
+                # Continued from MEEXCH in the previous line
+                v['msexch'] = true
+                v['diagnosis'] << ' ' << e
+                statuspart = true
+              else
+                # Error message in the body part
+                v['alterrors'] ||= ''
+                v['alterrors'] << ' ' << e
               end
+            end
+          else
+            # Your message
+            #
+            #  To:      shironeko@example.jp
+            #  Subject: ...
+            #  Sent:    Thu, 29 Apr 2010 18:14:35 +0000
+            #
+            if cv = e.match(/\A[ \t]+To:[ \t]+(.+)\z/)
+              #  To:      shironeko@example.jp
+              next unless connheader['to'].empty?
+              connheader['to'] = cv[1]
+              connvalues += 1
+
+            elsif cv = e.match(/\A[ \t]+Subject:[ \t]+(.+)\z/)
+              #  Subject: ...
+              next unless connheader['subject'].empty?
+              connheader['subject'] = cv[1]
+              connvalues += 1
+
+            elsif cv = e.match(%r|\A[ \t]+Sent:[ \t]+([A-Z][a-z]{2},.+[-+]\d{4})\z|) ||
+                       e.match(%r|\A[ \t]+Sent:[ \t]+(\d+[/]\d+[/]\d+[ \t]+\d+:\d+:\d+[ \t].+)|)
+              #  Sent:    Thu, 29 Apr 2010 18:14:35 +0000
+              #  Sent:    4/29/99 9:19:59 AM
+              next unless connheader['date'].empty?
+              connheader['date'] = cv[1]
+              connvalues += 1
             end
           end
         end
@@ -244,15 +223,14 @@ module Sisimai::Lhost
           e.each_key { |a| e[a] ||= '' }
         end
 
-        if rfc822list.empty?
+        if emailsteak[1].empty?
           # When original message does not included in the bounce message
-          rfc822list << ('From: ' << connheader['to'])
-          rfc822list << ('Date: ' << connheader['date'])
-          rfc822list << ('Subject: ' << connheader['subject'])
+          emailsteak[1] << ('From: ' << connheader['to'] << "\n")
+          emailsteak[1] << ('Date: ' << connheader['date'] << "\n")
+          emailsteak[1] << ('Subject: ' << connheader['subject'] << "\n")
         end
 
-        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
 
     end

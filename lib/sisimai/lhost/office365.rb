@@ -8,8 +8,8 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
+      ReBackbone = %r|^Content-Type:[ ]message/rfc822|.freeze
       StartingOf = {
-        rfc822: ['Content-Type: message/rfc822'],
         error:  ['Diagnostic information for administrators:'],
         eoerr:  ['Original message headers:'],
       }.freeze
@@ -65,7 +65,6 @@ module Sisimai::Lhost
 
       def description; return 'Microsoft Office 365: https://office.microsoft.com/'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       def headerlist
         # X-MS-Exchange-Message-Is-Ndr:
         # X-Microsoft-Antispam-PRVS: <....@...outlook.com>
@@ -118,9 +117,8 @@ module Sisimai::Lhost
         permessage = {}     # (Hash) Store values of each Per-Message field
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
-        rfc822list = []     # (Array) Each line in message/rfc822 part string
-        blanklines = 0      # (Integer) The number of blank lines
+        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+        bodyslices = emailsteak[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         connheader = {}
@@ -128,85 +126,64 @@ module Sisimai::Lhost
         htmlbegins = false  # (Boolean) Flag for HTML part
         v = nil
 
-        while e = hasdivided.shift do
+        while e = bodyslices.shift do
+          # Read error messages and delivery status lines from the head of the email
+          # to the previous line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            if e =~ MarkingsOf[:message]
-              readcursor |= Indicators[:deliverystatus]
-              next
-            end
+            readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
+            next
           end
+          next if (readcursor & Indicators[:deliverystatus]) == 0
+          next if e.empty?
 
-          if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
-            if e == StartingOf[:rfc822][0]
-              readcursor |= Indicators[:'message-rfc822']
-              next
-            end
-          end
+          # kijitora@example.com<mailto:kijitora@example.com>
+          # The email address wasn't found at the destination domain. It might
+          # be misspelled or it might not exist any longer. Try retyping the
+          # address and resending the message.
+          v = dscontents[-1]
 
-          if readcursor & Indicators[:'message-rfc822'] > 0
-            # Inside of the original message part
-            if e.empty?
-              blanklines += 1
-              break if blanklines > 1
-              next
-            end
-            rfc822list << e
-          else
-            # Error message part
-            next if (readcursor & Indicators[:deliverystatus]) == 0
-            next if e.empty?
-
+          if cv = e.match(/\A.+[@].+[<]mailto:(.+[@].+)[>]\z/)
             # kijitora@example.com<mailto:kijitora@example.com>
-            # The email address wasn't found at the destination domain. It might
-            # be misspelled or it might not exist any longer. Try retyping the
-            # address and resending the message.
-            v = dscontents[-1]
+            if v['recipient']
+              # There are multiple recipient addresses in the message body.
+              dscontents << Sisimai::Lhost.DELIVERYSTATUS
+              v = dscontents[-1]
+            end
+            v['recipient'] = cv[1]
+            recipients += 1
 
-            if cv = e.match(/\A.+[@].+[<]mailto:(.+[@].+)[>]\z/)
-              # kijitora@example.com<mailto:kijitora@example.com>
-              if v['recipient']
-                # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                v = dscontents[-1]
-              end
-              v['recipient'] = cv[1]
-              recipients += 1
+          elsif cv = e.match(/\AGenerating server: (.+)\z/)
+            # Generating server: FFFFFFFFFFFF.e0.prod.outlook.com
+            connheader['lhost'] = cv[1].downcase
+          else
+            if endoferror
+              # After "Original message headers:"
+              next unless f = Sisimai::RFC1894.match(e)
+              next unless o = Sisimai::RFC1894.field(e)
+              next unless fieldtable.key?(o[0])
+              next if o[0] =~ /\A(?:diagnostic-code|final-recipient)\z/
+              v[fieldtable[o[0]]] = o[2]
 
-            elsif cv = e.match(/\AGenerating server: (.+)\z/)
-              # Generating server: FFFFFFFFFFFF.e0.prod.outlook.com
-              connheader['lhost'] = cv[1].downcase
+              next unless f == 1
+              permessage[fieldtable[o[0]]] = o[2]
             else
-              if endoferror
-                # After "Original message headers:"
-                next unless f = Sisimai::RFC1894.match(e)
-                next unless o = Sisimai::RFC1894.field(e)
-                next unless fieldtable.key?(o[0])
-                next if o[0] =~ /\A(?:diagnostic-code|final-recipient)\z/
-                v[fieldtable[o[0]]] = o[2]
-
-                next unless f == 1
-                permessage[fieldtable[o[0]]] = o[2]
+              if e == StartingOf[:error][0]
+                # Diagnostic information for administrators:
+                v['diagnosis'] = e
               else
-                if e == StartingOf[:error][0]
-                  # Diagnostic information for administrators:
-                  v['diagnosis'] = e
-                else
-                  # kijitora@example.com
-                  # Remote Server returned '550 5.1.10 RESOLVER.ADR.RecipientNotFound; Recipien=
-                  # t not found by SMTP address lookup'
-                  next unless v['diagnosis']
-                  if e == StartingOf[:eoerr][0]
-                    # Original message headers:
-                    endoferror = true
-                    next
-                  end
-                  v['diagnosis'] << ' ' << e
+                # kijitora@example.com
+                # Remote Server returned '550 5.1.10 RESOLVER.ADR.RecipientNotFound; Recipien=
+                # t not found by SMTP address lookup'
+                next unless v['diagnosis']
+                if e == StartingOf[:eoerr][0]
+                  # Original message headers:
+                  endoferror = true
+                  next
                 end
+                v['diagnosis'] << ' ' << e
               end
             end
-
           end
         end
         return nil unless recipients > 0
@@ -240,8 +217,7 @@ module Sisimai::Lhost
           end
         end
 
-        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
 
     end

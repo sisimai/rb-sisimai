@@ -7,10 +7,8 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      StartingOf = {
-        message: ['Your message'],
-        rfc822:  ['Content-Type: message/delivery-status'],
-      }.freeze
+      ReBackbone = %r|^Content-Type:[ ]message/delivery-status|.freeze
+      StartingOf = { message: ['Your message'] }.freeze
       MessagesOf = {
         'userunknown' => [
           'not listed in Domino Directory',
@@ -40,86 +38,65 @@ module Sisimai::Lhost
         return nil unless mhead['subject'].start_with?('DELIVERY FAILURE:')
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
-        rfc822list = []     # (Array) Each line in message/rfc822 part string
-        blanklines = 0      # (Integer) The number of blank lines
+        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+        bodyslices = emailsteak[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         subjecttxt = ''     # (String) The value of Subject:
         v = nil
 
-        while e = hasdivided.shift do
+        while e = bodyslices.shift do
+          # Read error messages and delivery status lines from the head of the email
+          # to the previous line of the beginning of the original message.
           next if e.empty?
 
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            if e.start_with?(StartingOf[:message][0])
-              readcursor |= Indicators[:deliverystatus]
-              next
-            end
+            readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])
+            next
           end
+          next if (readcursor & Indicators[:deliverystatus]) == 0
 
-          if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
-            if e == StartingOf[:rfc822][0]
-              readcursor |= Indicators[:'message-rfc822']
-              next
-            end
-          end
+          # Your message
+          #
+          #   Subject: Test Bounce
+          #
+          # was not delivered to:
+          #
+          #   kijitora@example.net
+          #
+          # because:
+          #
+          #   User some.name (kijitora@example.net) not listed in Domino Directory
+          #
+          v = dscontents[-1]
 
-          if readcursor & Indicators[:'message-rfc822'] > 0
-            # Inside of the original message part
-            if e.empty?
-              blanklines += 1
-              break if blanklines > 1
-              next
-            end
-            rfc822list << e
-          else
-            # Error message part
-            next if (readcursor & Indicators[:deliverystatus]) == 0
-
-            # Your message
-            #
-            #   Subject: Test Bounce
-            #
+          if e.start_with?('was not delivered to:')
             # was not delivered to:
-            #
+            if v['recipient']
+              # There are multiple recipient addresses in the message body.
+              dscontents << Sisimai::Lhost.DELIVERYSTATUS
+              v = dscontents[-1]
+            end
+            v['recipient'] ||= e
+            recipients += 1
+
+          elsif cv = e.match(/\A[ ][ ]([^ ]+[@][^ ]+)\z/)
+            # Continued from the line "was not delivered to:"
             #   kijitora@example.net
-            #
+            v['recipient'] = Sisimai::Address.s3s4(cv[1])
+
+          elsif e.start_with?('because:')
             # because:
-            #
-            #   User some.name (kijitora@example.net) not listed in Domino Directory
-            #
-            v = dscontents[-1]
-
-            if e.start_with?('was not delivered to:')
-              # was not delivered to:
-              if v['recipient']
-                # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                v = dscontents[-1]
-              end
-              v['recipient'] ||= e
-              recipients += 1
-
-            elsif cv = e.match(/\A[ ][ ]([^ ]+[@][^ ]+)\z/)
-              # Continued from the line "was not delivered to:"
-              #   kijitora@example.net
-              v['recipient'] = Sisimai::Address.s3s4(cv[1])
-
-            elsif e.start_with?('because:')
-              # because:
+            v['diagnosis'] = e
+          else
+            if v['diagnosis'].to_s == 'because:'
+              # Error message, continued from the line "because:"
               v['diagnosis'] = e
-            else
-              if v['diagnosis'].to_s == 'because:'
-                # Error message, continued from the line "because:"
-                v['diagnosis'] = e
 
-              elsif cv = e.match(/\A[ ][ ]Subject: (.+)\z/)
-                #   Subject: Nyaa
-                subjecttxt = cv[1]
-              end
+            elsif cv = e.match(/\A[ ][ ]Subject: (.+)\z/)
+              #   Subject: Nyaa
+              subjecttxt = cv[1]
             end
           end
         end
@@ -140,14 +117,11 @@ module Sisimai::Lhost
           e.each_key { |a| e[a] ||= '' }
         end
 
-        unless rfc822list.any? { |a| a.start_with?('Subject:') }
-          # Set the value of subjecttxt as a Subject if there is no original
-          # message in the bounce mail.
-          rfc822list << ('Subject: ' << subjecttxt)
-        end
+        # Set the value of subjecttxt as a Subject if there is no original
+        # message in the bounce mail.
+        emailsteak[1] << ('Subject: ' << subjecttxt << "\n") unless emailsteak[1] =~ /^Subject: /
 
-        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
 
     end

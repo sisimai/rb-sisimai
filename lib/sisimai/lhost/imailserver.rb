@@ -7,12 +7,8 @@ module Sisimai::Lhost
       # Imported from p5-Sisimail/lib/Sisimai/Lhost/IMailServer.pm
       require 'sisimai/lhost'
 
-      Indicators = Sisimai::Lhost.INDICATORS
-      StartingOf = {
-        message: [''],  # Blank line
-        rfc822:  ['Original message follows.'],
-        error:   ['Body of message generated response:'],
-      }.freeze
+      ReBackbone = %r|^Original[ ]message[ ]follows[.]|.freeze
+      StartingOf = { error: ['Body of message generated response:'] }.freeze
 
       ReSMTP = {
         'conn' => %r/(?:SMTP connection failed,|Unexpected connection response from server:)/,
@@ -52,72 +48,44 @@ module Sisimai::Lhost
         return nil unless match > 0
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
-        rfc822list = []     # (Array) Each line in message/rfc822 part string
-        blanklines = 0      # (Integer) The number of blank lines
-        readcursor = 0      # (Integer) Points the current cursor position
+        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+        bodyslices = emailsteak[0].split("\n")
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
 
-        while e = hasdivided.shift do
-          if readcursor == 0
-            # Beginning of the bounce message or delivery status part
-            if e == StartingOf[:message][0]
-              readcursor |= Indicators[:deliverystatus]
-              next
-            end
-          end
+        while e = bodyslices.shift do
+          # Read error messages and delivery status lines from the head of the email
+          # to the previous line of the beginning of the original message.
 
-          if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
-            if e == StartingOf[:rfc822][0]
-              readcursor |= Indicators[:'message-rfc822']
-              next
-            end
-          end
+          # Unknown user: kijitora@example.com
+          #
+          # Original message follows.
+          v = dscontents[-1]
 
-          if readcursor & Indicators[:'message-rfc822'] > 0
-            # Inside of the original message part
-            if e.empty?
-              blanklines += 1
-              break if blanklines > 1
-              next
-            end
-            rfc822list << e
-          else
-            # Error message part
-            break if readcursor & Indicators[:'message-rfc822'] > 0
-
+          if cv = e.match(/\A([^ ]+)[ ](.+)[:][ \t]*([^ ]+[@][^ ]+)/)
             # Unknown user: kijitora@example.com
-            #
-            # Original message follows.
-            v = dscontents[-1]
-
-            if cv = e.match(/\A([^ ]+)[ ](.+)[:][ \t]*([^ ]+[@][^ ]+)/)
-              # Unknown user: kijitora@example.com
-              if v['recipient']
-                # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                v = dscontents[-1]
-              end
-              v['diagnosis'] = cv[1] + ' ' + cv[2]
-              v['recipient'] = cv[3]
-              recipients += 1
-
-            elsif cv = e.match(/\Aundeliverable[ ]+to[ ]+(.+)\z/)
-              # undeliverable to kijitora@example.com
-              if v['recipient']
-                # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                v = dscontents[-1]
-              end
-              v['recipient'] = cv[1]
-              recipients += 1
-            else
-              # Other error message text
-              v['alterrors'] << ' ' << e if v['alterrors']
-              v['alterrors'] = e if e.include?(StartingOf[:error][0])
+            if v['recipient']
+              # There are multiple recipient addresses in the message body.
+              dscontents << Sisimai::Lhost.DELIVERYSTATUS
+              v = dscontents[-1]
             end
+            v['diagnosis'] = cv[1] + ' ' + cv[2]
+            v['recipient'] = cv[3]
+            recipients += 1
+
+          elsif cv = e.match(/\Aundeliverable[ ]+to[ ]+(.+)\z/)
+            # undeliverable to kijitora@example.com
+            if v['recipient']
+              # There are multiple recipient addresses in the message body.
+              dscontents << Sisimai::Lhost.DELIVERYSTATUS
+              v = dscontents[-1]
+            end
+            v['recipient'] = cv[1]
+            recipients += 1
+          else
+            # Other error message text
+            v['alterrors'] << ' ' << e if v['alterrors']
+            v['alterrors'] = e if e.include?(StartingOf[:error][0])
           end
         end
         return nil unless recipients > 0
@@ -153,8 +121,7 @@ module Sisimai::Lhost
           e.each_key { |a| e[a] ||= '' }
         end
 
-        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
 
     end

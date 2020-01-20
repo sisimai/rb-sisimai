@@ -7,10 +7,8 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      MarkingsOf = {
-        message: %r/\AThe original message was received at (.+)\z/,
-        rfc822:  %r/\AReceived: from \d+[.]\d+[.]\d+[.]\d/,
-      }.freeze
+      ReBackbone = %r|^Received: from \d+[.]\d+[.]\d+[.]\d|.freeze
+      MarkingsOf = { message: %r/\AThe original message was received at (.+)\z/ }.freeze
 
       def description; return 'Unknown MTA #1'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
@@ -32,67 +30,46 @@ module Sisimai::Lhost
         return nil unless mhead['from'].start_with?('"Mail Deliver System" ')
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
-        rfc822list = []     # (Array) Each line in message/rfc822 part string
-        blanklines = 0      # (Integer) The number of blank lines
+        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+        bodyslices = emailsteak[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         datestring = ''     # (String) Date string
         v = nil
 
-        while e = hasdivided.shift do
+        while e = bodyslices.shift do
+          # Read error messages and delivery status lines from the head of the email
+          # to the previous line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            if e =~ MarkingsOf[:message]
-              readcursor |= Indicators[:deliverystatus]
-              next
-            end
+            readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
+            next
           end
+          next if (readcursor & Indicators[:deliverystatus]) == 0
+          next if e.empty?
 
-          if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
-            if e =~ MarkingsOf[:rfc822]
-              readcursor |= Indicators[:'message-rfc822']
-              next
-            end
-          end
+          # The original message was received at Thu, 29 Apr 2010 23:34:45 +0900 (JST)
+          # from shironeko@example.jp
+          #
+          # ---The following addresses had delivery errors---
+          #
+          # kijitora@example.co.jp [User unknown]
+          v = dscontents[-1]
 
-          if readcursor & Indicators[:'message-rfc822'] > 0
-            # Inside of the original message part
-            if e.empty?
-              blanklines += 1
-              break if blanklines > 1
-              next
-            end
-            rfc822list << e
-          else
-            # Error message part
-            next if (readcursor & Indicators[:deliverystatus]) == 0
-            next if e.empty?
-
-            # The original message was received at Thu, 29 Apr 2010 23:34:45 +0900 (JST)
-            # from shironeko@example.jp
-            #
-            # ---The following addresses had delivery errors---
-            #
+          if cv = e.match(/\A([^ ]+?[@][^ ]+?)[ ]+\[(.+)\]\z/)
             # kijitora@example.co.jp [User unknown]
-            v = dscontents[-1]
-
-            if cv = e.match(/\A([^ ]+?[@][^ ]+?)[ ]+\[(.+)\]\z/)
-              # kijitora@example.co.jp [User unknown]
-              if v['recipient']
-                # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                v = dscontents[-1]
-              end
-              v['recipient'] = cv[1]
-              v['diagnosis'] = cv[2]
-              recipients += 1
-
-            elsif cv = e.match(MarkingsOf[:message])
-              # The original message was received at Thu, 29 Apr 2010 23:34:45 +0900 (JST)
-              datestring = cv[1]
+            if v['recipient']
+              # There are multiple recipient addresses in the message body.
+              dscontents << Sisimai::Lhost.DELIVERYSTATUS
+              v = dscontents[-1]
             end
+            v['recipient'] = cv[1]
+            v['diagnosis'] = cv[2]
+            recipients += 1
+
+          elsif cv = e.match(MarkingsOf[:message])
+            # The original message was received at Thu, 29 Apr 2010 23:34:45 +0900 (JST)
+            datestring = cv[1]
           end
         end
         return nil unless recipients > 0
@@ -104,8 +81,7 @@ module Sisimai::Lhost
           e.each_key { |a| e[a] ||= '' }
         end
 
-        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
 
     end

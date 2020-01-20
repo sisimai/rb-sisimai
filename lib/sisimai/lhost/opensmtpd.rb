@@ -7,6 +7,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
+      ReBackbone = %r|^[ ]+Below is a copy of the original message:|.freeze
       StartingOf = {
         # http://www.openbsd.org/cgi-bin/man.cgi?query=smtpd&sektion=8
         # opensmtpd-5.4.2p1/smtpd/
@@ -34,7 +35,6 @@ module Sisimai::Lhost
         #   bounce.c/338:    "    Your message was relayed to these recipients.\n\n";
         #   bounce.c/339:
         message: ['    This is the MAILER-DAEMON, please DO NOT REPLY to this '],
-        rfc822:  ['    Below is a copy of the original message:'],
       }.freeze
       MessagesOf = {
         # smtpd/queue.c:221|  envelope_set_errormsg(&evp, "Envelope expired");
@@ -86,66 +86,45 @@ module Sisimai::Lhost
         return nil unless mhead['received'].any? { |a| a.include?(' (OpenSMTPD) with ') }
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
-        rfc822list = []     # (Array) Each line in message/rfc822 part string
-        blanklines = 0      # (Integer) The number of blank lines
+        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+        bodyslices = emailsteak[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
 
-        while e = hasdivided.shift do
+        while e = bodyslices.shift do
+          # Read error messages and delivery status lines from the head of the email
+          # to the previous line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            if e.start_with?(StartingOf[:message][0])
-              readcursor |= Indicators[:deliverystatus]
-              next
-            end
+            readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])
+            next
           end
+          next if (readcursor & Indicators[:deliverystatus]) == 0
+          next if e.empty?
 
-          if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
-            if e.start_with?(StartingOf[:rfc822][0])
-              readcursor |= Indicators[:'message-rfc822']
-              next
-            end
-          end
+          #    Hi!
+          #
+          #    This is the MAILER-DAEMON, please DO NOT REPLY to this e-mail.
+          #
+          #    An error has occurred while attempting to deliver a message for
+          #    the following list of recipients:
+          #
+          # kijitora@example.jp: 550 5.2.2 <kijitora@example>... Mailbox Full
+          #
+          #    Below is a copy of the original message:
+          v = dscontents[-1]
 
-          if readcursor & Indicators[:'message-rfc822'] > 0
-            # Inside of the original message part
-            if e.empty?
-              blanklines += 1
-              break if blanklines > 1
-              next
-            end
-            rfc822list << e
-          else
-            # Error message part
-            next if (readcursor & Indicators[:deliverystatus]) == 0
-            next if e.empty?
-
-            #    Hi!
-            #
-            #    This is the MAILER-DAEMON, please DO NOT REPLY to this e-mail.
-            #
-            #    An error has occurred while attempting to deliver a message for
-            #    the following list of recipients:
-            #
+          if cv = e.match(/\A([^ ]+?[@][^ ]+?):?[ ](.+)\z/)
             # kijitora@example.jp: 550 5.2.2 <kijitora@example>... Mailbox Full
-            #
-            #    Below is a copy of the original message:
-            v = dscontents[-1]
-
-            if cv = e.match(/\A([^ ]+?[@][^ ]+?):?[ ](.+)\z/)
-              # kijitora@example.jp: 550 5.2.2 <kijitora@example>... Mailbox Full
-              if v['recipient']
-                # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                v = dscontents[-1]
-              end
-              v['recipient'] = cv[1]
-              v['diagnosis'] = cv[2]
-              recipients += 1
+            if v['recipient']
+              # There are multiple recipient addresses in the message body.
+              dscontents << Sisimai::Lhost.DELIVERYSTATUS
+              v = dscontents[-1]
             end
+            v['recipient'] = cv[1]
+            v['diagnosis'] = cv[2]
+            recipients += 1
           end
         end
         return nil unless recipients > 0
@@ -163,8 +142,7 @@ module Sisimai::Lhost
           e.each_key { |a| e[a] ||= '' }
         end
 
-        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
 
     end

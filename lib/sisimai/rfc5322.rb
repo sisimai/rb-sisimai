@@ -177,37 +177,26 @@ module Sisimai
         return hosts
       end
 
-      # Weed out rfc822/message header fields excepct necessary fields
-      # @param    [Array] argv1  each line divided message/rc822 part
-      # @return   [String]       Selected fields
-      def weedout(argv1)
-        return nil unless argv1.is_a?(Array)
+      # Split given entire message body into error message lines and the original
+      # message part only include email headers
+      # @param    [String] mbody  Entire message body
+      # @param    [Regexp] regex  Regular expression of the message/rfc822 or the
+      #                           beginning of the original message part
+      # @return   [Array]         [Error message lines, The original message]
+      # @since    v4.25.5
+      def fillet(mbody = '', regex)
+        return nil if mbody.empty?
+        return nil unless regex
 
-        rfc822next = { from: false, to: false, subject: false }
-        rfc822part = '' # (String) message/rfc822-headers part
-        previousfn = '' # (String) Previous field name
+        v = mbody.split(regex, 2)
+        v[1] ||= ''
 
-        while e = argv1.shift do
-          # After "message/rfc822"
-          if e.start_with?(' ', "\t")
-            # Continued line from the previous line
-            next if rfc822next[previousfn]
-            rfc822part << e + "\n" if LongHeaders.key?(previousfn)
-          else
-            # Get required headers only
-            (lhs, rhs) = e.split(/:[ ]*/, 2)
-            next unless lhs
-            lhs.downcase!
-
-            previousfn = ''
-            next unless HeaderIndex.key?(lhs)
-
-            previousfn  = lhs
-            rfc822part << e + "\n"
-          end
+        unless v[1].empty?
+          v[1].sub(/\A[\r\n\s]+/, '')
+          v[1].sub(/\n\n.+\z/m, '')
+          v[1] << "\n" unless v[1].end_with?("\n")
         end
-
-        return rfc822part
+        return v
       end
 
     end

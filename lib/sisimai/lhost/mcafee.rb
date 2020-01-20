@@ -7,10 +7,8 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      StartingOf = {
-        message: ['--- The following addresses had delivery problems ---'],
-        rfc822:  ['Content-Type: message/rfc822'],
-      }.freeze
+      ReBackbone = %r|^Content-Type:[ ]message/rfc822|.freeze
+      StartingOf = { message: ['--- The following addresses had delivery problems ---'] }.freeze
       ReFailures = {
         'userunknown' => %r{(?:
            [ ]User[ ][(].+[@].+[)][ ]unknown[.][ ]
@@ -44,92 +42,69 @@ module Sisimai::Lhost
         require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
-        havepassed = ['']
-        rfc822list = []     # (Array) Each line in message/rfc822 part string
-        blanklines = 0      # (Integer) The number of blank lines
+        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+        bodyslices = emailsteak[0].split("\n")
+        readslices = ['']
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         diagnostic = ''     # (String) Alternative diagnostic message
         v = nil
 
-        while e = hasdivided.shift do
-          # Save the current line for the next loop
-          havepassed << e
-          p = havepassed[-2]
+        while e = bodyslices.shift do
+          # Read error messages and delivery status lines from the head of the email
+          # to the previous line of the beginning of the original message.
+          readslices << e # Save the current line for the next loop
 
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            if e.include?(StartingOf[:message][0])
-              readcursor |= Indicators[:deliverystatus]
-              next
-            end
+            readcursor |= Indicators[:deliverystatus] if e.include?(StartingOf[:message][0])
+            next
           end
+          next if (readcursor & Indicators[:deliverystatus]) == 0
+          next if e.empty?
 
-          if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
-            if e == StartingOf[:rfc822][0]
-              readcursor |= Indicators[:'message-rfc822']
+          # Content-Type: text/plain; name="deliveryproblems.txt"
+          #
+          #    --- The following addresses had delivery problems ---
+          #
+          # <user@example.com>   (User unknown user@example.com)
+          #
+          # --------------Boundary-00=_00000000000000000000
+          # Content-Type: message/delivery-status; name="deliverystatus.txt"
+          #
+          v = dscontents[-1]
+
+          if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>][ \t]+[(](.+)[)]\z/)
+            # <kijitora@example.co.jp>   (Unknown user kijitora@example.co.jp)
+            if v['recipient']
+              # There are multiple recipient addresses in the message body.
+              dscontents << Sisimai::Lhost.DELIVERYSTATUS
+              v = dscontents[-1]
+            end
+            v['recipient'] = cv[1]
+            diagnostic = cv[2]
+            recipients += 1
+
+          elsif f = Sisimai::RFC1894.match(e)
+            # "e" matched with any field defined in RFC3464
+            o = Sisimai::RFC1894.field(e)
+            unless o
+              # Fallback code for empty value or invalid formatted value
+              # - Original-Recipient: <kijitora@example.co.jp>
+              if cv = e.match(/\AOriginal-Recipient:[ ]*([^ ]+)\z/)
+                v['alias'] = Sisimai::Address.s3s4(cv[1])
+              end
               next
             end
-          end
+            next unless fieldtable.key?(o[0])
+            v[fieldtable[o[0]]] = o[2]
 
-          if readcursor & Indicators[:'message-rfc822'] > 0
-            # Inside of the original message part
-            if e.empty?
-              blanklines += 1
-              break if blanklines > 1
-              next
-            end
-            rfc822list << e
           else
-            # Error message part
-            next if (readcursor & Indicators[:deliverystatus]) == 0
-            next if e.empty?
-
-            # Content-Type: text/plain; name="deliveryproblems.txt"
-            #
-            #    --- The following addresses had delivery problems ---
-            #
-            # <user@example.com>   (User unknown user@example.com)
-            #
-            # --------------Boundary-00=_00000000000000000000
-            # Content-Type: message/delivery-status; name="deliverystatus.txt"
-            #
-            v = dscontents[-1]
-
-            if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>][ \t]+[(](.+)[)]\z/)
-              # <kijitora@example.co.jp>   (Unknown user kijitora@example.co.jp)
-              if v['recipient']
-                # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                v = dscontents[-1]
-              end
-              v['recipient'] = cv[1]
-              diagnostic = cv[2]
-              recipients += 1
-
-            elsif f = Sisimai::RFC1894.match(e)
-              # "e" matched with any field defined in RFC3464
-              o = Sisimai::RFC1894.field(e)
-              unless o
-                # Fallback code for empty value or invalid formatted value
-                # - Original-Recipient: <kijitora@example.co.jp>
-                if cv = e.match(/\AOriginal-Recipient:[ ]*([^ ]+)\z/)
-                  v['alias'] = Sisimai::Address.s3s4(cv[1])
-                end
-                next
-              end
-              next unless fieldtable.key?(o[0])
-              v[fieldtable[o[0]]] = o[2]
-
-            else
-              # Continued line of the value of Diagnostic-Code field
-              next unless p.start_with?('Diagnostic-Code:')
-              next unless cv = e.match(/\A[ \t]+(.+)\z/)
-              v['diagnosis'] << ' ' << cv[1]
-              havepassed[-1] = 'Diagnostic-Code: ' << e
-            end
+            # Continued line of the value of Diagnostic-Code field
+            next unless readslices[-2].start_with?('Diagnostic-Code:')
+            next unless cv = e.match(/\A[ \t]+(.+)\z/)
+            v['diagnosis'] << ' ' << cv[1]
+            readslices[-1] = 'Diagnostic-Code: ' << e
           end
         end
         return nil unless recipients > 0
@@ -147,8 +122,7 @@ module Sisimai::Lhost
           e.each_key { |a| e[a] ||= '' }
         end
 
-        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
 
     end
