@@ -7,6 +7,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
+      ReBackbone = %r<^Content-Type:[ ](?:message/rfc822|text/rfc822-headers)>.freeze
       MarkingsOf = {
         # MarkingsOf is a delimiter set of these sections:
         #   message: The first line of a bounce message to be parsed.
@@ -16,7 +17,6 @@ module Sisimai::Lhost
         #   endof:   Fixed string ``__END_OF_EMAIL_MESSAGE__''
         message: %r/\A[ \t]+[-]+ Transcript of session follows [-]+\z/,
         error:   %r/\A[.]+ while talking to .+[:]\z/,
-        rfc822:  %r{\AContent-Type:[ ]*(?:message/rfc822|text/rfc822-headers)\z},
       }.freeze
 
       def description; return 'Module description'; end
@@ -49,42 +49,23 @@ module Sisimai::Lhost
         # 2. Parse message body(mbody) of the bounce message. See some modules
         #    in lib/sisimai/lhost directory to implement codes.
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
-        rfc822list = []     # (Array) Each line in message/rfc822 part string
-        blanklines = 0      # (Integer) The number of blank lines
+        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+        bodyslices = emailsteak[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
 
-        while e = hasdivided.shift do
+        while e = bodyslices.shift do
+          # Read error messages and delivery status lines from the head of the email
+          # to the previous line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            if e =~ MarkingsOf[:message]
-              readcursor |= Indicators[:deliverystatus]
-              next
-            end
+            readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
+            next
           end
+          next if (readcursor & Indicators[:deliverystatus]) == 0
+          next if e.empty?
 
-          if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
-            if e =~ MarkingsOf[:rfc822]
-              readcursor |= Indicators[:'message-rfc822']
-              next
-            end
-          end
-
-          if readcursor & Indicators[:'message-rfc822'] > 0
-            # After "message/rfc822"
-            if e.empty?
-              blanklines += 1
-              break if blanklines > 1
-              next
-            end
-            rfc822list << e
-          else
-            # Before "message/rfc822"
-            next if (readcursor & Indicators[:deliverystatus]) == 0
-            next if e.empty?
-          end
+          # Code for getting a recipient address and other values you require
         end
 
         # The following code is dummy to be passed "make test".
@@ -96,17 +77,16 @@ module Sisimai::Lhost
         dscontents[0]['agent']     = self.smtpagent
         recipients = 1 if dscontents[0]['recipient']
 
-        rfc822list << 'From: shironeko@example.org'
-        rfc822list << 'Subject: Nyaaan'
-        rfc822list << 'Message-Id: 000000000000@example.jp'
+        emailsteak[1] << 'From: shironeko@example.org' << "\n"
+        emailsteak[1] << 'Subject: Nyaaan' << "\n"
+        emailsteak[1] << 'Message-Id: 000000000000@example.jp' << "\n"
 
         # 3. Return nil when there is no recipient address which is failed to
         #    delivery in the bounce message
         return nil unless recipients > 0
 
         # 4. Return the following variable.
-        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
 
     end
