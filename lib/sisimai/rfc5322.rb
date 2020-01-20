@@ -177,6 +177,28 @@ module Sisimai
         return hosts
       end
 
+      # Split given entire message body into error message lines and the original
+      # message part only include email headers
+      # @param    [String] mbody  Entire message body
+      # @param    [Regexp] regex  Regular expression of the message/rfc822 or the
+      #                           beginning of the original message part
+      # @return   [Array]         [Error message lines, The original message]
+      # @since    v4.25.5
+      def fillet(mbody = '', regex)
+        return nil if mbody.empty?
+        return nil unless regex
+
+        v = mbody.split(regex, 2)
+        v[1] ||= ''
+
+        unless v[1].empty?
+          v[1].sub(/\A[\r\n\s]+/, '')
+          v[1].sub(/\n\n.+\z/m, '')
+          v[1] << "\n" unless v[1].end_with?("\n")
+        end
+        return v
+      end
+
       # Weed out rfc822/message header fields excepct necessary fields
       # @param    [Array] argv1  each line divided message/rc822 part
       # @return   [String]       Selected fields
