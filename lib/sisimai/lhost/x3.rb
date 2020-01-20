@@ -7,10 +7,8 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      StartingOf = {
-        message: ['      This is an automatically generated Delivery Status Notification.'],
-        rfc822:  ['Content-Type: message/rfc822'],
-      }.freeze
+      ReBackbone = %r|^Content-Type:[ ]message/rfc822|.freeze
+      StartingOf = { message: ['      This is an automatically generated Delivery Status Notification.'] }.freeze
 
       def description; return 'Unknown MTA #3'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
@@ -32,80 +30,59 @@ module Sisimai::Lhost
         return nil unless mhead['from'].start_with?('Mail Delivery System')
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
-        rfc822list = []     # (Array) Each line in message/rfc822 part string
-        blanklines = 0      # (Integer) The number of blank lines
+        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+        bodyslices = emailsteak[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
 
-        while e = hasdivided.shift do
+        while e = bodyslices.shift do
+          # Read error messages and delivery status lines from the head of the email
+          # to the previous line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            if e.start_with?(StartingOf[:message][0])
-              readcursor |= Indicators[:deliverystatus]
-              next
-            end
+            readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])
+            next
           end
+          next if (readcursor & Indicators[:deliverystatus]) == 0
+          next if e.empty?
 
-          if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
-            if e.start_with?(StartingOf[:rfc822][0])
-              readcursor |= Indicators[:'message-rfc822']
-              next
-            end
-          end
+          # ============================================================================
+          #      This is an automatically generated Delivery Status Notification.
+          #
+          # Delivery to the following recipients failed permanently:
+          #
+          #   * kijitora@example.com
+          #
+          #
+          # ============================================================================
+          #                             Technical details:
+          #
+          # SMTP:RCPT host 192.0.2.8: 553 5.3.0 <kijitora@example.com>... No such user here
+          #
+          #
+          # ============================================================================
+          v = dscontents[-1]
 
-          if readcursor & Indicators[:'message-rfc822'] > 0
-            # Inside of the original message part
-            if e.empty?
-              blanklines += 1
-              break if blanklines > 1
-              next
-            end
-            rfc822list << e
-          else
-            # Error message part
-            next if (readcursor & Indicators[:deliverystatus]) == 0
-            next if e.empty?
-
-            # ============================================================================
-            #      This is an automatically generated Delivery Status Notification.
-            #
-            # Delivery to the following recipients failed permanently:
-            #
+          if cv = e.match(/\A[ \t]+[*][ ]([^ ]+[@][^ ]+)\z/)
             #   * kijitora@example.com
-            #
-            #
-            # ============================================================================
-            #                             Technical details:
-            #
-            # SMTP:RCPT host 192.0.2.8: 553 5.3.0 <kijitora@example.com>... No such user here
-            #
-            #
-            # ============================================================================
-            v = dscontents[-1]
+            if v['recipient']
+              # There are multiple recipient addresses in the message body.
+              dscontents << Sisimai::Lhost.DELIVERYSTATUS
+              v = dscontents[-1]
+            end
+            v['recipient'] = cv[1]
+            recipients += 1
+          else
+            # Detect error message
+            if cv = e.match(/\ASMTP:([^ ]+)[ ](.+)\z/)
+              # SMTP:RCPT host 192.0.2.8: 553 5.3.0 <kijitora@example.com>... No such user here
+              v['command'] = cv[1].upcase
+              v['diagnosis'] = cv[2]
 
-            if cv = e.match(/\A[ \t]+[*][ ]([^ ]+[@][^ ]+)\z/)
-              #   * kijitora@example.com
-              if v['recipient']
-                # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                v = dscontents[-1]
-              end
-              v['recipient'] = cv[1]
-              recipients += 1
-            else
-              # Detect error message
-              if cv = e.match(/\ASMTP:([^ ]+)[ ](.+)\z/)
-                # SMTP:RCPT host 192.0.2.8: 553 5.3.0 <kijitora@example.com>... No such user here
-                v['command'] = cv[1].upcase
-                v['diagnosis'] = cv[2]
-
-              elsif cv = e.match(/\ARouting: (.+)/)
-                # Routing: Could not find a gateway for kijitora@example.co.jp
-                v['diagnosis'] = cv[1]
-              end
+            elsif cv = e.match(/\ARouting: (.+)/)
+              # Routing: Could not find a gateway for kijitora@example.co.jp
+              v['diagnosis'] = cv[1]
             end
           end
         end
@@ -118,8 +95,7 @@ module Sisimai::Lhost
           e.each_key { |a| e[a] ||= '' }
         end
 
-        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
 
     end
