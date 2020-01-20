@@ -36,9 +36,7 @@ module Sisimai::Lhost
         return nil if match < 0
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
-        rfc822list = []     # (Array) Each line in message/rfc822 part string
-        blanklines = 0      # (Integer) The number of blank lines
+        rebackbone = /^__BOUNDARY_STRING_HERE__/
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         senderaddr = ''     # (String) Sender address in the message body
@@ -51,157 +49,111 @@ module Sisimai::Lhost
 
         if match == 1
           # vtext.com
-          markingsof = {
-            message: %r/\AError:[ \t]/,
-            rfc822:  %r/\A__BOUNDARY_STRING_HERE__\z/,
-          }
+          markingsof = { message: %r/\AError:[ \t]/ }
           messagesof = {
             # The attempted recipient address does not exist.
             'userunknown' => ['550 - Requested action not taken: no such user here'],
           }
           boundary00 = Sisimai::MIME.boundary(mhead['content-type']) || ''
-          markingsof[:rfc822] = Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z') unless boundary00.empty?
+          rebackbone = Regexp.new('^' << Regexp.escape('--' << boundary00 << '--')) unless boundary00.empty?
+          emailsteak = Sisimai::RFC5322.fillet(mbody, rebackbone)
+          bodyslices = emailsteak[0].split("\n")
 
-          while e = hasdivided.shift do
+          while e = bodyslices.shift do
+            # Read error messages and delivery status lines from the head of the email
+            # to the previous line of the beginning of the original message.
             if readcursor == 0
               # Beginning of the bounce message or delivery status part
-              if e =~ markingsof[:message]
-                readcursor |= Indicators[:deliverystatus]
-                next
-              end
+              readcursor |= Indicators[:deliverystatus] if e =~ markingsof[:message]
+              next
             end
+            next if (readcursor & Indicators[:deliverystatus]) == 0
+            next if e.empty?
 
-            if (readcursor & Indicators[:'message-rfc822']) == 0
-              # Beginning of the original message part
-              if e =~ markingsof[:rfc822]
-                readcursor |= Indicators[:'message-rfc822']
-                next
+            # Message details:
+            #   Subject: Test message
+            #   Sent date: Wed Jun 12 02:21:53 GMT 2013
+            #   MAIL FROM: *******@hg.example.com
+            #   RCPT TO: *****@vtext.com
+            v = dscontents[-1]
+            if cv = e.match(/\A[ \t]+RCPT TO: (.*)\z/)
+              if v['recipient']
+                # There are multiple recipient addresses in the message body.
+                dscontents << Sisimai::Lhost.DELIVERYSTATUS
+                v = dscontents[-1]
               end
-            end
 
-            if readcursor & Indicators[:'message-rfc822'] > 0
-              # Inside of the original message part
-              if e.empty?
-                blanklines += 1
-                break if blanklines > 1
-                next
-              end
-              rfc822list << e
-            else
-              # Error message part
-              next if (readcursor & Indicators[:deliverystatus]) == 0
-              next if e.empty?
+              v['recipient'] = cv[1]
+              recipients += 1
+              next
 
-              # Message details:
-              #   Subject: Test message
-              #   Sent date: Wed Jun 12 02:21:53 GMT 2013
+            elsif cv = e.match(/\A[ \t]+MAIL FROM:[ \t](.+)\z/)
               #   MAIL FROM: *******@hg.example.com
-              #   RCPT TO: *****@vtext.com
-              v = dscontents[-1]
-              if cv = e.match(/\A[ \t]+RCPT TO: (.*)\z/)
-                if v['recipient']
-                  # There are multiple recipient addresses in the message body.
-                  dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                  v = dscontents[-1]
-                end
+              senderaddr = cv[1] if senderaddr.empty?
 
-                v['recipient'] = cv[1]
-                recipients += 1
-                next
-
-              elsif cv = e.match(/\A[ \t]+MAIL FROM:[ \t](.+)\z/)
-                #   MAIL FROM: *******@hg.example.com
-                senderaddr = cv[1] if senderaddr.empty?
-
-              elsif cv = e.match(/\A[ \t]+Subject:[ \t](.+)\z/)
-                #   Subject:
-                subjecttxt = cv[1] if subjecttxt.empty?
-              else
-                # 550 - Requested action not taken: no such user here
-                v['diagnosis'] = e if e =~ /\A(\d{3})[ \t][-][ \t](.*)\z/
-              end
+            elsif cv = e.match(/\A[ \t]+Subject:[ \t](.+)\z/)
+              #   Subject:
+              subjecttxt = cv[1] if subjecttxt.empty?
+            else
+              # 550 - Requested action not taken: no such user here
+              v['diagnosis'] = e if e =~ /\A(\d{3})[ \t][-][ \t](.*)\z/
             end
           end
-
         else
           # vzwpix.com
           startingof = { message: ['Message could not be delivered to mobile'] }
-          markingsof = { rfc822:  %r/\A__BOUNDARY_STRING_HERE__\z/ }
           messagesof = { 'userunknown' => ['No valid recipients for this MM'] }
           boundary00 = Sisimai::MIME.boundary(mhead['content-type'])
-          markingsof[:rfc822] = Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z') unless boundary00.empty?
+          rebackbone = Regexp.new('^' << Regexp.escape('--' << boundary00 << '--')) unless boundary00.empty?
+          emailsteak = Sisimai::RFC5322.fillet(mbody, rebackbone)
+          bodyslices = emailsteak[0].split("\n")
 
-          while e = hasdivided.shift do
+          while e = bodyslices.shift do
+            # Read error messages and delivery status lines from the head of the email
+            # to the previous line of the beginning of the original message.
             if readcursor == 0
               # Beginning of the bounce message or delivery status part
-              if e.start_with?(startingof[:message][0])
-                readcursor |= Indicators[:deliverystatus]
-                next
-              end
+              readcursor |= Indicators[:deliverystatus] if e.start_with?(startingof[:message][0])
+              next
             end
+            next if (readcursor & Indicators[:deliverystatus]) == 0
+            next if e.empty?
 
-            if (readcursor & Indicators[:'message-rfc822']) == 0
-              # Beginning of the original message part
-              if e =~ markingsof[:rfc822]
-                readcursor |= Indicators[:'message-rfc822']
-                next
+            # Original Message:
+            # From: kijitora <kijitora@example.jp>
+            # To: 0000000000@vzwpix.com
+            # Subject: test for bounce
+            # Date:  Wed, 20 Jun 2013 10:29:52 +0000
+            v = dscontents[-1]
+            if cv = e.match(/\ATo:[ \t]+(.*)\z/)
+              if v['recipient']
+                # There are multiple recipient addresses in the message body.
+                dscontents << Sisimai::Lhost.DELIVERYSTATUS
+                v = dscontents[-1]
               end
-            end
+              v['recipient'] = Sisimai::Address.s3s4(cv[1])
+              recipients += 1
+              next
 
-            if readcursor & Indicators[:'message-rfc822'] > 0
-              # Inside of the original message part
-              if e.empty?
-                blanklines += 1
-                break if blanklines > 1
-                next
-              end
-              rfc822list << e
-            else
-              # Error message part
-              next if (readcursor & Indicators[:deliverystatus]) == 0
-              next if e.empty?
-
-              # Original Message:
+            elsif cv = e.match(/\AFrom:[ \t](.+)\z/)
               # From: kijitora <kijitora@example.jp>
-              # To: 0000000000@vzwpix.com
-              # Subject: test for bounce
-              # Date:  Wed, 20 Jun 2013 10:29:52 +0000
-              v = dscontents[-1]
-              if cv = e.match(/\ATo:[ \t]+(.*)\z/)
-                if v['recipient']
-                  # There are multiple recipient addresses in the message body.
-                  dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                  v = dscontents[-1]
-                end
-                v['recipient'] = Sisimai::Address.s3s4(cv[1])
-                recipients += 1
-                next
+              senderaddr = Sisimai::Address.s3s4(cv[1]) if senderaddr.empty?
 
-              elsif cv = e.match(/\AFrom:[ \t](.+)\z/)
-                # From: kijitora <kijitora@example.jp>
-                senderaddr = Sisimai::Address.s3s4(cv[1]) if senderaddr.empty?
-
-              elsif cv = e.match(/\ASubject:[ \t](.+)\z/)
-                #   Subject:
-                subjecttxt = cv[1] if subjecttxt.empty?
-              else
-                # Message could not be delivered to mobile.
-                # Error: No valid recipients for this MM
-                v['diagnosis'] = e if e =~ /\AError:[ \t]+(.+)\z/
-              end
+            elsif cv = e.match(/\ASubject:[ \t](.+)\z/)
+              #   Subject:
+              subjecttxt = cv[1] if subjecttxt.empty?
+            else
+              # Message could not be delivered to mobile.
+              # Error: No valid recipients for this MM
+              v['diagnosis'] = e if e =~ /\AError:[ \t]+(.+)\z/
             end
           end
         end
         return nil unless recipients > 0
 
-        if rfc822list.none? { |a| a.start_with?('From: ') }
-          # Set the value of "MAIL FROM:" or "From:"
-          rfc822list << ('From: ' << senderaddr)
-
-        elsif rfc822list.none? { |a| a.start_with?('Subject: ') }
-          # Set the value of "Subject:"
-          rfc822list << ('Subject: ' << subjecttxt)
-        end
+        # Set the value of "MAIL FROM:" and "From:"
+        emailsteak[1] << ('From: ' << senderaddr << "\n") unless emailsteak[1] =~ /^From: /
+        emailsteak[1] << ('Subject: ' << subjecttxt << "\n") unless emailsteak[1] =~ /^Subject: /
 
         dscontents.each do |e|
           e['agent']     = self.smtpagent
@@ -215,8 +167,7 @@ module Sisimai::Lhost
           end
         end
 
-        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
 
     end
