@@ -111,10 +111,10 @@ module Sisimai
         require 'sisimai/mda'
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.scrub('?').split("\n")
-        havepassed = ['']
+        bodyslices = mbody.scrub('?').split("\n")
+        readslices = ['']
         mdabounced = Sisimai::MDA.make(mhead, mbody)
-        rfc822list = []   # (Array) Each line in message/rfc822 part string
+        rfc822text = ''   # (String) message/rfc822 part text
         maybealias = nil  # (String) Original-Recipient Field
         blanklines = 0    # (Integer) The number of blank lines
         readcursor = 0    # (Integer) Points the current cursor position
@@ -127,11 +127,11 @@ module Sisimai
         }
         v = nil
 
-        while e = hasdivided.shift do
-          # Save the current line for the next loop
-          havepassed << e
+        while e = bodyslices.shift do
+          # Read error messages and delivery status lines from the head of the email
+          # to the previous line of the beginning of the original message.
+          readslices << e # Save the current line for the next loop
           d = e.downcase
-          p = havepassed[-2]
 
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
@@ -156,7 +156,7 @@ module Sisimai
               break if blanklines > 1
               next
             end
-            rfc822list << e
+            rfc822text << e << "\n"
           else
             # Error message part
             next unless readcursor & Indicators[:deliverystatus] > 0
@@ -294,7 +294,7 @@ module Sisimai
                 # Diagnostic-Code: 554 ...
                 v['diagnosis'] = cv[1]
 
-              elsif p.start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
+              elsif readslices[-2].start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
                 # Continued line of the value of Diagnostic-Code header
                 v['diagnosis'] << ' ' << cv[1]
                 e = 'Diagnostic-Code: ' << e
@@ -421,15 +421,11 @@ module Sisimai
         end
         return nil unless itisbounce
 
-        unless recipients > 0
-          # Try to get a recipient address from email headers
-          rfc822list.each do |e|
-            # Check To: header in the original message
-            next unless cv = e.match(/\ATo:\s*(.+)\z/)
-            r = Sisimai::Address.find(cv[1], true) || []
-            next if r.empty?
+        if recipients == 0 && cv = rfc822text.match(/^To:[ ]*(.+)/)
+          # Try to get a recipient address from "To:" header of the original message
+          if r = Sisimai::Address.find(cv[1], true)
+            # Found a recipient address
             dscontents << Sisimai::Lhost.DELIVERYSTATUS if dscontents.size == recipients
-
             b = dscontents[-1]
             b['recipient'] = r[0][:address]
             b['agent'] = Sisimai::RFC3464.smtpagent + '::Fallback'
@@ -472,8 +468,7 @@ module Sisimai
           e.each_key { |a| e[a] ||= '' }
         end
 
-        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        return { 'ds' => dscontents, 'rfc822' => rfc822text }
       end
 
     end
