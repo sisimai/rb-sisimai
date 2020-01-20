@@ -16,12 +16,15 @@ module Sisimai
             )
           |the[ ]original[ ]message[ ]was[ ]received[ ]at[ ]
           |this[ ]report[ ]relates[ ]to[ ]your[ ]message
-          |your[ ]message[ ]was[ ]not[ ]delivered[ ]to[ ]the[ ]following[ ]recipients
+          |your[ ]message[ ](?:
+             could[ ]not[ ]be[ ]delivered
+            |was[ ]not[ ]delivered[ ]to[ ]the[ ]following[ ]recipients
+            )
           )
         }x,
         rfc822:  %r{\A(?>
            content-type:[ ]*(?:message/rfc822|text/rfc822-headers)
-          |return-path:[ ]*[<].+[>]\z
+          |return-path:[ ]*[<].+[>]
           )\z
         }x,
         error:   %r/\A(?:[45]\d\d[ \t]+|[<][^@]+[@][^@]+[>]:?[ \t]+)/,
