@@ -381,8 +381,8 @@ module Sisimai
           break unless match > 0
 
           b = dscontents[-1]
-          hasdivided = mbody.split("\n")
-          while e = hasdivided.shift do
+          bodyslices = mbody.split("\n")
+          while e = bodyslices.shift do
             # Get the recipient's email address and error messages.
             break if e.start_with?('__END_OF_EMAIL_MESSAGE__')
             d = e.downcase

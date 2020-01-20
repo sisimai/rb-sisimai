@@ -81,7 +81,7 @@ module Sisimai
 
         require 'sisimai/lhost'
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.scrub('?').split("\n")
+        bodyslices = mbody.scrub('?').split("\n")
         rfc822part = '' # (String) message/rfc822-headers part
         recipients = 0  # (Integer) The number of 'Final-Recipient' header
         maxmsgline = 5  # (Integer) Max message length(lines)
@@ -114,7 +114,7 @@ module Sisimai
         end
 
         # BODY_PARSER: Get vacation message
-        while e = hasdivided.shift do
+        while e = bodyslices.shift do
           # Read the first 5 lines except a blank line
           countuntil += 1 if e =~ MarkingsOf[:boundary]
 

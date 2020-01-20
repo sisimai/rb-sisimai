@@ -80,7 +80,7 @@ module Sisimai
         return nil unless self.is_arf(mhead)
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
+        bodyslices = mbody.split("\n")
         rfc822part = ''   # (String) message/rfc822-headers part
         previousfn = ''   # (String) Previous field name
         readcursor = 0    # (Integer) Points the current cursor position
@@ -120,7 +120,7 @@ module Sisimai
         #      generator is using to generate the report.  The version number in
         #      this specification is set to "1".
         #
-        while e = hasdivided.shift do
+        while e = bodyslices.shift do
           if readcursor == 0
             # Beginning of the bounce message or message/delivery-status part
             if e =~ MarkingsOf[:message]

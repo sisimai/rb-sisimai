@@ -224,7 +224,7 @@ module Sisimai
       structured = {}
       extheaders = argvs['extheaders'] || []
       extrafield = argvs['extrafield'] || []
-      hasdivided = heads.split("\n")
+      headslices = heads.split("\n")
 
       HeaderList.each { |e| structured[e] = nil  }
       HeaderList.each { |e| allheaders[e] = true }
@@ -235,7 +235,7 @@ module Sisimai
         extrafield.each { |e| allheaders[e] = true }
       end
 
-      while e = hasdivided.shift do
+      while e = headslices.shift do
         # Convert email headers to hash
         if cv = e.match(/\A[ \t]+(.+)\z/)
           # Continued (foled) header value from the previous line
@@ -317,9 +317,9 @@ module Sisimai
       previousfn = '' # Previous field name
       asciiarmor = {} # Header names which has MIME encoded value
       headerpart = {} # Required headers in the original message part
-      hasdivided = heads.split("\n")
+      headslices = heads.split("\n")
 
-      while e = hasdivided.shift do
+      while e = headslices.shift do
         # Header name as a key, The value of header as a value
         if e.start_with?(' ', "\t")
           # Continued (foled) header value from the previous line

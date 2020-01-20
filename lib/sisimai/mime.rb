@@ -134,9 +134,9 @@ module Sisimai
         encodename = nil
         ctencoding = nil
         mimeinside = false
-        hasdivided = argv1.split("\n")
+        textslices = argv1.split("\n")
 
-        while e = hasdivided.shift do
+        while e = textslices.shift do
           # This is a multi-part message in MIME format. Your mail reader does not
           # understand MIME message format.
           # --=_gy7C4Gpes0RP4V5Bs9cK4o2Us2ZT57b-3OLnRN+4klS8dTmQ
