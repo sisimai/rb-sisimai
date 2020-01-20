@@ -45,8 +45,6 @@ module Sisimai::Lhost
         emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
         bodyslices = emailsteak[0].split("\n")
         readslices = ['']
-        rfc822list = []     # (Array) Each line in message/rfc822 part string
-        blanklines = 0      # (Integer) The number of blank lines
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         diagnostic = ''     # (String) Alternative diagnostic message
