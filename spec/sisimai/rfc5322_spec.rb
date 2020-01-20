@@ -156,5 +156,76 @@ describe Sisimai::RFC5322 do
     end
   end
 
+  describe '.fillet' do
+    rfc822body = <<'EOB';
+This is a MIME-encapsulated message
+
+The original message was received at Thu, 9 Apr 2014 23:34:45 +0900
+from localhost [127.0.0.1]
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora@example.net>
+    (reason: 551 not our customer)
+
+   ----- Transcript of session follows -----
+... while talking to mx-0.neko.example.jp.:
+<<< 450 busy - please try later
+... while talking to mx-1.neko.example.jp.:
+>>> DATA
+<<< 551 not our customer
+550 5.1.1 <kijitora@example.net>... User unknown
+<<< 503 need RCPT command [data]
+
+Content-Type: message/delivery-status
+Reporting-MTA: dns; mx.example.co.jp
+Received-From-MTA: DNS; localhost
+Arrival-Date: Thu, 9 Apr 2014 23:34:45 +0900
+
+Final-Recipient: RFC822; kijitora@example.net
+Action: failed
+Status: 5.1.6
+Remote-MTA: DNS; mx-s.neko.example.jp
+Diagnostic-Code: SMTP; 551 not our customer
+Last-Attempt-Date: Thu, 9 Apr 2014 23:34:45 +0900
+
+Content-Type: message/rfc822
+Return-Path: <shironeko@mx.example.co.jp>
+Received: from mx.example.co.jp (localhost [127.0.0.1])
+	by mx.example.co.jp (8.13.9/8.13.1) with ESMTP id fffff000000001
+	for <kijitora@example.net>; Thu, 9 Apr 2014 23:34:45 +0900
+Received: (from shironeko@localhost)
+	by mx.example.co.jp (8.13.9/8.13.1/Submit) id fff0000000003
+	for kijitora@example.net; Thu, 9 Apr 2014 23:34:45 +0900
+Date: Thu, 9 Apr 2014 23:34:45 +0900
+Message-Id: <0000000011111.fff0000000003@mx.example.co.jp>
+Content-Type: text/plain
+MIME-Version: 1.0
+From: Shironeko <shironeko@example.co.jp>
+To: Kijitora <shironeko@example.co.jp>
+Subject: Nyaaaan
+
+Nyaaan
+
+__END_OF_EMAIL_MESSAGE__
+EOB
+    context 'Valid email body string' do
+      emailsteak = Sisimai::RFC5322.fillet(rfc822body, %r|^Content-Type:[ ]message/rfc822|)
+      it('returns Array')   { expect(emailsteak).to be_a_kind_of(Array) }
+      it('has 2 elements')  { expect(emailsteak.size).to be == 2 }
+
+      it('contains string') { expect(emailsteak[0]).to be_a_kind_of(::String) }
+      it('is not empty')    { expect(emailsteak[0]).not_to be_empty }
+      it('includes "Final-Recipient:"') { expect(emailsteak[0]).to match(/^Final-Recipient:/) }
+      it('does not include "Return-Path:"') { expect(emailsteak[0]).not_to match(/^Return-Path:/) }
+      it('does not include "binary"')       { expect(emailsteak[0]).not_to match(/binary$/) }
+
+      it('contains string') { expect(emailsteak[1]).to be_a_kind_of(::String) }
+      it('is not empty')    { expect(emailsteak[1]).not_to be_empty }
+      it('includes "Subject:"')    { expect(emailsteak[1]).to match(/^Subject:/) }
+      it('does not include "Remote-MTA:"') { expect(emailsteak[1]).not_to match(/^Remote-MTA:/) }
+      it('does not include "Neko-Nyaan"')  { expect(emailsteak[1]).not_to match(/^Neko-Nyaan/) }
+    end
+  end
+
 end
 
