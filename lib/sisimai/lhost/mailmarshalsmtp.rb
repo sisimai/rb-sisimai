@@ -8,6 +8,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
+      ReBackbone = %r/^[ \t]*[+]+[ \t]*/.freeze
       StartingOf = {
         message: ['Your message:'],
         error:   ['Could not be delivered because of'],
@@ -33,9 +34,8 @@ module Sisimai::Lhost
         return nil unless mhead['subject'].start_with?('Undeliverable Mail: "')
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
-        rfc822list = []     # (Array) Each line in message/rfc822 part string
-        blanklines = 0      # (Integer) The number of blank lines
+        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+        bodyslices = emailsteak[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         endoferror = false  # (Boolean) Flag for the end of error message
@@ -50,99 +50,77 @@ module Sisimai::Lhost
                        regularexp = %r/\A[ \t]*[+]+[ \t]*\z/
                      end
 
-        while e = hasdivided.shift do
+        while e = bodyslices.shift do
+          # Read error messages and delivery status lines from the head of the email
+          # to the previous line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            if e == StartingOf[:message][0]
-              readcursor |= Indicators[:deliverystatus]
-              next
-            end
+            readcursor |= Indicators[:deliverystatus] if e == StartingOf[:message][0]
           end
+          next if (readcursor & Indicators[:deliverystatus]) == 0
 
-          if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
-            if e =~ regularexp
-              readcursor |= Indicators[:'message-rfc822']
-              next
-            end
-          end
+          # Your message:
+          #    From:    originalsender@example.com
+          #    Subject: IIdentifica蟾ｽ驕俳
+          #
+          # Could not be delivered because of
+          #
+          # 550 5.1.1 User unknown
+          #
+          # The following recipients were affected:
+          #    dummyuser@blabla.xxxxxxxxxxxx.com
+          v = dscontents[-1]
 
-          if readcursor & Indicators[:'message-rfc822'] > 0
-            # Inside of the original message part
-            if e.empty?
-              blanklines += 1
-              break if blanklines > 1
-              next
-            end
-            rfc822list << e
-          else
-            # Error message part
-            next if (readcursor & Indicators[:deliverystatus]) == 0
-            break if e =~ regularexp
-
-            # Your message:
-            #    From:    originalsender@example.com
-            #    Subject: IIdentifica蟾ｽ驕俳
-            #
-            # Could not be delivered because of
-            #
-            # 550 5.1.1 User unknown
-            #
+          if cv = e.match(/\A[ ]{4}([^ ]+[@][^ ]+)\z/)
             # The following recipients were affected:
             #    dummyuser@blabla.xxxxxxxxxxxx.com
-            v = dscontents[-1]
+            if v['recipient']
+              # There are multiple recipient addresses in the message body.
+              dscontents << Sisimai::Lhost.DELIVERYSTATUS
+              v = dscontents[-1]
+            end
+            v['recipient'] = cv[1]
+            recipients += 1
+          else
+            # Get error message lines
+            if e == StartingOf[:error][0]
+              # Could not be delivered because of
+              #
+              # 550 5.1.1 User unknown
+              v['diagnosis'] = e
 
-            if cv = e.match(/\A[ ]{4}([^ ]+[@][^ ]+)\z/)
-              # The following recipients were affected:
-              #    dummyuser@blabla.xxxxxxxxxxxx.com
-              if v['recipient']
-                # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                v = dscontents[-1]
-              end
-              v['recipient'] = cv[1]
-              recipients += 1
+            elsif !v['diagnosis'].to_s.empty? && endoferror == false
+              # Append error messages
+              endoferror = true if e.start_with?(StartingOf[:rcpts][0])
+              next if endoferror
+              v['diagnosis'] << ' ' << e
             else
-              # Get error message lines
-              if e == StartingOf[:error][0]
-                # Could not be delivered because of
-                #
-                # 550 5.1.1 User unknown
-                v['diagnosis'] = e
-
-              elsif !v['diagnosis'].to_s.empty? && endoferror == false
-                # Append error messages
-                endoferror = true if e.start_with?(StartingOf[:rcpts][0])
-                next if endoferror
-                v['diagnosis'] << ' ' << e
-              else
-                # Additional Information
-                # ======================
+              # Additional Information
+              # ======================
+              # Original Sender:    <originalsender@example.com>
+              # Sender-MTA:         <10.11.12.13>
+              # Remote-MTA:         <10.0.0.1>
+              # Reporting-MTA:      <relay.xxxxxxxxxxxx.com>
+              # MessageName:        <B549996730000.000000000001.0003.mml>
+              # Last-Attempt-Date:  <16:21:07 seg, 22 Dezembro 2014>
+              if cv = e.match(/\AOriginal Sender:[ \t]+[<](.+)[>]\z/)
                 # Original Sender:    <originalsender@example.com>
+                # Use this line instead of "From" header of the original
+                # message.
+                emailsteak[1] << ('From: ' << cv[1] << "\n")
+
+              elsif cv = e.match(/\ASender-MTA:[ \t]+[<](.+)[>]\z/)
                 # Sender-MTA:         <10.11.12.13>
-                # Remote-MTA:         <10.0.0.1>
+                v['lhost'] = cv[1]
+
+              elsif cv = e.match(/\AReporting-MTA:[ \t]+[<](.+)[>]\z/)
                 # Reporting-MTA:      <relay.xxxxxxxxxxxx.com>
-                # MessageName:        <B549996730000.000000000001.0003.mml>
-                # Last-Attempt-Date:  <16:21:07 seg, 22 Dezembro 2014>
-                if cv = e.match(/\AOriginal Sender:[ \t]+[<](.+)[>]\z/)
-                  # Original Sender:    <originalsender@example.com>
-                  # Use this line instead of "From" header of the original
-                  # message.
-                  rfc822list << ('From: ' << cv[1])
+                v['rhost'] = cv[1]
 
-                elsif cv = e.match(/\ASender-MTA:[ \t]+[<](.+)[>]\z/)
-                  # Sender-MTA:         <10.11.12.13>
-                  v['lhost'] = cv[1]
-
-                elsif cv = e.match(/\AReporting-MTA:[ \t]+[<](.+)[>]\z/)
-                  # Reporting-MTA:      <relay.xxxxxxxxxxxx.com>
-                  v['rhost'] = cv[1]
-
-                elsif cv = e.match(/\A\s+(From|Subject):\s*(.+)\z/)
-                  #    From:    originalsender@example.com
-                  #    Subject: ...
-                  rfc822list << sprintf("%s: %s", cv[1], cv[2])
-                end
+              elsif cv = e.match(/\A\s+(From|Subject):\s*(.+)\z/)
+                #    From:    originalsender@example.com
+                #    Subject: ...
+                emailsteak[1] << sprintf("%s: %s\n", cv[1], cv[2])
               end
             end
           end
@@ -155,8 +133,7 @@ module Sisimai::Lhost
           e.each_key { |a| e[a] ||= '' }
         end
 
-        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
 
     end

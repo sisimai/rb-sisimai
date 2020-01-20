@@ -8,11 +8,8 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      StartingOf = {
-        message: ['This message was created automatically by mail delivery software.'],
-        rfc822:  ['------ This is a copy of the message, including all the headers. ------'],
-      }.freeze
-
+      ReBackbone = %r|^------ This is a copy of the message, including all the headers[.] ------|.freeze
+      StartingOf = { message: ['This message was created automatically by mail delivery software.'] }.freeze
       ReCommands = [
         %r/SMTP error from remote (?:mail server|mailer) after ([A-Za-z]{4})/,
         %r/SMTP error from remote (?:mail server|mailer) after end of ([A-Za-z]{4})/,
@@ -77,86 +74,65 @@ module Sisimai::Lhost
         }x
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        hasdivided = mbody.split("\n")
-        rfc822list = []     # (Array) Each line in message/rfc822 part string
-        blanklines = 0      # (Integer) The number of blank lines
+        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+        bodyslices = emailsteak[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         localhost0 = ''     # (String) Local MTA
         v = nil
 
-        while e = hasdivided.shift do
+        while e = bodyslices.shift do
+          # Read error messages and delivery status lines from the head of the email
+          # to the previous line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            if e.start_with?(StartingOf[:message][0])
-              readcursor |= Indicators[:deliverystatus]
-              next
-            end
+            readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])
+            next
           end
+          next if (readcursor & Indicators[:deliverystatus]) == 0
+          next if e.empty?
 
-          if (readcursor & Indicators[:'message-rfc822']) == 0
-            # Beginning of the original message part
-            if e == StartingOf[:rfc822][0]
-              readcursor |= Indicators[:'message-rfc822']
-              next
-            end
-          end
+          # Это письмо создано автоматически
+          # сервером Mail.Ru, # отвечать на него не
+          # нужно.
+          #
+          # К сожалению, Ваше письмо не может
+          # быть# доставлено одному или нескольким
+          # получателям:
+          #
+          # **********************
+          #
+          # This message was created automatically by mail delivery software.
+          #
+          # A message that you sent could not be delivered to one or more of its
+          # recipients. This is a permanent error. The following address(es) failed:
+          #
+          #  kijitora@example.jp
+          #    SMTP error from remote mail server after RCPT TO:<kijitora@example.jp>:
+          #    host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
+          v = dscontents[-1]
 
-          if readcursor & Indicators[:'message-rfc822'] > 0
-            # Inside of the original message part
-            if e.empty?
-              blanklines += 1
-              break if blanklines > 1
-              next
+          if cv = e.match(/\A[ \t]+([^ \t]+[@][^ \t]+[.][a-zA-Z]+)\z/)
+            #   kijitora@example.jp
+            if v['recipient']
+              # There are multiple recipient addresses in the message body.
+              dscontents << Sisimai::Lhost.DELIVERYSTATUS
+              v = dscontents[-1]
             end
-            rfc822list << e
-          else
-            # Error message part
-            next if (readcursor & Indicators[:deliverystatus]) == 0
+            v['recipient'] = cv[1]
+            recipients += 1
+
+          elsif dscontents.size == recipients
+            # Error message
             next if e.empty?
-
-            # Это письмо создано автоматически
-            # сервером Mail.Ru, # отвечать на него не
-            # нужно.
-            #
-            # К сожалению, Ваше письмо не может
-            # быть# доставлено одному или нескольким
-            # получателям:
-            #
-            # **********************
-            #
-            # This message was created automatically by mail delivery software.
-            #
-            # A message that you sent could not be delivered to one or more of its
-            # recipients. This is a permanent error. The following address(es) failed:
-            #
-            #  kijitora@example.jp
-            #    SMTP error from remote mail server after RCPT TO:<kijitora@example.jp>:
-            #    host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
-            v = dscontents[-1]
-
-            if cv = e.match(/\A[ \t]+([^ \t]+[@][^ \t]+[.][a-zA-Z]+)\z/)
-              #   kijitora@example.jp
-              if v['recipient']
-                # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                v = dscontents[-1]
-              end
-              v['recipient'] = cv[1]
-              recipients += 1
-
-            elsif dscontents.size == recipients
-              # Error message
-              next if e.empty?
-              v['diagnosis'] ||= ''
-              v['diagnosis'] << e + ' '
-            else
-              # Error message when email address above does not include '@'
-              # and domain part.
-              next unless e.start_with?('    ', "\t")
-              v['alterrors'] ||= ''
-              v['alterrors'] << e + ' '
-            end
+            v['diagnosis'] ||= ''
+            v['diagnosis'] << e + ' '
+          else
+            # Error message when email address above does not include '@'
+            # and domain part.
+            next unless e.start_with?('    ', "\t")
+            v['alterrors'] ||= ''
+            v['alterrors'] << e + ' '
           end
         end
 
@@ -243,8 +219,7 @@ module Sisimai::Lhost
           e['agent']     = self.smtpagent
         end
 
-        rfc822part = Sisimai::RFC5322.weedout(rfc822list)
-        return { 'ds' => dscontents, 'rfc822' => rfc822part }
+        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
 
     end
