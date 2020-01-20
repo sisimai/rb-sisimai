@@ -177,7 +177,7 @@ module Sisimai
       # @return   [Hash]          Pattern table for the group
       def by(group = '')
         return {} if group.empty?
-        return Pattern[group] if Pattern.key?(group)
+        return Pattern[group] if Pattern[group]
         return {}
       end
       Subject = Sisimai::Order.by('subject').freeze
@@ -210,7 +210,7 @@ module Sisimai
 
           Module.const_get(e).headerlist.each do |v|
             # Get header name which required each MTA module
-            next if Skips.key?(v)
+            next if Skips[v]
             table[v] ||= []
             table[v] << e
           end

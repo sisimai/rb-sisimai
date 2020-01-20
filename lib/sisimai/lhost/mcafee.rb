@@ -96,7 +96,7 @@ module Sisimai::Lhost
               end
               next
             end
-            next unless fieldtable.key?(o[0])
+            next unless fieldtable[o[0]]
             v[fieldtable[o[0]]] = o[2]
 
           else

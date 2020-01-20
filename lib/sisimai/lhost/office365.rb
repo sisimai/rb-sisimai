@@ -161,7 +161,7 @@ module Sisimai::Lhost
               # After "Original message headers:"
               next unless f = Sisimai::RFC1894.match(e)
               next unless o = Sisimai::RFC1894.field(e)
-              next unless fieldtable.key?(o[0])
+              next unless fieldtable[o[0]]
               next if o[0] =~ /\A(?:diagnostic-code|final-recipient)\z/
               v[fieldtable[o[0]]] = o[2]
 

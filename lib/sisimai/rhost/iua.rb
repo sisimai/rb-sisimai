@@ -27,7 +27,7 @@ module Sisimai
           return argvs.reason unless argvs.reason.empty?
 
           if cv = argvs.diagnosticcode.downcase.match(%r|[.]i[.]ua/err/(\d+)|)
-            return ErrorCodes[cv[1]] if ErrorCodes.key?(cv[1])
+            return ErrorCodes[cv[1]] || ''
           end
           return ''
         end

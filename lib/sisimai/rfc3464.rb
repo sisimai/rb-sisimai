@@ -438,14 +438,16 @@ module Sisimai
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
 
-          if e.key?('alterrors') && !e['alterrors'].empty?
+          if e['alterrors']
             # Copy alternative error message
-            e['diagnosis'] ||= e['alterrors']
-            if e['diagnosis'].start_with?('-') || e['diagnosis'].end_with?('__')
-              # Override the value of diagnostic code message
-              e['diagnosis'] = e['alterrors'] unless e['alterrors'].empty?
+            unless e['alterrors'].empty?
+              e['diagnosis'] ||= e['alterrors']
+              if e['diagnosis'].start_with?('-') || e['diagnosis'].end_with?('__')
+                # Override the value of diagnostic code message
+                e['diagnosis'] = e['alterrors']
+              end
+              e.delete('alterrors')
             end
-            e.delete('alterrors')
           end
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
 

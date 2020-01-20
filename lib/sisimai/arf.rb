@@ -156,7 +156,7 @@ module Sisimai
 
             elsif e.start_with?(' ', "\t")
               # Continued line from the previous line
-              rfc822part << e + "\n" if LongFields.key?(previousfn)
+              rfc822part << e + "\n" if LongFields[previousfn]
               next unless e.empty?
               rcptintext << e if previousfn == 'to'
 
@@ -167,7 +167,7 @@ module Sisimai
               lhs.downcase!
 
               previousfn = ''
-              next unless RFC822Head.key?(lhs)
+              next unless RFC822Head[lhs]
 
               previousfn  = lhs
               rfc822part << e + "\n"

@@ -153,7 +153,6 @@ module Sisimai
         # Detect email address from message/rfc822 part
         fieldorder[:addresser].each do |f|
           # Check each header in message/rfc822 part
-          next unless rfc822data.key?(f)
           next unless rfc822data[f]
           next if rfc822data[f].empty?
 
@@ -312,7 +311,7 @@ module Sisimai
         o = Sisimai::Data.new(p)
         next unless o.recipient
 
-        if o.reason.empty? || RetryIndex.key?(o.reason)
+        if o.reason.empty? || RetryIndex[o.reason]
           # Decide the reason of email bounce
           r = ''
           r = Sisimai::Rhost.get(o) if Sisimai::Rhost.match(o.rhost) # Remote host dependent error

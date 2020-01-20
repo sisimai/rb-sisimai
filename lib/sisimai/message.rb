@@ -57,7 +57,7 @@ module Sisimai
       methodargv = { 'data' => email, 'hook' => argvs[:hook] || nil, 'field' => field }
       [:load, :order].each do |e|
         # Order of MTA modules
-        next unless argvs.key?(e)
+        next unless argvs[e]
         next unless argvs[e].is_a? Array
         next if argvs[e].empty?
         methodargv[e.to_s] = argvs[e]
@@ -65,7 +65,7 @@ module Sisimai
 
       datasource = Sisimai::Message.make(methodargv)
       return nil unless datasource
-      return nil unless datasource.key?('ds')
+      return nil unless datasource['ds']
 
       @from   = datasource['from']
       @header = datasource['header']
@@ -155,7 +155,7 @@ module Sisimai
 
       %w[load order].each do |e|
         # The order of MTA modules specified by user
-        next unless argvs.key?(e)
+        next unless argvs[e]
         next unless argvs[e].is_a? Array
         next if argvs[e].empty?
 
@@ -239,7 +239,7 @@ module Sisimai
         # Convert email headers to hash
         if cv = e.match(/\A[ \t]+(.+)\z/)
           # Continued (foled) header value from the previous line
-          next unless allheaders.key?(currheader)
+          next unless allheaders[currheader]
 
           # Header line continued from the previous line
           if structured[currheader].is_a? Array
@@ -253,9 +253,9 @@ module Sisimai
           # split the line into a header name and a header content
           (lhs, rhs) = e.split(/:[ ]*/, 2)
           currheader = lhs ? lhs.downcase : ''
-          next unless allheaders.key?(currheader)
+          next unless allheaders[currheader]
 
-          if IsMultiple.key?(currheader)
+          if IsMultiple[currheader]
             # Such as 'Received' header, there are multiple headers in a single
             # email message.
             #rhs = rhs.tr("\t", ' ').squeeze(' ')
@@ -348,7 +348,7 @@ module Sisimai
           lhs.downcase!
           previousfn = ''
 
-          next unless RFC822Head.key?(lhs)
+          next unless RFC822Head[lhs]
           previousfn = lhs
           headerpart[previousfn] = rhs unless headerpart[previousfn]
         end
@@ -492,7 +492,7 @@ module Sisimai
           argvs['tryonfirst'].concat(DefaultSet)
           while r = argvs['tryonfirst'].shift do
             # Try MTA module candidates
-            next if haveloaded.key?(r)
+            next if haveloaded[r]
             require r.gsub('::', '/').downcase
             parseddata = Module.const_get(r).make(mailheader, bodystring)
             haveloaded[r] = true

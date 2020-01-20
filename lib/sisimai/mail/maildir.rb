@@ -50,7 +50,7 @@ module Sisimai
             next unless File.readable?(emailindir)
 
             emailinode = File.stat(emailindir).ino
-            next if self.inodes.key?(emailinode)
+            next if self.inodes[emailinode]
 
             File.open(emailindir, 'r:UTF-8') do |f|
               readbuffer = f.read

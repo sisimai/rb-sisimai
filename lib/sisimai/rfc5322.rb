@@ -57,7 +57,7 @@ module Sisimai
       # @return   [Array,Hash]    RFC822 Header list
       def HEADERFIELDS(group = '')
         return HeaderIndex if group.empty?
-        return HeaderTable[group] if HeaderTable.key?(group)
+        return HeaderTable[group] if HeaderTable[group]
         return HeaderTable
       end
 

@@ -150,8 +150,8 @@ module Sisimai::Lhost
                 # 'reportingMTA' => 'dsn; a27-23.smtp-out.us-west-2.amazonses.com',
                 if cv = o['reportingMTA'].match(/\Adsn;[ ](.+)\z/) then v['lhost'] = cv[1] end
 
-                if bouncetype.key?(o['bounceType']) &&
-                   bouncetype[o['bounceType']].key?(o['bounceSubType'])
+                if bouncetype[o['bounceType']] &&
+                   bouncetype[o['bounceType']][o['bounceSubType']]
                   # 'bounce' => {
                   #       'bounceType' => 'Permanent',
                   #       'bounceSubType' => 'General'
@@ -293,7 +293,7 @@ module Sisimai::Lhost
                 v['diagnosis'] = o[2]
               else
                 # Other DSN fields defined in RFC3464
-                next unless fieldtable.key?(o[0])
+                next unless fieldtable[o[0]]
                 v[fieldtable[o[0]]] = o[2]
 
                 next unless f == 1
