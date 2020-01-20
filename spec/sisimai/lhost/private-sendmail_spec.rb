@@ -179,7 +179,6 @@ isexpected = [
   { 'n' => '01177', 'r' => /mailererror/ },
   { 'n' => '01178', 'r' => /hostunknown/ },
   { 'n' => '01179', 'r' => /userunknown/ },
-  { 'n' => '01180', 'r' => /userunknown/ },
   { 'n' => '01181', 'r' => /mesgtoobig/ },
   { 'n' => '01182', 'r' => /userunknown/ },
   { 'n' => '01183', 'r' => /suspend/ },
@@ -218,6 +217,7 @@ isexpected = [
   { 'n' => '01216', 'r' => /userunknown/ },
   { 'n' => '01217', 'r' => /blocked/ },
   { 'n' => '01218', 'r' => /blocked/ },
+  { 'n' => '01219', 'r' => /userunknown/ },
 ]
 Sisimai::Lhost::Code.maketest(enginename, isexpected, true)
 
