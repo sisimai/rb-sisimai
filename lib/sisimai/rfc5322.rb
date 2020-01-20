@@ -199,39 +199,6 @@ module Sisimai
         return v
       end
 
-      # Weed out rfc822/message header fields excepct necessary fields
-      # @param    [Array] argv1  each line divided message/rc822 part
-      # @return   [String]       Selected fields
-      def weedout(argv1)
-        return nil unless argv1.is_a?(Array)
-
-        rfc822next = { from: false, to: false, subject: false }
-        rfc822part = '' # (String) message/rfc822-headers part
-        previousfn = '' # (String) Previous field name
-
-        while e = argv1.shift do
-          # After "message/rfc822"
-          if e.start_with?(' ', "\t")
-            # Continued line from the previous line
-            next if rfc822next[previousfn]
-            rfc822part << e + "\n" if LongHeaders.key?(previousfn)
-          else
-            # Get required headers only
-            (lhs, rhs) = e.split(/:[ ]*/, 2)
-            next unless lhs
-            lhs.downcase!
-
-            previousfn = ''
-            next unless HeaderIndex.key?(lhs)
-
-            previousfn  = lhs
-            rfc822part << e + "\n"
-          end
-        end
-
-        return rfc822part
-      end
-
     end
   end
 end
