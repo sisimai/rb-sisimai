@@ -95,7 +95,7 @@ module Sisimai::Lhost
               v['diagnosis'] = o[2]
             else
               # Other DSN fields defined in RFC3464
-              next unless fieldtable.key?(o[0])
+              next unless fieldtable[o[0]]
               v[fieldtable[o[0]]] = o[2]
 
               next unless f == 1

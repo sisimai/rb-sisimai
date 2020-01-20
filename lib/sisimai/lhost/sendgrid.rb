@@ -103,7 +103,7 @@ module Sisimai::Lhost
               o[1] << ' ' << Sisimai::DateTime.abbr2tz('CDT')
             else
               # Other DSN fields defined in RFC3464
-              next unless fieldtable.key?(o[0])
+              next unless fieldtable[o[0]]
               v[fieldtable[o[0]]] = o[2]
 
               next unless f == 1

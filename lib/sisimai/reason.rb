@@ -52,7 +52,7 @@ module Sisimai
         return nil unless argvs
         return nil unless argvs.is_a? Sisimai::Data
 
-        unless GetRetried.key?(argvs.reason)
+        unless GetRetried[argvs.reason]
           # Return reason text already decided except reason match with the
           # regular expression of retry() method.
           return argvs.reason unless argvs.reason.empty?
@@ -117,7 +117,7 @@ module Sisimai
           while true
             diagnostic   = argvs.diagnosticcode.downcase || ''
             trytomatch   = reasontext.empty? ? true : false
-            trytomatch ||= true if GetRetried.key?(reasontext)
+            trytomatch ||= true if GetRetried[reasontext]
             trytomatch ||= true if argvs.diagnostictype != 'SMTP'
             throw :TRY_TO_MATCH unless trytomatch
 

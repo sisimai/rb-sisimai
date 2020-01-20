@@ -60,7 +60,7 @@ module Sisimai
         # DETECT_EXCLUSION_MESSAGE
         Excludings.each_key do |e|
           # Exclude message from root@
-          next unless mhead.key?(e)
+          next unless mhead[e]
           next unless mhead[e]
           next unless mhead[e].downcase =~ Excludings[e]
           leave = 1
@@ -71,7 +71,7 @@ module Sisimai
         # DETECT_AUTO_REPLY_MESSAGE
         AutoReply1.each_key do |e|
           # RFC3834 Auto-Submitted and other headers
-          next unless mhead.key?(e)
+          next unless mhead[e]
           next unless mhead[e]
           next unless mhead[e].downcase =~ AutoReply1[e]
           match += 1
@@ -93,7 +93,7 @@ module Sisimai
         # RECIPIENT_ADDRESS
         %w[from return-path].each do |e|
           # Try to get the address of the recipient
-          next unless mhead.key?(e)
+          next unless mhead[e]
           next unless mhead[e]
           v['recipient'] = mhead[e]
           break

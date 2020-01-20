@@ -127,7 +127,7 @@ module Sisimai
 
             # Correct invalid value in Action field:
             break unless group == 'list'
-            break unless Correction[:action].key?(match[2])
+            break unless Correction[:action][match[2]]
             match[2] = Correction[:action][match[2]]
           end
           break

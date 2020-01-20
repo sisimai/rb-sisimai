@@ -30,7 +30,7 @@ module Sisimai
     #           # => Sisimai::Address object
     def self.make(argvs)
       return nil unless argvs.is_a? Hash
-      return nil unless argvs.key?(:address)
+      return nil unless argvs[:address]
       return nil if argvs[:address].empty?
 
       thing = Sisimai::Address.new(argvs[:address])
@@ -69,7 +69,7 @@ module Sisimai
 
       while e = characters.shift do
         # Check each characters
-        if Delimiters.key?(e)
+        if Delimiters[e]
           # The character is a delimiter character
           if e == ','
             # Separator of email addresses or not
