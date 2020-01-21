@@ -81,12 +81,12 @@ module Sisimai
               # Get D.S.N. or SMTP reply code from The 2nd argument string
               statuscode = Sisimai::SMTP::Status.find(argv2) || Sisimai::SMTP::Reply.find(argv2) || '0'
               value = if statuscode.start_with?('4')
-                             # Deal as a "soft bounce"
-                             'soft'
-                           else
-                             # 5 or 0, deal as a "hard bounce"
-                             'hard'
-                           end
+                        # Deal as a "soft bounce"
+                        'soft'
+                      else
+                        # 5 or 0, deal as a "hard bounce"
+                        'hard'
+                      end
             else
               # "notaccept" is a hard bounce
               value = 'hard'
