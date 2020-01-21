@@ -80,7 +80,7 @@ module Sisimai
             if argv2.size > 0
               # Get D.S.N. or SMTP reply code from The 2nd argument string
               statuscode = Sisimai::SMTP::Status.find(argv2) || Sisimai::SMTP::Reply.find(argv2) || '0'
-              value = if statuscode[0, 1].to_i == 4
+              value = if statuscode.start_with?('4')
                              # Deal as a "soft bounce"
                              'soft'
                            else

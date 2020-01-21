@@ -292,7 +292,7 @@ module Sisimai
       return nil unless block['header']
       return nil unless block['body']
 
-      if block['header'][0, 5] == 'From '
+      if block['header'].start_with?('From ')
         # From MAILER-DAEMON Tue Feb 11 00:00:00 2014
         block['from'] = block['header'].split(/\n/, 2)[0].delete("\r")
       else
