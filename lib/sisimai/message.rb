@@ -258,7 +258,6 @@ module Sisimai
           if IsMultiple[currheader]
             # Such as 'Received' header, there are multiple headers in a single
             # email message.
-            #rhs = rhs.tr("\t", ' ').squeeze(' ')
             rhs = rhs.tr("\t", ' ')
             structured[currheader] << rhs
           else
