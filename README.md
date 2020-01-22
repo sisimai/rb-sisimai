@@ -83,10 +83,10 @@ Install
 
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-4.25.1.gem (100%)
-Successfully installed sisimai-4.25.1
-Parsing documentation for sisimai-4.25.1
-Installing ri documentation for sisimai-4.25.1
+Fetching: sisimai-4.25.5.gem (100%)
+Successfully installed sisimai-4.25.5
+Parsing documentation for sisimai-4.25.5
+Installing ri documentation for sisimai-4.25.5
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -102,8 +102,8 @@ gem install bundle rake rspec coveralls
 ...
 4 gems installed
 bundle exec rake install
-sisimai 4.25.1 built to pkg/sisimai-4.25.1.gem.
-sisimai (4.25.1) installed.
+sisimai 4.25.5 built to pkg/sisimai-4.25.5.gem.
+sisimai (4.25.5) installed.
 ```
 
 Usage
@@ -221,11 +221,11 @@ and bounceHammer are available at
 | System requirements                         | Ruby 2.1 - 2.6 | Perl 5.10 -   |
 |                                             | JRuby 9.0.4.0- |               |
 | Analytical precision ratio(2000 emails)[1]  | 1.00           | 1.00          |
-| The speed of parsing email(1000 emails)     | 2.22s[2]       | 1.50s         |
+| The speed of parsing email(1000 emails)     | 2.22s[2]       | 1.35s         |
 | How to install                              | gem install    | cpanm, cpm    |
 | Dependencies (Except core modules)          | 1 module       | 2 modules     |
-| LOC:Source lines of code                    | 11700 lines    | 8300 lines    |
-| The number of tests(spec/,t/,xt/) directory | 227600 tests   | 250000 tests  |
+| LOC:Source lines of code                    | 10300 lines    | 7100 lines    |
+| The number of tests(spec/,t/,xt/) directory | 230000 tests   | 250000 tests  |
 | License                                     | BSD 2-Clause   | BSD 2-Clause  |
 | Support Contract provided by Developer      | Available      | Available     |
 
@@ -282,7 +282,7 @@ Author
 
 Copyright
 ===============================================================================
-Copyright (C) 2015-2019 azumakuniyuki, All Rights Reserved.
+Copyright (C) 2015-2020 azumakuniyuki, All Rights Reserved.
 
 License
 ===============================================================================

@@ -78,10 +78,10 @@ Install
 
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-4.25.2.gem (100%)
-Successfully installed sisimai-4.25.2
-Parsing documentation for sisimai-4.25.2
-Installing ri documentation for sisimai-4.25.2
+Fetching: sisimai-4.25.5.gem (100%)
+Successfully installed sisimai-4.25.5
+Parsing documentation for sisimai-4.25.5
+Installing ri documentation for sisimai-4.25.5
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -97,8 +97,8 @@ gem install bundle rake rspec coveralls
 ...
 4 gems installed
 bundle exec rake install
-sisimai 4.25.2 built to pkg/sisimai-4.25.2.gem.
-sisimai (4.25.2) installed.
+sisimai 4.25.5 built to pkg/sisimai-4.25.5.gem.
+sisimai (4.25.5) installed.
 ```
 
 Usage
@@ -217,11 +217,11 @@ Differences between Ruby version and Perl version
 | 動作環境                                    | Ruby 2.1 - 2.6 | Perl 5.10 -   |
 |                                             | JRuby 9.0.4.0- |               |
 | 解析精度の割合(2000通のメール)[1]           | 1.00           | 1.00          |
-| メール解析速度(1000通のメール)              | 2.22秒[2]      | 1.50秒        |
+| メール解析速度(1000通のメール)              | 2.22秒[2]      | 1.35秒        |
 | インストール方法                            | gem install    | cpanm, cpm    |
 | 依存モジュール数(コアモジュールを除く)      | 1モジュール    | 2モジュール   |
-| LOC:ソースコードの行数                      | 11700行        | 8300行        |
-| テスト件数(spec/,t/,xt/ディレクトリ)        | 227700件       | 250000件      |
+| LOC:ソースコードの行数                      | 10300行        | 7100行        |
+| テスト件数(spec/,t/,xt/ディレクトリ)        | 230000件       | 250000件      |
 | ライセンス                                  | 二条項BSD      | 二条項BSD     |
 | 開発会社によるサポート契約                  | 提供中         | 提供中        |
 
@@ -276,7 +276,7 @@ Author
 
 Copyright
 ===============================================================================
-Copyright (C) 2015-2019 azumakuniyuki, All Rights Reserved.
+Copyright (C) 2015-2020 azumakuniyuki, All Rights Reserved.
 
 License
 ===============================================================================
