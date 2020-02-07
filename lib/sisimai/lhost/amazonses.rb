@@ -58,7 +58,6 @@ module Sisimai::Lhost
             # Find JSON string from the message body
             next if e.empty?
             break if e == '--'
-            break if e == '__END_OF_EMAIL_MESSAGE__'
 
             # The line starts with " ", continued from !\n.
             e.lstrip! if foldedline

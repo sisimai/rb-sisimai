@@ -37,7 +37,6 @@ module Sisimai
     ]
     attr_accessor(*@@rwaccessors)
 
-    EndOfEmail = Sisimai::String.EOM
     RetryIndex = Sisimai::Reason.retry
     RFC822Head = Sisimai::RFC5322.HEADERFIELDS(:all)
     AddrHeader = { addresser: RFC822Head[:addresser], recipient: RFC822Head[:recipient] }.freeze
@@ -257,8 +256,6 @@ module Sisimai
 
         # CHECK_DELIVERY_STATUS_VALUE:
         # Cleanup the value of "Diagnostic-Code:" header
-        p['diagnosticcode'].sub!(/[ \t.]+#{EndOfEmail}/, '')
-
         unless p['diagnosticcode'].empty?
           # Count the number of D.S.N. and SMTP Reply Code
           vs = Sisimai::SMTP::Status.find(p['diagnosticcode'])

@@ -8,11 +8,6 @@ module Sisimai
         body: %r|<head>.+</head>.*<body[ >].+</body>|im,
       }
 
-      # End of email message as a sentinel for parsing bounce messages
-      # @private
-      # @return   [String] Fixed length string like a constant
-      def EOM; return '__END_OF_EMAIL_MESSAGE__'; end
-
       # Create message token from addresser and recipient
       # @param  [String]  addr1 Sender address
       # @param  [String]  addr2 Recipient address

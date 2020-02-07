@@ -16,10 +16,7 @@ module Sisimai::Lhost
         |Content-Type:[ ]*message/rfc822
         )
       }x.freeze
-      StartingOf = {
-        deliverystatus: ['Content-type: message/delivery-status'],
-        endof:          ['__END_OF_EMAIL_MESSAGE__'],
-      }.freeze
+      StartingOf = { deliverystatus: ['Content-type: message/delivery-status'] }.freeze
       MarkingsOf = {
         # Error text regular expressions which defined in exim/src/deliver.c
         #
@@ -176,8 +173,6 @@ module Sisimai::Lhost
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email
           # to the previous line of the beginning of the original message.
-          break if e == StartingOf[:endof][0]
-
           if readcursor == 0
             # Beginning of the bounce message or message/delivery-status part
             if e =~ MarkingsOf[:message]

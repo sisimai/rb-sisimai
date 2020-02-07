@@ -384,7 +384,6 @@ module Sisimai
           bodyslices = mbody.split("\n")
           while e = bodyslices.shift do
             # Get the recipient's email address and error messages.
-            break if e.start_with?('__END_OF_EMAIL_MESSAGE__')
             d = e.downcase
             break if d =~ MarkingsOf[:rfc822]
             break if d =~ ReStop
