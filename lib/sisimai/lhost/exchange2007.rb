@@ -62,6 +62,10 @@ module Sisimai::Lhost
         return nil unless mhead['content-language']
         return nil unless mhead['content-language'] =~ /\A[a-z]{2}(?:[-][A-Z]{2})?\z/
 
+        # These headers exist only a bounce mail from Office365
+        return nil if mhead['x-ms-exchange-crosstenant-originalarrivaltime']
+        return nil if mhead['x-ms-exchange-crosstenant-fromentityheader']
+
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
         bodyslices = emailsteak[0].split("\n")
