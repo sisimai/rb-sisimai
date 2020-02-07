@@ -12,8 +12,8 @@ module Sisimai::Lhost
       # deliver.c:6425|          else fprintf(f,
       # deliver.c:6426|"------ This is a copy of the message's headers. ------\n");
       ReBackbone = %r{^(?:
-         [-]+[ ]This[ ]is[ ]a[ ]copy[ ]of[ ](?:the|your)[ ]message.+headers[.][ ][-]+
-        |Content-Type:[ ]*message/rfc822
+         [-]+[ ]This[ ]is[ ]a[ ]copy[ ]of[ ](?:the|your)[ ]message.+?headers[.][ ][-]+
+        |Content-Type:[ ]*message/rfc822\n(?:[\s\t]+.*?\n\n)?
         )
       }x.freeze
       StartingOf = { deliverystatus: ['Content-type: message/delivery-status'] }.freeze
