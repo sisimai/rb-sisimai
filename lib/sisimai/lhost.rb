@@ -43,7 +43,6 @@ module Sisimai
       end
       def description; return ''; end
       def headerlist;  return []; end
-      def removedat;   return 'v4.25.5'; end # This method will be removed at the future release of Sisimai
 
       # @abstract MTA list
       # @return   [Array] MTA list with order
