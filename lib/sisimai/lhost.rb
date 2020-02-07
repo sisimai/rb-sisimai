@@ -57,17 +57,6 @@ module Sisimai
           X1 X2 X3 X4 X5 V5sendmail FML Google]
       end
 
-      # @abstract MTA list which have one or more extra headers
-      # @return   [Array] MTA list (have extra headers)
-      def heads
-        return %w[
-          Exim Office365 Outlook Exchange2007 Exchange2003 GSuite SendGrid
-          AmazonSES ReceivingSES AmazonWorkMail Aol GMX MailRu MessageLabs Yahoo
-          Yandex Zoho EinsUndEins MXLogic McAfee MFILTER EZweb Activehunter IMailServer
-          SurfControl FML Google
-        ]
-      end
-
       # @abstract Parse bounce messages
       # @param         [Hash] mhead       Message header of a bounce email
       # @options mhead [String] from      From header

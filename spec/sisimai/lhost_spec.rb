@@ -23,10 +23,6 @@ describe Sisimai::Lhost do
     it('returns Array') { expect(Sisimai::Lhost.index).to be_a Array }
     it('is not empty' ) { expect(Sisimai::Lhost.index.size).to be > 0 }
   end
-  describe '.heads' do
-    it('returns Array') { expect(Sisimai::Lhost.heads).to be_a Array }
-    it('is not empty' ) { expect(Sisimai::Lhost.heads.size).to be > 0 }
-  end
 
   describe '.make' do
     it('returns nil') { expect(Sisimai::Lhost.make).to be nil }
