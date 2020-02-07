@@ -16,7 +16,6 @@ module Sisimai::Lhost
 
       def description; return '1&1: https://www.1und1.de'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return []; end
 
       # Parse bounce messages from 1&1
       # @param         [Hash] mhead       Message headers of a bounce email

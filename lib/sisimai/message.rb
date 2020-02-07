@@ -25,7 +25,6 @@ module Sisimai
     ExtHeaders = Sisimai::Order.headers
     SubjectTab = Sisimai::Order.by('subject')
     RFC822Head = Sisimai::RFC5322.HEADERFIELDS
-    RFC3834Set = Sisimai::RFC3834.headerlist
     HeaderList = %w[from to date subject content-type reply-to message-id
                     received content-transfer-encoding return-path x-mailer]
     IsMultiple = { 'received' => true }

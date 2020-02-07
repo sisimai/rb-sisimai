@@ -23,7 +23,6 @@ module Sisimai::Lhost
 
       def description; return 'V8Sendmail: /usr/sbin/sendmail'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return []; end
 
       # Parse bounce messages from Sendmail
       # @param         [Hash] mhead       Message headers of a bounce email

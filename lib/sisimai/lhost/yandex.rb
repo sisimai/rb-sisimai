@@ -13,15 +13,6 @@ module Sisimai::Lhost
       def description; return 'Yandex.Mail: https://www.yandex.ru'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
 
-      # X-Yandex-Front: mxback1h.mail.yandex.net
-      # X-Yandex-TimeMark: 1417885948
-      # X-Yandex-Uniq: 92309766-f1c8-4bd4-92bc-657c75766587
-      # X-Yandex-Spam: 1
-      # X-Yandex-Forward: 10104c00ad0726da5f37374723b1e0c8
-      # X-Yandex-Queue-ID: 367D79E130D
-      # X-Yandex-Sender: rfc822; shironeko@yandex.example.com
-      def headerlist;  return %w[x-yandex-uniq]; end
-
       # Parse bounce messages from Yandex.Mail
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -34,6 +25,13 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
+        # X-Yandex-Front: mxback1h.mail.yandex.net
+        # X-Yandex-TimeMark: 1417885948
+        # X-Yandex-Uniq: 92309766-f1c8-4bd4-92bc-657c75766587
+        # X-Yandex-Spam: 1
+        # X-Yandex-Forward: 10104c00ad0726da5f37374723b1e0c8
+        # X-Yandex-Queue-ID: 367D79E130D
+        # X-Yandex-Sender: rfc822; shironeko@yandex.example.com
         return nil unless mhead['x-yandex-uniq']
         return nil unless mhead['from'] == 'mailer-daemon@yandex.ru'
 

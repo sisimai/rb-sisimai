@@ -47,7 +47,6 @@ module Sisimai::Lhost
 
       def description; return '@mail.ru: https://mail.ru'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return %w[x-failed-recipients]; end
 
       # Parse bounce messages from @mail.ru
       # @param         [Hash] mhead       Message headers of a bounce email

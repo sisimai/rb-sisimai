@@ -21,7 +21,6 @@ module Sisimai::Lhost
 
       def description; return 'G Suite: https://gsuite.google.com'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return %w[x-gm-message-state]; end
 
       # Parse bounce messages from G Suite (Transfer from G Suite to a destinaion host)
       # @param         [Hash] mhead       Message headers of a bounce email

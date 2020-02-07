@@ -20,7 +20,6 @@ module Sisimai::Lhost
 
       def description; return 'Module description'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return %w[x-some-userdefined-header]; end
 
       # @abstract Template for User-Defined MTA module
       # @param         [Hash] mhead       Message headers of a bounce email

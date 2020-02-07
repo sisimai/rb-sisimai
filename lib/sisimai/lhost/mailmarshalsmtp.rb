@@ -17,7 +17,6 @@ module Sisimai::Lhost
 
       def description; return 'Trustwave Secure Email Gateway'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return ['X-Mailer']; end
 
       # Parse bounce messages from MailMarshalSMTP
       # @param         [Hash] mhead       Message headers of a bounce email

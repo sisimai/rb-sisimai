@@ -14,12 +14,6 @@ module Sisimai::Lhost
       def description; return 'GMX: https://www.gmx.net'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
 
-      # Envelope-To: <kijitora@mail.example.com>
-      # X-GMX-Antispam: 0 (Mail was not recognized as spam); Detail=V3;
-      # X-GMX-Antivirus: 0 (no virus found)
-      # X-UI-Out-Filterresults: unknown:0;
-      def headerlist;  return %w[x-gmx-antispam]; end
-
       # Parse bounce messages from GMX
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -32,8 +26,10 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
-        # :from    => %r/\AMAILER-DAEMON[@]/,
-        # :subject => %r/\AMail delivery failed: returning message to sender\z/,
+        # Envelope-To: <kijitora@mail.example.com>
+        # X-GMX-Antispam: 0 (Mail was not recognized as spam); Detail=V3;
+        # X-GMX-Antivirus: 0 (no virus found)
+        # X-UI-Out-Filterresults: unknown:0;
         return nil unless mhead['x-gmx-antispam']
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]

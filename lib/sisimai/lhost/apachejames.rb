@@ -18,7 +18,6 @@ module Sisimai::Lhost
 
       def description; return 'Java Apache Mail Enterprise Server'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return []; end
 
       # Parse bounce messages from Apache James
       # @param         [Hash] mhead       Message headers of a bounce email

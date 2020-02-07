@@ -13,10 +13,6 @@ module Sisimai::Lhost
 
       def description; return 'WebSense SurfControl'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      # X-SEF-ZeroHour-RefID: fgs=000000000
-      # X-SEF-Processed: 0_0_0_000__2010_04_29_23_34_45
-      # X-Mailer: SurfControl E-mail Filter
-      def headerlist;  return %w[x-sef-processed x-mailer]; end
 
       # Parse bounce messages from SurfControl
       # @param         [Hash] mhead       Message headers of a bounce email
@@ -30,7 +26,9 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
-        # :'from' => %r/ [(]Mail Delivery System[)]\z/,
+        # X-SEF-ZeroHour-RefID: fgs=000000000
+        # X-SEF-Processed: 0_0_0_000__2010_04_29_23_34_45
+        # X-Mailer: SurfControl E-mail Filter
         return nil unless mhead['x-sef-processed']
         return nil unless mhead['x-mailer']
         return nil unless mhead['x-mailer'] == 'SurfControl E-mail Filter'

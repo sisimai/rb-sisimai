@@ -121,7 +121,6 @@ module Sisimai::Lhost
 
       def description; return 'Exim'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return %w[x-failed-recipients]; end
 
       # Parse bounce messages from Exim
       # @param         [Hash] mhead       Message headers of a bounce email
@@ -138,6 +137,7 @@ module Sisimai::Lhost
         return nil if mhead['from'] =~ /[@].+[.]mail[.]ru[>]?/
 
         # Message-Id: <E1P1YNN-0003AD-Ga@example.org>
+        # X-Failed-Recipients: kijitora@example.ed.jp
         match  = 0
         match += 1 if mhead['from'].start_with?('Mail Delivery System')
         match += 1 if mhead['message-id'].to_s =~ %r/\A[<]\w{7}[-]\w{6}[-]\w{2}[@]/

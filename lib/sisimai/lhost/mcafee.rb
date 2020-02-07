@@ -21,7 +21,6 @@ module Sisimai::Lhost
 
       def description; return 'McAfee Email Appliance'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return %w[x-nai-header]; end
 
       # Parse bounce messages from McAfee Email Appliance
       # @param         [Hash] mhead       Message headers of a bounce email
@@ -35,6 +34,7 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
+        # X-NAI-Header: Modified by McAfee Email and Web Security Virtual Appliance
         return nil unless mhead['x-nai-header']
         return nil unless mhead['x-nai-header'].start_with?('Modified by McAfee ')
         return nil unless mhead['subject'] == 'Delivery Status'

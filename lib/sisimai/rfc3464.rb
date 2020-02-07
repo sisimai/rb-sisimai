@@ -92,10 +92,8 @@ module Sisimai
         ['"]?[<]?([^\s\n\r@=<>]+[@][-.0-9A-Za-z]+[.][0-9A-Za-z]+)[>]?['"]?
       }xi.freeze
 
-
       def description; 'Fallback Module for MTAs'; end
       def smtpagent;   'RFC3464'; end
-      def headerlist;  return []; end
 
       # Detect an error for RFC3464
       # @param         [Hash] mhead       Message headers of a bounce email

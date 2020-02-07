@@ -17,7 +17,6 @@ module Sisimai::Lhost
 
       def description; return 'Digital Arts m-FILTER'; end
       def smtpagent;   return 'Email::mFILTER'; end
-      def headerlist;  return %w[x-mailer]; end
 
       # Parse bounce messages from Digital Arts m-FILTER
       # @param         [Hash] mhead       Message headers of a bounce email
@@ -31,7 +30,7 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
-        # :'from'     => %r/\AMailer Daemon [<]MAILER-DAEMON[@]/,
+        # X-Mailer: m-FILTER
         return nil unless mhead['x-mailer'].to_s == 'm-FILTER'
         return nil unless mhead['subject'] == 'failure notice'
 

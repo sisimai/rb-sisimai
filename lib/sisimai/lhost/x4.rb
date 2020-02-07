@@ -119,7 +119,6 @@ module Sisimai::Lhost
 
       def description; return 'Unknown MTA #4'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return []; end
 
       # Parse bounce messages from Unknown MTA #4
       # @param         [Hash] mhead       Message headers of a bounce email

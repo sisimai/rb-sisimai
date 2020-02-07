@@ -12,7 +12,6 @@ module Sisimai::Lhost
 
       def description; return 'Bigfoot: http://www.bigfoot.com'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return []; end
 
       # Parse bounce messages from Bigfoot
       # @param         [Hash] mhead       Message headers of a bounce email

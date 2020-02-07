@@ -65,25 +65,6 @@ module Sisimai::Lhost
 
       def description; return 'Microsoft Office 365: https://office.microsoft.com/'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist
-        # X-MS-Exchange-Message-Is-Ndr:
-        # X-Microsoft-Antispam-PRVS: <....@...outlook.com>
-        # X-Exchange-Antispam-Report-Test: UriScan:;
-        # X-Exchange-Antispam-Report-CFA-Test:
-        # X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2015 23:34:45.6789 (JST)
-        # X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-        # X-MS-Exchange-Transport-CrossTenantHeadersStamped: ...
-        return %w[
-          content-language
-          x-ms-exchange-message-is-ndr
-          x-microsoft-antispam-prvs
-          x-exchange-antispam-report-test
-          x-exchange-antispam-report-cfa-test
-          x-ms-exchange-crosstenant-originalarrivaltime
-          x-ms-exchange-crosstenant-fromentityheader
-          x-ms-exchange-transport-crosstenantheadersstamped
-        ]
-      end
 
       # Parse bounce messages from Microsoft Office 365
       # @param         [Hash] mhead       Message headers of a bounce email
@@ -97,6 +78,13 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
+        # X-MS-Exchange-Message-Is-Ndr:
+        # X-Microsoft-Antispam-PRVS: <....@...outlook.com>
+        # X-Exchange-Antispam-Report-Test: UriScan:;
+        # X-Exchange-Antispam-Report-CFA-Test:
+        # X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2015 23:34:45.6789 (JST)
+        # X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+        # X-MS-Exchange-Transport-CrossTenantHeadersStamped: ...
         tryto  = %r/.+[.](?:outbound[.]protection|prod)[.]outlook[.]com\b/
         match  = 0
         match += 1 if mhead['subject'].include?('Undeliverable:')

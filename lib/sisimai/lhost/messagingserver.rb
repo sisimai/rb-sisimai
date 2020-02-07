@@ -14,7 +14,6 @@ module Sisimai::Lhost
 
       def description; return 'Oracle Communications Messaging Server'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return []; end
 
       # Parse bounce messages from MessagingServer
       # @param         [Hash] mhead       Message headers of a bounce email

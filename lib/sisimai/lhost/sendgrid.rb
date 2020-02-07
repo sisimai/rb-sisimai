@@ -13,10 +13,6 @@ module Sisimai::Lhost
       def description; return 'SendGrid: https://sendgrid.com/'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
 
-      # Return-Path: <apps@sendgrid.net>
-      # X-Mailer: MIME-tools 5.502 (Entity 5.502)
-      def headerlist;  return %w[return-path x-mailer]; end
-
       # Parse bounce messages from SendGrid
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -29,7 +25,8 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
-        # :'from'        => %r/\AMAILER-DAEMON\z/,
+        # Return-Path: <apps@sendgrid.net>
+        # X-Mailer: MIME-tools 5.502 (Entity 5.502)
         return nil unless mhead['return-path']
         return nil unless mhead['return-path'] == '<apps@sendgrid.net>'
         return nil unless mhead['subject'] == 'Undelivered Mail Returned to Sender'

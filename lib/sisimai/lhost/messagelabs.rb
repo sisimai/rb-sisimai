@@ -18,13 +18,6 @@ module Sisimai::Lhost
       def description; return 'Symantec.cloud http://www.messagelabs.com'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
 
-      # X-Msg-Ref: server-11.tower-143.messagelabs.com!1419367175!36473369!1
-      # X-Originating-IP: [10.245.230.38]
-      # X-StarScan-Received:
-      # X-StarScan-Version: 6.12.5; banners=-,-,-
-      # X-VirusChecked: Checked
-      def headerlist;  return %w[x-msg-ref]; end
-
       # Parse bounce messages from Symantec.cloud(MessageLabs)
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -37,6 +30,11 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
+        # X-Msg-Ref: server-11.tower-143.messagelabs.com!1419367175!36473369!1
+        # X-Originating-IP: [10.245.230.38]
+        # X-StarScan-Received:
+        # X-StarScan-Version: 6.12.5; banners=-,-,-
+        # X-VirusChecked: Checked
         return nil unless mhead['x-msg-ref']
         return nil unless mhead['from'].include?('MAILER-DAEMON@messagelabs.com')
         return nil unless mhead['subject'].start_with?('Mail Delivery Failure')

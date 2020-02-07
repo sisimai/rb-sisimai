@@ -10,7 +10,6 @@ module Sisimai::Lhost
       ReBackbone = %r|^Content-type:[ ]message/rfc822|.freeze
       def description; return 'Trend Micro InterScan Messaging Security Suite'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return []; end
 
       # Parse bounce messages from InterScanMSS
       # @param         [Hash] mhead       Message headers of a bounce email

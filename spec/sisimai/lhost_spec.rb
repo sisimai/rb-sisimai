@@ -11,10 +11,6 @@ describe Sisimai::Lhost do
   describe '.smtpagent' do
     it('returns String') { expect(Sisimai::Lhost.smtpagent).to be_a Object::String }
   end
-  describe '.headerlist' do
-    it('returns Array') { expect(Sisimai::Lhost.headerlist).to be_a Array }
-    it('is empty list') { expect(Sisimai::Lhost.headerlist).to be_empty }
-  end
   describe '.description' do
     it('returns String') { expect(Sisimai::Lhost.description).to be_a ::String }
     it('is empty string') { expect(Sisimai::Lhost.description).to be_empty }
