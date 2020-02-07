@@ -37,6 +37,7 @@ module Sisimai::Lhost
       #                                   the arguments are missing
       def make(mhead, mbody)
         return nil unless mhead['subject'] =~ /(?:see transcript for details\z|\AWarning: )/
+        return nil if mhead['x-aol-ip']
         unless mhead['subject'].downcase =~ /\A[ \t]*fwd?:/
           # Fwd: Returned mail: see transcript for details
           # Do not execute this code if the bounce mail is a forwarded message.

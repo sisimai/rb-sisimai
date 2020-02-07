@@ -47,6 +47,7 @@ module Sisimai::Lhost
       #                                   the arguments are missing
       def make(mhead, mbody)
         return nil unless mhead['subject'] == 'Undelivered Mail Returned to Sender'
+        return nil if mhead['x-aol-ip']
 
         require 'sisimai/rfc1894'
         require 'sisimai/address'
