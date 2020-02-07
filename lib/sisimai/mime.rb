@@ -298,10 +298,8 @@ module Sisimai
               # Found "Content-Type" field at the first or second line of this
               # splitted part
               nextformat = cv[1].downcase
-
               next unless nextformat =~ LeavesOnly
               next if nextformat == 'text/html'
-
               hasflatten << Sisimai::MIME.breaksup(e, mimeformat)
             else
               # The content of this part is almost '--': a part of boundary
