@@ -42,7 +42,6 @@ module Sisimai
         return v.to_s.sub(/\ASisimai::Lhost::/, 'Email::')
       end
       def description; return ''; end
-      def headerlist;  return []; end
 
       # @abstract MTA list
       # @return   [Array] MTA list with order

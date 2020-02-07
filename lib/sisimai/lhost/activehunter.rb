@@ -13,7 +13,6 @@ module Sisimai::Lhost
 
       def description; return 'TransWARE Active!hunter'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return %w[x-ahmailid]; end
 
       # Parse bounce messages from TransWARE Active!hunter
       # @param         [Hash] mhead       Message headers of a bounce email

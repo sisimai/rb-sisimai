@@ -40,7 +40,6 @@ module Sisimai::Lhost
 
       def description; return 'au EZweb: http://www.au.kddi.com/mobile/'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return %w[x-spasign]; end
 
       # Parse bounce messages from au EZweb
       # @param         [Hash] mhead       Message headers of a bounce email

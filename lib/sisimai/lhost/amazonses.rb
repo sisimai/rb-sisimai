@@ -18,12 +18,6 @@ module Sisimai::Lhost
       def description; return 'Amazon SES(Sending): https://aws.amazon.com/ses/'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
 
-      # X-SenderID: Sendmail Sender-ID Filter v1.0.0 nijo.example.jp p7V3i843003008
-      # X-Original-To: 000001321defbd2a-788e31c8-2be1-422f-a8d4-cf7765cc9ed7-000000@email-bounces.amazonses.com
-      # X-AWS-Outgoing: 199.255.192.156
-      # X-SES-Outgoing: 2016.10.12-54.240.27.6
-      def headerlist;  return %w[x-aws-outgoing x-ses-outgoing x-amz-sns-message-id]; end
-
       # Parse bounce messages from Amazon SES
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -236,6 +230,10 @@ module Sisimai::Lhost
           # :subject => %r/\ADelivery Status Notification [(]Failure[)]\z/,
           return nil if mhead['x-mailer'].to_s.start_with?('Amazon WorkMail')
 
+          # X-SenderID: Sendmail Sender-ID Filter v1.0.0 nijo.example.jp p7V3i843003008
+          # X-Original-To: 000001321defbd2a-788e31c8-2be1-422f-a8d4-cf7765cc9ed7-000000@email-bounces.amazonses.com
+          # X-AWS-Outgoing: 199.255.192.156
+          # X-SES-Outgoing: 2016.10.12-54.240.27.6
           match  = 0
           match += 1 if mhead['x-aws-outgoing']
           match += 1 if mhead['x-ses-outgoing']
