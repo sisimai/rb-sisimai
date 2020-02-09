@@ -26,9 +26,7 @@ module Sisimai
 
       # Make MIME-Encoding and Content-Type related headers regurlar expression
       # @return   [Array] Regular expressions related to MIME encoding
-      def patterns
-        return ReE
-      end
+      def patterns; return ReE; end
 
       # Check that the argument is MIME-Encoded string or not
       # @param    [String] argvs  String to be checked
@@ -106,7 +104,7 @@ module Sisimai
           end
         end
 
-        return decodedtext1.force_encoding('UTF-8')
+        return decodedtext1.force_encoding('UTF-8').scrub('?')
       end
 
       # Decode MIME Quoted-Printable Encoded string
@@ -115,8 +113,8 @@ module Sisimai
       # @return [String]         MIME Decoded text
       def qprintd(argv1 = nil, heads = {})
         return nil unless argv1
-        return argv1.unpack('M').first unless heads['content-type']
-        return argv1.unpack('M').first if heads['content-type'].empty?
+        return argv1.unpack('M').first.scrub('?') unless heads['content-type']
+        return argv1.unpack('M').first.scrub('?') if heads['content-type'].empty?
 
         # Quoted-printable encoded part is the part of the text
         boundary00 = Sisimai::MIME.boundary(heads['content-type'], 0)
@@ -124,8 +122,8 @@ module Sisimai
         # Decoded using unpack('M') entire body string when the boundary string
         # or "Content-Transfer-Encoding: quoted-printable" are not included in
         # the message body.
-        return argv1.unpack('M').first if boundary00.empty?
-        return argv1.unpack('M').first unless argv1.downcase =~ ReE[:'quoted-print']
+        return argv1.unpack('M').first.scrub('?') if boundary00.empty?
+        return argv1.unpack('M').first.scrub('?') unless argv1.downcase =~ ReE[:'quoted-print']
 
         boundary01 = Sisimai::MIME.boundary(heads['content-type'], 1)
         bodystring = ''
@@ -167,7 +165,7 @@ module Sisimai
                 #
                 # Content-Transfer-Encoding: quoted-printable
                 # X-Microsoft-Exchange-Diagnostics:
-                #     1;SLXP216MB0381;27:IdH7U/WHGgJu6J8lFrE7KvVxhnAwyKrNbSXMFYs3/Gzz6ZdXYYjzHj55K2O+cndpeVwkvBJqmo6y0IF4AhLfHtFzznw/BzhERU6wi/TCWRpyjYuW8v0/aTcflH3oAdgZ4Pwrp7PxLiiA8rYgU/E7SQ==
+                #     1;SLXP216MB0381;27:IdH7U/WHGgJu6J...LiiA8rYgU/E7SQ==
                 # ...
                 mustencode = true
                 while true do
@@ -177,10 +175,8 @@ module Sisimai
                     # Padding character of Base64 or not
                     break if e =~ /[\+\/0-9A-Za-z]{32,}[=]+\z/
                   else
-                    if e.include?('=') && ! e.upcase.include?('=3D')
-                      # Including "=" not as "=3D"
-                      break
-                    end
+                    # Including "=" not as "=3D"
+                    break if e.include?('=') && ! e.upcase.include?('=3D')
                   end
                   mustencode = false
                   break
@@ -222,7 +218,7 @@ module Sisimai
         end
 
         bodystring << notdecoded unless notdecoded.empty?
-        return bodystring
+        return bodystring.scrub('?')
       end
 
       # Decode MIME BASE64 Encoded string
@@ -251,6 +247,7 @@ module Sisimai
           # Content-Type: multipart/report; report-type=delivery-status;
           #    boundary="n6H9lKZh014511.1247824040/mx.example.jp"
           value = cv[1]
+          value = value.split(/\n/, 2).shift if value =~ /\n/
           value.delete!(%q|'";\\|)
           value = '--' + value if start > -1
           value = value + '--' if start >  0
@@ -278,8 +275,8 @@ module Sisimai
         return '' unless mimeformat =~ LeavesOnly
         return '' if alternates && mimeformat == 'text/html'
 
-        (upperchunk, lowerchunk) = argv0.split(/^$/m, 2)
-        upperchunk.tr!("\n", ' ').squeeze(' ')
+        (upperchunk, lowerchunk) = argv0.split(/^$/, 2)
+        upperchunk.tr("\n", ' ').squeeze!(' ')
 
         # Content-Description: Undelivered Message
         # Content-Type: message/rfc822
@@ -290,8 +287,8 @@ module Sisimai
           # Content-Type: multipart/*
           mpboundary = Regexp.new(Regexp.escape(Sisimai::MIME.boundary(upperchunk, 0)) << "\n")
           innerparts = lowerchunk.split(mpboundary)
+          innerparts.shift if innerparts[0].empty? || innerparts[0] == "\n"
 
-          innerparts.shift if innerparts[0].empty?
           while e = innerparts.shift do
             # Find internal multipart/* blocks and decode
             if cv = e.match(ThisFormat)
@@ -403,8 +400,8 @@ module Sisimai
         # Some bounce messages include lower-cased "content-type:" field such as
         #   content-type: message/delivery-status
         #   content-transfer-encoding: quoted-printable
-        argv1.gsub!(/[Cc]ontent-[Tt]ype:/m, 'Content-Type:')
-        argv1.gsub!(/[Cc]ontent-[Tt]ransfer-[Ee]ncodeing:/m, 'Content-Transfer-Encoding:')
+        argv1.gsub!(/[Cc]ontent-[Tt]ype:/, 'Content-Type:')
+        argv1.gsub!(/[Cc]ontent-[Tt]ransfer-[Ee]ncodeing:/, 'Content-Transfer-Encoding:')
 
         # 1. Some bounce messages include upper-cased "Content-Transfer-Encoding",
         #    and "Content-Type" value such as
@@ -414,9 +411,8 @@ module Sisimai
         argv1.gsub!(/(Content-[A-Za-z-]+?):[ ]*([^\s]+)/) do "#{$1}: #{$2.downcase}" end
         argv1.gsub!(/^Content-(?:Description|Disposition):.+?$/, '')
 
-        multiparts = argv1.split(Regexp.new(Regexp.escape(ehboundary) << "\n"))
+        multiparts = argv1.split(Regexp.new(Regexp.escape(ehboundary) << "\n?"))
         multiparts.shift if multiparts[0].empty?
-
         while e = multiparts.shift do
           # Find internal multipart blocks and decode
           catch :XCCT do
@@ -428,11 +424,16 @@ module Sisimai
               #   Message-ID: ...
               #   Content-Transfer-Encoding: quoted-printable
               #   Content-Type: text/plain; charset=us-ascii
-              throw :XCCT if e =~ /\AContent-T[ry]/
-              if cv = e.match(/\A(.+?)Content-Type:/)
-                throw :XCCT if cv[1] =~ /\n\n/
+              #
+              # Fields before "Content-Type:" in each part should have been removed
+              # and "Content-Type:" should be exist at the first line of each part.
+              # The field works as a delimiter to decode contents of each part.
+              #
+              throw :XCCT if e =~ /\AContent-T[ry]/       # The first field is "Content-Type:"
+              if cv = e.match(/\A(.+?)Content-Type:/m)    # Capture lines before "Content-Type:"
+                throw :XCCT if cv[1] =~ /\n\n/            # There is no field before "Content-Type:"
+                e.sub!(/\A.+?(Content-T[ry].+)\z/m, '\1') # Remove fields before "Content-Type:"
               end
-              e.sub!(/\A.+?(Content-T[ry].+)\z/, '\1')
               throw :XCCT
             end
           end
