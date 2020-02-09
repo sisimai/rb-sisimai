@@ -60,7 +60,6 @@ module Sisimai
         return nil if argv1.empty?
 
         plain = argv1
-
         if loose || plain =~ Match[:html] || plain =~ Match[:body]
           # 1. Remove <head>...</head>
           # 2. Remove <style>...</style>
@@ -109,9 +108,7 @@ module Sisimai
           # Unknown encoding name or failed to encode
           getencoded = argv1.force_encoding('UTF-8')
         end
-        getencoded = getencoded.scrub('?')
-
-        return getencoded
+        return getencoded.scrub('?')
       end
 
     end
