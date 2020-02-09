@@ -38,11 +38,6 @@ module Sisimai::Lhost
       def make(mhead, mbody)
         return nil unless mhead['subject'] =~ /(?:see transcript for details\z|\AWarning: )/
         return nil if mhead['x-aol-ip']
-        unless mhead['subject'].downcase =~ /\A[ \t]*fwd?:/
-          # Fwd: Returned mail: see transcript for details
-          # Do not execute this code if the bounce mail is a forwarded message.
-          return nil unless mhead['from'].start_with?('Mail Delivery Subsystem')
-        end
 
         require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
