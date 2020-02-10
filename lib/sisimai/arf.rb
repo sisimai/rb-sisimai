@@ -31,7 +31,6 @@ module Sisimai
 
       def description; return 'Abuse Feedback Reporting Format'; end
       def smtpagent;   return 'FeedBack-Loop'; end
-      def headerlist;  return []; end
 
       # Email is a Feedback-Loop message or not
       # @param    [Hash] heads    Email header including "Content-Type", "From",

@@ -28,7 +28,6 @@ module Sisimai::Lhost
 
       def description; return 'IPSWITCH IMail Server'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return %w[x-mailer]; end
 
       # Parse bounce messages from IMailServer
       # @param         [Hash] mhead       Message headers of a bounce email
@@ -42,6 +41,7 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
+        # X-Mailer: <SMTP32 v8.22>
         match  = 0
         match += 1 if mhead['subject'] =~ /\AUndeliverable Mail[ ]*\z/
         match += 1 if mhead['x-mailer'].to_s.start_with?('<SMTP32 v')

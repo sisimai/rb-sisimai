@@ -101,7 +101,6 @@ module Sisimai::Lhost
 
       def description; return 'qmail'; end
       def smtpagent;   return 'Email::qmail'; end
-      def headerlist;  return []; end
 
       # Parse bounce messages from qmail
       # @param         [Hash] mhead       Message headers of a bounce email

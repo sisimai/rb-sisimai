@@ -14,11 +14,6 @@ module Sisimai::Lhost
       def description; return 'Amazon WorkMail: https://aws.amazon.com/workmail/'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
 
-      # X-Mailer: Amazon WorkMail
-      # X-Original-Mailer: Amazon WorkMail
-      # X-Ses-Outgoing: 2016.01.14-54.240.27.159
-      def headerlist;  return %w[x-ses-outgoing x-original-mailer]; end
-
       # Parse bounce messages from Amazon WorkMail
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -31,9 +26,9 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
-        # :'subject'  => %r/Delivery[_ ]Status[_ ]Notification[_ ].+Failure/,
-        # :'received' => %r/.+[.]smtp-out[.].+[.]amazonses[.]com\b/,
-        # :'x-mailer' => %r/\AAmazon WorkMail\z/,
+        # X-Mailer: Amazon WorkMail
+        # X-Original-Mailer: Amazon WorkMail
+        # X-Ses-Outgoing: 2016.01.14-54.240.27.159
         match = 0
         xmail = mhead['x-original-mailer'] || mhead['x-mailer'] || ''
 

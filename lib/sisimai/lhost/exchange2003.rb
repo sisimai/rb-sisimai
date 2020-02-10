@@ -43,7 +43,6 @@ module Sisimai::Lhost
 
       def description; return 'Microsoft Exchange Server 2003'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return %w[x-ms-embedded-report x-mimeole]; end
 
       # Parse bounce messages from Microsoft Exchange Server 2003
       # @param         [Hash] mhead       Message headers of a bounce email
@@ -60,6 +59,9 @@ module Sisimai::Lhost
         match = 0
         tryto = []
 
+        # X-MS-TNEF-Correlator: <00000000000000000000000000000000000000@example.com>
+        # X-Mailer: Internet Mail Service (5.5.1960.3)
+        # X-MS-Embedded-Report:
         match += 1 if mhead['x-ms-embedded-report']
         catch :EXCHANGE_OR_NOT do
           while true

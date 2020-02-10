@@ -100,7 +100,6 @@ module Sisimai::Lhost
 
       def description; return 'Google Gmail: https://mail.google.com'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return %w[x-failed-recipients]; end
 
       # Parse bounce messages from Google Gmail
       # @param         [Hash] mhead       Message headers of a bounce email

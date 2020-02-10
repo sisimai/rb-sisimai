@@ -14,14 +14,12 @@ module Sisimai::Lhost
         #   error:   The first line of an error message to get an error reason, recipient
         #            addresses, or other bounce information.
         #   rfc822:  The first line of the original message.
-        #   endof:   Fixed string ``__END_OF_EMAIL_MESSAGE__''
         message: %r/\A[ \t]+[-]+ Transcript of session follows [-]+\z/,
         error:   %r/\A[.]+ while talking to .+[:]\z/,
       }.freeze
 
       def description; return 'Module description'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return %w[x-some-userdefined-header]; end
 
       # @abstract Template for User-Defined MTA module
       # @param         [Hash] mhead       Message headers of a bounce email

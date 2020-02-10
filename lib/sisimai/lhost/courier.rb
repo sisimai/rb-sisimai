@@ -26,7 +26,6 @@ module Sisimai::Lhost
 
       def description; return 'Courier MTA'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return []; end
 
       # Parse bounce messages from Courier MTA
       # @param         [Hash] mhead       Message headers of a bounce email

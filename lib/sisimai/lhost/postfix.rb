@@ -33,7 +33,6 @@ module Sisimai::Lhost
 
       def description; return 'Postfix'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return []; end
 
       # Parse bounce messages from Postfix
       # @param         [Hash] mhead       Message headers of a bounce email
@@ -48,6 +47,7 @@ module Sisimai::Lhost
       #                                   the arguments are missing
       def make(mhead, mbody)
         return nil unless mhead['subject'] == 'Undelivered Mail Returned to Sender'
+        return nil if mhead['x-aol-ip']
 
         require 'sisimai/rfc1894'
         require 'sisimai/address'

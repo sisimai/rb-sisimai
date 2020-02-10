@@ -2,11 +2,6 @@ require 'spec_helper'
 require 'sisimai/string'
 
 describe Sisimai::String do
-  describe '.EOM' do
-    v = '__END_OF_EMAIL_MESSAGE__'
-    it('returns ' + v) { expect(Sisimai::String.EOM()).to eq v }
-  end
-
   describe '.token' do
     s = 'envelope-sender@example.jp'
     r = 'envelope-recipient@example.org'

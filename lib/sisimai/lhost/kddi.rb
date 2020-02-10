@@ -23,7 +23,6 @@ module Sisimai::Lhost
 
       def description; return 'au by KDDI: https://www.au.kddi.com'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return []; end
 
       # Parse bounce messages from au by KDDI
       # @param         [Hash] mhead       Message headers of a bounce email

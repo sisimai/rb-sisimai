@@ -44,7 +44,6 @@ module Sisimai::Lhost
 
       def description; return 'Microsoft Exchange Server 2007'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return %w[content-language]; end
 
       # Parse bounce messages from Microsoft Exchange Server 2007
       # @param         [Hash] mhead       Message headers of a bounce email
@@ -58,9 +57,14 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
+        # Content-Language: en-US, fr-FR
         return nil unless mhead['subject'] =~ MarkingsOf[:subject]
         return nil unless mhead['content-language']
         return nil unless mhead['content-language'] =~ /\A[a-z]{2}(?:[-][A-Z]{2})?\z/
+
+        # These headers exist only a bounce mail from Office365
+        return nil if mhead['x-ms-exchange-crosstenant-originalarrivaltime']
+        return nil if mhead['x-ms-exchange-crosstenant-fromentityheader']
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)

@@ -92,10 +92,8 @@ module Sisimai
         ['"]?[<]?([^\s\n\r@=<>]+[@][-.0-9A-Za-z]+[.][0-9A-Za-z]+)[>]?['"]?
       }xi.freeze
 
-
       def description; 'Fallback Module for MTAs'; end
       def smtpagent;   'RFC3464'; end
-      def headerlist;  return []; end
 
       # Detect an error for RFC3464
       # @param         [Hash] mhead       Message headers of a bounce email
@@ -384,7 +382,6 @@ module Sisimai
           bodyslices = mbody.split("\n")
           while e = bodyslices.shift do
             # Get the recipient's email address and error messages.
-            break if e.start_with?('__END_OF_EMAIL_MESSAGE__')
             d = e.downcase
             break if d =~ MarkingsOf[:rfc822]
             break if d =~ ReStop

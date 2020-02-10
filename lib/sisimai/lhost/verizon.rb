@@ -10,7 +10,6 @@ module Sisimai::Lhost
 
       def description; return 'Verizon Wireless: https://www.verizonwireless.com'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return []; end
 
       # Parse bounce messages from Verizon
       # @param         [Hash] mhead       Message headers of a bounce email

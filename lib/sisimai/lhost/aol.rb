@@ -17,18 +17,6 @@ module Sisimai::Lhost
       def description; return 'Aol Mail: https://www.aol.com'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
 
-      # X-AOL-IP: 192.0.2.135
-      # X-AOL-VSS-INFO: 5600.1067/98281
-      # X-AOL-VSS-CODE: clean
-      # x-aol-sid: 3039ac1afc14546fb98a0945
-      # X-AOL-SCOLL-EIL: 1
-      # x-aol-global-disposition: G
-      # x-aol-sid: 3039ac1afd4d546fb97d75c6
-      # X-BounceIO-Id: 9D38DE46-21BC-4309-83E1-5F0D788EFF1F.1_0
-      # X-Outbound-Mail-Relay-Queue-ID: 07391702BF4DC
-      # X-Outbound-Mail-Relay-Sender: rfc822; shironeko@aol.example.jp
-      def headerlist;  return %w[x-aol-ip]; end
-
       # Parse bounce messages from Aol Mail
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -41,8 +29,16 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
-        # :from    => %r/\APostmaster [<]Postmaster[@]AOL[.]com[>]\z/,
-        # :subject => %r/\AUndeliverable: /,
+        # X-AOL-IP: 192.0.2.135
+        # X-AOL-VSS-INFO: 5600.1067/98281
+        # X-AOL-VSS-CODE: clean
+        # x-aol-sid: 3039ac1afc14546fb98a0945
+        # X-AOL-SCOLL-EIL: 1
+        # x-aol-global-disposition: G
+        # x-aol-sid: 3039ac1afd4d546fb97d75c6
+        # X-BounceIO-Id: 9D38DE46-21BC-4309-83E1-5F0D788EFF1F.1_0
+        # X-Outbound-Mail-Relay-Queue-ID: 07391702BF4DC
+        # X-Outbound-Mail-Relay-Sender: rfc822; shironeko@aol.example.jp
         return nil unless mhead['x-aol-ip']
 
         require 'sisimai/rfc1894'

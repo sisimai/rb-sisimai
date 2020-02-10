@@ -22,10 +22,6 @@ module Sisimai::Lhost
       def description; return 'Amazon SES(Receiving): https://aws.amazon.com/ses/'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
 
-      # X-SES-Outgoing: 2015.10.01-54.240.27.7
-      # Feedback-ID: 1.us-west-2.HX6/J9OVlHTadQhEu1+wdF9DBj6n6Pa9sW5Y/0pSOi8=:AmazonSES
-      def headerlist;  return %w[x-ses-outgoing]; end
-
       # Parse bounce messages from Amazon SES/Receiving
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -38,8 +34,8 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
-        # :subject  => %r/\ADelivery Status Notification [(]Failure[)]\z/,
-        # :received => %r/.+[.]smtp-out[.].+[.]amazonses[.]com\b/,
+        # X-SES-Outgoing: 2015.10.01-54.240.27.7
+        # Feedback-ID: 1.us-west-2.HX6/J9OVlHTadQhEu1+wdF9DBj6n6Pa9sW5Y/0pSOi8=:AmazonSES
         return nil unless mhead['x-ses-outgoing']
 
         require 'sisimai/rfc1894'

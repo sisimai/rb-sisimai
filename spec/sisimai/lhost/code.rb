@@ -315,10 +315,6 @@ module Sisimai
                         end
                       end
 
-                      it sprintf("%s #diagnosticcode does not include __END_OF_EMAIL_MESSAGE__", lb) do
-                        expect(pr.diagnosticcode).not_to match /__END_OF_EMAIL_MESSAGE__/
-                      end
-
                       %w|user host verp alias|.each do |rr|
                         it sprintf("%s #addresser.%s does not include [ ]", lb, rr) do
                           expect(pr.addresser.send(rr)).not_to match(/[ \r]/)

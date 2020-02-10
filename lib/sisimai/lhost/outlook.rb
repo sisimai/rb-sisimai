@@ -18,10 +18,6 @@ module Sisimai::Lhost
       def description; return 'Microsoft Outlook.com: https://www.outlook.com/'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
 
-      # X-Message-Delivery: Vj0xLjE7RD0wO0dEPTA7U0NMPTk7bD0xO3VzPTE=
-      # X-Message-Info: AuEzbeVr9u5fkDpn2vR5iCu5wb6HBeY4iruBjnutBzpStnUabbM...
-      def headerlist;  return %w[x-message-delivery x-message-info]; end
-
       # Parse bounce messages from Microsoft Outlook.com
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -34,7 +30,8 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
-        # :from => %r/postmaster[@]/,
+        # X-Message-Delivery: Vj0xLjE7RD0wO0dEPTA7U0NMPTk7bD0xO3VzPTE=
+        # X-Message-Info: AuEzbeVr9u5fkDpn2vR5iCu5wb6HBeY4iruBjnutBzpStnUabbM...
         match  = 0
         match += 1 if mhead['subject'].start_with?('Delivery Status Notification')
         match += 1 if mhead['x-message-delivery']

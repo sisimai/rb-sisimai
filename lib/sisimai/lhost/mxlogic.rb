@@ -71,10 +71,6 @@ module Sisimai::Lhost
 
       def description; return 'McAfee SaaS'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      # X-MX-Bounce: mta/src/queue/bounce
-      # X-MXL-NoteHash: ffffffffffffffff-0000000000000000000000000000000000000000
-      # X-MXL-Hash: 4c9d4d411993da17-bbd4212b6c887f6c23bab7db4bd87ef5edc00758
-      def headerlist;  return %w[x-mxl-notehash x-mxl-hash x-mx-bounce]; end
 
       # Parse bounce messages from MXLogic
       # @param         [Hash] mhead       Message headers of a bounce email
@@ -88,7 +84,9 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
-        # :'message-id' => %r/\A[<]mxl[~][0-9a-f]+/,
+        # X-MX-Bounce: mta/src/queue/bounce
+        # X-MXL-NoteHash: ffffffffffffffff-0000000000000000000000000000000000000000
+        # X-MXL-Hash: 4c9d4d411993da17-bbd4212b6c887f6c23bab7db4bd87ef5edc00758
         match  = 0
         match += 1 if mhead['x-mx-bounce']
         match += 1 if mhead['x-mxl-hash']

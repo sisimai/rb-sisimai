@@ -8,11 +8,6 @@ module Sisimai
         body: %r|<head>.+</head>.*<body[ >].+</body>|im,
       }
 
-      # End of email message as a sentinel for parsing bounce messages
-      # @private
-      # @return   [String] Fixed length string like a constant
-      def EOM; return '__END_OF_EMAIL_MESSAGE__'; end
-
       # Create message token from addresser and recipient
       # @param  [String]  addr1 Sender address
       # @param  [String]  addr2 Recipient address
@@ -40,8 +35,8 @@ module Sisimai
       #                           true:  Including 8-bit character
       def is_8bit(argvs)
         v = argvs.to_s
-        return nil   if v.empty?
-        return true  unless v =~ /\A[\x00-\x7f]*\z/
+        return nil  if v.empty?
+        return true unless v =~ /\A[\x00-\x7f]*\z/
         return false
       end
 
@@ -65,7 +60,6 @@ module Sisimai
         return nil if argv1.empty?
 
         plain = argv1
-
         if loose || plain =~ Match[:html] || plain =~ Match[:body]
           # 1. Remove <head>...</head>
           # 2. Remove <style>...</style>
@@ -114,9 +108,7 @@ module Sisimai
           # Unknown encoding name or failed to encode
           getencoded = argv1.force_encoding('UTF-8')
         end
-        getencoded = getencoded.scrub('?')
-
-        return getencoded
+        return getencoded.scrub('?')
       end
 
     end

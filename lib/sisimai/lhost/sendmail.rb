@@ -23,7 +23,6 @@ module Sisimai::Lhost
 
       def description; return 'V8Sendmail: /usr/sbin/sendmail'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return []; end
 
       # Parse bounce messages from Sendmail
       # @param         [Hash] mhead       Message headers of a bounce email
@@ -38,11 +37,7 @@ module Sisimai::Lhost
       #                                   the arguments are missing
       def make(mhead, mbody)
         return nil unless mhead['subject'] =~ /(?:see transcript for details\z|\AWarning: )/
-        unless mhead['subject'].downcase =~ /\A[ \t]*fwd?:/
-          # Fwd: Returned mail: see transcript for details
-          # Do not execute this code if the bounce mail is a forwarded message.
-          return nil unless mhead['from'].start_with?('Mail Delivery Subsystem')
-        end
+        return nil if mhead['x-aol-ip']
 
         require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE

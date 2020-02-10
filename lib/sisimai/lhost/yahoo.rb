@@ -13,12 +13,6 @@ module Sisimai::Lhost
       def description; return 'Yahoo! MAIL: https://www.yahoo.com'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
 
-      # X-YMailISG: YtyUVyYWLDsbDh...
-      # X-YMail-JAS: Pb65aU4VM1mei...
-      # X-YMail-OSG: bTIbpDEVM1lHz...
-      # X-Originating-IP: [192.0.2.9]
-      def headerlist;  return %w[x-ymailisg]; end
-
       # Parse bounce messages from Yahoo! MAIL
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -31,7 +25,10 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
-        # :subject => %r/\AFailure Notice\z/,
+        # X-YMailISG: YtyUVyYWLDsbDh...
+        # X-YMail-JAS: Pb65aU4VM1mei...
+        # X-YMail-OSG: bTIbpDEVM1lHz...
+        # X-Originating-IP: [192.0.2.9]
         return nil unless mhead['x-ymailisg']
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]

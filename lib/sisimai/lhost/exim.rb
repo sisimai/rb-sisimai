@@ -12,14 +12,11 @@ module Sisimai::Lhost
       # deliver.c:6425|          else fprintf(f,
       # deliver.c:6426|"------ This is a copy of the message's headers. ------\n");
       ReBackbone = %r{^(?:
-         [-]+[ ]This[ ]is[ ]a[ ]copy[ ]of[ ](?:the|your)[ ]message.+headers[.][ ][-]+
-        |Content-Type:[ ]*message/rfc822
+         [-]+[ ]This[ ]is[ ]a[ ]copy[ ]of[ ](?:the|your)[ ]message.+?headers[.][ ][-]+
+        |Content-Type:[ ]*message/rfc822\n(?:[\s\t]+.*?\n\n)?
         )
       }x.freeze
-      StartingOf = {
-        deliverystatus: ['Content-type: message/delivery-status'],
-        endof:          ['__END_OF_EMAIL_MESSAGE__'],
-      }.freeze
+      StartingOf = { deliverystatus: ['Content-type: message/delivery-status'] }.freeze
       MarkingsOf = {
         # Error text regular expressions which defined in exim/src/deliver.c
         #
@@ -124,7 +121,6 @@ module Sisimai::Lhost
 
       def description; return 'Exim'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return %w[x-failed-recipients]; end
 
       # Parse bounce messages from Exim
       # @param         [Hash] mhead       Message headers of a bounce email
@@ -141,6 +137,7 @@ module Sisimai::Lhost
         return nil if mhead['from'] =~ /[@].+[.]mail[.]ru[>]?/
 
         # Message-Id: <E1P1YNN-0003AD-Ga@example.org>
+        # X-Failed-Recipients: kijitora@example.ed.jp
         match  = 0
         match += 1 if mhead['from'].start_with?('Mail Delivery System')
         match += 1 if mhead['message-id'].to_s =~ %r/\A[<]\w{7}[-]\w{6}[-]\w{2}[@]/
@@ -176,8 +173,6 @@ module Sisimai::Lhost
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email
           # to the previous line of the beginning of the original message.
-          break if e == StartingOf[:endof][0]
-
           if readcursor == 0
             # Beginning of the bounce message or message/delivery-status part
             if e =~ MarkingsOf[:message]

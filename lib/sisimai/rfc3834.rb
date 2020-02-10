@@ -40,7 +40,6 @@ module Sisimai
 
       def description; 'Detector for auto replied message'; end
       def smtpagent;   'RFC3834'; end
-      def headerlist;  return %w[auto-submitted precedence x-auto-response-suppress x-apple-action]; end
 
       # Detect auto reply message as RFC3834
       # @param         [Hash] mhead       Message header of a bounce email

@@ -32,7 +32,6 @@ module Sisimai::Lhost
 
       def description; return 'Sendmail version 5'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-      def headerlist;  return []; end
 
       # Parse bounce messages from Sendmail version 5
       # @param         [Hash] mhead       Message headers of a bounce email

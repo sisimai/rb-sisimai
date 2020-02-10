@@ -14,11 +14,6 @@ module Sisimai::Lhost
       def description; return 'Zoho Mail: https://www.zoho.com'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
 
-      # X-ZohoMail: Si CHF_MF_NL SS_10 UW48 UB48 FMWL UW48 UB48 SGR3_1_09124_42
-      # X-Zoho-Virus-Status: 2
-      # X-Mailer: Zoho Mail
-      def headerlist;  return %w[x-zohomail]; end
-
       # Parse bounce messages from Zoho Mail
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -31,13 +26,9 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
-        # :'from'     => %r/mailer-daemon[@]mail[.]zoho[.]com\z/,
-        # :'subject'  => %r{\A(?:
-        #      Undelivered[ ]Mail[ ]Returned[ ]to[ ]Sender
-        #     |Mail[ ]Delivery[ ]Status[ ]Notification
-        #     )
-        # }x,
-        # :'x-mailer' => %r/\AZoho Mail\z/,
+        # X-ZohoMail: Si CHF_MF_NL SS_10 UW48 UB48 FMWL UW48 UB48 SGR3_1_09124_42
+        # X-Zoho-Virus-Status: 2
+        # X-Mailer: Zoho Mail
         return nil unless mhead['x-zohomail']
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
