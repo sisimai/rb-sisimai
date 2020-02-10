@@ -101,7 +101,6 @@ module Sisimai
 
       return nil unless messageobj.ds
       return nil unless messageobj.rfc822
-      require 'sisimai/smtp'
 
       # Decide the order of email headers: user specified or system default.
       if givenorder.is_a?(Hash) && !givenorder.empty?
