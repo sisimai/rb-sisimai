@@ -21,7 +21,8 @@ PRIVATEMAILS := $(EMAILROOTDIR)/private
 SPEEDTESTDIR := tmp/emails-for-speed-test
 
 COMMANDARGVS := -I./lib -rsisimai
-TOBEEXECUTED := 'Sisimai.make($$*.shift, delivered: true)' $(PUBLICMAILS)
+PROFILEARGVS := -rrblineprof -rrblineprof-report
+PROFCOMMANDS := 'p = lineprof(%r|./lib/sisimai|) { Sisimai.make($$*.shift, delivered: true) }; LineProf.report(p, out: "pf")'
 HOWMANYMAILS := $(RUBY) $(COMMANDARGVS) -le 'puts Sisimai.make($$*.shift, delivered: true).size' 
 
 # -----------------------------------------------------------------------------
@@ -46,8 +47,8 @@ speed-test: emails-for-speed-test
 
 profile:
 	@ uptime
-	$(RUBY) -rprofile $(COMMANDARGVS) -e $(TOBEEXECUTED) $(SPEEDTESTDIR) 2> pf > /dev/null
-	cat ./pf | sed -e 's/^ *//g' | tr -s ' ' | sed -e 's/self self/self  self/' | tr ' ' '\t' > profiling-`date '+%Y-%m-%d-%T'`.txt
+	$(RUBY) $(COMMANDARGVS) $(PROFILEARGVS) -e $(PROFCOMMANDS) $(SPEEDTESTDIR)
+	cat ./pf > profile-`date '+%Y-%m-%d-%T'`.txt
 	$(RM) ./pf
 
 loc:
