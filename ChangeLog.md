@@ -27,6 +27,9 @@ v4.25.5p1
     - Some variables are replaced with `state`
   - Code improvement for `require` statement before calling `match()` method of
     some modules defined in `$PreMatches` at `Sisimai::Reason::UserUnknown`
+  - Remove the following unused methods:
+    - `Sisimai::MIME.patterns`
+    - `Sisimai::SMTP.command`
 
 v4.25.5
 --------------------------------------------------------------------------------
