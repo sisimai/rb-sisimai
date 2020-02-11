@@ -19,7 +19,10 @@ describe Sisimai::Lhost do
     it('returns Array') { expect(Sisimai::Lhost.index).to be_a Array }
     it('is not empty' ) { expect(Sisimai::Lhost.index.size).to be > 0 }
   end
-
+  describe '.path' do
+    it('returns Hash') { expect(Sisimai::Lhost.path).to be_a Hash }
+    it('is not empty' ) { expect(Sisimai::Lhost.path.size).to be > 0 }
+  end
   describe '.make' do
     it('returns nil') { expect(Sisimai::Lhost.make).to be nil }
   end
