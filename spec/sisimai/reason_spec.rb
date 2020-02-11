@@ -111,10 +111,15 @@ describe Sisimai::Reason do
   describe '.anotherone' do
     it('returns nil') { expect(cn.anotherone(nil)).to be nil }
   end
-  
+
   describe '.index' do
     it('returns Array') { expect(cn.index).to be_a Array }
     it('include reasons') { expect(cn.index.size).to be > 0 }
+  end
+
+  describe '.path' do
+    it('returns Hash') { expect(cn.path).to be_a Hash }
+    it('include module path') { expect(cn.path.size).to be > 0 }
   end
 
   describe '.retry' do

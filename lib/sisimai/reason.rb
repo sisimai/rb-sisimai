@@ -5,6 +5,27 @@ module Sisimai
   module Reason
     # Imported from p5-Sisimail/lib/Sisimai/Reason.pm
     class << self
+      # All the error reason list Sisimai support
+      # @return   [Array] Reason list
+      def index
+        return %w[
+          Blocked ContentError ExceedLimit Expired Filtered HasMoved HostUnknown
+          MailboxFull MailerError MesgTooBig NetworkError NotAccept OnHold
+          Rejected NoRelaying SpamDetected VirusDetected PolicyViolation SecurityError
+          Suspend SystemError SystemFull TooManyConn UserUnknown SyntaxError
+        ]
+      end
+
+      # @abstract Returns Sisimai::Reason::* module path table
+      # @return   [Hash] Module path table
+      # @since    v4.25.6
+      def path
+        index = Sisimai::Reason.index
+        table = {}
+        index.each { |e| table['Sisimai::Reason::' << e] = 'sisimai/reason/' << e.downcase }
+        return table
+      end
+
       # Reason list better to retry detecting an error reason
       # @return   [Array] Reason list
       def retry
@@ -13,6 +34,7 @@ module Sisimai
           'networkerror' => 1, 'hostunknown' => 1, 'userunknown' => 1
         }.freeze
       end
+      ModulePath = Sisimai::Reason.path
       GetRetried = Sisimai::Reason.retry
       ClassOrder = [
         %w[
@@ -31,17 +53,6 @@ module Sisimai
           NotAccept MailerError NoRelaying SyntaxError OnHold
         ]
       ]
-
-      # All the error reason list Sisimai support
-      # @return   [Array] Reason list
-      def index
-        return %w[
-          Blocked ContentError ExceedLimit Expired Filtered HasMoved HostUnknown
-          MailboxFull MailerError MesgTooBig NetworkError NotAccept OnHold
-          Rejected NoRelaying SpamDetected VirusDetected PolicyViolation SecurityError
-          Suspend SystemError SystemFull TooManyConn UserUnknown SyntaxError
-        ]
-      end
 
       # Detect the bounce reason
       # @param    [Sisimai::Data] argvs   Parsed email object
@@ -68,7 +79,7 @@ module Sisimai
             p = 'Sisimai::Reason::' << e
             r = nil
             begin
-              require p.downcase.gsub('::', '/')
+              require ModulePath[p]
               r = Module.const_get(p)
             rescue
               warn ' ***warning: Failed to load ' << p
@@ -127,7 +138,7 @@ module Sisimai
               p = 'Sisimai::Reason::' << e
               r = nil
               begin
-                require p.downcase.gsub('::', '/')
+                require ModulePath[p]
                 r = Module.const_get(p)
               rescue
                 warn ' ***warning: Failed to load ' << p
@@ -191,7 +202,7 @@ module Sisimai
           p = 'Sisimai::Reason::' << e
           r = nil
           begin
-            require p.downcase.gsub('::', '/')
+            require ModulePath[p]
             r = Module.const_get(p)
           rescue
             warn ' ***warning: Failed to load ' << p

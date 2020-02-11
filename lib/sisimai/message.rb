@@ -14,10 +14,12 @@ module Sisimai
 
     require 'sisimai/mime'
     require 'sisimai/order'
+    require 'sisimai/lhost'
     require 'sisimai/string'
     require 'sisimai/address'
     require 'sisimai/rfc5322'
     DefaultSet = Sisimai::Order.another
+    LhostTable = Sisimai::Lhost.path
 
     # Constructor of Sisimai::Message
     # @param         [String] data      Email text data
@@ -343,7 +345,7 @@ module Sisimai
           [argvs['tryonfirst'], DefaultSet].flatten.each do |r|
             # Try MTA module candidates
             next if haveloaded[r]
-            require r.gsub('::', '/').downcase
+            require LhostTable[r]
             parseddata = Module.const_get(r).make(mailheader, bodystring)
             haveloaded[r] = true
             throw :PARSER if parseddata

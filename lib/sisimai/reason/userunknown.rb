@@ -16,6 +16,14 @@ module Sisimai
     module UserUnknown
       # Imported from p5-Sisimail/lib/Sisimai/Reason/UserUnknown.pm
       class << self
+        PreMatches = %w[NoRelaying Blocked MailboxFull HasMoved Rejected]
+        ModulePath = {
+          'Sisimai::Reason::NoRelaying'  => 'sisimai/reason/norelaying',
+          'Sisimai::Reason::Blocked'     => 'sisimai/reason/blocked',
+          'Sisimai::Reason::MailboxFull' => 'sisimai/reason/mailboxfull',
+          'Sisimai::Reason::HasMoved'    => 'sisimai/reason/hasmoved',
+          'Sisimai::Reason::Rejected'    => 'sisimai/reason/rejected',
+        }
         Regex = %r{(?>
            .+[ ]user[ ]unknown
           |[#]5[.]1[.]1[ ]bad[ ]address
@@ -165,15 +173,13 @@ module Sisimai
             #   Status: 5.1.1
             #   Diagnostic-Code: SMTP; 550 5.1.1 <***@example.jp>:
             #     Recipient address rejected: User unknown in local recipient table
-            prematches = %w[NoRelaying Blocked MailboxFull HasMoved Blocked Rejected]
             matchother = false
-
-            while e = prematches.shift do
+            PreMatches.each do |e|
               # Check the value of "Diagnostic-Code" with other error patterns.
               p = 'Sisimai::Reason::' << e
               r = nil
               begin
-                require p.downcase.gsub('::', '/')
+                require ModulePath[p]
                 r = Module.const_get(p)
               rescue
                 warn '***warning: Failed to load ' << p
