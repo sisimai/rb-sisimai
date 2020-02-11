@@ -10,11 +10,6 @@ describe Sisimai::MIME do
   b2 = '=?utf-8?B?55m954yr44Gr44KD44KT44GT?='
   q3 = '=?utf-8?Q?=E3=83=8B=E3=83=A5=E3=83=BC=E3=82=B9=E3=83=AC=E3=82=BF=E3=83=BC?='
 
-  describe '.patterns' do
-    it('returns Hash') { expect(cn.patterns).to be_a Hash }
-    it('have any keys') { expect(cn.patterns.keys.size).to be > 0 }
-  end
-
   describe '.is_mimeencoded' do
     context 'MIME encoded text' do
       it('returns true') { expect(cn.is_mimeencoded(b2)).to be true }

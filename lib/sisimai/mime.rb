@@ -24,10 +24,6 @@ module Sisimai
         )
       }x.freeze
 
-      # Make MIME-Encoding and Content-Type related headers regurlar expression
-      # @return   [Array] Regular expressions related to MIME encoding
-      def patterns; return ReE; end
-
       # Check that the argument is MIME-Encoded string or not
       # @param    [String] argvs  String to be checked
       # @return   [True,False]    false: Not MIME encoded string
