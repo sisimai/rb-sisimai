@@ -56,6 +56,20 @@ module Sisimai
           X1 X2 X3 X4 X5 V5sendmail FML Google]
       end
 
+      # @abstract Returns Sisimai::Lhost::* module path table
+      # @return [Hash] Module path table
+      # @since  v4.25.6
+      def path
+        index = Sisimai::Lhost.index
+        table = {
+          'Sisimai::ARF'     => 'sisimai/arf',
+          'Sisimai::RFC3464' => 'sisimai/rfc3464',
+          'Sisimai::RFC3834' => 'sisimai/rfc3834',
+        }
+        index.each { |e| table['Sisimai::Lhost::' << e] = 'sisimai/lhost/' << e.downcase }
+        return table
+      end
+
       # @abstract Parse bounce messages
       # @param         [Hash] mhead       Message header of a bounce email
       # @options mhead [String] from      From header
