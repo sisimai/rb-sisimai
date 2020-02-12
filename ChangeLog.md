@@ -8,14 +8,15 @@ v4.25.5p3
 - release: ""
 - version: ""
 - changes:
-  - #176 Make `Sisimai::Message` faster
+  - Performance improvement: 10% faster, reduced 9% of method calls
+  - #176 Make `Sisimai::Message` 27% faster
     - Use the negative look-ahead regular expression code to convert all of the
       email header strings into key-value pairs as a HASH at newly implemented
       method `Sisiai::Message.makemap` #175. Thanks to @xtetsuji
     - Remove `Sisimai::Message.takeapart` (replaced with `makemap`)
     - Remove `Sisimai::Message.headers` (replaced with `makemap`)
     - Code improvement for `require` statement before method calls #177
-  - Make `Sisimai::Order` faster
+  - Make `Sisimai::Order` 44% faster
     - Rewrite `Sisimai::Order.make`
     - Remove `Sisimai::Order.by`
     - Remove `Sisimai::Order.headers`
