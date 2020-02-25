@@ -8,10 +8,7 @@ module Sisimai::Lhost
 
       Indicators = Sisimai::Lhost.INDICATORS
       ReBackbone = %r|^Content-Type:[ ]text/rfc822-headers|.freeze
-      StartingOf = {
-        message: ['The message '],
-        rfc822:  ['Content-Type: text/rfc822-headers'],
-      }.freeze
+      StartingOf = { message: ['The message '] }.freeze
 
       def description; return 'amavisd-new: https://www.amavis.org/'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
