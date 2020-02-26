@@ -405,7 +405,7 @@ module Sisimai
         #      - Content-Transfer-Encoding: 7BIT
         # 2. Unused fields inside of mutipart/* block should be removed
         argv1.gsub!(/(Content-[A-Za-z-]+?):[ ]*([^\s]+)/) do "#{$1}: #{$2.downcase}" end
-        argv1.gsub!(/^Content-(?:Description|Disposition):.+?$/, '')
+        argv1.gsub!(/^Content-(?:Description|Disposition):.+?\n$/, '')
 
         multiparts = argv1.split(Regexp.new(Regexp.escape(ehboundary) << "\n?"))
         multiparts.shift if multiparts[0].empty?
