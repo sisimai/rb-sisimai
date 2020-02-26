@@ -101,9 +101,7 @@ module Sisimai
           'Sisimai::Lhost::Activehunter',
           'Sisimai::Lhost::X4',
         ],
-        'loop-alert' => ['Sisimai::Lhost::FML'],
-        'non-remis'  => ['Sisimai::Lhost::Exchange2007'],
-        'notice'     => ['Sisimai::Lhost::Courier'],
+        'loop-alert'    => ['Sisimai::Lhost::FML'],
         'mail-delivery' => [
           'Sisimai::Lhost::Exim',
           'Sisimai::Lhost::MailRu',
@@ -116,9 +114,11 @@ module Sisimai
         'mail-failure' => ['Sisimai::Lhost::Exim'],
         'mail-not'     => ['Sisimai::Lhost::X4'],
         'mail-system'  => ['Sisimai::Lhost::EZweb'],
-        'message-delivery'   => ['Sisimai::Lhost::MailFoundry'],
-        'message-frozen'     => ['Sisimai::Lhost::Exim'],
-        'message-you'        => ['Sisimai::Lhost::Barracuda'],
+        'message-delivery' => ['Sisimai::Lhost::MailFoundry'],
+        'message-frozen'   => ['Sisimai::Lhost::Exim'],
+        'message-you'      => ['Sisimai::Lhost::Barracuda'],
+        'non-remis' => ['Sisimai::Lhost::Exchange2007'],
+        'notice'    => ['Sisimai::Lhost::Courier'],
         'permanent-delivery' => ['Sisimai::Lhost::X4'],
         'postmaster-notify'  => ['Sisimai::Lhost::Sendmail'],
         'returned-mail' => [
@@ -130,16 +130,16 @@ module Sisimai
           'Sisimai::Lhost::X1',
         ],
         'sorry-your' => ['Sisimai::Lhost::Facebook'],
-        'undeliverable-mail' => [
-          'Sisimai::Lhost::Amavis',
-          'Sisimai::Lhost::MailMarshalSMTP',
-          'Sisimai::Lhost::IMailServer',
-        ],
         'undeliverable' => [
           'Sisimai::Lhost::Office365',
           'Sisimai::Lhost::Exchange2007',
           'Sisimai::Lhost::Aol',
           'Sisimai::Lhost::Exchange2003',
+        ],
+        'undeliverable-mail' => [
+          'Sisimai::Lhost::Amavis',
+          'Sisimai::Lhost::MailMarshalSMTP',
+          'Sisimai::Lhost::IMailServer',
         ],
         'undeliverable-message' => ['Sisimai::Lhost::Notes', 'Sisimai::Lhost::Verizon'],
         'undelivered-mail' => [
