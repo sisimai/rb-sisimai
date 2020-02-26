@@ -54,6 +54,7 @@ module Sisimai
         'Sisimai::Lhost::SendGrid',
         'Sisimai::Lhost::ReceivingSES',
         'Sisimai::Lhost::Amavis',
+        'Sisimai::Lhost::PowerMTA',
         'Sisimai::Lhost::Google',
         'Sisimai::Lhost::EZweb',
         'Sisimai::Lhost::IMailServer',
@@ -77,6 +78,7 @@ module Sisimai
         'complaint-about'  => ['Sisimai::ARF'],
         'delivery-failure' => ['Sisimai::Lhost::Domino', 'Sisimai::Lhost::X2'],
         'delivery-notification' => ['Sisimai::Lhost::MessagingServer'],
+        'delivery-report'  => ['Sisimai::Lhost::PowerMTA'],
         'delivery-status'  => [
           'Sisimai::Lhost::GSuite',
           'Sisimai::Lhost::Google',
