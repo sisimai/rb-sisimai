@@ -47,12 +47,12 @@ module Sisimai
       # @return   [Array] MTA list with order
       def index
         return %w[
-          Activehunter Amavis AmazonSES AmazonWorkMail Aol ApacheJames
+          Activehunter Amavis AmazonSES AmazonWorkMail Aol ApacheJames Barracuda
           Bigfoot Biglobe Courier Domino EZweb EinsUndEins Exchange2003 Exchange2007
           Exim FML Facebook GMX GSuite Google IMailServer InterScanMSS KDDI MXLogic
           MailFoundry MailMarshalSMTP MailRu McAfee MessageLabs MessagingServer Notes
           Office365 OpenSMTPD Outlook Postfix ReceivingSES SendGrid Sendmail
-          SurfControl V5sendmail Verizon X1 X2 X3 X4 X5 Yahoo Yandex Zoho mFILTER qmail
+          SurfControl V5sendmail Verizon X1 X2 X3 X4 X5 Yahoo Yandex Zoho MFILTER Qmail
         ]
       end
 
