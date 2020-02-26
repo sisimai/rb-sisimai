@@ -1,0 +1,71 @@
+Delivered-To: errors-to+neko-nyaan@mbox.example.jp
+Return-Path: <>
+Received: by 192.0.2.23 with SMTP id Mk3V7vvp036494;
+        Thu, 29 Apr 2011 23:34:45 +0900 (JST)
+Received: by 192.0.2.251 with SMTP id AbImT1Hv075976;
+        Thu, 029 Apr 2011 23:34:45 +0900 (JST)
+Received: from mail.neko.example.org (mail.neko.example.org [192.0.2.6])
+        by mx.google.com with ESMTP id r7038neko22nyaan.00.2011.04.29.23.34.45;
+        Thu, 29 Apr 2011 23:34:45 +0900 (JST)
+Received-SPF: pass (google.com: best guess record for domain of mail.neko.example.org designates 192.0.2.6 as permitted sender) client-ip=192.0.2.6;
+Authentication-Results: mx.google.com; spf=pass (google.com: best guess record for domain of mail.neko.example.org designates 192.0.2.6 as permitted sender) smtp.mail=
+MIME-Version: 1.0
+From: MAILER-DAEMON
+Message-ID: <20110429233445.484D7B0ACF96@mx3.example.jp>
+Subject: **Message you sent blocked by our bulk email filter**
+Content-Type: multipart/report; report-type=delivery-status;
+ charset=utf-8;
+ boundary="----------=_0000102200-20220-2"
+To: <errors-to+neko-nyaan@mbox.example.jp>
+Date: Thu, 29 Apr 2011 23:34:45 +0000 (GMT)
+
+This is a multi-part message in MIME format...
+
+------------=_0000102200-20220-2
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: base64
+
+WW91ciBtZXNzYWdlIHRvOiBraWppdG9yYUBleGFtcGxlLmpwCndhcyBibG9ja2Vk
+IGJ5IG91ciBTcGFtICYgVmlydXMgRmlyZXdhbGwuIFRoZSBlbWFpbCB5b3Ugc2Vu
+dCB3aXRoIHRoZSBmb2xsb3dpbmcgc3ViamVjdCBoYXMgTk9UIEJFRU4gREVMSVZF
+UkVEOgoKU3ViamVjdDogTmVrbyBOeWFhbgoKRmFpbGVkIHRvIGRlbGl2ZXJ5IGZv
+ciB0aGUgcmVjaXBpZW50IGFkZHJlc3MuCgo=
+
+------------=_0000102200-20220-2
+Content-Type: message/delivery-status
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
+Content-Description: Delivery error report
+
+Reporting-MTA: dns; mail.neko.example.org
+Received-From-MTA: smtp; mail.neko.example.org ([127.0.0.1])
+Arrival-Date: Thu, 29 Apr 2011 23:34:45 +0000 (GMT)
+
+Final-Recipient: rfc822; kijitora@example.jp
+Action: failed
+Status: 5.7.1
+Diagnostic-Code: smtp; 550 5.7.1 Message content rejected, UBE, id=22220-02-222
+Last-Attempt-Date: Thu, 29 Apr 2011 23:34:45 +0000 (GMT)
+
+------------=_0000102200-20220-2
+Content-Type: text/rfc822-headers
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
+Content-Description: Undelivered-message headers
+
+Received: from email-4.example.jp (email-4.example.jp [192.0.2.25]) by mail.neko.example.org with ESMTP id SCFaPhR6057006 for <kijitora@exxample.jp>; Thu, 29 Apr 2011 23:34:45 +0000 (GMT)
+Received: by email-4.example.jp (Postfix, from userid 625)
+	id 775DBB702F03; Thu, 29 Apr 2011 23:34:45 +0000 (GMT)
+MIME-Version: 1.0
+Content-Transfer-Encoding: binary
+Content-Type: multipart/related; boundary="_----------=_1585311363"
+Date: Thu, 29 Apr 2011 23:34:45 +0000
+From: "Neko Nyaan" <neko-nyaan@example.jp>
+Subject: Nenko Nyaan
+To: Kijitora <kijitora@example.jp>
+Message-Id: <201104292334545.62412C6FD0F1@email-4.example.jp>
+X-Virus-Scanned: by bsmtpd at neko.example.org
+
+------------=_0000102200-20220-2--
+

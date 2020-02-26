@@ -1,0 +1,67 @@
+Return-path: <>
+Envelope-to: nyaan@neko.example.com
+Delivery-date: Thu, 29 Apr 2007 23:34:45 +0900
+Received: from barracuda.cat.example.jp ([192.0.2.23])
+	by neko.example.net with esmtp (Exim 4.60)
+	id eh0M1y-CZ1tR8-VI
+	for nyaan@neko.example.com; Thu, 29 Apr 2007 23:34:45 +0900
+MIME-Version: 1.0
+From: MAILER-DAEMON <>
+Message-Id: <225e2d6aad3309b153ecb1602dd0361b@neko.example.com>
+Subject: **Message you sent blocked by our bulk email filter**
+Content-Type: multipart/report; report-type=delivery-status;
+    charset=utf-8;
+    boundary="----------=_0000000200-2022-220"
+To: nyaan@neko.example.com
+Date: Thu, 29 Apr 2007 23:34:45 +0900 (JST)
+
+------------=_0000000200-2022-220
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: base64
+
+CllvdXIgbWVzc2FnZSB0bzoga2lqaXRvcmFAZXhhbXBsZS5vcmcKd2FzIGJsb2Nr
+ZWQgYnkgb3VyIFNwYW0gRmlyZXdhbGwuIFRoZSBlbWFpbCB5b3Ugc2VudCB3aXRo
+IHRoZSBmb2xsb3dpbmcgc3ViamVjdCBoYXMgTk9UIEJFRU4gREVMSVZFUkVEOgoK
+U3ViamVjdDogTnlhYW4KCg==
+
+------------=_0000000200-2022-220
+Content-Type: message/delivery-status
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
+Content-Description: Delivery error report
+
+Reporting-MTA: dns; barracuda.cat.example.jp
+Received-From-MTA: smtp; barracuda.cat.example.jp ([127.0.0.1])
+Arrival-Date: Thu, 29 Apr 2007 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; kijitora@example.org
+Action: failed
+Status: 5.7.1
+Diagnostic-Code: smtp; 550 5.7.1 Message content rejected, UBE, id=00000-22-225
+Last-Attempt-Date: Thu, 29 Apr 2007 23:34:45 +0900 (JST)
+
+------------=_0000000200-2022-220
+Content-Type: text/rfc822-headers
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
+Content-Description: Undelivered-message headers
+
+Received: from neko.example.net (neko.example.net [192.0.2.19])
+	by barracuda.cat.example.jp (Spam Firewall) with ESMTP id 8B84B7E27B64
+	for <kijitora@example.org>; Thu, 29 Apr 2007 23:34:45 +0900 (JST)
+Received: from apache by neko.example.net with local (Exim 4.60)
+	(envelope-from <nyaan@neko.example.com>)
+	id 0EFq2i-ZkIPUJ-PJ
+	for kijitora@example.org; Thu, 29 Apr 2007 23:34:45 +0900
+To: kijitora@example.org
+Subject: Nyaan
+Date: Thu, 29 Apr 2007 23:34:45 +0900
+From: Neko <neko@example.org>
+Message-ID: <ad4be1052982bf7aa5558be760abbf74@neko.example.com>
+X-Priority: 3
+MIME-Version: 1.0
+Content-Type: test/plain
+
+------------=_0000000200-2022-220--
+
