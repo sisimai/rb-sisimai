@@ -66,6 +66,7 @@ module Sisimai
         'Sisimai::Lhost::X4',
         'Sisimai::Lhost::X1',
         'Sisimai::Lhost::X3',
+        'Sisimai::Lhost::X6',
       ].freeze
 
       # The following order is decided by the first 2 words of Subject: header
@@ -130,6 +131,7 @@ module Sisimai
           'Sisimai::Lhost::X1',
         ],
         'sorry-your' => ['Sisimai::Lhost::Facebook'],
+        'there-was'  => ['Sisimai::Lhost::X6'],
         'undeliverable' => [
           'Sisimai::Lhost::Office365',
           'Sisimai::Lhost::Exchange2007',
