@@ -51,7 +51,7 @@ module Sisimai
           Bigfoot Biglobe Courier Domino EZweb EinsUndEins Exchange2003 Exchange2007
           Exim FML Facebook GMX GSuite Google IMailServer InterScanMSS KDDI MXLogic
           MailFoundry MailMarshalSMTP MailRu McAfee MessageLabs MessagingServer Notes
-          Office365 OpenSMTPD Outlook Postfix ReceivingSES SendGrid Sendmail
+          Office365 OpenSMTPD Outlook Postfix PowerMTA ReceivingSES SendGrid Sendmail
           SurfControl V5sendmail Verizon X1 X2 X3 X4 X5 Yahoo Yandex Zoho MFILTER Qmail
         ]
       end
