@@ -7,6 +7,7 @@ Email::AmazonSES ........   40/0049  0.8163  Amazon SES(Sending): http://aws.ama
 Email::AmazonWorkMail ...    9/0013  0.6923  Amazon WorkMail: https://aws.amazon.com/workmail/
 Email::Aol ..............   20/0023  0.8696  Aol Mail: http://www.aol.com
 Email::ApacheJames ......    0/0006  0.0000  Java Apache Mail Enterprise Server
+Email::Barracuda ........    0/0004  0.0000  Barracuda: https://www.barracuda.com
 Email::Bigfoot ..........    3/0003  1.0000  Bigfoot: http://www.bigfoot.com
 Email::Biglobe ..........    5/0007  0.7143  BIGLOBE: http://www.biglobe.ne.jp
 Email::Courier ..........   14/0016  0.8750  Courier MTA
@@ -36,6 +37,7 @@ Email::Office365 ........   26/0029  0.8966  Microsoft Office 365: http://office
 Email::OpenSMTPD ........    6/0024  0.2500  OpenSMTPD
 Email::Outlook ..........   21/0023  0.9130  Microsoft Outlook.com: https://www.outlook.com/
 Email::Postfix ..........  260/0277  0.9386  Postfix
+Email::PowerMTA..........    0/0005  0.0000  PowerMTA: https://www.sparkpost.com/powermta/
 Email::ReceivingSES .....    0/0007  0.0000  Amazon SES(Receiving): http://aws.amazon.com/ses/
 Email::SendGrid .........    7/0012  0.5833  SendGrid: http://sendgrid.com/
 Email::Sendmail .........  354/0278  1.0000  V8Sendmail: /usr/sbin/sendmail
@@ -47,6 +49,7 @@ Email::X2 ...............    0/0070  0.0000  Unknown MTA #2
 Email::X3 ...............    0/0012  0.0000  Unknown MTA #3
 Email::X4 ...............    0/0029  0.0000  Unknown MTA #4 qmail clones
 Email::X5 ...............    3/0003  1.0000  Unknown MTA #5
+Email::X6 ...............    0/0029  0.0000  Unknown MTA #6
 Email::Yahoo ............    0/0025  0.0000  Yahoo! MAIL: https://www.yahoo.com
 Email::Yandex ...........    4/0007  0.5714  Yandex.Mail: http://www.yandex.ru
 Email::Zoho .............    0/0011  0.0000  Zoho Mail: https://www.zoho.com
@@ -56,5 +59,5 @@ ARF .....................    8/0038  0.2105  Abuse Feedback Reporting Format
 RFC3464 .................  151/0322  0.4689  Fallback Module for MTAs
 RFC3834 .................    0/0014  0.0000  Detector for auto replied message
 --------------------------------------------------------------------------------
- bounceHammer 2.7.13p3    1523/2569  0.5928
- Sisimai 4.25.3p2         2569/2569  1.0000
+ bounceHammer 2.7.13p3    1523/2602  0.5853
+ Sisimai 4.25.3p2         2602/2602  1.0000
