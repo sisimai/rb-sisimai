@@ -19,6 +19,7 @@ module Sisimai
         'Sisimai::Lhost::Exchange2003',
         'Sisimai::Lhost::AmazonWorkMail',
         'Sisimai::Lhost::AmazonSES',
+        'Sisimai::Lhost::Barracuda',
         'Sisimai::Lhost::InterScanMSS',
         'Sisimai::Lhost::KDDI',
         'Sisimai::Lhost::SurfControl',
@@ -53,6 +54,7 @@ module Sisimai
         'Sisimai::Lhost::SendGrid',
         'Sisimai::Lhost::ReceivingSES',
         'Sisimai::Lhost::Amavis',
+        'Sisimai::Lhost::PowerMTA',
         'Sisimai::Lhost::Google',
         'Sisimai::Lhost::EZweb',
         'Sisimai::Lhost::IMailServer',
@@ -64,6 +66,7 @@ module Sisimai
         'Sisimai::Lhost::X4',
         'Sisimai::Lhost::X1',
         'Sisimai::Lhost::X3',
+        'Sisimai::Lhost::X6',
       ].freeze
 
       # The following order is decided by the first 2 words of Subject: header
@@ -76,6 +79,7 @@ module Sisimai
         'complaint-about'  => ['Sisimai::ARF'],
         'delivery-failure' => ['Sisimai::Lhost::Domino', 'Sisimai::Lhost::X2'],
         'delivery-notification' => ['Sisimai::Lhost::MessagingServer'],
+        'delivery-report'  => ['Sisimai::Lhost::PowerMTA'],
         'delivery-status'  => [
           'Sisimai::Lhost::GSuite',
           'Sisimai::Lhost::Google',
@@ -98,9 +102,7 @@ module Sisimai
           'Sisimai::Lhost::Activehunter',
           'Sisimai::Lhost::X4',
         ],
-        'loop-alert' => ['Sisimai::Lhost::FML'],
-        'non-remis'  => ['Sisimai::Lhost::Exchange2007'],
-        'notice'     => ['Sisimai::Lhost::Courier'],
+        'loop-alert'    => ['Sisimai::Lhost::FML'],
         'mail-delivery' => [
           'Sisimai::Lhost::Exim',
           'Sisimai::Lhost::MailRu',
@@ -113,8 +115,11 @@ module Sisimai
         'mail-failure' => ['Sisimai::Lhost::Exim'],
         'mail-not'     => ['Sisimai::Lhost::X4'],
         'mail-system'  => ['Sisimai::Lhost::EZweb'],
-        'message-delivery'   => ['Sisimai::Lhost::MailFoundry'],
-        'message-frozen'     => ['Sisimai::Lhost::Exim'],
+        'message-delivery' => ['Sisimai::Lhost::MailFoundry'],
+        'message-frozen'   => ['Sisimai::Lhost::Exim'],
+        'message-you'      => ['Sisimai::Lhost::Barracuda'],
+        'non-remis' => ['Sisimai::Lhost::Exchange2007'],
+        'notice'    => ['Sisimai::Lhost::Courier'],
         'permanent-delivery' => ['Sisimai::Lhost::X4'],
         'postmaster-notify'  => ['Sisimai::Lhost::Sendmail'],
         'returned-mail' => [
@@ -126,16 +131,17 @@ module Sisimai
           'Sisimai::Lhost::X1',
         ],
         'sorry-your' => ['Sisimai::Lhost::Facebook'],
-        'undeliverable-mail' => [
-          'Sisimai::Lhost::Amavis',
-          'Sisimai::Lhost::MailMarshalSMTP',
-          'Sisimai::Lhost::IMailServer',
-        ],
+        'there-was'  => ['Sisimai::Lhost::X6'],
         'undeliverable' => [
           'Sisimai::Lhost::Office365',
           'Sisimai::Lhost::Exchange2007',
           'Sisimai::Lhost::Aol',
           'Sisimai::Lhost::Exchange2003',
+        ],
+        'undeliverable-mail' => [
+          'Sisimai::Lhost::Amavis',
+          'Sisimai::Lhost::MailMarshalSMTP',
+          'Sisimai::Lhost::IMailServer',
         ],
         'undeliverable-message' => ['Sisimai::Lhost::Notes', 'Sisimai::Lhost::Verizon'],
         'undelivered-mail' => [

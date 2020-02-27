@@ -47,13 +47,13 @@ module Sisimai
       # @return   [Array] MTA list with order
       def index
         return %w[
-          Sendmail Postfix Qmail Exim Courier OpenSMTPD Office365 Outlook
-          Exchange2007 Exchange2003 Yahoo GSuite Aol SendGrid AmazonSES MailRu
-          Yandex MessagingServer Domino Notes ReceivingSES AmazonWorkMail Verizon
-          GMX Bigfoot Facebook Zoho EinsUndEins MessageLabs EZweb KDDI Biglobe
-          Amavis ApacheJames McAfee MXLogic MailFoundry IMailServer
-          MFILTER Activehunter InterScanMSS SurfControl MailMarshalSMTP
-          X1 X2 X3 X4 X5 V5sendmail FML Google]
+          Activehunter Amavis AmazonSES AmazonWorkMail Aol ApacheJames Barracuda
+          Bigfoot Biglobe Courier Domino EZweb EinsUndEins Exchange2003 Exchange2007
+          Exim FML Facebook GMX GSuite Google IMailServer InterScanMSS KDDI MXLogic
+          MailFoundry MailMarshalSMTP MailRu McAfee MessageLabs MessagingServer Notes
+          Office365 OpenSMTPD Outlook Postfix PowerMTA ReceivingSES SendGrid Sendmail
+          SurfControl V5sendmail Verizon X1 X2 X3 X4 X5 X6 Yahoo Yandex Zoho MFILTER Qmail
+        ]
       end
 
       # @abstract Returns Sisimai::Lhost::* module path table

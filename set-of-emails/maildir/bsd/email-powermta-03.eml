@@ -1,0 +1,71 @@
+Return-Path: <>
+Date: Thu, 29 Apr 2012 23:34:45 +0200
+From: postmaster@mx2.neko.example.com
+Subject: Delivery report
+To: bounce-0000002-1111115-kijitora=libsisimai.org@mx2.neko.example.com
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+    boundary="reportEE0E000E@mx2.neko.example.com"
+
+
+--reportEE0E000E@mx2.neko.example.com
+
+Hello, this is the mail server on mx2.neko.example.com.
+
+I am sending you this message to inform you on the delivery status of a
+message you previously sent.  Immediately below you will find a list of
+the affected recipients;  also attached is a Delivery Status Notification
+(DSN) report in standard format, as well as the headers of the original
+message.
+
+  <kijitora@libsisimai.org>  delivery failed; will not continue trying
+
+--reportEE0E000E@mx2.neko.example.com
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns;mx2.neko.example.com
+X-PowerMTA-VirtualMTA: mx2.neko.example.com
+Received-From-MTA: dns;(127.0.0.1)
+Arrival-Date: Thu, 29 Apr 2012 23:34:45 +0200
+
+Final-Recipient: rfc822;kijitora@libsisimai.org
+Action: failed
+Status: 5.2.1 (mailbox disabled, not accepting messages)
+Remote-MTA: dns;mx.libsisimai.org (125.174.90.135)
+Diagnostic-Code: smtp;550 5.2.1 <kijitora@libsisimai.org>... User Unknown
+X-PowerMTA-BounceCategory: bad-mailbox
+
+--reportEE0E000E@mx2.neko.example.com
+Content-Type: text/rfc822-headers
+
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; s=k1; d=mx2.neko.example.com;
+ h=Subject:From:Reply-To:To:Date:Message-ID:List-Unsubscribe:Sender:Content-Type:Content-Transfer-Encoding; i=postmaster=3Dazumakuniyuki.org@mx2.neko.example.com;
+ bh=bo9RyMWkknnbauZ9HEDQxKq/WVQ=;
+ b=t84yblXg8OmvunrGmbQgtaQeHsNnAGT+0VlQbRxrh3QxpYqmbst+iDgTM8bjnVHEWLVKgvFiVqW3
+   pnvtWZKyR1iSYSYqK0E1uBA03c7EBYVN17/G9a6v0rlEAnylIK5fV+5St/bqplPw1nTf5jTy0fup
+   jhZO3cek1aiz7yeBsPU=
+DomainKey-Signature: a=rsa-sha1; c=nofws; q=dns; s=k1; d=mx2.neko.example.com;
+ b=qfGdWFspSJJZaLcjmjz8iTWpzoNumEPv6zVFYjyL5z0kvDghcQIIwMmILpWPZjmNWY8UefkRjP5r
+   UUmDBRZ+hObGU+TPehRoBuFeIDyXGGnOm5B4AJFKeyGJQbGkvxpHQBWRlfg8E/TUgnN766vTDvhN
+   +pom9JHRLoSbH3w6HbU=;
+Received: from (127.0.0.1) by mx2.neko.example.com (PowerMTA(TM) v3.5r16) id hehvng0ik18p for <kijitora@libsisimai.org>; Thu, 29 Apr 2012 23:34:45 +0200 (envelope-from <bounce-5899542-1206365-kijitora=libsisimai.org@mx2.neko.example.com>)
+Subject: Nyaan
+From: "ak" <postmaster@azumakuniyuki.org>
+Reply-To: "ak" <postmaster@azumakuniyuki.org>
+To: "" <kijitora@libsisimai.org>
+Date: Thu, 29 Apr 2012 23:34:45 +0200
+Message-ID: <df97007ab80e066354480c22f9d65e762ff.20120917110726@mx2.neko.example.com>
+X-Mailer: MailChimp Mailer - **CID19457665f39d65e762ff**
+X-Campaign: mailchimpdf97007ab80e066354480c22f.19457665f3
+X-campaignid: mailchimpdf97007ab80e066354480c22f.19457665f3
+x-im: 38509-19457665f3
+X-Report-Abuse: Please report abuse for this campaign here: http://www.mailchimp.com/abuse/abuse.phtml?u=df97007ab80e066354480c22f&id=19457665f3&e=9d65e762ff
+x-accounttype: ff
+List-Unsubscribe: <mailto:unsubscribe-df97007ab80e066354480c22f-19457665f3-9d65e762ff@mailin1.neko.mcsv.net?subject=unsubscribe>, <http://cubicroot.neko.list-manage.com/unsubscribe?u=df97007ab80e066354480c22f&id=6c5a8e8e09&e=9d65e762ff&c=19457665f3>
+Sender: "ak" <postmaster=azumakuniyuki.org@mx2.neko.example.com>
+x-mcda: FALSE
+Content-Type: text/plain; charset="utf-8"; format="fixed"
+Content-Transfer-Encoding: quoted-printable
+
+--reportEE0E000E@mx2.neko.example.com--
+

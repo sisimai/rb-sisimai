@@ -1,19 +1,19 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Amavis parses a bounce email which created by
+  # Sisimai::Lhost::Barracuda parses a bounce email which created by
   # amavsid-new. Methods in the module are called from only Sisimai::Message.
-  module Amavis
+  module Barracuda
     class << self
-      # Imported from p5-Sisimail/lib/Sisimai/Lhost/Amavis.pm
+      # Imported from p5-Sisimail/lib/Sisimai/Lhost/Barracuda.pm
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
       ReBackbone = %r|^Content-Type:[ ]text/rfc822-headers|.freeze
-      StartingOf = { message: ['The message '] }.freeze
+      StartingOf = { message: ['Your message to:'] }.freeze
 
-      def description; return 'amavisd-new: https://www.amavis.org/'; end
+      def description; return 'Barracuda: https://www.barracuda.com'; end
       def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
 
-      # Parse bounce messages from amavisd-new
+      # Parse bounce messages from Barracuda
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
       # @options mhead [String] date      Date header
@@ -25,9 +25,8 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
-        # From: "Content-filter at neko1.example.jp" <postmaster@neko1.example.jp>
-        # Subject: Undeliverable mail, MTA-BLOCKED
-        return nil unless mhead['from'].to_s.start_with?('"Content-filter at ')
+        # Subject: **Message you sent blocked by our bulk email filter**
+        return nil unless mhead['subject'].to_s.end_with?('our bulk email filter**')
 
         require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
@@ -43,7 +42,6 @@ module Sisimai::Lhost
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email
           # to the previous line of the beginning of the original message.
-
           if readcursor == 0
             # Beginning of the bounce message or message/delivery-status part
             readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])
@@ -51,39 +49,40 @@ module Sisimai::Lhost
           end
           next if (readcursor & Indicators[:deliverystatus]) == 0
           next if e.empty?
-          next unless f = Sisimai::RFC1894.match(e)
 
-          # "e" matched with any field defined in RFC3464
-          next unless o = Sisimai::RFC1894.field(e)
-          v = dscontents[-1]
+          if f = Sisimai::RFC1894.match(e)
+            # "e" matched with any field defined in RFC3464
+            next unless o = Sisimai::RFC1894.field(e)
+            v = dscontents[-1]
 
-          if o[-1] == 'addr'
-            # Final-Recipient: rfc822; kijitora@example.jp
-            # X-Actual-Recipient: rfc822; kijitora@example.co.jp
-            if o[0] == 'final-recipient'
+            if o[-1] == 'addr'
               # Final-Recipient: rfc822; kijitora@example.jp
-              if v['recipient']
-                # There are multiple recipient addresses in the message body.
-                dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                v = dscontents[-1]
-              end
-              v['recipient'] = o[2]
-              recipients += 1
-            else
               # X-Actual-Recipient: rfc822; kijitora@example.co.jp
-              v['alias'] = o[2]
-            end
-          elsif o[-1] == 'code'
-            # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
-            v['spec'] = o[1]
-            v['diagnosis'] = o[2]
-          else
-            # Other DSN fields defined in RFC3464
-            next unless fieldtable[o[0]]
-            v[fieldtable[o[0]]] = o[2]
+              if o[0] == 'final-recipient'
+                # Final-Recipient: rfc822; kijitora@example.jp
+                if v['recipient']
+                  # There are multiple recipient addresses in the message body.
+                  dscontents << Sisimai::Lhost.DELIVERYSTATUS
+                  v = dscontents[-1]
+                end
+                v['recipient'] = o[2]
+                recipients += 1
+              else
+                # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                v['alias'] = o[2]
+              end
+            elsif o[-1] == 'code'
+              # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
+              v['spec'] = o[1]
+              v['diagnosis'] = o[2]
+            else
+              # Other DSN fields defined in RFC3464
+              next unless fieldtable[o[0]]
+              v[fieldtable[o[0]]] = o[2]
 
-            next unless f == 1
-            permessage[fieldtable[o[0]]] = o[2]
+              next unless f == 1
+              permessage[fieldtable[o[0]]] = o[2]
+            end
           end
         end
         return nil unless recipients > 0

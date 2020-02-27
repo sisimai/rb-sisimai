@@ -1,0 +1,71 @@
+From mailer-daemon Fri Apr 29 23:34:45 2012
+Return-path: <>
+Envelope-to: neko@example.co.jp
+Delivery-date: Thu, 29 Apr 2012 23:34:45 +0000
+Received: from [192.0.1.3] (helo=x6.smtp.example.org)
+	by smtp.x6.example.com with esmtp (Exim 4.69)
+	id DIMUdn-Yvs1YW-6S
+	for neko@example.co.jp; Thu, 29 Apr 2012 23:34:45 +0000
+Received: from smtp-x-6.example.jp ([192.168.21.22])
+	by x6-01.smtp.example.org with neko (version 4.8.3.54) nyaan id 000000000
+	for neko@example.co.jp;e0ff9c6a684b9cf1; Thu, 29 Apr 2012 23:34:45 +0000
+From: mailer-daemon
+To: neko@example.co.jp
+Subject: There was an error sending your mail
+Date: Thu, 29 Apr 2012 23:34:45 +0000
+Auto-Submitted: auto-replied
+Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/mx6d;
+	boundary="--=_MIMEBOUNDARY_d1e2471b4b95f44c_12823329331748206317161a01e__a96ea837"
+Message-ID: <20120429233445.1203309516@x6-2.smtp.example.org>
+
+This is a multi-part message in MIME format.
+
+----=_MIMEBOUNDARY_d1e2471b4b95f44c_12823329331748206317161a01e__a96ea837
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+
+We had trouble delivering your message. Full details follow:
+
+Subject: 'Neko Nyaan'
+Date: 'Thu, 29 Apr 2012 23:34:45 +0000'
+
+1 error(s):
+
+The following recipients returned permanent errors: kijitora@nyaan.example.org. Reason: SMTP Server <192.0.2.223> refused to accept your message (DATA), with the following error message: [554 5.4.6 Hop count exceeded - possible mail loop]
+
+The attachment contains the original mail headers. Please verify recipient(s) mail addresses and try resending this message or contact your IT department with contents of this mail.
+
+
+----=_MIMEBOUNDARY_d1e2471b4b95f44c_12823329331748206317161a01e__a96ea837
+Content-Type: text/plain;
+	name="mailheaders-1035422417.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="mailheaders-1035422417.txt"
+
+Received: from 203.0.113.225 ([203.0.113.225])
+	by x6-mx6.smtp.example.org with neko2 (version 4.8.5.36) nyaan2 id 1509261695
+	for kijitora@nyaan.example.org;000000000000eeee; Thu, 29 Apr 2012 23:34:45 +0000
+Received: from neko.nyaan.example.jp ([198.51.100.5]) by ps-x6.example.com with
+    Microsoft SMTPSVC(6.0.3790.3959); Thu, 29 Apr 2012 23:34:45 +0000
+Received: from xx6-mx6.smtp.example.org (172.16.4.243) by
+ Hades.nyaan.example.jp (10.90.23.11) with Microsoft SMTP Server id 8.2.255.0;
+ Thu, 29 Apr 2012 23:34:45 +0000
+X-CTCH-RefID: str=0000.CFBEA618.E8D32220.AEE0,ss=0,sh,fgs=0
+X-Cloudmark-Analysis: v=1.1 ...
+Date: Thu, 29 Apr 2012 23:34:45 +0000
+To: kijitora@nyaan.example.org
+From: Neko <neko@example.co.jp>
+Subject: Neko Nyaan
+Message-ID: <68b329da9893e34099c7d8ad5cb9c940@x6.example.co.jp>
+X-Priority: 3
+MIME-Version: 1.0
+Content-Type: text/plain
+Return-Path: neko@example.co.jp
+
+
+----=_MIMEBOUNDARY_d1e2471b4b95f44c_12823329331748206317161a01e__a96ea837--
+
+
