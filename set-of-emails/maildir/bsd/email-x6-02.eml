@@ -1,0 +1,68 @@
+From mailer-daemon Thu Apr 29 23:34:45 2012
+Return-path: <>
+Envelope-to: neko@libsisimai.org
+Delivery-date: Thu, 29 Apr 2012 23:34:45 +0000
+Received: from [194.116.198.193] (helo=cat-neko2.libsisimai.org)
+	by x6-a.example.org with esmtp (Exim 4.69)
+	id c0VVVX-TKFSGX-m4
+	for neko@libsisimai.org; Thu, 29 Apr 2012 23:34:45 +0000
+Received: from 192.0.2.8 ([192.0.2.8])
+	by neko-22-01.libsisimai.org with nyaan6 (version 4.8.3.54) nekochan id 222022200
+	for neko@libsisimai.org;0cc93573e5704417; Thu, 29 Apr 2012 23:34:45 +0000
+From: mailer-daemon
+To: neko@libsisimai.org
+Subject: There was an error sending your mail
+Date: Thu, 29 Apr 2012 23:34:45 +0000
+Auto-Submitted: auto-replied
+Precedence: neko
+MIME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="--=_MIMEBOUNDARY_d1e2471b4b95f44c_12823329331748206317161a01e__a96ea837"
+Message-ID: <20120429233445.222222200@smtpd-22.libsisimai.org>
+
+This is a multi-part message in MIME format.
+
+----=_MIMEBOUNDARY_d1e2471b4b95f44c_12823329331748206317161a01e__a96ea837
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+
+We had trouble delivering your message. Full details follow:
+
+Subject: 'Nyaan'
+Date: 'Thu, 29 Apr 2012 23:34:45 +0000'
+
+1 error(s):
+
+SMTP Server <smtpd.libsisimai.org> rejected recipient <kijitora@libsisimai.org> (Error following RCPT command). It responded as follows: [550 5.1.1 User unknown]
+
+The attachment contains the original mail headers. Please verify recipient(s) mail addresses and try resending this message or contact your IT department with contents of this mail.
+
+
+----=_MIMEBOUNDARY_d1e2471b4b95f44c_12823329331748206317161a01e__a96ea837
+Content-Type: text/plain;
+	name="mailheaders-000000002.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="mailheaders-000000022.txt"
+
+X-CTCH-RefID: str=2001.EEEEEEE0.22222220.EEEE,ss=1,fgs=2
+X-Cloudmark-Analysis: v=1.1 cv=...
+Received: from neko-22x.example.org ([89.167.228.207])
+	by smtpd-22.libsisimai.org with nyaan6 (version 4.8.5.36) by TLS id 222222220
+	for kijitora@libsisimai.org;00000000eeeeeee2; Thu, 29 Apr 2012 23:34:45 +0000
+Received: from nyaan by neko-22x.example.org with local (Exim 4.69)
+	(envelope-from <neko@libsisimai.org>)
+	id y22Uft-34REAU-TD
+	for kijitora@libsisimai.org; Thu, 29 Apr 2012 23:34:45 +0000
+Date: Thu, 29 Apr 2012 23:34:45 +0000
+To: kijitora@libsisimai.org
+From: Neko <neko@libsisimai.org>
+Subject: Nyaan
+Message-ID: <6ac566f9b25c11c29ceed6217d1feefe@x6.libsisimai.org>
+X-Priority: 2
+MIME-Version: 1.0
+Content-Type: text/plain
+
+
+----=_MIMEBOUNDARY_d1e2471b4b95f44c_12823329331748206317161a01e__a96ea837--
+
