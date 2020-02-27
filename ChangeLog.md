@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.5p3
+v4.25.5p4
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -31,6 +31,10 @@ v4.25.5p3
   - Remove the following unused methods:
     - `Sisimai::MIME.patterns`
     - `Sisimai::SMTP.command`
+  - Implement 3 MTA modules: #178
+    - `Sisimai::Lhost::Barracuda`
+    - `Sisimai::Lhost::PowerMTA`
+    - `Sisimai::Lhost::X6`
 
 v4.25.5
 --------------------------------------------------------------------------------
