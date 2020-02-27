@@ -5,7 +5,6 @@ isexpected = [
   { 'n' => '01', 's' => /\A5[.]1[.]1\z/,     'r' => /mailboxfull/, 'a' => /dovecot/, 'b' => /\A1\z/ },
   { 'n' => '03', 's' => /\A5[.]0[.]0\z/,     'r' => /policyviolation/,'a' => /RFC3464/, 'b' => /\A1\z/ },
   { 'n' => '04', 's' => /\A5[.]5[.]0\z/,     'r' => /mailererror/, 'a' => /RFC3464/, 'b' => /\A1\z/ },
-  { 'n' => '05', 's' => /\A5[.]2[.]1\z/,     'r' => /filtered/,    'a' => /RFC3464/,    'b' => /\A1\z/ },
   { 'n' => '06', 's' => /\A5[.]5[.]0\z/,     'r' => /userunknown/, 'a' => /mail.local/, 'b' => /\A0\z/ },
   { 'n' => '07', 's' => /\A4[.]4[.]0\z/,     'r' => /expired/,     'a' => /RFC3464/, 'b' => /\A1\z/ },
   { 'n' => '08', 's' => /\A5[.]7[.]1\z/,     'r' => /spamdetected/,'a' => /RFC3464/, 'b' => /\A1\z/ },
