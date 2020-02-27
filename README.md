@@ -52,7 +52,7 @@ Key Features
   * git clone & make
 * __High Precision of Analysis__
   * 2 times higher than bounceHammer
-  * Support 24 known MTAs and 5 unknown MTAs
+  * Support 22 known MTAs and 6 unknown MTAs
   * Support 22 major MSPs(Mail Service Providers)
   * Support Feedback Loop Message(ARF)
   * Can detect 29 error reasons
@@ -225,7 +225,7 @@ and bounceHammer are available at
 | How to install                              | gem install    | cpanm, cpm    |
 | Dependencies (Except core modules)          | 1 module       | 2 modules     |
 | LOC:Source lines of code                    | 10300 lines    | 7100 lines    |
-| The number of tests(spec/,t/,xt/) directory | 230000 tests   | 250000 tests  |
+| The number of tests(spec/,t/,xt/) directory | 227000 tests   | 256000 tests  |
 | License                                     | BSD 2-Clause   | BSD 2-Clause  |
 | Support Contract provided by Developer      | Available      | Available     |
 
