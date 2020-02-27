@@ -1,0 +1,58 @@
+Return-path: <>
+Envelope-to: error@example.net
+Delivery-date: Thu, 29 Apr 2012 23:34:45 +0100
+Received: from example.net ([192.0.2.2])
+    by mx.example.net with esmtp (Exim 4.63)
+    id t50V1S-CTJ9DM-hy
+    for error@example.net; Thu, 29 Apr 2012 23:34:45 +0100
+Date: Thu, 29 Apr 2012 23:34:45 -0400
+From: postmaster@example.net
+Subject: Delivery report
+To: error@example.net
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+    boundary="reportFFEF00FE@example.net"
+
+
+--reportFFEF00FE@example.net
+
+Hello, this is the mail server on example.net.
+
+I am sending you this message to inform you on the delivery status of a
+message you previously sent. Immediately below you will find a list of
+the affected recipients; also attached is a Delivery Status Notification
+(DSN) report in standard format, as well as the headers of the original
+message.
+
+<kijitora@example.com> delivery failed; will not continue trying
+
+--reportFFEF00FE@example.net
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns;example.net
+X-PowerMTA-VirtualMTA: example.net
+Received-From-MTA: dns;neko-2.example.org (127.0.0.1)
+Arrival-Date: Thu, 29 Apr 2012 23:34:45 -0400
+
+Final-Recipient: rfc822;kijitora@example.com
+Action: failed
+Status: 5.0.0 (undefined status)
+Remote-MTA: dns;n.mx.mail.example.com (192.0.2.123)
+Diagnostic-Code: smtp;554 delivery error: dd This user doesn't have a example.com account (kijitora@example.com) [0] - mta1082.mail.bf1.example.com
+X-PowerMTA-BounceCategory: bad-mailbox
+
+--reportFFEF00FE@example.net
+Content-Type: text/rfc822-headers
+
+Received: by example.net (PowerMTA(TM) v3.5r16) id dvmmMlbT099315 for <kijitora@example.com>; Thu, 29 Apr 2012 23:34:45 -0400 (envelope-from <error@example.net>)
+Subject: Nyaan
+To: kijitora@example.com
+Message-ID: <9210c1b0586589ee5c061c50527e4d49@example.net>
+Return-Path: error@example.net
+Date: Thu, 29 Apr 2012 23:34:45 -0400
+From: Neko <neko@example.net>
+MIME-Version: 1.0
+Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+
+--reportFFEF00FE@example.net--
