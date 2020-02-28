@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.5p4
+v4.25.5p5
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -35,6 +35,8 @@ v4.25.5p4
     - `Sisimai::Lhost::Barracuda`
     - `Sisimai::Lhost::PowerMTA`
     - `Sisimai::Lhost::X6`
+  - "email-" prefix of each sample email in set-of-emails/maildir directory has
+    been replaced with "lhost-" sisimai/set-of-emails#14
 
 v4.25.5
 --------------------------------------------------------------------------------
