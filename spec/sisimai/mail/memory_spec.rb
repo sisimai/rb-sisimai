@@ -4,7 +4,7 @@ require 'sisimai/mail/memory'
 describe Sisimai::Mail::Memory do
   samplemailbox = [
     './set-of-emails/mailbox/mbox-0',
-    './set-of-emails/maildir/bsd/email-sendmail-01.eml'
+    './set-of-emails/maildir/bsd/lhost-sendmail-01.eml'
   ]
   let(:mailobj) { Sisimai::Mail::Memory.new(samples) }
   let(:mockobj) { Sisimai::Mail::Memory.new(invalid) }

@@ -145,7 +145,7 @@ describe Sisimai::Reason do
   end
 
   describe '.true' do
-    mailboxobj = Sisimai::Mail.new('./set-of-emails/maildir/bsd/email-sendmail-01.eml')
+    mailboxobj = Sisimai::Mail.new('./set-of-emails/maildir/bsd/lhost-sendmail-01.eml')
     while r = mailboxobj.read do
       o = Sisimai::Message.new( data: r )
       v = Sisimai::Data.make( data: o )

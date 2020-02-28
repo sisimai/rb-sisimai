@@ -36,7 +36,7 @@ module Sisimai
             # Other MTA modules
             require sprintf("sisimai/lhost/%s", enginename.downcase)
             modulename = Module.const_get(sprintf("Sisimai::Lhost::%s", enginename))
-            samplepath = sprintf("set-of-emails/private/email-%s", enginename.downcase) if privateset
+            samplepath = sprintf("set-of-emails/private/lhost-%s", enginename.downcase) if privateset
           end
 
           describe modulename do
@@ -71,7 +71,7 @@ module Sisimai
                 samplefile = sprintf("./%s/%s-%02d.eml", samplepath, enginename.downcase, e['n'].to_i)
               else
                 # Other MTA modules
-                samplefile = sprintf("./%s/email-%s-%02d.eml", samplepath, enginename.downcase, e['n'].to_i)
+                samplefile = sprintf("./%s/lhost-%s-%02d.eml", samplepath, enginename.downcase, e['n'].to_i)
               end
             end
 

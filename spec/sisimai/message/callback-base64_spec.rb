@@ -2,8 +2,8 @@ require 'spec_helper'
 require 'sisimai/message'
 
 SampleEmails = [
-  'email-domino-03.eml',
-  'email-mfilter-04.eml',
+  'lhost-domino-03.eml',
+  'lhost-mfilter-04.eml',
 ]
 
 describe 'CallbackMethod' do

@@ -5,7 +5,7 @@ require 'sisimai/message'
 
 describe Sisimai::Data do
   context 'without orders of email address headers' do
-    mail = Sisimai::Mail.new('./set-of-emails/maildir/bsd/email-sendmail-03.eml')
+    mail = Sisimai::Mail.new('./set-of-emails/maildir/bsd/lhost-sendmail-03.eml')
     call = lambda do |argv|
       data = { 'x-mailer' => '', 'return-path' => '', 'type' => argv['datasrc'] }
       if cv = argv['message'].match(/^X-Mailer:\s*(.+)$/)
@@ -130,7 +130,7 @@ describe Sisimai::Data do
   end
 
   context 'with orders of email address headers' do
-    file = './set-of-emails/maildir/bsd/email-sendmail-04.eml'
+    file = './set-of-emails/maildir/bsd/lhost-sendmail-04.eml'
     mail = Sisimai::Mail.new(file)
 
     while r = mail.read do
