@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.5p5
+v4.25.5p6
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -37,6 +37,9 @@ v4.25.5p5
     - `Sisimai::Lhost::X6`
   - "email-" prefix of each sample email in set-of-emails/maildir directory has
     been replaced with "lhost-" sisimai/set-of-emails#14
+  - SMTP Agent improvement #158
+    - Remove `Email::` prefix from the value of `smtpagent` at parsed results
+    - Remove `Sisimai::Lhost->smtpagent` method
 
 v4.25.5
 --------------------------------------------------------------------------------
