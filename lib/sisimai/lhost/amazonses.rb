@@ -15,9 +15,6 @@ module Sisimai::Lhost
       }.freeze
       MessagesOf = { 'expired' => ['Delivery expired'] }.freeze
 
-      def description; return 'Amazon SES(Sending): https://aws.amazon.com/ses/'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Amazon SES
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -203,7 +200,6 @@ module Sisimai::Lhost
           end
           return nil unless recipients > 0
 
-          dscontents.each { |e| e['agent'] = self.smtpagent }
           if p['mail']['headers']
             # "headersTruncated":false,
             # "headers":[ { ...
@@ -322,9 +318,7 @@ module Sisimai::Lhost
             e['lhost'] ||= permessage['rhost']
             permessage.each_key { |a| e[a] ||= permessage[a] || '' }
 
-            e['agent'] = self.smtpagent
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].to_s.tr("\n", ' '))
-
             if e['status'].to_s.start_with?('5.0.0', '5.1.0', '4.0.0', '4.1.0')
               # Get other D.S.N. value from the error message
               errormessage = e['diagnosis']
@@ -347,7 +341,8 @@ module Sisimai::Lhost
           return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
         end # END of a parser for email message
 
-      end # END of def make()
+      end
+      def description; return 'Amazon SES(Sending): https://aws.amazon.com/ses/'; end
     end
   end
 end

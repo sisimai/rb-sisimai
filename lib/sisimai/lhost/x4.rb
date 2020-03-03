@@ -117,9 +117,6 @@ module Sisimai::Lhost
         ],
       }.freeze
 
-      def description; return 'Unknown MTA #4'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Unknown MTA #4
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -191,7 +188,6 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
           unless e['command']
@@ -253,12 +249,11 @@ module Sisimai::Lhost
               end
             end
           end
-          e.each_key { |a| e[a] ||= '' }
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Unknown MTA #4'; end
     end
   end
 end

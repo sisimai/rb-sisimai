@@ -37,7 +37,7 @@ describe Sisimai::Rhost::IUA do
           example('action is not empty') { expect(e['action']).not_to be_empty }
           example('rhost is mx*.qq.com') { expect(e['rhost']).to match(mtahost) }
           example('alias exists') { expect(e['alias']).not_to be_nil }
-          example('agent is Email::*') { expect(e['agent']).to match(/\AEmail::/) }
+          example('agent is ' + e['agent']) { expect(e['agent']).to match(/Postfix/) }
         end
 
         data = Sisimai::Data.make(data: mesg)

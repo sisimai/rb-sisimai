@@ -45,9 +45,6 @@ module Sisimai::Lhost
         'contenterror' => ['Too many "Received" headers'],
       }.freeze
 
-      def description; return '@mail.ru: https://mail.ru'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from @mail.ru
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -215,12 +212,11 @@ module Sisimai::Lhost
             end
           end
           e['command'] ||= ''
-          e['agent']     = self.smtpagent
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return '@mail.ru: https://mail.ru'; end
     end
   end
 end

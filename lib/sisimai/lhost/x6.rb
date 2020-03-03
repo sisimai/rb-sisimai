@@ -10,9 +10,6 @@ module Sisimai::Lhost
       ReBackbone = %r/^The attachment contains the original mail headers.+$/.freeze
       MarkingsOf = { message: %r/\A\d+[ ]*error[(]s[)]:/ }.freeze
 
-      def description; return 'Unknown MTA #6'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Unknown MTA #6
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -70,13 +67,12 @@ module Sisimai::Lhost
             # ...(Error following RCPT command).
             e['command'] = cv[1]
           end
-          e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Unknown MTA #6'; end
     end
   end
 end

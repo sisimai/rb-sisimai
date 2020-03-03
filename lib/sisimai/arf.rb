@@ -30,7 +30,6 @@ module Sisimai
       RFC822Head = Sisimai::RFC5322.HEADERFIELDS
 
       def description; return 'Abuse Feedback Reporting Format'; end
-      def smtpagent;   return 'FeedBack-Loop'; end
 
       # Email is a Feedback-Loop message or not
       # @param    [Hash] heads    Email header including "Content-Type", "From",
@@ -293,7 +292,7 @@ module Sisimai
           e['diagnosis']  = commondata['diagnosis'] unless e['diagnosis']
           e['date']       = mhead['date'] if e['date'].empty?
           e['reason']     = 'feedback'
-          e['agent']      = self.smtpagent if e['agent'].empty?
+          e['agent']      = 'Feedback-Loop'
           %w[command action status alias].each { |a| e[a] = '' }
 
           # Get the remote IP address from the message body
@@ -307,7 +306,6 @@ module Sisimai
             # from IP address 24.64.1.1 on Thu, 29 Apr 2010 00:00:00 +0000
             e['rhost'] = cv[1]
           end
-
         end
         return { 'ds' => dscontents, 'rfc822' => rfc822part }
       end

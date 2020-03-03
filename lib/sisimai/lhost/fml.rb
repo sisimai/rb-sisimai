@@ -45,9 +45,6 @@ module Sisimai::Lhost
         'securityerror' => %r/Security alert:/,
       }.freeze
 
-      def description; return 'fml mailing list server/manager'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from fml mailling list server/manager
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -102,9 +99,6 @@ module Sisimai::Lhost
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-          e['agent']     = self.smtpagent
-          e.each_key { |a| e[a] ||= '' }
-
           ErrorTable.each_key do |f|
             # Try to match with error messages defined in ErrorTable
             next unless e['diagnosis'] =~ ErrorTable[f]
@@ -125,7 +119,7 @@ module Sisimai::Lhost
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'fml mailing list server/manager'; end
     end
   end
 end

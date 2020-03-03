@@ -15,9 +15,6 @@ module Sisimai::Lhost
         'securityerror' => %r/Please turn on SMTP Authentication in your mail client/,
       }.freeze
 
-      def description; return 'Symantec.cloud http://www.messagelabs.com'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Symantec.cloud(MessageLabs)
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -113,7 +110,6 @@ module Sisimai::Lhost
           e['lhost'] ||= permessage['rhost']
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
           e['command']   = commandset.shift || ''
-          e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
           ReFailures.each_key do |r|
@@ -126,7 +122,7 @@ module Sisimai::Lhost
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Symantec.cloud http://www.messagelabs.com'; end
     end
   end
 end

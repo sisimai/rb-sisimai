@@ -46,7 +46,7 @@ describe Sisimai::Rhost::FrancePTT do
           example('Key "action" exists') { expect(e.has_key?('action')).to be true }
           example('rhost is ' + e['rhost']) { expect(e['rhost']).to match(mtahost) }
           example('alias exists') { expect(e.key?('alias')).to be true }
-          example('agent matches Email::*') { expect(e['agent']).to match(/\AEmail::.+/) }
+          example('agent is ' + e['agent']) { expect(e['agent']).to match(/(?:EinsUndEins|Exim|Postfix|Sendmail)/) }
         end
 
         data = Sisimai::Data.make(data: mesg)

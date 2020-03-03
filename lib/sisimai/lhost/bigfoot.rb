@@ -10,9 +10,6 @@ module Sisimai::Lhost
       ReBackbone = %r|^Content-Type:[ ]message/partial|.freeze
       MarkingsOf = { message: %r/\A[ \t]+[-]+[ \t]*Transcript of session follows/ }.freeze
 
-      def description; return 'Bigfoot: http://www.bigfoot.com'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Bigfoot
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -119,8 +116,6 @@ module Sisimai::Lhost
           # Set default values if each value is empty.
           e['lhost'] ||= permessage['rhost']
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
-
-          e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           e['command']   = commandtxt
           if e['command'].empty?
@@ -130,7 +125,7 @@ module Sisimai::Lhost
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Bigfoot: http://www.bigfoot.com'; end
     end
   end
 end

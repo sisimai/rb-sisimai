@@ -10,9 +10,6 @@ module Sisimai::Lhost
       ReBackbone = %r|^Content-Type:[ ]message/rfc822|.freeze
       StartingOf = { message: ['This is an automatically generated message from SendGrid.'] }.freeze
 
-      def description; return 'SendGrid: https://sendgrid.com/'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from SendGrid
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -147,13 +144,12 @@ module Sisimai::Lhost
           end
 
           e['lhost'] ||= permessage['rhost']
-          e['agent']   = self.smtpagent
           e['command'] = commandtxt
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'SendGrid: https://sendgrid.com/'; end
     end
   end
 end

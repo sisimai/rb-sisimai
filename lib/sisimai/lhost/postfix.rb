@@ -31,9 +31,6 @@ module Sisimai::Lhost
         # :from => %r/ [(]Mail Delivery System[)]\z/,
       }.freeze
 
-      def description; return 'Postfix'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Postfix
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -247,13 +244,11 @@ module Sisimai::Lhost
           e['command']   = commandset.shift || nil
           e['command'] ||= 'HELO' if e['diagnosis'] =~ /refused to talk to me:/
           e['spec']    ||= 'SMTP' if e['diagnosis'] =~ /host .+ said:/
-          e['agent']     = self.smtpagent
-          e.each_key { |a| e[a] ||= '' }
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Postfix'; end
     end
   end
 end

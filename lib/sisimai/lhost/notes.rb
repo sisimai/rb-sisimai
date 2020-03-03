@@ -1,5 +1,5 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::::Email::Notes parses a bounce email which created by Lotus
+  # Sisimai::Lhost::Notes parses a bounce email which created by Lotus
   # Notes Server. Methods in the module are called from only Sisimai::Message.
   module Notes
     class << self
@@ -16,9 +16,6 @@ module Sisimai::Lhost
         ],
         networkerror: ['Message has exceeded maximum hop count'],
       }.freeze
-
-      def description; return 'Lotus Notes'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
 
       # Parse bounce messages from Lotus Notes
       # @param         [Hash] mhead       Message headers of a bounce email
@@ -114,7 +111,6 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           e['recipient'] = Sisimai::Address.s3s4(e['recipient'])
 
@@ -125,12 +121,11 @@ module Sisimai::Lhost
             e['status'] = Sisimai::SMTP::Status.code(r.to_s) || ''
             break
           end
-          e.each_key { |a| e[a] ||= '' }
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Lotus Notes'; end
     end
   end
 end

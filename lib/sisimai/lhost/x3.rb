@@ -10,9 +10,6 @@ module Sisimai::Lhost
       ReBackbone = %r|^Content-Type:[ ]message/rfc822|.freeze
       StartingOf = { message: ['      This is an automatically generated Delivery Status Notification.'] }.freeze
 
-      def description; return 'Unknown MTA #3'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Unknown MTA #3
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -88,15 +85,13 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           e['status']    = Sisimai::SMTP::Status.find(e['diagnosis']) || ''
-          e.each_key { |a| e[a] ||= '' }
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Unknown MTA #3'; end
     end
   end
 end

@@ -63,9 +63,6 @@ module Sisimai::Lhost
         RCPT: %r/unknown recipient or mailbox unavailable ->.+[<]?.+[@].+[.][a-zA-Z]+[>]?/,
       }.freeze
 
-      def description; return 'Microsoft Office 365: https://office.microsoft.com/'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Microsoft Office 365
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -180,10 +177,8 @@ module Sisimai::Lhost
           # Set default values if each value is empty.
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
 
-          e['agent']     = self.smtpagent
           e['status']  ||= ''
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
-
           if e['status'].empty? || e['status'].end_with?('.0.0')
             # There is no value of Status header or the value is 5.0.0, 4.0.0
             e['status'] = Sisimai::SMTP::Status.find(e['diagnosis']) || ''
@@ -207,7 +202,7 @@ module Sisimai::Lhost
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Microsoft Office 365: https://office.microsoft.com/'; end
     end
   end
 end

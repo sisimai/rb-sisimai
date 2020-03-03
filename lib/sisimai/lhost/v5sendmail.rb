@@ -30,9 +30,6 @@ module Sisimai::Lhost
         error:   %r/\A[.]+ while talking to .+[:]\z/,
       }.freeze
 
-      def description; return 'Sendmail version 5'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Sendmail version 5
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -130,9 +127,7 @@ module Sisimai::Lhost
 
         dscontents.each do |e|
           errorindex += 1
-          e['agent']   = self.smtpagent
           e['command'] = commandset[errorindex] || ''
-
           e['diagnosis'] ||= if anotherset['diagnosis'].to_s.size > 0
                                # Copy alternative error message
                                anotherset['diagnosis']
@@ -150,12 +145,11 @@ module Sisimai::Lhost
             end
           end
           e.delete('sessionerr')
-          e.each_key { |a| e[a] ||= '' }
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Sendmail version 5'; end
     end
   end
 end

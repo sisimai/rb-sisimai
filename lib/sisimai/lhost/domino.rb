@@ -19,9 +19,6 @@ module Sisimai::Lhost
         'systemerror' => ['Several matches found in Domino Directory'],
       }.freeze
 
-      def description; return 'IBM Domino Server'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from IBM Domino Server
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -102,7 +99,6 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           e['recipient'] = Sisimai::Address.s3s4(e['recipient'])
 
@@ -113,7 +109,6 @@ module Sisimai::Lhost
             e['status'] = Sisimai::SMTP::Status.code(r.to_s, false) || ''
             break
           end
-          e.each_key { |a| e[a] ||= '' }
         end
 
         # Set the value of subjecttxt as a Subject if there is no original
@@ -122,7 +117,7 @@ module Sisimai::Lhost
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'IBM Domino Server'; end
     end
   end
 end

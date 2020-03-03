@@ -19,9 +19,6 @@ module Sisimai::Lhost
         }x,
       }.freeze
 
-      def description; return 'McAfee Email Appliance'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from McAfee Email Appliance
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -110,21 +107,18 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          e['agent']     = smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'] || diagnostic)
-
           ReFailures.each_key do |r|
             # Verify each regular expression of session errors
             next unless e['diagnosis'] =~ ReFailures[r]
             e['reason'] = r
             break
           end
-          e.each_key { |a| e[a] ||= '' }
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'McAfee Email Appliance'; end
     end
   end
 end

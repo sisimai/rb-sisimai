@@ -65,9 +65,6 @@ module Sisimai::Lhost
         'securityerror' => ['Could not retrieve credentials'],
       }.freeze
 
-      def description; return 'OpenSMTPD'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from OpenSMTPD
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -129,21 +126,17 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
             next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r
             break
           end
-          e.each_key { |a| e[a] ||= '' }
         end
-
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'OpenSMTPD'; end
     end
   end
 end

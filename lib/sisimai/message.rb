@@ -308,9 +308,10 @@ module Sisimai
         end
       end
       bodystring = bodystring.scrub('?').delete("\r")
+
       haveloaded = {}
       parseddata = nil
-
+      modulename = ''
       if hookmethod.is_a? Proc
         # Call the hook method
         begin
@@ -339,6 +340,7 @@ module Sisimai
             next if haveloaded[r]
             parseddata = Module.const_get(r).make(mailheader, bodystring)
             haveloaded[r] = true
+            modulename = r
             throw :PARSER if parseddata
           end
 
@@ -348,6 +350,7 @@ module Sisimai
             require LhostTable[r]
             parseddata = Module.const_get(r).make(mailheader, bodystring)
             haveloaded[r] = true
+            modulename = r
             throw :PARSER if parseddata
           end
 
@@ -356,7 +359,8 @@ module Sisimai
             # data, call Sisimai::RFC3464;
             require 'sisimai/rfc3464'
             parseddata = Sisimai::RFC3464.make(mailheader, bodystring)
-            break if parseddata
+            modulename = 'RFC3464'
+            throw :PARSER if parseddata
           end
 
           unless haveloaded['Sisimai::ARF']
@@ -370,14 +374,21 @@ module Sisimai
             # Try to parse the message as auto reply message defined in RFC3834
             require 'sisimai/rfc3834'
             parseddata = Sisimai::RFC3834.make(mailheader, bodystring)
-            break if parseddata
+            modulename = 'RFC3834'
+            throw :PARSER if parseddata
           end
 
           break # as of now, we have no sample email for coding this block
         end
       end
+      return nil unless parseddata
 
-      parseddata['catch'] = havecaught if parseddata
+      parseddata['catch'] = havecaught
+      modulename = modulename.sub(/\A.+::/, '')
+      parseddata['ds'].each do |e|
+        e['agent'] = modulename unless e['agent']
+        e.each_key { |a| e[a] ||= '' }
+      end
       return parseddata
     end
 

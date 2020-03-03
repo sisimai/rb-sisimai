@@ -98,9 +98,6 @@ module Sisimai::Lhost
         '18' => { 'command' => 'DATA', 'reason' => 'filtered' },
       }.freeze
 
-      def description; return 'Google Gmail: https://mail.google.com'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Google Gmail
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -218,7 +215,6 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
           unless e['rhost']
@@ -261,7 +257,7 @@ module Sisimai::Lhost
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Google Gmail: https://mail.google.com'; end
     end
   end
 end

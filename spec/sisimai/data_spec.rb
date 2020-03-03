@@ -89,7 +89,7 @@ describe Sisimai::Data do
         end
 
         example('#smtpagent is String') { expect(e.smtpagent).to be_a String }
-        example('#smtpagent is "Email::Sendmail"') { expect(e.smtpagent).to be == 'Email::Sendmail' }
+        example('#smtpagent is "Sendmail"') { expect(e.smtpagent).to be == 'Sendmail' }
 
         example('#smtpcommand is String') { expect(e.smtpcommand).to be_a String }
         example('#smtpcommand is "DATA"') { expect(e.smtpcommand).to be == 'DATA' }
@@ -213,7 +213,7 @@ describe Sisimai::Data do
         end
 
         example('#smtpagent is String') { expect(e.smtpagent).to be_a String }
-        example('#smtpagent is "Email::Sendmail"') { expect(e.smtpagent).to be == 'Email::Sendmail' }
+        example('#smtpagent is "Sendmail"') { expect(e.smtpagent).to be == 'Sendmail' }
 
         example('#smtpcommand is String') { expect(e.smtpcommand).to be_a String }
         example('#smtpcommand is "MAIL"') { expect(e.smtpcommand).to be == 'MAIL' }

@@ -38,9 +38,6 @@ module Sisimai
         [ ]*(.+)\z
       }xi.freeze
 
-      def description; 'Detector for auto replied message'; end
-      def smtpagent;   'RFC3834'; end
-
       # Detect auto reply message as RFC3834
       # @param         [Hash] mhead       Message header of a bounce email
       # @options mhead [String] from      From header
@@ -135,11 +132,8 @@ module Sisimai
         v['diagnosis'] ||= mhead['subject']
         v['diagnosis'] = Sisimai::String.sweep(v['diagnosis'])
         v['reason']    = 'vacation'
-        v['agent']     = self.smtpagent
         v['date']      = mhead['date']
         v['status']    = ''
-
-        v.each_key { |a| v[a] ||= '' }
 
         if cv = mhead['subject'].match(SubjectSet)
           # Get the Subject header from the original message
@@ -147,7 +141,7 @@ module Sisimai
         end
         return { 'ds' => dscontents, 'rfc822' => rfc822part }
       end
-
+      def description; 'Detector for auto replied message'; end
     end
   end
 end

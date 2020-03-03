@@ -142,7 +142,7 @@ module Sisimai
                         if enginename == 'X4' || enginename == 'Qmail' || enginename == 'MFILTER'
                           # X4 is qmail clone
                           it sprintf("%s [agent] matches 'qmail' or 'X4' or 'mFILTER'", lb) do
-                            expect(ds['agent'].downcase).to match /\Aemail::(?:qmail|x4|mfilter)\z/
+                            expect(ds['agent'].downcase).to match /\A(?:qmail|x4|mfilter)\z/
                           end
                         elsif enginename == 'RFC3464'
                           # RFC3464
@@ -160,8 +160,8 @@ module Sisimai
                           it(sprintf("%s [agent] matches %s", lb, '/.+/')) { expect(ds['agent']).to match /.+/ }
                         else
                           # Other MTA module
-                          it sprintf("%s [agent] is %s", lb, 'Email::' + enginename) do
-                            expect(ds['agent']).to be == 'Email::' + enginename
+                          it sprintf("%s [agent] is %s", lb, enginename) do
+                            expect(ds['agent']).to be == enginename
                           end
                         end
 

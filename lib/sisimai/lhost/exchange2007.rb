@@ -42,9 +42,6 @@ module Sisimai::Lhost
         'QUEUE.Expired'                  => 'expired',       # 550 4.4.7 QUEUE.Expired
       }.freeze
 
-      def description; return 'Microsoft Exchange Server 2007'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Microsoft Exchange Server 2007
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -148,12 +145,11 @@ module Sisimai::Lhost
             end
           end
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-          e['agent']     = self.smtpagent
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Microsoft Exchange Server 2007'; end
     end
   end
 end

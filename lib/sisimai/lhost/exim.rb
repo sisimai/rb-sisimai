@@ -119,9 +119,6 @@ module Sisimai::Lhost
         'was frozen on arrival by ',
       ].freeze
 
-      def description; return 'Exim'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Exim
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -340,7 +337,6 @@ module Sisimai::Lhost
 
         dscontents.each do |e|
           # Set default values if each value is empty.
-          e['agent']   = self.smtpagent
           e['lhost'] ||= localhost0
 
           unless e['diagnosis']
@@ -489,12 +485,11 @@ module Sisimai::Lhost
                  end
           end
           e['status'] ||= sv.to_s
-          e.each_key { |a| e[a] ||= '' }
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Exim'; end
     end
   end
 end

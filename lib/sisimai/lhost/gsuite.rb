@@ -19,9 +19,6 @@ module Sisimai::Lhost
         'networkerror' => [' had no relevant answers.', ' responded with code NXDOMAIN'],
       }.freeze
 
-      def description; return 'G Suite: https://gsuite.google.com'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from G Suite (Transfer from G Suite to a destinaion host)
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -188,8 +185,6 @@ module Sisimai::Lhost
           end
 
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-          e['agent']     = self.smtpagent
-
           MessagesOf.each_key do |r|
             # Guess an reason of the bounce
             next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
@@ -200,7 +195,7 @@ module Sisimai::Lhost
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'G Suite: https://gsuite.google.com'; end
     end
   end
 end

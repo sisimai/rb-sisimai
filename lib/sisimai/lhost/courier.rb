@@ -24,9 +24,6 @@ module Sisimai::Lhost
         'networkerror' => ['DNS lookup failed.'],
       }.freeze
 
-      def description; return 'Courier MTA'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Courier MTA
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -135,6 +132,7 @@ module Sisimai::Lhost
         dscontents.each do |e|
           # Set default values if each value is empty.
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
+          e['command'] ||= commandtxt || ''
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
 
           MessagesOf.each_key do |r|
@@ -143,15 +141,11 @@ module Sisimai::Lhost
             e['reason'] = r
             break
           end
-
-          e['agent']     = self.smtpagent
-          e['command'] ||= commandtxt || ''
-          e.each_key { |a| e[a] ||= '' }
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Courier MTA'; end
     end
   end
 end

@@ -10,9 +10,6 @@ module Sisimai::Lhost
       ReBackbone = %r|^Content-Type:[ ]message/rfc822|.freeze
       StartingOf = { message: ['This is the mail system at host yandex.ru.'] }.freeze
 
-      def description; return 'Yandex.Mail: https://www.yandex.ru'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Yandex.Mail
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -121,12 +118,11 @@ module Sisimai::Lhost
 
           e['command']   = commandset.shift || ''
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].tr("\n", ' '))
-          e['agent']     = self.smtpagent
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Yandex.Mail: https://www.yandex.ru'; end
     end
   end
 end

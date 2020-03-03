@@ -17,9 +17,6 @@ module Sisimai::Lhost
         'mailboxfull' => ["The number of messages in recipient's mailbox exceeded the local limit."],
       }.freeze
 
-      def description; return 'BIGLOBE: https://www.biglobe.ne.jp'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Biglobe
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -91,7 +88,6 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
           MessagesOf.each_key do |r|
@@ -104,7 +100,7 @@ module Sisimai::Lhost
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'BIGLOBE: https://www.biglobe.ne.jp'; end
     end
   end
 end

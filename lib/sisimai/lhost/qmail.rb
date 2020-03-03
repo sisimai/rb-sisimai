@@ -99,9 +99,6 @@ module Sisimai::Lhost
         ],
       }.freeze
 
-      def description; return 'qmail'; end
-      def smtpagent;   return 'Email::qmail'; end
-
       # Parse bounce messages from qmail
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -173,7 +170,7 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          e['agent']     = self.smtpagent
+          e['agent']     = 'qmail'
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
 
           unless e['command']
@@ -237,12 +234,11 @@ module Sisimai::Lhost
           end
 
           e['status'] = Sisimai::SMTP::Status.find(e['diagnosis']) || ''
-          e.each_key { |a| e[a] ||= '' }
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'qmail'; end
     end
   end
 end
