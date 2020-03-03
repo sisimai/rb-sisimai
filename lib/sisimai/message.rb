@@ -387,7 +387,7 @@ module Sisimai
       modulename = modulename.sub(/\A.+::/, '')
       parseddata['ds'].each do |e|
         e['agent'] = modulename unless e['agent']
-        e.each_key { |a| e[a] ||= '' }
+        e.each_key { |a| e[a] ||= '' }  # Replace nil with ""
       end
       return parseddata
     end
