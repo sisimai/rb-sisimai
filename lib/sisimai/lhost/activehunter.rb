@@ -11,9 +11,6 @@ module Sisimai::Lhost
       ReBackbone = %r|^Content-type:[ ]message/rfc822|.freeze
       StartingOf = { message: ['  ----- The following addresses had permanent fatal errors -----'] }.freeze
 
-      def description; return 'TransWARE Active!hunter'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from TransWARE Active!hunter
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -77,15 +74,10 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         require 'sisimai/string'
-        dscontents.each do |e|
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-          e['agent']     = self.smtpagent
-          e.each_key { |a| e[a] ||= '' }
-        end
-
+        dscontents.each { |e| e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) }
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'TransWARE Active!hunter'; end
     end
   end
 end

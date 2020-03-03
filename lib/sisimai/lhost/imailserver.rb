@@ -26,9 +26,6 @@ module Sisimai::Lhost
         'expired'     => %r/\ADelivery failed \d+ attempts/,
       }.freeze
 
-      def description; return 'IPSWITCH IMail Server'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from IMailServer
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -91,8 +88,6 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          e['agent'] = self.smtpagent
-
           unless e['alterrors'].to_s.empty?
             # Copy alternative error message
             e['diagnosis'] = if e['diagnosis']
@@ -118,12 +113,11 @@ module Sisimai::Lhost
             e['reason'] = r
             break
           end
-          e.each_key { |a| e[a] ||= '' }
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'IPSWITCH IMail Server'; end
     end
   end
 end

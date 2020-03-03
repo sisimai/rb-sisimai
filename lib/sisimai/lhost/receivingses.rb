@@ -19,9 +19,6 @@ module Sisimai::Lhost
         'contenterror' => ['Message content rejected'],
       }.freeze
 
-      def description; return 'Amazon SES(Receiving): https://aws.amazon.com/ses/'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Amazon SES/Receiving
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -129,14 +126,12 @@ module Sisimai::Lhost
             e['reason'] = r
             break
           end
-
           e['reason'] ||= Sisimai::SMTP::Status.name(e['status']) || ''
-          e['agent']    = self.smtpagent
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Amazon SES(Receiving): https://aws.amazon.com/ses/'; end
     end
   end
 end

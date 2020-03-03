@@ -16,9 +16,6 @@ module Sisimai::Lhost
         error:   ['Error message below:'],
       }.freeze
 
-      def description; return 'Java Apache Mail Enterprise Server'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Apache James
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -119,15 +116,10 @@ module Sisimai::Lhost
         # message in the bounce mail.
         emailsteak[1] << ('Subject: ' << subjecttxt << "\n") unless emailsteak[1] =~ /^Subject: /
 
-        dscontents.each do |e|
-          e['agent']     = self.smtpagent
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'] || diagnostic)
-          e.each_key { |a| e[a] ||= '' }
-        end
-
+        dscontents.each { |e| e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'] || diagnostic) }
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Java Apache Mail Enterprise Server'; end
     end
   end
 end

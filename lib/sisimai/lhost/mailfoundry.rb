@@ -13,9 +13,6 @@ module Sisimai::Lhost
         error:   ['Delivery failed for the following reason:'],
       }.freeze
 
-      def description; return 'MailFoundry'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from MailFoundry
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -83,15 +80,10 @@ module Sisimai::Lhost
         end
         return nil unless recipients > 0
 
-        dscontents.each do |e|
-          e['agent']     = self.smtpagent
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-          e.each_key { |a| e[a] ||= '' }
-        end
-
+        dscontents.each { |e| e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) }
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'MailFoundry'; end
     end
   end
 end

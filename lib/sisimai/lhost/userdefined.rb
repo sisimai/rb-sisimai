@@ -18,9 +18,6 @@ module Sisimai::Lhost
         error:   %r/\A[.]+ while talking to .+[:]\z/,
       }.freeze
 
-      def description; return 'Module description'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # @abstract Template for User-Defined MTA module
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -72,7 +69,6 @@ module Sisimai::Lhost
         dscontents[0]['status']    = '5.1.1'
         dscontents[0]['spec']      = 'SMTP'
         dscontents[0]['date']      = 'Thu 29 Apr 2010 23:34:45 +0900'
-        dscontents[0]['agent']     = self.smtpagent
         recipients = 1 if dscontents[0]['recipient']
 
         emailsteak[1] << 'From: shironeko@example.org' << "\n"
@@ -86,7 +82,7 @@ module Sisimai::Lhost
         # 4. Return the following variable.
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Module description'; end
     end
   end
 end

@@ -14,9 +14,6 @@ module Sisimai::Lhost
         'notaccept'   => ['type=MX: Malformed or unexpected name server reply'],
       }.freeze
 
-      def description; return 'Aol Mail: https://www.aol.com'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Aol Mail
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -113,8 +110,6 @@ module Sisimai::Lhost
           # Set default values if each value is empty.
           e['lhost'] ||= permessage['rhost']
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
-
-          e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].tr("\n", ' '))
 
           MessagesOf.each_key do |r|
@@ -132,6 +127,7 @@ module Sisimai::Lhost
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
+      def description; return 'Aol Mail: https://www.aol.com'; end
     end
   end
 end

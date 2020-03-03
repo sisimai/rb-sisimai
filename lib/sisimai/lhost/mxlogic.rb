@@ -69,9 +69,6 @@ module Sisimai::Lhost
         'was frozen on arrival by ',
       ].freeze
 
-      def description; return 'McAfee SaaS'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from MXLogic
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -158,7 +155,6 @@ module Sisimai::Lhost
         end
 
         dscontents.each do |e|
-          e['agent'] = self.smtpagent
           e['lhost'] = localhost0
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].gsub(/[-]{2}.*\z/, ''))
 
@@ -206,12 +202,11 @@ module Sisimai::Lhost
               end
             end
           end
-          e.each_key { |a| e[a] ||= '' }
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'McAfee SaaS'; end
     end
   end
 end

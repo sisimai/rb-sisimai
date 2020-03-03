@@ -92,9 +92,6 @@ module Sisimai
         ['"]?[<]?([^\s\n\r@=<>]+[@][-.0-9A-Za-z]+[.][0-9A-Za-z]+)[>]?['"]?
       }xi.freeze
 
-      def description; 'Fallback Module for MTAs'; end
-      def smtpagent;   'RFC3464'; end
-
       # Detect an error for RFC3464
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -402,7 +399,6 @@ module Sisimai
                 b = dscontents[-1]
               end
               b['recipient'] = y
-              b['agent'] = self.smtpagent + '::Fallback'
               recipients += 1
               itisbounce ||= true
 
@@ -425,7 +421,6 @@ module Sisimai
             dscontents << Sisimai::Lhost.DELIVERYSTATUS if dscontents.size == recipients
             b = dscontents[-1]
             b['recipient'] = r[0][:address]
-            b['agent'] = Sisimai::RFC3464.smtpagent + '::Fallback'
             recipients += 1
           end
         end
@@ -450,13 +445,10 @@ module Sisimai
 
           if mdabounced
             # Make bounce data by the values returned from Sisimai::MDA.make()
-            e['agent']     = mdabounced['mda'] || self.smtpagent
+            e['agent']     = mdabounced['mda'] || 'RFC3464'
             e['reason']    = mdabounced['reason'] || 'undefined'
             e['diagnosis'] = mdabounced['message'] unless mdabounced['message'].empty?
             e['command']   = ''
-          else
-            # Set the value of smtpagent
-            e['agent'] = self.smtpagent
           end
 
           e['status'] ||= Sisimai::SMTP::Status.find(e['diagnosis']) || ''
@@ -464,12 +456,11 @@ module Sisimai
             e['command'] = cv[1]
           end
           e['date'] ||= mhead['date']
-          e.each_key { |a| e[a] ||= '' }
         end
 
         return { 'ds' => dscontents, 'rfc822' => rfc822text }
       end
-
+      def description; 'Fallback Module for MTAs'; end
     end
   end
 end

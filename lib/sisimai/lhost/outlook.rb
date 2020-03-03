@@ -15,9 +15,6 @@ module Sisimai::Lhost
         'userunknown' => ['Requested action not taken: mailbox unavailable'],
       }.freeze
 
-      def description; return 'Microsoft Outlook.com: https://www.outlook.com/'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Microsoft Outlook.com
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -112,9 +109,7 @@ module Sisimai::Lhost
           e['lhost'] ||= permessage['rhost']
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
 
-          e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
-
           if e['diagnosis'].empty?
             # No message in 'diagnosis'
             if e['action'] == 'delayed'
@@ -137,7 +132,7 @@ module Sisimai::Lhost
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Microsoft Outlook.com: https://www.outlook.com/'; end
     end
   end
 end

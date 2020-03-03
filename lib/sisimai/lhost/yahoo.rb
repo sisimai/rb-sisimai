@@ -10,9 +10,6 @@ module Sisimai::Lhost
       ReBackbone = %r|^--- Below this line is a copy of the message[.]|.freeze
       StartingOf = { message: ['Sorry, we were unable to deliver your message'] }.freeze
 
-      def description; return 'Yahoo! MAIL: https://www.yahoo.com'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Yahoo! MAIL
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -98,13 +95,12 @@ module Sisimai::Lhost
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].gsub(/\\n/, ' '))
-          e['agent']     = self.smtpagent
           e['command'] ||= 'RCPT' if e['diagnosis'] =~ /[<].+[@].+[>]/
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Yahoo! MAIL: https://www.yahoo.com'; end
     end
   end
 end

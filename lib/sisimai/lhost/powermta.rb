@@ -21,9 +21,6 @@ module Sisimai::Lhost
         'spam-related'        => 'spamdetected',
       }.freeze
 
-      def description; return 'PowerMTA: https://www.sparkpost.com/powermta/'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from PowerMTA
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -118,12 +115,11 @@ module Sisimai::Lhost
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].to_s.tr("\n", ' '))
           e['reason']    = Categories[e['category']] || ''
-          e['agent']     = self.smtpagent
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'PowerMTA: https://www.sparkpost.com/powermta/'; end
     end
   end
 end

@@ -8,9 +8,6 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
       Indicators = Sisimai::Lhost.INDICATORS
 
-      def description; return 'Verizon Wireless: https://www.verizonwireless.com'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Verizon
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -155,9 +152,7 @@ module Sisimai::Lhost
         emailsteak[1] << ('Subject: ' << subjecttxt << "\n") unless emailsteak[1] =~ /^Subject: /
 
         dscontents.each do |e|
-          e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-
           messagesof.each_key do |r|
             # Verify each regular expression of session errors
             next unless messagesof[r].any? { |a| e['diagnosis'].include?(a) }
@@ -168,7 +163,7 @@ module Sisimai::Lhost
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Verizon Wireless: https://www.verizonwireless.com'; end
     end
   end
 end

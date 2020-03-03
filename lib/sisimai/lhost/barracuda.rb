@@ -10,9 +10,6 @@ module Sisimai::Lhost
       ReBackbone = %r|^Content-Type:[ ]text/rfc822-headers|.freeze
       StartingOf = { message: ['Your message to:'] }.freeze
 
-      def description; return 'Barracuda: https://www.barracuda.com'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Barracuda
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -90,14 +87,12 @@ module Sisimai::Lhost
         dscontents.each do |e|
           # Set default values if each value is empty.
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
-
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].to_s.tr("\n", ' '))
-          e['agent'] = self.smtpagent
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Barracuda: https://www.barracuda.com'; end
     end
   end
 end

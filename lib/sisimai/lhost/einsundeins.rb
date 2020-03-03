@@ -14,9 +14,6 @@ module Sisimai::Lhost
       }.freeze
       MessagesOf = { 'mesgtoobig' => ['Mail size limit exceeded'] }.freeze
 
-      def description; return '1&1: https://www.1und1.de'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from 1&1
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -90,7 +87,6 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          e['agent']       = self.smtpagent
           e['diagnosis'] ||= ''
           e['diagnosis']   = e['alterrors'] if e['diagnosis'].empty?
 
@@ -118,7 +114,7 @@ module Sisimai::Lhost
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return '1&1: https://www.1und1.de'; end
     end
   end
 end

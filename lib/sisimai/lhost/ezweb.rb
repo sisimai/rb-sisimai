@@ -38,9 +38,6 @@ module Sisimai::Lhost
         ],
       }.freeze
 
-      def description; return 'au EZweb: http://www.au.kddi.com/mobile/'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from au EZweb
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -149,8 +146,6 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          e['agent'] = self.smtpagent
-
           unless e['alterrors'].to_s.empty?
             # Copy alternative error message
             e['diagnosis'] ||= e['alterrors']
@@ -194,7 +189,7 @@ module Sisimai::Lhost
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'au EZweb: http://www.au.kddi.com/mobile/'; end
     end
   end
 end

@@ -69,9 +69,6 @@ module Sisimai::Lhost
         ],
       }.freeze
 
-      def description; return 'Facebook: https://www.facebook.com'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Facebook
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -158,7 +155,6 @@ module Sisimai::Lhost
 
         dscontents.each do |e|
           e['lhost']   ||= permessage['lhost']
-          e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
           if cv = e['diagnosis'].match(/\b([A-Z]{3})[-]([A-Z])(\d)\b/)
@@ -200,7 +196,7 @@ module Sisimai::Lhost
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Facebook: https://www.facebook.com'; end
     end
   end
 end

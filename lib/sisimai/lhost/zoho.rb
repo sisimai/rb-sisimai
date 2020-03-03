@@ -11,9 +11,6 @@ module Sisimai::Lhost
       StartingOf = { message: ['This message was created automatically by mail delivery'] }.freeze
       MessagesOf = { 'expired' => ['Host not reachable'] }.freeze
 
-      def description; return 'Zoho Mail: https://www.zoho.com'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Zoho Mail
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -100,9 +97,7 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].tr("\n", ' '))
-
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
             next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
@@ -113,7 +108,7 @@ module Sisimai::Lhost
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Zoho Mail: https://www.zoho.com'; end
     end
   end
 end

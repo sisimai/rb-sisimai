@@ -21,9 +21,6 @@ module Sisimai::Lhost
         'hostunknown' => ['As the remote domain doesnt exist'],
       }.freeze
 
-      def description; return 'au by KDDI: https://www.au.kddi.com'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from au by KDDI
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -89,7 +86,6 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          e['agent']     = self.smtpagent
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
           if mhead['x-spasign'].to_s == 'NG'
@@ -116,7 +112,7 @@ module Sisimai::Lhost
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'au by KDDI: https://www.au.kddi.com'; end
     end
   end
 end

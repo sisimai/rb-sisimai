@@ -11,9 +11,6 @@ module Sisimai::Lhost
       ReBackbone = %r|^content-type:[ ]message/rfc822|.freeze
       StartingOf = { message: ['Technical report:'] }.freeze
 
-      def description; return 'Amazon WorkMail: https://aws.amazon.com/workmail/'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Amazon WorkMail
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -128,14 +125,12 @@ module Sisimai::Lhost
             # <421 4.4.2 Connection timed out>
             e['replycode'] = cv[1]
           end
-
           e['reason'] ||= Sisimai::SMTP::Status.name(e['status']) || ''
-          e['agent']    = self.smtpagent
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Amazon WorkMail: https://aws.amazon.com/workmail/'; end
     end
   end
 end

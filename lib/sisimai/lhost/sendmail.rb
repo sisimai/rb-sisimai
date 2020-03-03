@@ -21,9 +21,6 @@ module Sisimai::Lhost
         error:   ['... while talking to '],
       }.freeze
 
-      def description; return 'V8Sendmail: /usr/sbin/sendmail'; end
-      def smtpagent;   return Sisimai::Lhost.smtpagent(self); end
-
       # Parse bounce messages from Sendmail
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -173,7 +170,6 @@ module Sisimai::Lhost
           e['lhost'] ||= permessage['rhost']
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
 
-          e['agent']     = self.smtpagent
           e['command'] ||= commandtxt
           if e['command'].empty?
             e['command'] = 'EHLO' unless esmtpreply.empty?
@@ -207,12 +203,11 @@ module Sisimai::Lhost
               e['recipient'] = cv[1]
             end
           end
-          e.each_key { |a| e[a] ||= '' }
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'V8Sendmail: /usr/sbin/sendmail'; end
     end
   end
 end
