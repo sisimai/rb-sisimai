@@ -38,11 +38,6 @@ module Sisimai
         }
       end
 
-      def smtpagent(v = '')
-        return v.to_s.sub(/\ASisimai::Lhost::/, 'Email::')
-      end
-      def description; return ''; end
-
       # @abstract MTA list
       # @return   [Array] MTA list with order
       def index
@@ -82,6 +77,7 @@ module Sisimai
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make; return nil; end
+      def description; return ''; end
     end
   end
 end
