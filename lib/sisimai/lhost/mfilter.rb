@@ -15,9 +15,6 @@ module Sisimai::Lhost
       }.freeze
       MarkingsOf = { message: %r/\A[^ ]+[@][^ ]+[.][a-zA-Z]+\z/ }.freeze
 
-      def description; return 'Digital Arts m-FILTER'; end
-      def smtpagent;   return 'Email::mFILTER'; end
-
       # Parse bounce messages from Digital Arts m-FILTER
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
@@ -105,9 +102,8 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          e.each_key { |a| e[a] ||= '' }
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-          e['agent']     = self.smtpagent
+          e['agent'] = 'mFILTER'
 
           # Get localhost and remote host name from Received header.
           next if mhead['received'].empty?
@@ -121,10 +117,9 @@ module Sisimai::Lhost
             e['rhost'] = ee
           end
         end
-
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-
+      def description; return 'Digital Arts m-FILTER'; end
     end
   end
 end
