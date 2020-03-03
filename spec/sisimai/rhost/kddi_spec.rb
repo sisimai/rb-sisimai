@@ -38,7 +38,7 @@ describe Sisimai::Rhost::KDDI do
           example('action is not empty') { expect(e['action']).not_to be_empty }
           example('rhost is ' + e['rhost']) { expect(e['rhost']).to match(mtahost) }
           example('alias exists') { expect(e.key?('alias')).to be true }
-          example('agent matches Email::*') { expect(e['agent']).to match(/\AEmail::Sendmail/) }
+          example('agent is ' + e['agent']) { expect(e['agent']).to match(/Sendmail/) }
         end
 
         data = Sisimai::Data.make(data: mesg)

@@ -62,7 +62,7 @@ describe Sisimai::Message do
       example('rhost is a hostname') { expect(e['rhost']).to match(/\A.+[.].+\z/) }
       example('lhost is String') { expect(e['lhost']).to be_a String }
       example('lhost is a hostname') { expect(e['lhost']).to match(/\A.+[.].+\z/) }
-      example('agent is Sendmail') { expect(e['agent']).to be == 'Email::Sendmail' }
+      example('agent is Sendmail') { expect(e['agent']).to be == 'Sendmail' }
     end
   end
 
