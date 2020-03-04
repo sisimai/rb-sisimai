@@ -1,0 +1,273 @@
+From () 2020-03-03 07:50:45 +0000
+Delivered-To: azumakuniyuki@google.example.com
+Received: by 2002:ac9:2964:0:0:0:0:0 with SMTP id m91csp4255192ocm;
+        Mon, 2 Mar 2020 23:50:45 -0800 (PST)
+X-Received: by 2002:a63:36cd:: with SMTP id d196mr2966174pga.280.1583221845340;
+        Mon, 02 Mar 2020 23:50:45 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1583221845; cv=none;
+        d=google.com; s=arc-20160816;
+        b=U32MVdMt6mBfJKsL315CiZERa0lvY1oqvwvq/nZoOmn8an1alCiyGmZCiNcHLZcS5E
+         n96OLuHS3y/102kb0ymj66qUTaqPuYwgvtNz1/z4xS3SBHLXWaa7ggtej3vYpYeDTKr3
+         ZSZSf/qJ3QaIpxG4yFqodnscjfF1emavuL6uZF932yJzd0XynwcmOtE1mww2zAb6C/Ql
+         T33++GUBfaWwCSAUcbEzkSWXFGY2eTndRpSE/NriSj6Gq7nQdSVWlNq6q/RFn87WaXpf
+         BcRgpk9gVAwVs/wCc9CK3ANAfneOv6PLOMCMNq4t8CfZwjBmJ+iBDUa4h4m/EPj0ze6q
+         gCEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=in-reply-to:references:subject:from:date:message-id:auto-submitted
+         :to:dkim-signature;
+        bh=T9F78wsbAC/rBcwozFVobBKaB/Zjob6XAqe/J5q91iw=;
+        b=nDTISpFECismSAl+7C9OI8hKfCuXB9ucjdwbtkAM8pk8hZqDsf3W0bjBIIPu4BNnIi
+         YF3vL3vWGLI5HL6gXlLo4Zp58xiL7FRRfqiW1jInLr69oFQu735yHK7QbGj0xrT0PN8n
+         lo+1P6Z8Asp5so/WQLGlniO/M/MQsngowmZaTVZVDFcD9xospsq9rP1K+w0yZH32sz78
+         eb7YnK/mUxrEOnVeLThp/rzVPj1gu+c0U/4nfVHzRfQHULhANYsGgBZx++wMxbEz8n9M
+         3GHnYvhs1tPqv7428KMuboWnh5AjpER4HTfKHt7P8EpOYtcMEP2yZygOiQlGJtOHXUvr
+         fP2w==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@googlemail.com header.s=20161025 header.b=d4o1loS4;
+       spf=pass (google.com: best guess record for domain of postmaster@mail-sor-f69.google.com designates 209.85.220.69 as permitted sender) smtp.helo=mail-sor-f69.google.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=googlemail.com
+Return-Path: <>
+Received: from mail-sor-f69.google.com (mail-sor-f69.google.com. [209.85.220.69])
+        by mx.google.com with SMTPS id f11sor16501338pgh.48.2020.03.02.23.50.45
+        for <azumakuniyuki@google.example.com>
+        (Google Transport Security);
+        Mon, 02 Mar 2020 23:50:45 -0800 (PST)
+Received-SPF: pass (google.com: best guess record for domain of postmaster@mail-sor-f69.google.com designates 209.85.220.69 as permitted sender) client-ip=209.85.220.69;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@googlemail.com header.s=20161025 header.b=d4o1loS4;
+       spf=pass (google.com: best guess record for domain of postmaster@mail-sor-f69.google.com designates 209.85.220.69 as permitted sender) smtp.helo=mail-sor-f69.google.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=googlemail.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20161025;
+        h=to:auto-submitted:message-id:date:from:subject:references
+         :in-reply-to;
+        bh=T9F78wsbAC/rBcwozFVobBKaB/Zjob6XAqe/J5q91iw=;
+        b=d4o1loS4Uy6FdvVvF+UlhRvxtPyBqTChMNiB5BeCYoMJVkI4wFJBw9z8r7W0dX9zPl
+         a6kNSzib9/27zSYyi0qs7P7h339uI/er9D8V/qYtP2EXDopcNevur8MYMnMlw9Ats58h
+         6DLY2r+2+MdjbNkG5TI2+Lv7ltv9MnkrZES/9lwn68XjuCPYWVE3N4RZ97Yh1hZcb8c9
+         J7zf1OU+AN360a7EQFtxrF+nPKm72a35OcFexv8le+98Njufofj3JBR5mqoM16Vf85CN
+         C3gKB+SnAPpRRDEc9azfga4AI5TjFGwEmsp0sMg065I5zWb3lZtoh3lp1GYKUII0N+Ar
+         uvrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:to:auto-submitted:message-id:date:from:subject
+         :references:in-reply-to;
+        bh=T9F78wsbAC/rBcwozFVobBKaB/Zjob6XAqe/J5q91iw=;
+        b=Et6ugr2WUmZC1JToimya8VAtCHAh4sF+4CrumdVuPFhn7ZXLgDz5G+mFnyZnHZSbk2
+         F7f1XJ/cvjn37bEHYJhNODm3N2V/2qRqqvM8at5h/i9wrrtivh8VC2JEqTZt46nArxuq
+         atOZBcTg2GtEbfYfQoz12pMn2vitkBqJWR+qtRvhecH8jd8vzzHbdB0xiWtUuqiSCX+7
+         HmKAOB2mczJU5tmfHA1NsnCWgUA65UNbnQs9FBaFnYga/VyZKETUBWSWcaYObk4cHmze
+         LDwZkeSVe7awNv61jJ7V9PXCnSC1gNAoJQ7jooRP00Kx+9ekKfjxhPi8Sbn9lcMkJiPH
+         ufew==
+X-Gm-Message-State: ANhLgQ2P+h5mk75iKs5YL6l2zmo9BII4Gv/BlwpnzI76Jq62wOacRXgy
+	4dpnmTOSZ+11I8GVjXihG8i3vkBhhA3S5xBbMSBvSg==
+X-Google-Smtp-Source: ADFU+vsKcoiYCwxNuV/d9lEBayWvYM2JDbdg2XwmMI139jZdhr0SSFx63ntN+ovesP3Hfe0j3pDVQhGbSc+b44ufcJ3xswNht08TASM=
+X-Received: by 2002:a63:1744:: with SMTP id 4mr3073098pgx.238.1583221845080;
+        Mon, 02 Mar 2020 23:50:45 -0800 (PST)
+Content-Type: multipart/report; boundary="000000000000ad2c6c059fee8fad"; report-type=delivery-status
+To: azumakuniyuki@google.example.com
+Received: by 2002:a63:1744:: with SMTP id 4mr2896988pgx.238; Mon, 02 Mar 2020
+ 23:50:45 -0800 (PST)
+Return-Path: <>
+Auto-Submitted: auto-replied
+Message-ID: <5e5e0c55.1c69fb81.a8edb.8c4e.GMR@mx.google.com>
+Date: Mon, 02 Mar 2020 23:50:45 -0800 (PST)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+Subject: Delivery Status Notification (Failure)
+References: <144493c0-8548-4b2b-987f-ae719df82545@Spark>
+In-Reply-To: <144493c0-8548-4b2b-987f-ae719df82545@Spark>
+X-Failed-Recipients: libsisimai-2@googlegroups.com
+
+--000000000000ad2c6c059fee8fad
+Content-Type: multipart/related; boundary="000000000000ad35a1059fee8fb3"
+
+--000000000000ad35a1059fee8fb3
+Content-Type: multipart/alternative; boundary="000000000000ad35ae059fee8fb4"
+
+--000000000000ad35ae059fee8fb4
+Content-Type: text/plain; charset="UTF-8"
+
+
+** Address not found **
+
+Your message wasn't delivered to libsisimai-2@googlegroups.com because the address couldn't be found, or is unable to receive mail.
+
+Learn more here: https://support.google.com/mail/?p=NoSuchUser
+
+The response from the remote server was:
+550 5.1.1 The email account that you tried to reach does not exist. Please try double-checking the recipient's email address for typos or unnecessary spaces. Learn more at https://support.google.com/mail/?p=NoSuchUser y3si675602plr.1 - gsmtp
+
+--000000000000ad35ae059fee8fb4
+Content-Type: text/html; charset="UTF-8"
+
+
+<html>
+<head>
+<style>
+* {
+font-family:Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+</style>
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" class="email-wrapper" style="padding-top:32px;background-color:#ffffff;"><tbody>
+<tr><td>
+<table cellpadding=0 cellspacing=0><tbody>
+<tr><td style="max-width:560px;padding:24px 24px 32px;background-color:#fafafa;border:1px solid #e0e0e0;border-radius:2px">
+<img style="padding:0 24px 16px 0;float:left" width=72 height=72 alt="Error Icon" src="cid:icon.png">
+<table style="min-width:272px;padding-top:8px"><tbody>
+<tr><td><h2 style="font-size:20px;color:#212121;font-weight:bold;margin:0">
+Address not found
+</h2></td></tr>
+<tr><td style="padding-top:20px;color:#757575;font-size:16px;font-weight:normal;text-align:left">
+Your message wasn't delivered to <a style='color:#212121;text-decoration:none'><b>libsisimai-2@googlegroups.com</b></a> because the address couldn't be found, or is unable to receive mail.
+</td></tr>
+<tr><td style="padding-top:24px;color:#4285F4;font-size:14px;font-weight:bold;text-align:left">
+<a style="text-decoration:none" href="https://support.google.com/mail/?p=NoSuchUser">LEARN MORE</a>
+</td></tr>
+</tbody></table>
+</td></tr>
+</tbody></table>
+</td></tr>
+<tr style="border:none;background-color:#fff;font-size:12.8px;width:90%">
+<td align="left" style="padding:48px 10px">
+The response from the remote server was:<br/>
+<p style="font-family:monospace">
+550 5.1.1 The email account that you tried to reach does not exist. Please try double-checking the recipient&#39;s email address for typos or unnecessary spaces. Learn more at https://support.google.com/mail/?p=NoSuchUser y3si675602plr.1 - gsmtp
+</p>
+</td>
+</tr>
+</tbody></table>
+</body>
+</html>
+
+--000000000000ad35ae059fee8fb4--
+--000000000000ad35a1059fee8fb3
+Content-Type: image/png; name="icon.png"
+Content-Disposition: attachment; filename="icon.png"
+Content-Transfer-Encoding: base64
+Content-ID: <icon.png>
+
+iVBORw0KGgoAAAANSUhEUgAAAJAAAACQCAYAAADnRuK4AAAACXBIWXMAABYlAAAWJQFJUiTwAAAA
+GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABTdJREFUeNrsnD9sFEcUh5+PRMqZ
+yA0SPhAUQAQFUkyTgiBASARo6QApqVIkfdxGFJFSgGhJAUIiBaQB0ZIOKVCkwUgURjIg2fxL4kS+
+YDvkbC/388bi8N16Z4/d7J/5PsniuD3fyePP772ZeTsDQRAYQL/UGAJAIEAgQCBAIAAEAgQCBAIE
+AkAgyJT3Mv+Eq7vYK8mTE+MDRCAghQECAeRQA5V2ZOpmg5vDx3NPzRbmGRMEcmTrEbNNB8zWfRD+
+f/Efs2e3zCZvMjaksBg27TfbcuSNPEKP9ZyuAQKtHX2O9ncNgWC57umMPKvRNb0GEKgnLoUyxTQC
+rcns0/6uIRAs8/hGf9cQCJZpTpjdO2f25/03z+mxntM1eLtsZAgiUtX4JcaBCAQIBAgECARQ8CJa
+G5jab4J4pm4WZmO3OALVh802fIwcLkyPkcKAGggAgQCBAIEAgQCBABAIEAjKA/1AnahhbO5FdOOY
+VsrrDbPBYcYKgf5D2wLaV3p+22xh1u17tO3S+DTcvxvagUDeivPgx/a/95J/73w7Sj26Hn4pKo2M
+ehuV/KyBJM6d0f7k6RKx/R63vvL2tmf/ItDdM2ZTP6f7nkp9Y2fDx1v9akmpIU+KSCLVUghUQfSL
+zVKeTklbLxGoctw/nzC5rw8L5KRNbkpnKq6pgSqEClzNnFzY+XnYWrt6VpVk1vbwWvg+RKCKMOUw
+Q1LEOXA+/MX3mpJvGDHb265xtnzmFoUK1HaKQGlMtePYM+q2KKjXuaS1NJYIEKgI8jhEgqHt4cqy
+Ky53j3hyHz2bqSLp2o2LbJ7MxKovkGqXteoWpaOk96O9/yF/dF7NwlS36AuIQIBA5celQK4PIxBE
+4LLzrtoLgaALdSy6CJRkWQCBPGLsTHznomZ9nszUECgJ2ml3WWHe+QVFNPSQx6UdZNtxr9pbEShN
+eTTz8mQXHoHSlke7+Z+c9m6VGoHSkEfs/trLW3wQKApN1V3lGfnGu2Z6BFoLtYCs3GWBPAiUCLVh
+/HoaeRCoT9R873KLM/IgUBfapnCpe5AHgXry4pf412ihEHkQqCdxd5VqrcezhUIESsJMTJ+Pdthp
+Z0WgyNlXXPHc2Mc4IVAELl2Gnh8mhUDvCkfbIVAkcbf/aOoO3fMKhqAD3frTa4quwpn0hUDOkQhI
+YYBAgECAQAAU0QlYObl+5Ug8NcprZkZxjUCxRPVA6zmtEXHCBykskrhjgHXN09PoEcgFl4M4H11j
+nBAoApcj6ZoPGScEAgTKApcDoTw5sgWB+sGlz1n90IBAPdE6j1o21PfcC11jLagL1oFWRyGlKU3p
+OxcSJQ7NZAjkhHp/uG2HFAYIBAgECASAQIBAgECAQAAIBOkxEARBtp9wdVfAMOfIifEBIhCQwgCB
+ABAI0oV2jhxZ+nfBatuPZfgBCy0Eqqo8c01b+uu51XZvzOgDWoHNTGR+pCwpLEd5svuAZXlO2uEr
+PyEQ8hRWHgRCHmqg0sjTnLalv6crJQ8C/U8stqNO0I4+VZOHFIY8COS1PGL2ybd5yUMKK7s8zYmL
+dujyd3n+nESgcsvzZd4/KwIhDwIhT35QA6UyE1qyxZnfvJMHgdKS549JC1qvvJOHFIY8CFR5eV5O
+XimqPAhUdHnmfx+zgxdOFXkoqIGKKs/cswnb/8Oeog8HEai48nxUhiFBIORBIOShBioskkbySCLk
+IQIhDwIhj28p7FApR6b1qlEbHGpkO/rr6215vi/zH1r2x7tApSGFAQIBAgECAQIBIBAgECAQIBBA
+LK8FGADCTxYrr+EVJgAAAABJRU5ErkJggg==
+--000000000000ad35a1059fee8fb3--
+--000000000000ad2c6c059fee8fad
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; googlemail.com
+Received-From-MTA: dns; azumakuniyuki@google.example.com
+Arrival-Date: Mon, 02 Mar 2020 23:50:44 -0800 (PST)
+X-Original-Message-ID: <144493c0-8548-4b2b-987f-ae719df82545@Spark>
+
+Final-Recipient: rfc822; libsisimai-2@googlegroups.com
+Action: failed
+Status: 5.1.1
+Remote-MTA: dns; gmr-smtp-in.l.google.com. (2607:f8b0:400e:c03::e, the server
+ for the domain googlegroups.com.)
+Diagnostic-Code: smtp; 550-5.1.1 The email account that you tried to reach does not exist. Please try
+ 550-5.1.1 double-checking the recipient's email address for typos or
+ 550-5.1.1 unnecessary spaces. Learn more at
+ 550 5.1.1  https://support.google.com/mail/?p=NoSuchUser y3si675602plr.1 - gsmtp
+Last-Attempt-Date: Mon, 02 Mar 2020 23:50:45 -0800 (PST)
+
+--000000000000ad2c6c059fee8fad
+Content-Type: message/rfc822
+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:message-id:subject:mime-version;
+        bh=lo8yhCtBR5Fs3g8JswicJlq1ENqTyEl03t2zLA0unIU=;
+        b=m50ZXtcKsOHv/g5Oc5VH0PyPR5vaQo+sWg1PEt6VSch3QXIWCMFhkLkAdxRjPDEYc2
+         XB3t3g/mNhphx2X198HrmuNaJF06adAsQWddrwNVnQ3GSWOVOYTbTTRsjHKSkMetgqo3
+         ZJVROhog4PSWLR29rTsChTqrJrDsFAF946oImmHHZKlIcG7RPrU19LpAACF6Aec22lTx
+         ccnjhOWG7ILdoQ4FjXZ5RgrPP166c+CpYMvdMoEELcyVwIed8J0wBCN/gqoqfUuvBr1u
+         RfUIEPY34h13vSh/S9mP9qQbIVxFRJUKwsb47dRyX1Rq3iED+RkDUlZMejJ1imEg1TFV
+         dlMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:message-id:subject:mime-version;
+        bh=lo8yhCtBR5Fs3g8JswicJlq1ENqTyEl03t2zLA0unIU=;
+        b=Kct0Jdx2EFwBIItwMyUke/FA1D6bRKPOaD9w25hDM9OULLZ7IlvnsV/PUMYwoguAvD
+         3CG3EN8AkF6IPNtoGm685p3AWMccKEEQD3GsUHG89todZ35lxYr142/EqCnTX+/VAKLL
+         GRTGG4Eyp6xX548SsmgoDKhkDjo7kXdumpKRTLT/vtfuJlWRWySf0TonEFPPKsIB4uF0
+         xL4pWnxSsdf4ap8teV1+YHpVkoUwa5zO6yWTBIv6EK76/zmEzxyMWDo8GcEHVw+kRtb5
+         BOMK4lXJYiBwiaoMP852Yig4334gb58JQIATXGT/ZDB4l5KeENfkj2ouzAJowwilsunb
+         lrkA==
+X-Gm-Message-State: ANhLgQ1bQuyq8fy1hAQFdyjkHxfSDrNa4nOQ9gkno2SzO7W7KHylTGfM
+	hGU3XV9TiC8hZbChctEjs3E33mB7Ciw=
+X-Google-Smtp-Source: ADFU+vttZi8OawBYwOB1Wb3NFN+NAhTFQHqadTnI7g+MgeSuxlocU3lUCHGw1dmg+zyPt1hP+NFyyg==
+X-Received: by 2002:a63:1744:: with SMTP id 4mr3073059pgx.238.1583221844376;
+        Mon, 02 Mar 2020 23:50:44 -0800 (PST)
+Return-Path: <azumakuniyuki@google.example.com>
+Received: from [203.0.113.25] (p22-kyoto.kyoto.ocn.ne.jp. [192.0.2.225])
+        by smtp.gmail.com with ESMTPSA id y23sm23699905pfn.101.2020.03.02.23.50.43
+        for <libsisimai-2@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 02 Mar 2020 23:50:44 -0800 (PST)
+Date: Tue, 3 Mar 2020 16:50:36 +0900
+From: azuma kuniyuki <azumakuniyuki@google.example.com>
+To: libsisimai-2@googlegroups.com
+Message-ID: <144493c0-8548-4b2b-987f-ae719df82545@Spark>
+Subject: URL
+X-Readdle-Message-ID: 144493c0-8548-4b2b-987f-ae719df82545@Spark
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="5e5e0c51_5ff87e05_262"
+
+--5e5e0c51_5ff87e05_262
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+
+Https://libsisimai.org/
+
+
+--5e5e0c51_5ff87e05_262
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+
+<html xmlns=3D=22http://www.w3.org/1999/xhtml=22>
+<head>
+<title></title>
+</head>
+<body>
+<div name=3D=22messageBodySection=22>
+<div dir=3D=22auto=22>Https://libsisimai.org/
+<div dir=3D=22auto=22><br /></div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--5e5e0c51_5ff87e05_262--
+
+
+--000000000000ad2c6c059fee8fad--
+
+
