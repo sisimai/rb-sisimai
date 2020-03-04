@@ -36,7 +36,7 @@ describe Sisimai::Message do
     hook: callbackto, 
     order:
       %w[Sisimai::Lhost::Sendmail Sisimai::Lhost::Postfix Sisimai::Lhost::Qmail
-         Sisimai::Lhost::Exchange2003 Sisimai::Lhost::Google Sisimai::Lhost::Verizon
+         Sisimai::Lhost::Exchange2003 Sisimai::Lhost::Gmail Sisimai::Lhost::Verizon
     ]
   )
 

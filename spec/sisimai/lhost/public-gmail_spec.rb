@@ -1,6 +1,6 @@
 require 'spec_helper'
 require './spec/sisimai/lhost/code'
-enginename = 'Google'
+enginename = 'Gmail'
 isexpected = [
   { 'n' => '01', 's' => /\A5[.]1[.]1\z/,   'r' => /userunknown/,   'b' => /\A0\z/ },
   { 'n' => '03', 's' => /\A5[.]7[.]0\z/,   'r' => /filtered/,      'b' => /\A1\z/ },
