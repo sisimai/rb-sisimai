@@ -55,7 +55,7 @@ module Sisimai
         'Sisimai::Lhost::ReceivingSES',
         'Sisimai::Lhost::Amavis',
         'Sisimai::Lhost::PowerMTA',
-        'Sisimai::Lhost::Google',
+        'Sisimai::Lhost::Gmail',
         'Sisimai::Lhost::EZweb',
         'Sisimai::Lhost::IMailServer',
         'Sisimai::Lhost::MailMarshalSMTP',
@@ -82,7 +82,7 @@ module Sisimai
         'delivery-report'  => ['Sisimai::Lhost::PowerMTA'],
         'delivery-status'  => [
           'Sisimai::Lhost::GSuite',
-          'Sisimai::Lhost::Google',
+          'Sisimai::Lhost::Gmail',
           'Sisimai::Lhost::Outlook',
           'Sisimai::Lhost::McAfee',
           'Sisimai::Lhost::OpenSMTPD',
