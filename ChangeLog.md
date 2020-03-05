@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.5p6
+v4.25.5p7
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -31,10 +31,12 @@ v4.25.5p6
   - Remove the following unused methods:
     - `Sisimai::MIME.patterns`
     - `Sisimai::SMTP.command`
-  - Implement 3 MTA modules: #178
+  - `Sisimai::Lhost::Google` has been renamed to `Sisimai::Lhost::Gmail`
+  - Implement 3 MTA modules: #178 #181
     - `Sisimai::Lhost::Barracuda`
     - `Sisimai::Lhost::PowerMTA`
     - `Sisimai::Lhost::X6`
+    - `Sisimai::Lhost::GoogleGroups`
   - "email-" prefix of each sample email in set-of-emails/maildir directory has
     been replaced with "lhost-" sisimai/set-of-emails#14
   - SMTP Agent improvement #158
