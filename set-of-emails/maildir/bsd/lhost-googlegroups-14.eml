@@ -1,0 +1,127 @@
+Return-Path: <>
+X-Original-To: ak@libsisimai.com
+Delivered-To: ak@libsisimai.com
+Received: from mbox.example.jp (localhost [127.0.0.1])
+	by mbox.example.jp (Postfix) with ESMTP id 48WqLr3qCcz27rf0
+	for <ak@libsisimai.com>; Tue,  29 Apr 2019 23:34:45 +0900 (JST)
+Received: from mail-pf1-f208.google.com (mail-pf1-f208.google.com [209.85.210.208])
+	by mbox.example.jp (Postfix) with ESMTPS id 48WqLr1zmlz27rdy
+	for <ak@libsisimai.com>; Tue,  29 Apr 2019 23:34:45 +0900 (JST)
+Received: by mail-pf1-f208.google.com with SMTP id i127so1423068pfb.9
+        for <ak@libsisimai.com>; Tue, 029 Apr 2019 23:34:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20161025;
+        h=mime-version:to:auto-submitted:message-id:date:from:subject
+         :references:in-reply-to;
+        bh=dVk6yjmdCBc6tAVF6k6uWdCNF1/IyQXtygx7EiCvSEo=;
+        b=RA9EcilTUsySrU3CAE4DnA2/CzHcLQWX1Xl0McoUVH0XluJyfipUEsV5S+NOXxyipY
+         mDcBFNdUZ+EeJR+aNbSC1fu9IjXcYG+Rs0PZoI+J6vCk2iI++9+Pb10fEzhd0RUKe1sS
+         yt3hYYjDBEMkJ69bV5/1QQu8JivlHsv/JVrrDbuK4Snjh//KMBfXW2bntUfGT1UA43Hz
+         aBS1ABdt71GkRYUPO0h+RmbqIQg3LnWZRaZjBeLUyzXxHElYw27eHnrfxEMD2+SX7sGD
+         9xFQEzLUoxgcxCC2Jy2ICwbCF795ef4XEi/X5pCWpRGjleGPRYUoaaMVEbvJRDvWcksr
+         KK9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:to:auto-submitted:message-id:date
+         :from:subject:references:in-reply-to;
+        bh=dVk6yjmdCBc6tAVF6k6uWdCNF1/IyQXtygx7EiCvSEo=;
+        b=NRA4q1HJT4lZAtOLYQjt+ILM9Q89oFc/ZCc38Oxgenn5b+WYLaSqZrmFMQtyFYdn43
+         m/CGrj4pYaYDn2HiQ4XFP5w1KhFO/pdRy2lLANBTb0Tbc1PnuKwFuzhnOEOQbI4mwGep
+         0Mf4mqGvmeA+q/9SADxn8UZ5eSIYxfyoZps7WfgNcAecdp02wLZaF1lXnQdiKO4DZE+d
+         iqAt4oQdAG4n81nf8V+nyzc8pLJpDxlfQ6TD3HBAbvWi5sDe5OZ3YiX39a72jFeV8oAP
+         dK0nPvvwnkZzUFHU5RPFvBnv8a5YvFoea7eT57FjWmvKikfeR7UcpboH/jXI6Fcj2R9k
+         rD2Q==
+X-Gm-Message-State: ANhLgQ3uX+Qo8Y12/eZ/9Tcsn62EQVbe7gz/lOLbwU3TGoOVgOHMv8MX
+	TsKjq142BdCnHjiiMa4e+KgsE0nv3spJQGBVqjVLSw==
+X-Google-Smtp-Source: ADFU+vtNaFYq6x2oyZ/x0hIfMGXX/qcBILdaZHVTh31VpfHJP8nURnlPzJybNQ657UQ5KTou25lMbCMaACkj/ptIX1sa4TgPOSRl6h4=
+X-Received: by 2002:a17:902:aa49:: with SMTP id c9mr3202884plr.145.1583222723086;
+        Tue, 029 Apr 2019 23:34:45 -0800 (PST)
+MIME-Version: 1.0
+To: ak@libsisimai.com
+Received: by 2002:a17:902:aa49:: with SMTP id c9mr3004666plr.145; Tue, 029 Apr
+ 2019 23:34:45 -0800 (PST)
+Auto-Submitted: auto-replied
+Message-ID: <5e5e0fc3.1c69fb81.d9629.a42a.GMR@mx.google.com>
+Date: Tue, 029 Apr 2019 23:34:45 -0800 (PST)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+Subject: Delivery Status Notification (Failure)
+References: <1095EA7E-7BAF-431C-AAB1-DBAED5739F1B@libsisimai.com>
+In-Reply-To: <1095EA7E-7BAF-431C-AAB1-DBAED5739F1B@libsisimai.com>
+X-Failed-Recipients: libsisimai@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+X-Virus-Scanned: ClamAV using ClamSMTP
+
+Hello ak@libsisimai.com,
+
+We're writing to let you know that the group you tried to contact (libsisimai) may not exist, or you may not have permission to post messages to the group. A few more details on why you weren't able to post:
+
+ * You might have spelled or formatted the group name incorrectly.
+ * The owner of the group may have removed this group.
+ * You may need to join the group before receiving permission to post.
+ * This group may not be open to posting.
+
+If you have questions related to this or any other Google group, visit the Help Centre at https://groups.google.com/support/.
+
+Thanks,
+
+Google Groups
+
+
+
+----- Original message -----
+
+X-Google-Smtp-Source: ADFU+vsrHDWhBQ4d4B88XXRNpqCkUHYhhpwF0M/ViHhKlbFEGPiZLYjJ0EZErrL+NbnocGXUj/O/
+X-Received: by 2002:a17:902:aa49:: with SMTP id c9mr3202873plr.145.1583222722912;
+        Tue, 029 Apr 2019 23:34:45 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1583222722; cv=none;
+        d=google.com; s=arc-20160816;
+        b=SVUa7mR6L2HBbvRuyw/f+EzsWfmi2L3ndROJMPy1+G0ApVt/5YvZj3JeQiaKgE7s4u
+         t7M3Z/RaYhlBgQj25eW9bIhJw/+xPA6qmQplUjBtIZM2Yv6lunZUSRVL1xsowMFsT2Hf
+         PfT/YHa5VuinSXsNRxOBzkp5+SjIg6D4J1AiAvzu2UAy1TJhAaEPPhlio9waQwvaWPRV
+         eGorHT+DCTxJy4Xk1TTskm50pXcln6mqH3dTo7+CuncKp6+p8qR//fz8Uey+LOErBbjX
+         g+KWTUayNqunzZKSlgPna1AeZrS2NROjzb4ZNgUbW3M1AkM7+JuJIJbCGiSmAAtDnGdp
+         b3Yw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:date:message-id:subject:mime-version:content-transfer-encoding
+         :from;
+        bh=M5H0RHNPc7MarbpBuq9xVoR84q1OSwyRLzKhij9/gss=;
+        b=Zwf59Dh4yKTByD2dAlVE4PKDn5OvGcsPLSmRM+0kvlvK5d1NFkom7av8P49pGVdnJn
+         zPsjbs2RJmGpmVONqEfjWoIlJYTezK6rreZeD78ebJOx3hWsEnrVlVSCA+UexGyq5MQD
+         xqViM95enemB4Vy4sLRh1jUjHK6VJJbopZ6knwLD34FFxsRKSVTlJZ7tXRpsHeE+t4yF
+         Ie9udeccJQeQ75UNOet8FaRfBxl2K4BWXuHJzDLYNUsM2wwyVKqRug+Crt437Xp8vTog
+         Ko0ZQnyjO9WUgaewquqCE7/vvjeNfmPNxgOBPfog+sAezftTV+KcvprqvG705soj2E4r
+         ETWg==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of ak@libsisimai.com designates 160.16.120.48 as permitted sender) smtp.mailfrom=ak@libsisimai.com
+Return-Path: <ak@libsisimai.com>
+Received: from mbox.example.jp (tk2-236-27544.vs.sakura.ne.jp. [160.16.120.48])
+        by gmr-mx.google.com with ESMTPS id x12si660477plv.3.2019.03.03.00.05.22
+        for <libsisimai@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 029 Apr 2019 23:34:45 -0800 (PST)
+Received-SPF: pass (google.com: domain of ak@libsisimai.com designates 160.16.120.48 as permitted sender) client-ip=160.16.120.48;
+Authentication-Results: gmr-mx.google.com;
+       spf=pass (google.com: domain of ak@libsisimai.com designates 160.16.120.48 as permitted sender) smtp.mailfrom=ak@libsisimai.com
+Received: from mbox.example.jp (localhost [127.0.0.1])
+	by mbox.example.jp (Postfix) with ESMTP id 48WqLm4M75z27rf0
+	for <libsisimai@googlegroups.com>; Tue,  29 Apr 2019 23:34:45 +0900 (JST)
+Received: from [172.31.127.64] (p25-nyaan.kyoto.example.ne.jp [203.0.113.25])
+	by mbox.example.jp (Postfix) with ESMTPSA id 48WqLm1Ffhz27rdy
+	for <libsisimai@googlegroups.com>; Tue,  29 Apr 2019 23:34:45 +0900 (JST)
+From: azumakuniyuki <ak@libsisimai.com>
+Content-Type: text/plain;
+	charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (Mac OS X Mail 13.0 \(3608.60.0.2.5\))
+Subject: Email including an error code of outlook.com
+Message-Id: <1095EA7E-7BAF-431C-AAB1-DBAED5739F1B@libsisimai.com>
+Date: Tue, 29 Apr 2019 23:34:45 +0900
+To: libsisimai@googlegroups.com
+X-Mailer: Apple Mail (2.3608.60.0.2.5)
+X-Virus-Scanned: ClamAV using ClamSMTP
+
+h=
+ttps://github.com/sisimai/set-of-emails/blob/master/maildir/bsd/lhost-ezwe=
+b-08.eml
+
+
