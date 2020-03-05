@@ -1,9 +1,9 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Google parses a bounce email which created by Gmail.
+  # Sisimai::Lhost::Gmail parses a bounce email which created by Gmail.
   # Methods in the module are called from only Sisimai::Message.
-  module Google
+  module Gmail
     class << self
-      # Imported from p5-Sisimail/lib/Sisimai/Lhost/Google.pm
+      # Imported from p5-Sisimail/lib/Sisimai/Lhost/Gmail.pm
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
@@ -98,7 +98,7 @@ module Sisimai::Lhost
         '18' => { 'command' => 'DATA', 'reason' => 'filtered' },
       }.freeze
 
-      # Parse bounce messages from Google Gmail
+      # Parse bounce messages from Gmail
       # @param         [Hash] mhead       Message headers of a bounce email
       # @options mhead [String] from      From header
       # @options mhead [String] date      Date header
@@ -110,7 +110,6 @@ module Sisimai::Lhost
       #                                   part or nil if it failed to parse or
       #                                   the arguments are missing
       def make(mhead, mbody)
-        # Google Mail
         # From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
         # Received: from vw-in-f109.1e100.net [74.125.113.109] by ...
         #
@@ -257,7 +256,7 @@ module Sisimai::Lhost
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
-      def description; return 'Google Gmail: https://mail.google.com'; end
+      def description; return 'Gmail: https://mail.google.com'; end
     end
   end
 end

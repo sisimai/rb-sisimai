@@ -1,0 +1,116 @@
+Return-Path: <>
+Received: from mail-pl1-f207.google.com (mail-pl1-f207.google.com [209.85.214.207])
+	by neko.example.jp (V8/cf) with ESMTP id 0237Ndmb005465
+	for <kijitora@example.jp>; Tue, 29 Apr 2019 23:34:45 +0900
+Received: by mail-pl1-f207.google.com with SMTP id t12so1335764plo.4
+        for <kijitora@example.jp>; Thu, 29 Apr 2019 23:34:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20161025;
+        h=mime-version:to:auto-submitted:message-id:date:from:subject
+         :references:in-reply-to:content-transfer-encoding;
+        bh=vbXV/rNhfCO/FbPqgwuco+8/kaEt9CAl19nnkOphAns=;
+        b=ipyFudCrMoL21LF2zkDN/rX/RWG6Wpa56ZPF6jVZS0UFmi+iaQ5RMdJSBBp6RagYgM
+         U6ldBS8+9u+VgROTLBf638PD+eMcleAxLiEQg3b2YcGKIfQRWrpYoIZPLE93K/yaXU2K
+         RMxK6nqERVyjMegTuOQBMDodL7ATT+oVejzog6FEzyipX/6WqNjSxb7RUE5iWG5xHzrI
+         KGlgIFX40BWbJ+EO+e+7nfvyN50174s+Rl/cudXkQ9ACXzK8uWJWaDJ+cq/ko1Bm3OCk
+         m3rark8RrUfeAsMJVvQsiMEy3scsfq2qakCUyzBij5jIgiZ5/U0aOGXXRvIyxnolWmG8
+         3U0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:to:auto-submitted:message-id:date
+         :from:subject:references:in-reply-to:content-transfer-encoding;
+        bh=vbXV/rNhfCO/FbPqgwuco+8/kaEt9CAl19nnkOphAns=;
+        b=qPt27YnAujSZFps2NrCaUMS3Nk/OmsQ7EelOiceFjvwoOcITPWyF7qMdmyXLd6WVFQ
+         BBqxH3lZBTLvD2o9RQ0+h960laP/c6pp7dKpPKJ0G4uGO0JsyndAOk8gh+rMERaYjuwE
+         l2Btzw2+z5H2KmUb1jy1QVYYZS9n7sYjEm/HggL7CFDYYGWq1HNhceU/2yxAnvFmptfv
+         Y/5MMmPwwcrIeluLsawpCaMLKQPfWTdVOzCg492yUFQV31bScxGKHi6dXZ43y8zHgKAK
+         VfYKSSAYiZi8C8iBLpcwifZepeqvlSTJJLO5Gvwt71LTM+ANfUvuiwBdpHqtdP3E8/Q2
+         Lymg==
+X-Gm-Message-State: ANhLgQ25MJWUjMidHh1hpuM7h35DhCnImdiz5gZoNOdZ3jkgSUvSOrYf
+	wT0ZRJZz9SEn4uIh+k+y6k6n9JGU83YXQP2uQXb+dw==
+X-Google-Smtp-Source: ADFU+vtrTGohNhgWNvXCn+Czgpwkwa7400ujnTWXx/ReH2cKBNuauzKHbGPyEeXqaiqCdbWe83RS6IpSGrKMbVDju2bTbsLqdEv4eGw=
+X-Received: by 2002:a17:90a:3a90:: with SMTP id b16mr2097209pjc.29.1583220219120;
+        Thu, 29 Apr 2019 23:34:45 -0800 (PST)
+MIME-Version: 1.0
+To: kijitora@example.jp
+Received: by 2002:a17:90a:3a90:: with SMTP id b16mr1742594pjc.29; Thu, 29 Apr
+ 2019 23:34:45 -0800 (PST)
+Auto-Submitted: auto-replied
+Message-ID: <5e5e05fb.1c69fb81.b485b.258f.GMR@mx.google.com>
+Date: Thu, 29 Apr 2019 23:34:45 -0800 (PST)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+Subject: Delivery Status Notification (Failure)
+References: <A6E9ACE2-B50D-477F-8D7D-B95BF06E9827@example.jp>
+In-Reply-To: <A6E9ACE2-B50D-477F-8D7D-B95BF06E9827@example.jp>
+X-Failed-Recipients: libsisimai@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-MIME-Autoconverted: from quoted-printable to 8bit by neko.example.jp id 0237Ndmb005465
+
+Hola, kijitora@example.jp:
+
+Queremos informarte de que el grupo con el que has intentado ponerte en contacto (libsisimai) quizás no exista o bien no tienes los permisos necesarios para publicar mensajes en él. A continuación, te indicamos algunos de los motivos por los que no se pudo publicar el mensaje:
+
+ * Es posible que no escribieras correctamente el nombre del grupo.
+ * El propietario del grupo puede haber eliminado el grupo.
+ * Para poder publicar mensajes en el grupo, es posible que primero debas unirte a él.
+ * Es posible que este grupo no admita publicaciones.
+
+Si tienes alguna pregunta relacionada con este o con otros grupos de Google, visita el Centro de ayuda en https://groups.google.com/support/.
+
+Gracias,
+
+Google Groups
+
+
+
+----- Original message -----
+
+X-Google-Smtp-Source: ADFU+vvgzENppaE8S6cggj8yz7VcjcpXX8QQafueTiHyBOAJ9OKq07qjSEStjtBnfr1Zc8b7P/oM
+X-Received: by 2002:a17:90a:3a90:: with SMTP id b16mr2097204pjc.29.1583220219035;
+        Thu, 29 Apr 2019 23:34:45 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1583220219; cv=none;
+        d=google.com; s=arc-20160816;
+        b=ElN5PI7p4/YKvO1YR48sXmgSZKnk6wqfoedlZd9K9H/FpCCQOejTeaYUxTzxU2rqQe
+         u4DB8Irxf+RruVLqODMxna+zZCFqyoufSp7AM2zX1wnL6dAPnosS2jfugA+5Mc5a94MS
+         f9amX2uh0pKZhzEMAREtE3swwEl4f0q+h3PHjDCowleo6wzjOZAz9UWylnAIXbrq7g6v
+         Ot9Zt+oA2UrJP49biySj+C42hkojbRO4lblSyeRvbyJH2M/HyDxqxGNgKu0iGh2l7Obz
+         lgzD5yfYGEVgTVKW6MfsVNnMVqC3VRuUpAO8ESVarXMfP8pLiVAe9Lkft+TCv1pH4u6F
+         M3sw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:date:message-id:subject:mime-version:content-transfer-encoding
+         :from;
+        bh=AzwcYblGi4hxjxK0/x5EOU5HR3v/xczPHJW5iwumRf8=;
+        b=rAEAnRbP5bYhlXwQLxiMvLsf6AErkNoxi3ZqJWZ89Y0AYBx2gplFrSweDag2eKElC5
+         fnywAU3z7kGCac99I0T0VlUgYHpNsHGzEDnS4jbMtZwtrWMYSiAHBgcJp3hNQqxLIN96
+         eGpkK9ObVqsY71xLrqwDyTgUP46IMbDNO6KMA3ZdETHL1xRu63QD0ADkjPCJ7lvc7U+U
+         9FMonyVSomNif48KxxlDL9ZyGQ9u4kz6mmWolMKwlQWYxym9ncAYhe/9mpLeXT9dPYFN
+         rF1+aY3tlteRY2hQ4FPzu80E/HKjqVYz268phLoqaIiGGYkNEnFiQcfeAM5JBx6PV5CU
+         mVgQ==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of kijitora@example.jp designates 192.0.2.222 as permitted sender) smtp.mailfrom=kijitora@example.jp
+Return-Path: <kijitora@example.jp>
+Received: from neko.example.jp (neko.example.jp. [192.0.2.222])
+        by gmr-mx.google.com with ESMTP id i16si45518pju.1.2019.03.02.23.23.38
+        for <libsisimai@googlegroups.com>;
+        Thu, 29 Apr 2019 23:34:45 -0800 (PST)
+Received-SPF: pass (google.com: domain of kijitora@example.jp designates 192.0.2.222 as permitted sender) client-ip=192.0.2.222;
+Authentication-Results: gmr-mx.google.com;
+       spf=pass (google.com: domain of kijitora@example.jp designates 192.0.2.222 as permitted sender) smtp.mailfrom=kijitora@example.jp
+Received: from [172.31.127.64] (p25-nyaan.kyoto.example.ne.jp [203.0.113.25])
+	(authenticated bits=128)
+	by neko.example.jp (V8/cf) with ESMTP id 0237NaJL005462
+	for <libsisimai@googlegroups.com>; Tue, 29 Apr 2019 23:34:45 +0900
+From: "Neko, Nyaan" <kijitora@example.jp>
+Content-Type: text/plain;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (Mac OS X Mail 13.0 \(3608.60.0.2.5\))
+Subject: =?utf-8?B?54Sh5pW16Imm6ZqK?=
+Message-Id: <A6E9ACE2-B50D-477F-8D7D-B95BF06E9827@example.jp>
+Date: Tue, 29 Apr 2019 23:34:45 +0900
+To: libsisimai@googlegroups.com
+X-Mailer: Apple Mail (2.3608.60.0.2.5)
+
+=E3=83=8B=E3=83=A3=E3=83=BC=E3=83=B3
+
