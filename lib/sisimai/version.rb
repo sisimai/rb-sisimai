@@ -1,4 +1,4 @@
 # Define the version number of Sisimai
 module Sisimai
-  VERSION = '4.25.5p7'.freeze
+  VERSION = '4.25.5p8'.freeze
 end

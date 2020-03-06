@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.5p7
+v4.25.5p8
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -42,6 +42,7 @@ v4.25.5p7
   - SMTP Agent improvement #158
     - Remove `Email::` prefix from the value of `smtpagent` at parsed results
     - Remove `Sisimai::Lhost->smtpagent` method
+  - `Sisimai::Lhost::Amavis` improved #183
 
 v4.25.5
 --------------------------------------------------------------------------------
