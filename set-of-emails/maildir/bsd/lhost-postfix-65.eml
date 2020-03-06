@@ -1,0 +1,69 @@
+Return-Path: <>
+X-Original-To: postmaster@neko.example.jp
+Delivered-To: postmaster@neko.example.jp
+Received: by neko.example.jp (Postfix)
+	id 43f4L917qJz1xcMN; Tue, 15 Jan 2019 18:10:09 +0900 (JST)
+Date: Tue, 15 Jan 2019 18:10:09 +0900 (JST)
+From: MAILER-DAEMON@neko.example.jp (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: postmaster@neko.example.jp
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="43f4KX6WR7z1xcMG.1547543409/neko.example.jp"
+Message-Id: <43f4L917qJz1xcMN@neko.example.jp>
+
+This is a MIME-encapsulated message.
+
+--43f4KX6WR7z1xcMG.1547543409/neko.example.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host neko.example.jp.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<nyaan@example.org>: host smtp.sendgrid.net[169.38.103.42] said: 550
+    Unauthenticated senders not allowed (in reply to MAIL FROM command)
+
+--43f4KX6WR7z1xcMG.1547543409/neko.example.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; neko.example.jp
+X-Postfix-Queue-ID: 43f4KX6WR7z1xcMG
+X-Postfix-Sender: rfc822; postmaster@neko.example.jp
+Arrival-Date: Tue, 15 Jan 2019 18:09:24 +0900 (JST)
+
+Final-Recipient: rfc822; nyaan@example.org
+Original-Recipient: rfc822;nyaan@example.org
+Action: failed
+Status: 5.0.0
+Remote-MTA: dns; smtp.sendgrid.net
+Diagnostic-Code: smtp; 550 Unauthenticated senders not allowed
+
+--43f4KX6WR7z1xcMG.1547543409/neko.example.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <postmaster@neko.example.jp>
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by neko.example.jp (Postfix) with ESMTP id 43f4KX6WR7z1xcMG
+	for <nyaan@example.org>; Tue, 15 Jan 2019 18:09:24 +0900 (JST)
+Subject: Neko Nyaan
+From: postmaster@neko.example.jp
+To: nyaan@example.org
+Message-Id: <43f4KX6WR7z1xcMG@neko.example.jp>
+Date: Tue, 15 Jan 2019 18:09:24 +0900 (JST)
+
+Nyaan
+
+--43f4KX6WR7z1xcMG.1547543409/neko.example.jp--
