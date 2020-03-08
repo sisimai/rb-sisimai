@@ -114,6 +114,7 @@ module Sisimai
           'Sisimai::Lhost::MessageLabs',
           'Sisimai::Lhost::MXLogic',
         ],
+        'mail-could'   => ['Sisimai::Lhost::InterScanMSS'],
         'mail-failure' => ['Sisimai::Lhost::Exim'],
         'mail-not'     => ['Sisimai::Lhost::X4'],
         'mail-system'  => ['Sisimai::Lhost::EZweb'],

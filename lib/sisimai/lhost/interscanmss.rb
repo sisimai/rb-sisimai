@@ -28,6 +28,7 @@ module Sisimai::Lhost
           'メール配信に失敗しました',
         ]
         match += 1 if mhead['from'].start_with?('"InterScan MSS"')
+        match += 1 if mhead['from'].start_with?('"InterScan Notification"')
         match += 1 if tryto.any? { |a| mhead['subject'] == a }
         return nil unless match > 0
 
@@ -42,20 +43,20 @@ module Sisimai::Lhost
           # to the previous line of the beginning of the original message.
           next if e.empty?
 
-          # Sent <<< RCPT TO:<kijitora@example.co.jp>
-          # Received >>> 550 5.1.1 <kijitora@example.co.jp>... user unknown
           v = dscontents[-1]
-
           if cv = e.match(/\A.+[<>]{3}[ \t]+.+[<]([^ ]+[@][^ ]+)[>]\z/) ||
-                  e.match(/\A.+[<>]{3}[ \t]+.+[<]([^ ]+[@][^ ]+)[>]/)
+                  e.match(/\A.+[<>]{3}[ \t]+.+[<]([^ ]+[@][^ ]+)[>]/)   ||
+                  e.match(/\A(?:Reason:[ ]+)?Unable[ ]to[ ]deliver[ ]message[ ]to[ ][<](.+)[>]/)
             # Sent <<< RCPT TO:<kijitora@example.co.jp>
             # Received >>> 550 5.1.1 <kijitora@example.co.jp>... user unknown
+            # Unable to deliver message to <kijitora@neko.example.jp>
             if v['recipient'] && cv[1] != v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
             v['recipient'] = cv[1]
+            v['diagnosis'] = e if e =~ /Unable[ ]to[ ]deliver[ ]/
             recipients = dscontents.size
           end
 
@@ -80,7 +81,10 @@ module Sisimai::Lhost
         end
         return nil unless recipients > 0
 
-        dscontents.each { |e| e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) }
+        dscontents.each do |e|
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+          e['reason'] = 'userunknown' if e['diagnosis'] =~ /Unable[ ]to[ ]deliver/
+        end
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
       end
       def description; return 'Trend Micro InterScan Messaging Security Suite'; end

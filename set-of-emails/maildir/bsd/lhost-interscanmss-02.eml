@@ -1,0 +1,70 @@
+Newsgroups: neko.nyaan
+Path: neko.example.org
+Xref: neko.example.org neko.nyaan:20250
+Return-Path: <postmaster@nnn.example.jp>
+Mailing-List: contact neko-help@neko.example.jp; run by ezmlm
+Delivered-To: mailing list nyaan@neko.example.jp
+Received: (qmail 20255 invoked by uid 25); 29 Apr 2010 23:34:45 -0000
+Received: from email@one.example.com (HELO smtpd.mx.example.com) (192.0.2.225) by onion.neko.example.jp (qpsmtpd/0.26) with SMTP; Thu, 29 Apr 2010 23:34:45 -0700
+Delivered-To: nyaan@neko.example.jp
+Received: from smtp (smtp.r2.example.com [203.0.113.25]) 
+    by smtp.r2.example.com (8.10.2+Sun/8.10.2) with SMTP id rXZDSpX5008674
+    for <nyaan@neko.example.jp>; Thu, 29 Apr 2010 23:34:45 +1000 (EST)
+Message-ID: <201004292334.rXZDSpX5008674@smtp.r2.example.com>
+Date: Thu, 29 Apr 2010 23:34:45 +1000
+To: <nyaan@neko.example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="------------InterScan_NT_MIME_Boundary"
+Subject: Mail could not be delivered
+X-SMTPD: qpsmtpd/0.26, http://example.com/code/qpsmtpd/
+Approved: news@neko.example.org
+From: postmaster@nnn.example.jp ("InterScan Notification")
+
+--------------InterScan_NT_MIME_Boundary
+Content-type: text/plain
+
+*************************************************************
+
+Message from InterScan Messaging Security Suite
+
+Unable to deliver message to <kijitora@neko.example.jp> (and other recipients in the same domain). Please check if address is correct.
+
+*************************************************************
+
+--------------InterScan_NT_MIME_Boundary
+Content-type: message/rfc822
+
+Received: from neko-2.smtp.example.org ([203.0.113.2])
+	by smtp.r1.example.com (8.10.2+Sun/8.10.2) with SMTP id 0EmUhAuR067473
+	for <kijitora@neko.example.jp>; Thu, 29 Apr 2010 23:34:45 +1000 (EST)
+Message-Id: <201004292334.0EmUhAuR067473@smtp.r1.example.com>
+From: <nyaan@neko.example.jp>
+To: <kijitora@neko.example.jp>
+Subject: Nyaan
+Date: Thu, 29 Apr 2010 23:34:45 +0800
+Importance: Normal
+MIME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="_NextPart_000_FEEE0022"
+
+This is a multipart message in MIME format
+
+--_NextPart_000_FEEE0022
+Content-Type: text/plain;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: 7bit
+
+Nyaan
+
+--_NextPart_000_FEEE0022
+Content-Type: text/plain;
+	charset=us-ascii
+Content-Transfer-Encoding: 7bit
+
+Nyaan
+
+--_NextPart_000_FEEE0022--
+
+
+--------------InterScan_NT_MIME_Boundary--
+

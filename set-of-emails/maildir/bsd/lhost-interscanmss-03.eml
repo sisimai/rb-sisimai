@@ -1,0 +1,73 @@
+Newsgroups: neko.nyaan
+Path: neko.example.org
+Xref: neko.example.org neko.nyaan:22220
+Return-Path: <postmaster@example.com>
+Mailing-List: contact neko-help@example.org; run by ezmlm
+Delivered-To: mailing list neko@example.org
+Received: (qmail 20255 invoked from network); 29 Apr 2009 23:34:45 -0000
+Delivered-To: neko@example.org
+Received: from mail.example.com (HELO neko-nyaan-2.kijitora.example.net) (192.0.2.225)
+    by smtpd.example.com (qpsmtpd/0.28) with ESMTP; Thu, 29 Apr 2009 23:34:45 -0800
+Received: from neko-smtp.kijitora.example.net ([192.0.2.22]) by 585B571930A5 with InterScan Messaging Security Suite; Thu, 29 Apr 2009 23:34:45 -0700
+Date: Thu, 29 Apr 2009 23:34:45 -0700
+To: <neko@example.org>
+MIME-Version: 1.0
+Content-Type: multipart/mixed;
+ boundary="------------InterScan_NT_MIME_Boundary"
+Subject: Mail could not be delivered
+Approved: news@neko.example.org
+From: postmaster@example.com ("Neko Postmaster 585B571930A5")
+Message-ID: <neko.nyaan-25025@neko.example.org>
+
+--------------InterScan_NT_MIME_Boundary
+Content-type: text/plain
+
+****** Message from InterScan Messaging Security Suite ******
+
+The following mail could not be delivered.
+Reason:  Unable to deliver message to <kijitora@example.jp> (and other recipients in the same domain).
+
+************************     End of message     **********************
+
+--------------InterScan_NT_MIME_Boundary
+Content-type: message/rfc822
+
+Received: from example.org ([203.0.113.25]) by 86F3DD464AF1 with InterScan Messaging Security Suite; Thu, 29 Apr 2009 23:34:45 -0700
+From: neko@example.org
+To: kijitora@example.jp
+Subject: kijitora@example.jp
+Date: Thu, 29 Apr 2009 23:34:45 -0700
+MIME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="----=_NextPart_000_0002_EEF00022.2002FEEE"
+X-Priority: 3
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook Express 6.00.0000.0000
+X-MIMEOLE: Produced By Microsoft MimeOLE V6.00.0000.0000
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0002_EEF00022.2002FEEE
+Content-Type: text/plain;
+	charset=us-ascii
+Content-Transfer-Encoding: 7bit
+
+The original message was received at Thu, 29 Apr 2009 23:34:45 -0700
+from example.org [192.0.2.254]
+
+----- The following addresses had permanent fatal errors -----
+<kijitora@example.jp>
+
+----- Transcript of the session follows -----
+... while talking to 192.0.2.1:
+>>> RCPT To:<kijitora@example.jp>
+<<< 550 5.1.1 <kijitora@example.jp>... Invalid recipient
+
+
+------=_NextPart_000_0002_EEF00022.2002FEEE--
+
+
+
+
+--------------InterScan_NT_MIME_Boundary--
+
