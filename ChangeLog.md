@@ -42,9 +42,12 @@ v4.25.5p8
   - SMTP Agent improvement #158
     - Remove `Email::` prefix from the value of `smtpagent` at parsed results
     - Remove `Sisimai::Lhost->smtpagent` method
-  - `Sisimai::Lhost::Amavis` improved #183
+  - Improved the following MTA modules:
+    - `Sisimai::Lhost::Amavis` #183
+    - `Sisimai::Lhost::InterScanMSS`
+    - `Sisimai::Lhost::Office365` improvement for reading MIME-encoded subject
+    - `Sisimai::Lhost::Exchange2007` supports error messages in `it-CH`
   - Tiny bug fix for `Subject` header decoding
-  - `Sisimai::Lhost::Office365` improvement for reading MIME-encoded subject
 
 v4.25.5
 --------------------------------------------------------------------------------
