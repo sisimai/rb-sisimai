@@ -9,23 +9,26 @@ module Sisimai::Lhost
 
       Indicators = Sisimai::Lhost.INDICATORS
       ReBackbone = %r{^(?:
-         Original[ ]message[ ]headers:            # en-US
-        |En-t.tes[ ]de[ ]message[ ]d'origine[ ]:  # fr-FR/En-têtes de message d'origine
+         Original[ ]message[ ]headers:                # en-US
+        |En-t.tes[ ]de[ ]message[ ]d'origine[ ]:      # fr-FR/En-têtes de message d'origine
+        |Intestazioni[ ]originali[ ]del[ ]messaggio:  # it-CH
         )
       }x.freeze
       MarkingsOf = {
         message: %r{\A(?:
            Diagnostic[ ]information[ ]for[ ]administrators:               # en-US
           |Informations[ ]de[ ]diagnostic[ ]pour[ ]les[ ]administrateurs  # fr-FR
+          |Informazioni[ ]di[ ]diagnostica[ ]per[ ]gli[ ]amministratori   # it-CH
           )
         }x,
         error:   %r/ ((?:RESOLVER|QUEUE)[.][A-Za-z]+(?:[.]\w+)?);/,
         rhost:   %r{\A(?:
            Generating[ ]server            # en-US
           |Serveur[ ]de[ ]g.+ration[ ]    # fr-FR/Serveur de génération
+          |Server[ ]di[ ]generazione      # it-CH
           ):[ ]?(.*)
         }x,
-        subject: %r/\A(?:Undeliverable|Non_remis_):/,
+        subject: %r/\A(?:Undeliverable|Non_remis_|Non[ ]recapitabile):/,
       }.freeze
       NDRSubject = {
         'SMTPSEND.DNS.NonExistentDomain' => 'hostunknown',   # 554 5.4.4 SMTPSEND.DNS.NonExistentDomain

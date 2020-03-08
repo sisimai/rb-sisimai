@@ -10,6 +10,8 @@ isexpected = [
   { 'n' => '01006', 'r' => /mesgtoobig/ },
   { 'n' => '01007', 'r' => /mailboxfull/ },
   { 'n' => '01008', 'r' => /securityerror/ },
+  { 'n' => '01009', 'r' => /userunknown/ },
+  { 'n' => '01010', 'r' => /userunknown/ },
 ]
 Sisimai::Lhost::Code.maketest(enginename, isexpected, true)
 
