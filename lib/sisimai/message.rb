@@ -102,11 +102,19 @@ module Sisimai
       processing['from']   = aftersplit['from']
       processing['header'] = Sisimai::Message.makemap(aftersplit['header'])
 
-      # 3. Remove "Fwd:" string from the Subject: header
-      if cv = processing['header']['subject'].downcase.match(/\A[ \t]*fwd?:[ ]*(.*)\z/)
-        # Delete quoted strings, quote symbols(>)
-        processing['header']['subject'] = cv[1]
-        aftersplit['body'] = aftersplit['body'].gsub(/^[>]+[ ]/, '').gsub(/^[>]$/, '')
+      # 3. Decode and rewrite the "Subject:" header
+      unless processing['header']['subject'].empty?
+        # Decode MIME-Encoded "Subject:" header
+        s = processing['header']['subject']
+        q = Sisimai::MIME.is_mimeencoded(s) ? Sisimai::MIME.mimedecode(s.split(/[ ]/)) : s
+
+        # Remove "Fwd:" string from the Subject: header
+        if cv = q.downcase.match(/\A[ \t]*fwd?:[ ]*(.*)\z/)
+          # Delete quoted strings, quote symbols(>)
+          q = cv[1]
+          aftersplit['body'] = aftersplit['body'].gsub(/^[>]+[ ]/, '').gsub(/^[>]$/, '')
+        end
+        processing['header']['subject'] = q
       end
 
       # 4. Rewrite message body for detecting the bounce reason
@@ -275,15 +283,9 @@ module Sisimai
       mailheader['subject']      ||= ''
       mailheader['content-type'] ||= ''
 
-      if Sisimai::MIME.is_mimeencoded(mailheader['subject'])
-        # Decode MIME-Encoded "Subject:" header
-        mailheader['subject'] = Sisimai::MIME.mimedecode(mailheader['subject'].split(/[ ]/))
-      end
-
       # Decode BASE64 Encoded message body, rewrite.
       mesgformat = (mailheader['content-type'] || '').downcase
       ctencoding = (mailheader['content-transfer-encoding'] || '').downcase
-
       if mesgformat.start_with?('text/plain', 'text/html')
         # Content-Type: text/plain; charset=UTF-8
         if ctencoding == 'base64'
