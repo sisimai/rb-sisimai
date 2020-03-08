@@ -1,0 +1,259 @@
+Return-Path: <>
+X-Original-To: neko@example.com
+Delivered-To: neko@example.com
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.libsisimai.org (Postfix) with ESMTP id qT5b1JDldKzGQdbc
+	for <neko@example.com>; Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+X-Virus-Scanned: amavisd-new at smtpd-2.libsisimai.org
+Received: from mail.libsisimai.org ([127.0.0.1])
+	by localhost (smtpd-2.libsisimai.org [127.0.0.1]) (amavisd-new, port 2025)
+	with ESMTP id 2VpRfFTJ31z1SWpC for <neko@example.com>;
+	Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+Received: from APC01-PU1-obe.outbound.protection.outlook.com (mail-pu1apc01hn0212.outbound.protection.outlook.com [104.47.126.212])
+	by mail.libsisimai.org (Postfix) with ESMTP id vp4QB9d49jzW3GyP
+	for <neko@example.com>; Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=kyotoneko.onmicrosoft.com; s=nyaan-kyotoneko-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+ bh=...; b=...
+MIME-Version: 1.0
+From: <postmaster@kyotoneko.onmicrosoft.com>
+To: <neko@example.com>
+Date: Thu, 29 Apr 2017 23:34:45 +0000
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="eff0ee02-0022-2502-2022-ffef0002202f"
+X-MS-Exchange-Message-Is-Ndr:
+Content-Language: en-US
+Message-ID: <0fff00ef-2022-2205-eaaafe00edde@NEKONYAAN0022.apcprd01.prod.exchangelabs.com>
+Subject: =?ISO-2022-JP?B?VW5kZWxpdmVyYWJsZTogGyRCJEskYyE8JHMbKEI==?=
+Auto-Submitted: auto-replied
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ...:
+X-MS-Office365-Filtering-Correlation-Id: ...
+X-Microsoft-Exchange-Diagnostics:
+	1;...
+X-Exchange-Antispam-Report-Test: ...
+X-Microsoft-Antispam-PRVS: ...
+X-Exchange-Antispam-Report-CFA-Test: ...
+X-Microsoft-Exchange-Diagnostics: ...
+X-Forefront-PRVS: ...
+X-Forefront-Antispam-Report: ...
+Received-SPF: None (protection.outlook.com:  does not designate permitted
+ sender hosts)
+Authentication-Results: spf=none (sender IP is ) smtp.mailfrom=<>; 
+X-Microsoft-Exchange-Diagnostics: ...
+X-Microsoft-Exchange-Diagnostics: ...
+SpamDiagnosticOutput: 1:99
+SpamDiagnosticMetadata: NSPM
+X-OriginatorOrg: kyotoneko.onmicrosoft.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2017 23:34:45.6789 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ...
+
+--eff0ee02-0022-2502-2022-ffef0002202f
+Content-Type: multipart/alternative; differences=Content-Type;
+	boundary="ffef0000-0020-2501-0025-feee00eeffe0"
+
+--ffef0000-0020-2501-0025-feee00eeffe0
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+
+[http://products.office.com/en-us/CMSImages/Office365Logo_Orange.png?versio=
+n=3Db8d100a9-0a8b-8e6a-88e1-ef488fee0470]
+Your message to kijitora-nyaan@neko.kyoto.example.jp couldn't be delivered.
+
+kijitora-nyaan wasn't found at neko.kyoto.example.jp.
+
+err     Office 365      kijitora-nyaan
+Action Required                 Recipient
+
+
+Unknown To address
+
+
+How to Fix It
+The address may be misspelled or may not exist. Try one or more of the foll=
+owing:
+
+  *   Send the message again following these steps: In Outlook, open this n=
+on-delivery report (NDR) and choose Send Again from the Report ribbon. In O=
+utlook on the web, select this NDR, then select the link "To send this mess=
+age again, click here." Then delete and retype the entire recipient address=
+. If prompted with an Auto-Complete List suggestion don't select it. After =
+typing the complete address, click Send.
+  *   Contact the recipient (by phone, for example) to check that the addre=
+ss exists and is correct.
+  *   The recipient may have set up email forwarding to an incorrect addres=
+s. Ask them to check that any forwarding they've set up is working correctl=
+y.
+  *   Clear the recipient Auto-Complete List in Outlook or Outlook on the w=
+eb by following the steps in this article: Fix email delivery issues for er=
+ror code 5.1.10 in Office 365<http://go.microsoft.com/fwlink/?LinkId=3D5329=
+72>, and then send the message again. Retype the entire recipient address b=
+efore selecting Send.
+
+
+If the problem continues, forward this message to your email admin. If you'=
+re an email admin, refer to the More Info for Email Admins section below.
+
+
+Was this helpful? Send feedback to Microsoft<http://go.microsoft.com/fwlink=
+/?LinkId=3D525921>.
+________________________________
+
+
+More Info for Email Admins
+Status code: 550 5.1.10
+
+This error occurs because the sender sent a message to an email address hos=
+ted by Office 365 but the address is incorrect or doesn't exist at the dest=
+ination domain. The error is reported by the recipient domain's email serve=
+r, but most often it must be fixed by the person who sent the message. If t=
+he steps in the How to Fix It section above don't fix the problem, and you'=
+re the email admin for the recipient, try one or more of the following:
+
+The email address exists and is correct - Confirm that the recipient addres=
+s exists, is correct, and is accepting messages.
+
+Synchronize your directories - If you have a hybrid environment and are usi=
+ng directory synchronization make sure the recipient's email address is syn=
+ced correctly in both Office 365 and in your on-premises directory.
+
+Errant forwarding rule - Check for forwarding rules that aren't behaving as=
+ expected. Forwarding can be set up by an admin via mail flow rules or mail=
+box forwarding address settings, or by the recipient via the Inbox Rules fe=
+ature.
+
+Recipient has a valid license - Make sure the recipient has an Office 365 l=
+icense assigned to them. The recipient's email admin can use the Office 365=
+ admin center to assign a license (Users > Active Users > select the recipi=
+ent > Assigned License > Edit).
+
+Mail flow settings and MX records are not correct - Misconfigured mail flow=
+ or MX record settings can cause this error. Check your Office 365 mail flo=
+w settings to make sure your domain and any mail flow connectors are set up=
+ correctly. Also, work with your domain registrar to make sure the MX recor=
+ds for your domain are configured correctly.
+
+For more information and additional tips to fix this issue, see Fix email d=
+elivery issues for error code 5.1.10 in Office 365<http://go.microsoft.com/=
+fwlink/?LinkId=3D532972>.
+
+
+Original Message Details
+Created Date:   4/29/2017 11:23:34 PM
+Sender Address: neko@example.com
+Recipient Address:      kijitora-nyaan@neko.kyoto.example.jp
+Subject:        にゃーん
+
+
+Error Details
+Reported error: 550 5.1.10 RESOLVER.ADR.RecipientNotFound; Recipient not fo=
+und by SMTP address lookup
+DSN generated by:       NEKONYAAN0022.apcprd01.prod.exchangelabs.com
+
+
+Message Hops
+HOP     TIME (UTC)      FROM    TO      WITH    RELAY TIME
+1       9/1/2017
+6:40:30 AM              mail.libsisimai.org               *
+2       9/1/2017
+6:40:32 AM      mail.libsisimai.org       localhost       ESMTP   2 sec
+3       9/1/2017
+6:40:33 AM      localhost       mail.libsisimai.org       ESMTP   1 sec
+4       9/1/2017
+6:40:33 AM      mail.libsisimai.org       e2.example.net     SMTP    *
+
+Original Message Headers
+
+Received: from HK2PR0101CA2025.apcprd01.prod.exchangelabs.com
+ (2603:1096:201:1::37) by NEKONYAAN0022.apcprd01.prod.exchangelabs.com
+ (2a01:111:e400:a40f::24) with Microsoft SMTP Server (version=3DTLS1_2,
+ cipher=3DTLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id 15.20.13.10; Thu, =
+29 Apr
+ 2017 23:34:45 +0000
+Received: by mail.libsisimai.org (Postfix, from userid 25)
+        id 63FD42B1B20D; Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+To: <kijitora.nyaan@neko.neko.example.jp>
+Subject: Nyaan
+From: neko@example.jp
+Content-Type: text/plain; charset=3D"iso-2022-jp"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Date: Thu, 29 Apr 2017 23:34:45 +0900
+Return-Path: neko@example.com
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: ...
+X-Forefront-Antispam-Report: ...
+X-Microsoft-Exchange-Diagnostics: ...
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ...
+X-Microsoft-Antispam: ...
+X-Microsoft-Exchange-Diagnostics: ...
+X-MS-TrafficTypeDiagnostic: NEKONYAAN0022:
+
+
+--ffef0000-0020-2501-0025-feee00eeffe0
+Content-Type: text/html; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+  <meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-scale=3D=
+1" />
+  <head>
+    <title>
+          DSN
+        </title>
+    </head>
+    <body>
+  </body>
+</html>=
+
+--ffef0000-0020-2501-0025-feee00eeffe0--
+
+--eff0ee02-0022-2502-2022-ffef0002202f
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns;NEKONYAAN0022.apcprd01.prod.exchangelabs.com
+Received-From-MTA: dns;omls-1.kuins.neko.example.jp
+Arrival-Date: Thu, 29 Apr 2017 23:34:45 +0000
+
+Final-Recipient: rfc822;kijitora-nyaan@neko.kyoto.example.jp
+Action: failed
+Status: 5.1.10
+Diagnostic-Code: smtp;550 5.1.10 RESOLVER.ADR.RecipientNotFound; Recipient not found by SMTP address lookup
+
+
+--eff0ee02-0022-2502-2022-ffef0002202f
+Content-Type: message/rfc822
+
+Received: from HK2PR0101CA2025.apcprd01.prod.exchangelabs.com
+ (2603:1096:201:1::37) by NEKONYAAN0022.apcprd01.prod.exchangelabs.com
+ (2a01:111:e400:a40f::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id 15.20.13.10; Thu, 29 Apr
+ 2017 23:34:45 +0000
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.libsisimai.org (Postfix) with ESMTP id 18951A10EC4D
+	for <kijitora@neko.example.jp>; Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+X-Virus-Scanned: amavisd-new at smtpd-2.libsisimai.org
+To: kijitora@example.org
+Subject: =?ISO-2022-JP?B?GyRCJEskYyE8JHMbKEI=?=
+From: <neko@example.com>
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Date: Thu, 29 Apr 2017 23:34:45 +0900
+Return-Path: neko@example.com
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: ...
+X-Forefront-Antispam-Report: ...
+X-Microsoft-Exchange-Diagnostics: ...
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ...
+X-Microsoft-Antispam: ...
+X-Microsoft-Exchange-Diagnostics: ...
+X-MS-TrafficTypeDiagnostic: NEKONYAAN0022:
+
+
+--eff0ee02-0022-2502-2022-ffef0002202f--
+

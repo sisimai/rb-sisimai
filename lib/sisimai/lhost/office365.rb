@@ -14,8 +14,11 @@ module Sisimai::Lhost
         eoerr:  ['Original message headers:'],
       }.freeze
       MarkingsOf = {
+        eoe:     %r/\A(?:Original[ ][Mm]essage[ ][Hh]eaders:?|Message[ ]Hops)/,
+        error:   %r/\A(?:Diagnostic[ ]information[ ]for[ ]administrators:|Error[ ]Details)/,
         message: %r{\A(?:
            Delivery[ ]has[ ]failed[ ]to[ ]these[ ]recipients[ ]or[ ]groups:
+          |Original[ ]Message[ ]Details
           |.+[ ]rejected[ ]your[ ]message[ ]to[ ]the[ ]following[ ]e[-]?mail[ ]addresses:
           )
         }x,
@@ -37,6 +40,8 @@ module Sisimai::Lhost
         %r/\A4[.]7[.]26\z/       => 'securityerror',
         %r/\A4[.]7[.][56]\d\d\z/ => 'blocked',
         %r/\A4[.]7[.]8[5-9]\d\z/ => 'blocked',
+        %r/\A5[.]0[.]350\z/      => 'contenterror',
+        %r/\A5[.]1[.]10\z/       => 'userunknown',
         %r/\A5[.]4[.]1\z/        => 'norelaying',
         %r/\A5[.]4[.]312\z/      => 'networkerror',
         %r/\A5[.]4[.]316\z/      => 'expired',
@@ -46,6 +51,7 @@ module Sisimai::Lhost
         %r/\A5[.]7[.]1[23]\z/    => 'rejected',
         %r/\A5[.]7[.]124\z/      => 'rejected',
         %r/\A5[.]7[.]13[3-6]\z/  => 'rejected',
+        %r/\A5[.]7[.]23\z/       => 'blocked',
         %r/\A5[.]7[.]25\z/       => 'networkerror',
         %r/\A5[.]7[.]50[1-3]\z/  => 'spamdetected',
         %r/\A5[.]7[.]50[4-5]\z/  => 'filtered',
@@ -55,6 +61,7 @@ module Sisimai::Lhost
         %r/\A5[.]7[.]510\z/      => 'notaccept',
         %r/\A5[.]7[.]511\z/      => 'rejected',
         %r/\A5[.]7[.]512\z/      => 'securityerror',
+        %r/\A5[.]7[.]57\z/       => 'securityerror',
         %r/\A5[.]7[.]60[6-9]\z/  => 'blocked',
         %r/\A5[.]7[.]6[1-4]\d\z/ => 'blocked',
         %r/\A5[.]7[.]7[0-4]\d\z/ => 'toomanyconn',
@@ -100,7 +107,6 @@ module Sisimai::Lhost
         require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         permessage = {}     # (Hash) Store values of each Per-Message field
-
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
         bodyslices = emailsteak[0].split("\n")
@@ -126,9 +132,16 @@ module Sisimai::Lhost
           # The email address wasn't found at the destination domain. It might
           # be misspelled or it might not exist any longer. Try retyping the
           # address and resending the message.
+          #
+          # Original Message Details
+          # Created Date:   4/29/2017 6:40:30 AM
+          # Sender Address: neko@example.jp
+          # Recipient Address:      kijitora@example.org
+          # Subject:        Nyaan#
           v = dscontents[-1]
 
-          if cv = e.match(/\A.+[@].+[<]mailto:(.+[@].+)[>]\z/)
+          if cv = e.match(/\A.+[@].+[<]mailto:(.+[@].+)[>]\z/) ||
+                  e.match(/\ARecipient[ ]Address:[ ]+(.+)\z/)
             # kijitora@example.com<mailto:kijitora@example.com>
             if v['recipient']
               # There are multiple recipient addresses in the message body.
@@ -153,7 +166,7 @@ module Sisimai::Lhost
               next unless f == 1
               permessage[fieldtable[o[0]]] = o[2]
             else
-              if e == StartingOf[:error][0]
+              if e =~ MarkingsOf[:error]
                 # Diagnostic information for administrators:
                 v['diagnosis'] = e
               else
@@ -161,7 +174,7 @@ module Sisimai::Lhost
                 # Remote Server returned '550 5.1.10 RESOLVER.ADR.RecipientNotFound; Recipien=
                 # t not found by SMTP address lookup'
                 next unless v['diagnosis']
-                if e == StartingOf[:eoerr][0]
+                if e =~ MarkingsOf[:eoe]
                   # Original message headers:
                   endoferror = true
                   next
