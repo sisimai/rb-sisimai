@@ -19,15 +19,10 @@ module Sisimai
     # @param         [Hash]   argv1      Parser options(delivered=false)
     # @options argv1 [Boolean] delivered true: Include "delivered" reason
     # @options argv1 [Lambda]  hook      Lambda object to be called back
-    # @options argv1 [Array]   field     Email header name to be captured
     # @return        [Array]             Parsed objects
     # @return        [nil]               nil if the argument was wrong or an empty array
     def make(argv0, **argv1)
       return nil unless argv0
-
-      field = argv1[:field] || []
-      raise ' ***error: "field" accepts an array only' unless field.is_a? Array
-
       require 'sisimai/data'
       require 'sisimai/message'
       require 'sisimai/mail'
@@ -36,7 +31,7 @@ module Sisimai
       return nil unless mail = Sisimai::Mail.new(argv0)
       while r = mail.read do
         # Read and parse each mail file
-        methodargv = { data: r, hook: argv1[:hook], field: field }
+        methodargv = { data: r, hook: argv1[:hook] }
         mesg = Sisimai::Message.new(methodargv)
         next if mesg.void
 

@@ -26,6 +26,12 @@ v4.25.5p9
     - The MTA module to be loaded at first is decided by the first 2 words of
       each bounce mail subject, is defined at `Subject` in `Sisimai::Order`
     - Some variables are replaced with `state`
+  - Each `field` parameter has been removed from the following methods because 
+    Sisimai detect all the email header fields by `Sisimai::Message.makemap()`
+    without having to specify field names at `field` parameter
+    - `Sisimai.make`
+    - `Sisimai::Message.new`
+    - `Sisimai::Message.make`
   - Code improvement for `require` statement before calling `match()` method of
     some modules defined in `$PreMatches` at `Sisimai::Reason::UserUnknown`
   - Remove the following unused methods:

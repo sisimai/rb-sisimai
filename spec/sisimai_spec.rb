@@ -147,10 +147,8 @@ describe Sisimai do
           data['x-virus-scanned'] = argv['headers']['x-virus-scanned'] || ''
           return data
         end
-        havecaught = Sisimai.make(sampleemail[e],
-                                  hook: callbackto,
-                                  field: ['X-Virus-Scanned'])
 
+        havecaught = Sisimai.make(sampleemail[e], hook: callbackto)
         havecaught.each do |ee|
           it('is Sisimai::Data') { expect(ee).to be_a Sisimai::Data }
           it('is Hash') { expect(ee.catch).to be_a Hash }
@@ -209,12 +207,6 @@ describe Sisimai do
       it 'raises ArgumentError' do
         expect { Sisimai.make }.to raise_error(ArgumentError)
         expect { Sisimai.make(nil, nil) }.to raise_error(ArgumentError)
-      end
-    end
-
-    context 'Invalid value in arguments' do
-      it 'raises RuntimeError' do
-        expect { Sisimai.make('/dev/null', field: 'neko') }.to raise_error(RuntimeError)
       end
     end
   end
