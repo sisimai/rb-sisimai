@@ -26,24 +26,15 @@ module Sisimai
     # @param         [Hash] argvs       Module to be loaded
     # @options argvs [String] :data     Entire email message
     # @options argvs [Array]  :load     User defined MTA module list
-    # @options argvs [Array]  :field    Email header names to be captured
     # @options argvs [Array]  :order    The order of MTA modules
     # @options argvs [Code]   :hook     Reference to callback method
     # @return        [Sisimai::Message] Structured email data or nil if each
     #                                   value of the arguments are missing
     def initialize(data: '', **argvs)
       return nil if data.empty?
-
       email = data.scrub('?').gsub("\r\n", "\n")
-      field = argvs[:field] || []
 
-      unless field.is_a? Array
-        # Unsupported value in "field"
-        warn ' ***warning: "field" accepts an array reference only'
-        return nil
-      end
-
-      methodargv = { 'data' => email, 'hook' => argvs[:hook] || nil, 'field' => field }
+      methodargv = { 'data' => email, 'hook' => argvs[:hook] || nil }
       [:load, :order].each do |e|
         # Order of MTA modules
         next unless argvs[e]
@@ -74,7 +65,6 @@ module Sisimai
     # @param         [Hash] argvs   Email data
     # @options argvs [String] data  Entire email message
     # @options argvs [Array]  load  User defined MTA module list
-    # @options argvs [Array]  field Email header names to be captured
     # @options argvs [Array]  order The order of MTA modules
     # @options argvs [Code]   hook  Reference to callback method
     # @return        [Hash]         Resolved data structure
