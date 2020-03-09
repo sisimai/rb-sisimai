@@ -175,9 +175,8 @@ callbackto = lambda do |v|
   return r
 end
 
-list = ['X-Mailer']
-data = Sisimai.make('/path/to/mbox', hook: callbackto, field: list)
-json = Sisimai.dump('/path/to/mbox', hook: callbackto, field: list)
+data = Sisimai.make('/path/to/mbox', hook: callbackto)
+json = Sisimai.dump('/path/to/mbox', hook: callbackto)
 
 puts data[0].catch['x-mailer']      # Apple Mail (2.1283)
 ```
