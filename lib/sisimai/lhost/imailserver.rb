@@ -18,12 +18,12 @@ module Sisimai::Lhost
         'data' => %r|DATA command generated response:|,
       }.freeze
       ReFailures = {
-        'hostunknown' => %r/Unknown host/,
-        'userunknown' => %r/\A(?:Unknown user|Invalid final delivery userid)/,
-        'mailboxfull' => %r/\AUser mailbox exceeds allowed size/,
-        'securityerr' => %r/\ARequested action not taken: virus detected/,
-        'undefined'   => %r/\Aundeliverable to /,
-        'expired'     => %r/\ADelivery failed \d+ attempts/,
+        'hostunknown'   => %r/Unknown host/,
+        'userunknown'   => %r/\A(?:Unknown user|Invalid final delivery userid)/,
+        'mailboxfull'   => %r/\AUser mailbox exceeds allowed size/,
+        'securityerror' => %r/\ARequested action not taken: virus detected/,
+        'undefined'     => %r/\Aundeliverable to /,
+        'expired'       => %r/\ADelivery failed \d+ attempts/,
       }.freeze
 
       # Parse bounce messages from IMailServer
