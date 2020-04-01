@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.5p10
+v4.25.5p11
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -54,6 +54,8 @@ v4.25.5p10
     - `Sisimai::Lhost::Office365` improvement for reading MIME-encoded subject
     - `Sisimai::Lhost::Exchange2007` supports error messages in `it-CH`
   - Tiny bug fix for `Subject` header decoding
+  - Fix bug in code for getting an `"addresser"` address from `From:` field in
+    the original message part which are multiple lines at `Sisimai::ARF`. #185
 
 v4.25.5
 --------------------------------------------------------------------------------
