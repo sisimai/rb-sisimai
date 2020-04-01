@@ -151,11 +151,18 @@ module Sisimai
             elsif cv = e.match(/\AFrom:[ ]*(.+)\z/)
               # Microsoft ARF: original sender.
               commondata['from'] = Sisimai::Address.s3s4(cv[1]) if commondata['from'].empty?
+              previousfn = 'from'
 
             elsif e.start_with?(' ', "\t")
               # Continued line from the previous line
-              rfc822part << e + "\n" if LongFields[previousfn]
-              next unless e.empty?
+              if previousfn == 'from'
+                # Multiple lines at "From:" field
+                commondata['from'] << e
+                next
+              else
+                rfc822part << e + "\n" if LongFields[previousfn]
+                next unless e.empty?
+              end
               rcptintext << e if previousfn == 'to'
 
             else
