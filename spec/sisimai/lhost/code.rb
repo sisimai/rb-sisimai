@@ -324,12 +324,12 @@ module Sisimai
                       %w|addresser recipient|.each do |rr|
                         if pr.send(rr).alias.size > 0
                           it sprintf("%s #%s.alias includes @", lb, rr) do
-                            expect(pr.send(rr).alias).to match(/[@]/)
+                            expect(pr.send(rr).alias).to match(/\A.+[@][0-9A-Za-z.-]+[.][A-Za-z]+?\z/)
                           end
                         end
                         if pr.send(rr).verp.size > 0
                           it sprintf("%s #%s.verp includes @", lb, rr) do
-                            expect(pr.send(rr).verp).to match(/[@]/)
+                            expect(pr.send(rr).verp).to match(/\A.+[@][0-9A-Za-z.-]+[.][A-Za-z]+?\z/)
                           end
                         end
                       end
