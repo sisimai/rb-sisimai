@@ -214,7 +214,7 @@ describe Sisimai do
   describe '.dump' do
     tobetested = %w|
       addresser recipient senderdomain destination reason timestamp 
-      token smtpagent
+      token smtpagent origin
     |
 
     context 'valid email file' do

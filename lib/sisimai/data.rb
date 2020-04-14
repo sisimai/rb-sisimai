@@ -19,6 +19,7 @@ module Sisimai
       :listid,          # [String] List-Id header of each ML
       :reason,          # [String] Bounce reason
       :action,          # [String] The value of Action: header
+      :origin,          # [String] Email path as a data source
       :subject,         # [String] UTF-8 Subject text
       :timestamp,       # [Sisimai::Time] Date: header in the original message
       :addresser,       # [Sisimai::Address] From address
@@ -77,6 +78,7 @@ module Sisimai
       @smtpcommand    = argvs['smtpcommand']    || ''
       @feedbacktype   = argvs['feedbacktype']   || ''
       @action         = argvs['action']         || ''
+      @origin         = argvs['origin']         || ''
       @replycode      = argvs['replycode']      || ''
       @replycode      = Sisimai::SMTP::Reply.find(argvs['diagnosticcode']).to_s if @replycode.empty?
       @softbounce     = argvs['softbounce']     || ''
@@ -293,6 +295,7 @@ module Sisimai
 
         # Check the value of SMTP command
         p['smtpcommand'] = '' unless %w[EHLO HELO MAIL RCPT DATA QUIT].include?(p['smtpcommand'])
+        p['origin'] = argvs[:origin]  # Set the path to the original email
 
         if p['action'].empty?
           # Check the value of "action"

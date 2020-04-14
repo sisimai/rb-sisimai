@@ -21,7 +21,7 @@ describe Sisimai::Data do
 
     while r = mail.read do
       mesg = Sisimai::Message.new(data: r, hook: call)
-      data = Sisimai::Data.make(data: mesg)
+      data = Sisimai::Data.make(data: mesg, origin: mail.mail.path)
       example 'Sisimai::Data.make returns Array' do
         expect(data).to be_a Array
       end
@@ -116,6 +116,9 @@ describe Sisimai::Data do
 
         example('#feedbacktype is String') { expect(e.feedbacktype).to be_a String }
         example('#feedbacktype is empty') { expect(e.feedbacktype).to be_empty }
+
+        example('#origin is String') { expect(e.origin).to be_a String }
+        example('#origin is a path') { expect(e.origin).to match(%r|/.+[.]eml|) }
 
         example('#catch is Hash') { expect(e.catch).to be_a Hash }
         example('#catch[type] is "email"') { expect(e.catch['type']).to be == 'email' }
