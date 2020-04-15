@@ -4,7 +4,7 @@ module Sisimai
     # STDIN
     class STDIN
       # Imported from p5-Sisimail/lib/Sisimai/Mail/STDIN.pm
-      # :path   [String]  Path to mbox
+      # :path   [String]  Fixed string "<STDIN>"
       # :name   [String]  File name of the mbox
       # :size   [Integer] File size of the mbox
       # :offset [Integer]  Offset position for seeking

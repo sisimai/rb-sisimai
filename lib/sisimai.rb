@@ -35,7 +35,7 @@ module Sisimai
         mesg = Sisimai::Message.new(methodargv)
         next if mesg.void
 
-        methodargv = { data: mesg, delivered: argv1[:delivered] }
+        methodargv = { data: mesg, delivered: argv1[:delivered], origin: mail.mail.path }
         next unless data = Sisimai::Data.make(methodargv)
         list += data unless data.empty?
       end

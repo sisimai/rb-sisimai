@@ -16,7 +16,7 @@ describe Sisimai::Data::YAML do
 
   while r = mail.read do
     mesg = Sisimai::Message.new(data: r)
-    data = Sisimai::Data.make(data: mesg)
+    data = Sisimai::Data.make(data: mesg, origin: mail.mail.path)
     it('returns Array') { expect(data).to be_a Array }
 
     describe '#dump' do

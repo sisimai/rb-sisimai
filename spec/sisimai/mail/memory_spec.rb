@@ -55,6 +55,13 @@ describe Sisimai::Mail::Memory do
       before do
         mailobj.read
       end
+      describe '#path' do
+        subject { mailobj.path }
+        it 'is "<MEMORY>"' do
+          is_expected.to be_a ::String
+          is_expected.to be == '<MEMORY>'
+        end
+      end
       describe '#size' do
         subject { mailobj.size }
         it 'returns email size' do

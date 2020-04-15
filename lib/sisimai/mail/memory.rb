@@ -3,10 +3,11 @@ module Sisimai
     # Sisimai::Mail::Memory is a class for reading an email string
     class Memory
       # Imported from p5-Sisimail/lib/Sisimai/Mail/Memory.pm
+      # :path   [String]  Fixed string "<MEMORY>"
       # :size   [Integer] data size of the email text
       # :data   [Array]   Entire bounce mail message
       # :offset [Integer] Index of ":data"
-      attr_reader :size
+      attr_reader :path, :size
       attr_accessor :data, :offset
 
       # Constructor of Sisimai::Mail::Memory
@@ -17,6 +18,7 @@ module Sisimai
         raise 'is not a String' unless argv1.is_a? ::String
         raise 'is empty'        if argv1.empty?
 
+        @path   = '<MEMORY>'
         @size   = argv1.size
         @data   = []
         @offset = 0

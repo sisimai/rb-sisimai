@@ -206,7 +206,7 @@ module Sisimai
                     end # End of Sisimai::Message#ds
                   end # End of Sisimai::Message
 
-                  dataobject = Sisimai::Data.make(data: mesgobject, delivered: true)
+                  dataobject = Sisimai::Data.make(data: mesgobject, delivered: true, origin: mailobject.mail.path)
                   describe Sisimai::Data do
                     next unless dataobject
                     next if dataobject.empty?
@@ -303,7 +303,7 @@ module Sisimai
                         expect(pr.alias).not_to match /[\r]/
                       end
 
-                      %w|smtpcommand lhost rhost alias listid action messageid|.each do |pp|
+                      %w|smtpcommand lhost rhost alias listid action messageid origin|.each do |pp|
                         if pp == 'alias'
                           it sprintf("%s #%s does not include %s", lb, pp, '\r') do
                             expect(pr.send(pp)).not_to match(/[\r]/)
