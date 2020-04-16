@@ -67,16 +67,10 @@ module Sisimai
       end
 
       # @abstract Parse bounce messages
-      # @param         [Hash] mhead       Message header of a bounce email
-      # @options mhead [String] from      From header
-      # @options mhead [String] date      Date header
-      # @options mhead [String] subject   Subject header
-      # @options mhead [Array]  received  Received headers
-      # @options mhead [String] others    Other required headers
-      # @param         [String] mbody     Message body of a bounce email
-      # @return        [Hash, Nil]        Bounce data list and message/rfc822
-      #                                   part or nil if it failed to parse or
-      #                                   the arguments are missing
+      # @param  [Hash] mhead    Message headers of a bounce email
+      # @param  [String] mbody  Message body of a bounce email
+      # @return [Hash]          Bounce data list and message/rfc822 part
+      # @return [Nil]           it failed to parse or the arguments are missing
       def make; return nil; end
       def description; return ''; end
     end
