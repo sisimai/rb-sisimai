@@ -14,9 +14,9 @@ describe Sisimai::Data::JSON do
     timezoneoffset feedbacktype
   ]
 
-  while r = mail.read do
+  while r = mail.data.read do
     mesg = Sisimai::Message.new(data: r)
-    data = Sisimai::Data.make(data: mesg, origin: mail.mail.path)
+    data = Sisimai::Data.make(data: mesg, origin: mail.data.path)
     it('returns Array') { expect(data).to be_a Array }
 
     describe '#dump' do

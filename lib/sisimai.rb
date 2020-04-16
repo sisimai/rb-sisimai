@@ -28,13 +28,13 @@ module Sisimai
 
       list = []
       return nil unless mail = Sisimai::Mail.new(argv0)
-      while r = mail.read do
-        # Read and parse each mail file
+      while r = mail.data.read do
+        # Read and parse each email file
         methodargv = { data: r, hook: argv1[:hook] }
         mesg = Sisimai::Message.new(methodargv)
         next if mesg.void
 
-        methodargv = { data: mesg, delivered: argv1[:delivered], origin: mail.mail.path }
+        methodargv = { data: mesg, delivered: argv1[:delivered], origin: mail.data.path }
         next unless data = Sisimai::Data.make(methodargv)
         list += data unless data.empty?
       end

@@ -69,8 +69,8 @@ describe Sisimai::Mail::Memory do
           is_expected.to be > 90000
         end
       end
-      describe '#data' do
-        subject { mailobj.data }
+      describe '#payload' do
+        subject { mailobj.payload }
         it 'returns Array' do
           is_expected.to be_a Array
         end

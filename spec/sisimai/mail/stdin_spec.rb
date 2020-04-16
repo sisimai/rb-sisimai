@@ -39,13 +39,6 @@ describe Sisimai::Mail::STDIN do
         is_expected.to be == '<STDIN>'
       end
     end
-    describe '#name' do
-      subject { mailobj.name }
-      it 'is "<STDIN>"' do
-        is_expected.to be_a String
-        is_expected.to be == '<STDIN>'
-      end
-    end
     describe '#size' do
       subject { mailobj.size }
       it 'returns nil' do

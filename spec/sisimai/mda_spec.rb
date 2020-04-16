@@ -20,7 +20,7 @@ describe Sisimai::MDA do
 
   describe '.make' do
     context 'valid mailbox data' do
-      while r = mailbox.read do
+      while r = mailbox.data.read do
         smtperrors.each do |e|
           v = cn.make(headers,e)
           it('returns Hash') { expect(v).to be_a Hash }

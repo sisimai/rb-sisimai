@@ -1,27 +1,30 @@
 module Sisimai
-  # Sisimai::Mail is a handler of UNIX mbox or Maildir for reading each mail. It is
-  # wrapper class of Sisimai::Mail::Mbox and Sisimai::Mail::Maildir classes.
+  # Sisimai::Mail is a handler of UNIX mbox or Maildir for reading each mail.
+  # It is a wrapper class of Sisimai::Mail::Mbox, Sisimai::Mail::Maildir, and
+  # Sisimai::Mail::Memory classes.
   class Mail
     # Imported from p5-Sisimail/lib/Sisimai/Mail.pm
+    RemovedAt = 'v4.25.10'
+
     # :path [String] path to mbox or Maildir/
-    # :type [String] Data type: mailbox, maildir, or stdin
-    # :mail [Sisimai::Mail::[Mbox,Maildir,Memory,STDIN]] Object
-    attr_reader   :path, :type
-    attr_accessor :mail
+    # :kind [String] Data type: mailbox, maildir, or stdin
+    # :data [Sisimai::Mail::[Mbox,Maildir,Memory,STDIN]] Object
+    attr_reader   :path, :kind
+    attr_accessor :data
 
     # Constructor of Sisimai::Mail
     # @param    [String] argv1        Path to mbox or Maildir/
     # @return   [Sisimai::Mail, Nil]  Object or nil if the argument was wrong
     def initialize(argv1)
       classname = nil
-      parameter = { 'path' => argv1, 'type' => nil, 'mail' => nil }
+      parameter = { 'path' => argv1, 'kind' => nil, 'data' => nil }
 
       if argv1.is_a?(::String)
         # Path to mail or '<STDIN>' ?
         if argv1 == '<STDIN>'
           # Sisimai::Mail.new('<STDIN>')
           classname = self.class.to_s << '::STDIN'
-          parameter['type'] = 'stdin'
+          parameter['kind'] = 'stdin'
           parameter['path'] = $stdin
         else
           # The argumenet is a mailbox or a Maildir/.
@@ -30,17 +33,17 @@ module Sisimai
           if mediatype == 'file'
             # The argument is a file, it is an mbox or email file in Maildir/
             classname = self.class.to_s << '::Mbox'
-            parameter['type'] = 'mailbox'
+            parameter['kind'] = 'mailbox'
 
           elsif mediatype == 'directory'
             # The agument is not a file, it is a Maildir/
             classname = self.class.to_s << '::Maildir'
-            parameter['type'] = 'maildir'
+            parameter['kind'] = 'maildir'
 
           elsif mediatype == 'memory'
             # The argument is an email string
             classname = self.class.to_s << '::Memory'
-            parameter['type'] = 'memory'
+            parameter['kind'] = 'memory'
             parameter['path'] = 'MEMORY'
           end
         end
@@ -48,33 +51,46 @@ module Sisimai
         # Read from STDIN
         # The argument neither a mailbox nor a Maildir/.
         classname = self.class.to_s << '::STDIN'
-        parameter['type'] = 'stdin'
+        parameter['kind'] = 'stdin'
       end
       return nil unless classname
 
       classpath = classname.gsub('::', '/').downcase
       require classpath
-      parameter['mail'] = Module.const_get(classname).new(argv1)
+      parameter['data'] = Module.const_get(classname).new(argv1)
 
       @path = parameter['path']
-      @type = parameter['type']
-      @mail = parameter['mail']
+      @kind = parameter['kind']
+      @data = parameter['data']
     end
 
-    # Mbox/Maildir reader, works as an iterator.
+    def mail
+      warn " ***warning: Sisimai::Mail.mail will be removed at #{RemovedAt}. Use Sisimai::Mail.data instead"
+      return data
+    end
+
+    def type
+      warn " ***warning: Sisimai::Mail.type will be removed at #{RemovedAt}. Use Sisimai::Mail.kind instead"
+      return kind
+    end
+
+    # Alias method of Sisimai::Mail.data.read()
     # @return   [String] Contents of mbox/Maildir
     def read
-      return nil unless mail
-      return mail.read
+warn " ***warning: Sisimai::Mail.read will be removed at #{RemovedAt}. Use Sisimai::Mail.data.read instead"
+      return nil unless data
+      return data.read
     end
 
     # Close the handle
     # @return   [True,False]  true:  Successfully closed the handle
     #                         false: Mail handle is not defined
     def close
-      return false unless mail.handle
-      mail.handle = nil
+      warn " ***warning: Sisimai::Mail.close will be removed at #{RemovedAt}. The handle automatically closes at the EOF"
+      return false unless data.handle
+      data.handle = nil
       return true
     end
   end
 end
+

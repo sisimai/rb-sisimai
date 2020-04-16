@@ -17,7 +17,7 @@ describe Sisimai::Rhost::IUA do
       mtahost = %r/\Amx[0-9]+[.]email[.]ua\z/
       next unless mailbox
 
-      while r = mailbox.read do
+      while r = mailbox.data.read do
         mesg = Sisimai::Message.new(data: r)
         it('is Sisimai::Message object') { expect(mesg).to be_a Sisimai::Message }
         it('has array in "ds" accessor' ) { expect(mesg.ds).to be_a Array }

@@ -5,9 +5,8 @@ module Sisimai
     class STDIN
       # Imported from p5-Sisimail/lib/Sisimai/Mail/STDIN.pm
       # :path   [String]  Fixed string "<STDIN>"
-      # :name   [String]  File name of the mbox
-      # :size   [Integer] File size of the mbox
-      # :offset [Integer]  Offset position for seeking
+      # :size   [Integer] Data size which has been read
+      # :offset [Integer]  The number of emails which have neen read
       # :handle [IO::File] File handle
       attr_reader :path, :name, :size
       attr_accessor :offset, :handle
@@ -19,7 +18,6 @@ module Sisimai
         raise 'is not an IO object' unless stdin.is_a?(IO)
 
         @path   = '<STDIN>'
-        @name   = '<STDIN>'
         @size   = nil
         @offset = 0
         @handle = stdin
@@ -45,6 +43,8 @@ module Sisimai
           readhandle.close
         end
 
+        self.size   += readbuffer.size
+        self.offset += 1
         return readbuffer
       end
     end

@@ -19,9 +19,9 @@ describe Sisimai::Data do
       return data
     end
 
-    while r = mail.read do
+    while r = mail.data.read do
       mesg = Sisimai::Message.new(data: r, hook: call)
-      data = Sisimai::Data.make(data: mesg, origin: mail.mail.path)
+      data = Sisimai::Data.make(data: mesg, origin: mail.data.path)
       example 'Sisimai::Data.make returns Array' do
         expect(data).to be_a Array
       end
@@ -136,7 +136,7 @@ describe Sisimai::Data do
     file = './set-of-emails/maildir/bsd/lhost-sendmail-04.eml'
     mail = Sisimai::Mail.new(file)
 
-    while r = mail.read do
+    while r = mail.data.read do
       mesg = Sisimai::Message.new(data: r)
       list = { 
         'recipient' => ['X-Failed-Recipient', 'To'],
@@ -254,7 +254,7 @@ describe Sisimai::Data do
     ]
     file.each do |e|
       mail = Sisimai::Mail.new(e)
-      while r = mail.read do
+      while r = mail.data.read do
         mesg = Sisimai::Message.new( data: r )
         data = Sisimai::Data.make( data: mesg )
         it('returns Sisimai::Message') { expect(mesg).to be_a Sisimai::Message }
