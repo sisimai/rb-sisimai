@@ -77,7 +77,6 @@ module Sisimai
     # Alias method of Sisimai::Mail.data.read()
     # @return   [String] Contents of mbox/Maildir
     def read
-warn " ***warning: Sisimai::Mail.read will be removed at #{RemovedAt}. Use Sisimai::Mail.data.read instead"
       return nil unless data
       return data.read
     end
