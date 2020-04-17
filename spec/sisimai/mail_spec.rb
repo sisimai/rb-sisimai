@@ -174,8 +174,8 @@ describe Sisimai::Mail do
           is_expected.to be == 'maildir'
         end
       end
-      describe '#mail' do
-        subject { maildir.mail }
+      describe '#data' do
+        subject { maildir.data }
         it 'returns Sisimai::Mail::Maildir object' do
           is_expected.to be_a Sisimai::Mail::Maildir
         end
