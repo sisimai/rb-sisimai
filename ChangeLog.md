@@ -74,6 +74,12 @@ v4.25.5p13
       Maildir/ which have been read
     - Call `Sisimai::Mail::*.read` directly instead of `Sisimai::Mail.read`
     - Remove `Sisimai::Lhost::UserDefined` (not used)
+  - Add the following D.S.N. codes and error messages (not tested)
+    - `Mailbox does not exist!` at `Sisimai::Reason::UserUnknown` (Amazon SES)
+    - `Not a valid recipienet` at `Sisimai::Reason::UserUnknown` (Yahoo!)
+    - `Envelope blocked` at `Sisimai::Reason::Rejected` (Minecast.com)
+    - `5.2.122` is toomanyconn, `5.4.11` is contenterror, `5.7.51` is blocked
+      at `Sisimai::Rhost::ExchangeOnline`
 
 v4.25.5
 --------------------------------------------------------------------------------

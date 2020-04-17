@@ -55,6 +55,7 @@ module Sisimai
           |mailbox[ ](?:
              .+[ ]does[ ]not[ ]exist
             |.+[@].+[ ]unavailable
+            |does[ ]not[ ]exist
             |invalid
             |is[ ](?:inactive|unavailable)
             |not[ ](?:present|found)
@@ -82,7 +83,7 @@ module Sisimai
             )
           |non[- ]?existent[ ]user
           |not[ ](?:
-             a[ ]valid[ ]user[ ]here
+             a[ ]valid[ ](?:recipient|user[ ]here)
             |a[ ]local[ ]address
             |email[ ]addresses
             )
