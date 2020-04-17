@@ -73,6 +73,7 @@ v4.25.5p13
     - `Sisimai::Mail::Maildir.offset` keeps the number of email files in the
       Maildir/ which have been read
     - Call `Sisimai::Mail::*.read` directly instead of `Sisimai::Mail.read`
+    - Remove `Sisimai::Lhost::UserDefined` (not used)
 
 v4.25.5
 --------------------------------------------------------------------------------
