@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::X4 parses a bounce email which created by some qmail
-  # clone.  Methods in the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::X4 parses a bounce email which created by some qmail clone.
+  # Methods in the module are called from only Sisimai::Message.
   module X4
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Lhost/X4.pm
@@ -118,16 +118,10 @@ module Sisimai::Lhost
       }.freeze
 
       # Parse bounce messages from Unknown MTA #4
-      # @param         [Hash] mhead       Message headers of a bounce email
-      # @options mhead [String] from      From header
-      # @options mhead [String] date      Date header
-      # @options mhead [String] subject   Subject header
-      # @options mhead [Array]  received  Received headers
-      # @options mhead [String] others    Other required headers
-      # @param         [String] mbody     Message body of a bounce email
-      # @return        [Hash, Nil]        Bounce data list and message/rfc822
-      #                                   part or nil if it failed to parse or
-      #                                   the arguments are missing
+      # @param  [Hash] mhead    Message headers of a bounce email
+      # @param  [String] mbody  Message body of a bounce email
+      # @return [Hash]          Bounce data list and message/rfc822 part
+      # @return [Nil]           it failed to parse or the arguments are missing
       def make(mhead, mbody)
         # Pre process email headers and the body part of the message which generated
         # by qmail, see https://cr.yp.to/qmail.html

@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::X1 parses a bounce email which created by Unknown
-  # MTA #1. Methods in the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::X1 parses a bounce email which created by Unknown MTA #1.
+  # Methods in the module are called from only Sisimai::Message.
   module X1
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Lhost/X1.pm
@@ -11,16 +11,10 @@ module Sisimai::Lhost
       MarkingsOf = { message: %r/\AThe original message was received at (.+)\z/ }.freeze
 
       # Parse bounce messages from Unknown MTA #1
-      # @param         [Hash] mhead       Message headers of a bounce email
-      # @options mhead [String] from      From header
-      # @options mhead [String] date      Date header
-      # @options mhead [String] subject   Subject header
-      # @options mhead [Array]  received  Received headers
-      # @options mhead [String] others    Other required headers
-      # @param         [String] mbody     Message body of a bounce email
-      # @return        [Hash, Nil]        Bounce data list and message/rfc822
-      #                                   part or nil if it failed to parse or
-      #                                   the arguments are missing
+      # @param  [Hash] mhead    Message headers of a bounce email
+      # @param  [String] mbody  Message body of a bounce email
+      # @return [Hash]          Bounce data list and message/rfc822 part
+      # @return [Nil]           it failed to parse or the arguments are missing
       def make(mhead, mbody)
         return nil unless mhead['subject'].start_with?('Returned Mail: ')
         return nil unless mhead['from'].start_with?('"Mail Deliver System" ')

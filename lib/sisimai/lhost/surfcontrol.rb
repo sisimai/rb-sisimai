@@ -12,16 +12,10 @@ module Sisimai::Lhost
       StartingOf = { message: ['Your message could not be sent.'] }.freeze
 
       # Parse bounce messages from SurfControl
-      # @param         [Hash] mhead       Message headers of a bounce email
-      # @options mhead [String] from      From header
-      # @options mhead [String] date      Date header
-      # @options mhead [String] subject   Subject header
-      # @options mhead [Array]  received  Received headers
-      # @options mhead [String] others    Other required headers
-      # @param         [String] mbody     Message body of a bounce email
-      # @return        [Hash, Nil]        Bounce data list and message/rfc822
-      #                                   part or nil if it failed to parse or
-      #                                   the arguments are missing
+      # @param  [Hash] mhead    Message headers of a bounce email
+      # @param  [String] mbody  Message body of a bounce email
+      # @return [Hash]          Bounce data list and message/rfc822 part
+      # @return [Nil]           it failed to parse or the arguments are missing
       def make(mhead, mbody)
         # X-SEF-ZeroHour-RefID: fgs=000000000
         # X-SEF-Processed: 0_0_0_000__2010_04_29_23_34_45

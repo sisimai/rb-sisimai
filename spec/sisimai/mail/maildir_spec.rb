@@ -3,7 +3,7 @@ require 'sisimai/mail/maildir'
 
 describe Sisimai::Mail::Maildir do
   samplemaildir = './set-of-emails/maildir/bsd'
-  allofthefiles = 488
+  allofthefiles = 488 
   let(:mailobj) { Sisimai::Mail::Maildir.new(samples) }
   let(:mockobj) { Sisimai::Mail::Maildir.new(invalid) }
 
@@ -69,7 +69,7 @@ describe Sisimai::Mail::Maildir do
     end
     describe '#size' do
       subject { mailobj.size }
-      it 'returns the number of files in the direcotry' do
+      it 'returns the number of files/directories in the Maildir/' do
         is_expected.to be_a Integer
         is_expected.to be > 255
       end
@@ -81,20 +81,12 @@ describe Sisimai::Mail::Maildir do
         is_expected.to be_a Dir
       end
     end
-    describe '#inodes' do
-      let(:inodes) { mailobj.inodes }
-      subject { mailobj.inodes }
-      it 'contains inode table' do
-        is_expected.to be_a Hash
-        expect(inodes.size).to be == 1
-      end
-    end
-    describe '#count' do
-      let(:count) { mailobj.count }
-      subject { mailobj.count }
+    describe '#offset' do
+      let(:offset) { mailobj.offset }
+      subject { mailobj.offset }
       it 'returns the number of read files' do
         is_expected.to be_a Integer
-        is_expected.to be == 1
+        is_expected.to be > 0
       end
     end
 
@@ -108,19 +100,15 @@ describe Sisimai::Mail::Maildir do
           expect(maildir.file).to match(/\A[a-z0-9-]+[-]\d\d[.]eml\z/)
           expect(maildir.file.size).to be > 0
         end
-        it "has read #{maildir.count} files" do
-          expect(maildir.count).to be > 0
-          expect(maildir.count).to be == emindex
-        end
-        it 'has 1 or more inode entries' do
-          expect(maildir.inodes.keys.size).to be_a Integer
-          expect(maildir.inodes.keys.size).to be >= emindex - 3
+        it "has read #{maildir.offset} files" do
+          expect(maildir.offset).to be > 0
+          expect(maildir.offset).to be == emindex + 2
         end
       end
-      example "the number of read files is #{maildir.count}" do
-        expect(maildir.count).to be > 0
-        expect(maildir.count).to be == emindex
-        expect(maildir.count).to be == allofthefiles
+      example "the number of read files is #{maildir.offset}" do
+        expect(maildir.offset).to be > 0
+        expect(maildir.offset).to be == emindex + 2
+        expect(maildir.offset).to be == allofthefiles
       end
     end
   end

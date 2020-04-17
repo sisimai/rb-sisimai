@@ -1,10 +1,9 @@
-require 'sisimai/version'
-
 # Sisimai is the system formerly known as bounceHammer 4, is a Ruby module for
 # analyzing bounce mails and generate structured data in a JSON format (YAML is
 # also available if "YAML" module is installed on your system) from parsed bounce
 # messages. Sisimai is a coined word: Sisi (the number 4 is pronounced "Si" in
 # Japanese) and MAI (acronym of "Mail Analyzing Interface").
+require 'sisimai/version'
 module Sisimai
   # Imported from p5-Sisimail/lib/Sisimai.pm
   class << self
@@ -29,13 +28,13 @@ module Sisimai
 
       list = []
       return nil unless mail = Sisimai::Mail.new(argv0)
-      while r = mail.read do
-        # Read and parse each mail file
+      while r = mail.data.read do
+        # Read and parse each email file
         methodargv = { data: r, hook: argv1[:hook] }
         mesg = Sisimai::Message.new(methodargv)
         next if mesg.void
 
-        methodargv = { data: mesg, delivered: argv1[:delivered], origin: mail.mail.path }
+        methodargv = { data: mesg, delivered: argv1[:delivered], origin: mail.data.path }
         next unless data = Sisimai::Data.make(methodargv)
         list += data unless data.empty?
       end

@@ -89,7 +89,7 @@ module Sisimai
 
               it('could be generated Sisimai::Mail object') { expect(mailobject).to be_a Sisimai::Mail }
 
-              while r = mailobject.read do
+              while r = mailobject.data.read do
                 describe Sisimai::Mail do
                   mesgsource = r.to_s
                   mesgobject = nil
@@ -206,7 +206,7 @@ module Sisimai
                     end # End of Sisimai::Message#ds
                   end # End of Sisimai::Message
 
-                  dataobject = Sisimai::Data.make(data: mesgobject, delivered: true, origin: mailobject.mail.path)
+                  dataobject = Sisimai::Data.make(data: mesgobject, delivered: true, origin: mailobject.data.path)
                   describe Sisimai::Data do
                     next unless dataobject
                     next if dataobject.empty?

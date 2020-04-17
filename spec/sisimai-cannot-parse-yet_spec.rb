@@ -36,7 +36,7 @@ if File.exist?(cannotparse)
 
         describe '#read' do
           mailobj = Sisimai::Mail::Maildir.new(cannotparse)
-          mailtxt = mailobj.read
+          mailtxt = mailobj.data.read
 
           it 'returns message string' do
             expect(mailtxt).to be_a String
