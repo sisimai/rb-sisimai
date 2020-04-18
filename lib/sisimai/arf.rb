@@ -26,6 +26,7 @@ module Sisimai
           )
         }x,
       }.freeze
+      ReportFrom = /(?:staff[@]hotmail[.]com|complaints[@]email-abuse[.]amazonses[.]com)\z/.freeze
       LongFields = Sisimai::RFC5322.LONGFIELDS
       RFC822Head = Sisimai::RFC5322.HEADERFIELDS
 
@@ -47,13 +48,8 @@ module Sisimai
         elsif heads['content-type'].start_with?('multipart/mixed')
           # Microsoft (Hotmail, MSN, Live, Outlook) uses its own report format.
           # Amazon SES Complaints bounces
-          hfrom = Sisimai::Address.s3s4(heads['from'])
-          mfrom = %r{(?:
-             staff[@]hotmail[.]com
-            |complaints[@]email-abuse[.]amazonses[.]com
-            )\z
-          }x
-          if hfrom =~ mfrom && heads['subject'].include?('complaint about message from ')
+          p = Sisimai::Address.s3s4(heads['from'])
+          if p =~ ReportFrom && heads['subject'].include?('complaint about message from ')
             # From: staff@hotmail.com
             # From: complaints@email-abuse.amazonses.com
             # Subject: complaint about message from 192.0.2.1
