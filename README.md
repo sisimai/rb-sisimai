@@ -111,7 +111,9 @@ Usage
 Basic usage
 -------------------------------------------------------------------------------
 `make()` method provides feature for getting parsed data from bounced email 
-messages like following.
+messages like following. Beginning with v4.25.6, new accessor `origin` which
+keeps the path to email file as a data source is available.
+
 
 ```ruby
 #! /usr/bin/env ruby
@@ -139,6 +141,7 @@ if v.is_a? Array
     puts e.deliverystatus       # 5.1.1
     puts e.replycode            # 550
     puts e.reason               # userunknown
+    puts e.origin               # /var/spool/bounce/Maildir/new/1740074341.eml
 
     h = e.damn                  # Convert to HASH
     j = e.dump('json')          # Convert to JSON string
@@ -201,7 +204,7 @@ Output example
 ![](https://libsisimai.org/static/images/demo/sisimai-dump-02.gif)
 
 ```json
-[{"action": "failed", "subject": "Nyaan", "catch": null, "token": "08acf78323edc7923a783c04749dd547ab45c433", "alias": "", "messageid": "201806090556.w595u8GZ093276@neko.example.jp", "listid": "", "smtpcommand": "MAIL", "smtpagent": "Email::Sendmail", "lhost": "localhost", "timezoneoffset": "+0900", "feedbacktype": "", "senderdomain": "neko.example.jp", "diagnostictype": "SMTP", "softbounce": 1, "deliverystatus": "5.0.0", "addresser": "kijitora@neko.example.jp", "diagnosticcode": "550 Unauthenticated senders not allowed", "timestamp": 1528523769, "destination": "example.com", "recipient": "sironeko@example.com", "reason": "securityerror", "replycode": "550", "rhost": "neko.example.jp"}]
+[{"catch":{"x-mailer":"","return-path":"<shironeko@mx.example.co.jp>"},"token":"cf17945938502bd876603a375f0e9517c921bbab","lhost":"localhost","rhost":"mx-s.neko.example.jp","alias":"","listid":"","reason":"hasmoved","action":"failed","origin":"set-of-emails/maildir/bsd/lhost-sendmail-22.eml","subject":"Nyaaaan","messageid":"0000000011111.fff0000000003@mx.example.co.jp","replycode":"","smtpagent":"Sendmail","softbounce":0,"smtpcommand":"DATA","destination":"example.net","senderdomain":"example.co.jp","feedbacktype":"","diagnosticcode":"450 busy - please try later 551 not our customer 503 need RCPT command [data]","diagnostictype":"SMTP","deliverystatus":"5.1.6","timezoneoffset":"+0900","addresser":"shironeko@example.co.jp","recipient":"kijitora@example.net","timestamp":1397054085}]
 ```
 
 Sisimai Specification
@@ -223,7 +226,7 @@ and bounceHammer are available at
 | How to install                              | gem install    | cpanm, cpm    |
 | Dependencies (Except core modules)          | 1 module       | 2 modules     |
 | LOC:Source lines of code                    | 10200 lines    | 10400 lines   |
-| The number of tests(spec/,t/,xt/) directory | 230000 tests   | 259000 tests  |
+| The number of tests(spec/,t/,xt/) directory | 236000 tests   | 266000 tests  |
 | License                                     | BSD 2-Clause   | BSD 2-Clause  |
 | Support Contract provided by Developer      | Available      | Available     |
 

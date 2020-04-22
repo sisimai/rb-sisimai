@@ -3,10 +3,10 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.5p13
+v4.25.6
 --------------------------------------------------------------------------------
-- release: ""
-- version: ""
+- release: "Wed, 22 Apr 2020 16:22:22 +0900 (JST)"
+- version: "4.25.6"
 - changes:
   - Performance improvement: 10% faster, reduced 9% of method calls
   - #176 Make `Sisimai::Message` 27% faster
