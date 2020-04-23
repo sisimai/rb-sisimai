@@ -3,6 +3,13 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-Sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.25.7
+--------------------------------------------------------------------------------
+- release: "Thu, 23 Apr 2020 15:22:22 +0900 (JST)"
+- version: "4.25.7"
+- changes:
+  - Bug fix in `rake spec` for removed module `Sisimai::Lhost::UserDefined`
+
 v4.25.6
 --------------------------------------------------------------------------------
 - release: "Wed, 22 Apr 2020 16:22:22 +0900 (JST)"
