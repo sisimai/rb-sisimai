@@ -38,7 +38,7 @@ v4.25.6
     - `Sisimai::MIME.patterns`
     - `Sisimai::SMTP.command`
   - `Sisimai::Lhost::Google` has been renamed to `Sisimai::Lhost::Gmail`
-  - Implement 3 MTA modules: #178 #181
+  - Implement 4 MTA modules: #178 #181
     - `Sisimai::Lhost::Barracuda`
     - `Sisimai::Lhost::PowerMTA`
     - `Sisimai::Lhost::X6`
