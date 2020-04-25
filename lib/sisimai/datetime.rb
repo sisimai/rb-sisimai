@@ -43,7 +43,7 @@ module Sisimai
         abbr: %w[Sun Mon Tue Wed Thu Fri Sat],
       }.freeze
 
-      TimeZoneAbbr = {
+      TimeZones = {
         # http://en.wikipedia.org/wiki/List_of_time_zone_abbreviations
         #'ACDT' => '+1030', # Australian Central Daylight Time  UTC+10:30
         #'ACST' => '+0930', # Australian Central Standard Time  UTC+09:30
@@ -399,7 +399,7 @@ module Sisimai
       #   abbr2tz('JST')  #=> '+0900'
       def abbr2tz(argv1)
         return nil unless argv1.is_a?(::String)
-        return TimeZoneAbbr[argv1]
+        return TimeZones[argv1]
       end
 
       # Convert to second
@@ -428,7 +428,7 @@ module Sisimai
           return ztime
 
         elsif argv1 =~ /\A[A-Za-z]+\z/
-          return tz2second(TimeZoneAbbr[argv1])
+          return tz2second(TimeZones[argv1])
         else
           return nil
         end

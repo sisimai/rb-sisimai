@@ -66,7 +66,6 @@ module Sisimai
       def LONGFIELDS
         return { 'to' => 1, 'from' => 1, 'subject' => 1, 'message-id' => 1 }
       end
-      LongHeaders = Sisimai::RFC5322.LONGFIELDS
 
       # Check that the argument is an email address or not
       # @param    [String] email  Email address string
