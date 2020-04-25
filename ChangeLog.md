@@ -5,7 +5,7 @@ RELEASE NOTES for Ruby version of Sisimai
 
 v4.25.7
 --------------------------------------------------------------------------------
-- release: "Thu, 23 Apr 2020 15:22:22 +0900 (JST)"
+- release: "Sat, 25 Apr 2020 22:22:22 +0900 (JST)"
 - version: "4.25.7"
 - changes:
   - Bug fix in `rake spec` for removed module `Sisimai::Lhost::UserDefined`
