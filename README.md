@@ -1,9 +1,9 @@
 ![](https://libsisimai.org/static/images/logo/sisimai-x01.png)
 
-[![License](https://img.shields.io/badge/license-BSD%202--Clause-orange.svg)](https://github.com/sisimai/rb-Sisimai/blob/master/LICENSE)
-[![Coverage Status](https://img.shields.io/coveralls/sisimai/rb-Sisimai.svg)](https://coveralls.io/r/sisimai/rb-Sisimai)
-[![Build Status](https://travis-ci.org/sisimai/rb-Sisimai.svg?branch=master)](https://travis-ci.org/sisimai/rb-Sisimai) 
-[![Codacy Badge](https://api.codacy.com/project/badge/grade/38340177e6284a65be69c0c7c3dc2b58)](https://www.codacy.com/app/azumakuniyuki/rb-Sisimai)
+[![License](https://img.shields.io/badge/license-BSD%202--Clause-orange.svg)](https://github.com/sisimai/rb-sisimai/blob/master/LICENSE)
+[![Coverage Status](https://img.shields.io/coveralls/sisimai/rb-sisimai.svg)](https://coveralls.io/r/sisimai/rb-sisimai)
+[![Build Status](https://travis-ci.org/sisimai/rb-sisimai.svg?branch=master)](https://travis-ci.org/sisimai/rb-sisimai) 
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/38340177e6284a65be69c0c7c3dc2b58)](https://www.codacy.com/app/azumakuniyuki/rb-sisimai)
 [![Ruby](https://img.shields.io/badge/ruby-v2.1.0--v2.6.0-red.svg)](https://www.ruby-lang.org/)
 [![Gem Version](https://badge.fury.io/rb/sisimai.svg)](https://badge.fury.io/rb/sisimai)
 
@@ -39,7 +39,7 @@ What is Sisimai
 ===============================================================================
 Sisimai is a Ruby library for analyzing RFC5322 bounce emails and generating
 structured data from parsed results. The Ruby version of Sisimai is ported from
-the Perl version of Sisimai at [github.com/sisimai/p5-Sisimai](https://github.com/sisimai/p5-Sisimai/).
+the Perl version of Sisimai at [github.com/sisimai/p5-sisimai](https://github.com/sisimai/p5-sisimai/).
 
 ![](https://libsisimai.org/static/images/figure/sisimai-overview-1.png)
 
@@ -59,7 +59,7 @@ Key Features
 Command line demo
 -------------------------------------------------------------------------------
 The following screen shows a demonstration of Sisimai at the command line using
-Ruby(rb-Sisimai) and Perl(p5-Sisimai) version of Sisimai.
+Ruby(rb-sisimai) and Perl(p5-sisimai) version of Sisimai.
 ![](https://libsisimai.org/static/images/demo/sisimai-dump-01.gif)
 
 Setting Up Sisimai
@@ -94,8 +94,8 @@ Done installing documentation for sisimai after 6 seconds
 
 ```shell
 $ cd /usr/local/src
-$ git clone https://github.com/sisimai/rb-Sisimai.git
-$ cd ./rb-Sisimai
+$ git clone https://github.com/sisimai/rb-sisimai.git
+$ cd ./rb-sisimai
 $ sudo make depend install-from-local
 gem install bundle rake rspec coveralls
 ...
@@ -230,7 +230,7 @@ and bounceHammer are available at
 | License                                     | BSD 2-Clause   | BSD 2-Clause  |
 | Support Contract provided by Developer      | Available      | Available     |
 
-1. See [./ANALYTICAL-PRECISION](https://github.com/sisimai/rb-Sisimai/blob/master/ANALYTICAL-PRECISION)
+1. See [./ANALYTICAL-PRECISION](https://github.com/sisimai/rb-sisimai/blob/master/ANALYTICAL-PRECISION)
 2. Xeon E5-2640 2.5GHz x 2 cores | 5000 bogomips | 1GB RAM | Ruby 2.3.4p301
 
 Other specification of Sisimai
@@ -244,7 +244,7 @@ Contributing
 
 Bug report
 -------------------------------------------------------------------------------
-Please use the [issue tracker](https://github.com/sisimai/rb-Sisimai/issues)
+Please use the [issue tracker](https://github.com/sisimai/rb-sisimai/issues)
 to report any bugs.
 
 Emails could not be parsed
@@ -263,14 +263,14 @@ Related Sites
 * __libSISIMAI.ORG__ | [Sisimai | The successor to bounceHammer, Library to parse bounce mails](https://libsisimai.org/)
 * __Sisimai Blog__ | [blog.libsisimai.org](http://blog.libsisimai.org/)
 * __Facebook Page__ | [facebook.com/libsisimai](https://www.facebook.com/libsisimai/)
-* __GitHub__ | [github.com/sisimai/rb-Sisimai](https://github.com/sisimai/rb-Sisimai)
+* __GitHub__ | [github.com/sisimai/rb-sisimai](https://github.com/sisimai/rb-sisimai)
 * __RubyGems.org__ | [rubygems.org/gems/sisimai](https://rubygems.org/gems/sisimai)
-* __Perl verson__ | [Perl version of Sisimai](https://github.com/sisimai/p5-Sisimai)
+* __Perl verson__ | [Perl version of Sisimai](https://github.com/sisimai/p5-sisimai)
 * __Fixtures__ | [set-of-emails - Sample emails for "make test"](https://github.com/sisimai/set-of-emails)
 
 See also
 -------------------------------------------------------------------------------
-* [README-JA.md - README.md in Japanese(日本語)](https://github.com/sisimai/rb-Sisimai/blob/master/README-JA.md)
+* [README-JA.md - README.md in Japanese(日本語)](https://github.com/sisimai/rb-sisimai/blob/master/README-JA.md)
 * [RFC3463 - Enhanced Mail System Status Codes](https://tools.ietf.org/html/rfc3463)
 * [RFC3464 - An Extensible Message Format for Delivery Status Notifications](https://tools.ietf.org/html/rfc3464)
 * [RFC3834 - Recommendations for Automatic Responses to Electronic Mail](https://tools.ietf.org/html/rfc3834)

@@ -1,4 +1,4 @@
-# rb-Sisimai/Makefile
+# rb-sisimai/Makefile
 #  __  __       _         __ _ _      
 # |  \/  | __ _| | _____ / _(_) | ___ 
 # | |\/| |/ _` | |/ / _ \ |_| | |/ _ \

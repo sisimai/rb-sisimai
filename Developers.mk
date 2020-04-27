@@ -1,4 +1,4 @@
-# p5-Sisimai/Developers.mk
+# rb-sisimai/Developers.mk
 #  ____                 _                                       _    
 # |  _ \  _____   _____| | ___  _ __   ___ _ __ ___   _ __ ___ | | __
 # | | | |/ _ \ \ / / _ \ |/ _ \| '_ \ / _ \ '__/ __| | '_ ` _ \| |/ /
@@ -15,7 +15,7 @@ LS    := ls -1
 CP    := cp
 RM    := rm -f
 
-PERL5SISIMAI := p5-Sisimai
+PERL5SISIMAI := p5-sisimai
 PRECISIONTAB := ANALYTICAL-PRECISION
 PARSERLOGDIR := tmp/parser-logs
 MAILCLASSDIR := lib/$(NAME)/Lhost

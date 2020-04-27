@@ -1,7 +1,14 @@
 RELEASE NOTES for Ruby version of Sisimai
 ================================================================================
-- releases: "https://github.com/sisimai/rb-Sisimai/releases"
+- releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
+
+v4.25.7p0
+--------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - **Repository URL was changed to https://github.com/sisimai/rb-sisimai**
 
 v4.25.7
 --------------------------------------------------------------------------------

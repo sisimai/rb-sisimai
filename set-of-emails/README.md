@@ -1,7 +1,7 @@
 About "set-of-emails" repository
 ================================================================================
 This repository hold bounce mail collections for developing Sisimai. Email files
-in this repository are read from `make test` at p5-Sisimai and rb-Sisimai.
+in this repository are read from `make test` at p5-sisimai and rb-sisimai.
 
 
 | Directory                     | Description                                  |
@@ -24,8 +24,8 @@ See Also
 ================================================================================
 * __Sisimai Project__ | [github.com/sisimai](https://github.com/sisimai)
 * __libsisimai.org__ | [Sisimai — A successor to bounceHammer, Library to parse error mails](https://libsisimai.org/)
-* __Perl Verson__ | [Perl version of Sisimai(Stable)](https://github.com/sisimai/p5-Sisimai)
-* __Ruby verson__ | [Ruby version of Sisimai(Under the development)](https://github.com/sisimai/rb-Sisimai)
+* __Perl Verson__ | [Perl version of Sisimai(Stable)](https://github.com/sisimai/p5-sisimai)
+* __Ruby verson__ | [Ruby version of Sisimai(Under the development)](https://github.com/sisimai/rb-sisimai)
 
 Author
 ===============================================================================
