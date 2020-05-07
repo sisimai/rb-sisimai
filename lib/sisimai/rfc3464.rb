@@ -98,12 +98,9 @@ module Sisimai
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to parse or the arguments are missing
       def make(mhead, mbody)
-        require 'sisimai/mda'
-
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         bodyslices = mbody.scrub('?').split("\n")
         readslices = ['']
-        mdabounced = Sisimai::MDA.make(mhead, mbody)
         rfc822text = ''   # (String) message/rfc822 part text
         maybealias = nil  # (String) Original-Recipient Field
         blanklines = 0    # (Integer) The number of blank lines
@@ -421,6 +418,8 @@ module Sisimai
         end
         return nil unless recipients > 0
 
+        require 'sisimai/mda'
+        mdabounced = Sisimai::MDA.make(mhead, mbody)
         dscontents.each do |e|
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }

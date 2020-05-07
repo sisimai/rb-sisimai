@@ -32,101 +32,70 @@ module Sisimai
     #                                   value of the arguments are missing
     def initialize(data: '', **argvs)
       return nil if data.empty?
+      param = {}
       email = data.scrub('?').gsub("\r\n", "\n")
+      thing = { 'from' => '','header' => {}, 'rfc822' => '', ds => [], 'catch' => nil }
 
-      methodargv = { 'data' => email, 'hook' => argvs[:hook] || nil }
+      #methodargv = { 'data' => email, 'hook' => argvs[:hook] || nil }
+      # 1. Load specified MTA modules
       [:load, :order].each do |e|
         # Order of MTA modules
         next unless argvs[e]
         next unless argvs[e].is_a? Array
         next if argvs[e].empty?
-        methodargv[e.to_s] = argvs[e]
+        param[e.to_s] = argvs[e]
       end
+      tobeloaded = Sisimai::Message.load(param)
 
-      datasource = Sisimai::Message.make(methodargv)
-      return nil unless datasource
-      return nil unless datasource['ds']
-
-      @from   = datasource['from']
-      @header = datasource['header']
-      @ds     = datasource['ds']
-      @rfc822 = datasource['rfc822']
-      @catch  = datasource['catch'] || nil
-    end
-
-    # Check whether the object has valid content or not
-    # @return        [True,False]   returns true if the object is void
-    def void
-      return true unless @ds
-      return false
-    end
-
-    # Make data structure from the email message(a body part and headers)
-    # @param         [Hash] argvs   Email data
-    # @options argvs [String] data  Entire email message
-    # @options argvs [Array]  load  User defined MTA module list
-    # @options argvs [Array]  order The order of MTA modules
-    # @options argvs [Code]   hook  Reference to callback method
-    # @return        [Hash]         Resolved data structure
-    def self.make(argvs)
-      email = argvs['data']
-
-      hookmethod = argvs['hook'] || nil
-      processing = {
-        'from'   => '',  # From_ line
-        'header' => {},  # Email header
-        'rfc822' => '',  # Original message part
-        'ds'     => [],  # Parsed data, Delivery Status
-        'catch'  => nil, # Data parsed by callback method
-      }
-      methodargv = {
-        'load'  => argvs['load'] || [],
-        'order' => argvs['order'] || []
-      }
-      tobeloaded = Sisimai::Message.load(methodargv)
-
-      # 1. Split email data to headers and a body part.
+      # 2. Split email data to headers and a body part.
       return nil unless aftersplit = Sisimai::Message.divideup(email)
 
-      # 2. Convert email headers from text to hash reference
-      processing['from']   = aftersplit['from']
-      processing['header'] = Sisimai::Message.makemap(aftersplit['header'])
+      # 3. Convert email headers from text to hash reference
+      thing['from']   = aftersplit[0]
+      thing['header'] = Sisimai::Message.makemap(aftersplit[1])
 
-      # 3. Decode and rewrite the "Subject:" header
-      unless processing['header']['subject'].empty?
+      # 4. Decode and rewrite the "Subject:" header
+      unless thing['header']['subject'].empty?
         # Decode MIME-Encoded "Subject:" header
-        s = processing['header']['subject']
+        s = thing['header']['subject']
         q = Sisimai::MIME.is_mimeencoded(s) ? Sisimai::MIME.mimedecode(s.split(/[ ]/)) : s
 
         # Remove "Fwd:" string from the Subject: header
         if cv = q.downcase.match(/\A[ \t]*fwd?:[ ]*(.*)\z/)
           # Delete quoted strings, quote symbols(>)
           q = cv[1]
-          aftersplit['body'] = aftersplit['body'].gsub(/^[>]+[ ]/, '').gsub(/^[>]$/, '')
+          aftersplit[2] = aftersplit[2].gsub(/^[>]+[ ]/, '').gsub(/^[>]$/, '')
         end
-        processing['header']['subject'] = q
+        thing['header']['subject'] = q
       end
 
-      # 4. Rewrite message body for detecting the bounce reason
-      tryonfirst = Sisimai::Order.make(processing['header']['subject'])
-      methodargv = {
-        'hook' => hookmethod,
-        'mail' => processing,
-        'body' => aftersplit['body'],
-        'tryonfirst' => tryonfirst,
+      # 5. Rewrite message body for detecting the bounce reason
+      param = {
+        'hook' => argvs[:hook] || nil,
+        'mail' => thing,
+        'body' => aftersplit[2],
         'tobeloaded' => tobeloaded,
+        'tryonfirst' => Sisimai::Order.make(thing['header']['subject'])
       }
-      return nil unless bouncedata = Sisimai::Message.parse(methodargv)
+      return nil unless bouncedata = Sisimai::Message.parse(param)
       return nil if bouncedata.empty?
 
-      # 5. Rewrite headers of the original message in the body part
-      %w|ds catch rfc822|.each { |e| processing[e] = bouncedata[e] }
+      # 6. Rewrite headers of the original message in the body part
+      %w|ds catch rfc822|.each { |e| thing[e] = bouncedata[e] }
       p = bouncedata['rfc822']
-      p = aftersplit['body'] if p.empty?
-      processing['rfc822'] = p.is_a?(::String) ? Sisimai::Message.makemap(p, true) : p
+      p = aftersplit[2] if p.empty?
+      thing['rfc822'] = p.is_a?(::String) ? Sisimai::Message.makemap(p, true) : p
 
-      return processing
+      @from   = thing['from']
+      @header = thing['header']
+      @ds     = thing['ds']
+      @rfc822 = thing['rfc822']
+      @catch  = thing['catch'] || nil
     end
+
+    # Check whether the object has valid content or not
+    # @return        [True,False]   returns true if the object is void
+    def void; return @ds ? false : true; end
 
     # Load MTA modules which specified at 'order' and 'load' in the argument
     # @param         [Hash] argvs       Module information to be loaded
@@ -171,28 +140,28 @@ module Sisimai
 
     # Divide email data up headers and a body part.
     # @param         [String] email  Email data
-    # @return        [Hash]          Email data after split
+    # @return        [Array]         Email data after split
     def self.divideup(email)
       return nil if email.empty?
 
-      block = { 'from' => '', 'header' => '', 'body' => '' }
+      block = ['', '', '']  # 0:From, 1:Header, 2:Body
       email.gsub!(/\r\n/, "\n")  if email.include?("\r\n")
       email.gsub!(/[ \t]+$/, '') if email =~ /[ \t]+$/
 
-      (block['header'], block['body']) = email.split(/\n\n/, 2)
-      return nil unless block['header']
-      return nil unless block['body']
+      (block[1], block[2]) = email.split(/\n\n/, 2)
+      return nil unless block[1]
+      return nil unless block[2]
 
-      if block['header'].start_with?('From ')
+      if block[1].start_with?('From ')
         # From MAILER-DAEMON Tue Feb 11 00:00:00 2014
-        block['from'] = block['header'].split(/\n/, 2)[0].delete("\r")
+        block[0] = block[1].split(/\n/, 2)[0].delete("\r")
       else
         # Set pseudo UNIX From line
-        block['from'] = 'MAILER-DAEMON Tue Feb 11 00:00:00 2014'
+        block[0] = 'MAILER-DAEMON Tue Feb 11 00:00:00 2014'
       end
 
-      block['header'] << "\n" unless block['header'].end_with?("\n")
-      block['body']   << "\n"
+      block[1] << "\n" unless block[1].end_with?("\n")
+      block[2] << "\n"
       return block
     end
 

@@ -41,7 +41,6 @@ module Sisimai
 
     RetryIndex = Sisimai::Reason.retry
     RFC822Head = Sisimai::RFC5322.HEADERFIELDS(:all)
-    AddrHeader = { addresser: RFC822Head[:addresser], recipient: RFC822Head[:recipient] }.freeze
 
     # Constructor of Sisimai::Data
     # @param    [Hash] argvs    Data
@@ -96,34 +95,11 @@ module Sisimai
 
       messageobj = data
       rfc822data = messageobj.rfc822
-      fieldorder = { :recipient => [], :addresser => [] }
       objectlist = []
-      givenorder = argvs[:order] || {}
       delivered1 = argvs[:delivered] || false
 
       return nil unless messageobj.ds
       return nil unless messageobj.rfc822
-
-      # Decide the order of email headers: user specified or system default.
-      if givenorder.is_a?(Hash) && !givenorder.empty?
-        # If the order of headers for searching is specified, use the order
-        # for detecting an email address.
-        fieldorder.each_key do |e|
-          # The order should be "Array Reference".
-          next unless givenorder[e]
-          next unless givenorder[e].is_a? Array
-          next if givenorder[e].empty?
-          fieldorder[e] += givenorder[e]
-        end
-      end
-
-      fieldorder.each_key do |e|
-        # If the order is empty, use default order.
-        next unless fieldorder[e].empty?
-
-        # Load default order of each accessor.
-        fieldorder[e] = AddrHeader[e]
-      end
 
       eachobject = messageobj.ds.dup
       while e = eachobject.shift do
@@ -152,7 +128,7 @@ module Sisimai
 
         # EMAIL_ADDRESS:
         # Detect email address from message/rfc822 part
-        fieldorder[:addresser].each do |f|
+        RFC822Head[:addresser].each do |f|
           # Check each header in message/rfc822 part
           next unless rfc822data[f]
           next if rfc822data[f].empty?
