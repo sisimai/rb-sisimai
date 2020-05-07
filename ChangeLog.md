@@ -3,12 +3,16 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.7p0
+v4.25.7p1
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
 - changes:
   - **Repository URL was changed to https://github.com/sisimai/rb-sisimai**
+  - `Sisimai::Message.make` method was merged into `Sisimai::Message.new`
+  - `Sisimai::Message.divideup` returns an array (faster than a hash)
+  - Remove unused code blocks for deciding the order of email header fields at
+    `Sisimai::Data.make` method
 
 v4.25.7
 --------------------------------------------------------------------------------
