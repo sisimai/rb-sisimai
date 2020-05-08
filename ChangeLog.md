@@ -13,7 +13,7 @@ v4.25.7p2
   - `Sisimai::Message.divideup` returns an array (faster than a hash)
   - Remove unused code blocks for deciding the order of email header fields at
     `Sisimai::Data.make` method
-  - Remove old parameters: `datasrc` and `bounces` at the callback feature #394
+  - Remove old parameters: `datasrc` and `bounces` at the callback feature #189
 
 v4.25.7
 --------------------------------------------------------------------------------
