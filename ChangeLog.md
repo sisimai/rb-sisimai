@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.7p1
+v4.25.7p2
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -13,6 +13,7 @@ v4.25.7p1
   - `Sisimai::Message.divideup` returns an array (faster than a hash)
   - Remove unused code blocks for deciding the order of email header fields at
     `Sisimai::Data.make` method
+  - Remove old parameters: `datasrc` and `bounces` at the callback feature #394
 
 v4.25.7
 --------------------------------------------------------------------------------
