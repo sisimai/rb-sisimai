@@ -7,7 +7,7 @@ describe Sisimai::Data do
   context 'without orders of email address headers' do
     mail = Sisimai::Mail.new('./set-of-emails/maildir/bsd/lhost-sendmail-03.eml')
     call = lambda do |argv|
-      data = { 'x-mailer' => '', 'return-path' => '', 'type' => argv['datasrc'] }
+      data = { 'x-mailer' => '', 'return-path' => '' }
       if cv = argv['message'].match(/^X-Mailer:\s*(.+)$/)
           data['x-mailer'] = cv[1]
       end
@@ -121,7 +121,6 @@ describe Sisimai::Data do
         example('#origin is a path') { expect(e.origin).to match(%r|/.+[.]eml|) }
 
         example('#catch is Hash') { expect(e.catch).to be_a Hash }
-        example('#catch[type] is "email"') { expect(e.catch['type']).to be == 'email' }
         example('#catch[x-mailer] is String') { expect(e.catch['x-mailer']).to be_a String }
         example('#catch[x-mailer] includes "Apple"') { expect(e.catch['x-mailer']).to match(/Apple/) }
         example('#catch[return-path] is String') { expect(e.catch['return-path']).to be_a String }

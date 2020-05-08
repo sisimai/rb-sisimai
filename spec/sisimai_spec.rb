@@ -133,7 +133,6 @@ describe Sisimai do
           data = {
             'x-mailer' => '',
             'return-path' => '',
-            'type' => argv['datasrc'],
             'x-virus-scanned' => '',
           }
           if cv = argv['message'].match(/^X-Mailer:\s*(.+)$/)
@@ -152,7 +151,6 @@ describe Sisimai do
         havecaught.each do |ee|
           it('is Sisimai::Data') { expect(ee).to be_a Sisimai::Data }
           it('is Hash') { expect(ee.catch).to be_a Hash }
-          it('"type" is "email"') { expect(ee.catch['type']).to be == 'email' }
           it('exists "x-mailer" key') { expect(ee.catch.key?('x-mailer')).to be true }
 
           if ee.catch['x-mailer'].size > 0

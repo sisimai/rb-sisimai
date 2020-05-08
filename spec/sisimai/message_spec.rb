@@ -7,7 +7,7 @@ describe Sisimai::Message do
 
   mailstring = File.open(sf).read
   callbackto = lambda do |argv|
-    data = { 'x-mailer' => '', 'return-path' => '', 'type' => argv['datasrc'] }
+    data = { 'x-mailer' => '', 'return-path' => '' }
     if cv = argv['message'].match(/^X-Mailer:\s*(.+)$/)
         data['x-mailer'] = cv[1]
     end
@@ -84,7 +84,6 @@ describe Sisimai::Message do
   end
 
   describe '#catch' do
-    example('type is "email"') { expect(messageobj.catch['type']).to be == 'email' }
     %w|return-path x-mailer from|.each do |e|
       example(e + 'key exists') { expect(messageobj.catch.key?(e)).to be true }
     end
