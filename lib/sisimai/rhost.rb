@@ -23,12 +23,6 @@ module Sisimai
         '.qq.com'                     => 'TencentQQ',
       }.freeze
 
-      # Retrun the list of remote hosts Sisimai support
-      # @return   [Array] Remote host list
-      def list
-        return RhostClass.keys
-      end
-
       # The value of "rhost" is listed in RhostClass or not
       # @param    [String] argvs  Remote host name
       # @return   [True,False]    True: matched

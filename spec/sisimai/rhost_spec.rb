@@ -3,29 +3,6 @@ require 'sisimai/rhost'
 
 describe Sisimai::Rhost do
   cn = Sisimai::Rhost
-  describe '.list' do
-    context '()' do
-      v = cn.list
-      it 'returns Array' do
-        expect(v.is_a?(Array)).to be true
-      end
-      v.each do |e|
-        describe e do
-          it('is a String') { expect(e.is_a?(::String)).to be true }
-        end
-      end
-    end
-
-    context 'wrong number of arguments' do
-      context '(nil)' do
-        it('raises ArgumentError') { expect { cn.list(nil) }.to raise_error(ArgumentError) }
-      end
-      context '(nil,nil)' do
-        it('raises ArgumentError') { expect { cn.list(nil, nil) }.to raise_error(ArgumentError) }
-      end
-    end
-  end
-
   describe '.match' do
     context 'valid argument string' do
       v = [
