@@ -19,6 +19,7 @@ module Sisimai
         '.email.ua'                   => 'IUA',
         'lsean.ezweb.ne.jp'           => 'KDDI',
         'msmx.au.com'                 => 'KDDI',
+        'charter.net'                 => 'Spectrum',
         '.qq.com'                     => 'TencentQQ',
       }.freeze
 
@@ -49,9 +50,10 @@ module Sisimai
 
       # Detect the bounce reason from certain remote hosts
       # @param    [Sisimai::Data] argvs   Parsed email object
+      # @param    [String]        proxy   The alternative of the "rhost"
       # @return   [String]                The value of bounce reason
-      def get(argvs)
-        remotehost = argvs.rhost.downcase
+      def get(argvs, proxy = nil)
+        remotehost = proxy || argvs.rhost.downcase
         rhostclass = ''
         modulename = ''
 

@@ -289,10 +289,13 @@ module Sisimai
 
         if o.reason.empty? || RetryIndex[o.reason]
           # Decide the reason of email bounce
-          r = ''
-          r = Sisimai::Rhost.get(o) if Sisimai::Rhost.match(o.rhost) # Remote host dependent error
-          r = Sisimai::Reason.get(o) if r.empty?
-          r = 'undefined' if r.empty?
+          r = ''; r = Sisimai::Rhost.get(o) if Sisimai::Rhost.match(o.rhost)
+          if r.empty?
+            # Failed to detect a bounce reason by the value of "rhost"
+            r = Sisimai::Rhost.get(o, o.destination) if Sisimai::Rhost.match(o.destination)
+            r = Sisimai::Reason.get(o) if r.empty?
+            r = 'undefined' if r.empty?
+          end
           o.reason = r
         end
 

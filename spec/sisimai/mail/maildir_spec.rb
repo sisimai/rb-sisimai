@@ -3,7 +3,7 @@ require 'sisimai/mail/maildir'
 
 describe Sisimai::Mail::Maildir do
   samplemaildir = './set-of-emails/maildir/bsd'
-  allofthefiles = 488 
+  allofthefiles = 489
   let(:mailobj) { Sisimai::Mail::Maildir.new(samples) }
   let(:mockobj) { Sisimai::Mail::Maildir.new(invalid) }
 

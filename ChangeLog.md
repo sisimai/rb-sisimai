@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.7p2
+v4.25.7p3
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -14,6 +14,8 @@ v4.25.7p2
   - Remove unused code blocks for deciding the order of email header fields at
     `Sisimai::Data.make` method
   - Remove old parameters: `datasrc` and `bounces` at the callback feature #189
+  - Implement `Sisimai::Rhost::Spectrum` for parsing bounce mails returned from
+    https://www.spectrum.com/.
 
 v4.25.7
 --------------------------------------------------------------------------------
