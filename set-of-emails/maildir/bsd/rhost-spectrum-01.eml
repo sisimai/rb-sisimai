@@ -1,0 +1,111 @@
+From MAILER-DAEMON  Thu May 28 19:08:03 2020
+Received: from a14-88.smtp-out.amazonses.com (a14-88.smtp-out.amazonses.com [54.240.14.88])
+	by bouncehandler.example.com (Postfix) with ESMTPS id 2FD8D41621
+	for <bounce@mailer.mrk1.example.com>; Thu, 28 May 2020 19:08:03 -0400 (EDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=224i4yxa5dv7c2xz3womw6peuasteono; d=amazonses.com; t=1590707282;
+	h=From:To:Message-ID:Subject:MIME-Version:Content-Type:Date:Feedback-ID;
+	bh=X2t+7WVLvOBJJO9EAydrKQu2sTcW6CrAs/a2QN6ed24=;
+	b=khjEHACRHcoR1zmndIQnp5cv9l827WEdXmeQsItXgqlVHlKSMGUNPoCIZ328BLh2
+	Muv0D53QJk+s/EGwn3eNXYM3VHRURpuaiKuY++jhMnUbwJLASsNmIRRbGf2ni4VLZWJ
+	t0RlU9yKWMsjvD0pk496vC/WyZ1+59psK4j8a454=
+From: MAILER-DAEMON@amazonses.com
+To: bounce@mailer.mrk1.example.com
+Message-ID: <010001725d8ae2e4-dedcd904-7f4c-4f5d-8039-4366b9b3ccf9-000000@email.amazonses.com>
+Subject: Delivery Status Notification (Failure)
+MIME-Version: 1.0
+Content-Type: multipart/report; 
+	boundary="----=_Part_1053912_1113443423.1590707282683"; 
+	report-type=delivery-status
+Date: Thu, 28 May 2020 23:08:02 +0000
+X-SES-Outgoing: 2020.05.28-54.240.14.88
+Feedback-ID: 1.us-east-1.D1mWDvwUtiZJdKFArGKkGBe9wfRCdAX2ofq5lyeEo20=:AmazonSES
+
+------=_Part_1053912_1113443423.1590707282683
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Description: Notification
+
+An error occurred while trying to deliver the mail to the following recipients:
+theusername@charter.net
+------=_Part_1053912_1113443423.1590707282683
+Content-Type: message/delivery-status
+Content-Transfer-Encoding: 7bit
+Content-Description: Delivery Status Notification
+
+Reporting-MTA: dsn; d217-29.smtp-out.amazonses.com
+
+Action: failed
+Final-Recipient: rfc822; theusername@charter.net
+Diagnostic-Code: smtp; 550 5.1.0 <010001725d8ad4fc-9fe8fb1f-0292-430b-a634-1eba65166dbb-000000@amazonses.com> sender rejected. Please see https://www.spectrum.net/support/internet/understanding-email-error-codes for more information. AUP#In-1310
+Status: 5.1.0
+
+
+------=_Part_1053912_1113443423.1590707282683
+Content-Type: message/rfc822
+Content-Description: Undelivered Message
+
+To: "theusername@charter.net" <theusername@charter.net>
+Subject: 11 things that can happen when you drink apple cider vinegar every day
+X-PHP-Originating-Script: 501:phpmailer.php
+Date: Thu, 28 May 2020 23:07:59 +0000
+From: WellBeing <wellbeing@mrk1.example.com>
+Reply-To: WellBeing <wellbeing@example.com>
+Message-ID: <010001725d8ad4fc-9fe8fb1f-0292-430b-a634-1eba65166dbb-000000@email.amazonses.com>
+X-Priority: 3
+X-Mailer: PHPMailer 5.2.7 (https://github.com/PHPMailer/PHPMailer/)
+X-se: well_being
+X-date: 20200528
+X-version: wellbeing_05282020_ses
+X-CONFIGSET: conf-marketing
+Feedback-ID: A:B:C:D
+X-HT-Sig: A:B:C:D
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="b1_6292d2dadff87acb9905a58b2f5bb8fa"
+Content-Transfer-Encoding: 8bit
+X-SES-Outgoing: 2020.05.28-23.249.217.29
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=224i4yxa5dv7c2xz3womw6peuasteono; d=amazonses.com; t=1590707279;
+	h=To:Subject:Date:From:Reply-To:Message-ID:Feedback-ID:List-Unsubscribe:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=dbVbPN/b0GldCE5Hr1ySMcLIjaoiDFOHnO0XV0UPcZU=;
+	b=HawZMCbQpUBpp2iTrrOklUkAClA3Pql7Mk4B2+ozqpclWNSMT3Tf+rDZ6psgC30A
+	ABx3ecJeP0Dyi5TABqCTUZxspCSXjOLa9f+LB2992v2WoPeagwHYgsgUCe1o+Zfq6nc
+	C+SCqoolw7YugpVHtM3/dr6bqlG/73rL+wWmb0AQ=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=sisbtliceazfsxysk55m7kdlqqu2nqgn; d=mrk1.example.com;
+	t=1590707279;
+	h=To:Subject:Date:From:Reply-To:Message-ID:List-Unsubscribe:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=dbVbPN/b0GldCE5Hr1ySMcLIjaoiDFOHnO0XV0UPcZU=;
+	b=BzFKfcuz3sRhwrmZJmhdq2gZK6UaU1RiOTBWHIBsGDxt/eyfk00qM8WQTgbZ0wua
+	FJauQAkc9mcK1TbcwS1drUM7hDWnsJyMLVs1UelR7MeW1QFm63h6krxVQfOOwYOK3TQ
+	a+FP/eiAtCk7mfeb6S6bwqmDJl6EvgOEo05vPSy4=
+
+--b1_6292d2dadff87acb9905a58b2f5bb8fa
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+
+You have received this message because you have chosen to receive notifications from OURSITE.com.
+
+
+
+--b1_6292d2dadff87acb9905a58b2f5bb8fa
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<body>
+<h1> Body removed</h1>
+</body>
+</html>
+
+
+
+
+--b1_6292d2dadff87acb9905a58b2f5bb8fa--
+
+
+------=_Part_1053912_1113443423.1590707282683--
