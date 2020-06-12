@@ -17,11 +17,14 @@ v4.25.7p4
   - Implement `Sisimai::Rhost::Spectrum` for parsing bounce mails returned from
     https://www.spectrum.com/.
   - Remove unsed method `Sisimai::Rhost->list`
+<<<<<<< HEAD
   - Fix bugs in `Sisimai::Lhost::FML` and `Sisimai::Lhost::X5`
   - Fix code for finding the value of `Diagnostic-Code` field in multiple lines
     at `Sisimai::RFC3464`
   - Implement Sisimai::Rhost::Cox for parsing bounce mails returned from Cox:
     https://cox.com/ #193
+=======
+>>>>>>> Update the release notes about #191
   - Callback feature for each email file in Maildir/ #191
     - `Sisimai.make`, `Sisimai.dump` receive a hook method at `c___` argument
 
