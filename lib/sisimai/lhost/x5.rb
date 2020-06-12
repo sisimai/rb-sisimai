@@ -39,12 +39,16 @@ module Sisimai::Lhost
         require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
         readslices = ['']
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
+
+        # Pick the second message/rfc822 part because the format of email-x5-*.eml is nested structure
+        prefillets = mbody.split(ReBackbone, 2)
+        prefillets[1].sub!(/\A.+?\n\n/s, '')
+        emailsteak = Sisimai::RFC5322.fillet(prefillets[1], ReBackbone)
+        bodyslices = emailsteak[0].split("\n")
 
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email
@@ -56,7 +60,7 @@ module Sisimai::Lhost
             readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])
             next
           end
-          next if (readcursor & Indicators['deliverystatus']) == 0
+          next if (readcursor & Indicators[:deliverystatus]) == 0
           next if e.empty?
 
           v = dscontents[-1]
