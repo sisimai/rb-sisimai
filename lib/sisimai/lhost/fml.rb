@@ -59,14 +59,12 @@ module Sisimai::Lhost
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
         bodyslices = emailsteak[0].split("\n")
-        readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
 
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email
           # to the previous line of the beginning of the original message.
-          next if (readcursor & Indicators[:deliverystatus]) == 0
           next if e.empty?
 
           # Duplicated Message-ID in <2ndml@example.com>.
