@@ -17,6 +17,7 @@ v4.25.7p3
   - Implement `Sisimai::Rhost::Spectrum` for parsing bounce mails returned from
     https://www.spectrum.com/.
   - Remove unsed method `Sisimai::Rhost->list`
+  - Fix bugs in `Sisimai::Lhost::FML` and `Sisimai::Lhost::X5`
 
 v4.25.7
 --------------------------------------------------------------------------------
