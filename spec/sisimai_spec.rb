@@ -129,6 +129,16 @@ describe Sisimai do
 
         end
 
+        emailhooks = lambda do |argv|
+          timep = ::Time.new
+          index = 0
+          argv['sisi'].each do |p|
+            index += 1
+            p.catch['parsedat'] = timep.localtime.to_s
+            p.catch['index'] = index
+          end
+        end
+
         callbackto = lambda do |argv|
           data = {
             'x-mailer' => '',
@@ -147,7 +157,7 @@ describe Sisimai do
           return data
         end
 
-        havecaught = Sisimai.make(sampleemail[e], hook: callbackto)
+        havecaught = Sisimai.make(sampleemail[e], hook: callbackto, c___: emailhooks)
         havecaught.each do |ee|
           it('is Sisimai::Data') { expect(ee).to be_a Sisimai::Data }
           it('is Hash') { expect(ee.catch).to be_a Hash }
@@ -180,6 +190,14 @@ describe Sisimai do
             end
           end
 
+          it('exists "parsedat" key') { expect(ee.catch.key?('parsedat')).to be true }
+          it 'matches with date string' do
+            expect(ee.catch['parsedat']).to match(/\A\d{4}[-]\d{2}[-]\d{2}/)
+          end
+          it('exists "index" key') { expect(ee.catch.key?('index')).to be true }
+          it 'is a Integer' do
+            expect(ee.catch['index']).to be_a Integer
+          end
         end
 
         isntmethod = Sisimai.make(sampleemail[e], hook: {})
