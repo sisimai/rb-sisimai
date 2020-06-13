@@ -159,34 +159,41 @@ puts Sisimai.dump('/path/to/mbox', delivered: true)
 
 Callback feature
 -------------------------------------------------------------------------------
-Sisimai 4.19.0から`Sisimai.make()`と`Sisimai.dump()`にLamda(Procオブジェクト)
-を引数`hook`に指定できるコールバック機能が実装されました。
-`hook`に指定したコードによって処理された結果は`Sisimai::Data.catch`
-メソッドで得ることができます。
+### メールヘッダと本文に対して
+Sisimai 4.19.0から`Sisimai.make()`と`Sisimai.dump()`にLamda(Procオブジェクト)を
+引数`hook`に指定できるコールバック機能が実装されました。`hook`に指定したコード
+によって処理された結果は`Sisimai::Data.catch`メソッドで得ることができます。
 
 ```ruby
 #! /usr/bin/env ruby
 require 'sisimai'
-callbackto = lambda do |v|
-  r = { 'x-mailer' => '', 'queue-id' => '' }
+code = lambda do |args|
+  head = args['headers']    # (*Hash)  Email headers
+  body = args['message']    # (String) Message body
+  adds = { 'x-mailer' => '', 'queue-id' => '' }
 
-  if cv = v['message'].match(/^X-Postfix-Queue-ID:\s*(.+)$/)
-    r['queue-id'] = cv[1]
+  if cv = body.match(/^X-Postfix-Queue-ID:\s*(.+)$/)
+    adds['queue-id'] = cv[1]
   end
-  r['x-mailer'] = v['headers']['x-mailer'] || ''
-  return r
+  r['x-mailer'] = head['x-mailer'] || ''
+  return adds
 end
 
-data = Sisimai.make('/path/to/mbox', hook: callbackto)
-json = Sisimai.dump('/path/to/mbox', hook: callbackto)
+data = Sisimai.make('/path/to/mbox', hook: code)
+json = Sisimai.dump('/path/to/mbox', hook: code)
 
-puts data[0].catch['x-mailer']      # Apple Mail (2.1283)
+puts data[0].catch['x-mailer']  # "Apple Mail (2.1283)"
+puts data[0].catch['queue-id']  # "43f4KX6WR7z1xcMG"
 ```
+
+### 各メールのファイルに対して
+Sisimai 4.25.8から`Sisimai.make()`と`Sisimai.dump()`の両メソッドで引数`c___`に
+Lambda(Procオブジェクト)を渡せるようになりました。`c___`に渡されたLambdaは解析
+したメールのファイルごとに呼び出されます。
 
 コールバック機能のより詳細な使い方は
 [Sisimai | 解析方法 - コールバック機能](https://libsisimai.org/ja/usage/#callback)
 をご覧ください。
-
 
 One-Liner
 -------------------------------------------------------------------------------
