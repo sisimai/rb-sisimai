@@ -136,6 +136,8 @@ describe Sisimai do
             index += 1
             p.catch['parsedat'] = timep.localtime.to_s
             p.catch['index'] = index
+            p.catch['kind'] = argv['kind'].capitalize
+            p.catch['size'] = File.size(argv['path'])
           end
         end
 
@@ -195,8 +197,18 @@ describe Sisimai do
             expect(ee.catch['parsedat']).to match(/\A\d{4}[-]\d{2}[-]\d{2}/)
           end
           it('exists "index" key') { expect(ee.catch.key?('index')).to be true }
-          it 'is a Integer' do
+          it 'is an Integer' do
             expect(ee.catch['index']).to be_a Integer
+          end
+          it('exists "size" key') { expect(ee.catch.key?('size')).to be true }
+          it 'is an Integer' do
+            expect(ee.catch['size']).to be_a Integer
+            expect(ee.catch['size']).to be > 0
+          end
+          it('exists "kind" key') { expect(ee.catch.key?('kind')).to be true }
+          it 'is a String' do
+            expect(ee.catch['kind']).to be_a ::String
+            expect(ee.catch['kind']).to match(/\AMail(?:dir|box)/)
           end
         end
 
