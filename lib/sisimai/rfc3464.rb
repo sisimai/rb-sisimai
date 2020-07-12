@@ -284,7 +284,7 @@ module Sisimai
               elsif readslices[-2].start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
                 # Continued line of the value of Diagnostic-Code header
                 v['diagnosis'] << ' ' << cv[1]
-                e = 'Diagnostic-Code: ' << e
+                readslices[-1] = 'Diagnostic-Code: ' << e
               else
                 if cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
                   # 2.2.2 The Reporting-MTA DSN field

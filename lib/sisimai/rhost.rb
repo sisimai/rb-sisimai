@@ -20,6 +20,7 @@ module Sisimai
         'lsean.ezweb.ne.jp'           => 'KDDI',
         'msmx.au.com'                 => 'KDDI',
         'charter.net'                 => 'Spectrum',
+        'cox.net'                     => 'Cox',
         '.qq.com'                     => 'TencentQQ',
       }.freeze
 

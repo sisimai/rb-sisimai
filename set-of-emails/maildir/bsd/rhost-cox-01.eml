@@ -1,0 +1,192 @@
+From MAILER-DAEMON  Thu Jul  2 12:05:05 2020
+Received: from mailer76.example.com (mailer76.example.com [111.22.33.44])
+	by bouncehandler.example.com (Postfix) with ESMTPS id 7939F4114A
+	for <bounce@mailer.cnt1.example.com>; Thu,  2 Jul 2020 12:05:05 -0400 (EDT)
+Received: by tr2.example.com (Postfix)
+	id 6F3F839637A1; Thu,  2 Jul 2020 12:05:05 -0400 (EDT)
+Date: Thu,  2 Jul 2020 12:05:05 -0400 (EDT)
+From: MAILER-DAEMON@tr2.example.com (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: bounce@mailer.cnt1.example.com
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="D9E933966464.1593705905/tr2.example.com"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20200702160505.6F3F839637A1@tr2.example.com>
+
+This is a MIME-encapsulated message.
+
+--D9E933966464.1593705905/tr2.example.com
+Content-Description: Notification
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+This is the mail system at host tr2.example.com.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<recipient55@cox.net>: host cxr.mx.a.cloudfilter.net[34.212.80.54] said: 550
+    5.1.0 <bounce@mailer.cnt1.example.com> sender rejected. Refer to Error
+    Codes section at
+    https://www.cox.com/residential/support/email-error-codes.html for more
+    information. AUP#CDRBL (in reply to MAIL FROM command)
+
+--D9E933966464.1593705905/tr2.example.com
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; tr2.example.com
+X-Postfix-Queue-ID: D9E933966464
+X-Postfix-Sender: rfc822; bounce@mailer.cnt1.example.com
+Arrival-Date: Thu,  2 Jul 2020 06:04:42 -0400 (EDT)
+
+Final-Recipient: rfc822; recipient55@cox.net
+Original-Recipient: rfc822;recipient55@cox.net
+Action: failed
+Status: 5.1.0
+Remote-MTA: dns; cxr.mx.a.cloudfilter.net
+Diagnostic-Code: smtp; 550 5.1.0 <bounce@mailer.cnt1.example.com> sender
+    rejected. Refer to Error Codes section at
+    https://www.cox.com/residential/support/email-error-codes.html for more
+    information. AUP#CDRBL
+
+--D9E933966464.1593705905/tr2.example.com
+Content-Description: Undelivered Message Headers
+Content-Type: text/rfc822-headers
+Content-Transfer-Encoding: 8bit
+
+Return-Path: <bounce@mailer.cnt1.example.com>
+Received: from pixel1.example.com (pixel1 [104.207.134.97])
+	by tr2.example.com (Postfix) with ESMTPA id D9E933966464
+	for <recipient55@cox.net>; Thu,  2 Jul 2020 06:04:42 -0400 (EDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 tr2.example.com D9E933966464
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=example.com;
+	s=mail; t=1593684282;
+	bh=QCJqru6dH/ii/ts4AH9NsNa/v562Fc43deLk8w1KKJ8=;
+	h=To:Subject:Date:From:Reply-To:List-Unsubscribe:From;
+	b=EXtMRJLuGhK9gq/gZspsdSSTRmLXOTxQstFekcdNQsxLxKEHmOijeZWiDlz8W8FKn
+	 95nVfTtlOk8dCFE/4EeLyBWlPoQ0EdpLPUcEcwHbBynoCQHwRI1iUiE4r2+Mc5iX51
+	 1eRfb2xphpVwWyJhA2I7qXAeOuJ27J6cdRI7ijlI=
+Received: by pixel1.example.com (Postfix, from userid 501)
+	id C3726626BC; Thu,  2 Jul 2020 06:04:42 -0400 (EDT)
+To: "recipient55@cox.net" <recipient55@cox.net>
+Subject: Take down your patio umbrella
+X-PHP-Originating-Script: 501:phpmailer.php
+Date: Thu, 2 Jul 2020 06:04:42 -0400
+From: deas <emma@cnt1.example.com>
+Reply-To: Example <no-reply@example.com>
+Message-ID: <5119e0e9531a692224d1bd44ef560e62@pixel1.example.com>
+X-Priority: 3
+X-Mailer: PHPMailer 5.2.7 (https://github.com/PHPMailer/PHPMailer/)
+X-se: fol_new_t
+X-date: 20200702
+X-version: version_C_ht
+X-SES-CONFIGURATION-SET: ded-content
+X-CONFIGSET: conf-content
+Feedback-ID: 21053362:version_C_ht:newsletter:example
+List-Unsubscribe: https://www.example.com/unsubscribe
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="b1_5119e0e9531a692224d1bd44ef560e62"
+Content-Transfer-Encoding: 8bit
+
+--D9E933966464.1593705905/tr2.example.com--
+From double-bounce@tr2.example.com  Thu Jul  2 12:05:05 2020
+Received: from mailer74.example.com (mailer74.example.com [108.61.68.74])
+	by bouncehandler.example.com (Postfix) with ESMTPS id 803294114A
+	for <bounce@mailer.example.com>; Thu,  2 Jul 2020 12:05:05 -0400 (EDT)
+Received: by tr2.example.com (Postfix)
+	id 75BA239637A5; Thu,  2 Jul 2020 12:05:05 -0400 (EDT)
+Date: Thu,  2 Jul 2020 12:05:05 -0400 (EDT)
+From: MAILER-DAEMON@tr2.example.com (Mail Delivery System)
+Subject: Postmaster Copy: Undelivered Mail
+To: bounce@mailer.example.com
+Auto-Submitted: auto-generated
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="D9E933966464.1593705905/tr2.example.com"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20200702160505.75BA239637A5@tr2.example.com>
+
+This is a MIME-encapsulated message.
+
+--D9E933966464.1593705905/tr2.example.com
+Content-Description: Notification
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+
+<recipient55@cox.net>: host cxr.mx.a.cloudfilter.net[34.212.80.54] said: 550
+    5.1.0 <bounce@mailer.cnt1.example.com> sender rejected. Refer to Error
+    Codes section at
+    https://www.cox.com/residential/support/email-error-codes.html for more
+    information. AUP#CDRBL (in reply to MAIL FROM command)
+
+--D9E933966464.1593705905/tr2.example.com
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; tr2.example.com
+X-Postfix-Queue-ID: D9E933966464
+X-Postfix-Sender: rfc822; bounce@mailer.cnt1.example.com
+Arrival-Date: Thu,  2 Jul 2020 06:04:42 -0400 (EDT)
+
+Final-Recipient: rfc822; recipient55@cox.net
+Original-Recipient: rfc822;recipient55@cox.net
+Action: failed
+Status: 5.1.0
+Remote-MTA: dns; cxr.mx.a.cloudfilter.net
+Diagnostic-Code: smtp; 550 5.1.0 <bounce@mailer.cnt1.example.com> sender
+    rejected. Refer to Error Codes section at
+    https://www.cox.com/residential/support/email-error-codes.html for more
+    information. AUP#CDRBL
+
+--D9E933966464.1593705905/tr2.example.com
+Content-Description: Undelivered Message Headers
+Content-Type: text/rfc822-headers
+Content-Transfer-Encoding: 8bit
+
+Return-Path: <bounce@mailer.cnt1.example.com>
+Received: from pixel1.example.com (pixel1 [111.22.33.44])
+	by tr2.example.com (Postfix) with ESMTPA id D9E933966464
+	for <recipient55@cox.net>; Thu,  2 Jul 2020 06:04:42 -0400 (EDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 tr2.example.com D9E933966464
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=example.com;
+	s=mail; t=1593684282;
+	bh=QCJqru6dH/ii/ts4AH9NsNa/v562Fc43deLk8w1KKJ8=;
+	h=To:Subject:Date:From:Reply-To:List-Unsubscribe:From;
+	b=EXtMRJLuGhK9gq/gZspsdSSTRmLXOTxQstFekcdNQsxLxKEHmOijeZWiDlz8W8FKn
+	 95nVfTtlOk8dCFE/4EeLyBWlPoQ0EdpLPUcEcwHbBynoCQHwRI1iUiE4r2+Mc5iX51
+	 1eRfb2xphpVwWyJhA2I7qXAeOuJ27J6cdRI7ijlI=
+Received: by pixel1.example.com (Postfix, from userid 501)
+	id C3726626BC; Thu,  2 Jul 2020 06:04:42 -0400 (EDT)
+To: "recipient55@cox.net" <recipient55@cox.net>
+Subject: Take down your patio umbrella
+X-PHP-Originating-Script: 501:phpmailer.php
+Date: Thu, 2 Jul 2020 06:04:42 -0400
+From: Ideas <emma.jones@cnt1.example.com>
+Reply-To: Example <no-reply@example.com>
+Message-ID: <5119e0e9531a692224d1bd44ef560e62@pixel1.example.com>
+X-Priority: 3
+X-Mailer: PHPMailer 5.2.7 (https://github.com/PHPMailer/PHPMailer/)
+X-se: fol_new_t
+X-date: 20200702
+X-version: version_C_ht
+X-SES-CONFIGURATION-SET: ded-content
+X-CONFIGSET: conf-content
+List-Unsubscribe: https://www.example.com/unsubscribe
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="b1_5119e0e9531a692224d1bd44ef560e62"
+Content-Transfer-Encoding: 8bit
+
+--D9E933966464.1593705905/tr2.example.com--
