@@ -18,6 +18,8 @@ v4.25.7p4
     https://www.spectrum.com/.
   - Remove unsed method `Sisimai::Rhost->list`
   - Fix bugs in `Sisimai::Lhost::FML` and `Sisimai::Lhost::X5`
+  - Fix code for finding the value of `Diagnostic-Code` field in multiple lines
+    at `Sisimai::RFC3464`
   - Implement Sisimai::Rhost::Cox for parsing bounce mails returned from Cox:
     https://cox.com/ #193
 
