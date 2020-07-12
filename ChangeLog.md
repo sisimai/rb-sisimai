@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.7p3
+v4.25.7p4
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -18,6 +18,8 @@ v4.25.7p3
     https://www.spectrum.com/.
   - Remove unsed method `Sisimai::Rhost->list`
   - Fix bugs in `Sisimai::Lhost::FML` and `Sisimai::Lhost::X5`
+  - Implement Sisimai::Rhost::Cox for parsing bounce mails returned from Cox:
+    https://cox.com/ #193
 
 v4.25.7
 --------------------------------------------------------------------------------
