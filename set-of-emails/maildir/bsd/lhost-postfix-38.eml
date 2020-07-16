@@ -70,7 +70,7 @@ Received: from [203.0.113.13] (unknown [127.0.0.1])
 	(Authenticated sender: nekonyaan@example.com)
 	by e22r.qin.example.com (Bossmail) with ESMTP id 99999999000
 	for <kijitora@example.org>; Thu, 29 Apr 2017 23:34:45 +0000 (UTC)
-Content-Type: text/pkain
+Content-Type: text/plain
 MIME-Version: 1.0
 Subject: Nyaan
 From: "Neko, Nyaan" <nekonyaan@example.com>
