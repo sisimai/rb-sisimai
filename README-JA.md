@@ -53,7 +53,7 @@ Key features
   * git clone & make
 * __高い解析精度__
   * 解析精度はbounceHammerの2倍
-  * 66種類のMTA/MDA/ESPに対応
+  * 68種類のMTA/MDA/ESPに対応
   * Feedback Loopにも対応
   * 29種類のエラー理由を検出
 
@@ -220,8 +220,8 @@ Differences between Ruby version and Perl version
 | メール解析速度(1000通のメール)              | 2.22秒[2]      | 1.35秒        |
 | インストール方法                            | gem install    | cpanm, cpm    |
 | 依存モジュール数(コアモジュールを除く)      | 1モジュール    | 2モジュール   |
-| LOC:ソースコードの行数                      | 10200行        | 10400行       |
-| テスト件数(spec/,t/,xt/ディレクトリ)        | 236000件       | 266000件      |
+| LOC:ソースコードの行数                      | 10300行        | 10500行       |
+| テスト件数(spec/,t/,xt/ディレクトリ)        | 236000件       | 265000件      |
 | ライセンス                                  | 二条項BSD      | 二条項BSD     |
 | 開発会社によるサポート契約                  | 提供中         | 提供中        |
 
