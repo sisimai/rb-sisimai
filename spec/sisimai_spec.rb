@@ -25,12 +25,6 @@ describe Sisimai do
     it('is ' + Sisimai::VERSION) { is_expected.to eq Sisimai::VERSION }
   end
 
-  describe '.sysname' do
-    subject { Sisimai.sysname }
-    it('is String')     { is_expected.to be_a(String) }
-    it('returns bounceHammer') { is_expected.to match(/bounceHammer/i) }
-  end
-
   describe '.libname' do
     subject { Sisimai.libname }
     it('is String')       { is_expected.to be_a(String) }

@@ -8,7 +8,6 @@ module Sisimai
   # Imported from p5-Sisimail/lib/Sisimai.pm
   class << self
     def version(); return Sisimai::VERSION; end
-    def sysname(); return 'bouncehammer';   end
     def libname(); return 'Sisimai';        end
 
     # Wrapper method for parsing mailbox/maidir
@@ -17,8 +16,7 @@ module Sisimai
     # @param         [IO]     argv0      or STDIN object
     # @param         [Hash]   argv1      Parser options(delivered=false)
     # @options argv1 [Boolean] delivered true: Include "delivered" reason
-    # @options argv1 [Proc]    hook      Proc object to a callback method for an email message
-    # @options argv1 [Proc]    c___      Proc object to a callback method for each email file
+    # @options argv1 [Array]   c___      Proc object to a callback method for the message and each file
     # @return        [Array]             Parsed objects
     # @return        [nil]               nil if the argument was wrong or an empty array
     def make(argv0, **argv1)
@@ -30,7 +28,7 @@ module Sisimai
       list = []
       return nil unless mail = Sisimai::Mail.new(argv0)
       kind = mail.kind
-      c___ = argv1[:c___].is_a?(Proc) ? argv1[:c___] : nil
+      c___ = argv1[:c___].is_a?(Array) ? argv1[:c___] : nil
 
       while r = mail.data.read do
         # Read and parse each email file
