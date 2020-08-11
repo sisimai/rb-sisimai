@@ -8,7 +8,6 @@ module Sisimai
   # Imported from p5-Sisimail/lib/Sisimai.pm
   class << self
     def version(); return Sisimai::VERSION; end
-    def sysname(); return 'bouncehammer';   end
     def libname(); return 'Sisimai';        end
 
     # Wrapper method for parsing mailbox/maidir
@@ -17,7 +16,7 @@ module Sisimai
     # @param         [IO]     argv0      or STDIN object
     # @param         [Hash]   argv1      Parser options(delivered=false)
     # @options argv1 [Boolean] delivered true: Include "delivered" reason
-    # @options argv1 [Lambda]  hook      Lambda object to be called back
+    # @options argv1 [Array]   c___      Proc object to a callback method for the message and each file
     # @return        [Array]             Parsed objects
     # @return        [nil]               nil if the argument was wrong or an empty array
     def make(argv0, **argv1)
@@ -28,15 +27,34 @@ module Sisimai
 
       list = []
       return nil unless mail = Sisimai::Mail.new(argv0)
+      kind = mail.kind
+      c___ = argv1[:c___].is_a?(Array) ? argv1[:c___] : [nil, nil]
+
       while r = mail.data.read do
         # Read and parse each email file
-        methodargv = { data: r, hook: argv1[:hook] }
-        mesg = Sisimai::Message.new(methodargv)
-        next if mesg.void
+        args = { data: r, hook: c___[0] }
+        path = mail.data.path
+        sisi = []
 
-        methodargv = { data: mesg, delivered: argv1[:delivered], origin: mail.data.path }
-        next unless data = Sisimai::Data.make(methodargv)
-        list += data unless data.empty?
+        mesg = Sisimai::Message.new(args)
+        unless mesg.void
+          # Sisimai::Message object was created successfully
+          args = { data: mesg, delivered: argv1[:delivered], origin: path }
+          sisi = Sisimai::Data.make(args)
+        end
+
+        if c___[1]
+          # Run the callback function specified with "c___" parameter of Sisimai.make
+          # after reading each email file in Maildir/ every time
+          args = { 'kind' => kind, 'mail' => r, 'path' => path, 'sisi' => sisi }
+          begin
+            c___[1].call(args) if c___[1].is_a?(Proc)
+          rescue StandardError => ce
+            warn ' ***warning: Something is wrong in the second element of the "c___":' << ce.to_s
+          end
+        end
+
+        list += sisi unless sisi.empty?
       end
 
       return nil if list.empty?

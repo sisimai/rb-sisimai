@@ -279,7 +279,7 @@ module Sisimai
           p = { 'headers' => mailheader, 'message' => bodystring }
           havecaught = hookmethod.call(p)
         rescue StandardError => ce
-          warn ' ***warning: Something is wrong in hook method :' << ce.to_s
+          warn ' ***warning: Something is wrong in hook method "hook":' << ce.to_s
         end
       end
 

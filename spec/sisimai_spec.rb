@@ -25,12 +25,6 @@ describe Sisimai do
     it('is ' + Sisimai::VERSION) { is_expected.to eq Sisimai::VERSION }
   end
 
-  describe '.sysname' do
-    subject { Sisimai.sysname }
-    it('is String')     { is_expected.to be_a(String) }
-    it('returns bounceHammer') { is_expected.to match(/bounceHammer/i) }
-  end
-
   describe '.libname' do
     subject { Sisimai.libname }
     it('is String')       { is_expected.to be_a(String) }
@@ -129,6 +123,18 @@ describe Sisimai do
 
         end
 
+        emailhooks = lambda do |argv|
+          timep = ::Time.new
+          index = 0
+          argv['sisi'].each do |p|
+            index += 1
+            p.catch['parsedat'] = timep.localtime.to_s
+            p.catch['index'] = index
+            p.catch['kind'] = argv['kind'].capitalize
+            p.catch['size'] = File.size(argv['path'])
+          end
+        end
+
         callbackto = lambda do |argv|
           data = {
             'x-mailer' => '',
@@ -147,7 +153,7 @@ describe Sisimai do
           return data
         end
 
-        havecaught = Sisimai.make(sampleemail[e], hook: callbackto)
+        havecaught = Sisimai.make(sampleemail[e], c___: [callbackto, emailhooks])
         havecaught.each do |ee|
           it('is Sisimai::Data') { expect(ee).to be_a Sisimai::Data }
           it('is Hash') { expect(ee.catch).to be_a Hash }
@@ -180,6 +186,24 @@ describe Sisimai do
             end
           end
 
+          it('exists "parsedat" key') { expect(ee.catch.key?('parsedat')).to be true }
+          it 'matches with date string' do
+            expect(ee.catch['parsedat']).to match(/\A\d{4}[-]\d{2}[-]\d{2}/)
+          end
+          it('exists "index" key') { expect(ee.catch.key?('index')).to be true }
+          it 'is an Integer' do
+            expect(ee.catch['index']).to be_a Integer
+          end
+          it('exists "size" key') { expect(ee.catch.key?('size')).to be true }
+          it 'is an Integer' do
+            expect(ee.catch['size']).to be_a Integer
+            expect(ee.catch['size']).to be > 0
+          end
+          it('exists "kind" key') { expect(ee.catch.key?('kind')).to be true }
+          it 'is a String' do
+            expect(ee.catch['kind']).to be_a ::String
+            expect(ee.catch['kind']).to match(/\AMail(?:dir|box)/)
+          end
         end
 
         isntmethod = Sisimai.make(sampleemail[e], hook: {})
