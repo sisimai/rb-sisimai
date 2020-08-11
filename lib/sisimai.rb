@@ -28,11 +28,11 @@ module Sisimai
       list = []
       return nil unless mail = Sisimai::Mail.new(argv0)
       kind = mail.kind
-      c___ = argv1[:c___].is_a?(Array) ? argv1[:c___] : nil
+      c___ = argv1[:c___].is_a?(Array) ? argv1[:c___] : [nil, nil]
 
       while r = mail.data.read do
         # Read and parse each email file
-        args = { data: r, hook: argv1[:hook] }
+        args = { data: r, hook: c___[0] }
         path = mail.data.path
         sisi = []
 
@@ -43,14 +43,14 @@ module Sisimai
           sisi = Sisimai::Data.make(args)
         end
 
-        if c___
+        if c___[1]
           # Run the callback function specified with "c___" parameter of Sisimai.make
           # after reading each email file in Maildir/ every time
           args = { 'kind' => kind, 'mail' => r, 'path' => path, 'sisi' => sisi }
           begin
-            c___.call(args)
+            c___[1].call(args) if c___[1].is_a?(Proc)
           rescue StandardError => ce
-            warn ' ***warning: Something is wrong in hook method "c___":' << ce.to_s
+            warn ' ***warning: Something is wrong in the second element of the "c___":' << ce.to_s
           end
         end
 

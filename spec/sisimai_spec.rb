@@ -153,7 +153,7 @@ describe Sisimai do
           return data
         end
 
-        havecaught = Sisimai.make(sampleemail[e], hook: callbackto, c___: emailhooks)
+        havecaught = Sisimai.make(sampleemail[e], c___: [callbackto, emailhooks])
         havecaught.each do |ee|
           it('is Sisimai::Data') { expect(ee).to be_a Sisimai::Data }
           it('is Hash') { expect(ee.catch).to be_a Hash }
