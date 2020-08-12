@@ -3,6 +3,24 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v5.0.0
+--------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - INCOMPATIBLE CHANGES SINCE SISIMAI VERSION 4
+    - Callback feature #191
+      - Parameter `:hook` for callback has been removed from `Sisimai.make` and
+        `Sisimai.dump`. Use the first element of `:c___` parameter for setting
+        a callback method instead.
+      - Parameter `:c___` is a parameter of `Sisimai.make` and `Sisimai.dump`,
+        is an array reference and have two elements:
+      - The first element of `:c___` is the same with `:hook` parameter, is for
+        a callback method email headers and entire message body
+      - The second element of `c___` parameter is for a callback method for each
+        email file in Maildir/. The callback method is called at the end of each
+        email file parsing.
+
 v4.25.8
 --------------------------------------------------------------------------------
 - release: "Fri, 17 Jul 2020 11:59:49 +0900 (JST)"
@@ -22,8 +40,6 @@ v4.25.8
     at `Sisimai::RFC3464`
   - Implement Sisimai::Rhost::Cox for parsing bounce mails returned from Cox:
     https://cox.com/ #193
-  - Callback feature for each email file in Maildir/ #191
-    - `Sisimai.make`, `Sisimai.dump` receive a hook method at `c___` argument
 
 v4.25.7
 --------------------------------------------------------------------------------
