@@ -8,7 +8,7 @@ v5.0.0
 - release: ""
 - version: ""
 - changes:
-  - INCOMPATIBLE CHANGES SINCE SISIMAI VERSION 4
+  - **INCOMPATIBLE CHANGES SINCE SISIMAI VERSION 5**
     - Callback feature #191
       - Parameter `:hook` for callback has been removed from `Sisimai.make` and
         `Sisimai.dump`. Use the first element of `:c___` parameter for setting
