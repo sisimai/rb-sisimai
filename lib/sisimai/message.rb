@@ -36,7 +36,6 @@ module Sisimai
       email = data.scrub('?').gsub("\r\n", "\n")
       thing = { 'from' => '','header' => {}, 'rfc822' => '', ds => [], 'catch' => nil }
 
-      #methodargv = { 'data' => email, 'hook' => argvs[:hook] || nil }
       # 1. Load specified MTA modules
       [:load, :order].each do |e|
         # Order of MTA modules
@@ -279,7 +278,7 @@ module Sisimai
           p = { 'headers' => mailheader, 'message' => bodystring }
           havecaught = hookmethod.call(p)
         rescue StandardError => ce
-          warn ' ***warning: Something is wrong in hook method "hook":' << ce.to_s
+          warn ' ***warning: Something is wrong in hook method ":hook":' << ce.to_s
         end
       end
 
