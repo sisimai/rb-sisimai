@@ -50,7 +50,7 @@ module Sisimai
           begin
             c___[1].call(args) if c___[1].is_a?(Proc)
           rescue StandardError => ce
-            warn ' ***warning: Something is wrong in the second element of the "c___":' << ce.to_s
+            warn ' ***warning: Something is wrong in the second element of the ":c___":' << ce.to_s
           end
         end
 
