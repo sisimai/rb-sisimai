@@ -4,7 +4,6 @@ module Sisimai
   # Sisimai::Mail::Memory classes.
   class Mail
     # Imported from p5-Sisimail/lib/Sisimai/Mail.pm
-    Until = 'v4.25.10'
 
     # :path [String] path to mbox or Maildir/
     # :kind [String] Data type: mailbox, maildir, or stdin
@@ -64,31 +63,11 @@ module Sisimai
       @data = parameter['data']
     end
 
-    def mail
-      warn " ***warning: Sisimai::Mail.mail will be removed at #{Until}. Use Sisimai::Mail.data instead"
-      return data
-    end
-
-    def type
-      warn " ***warning: Sisimai::Mail.type will be removed at #{Until}. Use Sisimai::Mail.kind instead"
-      return kind
-    end
-
     # Alias method of Sisimai::Mail.data.read()
     # @return   [String] Contents of mbox/Maildir
     def read
       return nil unless data
       return data.read
-    end
-
-    # Close the handle
-    # @return   [True,False]  true:  Successfully closed the handle
-    #                         false: Mail handle is not defined
-    def close
-      warn " ***warning: Sisimai::Mail.close will be removed at #{Until}. The handle automatically closes at the EOF"
-      return false unless data.handle
-      data.handle = nil
-      return true
     end
   end
 end
