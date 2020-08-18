@@ -31,11 +31,11 @@ module Sisimai
       while r = mail.data.read do
         # Read and parse each email file
         methodargv = { data: r, hook: argv1[:hook] }
-        mesg = Sisimai::Message.new(methodargv)
+        mesg = Sisimai::Message.new(**methodargv)
         next if mesg.void
 
         methodargv = { data: mesg, delivered: argv1[:delivered], origin: mail.data.path }
-        next unless data = Sisimai::Data.make(methodargv)
+        next unless data = Sisimai::Data.make(**methodargv)
         list += data unless data.empty?
       end
 
@@ -54,7 +54,7 @@ module Sisimai
     def dump(argv0, **argv1)
       return nil unless argv0
 
-      nyaan = Sisimai.make(argv0, argv1) || []
+      nyaan = Sisimai.make(argv0, **argv1) || []
       if RUBY_PLATFORM.start_with?('java')
         # java-based ruby environment like JRuby.
         require 'jrjackson'
