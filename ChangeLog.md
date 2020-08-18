@@ -3,6 +3,15 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.25.8p1
+--------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - Suppress warning messages on Ruby 2.7. Thanks to @koic
+    - Suppress keyword argument warnings in Ruby 2.7 #200
+    - Suppress a Ruby warning for `Object#=~` and bug fix to match patterns #201
+
 v4.25.8
 --------------------------------------------------------------------------------
 - release: "Fri, 17 Jul 2020 11:59:49 +0900 (JST)"
