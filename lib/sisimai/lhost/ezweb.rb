@@ -125,7 +125,7 @@ module Sisimai::Lhost
               v['command'] = cv[1]
             else
               # Check error message
-              if rxmessages.any? { |a| e =~ a }
+              if rxmessages.any? { |messages| messages.any? { |message| e =~ message } }
                 # Check with regular expressions of each error
                 v['diagnosis'] ||= ''
                 v['diagnosis'] << ' ' << e
