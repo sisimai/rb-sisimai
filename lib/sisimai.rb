@@ -1,8 +1,5 @@
-# Sisimai is the system formerly known as bounceHammer 4, is a Ruby module for
-# analyzing bounce mails and generate structured data in a JSON format (YAML is
-# also available if "YAML" module is installed on your system) from parsed bounce
-# messages. Sisimai is a coined word: Sisi (the number 4 is pronounced "Si" in
-# Japanese) and MAI (acronym of "Mail Analyzing Interface").
+# Sisimai is a Perl module for analyzing RFC5322 bounce emails and generating structured data from parsed
+# results. Sisimai is the system formerly known as bounceHammer 4, is the successor to bounceHammer.
 require 'sisimai/version'
 module Sisimai
   # Imported from p5-Sisimail/lib/Sisimai.pm
