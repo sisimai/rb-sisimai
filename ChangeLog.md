@@ -20,6 +20,8 @@ v5.0.0
       - The second element of `c___` parameter is for a callback method for each
         email file in Maildir/. The callback method is called at the end of each
         email file parsing.
+  - Implemenet Sisimai::RFC2047(Born again Sisimai::MIME) for compatibility with
+    the Go language version of Sisimai #199
 
 v4.25.8
 --------------------------------------------------------------------------------
