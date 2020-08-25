@@ -1,9 +1,9 @@
 # coding: utf-8
 require 'spec_helper'
-require 'sisimai/mime'
+require 'sisimai/rfc2047'
 
-describe Sisimai::MIME do
-  cn = Sisimai::MIME
+describe Sisimai::RFC2047 do
+  cn = Sisimai::RFC2047
   p1 = 'ASCII TEXT'
   p2 = '白猫にゃんこ'
   p3 = 'ニュースレター'
@@ -81,9 +81,93 @@ describe Sisimai::MIME do
 
   # Base64, Quoted-Printable
   describe '.qprintd' do
-    h6 = { 'content-type' => 'multipart/report; report-type=delivery-status; boundary="b0Nvs+XKfKLLRaP/Qo8jZhQPoiqeWi3KWPXMgw=="' }
-    q6 = '
+    q6 = 'I will be traveling for work on July 10-31.  During that time I will have i=
+ntermittent access to email and phone, and I will respond to your message a=
+s promptly as possible.
+
+Please contact our Client Service Support Team (information below) if you n=
+eed immediate assistance on regular account matters, or contact my colleagu=
+e Neko Nyaan (neko@example.org; +0-000-000-0000) for all other needs.
+'
+    context 'Quoted-Printable string' do
+      it('returns "Neko"') { expect(cn.qprintd('=4e=65=6b=6f')).to be == 'Neko' }
+      v6 = cn.qprintd(q6)
+      it('returns String') { expect(v6).to be_a ::String }
+      it('returns String') { expect(q6.size).to be > v6.size }
+      it('does not match a=') { expect(v6).not_to match(/a=$/m) }
+    end
+
+    context 'wrong number of arguments' do
+      it('raises ArgumentError') { expect { cn.qprintd(nil,nil) }.to raise_error(ArgumentError) }
+    end
+  end
+
+  describe '.base64d' do
+    context 'Base64 string' do
+      b8 = '44Gr44KD44O844KT'
+      p8 = 'にゃーん'
+      it('returns ' + p8) { expect(cn.base64d(b8)).to be == p8 }
+    end
+    context 'wrong number of arguments' do
+      it('raises ArgumentError') { expect { cn.base64d(nil,nil) }.to raise_error(ArgumentError) }
+    end
+  end
+
+  describe '.ctvalue' do
+    context 'valid value of Content-Type header' do
+      x1 = 'multipart/mixed; boundary=nekochan; charset=utf8'
+      it('returns multipart/mixed') { expect(cn.ctvalue(x1)).to be == 'multipart/mixed' }
+      it('returns nekochan') { expect(cn.ctvalue(x1, 'boundary')).to be == 'nekochan' }
+      it('returns utf8') { expect(cn.ctvalue(x1, 'charset')).to be == 'utf8' }
+      it('returns ""') { expect(cn.ctvalue(x1, 'nyaan')).to be == '' }
+      it('returns nil') { expect(cn.ctvalue("")).to be == nil }
+    end
+
+    context 'wrong number of arguments' do
+      it('raises ArgumentError') { expect { cn.ctvalue(nil,nil,nil) }.to raise_error(ArgumentError) }
+    end
+  end
+
+  describe '.boundary' do
+    context 'valid boundary string' do
+      x1 = 'Content-Type: multipart/mixed; boundary=Apple-Mail-1-526612466'
+      x2 = 'Apple-Mail-1-526612466'
+      it('returns ' + x2) { expect(cn.boundary(x1)).to be == x2 }
+      it('returns --' + x2) { expect(cn.boundary(x1,0)).to be == '--' + x2 }
+      it('returns --' + x2 + '--') { expect(cn.boundary(x1,1)).to be == '--' + x2 + '--' }
+      it('returns --' + x2 + '--') { expect(cn.boundary(x1,2)).to be == '--' + x2 + '--' }
+    end
+
+    context 'wrong number of arguments' do
+      it('raises ArgumentError') { expect { cn.boundary(nil,nil,nil) }.to raise_error(ArgumentError) }
+    end
+  end
+
+  describe '.haircut' do
+    v1 = 'Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+Content-Description: nekochan
+
+c2lyb25la28K'
+    r1 = cn.haircut(v1)
+    it('returns Arry') { expect(r1).to be_a Array }
+    it('has 3 elements') { expect(r1.size).to be == 3 }
+    it('is a text/plain in r[0]') { expect(r1[0]).to match(/plain; charset/) }
+    it('is a base64 in r1[1]') { expect(r1[1]).to match(/base64/) }
+    it('has a string in r1[2]') { expect(r1[2]).to be_a ::String }
+
+    r2 = cn.haircut(v1, true)
+    it('returns Arry') { expect(r2).to be_a Array }
+    it('has 2 elements') { expect(r2.size).to be == 2 }
+    it('is a text/plain in r2[0]') { expect(r2[0]).to match(/plain; charset/) }
+    it('is a base64 in r2[1]') { expect(r2[1]).to match(/base64/) }
+  end
+
+  describe '.levelout' do
+    ct = 'multipart/mixed; boundary="b0Nvs+XKfKLLRaP/Qo8jZhQPoiqeWi3KWPXMgw=="';
+    mp = '
 --b0Nvs+XKfKLLRaP/Qo8jZhQPoiqeWi3KWPXMgw==
+Content-Description: "error-message"
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -112,54 +196,16 @@ Content-Type: message/delivery-status
 Reporting-MTA: dns; server-15.bemta-3.messagelabs.com
 Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
 
-    '
-
-    context 'Quoted-Printable string' do
-      it('returns "Neko"') { expect(cn.qprintd('=4e=65=6b=6f')).to be == 'Neko' }
-      v6 = cn.qprintd(q6, h6)
-      it('returns String') { expect(v6).to be_a String }
-      it('returns String') { expect(q6.size).to be > v6.size }
-      it('includes boundary') { expect(v6).to match(%r|[-][-]b0Nvs[+]XKfKLLRaP/Qo8jZhQPoiqeWi3KWPXMgw==|m) }
-      it('does not match 32=') { expect(v6).not_to match(/32=$/m) }
-    end
-
-    h7 = { 'content-type' => 'neko/nyan' }
-    q7 = 'neko'
-    v7 = cn.qprintd(q7, h7)
-    context 'Invalid content-type header' do
-      it('returns String') { expect(v7).to be_a String }
-      it('returns ' + q7)  { expect(v7).to be == q7 }
-    end
+';
+    
+    v1 = cn.levelout(ct, mp)
+    it('returns an Array') { expect(v1).to be_a Array }
+    it('has 2 elements') { expect(v1.size).to be == 2 }
 
     context 'wrong number of arguments' do
-      it('raises ArgumentError') { expect { cn.qprintd(nil,nil,nil) }.to raise_error(ArgumentError) }
-    end
-  end
-
-  describe '.base64d' do
-    context 'Base64 string' do
-      b8 = '44Gr44KD44O844KT'
-      p8 = 'にゃーん'
-      it('returns ' + p8) { expect(cn.base64d(b8)).to be == p8 }
-    end
-    context 'wrong number of arguments' do
-      it('raises ArgumentError') { expect { cn.base64d(nil,nil) }.to raise_error(ArgumentError) }
-    end
-  end
-
-  describe '.boundary' do
-    context 'valid boundary string' do
-      x1 = 'Content-Type: multipart/mixed; boundary=Apple-Mail-1-526612466'
-      x2 = 'Apple-Mail-1-526612466'
-      it('returns ' + x2) { expect(cn.boundary(x1)).to be == x2 }
-      it('returns --' + x2) { expect(cn.boundary(x1,0)).to be == '--' + x2 }
-      it('returns --' + x2 + '--') { expect(cn.boundary(x1,1)).to be == '--' + x2 + '--' }
-      it('returns --' + x2 + '--') { expect(cn.boundary(x1,2)).to be == '--' + x2 + '--' }
+      it('raises ArgumentError') { expect { cn.levelout(nil,nil,nil) }.to raise_error(ArgumentError) }
     end
 
-    context 'wrong number of arguments' do
-      it('raises ArgumentError') { expect { cn.boundary(nil,nil,nil) }.to raise_error(ArgumentError) }
-    end
   end
 
   describe '.makeflat' do
@@ -228,37 +274,5 @@ Received: ...
     context 'wrong number of arguments' do
       it('raises ArgumentError') { expect { cn.makeflat(nil,nil,nil) }.to raise_error(ArgumentError) }
     end
-  end
-
-  describe '.breaksup' do
-    h10 = 'multipart/alternative'
-    p10 = 'Content-Type: multipart/alternative; boundary="NekoNyaan--------3"
-
---NekoNyaan--------3
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-
-c2lyb25la28K
-
---NekoNyaan--------3
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: base64
-
-PGh0bWw+CjxoZWFkPgogICAgPHRpdGxlPk5la28gTnlhYW48L3RpdGxlPgo8L2hl
-YWQ+Cjxib2R5PgogICAgPGgxPk5la28gTnlhYW48L2gxPgo8L2JvZHk+CjwvaHRt
-bD4K
-    '
-    context 'mutipart/alternative part' do
-      v10 = cn.breaksup(p10, h10)
-      it('returns String') { expect(v10).to be_a String }
-      it('contain "text/plain part"') { expect(v10).to match(/sironeko/) }
-      it('does not contain text/html part') { expect(v10).not_to match(/<html>/) }
-      it('returns Nil') { expect(cn.breaksup(nil,nil)).to be_nil }
-    end
-
-    context 'wrong number of arguments' do
-      it('raises ArgumentError') { expect { cn.breaksup(nil,nil,nil) }.to raise_error(ArgumentError) }
-    end
-
   end
 end
