@@ -32,26 +32,7 @@ module Sisimai
         return mime1
       end
 
-      # Decode MIME BASE64 Encoded string
-      # @param  [String] argv0   MIME Encoded text
-      # @return [String]         MIME-Decoded text
-      def decodeB(argv0 = nil)
-        return nil unless argv0
-
-        p = nil
-        if cv = argv0.match(%r|([+/\=0-9A-Za-z\r\n]+)|) then p = Base64.decode64(cv[1]) end
-        return p.force_encoding('UTF-8')
-      end
-
-      # Decode MIME Quoted-Printable Encoded string
-      # @param  [String] argv0   MIME Encoded text
-      # @return [String]         MIME Decoded text
-      def decodeQ(argv0 = nil)
-        return nil unless argv0
-        return argv0.unpack('M').first.scrub('?')
-      end
-
-      # Decode MIME-Encoded string
+      # Decode MIME-Encoded string in an email header
       # @param    [Array] argvs   An array including MIME-Encoded text
       # @return   [String]        MIME-Decoded text
       def decodeH(argvs = [])
@@ -102,6 +83,25 @@ module Sisimai
         end
 
         return p.force_encoding('UTF-8').scrub('?')
+      end
+
+      # Decode MIME BASE64 Encoded string
+      # @param  [String] argv0   MIME Encoded text
+      # @return [String]         MIME-Decoded text
+      def decodeB(argv0 = nil)
+        return nil unless argv0
+
+        p = nil
+        if cv = argv0.match(%r|([+/\=0-9A-Za-z\r\n]+)|) then p = Base64.decode64(cv[1]) end
+        return p.force_encoding('UTF-8')
+      end
+
+      # Decode MIME Quoted-Printable Encoded string
+      # @param  [String] argv0   MIME Encoded text
+      # @return [String]         MIME Decoded text
+      def decodeQ(argv0 = nil)
+        return nil unless argv0
+        return argv0.unpack('M').first.scrub('?')
       end
 
       # Find a value of specified field name from Content-Type: header
