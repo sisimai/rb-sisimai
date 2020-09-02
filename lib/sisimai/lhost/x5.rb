@@ -23,15 +23,15 @@ module Sisimai::Lhost
           #       Mail Delivery Subsystem
           mhead['from'].split(' ').each do |f|
             # Check each element of From: header
-            next unless Sisimai::RFC2047.is_mimeencoded(f)
-            match += 1 if Sisimai::RFC2047.mimedecode([f]).include?('Mail Delivery Subsystem')
+            next unless Sisimai::RFC2047.is_encoded(f)
+            match += 1 if Sisimai::RFC2047.decodeH([f]).include?('Mail Delivery Subsystem')
             break
           end
         end
 
-        if Sisimai::RFC2047.is_mimeencoded(mhead['subject'])
+        if Sisimai::RFC2047.is_encoded(mhead['subject'])
           # Subject: =?iso-2022-jp?B?UmV0dXJuZWQgbWFpbDogVXNlciB1bmtub3du?=
-          plain = Sisimai::RFC2047.mimedecode([mhead['subject']])
+          plain = Sisimai::RFC2047.decodeH([mhead['subject']])
           match += 1 if plain.include?('Mail Delivery Subsystem')
         end
         return nil if match < 2

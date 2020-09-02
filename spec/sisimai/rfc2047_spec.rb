@@ -10,30 +10,30 @@ describe Sisimai::RFC2047 do
   b2 = '=?utf-8?B?55m954yr44Gr44KD44KT44GT?='
   q3 = '=?utf-8?Q?=E3=83=8B=E3=83=A5=E3=83=BC=E3=82=B9=E3=83=AC=E3=82=BF=E3=83=BC?='
 
-  describe '.is_mimeencoded' do
+  describe '.is_encoded' do
     context 'MIME encoded text' do
-      it('returns true') { expect(cn.is_mimeencoded(b2)).to be true }
-      it('returns true') { expect(cn.is_mimeencoded(q3)).to be true }
+      it('returns true') { expect(cn.is_encoded(b2)).to be true }
+      it('returns true') { expect(cn.is_encoded(q3)).to be true }
     end
 
     context 'is not MIME encoded' do
-      it('returns false') { expect(cn.is_mimeencoded(p1)).to be false }
-      it('returns false') { expect(cn.is_mimeencoded(p2)).to be false }
-      it('returns false') { expect(cn.is_mimeencoded(p3)).to be false }
+      it('returns false') { expect(cn.is_encoded(p1)).to be false }
+      it('returns false') { expect(cn.is_encoded(p2)).to be false }
+      it('returns false') { expect(cn.is_encoded(p3)).to be false }
     end
 
     context 'wrong number of arguments' do
-      it('raises ArgumentError') { expect { cn.is_mimeencoded(nil,nil) }.to raise_error(ArgumentError) }
+      it('raises ArgumentError') { expect { cn.is_encoded(nil,nil) }.to raise_error(ArgumentError) }
     end
   end
 
-  describe '.mimedecode' do
+  describe '.decodeH' do
     context 'MIME encoded text' do
-      v2 = cn.mimedecode([b2])
+      v2 = cn.decodeH([b2])
       it('returns String') { expect(v2).to be_a String }
       it('returns ' + p2)  { expect(v2).to be == p2 }
 
-      v3 = cn.mimedecode([q3])
+      v3 = cn.decodeH([q3])
       it('returns String') { expect(v3).to be_a String }
       it('returns ' + p3)  { expect(v3).to be == p3 }
 
@@ -44,7 +44,7 @@ describe Sisimai::RFC2047 do
         '=?utf-8?B?44Gn44OL44Oj44O844OL44Oj44O85rOj44GE44Gm44GE44Gf5LqL?=',
         '=?utf-8?B?44Gg44GR44Gv6KiY5oa244GX44Gm44GE44KL44CC?=',
       ]
-      v4 = cn.mimedecode(b4)
+      v4 = cn.decodeH(b4)
       it('returns String') { expect(v4).to be_a String }
       it('returns ' + v4)  { expect(v4).to be == p4 }
 
@@ -54,7 +54,7 @@ describe Sisimai::RFC2047 do
         '=?ISO-2022-JP?B?Ym91bmNlSGFtbWVyGyRCJE41IUc9TVdLPhsoQg==?=',
       ]
       b5.each do |e|
-        v5 = cn.mimedecode([e])
+        v5 = cn.decodeH([e])
         it('returns String') { expect(v5).to be_a String }
         it('returns ' + v5 ) { expect(v5.chomp.size).to be > 0 }
       end
@@ -68,19 +68,19 @@ describe Sisimai::RFC2047 do
         '[NEKO] =?UTF-8?B?44OL44Oj44O844Oz?= [NYAAN]'
       ]
       bE.each do |e|
-        vE = cn.mimedecode([e])
-        it('returns true') { expect(cn.is_mimeencoded(e)).to be true }
+        vE = cn.decodeH([e])
+        it('returns true') { expect(cn.is_encoded(e)).to be true }
         it('matches /ニャーン/') { expect(vE).to match %r/ニャーン/ }
       end
     end
 
     context 'wrong number of arguments' do
-      it('raises ArgumentError') { expect { cn.mimedecode(nil,nil) }.to raise_error(ArgumentError) }
+      it('raises ArgumentError') { expect { cn.decodeH(nil,nil) }.to raise_error(ArgumentError) }
     end
   end
 
   # Base64, Quoted-Printable
-  describe '.qprintd' do
+  describe '.decodeQ' do
     q6 = 'I will be traveling for work on July 10-31.  During that time I will have i=
 ntermittent access to email and phone, and I will respond to your message a=
 s promptly as possible.
@@ -90,26 +90,26 @@ eed immediate assistance on regular account matters, or contact my colleagu=
 e Neko Nyaan (neko@example.org; +0-000-000-0000) for all other needs.
 '
     context 'Quoted-Printable string' do
-      it('returns "Neko"') { expect(cn.qprintd('=4e=65=6b=6f')).to be == 'Neko' }
-      v6 = cn.qprintd(q6)
+      it('returns "Neko"') { expect(cn.decodeQ('=4e=65=6b=6f')).to be == 'Neko' }
+      v6 = cn.decodeQ(q6)
       it('returns String') { expect(v6).to be_a ::String }
       it('returns String') { expect(q6.size).to be > v6.size }
       it('does not match a=') { expect(v6).not_to match(/a=$/m) }
     end
 
     context 'wrong number of arguments' do
-      it('raises ArgumentError') { expect { cn.qprintd(nil,nil) }.to raise_error(ArgumentError) }
+      it('raises ArgumentError') { expect { cn.decodeQ(nil,nil) }.to raise_error(ArgumentError) }
     end
   end
 
-  describe '.base64d' do
+  describe '.decodeB' do
     context 'Base64 string' do
       b8 = '44Gr44KD44O844KT'
       p8 = 'にゃーん'
-      it('returns ' + p8) { expect(cn.base64d(b8)).to be == p8 }
+      it('returns ' + p8) { expect(cn.decodeB(b8)).to be == p8 }
     end
     context 'wrong number of arguments' do
-      it('raises ArgumentError') { expect { cn.base64d(nil,nil) }.to raise_error(ArgumentError) }
+      it('raises ArgumentError') { expect { cn.decodeB(nil,nil) }.to raise_error(ArgumentError) }
     end
   end
 

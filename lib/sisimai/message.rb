@@ -57,7 +57,7 @@ module Sisimai
       unless thing['header']['subject'].empty?
         # Decode MIME-Encoded "Subject:" header
         s = thing['header']['subject']
-        q = Sisimai::RFC2047.is_mimeencoded(s) ? Sisimai::RFC2047.mimedecode(s.split(/[ ]/)) : s
+        q = Sisimai::RFC2047.is_encoded(s) ? Sisimai::RFC2047.decodeH(s.split(/[ ]/)) : s
 
         # Remove "Fwd:" string from the Subject: header
         if cv = q.downcase.match(/\A[ \t]*fwd?:[ ]*(.*)\z/)
@@ -199,17 +199,17 @@ module Sisimai
       else
         # MIME-Encoded subject field or ASCII characters only
         r = []
-        if Sisimai::RFC2047.is_mimeencoded(headermaps['subject'])
+        if Sisimai::RFC2047.is_encoded(headermaps['subject'])
           # split the value of Subject by borderline
           headermaps['subject'].split(/ /).each do |v|
             # Insert value to the array if the string is MIME encoded text
-            r << v if Sisimai::RFC2047.is_mimeencoded(v)
+            r << v if Sisimai::RFC2047.is_encoded(v)
           end
         else
           # Subject line is not MIME encoded
           r << headermaps['subject']
         end
-        headermaps['subject'] = Sisimai::RFC2047.mimedecode(r)
+        headermaps['subject'] = Sisimai::RFC2047.decodeH(r)
       end
       return headermaps
     end
@@ -248,11 +248,11 @@ module Sisimai
         # Content-Type: text/plain; charset=UTF-8
         if ctencoding == 'base64'
           # Content-Transfer-Encoding: base64
-          bodystring = Sisimai::RFC2047.base64d(bodystring)
+          bodystring = Sisimai::RFC2047.decodeB(bodystring)
 
         elsif ctencoding == 'quoted-printable'
           # Content-Transfer-Encoding: quoted-printable
-          bodystring = Sisimai::RFC2047.qprintd(bodystring)
+          bodystring = Sisimai::RFC2047.decodeQ(bodystring)
         end
 
         if mesgformat.start_with?('text/html;')

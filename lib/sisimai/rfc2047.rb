@@ -10,7 +10,7 @@ module Sisimai
       # @param    [String] argvs  String to be checked
       # @return   [True,False]    false: Not MIME encoded string
       #                           true:  MIME encoded string
-      def is_mimeencoded(argv1)
+      def is_encoded(argv1)
         return nil unless argv1
 
         text1 = argv1.delete('"')
@@ -32,10 +32,29 @@ module Sisimai
         return mime1
       end
 
+      # Decode MIME BASE64 Encoded string
+      # @param  [String] argv0   MIME Encoded text
+      # @return [String]         MIME-Decoded text
+      def decodeB(argv0 = nil)
+        return nil unless argv0
+
+        p = nil
+        if cv = argv0.match(%r|([+/\=0-9A-Za-z\r\n]+)|) then p = Base64.decode64(cv[1]) end
+        return p.force_encoding('UTF-8')
+      end
+
+      # Decode MIME Quoted-Printable Encoded string
+      # @param  [String] argv0   MIME Encoded text
+      # @return [String]         MIME Decoded text
+      def decodeQ(argv0 = nil)
+        return nil unless argv0
+        return argv0.unpack('M').first.scrub('?')
+      end
+
       # Decode MIME-Encoded string
       # @param    [Array] argvs   An array including MIME-Encoded text
       # @return   [String]        MIME-Decoded text
-      def mimedecode(argvs = [])
+      def decodeH(argvs = [])
         ctxcharset = nil
         qbencoding = nil
         textblocks = []
@@ -44,7 +63,7 @@ module Sisimai
           # Check and decode each element
           e = e.strip.delete('"')
 
-          if self.is_mimeencoded(e)
+          if self.is_encoded(e)
             # MIME Encoded string like "=?utf-8?B?55m954yr44Gr44KD44KT44GT?="
             next unless cv = e.match(/\A(.*)=[?]([-_0-9A-Za-z]+)[?]([BbQq])[?](.+)[?]=?(.*)\z/)
 
@@ -120,25 +139,6 @@ module Sisimai
         btext = '--' + btext if start > -1
         btext = btext + '--' if start >  0
         return btext
-      end
-
-      # Decode MIME Quoted-Printable Encoded string
-      # @param  [String] argv0   MIME Encoded text
-      # @return [String]         MIME Decoded text
-      def qprintd(argv0 = nil)
-        return nil unless argv0
-        return argv0.unpack('M').first.scrub('?')
-      end
-
-      # Decode MIME BASE64 Encoded string
-      # @param  [String] argv0   MIME Encoded text
-      # @return [String]         MIME-Decoded text
-      def base64d(argv0 = nil)
-        return nil unless argv0
-
-        p = nil
-        if cv = argv0.match(%r|([+/\=0-9A-Za-z\r\n]+)|) then p = Base64.decode64(cv[1]) end
-        return p.force_encoding('UTF-8')
       end
 
       # Cut header fields except Content-Type, Content-Transfer-Encoding from multipart/* block
@@ -221,8 +221,7 @@ module Sisimai
         return [] if argv0.empty?
         return [] if argv1.empty?
 
-        boundary00 = ctvalue(argv0, 'boundary'); return [] if boundary00.empty?
-        boundary01 = sprintf("--%s", boundary00)
+        boundary01 = boundary(argv0, 0); return [] if boundary01.empty?
         multiparts = argv1.split(Regexp.new(Regexp.escape(boundary01) + "\n"))
         partstable = []
 
@@ -234,20 +233,17 @@ module Sisimai
           f = haircut(e)
           if f[0].index('multipart/')
             # There is nested multipart/* block
-            boundary02 = ctvalue(f[0], 'boundary'); next if boundary02.empty?
+            boundary02 = boundary(f[0], 0); next if boundary02.empty?
             bodyinside = f[-1].split("\n\n", 2)[-1]
             next unless bodyinside.size > 8
-            next unless bodyinside.index('--' + boundary02)
+            next unless bodyinside.index(boundary02)
 
             v = levelout(f[0], bodyinside)
             partstable += v if v.size > 0
           else
             # The part is not a multipart/* block
             b = f[-1].size > 0 ? f[-1] : e
-            v = {
-              'head' => { 'content-type' => f[0], 'content-transfer-encoding' => f[1] },
-              'body' => f[0].size > 0 ? b.split("\n\n", 2)[-1] : b
-            }
+            v = [f[0], f[1], f[0].size > 0 ? b.split("\n\n", 2)[-1] : b]
             partstable << v
           end
         end
@@ -255,7 +251,7 @@ module Sisimai
 
         # Remove $boundary01.'--' and strings from the boundary to the end of the body part.
         boundary01.chomp!
-        b = partstable[-1]['body']
+        b = partstable[-1][2]
         p = b.index(boundary01 + '--')
         b[p, b.size] = "" if p
 
@@ -288,8 +284,8 @@ module Sisimai
           # Pick only the following parts Sisimai::Lhost will use, and decode each part
           # - text/plain, text/rfc822-headers
           # - message/delivery-status, message/rfc822, message/partial, message/feedback-report
-          ctypevalue = ctvalue(e['head']['content-type']) || 'text/plain';
           istexthtml = false
+          ctypevalue = ctvalue(e[0]) || 'text/plain';
           next unless ctypevalue =~ %r<\A(?:text|message)/>
 
           if ctypevalue == 'text/html'
@@ -299,23 +295,23 @@ module Sisimai
             istexthtml = true
           end
 
-          ctencoding = e['head']['content-transfer-encoding']
-          bodyinside = e['body']
+          ctencoding = e[1]
+          bodyinside = e[2]
           bodystring = ''
 
           if ctencoding.size > 0
             # Check the value of Content-Transfer-Encoding: header
             if ctencoding == 'base64'
               # Content-Transfer-Encoding: base64
-              bodystring = base64d(bodyinside) || ''
+              bodystring = decodeB(bodyinside) || ''
 
             elsif ctencoding == 'quoted-printable'
               # Content-Transfer-Encoding: quoted-printable
-              bodystring = qprintd(bodyinside) || ''
+              bodystring = decodeQ(bodyinside) || ''
 
             elsif ctencoding == '7bit'
               # Content-Transfer-Encoding: 7bit
-              if cv = e['head']['content-type'].downcase.match(iso2022set)
+              if cv = e[0].downcase.match(iso2022set)
                 # Content-Type: text/plain; charset=ISO-2022-JP
                 bodystring = Sisimai::String.to_utf8(bodyinside, cv[1]) || ''
               else
@@ -339,7 +335,7 @@ module Sisimai
             #   - invalid byte sequence in UTF-8
             unless bodystring.encoding.to_s == 'UTF-8'
               # ASCII-8BIT or other 8bit encodings
-              ctxcharset = ctvalue(e['head']['content-type'], 'charset')
+              ctxcharset = ctvalue(e[0], 'charset')
               if ctxcharset.empty?
                 # The part which has no "charset" parameter causes an ArgumentError:
                 # invalid byte sequence in UTF-8 so String#scrub should be called
@@ -355,7 +351,7 @@ module Sisimai
 
           else
             # There is no Content-Transfer-Encoding header in the part
-            bodystring << e['body']
+            bodystring << bodyinside
           end
 
           if ctypevalue =~ %r</(?:delivery-status|rfc822)>
