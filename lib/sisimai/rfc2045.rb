@@ -1,7 +1,7 @@
 module Sisimai
-  # Sisimai::RFC2047 is a MIME Utilities for Sisimai.
-  module RFC2047
-    # Imported from p5-Sisimail/lib/Sisimai/RFC2047.pm
+  # Sisimai::RFC2045 is a MIME Utilities for Sisimai.
+  module RFC2045
+    # Imported from p5-Sisimail/lib/Sisimai/RFC2045.pm
     class << self
       require 'base64'
       require 'sisimai/string'

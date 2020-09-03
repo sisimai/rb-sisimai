@@ -1,9 +1,9 @@
 # coding: utf-8
 require 'spec_helper'
-require 'sisimai/rfc2047'
+require 'sisimai/rfc2045'
 
-describe Sisimai::RFC2047 do
-  cn = Sisimai::RFC2047
+describe Sisimai::RFC2045 do
+  cn = Sisimai::RFC2045
   p1 = 'ASCII TEXT'
   p2 = '白猫にゃんこ'
   p3 = 'ニュースレター'

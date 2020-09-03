@@ -16,8 +16,8 @@ module Sisimai
     require 'sisimai/lhost'
     require 'sisimai/string'
     require 'sisimai/address'
+    require 'sisimai/rfc2045'
     require 'sisimai/rfc5322'
-    require 'sisimai/rfc2047'
     DefaultSet = Sisimai::Order.another
     LhostTable = Sisimai::Lhost.path
 
@@ -57,7 +57,7 @@ module Sisimai
       unless thing['header']['subject'].empty?
         # Decode MIME-Encoded "Subject:" header
         s = thing['header']['subject']
-        q = Sisimai::RFC2047.is_encoded(s) ? Sisimai::RFC2047.decodeH(s.split(/[ ]/)) : s
+        q = Sisimai::RFC2045.is_encoded(s) ? Sisimai::RFC2045.decodeH(s.split(/[ ]/)) : s
 
         # Remove "Fwd:" string from the Subject: header
         if cv = q.downcase.match(/\A[ \t]*fwd?:[ ]*(.*)\z/)
@@ -199,17 +199,17 @@ module Sisimai
       else
         # MIME-Encoded subject field or ASCII characters only
         r = []
-        if Sisimai::RFC2047.is_encoded(headermaps['subject'])
+        if Sisimai::RFC2045.is_encoded(headermaps['subject'])
           # split the value of Subject by borderline
           headermaps['subject'].split(/ /).each do |v|
             # Insert value to the array if the string is MIME encoded text
-            r << v if Sisimai::RFC2047.is_encoded(v)
+            r << v if Sisimai::RFC2045.is_encoded(v)
           end
         else
           # Subject line is not MIME encoded
           r << headermaps['subject']
         end
-        headermaps['subject'] = Sisimai::RFC2047.decodeH(r)
+        headermaps['subject'] = Sisimai::RFC2045.decodeH(r)
       end
       return headermaps
     end
@@ -248,11 +248,11 @@ module Sisimai
         # Content-Type: text/plain; charset=UTF-8
         if ctencoding == 'base64'
           # Content-Transfer-Encoding: base64
-          bodystring = Sisimai::RFC2047.decodeB(bodystring)
+          bodystring = Sisimai::RFC2045.decodeB(bodystring)
 
         elsif ctencoding == 'quoted-printable'
           # Content-Transfer-Encoding: quoted-printable
-          bodystring = Sisimai::RFC2047.decodeQ(bodystring)
+          bodystring = Sisimai::RFC2045.decodeQ(bodystring)
         end
 
         if mesgformat.start_with?('text/html;')
@@ -263,7 +263,7 @@ module Sisimai
         # NOT text/plain
         if mesgformat.start_with?('multipart/')
           # In case of Content-Type: multipart/*
-          p = Sisimai::RFC2047.makeflat(mailheader['content-type'], bodystring)
+          p = Sisimai::RFC2045.makeflat(mailheader['content-type'], bodystring)
           bodystring = p unless p.empty?
         end
       end

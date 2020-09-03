@@ -158,7 +158,7 @@ module Sisimai::Lhost
         if mhead['content-type']
           # Get the boundary string and set regular expression for matching with
           # the boundary string.
-          boundary00 = Sisimai::RFC2047.boundary(mhead['content-type']) || ''
+          boundary00 = Sisimai::RFC2045.boundary(mhead['content-type']) || ''
         end
 
         while e = bodyslices.shift do
