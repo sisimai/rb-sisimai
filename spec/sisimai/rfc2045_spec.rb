@@ -113,18 +113,18 @@ e Neko Nyaan (neko@example.org; +0-000-000-0000) for all other needs.
     end
   end
 
-  describe '.ctvalue' do
+  describe '.parameter' do
     context 'valid value of Content-Type header' do
       x1 = 'multipart/mixed; boundary=nekochan; charset=utf8'
-      it('returns multipart/mixed') { expect(cn.ctvalue(x1)).to be == 'multipart/mixed' }
-      it('returns nekochan') { expect(cn.ctvalue(x1, 'boundary')).to be == 'nekochan' }
-      it('returns utf8') { expect(cn.ctvalue(x1, 'charset')).to be == 'utf8' }
-      it('returns ""') { expect(cn.ctvalue(x1, 'nyaan')).to be == '' }
-      it('returns nil') { expect(cn.ctvalue("")).to be == nil }
+      it('returns multipart/mixed') { expect(cn.parameter(x1)).to be == 'multipart/mixed' }
+      it('returns nekochan') { expect(cn.parameter(x1, 'boundary')).to be == 'nekochan' }
+      it('returns utf8') { expect(cn.parameter(x1, 'charset')).to be == 'utf8' }
+      it('returns ""') { expect(cn.parameter(x1, 'nyaan')).to be == '' }
+      it('returns nil') { expect(cn.parameter("")).to be == nil }
     end
 
     context 'wrong number of arguments' do
-      it('raises ArgumentError') { expect { cn.ctvalue(nil,nil,nil) }.to raise_error(ArgumentError) }
+      it('raises ArgumentError') { expect { cn.parameter(nil,nil,nil) }.to raise_error(ArgumentError) }
     end
   end
 

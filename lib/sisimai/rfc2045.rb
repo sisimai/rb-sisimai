@@ -106,10 +106,10 @@ module Sisimai
 
       # Find a value of specified field name from Content-Type: header
       # @param    [String] argv0  The value of Content-Type: header
-      # @param    [String] argv1  Parameter name
+      # @param    [String] argv1  Attribute name of the parameter
       # @return   [String]        The value of the parameter
       # @since v5.0.0
-      def ctvalue(argv0 = '', argv1 = '')
+      def parameter(argv0 = '', argv1 = '')
         return nil if argv0.empty?
         parameterq = argv1.size > 0 ? argv1.downcase + '=' : ''
         paramindex = argv1.size > 0 ? argv0.index(parameterq) : 0
@@ -130,7 +130,7 @@ module Sisimai
       # @return   [String] Boundary string
       def boundary(argv0 = '', start = -1)
         return nil if argv0.empty?
-        btext = ctvalue(argv0, 'boundary')
+        btext = parameter(argv0, 'boundary')
         return '' if btext.empty?
 
         # Content-Type: multipart/mixed; boundary=Apple-Mail-5--931376066
@@ -285,7 +285,7 @@ module Sisimai
           # - text/plain, text/rfc822-headers
           # - message/delivery-status, message/rfc822, message/partial, message/feedback-report
           istexthtml = false
-          ctypevalue = ctvalue(e[0]) || 'text/plain';
+          ctypevalue = parameter(e[0]) || 'text/plain';
           next unless ctypevalue =~ %r<\A(?:text|message)/>
 
           if ctypevalue == 'text/html'
@@ -335,7 +335,7 @@ module Sisimai
             #   - invalid byte sequence in UTF-8
             unless bodystring.encoding.to_s == 'UTF-8'
               # ASCII-8BIT or other 8bit encodings
-              ctxcharset = ctvalue(e[0], 'charset')
+              ctxcharset = parameter(e[0], 'charset')
               if ctxcharset.empty?
                 # The part which has no "charset" parameter causes an ArgumentError:
                 # invalid byte sequence in UTF-8 so String#scrub should be called
