@@ -294,7 +294,7 @@ module Sisimai
           if ctypevalue == 'text/html'
             # Skip text/html part when the value of Content-Type: header in an internal part of
             # multipart/* includes multipart/alternative;
-            next if argv1.index('multipart/alternative')
+            next if argv0.index('multipart/alternative')
             istexthtml = true
           end
 
