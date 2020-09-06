@@ -106,12 +106,12 @@ module Sisimai
 
       # Find a value of specified field name from Content-Type: header
       # @param    [String] argv0  The value of Content-Type: header
-      # @param    [String] argv1  Attribute name of the parameter
+      # @param    [String] argv1  Lower-cased attribute name of the parameter
       # @return   [String]        The value of the parameter
       # @since v5.0.0
       def parameter(argv0 = '', argv1 = '')
         return nil if argv0.empty?
-        parameterq = argv1.size > 0 ? argv1.downcase + '=' : ''
+        parameterq = argv1.size > 0 ? argv1 + '=' : ''
         paramindex = argv1.size > 0 ? argv0.index(parameterq) : 0
         return '' unless paramindex
 
@@ -271,9 +271,12 @@ module Sisimai
         # Some bounce messages include lower-cased "content-type:" field such as the followings:
         #   - content-type: message/delivery-status        => Content-Type: message/delivery-status
         #   - content-transfer-encoding: quoted-printable  => Content-Transfer-Encoding: quoted-printable
+        #   - CHARSET=, BOUNDARY=                          => charset-, boundary=
         #   - message/xdelivery-status                     => message/delivery-status
         argv1.gsub!(/[Cc]ontent-[Tt]ype:/, 'Content-Type:')
         argv1.gsub!(/[Cc]ontent-[Tt]ransfer-[Ee]ncoding:/, 'Content-Transfer-Encoding:')
+        argv1.gsub!(/CHARSET=/i, 'charset=')
+        argv1.gsub!(/BOUNDARY=/i, 'boundary=')
         argv1.gsub!('message/xdelivery-status', 'message/delivery-stauts')
 
         iso2022set = %r/charset=["']?(iso-2022-[-a-z0-9]+)['"]?\b/
