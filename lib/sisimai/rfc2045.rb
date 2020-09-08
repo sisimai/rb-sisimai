@@ -233,7 +233,7 @@ module Sisimai
           f = haircut(e)
           if f[0].index('multipart/')
             # There is nested multipart/* block
-            boundary02 = boundary(f[0], 0); next if boundary02.empty?
+            boundary02 = boundary(f[0], -1); next if boundary02.empty?
             bodyinside = f[-1].split("\n\n", 2)[-1]
             next unless bodyinside.size > 8
             next unless bodyinside.index(boundary02)
