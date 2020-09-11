@@ -182,7 +182,7 @@ module Sisimai
         end
         return headerpart if heads
 
-        ctypevalue = headerpart[0].downcase
+        mediatypev = headerpart[0].downcase
         ctencoding = headerpart[1]
         multipart1 = headerpart << ''
 
@@ -192,8 +192,8 @@ module Sisimai
 
           # Do not append Content-Transfer-Encoding: header when the part is the original message:
           # Content-Type is message/rfc822 or text/rfc822-headers, or message/delivery-status
-          break if ctypevalue.index('/rfc822')
-          break if ctypevalue.index('/delivery-status')
+          break if mediatypev.index('/rfc822')
+          break if mediatypev.index('/delivery-status')
           break if ctencoding.empty?
 
           multipart1[2] << sprintf("Content-Transfer-Encoding: %s\n", ctencoding)
@@ -288,10 +288,10 @@ module Sisimai
           # - text/plain, text/rfc822-headers
           # - message/delivery-status, message/rfc822, message/partial, message/feedback-report
           istexthtml = false
-          ctypevalue = parameter(e[0]) || 'text/plain';
-          next unless ctypevalue =~ %r<\A(?:text|message)/>
+          mediatypev = parameter(e[0]) || 'text/plain';
+          next unless mediatypev =~ %r<\A(?:text|message)/>
 
-          if ctypevalue == 'text/html'
+          if mediatypev == 'text/html'
             # Skip text/html part when the value of Content-Type: header in an internal part of
             # multipart/* includes multipart/alternative;
             next if argv0.index('multipart/alternative')
@@ -357,11 +357,11 @@ module Sisimai
             bodystring << bodyinside
           end
 
-          if ctypevalue =~ %r</(?:delivery-status|rfc822)>
+          if mediatypev =~ %r</(?:delivery-status|rfc822)>
             # Add Content-Type: header of each part (will be used as a delimiter at Sisimai::Lhost) into
             # the body inside when the value of Content-Type: is message/delivery-status, message/rfc822,
             # or text/rfc822-headers
-            bodystring = sprintf("Content-Type: %s\n%s", ctypevalue, bodystring)
+            bodystring = sprintf("Content-Type: %s\n%s", mediatypev, bodystring)
           end
 
           # Append "\n" when the last character of $bodystring is not LF
