@@ -98,42 +98,44 @@ module Sisimai
       def field(argv0 = '')
         return nil if argv0.empty?
         group = FieldGroup[argv0.split(':',2).shift.downcase] || ''
-        match = []
 
         return nil if group.empty?
         return nil unless CapturesOn[group]
 
+        table = ['', '', '', '']
+        match = false
         while cv = argv0.match(CapturesOn[group])
           # Try to match with each pattern of Per-Message field, Per-Recipient field
           # - 0: Field-Name
           # - 1: Sub Type: RFC822, DNS, X-Unix, and so on)
           # - 2: Value
           # - 3: Field Group(addr, code, date, host, stat, text)
-          match[0] = cv[1].downcase
-          match[3] = group
+          match = true
+          table[0] = cv[1].downcase
+          table[3] = group
 
           if group == 'addr' || group == 'code' || group == 'host'
             # - Final-Recipient: RFC822; kijitora@nyaan.jp
             # - Diagnostic-Code: SMTP; 550 5.1.1 <kijitora@example.jp>... User Unknown
             # - Remote-MTA: DNS; mx.example.jp
-            match[1] = cv[2].upcase
-            match[2] = group == 'host' ? cv[3].downcase : cv[3]
-            match[2] = '' if match[2] =~ /\A\s+\z/  # Remote-MTA: dns;
+            table[1] = cv[2].upcase
+            table[2] = group == 'host' ? cv[3].downcase : cv[3]
+            table[2] = '' if table[2] =~ /\A\s+\z/  # Remote-MTA: dns;
           else
             # - Action: failed
             # - Status: 5.2.2
-            match[1] = ''
-            match[2] = group == 'date' ? cv[2] : cv[2].downcase
+            table[1] = ''
+            table[2] = group == 'date' ? cv[2] : cv[2].downcase
 
             # Correct invalid value in Action field:
             break unless group == 'list'
-            break unless Correction[:action][match[2]]
-            match[2] = Correction[:action][match[2]]
+            break unless Correction[:action][table[2]]
+            table[2] = Correction[:action][table[2]]
           end
           break
         end
-        return nil if match.empty?
-        return match
+        return nil unless match
+        return table
       end
 
     end
