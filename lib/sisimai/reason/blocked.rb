@@ -11,7 +11,7 @@ module Sisimai
       class << self
         Regex = %r{(?>
            access[ ]denied[.][ ]ip[ ]name[ ]lookup[ ]failed
-          |access[ ]from[ ]ip[ ]address[ ].+[ ]blocked
+          |access[ ]from[ ]ip[ ]address[ ][^ ]+[ ]blocked
           |all[ ]mail[ ]servers[ ]must[ ]have[ ]a[ ]ptr[ ]record[ ]with[ ]a[ ]valid[ ]reverse[ ]dns[ ]entry
           |bad[ ](:?dns[ ]ptr[ ]resource[ ]record|sender[ ]ip[ ]address)
           |banned[ ]sending[ ]ip  # Office365
@@ -24,7 +24,7 @@ module Sisimai
             |resolve[ ]your[ ]address
             )
           |client[ ]host[ ](?:
-             .+[ ]blocked[ ]using
+             [^ ]+[ ]blocked[ ]using
             |rejected:[ ](?:
                abus[ ]detecte[ ]gu_eib_0[24]      # SFR
               |cannot[ ]find[ ]your[ ]hostname    # Yahoo!
@@ -41,22 +41,22 @@ module Sisimai
             )
           |connections[ ](?:
              not[ ]accepted[ ]from[ ]ip[ ]addresses[ ]on[ ]spamhaus[ ]xbl
-            |will[ ]not[ ]be[ ]accepted[ ]from[ ].+because[ ]the[ ]ip[ ]is[ ]in[ ]spamhaus's[ ]list
+            |will[ ]not[ ]be[ ]accepted[ ]from[ ][^ ]+,[ ]because[ ]the[ ]ip[ ]is[ ]in[ ]spamhaus's[ ]list
             )
           |currently[ ]sending[ ]spam[ ]see:[ ]
           |domain[ ](?:
-             .+[ ]mismatches[ ]client[ ]ip
+             [^ ]+[ ]mismatches[ ]client[ ]ip
             |does[ ]not[ ]exist:
             )
-          |dns[ ]lookup[ ]failure:[ ].+[ ]try[ ]again[ ]later
+          |dns[ ]lookup[ ]failure:[ ][^ ]+[ ]try[ ]again[ ]later
           |dnsbl:attrbl
           |dynamic/zombied/spam[ ]ips[ ]blocked
-          |email[ ]blocked[ ]by[ ](?:.+[.]barracudacentral[.]org|spamhaus)
+          |email[ ]blocked[ ]by[ ](?:[^ ]+[.]barracudacentral[.]org|spamhaus)
           |esmtp[ ]not[ ]accepting[ ]connections  # icloud.com
-          |fix[ ]reverse[ ]dns[ ]for[ ].+
+          |fix[ ]reverse[ ]dns[ ]for[ ][^ ]+
           |go[ ]away
           |helo[ ]command[ ]rejected:
-          |host[ ].+[ ]refused[ ]to[ ]talk[ ]to[ ]me:[ ]\d+[ ]blocked
+          |host[ ]+[^ ]refused[ ]to[ ]talk[ ]to[ ]me:[ ]\d+[ ]blocked
           |hosts[ ]with[ ]dynamic[ ]ip
           |http://(?:
              spf[.]pobox[.]com/why[.]html
@@ -66,17 +66,17 @@ module Sisimai
           |ip[ ]\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3}[ ]is[ ]blocked[ ]by[ ]EarthLink # Earthlink
           |ip[/]domain[ ]reputation[ ]problems
           |is[ ](?:
-             in[ ]a[ ]black[ ]list[ ]at[ ].+[.]
-            |in[ ]an[ ].*rbl[ ]on[ ].+
+             in[ ]a[ ]black[ ]list[ ]at[ ][^ ]+[.]
+            |in[ ]an[ ][^ ]+rbl[ ]on[ ][^ ]+
             |not[ ]allowed[ ]to[ ]send[ ](?:
                mail[ ]from
-              |from[ ].+[ ]per[ ]it's[ ]spf[ ]record
+              |from[ ][<][^ ]+[>][ ]per[ ]it's[ ]spf[ ]record
               )
             )
-          |mail[ ]server[ ]at[ ].+[ ]is[ ]blocked
+          |mail[ ]server[ ]at[ ][^ ]+[ ]is[ ]blocked
           |mail[ ]from[ ]\d+[.]\d+[.]\d+[.]\d[ ]refused:
-          |message[ ]from[ ].+[ ]rejected[ ]based[ ]on[ ]blacklist
-          |messages[ ]from[ ].+[ ]temporarily[ ]deferred[ ]due[ ]to[ ]user[ ]complaints   # Yahoo!
+          |message[ ]from[ ][^ ]+[ ]rejected[ ]based[ ]on[ ]blacklist
+          |messages[ ]from[ ][^ ]+[ ]temporarily[ ]deferred[ ]due[ ]to[ ]user[ ]complaints   # Yahoo!
           |no[ ](?:
              access[ ]from[ ]mail[ ]server
             |ptr[ ]record[ ]found[.]
@@ -93,17 +93,17 @@ module Sisimai
           |reverse[ ]dns[ ](?:
              failed
             |required
-            |lookup[ ]for[ ]host[ ].+[ ]failed[ ]permanently
+            |lookup[ ]for[ ]host[ ][^ ]+[ ]failed[ ]permanently
             )
           |sender[ ]ip[ ](?:
              address[ ]rejected
             |reverse[ ]lookup[ ]rejected
             )
           |server[ ]access[ ](?:
-             .+[ ]forbidden[ ]by[ ]invalid[ ]rdns[ ]record[ ]of[ ]your[ ]mail[ ]server
+             [^ ]+[ ]forbidden[ ]by[ ]invalid[ ]rdns[ ]record[ ]of[ ]your[ ]mail[ ]server
             |forbidden[ ]by[ ]your[ ]ip[ ]
             )
-          |server[ ]ip[ ].+[ ]listed[ ]as[ ]abusive
+          |server[ ]ip[ ][^ ]+[ ]listed[ ]as[ ]abusive
           |service[ ]not[ ]available,[ ]closing[ ]transmission[ ]channel
           |service[ ]permits[ ]\d+[ ]unverifyable[ ]sending[ ]ips
           |smtp[ ]error[ ]from[ ]remote[ ]mail[ ]server[ ]after[ ]initial[ ]connection:   # Exim
@@ -112,25 +112,25 @@ module Sisimai
             |your[ ]remotehost[ ]looks[ ]suspiciously[ ]like[ ]spammer
             )
           |spf[ ](?:
-             .+[ ]domain[ ]authentication[ ]fail
+             [(]sender[ ]policy[ ]framework[)][ ]domain[ ]authentication[ ]fail
             |record
             |check:[ ]fail
             )
-          |spf:[ ].+[ ]is[ ]not[ ]allowed[ ]to[ ]send[ ]mail.+[a-z]{3}.+401
-          |the[ ](?:email|domain|ip).+[ ]is[ ]blacklisted
+          |spf:[ ][^ ]+[ ]is[ ]not[ ]allowed[ ]to[ ]send[ ]mail[.][ ][a-z0-9]_401
+          |the[ ](?:email|domain|ip)[ ][^ ]+[ ]is[ ]blacklisted
           |this[ ]system[ ]will[ ]not[ ]accept[ ]messages[ ]from[ ]servers[/]devices[ ]with[ ]no[ ]reverse[ ]dns
           |too[ ]many[ ](?:
              spams[ ]from[ ]your[ ]ip  # free.fr
             |unwanted[ ]messages[ ]have[ ]been[ ]sent[ ]from[ ]the[ ]following[ ]ip[ ]address[ ]above
             )
           |unresolvable[ ]relay[ ]host[ ]name
-          |veuillez[ ]essayer[ ]plus[ ]tard.+[a-z]{3}.+(?:103|510)
+          |veuillez[ ]essayer[ ]plus[ ]tard[.][ ]service[ ]refused,[ ]please[ ]try[ ]later[.][ ][0-9a-z_]+(?:103|510)
           |your[ ](?:
              network[ ]is[ ]temporary[ ]blacklisted
-            |sender's[ ]ip[ ]address[ ]is[ ]listed[ ]at[ ].+[.]abuseat[.]org
+            |sender's[ ]ip[ ]address[ ]is[ ]listed[ ]at[ ][^ ]+[.]abuseat[.]org
             |server[ ]requires[ ]confirmation
             )
-          |was[ ]blocked[ ]by[ ].+
+          |was[ ]blocked[ ]by[ ][^ ]+
           |we[ ]do[ ]not[ ]accept[ ]mail[ ]from[ ](?: # @mail.ru
              dynamic[ ]ips
             |hosts[ ]with[ ]dynamic[ ]ip[ ]or[ ]generic[ ]dns[ ]ptr-records

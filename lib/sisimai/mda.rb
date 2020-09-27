@@ -7,7 +7,7 @@ module Sisimai
         # dovecot/src/deliver/deliver.c
         # 11: #define DEFAULT_MAIL_REJECTION_HUMAN_REASON \
         # 12: "Your message to <%t> was automatically rejected:%n%r"
-        'dovecot'    => %r/\AYour message to .+ was automatically rejected:\z/,
+        'dovecot'    => %r/\AYour message to [^ ]+ was automatically rejected:\z/,
         'mail.local' => %r/\Amail[.]local: /,
         'procmail'   => %r/\Aprocmail: /,
         'maildrop'   => %r/\Amaildrop: /,
@@ -16,7 +16,7 @@ module Sisimai
       }.freeze
       MarkingsOf = {
         message: %r{\A(?>
-           Your[ ]message[ ]to[ ].+[ ]was[ ]automatically[ ]rejected:\z
+           Your[ ]message[ ]to[ ][^ ]+[ ]was[ ]automatically[ ]rejected:\z
           |(?:mail[.]local|procmail|maildrop|vdelivermail|vdeliver):[ ]
           )
         }x

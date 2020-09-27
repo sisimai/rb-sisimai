@@ -21,7 +21,7 @@ module Sisimai
             )
           |exit[ ]\d+
           |mailer[ ]error
-          |pipe[ ]to[ ][|][/].+
+          |pipe[ ]to[ ][|][/][^ ]+
           |x[-]unix[;][ ]\d+  # X-UNIX; 127
           )
         }x

@@ -25,17 +25,17 @@ module Sisimai
           'Sisimai::Reason::Rejected'    => 'sisimai/reason/rejected',
         }
         Regex = %r{(?>
-           .+[ ]user[ ]unknown
-          |[#]5[.]1[.]1[ ]bad[ ]address
-          |[<].+[>][ ]not[ ]found
-          |[<].+[@].+[>][.][.][.][ ]blocked[ ]by[ ]
+           [#]5[.]1[.]1[ ]bad[ ]address
+          |[<][^ ]+[>][ ]not[ ]found
+          |[<][^ ]+[@][^ ]+[>][.][.][.][ ]blocked[ ]by[ ]
           |5[.]0[.]0[.][ ]mail[ ]rejected[.]
           |5[.]1[.]0[ ]address[ ]rejected[.]
-          |adresse[ ]d[ ]au[ ]moins[ ]un[ ]destinataire[ ]invalide.+[a-z]{3}.+(?:416|418)
+          |adresse[ ]d[ ]au[ ]moins[ ]un[ ]destinataire[ ]invalide[.][ ]invalid[ ]recipient[.][0-9a-z_]+41[68]
           |address[ ](?:does[ ]not[ ]exist|unknown)
           |archived[ ]recipient
           |bad[-_ ]recipient
           |can[']t[ ]accept[ ]user
+          |does[ ]not[ ]exist[.]
           |destination[ ](?:
              addresses[ ]were[ ]unknown
             |server[ ]rejected[ ]recipients
@@ -53,8 +53,8 @@ module Sisimai
             |an[ ]active[ ]address[ ]at[ ]this[ ]host
             )
           |mailbox[ ](?:
-             .+[ ]does[ ]not[ ]exist
-            |.+[@].+[ ]unavailable
+             [^ ]+[ ]does[ ]not[ ]exist
+            |[^ ]+[@][^ ]+[ ]unavailable
             |does[ ]not[ ]exist
             |invalid
             |is[ ](?:inactive|unavailable)
@@ -62,7 +62,7 @@ module Sisimai
             |unavailable
             )
           |no[ ](?:
-             [ ].+[ ]in[ ]name[ ]directory
+             [ ][^ ]+[ ]in[ ]name[ ]directory
             |account[ ]by[ ]that[ ]name[ ]here
             |existe[ ](?:dicha[ ]persona|ese[ ]usuario[ ])
             |mail[ ]box[ ]available[ ]for[ ]this[ ]user
@@ -79,7 +79,7 @@ module Sisimai
               |user(?:[ ]here)?
               )
             |thank[ ]you[ ]rejected:[ ]account[ ]unavailable:
-            |valid[ ]recipients[,][ ]bye    # Microsoft
+            |valid[ ]recipients,[ ]bye
             )
           |non[- ]?existent[ ]user
           |not[ ](?:
@@ -87,15 +87,15 @@ module Sisimai
             |a[ ]local[ ]address
             |email[ ]addresses
             )
-          |rcpt[ ][<].+[>][ ]does[ ]not[ ]exist
+          |rcpt[ ][<][^ ]+[>][ ]does[ ]not[ ]exist
           |recipient[ ]address[ ]rejected[.][ ][(]in[ ]reply[ ]to[ ]rcpt[ ]to[ ]command[)]
-          |rece?ipient[ ](?:
-             .+[ ]was[ ]not[ ]found[ ]in
+          |recipient[ ](?:
+             [^ ]+[ ]was[ ]not[ ]found[ ]in
             |address[ ]rejected:[ ](?:
                access[ ]denied
               |invalid[ ]user
-              |user[ ].+[ ]does[ ]not[ ]exist
-              |user[ ]unknown[ ]in[ ].+[ ]table
+              |user[ ][^ ]+[ ]does[ ]not[ ]exist
+              |user[ ]unknown[ ]in[ ][^ ]+[ ]table
               |unknown[ ]user
               )
             |does[ ]not[ ]exist(?:[ ]on[ ]this[ ]system)?
@@ -104,9 +104,8 @@ module Sisimai
             |unknown
             )
           |requested[ ]action[ ]not[ ]taken:[ ]mailbox[ ]unavailable
-          |resolver[.]adr[.]recip(?:ient)notfound
-          |said:[ ]550[-[ ]]5[.]1[.]1[ ].+[ ]user[ ]unknown[ ]
-          |smtp[ ]error[ ]from[ ]remote[ ]mail[ ]server[ ]after[ ]end[ ]of[ ]data:[ ]553.+does[ ]not[ ]exist
+          |resolver[.]adr[.]recipient notfound
+          |said:[ ]550[-[ ]]5[.]1[.]1[ ][^ ]+[ ]user[ ]unknown[ ]
           |sorry,[ ](?:
              user[ ]unknown
             |badrcptto
@@ -122,7 +121,7 @@ module Sisimai
              address[ ]no[ ]longer[ ]accepts[ ]mail
             |email[ ]address[ ]is[ ]wrong[ ]or[ ]no[ ]longer[ ]valid
             |spectator[ ]does[ ]not[ ]exist
-            |user[ ]doesn[']?t[ ]have[ ]a[ ].+[ ]account
+            |user[ ]doesn[']?t[ ]have[ ]a[ ][^ ]+[ ]account
             )
           |unknown[ ](?:
              e[-]?mail[ ]address
@@ -132,8 +131,8 @@ module Sisimai
             |user
             )
           |user[ ](?:
-             .+[ ]was[ ]not[ ]found
-            |.+[ ]does[ ]not[ ]exist
+             [^ ]+[ ]was[ ]not[ ]found
+            |[^ ]+[ ]does[ ]not[ ]exist
             |does[ ]not[ ]exist
             |missing[ ]home[ ]directory
             |not[ ](?:active|exist|found|known)

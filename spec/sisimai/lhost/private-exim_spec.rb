@@ -113,7 +113,7 @@ isexpected = [
   { 'n' => '01113', 'r' => /blocked/ },
   { 'n' => '01114', 'r' => /blocked/ },
   { 'n' => '01115', 'r' => /rejected/ },
-  { 'n' => '01116', 'r' => /filtered/ },
+  { 'n' => '01116', 'r' => /hostunknown/ },
   { 'n' => '01117', 'r' => /blocked/ },
   { 'n' => '01118', 'r' => /blocked/ },
   { 'n' => '01119', 'r' => /blocked/ },

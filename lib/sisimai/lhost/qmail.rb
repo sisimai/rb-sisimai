@@ -23,29 +23,29 @@ module Sisimai::Lhost
       ReSMTP = {
         # Error text regular expressions which defined in qmail-remote.c
         # qmail-remote.c:225|  if (smtpcode() != 220) quit("ZConnected to "," but greeting failed");
-        'conn' => %r/(?:Error:)?Connected to .+ but greeting failed[.]/,
+        'conn' => %r/(?:Error:)?Connected to [^ ]+ but greeting failed[.]/,
         # qmail-remote.c:231|  if (smtpcode() != 250) quit("ZConnected to "," but my name was rejected");
-        'ehlo' => %r/(?:Error:)?Connected to .+ but my name was rejected[.]/,
+        'ehlo' => %r/(?:Error:)?Connected to [^ ]+ but my name was rejected[.]/,
         # qmail-remote.c:238|  if (code >= 500) quit("DConnected to "," but sender was rejected");
         # reason = rejected
-        'mail' => %r/(?:Error:)?Connected to .+ but sender was rejected[.]/,
+        'mail' => %r/(?:Error:)?Connected to [^ ]+ but sender was rejected[.]/,
         # qmail-remote.c:249|  out("h"); outhost(); out(" does not like recipient.\n");
         # qmail-remote.c:253|  out("s"); outhost(); out(" does not like recipient.\n");
         # reason = userunknown
-        'rcpt' => %r/(?:Error:)?.+ does not like recipient[.]/,
+        'rcpt' => %r/(?:Error:)?[^ ]+ does not like recipient[.]/,
         # qmail-remote.c:265|  if (code >= 500) quit("D"," failed on DATA command");
         # qmail-remote.c:266|  if (code >= 400) quit("Z"," failed on DATA command");
         # qmail-remote.c:271|  if (code >= 500) quit("D"," failed after I sent the message");
         # qmail-remote.c:272|  if (code >= 400) quit("Z"," failed after I sent the message");
         'data' => %r{(?:
-           (?:Error:)?.+[ ]failed[ ]on[ ]DATA[ ]command[.]
-          |(?:Error:)?.+[ ]failed[ ]after[ ]I[ ]sent[ ]the[ ]message[.]
+           (?:Error:)?[^ ]+[ ]failed[ ]on[ ]DATA[ ]command[.]
+          |(?:Error:)?[^ ]+[ ]failed[ ]after[ ]I[ ]sent[ ]the[ ]message[.]
           )
         }x,
       }.freeze
       # qmail-remote.c:261|  if (!flagbother) quit("DGiving up on ","");
       ReHost = %r{(?:
-         Giving[ ]up[ ]on[ ](.+[0-9a-zA-Z])[.]?\z
+         Giving[ ]up[ ]on[ ]([^ ]+[0-9a-zA-Z])[.]?\z
         |Connected[ ]to[ ]([-0-9a-zA-Z.]+[0-9a-zA-Z])[ ]
         |remote[ ]host[ ]([-0-9a-zA-Z.]+[0-9a-zA-Z])[ ]said:
         )
