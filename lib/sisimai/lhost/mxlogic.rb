@@ -85,7 +85,7 @@ module Sisimai::Lhost
         match += 1 if mhead['from'].start_with?('Mail Delivery System')
         match += 1 if mhead['subject'] =~ %r{(?:
              Mail[ ]delivery[ ]failed(:[ ]returning[ ]message[ ]to[ ]sender)?
-            |Warning:[ ]message[ ].+[ ]delayed[ ]+
+            |Warning:[ ]message[ ][^ ]+[ ]delayed[ ]+
             |Delivery[ ]Status[ ]Notification
             )
         }x

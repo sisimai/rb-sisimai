@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.8p1
+v4.25.8p2
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -11,6 +11,8 @@ v4.25.8p1
   - Suppress warning messages on Ruby 2.7. Thanks to @koic
     - Suppress keyword argument warnings in Ruby 2.7 #200
     - Suppress a Ruby warning for `Object#=~` and bug fix to match patterns #201
+  - #203 Replace `.+` with `[^ ]` on some large regular expressions for serious 
+    performance reason.
 
 v4.25.8
 --------------------------------------------------------------------------------

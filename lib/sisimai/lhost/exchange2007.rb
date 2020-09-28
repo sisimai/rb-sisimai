@@ -24,7 +24,7 @@ module Sisimai::Lhost
         error:   %r/ ((?:RESOLVER|QUEUE)[.][A-Za-z]+(?:[.]\w+)?);/,
         rhost:   %r{\A(?:
            Generating[ ]server            # en-US
-          |Serveur[ ]de[ ]g.+ration[ ]    # fr-FR/Serveur de génération
+          |Serveur[ ]de[ ]g[^ ]+ration[ ] # fr-FR/Serveur de génération
           |Server[ ]di[ ]generazione      # it-CH
           ):[ ]?(.*)
         }x,
