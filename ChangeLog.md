@@ -23,6 +23,17 @@ v5.0.0
   - Implemenet Sisimai::RFC2045(Born again Sisimai::MIME) for compatibility with
     the Go language version of Sisimai #199
 
+v4.25.8p2
+--------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - Suppress warning messages on Ruby 2.7. Thanks to @koic
+    - Suppress keyword argument warnings in Ruby 2.7 #200
+    - Suppress a Ruby warning for `Object#=~` and bug fix to match patterns #201
+  - #203 Replace `.+` with `[^ ]` on some large regular expressions for serious 
+    performance reason.
+
 v4.25.8
 --------------------------------------------------------------------------------
 - release: "Fri, 17 Jul 2020 11:59:49 +0900 (JST)"
