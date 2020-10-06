@@ -23,9 +23,9 @@ v5.0.0
   - Implemenet Sisimai::RFC2045(Born again Sisimai::MIME) for compatibility with
     the Go language version of Sisimai #199
 
-v4.25.8p2
+v4.25.9
 --------------------------------------------------------------------------------
-- release: ""
+- release: "Sat,  3 Oct 2020 22:00:00 +0900 (JST)"
 - version: ""
 - changes:
   - Suppress warning messages on Ruby 2.7. Thanks to @koic
@@ -33,6 +33,7 @@ v4.25.8p2
     - Suppress a Ruby warning for `Object#=~` and bug fix to match patterns #201
   - #203 Replace `.+` with `[^ ]` on some large regular expressions for serious 
     performance reason.
+  - #204 Suport Null MX (RFC7505) on Sendmail sisimai/set-of-emails#4
 
 v4.25.8
 --------------------------------------------------------------------------------
