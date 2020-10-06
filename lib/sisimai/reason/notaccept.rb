@@ -14,6 +14,7 @@ module Sisimai
         # Destination mail server does not accept any message
         Index = [
           'host/domain does not accept mail', # iCloud
+          'host does not accept mail',        # Sendmail
           'name server: .: host not found',   # Sendmail
           'no mx record found for domain=',   # Oath(Yahoo!)
           'smtp protocol returned a permanent error',

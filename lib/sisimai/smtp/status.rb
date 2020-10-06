@@ -651,7 +651,7 @@ module Sisimai
           '5.7.24' => 'securityerror',  # SPF validation error
           '5.7.25' => 'blocked',        # Reverse DNS validation failed
           '5.7.26' => 'securityerror',  # Multiple authentication checks failed
-          '5.7.27' => 'rejected',       # Sender address has null MX
+          '5.7.27' => 'notaccept',      # MX resource record of a destination host is Null MX: RFC7505
         }.freeze
 
         InternalCode = {
