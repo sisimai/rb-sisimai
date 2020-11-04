@@ -6,6 +6,7 @@ isexpected = [
   { 'n' => '02', 's' => /\A5[.]0[.]\d+\z/, 'r' => /expired/,     'b' => /\A1\z/ },
   { 'n' => '03', 's' => /\A5[.]3[.]0\z/,   'r' => /userunknown/, 'b' => /\A0\z/ },
   { 'n' => '05', 's' => /\A5[.]0[.]\d+\z/, 'r' => /undefined/,   'b' => /\A1\z/ },
+  { 'n' => '06', 's' => /\A5[.]2[.]2\z/,   'r' => /mailboxfull/, 'b' => /\A1\z/ },
 ]
 Sisimai::Lhost::Code.maketest(enginename, isexpected)
 

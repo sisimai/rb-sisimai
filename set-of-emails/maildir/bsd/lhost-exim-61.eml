@@ -1,0 +1,40 @@
+Return-Path: <>
+X-Original-To: xxxx@xxxx.net
+Delivered-To: xxxx@xxxx.xxxx.net
+Received: from xxxx.xxxx.net (xxxx.xxxx.net)
+	by xxxx.xxxx.net (Postfix) with ESMTP id A1733205DF79
+	for <xxxx@xxxx.net>; Tue, 13 Oct 2020 12:04:02 +0200 (CEST)
+Received: from exim by xxxx.xxxx.net with local (Exim 4.82_1-5b7a7c0-XX)
+	id 1kSH9f-0005xf-18
+	for xxxx@xxxx.net; Tue, 13 Oct 2020 12:03:39 +0200
+X-Failed-Recipients: xxxx@xxxx.net
+Auto-Submitted: auto-replied
+From: Mail Delivery System <Mailer-Daemon@xxxx.xxxx.net>
+To: xxxx@xxxx.net
+Subject: xxxx.xxxx.net Mail delivery failed : returning message to sender
+Message-Id: <E1kSH9f-0005xf-18@xxxx.xxxx.net>
+Date: Tue, 13 Oct 2020 12:03:39 +0200
+
+This message was created automatically by the SMTP relay on xxxx.xxxx.net.
+  
+A message that you sent could not be delivered to all of its recipients.
+The following address(es) failed:
+
+  xxxx@xxxx.net
+    SMTP error from remote mail server after RCPT TO:<xxxx@xxxx.net>:
+    host 192.0.2.22 [192.0.2.22]: 550 5.1.1 <xxxx@xxxx.net>:
+    Recipient address rejected: User unknown in local recipient table
+
+------ This is a copy of the message, including all the headers. ------
+
+Return-path: <xxxx@xxxx.net>
+Received: from xxxx.xxxx.net
+	by xxxx.xxxx.net with esmtp (Exim 4.82_1-5b7a7c0-XX)
+	(envelope-from <xxxx@xxxx.net>)
+	id 1kSH9d-0005pw-05
+	for xxxx@xxxx.net; Tue, 13 Oct 2020 12:03:37 +0200
+Message-Id: <1602583415.xxxx@xxxx.net>
+Feedback-Id: 52:1930
+To: xxxx@xxxx.net
+Reply-To: newsletter@xxxx.net
+Content-Type: text/html; charset=utf-8

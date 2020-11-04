@@ -73,6 +73,10 @@ module Sisimai::Lhost
             elsif cv = e.match(/\ARouting: (.+)/)
               # Routing: Could not find a gateway for kijitora@example.co.jp
               v['diagnosis'] = cv[1]
+
+            elsif cv = e.match(/\ADiagnostic-Code: smtp; (.+)/)
+              # Diagnostic-Code: smtp; 552 5.2.2 Over quota
+              v['diagnosis'] = cv[1]
             end
           end
         end

@@ -1,0 +1,53 @@
+Return-Path: <>
+X-Original-To: xxxx@xxxx.net
+Delivered-To: xxxx@xxxx.xxxx.net
+Received: from xxxx.xxxx.net (xxxx.xxxx.net)
+	by xxxx.xxxx.net (Postfix) with ESMTP id ED7AF2036798
+	for <xxxx@xxxx.net>; Tue, 13 Oct 2020 11:24:06 +0200 (CEST)
+Date: Tue, 13 Oct 2020 11:24:06 +0200
+From: Mail Delivery System <mailer-daemon@xxxx.xxxx.net>
+To: xxxx@xxxx.net
+Subject: Delivery status notification
+MIME-Version: 1.0
+Content-Type: multipart/report; boundary="------------I305M09060309060P_556516025810460"
+
+This is a multi-part message in MIME format.
+
+--------------I305M09060309060P_556516025810460
+Content-Type: text/plain; charset=UTF-8;
+Content-Transfer-Encoding: 8bit
+
+      This is an automatically generated Delivery Status Notification.      
+
+Delivery to the following recipients was aborted after 0 second(s):
+
+  * xxxx@xxxx.net
+
+
+
+--------------I305M09060309060P_556516025810460
+Content-Type: message/delivery-status; charset=UTF-8;
+Content-Transfer-Encoding: 8bit
+
+Reporting-MTA: dns; xxxx.xxxx.net
+Received-From-MTA: dns; xxxx.xxxx.net
+Arrival-Date: Tue, 13 Oct 2020 11:24:06 +0200
+
+
+Final-recipient: rfc822; xxxx@xxxx.net
+Action: failed
+Status: 5.1.1
+Diagnostic-Code: smtp; 552 5.2.2 Over quota
+Last-attempt-Date: Tue, 13 Oct 2020 11:24:06 +0200
+
+
+
+--------------I305M09060309060P_556516025810460
+Content-Type: text/rfc822-headers; Content-Transfer-Encoding: 8bit
+Content-Disposition: attachment
+
+xxxx
+
+--------------I305M09060309060P_556516025810460--
+
+
