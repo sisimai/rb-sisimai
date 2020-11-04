@@ -23,6 +23,13 @@ v5.0.0
   - Implemenet Sisimai::RFC2045(Born again Sisimai::MIME) for compatibility with
     the Go language version of Sisimai #199
 
+v4.25.9p1
+--------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - `Sisimai::Lhost::Exim` and `Sisimai::Lhost::X3` improvement
+
 v4.25.9
 --------------------------------------------------------------------------------
 - release: "Sat,  3 Oct 2020 22:00:00 +0900 (JST)"
