@@ -41,6 +41,7 @@ module Sisimai::Lhost
            This[ ]message[ ]was[ ]created[ ]automatically[ ]by[ ]mail[ ]delivery[ ]software[.]
           |A[ ]message[ ]that[ ]you[ ]sent[ ]was[ ]rejected[ ]by[ ]the[ ]local[ ]scanning[ ]code
           |A[ ]message[ ]that[ ]you[ ]sent[ ]contained[ ]one[ ]or[ ]more[ ]recipient[ ]addresses[ ]
+          |A[ ]message[ ]that[ ]you[ ]sent[ ]could[ ]not[ ]be[ ]delivered[ ]to[ ]all[ ]of[ ]its[ ]recipients
           |Message[ ][^ ]+[ ](?:has[ ]been[ ]frozen|was[ ]frozen[ ]on[ ]arrival)
           |The[ ][^ ]+[ ]router[ ]encountered[ ]the[ ]following[ ]error[(]s[)]:
           )
