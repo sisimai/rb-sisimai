@@ -17,6 +17,7 @@ isexpected = [
   { 'n' => '22', 's' => /\A\z/, 'r' => /feedback/, 'f' => /abuse/, 'b' => /\A-1\z/ },
   { 'n' => '23', 's' => /\A\z/, 'r' => /feedback/, 'f' => /abuse/, 'b' => /\A-1\z/ },
   { 'n' => '24', 's' => /\A\z/, 'r' => /feedback/, 'f' => /abuse/, 'b' => /\A-1\z/ },
+  { 'n' => '25', 's' => /\A\z/, 'r' => /feedback/, 'f' => /abuse/, 'b' => /\A-1\z/ },
 ]
 Sisimai::Lhost::Code.maketest(enginename, isexpected)
 
