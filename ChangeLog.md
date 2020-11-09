@@ -9,6 +9,7 @@ v4.25.9p2
 - version: ""
 - changes:
   - `Sisimai::Lhost::Exim` and `Sisimai::Lhost::X3` improvement
+  -  #205 Code improvement for `Source-IP` field on `Sisimai::ARF`
 
 v4.25.9
 --------------------------------------------------------------------------------
