@@ -191,9 +191,11 @@ module Sisimai
           multipart1[2] = sprintf("Content-Type: %s\n", headerpart[0])
 
           # Do not append Content-Transfer-Encoding: header when the part is the original message:
-          # Content-Type is message/rfc822 or text/rfc822-headers, or message/delivery-status
+          # Content-Type is message/rfc822 or text/rfc822-headers, or message/delivery-status, or
+          # message/feedback-report
           break if mediatypev.index('/rfc822')
           break if mediatypev.index('/delivery-status')
+          break if mediatypev.index('/feedback-report')
           break if ctencoding.empty?
 
           multipart1[2] << sprintf("Content-Transfer-Encoding: %s\n", ctencoding)
@@ -357,7 +359,7 @@ module Sisimai
             bodystring << bodyinside
           end
 
-          if mediatypev =~ %r</(?:delivery-status|rfc822)>
+          if mediatypev =~ %r</(?:delivery-status|feedback-report|rfc822)>
             # Add Content-Type: header of each part (will be used as a delimiter at Sisimai::Lhost) into
             # the body inside when the value of Content-Type: is message/delivery-status, message/rfc822,
             # or text/rfc822-headers
