@@ -1,0 +1,61 @@
+Return-path: <xxx+bnxxx@example.com>
+Envelope-to: report@xxx.example.com
+Delivery-date: Sat, 31 Oct 2020 19:32:58 +0100
+Received: from mrd.us-east-1a.returnpath.net ([1.2.3.4])
+	by xxx.example.com with esmtps (TLSv1.2:AES128-GCM-SHA256:128)
+	(Exim 4.92)
+	(envelope-from <fbl@bounce.mailstream.senderscore.net>)
+	id xxx
+	for xxx@example.com; Sat, 31 Oct 2020 19:32:56 +0100
+Received: (Haraka outbound); Sat, 31 Oct 2020 18:32:53 +0000
+Received: from localhost ([1.2.3.4])
+	by mrd.us-east-1a.returnpath.net (Haraka/2.8.21) with ESMTP id zzz.1
+	envelope-from <fbl@bounce.mailstream.senderscore.net>;
+	Sat, 31 Oct 2020 18:32:53 +0000
+Date: Sat, 31 Oct 2020 18:32:53 +0000
+Mime-Version: 1.0
+X-Rp-Fbl: type=arf; subscriptionID=xxxx
+Content-Type: multipart/report; report-type=feedback-report;
+ boundary=47ddcc38f0377c4c57be69b027f0e571585485feff72a328f64251165e26
+Message-Id: <01xxxx.fbl@bounce.mailstream.senderscore.net>
+To: xxx@example.com
+Subject: Rackspace Abuse Report
+From: Rackspace FBL Service <feedbackloop@rackspacefbl.senderscore.net>
+Received-SPF: pass (xxx.example.com: domain of bounce.mailstream.senderscore.net designates 1.2.3.4 as permitted sender) client-ip=1.2.3.4; envelope-from=fbl@bounce.mailstream.senderscore.net; helo=mrd.us-east-1a.returnpath.net;
+X-SPF-Result: xxx.example.com: domain of bounce.mailstream.senderscore.net designates 1.2.3.4 as permitted sender
+X-Original-Sender: feedbackloop@rackspacefbl.senderscore.net
+
+
+--47ddcc38f0377c4c57be69b027f0e571585485feff72a328f64251165e26
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+This is a Rackspace Abuse Report for an email message received from domain =
+example.com, IP 10.0.0.1, on Sat, 31 Oct 2020 18:02:57 +0000.
+
+--47ddcc38f0377c4c57be69b027f0e571585485feff72a328f64251165e26
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Content-Type: message/feedback-report
+
+Source-Ip: 10.0.0.1
+User-Agent: ReturnPathFBL/2.0
+Original-Rcpt-To: hashed@example.com
+Reported-Domain: example.com
+Original-Mail-From: alice@example.com
+Source: Rackspace
+Abuse-Type: complaint
+Subscription-Link: https://fbl.returnpath.net/manage/subscriptions/xxxx
+Feedback-Type: abuse
+Version: 1
+Arrival-Date: Sat, 31 Oct 2020 18:02:57 +0000
+
+
+--47ddcc38f0377c4c57be69b027f0e571585485feff72a328f64251165e26
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Content-Type: message/rfc822
+
+REDACTED
+
+--47ddcc38f0377c4c57be69b027f0e571585485feff72a328f64251165e26--
