@@ -23,12 +23,13 @@ v5.0.0
   - Implemenet Sisimai::RFC2045(Born again Sisimai::MIME) for compatibility with
     the Go language version of Sisimai #199
 
-v4.25.9p1
+v4.25.9p3
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
 - changes:
   - `Sisimai::Lhost::Exim` and `Sisimai::Lhost::X3` improvement
+  -  #205 Code improvement for `Source-IP` field on `Sisimai::ARF`
 
 v4.25.9
 --------------------------------------------------------------------------------
