@@ -1,0 +1,68 @@
+Return-Path: <MAILER-DAEMON>
+Received: from localhost (localhost)
+	by mx.example.jp (V8/cf) id x15GrRRK009751;
+	Wed, 6 Feb 2019 01:55:36 +0900
+Date: Wed, 6 Feb 2019 01:55:36 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON>
+Message-Id: <201902051655.x15GrRRK009751@mx.example.jp>
+To: postmaster
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="x15GrRRK009751.1549385736/mx.example.jp"
+Subject: Postmaster notify: see transcript for details
+Auto-Submitted: auto-generated (postmaster-notification)
+
+This is a MIME-encapsulated message
+
+--x15GrRRK009751.1549385736/mx.example.jp
+
+The original message was received at Wed, 6 Feb 2019 01:42:26 +0900
+from [62.4.57.226]
+with id x15GgPm9009702
+
+   ----- The following addresses had permanent fatal errors -----
+kijitora+example.jp@google.example.com
+    (reason: 550-5.7.1 This message does not have authentication information or fails to pass)
+    (expanded from: neko.example.jp)
+
+   ----- Transcript of session follows -----
+... while talking to gmail-smtp-in.l.google.com.:
+>>> DATA
+<<< 550-5.7.1 This message does not have authentication information or fails to pass
+<<< 550-5.7.1 authentication checks. To best protect our users from spam, the
+<<< 550-5.7.1 message has been blocked. Please visit
+<<< 550-5.7.1  https://support.google.com/mail/answer/81126#authentication for more
+<<< 550 5.7.1 information. 37si3479471pgw.590 - gsmtp
+554 5.0.0 Service unavailable
+
+--x15GrRRK009751.1549385736/mx.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx.example.jp
+Arrival-Date: Wed, 6 Feb 2019 01:42:26 +0900
+
+Final-Recipient: RFC822; info@example.jp
+X-Actual-Recipient: RFC822; kijitora+example.jp@google.example.com
+Action: failed
+Status: 5.7.1
+Remote-MTA: DNS; gmail-smtp-in.l.google.com
+Diagnostic-Code: SMTP; 550-5.7.1 This message does not have authentication information or fails to pass
+Last-Attempt-Date: Wed, 6 Feb 2019 01:53:29 +0900
+
+--x15GrRRK009751.1549385736/mx.example.jp
+Content-Type: text/rfc822-headers
+
+Return-Path: <no-reply@talksite.com>
+Received: from lh71.143.2.199.talksite.com ([62.4.57.226])
+	by mx.example.jp (V8/cf) with ESMTP id x15GgPm9009702
+	for <info@example.jp>; Wed, 6 Feb 2019 01:42:26 +0900
+Message-Id: <201902051642.x15GgPm9009702@mx.example.jp>
+From: "European Permit" <no-reply@talksite.com>
+Subject: European Residence Permit in 2019
+To: "info" <info@example.jp>
+Content-Type: multipart/alternative; boundary="6YEfpD2Iag=_BYxOCMb3twznLqotKNyJfW"
+MIME-Version: 1.0
+Date: Tue, 5 Feb 2019 17:42:24 +0100
+
+--x15GrRRK009751.1549385736/mx.example.jp--
+
