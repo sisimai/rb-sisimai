@@ -1,0 +1,70 @@
+Return-Path: <MAILER-DAEMON>
+Received: from localhost (localhost)
+	by mx2.example.jp (V8/cf) id x8U5fjWf022128;
+	Mon, 30 Sep 2019 14:42:27 +0900
+Date: Mon, 30 Sep 2019 14:42:27 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON>
+Message-Id: <201909300542.x8U5fjWf022128@mx2.example.jp>
+To: postmaster
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="x8U5fjWf022128.1569822147/mx2.example.jp"
+Subject: Postmaster notify: see transcript for details
+Auto-Submitted: auto-generated (postmaster-notification)
+
+This is a MIME-encapsulated message
+
+--x8U5fjWf022128.1569822147/mx2.example.jp
+
+The original message was received at Mon, 30 Sep 2019 14:41:41 +0900
+from no.rdns.hostshield.net [178.159.7.4] (may be forged)
+with id x8U5feWe022126
+
+   ----- The following addresses had permanent fatal errors -----
+kijitora+neko-nyaan@google.example.com
+    (reason: 550-5.7.1 Unauthenticated email from cpanel.com is not accepted due to domain's)
+    (expanded from: neko.nyaan.jp)
+
+   ----- Transcript of session follows -----
+... while talking to gmail-smtp-in.l.google.com.:
+>>> DATA
+<<< 550-5.7.1 Unauthenticated email from cpanel.com is not accepted due to domain's
+<<< 550-5.7.1 DMARC policy. Please contact the administrator of cpanel.com domain
+<<< 550-5.7.1 if this was a legitimate mail. Please visit
+<<< 550-5.7.1  https://support.google.com/mail/answer/2451690 to learn about the
+<<< 550 5.7.1 DMARC initiative. y13si1773519pll.31 - gsmtp
+554 5.0.0 Service unavailable
+
+--x8U5fjWf022128.1569822147/mx2.example.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx2.example.jp
+Received-From-MTA: DNS; no.rdns.hostshield.net
+Arrival-Date: Mon, 30 Sep 2019 14:41:41 +0900
+
+Final-Recipient: RFC822; info@example.jp
+X-Actual-Recipient: RFC822; kijitora+neko-nyaan@google.example.com
+Action: failed
+Status: 5.7.1
+Remote-MTA: DNS; gmail-smtp-in.l.google.com
+Diagnostic-Code: SMTP; 550-5.7.1 Unauthenticated email from cpanel.com is not accepted due to domain's
+Last-Attempt-Date: Mon, 30 Sep 2019 14:41:45 +0900
+
+--x8U5fjWf022128.1569822147/mx2.example.jp
+Content-Type: text/rfc822-headers
+
+Return-Path: <cpanel@cpanel.com>
+Received: from cpanel.com (no.rdns.hostshield.net [178.159.7.4] (may be forged))
+	by mx2.example.jp (V8/cf) with ESMTP id x8U5feWe022126
+	for <info@example.jp>; Mon, 30 Sep 2019 14:41:41 +0900
+From: cPanel <cpanel@cpanel.com>
+To: info@example.jp
+Subject: Suspension : Removal of cubicroot.jp from our server
+Date: 29 Sep 2019 22:41:32 -0700
+Message-ID: <20190929224104.0E998710D86830E8@cpanel.com>
+MIME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="----=_NextPart_000_0012_E69873DD.5248EBCF"
+
+--x8U5fjWf022128.1569822147/mx2.example.jp--
+
