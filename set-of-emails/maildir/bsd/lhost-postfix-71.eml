@@ -1,0 +1,81 @@
+Return-Path: <>
+Received: from mbox.example.jp (mail.example.jp [192.0.2.25])
+	by mx.example.jp (V8/cf) with ESMTP id 0AD0lpdN032754
+	for <postmaster@example.jp>; Fri, 13 Nov 2020 09:47:51 +0900
+Received: from mbox.example.jp (localhost [127.0.0.1])
+	by mbox.example.jp (Postfix) with ESMTP id 4CXKZH4NX1z22xZY
+	for <postmaster@sisimai.example.com>; Fri, 13 Nov 2020 09:47:51 +0900 (JST)
+Received: from smtp.example.jp (smtp.example.jp [203.0.113.127])
+	by mbox.example.jp (Postfix) with ESMTP id 4CXKZH3xdDz1yM4D
+	for <postmaster@sisimai.example.com>; Fri, 13 Nov 2020 09:47:51 +0900 (JST)
+Received: by smtp.example.jp (Postfix)
+	id 7344BD244EC; Fri, 13 Nov 2020 09:47:51 +0900 (JST)
+Date: Fri, 13 Nov 2020 09:47:51 +0900 (JST)
+From: MAILER-DAEMON@smtp.example.jp (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: postmaster@sisimai.example.com
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="3574FC0196A.1605228471/smtp.example.jp"
+Message-Id: <20201113004751.7344BD244EC@smtp.example.jp>
+X-Virus-Scanned: ClamAV using ClamSMTP
+
+This is a MIME-encapsulated message.
+
+--3574FC0196A.1605228471/smtp.example.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host smtp.example.jp.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@apple.example.com>: host mx01.mail.icloud.com[17.57.152.9] said: 554
+    5.7.1 Your message was rejected due to libsisimai.org's DMARC policy. See
+    https://support.apple.com/en-us/HT204137 for info (in reply to end of DATA
+    command)
+
+--3574FC0196A.1605228471/smtp.example.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; smtp.example.jp
+X-Postfix-Queue-ID: 3574FC0196A
+X-Postfix-Sender: rfc822; postmaster@sisimai.example.com
+Arrival-Date: Fri, 13 Nov 2020 09:47:12 +0900 (JST)
+
+Final-Recipient: rfc822; kijitora@apple.example.com
+Original-Recipient: rfc822;kijitora@apple.example.com
+Action: failed
+Status: 5.7.1
+Remote-MTA: dns; mx01.mail.icloud.com
+Diagnostic-Code: smtp; 554 5.7.1 Your message was rejected due to
+    libsisimai.org's DMARC policy. See https://support.apple.com/en-us/HT204137
+    for info
+
+--3574FC0196A.1605228471/smtp.example.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <postmaster@sisimai.example.com>
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by smtp.example.jp (Postfix) with ESMTP id 3574FC0196A
+	for <kijitora@apple.example.com>; Fri, 13 Nov 2020 09:47:12 +0900 (JST)
+Subject: TEST FOR DMARC #6
+From: postmaster@libsisimai.org
+To: kijitora@apple.example.com
+Message-Id: <20201113004724.3574FC0196A@smtp.example.jp>
+Date: Fri, 13 Nov 2020 09:47:12 +0900 (JST)
+
+Nyaan
+
+--3574FC0196A.1605228471/smtp.example.jp--

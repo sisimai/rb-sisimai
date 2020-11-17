@@ -41,7 +41,7 @@ isexpected = [
   { 'n' => '48', 's' => /\A5[.]0[.]0\z/,   'r' => /toomanyconn/,   'b' => /\A1\z/ },
   { 'n' => '49', 's' => /\A4[.]0[.]0\z/,   'r' => /blocked/,       'b' => /\A1\z/ },
   { 'n' => '50', 's' => /\A4[.]0[.]0\z/,   'r' => /blocked/,       'b' => /\A1\z/ },
-  { 'n' => '51', 's' => /\A5[.]7[.]0\z/,   'r' => /policyviolation/,'b' => /\A1\z/ },
+  { 'n' => '51', 's' => /\A5[.]7[.]0\z/,   'r' => /policyviolation/, 'b' => /\A1\z/ },
   { 'n' => '52', 's' => /\A5[.]0[.]0\z/,   'r' => /suspend/,       'b' => /\A1\z/ },
   { 'n' => '53', 's' => /\A5[.]0[.]0\z/,   'r' => /syntaxerror/,   'b' => /\A1\z/ },
   { 'n' => '54', 's' => /\A5[.]7[.]1\z/,   'r' => /rejected/,      'b' => /\A1\z/ },
@@ -56,6 +56,14 @@ isexpected = [
   { 'n' => '63', 's' => /\A5[.]2[.]2\z/,   'r' => /mailboxfull/,   'b' => /\A1\z/ },
   { 'n' => '64', 's' => /\A5[.]0[.]\d+\z/, 'r' => /undefined/,     'b' => /\A1\z/ },
   { 'n' => '65', 's' => /\A5[.]0[.]0\z/,   'r' => /securityerror/, 'b' => /\A1\z/ },
+  { 'n' => '66', 's' => /\A5[.]7[.]9\z/,   'r' => /policyviolation/, 'b' => /\A1\z/ },
+  { 'n' => '67', 's' => /\A5[.]7[.]9\z/,   'r' => /policyviolation/, 'b' => /\A1\z/ },
+  { 'n' => '68', 's' => /\A5[.]0[.]0\z/,   'r' => /policyviolation/, 'b' => /\A1\z/ },
+  { 'n' => '69', 's' => /\A5[.]7[.]9\z/,   'r' => /policyviolation/, 'b' => /\A1\z/ },
+  { 'n' => '70', 's' => /\A5[.]7[.]26\z/,  'r' => /policyviolation/, 'b' => /\A1\z/ },
+  { 'n' => '71', 's' => /\A5[.]7[.]1\z/,   'r' => /policyviolation/, 'b' => /\A1\z/ },
+  { 'n' => '72', 's' => /\A5[.]7[.]1\z/,   'r' => /policyviolation/, 'b' => /\A1\z/ },
+  { 'n' => '73', 's' => /\A5[.]7[.]1\z/,   'r' => /policyviolation/, 'b' => /\A1\z/ },
 ]
 Sisimai::Lhost::Code.maketest(enginename, isexpected)
 

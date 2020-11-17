@@ -1,0 +1,87 @@
+Return-Path: <>
+Received: from mbox.example.jp (mail.example.jp [192.0.2.25])
+	by mx.example.jp (V8/cf) with ESMTP id 0AD0hCh1032498
+	for <postmaster@example.jp>; Fri, 13 Nov 2020 09:43:12 +0900
+Received: from mbox.example.jp (localhost [127.0.0.1])
+	by mbox.example.jp (Postfix) with ESMTP id 4CXKSw1zdgz22xZY
+	for <postmaster@sisimai.example.com>; Fri, 13 Nov 2020 09:43:12 +0900 (JST)
+Received: from smtp.example.jp (smtp.example.jp [203.0.113.127])
+	by mbox.example.jp (Postfix) with ESMTP id 4CXKSw1C1Mz1yM4D
+	for <postmaster@sisimai.example.com>; Fri, 13 Nov 2020 09:43:12 +0900 (JST)
+Received: by smtp.example.jp (Postfix)
+	id 06AD3D244EC; Fri, 13 Nov 2020 09:43:12 +0900 (JST)
+Date: Fri, 13 Nov 2020 09:43:12 +0900 (JST)
+From: MAILER-DAEMON@smtp.example.jp (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: postmaster@sisimai.example.com
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="AF578C0196A.1605228192/smtp.example.jp"
+Message-Id: <20201113004312.06AD3D244EC@smtp.example.jp>
+X-Virus-Scanned: ClamAV using ClamSMTP
+
+This is a MIME-encapsulated message.
+
+--AF578C0196A.1605228192/smtp.example.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host smtp.example.jp.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@google.example.com>: host gmail-smtp-in.l.google.com[64.233.189.27] said:
+    550-5.7.26 Unauthenticated email from libsisimai.org is not accepted due to
+    550-5.7.26 domain's DMARC policy. Please contact the administrator of
+    550-5.7.26 libsisimai.org domain if this was a legitimate mail. Please
+    visit 550-5.7.26  https://support.google.com/mail/answer/2451690 to learn
+    about the 550 5.7.26 DMARC initiative. z2si1584129pfn.61 - gsmtp (in reply
+    to end of DATA command)
+
+--AF578C0196A.1605228192/smtp.example.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; smtp.example.jp
+X-Postfix-Queue-ID: AF578C0196A
+X-Postfix-Sender: rfc822; postmaster@sisimai.example.com
+Arrival-Date: Fri, 13 Nov 2020 09:42:35 +0900 (JST)
+
+Final-Recipient: rfc822; kijitora@google.example.com
+Original-Recipient: rfc822;kijitora@google.example.com
+Action: failed
+Status: 5.7.26
+Remote-MTA: dns; gmail-smtp-in.l.google.com
+Diagnostic-Code: smtp; 550-5.7.26 Unauthenticated email from libsisimai.org is
+    not accepted due to 550-5.7.26 domain's DMARC policy. Please contact the
+    administrator of 550-5.7.26 libsisimai.org domain if this was a legitimate
+    mail. Please visit 550-5.7.26
+    https://support.google.com/mail/answer/2451690 to learn about the 550
+    5.7.26 DMARC initiative. z2si1584129pfn.61 - gsmtp
+
+--AF578C0196A.1605228192/smtp.example.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <postmaster@sisimai.example.com>
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by smtp.example.jp (Postfix) with ESMTP id AF578C0196A
+	for <kijitora@google.example.com>; Fri, 13 Nov 2020 09:42:35 +0900 (JST)
+Subject: TEST FOR DMARC #1
+From: postmaster@libsisimai.org
+To: kijitora@google.example.com
+Message-Id: <20201113004243.AF578C0196A@smtp.example.jp>
+Date: Fri, 13 Nov 2020 09:42:35 +0900 (JST)
+
+Nyaan
+
+--AF578C0196A.1605228192/smtp.example.jp--
