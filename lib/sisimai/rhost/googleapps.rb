@@ -84,7 +84,6 @@ module Sisimai
             { reason: 'blocked', string: [
                 'The IP address sending this message does not have a PTR record setup.',
                 "The IP you're using to send mail is not authorized to send email directly to our servers.",
-                'This message does not have authentication information or fails to pass authentication checks',
                 'this message is likely suspicious due to the very low reputation of the sending IP address',
                 'unusual rate of unsolicited mail originating from your IP address.',
             ]},
@@ -93,7 +92,10 @@ module Sisimai
                 'Messages with multiple addresses in From: header are not accepted.',
                 'The user or domain that you are sending to (or from) has a policy',
             ]},
-            { reason: 'rejected', string: ['Unauthenticated email is not accepted from this domain.'] },
+            { reason: 'rejected', string: [
+                'This message does not have authentication information or fails to pass authentication checks',
+                'Unauthenticated email is not accepted from this domain.',
+            ]},
           ],
           'X.7.4' => [{ reason: 'syntaxerror', string: ['Unrecognized Authentication Type.'] }],
         }.freeze
