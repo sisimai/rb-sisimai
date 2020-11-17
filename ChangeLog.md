@@ -3,13 +3,17 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.9p2
+v4.25.9p4
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
 - changes:
   - `Sisimai::Lhost::Exim` and `Sisimai::Lhost::X3` improvement
-  -  #205 Code improvement for `Source-IP` field on `Sisimai::ARF`
+  - #205 Code improvement for `Source-IP` field on `Sisimai::ARF`
+  - #207 Updates for DMARC and SPF related errors
+    - The value of `reason` rejected due to DMARC policy is `policyviolation`
+    - The value of `reason` rejected due to no SPF record is `rejected`
+    - Add some sample emails related to above into set-of-emails/
 
 v4.25.9
 --------------------------------------------------------------------------------
