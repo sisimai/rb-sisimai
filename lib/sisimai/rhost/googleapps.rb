@@ -92,7 +92,10 @@ module Sisimai
                 'Messages with multiple addresses in From: header are not accepted.',
                 'The user or domain that you are sending to (or from) has a policy',
             ]},
-            { reason: 'rejected', string: ['Unauthenticated email is not accepted from this domain.'] },
+            { reason: 'rejected', string: [
+                'This message does not have authentication information or fails to pass authentication checks',
+                'Unauthenticated email is not accepted from this domain.',
+            ]},
           ],
           'X.7.4' => [{ reason: 'syntaxerror', string: ['Unrecognized Authentication Type.'] }],
         }.freeze

@@ -1,0 +1,82 @@
+Return-Path: <>
+Received: from mbox.example.jp (mail.example.jp [192.0.2.48])
+	by mx.example.jp (V8/cf) with ESMTP id 0AD0ifMd032580
+	for <postmaster@example.jp>; Fri, 13 Nov 2020 09:44:41 +0900
+Received: from mbox.example.jp (localhost [127.0.0.1])
+	by mbox.example.jp (Postfix) with ESMTP id 4CXKVd39fRz22xZY
+	for <postmaster@sisimai.example.com>; Fri, 13 Nov 2020 09:44:41 +0900 (JST)
+Received: from smtp.example.jp (smtp.example.jp [203.0.113.113])
+	by mbox.example.jp (Postfix) with ESMTP id 4CXKVd2kxmz1yM4D
+	for <postmaster@sisimai.example.com>; Fri, 13 Nov 2020 09:44:41 +0900 (JST)
+Received: by smtp.example.jp (Postfix)
+	id 3101DD244EC; Fri, 13 Nov 2020 09:44:41 +0900 (JST)
+Date: Fri, 13 Nov 2020 09:44:41 +0900 (JST)
+From: MAILER-DAEMON@smtp.example.jp (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: postmaster@sisimai.example.com
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="48C62C0196A.1605228281/smtp.example.jp"
+Message-Id: <20201113004441.3101DD244EC@smtp.example.jp>
+X-Virus-Scanned: ClamAV using ClamSMTP
+
+This is a MIME-encapsulated message.
+
+--48C62C0196A.1605228281/smtp.example.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host smtp.example.jp.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@yahoo.example.co.jp>: host mx2.mail.yahoo.co.jp[202.93.66.118] said: 554
+    Message not allowed - 554 Message not allowed - DM Email not accepted for
+    policy reasons. Please visit
+    https://www.yahoo-help.jp/app/answers/detail/a_id/80870/p/622 [895] (in
+    reply to end of DATA command)
+
+--48C62C0196A.1605228281/smtp.example.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; smtp.example.jp
+X-Postfix-Queue-ID: 48C62C0196A
+X-Postfix-Sender: rfc822; postmaster@sisimai.example.com
+Arrival-Date: Fri, 13 Nov 2020 09:44:12 +0900 (JST)
+
+Final-Recipient: rfc822; kijitora@yahoo.example.co.jp
+Original-Recipient: rfc822;kijitora@yahoo.example.co.jp
+Action: failed
+Status: 5.0.0
+Remote-MTA: dns; mx2.mail.yahoo.co.jp
+Diagnostic-Code: smtp; 554 Message not allowed - 554 Message not allowed - DM
+    Email not accepted for policy reasons. Please visit
+    https://www.yahoo-help.jp/app/answers/detail/a_id/80870/p/622 [895]
+
+--48C62C0196A.1605228281/smtp.example.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <postmaster@sisimai.example.com>
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by smtp.example.jp (Postfix) with ESMTP id 48C62C0196A
+	for <kijitora@yahoo.example.co.jp>; Fri, 13 Nov 2020 09:44:12 +0900 (JST)
+Subject: TEST FOR DMARC #3
+From: postmaster@libsisimai.org
+To: kijitora@yahoo.example.co.jp
+Message-Id: <20201113004420.48C62C0196A@smtp.example.jp>
+Date: Fri, 13 Nov 2020 09:44:12 +0900 (JST)
+
+Nyaan
+
+--48C62C0196A.1605228281/smtp.example.jp--

@@ -224,6 +224,15 @@ isexpected = [
   { 'n' => '01220', 'r' => /virusdetected/ },
   { 'n' => '01221', 'r' => /userunknown/ },
   { 'n' => '01222', 'r' => /mailboxfull/ },
+  { 'n' => '01223', 'r' => /policyviolation/ },
+  { 'n' => '01224', 'r' => /policyviolation/ },
+  { 'n' => '01225', 'r' => /policyviolation/ },
+  { 'n' => '01226', 'r' => /policyviolation/ },
+  { 'n' => '01227', 'r' => /policyviolation/ },
+  { 'n' => '01228', 'r' => /policyviolation/ },
+  { 'n' => '01229', 'r' => /policyviolation/ },
+  { 'n' => '01230', 'r' => /policyviolation/ },
+  { 'n' => '01231', 'r' => /policyviolation/ },
 ]
 Sisimai::Lhost::Code.maketest(enginename, isexpected, true)
 

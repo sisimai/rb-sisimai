@@ -218,6 +218,14 @@ isexpected = [
   { 'n' => '01217', 'r' => /blocked/ },
   { 'n' => '01218', 'r' => /blocked/ },
   { 'n' => '01219', 'r' => /notaccept/ },
+  { 'n' => '01220', 'r' => /policyviolation/ },
+  { 'n' => '01221', 'r' => /contenterror/ },
+  { 'n' => '01222', 'r' => /policyviolation/ },
+  { 'n' => '01223', 'r' => /policyviolation/ },
+  { 'n' => '01224', 'r' => /policyviolation/ },
+  { 'n' => '01225', 'r' => /policyviolation/ },
+  { 'n' => '01226', 'r' => /rejected/ },
+  { 'n' => '01227', 'r' => /rejected/ },
 ]
 Sisimai::Lhost::Code.maketest(enginename, isexpected, true)
 

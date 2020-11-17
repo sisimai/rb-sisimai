@@ -21,6 +21,7 @@ module Sisimai
           'because the recipient is not accepting mail with ',    # AOL Phoenix
           'closed mailing list',
           'denied by policy',
+          'dmarc policy',
           'email not accepted for policy reasons',
           # http://kb.mimecast.com/Mimecast_Knowledge_Base/Administration_Console/Monitoring/Mimecast_SMTP_Error_Codes#554
           'email rejected due to security policies',

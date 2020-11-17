@@ -110,8 +110,7 @@ module Sisimai::Lhost
             #           The mail system
             #
             # <userunknown@example.co.jp>: host mx.example.co.jp[192.0.2.153] said: 550
-            # 5.1.1 <userunknown@example.co.jp>... User Unknown (in reply to RCPT TO
-            # command)
+            # 5.1.1 <userunknown@example.co.jp>... User Unknown (in reply to RCPT TO command)
             if readslices[-2].start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
               # Continued line of the value of Diagnostic-Code header
               v['diagnosis'] << ' ' << cv[1]
@@ -122,18 +121,12 @@ module Sisimai::Lhost
               emailsteak[1] << cv[1] << ': ' << cv[2] << "\n"
 
             else
-              if cv = e.match(/[ \t][(]in reply to ([A-Z]{4}).*/)
+              if cv = e.match(/[ \t][(]in reply to (?:end of )?([A-Z]{4}).*/) ||
+                 cv = e.match(/([A-Z]{4})[ \t]*.*command[)]\z/)
                 # 5.1.1 <userunknown@example.co.jp>... User Unknown (in reply to RCPT TO
                 commandset << cv[1]
                 anotherset['diagnosis'] ||= ''
                 anotherset['diagnosis'] << ' ' << e
-
-              elsif cv = e.match(/([A-Z]{4})[ \t]*.*command[)]\z/)
-                # to MAIL command)
-                commandset << cv[1]
-                anotherset['diagnosis'] ||= ''
-                anotherset['diagnosis'] << ' ' << e
-
               else
                 # Alternative error message and recipient
                 if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>] [(]expanded from [<](.+)[>][)]:[ \t]*(.+)\z/)
