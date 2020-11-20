@@ -1,0 +1,83 @@
+Return-Path: <>
+Delivered-To: deadbeef@mailmagazine.example.com
+Received: from u1.em.example.jp
+	by mbox3.em.example.jp with LMTP id pRi6D904298QQXvAukD22R
+	for <deadbeef@mailmagazine.example.com>; Tue, 17 Nov 2020 23:34:45 +0900
+Received: by u1.em.example.jp (Postfix)
+	id 9UKnCx1J50z3ZQ2; Tue, 17 Nov 2020 23:34:45 +0900 (JST)
+Date: Tue, 17 Nov 2020 23:34:45 +0900 (JST)
+From: MAILER-DAEMON@u1.em.example.jp (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: deadbeef@mailmagazine.example.com
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="9UK8Prr4eZzSPQR.1605555025/u1.em.example.jp"
+Message-Id: <9UKnCx1J50z3ZQ2@u1.em.example.jp>
+
+This is a MIME-encapsulated message.
+
+--9UK8Prr4eZzSPQR.1605555025/u1.em.example.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host u1.em.example.jp.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@y.example.ca>: host mta6.am0.yahoodns.net[67.195.204.72] said: 421
+    4.7.0 [TSS04] Messages from 192.0.2.192 temporarily deferred due to
+    unexpected volume or user complaints - 4.16.55.1; see
+    https://postmaster.verizonmedia.com/error-codes (in reply to MAIL FROM
+    command)
+
+--9UK8Prr4eZzSPQR.1605555025/u1.em.example.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; u1.em.example.jp
+X-Postfix-Queue-ID: 9UK8Prr4eZzSPQR
+X-Postfix-Sender: rfc822; deadbeef@mailmagazine.example.com
+Arrival-Date: Mon, 16 Nov 2020 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; kijitora@y.example.ca
+Original-Recipient: rfc822;kijitora@y.example.ca
+Action: failed
+Status: 4.7.0
+Remote-MTA: dns; mta6.am0.yahoodns.net
+Diagnostic-Code: smtp; 421 4.7.0 [TSS04] Messages from 192.0.2.192
+    temporarily deferred due to unexpected volume or user complaints -
+    4.16.55.1; see https://postmaster.verizonmedia.com/error-codes
+
+--9UK8Prr4eZzSPQR.1605555025/u1.em.example.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <deadbeef@mailmagazine.example.com>
+Received: from u1.em.example.jp (localhost [127.0.0.1])
+	by u1.em.example.jp (Postfix) with ESMTP id 9UK8Prr4eZzSPQR
+	for <kijitora@y.example.ca>; Mon, 16 Nov 2020 23:34:45 +0900 (JST)
+Received: from localhost (localhost [127.0.0.1])
+	by u1.em.example.jp (Postfix) with ESMTP id 9UK8P757b8z3ZQM
+	for <kijitora@y.example.ca>; Mon, 16 Nov 2020 23:34:45 +0900 (JST)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ISO-2022-JP
+Content-Transfer-Encoding: quoted-printable
+From: <neko@mailmagazine.example.com>
+To: "Kijitora" <kijitora@y.example.ca>
+Subject: Nyaan
+Message-Id: <9UK8P757b8z3ZQM@u1.em.example.jp>
+Date: Mon, 16 Nov 2020 23:34:45 +0900 (JST)
+X-Virus-Scanned: ClamAV using ClamSMTP
+
+Nyaan
+
+--9UK8Prr4eZzSPQR.1605555025/u1.em.example.jp--

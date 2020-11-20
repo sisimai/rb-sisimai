@@ -117,6 +117,7 @@ module Sisimai
             |check:[ ]fail
             )
           |spf:[ ][^ ]+[ ]is[ ]not[ ]allowed[ ]to[ ]send[ ]mail[.][ ][a-z0-9]_401
+          |temporarily[ ]deferred[ ]due[ ]to[ ]unexpected[ ]volume[ ]or[ ]user[ ]complaints
           |the[ ](?:email|domain|ip)[ ][^ ]+[ ]is[ ]blacklisted
           |this[ ]system[ ]will[ ]not[ ]accept[ ]messages[ ]from[ ]servers[/]devices[ ]with[ ]no[ ]reverse[ ]dns
           |too[ ]many[ ](?:
