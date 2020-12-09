@@ -27,7 +27,7 @@ module Sisimai::Lhost
         return nil unless mhead['subject'].start_with?('Returned mail:')
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+        emailsteak = Sisimai::Address.fillet(mbody, ReBackbone)
         bodyslices = emailsteak[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header

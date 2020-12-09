@@ -56,7 +56,7 @@ module Sisimai::Lhost
         mhead['x-failed-recipients'].split(',').each do |e|
           # X-Failed-Recipients: neko@example.jp, nyaan@example.org, ...
           next unless e.end_with?('@googlegroups.com')
-          next unless Sisimai::RFC5322.is_emailaddress(e)
+          next unless Sisimai::Address.is_emailaddress(e)
 
           if v['recipient']
             # There are multiple recipient addresses in the message body.

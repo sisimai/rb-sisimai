@@ -2,10 +2,15 @@
 # results. Sisimai is the system formerly known as bounceHammer 4, is the successor to bounceHammer.
 require 'sisimai/version'
 module Sisimai
-  # Imported from p5-Sisimail/lib/Sisimai.pm
   class << self
     def version(); return Sisimai::VERSION; end
     def libname(); return 'Sisimai';        end
+
+    # Emulate "rise" method for the backward compatible
+    def make(argv0, **argv1)
+      warn ' ***warning: Sisimai.make will be removed at v5.1.0. Use Sisimai.rise instead';
+      return Sisimai.rise(argv0, **argv1)
+    end
 
     # Wrapper method for parsing mailbox/maidir
     # @param         [String] argv0      Path to mbox or Maildir/
@@ -16,34 +21,26 @@ module Sisimai
     # @options argv1 [Array]   c___      Proc object to a callback method for the message and each file
     # @return        [Array]             Parsed objects
     # @return        [nil]               nil if the argument was wrong or an empty array
-    def make(argv0, **argv1)
+    def rise(argv0, **argv1)
       return nil unless argv0
-      require 'sisimai/data'
-      require 'sisimai/message'
       require 'sisimai/mail'
+      require 'sisimai/fact'
 
-      list = []
       return nil unless mail = Sisimai::Mail.new(argv0)
       kind = mail.kind
       c___ = argv1[:c___].is_a?(Array) ? argv1[:c___] : [nil, nil]
+      sisi = []
 
       while r = mail.data.read do
         # Read and parse each email file
-        args = { data: r, hook: c___[0] }
         path = mail.data.path
-        sisi = []
-
-        mesg = Sisimai::Message.new(args)
-        unless mesg.void
-          # Sisimai::Message object was created successfully
-          args = { data: mesg, delivered: argv1[:delivered], origin: path }
-          sisi = Sisimai::Data.make(args)
-        end
+        args = { data: r, hook: c___[0], origin: path, deliverd: argv1[:delivered] }
+        fact = Sisimai::Fact->rise(args) || []
 
         if c___[1]
-          # Run the callback function specified with "c___" parameter of Sisimai.make
-          # after reading each email file in Maildir/ every time
-          args = { 'kind' => kind, 'mail' => r, 'path' => path, 'sisi' => sisi }
+          # Run the callback function specified with "c___" parameter of Sisimai.make after reading
+          # each email file in Maildir/ every time
+          args = { 'kind' => kind, 'mail' => r, 'path' => path, 'fact' => fact }
           begin
             c___[1].call(args) if c___[1].is_a?(Proc)
           rescue StandardError => ce
@@ -51,11 +48,11 @@ module Sisimai
           end
         end
 
-        list += sisi unless sisi.empty?
+        sisi += fact unless fact.empty?
       end
 
-      return nil if list.empty?
-      return list 
+      return nil if sisi.empty?
+      return sisi
     end
 
     # Wrapper method to parse mailbox/Maildir and dump as JSON
@@ -69,7 +66,7 @@ module Sisimai
     def dump(argv0, **argv1)
       return nil unless argv0
 
-      nyaan = Sisimai.make(argv0, argv1) || []
+      nyaan = Sisimai.rise(argv0, argv1) || []
       if RUBY_PLATFORM.start_with?('java')
         # java-based ruby environment like JRuby.
         require 'jrjackson'

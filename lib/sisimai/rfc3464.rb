@@ -176,7 +176,7 @@ module Sisimai
                 # Final-Recipient: ...
                 x = v['recipienet'] || ''
                 y = Sisimai::Address.s3s4(cv[2])
-                y = maybealias unless Sisimai::RFC5322.is_emailaddress(y)
+                y = maybealias unless Sisimai::Address.is_emailaddress(y)
 
                 if !x.empty? && x != y
                   # There are multiple recipient addresses in the message body.
@@ -383,7 +383,7 @@ module Sisimai
               # May be an email address
               x = b['recipient'] || ''
               y = Sisimai::Address.s3s4(cv[1])
-              next unless Sisimai::RFC5322.is_emailaddress(y)
+              next unless Sisimai::Address.is_emailaddress(y)
 
               if !x.empty? && x != y
                 # There are multiple recipient addresses in the message body.

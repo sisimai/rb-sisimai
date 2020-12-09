@@ -38,14 +38,14 @@ module Sisimai
         'addr' => %r/\A((?:Original|Final|X-Actual)-Recipient):[ ]*(.+?);[ ]*(.+)/,
         'code' => %r/\A(Diagnostic-Code):[ ]*(.+?);[ ]*(.*)/,
         'date' => %r/\A((?:Arrival|Last-Attempt)-Date):[ ]*(.+)/,
-        'host' => %r/\A((?:Reporting|Received-From|Remote)-MTA):[ ]*(.+?);[ ]*(.+)/,
-        'list' => %r/\A(Action):[ ]*(failed|delayed|delivered|relayed|expanded|expired|failure)/i,
+        'host' => %r/\A((?:Received-From|Remote|Reporting)-MTA):[ ]*(.+?);[ ]*(.+)/,
+        'list' => %r/\A(Action):[ ]*(delayed|deliverable|delivered|expanded|expired|failed|failure|relayed)/i,
         'stat' => %r/\A(Status):[ ]*([245][.]\d+[.]\d+)/,
         'text' => %r/\A(X-Original-Message-ID):[ ]*(.+)/,
-       #text: %r/\A(Original-Envelope-Id|Final-Log-ID):[ ]*(.+)/,
+       #'text' => %r/\A(Final-Log-ID|Original-Envelope-Id):[ ]*(.+)/,
       }.freeze
 
-      Correction = { action: { 'failure' => 'failed', 'expired' => 'delayed' } }
+      Correction = { action: { 'deliverable' => 'delivered', 'expired' => 'delayed', 'failure' => 'failed' }}
       FieldGroup = {
         'original-recipient'    => 'addr',
         'final-recipient'       => 'addr',

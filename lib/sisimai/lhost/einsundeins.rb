@@ -52,7 +52,7 @@ module Sisimai::Lhost
           # http://postmaster.1and1.com/en/error-messages?ip=%1s
           v = dscontents[-1]
 
-          if cv = e.match(/\A([^ ]+[@][^ ]+)\z/)
+          if cv = e.match(/\A([^ ]+[@][^ ]+?)[:]?\z/)
             # general@example.eu
             if v['recipient']
               # There are multiple recipient addresses in the message body.

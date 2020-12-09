@@ -7,7 +7,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^Content-Type:[ ]message/delivery-status|.freeze
+      ReBackbone = %r|^Content-Type:[ ]message/rfc822|.freeze
       StartingOf = { message: ['Your message'] }.freeze
       MessagesOf = {
         'userunknown' => [
@@ -26,6 +26,10 @@ module Sisimai::Lhost
       # @return [Nil]           it failed to parse or the arguments are missing
       def make(mhead, mbody)
         return nil unless mhead['subject'].start_with?('DELIVERY FAILURE:')
+
+        require 'sisimai/rfc1894'
+        fieldtable = Sisimai::RFC1894.FIELDTABLE
+        permessage = {}     # (Hash) Store values of each Per-Message field
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
@@ -87,6 +91,24 @@ module Sisimai::Lhost
             elsif cv = e.match(/\A[ ][ ]Subject: (.+)\z/)
               #   Subject: Nyaa
               subjecttxt = cv[1]
+
+            elsif f = Sisimai::RFC1894.match(e)
+              # There are some fields defined in RFC3464, try to match 
+              o = Sisimai::RFC1894.field(e) || next
+              next if o[-1] == 'addr'
+
+              if o[-1] == 'code'
+                # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
+                v['spec'] = o[1]
+                v['diagnosis'] = o[2]
+              else
+                # Other DSN fields defined in RFC3464
+                next unless fieldtable[o[0]]
+                v[fieldtable[o[0]]] = o[2]
+
+                next unless f == 1
+                permessage[fieldtable[o[0]]] = o[2]
+              end
             end
           end
         end
@@ -95,18 +117,19 @@ module Sisimai::Lhost
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           e['recipient'] = Sisimai::Address.s3s4(e['recipient'])
+          e['lhost']   ||= permessage['rhost']
+          permessage.each_key { |a| e[a] ||= permessage[a] || '' }
 
           MessagesOf.each_key do |r|
             # Check each regular expression of Domino error messages
             next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
-            e['reason'] = r
-            e['status'] = Sisimai::SMTP::Status.code(r.to_s, false) || ''
+            e['reason']   = r
+            e['status'] ||= Sisimai::SMTP::Status.code(r.to_s, false) || ''
             break
           end
         end
 
-        # Set the value of subjecttxt as a Subject if there is no original
-        # message in the bounce mail.
+        # Set the value of subjecttxt as a Subject if there is no original message in the bounce mail.
         emailsteak[1] << ('Subject: ' << subjecttxt << "\n") unless emailsteak[1] =~ /^Subject: /
 
         return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
