@@ -343,7 +343,7 @@ module Sisimai
         end
         o['action'] = 'delayed' if o['reason'] == 'expired'
         if o['action'].empty?
-          o['action'] = 'faield' if d1.start_with?(4, 5)
+          o['action'] = 'faield' if d1.start_with?('4', '5')
         end
 
         listoffact << Sisimai::Fact.new(o)
