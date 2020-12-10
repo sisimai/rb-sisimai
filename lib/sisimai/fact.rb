@@ -145,7 +145,7 @@ module Sisimai
         unless p['addresser']
           # Fallback: Get the sender address from the header of the bounced email if the address is
           # not set at loop above.
-          j = Sisimai::Address.find(mesg1.header['to']) || []
+          j = Sisimai::Address.find(mesg1[header['to']) || []
           p['addresser'] = j.shift
         end
         next unless p['addresser']
@@ -173,8 +173,7 @@ module Sisimai
         end
 
         if datestring && cv = datestring.match(/\A(.+)[ ]+([-+]\d{4})\z/)
-          # Get the value of timezone offset from datestring
-          # Wed, 26 Feb 2014 06:05:48 -0500
+          # Get the value of timezone offset from datestring: Wed, 26 Feb 2014 06:05:48 -0500
           datestring = cv[1]
           zoneoffset = Sisimai::DateTime.tz2second(cv[2])
           p['timezoneoffset'] = cv[2]
@@ -252,8 +251,7 @@ module Sisimai
           end
 
           if vm > 2
-            # Build regular expression for removing string like '550-5.1.1'
-            # from the value of "diagnosticcode"
+            # Build regular expression to remove a string like '550-5.1.1' from "diagnosticcode"
             re = %r/[ ]#{vr}[- ](?:#{vs})?/
 
             # 550-5.7.1 [192.0.2.222] Our system has detected that this message is
