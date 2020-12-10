@@ -145,7 +145,7 @@ module Sisimai
         unless p['addresser']
           # Fallback: Get the sender address from the header of the bounced email if the address is
           # not set at loop above.
-          j = Sisimai::Address.find(mesg1[header['to']) || []
+          j = Sisimai::Address.find(mesg1['header']['to']) || []
           p['addresser'] = j.shift
         end
         next unless p['addresser']
