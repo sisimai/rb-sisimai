@@ -321,7 +321,7 @@ module Sisimai
         if o['deliverystatus'].empty?
           smtperrors = p['replycode']; smtperrors << ' ' << p['diagnosticcode'] unless smtperrors =~ /\A\s+\z/
           permanent1 = Sisimai::SMTP::Error.is_permanent(smtperrors)
-          o['deliverystatus'] = Sisimai::SMTP::Status.code(o['reason'], permanent1 ? false : true) || ''
+          o['deliverystatus'] = Sisimai::SMTP::Status.code(o['reason'], permanent1 ? false : true)
         end
 
         # REPLYCODE: Check both of the first digit of "deliverystatus" and "replycode"
