@@ -387,15 +387,15 @@ module Sisimai
         return nil if argv1[:address].include?(' ')
 
         # The argument does not include " "
-        @user    = thing[:address]
+        @user    = argv1[:address]
         @host  ||= ''
-        @address = thing[:address]
+        @address = argv1[:address]
       end
 
       @alias ||= ''
       @verp  ||= ''
-      @name    = thing[:name]    || ''
-      @comment = thing[:comment] || ''
+      @name    = argv1[:name]    || ''
+      @comment = argv1[:comment] || ''
     end
 
     # Check whether the object has valid content or not
