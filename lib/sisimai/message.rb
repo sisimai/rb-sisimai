@@ -70,7 +70,7 @@ module Sisimai
         }
         return nil unless bouncedata = Sisimai::Message.parse(param)
         return nil if bouncedata.empty?
-        return nil if bouncedata.ds.empty?
+        return nil if bouncedata['ds'].empty?
 
         # 6. Rewrite headers of the original message in the body part
         %w|ds catch rfc822|.each { |e| thing[e] = bouncedata[e] }
@@ -91,7 +91,7 @@ module Sisimai
       # @options argvs [Array]  order     The order of MTA modules
       # @return        [Array]            Module list
       # @since v4.20.0
-      def self.load(argvs)
+      def load(argvs)
         modulelist = []
         tobeloaded = []
 
@@ -129,7 +129,7 @@ module Sisimai
       # Divide email data up headers and a body part.
       # @param         [String] email  Email data
       # @return        [Array]         Email data after split
-      def self.divideup(email)
+      def divideup(email)
         return nil if email.empty?
 
         block = ['', '', '']  # 0:From, 1:Header, 2:Body
@@ -158,7 +158,7 @@ module Sisimai
       # @param    [Bool]   argv1  Decode "Subject:" header
       # @return   [Hash]          Structured email header data
       # @since    v4.25.6
-      def self.makemap(argv0 = '', argv1 = nil)
+      def makemap(argv0 = '', argv1 = nil)
         return {} if argv0.empty?
         argv0.gsub!(/^[>]+[ ]/m, '') # Remove '>' indent symbol of forwarded message
 
@@ -214,7 +214,7 @@ module Sisimai
       # @param options argvs [Array] tryonfirst  MTA module list to load on first
       # @param options argvs [Array] tobeloaded  User defined MTA module list
       # @return              [Hash]          Parsed and structured bounce mails
-      def self.parse(argvs)
+      def parse(argvs)
         return nil unless argvs['mail']
         return nil unless argvs['body']
 
