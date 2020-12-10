@@ -110,7 +110,7 @@ module Sisimai
         p = {
           'action'         => e['action']       || '',
           'alias'          => e['alias']        || '',
-          'catch'          => mesg1.catch       || nil,
+          'catch'          => mesg1['catch']    || nil,
           'deliverystatus' => e['status']       || '',
           'diagnosticcode' => e['diagnosis']    || '',
           'diagnostictype' => e['spec']         || '',
