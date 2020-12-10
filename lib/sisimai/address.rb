@@ -28,7 +28,6 @@ module Sisimai
     end
 
     Re          = build_regular_expressions.call
-    HeaderIndex = build_flatten_rfc822header_list.call
     Indicators  = {
       :'email-address' => (1 << 0),    # <neko@example.org>
       :'quoted-string' => (1 << 1),    # "Neko, Nyaan"
@@ -358,8 +357,8 @@ module Sisimai
       if cv = argv1[:address].match(/\A([^\s]+)[@]([^@]+)\z/) ||
               argv1[:address].match(/\A(["].+?["])[@]([^@]+)\z/)
         # Get the local part and the domain part from the email address
-        lpart = cv[1]; heads.each do { |e| lpart.gsub!(/\A#{e}/, '') if lpart.start_with?(e) }
-        dpart = cv[2]; tails.each do { |e| dpart.gsub!(/#{e}\z/, '') if dpart.end_with?(e)   }
+        lpart = cv[1]; heads.each { |e| lpart.gsub!(/\A#{e}/, '') if lpart.start_with?(e) }
+        dpart = cv[2]; tails.each { |e| dpart.gsub!(/#{e}\z/, '') if dpart.end_with?(e)   }
         email = Sisimai::Address.expand_verp(argv1[:address])
         aname = nil
 
