@@ -35,7 +35,7 @@ module Sisimai
         # Read and parse each email file
         path = mail.data.path
         args = { data: r, hook: c___[0], origin: path, deliverd: argv1[:delivered] }
-        fact = Sisimai::Fact->rise(args) || []
+        fact = Sisimai::Fact.rise(args) || []
 
         if c___[1]
           # Run the callback function specified with "c___" parameter of Sisimai.make after reading
