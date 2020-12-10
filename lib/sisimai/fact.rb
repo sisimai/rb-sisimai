@@ -133,7 +133,7 @@ module Sisimai
         # EMAILADDRESS: Detect email address from message/rfc822 part
         RFC822Head[:addresser].each do |f|
           # Check each header in message/rfc822 part
-          g = f.to_lower
+          g = f.downcase
           next unless rfc822data[g]
           next if rfc822data[g].empty?
 
@@ -188,7 +188,6 @@ module Sisimai
           warn ' ***warning: Failed to strptime ' << datestring.to_s
         end
         next unless p['timestamp']
-warn 'TIMESTAMP IS EMPTY' if p['timestamp'].empty?
 
         # OTHER_TEXT_HEADERS:
         recvheader = data.header['received'] || []
