@@ -47,7 +47,7 @@ module Sisimai
       # @param    [String] proxy  The alternative of the "rhost"
       # @return   [String]        The value of bounce reason
       def get(argvs, proxy = nil)
-        remotehost = proxy || argvs.rhost.downcase
+        remotehost = proxy || argvs['rhost'].downcase
         rhostclass = ''
         modulename = ''
 
