@@ -190,7 +190,7 @@ module Sisimai
         next unless p['timestamp']
 
         # OTHER_TEXT_HEADERS:
-        recvheader = data.header['received'] || []
+        recvheader = mesg1['header']['received'] || []
         unless recvheader.empty?
           # Get localhost and remote host name from Received header.
           %w[lhost rhost].each { |a| e[a] ||= '' }
@@ -271,8 +271,8 @@ module Sisimai
         p['smtpcommand'] = '' unless %w[EHLO HELO MAIL RCPT DATA QUIT].include?(p['smtpcommand'])
 
         # Create parameters for the constructor
-        as = Sisimai::Address.rise(p['addresser'])          || next; next if as.void
-        ar = Sisimai::Address.rise(address: p['recipient']) || next; next if ar.void
+        as = Sisimai::Address.new(p['addresser'])          || next; next if as.void
+        ar = Sisimai::Address.new(address: p['recipient']) || next; next if ar.void
         ea = %w[
           action deliverystatus diagnosticcode diagnostictype feedbacktype lhost listid messageid
           origin reason replycode rhost smtpagent smtpcommand subject 
@@ -314,14 +314,14 @@ module Sisimai
           # The value of "reason" is "delivered", "vacation" or "feedback".
           o['replycode'] = '' unless o['reason'] == 'delivered'
         else
-          smtperrors = p['deliverystatus']; smtperrors << ' ' << p['diagnosticcode'] unless smpterrors =~ /\A\s+\z/
+          smtperrors = p['deliverystatus']; smtperrors << ' ' << p['diagnosticcode'] unless smtperrors =~ /\A\s+\z/
           softorhard = Sisimai::SMTP::Error.soft_or_hard(o['reason'], smtperrors)
           o['hardbounce'] = true if softorhard == 'hard'
         end
 
         # DELIVERYSTATUS: Set a pseudo status code if the value of "deliverystatus" is empty
         if o['deliverystatus'].empty?
-          smtperrors = p['replycode']; smtperrors << ' ' << p['diagnosticcode'] unless smpterrors =~ /\A\s+\z/
+          smtperrors = p['replycode']; smtperrors << ' ' << p['diagnosticcode'] unless smtperrors =~ /\A\s+\z/
           permanent1 = Sisimai::SMTP::Error.is_permanent(smtperrors)
           o['deliverystatus'] = Sisimai::SMTP::Status.code(o['reason'], permanent1 ? false : true)
         end
