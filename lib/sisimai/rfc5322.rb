@@ -19,6 +19,7 @@ module Sisimai
         end
         return fv
       end
+      HeaderIndex = build_flatten_rfc822header_list.call
 
       # Grouped RFC822 headers
       # @param    [Symbol] group  RFC822 Header group name
