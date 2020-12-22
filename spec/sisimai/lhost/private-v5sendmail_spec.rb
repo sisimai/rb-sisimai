@@ -71,7 +71,6 @@ isexpected = [
   { 'n' => '01067', 'r' => /hostunknown/ },
   { 'n' => '01068', 'r' => /hostunknown/ },
   { 'n' => '01069', 'r' => /filtered/ },
-  { 'n' => '01070', 'r' => /hostunknown/ },
   { 'n' => '01071', 'r' => /hostunknown/ },
   { 'n' => '01072', 'r' => /(?:hostunknown|userunknown)/ },
   { 'n' => '01073', 'r' => /(?:hostunknown|userunknown)/ },
