@@ -38,7 +38,7 @@ module Sisimai
         fact = Sisimai::Fact.rise(args) || []
 
         if c___[1]
-          # Run the callback function specified with "c___" parameter of Sisimai.make after reading
+          # Run the callback function specified with "c___" parameter of Sisimai.rise after reading
           # each email file in Maildir/ every time
           args = { 'kind' => kind, 'mail' => r, 'path' => path, 'fact' => fact }
           begin
