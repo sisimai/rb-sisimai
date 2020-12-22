@@ -29,7 +29,10 @@ describe Sisimai::Data do
       data.each do |e|
         subject { e }
         it('is Sisimai::Data object') { is_expected.to be_a Sisimai::Data }
-        example('#token returns String') { expect(e.token).to be_a String }
+        example('#token returns String') do
+          expect(e.token).to be_a String
+          expect(e.token).to be == 'e66edfc23709083576f3b88141473436ce8a7f04'
+        end
         example('#lhost returns String') { expect(e.lhost).to be_a String }
         example('#rhost returns String') { expect(e.rhost).to be_a String }
         example('#alias returns String') { expect(e.alias).to be_a String }
@@ -149,7 +152,10 @@ describe Sisimai::Data do
       data.each do |e|
         subject { e }
         it('is Sisimai::Data object') { is_expected.to be_a Sisimai::Data }
-        example('#token returns String') { expect(e.token).to be_a String }
+        example('#token returns String') do
+          expect(e.token).to be_a String
+          expect(e.token).to be == 'cf02004cf5c8868f0f924eecefdb600599f238a6'
+        end
         example('#lhost returns String') { expect(e.lhost).to be_a String }
         example '#lhost does not include " "' do
           expect(e.lhost).not_to match(/[ ]/)
