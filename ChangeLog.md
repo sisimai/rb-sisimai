@@ -3,11 +3,15 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.9p4
+v4.25.10
 --------------------------------------------------------------------------------
-- release: ""
-- version: ""
+- release: "Tue, 22 Dec 2020 13:22:22 +0900 (JST)"
+- version: "4.25.10"
 - changes:
+  - #187 Remove the following old methods (marked as obsolete from v4.25.6)
+    - `Sisimai::Mail.close` (automatically closes at the EOF)
+    - `Sisimai::Mail.type` (use `Sisimai::Mail.kind` instead)
+    - `Sisimai::Mail.mail.*` (use `Sisimai::Mail.data.*` instead)
   - `Sisimai::Lhost::Exim` and `Sisimai::Lhost::X3` improvement
   - #205 Code improvement for `Source-IP` field on `Sisimai::ARF`
   - #207 Updates for DMARC and SPF related errors
