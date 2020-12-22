@@ -282,7 +282,7 @@ module Sisimai
           'senderdomain' => as.host,
           'destination'  => ar.host,
           'alias'        => p['alias'] || ar.alias,
-          'token'        => Sisimai::String.token(as, ar, p['timestamp']),
+          'token'        => Sisimai::String.token(as.address, ar.address, p['timestamp']),
         }
 
         # Other accessors
