@@ -64,7 +64,7 @@ check:
 	find lib -type f -exec grep --color -E '[;][ ]*$$' {} /dev/null \;
 
 cruby-test:
-	$(RAKE) spec
+	find ./test -name '*-test.rb' -type f -exec ruby -I./lib {} \;
 
 jruby-test:
 	if [ -d "$(JRUBY)" ]; then \
