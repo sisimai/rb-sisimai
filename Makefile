@@ -57,14 +57,16 @@ release:
 		PATH="$(JRUBY)/bin:$$PATH" $(JRUBY)/bin/rake release; \
 	fi
 
-test: cruby-test
+test: user-test author-test
+user-test:
+	rake publictest
+
+author-test:
+	rake privatetest
 
 check:
 	find lib -type f -exec grep --color -E ' $$' {} /dev/null \;
 	find lib -type f -exec grep --color -E '[;][ ]*$$' {} /dev/null \;
-
-cruby-test:
-	find ./test -name '*-test.rb' -type f -exec ruby -I./lib {} \;
 
 jruby-test:
 	if [ -d "$(JRUBY)" ]; then \
