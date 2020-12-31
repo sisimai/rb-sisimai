@@ -224,7 +224,5 @@ class SisimaiTest < Minitest::Test
     end
   end
 
-
-
 end
 
