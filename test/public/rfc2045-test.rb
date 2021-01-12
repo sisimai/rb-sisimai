@@ -34,6 +34,13 @@ class RFC2045Test < Minitest::Test
     assert_equal false, Sisimai::RFC2045.is_encoded(Pt2)
     assert_equal true,  Sisimai::RFC2045.is_encoded(Be2)
     assert_equal true,  Sisimai::RFC2045.is_encoded(Qe3)
+
+    ce = assert_raises ArgumentError do
+      Sisimai::RFC2045.is_encoded()
+      Sisimai::RFC2045.is_encoded("", "")
+    end
+    assert_match /wrong number of arguments/, ce.to_s
+    assert_nil   Sisimai::RFC2045.is_encoded(nil)
   end
 
   IR1 = [
@@ -57,6 +64,11 @@ class RFC2045Test < Minitest::Test
       assert_equal true, cv.size > 0
       assert_match /ニャーン/, cv
     end
+    ce = assert_raises ArgumentError do
+      Sisimai::RFC2045.decodeH()
+      Sisimai::RFC2045.decodeH("", "")
+    end
+    assert_match /wrong number of arguments/, ce.to_s
   end
 
   Be7 = '44Gr44KD44O844KT'
@@ -66,6 +78,12 @@ class RFC2045Test < Minitest::Test
     assert_nil    Sisimai::RFC2045.decodeB(nil)
     assert_nil    Sisimai::RFC2045.decodeB(Pt7)
     assert_equal  Pt7, Sisimai::RFC2045.decodeB(Be7)
+
+    ce = assert_raises ArgumentError do
+      Sisimai::RFC2045.decodeB()
+      Sisimai::RFC2045.decodeB("", "")
+    end
+    assert_match /wrong number of arguments/, ce.to_s
   end
 
   Qe4 = '=4e=65=6b=6f'
@@ -86,6 +104,12 @@ e Neko Nyaan (neko@example.org; +0-000-000-0000) for all other needs.
     assert_equal true,  Qe5.size > cv.size
     assert_nil          cv =~ /a=$/
     assert_nil          cv =~ /=/
+
+    ce = assert_raises ArgumentError do
+      Sisimai::RFC2045.decodeQ()
+      Sisimai::RFC2045.decodeQ("", "")
+    end
+    assert_match /wrong number of arguments/, ce.to_s
   end
 
   Ct1 = 'multipart/MIXED; boundary="nekochan"; charset=utf-8'
@@ -98,6 +122,12 @@ e Neko Nyaan (neko@example.org; +0-000-000-0000) for all other needs.
 
     assert_equal 'quoted-printable',Sisimai::RFC2045.parameter(Ct2)
     assert_empty                    Sisimai::RFC2045.parameter(Ct2, 'neko')
+
+    ce = assert_raises ArgumentError do
+      Sisimai::RFC2045.parameter()
+      Sisimai::RFC2045.parameter("", "", "")
+    end
+    assert_match /wrong number of arguments/, ce.to_s
   end
 
   Ct3 = 'Content-Type: multipart/mixed; boundary=Apple-Mail-1-526612466'
@@ -107,6 +137,12 @@ e Neko Nyaan (neko@example.org; +0-000-000-0000) for all other needs.
     assert_equal '--' + Ct4,        Sisimai::RFC2045.boundary(Ct3, 0)
     assert_equal '--' + Ct4 + '--', Sisimai::RFC2045.boundary(Ct3, 1)
     assert_equal '--' + Ct4 + '--', Sisimai::RFC2045.boundary(Ct3, 2)
+
+    ce = assert_raises ArgumentError do
+      Sisimai::RFC2045.boundary()
+      Sisimai::RFC2045.boundary("", "", "")
+    end
+    assert_match /wrong number of arguments/, ce.to_s
   end
 
   MP3 = 'Content-Description: "error-message"
@@ -133,6 +169,12 @@ Reason: 550 maria@dest.example.net... No such user'
     assert_equal       2,     cv.size
     assert_equal 'text/plain; charset="utf-8"', cv[0]
     assert_equal 'quoted-printable',            cv[1]
+
+    ce = assert_raises ArgumentError do
+      Sisimai::RFC2045.haircut()
+      Sisimai::RFC2045.haircut("", "", "")
+    end
+    assert_match /wrong number of arguments/, ce.to_s
   end
 
   Ct5 = 'multipart/mixed; boundary="b0Nvs+XKfKLLRaP/Qo8jZhQPoiqeWi3KWPXMgw=="'
@@ -178,6 +220,12 @@ Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
       assert_equal       true,  e[0].size > 0
       assert_equal       true,  e[2].size > 0
     end
+
+    ce = assert_raises ArgumentError do
+      Sisimai::RFC2045.levelout()
+      Sisimai::RFC2045.levelout("", "", "")
+    end
+    assert_match /wrong number of arguments/, ce.to_s
   end
 
   Ct6 = {'content-type' => 'multipart/report; report-type=delivery-status; boundary="NekoNyaan--------1"'}
@@ -242,6 +290,12 @@ Received: ...
     assert_nil    cv.match(/[<]html[>]/)
     assert_nil    cv.match(/4AAQSkZJRgABAQEBLAEsAAD/)
     assert_empty  Sisimai::RFC2045.makeflat()
+
+    ce = assert_raises ArgumentError do
+      Sisimai::RFC2045.makeflat()
+      Sisimai::RFC2045.makeflat("", "", "")
+    end
+    assert_match /wrong number of arguments/, ce.to_s
   end
 
 end
