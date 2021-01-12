@@ -104,6 +104,13 @@ class AddressTest < Minitest::Test
       assert_equal 1, cv[0].keys.size
       assert_equal e[1], cv[0][:address], sprintf("[%02d/%02d] value[0] = %s", ci, cx, e[0])
 
+      ce = assert_raises ArgumentError do
+        Sisimai::Address.find()
+        Sisimai::Address.find("", "", "")
+      end
+      assert_match /wrong number of arguments/, ce.to_s
+
+
       # Sisimai::Address#new
       cv = Sisimai::Address.new(Sisimai::Address.find(e[0]).shift)
       ca = ['', '']
@@ -132,7 +139,6 @@ class AddressTest < Minitest::Test
       cv.comment = 'nyaan'
       assert_equal 'nekochan', cv.name
       assert_equal 'nyaan', cv.comment
-
 
       # Sisimai::Address#s3s4
       cv = Sisimai::Address.s3s4(e[0])
@@ -163,6 +169,14 @@ class AddressTest < Minitest::Test
         assert_instance_of ::String, ev.name
       end
     end
+
+    ce = assert_raises ArgumentError do
+      Sisimai::Address.new()
+      Sisimai::Address.new(nil)
+      Sisimai::Address.s3s4()
+      Sisimai::Address.s3s4(nil)
+    end
+    assert_match /wrong number of arguments/, ce.to_s
   end
 
   # Sisimai::Address#expand_verp
@@ -172,6 +186,12 @@ class AddressTest < Minitest::Test
     assert_equal false, cv.void
     assert_equal 'neko@example.jp', Sisimai::Address.expand_verp(ct)
     assert_equal ct, cv.verp
+
+    ce = assert_raises ArgumentError do
+      Sisimai::Address.expand_verp()
+      Sisimai::Address.expand_verp(nil)
+    end
+    assert_match /wrong number of arguments/, ce.to_s
   end
 
   # Sisimai::Address#expand_alias
@@ -181,6 +201,12 @@ class AddressTest < Minitest::Test
     assert_equal false, cv.void
     assert_equal 'neko@example.jp', Sisimai::Address.expand_alias(ct)
     assert_equal ct, cv.alias
+
+    ce = assert_raises ArgumentError do
+      Sisimai::Address.expand_alias()
+      Sisimai::Address.expand_alias(nil)
+    end
+    assert_match /wrong number of arguments/, ce.to_s
   end
 
   # Sisimai::Address#to_json
@@ -195,6 +221,12 @@ class AddressTest < Minitest::Test
     Postmaster.each do |e|
       assert_equal true, Sisimai::Address.is_mailerdaemon(e)
     end
+
+    ce = assert_raises ArgumentError do
+      Sisimai::Address.is_mailerdaemon()
+      Sisimai::Address.is_mailerdaemon(nil)
+    end
+    assert_match /wrong number of arguments/, ce.to_s
   end
 
   def test_non_email_addresses
@@ -213,8 +245,13 @@ class AddressTest < Minitest::Test
     assert_equal ct[0], Sisimai::Address.undisclosed('s')
     assert_equal ct[1], Sisimai::Address.undisclosed('r')
     assert_nil Sisimai::Address.undisclosed('')
+
+    ce = assert_raises ArgumentError do
+      Sisimai::Address.undisclosed()
+      Sisimai::Address.undisclosed(nil)
+    end
+    assert_match /wrong number of arguments/, ce.to_s
   end
-  
 
 end
 
