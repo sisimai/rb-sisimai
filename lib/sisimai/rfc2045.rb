@@ -93,7 +93,7 @@ module Sisimai
 
         p = nil
         if cv = argv0.match(%r|([+/\=0-9A-Za-z\r\n]+)|) then p = Base64.decode64(cv[1]) end
-        return p.force_encoding('UTF-8')
+        return p ? p.force_encoding('UTF-8') : nil
       end
 
       # Decode MIME Quoted-Printable Encoded string
