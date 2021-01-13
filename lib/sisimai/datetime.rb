@@ -442,7 +442,7 @@ module Sisimai
       # @example  Get timezone offset string of specified seconds
       #   second2tz(12345)    #=> '+0325'
       def second2tz(argv1)
-        return '+0000' unless argv1.is_a?(Number)
+        return '+0000' unless argv1.is_a?(::Integer)
         return nil if argv1.abs > TZ_OFFSET  # UTC+14 + 1(DST?)
 
         digit = { :operator => '+' }
