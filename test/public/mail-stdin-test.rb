@@ -39,17 +39,6 @@ class MailStdinTest < Minitest::Test
     assert_match /wrong number of arguments/, ce.to_s
   end
 
-  def test_handle
-    assert_instance_of IO, Device1.handle
-    assert_equal false, Device1.handle.closed?
-
-    ce = assert_raises ArgumentError do
-      Device1.handle(nil)
-      Device1.handle(nil, nil)
-    end
-    assert_match /wrong number of arguments/, ce.to_s
-  end
-
   def test_offset
     assert_instance_of Integer, Device1.offset
     assert_equal true, Device1.offset >= 0
@@ -61,6 +50,17 @@ class MailStdinTest < Minitest::Test
     end
     assert_match /wrong number of arguments/, ce.to_s
   end
+
+  def test_handle
+    assert_instance_of IO, Device1.handle
+
+    ce = assert_raises ArgumentError do
+      Device1.handle(nil)
+      Device1.handle(nil, nil)
+    end
+    assert_match /wrong number of arguments/, ce.to_s
+  end
+
 
 end
 
