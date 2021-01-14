@@ -101,6 +101,7 @@ class MailMboxTest < Minitest::Test
       assert_equal true, Mailbox.offset > 1
     end
     assert_equal 37, ci
+    assert_equal File.size(Samples[0]), Mailbox.offset
   end
 
 end
