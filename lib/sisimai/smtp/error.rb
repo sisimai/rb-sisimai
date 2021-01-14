@@ -21,6 +21,7 @@ module Sisimai
         #                           nil:   is not an error
         # @since v4.17.3
         def is_permanent(argv1 = '')
+          return nil unless argv1
           permanent1 = nil
           statuscode = Sisimai::SMTP::Status.find(argv1) || Sisimai::SMTP::Reply.find(argv1) || '0'
 
@@ -61,6 +62,7 @@ module Sisimai
         #                           '':     May not be bounce ?
         # @since v4.17.3
         def soft_or_hard(argv1 = '', argv2 = '')
+          return nil unless argv1
           return nil if argv1.empty?
           value = nil
 
