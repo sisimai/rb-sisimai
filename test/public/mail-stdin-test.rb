@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'sisimai/mail/stdin'
 
-class StdinTest < Minitest::Test
+class MailStdinTest < Minitest::Test
   Methods = { class: %w[new], object: %w[path size handle offset read] }
   Device1 = Sisimai::Mail::STDIN.new(STDIN)
 

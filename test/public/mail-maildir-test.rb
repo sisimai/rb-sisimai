@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'sisimai/mail/maildir'
 
-class MaildirTest < Minitest::Test
+class MailMaildirTest < Minitest::Test
   Methods = { class: %w[new], object: %w[path dir file size handle offset read] }
   Samples = ['./set-of-emails/maildir/bsd', './set-of-emails/maildir/mac']
   Maildir = Sisimai::Mail::Maildir.new(Samples[0])
