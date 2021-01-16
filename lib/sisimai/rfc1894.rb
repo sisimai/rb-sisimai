@@ -86,8 +86,8 @@ module Sisimai
       # @since v4.25.0
       def match(argv0 = '')
         return nil if argv0.empty?
-        return 1 if FieldNames[0].any? { |a| argv0.start_with?(a) }
-        return 2 if FieldNames[1].any? { |a| argv0.start_with?(a) }
+        return 1   if FieldNames[0].any? { |a| argv0.start_with?(a) }
+        return 2   if FieldNames[1].any? { |a| argv0.start_with?(a) }
         return nil
       end
 
