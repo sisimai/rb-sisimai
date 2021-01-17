@@ -81,10 +81,6 @@ module Sisimai
         return thing
       end
 
-      # Check whether the object has valid content or not
-      # @return        [True,False]   returns true if the object is void
-      #def void; return @ds ? false : true; end
-
       # Load MTA modules which specified at 'order' and 'load' in the argument
       # @param         [Hash] argvs       Module information to be loaded
       # @options argvs [Array]  load      User defined MTA module list
