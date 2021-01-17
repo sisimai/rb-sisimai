@@ -57,6 +57,7 @@ class MessageTest < Minitest::Test
       assert_equal true,      e['action'].size > 0
       assert_match /.+[.].+/, e['rhost']
       assert_match /.+[.].+/, e['lhost']
+      assert_equal 'Sendmail',e['agent']
     end
 
     %w[content-type to subject date from message-id].each { |e| assert_equal true, cv['header'][e].size > 0 }
