@@ -28,8 +28,8 @@ module Sisimai
       # @return   [Array] Reason list
       def retry
         return {
-          'undefined' => 1, 'onhold' => 1, 'systemerror' => 1, 'securityerror' => 1,
-          'networkerror' => 1, 'hostunknown' => 1, 'userunknown' => 1
+          'undefined' => true, 'onhold' => true, 'systemerror' => true, 'securityerror' => true,
+          'networkerror' => true, 'hostunknown' => true, 'userunknown' => true
         }.freeze
       end
       ModulePath = Sisimai::Reason.path
