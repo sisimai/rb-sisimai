@@ -3,7 +3,6 @@ require 'sisimai/reason'
 require 'sisimai'
 
 class ReasonChildrenTest < Minitest::Test
-  Methods = { class:  %w[get path retry index match] }
   Reasons = {
     'Blocked'         => ['550 Access from ip address 192.0.2.1 blocked.'],
     'ContentError'    => ['550 5.6.0 the headers in this message contain improperly-formatted binary content'],
