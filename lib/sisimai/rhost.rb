@@ -58,6 +58,7 @@ module Sisimai
           rhostclass = modulename.gsub('::', '/').downcase
           break
         end
+        return nil if rhostclass.empty?
 
         require rhostclass
         reasontext = Module.const_get(modulename).get(argvs)
