@@ -33,7 +33,7 @@ class MailMaildirTest < Minitest::Test
 
   def test_dir
     assert_instance_of String, Maildir.dir
-    assert_equal true, Maildir.dir.size > 0
+    refute_empty Maildir.dir
     assert_equal Samples[0], Maildir.dir
 
     ce = assert_raises ArgumentError do
@@ -93,7 +93,7 @@ class MailMaildirTest < Minitest::Test
       assert_instance_of String, Maildir.path
       assert_instance_of String, Maildir.file
       assert_match   /[.]eml\z/, Maildir.file
-      assert_equal true, r.size > 0
+      refute_empty r
       assert_equal true, Maildir.offset > 1
     end
     assert_equal true, ci > 0

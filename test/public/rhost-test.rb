@@ -18,8 +18,8 @@ class RhostTest < Minitest::Test
         assert_instance_of Sisimai::Fact, ee
         assert_instance_of String, ee.rhost
         assert_instance_of String, ee.reason
-        assert_equal true, ee.rhost.size > 0
-        assert_equal true, ee.reason.size > 0
+        refute_empty ee.rhost
+        refute_empty ee.reason
         cx = ee.damn
 
         if Sisimai::Rhost.match(ee.rhost)
@@ -28,8 +28,8 @@ class RhostTest < Minitest::Test
           assert_equal cx['reason'], cr
         else
           cr = Sisimai::Rhost.get(cx, cx['destination'])
-          assert_equal true, cx['destination'].size > 0
-          assert_equal true, cr.size > 0
+          refute_empty cx['destination']
+          refute_empty cr
           assert_equal cx['reason'], cr
         end
       end

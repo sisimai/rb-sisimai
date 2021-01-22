@@ -49,7 +49,7 @@ class MailMemoryTest < Minitest::Test
     assert_instance_of Integer, Memory2.size
     assert_equal true,     Memory1.size > 0
     assert_equal Cv1.size, Memory1.size
-    assert_equal true,     Memory2.size > 0
+    assert_equal true,     Memory1.size > 0
     assert_equal Cv2.size, Memory2.size
 
     ce = assert_raises ArgumentError do
@@ -79,8 +79,8 @@ class MailMemoryTest < Minitest::Test
   def test_payload
     assert_instance_of Array, Memory1.payload
     assert_instance_of Array, Memory2.payload
-    assert_equal true, Memory1.payload.size > -1
-    assert_equal true, Memory2.payload.size > -1
+    refute_nil Memory1.payload
+    refute_nil Memory2.payload
 
     ce = assert_raises ArgumentError do
       Memory1.payload(nil)
@@ -94,7 +94,7 @@ class MailMemoryTest < Minitest::Test
     while r = Memory1.read do
       ci += 1
       assert_instance_of String, r
-      assert_equal true, r.size > 0
+      refute_empty r
       assert_match /\AFrom /, r
       assert_match /[\r\n]/,  r
       assert_equal true, Memory1.offset > 0
@@ -105,8 +105,8 @@ class MailMemoryTest < Minitest::Test
     while r = Memory2.read do
       ci += 1
       assert_instance_of String, r
-      assert_equal true, r.size > 0
-      assert_nil r.match(/\AFrom /)
+      refute_empty r
+      refute_match /\AFrom /, r
       assert_match /[\r\n]/,  r
       assert_equal true, Memory1.offset > 0
     end

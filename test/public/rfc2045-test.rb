@@ -61,7 +61,7 @@ class RFC2045Test < Minitest::Test
     IR1.each do |e|
       cv = Sisimai::RFC2045.decodeH([e])
       assert_equal true, Sisimai::RFC2045.is_encoded(e)
-      assert_equal true, cv.size > 0
+      refute_empty cv
       assert_match /ニャーン/, cv
     end
     ce = assert_raises ArgumentError do
@@ -102,8 +102,8 @@ e Neko Nyaan (neko@example.org; +0-000-000-0000) for all other needs.
 
     cv = Sisimai::RFC2045.decodeQ(Qe5)
     assert_equal true,  Qe5.size > cv.size
-    assert_nil          cv =~ /a=$/
-    assert_nil          cv =~ /=/
+    refute_match /a=$/, cv
+    refute_match /[=]/, cv
 
     ce = assert_raises ArgumentError do
       Sisimai::RFC2045.decodeQ()
@@ -159,10 +159,10 @@ Reason: 550 maria@dest.example.net... No such user'
   def test_haircut
     cv = Sisimai::RFC2045.haircut(MP3)
     assert_instance_of Array, cv
-    assert_equal           3, cv.size
+    assert_equal 3, cv.size
     assert_equal 'text/plain; charset="utf-8"', cv[0]
     assert_equal 'quoted-printable',            cv[1]
-    assert_equal true,                          cv[2].size > 0
+    refute_empty cv[2]
 
     cv = Sisimai::RFC2045.haircut(MP3, true)
     assert_instance_of Array, cv
@@ -217,8 +217,8 @@ Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
 
     cv.each do |e|
       assert_instance_of Array, e
-      assert_equal       true,  e[0].size > 0
-      assert_equal       true,  e[2].size > 0
+      refute_empty e[0]
+      refute_empty e[2]
     end
 
     ce = assert_raises ArgumentError do
@@ -280,15 +280,14 @@ Received: ...
 '
   def test_makeflat
     cv = Sisimai::RFC2045.makeflat(Ct6['content-type'], MP6)
-    assert_equal true, cv.size > 0
+    refute_empty cv
     assert_equal true, cv.size < MP6.size
 
     assert_match /sironeko/,    cv
     assert_match /kijitora[@]/, cv
     assert_match /Received:/,   cv
-
-    assert_nil    cv.match(/[<]html[>]/)
-    assert_nil    cv.match(/4AAQSkZJRgABAQEBLAEsAAD/)
+    refute_match /[<]html[>]/,  cv
+    refute_match /4AAQSkZJRgABAQEBLAEsAAD/, cv
     assert_empty  Sisimai::RFC2045.makeflat()
 
     ce = assert_raises ArgumentError do

@@ -140,7 +140,7 @@ class ReasonTest < Minitest::Test
   def test_index
     cv = Sisimai::Reason.index
     assert_instance_of Array, cv
-    assert_equal true, cv.size > 0
+    refute_empty cv
 
     cv.each do |e|
       assert_match %r|\A[A-Za-z]+\z|, e

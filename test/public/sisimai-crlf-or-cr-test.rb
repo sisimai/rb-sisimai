@@ -13,7 +13,7 @@ class EmailCRLFTest < Minitest::Test
 
       cv = Sisimai.rise(Samples[e])
       assert_instance_of Array, cv
-      assert_equal true, cv.size > 0
+      refute_empty cv
 
       cv.each do |ee|
         assert_instance_of Sisimai::Fact, ee
@@ -25,11 +25,11 @@ class EmailCRLFTest < Minitest::Test
         assert_match /[@]/, ee.recipient.address
 
         assert_match /\A[a-z].{5,12}\z/, ee.reason
-        assert_equal true, ee.replycode.size > -1
+        refute_nil ee.replycode
 
         dx = ee.damn
         assert_instance_of Hash, dx
-        assert_equal true, dx.keys.size > 0
+        refute_empty dx
         assert_equal ee.addresser.address, dx['addresser']
         assert_equal ee.recipient.address, dx['recipient']
 
@@ -47,7 +47,7 @@ class EmailCRLFTest < Minitest::Test
 
         jx = ee.dump('json')
         assert_instance_of String, jx
-        assert_equal true, jx.size > 0
+        refute_empty jx
       end
 
     end

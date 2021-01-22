@@ -32,8 +32,8 @@ class MDATest < Minitest::Test
         cv = Sisimai::MDA.make(head, e)
 
         assert_instance_of Hash, cv
-        assert_equal true, cv['mda'].size > 0
-        assert_equal true, cv['message'].size > 0
+        refute_empty cv['mda']
+        refute_empty cv['message']
         assert_equal 'mailboxfull', cv['reason']
       end
     end

@@ -11,7 +11,7 @@ class OrderTest < Minitest::Test
   def test_default
     cv = Sisimai::Order.default
     assert_instance_of Array, cv
-    assert_equal true, cv.size > 0
+    refute_empty cv
 
     cv.each do |e|
       assert_instance_of String, e
@@ -32,7 +32,7 @@ class OrderTest < Minitest::Test
   def test_another
     cv = Sisimai::Order.another
     assert_instance_of Array, cv
-    assert_equal true, cv.size > 0
+    refute_empty cv
 
     cv.each do |e|
       assert_instance_of String, e
@@ -52,7 +52,7 @@ class OrderTest < Minitest::Test
     cv = Sisimai::Order.make('delivery failure')
     assert_instance_of Array, Sisimai::Order.make()
     assert_instance_of Array, cv
-    assert_equal true, cv.size > 0
+    refute_empty cv
 
     cv.each do |e|
       assert_instance_of String, e

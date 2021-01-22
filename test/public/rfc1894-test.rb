@@ -33,7 +33,7 @@ class RFC1894Test < Minitest::Test
   def test_FIELDTABLE
     cv = Sisimai::RFC1894.FIELDTABLE
     assert_instance_of Hash, cv
-    assert_equal true, cv.keys.size > 0
+    refute_empty cv
 
     ce = assert_raises ArgumentError do
       Sisimai::RFC1894.FIELDTABLE(nil)

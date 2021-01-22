@@ -43,7 +43,7 @@ class ReasonChildrenTest < Minitest::Test
 
       assert_equal Module, cx.class
       assert_equal e.downcase, cx.text;
-      assert_equal true, cx.description.size > 0
+      refute_empty cx.description
       assert_includes [true, false, nil], cx.true(cw)
 
       next if e == 'OnHold'
@@ -66,7 +66,7 @@ class ReasonChildrenTest < Minitest::Test
 
       assert_equal Module, cx.class
       assert_equal e.downcase, cx.text;
-      assert_equal true, cx.description.size > 0
+      refute_empty cx.description
       assert_includes [false, nil], cx.true(cw)
     end
 

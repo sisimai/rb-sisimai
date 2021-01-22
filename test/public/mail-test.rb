@@ -107,7 +107,7 @@ class MailTest < Minitest::Test
     while r = Mailbox.data.read do
       ci += 1
       assert_instance_of String, r
-      assert_equal true, r.size > 0
+      refute_empty r
     end
     assert_equal 37, ci
 
@@ -115,7 +115,7 @@ class MailTest < Minitest::Test
     while r = Maildir.data.read do
       ci += 1
       assert_instance_of String, r
-      assert_equal true, r.size > 0
+      refute_empty r
     end
     assert_equal 37, ci
 
@@ -123,7 +123,7 @@ class MailTest < Minitest::Test
     while r = MailString.data.read do
       ci += 1
       assert_instance_of String, r
-      assert_equal true, r.size > 0
+      refute_empty r
     end
     assert_equal 37, ci
 
@@ -131,7 +131,7 @@ class MailTest < Minitest::Test
     while r = IsntBounce.data.read do
       ci += 1
       assert_instance_of String, r
-      assert_equal true, r.size > 0
+      refute_empty r
     end
     assert_equal 2, ci
   end

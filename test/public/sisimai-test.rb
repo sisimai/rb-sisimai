@@ -50,7 +50,7 @@ class SisimaiTest < Minitest::Test
       end
 
       assert_instance_of Array, cr
-      assert cr.size > 0
+      refute_empty cr
 
       cr.each do |ee|
         assert_instance_of Sisimai::Fact,    ee
@@ -61,15 +61,15 @@ class SisimaiTest < Minitest::Test
         assert_respond_to ee, 'softbounce'
         assert_respond_to ee, 'damn'
 
-        assert ee.addresser.address.size > 0
-        assert ee.recipient.address.size > 0
-        assert ee.reason.size > 0
-        assert ee.replycode.size > -1
-        assert ee.token.size > 0
+        refute_empty ee.addresser.address
+        refute_empty ee.recipient.address
+        refute_empty ee.reason
+        refute_nil   ee.replycode
+        refute_empty ee.token
 
         cv = ee.damn
         assert_instance_of Hash, cv
-        assert cv.keys.size > 0
+        refute_empty cv
         assert_equal ee.addresser.address,      cv['addresser']
         assert_equal ee.recipient.address,      cv['recipient']
         assert_equal ee.timestamp.to_time.to_i, cv['timestamp']
@@ -85,8 +85,7 @@ class SisimaiTest < Minitest::Test
           end
         end
 
-        cj = ee.dump('json')
-        assert cj.size > 0
+        refute_empty ee.dump('json')
       end
 
       mesghook = lambda do |argv|
@@ -123,22 +122,22 @@ class SisimaiTest < Minitest::Test
 
       cr = Sisimai.rise(cf, c___: [mesghook, filehook])
       assert_instance_of Array, cr
-      assert cr.size > 0
+      refute_empty cr
 
       cr.each do |ee|
         assert_instance_of Sisimai::Fact, ee
         assert_instance_of Hash, ee.catch
 
-        assert ee.catch['x-mailer'].size > 0
+        refute_empty ee.catch['x-mailer']
         assert_match %r/[A-Z?]/, ee.catch['x-mailer']
 
-        assert ee.catch['return-path'].size > 0
+        refute_empty ee.catch['return-path']
         assert_match %r/(?:<>|.+[@].+|mailer-daemon|[?])/i, ee.catch['return-path']
 
-        assert ee.catch['from'].size > 0
+        refute_empty ee.catch['from']
         assert_match %r/(?:<>|.+[@].+|mailer-daemon|postmaster)/i, ee.catch['from']
 
-        assert ee.catch['x-virus-scanned'].size > 0
+        refute_empty ee.catch['x-virus-scanned']
         assert_match %r/(?:amavis|clam|[?])/i, ee.catch['x-virus-scanned']
 
         assert ee.catch['size'] > 0
@@ -149,7 +148,7 @@ class SisimaiTest < Minitest::Test
 
       cr = Sisimai.rise(cf, c___: [])
       assert_instance_of Array, cr
-      assert cr.size > 0
+      refute_empty cr
       cr.each { |ee| assert_nil ee.catch }
     end
   end
@@ -181,8 +180,8 @@ class SisimaiTest < Minitest::Test
 
       assert_instance_of ::String, cj
       assert_instance_of ::Array,  cr
-      assert cj.size > 0
-      assert cr.size > 0
+      refute_empty cj
+      refute_empty cr
 
       cr.each do |ee|
         assert_instance_of ::Hash, ee
@@ -207,7 +206,7 @@ class SisimaiTest < Minitest::Test
   def test_engine
     cv = Sisimai.engine
     assert_instance_of Hash, cv
-    assert cv.keys.size > 0
+    refute_empty cv
     cv.keys.each do |e|
       assert_match /\ASisimai::/, e
       assert_instance_of ::String, cv[e]
@@ -217,7 +216,7 @@ class SisimaiTest < Minitest::Test
   def test_reason
     cv = Sisimai.reason
     assert_instance_of Hash, cv
-    assert cv.keys.size > 0
+    refute_empty cv
     cv.keys.each do |e|
       assert_match /\A[A-Z]/, e
       assert_instance_of ::String, cv[e]

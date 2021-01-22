@@ -117,7 +117,7 @@ class DateTimeTest < Minitest::Test
       assert_instance_of String, cv
       assert_instance_of   Time, ct
 
-      assert_equal true, cv.size > 0
+      refute_empty cv
       assert_equal true, ct.year > 1900
     end
 

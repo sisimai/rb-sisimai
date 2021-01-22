@@ -84,10 +84,10 @@ class AddressTest < Minitest::Test
     cx = EmailAddrs.size
 
     EmailAddrs.each do |e|
-      assert e[0].size >  0
-      assert e[1].size >  0
-      assert e[2].size > -1
-      assert e[3].size > -1
+      refute_empty e[0]
+      refute_empty e[1]
+      refute_nil   e[2]
+      refute_nil   e[3]
 
       # Sisimai::Address#find
       cv = Sisimai::Address.find(e[0])
@@ -129,16 +129,16 @@ class AddressTest < Minitest::Test
       assert_equal e[1],  cv.address, sprintf("[%02d/%02d] value[0] = %s", ci, cx, e[1])
       assert_equal ca[0], cv.user,    sprintf("[%02d/%02d] value[0] = %s", ci, cx, e[0])
       assert_equal ca[1], cv.host,    sprintf("[%02d/%02d] value[0] = %s", ci, cx, e[0])
-      assert_equal '',    cv.verp,    sprintf("[%02d/%02d] value[0] = %s", ci, cx, e[0])
-      assert_equal '',    cv.alias,   sprintf("[%02d/%02d] value[0] = %s", ci, cx, e[0])
+      assert_empty        cv.verp,    sprintf("[%02d/%02d] value[0] = %s", ci, cx, e[0])
+      assert_empty        cv.alias,   sprintf("[%02d/%02d] value[0] = %s", ci, cx, e[0])
       assert_equal e[2],  cv.name,    sprintf("[%02d/%02d] value[0] = %s", ci, cx, e[0])
       assert_equal e[3],  cv.comment, sprintf("[%02d/%02d] value[0] = %s", ci, cx, e[0])
 
       # name and comment are the writable accessors
-      cv.name = 'nekochan'
+      cv.name    = 'nekochan'
       cv.comment = 'nyaan'
       assert_equal 'nekochan', cv.name
-      assert_equal 'nyaan', cv.comment
+      assert_equal 'nyaan',    cv.comment
 
       # Sisimai::Address#s3s4
       cv = Sisimai::Address.s3s4(e[0])
@@ -233,7 +233,7 @@ class AddressTest < Minitest::Test
     IsNotEmail.each do |e|
       assert_equal e,     Sisimai::Address.s3s4(e)
       assert_equal false, Sisimai::Address.is_mailerdaemon(e)
-      assert_nil Sisimai::Address.find(e)
+      assert_nil          Sisimai::Address.find(e)
     end
   end
 
@@ -244,7 +244,7 @@ class AddressTest < Minitest::Test
     ]
     assert_equal ct[0], Sisimai::Address.undisclosed('s')
     assert_equal ct[1], Sisimai::Address.undisclosed('r')
-    assert_nil Sisimai::Address.undisclosed('')
+    assert_nil          Sisimai::Address.undisclosed('')
 
     ce = assert_raises ArgumentError do
       Sisimai::Address.undisclosed()

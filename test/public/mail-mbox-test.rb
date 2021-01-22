@@ -24,7 +24,7 @@ class MailMboxTest < Minitest::Test
 
   def test_path
     assert_instance_of String, Mailbox.path
-    assert_equal true, Mailbox.path.size > 0
+    refute_empty Mailbox.path
     assert_equal Samples[0], Mailbox.path
 
     ce = assert_raises ArgumentError do
@@ -36,7 +36,7 @@ class MailMboxTest < Minitest::Test
 
   def test_dir
     assert_instance_of String, Mailbox.dir
-    assert_equal true, Mailbox.dir.size > 0
+    refute_empty Mailbox.dir
     assert_equal File.dirname(Samples[0]), Mailbox.dir
 
     ce = assert_raises ArgumentError do
@@ -48,7 +48,7 @@ class MailMboxTest < Minitest::Test
 
   def test_file
     assert_instance_of String, Mailbox.file
-    assert_equal true, Mailbox.file.size > 0
+    refute_empty Mailbox.file
     assert_equal File.basename(Samples[0]), Mailbox.file
 
     ce = assert_raises ArgumentError do
@@ -60,7 +60,7 @@ class MailMboxTest < Minitest::Test
 
   def test_size
     assert_instance_of Integer, Mailbox.size
-    assert_equal true, Mailbox.size > 0
+    assert_equal  true, Mailbox.size > 0
     assert_equal 96906, Mailbox.size
 
     ce = assert_raises ArgumentError do
@@ -97,7 +97,7 @@ class MailMboxTest < Minitest::Test
     while r = Mailbox.read do
       ci += 1
       assert_instance_of String, r
-      assert_equal true, r.size > 0
+      refute_empty r
       assert_equal true, Mailbox.offset > 1
     end
     assert_equal 37, ci

@@ -79,7 +79,7 @@ __END_OF_EMAIL_MESSAGE__
   def test_HEADERFIELDS
     cv = Sisimai::RFC5322.HEADERFIELDS
     assert_instance_of Hash, cv
-    assert_equal true, cv.keys.size > 0
+    refute_empty cv
 
     cv.each_key do |e|
       assert_match /\A[a-z-]+\z/, e
@@ -88,16 +88,16 @@ __END_OF_EMAIL_MESSAGE__
 
     cv = Sisimai::RFC5322.HEADERFIELDS(:date)
     assert_instance_of Array, cv
-    assert_equal true, cv.size > 0
+    refute_empty cv
     cv.each { |e| assert_match /\A[a-z-]+\z/, e }
 
     cv = Sisimai::RFC5322.HEADERFIELDS('neko')
     assert_instance_of Hash, cv
-    assert_equal true, cv.keys.size > 0
+    refute_empty cv
 
     cv.each_key do |e|
       assert_instance_of Array, cv[e]
-      assert_equal true, cv[e].size > 0
+      refute_empty cv[e]
 
       cv[e].each do |ee|
         assert_instance_of String, ee
@@ -127,7 +127,7 @@ __END_OF_EMAIL_MESSAGE__
     ReceivedList.each do |e|
       cv = Sisimai::RFC5322.received(e)
       assert_instance_of Array, cv
-      assert_equal true, cv.size > 0
+      refute_empty cv
 
       cv.each do |ee|
         assert_instance_of String, ee
@@ -151,10 +151,10 @@ __END_OF_EMAIL_MESSAGE__
 
     assert_match /^Final-Recipient: /, cv[0]
     assert_match /^Subject: /,         cv[1]
-    assert_nil cv[0].match(/^Return-Path: /)
-    assert_nil cv[0].match(/binary$/)
-    assert_nil cv[1].match(/^Remote-MTA: /)
-    assert_nil cv[1].match(/^Neko-Nyaan/)
+    refute_match /^Return-Path: /,     cv[0]
+    refute_match /binary$/,            cv[0]
+    refute_match /^Remote-MTA: /,      cv[1]
+    refute_match /^Neko-Nyaan/,        cv[1]
 
     ce = assert_raises ArgumentError do
       Sisimai::RFC5322.fillet()

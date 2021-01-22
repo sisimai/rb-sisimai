@@ -69,13 +69,13 @@ class StringTest < Minitest::Test
   def test_to_plain
     cv = Sisimai::String.to_plain(Ht1)
     assert_instance_of String, cv
-    assert_equal true, cv.size > 0
+    refute_empty cv
     assert_equal true, cv.size < Ht1.size
 
-    assert_nil cv.match(/<html>/)
-    assert_nil cv.match(/<head>/)
-    assert_nil cv.match(/<body>/)
-    assert_nil cv.match(/<div>/)
+    refute_match /<html>/, cv
+    refute_match /<head>/, cv
+    refute_match /<body>/, cv
+    refute_match /<div>/,  cv
 
     assert_match %r/\bneko\b/,        Sisimai::String.to_plain('neko')
     assert_match %r/\[Sisimai\]/,     Sisimai::String.to_plain('[Sisimai]')
@@ -83,14 +83,14 @@ class StringTest < Minitest::Test
     assert_match %r/[(]mailto:.+[)]/, Sisimai::String.to_plain('(mailto:...)')
 
     cv = Sisimai::String.to_plain('<body>Nyaan</body>', true)
-    assert_equal true, cv.size > 0
-    assert_nil         cv.match(/<body>/)
-    assert_match       /Nyaan/, cv
+    refute_empty cv
+    refute_match /<body>/, cv
+    assert_match /Nyaan/,  cv
 
     cv = Sisimai::String.to_plain('<body>Nyaan</body>', false)
-    assert_equal true, cv.size > 0
-    assert_match       /<body>/, cv
-    assert_match       /Nyaan/,  cv
+    refute_empty cv
+    assert_match /<body>/, cv
+    assert_match /Nyaan/,  cv
 
     ce = assert_raises ArgumentError do
       Sisimai::String.to_plain()

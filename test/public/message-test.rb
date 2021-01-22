@@ -25,7 +25,7 @@ class MessageTest < Minitest::Test
 
   def test_rise
     assert_instance_of String, Mailtxt
-    assert_equal true, Mailtxt.size > 0
+    refute_empty Mailtxt
 
     cv = Sisimai::Message.rise({ data: Mailtxt })
     assert_instance_of Hash,   cv
@@ -53,19 +53,19 @@ class MessageTest < Minitest::Test
       assert_match /[@]/,     e['recipient']
       assert_equal true,      e.has_key?('command')
       assert_match /\d{4}/,   e['date']
-      assert_equal true,      e['diagnosis'].size > 0
-      assert_equal true,      e['action'].size > 0
+      refute_empty            e['diagnosis']
+      refute_empty            e['action']
       assert_match /.+[.].+/, e['rhost']
       assert_match /.+[.].+/, e['lhost']
       assert_equal 'Sendmail',e['agent']
     end
 
-    %w[content-type to subject date from message-id].each { |e| assert_equal true, cv['header'][e].size > 0 }
-    %w[return-path to subject date from message-id].each  { |e| assert_equal true, cv['rfc822'][e].size > 0 }
+    %w[content-type to subject date from message-id].each { |e| refute_empty cv['header'][e] }
+    %w[return-path to subject date from message-id].each  { |e| refute_empty cv['rfc822'][e] }
 
-    assert_equal true, cv['catch']['x-mailer'].size > 0
-    assert_equal true, cv['catch']['return-path'].size > 0
-    assert_equal true, cv['catch']['from'].size > 0
+    refute_empty cv['catch']['x-mailer']
+    refute_empty cv['catch']['return-path']
+    refute_empty cv['catch']['from']
 
     ce = assert_raises ArgumentError do
       Sisimai::Message.rise(nil)
