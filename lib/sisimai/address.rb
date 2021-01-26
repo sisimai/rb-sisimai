@@ -130,7 +130,7 @@ module Sisimai
           if e == '<'
             # <: The beginning of an email address or not
             if v[:address].size > 0
-              p.empty?  ? (v[:name] << e) : (v[p] << e)
+              p.empty? ? (v[:name] << e) : (v[p] << e)
             else
               # <neko@nyaan.example.org>
               readcursor |= Indicators[:'email-address']
