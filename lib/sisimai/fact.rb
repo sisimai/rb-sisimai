@@ -117,7 +117,7 @@ module Sisimai
           'feedbacktype'   => e['feedbacktype'] || '',
           'hardbounce'     => false,
           'lhost'          => e['lhost']        || '',
-          'origin'         => argvs['origin'],
+          'origin'         => argvs[:origin],
           'reason'         => e['reason']       || '',
           'recipient'      => e['recipient']    || '',
           'replycode'      => e['replycode']    || '',
@@ -262,6 +262,7 @@ module Sisimai
           end
         end
 
+        p['diagnostictype']   = nil        if p['diagnostictype'].empty?
         p['diagnostictype'] ||= 'X-UNIX'   if p['reason'] == 'mailererror'
         p['diagnostictype'] ||= 'SMTP' unless %w[feedback vacation].include?(p['reason'])
 
@@ -312,14 +313,16 @@ module Sisimai
           # The value of "reason" is "delivered", "vacation" or "feedback".
           o['replycode'] = '' unless o['reason'] == 'delivered'
         else
-          smtperrors = p['deliverystatus']; smtperrors << ' ' << p['diagnosticcode'] unless smtperrors =~ /\A\s+\z/
+          smtperrors = p['deliverystatus'] + ' ' << p['diagnosticcode']
+          smtperrors = ' ' if smtperrors =~ /\A\s+\z/
           softorhard = Sisimai::SMTP::Error.soft_or_hard(o['reason'], smtperrors)
           o['hardbounce'] = true if softorhard == 'hard'
         end
 
         # DELIVERYSTATUS: Set a pseudo status code if the value of "deliverystatus" is empty
         if o['deliverystatus'].empty?
-          smtperrors = p['replycode']; smtperrors << ' ' << p['diagnosticcode'] unless smtperrors =~ /\A\s+\z/
+          smtperrors = p['replycode'] + ' ' << p['diagnosticcode']
+          smtperrors = '' if smtperrors =~ /\A\s+\z/
           permanent1 = Sisimai::SMTP::Error.is_permanent(smtperrors)
           o['deliverystatus'] = Sisimai::SMTP::Status.code(o['reason'], permanent1 ? false : true) || ''
         end
@@ -341,7 +344,7 @@ module Sisimai
         end
         o['action'] = 'delayed' if o['reason'] == 'expired'
         if o['action'].empty?
-          o['action'] = 'faield' if d1.start_with?('4', '5')
+          o['action'] = 'failed' if d1.start_with?('4', '5')
         end
 
         listoffact << Sisimai::Fact.new(o)
