@@ -247,7 +247,7 @@ module Sisimai
           if vr
             # How many times does the SMTP reply code appeared
             vm += p['diagnosticcode'].scan(/\b#{vr}\b/).size
-            p['replycode'] ||= vr
+            p['replycode'] = vr if p['replycode'].to_s.empty?
           end
 
           if vm > 2
