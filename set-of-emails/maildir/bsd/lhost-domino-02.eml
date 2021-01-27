@@ -51,8 +51,7 @@ Reporting-MTA: dns;mx.example.co.jp
 Final-Recipient: rfc822;kijitora@example.co.jp
 Action: failed
 Status: 5.0.0
-Diagnostic-Code: X-Notes; ユーザー ka (kijitora@example.co.jp) は Domino ディレクトリ
- には見つかりません。
+Diagnostic-Code: X-Notes; ユーザー Neko (kijitora@example.co.jp) は Domino ディレクトリには見つかりません。
  
 --==0000000000000000000000
 Content-Type: message/rfc822
