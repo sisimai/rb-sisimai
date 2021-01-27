@@ -48,7 +48,7 @@ class LhostCode < Minitest::Test
       # Sisimai::Lhost::*.make
       assert_respond_to currmodule, 'make'
 
-    elsif modulename.include('::Rhost::')
+    elsif modulename.include?('::Rhost::')
       # Sisimai::Rhost::*.get
       assert_respond_to currmodule, 'get'
     end
@@ -214,7 +214,7 @@ class LhostCode < Minitest::Test
           ct = sprintf("%s [%s-%02d] #diagnostictype =", ce, e, errorindex)
 
           assert_instance_of String, cv
-          if %w[feedback vaction].include?(rr.reason)
+          if %w[feedback vacation].include?(rr.reason)
             # "deliverystatus" is empty when the value of "reason" is "feedback"
             refute_nil cv, sprintf("%s %s", ct, cv)
           else
