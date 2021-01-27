@@ -94,7 +94,16 @@ class LhostCode < Minitest::Test
         listoffact = Sisimai::Fact.rise(data: r, delivered: true, origin: cf)
 
         unless listoffact
-          next if skiptonext[privateset ? 'private' : 'public'].include?(File.basename(cf.sub(/[.]eml\z/, '')))
+          bf = ''
+          be = ''
+          if privateset
+            bf = cf.split('/', 4)[-1]
+            be = 'private'
+          else
+            bf = cf.split('/')[-1]
+            be = 'public'
+          end
+          next if skiptonext[be].include?(File.basename(cf.sub(/[.]eml\z/, '')))
         end
 
         recipients = listoffact.size
