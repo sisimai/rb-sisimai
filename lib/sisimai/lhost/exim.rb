@@ -265,7 +265,10 @@ module Sisimai::Lhost
                   # Content-type: message/delivery-status
                   nextcursor = 1 if e.start_with?(StartingOf[:deliverystatus][0])
                   v['alterrors'] ||= ''
-                  v['alterrors'] << e + ' ' if e.start_with?(' ')
+                  if e.start_with?("\s", "\t")
+                    e.sub!(/\A[\s\t]+/, '')
+                    v['alterrors'] << e + ' ' unless v['alterrors'].include?(e)
+                  end
                 end
               else
                 if dscontents.size == recipients
@@ -371,11 +374,9 @@ module Sisimai::Lhost
             else
               # Check the both value and try to match
               if e['diagnosis'].size < e['alterrors'].size
-                # Check the value of alterrors
-                rxdiagnosis = %r/e['diagnosis']/i
                 # Override the value of diagnostic code message because
                 # the value of alterrors includes the value of diagnosis.
-                e['diagnosis'] = e['alterrors'] if e['alterrors'] =~ rxdiagnosis
+                e['diagnosis'] = e['alterrors'] if e['alterrors'].downcase.include?(e['diagnosis'].downcase)
               end
             end
             e.delete('alterrors')
