@@ -314,7 +314,7 @@ module Sisimai
           o['replycode'] = '' unless o['reason'] == 'delivered'
         else
           smtperrors = p['deliverystatus'] + ' ' << p['diagnosticcode']
-          smtperrors = ' ' if smtperrors =~ /\A\s+\z/
+          smtperrors = '' if smtperrors =~ /\A\s+\z/
           softorhard = Sisimai::SMTP::Error.soft_or_hard(o['reason'], smtperrors)
           o['hardbounce'] = true if softorhard == 'hard'
         end
@@ -324,6 +324,7 @@ module Sisimai
           smtperrors = p['replycode'] + ' ' << p['diagnosticcode']
           smtperrors = '' if smtperrors =~ /\A\s+\z/
           permanent1 = Sisimai::SMTP::Error.is_permanent(smtperrors)
+          permanent1 = true if permanent1 == nil
           o['deliverystatus'] = Sisimai::SMTP::Status.code(o['reason'], permanent1 ? false : true) || ''
         end
 
