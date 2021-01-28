@@ -1,7 +1,6 @@
 module Sisimai
   # Sisimai::RFC3464 - bounce mail parser class for Fallback.
   module RFC3464
-    # Imported from p5-Sisimail/lib/Sisimai/RFC3464.pm
     class << self
       require 'sisimai/lhost'
 
