@@ -173,7 +173,7 @@ module Sisimai
                 maybealias = cv[2]
               else
                 # Final-Recipient: ...
-                x = v['recipienet'] || ''
+                x = v['recipient'] || ''
                 y = Sisimai::Address.s3s4(cv[2])
                 y = maybealias unless Sisimai::Address.is_emailaddress(y)
 
