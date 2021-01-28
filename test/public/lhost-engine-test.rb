@@ -3,7 +3,7 @@ require 'sisimai/lhost'
 require './test/public/lhost-code'
 
 module LhostEngineTest
-  class Children < Minitest::Test
+  class PublicChildren < Minitest::Test
     Lo = LhostCode.new("PUBLIC-LHOST-ENGINE-TEST")
 
     def test_lhostengine
