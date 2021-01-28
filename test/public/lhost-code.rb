@@ -42,7 +42,7 @@ class LhostCode < Minitest::Test
     end
     require modulepath
     currmodule = Module.const_get(modulename)
-    samplepath = sprintf("set-of-mmails/private/%s-%s", nameprefix.downcase, enginename.downcase) if privateset
+    samplepath = sprintf("set-of-emails/private/%s-%s", nameprefix.downcase, enginename.downcase) if privateset
 
     if modulename.include?('::Lhost::')
       # Sisimai::Lhost::*.make
