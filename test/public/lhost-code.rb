@@ -27,7 +27,12 @@ class LhostCode < Minitest::Test
     reasonlist << "delivered" << "feedback" << "undefined" << "vacation"
     skiptonext = {
       'public'  => %w[lhost-postfix-49 lhost-postfix-50],
-      'private' => %w[],
+      'private' => %w[
+        arf/01003 arf/01005 arf/01009 arf/01015
+        lhost-exim/01084 lhost-mailmarshalsmtp/01001
+        lhost-postfix/01200 lhost-postfix/01201
+        rfc3464/01024 rfc3464/01061 rfc3464/01081
+      ],
     }
 
     if isnotlhost.include?(enginename)
@@ -39,10 +44,11 @@ class LhostCode < Minitest::Test
       nameprefix = caller[0].include?('/lhost-engine-test') ? 'Lhost' : 'Rhost'
       modulepath = 'sisimai/' << nameprefix.downcase << '/' << enginename.downcase
       modulename = 'Sisimai::' << nameprefix << '::' << enginename
+      nameprefix = nameprefix.downcase + '-'
     end
     require modulepath
     currmodule = Module.const_get(modulename)
-    samplepath = sprintf("set-of-emails/private/%s-%s", nameprefix.downcase, enginename.downcase) if privateset
+    samplepath = sprintf("set-of-emails/private/%s%s", nameprefix, enginename.downcase) if privateset
 
     if modulename.include?('::Lhost::')
       # Sisimai::Lhost::*.make
@@ -68,16 +74,14 @@ class LhostCode < Minitest::Test
 
       if privateset
         # Private sample: 01227-581a7c3e4f0c0664ff171969c34bf988.eml
-        cf = Dir.glob(sprintf("./%s/%s-*.eml", samplepath, e)).shift
+        if isnotlhost.include?(enginename)
+          cf = Dir.glob(sprintf("./%s%s/%s-*.eml", samplepath, nameprefix, e)).shift
+        else
+          cf = Dir.glob(sprintf("./%s/%s-*.eml", samplepath, e)).shift
+        end
       else
         # Public sample: lhost-sendmail-59.eml
-        if isnotlhost.include? enginename
-          # ARF, RFC3464, RFC3834
-          cf = sprintf("./%s/%s-%02d.eml", samplepath, enginename.downcase, e.to_i)
-        else
-          # Other MTA modules
-          cf = sprintf("./%s/lhost-%s-%02d.eml", samplepath, enginename.downcase, e.to_i)
-        end
+        cf = sprintf("./%s/%s%s-%02d.eml", samplepath, nameprefix, enginename.downcase, e.to_i)
       end
 
       assert_equal true, File.exist?(cf),   sprintf("%s [%s---] email(path) = %s", ce, e, cf)
@@ -94,16 +98,13 @@ class LhostCode < Minitest::Test
         listoffact = Sisimai::Fact.rise(data: r, delivered: true, origin: cf)
 
         unless listoffact
-          bf = ''
-          be = ''
           if privateset
-            bf = cf.split('/', 4)[-1]
-            be = 'private'
+            bf = cf.split('/', 4)[-1].sub(/[-][0-9a-f]{32}[.]eml\z/, '')
+            next if skiptonext['private'].include?(bf)
           else
-            bf = cf.split('/')[-1]
-            be = 'public'
+            bf = cf.split('/')[-1].sub(/[.]eml\z/, '')
+            next if skiptonext['public'].include?(File.basename(bf))
           end
-          next if skiptonext[be].include?(File.basename(cf.sub(/[.]eml\z/, '')))
         end
 
         recipients = listoffact.size
