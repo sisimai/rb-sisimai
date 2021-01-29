@@ -128,7 +128,7 @@ module Sisimai
 
         unless v[1].empty?
           v[1].sub(/\A[\r\n\s]+/, '')
-          v[1].sub(/\n\n.+\z/m, '')
+          v[1] = v[1][0, v[1].index("\n\n")]
           v[1] << "\n" unless v[1].end_with?("\n")
         end
         return v
