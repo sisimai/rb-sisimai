@@ -199,6 +199,7 @@ module Sisimai
 
         # Remove square brackets and curly brackets from the host variable
         %w[rhost lhost].each do |v|
+          p[v] = p[v].split('@')[-1] if p[v].include?('@')
           p[v].delete!('[]()')    # Remove square brackets and curly brackets from the host variable
           p[v].sub!(/\A.+=/, '')  # Remove string before "="
           p[v].chomp!("\r") if p[v].end_with?("\r") # Remove CR at the end of the value
