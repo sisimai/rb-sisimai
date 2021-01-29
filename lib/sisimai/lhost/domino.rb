@@ -110,9 +110,9 @@ module Sisimai::Lhost
                 permessage[fieldtable[o[0]]] = o[2]
               end
             else
-              if v['diagnosis'].to_s.size > 0 && e.start_with?("\s", "\t")
+              if v['diagnosis'] && e.start_with?("\s", "\t")
                 # The line is a continued line of "Diagnostic-Code:" field
-                v['diagnosis'] << e.sub(/\A[\s\t]+/, '')
+                v['diagnosis'] += e.sub(/\A[\s\t]+/, '')
               end
             end
           end
