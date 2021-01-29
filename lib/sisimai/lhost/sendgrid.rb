@@ -122,17 +122,15 @@ module Sisimai::Lhost
           end
 
           if e['status'] == '5.0.0' || e['status'] == '4.0.0'
-            # Get the value of D.S.N. from the error message or the value of
-            # Diagnostic-Code header.
-            e['status'] = Sisimai::SMTP::Status.find(e['diagnosis']) || ''
+            # Get the value of D.S.N. from the error message or the value of Diagnostic-Code header.
+            e['status'] = Sisimai::SMTP::Status.find(e['diagnosis']) || e['status']
           end
 
           if e['action'] == 'expired'
             # Action: expired
             e['reason'] = 'expired'
             if !e['status'] || e['status'].end_with?('.0.0')
-              # Set pseudo Status code value if the value of Status is not
-              # defined or 4.0.0 or 5.0.0.
+              # Set pseudo Status code value if the value of Status is not defined or 4.0.0 or 5.0.0.
               e['status'] = Sisimai::SMTP::Status.code('expired') || e['status']
             end
           end
