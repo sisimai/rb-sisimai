@@ -14,7 +14,7 @@ module Sisimai::Lhost
           'User not listed in public Name & Address Book',
           'ディレクトリのリストにありません',
         ],
-        networkerror: ['Message has exceeded maximum hop count'],
+        'networkerror' => ['Message has exceeded maximum hop count'],
       }.freeze
 
       # Parse bounce messages from Lotus Notes
