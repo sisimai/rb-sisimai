@@ -47,7 +47,7 @@ module LhostEngineTest
         Lo.enginetest(enginename, lhostclass::IsExpected, false, emailindex)
       end
 
-      printf("\n%d public engines, %d assertions, %d failures\n", enginelist.size, Lo.assertions, Lo.failures.size)
+      printf("\n%d public lhost engines, %d assertions, %d failures\n", enginelist.size, Lo.assertions, Lo.failures.size)
     end
   end
 end
