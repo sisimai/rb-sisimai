@@ -12,9 +12,11 @@ class LhostCode < Minitest::Test
 
     require 'sisimai/mail'
     require 'sisimai/fact'
+    require 'sisimai/lhost'
     require 'sisimai/reason'
     require 'sisimai/address'
 
+    lhostindex = Sisimai::Lhost.index; lhostindex << 'ARF' << 'RFC3464' << 'RFC3834'
     isnotlhost = %w[ARF RFC3464 RFC3834]
     methodlist = %w[make]
     samplepath = 'set-of-emails/maildir/bsd'
@@ -112,7 +114,7 @@ class LhostCode < Minitest::Test
 
         assert_instance_of String, r
         assert_instance_of Array, listoffact
-        refute_empty listoffact
+        refute_empty listoffact,           sprintf("%s [%s---] parsed %s", ce, e, cf)
         assert_equal true, recipients > 0, sprintf("%s [%s---] including %d bounces", ce, e, recipients)
 
         listoffact.each do |rr|
@@ -363,7 +365,24 @@ class LhostCode < Minitest::Test
 
           assert_instance_of String, cv
           refute_empty cv,     sprintf("%s %s", ct, cv)
-          assert_match cr, cv, sprintf("%s %s", ct, cv)
+
+          if nameprefix.start_with?('rhost')
+            # Sisimai::Rhost
+            assert_match cr, cv, sprintf("%s %s", ct, cv)
+          else
+            # Sisimai::Lhost 
+            if enginename == 'RFC3464' && cv !~ /\ARFC3464/
+              # Parsed by Sisimai::MDA
+              assert_match cr, cv, sprintf("%s %s", ct, cv)
+              assert_empty lhostindex.select { |p| cv == p }
+            elsif enginename == 'ARF'
+              # Parsed by Sisimai::ARF
+              assert_equal 'Feedback-Loop', cv, sprintf("%s %s", ct, cv)
+            else
+              # Other MTA modules
+              assert_equal enginename.upcase, cv.upcase, sprintf("%s %s", ct, cv)
+            end
+          end
 
           # ---------------------------------------------------------------------------------------
           # SMTPCOMMAND
