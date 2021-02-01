@@ -1,0 +1,89 @@
+Return-Path: <MAILER-DAEMON>
+Received: from email110.example.com (unknown [192.0.2.222])
+	by s151v.example.com (Bossmail) with ESMTP id FFF222EEE22
+	for <sironeko@example.co.jp>; Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+Received: from email2.example.com ([192.0.2.22])
+  by email110.example.com with ESMTP/TLS/DHE-RSA-AES256-SHA; 29 Apr 2017 23:34:45 +0900
+Received: by email2.example.com (Postfix)
+	id EEEEEEEEEE2; Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+Date: Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+From: MAILER-DAEMON@email2.example.com (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: sironeko@example.co.jp
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="2222FFFFEEEE.0000000000/email2.example.com"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20170429233445.00000000000@email2.example.com>
+
+This is a MIME-encapsulated message.
+
+--2222FFFFEEEE.0000000000/email2.example.com
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host email2.example.com.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@example.org>: host
+    example.org.mail.protection.outlook.com[198.51.100.2] said: 550
+    5.4.1 [kijitora@example.org]: Recipient address rejected: Access
+    denied [NEKOCHAN.cat-neko22.prod.protection.outlook.com] (in reply to
+    RCPT TO command)
+
+--2222FFFFEEEE.0000000000/email2.example.com
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; email2.example.com
+X-Postfix-Queue-ID: 00000000000
+X-Postfix-Sender: rfc822; sironeko@example.co.jp
+Arrival-Date: Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; kijitora@example.org
+Original-Recipient: rfc822;kijitora@example.org
+Action: failed
+Status: 5.4.1
+Remote-MTA: dns; example.org.mail.protection.outlook.com
+Diagnostic-Code: smtp; 550 5.4.1 [kijitora@example.org]: Recipient
+    address rejected: Access denied
+    [NEKOCHAN.cat-neko22.prod.protection.outlook.com]
+
+--2222FFFFEEEE.0000000000/email2.example.com
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 8bit
+
+Received: from smtp2.example.com (smtp2.example.com [203.0.113.2])
+	by email2.example.com (Postfix) with ESMTP id eeeeeeeeeee
+	for <kijitora@example.org>; Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+Received: from [192.0.2.2] (unknown [203.0.113.22])
+	(Authenticated sender: sironeko@example.co.jp)
+	by relay1.example.com (nekomail) with ESMTP id fffffffff22
+	for <kijitora@example.org>; Thu, 29 Apr 2017 23:34:45 +0900 (JST)
+Content-Type: multipart/mixed; boundary="===============222222220000222=="
+MIME-Version: 1.0
+Subject: Nyaan
+From: "Sironeko" <sironeko@example.co.jp>
+To: kijitora@example.org
+Date: Thu, 29 Apr 2017 23:34:45 +0900
+Message-ID: <222222222000.2222.2222222222220000000@NEKO-Nyaan>
+
+--===============222222220000222==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+
+Nyaan
+
+--===============222222220000222==--
+
+--2222FFFFEEEE.0000000000/email2.example.com--

@@ -1,0 +1,205 @@
+X-Apparently-To: sironeko@example.net; Thu, 29 Apr 2017 23:34:45 +0000
+Return-Path: <>
+Received-SPF: none (domain of a2-222.smtp-out.amazonses.com does not designate permitted sender hosts)
+X-Originating-IP: [192.0.2.222]
+Received: from 127.0.0.1  (EHLO a2-222.smtp-out.amazonses.com) (192.0.2.222)
+  by relay2.mail.neko2.example.org with SMTP; Thu, 29 Apr 2017 23:34:45 +0000
+MIME-Version: 1.0
+From: MAILER-DAEMON@amazonses.com
+To: sironeko@example.net
+Date: Thu, 29 Apr 2017 23:34:45 +0000
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="22ffee22-2222-2222-2222-2222aaaabbbb"
+X-MS-Exchange-Message-Is-Ndr:
+Content-Language: en-US
+Message-ID: <0000002222002222-22222222-2222-2222-ffff@email.amazonses.com>
+Subject: Undeliverable: Nyaan
+Auto-Submitted: auto-replied
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: 0000000000002:
+X-MS-Office365-Filtering-Correlation-Id: 00002222-2222-2200-222200220000
+Received-SPF: None (protection.outlook.com:  does not designate permitted
+ sender hosts)
+Authentication-Results: spf=none (sender IP is ) smtp.mailfrom=<>; 
+X-SES-Outgoing: 2017.04.29-192.0.2.222
+Content-Length: 1022
+
+--22ffee22-2222-2222-2222-2222aaaabbbb
+Content-Type: multipart/alternative; differences=Content-Type;
+	boundary="00002200-0022-2222-2002-222200220000"
+
+--00002200-0022-2222-2002-222200220000
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[http://products.office.com/en-us/CMSImages/Office365Logo_Orange.png?versio=
+n=3Db8d100a9-0a8b-8e6a-88e1-ef488fee0470]
+Your message to kijitora@example.com couldn't be delivered.
+
+kijitora wasn't found at example.com.
+
+2222222222220000-222. . .       Office 365      kijitora
+Action Required                 Recipient
+
+
+Unknown To address
+
+
+How to Fix It
+The address may be misspelled or may not exist. Try one or more of the foll=
+owing:
+
+  *   Send the message again following these steps: In Outlook, open this n=
+on-delivery report (NDR) and choose Send Again from the Report ribbon. In O=
+utlook on the web, select this NDR, then select the link "To send this mess=
+age again, click here." Then delete and retype the entire recipient address=
+ If prompted with an Auto-Complete List suggestion don't select it. After =
+typing the complete address, click Send.
+  *   Contact the recipient (by phone, for example) to check that the addre=
+ss exists and is correct.
+  *   The recipient may have set up email forwarding to an incorrect addres=
+s. Ask them to check that any forwarding they've set up is working correctl=
+y.
+  *   Clear the recipient Auto-Complete List in Outlook or Outlook on the w=
+eb by following the steps in this article: Fix email delivery issues for er=
+ror code 5.1.10 in Office 365<http://go.microsoft.com/fwlink/?LinkId=3D5329=
+72>, and then send the message again. Retype the entire recipient address b=
+efore selecting Send.
+
+
+If the problem continues, forward this message to your email admin. If you'=
+re an email admin, refer to the More Info for Email Admins section below.
+
+
+Was this helpful? Send feedback to Microsoft<http://go.microsoft.com/fwlink=
+/?LinkId=3D525921>.
+________________________________
+
+
+More Info for Email Admins
+Status code: 550 5.1.10
+
+This error occurs because the sender sent a message to an email address hos=
+ted by Office 365 but the address is incorrect or doesn't exist at the dest=
+ination domain. The error is reported by the recipient domain's email serve=
+r, but most often it must be fixed by the person who sent the message. If t=
+he steps in the How to Fix It section above don't fix the problem, and you'=
+re the email admin for the recipient, try one or more of the following:
+
+The email address exists and is correct - Confirm that the recipient addres=
+s exists, is correct, and is accepting messages.
+
+Synchronize your directories - If you have a hybrid environment and are usi=
+ng directory synchronization make sure the recipient's email address is syn=
+ced correctly in both Office 365 and in your on-premises directory.
+
+Errant forwarding rule - Check for forwarding rules that aren't behaving as=
+ expected. Forwarding can be set up by an admin via mail flow rules or mail=
+box forwarding address settings, or by the recipient via the Inbox Rules fe=
+ature.
+
+Recipient has a valid license - Make sure the recipient has an Office 365 l=
+icense assigned to them. The recipient's email admin can use the Office 365=
+ admin center to assign a license (Users > Active Users > select the recipi=
+ent > Assigned License > Edit).
+
+Mail flow settings and MX records are not correct - Misconfigured mail flow=
+ or MX record settings can cause this error. Check your Office 365 mail flo=
+w settings to make sure your domain and any mail flow connectors are set up=
+ correctly. Also, work with your domain registrar to make sure the MX recor=
+ds for your domain are configured correctly.
+
+For more information and additional tips to fix this issue, see Fix email d=
+elivery issues for error code 5.1.10 in Office 365<http://go.microsoft.com/=
+fwlink/?LinkId=3D532972>.
+
+
+Original Message Details
+Created Date:   4/29/2017 11:34:45 PM
+Sender Address: 0000002222002222-22222222-2222-2222-ffff@amazonses.com
+Recipient Address:      kijitora@example.com
+Subject:        Nyaan
+
+
+Error Details
+Reported error: 550 5.1.10 RESOLVER.ADR.RecipientNotFound; Recipient not fo=
+und by SMTP address lookup
+DSN generated by:       NEKO220022.namprd22.prod.outlook.com
+
+
+Message Hops
+HOP     TIME (UTC)      FROM    TO      WITH    RELAY TIME
+1       4/29/2017
+11:34:45 PM      a2-22.smtp-out.amazonses.com    NEKO22NYAAN0.mail.protecti=
+on.outlook.com       Microsoft SMTP Server (version=3DTLS1_0, cipher=3DTLS_=
+ECDHE_RSA_WITH_AES_256_CBC_SHA_P384)  2 sec
+2       4/29/2017
+11:34:45 PM      NEKO22NYAAN0.eop-NAM03.prod.protection.outlook.com     CAT=
+NEKO0022.outlook.office365.com     Microsoft SMTP Server (version=3DTLS1_=
+2, cipher=3DTLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256)       2 sec
+
+Original Message Headers
+
+Received: from NEKO22NYAAN22.namprd22.prod.outlook.com (198.51.100.2) by
+ NEKO220022.namprd22.prod.outlook.com (203.0.113.2) with Microsoft SMT=
+P
+ Server (version=3DTLS1_2, cipher=3DTLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P=
+256) id
+ 15.20.13.10; Thu, 29 Apr 2017 23:34:45 +0000
+Received: from NEKO22NYAAN0.eop-NAM03.prod.protection.outlook.com
+ (2222:2222:2222:2222::2222) by NEKO22NYAAN22.outlook.office365.com
+ (2022:2222:2222:2222::2222) with Microsoft SMTP Server (version=3DTLS1_2,
+ cipher=3DTLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id 15.20.13.10 via
+ Frontend Transport; Thu, 29 Apr 2017 23:34:45 +0000
+Authentication-Results: spf=3Dpass (sender IP is 192.0.2.2)
+ smtp.mailfrom=3Damazonses.com; example.com; dkim=3Dpass (signature was veri=
+fied)
+ header.d=3Damazonses.com;example.com; dmarc=3Dnone action=3Dnone
+ header.from=3Dexample.net;
+Received-SPF: Pass (protection.outlook.com: domain of amazonses.com designa=
+tes
+ 192.0.2.2 as permitted sender) receiver=3Dprotection.outlook.com;
+ client-ip=3D192.0.2.2; helo=3Da2-222.smtp-out.amazonses.com;
+Received: from a2-222.smtp-out.amazonses.com (192.0.2.222) by
+ NEKO22NYAAN0.mail.protection.outlook.com (203.0.113.2) with Microsoft S=
+MTP
+ Server (version=3DTLS1_0, cipher=3DTLS_ECDHE_RSA_WITH_AES_256_CBC_SHA_P384=
+) id
+ 15.1.1222.22 via Frontend Transport; Thu, 29 Apr 2017 23:34:45 +0000
+Content-Type: text/html; charset=3Dutf-8
+MIME-Version: 1.0
+Date: Thu, 29 Apr 2017 23:34:45 +0000
+Content-Transfer-Encoding: quoted-printable
+Subject: Nyaan
+From: "Sironeko, Nyaan" <sironeko@example.net>
+Message-ID: <2222222222220000-00000000-2222-2222-2222-000000002222-000000@e=
+mail.amazonses.com>
+To: kijitora@example.com
+X-SES-Outgoing: 2017.04.29-192.0.2.2
+Return-Path: 2222222222221111-22222222-2222-0000-eeeeeeeeeeee@amazonses.com
+X-MS-PublicTrafficType: Email
+X-DkimResult-Test: Passed
+
+--00002200-0022-2222-2002-222200220000
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Nyaan
+
+--00002200-0022-2222-2002-222200220000--
+
+--22ffee22-2222-2222-2222-2222aaaabbbb
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns;NEKO220022.namprd22.prod.outlook.com
+Received-From-MTA: dns;a2-22.smtp-out.amazonses.com
+Arrival-Date: Thu, 29 Apr 2017 23:34:45 +0000
+
+Final-Recipient: rfc822;kijitora@example.com
+Action: failed
+Status: 5.1.10
+Diagnostic-Code: smtp;550 5.1.10 RESOLVER.ADR.RecipientNotFound; Recipient not found by SMTP address lookup
+
+
+--22ffee22-2222-2222-2222-2222aaaabbbb--
+
