@@ -279,7 +279,7 @@ module Sisimai
         argv1.gsub!(/[Cc]ontent-[Tt]ransfer-[Ee]ncoding:/, 'Content-Transfer-Encoding:')
         argv1.gsub!(/CHARSET=/i, 'charset=')
         argv1.gsub!(/BOUNDARY=/i, 'boundary=')
-        argv1.gsub!('message/xdelivery-status', 'message/delivery-stauts')
+        argv1.gsub!('message/xdelivery-status', 'message/delivery-status')
 
         iso2022set = %r/charset=["']?(iso-2022-[-a-z0-9]+)['"]?\b/
         multiparts = levelout(argv0, argv1)
