@@ -32,10 +32,10 @@ module Sisimai::Lhost
         regularexp = nil
         v = nil
 
-        boundary00 = Sisimai::MIME.boundary(mhead['content-type']) || ''
+        boundary00 = Sisimai::RFC2045.boundary(mhead['content-type'], 1) || ''
         regularexp = if boundary00.size > 0
                        # Convert to regular expression
-                       Regexp.new('\A' << Regexp.escape('--' << boundary00 << '--') << '\z')
+                       Regexp.new('\A' << Regexp.escape(boundary00) << '\z')
                      else
                        regularexp = %r/\A[ \t]*[+]+[ \t]*\z/
                      end

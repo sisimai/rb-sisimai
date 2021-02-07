@@ -6,7 +6,7 @@ module Sisimai
     # message begins with "2" like following:
     #
     #  Final-Recipient: rfc822; kijitora@neko.nyaan.jp
-    #  Action: deliverable
+    #  Action: delivered
     #  Status: 2.1.5
     #  Diagnostic-Code: SMTP; 250 2.1.5 OK
     #

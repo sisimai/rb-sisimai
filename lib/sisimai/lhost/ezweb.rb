@@ -68,7 +68,7 @@ module Sisimai::Lhost
         if mhead['content-type']
           # Get the boundary string and set regular expression for matching with
           # the boundary string.
-          b0 = Sisimai::MIME.boundary(mhead['content-type'], 1)
+          b0 = Sisimai::RFC2045.boundary(mhead['content-type'], 1)
           rxboundary = Regexp.new('\A' << Regexp.escape(b0) << '\z') unless b0.empty?
         end
         rxmessages = []

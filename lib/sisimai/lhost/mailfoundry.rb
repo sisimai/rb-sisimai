@@ -9,7 +9,7 @@ module Sisimai::Lhost
       Indicators = Sisimai::Lhost.INDICATORS
       ReBackbone = %r|^Content-Type:[ ]message/rfc822|.freeze
       StartingOf = {
-        message: ['This is a MIME encoded message'],
+        message: ['Unable to deliver message to:'],
         error:   ['Delivery failed for the following reason:'],
       }.freeze
 
@@ -34,8 +34,7 @@ module Sisimai::Lhost
           # to the previous line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            readcursor |= Indicators[:deliverystatus] if e == StartingOf[:message][0]
-            next
+            readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])
           end
           next if (readcursor & Indicators[:deliverystatus]) == 0
           next if e.empty?

@@ -82,6 +82,11 @@ module Sisimai::Lhost
               next unless fieldtable[o[0]]
               v[fieldtable[o[0]]] = o[2]
 
+              if fieldtable[o[0]] == 'lhost'
+                # Do not set an email address as a hostname in "lhost" value
+                v['lhost'] = '' if v['lhost'].include?('@')
+              end
+
               next unless f == 1
               permessage[fieldtable[o[0]]] = o[2]
             end

@@ -288,7 +288,6 @@ module Sisimai
           arfheaders.each_key { |a| e[a] ||= arfheaders[a] || '' }
           e.delete('authres')
 
-          e['softbounce'] = -1
           e['diagnosis']  = commondata['diagnosis'] unless e['diagnosis']
           e['diagnosis']  = Sisimai::String.sweep(e['diagnosis'])
           e['date']       = mhead['date'] if e['date'].empty?
