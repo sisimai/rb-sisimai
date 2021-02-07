@@ -93,7 +93,7 @@ module Sisimai
 
         p = nil
         if cv = argv0.match(%r|([+/\=0-9A-Za-z\r\n]+)|) then p = Base64.decode64(cv[1]) end
-        return p.force_encoding('UTF-8')
+        return p ? p.force_encoding('UTF-8') : nil
       end
 
       # Decode MIME Quoted-Printable Encoded string
@@ -279,7 +279,7 @@ module Sisimai
         argv1.gsub!(/[Cc]ontent-[Tt]ransfer-[Ee]ncoding:/, 'Content-Transfer-Encoding:')
         argv1.gsub!(/CHARSET=/i, 'charset=')
         argv1.gsub!(/BOUNDARY=/i, 'boundary=')
-        argv1.gsub!('message/xdelivery-status', 'message/delivery-stauts')
+        argv1.gsub!('message/xdelivery-status', 'message/delivery-status')
 
         iso2022set = %r/charset=["']?(iso-2022-[-a-z0-9]+)['"]?\b/
         multiparts = levelout(argv0, argv1)

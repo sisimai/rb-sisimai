@@ -102,7 +102,7 @@ module Sisimai::Lhost
             while e = r.shift do
               # 'bouncedRecipients' => [ { 'emailAddress' => 'bounce@si...' }, ... ]
               # 'complainedRecipients' => [ { 'emailAddress' => 'complaint@si...' }, ... ]
-              next unless Sisimai::RFC5322.is_emailaddress(e['emailAddress'])
+              next unless Sisimai::Address.is_emailaddress(e['emailAddress'])
 
               v = dscontents[-1]
               if v['recipient']
@@ -167,7 +167,7 @@ module Sisimai::Lhost
               #       ],
               #       'smtpResponse' => '250 2.6.0 Message received'
               #   },
-              next unless Sisimai::RFC5322.is_emailaddress(e)
+              next unless Sisimai::Address.is_emailaddress(e)
 
               v = dscontents[-1]
               if v['recipient']
@@ -182,7 +182,7 @@ module Sisimai::Lhost
               v['status']    = Sisimai::SMTP::Status.find(v['diagnosis']) || ''
               v['replycode'] = Sisimai::SMTP::Reply.find(v['diagnosis'])  || ''
               v['reason']    = 'delivered'
-              v['action']    = 'deliverable'
+              v['action']    = 'delivered'
 
               v['date'] = o['timestamp'] || p['mail']['timestamp']
               v['date'].sub!(/[.]\d+Z\z/, '')

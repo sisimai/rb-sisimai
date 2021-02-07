@@ -24,7 +24,7 @@ module Sisimai
           # Sisimai::Mail.new('<STDIN>')
           classname = self.class.to_s << '::STDIN'
           parameter['kind'] = 'stdin'
-          parameter['path'] = $stdin
+          parameter['path'] = '<STDIN>'
         else
           # The argumenet is a mailbox or a Maildir/.
           mediatype = argv1.include?("\n") ? 'memory' : File.ftype(argv1)
@@ -51,6 +51,7 @@ module Sisimai
         # The argument neither a mailbox nor a Maildir/.
         classname = self.class.to_s << '::STDIN'
         parameter['kind'] = 'stdin'
+        parameter['path'] = '<STDIN>'
       end
       return nil unless classname
 

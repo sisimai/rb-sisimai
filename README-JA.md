@@ -90,7 +90,7 @@ $ cd /usr/local/src
 $ git clone https://github.com/sisimai/rb-sisimai.git
 $ cd ./rb-sisimai
 $ sudo make depend install-from-local
-gem install bundle rake rspec coveralls
+gem install bundle rake minitest coveralls
 ...
 4 gems installed
 bundle exec rake install

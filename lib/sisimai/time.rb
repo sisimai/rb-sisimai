@@ -1,9 +1,7 @@
 require 'date'
-
 module Sisimai
-  # Sisimai::Time is a child class of Date for Sisimai::Data.
-  class Time < DateTime
-    # Imported from p5-Sisimail/lib/Sisimai/Time.pm
+  # Sisimai::Time is a child class of Date for Sisimai::Fact
+  class Time < ::DateTime
     def to_json(*)
       return self.to_time.to_i
     end
