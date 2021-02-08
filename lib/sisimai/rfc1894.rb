@@ -1,7 +1,6 @@
 module Sisimai
   # Sisimai::RFC1894 DSN field defined in RFC3464 (obsoletes RFC1894)
   module RFC1894
-    # Imported from p5-Sisimail/lib/Sisimai/RFC1894.pm
     class << self
       FieldNames = [
         # https://tools.ietf.org/html/rfc3464#section-2.2
@@ -106,10 +105,10 @@ module Sisimai
         match = false
         while cv = argv0.match(CapturesOn[group])
           # Try to match with each pattern of Per-Message field, Per-Recipient field
-          # - 0: Field-Name
-          # - 1: Sub Type: RFC822, DNS, X-Unix, and so on)
-          # - 2: Value
-          # - 3: Field Group(addr, code, date, host, stat, text)
+          #   - 0: Field-Name
+          #   - 1: Sub Type: RFC822, DNS, X-Unix, and so on)
+          #   - 2: Value
+          #   - 3: Field Group(addr, code, date, host, stat, text)
           match = true
           table[0] = cv[1].downcase
           table[3] = group

@@ -6,8 +6,7 @@ module Sisimai
     # This is the error that a destination mail server does ( or can ) not accept any email. In
     # many case, the server is high load or under the maintenance. Sisimai will set "notaccept" to
     # the reason of email bounce if the value of Status: field in a bounce email is "5.3.2" or the
-    # value of SMTP reply code
-    # is 556.
+    # value of SMTP reply code is 556.
     module NotAccept
       class << self
         # Destination mail server does not accept any message

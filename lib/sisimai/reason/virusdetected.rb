@@ -1,11 +1,10 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::VirusDetected checks the bounce reason is "virusdetected"
-    # or not. This class is called only Sisimai::Reason class.
+    # Sisimai::Reason::VirusDetected checks the bounce reason is "virusdetected" or not. This class
+    # is called only Sisimai::Reason class.
     #
-    # This is an error that any virus or trojan horse detected in the message by
-    # a virus scanner program at a destination mail server. This reason has been
-    # divided from "securityerror" at Sisimai 4.22.0.
+    # This is an error that any virus or trojan horse detected in the message by a virus scanner program
+    # at a destination mail server. This reason has been divided from "securityerror" at Sisimai 4.22.0.
     #
     #   Your message was infected with a virus. You should download a virus
     #   scanner and check your computer for viruses.
@@ -14,7 +13,6 @@ module Sisimai
     #     Recipient: <kijitora@example.jp>
     #
     module VirusDetected
-      # Imported from p5-Sisimail/lib/Sisimai/Reason/VirusDetected.pm
       class << self
         Index = [
           'it has a potentially executable attachment',

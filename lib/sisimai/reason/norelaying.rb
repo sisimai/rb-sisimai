@@ -3,9 +3,6 @@ module Sisimai
     # Sisimai::Reason::NoRelaying checks the bounce reason is "norelaying" or not. This class is
     # called only Sisimai::Reason class.
     #
-    # This is the error that SMTP connection rejected with error message "Relaying Denied". This
-    # reason does not exist in any version of bounceHammer.
-    #
     #    ... while talking to mailin-01.mx.example.com.:
     #    >>> RCPT To:<kijitora@example.org>
     #    <<< 554 5.7.1 <kijitora@example.org>: Relay access denied

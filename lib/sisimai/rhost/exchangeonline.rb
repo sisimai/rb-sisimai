@@ -1,8 +1,8 @@
 module Sisimai
   module Rhost
-    # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Data object as an
-    # argument of get() method when the value of "rhost" of the object is *.protection.outlook.com.
-    # This class is called only Sisimai::Data class.
+    # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Data object as an argument
+    # of get() method when the value of "rhost" of the object is *.protection.outlook.com. This class
+    # is called only Sisimai::Data class.
     module ExchangeOnline
       class << self
         # https://technet.microsoft.com/en-us/library/bb232118
@@ -147,8 +147,7 @@ module Sisimai
           end
           return reasontext unless reasontext.empty?
 
-          # D.S.N. included in the error message did not matched with any
-          # key in ReStatuses
+          # D.S.N. included in the error message did not matched with any key in ReStatuses
           MessagesOf.each_key do |e|
             # Try to compare with error messages defined in MessagesOf
             MessagesOf[e].each do |f|

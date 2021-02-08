@@ -1,7 +1,6 @@
 module Sisimai
   # Sisimai::RFC3834 - RFC3834 auto reply message detector
   module RFC3834
-    # Imported from p5-Sisimail/lib/Sisimai/RFC3834.pm
     class << self
       # http://tools.ietf.org/html/rfc3834
       MarkingsOf = { :boundary => %r/\A__SISIMAI_PSEUDO_BOUNDARY__\z/ }
@@ -97,8 +96,7 @@ module Sisimai
         return nil unless recipients > 0
 
         if mhead['content-type']
-          # Get the boundary string and set regular expression for matching with
-          # the boundary string.
+          # Get the boundary string and set regular expression for matching with the boundary string.
           b0 = Sisimai::RFC2045.boundary(mhead['content-type'], 0) || ''
           MarkingsOf[:boundary] = %r/\A\Q#{b0}\E\z/ unless b0.empty?
         end

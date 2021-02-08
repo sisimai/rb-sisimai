@@ -1,9 +1,8 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Postfix parses a bounce email which created by
-  # Postfix. Methods in the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::Postfix parses a bounce email which created by Postfix. Methods in the module are
+  # called from only Sisimai::Message.
   module Postfix
     class << self
-      # Imported from p5-Sisimail/lib/Sisimai/Lhost/Postfix.pm
       require 'sisimai/lhost'
 
       # Postfix manual - bounce(5) - http://www.postfix.org/bounce.5.html
@@ -57,8 +56,8 @@ module Sisimai::Lhost
         v = nil
 
         while e = bodyslices.shift do
-          # Read error messages and delivery status lines from the head of the email
-          # to the previous line of the beginning of the original message.
+          # Read error messages and delivery status lines from the head of the email to the previous
+          # line of the beginning of the original message.
           readslices << e # Save the current line for the next loop
 
           if readcursor == 0
@@ -171,11 +170,10 @@ module Sisimai::Lhost
             dscontents[-1]['recipient'] = anotherset['recipient']
             recipients += 1
           else
-            # Get a recipient address from message/rfc822 part if the delivery
-            # report was unavailable: '--- Delivery report unavailable ---'
+            # Get a recipient address from message/rfc822 part if the delivery report was unavailable:
+            # '--- Delivery report unavailable ---'
             if nomessages && cv = emailsteak[1].match(/^To:[ ]*(.+)$/)
-              # Try to get a recipient address from To: field in the original
-              # message at message/rfc822 part
+              # Try to get a recipient address from To: field in the original message at message/rfc822 part
               dscontents[-1]['recipient'] = Sisimai::Address.s3s4(cv[1])
               recipients += 1
             end

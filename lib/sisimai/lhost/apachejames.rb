@@ -1,9 +1,8 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::ApacheJames parses a bounce email which created by ApacheJames.
-  # Methods in the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::ApacheJames parses a bounce email which created by ApacheJames. Methods in the
+  # module are called from only Sisimai::Message.
   module ApacheJames
     class << self
-      # Imported from p5-Sisimail/lib/Sisimai/Lhost/ApacheJames.pm
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
@@ -39,8 +38,8 @@ module Sisimai::Lhost
         v = nil
 
         while e = bodyslices.shift do
-          # Read error messages and delivery status lines from the head of the email
-          # to the previous line of the beginning of the original message.
+          # Read error messages and delivery status lines from the head of the email to the previous
+          # line of the beginning of the original message.
 
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
@@ -106,8 +105,7 @@ module Sisimai::Lhost
         end
         return nil unless recipients > 0
 
-        # Set the value of subjecttxt as a Subject if there is no original
-        # message in the bounce mail.
+        # Set the value of subjecttxt as a Subject if there is no original message in the bounce mail.
         emailsteak[1] << ('Subject: ' << subjecttxt << "\n") unless emailsteak[1] =~ /^Subject: /
 
         dscontents.each { |e| e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'] || diagnostic) }

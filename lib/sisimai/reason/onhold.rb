@@ -1,10 +1,8 @@
 module Sisimai
   module Reason
     # Sisimai::Reason::OnHold checks the bounce reason is "onhold" or not. This class is called only
-    # Sisimai::Reason class.
-    #
-    # Sisimai will set C<onhold> to the reason of email bounce if there is no (or less) detailed
-    # information about email bounce for judging the reason.
+    # Sisimai::Reason class. Sisimai will set "onhold" to the reason of email bounce if there is no
+    # (or less) detailed information about email bounce for judging the reason.
     module OnHold
       class << self
         def text; return 'onhold'; end

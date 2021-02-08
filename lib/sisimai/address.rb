@@ -253,8 +253,7 @@ module Sisimai
         unless v[:address].empty?
           # Remove the comment from the address
           if cv = v[:address].match(/(.*)([(].+[)])(.*)/)
-            # (nyaan)nekochan@example.org, nekochan(nyaan)cat@example.org or
-            # nekochan(nyaan)@example.org
+            # (nyaan)nekochan@example.org, nekochan(nyaan)cat@example.org or nekochan(nyaan)@example.org
             v[:address] = cv[1] << cv[3]
             v[:comment] = cv[2]
           end
@@ -419,3 +418,4 @@ module Sisimai
 
   end
 end
+

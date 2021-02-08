@@ -1,9 +1,8 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::GoogleGroups parses a bounce email which created by Google
-  # Groups. Methods in the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::GoogleGroups parses a bounce email which created by Google Groups. Methods in the
+  # module are called from only Sisimai::Message.
   module GoogleGroups
     class << self
-      # Imported from p5-Sisimail/lib/Sisimai/Lhost/GoogleGroups.pm
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS

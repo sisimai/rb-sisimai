@@ -1,10 +1,8 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::InterScanMSS parses a bounce email which created by
-  # Trend Micro InterScan Messaging Security Suite. Methods in the module are
-  # called from only Sisimai::Message.
+  # Sisimai::Lhost::InterScanMSS parses a bounce email which created by Trend Micro InterScan Messaging
+  # Security Suite. Methods in the module are called from only Sisimai::Message.
   module InterScanMSS
     class << self
-      # Imported from p5-Sisimail/lib/Sisimai/Lhost/InterScanMSS.pm
       require 'sisimai/lhost'
       ReBackbone = %r|^Content-type:[ ]message/rfc822|.freeze
 
@@ -33,8 +31,8 @@ module Sisimai::Lhost
         v = nil
 
         while e = bodyslices.shift do
-          # Read error messages and delivery status lines from the head of the email
-          # to the previous line of the beginning of the original message.
+          # Read error messages and delivery status lines from the head of the email to the previous
+          # line of the beginning of the original message.
           next if e.empty?
 
           v = dscontents[-1]

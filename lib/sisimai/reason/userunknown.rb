@@ -4,11 +4,10 @@ module Sisimai
     # called only Sisimai::Reason class.
     #
     # This is the error that a local part (Left hand side of @ sign) of a recipient's email address
-    # does not exist. In many case, a user has changed internet service provider, or has quit
-    # company, or the local part is misspelled. Sisimai will set "userunknown" to the reason of
-    # email bounce if the value of Status: field in a bounce email is "5.1.1", or connection was
-    # refused at SMTP RCPT command, or the contents of Diagnostic-Code: field represents that it is
-    # unknown user.
+    # does not exist. In many case, a user has changed internet service provider, or has quit company,
+    # or the local part is misspelled. Sisimai will set "userunknown" to the reason of email bounce
+    # if the value of Status: field in a bounce email is "5.1.1", or connection was refused at SMTP
+    # RCPT command, or the contents of Diagnostic-Code: field represents that it is unknown user.
     #
     #   <kijitora@example.co.jp>: host mx01.example.co.jp[192.0.2.8] said:
     #   550 5.1.1 Address rejected kijitora@example.co.jp (in reply to

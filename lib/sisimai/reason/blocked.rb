@@ -4,8 +4,7 @@ module Sisimai
     # only Sisimai::Reason class.
     #
     # This is the error that SMTP connection was rejected due to a client IP address or a hostname,
-    # or the parameter of "HELO/EHLO" command. This reason has added in Sisimai 4.0.0 and does not
-    # exist in any version of bounceHammer.
+    # or the parameter of "HELO/EHLO" command. This reason has added in Sisimai 4.0.0.
     module Blocked
       class << self
         Regex = %r{(?>

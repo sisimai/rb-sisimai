@@ -1,9 +1,8 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::AmazonWorkMail parses a bounce email which created by
-  # Amazon WorkMail. Methods in the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::AmazonWorkMail parses a bounce email which created by Amazon WorkMail. Methods
+  # in the module are called from only Sisimai::Message.
   module AmazonWorkMail
     class << self
-      # Imported from p5-Sisimail/lib/Sisimai/Lhost/AmazonWorkMail.pm
       require 'sisimai/lhost'
 
       # https://aws.amazon.com/workmail/
@@ -43,8 +42,8 @@ module Sisimai::Lhost
         v = nil
 
         while e = bodyslices.shift do
-          # Read error messages and delivery status lines from the head of the email
-          # to the previous line of the beginning of the original message.
+          # Read error messages and delivery status lines from the head of the email to the previous
+          # line of the beginning of the original message.
 
           if readcursor == 0
             # Beginning of the bounce message or message/delivery-status part

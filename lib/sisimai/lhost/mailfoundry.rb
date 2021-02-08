@@ -1,9 +1,8 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::MailFoundry parses a bounce email which created by
-  # MailFoundry. Methods in the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::MailFoundry parses a bounce email which created by MailFoundry. Methods in the
+  # module are called from only Sisimai::Message.
   module MailFoundry
     class << self
-      # Imported from p5-Sisimail/lib/Sisimai/Lhost/MailFoundry.pm
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
@@ -30,8 +29,8 @@ module Sisimai::Lhost
         v = nil
 
         while e = bodyslices.shift do
-          # Read error messages and delivery status lines from the head of the email
-          # to the previous line of the beginning of the original message.
+          # Read error messages and delivery status lines from the head of the email to the previous
+          # line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
             readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])
@@ -43,7 +42,7 @@ module Sisimai::Lhost
           # Delivery failed for the following reason:
           # Server mx22.example.org[192.0.2.222] failed with: 550 <kijitora@example.org> No such user here
           #
-          # This has been a permanent failure.  No further delivery attempts will be made.
+          # This has been a permanent failure. No further delivery attempts will be made.
           v = dscontents[-1]
 
           if cv = e.match(/\AUnable to deliver message to: [<]([^ ]+[@][^ ]+)[>]\z/)

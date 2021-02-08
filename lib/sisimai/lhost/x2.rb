@@ -1,9 +1,8 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::X2 parses a bounce email which created by Unknown MTA #2.
-  # Methods in the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::X2 parses a bounce email which created by Unknown MTA #2. Methods in the module
+  # are called from only Sisimai::Message.
   module X2
     class << self
-      # Imported from p5-Sisimail/lib/Sisimai/Lhost/X2.pm
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
@@ -27,8 +26,8 @@ module Sisimai::Lhost
         v = nil
 
         while e = bodyslices.shift do
-          # Read error messages and delivery status lines from the head of the email
-          # to the previous line of the beginning of the original message.
+          # Read error messages and delivery status lines from the head of the email to the previous
+          # line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
             readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])

@@ -7,10 +7,10 @@ module Sisimai
       # @return   [Array] Reason list
       def index
         return %w[
-          Blocked ContentError ExceedLimit Expired Filtered HasMoved HostUnknown
-          MailboxFull MailerError MesgTooBig NetworkError NotAccept OnHold
-          Rejected NoRelaying SpamDetected VirusDetected PolicyViolation SecurityError
-          Suspend SystemError SystemFull TooManyConn UserUnknown SyntaxError
+          Blocked ContentError ExceedLimit Expired Filtered HasMoved HostUnknown MailboxFull
+          MailerError MesgTooBig NetworkError NotAccept OnHold Rejected NoRelaying SpamDetected
+          VirusDetected PolicyViolation SecurityError Suspend SystemError SystemFull TooManyConn
+          UserUnknown SyntaxError
         ]
       end
 
@@ -36,19 +36,18 @@ module Sisimai
       GetRetried = Sisimai::Reason.retry
       ClassOrder = [
         %w[
-          MailboxFull MesgTooBig ExceedLimit Suspend HasMoved NoRelaying UserUnknown
-          Filtered Rejected HostUnknown SpamDetected TooManyConn Blocked
+          MailboxFull MesgTooBig ExceedLimit Suspend HasMoved NoRelaying UserUnknown Filtered
+          Rejected HostUnknown SpamDetected TooManyConn Blocked
         ],
         %w[
-          MailboxFull SpamDetected PolicyViolation VirusDetected NoRelaying
-          SecurityError SystemError NetworkError Suspend Expired ContentError
-          SystemFull NotAccept MailerError
+          MailboxFull SpamDetected PolicyViolation VirusDetected NoRelaying SecurityError
+          SystemError NetworkError Suspend Expired ContentError SystemFull NotAccept MailerError
         ],
         %w[
-          MailboxFull MesgTooBig ExceedLimit Suspend UserUnknown Filtered Rejected
-          HostUnknown SpamDetected TooManyConn Blocked SpamDetected SecurityError
-          SystemError NetworkError Suspend Expired ContentError HasMoved SystemFull
-          NotAccept MailerError NoRelaying SyntaxError OnHold
+          MailboxFull MesgTooBig ExceedLimit Suspend UserUnknown Filtered Rejected HostUnknown
+          SpamDetected TooManyConn Blocked SpamDetected SecurityError SystemError NetworkError
+          Suspend Expired ContentError HasMoved SystemFull NotAccept MailerError NoRelaying
+          SyntaxError OnHold
         ]
       ]
 
@@ -69,8 +68,8 @@ module Sisimai
         if argvs['diagnostictype'] == 'SMTP' || argvs['diagnostictype'] == ''
           # Diagnostic-Code: SMTP; ... or empty value
           ClassOrder[0].each do |e|
-            # Check the value of Diagnostic-Code: and the value of Status:, it is a
-            # deliverystats, with true() method in each Sisimai::Reason::* class.
+            # Check the value of Diagnostic-Code: and the value of Status:, it is a deliverystats,
+            # with true() method in each Sisimai::Reason::* class.
             p = 'Sisimai::Reason::' << e
             r = nil
             begin
@@ -190,8 +189,8 @@ module Sisimai
 
         # Diagnostic-Code: SMTP; ... or empty value
         ClassOrder[2].each do |e|
-          # Check the value of Diagnostic-Code: and the value of Status:, it is a
-          # deliverystats, with true() method in each Sisimai::Reason::* class.
+          # Check the value of Diagnostic-Code: and the value of Status:, it is a deliverystats, with
+          # true() method in each Sisimai::Reason::* class.
           p = 'Sisimai::Reason::' << e
           r = nil
           begin

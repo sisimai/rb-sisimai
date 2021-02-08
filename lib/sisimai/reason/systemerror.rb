@@ -1,16 +1,13 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::SystemError checks the bounce reason is "systemerror" or
-    # not. This class is called only Sisimai::Reason class.
-    #
-    # This is the error that an email has bounced due to system error on the
-    # remote host such as LDAP connection failure or other internal system error.
+    # Sisimai::Reason::SystemError checks the bounce reason is "systemerror" or not. This class is
+    # called only Sisimai::Reason class. This is the error that an email has bounced due to system
+    # error on the remote host such as LDAP connection failure or other internal system error.
     #
     #   <kijitora@example.net>:
     #   Unable to contact LDAP server. (#4.4.3)I'm not going to try again; this
     #   message has been in the queue too long.
     module SystemError
-      # Imported from p5-Sisimail/lib/Sisimai/Reason/SystemError.pm
       class << self
         Index = [
           "can't create user output file",

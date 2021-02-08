@@ -1,9 +1,8 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::Suspend checks the bounce reason is C<suspend> or not. This class is called
-    # only Sisimai::Reason class.
-    #
-    # This is the error that a recipient account is being suspended due to unpaid or other reasons.
+    # Sisimai::Reason::Suspend checks the bounce reason is "suspend" or not. This class is called
+    # only Sisimai::Reason class.  This is the error that a recipient account is being suspended
+    # due to unpaid or other reasons.
     module Suspend
       class << self
         Index = [

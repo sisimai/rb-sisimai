@@ -1,8 +1,8 @@
 module Sisimai
   module Rhost
-    # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Data object as an
-    # argument of get() method when the value of "destination" of the object is "charter.net".
-    # This class is called only Sisimai::Data class.
+    # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Data object as an argument
+    # of get() method when the value of "destination" of the object is "charter.net". This class is
+    # called only Sisimai::Data class.
     module Cox
       class << self
         ErrorCodes = {

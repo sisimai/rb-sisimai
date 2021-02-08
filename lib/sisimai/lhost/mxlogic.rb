@@ -1,10 +1,8 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::MXLogic parses a bounce email which created by
-  # McAfee SaaS (formerly MX Logic).
+  # Sisimai::Lhost::MXLogic parses a bounce email which created by McAfee SaaS (formerly MX Logic).
   # Methods in the module are called from only Sisimai::Message.
   module MXLogic
     class << self
-      # Imported from p5-Sisimail/lib/Sisimai/Lhost/MXLogic.pm
       # Based on Sisimai::Lhost::Exim
       require 'sisimai/lhost'
 
@@ -16,7 +14,7 @@ module Sisimai::Lhost
         %r/SMTP error from remote (?:mail server|mailer) after end of ([A-Za-z]{4})/,
       ].freeze
       MessagesOf = {
-        # find exim/ -type f -exec grep 'message = US' {} /dev/null \;
+        # % find exim/ -type f -exec grep 'message = US' {} /dev/null \;
         # route.c:1158|  DEBUG(D_uid) debug_printf("getpwnam() returned NULL (user not found)\n");
         'userunknown' => ['user not found'],
         # transports/smtp.c:3524|  addr->message = US"all host address lookups failed permanently";
@@ -100,8 +98,8 @@ module Sisimai::Lhost
         v = nil
 
         while e = bodyslices.shift do
-          # Read error messages and delivery status lines from the head of the email
-          # to the previous line of the beginning of the original message.
+          # Read error messages and delivery status lines from the head of the email to the previous
+          # line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
             readcursor |= Indicators[:deliverystatus] if e == StartingOf[:message][0]

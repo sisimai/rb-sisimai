@@ -1,10 +1,8 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::IMailServer parses a bounce email which created by
-  # Ipswitch IMail Server.
+  # Sisimai::Lhost::IMailServer parses a bounce email which created by Ipswitch IMail Server.
   # Methods in the module are called from only Sisimai::Message.
   module IMailServer
     class << self
-      # Imported from p5-Sisimail/lib/Sisimai/Lhost/IMailServer.pm
       require 'sisimai/lhost'
 
       ReBackbone = %r|^Original[ ]message[ ]follows[.]|.freeze
@@ -45,8 +43,8 @@ module Sisimai::Lhost
         v = nil
 
         while e = bodyslices.shift do
-          # Read error messages and delivery status lines from the head of the email
-          # to the previous line of the beginning of the original message.
+          # Read error messages and delivery status lines from the head of the email to the previous
+          # line of the beginning of the original message.
 
           # Unknown user: kijitora@example.com
           #

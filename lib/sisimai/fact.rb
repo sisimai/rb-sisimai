@@ -390,8 +390,8 @@ module Sisimai
 
     # Data dumper
     # @param    [String] type   Data format: json, yaml
-    # @return   [String, nil]   Dumped data or nil if the value of the first argument is neither
-    #                           "json" nor "yaml"
+    # @return   [String]        data
+    #           [Nil]           The value of the first argument is neither "json" nor "yaml"
     def dump(type = 'json')
       return nil unless %w[json yaml].include?(type)
       referclass = 'Sisimai::Fact::' << type.upcase

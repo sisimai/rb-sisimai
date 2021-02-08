@@ -1,11 +1,8 @@
 module Sisimai
   module Reason
     # Sisimai::Reason::SpamDetected checks the bounce reason is "spamdetected" due to Spam content
-    # in the message or not. This class is called only Sisimai::Reason class.
-    #
-    # This is the error that the message you sent was rejected by "spam filter" which is running on
-    # the remote host. This reason has added in Sisimai 4.1.25 and does not exist in any version of
-    # bounceHammer.
+    # in the message or not. This class is called only Sisimai::Reason class. This is the error that
+    # the message you sent was rejected by "spam filter" which is running on the remote host.
     #
     #    Action: failed
     #    Status: 5.7.1

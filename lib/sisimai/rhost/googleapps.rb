@@ -1,8 +1,8 @@
 module Sisimai
   module Rhost
-    # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Data object as an
-    # argument of get() method when the value of "rhost" of the object is "aspmx.l.google.com".
-    # This class is called only Sisimai::Data class.
+    # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Data object as an argument
+    # of get() method when the value of "rhost" of the object is "aspmx.l.google.com". This class is
+    # called only Sisimai::Data class.
     module GoogleApps
       class << self
         StatusList = {

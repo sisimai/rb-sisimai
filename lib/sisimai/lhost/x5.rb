@@ -1,9 +1,8 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::X5 parses a bounce email which created by Unknown MTA #5.
-  # Methods in the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::X5 parses a bounce email which created by Unknown MTA #5. Methods in the module
+  # are called from only Sisimai::Message.
   module X5
     class << self
-      # Imported from p5-Sisimail/lib/Sisimai/Lhost/X5.pm
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
@@ -51,8 +50,8 @@ module Sisimai::Lhost
         bodyslices = emailsteak[0].split("\n")
 
         while e = bodyslices.shift do
-          # Read error messages and delivery status lines from the head of the email
-          # to the previous line of the beginning of the original message.
+          # Read error messages and delivery status lines from the head of the email to the previous
+          # line of the beginning of the original message.
           readslices << e # Save the current line for the next loop
 
           if readcursor == 0

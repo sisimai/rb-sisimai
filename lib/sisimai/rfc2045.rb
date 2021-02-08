@@ -1,7 +1,6 @@
 module Sisimai
   # Sisimai::RFC2045 is a MIME Utilities for Sisimai.
   module RFC2045
-    # Imported from p5-Sisimail/lib/Sisimai/RFC2045.pm
     class << self
       require 'base64'
       require 'sisimai/string'
@@ -143,7 +142,7 @@ module Sisimai
 
       # Cut header fields except Content-Type, Content-Transfer-Encoding from multipart/* block
       # @param    [String] block  multipart/* block text
-      # @param    [Boolean] heads 1 = Returns only Content-(Type|Transfer-Encoding) headers
+      # @param    [Boolean] heads true = Returns only Content-(Type|Transfer-Encoding) headers
       # @return   [Array]         Two headers and body part of multipart/* block
       # @since v5.0.0
       def haircut(block = '', heads = false)
@@ -287,8 +286,8 @@ module Sisimai
 
         while e = multiparts.shift do
           # Pick only the following parts Sisimai::Lhost will use, and decode each part
-          # - text/plain, text/rfc822-headers
-          # - message/delivery-status, message/rfc822, message/partial, message/feedback-report
+          #   - text/plain, text/rfc822-headers
+          #   - message/delivery-status, message/rfc822, message/partial, message/feedback-report
           istexthtml = false
           mediatypev = parameter(e[0]) || 'text/plain';
           next unless mediatypev =~ %r<\A(?:text|message)/>
@@ -334,16 +333,16 @@ module Sisimai
             end
             next if bodystring.empty?
 
-            # The body string will be encoded to UTF-8 forcely and call String#scrub method to 
-            # avoid the following errors:
+            # The body string will be encoded to UTF-8 forcely and call String#scrub method to avoid
+            # the following errors:
             #   - incompatible character encodings: ASCII-8BIT and UTF-8
             #   - invalid byte sequence in UTF-8
             unless bodystring.encoding.to_s == 'UTF-8'
               # ASCII-8BIT or other 8bit encodings
               ctxcharset = parameter(e[0], 'charset')
               if ctxcharset.empty?
-                # The part which has no "charset" parameter causes an ArgumentError:
-                # invalid byte sequence in UTF-8 so String#scrub should be called
+                # The part which has no "charset" parameter causes an ArgumentError: invalid byte
+                # sequence in UTF-8 so String#scrub should be called
                 bodystring.scrub!('?')
               else
                 # ISO-8859-1, GB2312, and so on
@@ -360,9 +359,9 @@ module Sisimai
           end
 
           if mediatypev =~ %r</(?:delivery-status|feedback-report|rfc822)>
-            # Add Content-Type: header of each part (will be used as a delimiter at Sisimai::Lhost) into
-            # the body inside when the value of Content-Type: is message/delivery-status, message/rfc822,
-            # or text/rfc822-headers
+            # Add Content-Type: header of each part (will be used as a delimiter at Sisimai::Lhost)
+            # into the body inside when the value of Content-Type: field is message/delivery-status,
+            # message/rfc822, or text/rfc822-headers
             bodystring = sprintf("Content-Type: %s\n%s", mediatypev, bodystring)
           end
 

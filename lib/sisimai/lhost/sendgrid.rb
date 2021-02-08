@@ -1,9 +1,8 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::SendGrid parses a bounce email which created by
-  # SendGrid. Methods in the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::SendGrid parses a bounce email which created by SendGrid. Methods in the module
+  # are called from only Sisimai::Message.
   module SendGrid
     class << self
-      # Imported from p5-Sisimail/lib/Sisimai/Lhost/SendGrid.pm
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
@@ -36,8 +35,8 @@ module Sisimai::Lhost
         v = nil
 
         while e = bodyslices.shift do
-          # Read error messages and delivery status lines from the head of the email
-          # to the previous line of the beginning of the original message.
+          # Read error messages and delivery status lines from the head of the email to the previous
+          # line of the beginning of the original message.
           readslices << e # Save the current line for the next loop
 
           if readcursor == 0

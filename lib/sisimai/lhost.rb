@@ -2,7 +2,6 @@ module Sisimai
   # Sisimai::Lhost - Base class for Sisimai::Lhost::*
   module Lhost
     class << self
-      # Imported from p5-Sisimail/lib/Sisimai/Lhost.pm
       require 'sisimai/rfc5322'
 
       # Data structure for parsed bounce messages
@@ -42,13 +41,12 @@ module Sisimai
       # @return   [Array] MTA list with order
       def index
         return %w[
-          Activehunter Amavis AmazonSES AmazonWorkMail Aol ApacheJames Barracuda Bigfoot
-          Biglobe Courier Domino EZweb EinsUndEins Exchange2003 Exchange2007 Exim FML
-          Facebook GMX GSuite GoogleGroups Gmail IMailServer InterScanMSS KDDI MXLogic
-          MailFoundry MailMarshalSMTP MailRu McAfee MessageLabs MessagingServer Notes
-          Office365 OpenSMTPD Outlook Postfix PowerMTA ReceivingSES SendGrid Sendmail
-          SurfControl V5sendmail Verizon X1 X2 X3 X4 X5 X6 Yahoo Yandex Zoho MFILTER
-          Qmail
+          Activehunter Amavis AmazonSES AmazonWorkMail Aol ApacheJames Barracuda Bigfoot Biglobe
+          Courier Domino EZweb EinsUndEins Exchange2003 Exchange2007 Exim FML Facebook GMX GSuite
+          GoogleGroups Gmail IMailServer InterScanMSS KDDI MXLogic MailFoundry MailMarshalSMTP
+          MailRu McAfee MessageLabs MessagingServer Notes Office365 OpenSMTPD Outlook Postfix
+          PowerMTA ReceivingSES SendGrid Sendmail SurfControl V5sendmail Verizon X1 X2 X3 X4 X5 X6
+          Yahoo Yandex Zoho MFILTER Qmail
         ]
       end
 

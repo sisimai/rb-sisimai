@@ -1,5 +1,5 @@
-# Sisimai is a Perl module for analyzing RFC5322 bounce emails and generating structured data from parsed
-# results. Sisimai is the system formerly known as bounceHammer 4, is the successor to bounceHammer.
+# Sisimai is a Ruby module for analyzing RFC5322 bounce emails and generating structured data from
+# parsed results.
 require 'sisimai/version'
 module Sisimai
   class << self

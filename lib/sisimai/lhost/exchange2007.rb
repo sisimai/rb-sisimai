@@ -1,10 +1,8 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Exchange2007 parses a bounce email which created by
-  # Microsoft Exchange Server 2007.
+  # Sisimai::Lhost::Exchange2007 parses a bounce email which created by Microsoft Exchange Server 2007.
   # Methods in the module are called from only Sisimai::Message.
   module Exchange2007
     class << self
-      # Imported from p5-Sisimail/lib/Sisimai/Lhost/Exchange2007.pm
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
@@ -72,8 +70,8 @@ module Sisimai::Lhost
         v = nil
 
         while e = bodyslices.shift do
-          # Read error messages and delivery status lines from the head of the email
-          # to the previous line of the beginning of the original message.
+          # Read error messages and delivery status lines from the head of the email to the previous
+          # line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
             readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]

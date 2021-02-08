@@ -1,9 +1,8 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Amavis parses a bounce email which created by
-  # amavsid-new. Methods in the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::Amavis parses a bounce email which created by amavsid-new. Methods in the module
+  # are called from only Sisimai::Message.
   module Amavis
     class << self
-      # Imported from p5-Sisimail/lib/Sisimai/Lhost/Amavis.pm
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
@@ -92,8 +91,8 @@ module Sisimai::Lhost
         v = nil
 
         while e = bodyslices.shift do
-          # Read error messages and delivery status lines from the head of the email
-          # to the previous line of the beginning of the original message.
+          # Read error messages and delivery status lines from the head of the email to the previous
+          # line of the beginning of the original message.
 
           if readcursor == 0
             # Beginning of the bounce message or message/delivery-status part
@@ -148,8 +147,7 @@ module Sisimai::Lhost
             MessagesOf.each_key do |p|
               # Try to detect an error reason
               MessagesOf[p].each do |r|
-                # Try to find an error message including lower-cased string
-                # defined in MessagesOf constant
+                # Try to find an error message including lower-cased string defined in MessagesOf constant
                 next unless q.include?(r)
                 e['reason'] = p
                 throw :DETECT_REASON

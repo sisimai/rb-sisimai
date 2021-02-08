@@ -1,9 +1,8 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Yahoo parses a bounce email which created by Yahoo! MAIL.
-  # Methods in the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::Yahoo parses a bounce email which created by Yahoo! MAIL. Methods in the module
+  # are called from only Sisimai::Message.
   module Yahoo
     class << self
-      # Imported from p5-Sisimail/lib/Sisimai/Lhost/Yahoo.pm
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
@@ -30,8 +29,8 @@ module Sisimai::Lhost
         v = nil
 
         while e = bodyslices.shift do
-          # Read error messages and delivery status lines from the head of the email
-          # to the previous line of the beginning of the original message.
+          # Read error messages and delivery status lines from the head of the email to the previous
+          # line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
             readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])

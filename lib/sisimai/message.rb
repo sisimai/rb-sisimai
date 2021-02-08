@@ -158,8 +158,8 @@ module Sisimai
         return {} if argv0.empty?
         argv0.gsub!(/^[>]+[ ]/m, '') # Remove '>' indent symbol of forwarded message
 
-        # Select and convert all the headers in $argv0. The following regular expression
-        # is based on https://gist.github.com/xtetsuji/b080e1f5551d17242f6415aba8a00239
+        # Select and convert all the headers in $argv0. The following regular expression is based on
+        # https://gist.github.com/xtetsuji/b080e1f5551d17242f6415aba8a00239
         headermaps = { 'subject' => '' }
         recvheader = []
         argv0.scan(/^([\w-]+):[ ]*(.*?)\n(?![\s\t])/m) { |e| headermaps[e[0].downcase] = e[1] }
@@ -178,8 +178,7 @@ module Sisimai
 
         # Convert MIME-Encoded subject
         if Sisimai::String.is_8bit(headermaps['subject'])
-          # The value of ``Subject'' header is including multibyte character,
-          # is not MIME-Encoded text.
+          # The value of ``Subject'' header is including multibyte character, is not MIME-Encoded text.
           headermaps['subject'].scrub!('?')
         else
           # MIME-Encoded subject field or ASCII characters only
@@ -295,8 +294,7 @@ module Sisimai
             end
 
             unless haveloaded['Sisimai::RFC3464']
-              # When the all of Sisimai::Lhost::* modules did not return bounce
-              # data, call Sisimai::RFC3464;
+              # When the all of Sisimai::Lhost::* modules did not return bounce data, call Sisimai::RFC3464;
               require 'sisimai/rfc3464'
               parseddata = Sisimai::RFC3464.make(mailheader, bodystring)
               modulename = 'RFC3464'

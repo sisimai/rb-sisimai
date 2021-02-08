@@ -1,9 +1,8 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Courier parses a bounce email which created by Courier
-  # MTA. Methods in the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::Courier parses a bounce email which created by Courier MTA. Methods in the module
+  # are called from only Sisimai::Message.
   module Courier
     class << self
-      # Imported from p5-Sisimail/lib/Sisimai/Lhost/Courier.pm
       require 'sisimai/lhost'
 
       # https://www.courier-mta.org/courierdsn.html
@@ -53,8 +52,8 @@ module Sisimai::Lhost
         v = nil
 
         while e = bodyslices.shift do
-          # Read error messages and delivery status lines from the head of the email
-          # to the previous line of the beginning of the original message.
+          # Read error messages and delivery status lines from the head of the email to the previous
+          # line of the beginning of the original message.
           readslices << e # Save the current line for the next loop
 
           if readcursor == 0
