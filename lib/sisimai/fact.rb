@@ -94,7 +94,7 @@ module Sisimai
       loads = argvs[:load]  || nil
       order = argvs[:order] || nil
       args1 = { data: email, hook: argvs[:hook], load: loads, order: order }
-      mesg1 = Sisimai::Message.rise(args1)
+      mesg1 = Sisimai::Message.rise(**args1)
 
       return nil unless mesg1
       return nil unless mesg1['ds']

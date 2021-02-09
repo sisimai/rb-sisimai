@@ -35,7 +35,7 @@ module Sisimai
         # Read and parse each email file
         path = mail.data.path
         args = { data: r, hook: c___[0], origin: path, delivered: argv1[:delivered] }
-        fact = Sisimai::Fact.rise(args) || []
+        fact = Sisimai::Fact.rise(**args) || []
 
         if c___[1]
           # Run the callback function specified with "c___" parameter of Sisimai.rise after reading
@@ -65,7 +65,7 @@ module Sisimai
     # @return        [String]            Parsed data as JSON text
     def dump(argv0, **argv1)
       return nil unless argv0
-      nyaan = Sisimai.rise(argv0, argv1) || []
+      nyaan = Sisimai.rise(argv0, **argv1) || []
 
       if RUBY_PLATFORM.start_with?('java')
         # java-based ruby environment like JRuby.
