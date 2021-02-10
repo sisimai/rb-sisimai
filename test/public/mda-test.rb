@@ -25,7 +25,8 @@ class MDATest < Minitest::Test
     head = {}
 
     while r = mail.data.read do
-      mesg = Sisimai::Message.rise({ data: r })
+      args = { data: r }
+      mesg = Sisimai::Message.rise(**args)
       head['from'] = mesg['from']
 
       Message.each do |e|

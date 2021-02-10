@@ -27,22 +27,23 @@ class MessageTest < Minitest::Test
     assert_instance_of String, Mailtxt
     refute_empty Mailtxt
 
-    cv = Sisimai::Message.rise({ data: Mailtxt })
+    ca = { data: Mailtxt }
+    cv = Sisimai::Message.rise(**ca)
     assert_instance_of Hash,   cv
     assert_instance_of Hash,   cv['header']
     assert_instance_of Array,  cv['ds']
     assert_instance_of Hash,   cv['rfc822']
     assert_instance_of String, cv['from']
 
-    cv = Sisimai::Message.rise({
+    ca = {
       data: Mailtxt,
       hook: Lambda1,
       order:[
         'Sisimai::Lhost::Sendmail', 'Sisimai::Lhost::Postfix', 'Sisimai::Lhost::qmail',
         'Sisimai::Lhost::Exchange2003', 'Sisimai::Lhost::Gmail', 'Sisimai::Lhost::Verizon',
       ]
-    })
-
+    }
+    cv = Sisimai::Message.rise(**ca)
     assert_instance_of Hash,  cv
     assert_instance_of Array, cv['ds']
     assert_instance_of Array, cv['header']['received']
