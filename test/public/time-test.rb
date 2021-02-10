@@ -22,7 +22,7 @@ class TimeTest < Minitest::Test
       Sisimai::Time.new(nil)
       Sisimai::Time.new(nil, nil)
     end
-    assert_match /undefined method/, ce.to_s
+    assert_match /(?:undefined method|invalid year)/, ce.to_s
   end
 
   def test_to_json
