@@ -16,13 +16,12 @@ class TimeTest < Minitest::Test
     ce = assert_raises TypeError do
       Sisimai::Time.new(nil, nil)
     end
-    assert_match /(?:no implicit conversion from nil to integer|invalid month)/, ce.to_s
+    assert_match /(?:no implicit conversion from nil to integer|invalid month|invalid year)/, ce.to_s
 
     ce = assert_raises NoMethodError do
       Sisimai::Time.new(nil)
-      Sisimai::Time.new(nil, nil)
     end
-    assert_match /(?:undefined method|invalid year)/, ce.to_s
+    assert_match /undefined method/, ce.to_s
   end
 
   def test_to_json
