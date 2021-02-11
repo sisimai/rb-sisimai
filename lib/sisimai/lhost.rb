@@ -69,7 +69,7 @@ module Sisimai
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to parse or the arguments are missing
-      def make; return nil; end
+      def inquire; return nil; end
       def description; return ''; end
     end
   end

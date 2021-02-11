@@ -15,7 +15,7 @@ module Sisimai::Lhost
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to parse or the arguments are missing
       # @since v4.25.6
-      def make(mhead, mbody)
+      def inquire(mhead, mbody)
         # Subject: **Message you sent blocked by our bulk email filter**
         return nil unless mhead['subject'].to_s.end_with?('our bulk email filter**')
 

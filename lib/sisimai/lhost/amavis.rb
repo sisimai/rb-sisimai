@@ -74,7 +74,7 @@ module Sisimai::Lhost
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to parse or the arguments are missing
       # @since v4.25.0
-      def make(mhead, mbody)
+      def inquire(mhead, mbody)
         # From: "Content-filter at neko1.example.jp" <postmaster@neko1.example.jp>
         # Subject: Undeliverable mail, MTA-BLOCKED
         return nil unless mhead['from'].to_s.start_with?('"Content-filter at ')
