@@ -78,7 +78,7 @@ module Sisimai
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to parse or the arguments are missing
-      def make(mhead, mbody)
+      def inquire(mhead, mbody)
         return nil unless mhead['from'].downcase.start_with?('mail delivery subsystem','mailer-daemon', 'postmaster')
 
         agentname0 = ''   # [String] MDA name

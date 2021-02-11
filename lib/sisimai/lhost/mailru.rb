@@ -49,7 +49,7 @@ module Sisimai::Lhost
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to parse or the arguments are missing
-      def make(mhead, mbody)
+      def inquire(mhead, mbody)
         return nil unless mhead['from'] =~ /[<]?mailer-daemon[@].*mail[.]ru[>]?/i
         return nil unless mhead['message-id'].end_with?('.mail.ru>', 'smailru.net>')
         return nil unless mhead['subject'] =~ %r{(?:

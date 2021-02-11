@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'sisimai/lhost'
 
 class LhostTest < Minitest::Test
-  Methods = { class:  %w[description make index path DELIVERYSTATUS INDICATORS] }
+  Methods = { class:  %w[description inquire index path DELIVERYSTATUS INDICATORS] }
 
   def test_methods
     Methods[:class].each { |e| assert_respond_to Sisimai::Lhost, e }
@@ -17,12 +17,12 @@ class LhostTest < Minitest::Test
     end
   end
 
-  def test_make
-    assert_nil Sisimai::Lhost.make
+  def test_inquire
+    assert_nil Sisimai::Lhost.inquire
 
     ce = assert_raises ArgumentError do
-      Sisimai::Lhost.make(nil)
-      Sisimai::Lhost.make(nil, nil)
+      Sisimai::Lhost.inquire(nil)
+      Sisimai::Lhost.inquire(nil, nil)
     end
   end
 

@@ -96,7 +96,7 @@ module Sisimai
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to parse or the arguments are missing
-      def make(mhead, mbody)
+      def inquire(mhead, mbody)
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         bodyslices = mbody.scrub('?').split("\n")
         readslices = ['']
@@ -418,7 +418,7 @@ module Sisimai
         return nil unless recipients > 0
 
         require 'sisimai/mda'
-        mdabounced = Sisimai::MDA.make(mhead, mbody)
+        mdabounced = Sisimai::MDA.inquire(mhead, mbody)
         dscontents.each do |e|
           # Set default values if each value is empty.
           connheader.each_key { |a| e[a] ||= connheader[a] || '' }
@@ -437,7 +437,7 @@ module Sisimai
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
 
           if mdabounced
-            # Make bounce data by the values returned from Sisimai::MDA.make()
+            # Make bounce data by the values returned from Sisimai::MDA.inquire()
             e['agent']     = mdabounced['mda'] || 'RFC3464'
             e['reason']    = mdabounced['reason'] || 'undefined'
             e['diagnosis'] = mdabounced['message'] unless mdabounced['message'].empty?

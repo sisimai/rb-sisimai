@@ -15,7 +15,7 @@ module Sisimai::Lhost
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to parse or the arguments are missing
-      def make(mhead, mbody)
+      def inquire(mhead, mbody)
         # X-Mailer: Amazon WorkMail
         # X-Original-Mailer: Amazon WorkMail
         # X-Ses-Outgoing: 2016.01.14-54.240.27.159

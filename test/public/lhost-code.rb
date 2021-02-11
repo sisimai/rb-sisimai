@@ -18,7 +18,7 @@ class LhostCode < Minitest::Test
 
     lhostindex = Sisimai::Lhost.index; lhostindex << 'ARF' << 'RFC3464' << 'RFC3834'
     isnotlhost = %w[ARF RFC3464 RFC3834]
-    methodlist = %w[make]
+    methodlist = %w[inquire]
     samplepath = 'set-of-emails/maildir/bsd'
     modulepath = ''
     modulename = ''
@@ -53,8 +53,8 @@ class LhostCode < Minitest::Test
     samplepath = sprintf("set-of-emails/private/%s%s", nameprefix, enginename.downcase) if privateset
 
     if modulename.include?('::Lhost::')
-      # Sisimai::Lhost::*.make
-      assert_respond_to currmodule, 'make'
+      # Sisimai::Lhost::*.inquire
+      assert_respond_to currmodule, 'inquire'
 
     elsif modulename.include?('::Rhost::')
       # Sisimai::Rhost::*.get

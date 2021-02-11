@@ -18,7 +18,7 @@ module Sisimai::Lhost
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to parse or the arguments are missing
-      def make(mhead, mbody)
+      def inquire(mhead, mbody)
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         recipients = 0  # (Integer) The number of 'Final-Recipient' header
 

@@ -14,7 +14,7 @@ module Sisimai::Lhost
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to parse or the arguments are missing
       # @since v4.25.6
-      def make(mhead, mbody)
+      def inquire(mhead, mbody)
         return nil unless mhead['from'].end_with?('<mailer-daemon@googlemail.com>')
         return nil unless mhead['subject'].start_with?('Delivery Status Notification')
         return nil unless mhead['x-failed-recipients']

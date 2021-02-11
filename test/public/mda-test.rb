@@ -4,7 +4,7 @@ require 'sisimai/mail'
 require 'sisimai/message'
 
 class MDATest < Minitest::Test
-  Methods = { class:  %w[make] }
+  Methods = { class:  %w[inquire] }
   Message = [
     'Your message to neko was automatically rejected:' << "\n" << 'Not enough disk space',
     'mail.local: Disc quota exceeded',
@@ -19,7 +19,7 @@ class MDATest < Minitest::Test
     Methods[:class].each { |e| assert_respond_to Sisimai::Lhost, e }
   end
 
-  def test_make
+  def test_inquire
     mail = Sisimai::Mail.new(Mailbox)
     mesg = nil
     head = {}
@@ -30,7 +30,7 @@ class MDATest < Minitest::Test
       head['from'] = mesg['from']
 
       Message.each do |e|
-        cv = Sisimai::MDA.make(head, e)
+        cv = Sisimai::MDA.inquire(head, e)
 
         assert_instance_of Hash, cv
         refute_empty cv['mda']
@@ -40,13 +40,13 @@ class MDATest < Minitest::Test
     end
 
     ce = assert_raises ArgumentError do
-      Sisimai::MDA.make()
-      Sisimai::MDA.make(nil)
-      Sisimai::MDA.make(nil, nil, nil)
+      Sisimai::MDA.inquire()
+      Sisimai::MDA.inquire(nil)
+      Sisimai::MDA.inquire(nil, nil, nil)
     end
 
     ce = assert_raises NoMethodError do
-      Sisimai::MDA.make(nil, nil)
+      Sisimai::MDA.inquire(nil, nil)
     end
 
   end

@@ -277,7 +277,7 @@ module Sisimai
             while r = argvs['tobeloaded'].shift do
               # Call user defined MTA modules
               next if haveloaded[r]
-              parseddata = Module.const_get(r).make(mailheader, bodystring)
+              parseddata = Module.const_get(r).inquire(mailheader, bodystring)
               haveloaded[r] = true
               modulename = r
               throw :PARSER if parseddata
@@ -287,7 +287,7 @@ module Sisimai
               # Try MTA module candidates
               next if haveloaded[r]
               require LhostTable[r]
-              parseddata = Module.const_get(r).make(mailheader, bodystring)
+              parseddata = Module.const_get(r).inquire(mailheader, bodystring)
               haveloaded[r] = true
               modulename = r
               throw :PARSER if parseddata
@@ -296,7 +296,7 @@ module Sisimai
             unless haveloaded['Sisimai::RFC3464']
               # When the all of Sisimai::Lhost::* modules did not return bounce data, call Sisimai::RFC3464;
               require 'sisimai/rfc3464'
-              parseddata = Sisimai::RFC3464.make(mailheader, bodystring)
+              parseddata = Sisimai::RFC3464.inquire(mailheader, bodystring)
               modulename = 'RFC3464'
               throw :PARSER if parseddata
             end
@@ -304,14 +304,14 @@ module Sisimai
             unless haveloaded['Sisimai::ARF']
               # Feedback Loop message
               require 'sisimai/arf'
-              parseddata = Sisimai::ARF.make(mailheader, bodystring) if Sisimai::ARF.is_arf(mailheader)
+              parseddata = Sisimai::ARF.inquire(mailheader, bodystring) if Sisimai::ARF.is_arf(mailheader)
               throw :PARSER if parseddata
             end
 
             unless haveloaded['Sisimai::RFC3834']
               # Try to parse the message as auto reply message defined in RFC3834
               require 'sisimai/rfc3834'
-              parseddata = Sisimai::RFC3834.make(mailheader, bodystring)
+              parseddata = Sisimai::RFC3834.inquire(mailheader, bodystring)
               modulename = 'RFC3834'
               throw :PARSER if parseddata
             end

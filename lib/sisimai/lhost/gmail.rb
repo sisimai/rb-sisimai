@@ -102,7 +102,7 @@ module Sisimai::Lhost
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to parse or the arguments are missing
-      def make(mhead, mbody)
+      def inquire(mhead, mbody)
         # From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
         # Received: from vw-in-f109.1e100.net [74.125.113.109] by ...
         #
