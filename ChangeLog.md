@@ -9,6 +9,7 @@ v5.0.0
 - version: ""
 - changes:
   - **INCOMPATIBLE CHANGES SINCE SISIMAI VERSION 4**
+    - **Sisimai requires Ruby 2.4 or later**
     - `Sisimai.make` marked as obsoleted and will be removed at Sisimai v5.1.0,
       use `Sisimai.rise` instead
     - `Sisimai::Data` and `Sisimai::Fact`

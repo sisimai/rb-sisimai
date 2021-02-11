@@ -4,7 +4,7 @@
 [![Coverage Status](https://img.shields.io/coveralls/sisimai/rb-sisimai.svg)](https://coveralls.io/r/sisimai/rb-sisimai)
 [![Build Status](https://travis-ci.org/sisimai/rb-sisimai.svg?branch=master)](https://travis-ci.org/sisimai/rb-sisimai) 
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/38340177e6284a65be69c0c7c3dc2b58)](https://www.codacy.com/app/azumakuniyuki/rb-sisimai)
-[![Ruby](https://img.shields.io/badge/ruby-v2.1.0--v2.6.0-red.svg)](https://www.ruby-lang.org/)
+[![Ruby](https://img.shields.io/badge/ruby-v2.4.0--v2.7.0-red.svg)](https://www.ruby-lang.org/)
 [![Gem Version](https://badge.fury.io/rb/sisimai.svg)](https://badge.fury.io/rb/sisimai)
 
 - [**README-JA(日本語)**](README-JA.md)
@@ -70,7 +70,7 @@ More details about system requirements are available at
 [Sisimai | Getting Started](https://libsisimai.org/en/start/) page.
 
 
-* [Ruby 2.1.0 or later](http://www.ruby-lang.org/)
+* [Ruby 2.4.0 or later](http://www.ruby-lang.org/)
   * [__Oj | The fastest JSON parser and object serializer__](https://rubygems.org/gems/oj)
 * Also works on [JRuby 9.0.4.0 or later](http://jruby.org)
   * [__JrJackson | A mostly native JRuby wrapper for the java jackson json processor jar__](https://rubygems.org/gems/jrjackson)
@@ -268,7 +268,7 @@ Information about differences between Sisimai and bounceHammer are available at
 
 | Features                                    | Ruby version   | Perl version  |
 |---------------------------------------------|----------------|---------------|
-| System requirements                         | Ruby 2.1 - 2.6 | Perl 5.10 -   |
+| System requirements                         | Ruby 2.4 - 2.7 | Perl 5.10 -   |
 |                                             | JRuby 9.0.4.0- |               |
 | Analytical precision ratio(2000 emails)[1]  | 1.00           | 1.00          |
 | The speed of parsing email(1000 emails)     | 2.22s[2]       | 1.35s         |
