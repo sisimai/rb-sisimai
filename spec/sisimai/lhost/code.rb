@@ -189,7 +189,7 @@ module Sisimai
                         pp = 'action'
                         if ds[pp] && ds[pp].size > 0
                           # CHeck the value of "action"
-                          re = /\A(?:fail.+|delayed|deliverable|delivered|expired|expanded.*|relayed)\z/
+                          re = /\A(?:fail.+|delayed|delivered|expired|expanded.*|relayed)\z/
                           it(sprintf("%s [%s] matches %s", lb, pp, re.to_s)) { expect(ds[pp]).to match re }
                         end
 

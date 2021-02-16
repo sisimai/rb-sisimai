@@ -182,7 +182,7 @@ module Sisimai::Lhost
               v['status']    = Sisimai::SMTP::Status.find(v['diagnosis']) || ''
               v['replycode'] = Sisimai::SMTP::Reply.find(v['diagnosis'])  || ''
               v['reason']    = 'delivered'
-              v['action']    = 'deliverable'
+              v['action']    = 'delivered'
 
               v['date'] = o['timestamp'] || p['mail']['timestamp']
               v['date'].sub!(/[.]\d+Z\z/, '')
