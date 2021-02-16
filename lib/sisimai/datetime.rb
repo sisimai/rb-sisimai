@@ -207,24 +207,24 @@ module Sisimai
       end
 
       # Month name list
-      # @param    [Integer] argv1  Require full name or not
+      # @param    [Boolean] argv1  Require full name or not
       # @return   [Array, String]  Month name list or month name
       # @example  Get the names of each month
-      #   monthname()  #=> [ 'Jan', 'Feb', ... ]
-      #   monthname(1) #=> [ 'January', 'February', 'March', ... ]
-      def monthname(argv1 = 0)
-        value = argv1 > 0 ? :full : :abbr
+      #   monthname()     #=> [ 'Jan', 'Feb', ... ]
+      #   monthname(true) #=> [ 'January', 'February', 'March', ... ]
+      def monthname(argv1 = false)
+        value = argv1 ? :full : :abbr
         return MonthName[value]
       end
 
       # List of day of week
-      # @param    [Integer] argv1 Require full name
+      # @param    [Boolean] argv1 Require full name
       # @return   [Array, String] List of day of week or day of week
       # @example  Get the names of each day of week
-      #   dayofweek()  #=> [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ]
-      #   dayofweek(1) #=> [ 'Sunday', 'Monday', 'Tuesday', ... ]
-      def dayofweek(argv1 = 0)
-        value = argv1 > 0 ? :full : :abbr
+      #   dayofweek()     #=> [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ]
+      #   dayofweek(true) #=> [ 'Sunday', 'Monday', 'Tuesday', ... ]
+      def dayofweek(argv1 = false)
+        value = argv1 ? :full : :abbr
         return DayOfWeek[value]
       end
 

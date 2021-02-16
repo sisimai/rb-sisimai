@@ -42,8 +42,8 @@ describe Sisimai::DateTime do
   end
 
   describe '.monthname' do
-    month0 = Sisimai::DateTime.monthname(0)
-    month1 = Sisimai::DateTime.monthname(1)
+    month0 = Sisimai::DateTime.monthname(false)
+    month1 = Sisimai::DateTime.monthname(true)
 
     context 'integer' do
       it 'returns Array' do
@@ -70,15 +70,14 @@ describe Sisimai::DateTime do
 
     context 'wrong number of arguments' do
       it 'raises ArgumentError' do
-        expect { Sisimai::DateTime.monthname('x') }.to raise_error(ArgumentError)
         expect { Sisimai::DateTime.monthname('x','y') }.to raise_error(ArgumentError)
       end
     end
   end
 
   describe '.dayofweek' do
-    dayofweek0 = Sisimai::DateTime.dayofweek(0)
-    dayofweek1 = Sisimai::DateTime.dayofweek(1)
+    dayofweek0 = Sisimai::DateTime.dayofweek(false)
+    dayofweek1 = Sisimai::DateTime.dayofweek(true)
 
     context 'integer' do
       it 'returns Array' do
@@ -103,7 +102,6 @@ describe Sisimai::DateTime do
 
     context 'wrong number of arguments' do
       it 'raises ArgumentError' do
-        expect { Sisimai::DateTime.dayofweek('x') }.to raise_error(ArgumentError)
         expect { Sisimai::DateTime.dayofweek('x', 'y') }.to raise_error(ArgumentError)
       end
     end
