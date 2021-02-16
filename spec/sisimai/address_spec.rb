@@ -110,7 +110,7 @@ describe Sisimai::Address do
       'n' => 'neko-nyaan@example.com',
       'c' => '' },
     { 'v' => 'neko-nyaan@example.com.',
-      'a' => 'neko-nyaan@example.com.',
+      'a' => 'neko-nyaan@example.com',
       'n' => 'neko-nyaan@example.com.',
       'c' => '' },
     { 'v' => 'n@example.com',

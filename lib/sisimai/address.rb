@@ -240,7 +240,7 @@ module Sisimai
 
         # Remove angle brackets, other brackets, and quotations: []<>{}'`
         # except a domain part is an IP address like neko@[192.0.2.222]
-        e[:address] = e[:address].sub(/\A[\[<{('`]/, '').sub(/['`>})]\z/, '')
+        e[:address] = e[:address].sub(/\A[\[<{('`]/, '').sub(/[.'`>});]\z/, '')
         e[:address].chomp!(']') unless e[:address] =~ /[@]\[[0-9A-Za-z:\.]+\]\z/
         e[:address] = e[:address].sub(/\A["]/, '').chomp('"') unless e[:address] =~ /\A["].+["][@]/
 
@@ -321,13 +321,16 @@ module Sisimai
       addrs = Sisimai::Address.find(argv1)
       return nil unless addrs
       return nil if addrs.empty?
+
       thing = addrs.shift
+      heads = ['<']
+      tails = ['>', ',', '.', ';']
 
       if cv = thing[:address].match(/\A([^\s]+)[@]([^@]+)\z/) ||
               thing[:address].match(/\A(["].+?["])[@]([^@]+)\z/)
         # Get the local part and the domain part from the email address
-        lpart = cv[1]
-        dpart = cv[2]
+        lpart = cv[1]; heads.each { |e| lpart.gsub!(/\A#{e}/, '') if lpart.start_with?(e) }
+        dpart = cv[2]; tails.each { |e| dpart.gsub!(/#{e}\z/, '') if dpart.end_with?(e)   }        
         email = Sisimai::Address.expand_verp(thing[:address])
         aname = nil
 
