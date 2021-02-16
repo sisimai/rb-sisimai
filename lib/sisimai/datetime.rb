@@ -257,9 +257,10 @@ module Sisimai
 
         while p = timetokens.shift do
           # Parse each piece of time
-          if p =~ /\A[A-Z][a-z]{2}[,]?\z/
+          if p =~ /\A[A-Z][a-z]{2,}[,]?\z/
             # Day of week or Day of week; Thu, Apr, ...
-            p.chop if p.size == 4 # Thu, -> Thu
+            p.gsub!(/,\z/, '') if p.end_with?(',')  # "Thu," => "Thu"
+            p = p[0,3] if p.size > 3
 
             if DayOfWeek[:abbr].include?(p)
               # Day of week; Mon, Thu, Sun,...
@@ -273,7 +274,7 @@ module Sisimai
             # Year or Day; 2005, 31, 04,  1, ...
             if p.to_i > 31
               # The piece is the value of an year
-              v[:Y] = p
+              v[:Y] = p.to_i
             else
               # The piece is the value of a day
               if v[:d]
