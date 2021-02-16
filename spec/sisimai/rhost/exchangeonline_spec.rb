@@ -12,7 +12,7 @@ describe Sisimai::Rhost::ExchangeOnline do
   }
   describe 'bounce mail from Exchange Online' do
     rs.each_key.each do |n|
-      emailfn = sprintf('./set-of-emails/maildir/bsd/rhost-exchange-online-%02d.eml', n)
+      emailfn = sprintf('./set-of-emails/maildir/bsd/rhost-exchangeonline-%02d.eml', n)
       next unless File.exist?(emailfn)
 
       mailbox = Sisimai::Mail.new(emailfn)
