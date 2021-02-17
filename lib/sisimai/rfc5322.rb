@@ -64,7 +64,7 @@ module Sisimai
       # Fields that might be long
       # @return   [Hash] Long filed(email header) list
       def LONGFIELDS
-        return { 'to' => 1, 'from' => 1, 'subject' => 1, 'message-id' => 1 }
+        return { 'to' => true, 'from' => true, 'subject' => true, 'message-id' => true }
       end
 
       # Check that the argument is an email address or not
@@ -191,8 +191,13 @@ module Sisimai
         v[1] ||= ''
 
         unless v[1].empty?
-          v[1].sub(/\A[\r\n\s]+/, '')
-          v[1].sub(/\n\n.+\z/m, '')
+          # Remove blank lines, the message body of the original message, and append "\n" at the end
+          # of the original message headers
+          # 1. Remove leading blank lines
+          # 2. Remove text after the first blank line: \n\n
+          # 3. Append "\n" at the end of test block when the last character is not "\n"
+          v[1].sub!(/\A[\r\n\s]+/, '')
+          v[1] = v[1][0, v[1].index("\n\n")] if v[1].include?("\n\n")
           v[1] << "\n" unless v[1].end_with?("\n")
         end
         return v
