@@ -55,7 +55,7 @@ describe Sisimai::Mail do
         it('is "stdin"') { expect(devices.kind).to be == 'stdin' }
       end
       describe '#path' do
-        it('returns IO::STDIN') { expect(devices.path).to be_a IO }
+        it('returns <STDIN>') { expect(devices.path).to be == '<STDIN>' }
       end
       describe '#data ' do
         it('returns "Sisimai::Mail::STDIN"') { expect(devices.data).to be_a Sisimai::Mail::STDIN }
