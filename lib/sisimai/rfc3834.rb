@@ -99,7 +99,7 @@ module Sisimai
         if mhead['content-type']
           # Get the boundary string and set regular expression for matching with
           # the boundary string.
-          b0 = Sisimai::MIME.boundary(mhead['content-type'], 0)
+          b0 = Sisimai::MIME.boundary(mhead['content-type'], 0) || ''
           MarkingsOf[:boundary] = %r/\A\Q#{b0}\E\z/ unless b0.empty?
         end
 
