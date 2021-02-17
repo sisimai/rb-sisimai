@@ -9,7 +9,7 @@ v4.25.10p1
 - version: ""
 - changes:
   - Fix typo in `Sisimai::RFC3464`
-    - Import some commits from Sisimai version 5 preview #
+  - Import some commits from Sisimai version 5 preview #
     - Improved code for getting an email address in `Sisimai::Address`
     - Improved code for checking the day of month value, for converting a full
       month name and a full day of the week at `Sisimai::DateTime`
