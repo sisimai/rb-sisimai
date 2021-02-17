@@ -82,7 +82,7 @@ module Sisimai
           # reply code.
           argv1 = argv1.gsub(/#{IP4Re}/, '***.***.***.***') if argv1 =~ IP4Re
 
-          if cv = argv1.match(/\b([45][0-5][0-9])\b/) || argv1.match(/\b(25[0-3])\b/)
+          if cv = argv1.match(/\b([45][0-7][0-9])\b/) || argv1.match(/\b(25[0-3])\b/)
             # 550, 447, or 250
             return cv[1]
           else
