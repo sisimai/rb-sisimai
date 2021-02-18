@@ -3,6 +3,18 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.25.10p1
+--------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - Fix typo in `Sisimai::RFC3464`
+  - Import some commits from Sisimai version 5 preview #
+    - Improved code for getting an email address in `Sisimai::Address`
+    - Improved code for checking the day of month value, for converting a full
+      month name and a full day of the week at `Sisimai::DateTime`
+    - Improvement code for picking text blocks of message/rfc822 part in RFC5322
+
 v4.25.10
 --------------------------------------------------------------------------------
 - release: "Tue, 22 Dec 2020 13:22:22 +0900 (JST)"

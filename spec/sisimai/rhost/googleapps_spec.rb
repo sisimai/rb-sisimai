@@ -11,7 +11,7 @@ describe Sisimai::Rhost::GoogleApps do
   }
   describe 'bounce mail from GoogleApps' do
     rs.each_key.each do |n|
-      emailfn = sprintf('./set-of-emails/maildir/bsd/rhost-google-apps-%02d.eml', n)
+      emailfn = sprintf('./set-of-emails/maildir/bsd/rhost-googleapps-%02d.eml', n)
       next unless File.exist?(emailfn)
 
       mailbox = Sisimai::Mail.new(emailfn)

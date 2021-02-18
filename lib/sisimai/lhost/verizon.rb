@@ -44,8 +44,8 @@ module Sisimai::Lhost
             # The attempted recipient address does not exist.
             'userunknown' => ['550 - Requested action not taken: no such user here'],
           }
-          boundary00 = Sisimai::MIME.boundary(mhead['content-type']) || ''
-          rebackbone = Regexp.new('^' << Regexp.escape('--' << boundary00 << '--')) unless boundary00.empty?
+          boundary00 = Sisimai::MIME.boundary(mhead['content-type'], 1) || ''
+          rebackbone = Regexp.new('^' << Regexp.escape(boundary00)) unless boundary00.empty?
           emailsteak = Sisimai::RFC5322.fillet(mbody, rebackbone)
           bodyslices = emailsteak[0].split("\n")
 
@@ -93,8 +93,8 @@ module Sisimai::Lhost
           # vzwpix.com
           startingof = { message: ['Message could not be delivered to mobile'] }
           messagesof = { 'userunknown' => ['No valid recipients for this MM'] }
-          boundary00 = Sisimai::MIME.boundary(mhead['content-type'])
-          rebackbone = Regexp.new('^' << Regexp.escape('--' << boundary00 << '--')) unless boundary00.empty?
+          boundary00 = Sisimai::MIME.boundary(mhead['content-type'], 1)
+          rebackbone = Regexp.new('^' << Regexp.escape(boundary00)) unless boundary00.empty?
           emailsteak = Sisimai::RFC5322.fillet(mbody, rebackbone)
           bodyslices = emailsteak[0].split("\n")
 

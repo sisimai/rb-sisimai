@@ -207,24 +207,24 @@ module Sisimai
       end
 
       # Month name list
-      # @param    [Integer] argv1  Require full name or not
+      # @param    [Boolean] argv1  Require full name or not
       # @return   [Array, String]  Month name list or month name
       # @example  Get the names of each month
-      #   monthname()  #=> [ 'Jan', 'Feb', ... ]
-      #   monthname(1) #=> [ 'January', 'February', 'March', ... ]
-      def monthname(argv1 = 0)
-        value = argv1 > 0 ? :full : :abbr
+      #   monthname()     #=> [ 'Jan', 'Feb', ... ]
+      #   monthname(true) #=> [ 'January', 'February', 'March', ... ]
+      def monthname(argv1 = false)
+        value = argv1 ? :full : :abbr
         return MonthName[value]
       end
 
       # List of day of week
-      # @param    [Integer] argv1 Require full name
+      # @param    [Boolean] argv1 Require full name
       # @return   [Array, String] List of day of week or day of week
       # @example  Get the names of each day of week
-      #   dayofweek()  #=> [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ]
-      #   dayofweek(1) #=> [ 'Sunday', 'Monday', 'Tuesday', ... ]
-      def dayofweek(argv1 = 0)
-        value = argv1 > 0 ? :full : :abbr
+      #   dayofweek()     #=> [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ]
+      #   dayofweek(true) #=> [ 'Sunday', 'Monday', 'Tuesday', ... ]
+      def dayofweek(argv1 = false)
+        value = argv1 ? :full : :abbr
         return DayOfWeek[value]
       end
 
@@ -257,9 +257,10 @@ module Sisimai
 
         while p = timetokens.shift do
           # Parse each piece of time
-          if p =~ /\A[A-Z][a-z]{2}[,]?\z/
+          if p =~ /\A[A-Z][a-z]{2,}[,]?\z/
             # Day of week or Day of week; Thu, Apr, ...
-            p.chop if p.size == 4 # Thu, -> Thu
+            p.gsub!(/,\z/, '') if p.end_with?(',')  # "Thu," => "Thu"
+            p = p[0,3] if p.size > 3
 
             if DayOfWeek[:abbr].include?(p)
               # Day of week; Mon, Thu, Sun,...
@@ -273,7 +274,7 @@ module Sisimai
             # Year or Day; 2005, 31, 04,  1, ...
             if p.to_i > 31
               # The piece is the value of an year
-              v[:Y] = p
+              v[:Y] = p.to_i
             else
               # The piece is the value of a day
               if v[:d]
@@ -441,7 +442,7 @@ module Sisimai
       # @example  Get timezone offset string of specified seconds
       #   second2tz(12345)    #=> '+0325'
       def second2tz(argv1)
-        return '+0000' unless argv1.is_a?(Number)
+        return '+0000' unless argv1.is_a?(::Integer)
         return nil if argv1.abs > TZ_OFFSET  # UTC+14 + 1(DST?)
 
         digit = { :operator => '+' }
