@@ -7,7 +7,10 @@ module Sisimai
     # of D.S.N. is 5.2.3. This reason is almost the same as "MesgTooBig", we think.
     module ExceedLimit
       class << self
-        Index = ['message too large']
+        Index = [
+          'message header size exceeds limit',
+          'message too large',
+        ]
 
         def text; return 'exceedlimit'; end
         def description; return 'Email rejected due to an email exceeded the limit'; end

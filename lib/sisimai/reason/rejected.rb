@@ -19,8 +19,8 @@ module Sisimai
           'sender ip address rejected',
         ]
         Index = [
-          '<> invalid sender',
           'access denied (in reply to mail from command)',
+          'access denied (sender blacklisted)',
           'address rejected',
           'administrative prohibition',
           'batv failed to verify',    # SoniWall
@@ -29,6 +29,7 @@ module Sisimai
           'bogus mail from',          # IMail - block empty sender
           'connections not accepted from servers without a valid sender domain',
           'denied [bouncedeny]',      # McAfee
+          'denied by secumail valid-address-filter',
           'delivery not authorized, message refused',
           'does not exist e2110',
           'domain of sender address ',
@@ -39,6 +40,7 @@ module Sisimai
           'from: domain is invalid. please provide a valid from:',
           'fully qualified email address required',   # McAfee
           'invalid domain, see <url:',
+          'invalid sender',
           'is not a registered gateway user',
           'mail from not owned by user',
           'message rejected: email address is not verified',
@@ -49,6 +51,7 @@ module Sisimai
           'returned mail not accepted here',
           'rfc 1035 violation: recursive cname records for',
           'rule imposed mailbox access for',  # MailMarshal
+          'sender address has been blacklisted',
           'sender email address rejected',
           'sender is spammer',
           'sender not pre-approved',
@@ -57,6 +60,7 @@ module Sisimai
           'sender verify failed', # Exim callout
           'syntax error: empty email address',
           'the message has been rejected by batv defense',
+          'this server does not accept mail from',
           'transaction failed unsigned dsn for',
           'unroutable sender address',
           'you are sending to/from an address that has been blacklisted',

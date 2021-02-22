@@ -20,6 +20,7 @@ module Sisimai
           'recipient domain must exist',
           'the account or domain may not exist',
           'unknown host',
+          'unroutable address',
           'unrouteable address',
         ]
         Regex = %r/553[ ][^ ]+[ ]does[ ]not[ ]exist/

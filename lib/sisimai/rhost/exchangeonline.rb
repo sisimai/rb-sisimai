@@ -20,6 +20,7 @@ module Sisimai
           '5.2.2'   => [{ reason: 'mailboxfull', string: 'Mailbox full' }],
           '5.2.3'   => [{ reason: 'exceedlimit', string: 'Message too large' }],
           '5.2.4'   => [{ reason: 'systemerror', string: 'Mailing list expansion problem' }],
+          '5.2.14'  => [{ reason: 'systemerror', string: 'misconfigured forwarding address' }],
           '5.2.122' => [{ reason: 'toomanyconn' ,string: 'The recipient has exceeded their limit for' }],
           '5.3.3'   => [{ reason: 'systemfull',  string: 'Unrecognized command' }],
           '5.3.4'   => [{ reason: 'mesgtoobig',  string: 'Message too big for system' }],
@@ -27,6 +28,7 @@ module Sisimai
           '5.4.1'   => [{ reason: 'rejected',    string: 'Recipient address rejected: Access denied' }],
           '5.4.11'  => [{ reason: 'contenterror',string: 'Agent generated message depth exceeded' }],
           '5.4.14'  => [{ reason: 'networkerror',string: 'Hop count exceeded' }],
+          '5.4.310' => [{ reason: 'systemerror', string: 'does not exist' }], # DNS domain * does not exist
           '5.5.2'   => [{ reason: 'syntaxerror', string: 'Send hello first' }],
           '5.5.3'   => [{ reason: 'syntaxerror', string: 'Too many recipients' }],
           '5.5.4'   => [{ reason: 'filtered',    string: 'Invalid domain name' }],
@@ -98,7 +100,12 @@ module Sisimai
           'networkerror'  => ['SMTPSEND.DNS.MxLoopback'],
           'rejected'      => ['RESOLVER.RST.NotAuthorized'],
           'securityerror' => ['RESOLVER.RST.AuthRequired'],
-          'systemerror'   => ['RESOLVER.ADR.Ambiguous', 'RESOLVER.ADR.BadPrimary', 'RESOLVER.ADR.InvalidInSmtp'],
+          'systemerror'   => [
+            'RESOLVER.ADR.Ambiguous',
+            'RESOLVER.ADR.BadPrimary',
+            'RESOLVER.ADR.InvalidInSmtp',
+            'RESOLVER.FWD.NotFound',
+          ],
           'toomanyconn'   => ['RESOLVER.ADR.RecipLimit', 'RESOLVER.ADR.RecipientLimit'],
           'userunknown'   => [
             'RESOLVER.ADR.RecipNotFound',
