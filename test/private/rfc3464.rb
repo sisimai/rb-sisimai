@@ -139,7 +139,7 @@ module LhostEngineTest::Private
       '01148' => [['5.0.922', '',    'mailboxfull',     false]],
       '01149' => [['4.4.7',   '',    'expired',         false]],
       '01150' => [['5.0.922', '',    'mailboxfull',     false]],
-      '01153' => [['5.0.901', '',    'policyviolation', false]],
+      '01153' => [['5.0.972', '',    'policyviolation', false]],
       '01154' => [['5.1.1',   '',    'userunknown',     true]],
       '01155' => [['5.4.6',   '554', 'networkerror',    false]],
       '01156' => [['5.7.1',   '550', 'spamdetected',    false],
