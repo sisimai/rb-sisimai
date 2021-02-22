@@ -9,7 +9,10 @@ module Sisimai
     module ExceedLimit
       # Imported from p5-Sisimail/lib/Sisimai/Reason/ExceedLimit.pm
       class << self
-        Index = ['message too large']
+        Index = [
+          'message header size exceeds limit',
+          'message too large',
+        ]
 
         def text; return 'exceedlimit'; end
         def description; return 'Email rejected due to an email exceeded the limit'; end

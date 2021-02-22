@@ -19,6 +19,7 @@ module Sisimai
         Index = [
           'an illegal attachment on your message',
           'because the recipient is not accepting mail with ',    # AOL Phoenix
+          'by non-member to a members-only list',
           'closed mailing list',
           'denied by policy',
           'dmarc policy',
@@ -28,6 +29,7 @@ module Sisimai
           'header are not accepted',
           'header error',
           'local policy violation',
+          'message bounced due to organizational settings',
           'message given low priority',
           'message not accepted for policy reasons',
           'messages with multiple addresses',
@@ -35,6 +37,7 @@ module Sisimai
           'protocol violation',
           'the email address used to send your message is not subscribed to this group',
           'this message was blocked because its content presents a potential',
+          'we do not accept messages containing images or other attachments',
           'you have exceeded the allowable number of posts without solving a captcha',
           'you have exceeded the the allowable number of posts without solving a captcha',
         ]

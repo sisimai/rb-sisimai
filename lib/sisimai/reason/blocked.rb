@@ -10,7 +10,9 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/Blocked.pm
       class << self
         Regex = %r{(?>
-           access[ ]denied[.][ ]ip[ ]name[ ]lookup[ ]failed
+           [ ]said:[ ]550[ ]blocked
+          |[(][^ ]+[@][^ ]+:blocked[)]
+          |access[ ]denied[.][ ]ip[ ]name[ ]lookup[ ]failed
           |access[ ]from[ ]ip[ ]address[ ][^ ]+[ ]blocked
           |all[ ]mail[ ]servers[ ]must[ ]have[ ]a[ ]ptr[ ]record[ ]with[ ]a[ ]valid[ ]reverse[ ]dns[ ]entry
           |bad[ ](:?dns[ ]ptr[ ]resource[ ]record|sender[ ]ip[ ]address)
@@ -52,11 +54,13 @@ module Sisimai
           |dnsbl:attrbl
           |dynamic/zombied/spam[ ]ips[ ]blocked
           |email[ ]blocked[ ]by[ ](?:[^ ]+[.]barracudacentral[.]org|spamhaus)
+          |error:[ ]no[ ]valid[ ]recipients[ ]from[ ]
           |esmtp[ ]not[ ]accepting[ ]connections  # icloud.com
           |fix[ ]reverse[ ]dns[ ]for[ ][^ ]+
           |go[ ]away
           |helo[ ]command[ ]rejected:
           |host[ ]+[^ ]refused[ ]to[ ]talk[ ]to[ ]me:[ ]\d+[ ]blocked
+          |host[ ]network[ ]not[ ]allowed
           |hosts[ ]with[ ]dynamic[ ]ip
           |http://(?:
              spf[.]pobox[.]com/why[.]html
@@ -66,7 +70,7 @@ module Sisimai
           |ip[ ]\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3}[ ]is[ ]blocked[ ]by[ ]EarthLink # Earthlink
           |ip[/]domain[ ]reputation[ ]problems
           |is[ ](?:
-             in[ ]a[ ]black[ ]list[ ]at[ ][^ ]+[.]
+             in[ ]a[ ]black[ ]list(?:[ ]at[ ][^ ]+[.])?
             |in[ ]an[ ][^ ]+rbl[ ]on[ ][^ ]+
             |not[ ]allowed[ ]to[ ]send[ ](?:
                mail[ ]from
@@ -76,6 +80,7 @@ module Sisimai
           |mail[ ]server[ ]at[ ][^ ]+[ ]is[ ]blocked
           |mail[ ]from[ ]\d+[.]\d+[.]\d+[.]\d[ ]refused:
           |message[ ]from[ ][^ ]+[ ]rejected[ ]based[ ]on[ ]blacklist
+          |message[ ]was[ ]rejected[ ]for[ ]possible[ ]spam/virus[ ]content
           |messages[ ]from[ ][^ ]+[ ]temporarily[ ]deferred[ ]due[ ]to[ ]user[ ]complaints   # Yahoo!
           |no[ ](?:
              access[ ]from[ ]mail[ ]server
@@ -89,6 +94,11 @@ module Sisimai
             |use[ ]the[ ]smtp[ ]server[ ]of[ ]your[ ]isp
             )
           |ptr[ ]record[ ]setup
+          |rejected[ ]because[ ]the[ ]sending[ ]mta[ ]or[ ]the[ ]sender[ ]has[ ]not[ ]passed[ ]validation
+          |rejected[ ]due[ ]to[ ](?:
+             a[ ]poor[ ]email[ ]reputation[ ]score
+            |the[ ]sending[ ]mta's[ ]poor[ ]reputation
+            )
           |rejecting[ ]open[ ]proxy   # Sendmail(srvrsmtp.c)
           |reverse[ ]dns[ ](?:
              failed
@@ -120,6 +130,7 @@ module Sisimai
           |temporarily[ ]deferred[ ]due[ ]to[ ]unexpected[ ]volume[ ]or[ ]user[ ]complaints
           |the[ ](?:email|domain|ip)[ ][^ ]+[ ]is[ ]blacklisted
           |this[ ]system[ ]will[ ]not[ ]accept[ ]messages[ ]from[ ]servers[/]devices[ ]with[ ]no[ ]reverse[ ]dns
+          |to[ ]submit[ ]messages[ ]to[ ]this[ ]e-mail[ ]system[ ]has[ ]been[ ]rejected
           |too[ ]many[ ](?:
              spams[ ]from[ ]your[ ]ip  # free.fr
             |unwanted[ ]messages[ ]have[ ]been[ ]sent[ ]from[ ]the[ ]following[ ]ip[ ]address[ ]above
@@ -141,8 +152,10 @@ module Sisimai
             |sending[ ]spam
             )
           |your[ ](?:
-             access[ ]to[ ]submit[ ]messages[ ]to[ ]this[ ]e-mail[ ]system[ ]has[ ]been[ ]rejected
-            |message[ ]was[ ]rejected[ ]for[ ]possible[ ]spam/virus[ ]content
+             email[ ]address[ ]has[ ]been[ ]blacklisted
+            |network[ ]is[ ]temporary[ ]blacklisted
+            |sender's[ ]ip[ ]address[ ]is[ ]listed[ ]at[ ][^ ]+[.]abuseat[.]org
+            |server[ ]requires[ ]confirmation
             )
           )
         }x

@@ -13,6 +13,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/SystemError.pm
       class << self
         Index = [
+          'aliasing/forwarding loop broken',
           "can't create user output file",
           'could not load drd for domain',
           'internal error reading data',  # Microsoft
@@ -25,6 +26,7 @@ module Sisimai
           'loop was found in the mail exchanger',
           'loops back to myself',
           'mail system configuration error',
+          'remote server is misconfigured',
           'server configuration error',
           'service currently unavailable',
           'system config error',

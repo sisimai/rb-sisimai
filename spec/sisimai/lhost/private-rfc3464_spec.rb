@@ -136,7 +136,7 @@ isexpected = [
   { 'n' => '01149', 'r' => /expired/ },
   { 'n' => '01150', 'r' => /mailboxfull/ },
   { 'n' => '01151', 'r' => /exceedlimit/ },
-  { 'n' => '01153', 'r' => /onhold/ },
+  { 'n' => '01153', 'r' => /policyviolation/ },
   { 'n' => '01154', 'r' => /userunknown/ },
   { 'n' => '01155', 'r' => /networkerror/ },
   { 'n' => '01156', 'r' => /spamdetected/ },
@@ -234,6 +234,12 @@ isexpected = [
   { 'n' => '01280', 'r' => /networkerror/ },
   { 'n' => '01281', 'r' => /vacation/ },
   { 'n' => '01282', 'r' => /userunknown/ },
+  { 'n' => '01283', 'r' => /expired/        },
+  { 'n' => '01284', 'r' => /policyviolation/},
+  { 'n' => '01285', 'r' => /spamdetected/   },
+  { 'n' => '01286', 'r' => /rejected/       },
+  { 'n' => '01287', 'r' => /filtered/       },
+  { 'n' => '01288', 'r' => /exceedlimit/    },
 ]
 Sisimai::Lhost::Code.maketest(enginename, isexpected, true)
 

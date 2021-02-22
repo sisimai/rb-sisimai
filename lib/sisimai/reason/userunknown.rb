@@ -28,10 +28,13 @@ module Sisimai
            [#]5[.]1[.]1[ ]bad[ ]address
           |[<][^ ]+[>][ ]not[ ]found
           |[<][^ ]+[@][^ ]+[>][.][.][.][ ]blocked[ ]by[ ]
+          |550[ ]address[ ]invalid
           |5[.]0[.]0[.][ ]mail[ ]rejected[.]
           |5[.]1[.]0[ ]address[ ]rejected[.]
+          |account[ ][^ ]+[ ]does[ ]not[ ]exist[ ]at[ ]the[ ]organization
           |adresse[ ]d[ ]au[ ]moins[ ]un[ ]destinataire[ ]invalide[.][ ]invalid[ ]recipient[.][0-9a-z_]+41[68]
           |address[ ](?:does[ ]not[ ]exist|unknown)
+          |address[ ](?:does[ ]not[ ]exist|not[ ]present[ ]in[ ]directory|unknown)
           |archived[ ]recipient
           |bad[-_ ]recipient
           |can[']t[ ]accept[ ]user
@@ -43,7 +46,7 @@ module Sisimai
           |email[ ]address[ ](?:does[ ]not[ ]exist|could[ ]not[ ]be[ ]found)
           |invalid[ ](?:
              address
-            |mailbox:
+            |mailbox:?
             |mailbox[ ]path
             |recipient
             )
@@ -61,6 +64,7 @@ module Sisimai
             |not[ ](?:present|found)
             |unavailable
             )
+          |nessun[ ]utente[ ]simile[ ]in[ ]questo[ ]indirizzo
           |no[ ](?:
              [ ][^ ]+[ ]in[ ]name[ ]directory
             |account[ ]by[ ]that[ ]name[ ]here
@@ -138,6 +142,7 @@ module Sisimai
             |not[ ](?:active|exist|found|known)
             |unknown
             )
+          |utilisateur[ ]inconnu[ ]!
           |vdeliver:[ ]invalid[ ]or[ ]unknown[ ]virtual[ ]user
           |your[ ]envelope[ ]recipient[ ]is[ ]in[ ]my[ ]badrcptto[ ]list
           )
