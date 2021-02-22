@@ -25,7 +25,7 @@ module Sisimai::Lhost
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to parse or the arguments are missing
       def inquire(mhead, mbody)
-        return nil unless mhead['subject'].start_with?('DELIVERY FAILURE:')
+        return nil unless mhead['subject'].start_with?('DELIVERY FAILURE:', 'DELIVERY_FAILURE:')
 
         require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
@@ -99,8 +99,8 @@ module Sisimai::Lhost
 
               if o[-1] == 'code'
                 # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
-                v['spec'] = o[1]
-                v['diagnosis'] = o[2]
+                v['spec']      = o[1] if v['spec'].to_s.empty?
+                v['diagnosis'] = o[2] if v['diagnosis'].to_s.empty?
               else
                 # Other DSN fields defined in RFC3464
                 next unless fieldtable[o[0]]
