@@ -175,6 +175,9 @@ isexpected = [
   { 'n' => '01185', 'r' => /suspend/ },
   { 'n' => '01186', 'r' => /userunknown/ },
   { 'n' => '01187', 'r' => /hostunknown/ },
+  { 'n' => '01189', 'r' => /expired/ },
+  { 'n' => '01190', 'r' => /hostunknown/ },
+  { 'n' => '01191', 'r' => /suspend/ },
 ]
 Sisimai::Lhost::Code.maketest(enginename, isexpected, true)
 

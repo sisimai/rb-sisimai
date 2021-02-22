@@ -11,6 +11,8 @@ isexpected = [
   { 'n' => '01007', 'r' => /rejected/ },
   { 'n' => '01008', 'r' => /networkerror/ },
   { 'n' => '01009', 'r' => /userunknown/ },
+  { 'n' => '01010', 'r' => /policyviolation/ },
+  { 'n' => '01011', 'r' => /systemerror/ },
 ]
 Sisimai::Lhost::Code.maketest(enginename, isexpected, true)
 
