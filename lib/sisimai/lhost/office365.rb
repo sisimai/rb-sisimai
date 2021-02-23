@@ -13,6 +13,7 @@ module Sisimai::Lhost
       }.freeze
       MarkingsOf = {
         eoe:     %r/\A(?:Original[ ][Mm]essage[ ][Hh]eaders:?|Message[ ]Hops)/,
+        rfc3464: %r|\AContent-Type:[ ]message/delivery-status|,
         error:   %r/\A(?:Diagnostic[ ]information[ ]for[ ]administrators:|Error[ ]Details)/,
         message: %r{\A(?:
            Delivery[ ]has[ ]failed[ ]to[ ]these[ ]recipients[ ]or[ ]groups:
@@ -152,11 +153,20 @@ module Sisimai::Lhost
               next unless f = Sisimai::RFC1894.match(e)
               next unless o = Sisimai::RFC1894.field(e)
               next unless fieldtable[o[0]]
-              next if o[0] =~ /\A(?:diagnostic-code|final-recipient)\z/
-              v[fieldtable[o[0]]] = o[2]
 
-              next unless f == 1
-              permessage[fieldtable[o[0]]] = o[2]
+              if v['diagnosis']
+                # Do not capture "Diagnostic-Code:" field because error message have already
+                # been captured
+                next if o[0] =~ /\A(?:diagnostic-code|final-recipient)\z/
+                v[fieldtable[o[0]]] = o[2]
+
+                next unless f == 1
+                permessage[fieldtable[o[0]]] = o[2]
+              else
+                # Capture "Diagnostic-Code:" field because no error messages have been captured
+                v[fieldtable[o[0]]] = o[2]
+                permessage[fieldtable[o[0]]] = o[2]
+              end
             else
               if e =~ MarkingsOf[:error]
                 # Diagnostic information for administrators:
@@ -165,13 +175,18 @@ module Sisimai::Lhost
                 # kijitora@example.com
                 # Remote Server returned '550 5.1.10 RESOLVER.ADR.RecipientNotFound; Recipien=
                 # t not found by SMTP address lookup'
-                next unless v['diagnosis']
-                if e =~ MarkingsOf[:eoe]
-                  # Original message headers:
-                  endoferror = true
-                  next
+                if v['diagnosis']
+                  # The error message text have already captured
+                  if e =~ MarkingsOf[:eoe]
+                    # Original message headers:
+                    endoferror = true
+                    next
+                  end
+                  v['diagnosis'] << ' ' << e
+                else
+                  # The error message text has not been captured yet
+                  endoferror = true if e =~ MarkingsOf[:rfc3464]
                 end
-                v['diagnosis'] << ' ' << e
               end
             end
           end
