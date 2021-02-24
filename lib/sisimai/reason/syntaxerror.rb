@@ -25,7 +25,7 @@ module Sisimai
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
           return true if argvs['reason'] == 'syntaxerror'
-          return true if argvs['replycode'] =~ /\A[45]0[0-7]\z/
+          return true if argvs['replycode'] =~ /\A[45]0[1-7]\z/
           return false
         end
 
