@@ -1,10 +1,8 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Office365 parses a bounce email which created by
-  # Microsoft Office 365.
-  # Methods in the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::Office365 parses a bounce email which created by Microsoft Office 365. Methods in
+  # the module are called from only Sisimai::Message.
   module Office365
     class << self
-      # Imported from p5-Sisimail/lib/Sisimai/Lhost/Office365.pm
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
@@ -15,6 +13,7 @@ module Sisimai::Lhost
       }.freeze
       MarkingsOf = {
         eoe:     %r/\A(?:Original[ ][Mm]essage[ ][Hh]eaders:?|Message[ ]Hops)/,
+        rfc3464: %r|\AContent-Type:[ ]message/delivery-status|,
         error:   %r/\A(?:Diagnostic[ ]information[ ]for[ ]administrators:|Error[ ]Details)/,
         message: %r{\A(?:
            Delivery[ ]has[ ]failed[ ]to[ ]these[ ]recipients[ ]or[ ]groups:
@@ -75,7 +74,7 @@ module Sisimai::Lhost
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to parse or the arguments are missing
-      def make(mhead, mbody)
+      def inquire(mhead, mbody)
         # X-MS-Exchange-Message-Is-Ndr:
         # X-Microsoft-Antispam-PRVS: <....@...outlook.com>
         # X-Exchange-Antispam-Report-Test: UriScan:;
@@ -112,8 +111,8 @@ module Sisimai::Lhost
         v = nil
 
         while e = bodyslices.shift do
-          # Read error messages and delivery status lines from the head of the email
-          # to the previous line of the beginning of the original message.
+          # Read error messages and delivery status lines from the head of the email to the previous
+          # line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
             readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
@@ -154,11 +153,20 @@ module Sisimai::Lhost
               next unless f = Sisimai::RFC1894.match(e)
               next unless o = Sisimai::RFC1894.field(e)
               next unless fieldtable[o[0]]
-              next if o[0] =~ /\A(?:diagnostic-code|final-recipient)\z/
-              v[fieldtable[o[0]]] = o[2]
 
-              next unless f == 1
-              permessage[fieldtable[o[0]]] = o[2]
+              if v['diagnosis']
+                # Do not capture "Diagnostic-Code:" field because error message have already
+                # been captured
+                next if o[0] =~ /\A(?:diagnostic-code|final-recipient)\z/
+                v[fieldtable[o[0]]] = o[2]
+
+                next unless f == 1
+                permessage[fieldtable[o[0]]] = o[2]
+              else
+                # Capture "Diagnostic-Code:" field because no error messages have been captured
+                v[fieldtable[o[0]]] = o[2]
+                permessage[fieldtable[o[0]]] = o[2]
+              end
             else
               if e =~ MarkingsOf[:error]
                 # Diagnostic information for administrators:
@@ -167,13 +175,18 @@ module Sisimai::Lhost
                 # kijitora@example.com
                 # Remote Server returned '550 5.1.10 RESOLVER.ADR.RecipientNotFound; Recipien=
                 # t not found by SMTP address lookup'
-                next unless v['diagnosis']
-                if e =~ MarkingsOf[:eoe]
-                  # Original message headers:
-                  endoferror = true
-                  next
+                if v['diagnosis']
+                  # The error message text have already captured
+                  if e =~ MarkingsOf[:eoe]
+                    # Original message headers:
+                    endoferror = true
+                    next
+                  end
+                  v['diagnosis'] << ' ' << e
+                else
+                  # The error message text has not been captured yet
+                  endoferror = true if e =~ MarkingsOf[:rfc3464]
                 end
-                v['diagnosis'] << ' ' << e
               end
             end
           end
