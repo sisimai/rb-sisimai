@@ -13,6 +13,7 @@ module Sisimai
 
       DefaultSet = Sisimai::Order.another
       LhostTable = Sisimai::Lhost.path
+      ReWrapping = %r<^Content-Type:[ ](?:message/rfc822|text/rfc822-headers)>.freeze
 
       # Read an email message and convert to structured format
       # @param         [Hash] argvs       Module to be loaded
@@ -24,11 +25,11 @@ module Sisimai
       #                                   value of the arguments are missing
       def rise(**argvs)
         return nil unless argvs
-        param = {}
         email = argvs[:data].scrub('?').gsub("\r\n", "\n")
         thing = { 'from' => '','header' => {}, 'rfc822' => '', 'ds' => [], 'catch' => nil }
+        param = {}
 
-        # 1. Load specified MTA modules
+        # 0. Load specified MTA modules
         [:load, :order].each do |e|
           # Order of MTA modules
           next unless argvs[e]
@@ -38,43 +39,57 @@ module Sisimai
         end
         tobeloaded = Sisimai::Message.load(param)
 
-        # 2. Split email data to headers and a body part.
-        return nil unless aftersplit = Sisimai::Message.divideup(email)
+        aftersplit = nil
+        beforefact = nil
+        parseagain = 0
 
-        # 3. Convert email headers from text to hash reference
-        thing['from']   = aftersplit[0]
-        thing['header'] = Sisimai::Message.makemap(aftersplit[1])
+        while parseagain < 2 do
+          # 1. Split email data to headers and a body part.
+          return nil unless aftersplit = Sisimai::Message.divideup(email)
 
-        # 4. Decode and rewrite the "Subject:" header
-        unless thing['header']['subject'].empty?
-          # Decode MIME-Encoded "Subject:" header
-          s = thing['header']['subject']
-          q = Sisimai::RFC2045.is_encoded(s) ? Sisimai::RFC2045.decodeH(s.split(/[ ]/)) : s
+          # 2. Convert email headers from text to hash reference
+          thing['from']   = aftersplit[0]
+          thing['header'] = Sisimai::Message.makemap(aftersplit[1])
 
-          # Remove "Fwd:" string from the Subject: header
-          if cv = q.downcase.match(/\A[ \t]*fwd?:[ ]*(.*)\z/)
-            # Delete quoted strings, quote symbols(>)
-            q = cv[1]
-            aftersplit[2] = aftersplit[2].gsub(/^[>]+[ ]/, '').gsub(/^[>]$/, '')
+          # 3. Decode and rewrite the "Subject:" header
+          unless thing['header']['subject'].empty?
+            # Decode MIME-Encoded "Subject:" header
+            s = thing['header']['subject']
+            q = Sisimai::RFC2045.is_encoded(s) ? Sisimai::RFC2045.decodeH(s.split(/[ ]/)) : s
+
+            # Remove "Fwd:" string from the Subject: header
+            if cv = q.downcase.match(/\A[ \t]*fwd?:[ ]*(.*)\z/)
+              # Delete quoted strings, quote symbols(>)
+              q = cv[1]
+              aftersplit[2] = aftersplit[2].gsub(/^[>]+[ ]/, '').gsub(/^[>]$/, '')
+            end
+            thing['header']['subject'] = q
           end
-          thing['header']['subject'] = q
-        end
 
-        # 5. Rewrite message body for detecting the bounce reason
-        param = {
-          'hook' => argvs[:hook] || nil,
-          'mail' => thing,
-          'body' => aftersplit[2],
-          'tobeloaded' => tobeloaded,
-          'tryonfirst' => Sisimai::Order.make(thing['header']['subject'])
-        }
-        return nil unless bouncedata = Sisimai::Message.parse(param)
-        return nil if bouncedata.empty?
-        return nil if bouncedata['ds'].empty?
+          # 4. Rewrite message body for detecting the bounce reason
+          param = {
+            'hook' => argvs[:hook] || nil,
+            'mail' => thing,
+            'body' => aftersplit[2],
+            'tobeloaded' => tobeloaded,
+            'tryonfirst' => Sisimai::Order.make(thing['header']['subject'])
+          }
+          break if beforefact = Sisimai::Message.parse(param)
+          break unless aftersplit[2] =~ ReWrapping
+
+          # 5. Try to parse again
+          #    There is a bounce message inside of mutipart/*, try to parse the first message/rfc822
+          #    part as a entire message body again.
+          parseagain += 1
+          email = aftersplit[2].split(ReWrapping, 2).pop.sub(/\A[\r\n\s]+/, '')
+          break unless email.size > 128
+        end
+        return nil unless beforefact
+        return nil if beforefact.empty?
 
         # 6. Rewrite headers of the original message in the body part
-        %w|ds catch rfc822|.each { |e| thing[e] = bouncedata[e] }
-        p = bouncedata['rfc822']
+        %w|ds catch rfc822|.each { |e| thing[e] = beforefact[e] }
+        p = beforefact['rfc822']
         p = aftersplit[2] if p.empty?
         thing['rfc822'] = p.is_a?(::String) ? Sisimai::Message.makemap(p, true) : p
 
