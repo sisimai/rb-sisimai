@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v5.0.0
+v5.0.0(beta2)
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -17,12 +17,12 @@ v5.0.0
       - #197 `Sisimai::Data.softboucne` marked as obsoleted and will be removed
         at v5.1.0, use `Sisimai::Fact.hardbounce` instead
     - #198 `Sisimai::Message`
-      - `Sisimai::Message` no longer creates a object
+      - `Sisimai::Message` no longer creates an object
       - `Sisimai::Message.make` renamed to `Sisimai::Message.rise`
     - Callback feature #191
-      - Parameter `:hook` for callback has been removed from `Sisimai.rise` and
-        `Sisimai.dump`. Use the first element of `:c___` parameter for setting
-        a callback method instead.
+      - Parameter `:hook` for a callback has been removed from `Sisimai.rise()`
+        and `Sisimai.dump()` methods. Use the first element of `:c___` parameter
+        for setting a callback method instead.
       - Parameter `:c___` is a parameter of `Sisimai.rise` and `Sisimai.dump`,
         is an array reference and have two elements:
       - The first element of `:c___` is the same with `:hook` parameter, is for
@@ -30,9 +30,12 @@ v5.0.0
       - The second element of `c___` parameter is for a callback method for each
         email file in Maildir/. The callback method is called at the end of each
         email file parsing.
-  - Implemenet Sisimai::RFC2045(Born again Sisimai::MIME) for compatibility with
+  - Implement Sisimai::RFC2045(Born again Sisimai::MIME) for compatibility with
     the Go language version of Sisimai #199
   - Sisimai uses `minitest` as a test framework, RSpec has been removed
+  - #217 `Sisimai::Message.rise` parses twice when the entire message body of a
+    bounced mail is multi parted begins with "message/rfc822".
+  - #218 Add error messages in some European languages into Office365 and Domino
 
 v4.25.11
 --------------------------------------------------------------------------------
