@@ -13,6 +13,7 @@ module Sisimai::Lhost
           'not listed in Domino Directory',
           'not listed in public Name & Address Book',
           "non répertorié dans l'annuaire Domino",
+          'no se encuentra en el Directorio de Domino',
           'Domino ディレクトリには見つかりません',
         ],
         'filtered' => ['Cannot route mail to user'],

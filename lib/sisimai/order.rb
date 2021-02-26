@@ -119,9 +119,11 @@ module Sisimai
         'message-delivery' => ['Sisimai::Lhost::MailFoundry'],
         'message-frozen'   => ['Sisimai::Lhost::Exim'],
         'message-you'      => ['Sisimai::Lhost::Barracuda'],
+        'não-entregue'     => ['Sisimai::Lhost::Office365'],
         'non-recapitabile' => ['Sisimai::Lhost::Exchange2007'],
         'non-remis' => ['Sisimai::Lhost::Exchange2007'],
         'notice'    => ['Sisimai::Lhost::Courier'],
+        'onbestelbaar'       => ['Sisimai::Lhost::Office365'],
         'permanent-delivery' => ['Sisimai::Lhost::X4'],
         'postmaster-notify'  => ['Sisimai::Lhost::Sendmail'],
         'returned-mail' => [

@@ -13,6 +13,7 @@ module Sisimai
         Index = [
           'host/domain does not accept mail', # iCloud
           'host does not accept mail',        # Sendmail
+          'mail receiving disabled',
           'name server: .: host not found',   # Sendmail
           'no mx record found for domain=',   # Oath(Yahoo!)
           'no route for current request',

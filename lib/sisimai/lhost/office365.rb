@@ -12,13 +12,33 @@ module Sisimai::Lhost
         eoerr:  ['Original message headers:'],
       }.freeze
       MarkingsOf = {
-        eoe:     %r/\A(?:Original[ ][Mm]essage[ ][Hh]eaders:?|Message[ ]Hops)/,
+        eoe:     %r{\A(?:
+           Original[ ][Mm]essage[ ][Hh]eaders:?
+          |Message[ ]Hops
+          |Cabe.+alhos[ ]originais[ ]da[ ]mensagem:
+          |Oorspronkelijke[ ]berichtkoppen:
+          )
+        }x,
         rfc3464: %r|\AContent-Type:[ ]message/delivery-status|,
-        error:   %r/\A(?:Diagnostic[ ]information[ ]for[ ]administrators:|Error[ ]Details)/,
+        lhost:   %r{\A(?:
+           Generating[ ]server
+          |Bronserver
+          |Servidor[ ]de[ ]origem
+          ):[ ](.+)\z
+        }x,
+        error:   %r{\A(?:
+           Diagnostic[ ]information[ ]for[ ]administrators:
+          |Error[ ]Details
+          |Diagnostische[ ]gegevens[ ]voor[ ]beheerders:
+          |Informa.+es[ ]de[ ]diagn.+stico[ ]para[ ]administradores:
+          )
+        }x,
         message: %r{\A(?:
            Delivery[ ]has[ ]failed[ ]to[ ]these[ ]recipients[ ]or[ ]groups:
           |Original[ ]Message[ ]Details
           |.+[ ]rejected[ ]your[ ]message[ ]to[ ]the[ ]following[ ]e[-]?mail[ ]addresses:
+          |Falha[ ]na[ ]entrega[ ]a[ ]estes[ ]destinat.+rios[ ]ou[ ]grupos:
+          |Uw[ ]bericht[ ]kan[ ]niet[ ]worden[ ]bezorgd[ ]bij[ ]de[ ]volgende[ ]geadresseerden[ ]of[ ]groepen:
           )
         }x,
       }.freeze
@@ -85,6 +105,9 @@ module Sisimai::Lhost
         tryto  = %r/.+[.](?:outbound[.]protection|prod)[.]outlook[.]com\b/
         match  = 0
         match += 1 if mhead['subject'].include?('Undeliverable:')
+        match += 1 if mhead['subject'].include?('Onbestelbaar:')
+        match += 1 if mhead['subject'].include?('Não_entregue:')
+
         Headers365.each do |e|
           next if mhead[e].nil?
           next if mhead[e].empty?
@@ -144,7 +167,7 @@ module Sisimai::Lhost
             v['recipient'] = cv[1]
             recipients += 1
 
-          elsif cv = e.match(/\AGenerating server: (.+)\z/)
+          elsif cv = e.match(MarkingsOf[:lhost])
             # Generating server: FFFFFFFFFFFF.e0.prod.outlook.com
             connheader['lhost'] = cv[1].downcase
           else
