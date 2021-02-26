@@ -31,6 +31,8 @@ module LhostEngineTest::Private
       '01027' => [['5.2.2',   '552', 'mailboxfull',     false]],
       '01028' => [['5.4.7',   '',    'expired',         false]],
       '01029' => [['5.3.0',   '550', 'filtered',        false]],
+      '01030' => [['2.6.0',   '250', 'delivered',       false]],
+      '01031' => [['2.6.0',   '250', 'delivered',       false]],
     }
   end
 end

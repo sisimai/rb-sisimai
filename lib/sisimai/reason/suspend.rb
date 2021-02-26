@@ -13,6 +13,7 @@ module Sisimai
           'has been suspended',
           'invalid/inactive user',
           'is a deactivated mailbox', # http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=20022&&no=1000742
+          'is unavailable: user is terminated',
           'mailbox currently suspended',
           'mailbox is frozen',
           'mailbox unavailable or access denied',

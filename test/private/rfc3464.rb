@@ -271,6 +271,7 @@ module LhostEngineTest::Private
       '01286' => [['5.5.0',   '550', 'rejected',        false]],
       '01287' => [['5.0.0',   '550', 'filtered',        false]],
       '01288' => [['5.0.0',   '552', 'exceedlimit',     false]],
+      '01289' => [['4.0.0',   '',    'notaccept',       false]],
     }
   end
 end

@@ -23,6 +23,7 @@ module Sisimai
           'loop was found in the mail exchanger',
           'loops back to myself',
           'mail system configuration error',
+          'recipient deferred because there is no mdb',
           'remote server is misconfigured',
           'server configuration error',
           'service currently unavailable',
