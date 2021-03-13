@@ -14,6 +14,7 @@ module Sisimai
               reason: 'securityerror',
               string: 'must pass either SPF or DKIM validation, this message is not signed'
           }],
+          '4.7.650' => [{ reason: 'blocked',     string: 'rate limited due to IP reputation' }],
           '5.0.0'   => [{ reason: 'blocked',     string: 'HELO / EHLO requires domain address' }],
           '5.1.4'   => [{ reason: 'systemerror', string: 'Destination mailbox address ambiguous' }],
           '5.2.1'   => [{ reason: 'suspend',     string: 'Mailbox cannot be accessed' }],
