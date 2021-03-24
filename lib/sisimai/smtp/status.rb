@@ -501,7 +501,7 @@ module Sisimai
           # '4.4.0' => 'networkerror',   # Other or undefined network or routing status
           '4.4.1'  => 'expired',        # No answer from host
           '4.4.2'  => 'networkerror',   # Bad connection
-          # '4.4.3' => 'systemerror',    # Directory server failure
+          '4.4.3'  => 'systemerror',    # Directory server failure
           '4.4.4'  => 'networkerror',   # Unable to route
           '4.4.5'  => 'systemfull',     # Mail system congestion
           '4.4.6'  => 'networkerror',   # Routing loop detected
@@ -548,10 +548,11 @@ module Sisimai
           '5.4.0'  => 'networkerror',   # Other or undefined network or routing status
           '5.4.3'  => 'systemerror',    # Directory server failure
           '5.4.4'  => 'hostunknown',    # Unable to route
+          '5.5.2'  => 'syntaxerror',    # If the server cannot BASE64 decode any client response (AUTH)
           '5.5.3'  => 'toomanyconn',    # Too many recipients
           '5.5.4'  => 'systemerror',    # Invalid command arguments
           '5.5.5'  => 'systemerror',    # Wrong protocol version
-          '5.5.6'  => 'securityerror',  # Authentication Exchange line is too long
+          '5.5.6'  => 'syntaxerror',    # Authentication Exchange line is too long
           '5.6.0'  => 'contenterror',   # Other or undefined media error
           '5.6.1'  => 'contenterror',   # Media not supported
           '5.6.2'  => 'contenterror',   # Conversion required and prohibited

@@ -8,7 +8,7 @@ module LhostEngineTest::Private
       '01004' => [['2.0.0',   '',    'delivered',       false],
                   ['5.1.1',   '550', 'userunknown',     true]],
       '01005' => [['4.4.1',   '',    'expired',         false]],
-      '01006' => [['4.4.3',   '',    'expired',         false]],
+      '01006' => [['4.4.3',   '',    'systemerror',     false]],
       '01007' => [['4.4.1',   '',    'expired',         false]],
       '01008' => [['5.2.0',   '550', 'filtered',        false]],
       '01009' => [['4.4.1',   '',    'expired',         false]],
