@@ -12,6 +12,9 @@ v5.0.0(beta2)
     - **Sisimai requires Ruby 2.4 or later**
     - `Sisimai.make` marked as obsoleted and will be removed at Sisimai v5.1.0,
       use `Sisimai.rise` instead
+    - Sisimai does not return the result which reason is `vacation` by default.
+      Use `vacation: true` option at `Sisimai.rise()` method to get the parsed
+      results for `vacation` reason. #220, #222
     - `Sisimai::Data` and `Sisimai::Fact`
       - #208 `Sisimai::Data` has been renamed to `Sisimai::Fact`
       - #197 `Sisimai::Data.softboucne` marked as obsoleted and will be removed
