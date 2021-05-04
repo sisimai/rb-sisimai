@@ -81,6 +81,7 @@ module Sisimai
     # @param         [Hash]   argvs
     # @options argvs [String]  data       Entire email message
     # @options argvs [Boolean] delivered  Include the result which has "delivered" reason
+    # @options argvs [Boolean] vacation   Include the result which has "vacation" reason
     # @options argvs [Proc]    hook       Proc object of callback method
     # @options argvs [Array]   load       User defined MTA module list
     # @options argvs [Array]   order      The order of MTA modules
@@ -128,6 +129,11 @@ module Sisimai
         unless argvs[:delivered]
           # Skip if the value of "deliverystatus" begins with "2." such as 2.1.5
           next if p['deliverystatus'].start_with?('2.')
+        end
+
+        unless argvs[:vacation]
+          # Skip if the value of "reason" is "vacation"
+          next if p['reason'] == 'vacation'
         end
 
         # EMAILADDRESS: Detect email address from message/rfc822 part
