@@ -266,6 +266,11 @@ module Sisimai
           end
         end
 
+        if Sisimai::String.is_8bit(p['diagnosticcode'])
+          # To avoid incompatible character encodings: ASCII-8BIT and UTF-8 (Encoding::CompatibilityError
+          p['diagnosticcode'] = p['diagnosticcode'].force_encoding('UTF-8').scrub('?')
+        end
+
         p['diagnostictype'] ||= 'X-UNIX' if p['reason'] == 'mailererror'
         p['diagnostictype'] ||= 'SMTP' unless %w[feedback vacation].include?(p['reason'])
 
