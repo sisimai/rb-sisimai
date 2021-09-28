@@ -1,0 +1,34 @@
+From MAILER-DAEMON  Mon Sep 20 19:33:02 2021
+Return-Path: <>
+X-Original-To: postmaster@blackhole.our-host.net
+Delivered-To: blackhole@localhost
+Received: from mx2.itnetwork.net (mx2.itnetwork.net [123.123.123.202])
+	by play.thmthlayer.com (Postfix) with ESMTPS id 94598E117B
+	for <postmaster@blackhole.our-host.net>; Mon, 20 Sep 2021 19:33:02 +0000 (UTC)
+Received: from 10.9.37.234 ([10.9.34.13]) by mx2.itnetwork.net with ESMTP id rTR3cr9xLoMiR5vX for <postmaster@blackhole.our-host.net>; Mon, 20 Sep 2021 21:33:01 +0200 (CEST)
+Date: Mon, 20 Sep 2021 21:32:59 +0200 (GMT+02:00)
+From: Postmaster@bit-onbreeeck.org
+To: MyName <message@gelaneeiuet.org>
+Subject: foobar
+Mime-Version: 1.0
+Message-ID: <OFB3228DED.DDDCAC8E-ONC1258756.006B648D-C1258756.006B6493@bit-onbreeeck.org>
+Content-Type: multipart/report; report-type=delivery-status; boundary="==IFJRGLKFGIR7891042UHRUHIHD"
+
+--==IFJRGLKFGIR7891042UHRUHIHD
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: base64
+
+ICBhdWZnZWb8aHJ0DQoNCg==
+
+--==IFJRGLKFGIR7891042UHRUHIHD
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns;10.9.37.234
+
+Final-Recipient: rfc822;jane.doe@some-domain.net
+Action: failed
+Status: 5.0.0
+Diagnostic-Code: The email account that you tried to reach does not exist.
+
+--==IFJRGLKFGIR7891042UHRUHIHD--
+

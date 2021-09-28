@@ -225,7 +225,7 @@ module Sisimai
 
         plain = nil
         if cv = argv1.match(%r|([+/\=0-9A-Za-z\r\n]+)|) then plain = Base64.decode64(cv[1]) end
-        return plain.force_encoding('UTF-8')
+        return plain.scrub('?')
       end
 
       # Get boundary string
