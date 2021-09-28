@@ -140,7 +140,7 @@ Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
     context 'Base64 string' do
       b8 = '44Gr44KD44O844KT'
       p8 = 'にゃーん'
-      it('returns ' + p8) { expect(cn.base64d(b8)).to be == p8 }
+      it('returns ' + p8) { expect(cn.base64d(b8).force_encoding('UTF-8')).to be == p8 }
     end
     context 'wrong number of arguments' do
       it('raises ArgumentError') { expect { cn.base64d(nil,nil) }.to raise_error(ArgumentError) }
