@@ -20,5 +20,6 @@ isexpected = [
   { 'n' => '38', 's' => /\A5[.]0[.]\d+\z/,   'r' => /mailboxfull/, 'a' => /RFC3464/, 'b' => /\A1\z/ },
   { 'n' => '39', 's' => /\A5[.]0[.]\d+\z/,   'r' => /onhold/,      'a' => /RFC3464/, 'b' => /\A1\z/ },
   { 'n' => '40', 's' => /\A4[.]4[.]6\z/,     'r' => /networkerror/,'a' => /RFC3464/, 'b' => /\A1\z/ },
+  { 'n' => '41', 's' => /\A5[.]0[.]901\z/,   'r' => /onhold/,      'a' => /RFC3464/, 'b' => /\A1\z/ },
 ]
 Sisimai::Lhost::Code.maketest(enginename, isexpected)
