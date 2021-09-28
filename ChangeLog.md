@@ -3,6 +3,18 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.25.11p1
+--------------------------------------------------------------------------------
+- release: "Tue, 28 Sep 2021 22:45:51 +0900 (JST)"
+- version: ""
+- changes:
+  - Fix 2 encoding related errors:
+    - Fix an error with message `incompatible character encodings:ASCII-8BIT and
+      UTF-8` reported at issue #223. Thanks to @chahn
+    - Fix an error with message `invalid byte sequence in UTF-8 (ArgumentError)`
+      reported at issue #224. Thanks to @chahn
+    - Add `rfc3464-41.eml` and `rfc3464-42.eml` provided by @chahn
+
 v4.25.11
 --------------------------------------------------------------------------------
 - release: "Mon, 22 Feb 2021 21:15:22 +0900 (JST)"
