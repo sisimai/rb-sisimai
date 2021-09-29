@@ -77,7 +77,7 @@ class RFC2045Test < Minitest::Test
     # decocdeB returns the original string when it is not encoded text
     assert_nil    Sisimai::RFC2045.decodeB(nil)
     assert_nil    Sisimai::RFC2045.decodeB(Pt7)
-    assert_equal  Pt7, Sisimai::RFC2045.decodeB(Be7)
+    assert_equal  Pt7, Sisimai::RFC2045.decodeB(Be7).force_encoding('UTF-8')
 
     ce = assert_raises ArgumentError do
       Sisimai::RFC2045.decodeB()

@@ -5,7 +5,7 @@ class MailMaildirTest < Minitest::Test
   Methods = { class: %w[new], object: %w[path dir file size handle offset read] }
   Samples = ['./set-of-emails/maildir/bsd', './set-of-emails/maildir/mac']
   Maildir = Sisimai::Mail::Maildir.new(Samples[0])
-  DirSize = 503
+  DirSize = 507
 
   def test_methods
     Methods[:class].each  { |e| assert_respond_to Sisimai::Mail::Maildir, e }
@@ -54,7 +54,7 @@ class MailMaildirTest < Minitest::Test
   def test_size
     assert_instance_of Integer, Maildir.size
     assert_equal true, Maildir.size > 0
-    assert_equal 505, Maildir.size
+    assert_equal DirSize, Maildir.size
 
     ce = assert_raises ArgumentError do
       Maildir.size(nil)

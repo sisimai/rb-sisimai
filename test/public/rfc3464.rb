@@ -24,6 +24,7 @@ module LhostEngineTest::Public
       '39' => [['5.0.901', '',    'onhold',          false]],
       '40' => [['4.4.6',   '',    'networkerror',    false]],
       '41' => [['5.0.901', '',    'onhold',          false]],
+      '42' => [['5.0.0',   '',    'filtered',        false]],
     }
   end
 end
