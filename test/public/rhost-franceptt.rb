@@ -12,6 +12,7 @@ module RhostEngineTest::Public
       '08' => [['4.2.0',   '421', 'systemerror',     false]],
       '10' => [['4.5.0',   '',    'undefined',       false]],
       '11' => [['4.2.1',   '421', 'undefined',       false]],
+      '12' => [['5.7.1',   '554', 'policyviolation', false]],
     }
   end
 end

@@ -40,7 +40,7 @@ v5.0.0(beta2)
     bounced mail is multi parted begins with "message/rfc822".
   - #218 Add error messages in some European languages into Office365 and Domino
 
-v4.25.11p1
+v4.25.11p2
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -51,6 +51,9 @@ v4.25.11p1
     - Fix an error with the message: `invalid byte sequence in UTF-8 (Argument-
       Error)` reported at issue #224. Thanks to @chahn
     - Add `rfc3464-41.eml` and `rfc3464-42.eml` provided by @chahn
+    - Add a new error code of La Poste at `Sisimai::Rhost::FrancePTT` module and
+      a new sample email `rhost-franceptt-12.eml` into `set-of-emails` directory
+      imported from sisimai/p5-sisimai#441.
 
 v4.25.11
 --------------------------------------------------------------------------------
