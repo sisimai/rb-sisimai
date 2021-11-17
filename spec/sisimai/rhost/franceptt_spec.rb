@@ -16,6 +16,7 @@ describe Sisimai::Rhost::FrancePTT do
     '08' => { 'status' => %r/\A4[.]2[.]0\z/, 'reason' => %r/systemerror/ },
     '10' => { 'status' => %r/\A4[.]5[.]0\z/, 'reason' => %r/undefined/ },
     '11' => { 'status' => %r/\A4[.]2[.]1\z/, 'reason' => %r/undefined/ },
+    '12' => { 'status' => %r/\A5[.]7[.]1\z/, 'reason' => %r/policyviolation/ },
   }
   describe 'bounce mail from FrancePTT' do
     rs.each_key.each do |n|
