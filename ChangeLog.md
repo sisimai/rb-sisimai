@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.11p1
+v4.25.11p2
 --------------------------------------------------------------------------------
 - release: "Tue, 28 Sep 2021 22:45:51 +0900 (JST)"
 - version: ""
@@ -14,6 +14,9 @@ v4.25.11p1
     - Fix an error with message `invalid byte sequence in UTF-8 (ArgumentError)`
       reported at issue #224. Thanks to @chahn
     - Add `rfc3464-41.eml` and `rfc3464-42.eml` provided by @chahn
+    - Add a new error code of La Poste at `Sisimai::Rhost::FrancePTT` module and
+      a new sample email `rhost-franceptt-12.eml` into `set-of-emails` directory
+      imported from sisimai/p5-sisimai#441.
 
 v4.25.11
 --------------------------------------------------------------------------------
