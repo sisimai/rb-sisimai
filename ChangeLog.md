@@ -17,6 +17,7 @@ v4.25.11p2
     - Add a new error code of La Poste at `Sisimai::Rhost::FrancePTT` module and
       a new sample email `rhost-franceptt-12.eml` into `set-of-emails` directory
       imported from sisimai/p5-sisimai#441.
+    - Remove all the HTML elements from the value of `diagnosticcode`.
 
 v4.25.11
 --------------------------------------------------------------------------------
