@@ -5,7 +5,7 @@
 # | |_| |  __/\ V /  __/ | (_) | |_) |  __/ |  \__ \_| | | | | |   < 
 # |____/ \___| \_/ \___|_|\___/| .__/ \___|_|  |___(_)_| |_| |_|_|\_\
 #                              |_|                                   
-# -----------------------------------------------------------------------------
+# -------------------------------------------------------------------------------------------------
 SHELL := /bin/sh
 HERE  := $(shell pwd)
 NAME  := Sisimai
@@ -34,11 +34,10 @@ MACFORMATSET := $(SET_OF_EMAIL)/maildir/mac
 
 INDEX_LENGTH := 24
 DESCR_LENGTH := 50
-BH_CAN_PARSE := AmazonSES AmazonWorkMail Aol Bigfoot Biglobe Courier EZweb Exim \
-				Facebook GSuite Google KDDI MessageLabs MessagingServer Office365 \
-				Postfix SendGrid Sendmail Verizon X5 Yandex qmail
-
-# -----------------------------------------------------------------------------
+BH_CAN_PARSE := AmazonSES AmazonWorkMail Aol Bigfoot Biglobe Courier EZweb Exim Facebook GSuite \
+				Google KDDI MessageLabs MessagingServer Office365 Postfix SendGrid Sendmail Verizon \
+				X5 Yandex qmail
+# -------------------------------------------------------------------------------------------------
 .PHONY: clean
 
 private-sample:

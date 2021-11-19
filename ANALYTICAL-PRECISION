@@ -1,6 +1,6 @@
  bounceHammer 2.7.13p3
  MTA MODULE NAME          CAN PARSE   RATIO   NOTES
---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 Activehunter .....    0/0014  0.0000  TransWARE Active!hunter
 Amavis ...........    4/0004  1.0000  amavisd-new: https://www.amavis.org/
 AmazonSES ........   40/0049  0.8163  Amazon SES(Sending): http://aws.amazon.com/ses/
@@ -59,6 +59,6 @@ qmail ............   58/0087  0.6667  qmail
 ARF ..............    8/0038  0.2105  Abuse Feedback Reporting Format
 RFC3464 ..........  151/0322  0.4689  Fallback Module for MTAs
 RFC3834 ..........    0/0014  0.0000  Detector for auto replied message
---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
  bounceHammer      1523/2635  0.5779
  Sisimai 4.25.8    2635/2635  1.0000
