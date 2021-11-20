@@ -440,8 +440,8 @@ module Sisimai::Lhost
           #   Diagnostic-Code: smtp; 450 TEMPERROR: retry timeout exceeded
           # The value of "Status:" indicates permanent error but the value
           # of SMTP reply code in Diagnostic-Code: field is "TEMPERROR"!!!!
-          sv = Sisimai::SMTP::Status.find(e['diagnosis'])
-          rv = Sisimai::SMTP::Reply.find(e['diagnosis'])
+          sv = e['status']    || Sisimai::SMTP::Status.find(e['diagnosis'])
+          rv = e['replycode'] || Sisimai::SMTP::Reply.find(e['diagnosis'])
           s1 = 0  # First character of Status as integer
           r1 = 0  # First character of SMTP reply code as integer
 
