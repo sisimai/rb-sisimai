@@ -41,7 +41,7 @@ module Sisimai
           return false
         end
 
-        # Rejected by domain or address filter ?
+        # Rejected by a sender domain or a sender address by a filter ?
         # @param    [Sisimai::Data] argvs   Object to be detected the reason
         # @return   [True,False]            true: is filtered
         #                                   false: is not filtered
@@ -53,18 +53,18 @@ module Sisimai
           tempreason = Sisimai::SMTP::Status.name(argvs.deliverystatus) || ''
           return false if tempreason == 'suspend'
 
-          commandtxt = argvs.smtpcommand || ''
           diagnostic = argvs.diagnosticcode.downcase || ''
-          alterclass = Sisimai::Reason::UserUnknown
-
           if tempreason == 'filtered'
             # Delivery status code points "filtered".
-            return true if alterclass.match(diagnostic) || match(diagnostic)
-
-          elsif commandtxt != 'RCPT' && commandtxt != 'MAIL'
-            # Check the value of Diagnostic-Code and the last SMTP command
+            return true if Sisimai::Reason::UserUnknown.match(diagnostic)
             return true if match(diagnostic)
-            return true if alterclass.match(diagnostic)
+          else
+            # The value of "reason" isn't "filtered" when the value of "smtpcommand" is an SMTP
+            # command to be sent before the SMTP DATA command because all the MTAs read the headers
+            # and the entire message body after the DATA command.
+            return false if %w[CONN EHLO HELO MAIL RCPT].include?(argvs.smtpcommand)
+            return true  if match(diagnostic)
+            return true  if Sisimai::Reason::UserUnknown.match(diagnostic)
           end
           return false
         end

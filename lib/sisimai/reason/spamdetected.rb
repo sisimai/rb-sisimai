@@ -165,7 +165,12 @@ module Sisimai
           return nil  if argvs.deliverystatus.empty?
           return true if argvs.reason == 'spamdetected'
           return true if Sisimai::SMTP::Status.name(argvs.deliverystatus).to_s == 'spamdetected'
-          return true if match(argvs.diagnosticcode.downcase)
+
+          # The value of "reason" isn't "spamdetected" when the value of "smtpcommand" is an SMTP
+          # command to be sent before the SMTP DATA command because all the MTAs read the headers
+          # and the entire message body after the DATA command.
+          return false if %w[CONN EHLO HELO MAIL RCPT].include?(argvs.smtpcommand)
+          return true  if match(argvs.diagnosticcode.downcase)
           return false
         end
 

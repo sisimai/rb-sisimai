@@ -53,13 +53,9 @@ module Sisimai
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
           r = argvs.reason || ''
-          if r.size > 0
-            # Do not overwrite the reason
-            return false if r.start_with?('securityerror', 'systemerror', 'undefined')
-          else
-            # Check the value of Diagnosic-Code: header with patterns
-            return true if match(argvs.diagnosticcode.downcase)
-          end
+          return false if r.start_with?('securityerror', 'systemerror', 'undefined')
+          return false if %w[CONN EHLO HELO].include?(argvs.smtpcommand)
+          return true  if match(argvs.diagnosticcode.downcase)
           return false
         end
 

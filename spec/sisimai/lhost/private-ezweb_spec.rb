@@ -108,7 +108,7 @@ isexpected = [
   { 'n' => '01105', 'r' => /filtered/ },
   { 'n' => '01106', 'r' => /userunknown/ },
   { 'n' => '01107', 'r' => /filtered/ },
-  { 'n' => '01108', 'r' => /userunknown/ },
+  { 'n' => '01108', 'r' => /norelaying/ },
   { 'n' => '01109', 'r' => /userunknown/ },
   { 'n' => '01110', 'r' => /filtered/ },
   { 'n' => '01111', 'r' => /suspend/ },
