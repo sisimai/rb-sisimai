@@ -54,7 +54,7 @@ module Sisimai
           return false
         end
 
-        # The bounce reason is security error or not
+        # The bounce reason is "policyviolation" or not
         # @param    [Sisimai::Data] argvs   Object to be detected the reason
         # @return   [True,False]            true: is policy violation
         #                                   false: is not policy violation
