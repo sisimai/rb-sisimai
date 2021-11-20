@@ -50,9 +50,7 @@ module Sisimai
           tempreason = Sisimai::SMTP::Status.name(argvs['deliverystatus']) || ''
           return false if tempreason == 'suspend'
 
-          commandtxt = argvs['smtpcommand'] || ''
           diagnostic = argvs['diagnosticcode'].downcase || ''
-
           if tempreason == 'filtered'
             # Delivery status code points "filtered".
             return true if Sisimai::Reason::UserUnknown.match(diagnostic)
