@@ -18,6 +18,13 @@ v4.25.11p2
       a new sample email `rhost-franceptt-12.eml` into `set-of-emails` directory
       imported from sisimai/p5-sisimai#441.
     - Remove all the HTML elements from the value of `diagnosticcode`.
+  - Fix serious bugs:
+    - Both of the values of `deliverystatus` and `replycode` detected from the
+      message body did not use at `Sisimai::Lhost::Exim`.
+    - `true` method strictly checks the value of `smtpcommand` at some classes
+      in `Sisimai/Reason`. For example, when a detected reason is `spamdetected`
+      and `virusdetected` the value of `smtpcommand` should be `DATA` or an SMTP
+      command to be sent after `DATA`.
 
 v4.25.11
 --------------------------------------------------------------------------------
