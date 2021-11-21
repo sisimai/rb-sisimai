@@ -3,10 +3,10 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.11p2
+v4.25.12
 --------------------------------------------------------------------------------
-- release: "Tue, 28 Sep 2021 22:45:51 +0900 (JST)"
-- version: ""
+- release: "Mon, 22 Nov 2021 12:22:22 +0900 (JST)"
+- version: "4.25.12"
 - changes:
   - Fix 2 encoding related errors:
     - Fix an error with message `incompatible character encodings:ASCII-8BIT and
