@@ -16,6 +16,7 @@ module LhostEngineTest::Public
       '12' => [['5.0.0',   '',    'spamdetected',    false]],
       '13' => [['4.0.0',   '',    'networkerror',    false]],
       '14' => [['5.1.1',   '550', 'userunknown',     true]],
+      '15' => [['4.0.0',   '',    'networkerror',    false]],
     }
   end
 end

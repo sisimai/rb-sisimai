@@ -13,6 +13,7 @@ module LhostEngineTest::Private
       '01009' => [['5.1.1',   '550', 'userunknown',     true]],
       '01010' => [['5.0.0',   '',    'policyviolation', false]],
       '01011' => [['5.0.0',   '553', 'systemerror',     false]],
+      '01012' => [['4.0.0',   '',    'networkerror',    false]],
     }
   end
 end

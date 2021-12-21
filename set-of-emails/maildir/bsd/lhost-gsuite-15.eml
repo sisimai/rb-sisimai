@@ -1,0 +1,229 @@
+Delivered-To: azumakuniyuki@google.example.com
+Received: by 2002:ab4:a141:0:0:0:0:0 with SMTP id dn1csp595527ecb;
+        Mon, 20 Dec 2021 07:25:59 -0800 (PST)
+X-Received: by 2002:a17:906:2659:: with SMTP id i25mr13803129ejc.531.1640013959470;
+        Mon, 20 Dec 2021 07:25:59 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1640013959; cv=none;
+        d=google.com; s=arc-20160816;
+        b=Wji6EAfPJcH3wpUJPs/rTTuyT3HMrqsTjphB7DDXM4W01YiQneT34naDWDlZihlQKN
+         iduod65NZKl1xoG5csO8QJjTa/++yWiUJwYQhQt2f29hgYR1sbzbS6g+HLdp0IprAJx5
+         JusA05d/Jc9rfS17AUPQbPO6PVeVmy65IKo3fKPzi9axAXtCvJdlKAlU7LtV9szOZ3VQ
+         ZHoI91R2mgvZWMmNqDDvhEoAfOtqy9SP0r22TtVYs2hlfFVt+SfyzqOFKjiWGEMhTLaF
+         RXKNr3FXEy1abBpk1pRDgf3XbkwuF2HGF6eIYmewmr+eltUNO0nC5EP7yJ/4uDRwXmSK
+         epRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=in-reply-to:references:subject:from:date:message-id:auto-submitted
+         :to:dkim-signature;
+        bh=OcovfQBGLLUFM2PvrR/3pJKpGnUbu2CAllf7JYi1LZ4=;
+        b=Sg031zzO4qWVmQ1xYO9TcKeAEeuZ/C5gaRqP6IafJ1fqf+sz/p1aX6t8lBW9Q85DqS
+         AFDUJR5sfYfLTAZmyy/fk+KTrzKHtmLsujgcBBdJyu1NWB3M1/bRaL0bedAuhF9YH2Ty
+         048m7rJt7C5GB9zWP56jsDwHR+Zq97+/gw1PqLT+8+yI63z3thPo6iXWgHWDdmLQb3UD
+         wseDovMKyWtdjGk4/PSmsABetnt32x7h3/vREiGrKTew0+ux8ZB0+BCHQwHi4spO0G/5
+         Lhm/Da1nxgeR2t0XiYHgr7qWuw+aES0PMhcj8TpGVs6iv12iTWv5OEhbyBA+7heCxD4E
+         igUg==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@googlemail.com header.s=20210112 header.b=SePnJVk5;
+       spf=pass (google.com: best guess record for domain of postmaster@mail-sor-f69.google.com designates 209.85.220.69 as permitted sender) smtp.helo=mail-sor-f69.google.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=googlemail.com
+Return-Path: <>
+Received: from mail-sor-f69.google.com (mail-sor-f69.google.com. [209.85.220.69])
+        by mx.google.com with SMTPS id g12sor5749570edb.28.2021.12.20.07.25.59
+        for <azumakuniyuki@google.example.com>
+        (Google Transport Security);
+        Mon, 20 Dec 2021 07:25:59 -0800 (PST)
+Received-SPF: pass (google.com: best guess record for domain of postmaster@mail-sor-f69.google.com designates 209.85.220.69 as permitted sender) client-ip=209.85.220.69;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@googlemail.com header.s=20210112 header.b=SePnJVk5;
+       spf=pass (google.com: best guess record for domain of postmaster@mail-sor-f69.google.com designates 209.85.220.69 as permitted sender) smtp.helo=mail-sor-f69.google.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=googlemail.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20210112;
+        h=to:auto-submitted:message-id:date:from:subject:references
+         :in-reply-to;
+        bh=OcovfQBGLLUFM2PvrR/3pJKpGnUbu2CAllf7JYi1LZ4=;
+        b=SePnJVk5kdWmQFUs7ffbGJ7Qn+MNNbyBhoiYYa1LFaHUE2sRyxE5Bhjt8ztFwwH7Dq
+         EoxO3LZNhyIPiT9IAWuhWSsr2bZhSBpl/9OL43oy7c3bU8roUx0vO412reF1WWDTnS+z
+         lkrCVGlw+mHukxvNd5907BMHlZcAzZZ1FnMLfzsCbbSvw6/4DDnkjC6B1Lrvxuo4JxMM
+         L0ubG1SEY3gySpmTfhWZYFSG3lcVAylBVkVtKKZ4D9NKXlkLql6Icu/fyZslfsJIWp1Z
+         Gs/9fcK3zWBz0HM8xurmJcIuVvPBQmEFd2rAyhkbl6wo4DiaAwQd5QQJPkD/mrD1eGUm
+         sAPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:to:auto-submitted:message-id:date:from:subject
+         :references:in-reply-to;
+        bh=OcovfQBGLLUFM2PvrR/3pJKpGnUbu2CAllf7JYi1LZ4=;
+        b=cHnNSimlGL1IB6+BTMyIgQ6ylgPAsZrUWMz7zhontXxCnY/T4JCeOwzZQIS1Nj1aci
+         P38cCxKeUGNqkJWxB+k1v1TBjzJEE1W4DOyvAtY/pPNIjMoYGBU6Ssg9fGDpaAHTd7mE
+         jxpxzLL2GFMNrIXrvvPDZ9sBeSHty+7ZHxYrEt7I0hk/03SiBjmjXFANbjH3BZrmSxv+
+         NfIj9OiCqyy0Rc2+dMxsHGjM3SVphEDZOay0E5ifdPpYEB8veztWTxY9/4vIGGi2gmwd
+         ASUzNIvDgF5EeZtnZDetZT1SXeVTsPcRwmyYO6M9MRnn7Did3R5TUU7kk478RlKQ8JMg
+         tkjA==
+X-Gm-Message-State: AOAM5308ESho9hKvAkqjJ51j/6gK2EqnrvbXCQVrBE/1BAUkwbCZ1DCW
+	n8KRPH8ooPPKHw+Mj+DM/+nKQuybFYlSyUACmMznmw==
+X-Google-Smtp-Source: ABdhPJzRlxQfgLIdbgVgfI7grV/rwfv8N/07MPPE22H9o23Q8LqLKr+rZVjM+E1s4WfvuM9RVWi7XA96SvdQjkYQQDOHBJeyDeT735U=
+X-Received: by 2002:aa7:cb81:: with SMTP id r1mr16234441edt.352.1640013959224;
+        Mon, 20 Dec 2021 07:25:59 -0800 (PST)
+Content-Type: multipart/report; boundary="0000000000007752ac05d39581ae"; report-type=delivery-status
+To: azumakuniyuki@google.example.com
+Received: by 2002:aa7:cb81:: with SMTP id r1mr11532281edt.352; Mon, 20 Dec
+ 2021 07:25:59 -0800 (PST)
+Return-Path: <>
+Auto-Submitted: auto-replied
+Message-ID: <61c0a087.1c69fb81.a19ff.1f8f.GMR@mx.google.com>
+Date: Mon, 20 Dec 2021 07:25:59 -0800 (PST)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+Subject: Delivery Status Notification (Failure)
+References: <CAByYQsGge+O7Z6G5c06TEcL1SN7zSeON58xdcyueZqK1LWMjxw@mail.gmail.com>
+In-Reply-To: <CAByYQsGge+O7Z6G5c06TEcL1SN7zSeON58xdcyueZqK1LWMjxw@mail.gmail.com>
+X-Failed-Recipients: maildebug@example.jpn
+
+--0000000000007752ac05d39581ae
+Content-Type: multipart/related; boundary="00000000000077589c05d39581b4"
+
+--00000000000077589c05d39581b4
+Content-Type: multipart/alternative; boundary="0000000000007758a105d39581b5"
+
+--0000000000007758a105d39581b5
+Content-Type: text/plain; charset="UTF-8"
+
+
+** Address not found **
+
+Your message wasn't delivered to maildebug@example.jpn because the domain example.comn couldn't be found. Check for typos or unnecessary spaces and try again.
+
+
+
+The response was:
+
+DNS Error: 39857475 DNS type 'mx' lookup of example.comn responded with code NXDOMAIN
+Domain name not found: example.comn
+
+--0000000000007758a105d39581b5
+Content-Type: text/html; charset="UTF-8"
+
+
+<html>
+<head>
+<style>
+* {
+font-family:Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+</style>
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" class="email-wrapper" style="padding-top:32px;background-color:#ffffff;"><tbody>
+<tr><td>
+<table cellpadding=0 cellspacing=0><tbody>
+<tr><td style="max-width:560px;padding:24px 24px 32px;background-color:#fafafa;border:1px solid #e0e0e0;border-radius:2px">
+<img style="padding:0 24px 16px 0;float:left" width=72 height=72 alt="Error Icon" src="cid:icon.png">
+<table style="min-width:272px;padding-top:8px"><tbody>
+<tr><td><h2 style="font-size:20px;color:#212121;font-weight:bold;margin:0">
+Address not found
+</h2></td></tr>
+<tr><td style="padding-top:20px;color:#757575;font-size:16px;font-weight:normal;text-align:left">
+Your message wasn't delivered to <a style='color:#212121;text-decoration:none'><b>maildebug@example.jpn</b></a> because the domain example.comn couldn't be found. Check for typos or unnecessary spaces and try again.
+</td></tr>
+</tbody></table>
+</td></tr>
+</tbody></table>
+</td></tr>
+<tr style="border:none;background-color:#fff;font-size:12.8px;width:90%">
+<td align="left" style="padding:48px 10px">
+The response was:<br/>
+<p style="font-family:monospace">
+DNS Error: 39857475 DNS type &#39;mx&#39; lookup of example.comn responded with code NXDOMAIN
+Domain name not found: example.comn
+</p>
+</td>
+</tr>
+</tbody></table>
+</body>
+</html>
+
+--0000000000007758a105d39581b5--
+--00000000000077589c05d39581b4
+Content-Type: image/png; name="icon.png"
+Content-Disposition: attachment; filename="icon.png"
+Content-Transfer-Encoding: base64
+Content-ID: <icon.png>
+
+iVBORw0KGgoAAAANSUhEUgAAAJAAAACQCAYAAADnRuK4AAAACXBIWXMAABYlAAAWJQFJUiTwAAAA
+GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABTdJREFUeNrsnD9sFEcUh5+PRMqZ
+yA0SPhAUQAQFUkyTgiBASARo6QApqVIkfdxGFJFSgGhJAUIiBaQB0ZIOKVCkwUgURjIg2fxL4kS+
+YDvkbC/388bi8N16Z4/d7J/5PsniuD3fyePP772ZeTsDQRAYQL/UGAJAIEAgQCBAIAAEAgQCBAIE
+AkAgyJT3Mv+Eq7vYK8mTE+MDRCAghQECAeRQA5V2ZOpmg5vDx3NPzRbmGRMEcmTrEbNNB8zWfRD+
+f/Efs2e3zCZvMjaksBg27TfbcuSNPEKP9ZyuAQKtHX2O9ncNgWC57umMPKvRNb0GEKgnLoUyxTQC
+rcns0/6uIRAs8/hGf9cQCJZpTpjdO2f25/03z+mxntM1eLtsZAgiUtX4JcaBCAQIBAgECARQ8CJa
+G5jab4J4pm4WZmO3OALVh802fIwcLkyPkcKAGggAgQCBAIEAgQCBABAIEAjKA/1AnahhbO5FdOOY
+VsrrDbPBYcYKgf5D2wLaV3p+22xh1u17tO3S+DTcvxvagUDeivPgx/a/95J/73w7Sj26Hn4pKo2M
+ehuV/KyBJM6d0f7k6RKx/R63vvL2tmf/ItDdM2ZTP6f7nkp9Y2fDx1v9akmpIU+KSCLVUghUQfSL
+zVKeTklbLxGoctw/nzC5rw8L5KRNbkpnKq6pgSqEClzNnFzY+XnYWrt6VpVk1vbwWvg+RKCKMOUw
+Q1LEOXA+/MX3mpJvGDHb265xtnzmFoUK1HaKQGlMtePYM+q2KKjXuaS1NJYIEKgI8jhEgqHt4cqy
+Ky53j3hyHz2bqSLp2o2LbJ7MxKovkGqXteoWpaOk96O9/yF/dF7NwlS36AuIQIBA5celQK4PIxBE
+4LLzrtoLgaALdSy6CJRkWQCBPGLsTHznomZ9nszUECgJ2ml3WWHe+QVFNPSQx6UdZNtxr9pbEShN
+eTTz8mQXHoHSlke7+Z+c9m6VGoHSkEfs/trLW3wQKApN1V3lGfnGu2Z6BFoLtYCs3GWBPAiUCLVh
+/HoaeRCoT9R873KLM/IgUBfapnCpe5AHgXry4pf412ihEHkQqCdxd5VqrcezhUIESsJMTJ+Pdthp
+Z0WgyNlXXPHc2Mc4IVAELl2Gnh8mhUDvCkfbIVAkcbf/aOoO3fMKhqAD3frTa4quwpn0hUDOkQhI
+YYBAgECAQAAU0QlYObl+5Ug8NcprZkZxjUCxRPVA6zmtEXHCBykskrhjgHXN09PoEcgFl4M4H11j
+nBAoApcj6ZoPGScEAgTKApcDoTw5sgWB+sGlz1n90IBAPdE6j1o21PfcC11jLagL1oFWRyGlKU3p
+OxcSJQ7NZAjkhHp/uG2HFAYIBAgECASAQIBAgECAQAAIBOkxEARBtp9wdVfAMOfIifEBIhCQwgCB
+ABAI0oV2jhxZ+nfBatuPZfgBCy0Eqqo8c01b+uu51XZvzOgDWoHNTGR+pCwpLEd5svuAZXlO2uEr
+PyEQ8hRWHgRCHmqg0sjTnLalv6crJQ8C/U8stqNO0I4+VZOHFIY8COS1PGL2ybd5yUMKK7s8zYmL
+dujyd3n+nESgcsvzZd4/KwIhDwIhT35QA6UyE1qyxZnfvJMHgdKS549JC1qvvJOHFIY8CFR5eV5O
+XimqPAhUdHnmfx+zgxdOFXkoqIGKKs/cswnb/8Oeog8HEai48nxUhiFBIORBIOShBioskkbySCLk
+IQIhDwIhj28p7FApR6b1qlEbHGpkO/rr6215vi/zH1r2x7tApSGFAQIBAgECAQIBIBAgECAQIBBA
+LK8FGADCTxYrr+EVJgAAAABJRU5ErkJggg==
+--00000000000077589c05d39581b4--
+--0000000000007752ac05d39581ae
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; googlemail.com
+Arrival-Date: Mon, 20 Dec 2021 07:25:58 -0800 (PST)
+X-Original-Message-ID: <CAByYQsGge+O7Z6G5c06TEcL1SN7zSeON58xdcyueZqK1LWMjxw@mail.gmail.com>
+
+Final-Recipient: rfc822; maildebug@example.jpn
+Action: failed
+Status: 4.0.0
+Diagnostic-Code: smtp; DNS Error: 39857475 DNS type 'mx' lookup of example.comn responded with code NXDOMAIN
+ Domain name not found: example.comn
+Last-Attempt-Date: Mon, 20 Dec 2021 07:25:59 -0800 (PST)
+
+--0000000000007752ac05d39581ae
+Content-Type: message/rfc822
+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=flEkuO1wygIuWI6juGfTi7zfrUYhNEoCS4h9v44zZ3c=;
+        b=o/ySHMehm/GD/wJxppQRyqrdqJ+0z0SBT8IJAtln7h/8k90Ap8dTEvMPJCpv8PEzZo
+         OHsjoF7EAmnE9OOZH9yCsv3vgMbON/i0Uo1n/QR+OWgZrl1uzP4bGHbdWKiqn3yDjp8V
+         Ji+Xe8Krnbx6oesOmE68hITyd3yeVjTn8dLfbeJC0MuE312E0Do4xWkQAdebKM6+d8Ct
+         GZVNojW/ffQ25fWXUJp+i47nkJX/Ni1dc7R4u6DRqbLTj2Z9Th3kVxHrxgcQ6FNSIt8N
+         w5yfT7/D/DJuw0wdPwPiORrh7SkUUEEyIuf3h3EFi3vSq/81Xr/9lAhZFYvO48LGBtOZ
+         uXPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=flEkuO1wygIuWI6juGfTi7zfrUYhNEoCS4h9v44zZ3c=;
+        b=Ot1rNrUZ+aFF2QUH1kOnQqLDKWXRSTErCQvkzZCuNqKujJXUx8X5m8TMXg945jeBzJ
+         yyn0g1N/lz0fm4f9RmojnGaWhxL/DuyybToUizOrISFLnHE1fe+NovMy8wcTdXHIncYE
+         8051m3USMw52xkLwtlH3Gf+691+XTAgYxOkkeyLVG3DXOP/H0GucbMe7zgNZL+8rJG2Q
+         6UVHmfCYCOKD2zgI9EEmPYSolFlBxYfkeETIWXer/0H6ObAcaC3ymihiC2OsbsL2sK5v
+         vSHMfNGtN6LXFNcKlP3iqWaKztlIfR9eOaWcjXFt31Fupp1yMIGFCXMBkYVlndZ6tV+V
+         GBWg==
+X-Gm-Message-State: AOAM532zTCK79It0edVHB4C8d424T7zmAljEbg5rHX6auhDj+Hcx0QbT
+	yii2wU0eezeZim8bZQGGHohjnYyb/rn64cr4QdbAzCB2
+X-Google-Smtp-Source: ABdhPJzzDDX0XY9mUMgVxmKGydvKh/CUi49ZmOFIi3IvFTlW3hKqt37X8kf3eKmPaLLZFZpJBdY3/Eerc+lAm/iLkv0=
+X-Received: by 2002:aa7:cb81:: with SMTP id r1mr16234412edt.352.1640013958807;
+ Mon, 20 Dec 2021 07:25:58 -0800 (PST)
+MIME-Version: 1.0
+From: azumakuniyuki <azumakuniyuki@google.example.com>
+Date: Tue, 21 Dec 2021 00:25:47 +0900
+Message-ID: <CAByYQsGge+O7Z6G5c06TEcL1SN7zSeON58xdcyueZqK1LWMjxw@mail.gmail.com>
+Subject: Nyaan
+To: maildebug@example.jpn
+Content-Type: text/plain; charset="UTF-8"
+
+Nyaan
+
+--0000000000007752ac05d39581ae--
