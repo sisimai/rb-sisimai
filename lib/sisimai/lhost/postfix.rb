@@ -36,132 +36,188 @@ module Sisimai::Lhost
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to parse or the arguments are missing
       def inquire(mhead, mbody)
-        return nil unless mhead['subject'] == 'Undelivered Mail Returned to Sender'
+        match = nil
+        sessx = nil
+
+        if mhead['subject'].include?('SMTP server: errors from ')
+          # src/smtpd/smtpd_chat.c:|337: post_mail_fprintf(notice, "Subject: %s SMTP server: errors from %s",
+          # src/smtpd/smtpd_chat.c:|338:   var_mail_name, state->namaddr);
+          match = true
+          sessx = true
+        else
+          # Subject: Undelivered Mail Returned to Sender
+          match = true if mhead['subject'] == 'Undelivered Mail Returned to Sender'
+        end
+        return nil unless match
         return nil if mhead['x-aol-ip']
 
         require 'sisimai/rfc1894'
         require 'sisimai/address'
-        fieldtable = Sisimai::RFC1894.FIELDTABLE
         permessage = {}     # (Hash) Store values of each Per-Message field
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
         bodyslices = emailsteak[0].split("\n")
         readslices = ['']
-        readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         nomessages = false  # (Boolean) Delivery report unavailable
         commandset = []     # (Array) ``in reply to * command'' list
         anotherset = {}     # Another error information
         v = nil
 
-        while e = bodyslices.shift do
-          # Read error messages and delivery status lines from the head of the email to the previous
-          # line of the beginning of the original message.
-          readslices << e # Save the current line for the next loop
+        if sessx
+          # The message body starts with 'Transcript of session follows.'
+          require 'sisimai/smtp/transcript'
+          transcript = Sisimai::SMTP::Transcript.rise(emailsteak[0], 'In:', 'Out:')
 
-          if readcursor == 0
-            # Beginning of the bounce message or message/delivery-status part
-            readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
-            next
-          end
-          next if (readcursor & Indicators[:deliverystatus]) == 0
-          next if e.empty?
+          return nil unless transcript
+          return nil if transcript.size == 0
 
-          if f = Sisimai::RFC1894.match(e)
-            # "e" matched with any field defined in RFC3464
-            next unless o = Sisimai::RFC1894.field(e)
-            v = dscontents[-1]
+          transcript.each do |e|
+            # Pick email addresses, error messages, and the last SMTP command.
+            v ||= dscontents[-1]
+            p   = e['response']
 
-            if o[-1] == 'addr'
-              # Final-Recipient: rfc822; kijitora@example.jp
-              # X-Actual-Recipient: rfc822; kijitora@example.co.jp
-              if o[0] == 'final-recipient'
-                # Final-Recipient: rfc822; kijitora@example.jp
-                if v['recipient']
-                  # There are multiple recipient addresses in the message body.
-                  dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                  v = dscontents[-1]
-                end
-                v['recipient'] = o[2]
-                recipients += 1
-              else
-                # X-Actual-Recipient: rfc822; kijitora@example.co.jp
-                v['alias'] = o[2]
+            if e['command'] =~ /\A(?:HELO|EHLO)/
+              # Use the argument of EHLO/HELO command as a value of "lhost"
+              v['lhost'] = e['argument']
+
+            elsif e['command'] == 'MAIL'
+              # Set the argument of "MAIL" command to pseudo To: header of the original message
+              emailsteak[1] += sprintf("To: %s\n", e['argument']) if emailsteak[1].size == 0
+
+            elsif e['command'] == 'RCPT'
+              # RCPT TO: <...>
+              if v['recipient']
+                # There are multiple recipient addresses in the transcript of session
+                dscontents << Sisimai::Lhost.DELIVERYSTATUS
+                v = dscontents[-1]
               end
-            elsif o[-1] == 'code'
-              # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
-              v['spec'] = o[1]
-              v['spec'] = 'SMTP' if v['spec'] == 'X-POSTFIX'
-              v['diagnosis'] = o[2]
-            else
-              # Other DSN fields defined in RFC3464
-              next unless fieldtable[o[0]]
-              v[fieldtable[o[0]]] = o[2]
-
-              next unless f == 1
-              permessage[fieldtable[o[0]]] = o[2]
+              v['recipient'] = e['argument']
+              recipients += 1
             end
-          else
-            # If you do so, please include this problem report. You can
-            # delete your own text from the attached returned message.
-            #
-            #           The mail system
-            #
-            # <userunknown@example.co.jp>: host mx.example.co.jp[192.0.2.153] said: 550
-            # 5.1.1 <userunknown@example.co.jp>... User Unknown (in reply to RCPT TO command)
-            if readslices[-2].start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
-              # Continued line of the value of Diagnostic-Code header
-              v['diagnosis'] << ' ' << cv[1]
-              readslices[-1] = 'Diagnostic-Code: ' << e
 
-            elsif cv = e.match(/\A(X-Postfix-Sender):[ ]*rfc822;[ ]*(.+)\z/)
-              # X-Postfix-Sender: rfc822; shironeko@example.org
-              emailsteak[1] << cv[1] << ': ' << cv[2] << "\n"
+            next if p['reply'].to_i < 400
+            commandset << e['command']
+            v['diagnosis'] ||= p['text'].join(' ')
+            v['replycode'] ||= p['reply']
+            v['status']    ||= p['status']
+          end
+        else
+          fieldtable = Sisimai::RFC1894.FIELDTABLE
+          readcursor = 0      # (Integer) Points the current cursor position
 
-            else
-              if cv = e.match(/[ \t][(]in reply to (?:end of )?([A-Z]{4}).*/) ||
-                 cv = e.match(/([A-Z]{4})[ \t]*.*command[)]\z/)
-                # 5.1.1 <userunknown@example.co.jp>... User Unknown (in reply to RCPT TO
-                commandset << cv[1]
-                anotherset['diagnosis'] ||= ''
-                anotherset['diagnosis'] << ' ' << e
-              else
-                # Alternative error message and recipient
-                if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>] [(]expanded from [<](.+)[>][)]:[ \t]*(.+)\z/)
-                  # <r@example.ne.jp> (expanded from <kijitora@example.org>): user ...
-                  anotherset['recipient'] = cv[1]
-                  anotherset['alias']     = cv[2]
-                  anotherset['diagnosis'] = cv[3]
+          while e = bodyslices.shift do
+            # Read error messages and delivery status lines from the head of the email to the previous
+            # line of the beginning of the original message.
+            readslices << e # Save the current line for the next loop
 
-                elsif cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>]:(.*)\z/)
-                  # <kijitora@exmaple.jp>: ...
-                  anotherset['recipient'] = cv[1]
-                  anotherset['diagnosis'] = cv[2]
+            if readcursor == 0
+              # Beginning of the bounce message or message/delivery-status part
+              readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
+              next
+            end
+            next if (readcursor & Indicators[:deliverystatus]) == 0
+            next if e.empty?
 
-                elsif e.include?('--- Delivery report unavailable ---')
-                  # postfix-3.1.4/src/bounce/bounce_notify_util.c
-                  # bounce_notify_util.c:602|if (bounce_info->log_handle == 0
-                  # bounce_notify_util.c:602||| bounce_log_rewind(bounce_info->log_handle)) {
-                  # bounce_notify_util.c:602|if (IS_FAILURE_TEMPLATE(bounce_info->template)) {
-                  # bounce_notify_util.c:602|    post_mail_fputs(bounce, "");
-                  # bounce_notify_util.c:602|    post_mail_fputs(bounce, "\t--- delivery report unavailable ---");
-                  # bounce_notify_util.c:602|    count = 1;              /* xxx don't abort */
-                  # bounce_notify_util.c:602|}
-                  # bounce_notify_util.c:602|} else {
-                  nomessages = true
+            if f = Sisimai::RFC1894.match(e)
+              # "e" matched with any field defined in RFC3464
+              next unless o = Sisimai::RFC1894.field(e)
+              v = dscontents[-1]
+
+              if o[-1] == 'addr'
+                # Final-Recipient: rfc822; kijitora@example.jp
+                # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                if o[0] == 'final-recipient'
+                  # Final-Recipient: rfc822; kijitora@example.jp
+                  if v['recipient']
+                    # There are multiple recipient addresses in the message body.
+                    dscontents << Sisimai::Lhost.DELIVERYSTATUS
+                    v = dscontents[-1]
+                  end
+                  v['recipient'] = o[2]
+                  recipients += 1
                 else
-                  # Get error message continued from the previous line
-                  next unless anotherset['diagnosis']
-                  if e =~ /\A[ \t]{4}(.+)\z/
-                    #    host mx.example.jp said:...
-                    anotherset['diagnosis'] << ' ' << e
+                  # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                  v['alias'] = o[2]
+                end
+              elsif o[-1] == 'code'
+                # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
+                v['spec'] = o[1]
+                v['spec'] = 'SMTP' if v['spec'] == 'X-POSTFIX'
+                v['diagnosis'] = o[2]
+              else
+                # Other DSN fields defined in RFC3464
+                next unless fieldtable[o[0]]
+                v[fieldtable[o[0]]] = o[2]
+
+                next unless f == 1
+                permessage[fieldtable[o[0]]] = o[2]
+              end
+            else
+              # If you do so, please include this problem report. You can
+              # delete your own text from the attached returned message.
+              #
+              #           The mail system
+              #
+              # <userunknown@example.co.jp>: host mx.example.co.jp[192.0.2.153] said: 550
+              # 5.1.1 <userunknown@example.co.jp>... User Unknown (in reply to RCPT TO command)
+              if readslices[-2].start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
+                # Continued line of the value of Diagnostic-Code header
+                v['diagnosis'] << ' ' << cv[1]
+                readslices[-1] = 'Diagnostic-Code: ' << e
+
+              elsif cv = e.match(/\A(X-Postfix-Sender):[ ]*rfc822;[ ]*(.+)\z/)
+                # X-Postfix-Sender: rfc822; shironeko@example.org
+                emailsteak[1] << cv[1] << ': ' << cv[2] << "\n"
+
+              else
+                if cv = e.match(/[ \t][(]in reply to (?:end of )?([A-Z]{4}).*/) ||
+                   cv = e.match(/([A-Z]{4})[ \t]*.*command[)]\z/)
+                  # 5.1.1 <userunknown@example.co.jp>... User Unknown (in reply to RCPT TO
+                  commandset << cv[1]
+                  anotherset['diagnosis'] ||= ''
+                  anotherset['diagnosis'] << ' ' << e
+                else
+                  # Alternative error message and recipient
+                  if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>] [(]expanded from [<](.+)[>][)]:[ \t]*(.+)\z/)
+                    # <r@example.ne.jp> (expanded from <kijitora@example.org>): user ...
+                    anotherset['recipient'] = cv[1]
+                    anotherset['alias']     = cv[2]
+                    anotherset['diagnosis'] = cv[3]
+
+                  elsif cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>]:(.*)\z/)
+                    # <kijitora@exmaple.jp>: ...
+                    anotherset['recipient'] = cv[1]
+                    anotherset['diagnosis'] = cv[2]
+
+                  elsif e.include?('--- Delivery report unavailable ---')
+                    # postfix-3.1.4/src/bounce/bounce_notify_util.c
+                    # bounce_notify_util.c:602|if (bounce_info->log_handle == 0
+                    # bounce_notify_util.c:602||| bounce_log_rewind(bounce_info->log_handle)) {
+                    # bounce_notify_util.c:602|if (IS_FAILURE_TEMPLATE(bounce_info->template)) {
+                    # bounce_notify_util.c:602|    post_mail_fputs(bounce, "");
+                    # bounce_notify_util.c:602|    post_mail_fputs(bounce, "\t--- delivery report unavailable ---");
+                    # bounce_notify_util.c:602|    count = 1;              /* xxx don't abort */
+                    # bounce_notify_util.c:602|}
+                    # bounce_notify_util.c:602|} else {
+                    nomessages = true
+                  else
+                    # Get error message continued from the previous line
+                    next unless anotherset['diagnosis']
+                    if e =~ /\A[ \t]{4}(.+)\z/
+                      #    host mx.example.jp said:...
+                      anotherset['diagnosis'] << ' ' << e
+                    end
                   end
                 end
               end
             end
-          end
+          end # end of while()
+
         end
+
+
 
         unless recipients > 0
           # Fallback: get a recipient address from error messages

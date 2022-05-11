@@ -1,0 +1,51 @@
+Return-Path: <double-bounce@mx22.example.com>
+Received: from mx22.example.com (e2.example.com [192.0.2.22])
+	by neko.libsisimai.org (V8/cf) with ESMTP id 23R6t1JE018491
+	for <serverroot@libsisimai.org>; Wed, 27 Apr 2022 15:55:01 +0900
+Received: by mx22.example.com (Postfix)
+	id 5yNqCKNtFxzG8dLH; Wed, 27 Apr 2022 15:55:01 +0900 (JST)
+Delivered-To: postmaster@mx22.example.com
+Received: by mx22.example.com (Postfix)
+	id XMY2brWtcXzdFVNT; Wed, 27 Apr 2022 15:45:12 +0900 (JST)
+Date: Wed, 27 Apr 2022 15:45:12 +0900 (JST)
+From: MAILER-DAEMON@mx22.example.com (Mail Delivery System)
+To: postmaster@mx22.example.com (Postmaster)
+Subject: Postfix SMTP server: errors from localhost[127.0.0.1]
+Message-Id: <XMY2brWtcXzdFVNT@mx22.example.com>
+
+Transcript of session follows.
+
+ Out: 220 mx22.example.com ESMTP MAIL SYSTEM
+ In:  EHLO mx22.example.com
+ Out: 250-mx22.example.com
+ Out: 250-PIPELINING
+ Out: 250-SIZE 33554432
+ Out: 250-ETRN
+ Out: 250-STARTTLS
+ Out: 250-AUTH PLAIN LOGIN DIGEST-MD5 CRAM-MD5
+ Out: 250-AUTH=PLAIN LOGIN DIGEST-MD5 CRAM-MD5
+ Out: 250-XFORWARD NAME ADDR PROTO HELO SOURCE PORT IDENT
+ Out: 250-ENHANCEDSTATUSCODES
+ Out: 250-8BITMIME
+ Out: 250-DSN
+ Out: 250 CHUNKING
+ In:  XFORWARD NAME=neko2-nyaan3.y.example.co.jp ADDR=230.0.113.2
+     PORT=53672
+ Out: 250 2.0.0 Ok
+ In:  XFORWARD PROTO=SMTP HELO=neko2-nyaan3.y.example.co.jp
+     IDENT=2LYC6642BLzFK3MM SOURCE=REMOTE
+ Out: 250 2.0.0 Ok
+ In:  MAIL
+     FROM:<CP85l3ba044547=libsisimai.net@err.y.example.co.jp>
+     SIZE=20088
+ Out: 250 2.1.0 Ok
+ In:  RCPT TO:<kijitora@libsisimai.net> ORCPT=rfc822;kijitora@libsisimai.net
+ Out: 250 2.1.5 Ok
+ In:  DATA
+ Out: 354 End data with <CR><LF>.<CR><LF>
+ Out: 451 4.3.0 Error: queue file write error
+ In:  QUIT
+ Out: 221 2.0.0 Bye
+
+
+For other details, see the local mail logfile
