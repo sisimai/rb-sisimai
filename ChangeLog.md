@@ -39,10 +39,10 @@ v5.0.0(beta3)
   - #218 Add error messages in some European languages into Office365 and Domino
   - #228 Implement `Sisimai::SMTP::Transcript` for parsing a transcript of session log
 
-v4.25.11p2
+v4.25.12
 ---------------------------------------------------------------------------------------------------
-- release: ""
-- version: ""
+- release: "Mon, 22 Nov 2021 12:22:22 +0900 (JST)"
+- version: "4.25.12"
 - changes:
   - Fix 2 encoding related errors:
     - Fix an error with the message: `incompatible character encodings: ASCII-8BIT and UTF-8` re-
