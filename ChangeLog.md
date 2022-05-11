@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v5.0.0(beta2)
+v5.0.0(beta3)
 ---------------------------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -37,6 +37,7 @@ v5.0.0(beta2)
   - #217 `Sisimai::Message.rise()` parses twice when the entire message body of a bounced mail is
     multi parted begins with "message/rfc822".
   - #218 Add error messages in some European languages into Office365 and Domino
+  - #228 Implement `Sisimai::SMTP::Transcript` for parsing a transcript of session log
 
 v4.25.11p2
 ---------------------------------------------------------------------------------------------------
