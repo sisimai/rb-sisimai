@@ -81,6 +81,7 @@ module Sisimai
     # @param         [Hash]   argvs
     # @options argvs [String]  data       Entire email message
     # @options argvs [Boolean] delivered  Include the result which has "delivered" reason
+    # @options argvs [Boolean] vacation   Include the result which has "vacation" reason
     # @options argvs [Proc]    hook       Proc object of callback method
     # @options argvs [Array]   load       User defined MTA module list
     # @options argvs [Array]   order      The order of MTA modules
@@ -128,6 +129,11 @@ module Sisimai
         unless argvs[:delivered]
           # Skip if the value of "deliverystatus" begins with "2." such as 2.1.5
           next if p['deliverystatus'].start_with?('2.')
+        end
+
+        unless argvs[:vacation]
+          # Skip if the value of "reason" is "vacation"
+          next if p['reason'] == 'vacation'
         end
 
         # EMAILADDRESS: Detect email address from message/rfc822 part
@@ -259,8 +265,13 @@ module Sisimai
             # 550-5.7.1 likely unsolicited mail. To reduce the amount of spam sent to Gmail,
             # 550-5.7.1 this message has been blocked. Please visit
             # 550 5.7.1 https://support.google.com/mail/answer/188131 for more information.
-            p['diagnosticcode'] = Sisimai::String.sweep(p['diagnosticcode'].gsub(re, ' '))
+            p['diagnosticcode'] = p['diagnosticcode'].gsub(re, ' ')
+            p['diagnosticcode'] = Sisimai::String.sweep(p['diagnosticcode'].sub(%r|<html>.+</html>|i, ''))
           end
+        end
+        if Sisimai::String.is_8bit(p['diagnosticcode'])
+          # To avoid incompatible character encodings: ASCII-8BIT and UTF-8 (Encoding::CompatibilityError
+          p['diagnosticcode'] = p['diagnosticcode'].force_encoding('UTF-8').scrub('?')
         end
 
         p['diagnostictype']   = nil        if p['diagnostictype'].empty?

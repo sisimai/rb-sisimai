@@ -127,6 +127,11 @@ v = Sisimai.rise(f.read)
 # method like the following:
 v = Sisimai.rise('/path/to/mbox', delivered: true)
 
+# Beginning with v5.0.0, sisimai does not return the reulst which "reason" is "vaction" by default.
+# If you want to get bounce records which reason is "vacation", set "vacation" option to rise()
+# method like the following:
+v = Sisimai.rise('/path/to/mbox', vacation: true );
+
 if v.is_a? Array
   v.each do |e|
     puts e.class                # Sisimai::Data

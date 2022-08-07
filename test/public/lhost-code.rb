@@ -97,7 +97,7 @@ class LhostCode < Minitest::Test
 
       while r = mailobject.data.read do
         # Read messages in each email
-        listoffact = Sisimai::Fact.rise(data: r, delivered: true, origin: cf)
+        listoffact = Sisimai::Fact.rise(data: r, delivered: true, vacation: true, origin: cf)
 
         unless listoffact
           if privateset

@@ -7,7 +7,7 @@ class SMTPStatusTest < Minitest::Test
     'blocked', 'contenterror', 'exceedlimit', 'expired', 'filtered', 'hasmoved', 'hostunknown',
     'mailboxfull', 'mailererror', 'mesgtoobig', 'networkerror', 'norelaying', 'notaccept',
     'onhold', 'rejected', 'securityerror', 'spamdetected', 'suspend', 'systemerror', 'systemfull',
-    'toomanyconn', 'userunknown'
+    'toomanyconn', 'userunknown', 'syntaxerror',
   ]
   CodeSet = %w[
     2.1.5

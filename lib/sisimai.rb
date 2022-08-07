@@ -18,6 +18,7 @@ module Sisimai
     # @param         [IO]     argv0      or STDIN object
     # @param         [Hash]   argv1      Parser options(delivered=false)
     # @options argv1 [Boolean] delivered true: Include "delivered" reason
+    # @options argv1 [Boolean] vacation  true: Include "vacation" reason
     # @options argv1 [Array]   c___      Proc object to a callback method for the message and each file
     # @return        [Array]             Parsed objects
     # @return        [nil]               nil if the argument was wrong or an empty array
@@ -34,7 +35,7 @@ module Sisimai
       while r = mail.data.read do
         # Read and parse each email file
         path = mail.data.path
-        args = { data: r, hook: c___[0], origin: path, delivered: argv1[:delivered] }
+        args = { data: r, hook: c___[0], origin: path, delivered: argv1[:delivered], vacation: argv1[:vacation] }
         fact = Sisimai::Fact.rise(**args) || []
 
         if c___[1]
@@ -61,6 +62,7 @@ module Sisimai
     # @param         [IO]     argv0      or STDIN object
     # @param         [Hash] argv1        Parser options
     # @options argv1 [Integer] delivered true: Include "delivered" reason
+    # @options argv1 [Integer] vacation  true: Include "vacation" reason
     # @options argv1 [Lambda]  hook      Lambda object to be called back
     # @return        [String]            Parsed data as JSON text
     def dump(argv0, **argv1)

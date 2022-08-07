@@ -9,6 +9,7 @@ module LhostEngineTest::Public
       '05' => [['5.3.4',   '552', 'mesgtoobig',      false]],
       '06' => [['5.6.1',   '500', 'contenterror',    false]],
       '07' => [['5.2.0',   '550', 'filtered',        false]],
+      '08' => [['5.2.3',   '552', 'exceedlimit',     false]],
     }
   end
 end

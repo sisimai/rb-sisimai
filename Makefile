@@ -4,7 +4,7 @@
 # | |\/| |/ _` | |/ / _ \ |_| | |/ _ \
 # | |  | | (_| |   <  __/  _| | |  __/
 # |_|  |_|\__,_|_|\_\___|_| |_|_|\___|
-# -----------------------------------------------------------------------------
+# -------------------------------------------------------------------------------------------------
 SHELL := /bin/sh
 TIME  := $(shell date '+%s')
 NAME  := sisimai
@@ -17,13 +17,12 @@ RM    := rm -f
 
 DEPENDENCIES  = bundle rake minitest
 .DEFAULT_GOAL = git-status
-REPOS_TARGETS = git-status git-push git-commit-amend git-tag-list git-diff \
-				git-reset-soft git-rm-cached git-branch
+REPOS_TARGETS = git-status git-push git-commit-amend git-tag-list git-diff git-reset-soft \
+				git-rm-cached git-branch
 DEVEL_TARGETS = private-sample
 BENCH_TARGETS = profile speed-test loc
 
-
-# -----------------------------------------------------------------------------
+# -------------------------------------------------------------------------------------------------
 .PHONY: clean
 
 depend:

@@ -1,0 +1,88 @@
+Return-Path: <>
+Received: from a26-6.smtp-out.us-west-2.amazonses.com (a26-6.smtp-out.us-west-2.amazonses.com [54.240.26.6])
+	by nijo.example.jp (V8/cf) with ESMTP id 1AN74KPq030952
+	for <kijitora@example.jp>; Tue, 23 Nov 2021 16:04:20 +0900
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=7v7vs6w47njt4pimodk5mmttbegzsi6n; d=amazonses.com; t=1637651059;
+	h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type:Feedback-ID;
+	bh=e9Bu4Kgzcr02tELMMplTn28sugwU8g1eBMQXfHqFK3Q=;
+	b=XZfWrCjyPmFj1h+gxxlrvo6c3VEkWIXKdHoRjBfD5SgryVwWuji8mj8cinjj4zEM
+	9jmE8NfM3IB317enowm9i7xiSSMybaVJlDhxctV/7pt+nvzjGada5/5EoDyc9nwORy5
+	I0tRE5dEXRi0xsleMng8bjCugpWfJ28XW5qLu4g4=
+Date: Tue, 23 Nov 2021 07:04:19 +0000
+From: poostmaster@example.jp
+To: kijitora@example.jp
+Message-ID: <0101017d4b9c1152-7500e5d8-550e-40f7-ab35-9ae981be78b1-000000@us-west-2.amazonses.com>
+Subject: Delivery Status Notification (Failure)
+MIME-Version: 1.0
+Content-Type: multipart/report; 
+	boundary="----=_Part_4971070_946561338.1637651059025"; 
+	report-type=delivery-status
+Feedback-ID: 1.us-west-2.QHuyeCQrGtIIMGKQfVdUhP9hCQR2LglVOrRamBc+Prk=:AmazonSES
+X-SES-Outgoing: 2021.11.23-54.240.26.6
+
+------=_Part_4971070_946561338.1637651059025
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Description: Notification
+
+This message could not be delivered due to a recipient error. Please try again later.
+------=_Part_4971070_946561338.1637651059025
+Content-Type: message/delivery-status
+Content-Transfer-Encoding: 7bit
+Content-Description: Delivery Status Notification
+
+Reporting-MTA: dns; inbound-smtp.us-west-2.amazonaws.com
+Arrival-Date: Tue, 23 Nov 21 07:04:16 UTC
+
+Action: failed
+Final-Recipient: rfc822; jp1rb6cm3@mozmail.com
+Original-Recipient: rfc822; jp1rb6cm3@mozmail.com
+Diagnostic-Code: smtp; 451 4.3.0 This message could not be delivered due to a recipient error. Please try again later.
+Status: 4.3.0
+
+
+------=_Part_4971070_946561338.1637651059025
+Content-Type: text/rfc822-headers
+Content-Transfer-Encoding: 7bit
+Content-Description: Undelivered Message
+
+Received: from mbox.example.jp (localhost [127.0.0.1])
+ by mbox.example.jp (Postfix) with ESMTP id 4Hyw9R4v20z1yv6P
+ for <jp1rb6cm3@mozmail.com>; Tue, 23 Nov 2021 16:04:11 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=example.jp;
+ s=cr7e05; t=1637651054;
+ bh=z0nIJhpKslSAMzdTwxBRt4tUIVNhk9h6pKxdHLWueVE=;
+ h=From:Subject:Date:To:From;
+ b=th8TgHnV353JVJytiAV/w8QWLKUVxqOoiHkgmB0JTtwsNLq15sHOf3qOCxD20TbLX
+ V3hcxf4/jGljyfPBkPXyL/rccwis3l9Q2Nek2dALDqO/7AgNYRFICWbjB3jfr3ZkBk
+ asqKzW0NrHbkL6S3wBWzMmbU+YH4nVigSesA1XhwQ3lUl3xAa+Cs3nEtr75as+149g
+ SdhcZD1QGbmkA3AJiilavmH+ByQ4rnPhMksXZ9fFbsZbt7QmUPXEbvEE20gkn4YqSw
+ mZONIGT1WsDkT9vTj7qF6upQ8RxuZi2Ezp2XWo9sBOw0tYzMHYwLa2phY2xwgHdHRe
+ DxGAfZgr3E/9A==
+Received: from neko.example.jp (p135.kyoto.example.ne.jp [192.0.2.22])
+ by mbox.example.jp (Postfix) with ESMTPSA id 4Hyw9R0mhkz1yv64
+ for <jp1rb6cm3@mozmail.com>; Tue, 23 Nov 2021 16:04:11 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=example.jp;
+ s=cr7e05; t=1637651051;
+ bh=z0nIJhpKslSAMzdTwxBRt4tUIVNhk9h6pKxdHLWueVE=;
+ h=From:Subject:Date:To:From;
+ b=ZtHm2xKDhe+ei8fOFGwF4cfPeeGT9iy5KIGgUaZulc9wHckHX7059oIPz3x3QY0Ix
+ LuyYBo8fNMQHq58izZiwum5ymkdN/tC36rxMt1QAg0vHFGOCcB868131yifpKUGidP
+ T+1MBHYF8V23BmrykmCEyJ1b1OpKuvZ1kULOLNlAvGTsx1y8H8GPNDgf2bZJ8G51yP
+ gZxsqTanFCZNyFYuDGEoX6/Lr8EKebU1QsKIKjzHVpnp6oxRCL207/PAQLaA6DqFNV
+ SmCaa+x/NWsNPzrs8Tc+otIJUQmw5/S1icS05Il00QfHNpgFFK8z2HDQIN99sFofg6
+ QXXrXikJKJ60A==
+From: "Kijitora, Nyaan" <kijitora@example.jp>
+Content-Type: multipart/alternative;
+ boundary="Apple-Mail=_E04A38C5-CF8C-436E-B779-B5CC2E354435"
+Mime-Version: 1.0 (Mac OS X Mail 14.0 \(3654.120.0.1.13\))
+Subject: TEST FOR FIREFOX RELAY #6
+Message-Id: <2EB7A4F3-7355-4A23-BF76-994FEB74C919@example.jp>
+Date: Tue, 23 Nov 2021 16:04:10 +0900
+To: jp1rb6cm3@mozmail.com
+X-Mailer: Apple Mail (2.3654.120.0.1.13)
+X-Virus-Scanned: ClamAV using ClamSMTP
+
+
+------=_Part_4971070_946561338.1637651059025--
