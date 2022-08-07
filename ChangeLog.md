@@ -39,6 +39,13 @@ v5.0.0(beta3)
   - #218 Add error messages in some European languages into Office365 and Domino
   - #228 Implement `Sisimai::SMTP::Transcript` for parsing a transcript of session log
 
+v4.25.13
+--------------------------------------------------------------------------------
+- release: "Mon,  1 Aug 2022 16:05:55 +0900 (JST)"
+- version: "4.25.13"
+- changes:
+  - Nothing changed, follow the Perl version of Sisimai 4.25.13.
+
 v4.25.12
 ---------------------------------------------------------------------------------------------------
 - release: "Mon, 22 Nov 2021 12:22:22 +0900 (JST)"
