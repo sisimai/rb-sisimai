@@ -12,8 +12,6 @@ module Sisimai
         # @since v5.0.0
         def rise(argv0 = '', argv1 = '>>>', argv2 = '<<<')
           return nil if argv0.size == 0
-          return nil if argv1.size == 0
-          return nil if argv2.size == 0
 
           # 1. Replace label strings of SMTP client/server at the each line
           argv0.gsub!(/^[ ]+#{argv1}\s+/m, '>>> '); return nil unless argv0.include?('>>> ')
