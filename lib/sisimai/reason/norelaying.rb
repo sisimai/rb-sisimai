@@ -11,6 +11,7 @@ module Sisimai
       class << self
         Index = [
           'as a relay',
+          'email address is not verified.',
           'insecure mail relay',
           'is not permitted to relay through this server without authentication',
           'mail server requires authentication when attempting to send to a non-local e-mail address', # MailEnable

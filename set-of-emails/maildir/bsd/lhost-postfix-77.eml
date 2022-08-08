@@ -1,0 +1,74 @@
+Return-Path: <>
+Received: from r1.example.co.jp (ec2-192-0-2-8.ap-northeast-1.compute.amazonaws.com [192.0.2.8])
+	by j2.example.jp (V8/cf) with ESMTP id 5q9Y56NW049128
+	for <nekochan@example.jp>; Fri, 5 Aug 2022 05:22:50 +0900
+Received: by r1.example.co.jp (Postfix)
+	id kwY4KyCrTyzhKcN4; Fri,  5 Aug 2022 05:22:50 +0900 (JST)
+Date: Fri,  5 Aug 2022 05:22:50 +0900 (JST)
+From: MAILER-DAEMON@r1.example.co.jp (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: nekochan@example.jp
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="nKpx2qVmYQzFNdnG.1659659703/r1.example.co.jp"
+Message-Id: <kwY4KyCrTyzhKcN4@r1.example.co.jp>
+
+This is a MIME-encapsulated message.
+
+--nKpx2qVmYQzFNdnG.1659659703/r1.example.co.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host r1.example.co.jp.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<postmaster@libsisimai.org> (expanded from <neko@example.co.jp>): host
+    email-smtp.ap-northeast-1.amazonaws.com[203.0.113.2] said: 554 Message
+    rejected: Email address is not verified. The following identities failed
+    the check in region AP-NORTHEAST-1: nekochan@example.jp (in reply to end of
+    DATA command)
+
+--nKpx2qVmYQzFNdnG.1659659703/r1.example.co.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; r1.example.co.jp
+X-Postfix-Queue-ID: nKpx2qVmYQzFNdnG
+X-Postfix-Sender: rfc822; nekochan@example.jp
+Arrival-Date: Fri,  5 Aug 2022 05:22:50 +0900 (JST)
+
+Final-Recipient: rfc822; postmaster@libsisimai.org
+Original-Recipient: rfc822;neko@example.co.jp
+Action: failed
+Status: 5.0.0
+Remote-MTA: dns; email-smtp.ap-northeast-1.amazonaws.com
+Diagnostic-Code: smtp; 554 Message rejected: Email address is not verified. The
+    following identities failed the check in region AP-NORTHEAST-1:
+    nekochan@example.jp
+
+--nKpx2qVmYQzFNdnG.1659659703/r1.example.co.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <nekochan@example.jp>
+Received: from [127.0.0.1] (ip-198-51-100-88.ap-northeast-1.compute.internal [198.51.100.88])
+	by r1.example.co.jp (Postfix) with ESMTP id nKpx2qVmYQzFNdnG
+	for <neko@example.co.jp>; Fri,  5 Aug 2022 05:22:50 +0900 (JST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 r1.example.co.jp nKpx2qVmYQzFNdnG
+From: <nekochan@example.jp>
+To: <neko@example.co.jp>
+Subject: Nyaan
+
+TEST.
+
+--nKpx2qVmYQzFNdnG.1659659703/r1.example.co.jp--
