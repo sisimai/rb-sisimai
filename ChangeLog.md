@@ -1,5 +1,5 @@
 RELEASE NOTES for Ruby version of Sisimai
-================================================================================
+===================================================================================================
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
@@ -38,9 +38,11 @@ v5.0.0(beta3)
     multi parted begins with "message/rfc822".
   - #218 Add error messages in some European languages into Office365 and Domino
   - #228 Implement `Sisimai::SMTP::Transcript` for parsing a transcript of session log
+  - Add a sample email bounced from Rakuten Mobile: sisimai/set-of-emails#20
+    - `lhost-postfix-76.eml` (userunknown)
 
 v4.25.13
---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 - release: "Mon,  1 Aug 2022 16:05:55 +0900 (JST)"
 - version: "4.25.13"
 - changes:
