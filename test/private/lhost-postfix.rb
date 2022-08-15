@@ -278,6 +278,8 @@ module LhostEngineTest::Private
       '01267' => [['5.0.0',   '550', 'onhold',          false]], # spamdetected
       '01268' => [['5.0.0',   '550', 'suspend',         false]],
       '01269' => [['5.0.0',   '550', 'virusdetected',   false]],
+      '01270' => [['5.0.0',   '554', 'norelaying',      false]],
+      '01271' => [['5.0.0',   '554', 'contenterror',    false]],
     }
   end
 end
