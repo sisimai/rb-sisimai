@@ -44,6 +44,13 @@ v5.0.0(beta3)
     - `lhost-postfix-77.eml` (norelaying)
     - `lhost-postfix-78.eml` (contenterror)
 
+v4.25.14
+---------------------------------------------------------------------------------------------------
+- release: "Mon, 15 Aug 2022 14:22:22 +0900 (JST)"
+- version: "4.25.12"
+- changes:
+  - Nothing changed, follow the Perl version of Sisimai 4.25.14.
+
 v4.25.13
 ---------------------------------------------------------------------------------------------------
 - release: "Mon,  1 Aug 2022 16:05:55 +0900 (JST)"
