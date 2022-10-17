@@ -3,6 +3,16 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.25.14p1
+--------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - Fix an error reason "5.2.1 exceedlimit" of an error message: "450-4.2.1 The
+    user you are trying to contact is receiving mail at a rate that prevents ad-
+    ditional messages from being delivered" to "toomanyconn" at Rhost::GoogleApp
+    class, imported from sisimai/p5-sisimai#465.
+
 v4.25.14
 --------------------------------------------------------------------------------
 - release: "Mon, 15 Aug 2022 14:22:22 +0900 (JST)"
