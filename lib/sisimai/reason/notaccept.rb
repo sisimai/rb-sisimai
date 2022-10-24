@@ -13,6 +13,7 @@ module Sisimai
       class << self
         # Destination mail server does not accept any message
         Index = [
+          'does not accept mail (nullmx)',
           'host/domain does not accept mail', # iCloud
           'host does not accept mail',        # Sendmail
           'name server: .: host not found',   # Sendmail
