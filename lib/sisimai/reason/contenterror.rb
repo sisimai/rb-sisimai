@@ -11,6 +11,7 @@ module Sisimai
       # Imported from p5-Sisimail/lib/Sisimai/Reason/ContentError.pm
       class << self
         Index = [
+          'header size exceeds maximum permitted',
           'improper use of 8-bit data in message header',
           'message header size, or recipient list, exceeds policy limit',
           'message mime complexity exceeds the policy maximum',

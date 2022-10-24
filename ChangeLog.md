@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.14p1
+v4.25.14p3
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -12,6 +12,19 @@ v4.25.14p1
     user you are trying to contact is receiving mail at a rate that prevents ad-
     ditional messages from being delivered" to "toomanyconn" at Rhost::GoogleApp
     class, imported from sisimai/p5-sisimai#465.
+  - Add many error message patterns at the following classes in `Sisimai/Reason`
+    - `Blocked`
+    - `ContentError`
+    - `Filtered`
+    - `NetworkError`
+    - `NotAccept`
+    - `PolicyViolation`
+    - `Rejected`
+    - `SpamDetected`
+    - `TooManyConn`
+    - `UserUnknown`
+  - When the value of `diagnosticcode` has enough error message for detecting a
+    bounce reason, `expired` will change to `networkerror`
 
 v4.25.14
 --------------------------------------------------------------------------------

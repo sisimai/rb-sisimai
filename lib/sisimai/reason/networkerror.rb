@@ -18,6 +18,7 @@ module Sisimai
           'dns records for the destination computer could not be found',
           'hop count exceeded - possible mail loop',
           'host is unreachable',
+          'host name lookup failure',
           'host not found, try again',
           'mail forwarding loop for ',
           'malformed name server reply',
