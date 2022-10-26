@@ -26,6 +26,7 @@ module Sisimai
           'batv failed to verify',    # SoniWall
           'batv validation failure',  # SoniWall
           'backscatter protection detected an invalid or expired email address',  # MDaemon
+          "because the sender isn't on the recipient's list of senders to accept mail from",
           'bogus mail from',          # IMail - block empty sender
           'connections not accepted from servers without a valid sender domain',
           'denied [bouncedeny]',      # McAfee
@@ -33,6 +34,7 @@ module Sisimai
           'delivery not authorized, message refused',
           'does not exist e2110',
           'domain of sender address ',
+          'email address is on senderfilterconfig list',
           'emetteur invalide',
           'empty envelope senders not allowed',
           'envelope blocked – ',
@@ -53,6 +55,7 @@ module Sisimai
           'rule imposed mailbox access for',  # MailMarshal
           'sender address has been blacklisted',
           'sender email address rejected',
+          'sender is in my black list',
           'sender is spammer',
           'sender not pre-approved',
           'sender rejected',
@@ -64,6 +67,7 @@ module Sisimai
           'transaction failed unsigned dsn for',
           'unroutable sender address',
           'you are sending to/from an address that has been blacklisted',
+          'your access to submit messages to this e-mail system has been rejected',
         ]
 
         def text; return 'rejected'; end

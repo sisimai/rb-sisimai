@@ -120,6 +120,7 @@ module Sisimai
           while true
             diagnostic   = argvs['diagnosticcode'].downcase || ''
             trytomatch   = reasontext.empty? ? true : false
+            trytomatch ||= true if reasontext == 'expired'
             trytomatch ||= true if GetRetried[reasontext]
             trytomatch ||= true if argvs['diagnostictype'] != 'SMTP'
             throw :TRY_TO_MATCH unless trytomatch

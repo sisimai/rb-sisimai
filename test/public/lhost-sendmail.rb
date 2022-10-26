@@ -13,7 +13,7 @@ module LhostEngineTest::Public
       '08' => [['4.7.1',   '450', 'blocked',         false]],
       '09' => [['5.7.9',   '554', 'policyviolation', false]],
       '10' => [['4.7.1',   '450', 'blocked',         false]],
-      '11' => [['4.4.7',   '',    'expired',         false]],
+      '11' => [['4.4.7',   '',    'networkerror',    false]],
       '12' => [['4.4.7',   '',    'expired',         false]],
       '13' => [['5.3.0',   '550', 'systemerror',     false]],
       '14' => [['5.1.1',   '550', 'userunknown',     true]],

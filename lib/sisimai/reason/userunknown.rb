@@ -14,13 +14,14 @@ module Sisimai
     #   RCPT TO command)
     module UserUnknown
       class << self
-        PreMatches = %w[NoRelaying Blocked MailboxFull HasMoved Rejected]
+        PreMatches = %w[NoRelaying Blocked MailboxFull HasMoved Rejected NotAccept]
         ModulePath = {
           'Sisimai::Reason::NoRelaying'  => 'sisimai/reason/norelaying',
           'Sisimai::Reason::Blocked'     => 'sisimai/reason/blocked',
           'Sisimai::Reason::MailboxFull' => 'sisimai/reason/mailboxfull',
           'Sisimai::Reason::HasMoved'    => 'sisimai/reason/hasmoved',
           'Sisimai::Reason::Rejected'    => 'sisimai/reason/rejected',
+          'Sisimai::Reason::NotAccept'   => 'sisimai/reason/notaccept',
         }
         Regex = %r{(?>
            [#]5[.]1[.]1[ ]bad[ ]address
@@ -96,6 +97,7 @@ module Sisimai
             |address[ ]rejected:[ ](?:
                access[ ]denied
               |invalid[ ]user
+              |invalid-recipient
               |user[ ][^ ]+[ ]does[ ]not[ ]exist
               |user[ ]unknown[ ]in[ ][^ ]+[ ]table
               |unknown[ ]user
@@ -103,6 +105,7 @@ module Sisimai
             |does[ ]not[ ]exist(?:[ ]on[ ]this[ ]system)?
             |is[ ]not[ ]local
             |not[ ](?:exist|found|ok)
+            |refuses[ ]to[ ]accept[ ]your[ ]mail
             |unknown
             )
           |requested[ ]action[ ]not[ ]taken:[ ]mailbox[ ]unavailable
@@ -112,7 +115,9 @@ module Sisimai
              user[ ]unknown
             |badrcptto
             |no[ ]mailbox[ ]here[ ]by[ ]that[ ]name
+            |your[ ]envelope[ ]recipient[ ]has[ ]been[ ]denied
             )
+          |that[ ]domain[ ]or[ ]user[ ]isn't[ ]in[ ]my[ ]list[ ]of[ ]allowed[ ]rcpthosts
           |the[ ](?:
              email[ ]account[ ]that[ ]you[ ]tried[ ]to[ ]reach[ ]does[ ]not[ ]exist
             |following[ ]recipients[ ]was[ ]undeliverable
@@ -122,6 +127,8 @@ module Sisimai
           |this[ ](?:
              address[ ]no[ ]longer[ ]accepts[ ]mail
             |email[ ]address[ ]is[ ]wrong[ ]or[ ]no[ ]longer[ ]valid
+            |recipient[ ]is[ ]in[ ]my[ ]badrecipientto[ ]list
+            |recipient[ ]is[ ]not[ ]in[ ]my[ ]validrcptto[ ]list
             |spectator[ ]does[ ]not[ ]exist
             |user[ ]doesn[']?t[ ]have[ ]a[ ][^ ]+[ ]account
             )

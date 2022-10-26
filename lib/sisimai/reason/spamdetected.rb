@@ -40,12 +40,15 @@ module Sisimai
           |may[ ]consider[ ]spam
           |message[ ](?:
              considered[ ]as[ ]spam[ ]or[ ]virus
+            |contains[ ]spam[ ]or[ ]virus
             |content[ ]rejected
+            |detected[ ]as[ ]spam
             |filtered
             |filtered[.][ ](?:
                please[ ]see[ ]the[ ]faqs[ ]section[ ]on[ ]spam
               |refer[ ]to[ ]the[ ]troubleshooting[ ]page[ ]at[ ]
               )
+            |is[ ]being[ ]rejected[ ]as[ ]it[ ]seems[ ]to[ ]be[ ]a[ ]spam
             |looks[ ]like[ ]spam
             |refused[ ]by[ ](?:
               mailmarshal[ ]spamprofiler
@@ -93,6 +96,7 @@ module Sisimai
           |spambouncer[ ]identified[ ]spam    # SpamBouncer identified SPAM
           |spamming[ ]not[ ]allowed
           |too[ ]much[ ]spam[.]               # Earthlink
+          |the[ ]email[ ]message[ ]was[ ]detected[ ]as[ ]spam
           |the[ ]message[ ](?:
              has[ ]been[ ]rejected[ ]by[ ]spam[ ]filtering[ ]engine
             |was[ ]rejected[ ]due[ ]to[ ]classification[ ]as[ ]bulk[ ]mail

@@ -16,6 +16,7 @@ module Sisimai
           'has restricted sms e-mail',    # AT&T
           'is not accepting any mail',
           'message rejected due to user rules',
+          'not found recipient account',
           'refused due to recipient preferences', # Facebook
           'resolver.rst.notauthorized',   # Microsoft Exchange
           'this account is protected by',
