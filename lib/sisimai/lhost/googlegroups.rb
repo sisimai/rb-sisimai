@@ -19,7 +19,7 @@ module Sisimai::Lhost
         return nil unless mhead['from'].end_with?('<mailer-daemon@googlemail.com>')
         return nil unless mhead['subject'].start_with?('Delivery Status Notification')
         return nil unless mhead['x-failed-recipients']
-        return nil unless mhead['x-failed-recipients'].include?('@googlegroups.com')
+        return nil unless mhead['x-google-smtp-source']
 
         # Hello kijitora@libsisimai.org,
         #
@@ -55,7 +55,6 @@ module Sisimai::Lhost
 
         mhead['x-failed-recipients'].split(',').each do |e|
           # X-Failed-Recipients: neko@example.jp, nyaan@example.org, ...
-          next unless e.end_with?('@googlegroups.com')
           next unless Sisimai::RFC5322.is_emailaddress(e)
 
           if v['recipient']
