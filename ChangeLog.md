@@ -25,6 +25,9 @@ v4.25.14p3
     - `UserUnknown`
   - When the value of `diagnosticcode` has enough error message for detecting a
     bounce reason, `expired` will change to `networkerror`
+  - Update code in `Sisimai::Lhost::GoogleGroups` module to parse well a bounce
+    mail even if an email address of `X-Failed-Recipients:` header does not in-
+    clude a domain `@googlegroups.com` #234
 
 v4.25.14
 --------------------------------------------------------------------------------
