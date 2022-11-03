@@ -1,0 +1,89 @@
+Return-Path: <>
+Received: from mbox.example.jp (6j.example.jp [192.0.2.12])
+	by nijo.example.jp (V8/cf) with ESMTP id 2A1G9IPF003550
+	for <kijitora@example.jp>; Wed, 2 Nov 2022 01:09:18 +0900
+Received: by mbox.example.jp (Postfix)
+	id 4N1w263TMDz1wYtp; Wed,  2 Nov 2022 01:09:18 +0900 (JST)
+Date: Wed,  2 Nov 2022 01:09:18 +0900 (JST)
+From: MAILER-DAEMON@mbox.example.jp (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: kijitora@example.jp
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="4N1w261vJbz1wYv9.1667318958/mbox.example.jp"
+Message-Id: <4N1w263TMDz1wYtp@mbox.example.jp>
+
+This is a MIME-encapsulated message.
+
+--4N1w261vJbz1wYv9.1667318958/mbox.example.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host mbox.example.jp.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<azumakuniyuki@ntt.docomo.example.ne.jp>: host mfsmax.docomo.ne.jp[203.138.181.240] said:
+    550 Unknown user azumakuniyuki@ntt.docomo.example.ne.jp (in reply to end of DATA
+    command)
+
+--4N1w261vJbz1wYv9.1667318958/mbox.example.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mbox.example.jp
+X-Postfix-Queue-ID: 4N1w261vJbz1wYv9
+X-Postfix-Sender: rfc822; kijitora@example.jp
+Arrival-Date: Wed,  2 Nov 2022 01:09:18 +0900 (JST)
+
+Final-Recipient: rfc822; azumakuniyuki@ntt.docomo.example.ne.jp
+Original-Recipient: rfc822;azumakuniyuki@ntt.docomo.example.ne.jp
+Action: failed
+Status: 5.0.0
+Remote-MTA: dns; mfsmax.docomo.ne.jp
+Diagnostic-Code: smtp; 550 Unknown user azumakuniyuki@ntt.docomo.example.ne.jp
+
+--4N1w261vJbz1wYv9.1667318958/mbox.example.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <kijitora@example.jp>
+Received: from mbox.example.jp (localhost [127.0.0.1])
+	by mbox.example.jp (Postfix) with ESMTP id 4N1w261vJbz1wYv9
+	for <azumakuniyuki@ntt.docomo.example.ne.jp>; Wed,  2 Nov 2022 01:09:18 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=example.jp;
+	s=nekochan; t=1667318958;
+	bh=Rcw09b0VqpSsRy3duiZI5bXVf5Zz0hewV7vRzHCVJtw=;
+	h=From:Subject:Date:To:From;
+	b=ChN9gLs+vvYZLRCAxMyvjlM3RzW95tHMBEfD9jxScvqmCrQLLUettVRJSRNXqSipr
+	 upfnU+QoGWbqbrNEKFrxatZrDNyHSspWCd29nBbbLteV92RxVw2kX8Wb9rltRf6lRN
+	 jUy+ANmVMvFOqVKvDRJi/JcvpHz12mL5JqRLUI04zi0OSljIS87KFHCUd+FdHeysez
+	 +ezc42Yw6y44VF7ptXBEP0WQ/+p+uCnrMVyMGzCeVvv8X6lr/BBiVdIMJBfXcLRid4
+	 dACf0Kuob5cdCsJ37JeY5FT/3SzlO+Ia6xR4lXGnI5b5RMuURq7LHb9LU/mgQb19Lf
+	 8cuI2XYTOA7WQ==
+Received: from smtpclient.apple (p22.kyoto.example.ad.jp [192.0.2.254])
+	by mbox.example.jp (Postfix) with ESMTPSA id 4N1w256Ccdz1wYtp
+	for <azumakuniyuki@ntt.docomo.example.ne.jp>; Wed,  2 Nov 2022 01:09:17 +0900 (JST)
+From: "Neko, Nyaan" <kijitora@example.jp>
+Content-Type: text/plain;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.100.31\))
+Subject: Nyaan
+Message-Id: <E7C0BEB1-BA8B-4639-B37B-A8D4A8494900@example.jp>
+Date: Wed, 2 Nov 2022 01:09:17 +0900
+To: azumakuniyuki@ntt.docomo.example.ne.jp
+X-Mailer: Apple Mail (2.3696.100.31)
+X-Virus-Scanned: ClamAV using ClamSMTP
+
+
+--4N1w261vJbz1wYv9.1667318958/mbox.example.jp--

@@ -2,7 +2,7 @@ module LhostEngineTest::Private
   module Postfix
     IsExpected = {
       # INDEX => [['D.S.N.', 'replycode', 'REASON', 'hardbounce'], [...]]
-      '01001' => [['5.0.0',   '550', 'filtered',        false]],
+      '01001' => [['5.0.0',   '550', 'rejected',        false]],
       '01002' => [['5.1.1',   '550', 'userunknown',     true]],
       '01003' => [['5.0.0',   '550', 'userunknown',     true]],
       '01004' => [['5.1.1',   '550', 'userunknown',     true]],
@@ -35,10 +35,10 @@ module LhostEngineTest::Private
       '01031' => [['5.0.0',   '550', 'userunknown',     true]],
       '01032' => [['5.0.0',   '550', 'userunknown',     true]],
       '01033' => [['5.0.0',   '550', 'userunknown',     true]],
-      '01034' => [['5.0.0',   '550', 'filtered',        false]],
+      '01034' => [['5.0.0',   '550', 'rejected',        false]],
       '01035' => [['4.2.2',   '',    'mailboxfull',     false]],
       '01036' => [['5.4.4',   '',    'hostunknown',     true]],
-      '01037' => [['5.0.0',   '550', 'filtered',        false]],
+      '01037' => [['5.0.0',   '550', 'rejected',        false]],
       '01038' => [['5.0.0',   '550', 'blocked',         false]],
       '01039' => [['5.1.1',   '',    'userunknown',     true]],
       '01040' => [['5.7.1',   '550', 'userunknown',     true]],
@@ -151,7 +151,7 @@ module LhostEngineTest::Private
       '01142' => [['5.0.0',   '550', 'blocked',         false]],
       '01143' => [['5.3.0',   '553', 'userunknown',     true]],
       '01144' => [['5.0.0',   '554', 'suspend',         false]],
-      '01145' => [['5.0.0',   '550', 'filtered',        false]],
+      '01145' => [['5.0.0',   '550', 'rejected',        false]],
       '01146' => [['5.1.3',   '',    'userunknown',     true]],
       '01147' => [['5.1.1',   '550', 'userunknown',     true]],
       '01148' => [['5.2.1',   '550', 'userunknown',     true]],
@@ -280,6 +280,8 @@ module LhostEngineTest::Private
       '01269' => [['5.0.0',   '550', 'virusdetected',   false]],
       '01270' => [['5.0.0',   '554', 'norelaying',      false]],
       '01271' => [['5.0.0',   '554', 'contenterror',    false]],
+      '01272' => [['5.0.0',   '550', 'rejected',        false]],
+      '01273' => [['5.0.0',   '550', 'rejected',        false]],
     }
   end
 end
