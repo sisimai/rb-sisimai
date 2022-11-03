@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.14p6
+v4.25.14p7
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -28,6 +28,8 @@ v4.25.14p6
   - Update code in `Sisimai::Lhost::GoogleGroups` module to parse well a bounce
     mail even if an email address of `X-Failed-Recipients:` header does not in-
     clude a domain `@googlegroups.com` #234
+  - Import #235from Sisimai v5, Implement `Sisimai::Rhost::NTTDOCOMO` to parse
+    more strictly a bounce mail returned from `mfsmax.docomo.ne.jp`
 
 v4.25.14
 --------------------------------------------------------------------------------
