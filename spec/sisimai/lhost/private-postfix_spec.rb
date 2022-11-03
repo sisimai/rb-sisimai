@@ -2,7 +2,7 @@ require 'spec_helper'
 require './spec/sisimai/lhost/code'
 enginename = 'Postfix'
 isexpected = [
-  { 'n' => '01001', 'r' => /filtered/ },
+  { 'n' => '01001', 'r' => /rejected/ },
   { 'n' => '01002', 'r' => /userunknown/ },
   { 'n' => '01003', 'r' => /userunknown/ },
   { 'n' => '01004', 'r' => /userunknown/ },
@@ -35,10 +35,10 @@ isexpected = [
   { 'n' => '01031', 'r' => /userunknown/ },
   { 'n' => '01032', 'r' => /userunknown/ },
   { 'n' => '01033', 'r' => /userunknown/ },
-  { 'n' => '01034', 'r' => /filtered/ },
+  { 'n' => '01034', 'r' => /rejected/ },
   { 'n' => '01035', 'r' => /mailboxfull/ },
   { 'n' => '01036', 'r' => /hostunknown/ },
-  { 'n' => '01037', 'r' => /filtered/ },
+  { 'n' => '01037', 'r' => /rejected/ },
   { 'n' => '01038', 'r' => /blocked/ },
   { 'n' => '01039', 'r' => /userunknown/ },
   { 'n' => '01040', 'r' => /userunknown/ },
@@ -146,7 +146,7 @@ isexpected = [
   { 'n' => '01142', 'r' => /blocked/ },
   { 'n' => '01143', 'r' => /userunknown/ },
   { 'n' => '01144', 'r' => /suspend/ },
-  { 'n' => '01145', 'r' => /filtered/ },
+  { 'n' => '01145', 'r' => /rejected/ },
   { 'n' => '01146', 'r' => /userunknown/ },
   { 'n' => '01147', 'r' => /userunknown/ },
   { 'n' => '01148', 'r' => /userunknown/ },
@@ -269,6 +269,8 @@ isexpected = [
   { 'n' => '01265', 'r' => /rejected/       },
   { 'n' => '01266', 'r' => /suspend/        },
   { 'n' => '01267', 'r' => /onhold/         }, # spamdetected
+  { 'n' => '01272', 'r' => /rejected/       },
+  { 'n' => '01273', 'r' => /rejected/       },
 ]
 Sisimai::Lhost::Code.maketest(enginename, isexpected, true)
 

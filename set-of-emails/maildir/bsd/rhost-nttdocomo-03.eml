@@ -1,0 +1,79 @@
+Return-Path: <>
+X-Original-To: sabatora@libsisimai.org
+Delivered-To: sabatora@libsisimai.org
+Received: from mbox.example.jp (localhost [127.0.0.1])
+	by mbox.example.jp (Postfix) with ESMTP id 4N1jYH5mF8z1wYv2
+	for <sabatora@libsisimai.org>; Tue,  1 Nov 2022 17:17:07 +0900 (JST)
+Received: from 4j.example.jp (4j.example.jp [192.0.2.45])
+	by mbox.example.jp (Postfix) with ESMTP id 4N1jYH4vf9z1wYtp
+	for <sabatora@libsisimai.org>; Tue,  1 Nov 2022 17:17:07 +0900 (JST)
+Authentication-Results: mbox.example.jp; dmarc=none (p=none dis=none) header.from=4j.example.jp
+Authentication-Results: mbox.example.jp; spf=pass smtp.helo=4j.example.jp
+Received: by 4j.example.jp (Postfix)
+	id 5619AC00844; Tue,  1 Nov 2022 17:17:21 +0900 (JST)
+Date: Tue,  1 Nov 2022 17:17:21 +0900 (JST)
+From: MAILER-DAEMON@4j.example.jp (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: sabatora@libsisimai.org
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="18E1AC6C55C.1667290641/4j.example.jp"
+Message-Id: <20221101081721.5619AC00844@4j.example.jp>
+X-Virus-Scanned: ClamAV using ClamSMTP
+
+This is a MIME-encapsulated message.
+
+--18E1AC6C55C.1667290641/4j.example.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host 4j.example.jp.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<azumakuniyuki@ntt.docomo.example.ne.jp>: host mfsmax.docomo.ne.jp[203.138.180.240] said:
+    550 Unknown user azumakuniyuki@ntt.docomo.example.ne.jp (in reply to end of DATA
+    command)
+
+--18E1AC6C55C.1667290641/4j.example.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; 4j.example.jp
+X-Postfix-Queue-ID: 18E1AC6C55C
+X-Postfix-Sender: rfc822; sabatora@libsisimai.org
+Arrival-Date: Tue,  1 Nov 2022 17:16:42 +0900 (JST)
+
+Final-Recipient: rfc822; azumakuniyuki@ntt.docomo.example.ne.jp
+Original-Recipient: rfc822;azumakuniyuki@ntt.docomo.example.ne.jp
+Action: failed
+Status: 5.0.0
+Remote-MTA: dns; mfsmax.docomo.ne.jp
+Diagnostic-Code: smtp; 550 Unknown user azumakuniyuki@ntt.docomo.example.ne.jp
+
+--18E1AC6C55C.1667290641/4j.example.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <sabatora@libsisimai.org>
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by 4j.example.jp (Postfix) with ESMTP id 18E1AC6C55C
+	for <azumakuniyuki@ntt.docomo.example.ne.jp>; Tue,  1 Nov 2022 17:16:42 +0900 (JST)
+Subject: Nyaan
+From: sabatora@libsisimai.org
+To: azumakuniyuki@ntt.docomo.example.ne.jp
+Message-Id: <20221101081656.18E1AC6C55C@4j.example.jp>
+Date: Tue,  1 Nov 2022 17:16:42 +0900 (JST)
+
+TEST(1)
+
+--18E1AC6C55C.1667290641/4j.example.jp--

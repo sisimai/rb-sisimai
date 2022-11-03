@@ -226,6 +226,7 @@ isexpected = [
   { 'n' => '01225', 'r' => /policyviolation/ },
   { 'n' => '01226', 'r' => /rejected/ },
   { 'n' => '01227', 'r' => /rejected/ },
+  { 'n' => '01230', 'r' => /filtered/ },
 ]
 Sisimai::Lhost::Code.maketest(enginename, isexpected, true)
 
