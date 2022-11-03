@@ -233,6 +233,7 @@ module LhostEngineTest::Private
       '01227' => [['5.7.1',   '550', 'rejected',        false]],
       '01228' => [['5.1.1',   '550', 'userunknown',     true]],
       '01229' => [['5.4.1',   '550', 'rejected',        false]],
+      '01230' => [['5.2.0',   '550', 'filtered',        false]],
     }
   end
 end
