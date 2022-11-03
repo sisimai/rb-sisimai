@@ -16,6 +16,7 @@ module Sisimai
               reason: 'securityerror',
               string: 'must pass either SPF or DKIM validation, this message is not signed'
           }],
+          '4.7.650' => [{ reason: 'blocked',     string: 'has been temporarily rate limited due to IP reputation' }],
           '5.0.0'   => [{ reason: 'blocked',     string: 'HELO / EHLO requires domain address' }],
           '5.1.4'   => [{ reason: 'systemerror', string: 'Destination mailbox address ambiguous' }],
           '5.2.1'   => [{ reason: 'suspend',     string: 'Mailbox cannot be accessed' }],
@@ -39,6 +40,7 @@ module Sisimai
               { reason: 'securityerror', string: 'Delivery not authorized' },
               { reason: 'securityerror', string: 'Client was not authenticated' },
               { reason: 'norelaying',    string: 'Unable to relay' },
+              { reason: 'blocked',       string: 'part of their network is on our block list (S3150)' },
           ],
           '5.7.25'  => [{ reason: 'blocked', string: 'must have a reverse DNS record' }],
           '5.7.51'  => [{ reason: 'blocked', string: 'RestrictDomainsToIPAddresses or RestrictDomainsToCertificate' }],
