@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.14p7
+v4.25.14p8
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -30,6 +30,11 @@ v4.25.14p7
     clude a domain `@googlegroups.com` #234
   - Import #235from Sisimai v5, Implement `Sisimai::Rhost::NTTDOCOMO` to parse
     more strictly a bounce mail returned from `mfsmax.docomo.ne.jp`
+  - Add the following error messages at `Sisimai::Rhost::ExchangeOnline:
+    - 451 4.7.650 The mail server [...] has been temporarily rate limited due to
+      IP reputation ... (S775)
+    - 550 5.7.1 ... Please contact your Internet service provider since part of
+      their network is on our block list (S3150)
 
 v4.25.14
 --------------------------------------------------------------------------------
