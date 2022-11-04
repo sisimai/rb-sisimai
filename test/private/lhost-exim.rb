@@ -165,7 +165,7 @@ module LhostEngineTest::Private
                   ['5.3.4',   '552', 'mesgtoobig',      false]],
       '01162' => [['5.7.1',   '550', 'blocked',         false]],
       '01163' => [['5.1.1',   '550', 'mailboxfull',     false]],
-      '01164' => [['5.7.1',   '553', 'blocked',         false]],
+      '01164' => [['5.7.1',   '553', 'authfailure',     false]],
       '01165' => [['5.7.1',   '550', 'spamdetected',    false]],
       '01168' => [['4.0.947', '',    'expired',         false]],
       '01169' => [['5.4.3',   '',    'systemerror',     false]],
