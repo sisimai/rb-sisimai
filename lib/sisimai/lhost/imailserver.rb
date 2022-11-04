@@ -21,7 +21,7 @@ module Sisimai::Lhost
         'hostunknown'   => %r/Unknown host/,
         'userunknown'   => %r/\A(?:Unknown user|Invalid final delivery userid)/,
         'mailboxfull'   => %r/\AUser mailbox exceeds allowed size/,
-        'securityerror' => %r/\ARequested action not taken: virus detected/,
+        'virusdetected' => %r/\ARequested action not taken: virus detected/,
         'undefined'     => %r/\Aundeliverable to /,
         'expired'       => %r/\ADelivery failed \d+ attempts/,
       }.freeze
