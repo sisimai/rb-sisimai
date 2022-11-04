@@ -521,7 +521,7 @@ module Sisimai
           '4.7.12' => 'securityerror',  # A password transition is needed
           '4.7.15' => 'securityerror',  # Priority Level is too low
           '4.7.16' => 'mesgtoobig',     # Message is too big for the specified priority
-          '4.7.24' => 'securityerror',  # SPF validation error
+          '4.7.24' => 'authfailure ',   # SPF validation error
           '4.7.25' => 'blocked',        # Reverse DNS validation failed
           # ---------------------------------------------------------------------------------------
           '5.1.0'  => 'userunknown',    # Other address status
@@ -581,18 +581,19 @@ module Sisimai
           '5.7.17' => 'hasmoved',       # Mailbox owner has changed
           '5.7.18' => 'hasmoved',       # Domain owner has changed
           '5.7.19' => 'securityerror',  # RRVS test cannot be completed
-          '5.7.20' => 'securityerror',  # No passing DKIM signature found
-          '5.7.21' => 'securityerror',  # No acceptable DKIM signature found
-          '5.7.22' => 'securityerror',  # No valid author-matched DKIM signature found
-          '5.7.23' => 'securityerror',  # SPF validation failed
-          '5.7.24' => 'securityerror',  # SPF validation error
+          '5.7.20' => 'authfailure',    # No passing DKIM signature found
+          '5.7.21' => 'authfailure',    # No acceptable DKIM signature found
+          '5.7.22' => 'authfailure',    # No valid author-matched DKIM signature found
+          '5.7.23' => 'authfailure',    # SPF validation failed
+          '5.7.24' => 'authfailure',    # SPF validation error
           '5.7.25' => 'blocked',        # Reverse DNS validation failed
-          '5.7.26' => 'securityerror',  # Multiple authentication checks failed
+          '5.7.26' => 'authfailure',    # Multiple authentication checks failed
           '5.7.27' => 'notaccept',      # MX resource record of a destination host is Null MX: RFC7505
         }.freeze
 
         InternalCode = {
           :temporary => {
+            'authfailure'   => '4.0.972',
             'blocked'       => '4.0.971',
             'contenterror'  => '4.0.960',
             # 'exceedlimit' => '4.0.923',
@@ -618,6 +619,7 @@ module Sisimai
             'undefined'     => '4.0.900',
           },
           :permanent => {
+            'authfailure'     => '5.0.972',
             'blocked'         => '5.0.971',
             'contenterror'    => '5.0.960',
             'exceedlimit'     => '5.0.923',

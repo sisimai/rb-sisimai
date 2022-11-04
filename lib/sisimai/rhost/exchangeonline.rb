@@ -7,13 +7,10 @@ module Sisimai
       class << self
         # https://technet.microsoft.com/en-us/library/bb232118
         StatusList = {
-          '4.3.1'   => [{ reason: 'systemfull', string: 'Insufficient system resources' }],
-          '4.3.2'   => [{ reason: 'notaccept',  string: 'System not accepting network messages' }],
-          '4.4.2'   => [{ reason: 'blocked',    string: 'Connection dropped' }],
-          '4.7.26'  => [{
-              reason: 'securityerror',
-              string: 'must pass either SPF or DKIM validation, this message is not signed'
-          }],
+          '4.3.1'   => [{ reason: 'systemfull',  string: 'Insufficient system resources' }],
+          '4.3.2'   => [{ reason: 'notaccept',   string: 'System not accepting network messages' }],
+          '4.4.2'   => [{ reason: 'blocked',     string: 'Connection dropped' }],
+          '4.7.26'  => [{ reason: 'authfailure', string: 'must pass either SPF or DKIM validation, this message is not signed' }],
           '4.7.650' => [{ reason: 'blocked',     string: 'has been temporarily rate limited due to IP reputation' }],
           '5.0.0'   => [{ reason: 'blocked',     string: 'HELO / EHLO requires domain address' }],
           '5.1.4'   => [{ reason: 'systemerror', string: 'Destination mailbox address ambiguous' }],
