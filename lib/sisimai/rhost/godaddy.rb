@@ -1,8 +1,8 @@
 module Sisimai
   module Rhost
-    # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Data object as an argument
+    # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Fact object as an argument
     # of get() method when the value of "rhost" of the object is "*.secureserver.net". This class is
-    # called only Sisimai::Data class.
+    # called only Sisimai::Fact class.
     module GoDaddy
       class << self
         # https://www.godaddy.com/help/what-does-my-email-bounceback-mean-3568
@@ -38,7 +38,7 @@ module Sisimai
         }.freeze
 
         # Detect bounce reason from GoDaddy
-        # @param    [Sisimai::Data] argvs   Parsed email object
+        # @param    [Sisimai::Fact] argvs   Parsed email object
         # @return   [String]                The bounce reason for GoDaddy
         # @see      https://www.godaddy.com/help/what-does-my-email-bounceback-mean-3568
         def get(argvs)

@@ -68,7 +68,7 @@ module Sisimai
         end
 
         # The envelope recipient's mailbox is full or not
-        # @param    [Sisimai::Data] argvs   Object to be detected the reason
+        # @param    [Sisimai::Fact] argvs   Object to be detected the reason
         # @return   [True,False]            true: is mailbox full
         #                                   false: is not mailbox full
         # @see http://www.ietf.org/rfc/rfc2822.txt

@@ -24,7 +24,7 @@ module Sisimai
         end
 
         # Whether the address has moved or not
-        # @param    [Sisimai::Data] argvs   Object to be detected the reason
+        # @param    [Sisimai::Fact] argvs   Object to be detected the reason
         # @return   [True,False]            true: The address has moved
         #                                   false: Has not moved
         # @see http://www.ietf.org/rfc/rfc2822.txt

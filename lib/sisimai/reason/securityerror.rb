@@ -58,7 +58,7 @@ module Sisimai
         end
 
         # The bounce reason is security error or not
-        # @param    [Sisimai::Data] argvs   Object to be detected the reason
+        # @param    [Sisimai::Fact] argvs   Object to be detected the reason
         # @return   [True,False]            true: is security error
         #                                   false: is not security error
         # @see http://www.ietf.org/rfc/rfc2822.txt

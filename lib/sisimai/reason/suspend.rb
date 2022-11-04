@@ -39,7 +39,7 @@ module Sisimai
         end
 
         # The envelope recipient's mailbox is suspended or not
-        # @param    [Sisimai::Data] argvs   Object to be detected the reason
+        # @param    [Sisimai::Fact] argvs   Object to be detected the reason
         # @return   [True,False]            true: is mailbox suspended
         #                                   false: is not suspended
         # @see http://www.ietf.org/rfc/rfc2822.txt

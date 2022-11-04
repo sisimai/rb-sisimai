@@ -1,8 +1,8 @@
 module Sisimai
   module Rhost
-    # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Data object as an argument
+    # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Fact object as an argument
     # of get() method when the value of "destination" of the object is "charter.net". This class is
-    # called only Sisimai::Data class.
+    # called only Sisimai::Fact class.
     module Cox
       class << self
         ErrorCodes = {
@@ -78,7 +78,7 @@ module Sisimai
         }.freeze
 
         # Detect bounce reason from https://cox.com/
-        # @param    [Sisimai::Data] argvs   Parsed email object
+        # @param    [Sisimai::Fact] argvs   Parsed email object
         # @return   [String, Nil]           The bounce reason at Cox
         # @since v4.25.8
         def get(argvs)

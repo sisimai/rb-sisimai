@@ -44,7 +44,7 @@ module Sisimai
         end
 
         # Whether the message is rejected by 'Relaying denied'
-        # @param    [Sisimai::Data] argvs   Object to be detected the reason
+        # @param    [Sisimai::Fact] argvs   Object to be detected the reason
         # @return   [True,False]            true: Rejected for "relaying denied"
         #                                   false: is not
         # @see http://www.ietf.org/rfc/rfc2822.txt

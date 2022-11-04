@@ -155,7 +155,7 @@ module Sisimai
         end
 
         # Rejected due to spam content in the message
-        # @param    [Sisimai::Data] argvs   Object to be detected the reason
+        # @param    [Sisimai::Fact] argvs   Object to be detected the reason
         # @return   [True,False]            true: rejected due to spam
         #                                   false: is not rejected due to spam
         # @see http://www.ietf.org/rfc/rfc2822.txt

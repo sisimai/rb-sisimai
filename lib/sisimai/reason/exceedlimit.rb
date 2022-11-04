@@ -26,7 +26,7 @@ module Sisimai
         end
 
         # Exceed limit or not
-        # @param    [Sisimai::Data] argvs Object to be detected the reason
+        # @param    [Sisimai::Fact] argvs Object to be detected the reason
         # @return   [True,False]          true: Exceeds the limit
         #                                 false: Did not exceed the limit
         # @see      http://www.ietf.org/rfc/rfc2822.txt

@@ -17,7 +17,7 @@ module Sisimai
         end
 
         # On hold, Could not decide the bounce reason...
-        # @param    [Sisimai::Data] argvs   Object to be detected the reason
+        # @param    [Sisimai::Fact] argvs   Object to be detected the reason
         # @return   [True,False]            true: Status code is "onhold"
         #                                   false: is not "onhold"
         # @see http://www.ietf.org/rfc/rfc2822.txt

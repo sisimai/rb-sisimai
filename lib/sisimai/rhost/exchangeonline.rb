@@ -1,8 +1,8 @@
 module Sisimai
   module Rhost
-    # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Data object as an argument
+    # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Fact object as an argument
     # of get() method when the value of "rhost" of the object is *.protection.outlook.com. This class
-    # is called only Sisimai::Data class.
+    # is called only Sisimai::Fact class.
     module ExchangeOnline
       class << self
         # https://technet.microsoft.com/en-us/library/bb232118
@@ -115,7 +115,7 @@ module Sisimai
         }.freeze
 
         # Detect bounce reason from Exchange Online
-        # @param    [Sisimai::Data] argvs   Parsed email object
+        # @param    [Sisimai::Fact] argvs   Parsed email object
         # @return   [String]                The bounce reason for Exchange Online
         def get(argvs)
           return argvs['reason'] unless argvs['reason'].empty?

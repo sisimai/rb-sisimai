@@ -1,7 +1,7 @@
 module Sisimai
-  # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Data object as an argument
+  # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Fact object as an argument
   # of get() method when the value of rhost of the object is listed in the results of Sisimai::Rhost
-  # ->list method. This class is called only Sisimai::Data class.
+  # ->list method. This class is called only Sisimai::Fact class.
   module Rhost
     class << self
       RhostClass = {

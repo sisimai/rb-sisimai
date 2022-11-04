@@ -1,8 +1,8 @@
 module Sisimai
   module Rhost
-    # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Data object as an argument
+    # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Fact object as an argument
     # of get() method when the value of "rhost" of the object is "*.email.ua". This class is called
-    # only Sisimai::Data class.
+    # only Sisimai::Fact class.
     module IUA
       class << self
         ErrorCodes = {
@@ -20,7 +20,7 @@ module Sisimai
         }.freeze
 
         # Detect bounce reason from https://www.i.ua/
-        # @param    [Sisimai::Data] argvs   Parsed email object
+        # @param    [Sisimai::Fact] argvs   Parsed email object
         # @return   [String]                The bounce reason at https://www.i.ua/
         def get(argvs)
           return argvs['reason'] unless argvs['reason'].empty?

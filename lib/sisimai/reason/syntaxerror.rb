@@ -17,7 +17,7 @@ module Sisimai
         def match(*); return nil; end
 
         # Connection rejected due to syntax error or not
-        # @param    [Sisimai::Data] argvs   Object to be detected the reason
+        # @param    [Sisimai::Fact] argvs   Object to be detected the reason
         # @return   [True,False]            true: Connection rejected due to
         #                                         syntax error
         #                                   false: is not syntax error

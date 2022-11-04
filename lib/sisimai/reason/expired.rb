@@ -42,7 +42,7 @@ module Sisimai
         end
 
         # Delivery expired due to connection failure or network error
-        # @param    [Sisimai::Data] argvs   Object to be detected the reason
+        # @param    [Sisimai::Fact] argvs   Object to be detected the reason
         # @return   [True,False]            true: is expired
         #                                   false: is not expired
         # @see      http://www.ietf.org/rfc/rfc2822.txt

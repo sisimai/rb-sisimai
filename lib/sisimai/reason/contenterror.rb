@@ -34,7 +34,7 @@ module Sisimai
         end
 
         # Rejected email due to header format of the email
-        # @param    [Sisimai::Data] argvs   Object to be detected the reason
+        # @param    [Sisimai::Fact] argvs   Object to be detected the reason
         # @return   [True,False]            true: rejected due to content error
         #                                   false: is not content error
         # @see      http://www.ietf.org/rfc/rfc2822.txt

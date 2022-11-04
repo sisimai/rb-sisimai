@@ -41,7 +41,7 @@ module Sisimai
         end
 
         # Rejected by domain or address filter ?
-        # @param    [Sisimai::Data] argvs   Object to be detected the reason
+        # @param    [Sisimai::Fact] argvs   Object to be detected the reason
         # @return   [True,False]            true: is filtered
         #                                   false: is not filtered
         # @see http://www.ietf.org/rfc/rfc2822.txt

@@ -27,7 +27,7 @@ module Sisimai
         end
 
         # The bounce reason is system full or not
-        # @param    [Sisimai::Data] argvs   Object to be detected the reason
+        # @param    [Sisimai::Fact] argvs   Object to be detected the reason
         # @return   [True,False]            true: is system full
         #                                   false: is not system full
         # @see http://www.ietf.org/rfc/rfc2822.txt

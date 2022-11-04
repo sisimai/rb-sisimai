@@ -35,7 +35,7 @@ module Sisimai
         end
 
         # The message size is too big for the remote host
-        # @param    [Sisimai::Data] argvs   Object to be detected the reason
+        # @param    [Sisimai::Fact] argvs   Object to be detected the reason
         # @return   [True,False]            true: is too big message size
         #                                   false: is not big
         # @see http://www.ietf.org/rfc/rfc2822.txt

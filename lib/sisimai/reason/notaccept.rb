@@ -35,7 +35,7 @@ module Sisimai
         end
 
         # Remote host does not accept any message
-        # @param    [Sisimai::Data] argvs   Object to be detected the reason
+        # @param    [Sisimai::Fact] argvs   Object to be detected the reason
         # @return   [True,False]            true: Not accept
         #                                   false: Accept
         # @see http://www.ietf.org/rfc/rfc2822.txt

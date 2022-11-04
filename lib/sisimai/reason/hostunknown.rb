@@ -41,7 +41,7 @@ module Sisimai
         end
 
         # Whether the host is unknown or not
-        # @param    [Sisimai::Data] argvs   Object to be detected the reason
+        # @param    [Sisimai::Fact] argvs   Object to be detected the reason
         # @return   [True,False]            true: is unknown host
         #                                   false: is not unknown host.
         # @see http://www.ietf.org/rfc/rfc2822.txt
