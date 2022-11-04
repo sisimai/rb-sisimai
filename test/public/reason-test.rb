@@ -92,6 +92,7 @@ class ReasonTest < Minitest::Test
     'smtp;550 5.1.1 <kijitora@example.or.jp>... User unknown',
     '550 5.1.1 <kijitora@example.jp>... User Unknown ',
     '550 5.1.1 <this-local-part-does-not-exist-on-the-server@example.jp>... ',
+    '550 Bad SPF records for [example.org:192.0.2.2], see http://spf.pobox.com/',
     'Connection timed out',
   ]
 

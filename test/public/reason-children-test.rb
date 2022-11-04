@@ -4,6 +4,7 @@ require 'sisimai'
 
 class ReasonChildrenTest < Minitest::Test
   Reasons = {
+    'AuthFailure'     => ["550 5.1.0 192.0.2.222 is not allowed to send from <example.net> per it's SPF Record"],
     'Blocked'         => ['550 Access from ip address 192.0.2.1 blocked.'],
     'ContentError'    => ['550 5.6.0 the headers in this message contain improperly-formatted binary content'],
     'ExceedLimit'     => ['5.2.3 Message too large'],
