@@ -90,6 +90,7 @@ class ReasonTest < Minitest::Test
     'smtp;550 5.2.2 <mikeneko@example.co.jp>... Mailbox Full',
     'smtp;550 Requested action not taken: mailbox unavailable (-2019901852:4030:-2147467259)',
     'smtp;550 5.1.1 <kijitora@example.or.jp>... User unknown',
+    '451 4.7.1 <smtp3.example.jp[192.0.2.1]>: Client host rejected: Please try again slower',
     '550 5.1.1 <kijitora@example.jp>... User Unknown ',
     '550 5.1.1 <this-local-part-does-not-exist-on-the-server@example.jp>... ',
     '550 Bad SPF records for [example.org:192.0.2.2], see http://spf.pobox.com/',

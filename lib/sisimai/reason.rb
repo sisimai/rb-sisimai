@@ -9,8 +9,8 @@ module Sisimai
         return %w[
           AuthFailure Blocked ContentError ExceedLimit Expired Filtered HasMoved HostUnknown
           MailboxFull MailerError MesgTooBig NetworkError NotAccept OnHold Rejected NoRelaying
-          SpamDetected VirusDetected PolicyViolation SecurityError Suspend SystemError SystemFull
-          TooManyConn UserUnknown SyntaxError
+          Speeding SpamDetected VirusDetected PolicyViolation SecurityError Suspend SystemError
+          SystemFull TooManyConn UserUnknown SyntaxError
         ]
       end
 
@@ -25,11 +25,12 @@ module Sisimai
       end
 
       # Reason list better to retry detecting an error reason
-      # @return   [Array] Reason list
+      # @return   [Hash] Reason list
       def retry
         return {
           'undefined' => true, 'onhold' => true, 'systemerror' => true, 'securityerror' => true,
-          'networkerror' => true, 'hostunknown' => true, 'userunknown' => true
+          'expired' => true, 'suspend' => true, 'networkerror' => true, 'hostunknown' => true,
+          'userunknown' => true
         }.freeze
       end
       ModulePath = Sisimai::Reason.path
@@ -37,18 +38,18 @@ module Sisimai
       ClassOrder = [
         %w[
           MailboxFull MesgTooBig ExceedLimit Suspend HasMoved NoRelaying AuthFailure UserUnknown
-          Filtered Rejected HostUnknown SpamDetected TooManyConn Blocked
+          Filtered Rejected HostUnknown SpamDetected Speeding TooManyConn Blocked
         ],
         %w[
           MailboxFull SpamDetected PolicyViolation VirusDetected NoRelaying AuthFailure 
-          SecurityError SystemError NetworkError Suspend Expired ContentError SystemFull NotAccept
-          MailerError
+          SecurityError SystemError NetworkError Speeding Suspend Expired ContentError SystemFull
+          NotAccept MailerError
         ],
         %w[
           MailboxFull MesgTooBig ExceedLimit Suspend UserUnknown Filtered Rejected HostUnknown
-          SpamDetected TooManyConn Blocked SpamDetected AuthFailure SecurityError SystemError
-          NetworkError Suspend Expired ContentError HasMoved SystemFull NotAccept MailerError
-          NoRelaying SyntaxError OnHold
+          SpamDetected Speeding TooManyConn Blocked SpamDetected AuthFailure SecurityError
+          SystemError NetworkError Suspend Expired ContentError HasMoved SystemFull NotAccept
+          MailerError NoRelaying SyntaxError OnHold
         ]
       ]
 
@@ -121,7 +122,6 @@ module Sisimai
           while true
             diagnostic   = argvs['diagnosticcode'].downcase || ''
             trytomatch   = reasontext.empty? ? true : false
-            trytomatch ||= true if reasontext == 'expired'
             trytomatch ||= true if GetRetried[reasontext]
             trytomatch ||= true if argvs['diagnostictype'] != 'SMTP'
             throw :TRY_TO_MATCH unless trytomatch

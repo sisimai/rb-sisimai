@@ -41,7 +41,7 @@ module LhostEngineTest::Private
       '01038' => [['5.7.0',   '550', 'blocked',         false]],
       '01039' => [['4.0.922', '',    'mailboxfull',     false]],
       '01040' => [['4.0.947', '',    'expired',         false]],
-      '01041' => [['4.0.947', '451', 'expired',         false]],
+      '01041' => [['4.0.947', '451', 'spamdetected',    false]],
       '01042' => [['5.0.944', '',    'networkerror',    false]],
       '01043' => [['5.0.911', '550', 'userunknown',     true]],
       '01044' => [['5.0.944', '',    'networkerror',    false]],

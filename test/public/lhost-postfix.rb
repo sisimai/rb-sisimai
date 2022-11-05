@@ -52,7 +52,7 @@ module LhostEngineTest::Public
       '56' => [['4.4.2',   '',    'networkerror',    false]],
       '57' => [['5.2.1',   '550', 'userunknown',     true]],
       '58' => [['5.7.1',   '550', 'blocked',         false]],
-      '59' => [['5.2.1',   '550', 'exceedlimit',     false]],
+      '59' => [['5.2.1',   '550', 'speeding',        false]],
       '60' => [['4.0.0',   '',    'blocked',         false]],
       '61' => [['5.0.0',   '550', 'suspend',         false]],
       '62' => [['5.0.0',   '550', 'virusdetected',   false]],
