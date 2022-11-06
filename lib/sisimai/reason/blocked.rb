@@ -64,7 +64,6 @@ module Sisimai
           |http://www[.]spamcop[.]net/bl[.]
           |invalid[ ]ip[ ]for[ ]sending[ ]mail[ ]of[ ]domain
           |ip[ ]\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3}[ ]is[ ]blocked[ ]by[ ]EarthLink # Earthlink
-          |ip[/]domain[ ]reputation[ ]problems
           |is[ ](?:
              in[ ]a[ ]black[ ]list(?:[ ]at[ ][^ ]+[.])?
             |in[ ]an[ ][^ ]+rbl[ ]on[ ][^ ]+
@@ -87,10 +86,6 @@ module Sisimai
             )
           |ptr[ ]record[ ]setup
           |rejected[ ]because[ ]the[ ]sending[ ]mta[ ]or[ ]the[ ]sender[ ]has[ ]not[ ]passed[ ]validation
-          |rejected[ ]due[ ]to[ ](?:
-             a[ ]poor[ ]email[ ]reputation[ ]score
-            |the[ ]sending[ ]mta's[ ]poor[ ]reputation
-            )
           |rejecting[ ]open[ ]proxy   # Sendmail(srvrsmtp.c)
           |reverse[ ]dns[ ](?:
              failed
