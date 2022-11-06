@@ -83,8 +83,10 @@ module Sisimai
             { reason: 'blocked', string: [
                 'The IP address sending this message does not have a PTR record setup.',
                 "The IP you're using to send mail is not authorized to send email directly to our servers.",
-                'this message is likely suspicious due to the very low reputation of the sending IP address',
                 'unusual rate of unsolicited mail originating from your IP address.',
+            ]},
+            { reason: 'badreputation',  string: [
+                'this message is likely suspicious due to the very low reputation of the sending IP address',
             ]},
             { reason: 'spamdetected',   string: ['this message is likely unsolicited mail.'] },
             { reason: 'policyviolation',string: [

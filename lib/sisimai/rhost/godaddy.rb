@@ -7,7 +7,7 @@ module Sisimai
       class << self
         # https://www.godaddy.com/help/what-does-my-email-bounceback-mean-3568
         ErrorCodes = {
-          'IB103' => 'blocked',       # 554 Connection refused. This IP has a poor reputation on Cloudmark Sender Intelligence (CSI). IB103
+          'IB103' => 'badreputation', # 554 Connection refused. This IP has a poor reputation on Cloudmark Sender Intelligence (CSI). IB103
           'IB104' => 'blocked',       # 554 Connection refused. This IP is listed on the Spamhaus Block List (SBL). IB104
           'IB105' => 'blocked',       # 554 Connection refused. This IP is listed on the Exploits Block List (XBL). IB105
           'IB106' => 'blocked',       # 554 Connection refused. This IP is listed on the Policy Block List (PBL). IB106
