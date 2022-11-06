@@ -7,10 +7,10 @@ module Sisimai
       # @return   [Array] Reason list
       def index
         return %w[
-          AuthFailure Blocked ContentError ExceedLimit Expired Filtered HasMoved HostUnknown
-          MailboxFull MailerError MesgTooBig NetworkError NotAccept OnHold Rejected NoRelaying
-          Speeding SpamDetected VirusDetected PolicyViolation SecurityError Suspend SystemError
-          SystemFull TooManyConn UserUnknown SyntaxError
+          AuthFailure BadReputation Blocked ContentError ExceedLimit Expired Filtered HasMoved
+          HostUnknown MailboxFull MailerError MesgTooBig NetworkError NotAccept OnHold Rejected
+          NoRelaying Speeding SpamDetected VirusDetected PolicyViolation SecurityError Suspend
+          SystemError SystemFull TooManyConn UserUnknown SyntaxError
         ]
       end
 
@@ -41,9 +41,9 @@ module Sisimai
           Filtered Rejected HostUnknown SpamDetected Speeding TooManyConn Blocked
         ],
         %w[
-          MailboxFull SpamDetected PolicyViolation VirusDetected NoRelaying AuthFailure 
-          SecurityError SystemError NetworkError Speeding Suspend Expired ContentError SystemFull
-          NotAccept MailerError
+          MailboxFull SpamDetected PolicyViolation VirusDetected NoRelaying AuthFailure
+          BadReputation SecurityError SystemError NetworkError Speeding Suspend Expired ContentError
+          SystemFull NotAccept MailerError
         ],
         %w[
           MailboxFull MesgTooBig ExceedLimit Suspend UserUnknown Filtered Rejected HostUnknown
