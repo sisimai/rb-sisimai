@@ -594,6 +594,7 @@ module Sisimai
         InternalCode = {
           :temporary => {
             'authfailure'   => '4.0.972',
+            'badreputation' => '4.0.975',
             'blocked'       => '4.0.971',
             'contenterror'  => '4.0.960',
             # 'exceedlimit' => '4.0.923',
@@ -621,6 +622,7 @@ module Sisimai
           },
           :permanent => {
             'authfailure'     => '5.0.972',
+            'badreputation'   => '5.0.975',
             'blocked'         => '5.0.971',
             'contenterror'    => '5.0.960',
             'exceedlimit'     => '5.0.923',
