@@ -1,0 +1,90 @@
+Delivered-To: automated-bounces+feffeeff-0002-ebbb-8192-00101100ffefee@email.example.com
+Received: by 192.0.2.117 with SMTP id UfAUHGQO080319;
+        Thu, 29 Apr 2022 23:34:45 -0800 (PST)
+Received: by 192.0.2.116 with SMTP id zwKF2wfslXzPbG51.22.20220022322;
+        Thu, 29 Apr 2022 23:34:45 -0800 (PST)
+Return-Path: <>
+Received: from nyaan2.example.co.uk (nyaan2.example.co.uk. [192.0.2.117])
+        by mx.google.com with ESMTP id 2mcBI4Uh025855.114.2022.04.29.23.34.45;
+        Thu, 29 Apr 2022 23:34:45 -0800 (PST)
+Received-SPF: pass (google.com: domain of nyaan2.example.co.uk designates 192.0.2.117 as permitted sender) client-ip=192.0.2.117;
+Authentication-Results: mx.google.com; spf=pass (google.com: domain of nyaan2.example.co.uk designates 192.0.2.117 as permitted sender) smtp.mail=
+Received: by nyaan2.example.co.uk (Postfix)
+	id zyrWXqvX71zdjmrD; Thu, 29 Apr 2022 23:34:45 +0000 (GMT)
+Date: Thu, 29 Apr 2022 23:34:45 +0000 (GMT)
+From: MAILER-DAEMON@nyaan2.example.co.uk (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: automated-bounces+7BE1D472-4B2D-11E1-9E82-A342CB4AA966@email.example.com
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="316C411E8435.000000000/nyaan2.example.co.uk"
+Message-Id: <20220429233445.zyrWXqvX71zdjmrD@nyaan2.example.co.uk>
+
+This is a MIME-encapsulated message.
+
+--316C411E8435.000000000/nyaan2.example.co.uk
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host nyaan2.example.co.uk.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to <postmaster>
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@sample.co.uk>: host service222.mimecast.com[91.220.42.51] said: 554
+    email rejected due to security policies - MCSpamSignature.sa.2.2 (in reply
+    to end of DATA command)
+
+--316C411E8435.000000000/nyaan2.example.co.uk
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; nyaan2.example.co.uk
+X-Postfix-Queue-ID: 316C411E8435
+X-Postfix-Sender: rfc822; automated-bounces+FFFFFFFF-0000-EEEE-EEEE-00000000EEEE@email.example.com
+Arrival-Date: Thu, 29 Apr 2022 23:34:45 +0000 (GMT)
+
+Final-Recipient: rfc822; kijitora@sample.co.uk
+Action: failed
+Status: 5.0.0
+Remote-MTA: dns; service222.mimecast.com
+Diagnostic-Code: smtp; 554 email rejected due to security policies -
+    MCSpamSignature.sa.2.2
+
+--316C411E8435.000000000/nyaan2.example.co.uk
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Received: by nyaan2.example.co.uk (Postfix, from userid 222)
+	id 316C411E8435; Thu, 29 Apr 2022 23:34:45 +0000 (GMT)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Type: multipart/related; boundary="_----------=_1055808412000000"
+Date: Thu, 29 Apr 2022 23:34:45 +0000
+From: Neko <neko@email.example.com>
+Subject: Nyaan
+To: Kijitora Nyaan <kijitora@sample.co.uk>
+Message-Id: <20220429.0000.316C411E8435@nyaan2.example.co.uk>
+
+This is a multi-part message in MIME format.
+
+--_----------=_1055808412000000
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html
+
+Nyaan
+
+--_----------=_1055808412000000--
+
+
+--316C411E8435.000000000/nyaan2.example.co.uk--
+
