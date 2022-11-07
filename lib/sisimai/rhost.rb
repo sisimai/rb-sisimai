@@ -17,6 +17,7 @@ module Sisimai
         '.email.ua'                   => 'IUA',
         'lsean.ezweb.ne.jp'           => 'KDDI',
         'msmx.au.com'                 => 'KDDI',
+        '.mimecast.com'               => 'Mimecast',
         'mfsmax.docomo.ne.jp'         => 'NTTDOCOMO',
         'charter.net'                 => 'Spectrum',
         'cox.net'                     => 'Cox',
