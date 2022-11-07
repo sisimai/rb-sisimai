@@ -5,6 +5,7 @@ module Sisimai
   module Rhost
     class << self
       RhostClass = {
+        'cox.net'                     => 'Cox',
         '.prod.outlook.com'           => 'ExchangeOnline',
         '.protection.outlook.com'     => 'ExchangeOnline',
         'laposte.net'                 => 'FrancePTT',
@@ -20,7 +21,6 @@ module Sisimai
         '.mimecast.com'               => 'Mimecast',
         'mfsmax.docomo.ne.jp'         => 'NTTDOCOMO',
         'charter.net'                 => 'Spectrum',
-        'cox.net'                     => 'Cox',
         '.qq.com'                     => 'TencentQQ',
       }.freeze
 
