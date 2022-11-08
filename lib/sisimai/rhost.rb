@@ -7,6 +7,7 @@ module Sisimai
     class << self
       # Imported from p5-Sisimail/lib/Sisimai/Rhost.pm
       RhostClass = {
+        'cox.net'                     => 'Cox',
         '.prod.outlook.com'           => 'ExchangeOnline',
         '.protection.outlook.com'     => 'ExchangeOnline',
         'laposte.net'                 => 'FrancePTT',
@@ -21,7 +22,6 @@ module Sisimai
         'msmx.au.com'                 => 'KDDI',
         'mfsmax.docomo.ne.jp'         => 'NTTDOCOMO',
         'charter.net'                 => 'Spectrum',
-        'cox.net'                     => 'Cox',
         '.qq.com'                     => 'TencentQQ',
       }.freeze
 
