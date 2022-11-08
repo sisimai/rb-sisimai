@@ -263,6 +263,9 @@ module Sisimai
         # @param    [Sisimai::Fact] argvs   Parsed email object
         # @return   [String]                The bounce reason for mimecast.com
         def get(argvs)
+          return '' unless argvs['replycode'] =~ /\A[245]\d\d\z/
+          return '' unless argvs['diagnosticcode']
+
           esmtperror = argvs['diagnosticcode'].downcase || ''
           esmtpreply = argvs['replycode'].to_i
           reasontext = ''
