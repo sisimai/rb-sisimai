@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'sisimai/mail'
 require 'sisimai/data'
 require 'sisimai/message'
-require 'sisimai/rhost/kddi'
+require 'sisimai/rhost/nttdocomo'
 
 describe Sisimai::Rhost::NTTDOCOMO do
   rs = {
