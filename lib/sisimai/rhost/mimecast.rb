@@ -7,7 +7,42 @@ module Sisimai
       class << self
         MessagesOf = {
           # https://community.mimecast.com/s/article/Mimecast-SMTP-Error-Codes-842605754
-          'authfailure' => [
+          'blocked' => [
+            # - The sender's IP address has been blocked by a Blocked Senders Policy.
+            # - Remove the entry from the policy.
+            [421, 'sender address blocked'],
+
+            # - The Sender's IP address has been placed on the block list due to too many invalid
+            #   connections.
+            # - The sender's mail server must retry the connection. The mail server performing the
+            #   connection says the recipient address validation isn't responding.
+            [451, 'recipient temporarily unavailable'],
+
+            # - You've reached your mail server's limit.
+            # - Wait and try again. The mail server won't accept any messages until you're under
+            #   the limit.
+            [451, 'ip temporarily blacklisted'],
+
+            # - The sending mail server is subjected to Greylisting. This requires the server to
+            #   retry the connection, between one minute and 12 hours. Alternatively, the sender's
+            #   IP address has a poor reputation.
+            # - These reputation checks can be bypassed with an Auto Allow or Permitted Senders
+            #   policy. If it's legitimate traffic, amend your Greylisting policy.
+            [451, 'internal resources are temporarily unavailable'],
+
+            # - Ongoing reputation checks have resulted in the message being rejected due to poor
+            #   IP reputation. This could occur after a 4xx error.
+            # - Create an Auto Allow or Permitted Senders policy.
+            #   Note:
+            #     You can request a review of your source IP ranges by completing our online form.
+            [550, 'local ct ip reputation - (reject)'],
+
+            # - The sender's IP address is listed in an RBL. The text displayed is specific to the
+            #   RBL which lists the sender's IP address.
+            # - Bypass the RBL with an Auto Allow or Permitted Senders policy. Additionally request
+            #   the associated IP address from the RBL.
+            #[550, '< details of RBL >'], NEED AN ACTUAL ERROR MESSAGE STRING
+
             # - The inbound message has been rejected because the originated IP address isn't list-
             #   ed in the published SPF records for the sending domain.
             # - Ensure all the IP addresses for your mail servers are listed in your SPF records.
@@ -28,43 +63,6 @@ module Sisimai
             #   ed in the published SPF records for the sending domain.
             # - Ensure all the IP addresses for your mail servers are listed in your SPF records.
             [550, 'dmarc sender invalid - envelope rejected'],
-          ],
-          'badreputation' => [
-            # - The sending mail server is subjected to Greylisting. This requires the server to
-            #   retry the connection, between one minute and 12 hours. Alternatively, the sender's
-            #   IP address has a poor reputation.
-            # - These reputation checks can be bypassed with an Auto Allow or Permitted Senders
-            #   policy. If it's legitimate traffic, amend your Greylisting policy.
-            [451, 'internal resources are temporarily unavailable'],
-
-            # - Ongoing reputation checks have resulted in the message being rejected due to poor
-            #   IP reputation. This could occur after a 4xx error.
-            # - Create an Auto Allow or Permitted Senders policy.
-            #   Note:
-            #     You can request a review of your source IP ranges by completing our online form.
-            [550, 'local ct ip reputation - (reject)'],
-          ],
-          'blocked' => [
-            # - The sender's IP address has been blocked by a Blocked Senders Policy.
-            # - Remove the entry from the policy.
-            [421, 'sender address blocked'],
-
-            # - The Sender's IP address has been placed on the block list due to too many invalid
-            #   connections.
-            # - The sender's mail server must retry the connection. The mail server performing the
-            #   connection says the recipient address validation isn't responding.
-            [451, 'recipient temporarily unavailable'],
-
-            # - You've reached your mail server's limit.
-            # - Wait and try again. The mail server won't accept any messages until you're under
-            #   the limit.
-            [451, 'ip temporarily blacklisted'],
-
-            # - The sender's IP address is listed in an RBL. The text displayed is specific to the
-            #   RBL which lists the sender's IP address.
-            # - Bypass the RBL with an Auto Allow or Permitted Senders policy. Additionally request
-            #   the associated IP address from the RBL.
-            #[550, '< details of RBL >'], NEED AN ACTUAL ERROR MESSAGE STRING
           ],
           'mesgtoobig' => [
             # - The email size either exceeds an Email Size Limit policy or is larger than the
