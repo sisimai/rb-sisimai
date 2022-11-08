@@ -1,0 +1,88 @@
+Return-Path: <>
+Delivered-To: kijitora@example.co.jp
+Received: from smtp.example.co.jp
+	by neko.example.co.jp (Dovecot) with LMTP id YZv2MOmWGmDvLgAA4iEyMQ
+	for <kijitora@example.co.jp>; Thu, 02 Feb 2021 23:34:45 +0900
+Received: by smtp.example.co.jp (Postfix)
+	id PcWLPhBbNNzq4GD0; Thu,  2 Feb 2021 23:34:45 +0900 (JST)
+Date: Thu,  2 Feb 2021 23:34:45 +0900 (JST)
+From: MAILER-DAEMON@smtp.example.co.jp (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: kijitora@example.co.jp
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="XkB0QWwjfhzQcf0c.160000000/smtp.example.co.jp"
+Content-Transfer-Encoding: 8bit
+Message-Id: <PcWLPhBbNNzq4GD0@smtp.example.co.jp>
+
+This is a MIME-encapsulated message.
+
+--XkB0QWwjfhzQcf0c.160000000/smtp.example.co.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+This is the mail system at host smtp.example.co.jp.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<sabatora@example.com>: host
+    us-smtp-inbound-1.mimecast.com[207.211.30.221] said: 554 Host network not
+    allowed - https://community.mimecast.com/docs/DOC-1369#554
+    [z7qZw5BPd1zlDYHka4589ru.us222] (in reply to RCPT TO command)
+
+--XkB0QWwjfhzQcf0c.160000000/smtp.example.co.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; smtp.example.co.jp
+X-Postfix-Queue-ID: XkB0QWwjfhzQcf0c
+X-Postfix-Sender: rfc822; kijitora@example.co.jp
+Arrival-Date: Thu,  2 Feb 2021 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; sabatora@example.com
+Original-Recipient: rfc822;sabatora@example.com
+Action: failed
+Status: 5.0.0
+Remote-MTA: dns; us-smtp-inbound-1.mimecast.com
+Diagnostic-Code: smtp; 554 Host network not allowed -
+    https://community.mimecast.com/docs/DOC-1369#554
+    [z7qZw5BPd1zlDYHka4589ru.us222]
+
+--XkB0QWwjfhzQcf0c.160000000/smtp.example.co.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 8bit
+
+Return-Path: <kijitora@example.co.jp>
+Received: from 6bBckZSRc0zMvk9Z (unknown [192.0.2.2])
+	(Authenticated sender: kijitora@example.co.jp)
+	by smtp.example.co.jp (Postfix) with ESMTPSA id XkB0QWwjfhzQcf0c
+	for <sabatora@example.com>; Thu,  2 Feb 2021 23:34:45 +0900 (JST)
+From: Automated Message <kijitora@example.co.jp>
+Date: Thu, 2 Feb 2021 23:34:45 +0100
+Subject: Automatic reply : domain owner (Reg-C)
+Message-ID: <7B0s8rbG08zYDdPt.WaOHIQht053802@NEKO-NYAAN-22.LOCAL>
+To: sabatora@example.com
+X-Mailer: NEKO-NYAAN
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="=-QX/4rTBwaN4065581=="
+Content-Transfer-Encoding: 8bit
+
+--=-QX/4rTBwaN4065581==
+Content-Type: text/plain; charset=us-ascii
+
+--=-QX/4rTBwaN4065581==--
+
+
+--XkB0QWwjfhzQcf0c.160000000/smtp.example.co.jp--

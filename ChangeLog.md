@@ -28,8 +28,9 @@ v4.25.14p8
   - Update code in `Sisimai::Lhost::GoogleGroups` module to parse well a bounce
     mail even if an email address of `X-Failed-Recipients:` header does not in-
     clude a domain `@googlegroups.com` #234
-  - Import #235from Sisimai v5, Implement `Sisimai::Rhost::NTTDOCOMO` to parse
+  - Import #235 from Sisimai v5, Implement `Sisimai::Rhost::NTTDOCOMO` to parse
     more strictly a bounce mail returned from `mfsmax.docomo.ne.jp`
+  - Import #241 from Sisimai v5, Implement `Sisimai::Rhost::Mimecast`
   - Add the following error messages at `Sisimai::Rhost::ExchangeOnline:
     - 451 4.7.650 The mail server [...] has been temporarily rate limited due to
       IP reputation ... (S775)
