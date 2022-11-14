@@ -700,7 +700,7 @@ module Sisimai
             # Previous versions of Exchange Server ------------------------------------------------
             ['5.1.2', 0, 0, 'invalid x.400 address'],
           ],
-        };
+        }.freeze
 
         # Detect bounce reason from Exchange Server 2019 or older and Exchange Online
         # @param    [Sisimai::Fact] argvs   Parsed email object
@@ -709,7 +709,6 @@ module Sisimai
           return argvs['reason'] unless argvs['reason'].empty?
           return '' unless argvs['deliverystatus']
           return '' unless argvs['deliverystatus'] =~ /\A[245][.]\d[.]\d+\z/
-          return '' if     argvs['deliverystatus'].empty?
           return '' if     argvs['diagnosticcode'].empty?
 
           statuscode = argvs['deliverystatus']
