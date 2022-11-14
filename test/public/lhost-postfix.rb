@@ -23,7 +23,7 @@ module LhostEngineTest::Public
       '17' => [['5.4.4',   '',    'networkerror',    false]],
       '28' => [['5.7.1',   '550', 'policyviolation', false]],
       '29' => [['5.7.1',   '550', 'policyviolation', false]],
-      '30' => [['5.4.1',   '550', 'rejected',        false]],
+      '30' => [['5.4.1',   '550', 'userunknown',     true]],
       '31' => [['5.1.1',   '550', 'userunknown',     true]],
       '32' => [['5.1.1',   '550', 'userunknown',     true]],
       '33' => [['5.1.1',   '550', 'userunknown',     true]],

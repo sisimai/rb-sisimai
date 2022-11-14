@@ -186,7 +186,7 @@ module LhostEngineTest::Private
       '01177' => [['5.7.1',   '550', 'userunknown',     true]],
       '01178' => [['5.7.1',   '550', 'blocked',         false]],
       '01179' => [['5.7.1',   '501', 'norelaying',      false]],
-      '01180' => [['5.4.1',   '550', 'rejected',        false]],
+      '01180' => [['5.4.1',   '550', 'userunknown',     true]],
       '01181' => [['5.1.1',   '550', 'userunknown',     true]],
       '01182' => [['5.7.0',   '550', 'spamdetected',    false]],
       '01183' => [['5.1.1',   '550', 'userunknown',     true]],
