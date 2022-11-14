@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.14p8
+v4.25.14p10
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -36,6 +36,7 @@ v4.25.14p8
       IP reputation ... (S775)
     - 550 5.7.1 ... Please contact your Internet service provider since part of
       their network is on our block list (S3150)
+    - Error messages of Exchange Server 2019 #242
 
 v4.25.14
 --------------------------------------------------------------------------------
