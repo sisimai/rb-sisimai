@@ -58,6 +58,7 @@ module Sisimai
             ['5.7.509', 0, 0, 'does not pass dmarc verification'],
           ],
           'badreputation' => [
+            # Undocumented error messages ---------------------------------------------------------
             # - status=deferred (host outlook-com.olc.protection.outlook.com[192.0.2.255] said:
             #   451 4.7.650 The mail server [192.0.2.5] has been temporarily rate limited due to IP
             #   reputation. For e-mail delivery information, see https://postmaster.live.com (S775)
@@ -117,10 +118,6 @@ module Sisimai
             #   list.
             ['5.7.513', 0, 0, 'using customer block list'],
 
-            # - Please contact your Internet service provider since part of their network is on our
-            #   block list (S3150). 
-            ['5.7.1', 0, 0, 'part of their network is on our block list (s3150)'],
-
             # - 5.7.606-649 Access denied, banned sending IP [IP1.IP2.IP3.IP4]
             # - The IP that you're attempting to send from has been banned.
             # - Verify that you're following the best practices for email deliverability, and en-
@@ -140,6 +137,11 @@ module Sisimai
             # Previous versions of Exchange Server ------------------------------------------------
             ['5.5.4',  0, 0, 'invalid domain name'],
             ['5.7.51', 0, 0, 'restrictdomainstoipaddresses or restrictdomainstocertificate'],
+
+            # Undocumented error messages ---------------------------------------------------------
+            # - 550 5.7.1 Unfortunately, messages from [10.0.2.5] weren't sent. Please contact your
+            #   Internet service provider since part of their network is on our block list (S3150). 
+            ['5.7.1', 0, 0, 'part of their network is on our block list (s3150)'],
           ],
           'contenterror' => [
             # Exchange Server 2019 ----------------------------------------------------------------
@@ -589,6 +591,23 @@ module Sisimai
             ['5.1.4',  0, 0, 'destination mailbox address ambiguous'],
             ['5.2.4',  0, 0, 'mailing list expansion problem'],
             ['5.2.14', 0, 0, 'misconfigured forwarding address'],
+
+            # Undocumented error messages ---------------------------------------------------------
+            ['4.4.3',  0, 0, 'temporary server error. please try again later attr18'],
+            ['4.7.0',  0, 0, 'temporary server error. please try again later. prx4 nexthop:'],
+            ['4.4.24', 0, 0, 'message failed to be replicated: insufficient system resource:'],
+            ['4.4.25', 0, 0, 'message failed to be replicated: no healthy secondary server available to accept replica at this time.'],
+            ['4.4.28', 0, 0, 'message failed to be replicated: the operation was canceled'],
+
+            # - status=deferred (host hotmail-com.olc.protection.outlook.com[192.0.2.1] said:
+            #   451 4.7.500 Server busy. Please try again later from [192.0.2.2]. (AS761) (in reply
+            #   to RCPT TO command))
+            ['4.7.500', 0, 0, 'server busy. please try again later from '],
+
+            # - status=deferred (host apc.olc.protection.outlook.com[192.0.2.1] said:
+            #   451 4.7.700 PFA agent busy, please try again. [***.***.prod.protection.outlook.com]
+            #   (in reply to MAIL FROM command))
+            ['4.7.700', 0, 0, 'pfa agent busy, please try again.'],
           ],
           'systemfull' => [
             # Exchange Server 2019 ----------------------------------------------------------------
