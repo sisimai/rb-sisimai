@@ -23,8 +23,8 @@ isexpected = [
   { 'n' => '01019', 'r' => /userunknown/ },
   { 'n' => '01020', 'r' => /userunknown/ },
   { 'n' => '01022', 'r' => /systemerror/ },
-  { 'n' => '01023', 'r' => /systemerror/ },
-  { 'n' => '01024', 'r' => /systemerror/ },
+  { 'n' => '01023', 'r' => /norelaying/ },
+  { 'n' => '01024', 'r' => /norelaying/ },
 ]
 Sisimai::Lhost::Code.maketest(enginename, isexpected, true)
 
