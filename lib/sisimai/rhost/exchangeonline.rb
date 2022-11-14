@@ -58,10 +58,10 @@ module Sisimai
             ['5.7.509', 0, 0, 'does not pass dmarc verification'],
           ],
           'badreputation' => [
-            # - status=deferred (host outlook-com.olc.protection.outlook.com[104.47.51.161] said:
-            #   451 4.7.650 The mail server [52.198.124.32] has been temporarily rate limited due
-            #   to IP reputation. For e-mail delivery information, see https://postmaster.live.com
-            #   (S775) [***.prod.protection.outlook.com] (in reply to MAIL FROM command))
+            # - status=deferred (host outlook-com.olc.protection.outlook.com[192.0.2.255] said:
+            #   451 4.7.650 The mail server [192.0.2.5] has been temporarily rate limited due to IP
+            #   reputation. For e-mail delivery information, see https://postmaster.live.com (S775)
+            #   [***.prod.protection.outlook.com] (in reply to MAIL FROM command))
             ['4.7.650', 0, 0, 'has been temporarily rate limited due to ip reputation'],
           ],
           'blocked' => [
