@@ -347,7 +347,7 @@ module Sisimai
             #   sages (otherwise, the default code that's used is 5.7.1). For more information, see
             #   Mail flow rule actions in Exchange Server.
             ['5.7.', 900, 999, 'delivery not authorized, message refused'],
-          norelaying],
+          ],
           'rejected' => [
             # Exchange Server 2019 ----------------------------------------------------------------
             # - There's a problem with the sender's email address. Verify the sender's email ad-
