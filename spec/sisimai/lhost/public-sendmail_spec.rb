@@ -59,7 +59,7 @@ isexpected = [
   { 'n' => '56', 's' => /\A5[.]5[.]0\z/,    'r' => /blocked/,         'b' => /\A1\z/ },
   { 'n' => '57', 's' => /\A5[.]7[.]27\z/,   'r' => /notaccept/,       'b' => /\A0\z/ },
   { 'n' => '58', 's' => /\A5[.]7[.]1\z/,    'r' => /policyviolation/, 'b' => /\A1\z/ },
-  { 'n' => '59', 's' => /\A5[.]7[.]1\z/,    'r' => /rejected/,        'b' => /\A1\z/ },
+  { 'n' => '59', 's' => /\A5[.]7[.]1\z/,    'r' => /blocked/,         'b' => /\A1\z/ },
 ]
 Sisimai::Lhost::Code.maketest(enginename, isexpected)
 

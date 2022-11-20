@@ -228,7 +228,7 @@ isexpected = [
   { 'n' => '01224', 'r' => /policyviolation/ },
   { 'n' => '01225', 'r' => /policyviolation/ },
   { 'n' => '01226', 'r' => /policyviolation/ },
-  { 'n' => '01227', 'r' => /policyviolation/ },
+  { 'n' => '01227', 'r' => /blocked/         },
   { 'n' => '01228', 'r' => /policyviolation/ },
   { 'n' => '01229', 'r' => /policyviolation/ },
   { 'n' => '01230', 'r' => /policyviolation/ },

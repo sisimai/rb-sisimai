@@ -60,7 +60,7 @@ isexpected = [
   { 'n' => '67', 's' => /\A5[.]7[.]9\z/,   'r' => /policyviolation/, 'b' => /\A1\z/ },
   { 'n' => '68', 's' => /\A5[.]0[.]0\z/,   'r' => /policyviolation/, 'b' => /\A1\z/ },
   { 'n' => '69', 's' => /\A5[.]7[.]9\z/,   'r' => /policyviolation/, 'b' => /\A1\z/ },
-  { 'n' => '70', 's' => /\A5[.]7[.]26\z/,  'r' => /policyviolation/, 'b' => /\A1\z/ },
+  { 'n' => '70', 's' => /\A5[.]7[.]26\z/,  'r' => /blocked/,         'b' => /\A1\z/ },
   { 'n' => '71', 's' => /\A5[.]7[.]1\z/,   'r' => /policyviolation/, 'b' => /\A1\z/ },
   { 'n' => '72', 's' => /\A5[.]7[.]1\z/,   'r' => /policyviolation/, 'b' => /\A1\z/ },
   { 'n' => '73', 's' => /\A5[.]7[.]1\z/,   'r' => /policyviolation/, 'b' => /\A1\z/ },
