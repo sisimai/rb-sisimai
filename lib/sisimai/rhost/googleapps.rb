@@ -233,10 +233,10 @@ module Sisimai
         # @see      https://support.google.com/a/answer/3726730?hl=en
         def get(argvs)
           return argvs['reason'] unless argvs['reason'].empty?
-          return '' unless argvs['replycode']
-          return '' unless argvs['deliverystatus']
+          return '' if argvs['replycode'].empty?
+          return '' if argvs['diagnosticcode'].empty?
+          return '' if argvs['deliverystatus'].empty?
           return '' unless argvs['deliverystatus'] =~ /\A[245][.]\d[.]\d+\z/
-          return '' if     argvs['diagnosticcode'].empty?
 
           statuscode = argvs['deliverystatus'][2,6]
           esmtpreply = argvs['replycode'][1,2]
