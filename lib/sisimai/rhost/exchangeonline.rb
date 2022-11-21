@@ -707,8 +707,8 @@ module Sisimai
         # @return   [String]                The bounce reason for Exchange Online
         def get(argvs)
           return argvs['reason'] unless argvs['reason'].empty?
-          return '' if argvs['deliverystatus'].empty?
           return '' if argvs['diagnosticcode'].empty?
+          return '' if argvs['deliverystatus'].empty?
           return '' unless argvs['deliverystatus'] =~ /\A[245][.]\d[.]\d+\z/
 
           statuscode = argvs['deliverystatus']
