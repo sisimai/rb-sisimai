@@ -3,11 +3,13 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.14p11
+v4.25.14p12
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
 - changes:
+  - Prevent ReDOS: Regex Denial of Service in `Sisimai::String.to_plain` #244.
+    Thanks to @gmcabrita
   - Fix an error reason "5.2.1 exceedlimit" of an error message: "450-4.2.1 The
     user you are trying to contact is receiving mail at a rate that prevents ad-
     ditional messages from being delivered" to "toomanyconn" at Rhost::GoogleApp
