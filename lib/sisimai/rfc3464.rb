@@ -83,7 +83,7 @@ module Sisimai
         |SMTP[ ]Server[ ][<].+[>][ ]rejected[ ]recipient[ ]
         |The[ ]following[ ]recipients[ ]returned[ ]permanent[ ]errors:[ ]
         |The[ ]following[ ]message[ ]to[ ]
-        |Unknown[ ]User:[ ]
+        |Unknown[ ]user:[ ]
         |undeliverable[ ]to[ ]
         |Undeliverable[ ]Address:[ ]*
         |You[ ]sent[ ]mail[ ]to[ ]
