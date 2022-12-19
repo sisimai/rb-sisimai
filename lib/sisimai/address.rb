@@ -208,7 +208,7 @@ module Sisimai
             else
               # Deal as a display name
               readcursor &= ~Indicators[:'comment-block']
-              v[:name] = e
+              v[:name] << e
               p = ''
             end
             next
@@ -271,8 +271,8 @@ module Sisimai
 
         # Remove angle brackets, other brackets, and quotations: []<>{}'` except a domain part is
         # an IP address like neko@[192.0.2.222]
-        e[:address] = e[:address].sub(/\A[\[<{('`]/, '').sub(/[.'`>});]\z/, '')
-        e[:address].chomp!(']') unless e[:address] =~ /[@]\[[0-9A-Za-z:\.]+\]\z/
+        e[:address] = e[:address].gsub(/\A[\[<{('`]/, '').gsub(/[.,'`>});]\z/, '')
+        e[:address] = e[:address].gsub(/[^A-Za-z]\z/, '') unless e[:address].include?('@[')
         e[:address] = e[:address].sub(/\A["]/, '').chomp('"') unless e[:address] =~ /\A["].+["][@]/
 
         if addrs
@@ -302,7 +302,7 @@ module Sisimai
       return nil unless input
       return input unless input.is_a? Object::String
 
-      addrs = Sisimai::Address.find(input, 1) || []
+      addrs = Sisimai::Address.find(input, true) || []
       return input if addrs.empty?
       return addrs[0][:address]
     end

@@ -6,6 +6,7 @@ module LhostEngineTest::Public
       '02' => [['', '', 'vacation', false]],
       '03' => [['', '', 'vacation', false]],
       '04' => [['', '', 'vacation', false]],
+      '05' => [['', '', 'vacation', false]],
     }
   end
 end
