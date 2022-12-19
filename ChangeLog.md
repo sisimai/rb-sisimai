@@ -40,6 +40,7 @@ v4.25.14p12
       their network is on our block list (S3150)
     - Error messages of Exchange Server 2019 #242
   - Add many error messages at `Sisimai::Rhost::GoogleApps`, Import #243
+  - Bug fix: getting a "name" part of an email address at Sisimai::Address.find
 
 v4.25.14
 --------------------------------------------------------------------------------
