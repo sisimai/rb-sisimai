@@ -208,7 +208,7 @@ module Sisimai
             else
               # Deal as a display name
               readcursor &= ~Indicators[:'comment-block']
-              v[:name] = e
+              v[:name] << e
               p = ''
             end
             next
@@ -302,7 +302,7 @@ module Sisimai
       return nil unless input
       return input unless input.is_a? Object::String
 
-      addrs = Sisimai::Address.find(input, 1) || []
+      addrs = Sisimai::Address.find(input, true) || []
       return input if addrs.empty?
       return addrs[0][:address]
     end
