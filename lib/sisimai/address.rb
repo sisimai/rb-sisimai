@@ -176,7 +176,7 @@ module Sisimai
             else
               # Deal as a display name
               readcursor &= ~Indicators[:'comment-block']
-              v[:name] = e
+              v[:name] << e
               p = ''
             end
             next
