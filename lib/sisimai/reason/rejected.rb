@@ -68,6 +68,7 @@ module Sisimai
           'this server does not accept mail from',
           'transaction failed unsigned dsn for',
           'unroutable sender address',
+          'you are not allowed to post to this mailing list',
           'you are sending to/from an address that has been blacklisted',
           'your access to submit messages to this e-mail system has been rejected'
         ]
