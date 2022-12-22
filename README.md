@@ -225,7 +225,7 @@ and bounceHammer are available at
 | The speed of parsing email(1000 emails)     | 2.22s[2]       | 1.35s         |
 | How to install                              | gem install    | cpanm, cpm    |
 | Dependencies (Except core modules)          | 1 module       | 2 modules     |
-| LOC:Source lines of code                    | 10400 lines    | 10500 lines   |
+| LOC:Source lines of code                    | 10600 lines    | 10800 lines   |
 | The number of tests(spec/,t/,xt/) directory | 241000 tests   | 270000 tests  |
 | License                                     | BSD 2-Clause   | BSD 2-Clause  |
 | Support Contract provided by Developer      | Available      | Available     |
@@ -283,7 +283,7 @@ Author
 
 Copyright
 ===============================================================================
-Copyright (C) 2015-2021 azumakuniyuki, All Rights Reserved.
+Copyright (C) 2015-2022 azumakuniyuki, All Rights Reserved.
 
 License
 ===============================================================================
