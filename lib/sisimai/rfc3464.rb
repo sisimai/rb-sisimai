@@ -3,6 +3,8 @@ module Sisimai
   module RFC3464
     class << self
       require 'sisimai/lhost'
+      require 'sisimai/address'
+      require 'sisimai/rfc1894'
 
       # http://tools.ietf.org/html/rfc3464
       Indicators = Sisimai::Lhost.INDICATORS
@@ -65,7 +67,7 @@ module Sisimai
         'your message was not delivered to ',
       ].freeze
       DoNotRead0 = ['   -----', ' -----', '--', '|--', '*'].freeze
-      DoNotRead1 = ['mail from:'].freeze
+      DoNotRead1 = ['mail from:', 'message-id:', '  from: '].freeze
       ReadEmail0 = [' ', '"', '<',].freeze
       ReadEmail1 = [
         # There is an email address around the following strings
@@ -103,6 +105,9 @@ module Sisimai
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to parse or the arguments are missing
       def inquire(mhead, mbody)
+        fieldtable = Sisimai::RFC1894.FIELDTABLE
+        permessage = {}     # (Hash) Store values of each Per-Message field
+
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         bodyslices = mbody.scrub('?').split("\n")
         readslices = ['']
@@ -156,184 +161,72 @@ module Sisimai
             next if e.empty?
 
             v = dscontents[-1]
-            if cv = e.match(/\A(Final|Original)-[Rr]ecipient:[ ]*.+;[ ]*([^ ]+)\z/)
-              # 2.3.2 Final-Recipient field
-              #   The Final-Recipient field indicates the recipient for which this set of per-reci-
-              #   pient fields applies.  This field MUST be present in each set of per-recipient
-              #   data. The syntax of the field is as follows:
-              #
-              #       final-recipient-field =
-              #           "Final-Recipient" ":" address-type ";" generic-address
-              #
-              # 2.3.1 Original-Recipient field
-              #   The Original-Recipient field indicates the original recipient address as specifi-
-              #   ed by the sender of the message for which the DSN is being issued.
-              #
-              #       original-recipient-field =
-              #           "Original-Recipient" ":" address-type ";" generic-address
-              #
-              #       generic-address = *text
-              if cv[1] == 'Original'
-                # Original-Recipient: ...
-                maybealias = cv[2]
-              else
-                # Final-Recipient: ...
-                x = v['recipient'] || ''
-                y = Sisimai::Address.s3s4(cv[2])
-                y = maybealias unless Sisimai::Address.is_emailaddress(y)
+            if f = Sisimai::RFC1894.match(e)
+              # "e" matched with any field defined in RFC3464
+              next unless o = Sisimai::RFC1894.field(e)
 
-                if !x.empty? && x != y
-                  # There are multiple recipient addresses in the message body.
-                  dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                  v = dscontents[-1]
+              if o[-1] == 'addr'
+                # Final-Recipient: rfc822; kijitora@example.jp
+                # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                if o[0] == 'final-recipient' || o[0] == 'original-recipient'
+                  # Final-Recipient: rfc822; kijitora@example.jp
+                  if o[0] == 'original-recipient'
+                    # Original-Recipient: ...
+                    maybealias = o[2]
+                  else
+                    # Final-Recipient: ...
+                    x = v['recipient'] || ''
+                    y = Sisimai::Address.s3s4(o[2])
+                    y = maybealias unless Sisimai::Address.is_emailaddress(y)
+
+                    if !x.empty? && x != y
+                      # There are multiple recipient addresses in the message body.
+                      dscontents << Sisimai::Lhost.DELIVERYSTATUS
+                      v = dscontents[-1]
+                    end
+                    v['recipient'] = y
+                    recipients  += 1
+                    itisbounce ||= true
+
+                    v['alias'] ||= maybealias
+                    maybealias = nil
+                  end
+                elsif o[0] == 'x-actual-recipient'
+                  # X-Actual-Recipient: RFC822; |IFS=' ' && exec procmail -f- || exit 75 ...
+                  # X-Actual-Recipient: rfc822; kijitora@neko.example.jp 
+                  v['alias'] = o[2] unless o[2] =~ /[ \t]+/
                 end
-                v['recipient'] = y
-                recipients += 1
-                itisbounce ||= true
+              elsif o[-1] == 'code'
+                # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
+                v['spec']      = o[1]
+                v['diagnosis'] = o[2]
+              else
+                # Other DSN fields defined in RFC3464
+                next unless fieldtable[o[0]]
+                v[fieldtable[o[0]]] = o[2]
 
-                v['alias'] ||= maybealias
-                maybealias = nil
+                next unless f == 1
+                permessage[fieldtable[o[0]]] = o[2]
               end
-
-            elsif cv = e.match(/\AX-Actual-Recipient:[ ]*(?:RFC|rfc)822;[ ]*([^ ]+)\z/)
-              # X-Actual-Recipient: RFC822; |IFS=' ' && exec procmail -f- || exit 75 ...
-              # X-Actual-Recipient: rfc822; kijitora@neko.example.jp
-              v['alias'] = cv[1] unless cv[1] =~ /[ \t]+/
-
-            elsif cv = e.match(/\AAction:[ ]*(.+)\z/)
-              # 2.3.3 Action field
-              #   The Action field indicates the action performed by the Reporting-MTA as a result
-              #   of its attempt to deliver the message to this recipient address. This field MUST
-              #   be present for each recipient named in the DSN.
-              #   The syntax for the action-field is:
-              #
-              #       action-field = "Action" ":" action-value
-              #       action-value =
-              #           "failed" / "delayed" / "delivered" / "relayed" / "expanded"
-              #
-              #   The action-value may be spelled in any combination of upper and lower case char-
-              #   acters.
-              v['action'] = cv[1].downcase
-
-              # failed (bad destination mailbox address)
-              if cv = v['action'].match(/\A([^ ]+)[ ]/) then v['action'] = cv[1] end
-
-            elsif cv = e.match(/\AStatus:[ ]*(\d[.]\d+[.]\d+)/)
-              # 2.3.4 Status field
-              #   The per-recipient Status field contains a transport-independent status code that
-              #   indicates the delivery status of the message to that recipient. This field MUST
-              #   be present for each delivery attempt which is described by a DSN.
-              #
-              #   The syntax of the status field is:
-              #
-              #       status-field = "Status" ":" status-code
-              #       status-code = DIGIT "." 1*3DIGIT "." 1*3DIGIT
-              v['status'] = cv[1]
-
-            elsif cv = e.match(/\AStatus:[ ]*(\d+[ ]+.+)\z/)
-              # Status: 553 Exceeded maximum inbound message size
-              v['alterrors'] = cv[1]
-
-            elsif cv = e.match(/\ARemote-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
-              # 2.3.5 Remote-MTA field
-              #   The value associated with the Remote-MTA DSN field is a printable ASCII represen-
-              #   tation of the name of the "remote" MTA that reported delivery status to the
-              #   "reporting" MTA.
-              #
-              #       remote-mta-field = "Remote-MTA" ":" mta-name-type ";" mta-name
-              #
-              #   NOTE: The Remote-MTA field preserves the "while talking to" information that was
-              #         provided in some pre-existing nondelivery reports.
-              #
-              #   This field is optional. It MUST NOT be included if no remote MTA was involved in
-              #   the attempted delivery of the message to that recipient.
-              v['rhost'] = cv[1].downcase
-
-            elsif cv = e.match(/\ALast-Attempt-Date:[ ]*(.+)\z/)
-              # 2.3.7 Last-Attempt-Date field
-              #   The Last-Attempt-Date field gives the date and time of the last attempt to relay,
-              #   gateway, or deliver the message (whether successful or unsuccessful) by the Re-
-              #   porting MTA. This is not necessarily the same as the value of the Date field from
-              #   the header of the message used to transmit this delivery status notification: In
-              #   cases where the DSN was generated by a gateway, the Date field in the message
-              #   header contains the time the DSN was sent by the gateway and the DSN Last-Attempt
-              #   -Date field contains the time the last delivery attempt occurred.
-              #
-              #       last-attempt-date-field = "Last-Attempt-Date" ":" date-time
-              v['date'] = cv[1]
             else
-              if cv = e.match(/\ADiagnostic-Code:[ ]*(.+?);[ ]*(.+)\z/)
-                # 2.3.6 Diagnostic-Code field
-                #   For a "failed" or "delayed" recipient, the Diagnostic-Code DSN field contains
-                #   the actual diagnostic code issued by the mail transport. Since such codes vary
-                #   from one mail transport to another, the diagnostic-type sub-field is needed to
-                #   specify which type of diagnostic code is represented.
-                #
-                #       diagnostic-code-field =
-                #           "Diagnostic-Code" ":" diagnostic-type ";" *text
-                v['spec'] = cv[1].upcase
-                v['diagnosis'] = cv[2]
-
-              elsif cv = e.match(/\ADiagnostic-Code:[ ]*(.+)\z/)
-                # No value of "diagnostic-type"
-                # Diagnostic-Code: 554 ...
+              # The line did not match with any fields defined in RFC3464
+              if cv = e.match(/\ADiagnostic-Code:[ ]*([^;]+)\z/)
+                # There is no value of "diagnostic-type" such as Diagnostic-Code: 554 ...
                 v['diagnosis'] = cv[1]
-
+              elsif cv = e.match(/\AStatus:[ ]*(\d{3}[ ]+.+)\z/)
+                # Status: 553 Exceeded maximum inbound message size
+                v['alterrors'] = cv[1]
               elsif readslices[-2].start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
                 # Continued line of the value of Diagnostic-Code header
                 v['diagnosis'] << ' ' << cv[1]
                 readslices[-1] = 'Diagnostic-Code: ' << e
               else
-                if cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
-                  # 2.2.2 The Reporting-MTA DSN field
-                  #
-                  #       reporting-mta-field =
-                  #           "Reporting-MTA" ":" mta-name-type ";" mta-name
-                  #       mta-name = *text
-                  #
-                  #   The Reporting-MTA field is defined as follows:
-                  #
-                  #   A DSN describes the results of attempts to deliver, relay, or gateway a mes-
-                  #   sage to one or more recipients. In all cases, the Reporting-MTA is the MTA
-                  #   that attempted to perform the delivery, relay, or gateway operation described
-                  #   in the DSN. This field is required.
-                  connheader['rhost'] ||= cv[1].downcase
+                # Get error messages which is written in the message body directly
+                next if e.start_with?(' ', '	')
+                next unless e =~ MarkingsOf[:error]
 
-                elsif cv = e.match(/\AReceived-From-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
-                  # 2.2.4 The Received-From-MTA DSN field
-                  #   The optional Received-From-MTA field indicates the name of the MTA from which
-                  #   the message was received.
-                  #
-                  #       received-from-mta-field =
-                  #           "Received-From-MTA" ":" mta-name-type ";" mta-name
-                  #
-                  #   If the message was received from an Internet host via SMTP, the contents of
-                  #   the mta-name sub-field SHOULD be the Internet domain name supplied in the
-                  #   HELO or EHLO command, and the network address used by the SMTP client SHOULD
-                  #   be included as a comment enclosed in parentheses. (In this case, the MTA-name
-                  #   -type will be "dns".)
-                  connheader['lhost'] = cv[1].downcase
-
-                elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
-                  # 2.2.5 The Arrival-Date DSN field
-                  #   The optional Arrival-Date field indicates the date and time at which the mes-
-                  #   sage arrived at the Reporting MTA. If the Last-Attempt-Date field is also
-                  #   provided in a per-recipient field, this can be used to determine the interval
-                  #   between when the message arrived at the Reporting MTA and when the report was
-                  #   issued for that recipient.
-                  #
-                  #       arrival-date-field = "Arrival-Date" ":" date-time
-                  connheader['date'] = cv[1]
-                else
-                  # Get error message
-                  next if e.start_with?(' ', '-')
-                  next unless e =~ MarkingsOf[:error]
-
-                  # 500 User Unknown
-                  # <kijitora@example.jp> Unknown
-                  v['alterrors'] ||= ' '
-                  v['alterrors']  << ' ' << e
-                end
+                v['alterrors'] ||= ' '
+                v['alterrors']  << ' ' << e
               end
             end
           end # End of if: rfc822
