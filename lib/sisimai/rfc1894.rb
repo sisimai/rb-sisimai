@@ -2,12 +2,12 @@ module Sisimai
   # Sisimai::RFC1894 DSN field defined in RFC3464 (obsoletes RFC1894)
   module RFC1894
     class << self
-      FieldNames = [
+      FieldNames = {
         # https://tools.ietf.org/html/rfc3464#section-2.2
-        #   Some fields of a DSN apply to all of the delivery attempts described by
-        #   that DSN. At most, these fields may appear once in any DSN. These fields
-        #   are used to correlate the DSN with the original message transaction and
-        #   to provide additional information which may be useful to gateways.
+        #   Some fields of a DSN apply to all of the delivery attempts described by that DSN. At
+        #   most, these fields may appear once in any DSN. These fields are used to correlate the
+        #   DSN with the original message transaction and to provide additional information which
+        #   may be useful to gateways.
         #
         #   The following fields (not defined in RFC 3464) are used in Sisimai
         #     - X-Original-Message-ID: <....> (GSuite)
@@ -15,13 +15,16 @@ module Sisimai
         #   The following fields are not used in Sisimai:
         #     - Original-Envelope-Id
         #     - DSN-Gateway
-        %w[Reporting-MTA Received-From-MTA Arrival-Date X-Original-Message-ID],
+        'arrival-date'          => ':',
+        'received-from-mta'     => ';',
+        'reporting-mta'         => ';',
+        'x-original-message-id' => '@',
 
         # https://tools.ietf.org/html/rfc3464#section-2.3
-        #   A DSN contains information about attempts to deliver a message to one or
-        #   more recipients. The delivery information for any particular recipient is
-        #   contained in a group of contiguous per-recipient fields.
-        #   Each group of per-recipient fields is preceded by a blank line.
+        #   A DSN contains information about attempts to deliver a message to one or more recipi-
+        #   ents. The delivery information for any particular recipient is contained in a group of
+        #   contiguous per-recipient fields. Each group of per-recipient fields is preceded by a
+        #   blank line.
         #
         #   The following fields (not defined in RFC 3464) are used in Sisimai
         #     - X-Actual-Recipient: RFC822; ....
@@ -29,12 +32,18 @@ module Sisimai
         #   The following fields are not used in Sisimai:
         #     - Will-Retry-Until
         #     - Final-Log-ID
-        %w[Original-Recipient Final-Recipient Action Status Remote-MTA
-            Diagnostic-Code Last-Attempt-Date X-Actual-Recipient],
-      ].freeze
+        'action'                => 'e',
+        'diagnostic-code'       => ';',
+        'final-recipient'       => ';',
+        'last-attempt-date'     => ':',
+        'original-recipient'    => ';',
+        'remote-mta'            => ';',
+        'status'                => '.',
+        'x-actual-recipient'    => ';',
+      }.freeze
 
       CapturesOn = {
-        'addr' => %r/\A((?:Original|Final|X-Actual)-Recipient):[ ]*(.+?);[ ]*(.+)/,
+        'addr' => %r/\A((?:Original|Final|X-Actual)-[Rr]ecipient):[ ]*(.+?);[ ]*(.+)/,
         'code' => %r/\A(Diagnostic-Code):[ ]*(.+?);[ ]*(.*)/,
         'date' => %r/\A((?:Arrival|Last-Attempt)-Date):[ ]*(.+)/,
         'host' => %r/\A((?:Received-From|Remote|Reporting)-MTA):[ ]*(.+?);[ ]*(.+)/,
@@ -81,13 +90,24 @@ module Sisimai
 
       # Check the argument matches with a field defined in RFC3464
       # @param    [String] argv0 A line including field and value defined in RFC3464
-      # @return   [Integer]      0: did not matched, 1,2: matched
+      # @return   [Boolean]      false: did not matched, true: matched
       # @since v4.25.0
       def match(argv0 = '')
+        label = Sisimai::RFC1894.label(argv0)
+
+        return false unless label
+        return false unless FieldNames.has_key?(label)
+        return false unless argv0.include?(FieldNames[label])
+        return true
+      end
+
+      # Returns a field name as a lqbel from the given string
+      # @param    [String] argv0 A line inlcuding field and value defined in RFC3464
+      # @return   [String]       Field name as a label
+      # @since v4.25.15
+      def label(argv0 = '')
         return nil if argv0.empty?
-        return 1   if FieldNames[0].any? { |a| argv0.start_with?(a) }
-        return 2   if FieldNames[1].any? { |a| argv0.start_with?(a) }
-        return nil
+        return argv0.split(':', 2).shift.downcase
       end
 
       # Check the argument is including field defined in RFC3464 and return values
@@ -96,7 +116,8 @@ module Sisimai
       # @since v4.25.0
       def field(argv0 = '')
         return nil if argv0.empty?
-        group = FieldGroup[argv0.split(':',2).shift.downcase] || ''
+        label = Sisimai::RFC1894.label(argv0)
+        group = FieldGroup[label] || ''
 
         return nil if group.empty?
         return nil unless CapturesOn[group]

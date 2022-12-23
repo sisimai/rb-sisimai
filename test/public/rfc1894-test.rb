@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'sisimai/rfc1894'
 
 class RFC1894Test < Minitest::Test
-  Methods = { class: %w[FIELDTABLE field match] }
+  Methods = { class: %w[FIELDTABLE field match label] }
 
   Field01 = [
     'Reporting-MTA: dns; neko.example.jp',
@@ -41,12 +41,32 @@ class RFC1894Test < Minitest::Test
   end
 
   def test_match
-    Field01.each { |e| assert_equal 1, Sisimai::RFC1894.match(e) }
-    Field02.each { |e| assert_equal 2, Sisimai::RFC1894.match(e) }
-    Field99.each { |e| assert_nil      Sisimai::RFC1894.match(e) }
+    Field01.each { |e| assert_equal true,  Sisimai::RFC1894.match(e) }
+    Field02.each { |e| assert_equal true,  Sisimai::RFC1894.match(e) }
+    Field99.each { |e| assert_equal false, Sisimai::RFC1894.match(e) }
 
     ce = assert_raises ArgumentError do
       Sisimai::RFC1894.match(nil, nil)
+    end
+  end
+
+  def test_label
+    Field01.each do |e|
+      cv = Sisimai::RFC1894.label(e)
+      cq = e.split(':', 2).shift.downcase
+      assert_equal cq, cv
+    end
+
+    Field02.each do |e|
+      cv = Sisimai::RFC1894.label(e)
+      cq = e.split(':', 2).shift.downcase
+      assert_equal cq, cv
+    end
+
+    Field99.each do |e|
+      cv = Sisimai::RFC1894.label(e)
+      cq = e.split(':', 2).shift.downcase
+      assert_equal cq, cv
     end
   end
 
