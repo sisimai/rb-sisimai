@@ -101,6 +101,9 @@ module Sisimai::Lhost
             if cv = e.match(/.+ in (?:End of )?([A-Z]{4}).*\z/)
               # in RCPT TO, in MAIL FROM, end of DATA
               commandtxt = cv[1]
+            elsif cv = e.match(/\ADiagnostic-Code:[ ]*(.+)\z/)
+              # Diagnostic-Code: 550 5.1.1 <kijitora@example.jp>... User Unknown
+              v['diagnosis'] = e
             else
               # Continued line of the value of Diagnostic-Code field
               next unless readslices[-2].start_with?('Diagnostic-Code:')
