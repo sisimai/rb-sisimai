@@ -49,6 +49,41 @@ v5.0.0(beta5)
     - `lhost-postfix-77.eml` (norelaying)
     - `lhost-postfix-78.eml` (contenterror)
 
+v4.25.15
+---------------------------------------------------------------------------------------------------
+- release: "Thu, 22 Dec 2022 13:13:13 +0900 (JST)"
+- version: "4.25.15"
+- changes:
+  - Prevent ReDOS: Regex Denial of Service in `Sisimai::String.to_plain` #244. Thanks to @gmcabrita
+  - Fix an error reason "5.2.1 exceedlimit" of an error message: "450-4.2.1 The user you are trying
+    to contact is receiving mail at a rate that prevents additional messages from being delivered"
+    to "toomanyconn" at Rhost::GoogleApp class, imported from sisimai/p5-sisimai#465.
+  - Bug fix: getting a "name" part of an email address at Sisimai::Address.find
+  - Add many error message patterns at the following classes in `Sisimai/Reason`
+    - `Blocked`
+    - `ContentError`
+    - `Filtered`
+    - `NetworkError`
+    - `NotAccept`
+    - `PolicyViolation`
+    - `Rejected`
+    - `SpamDetected`
+    - `TooManyConn`
+    - `UserUnknown`
+  - When the value of `diagnosticcode` has enough error message for detecting a bounce reason,
+    `expired` will change to `networkerror`
+  - Update code in `Sisimai::Lhost::GoogleGroups` module to parse well a bounce mail even if an e-
+    mail address of `X-Failed-Recipients` header does not include a domain `@googlegroups.com` #234
+  - Import #235 from Sisimai v5, Implement `Sisimai::Rhost::NTTDOCOMO` to parse more strictly a
+    bounce mail returned from `mfsmax.docomo.ne.jp`
+  - Import #241 from Sisimai v5, Implement `Sisimai::Rhost::Mimecast`
+  - Add the following error messages at `Sisimai::Rhost::ExchangeOnline:
+    - 451 4.7.650 The mail server ... has been temporarily rate limited due to IP reputation (S775)
+    - 550 5.7.1 ... Please contact your Internet service provider since part of their network is on
+      our block list (S3150)
+    - Error messages of Exchange Server 2019 #242
+  - Add many error messages at `Sisimai::Rhost::GoogleApps`, Import #243
+
 v4.25.14
 ---------------------------------------------------------------------------------------------------
 - release: "Mon, 15 Aug 2022 14:22:22 +0900 (JST)"
