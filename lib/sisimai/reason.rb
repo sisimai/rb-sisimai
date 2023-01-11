@@ -171,8 +171,8 @@ module Sisimai
               reasontext = 'expired'
             else
               # Rejected at connection or after EHLO|HELO
-              commandtxt = argvs['smtpcommand'] || ''
-              reasontext = 'blocked' if %w[HELO EHLO].index(commandtxt)
+              thecommand = argvs['smtpcommand'] || ''
+              reasontext = 'blocked' if %w[HELO EHLO].index(thecommand)
             end
             throw :TRY_TO_MATCH
           end
