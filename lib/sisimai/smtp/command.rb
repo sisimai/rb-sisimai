@@ -5,7 +5,7 @@ module Sisimai
       class << self
         Detectable = [
           'HELO', 'EHLO', 'STARTTLS', 'AUTH PLAIN', 'AUTH LOGIN', 'AUTH CRAM-', 'AUTH DIGEST-',
-          'MAIL F', 'RCPT T', 'DATA'
+          'MAIL F', 'RCPT', 'RCPT T', 'DATA'
         ].freeze
 
         # Pick an SMTP command from the given string
@@ -15,7 +15,7 @@ module Sisimai
         # @since v5.0.0
         def find(argv0 = '')
           return nil unless argv0.size > 3
-          return nil unless argv0 =~ /(?:HELO|EHLO|START|AUTH|MAIL|RCPT|DATA)/
+          return nil unless argv0 =~ /(?:HELO|EHLO|STARTTLS|AUTH|MAIL|RCPT|DATA)/
 
           stringsize = argv0.size
           commandset = []
