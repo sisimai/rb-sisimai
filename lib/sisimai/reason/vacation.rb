@@ -9,7 +9,7 @@ module Sisimai
           'i am away until',
           'i am out of the office',
           'i will be traveling for work on',
-        ]
+        ].freeze
 
         def text; return 'vacation'; end
         def description; return 'Email replied automatically due to a recipient is out of office'; end

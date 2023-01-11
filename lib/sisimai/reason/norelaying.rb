@@ -28,7 +28,7 @@ module Sisimai
           'this system is not configured to relay mail',
           'unable to relay for',
           "we don't handle mail for",
-        ]
+        ].freeze
 
         def text; return 'norelaying'; end
         def description; return 'Email rejected with error message "Relaying Denied"'; end

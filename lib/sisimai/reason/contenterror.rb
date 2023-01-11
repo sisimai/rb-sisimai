@@ -18,7 +18,7 @@ module Sisimai
           'this message contain invalid mime headers',
           'this message contain improperly-formatted binary content',
           'this message contain text that uses unnecessary base64 encoding',
-        ]
+        ].freeze
 
         def text; return 'contenterror'; end
         def description; return 'Email rejected due to a header format of the email'; end

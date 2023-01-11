@@ -21,7 +21,7 @@ module Sisimai
           'virus detected',
           'virus phishing/malicious_url detected',
           'your message was infected with a virus',
-        ]
+        ].freeze
 
         def text; return 'virusdetected'; end
         def description; return 'Email rejected due to a virus scanner on a destination host'; end

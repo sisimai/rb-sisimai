@@ -17,14 +17,14 @@ module Sisimai
           'bad spf records for',
           'dmarc policy',
           'please inspect your spf settings',
+          'sender policy framework (spf) fail',
           'spf (sender policy framework) domain authentication fail',
           'spf check: fail',
-        ]
-        Regex = %r{(?>
-           is[ ]not[ ]allowed[ ]to[ ]send[ ]from[ ][<][^ ]+[>][ ]per[ ]it's[ ]spf[ ]record
-          |spf:[ ][^ ]+[ ]is[ ]not[ ]allowed[ ]to[ ]send[ ]mail[.][ ][a-z0-9]_401
-          )
-        }x
+        ].freeze
+        Pairs = [
+          [' is not allowed to send mail.', '_401'],
+          ['is not allowed to send from <', " per it's spf record"],
+        ].freeze
 
         def text; return 'authfailure'; end
         def description; return 'Email rejected due to SPF, DKIM, DMARC failure'; end
@@ -36,7 +36,11 @@ module Sisimai
         def match(argv1)
           return nil unless argv1
           return true if Index.any? { |a| argv1.include?(a) }
-          return true if argv1 =~ Regex
+          return true if Pairs.any? { |a| 
+            p = (argv1.index(a[0], 0) || -1) + 1
+            q = (argv1.index(a[1], p) || -1) + 1
+            p * q > 0
+          }
           return false
         end
 

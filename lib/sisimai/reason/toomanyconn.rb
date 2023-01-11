@@ -25,7 +25,7 @@ module Sisimai
           'too many smtp sessions for this host', # Sendmail(daemon.c)
           'trop de connexions, ',
           'we have already made numerous attempts to deliver this message',
-        ]
+        ].freeze
 
         def text; return 'toomanyconn'; end
         def description; return 'SMTP connection rejected temporarily due to too many concurrency connections to the remote host'; end

@@ -23,135 +23,116 @@ module Sisimai
           'Sisimai::Reason::Rejected'    => 'sisimai/reason/rejected',
           'Sisimai::Reason::NotAccept'   => 'sisimai/reason/notaccept',
         }
-        Regex = %r{(?>
-           [#]5[.]1[.]1[ ]bad[ ]address
-          |[<][^ ]+[>][ ]not[ ]found
-          |[<][^ ]+[@][^ ]+[>][.][.][.][ ]blocked[ ]by[ ]
-          |550[ ]address[ ]invalid
-          |5[.]0[.]0[.][ ]mail[ ]rejected[.]
-          |5[.]1[.]0[ ]address[ ]rejected[.]
-          |account[ ][^ ]+[ ]does[ ]not[ ]exist[ ]at[ ]the[ ]organization
-          |adresse[ ]d[ ]au[ ]moins[ ]un[ ]destinataire[ ]invalide[.][ ]invalid[ ]recipient[.][0-9a-z_]+41[68]
-          |address[ ](?:does[ ]not[ ]exist|unknown)
-          |address[ ](?:does[ ]not[ ]exist|not[ ]present[ ]in[ ]directory|unknown)
-          |archived[ ]recipient
-          |bad[-_ ]recipient
-          |can[']t[ ]accept[ ]user
-          |does[ ]not[ ]exist[.]
-          |destination[ ](?:
-             addresses[ ]were[ ]unknown
-            |server[ ]rejected[ ]recipients
-            )
-          |email[ ]address[ ](?:does[ ]not[ ]exist|could[ ]not[ ]be[ ]found)
-          |invalid[ ](?:
-             address
-            |mailbox:?
-            |mailbox[ ]path
-            |recipient
-            )
-          |is[ ]not[ ](?:
-             a[ ]known[ ]user
-            |a[ ]valid[ ]mailbox
-            |an[ ]active[ ]address[ ]at[ ]this[ ]host
-            )
-          |mailbox[ ](?:
-             [^ ]+[ ]does[ ]not[ ]exist
-            |[^ ]+[@][^ ]+[ ]unavailable
-            |does[ ]not[ ]exist
-            |invalid
-            |is[ ](?:inactive|unavailable)
-            |not[ ](?:present|found)
-            |unavailable
-            )
-          |nessun[ ]utente[ ]simile[ ]in[ ]questo[ ]indirizzo
-          |no[ ](?:
-             [ ][^ ]+[ ]in[ ]name[ ]directory
-            |account[ ]by[ ]that[ ]name[ ]here
-            |existe[ ](?:dicha[ ]persona|ese[ ]usuario[ ])
-            |mail[ ]box[ ]available[ ]for[ ]this[ ]user
-            |mailbox[ ](?:
-               by[ ]that[ ]name[ ]is[ ]currently[ ]available
-              |found
-              )
-            |matches[ ]to[ ]nameserver[ ]query
-            |such[ ](?:
-               address[ ]here
-              |mailbox
-              |person[ ]at[ ]this[ ]address
-              |recipient
-              |user(?:[ ]here)?
-              )
-            |thank[ ]you[ ]rejected:[ ]account[ ]unavailable:
-            |valid[ ]recipients,[ ]bye
-            )
-          |non[- ]?existent[ ]user
-          |not[ ](?:
-             a[ ]valid[ ](?:recipient|user[ ]here)
-            |a[ ]local[ ]address
-            |email[ ]addresses
-            )
-          |rcpt[ ][<][^ ]+[>][ ]does[ ]not[ ]exist
-          |recipient[ ]address[ ]rejected[.][ ][(]in[ ]reply[ ]to[ ]rcpt[ ]to[ ]command[)]
-          |recipient[ ](?:
-             [^ ]+[ ]was[ ]not[ ]found[ ]in
-            |address[ ]rejected:[ ](?:
-               access[ ]denied
-              |invalid[ ]user
-              |invalid-recipient
-              |user[ ][^ ]+[ ]does[ ]not[ ]exist
-              |user[ ]unknown[ ]in[ ][^ ]+[ ]table
-              |unknown[ ]user
-              )
-            |does[ ]not[ ]exist(?:[ ]on[ ]this[ ]system)?
-            |is[ ]not[ ]local
-            |not[ ](?:exist|found|ok)
-            |refuses[ ]to[ ]accept[ ]your[ ]mail
-            |unknown
-            )
-          |requested[ ]action[ ]not[ ]taken:[ ]mailbox[ ]unavailable
-          |resolver[.]adr[.]recipient notfound
-          |said:[ ]550[-[ ]]5[.]1[.]1[ ][^ ]+[ ]user[ ]unknown[ ]
-          |sorry,[ ](?:
-             user[ ]unknown
-            |badrcptto
-            |no[ ]mailbox[ ]here[ ]by[ ]that[ ]name
-            |your[ ]envelope[ ]recipient[ ]has[ ]been[ ]denied
-            )
-          |that[ ]domain[ ]or[ ]user[ ]isn't[ ]in[ ]my[ ]list[ ]of[ ]allowed[ ]rcpthosts
-          |the[ ](?:
-             email[ ]account[ ]that[ ]you[ ]tried[ ]to[ ]reach[ ]does[ ]not[ ]exist
-            |following[ ]recipients[ ]was[ ]undeliverable
-            |user[']s[ ]email[ ]name[ ]is[ ]not[ ]found
-            )
-          |there[ ]is[ ]no[ ]one[ ]at[ ]this[ ]address
-          |this[ ](?:
-             address[ ]no[ ]longer[ ]accepts[ ]mail
-            |email[ ]address[ ]is[ ]wrong[ ]or[ ]no[ ]longer[ ]valid
-            |recipient[ ]is[ ]in[ ]my[ ]badrecipientto[ ]list
-            |recipient[ ]is[ ]not[ ]in[ ]my[ ]validrcptto[ ]list
-            |spectator[ ]does[ ]not[ ]exist
-            |user[ ]doesn[']?t[ ]have[ ]a[ ][^ ]+[ ]account
-            )
-          |unknown[ ](?:
-             e[-]?mail[ ]address
-            |local[- ]part
-            |mailbox
-            |recipient
-            |user
-            )
-          |user[ ](?:
-             [^ ]+[ ]was[ ]not[ ]found
-            |[^ ]+[ ]does[ ]not[ ]exist
-            |does[ ]not[ ]exist
-            |missing[ ]home[ ]directory
-            |not[ ](?:active|exist|found|known)
-            |unknown
-            )
-          |utilisateur[ ]inconnu[ ]!
-          |vdeliver:[ ]invalid[ ]or[ ]unknown[ ]virtual[ ]user
-          |your[ ]envelope[ ]recipient[ ]is[ ]in[ ]my[ ]badrcptto[ ]list
-          )
-        }x
+        Index = [
+          '#5.1.1 bad address',
+          '550 address invalid',
+          '5.1.0 address rejected.',
+          'address does not exist',
+          'address not present in directory',
+          'address unknown',
+          "can't accept user",
+          'does not exist.',
+          'destination addresses were unknown',
+          'destination server rejected recipients',
+          'email address does not exist',
+          'email address could not be found',
+          'invalid address',
+          'invalid mailbox',
+          'invalid mailbox path',
+          'invalid recipient',
+          'is not a known user',
+          'is not a valid mailbox',
+          'is not an active address at this host',
+          'mailbox does not exist',
+          'mailbox invalid',
+          'mailbox is inactive',
+          'mailbox is unavailable',
+          'mailbox not present',
+          'mailbox not found',
+          'mailbox unavaiable',
+          'nessun utente simile in questo indirizzo',
+          'no account by that name here',
+          'no existe dicha persona',
+          'no existe ese usuario ',
+          'no mail box available for this user',
+          'no mailbox by that name is currently available',
+          'no mailbox found',
+          'no such address here',
+          'no such mailbox',
+          'no such person at this address',
+          'no such recipient',
+          'no such user',
+          'no thank you rejected: account unavailable',
+          'no valid recipients, bye',
+          'not a valid recipient',
+          'not a valid user here',
+          'not a local address',
+          'not email addresses',
+          'recipient address rejected. (in reply to rcpt to command)',
+          'recipient address rejected: access denied',
+          'recipient address rejected: invalid user',
+          'recipient address rejected: invalid-recipient',
+          'recipient address rejected: unknown user',
+          'recipient does not exist',
+          'recipient is not local',
+          'recipient not exist',
+          'recipient not found',
+          'recipient not ok',
+          'recipient refuses to accept your mail',
+          'recipient unknown',
+          'requested action not taken: mailbox unavailable',
+          'resolver.adr.recipient notfound',
+          'sorry, user unknown',
+          'sorry, badrcptto',
+          'sorry, no mailbox here by that name',
+          'sorry, your envelope recipient has been denied',
+          "that domain or user isn't in my list of allowed rcpthosts",
+          'the email account that you tried to reach does not exist',
+          'the following recipients was undeliverable',
+          "the user's email name is not found",
+          'there is no one at this address',
+          'this address no longer accepts mail',
+          'this email address is wrong or no longer valid',
+          'this recipient is in my badrecipientto list',
+          'this recipient is not in my validrcptto list',
+          'this spectator does not exist',
+          'unknown mailbox',
+          'unknown recipient',
+          'unknown user',
+          'user does not exist',
+          'user missing home directory',
+          'user not active',
+          'user not exist',
+          'user not found',
+          'user not known',
+          'user unknown',
+          'utilisateur inconnu !',
+          'vdeliver: invalid or unknown virtual user',
+          'your envelope recipient is in my badrcptto list',
+        ].freeze
+        Pairs = [
+          ['<', '> not found'],
+          ['<', '>... blocked by '],
+          ['account ', ' does not exist at the organization'],
+          ['adresse d au moins un destinataire invalide. invalid recipient.', '416'],
+          ['adresse d au moins un destinataire invalide. invalid recipient.', '418'],
+          ['bad', 'recipient'],
+          ['mailbox ', ' does not exist'],
+          ['mailbox ', ' unavailable'],
+          ['no ', ' in name directory'],
+          ['non', 'existent user'],
+          ['rcpt <', ' does not exist'],
+          ['recipient ', ' was not found in'],
+          ['recipient address rejected: user ', '  does not exist'],
+          ['recipient address rejected: user unknown in ', '  table'],
+          ['said: 550-5.1.1 ', ' user unknown '],
+          ['said: 550 5.1.1 ', ' user unknown '],
+          ["this user doesn't have a ", " account"],
+          ['unknown e', 'mail address'],
+          ['unknown local', 'part'],
+          ['user ', ' was not found'],
+          ['user ', ' does not exist'],
+        ].freeze
 
         def text; return 'userunknown'; end
         def description; return "Email rejected due to a local part of a recipient's email address does not exist"; end
@@ -162,7 +143,12 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
-          return true if argv1 =~ Regex
+          return true if Index.any? { |a| argv1.include?(a) }
+          return true if Pairs.any? { |a| 
+            p = (argv1.index(a[0], 0) || -1) + 1
+            q = (argv1.index(a[1], p) || -1) + 1
+            p * q > 0
+          }
           return false
         end
 

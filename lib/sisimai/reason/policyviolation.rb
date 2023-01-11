@@ -39,7 +39,8 @@ module Sisimai
           'we do not accept messages containing images or other attachments',
           'you have exceeded the allowable number of posts without solving a captcha',
           'you have exceeded the the allowable number of posts without solving a captcha',
-        ]
+          "you're using a mass mailer",
+        ].freeze
 
         def text; return 'policyviolation'; end
         def description; return 'Email rejected due to policy violation on a destination host'; end

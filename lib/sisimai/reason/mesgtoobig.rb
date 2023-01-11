@@ -19,7 +19,7 @@ module Sisimai
           'message too large for this ',
           'size limit',
           'taille limite du message atteinte',
-        ]
+        ].freeze
 
         def text; return 'mesgtoobig'; end
         def description; return 'Email rejected due to an email size is too big for a destination mail server'; end

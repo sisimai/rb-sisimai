@@ -32,7 +32,7 @@ module Sisimai
           'temporary local problem',
           'timeout waiting for input',
           'transaction failed ',
-        ]
+        ].freeze
 
         def text; return 'systemerror'; end
         def description; return 'Email returned due to system error on the remote host'; end

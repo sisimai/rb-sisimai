@@ -8,7 +8,7 @@ module Sisimai
         Index = [
           'please try again slower',
           'receiving mail at a rate that prevents additional messages from being delivered',
-        ]
+        ].freeze
 
         def text; return 'speeding'; end
         def description; return 'Rejected due to exceeding a rate limit or sending too fast'; end

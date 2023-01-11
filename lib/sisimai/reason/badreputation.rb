@@ -20,7 +20,7 @@ module Sisimai
           'ip/domain reputation problems',
           'likely suspicious due to the very low reputation',
           "the sending mta's poor reputation",
-        ]
+        ].freeze
         def text; return 'badreputation'; end
         def description; return 'Email rejected due to an IP address reputation'; end
 
