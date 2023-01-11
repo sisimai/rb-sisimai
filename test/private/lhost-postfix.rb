@@ -100,7 +100,7 @@ module LhostEngineTest::Private
       '01091' => [['5.0.0',   '500', 'spamdetected',    false]],
       '01092' => [['5.0.0',   '554', 'spamdetected',    false]],
       '01093' => [['5.7.1',   '554', 'spamdetected',    false]],
-      '01094' => [['5.7.1',   '550', 'spamdetected',    false]],
+      '01094' => [['5.7.1',   '550', 'policyviolation', false]],
       '01095' => [['5.0.0',   '554', 'spamdetected',    false]],
       '01096' => [['5.0.0',   '554', 'spamdetected',    false]],
       '01097' => [['5.7.3',   '553', 'spamdetected',    false]],
@@ -242,7 +242,7 @@ module LhostEngineTest::Private
                   ['5.7.1',   '550', 'authfailure',     false]],
       '01232' => [['4.7.0',   '421', 'blocked',         false]],
       '01233' => [['5.0.0',   '550', 'blocked',         false]],
-      '01234' => [['5.0.0',   '553', 'blocked',         false]],
+      '01234' => [['5.0.0',   '553', 'rejected',        false]],
       '01235' => [['5.0.0',   '554', 'spamdetected',    false]],
       '01236' => [['5.0.0',   '550', 'badreputation',   false]],
       '01237' => [['5.0.0',   '550', 'norelaying',      false]],
@@ -282,6 +282,9 @@ module LhostEngineTest::Private
       '01271' => [['5.0.0',   '554', 'contenterror',    false]],
       '01272' => [['5.0.0',   '550', 'rejected',        false]],
       '01273' => [['5.0.0',   '550', 'rejected',        false]],
+      '01274' => [['5.0.939', '',    'mailererror',     false]],
+      '01275' => [['5.4.14',  '554', 'networkerror',    false],
+                  ['5.4.14',  '554', 'networkerror',    false]],
     }
   end
 end
