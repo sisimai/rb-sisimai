@@ -8,30 +8,23 @@ module Sisimai
 
       # http://tools.ietf.org/html/rfc3464
       Indicators = Sisimai::Lhost.INDICATORS
-      MarkingsOf = {
-        message: %r{\A(?>
-           content-type:[ ]*(?:
-             message/x?delivery-status
-            |message/disposition-notification
-            |text/plain;[ ]charset=
-            )
-          |the[ ]original[ ]message[ ]was[ ]received[ ]at[ ]
-          |this[ ]report[ ]relates[ ]to[ ]your[ ]message
-          |your[ ]message[ ](?:
-             could[ ]not[ ]be[ ]delivered
-            |was[ ]not[ ]delivered[ ]to[ ](?:the[ ]following[ ]recipients)?
-            )
-          )
-        }x,
-        rfc822:  %r{\A(?>
-           content-type:[ ]*(?:message/rfc822|text/rfc822-headers)
-          |return-path:[ ]*[<].+[>]
-          )\z
-        }x,
-        error:   %r/\A(?:[45]\d\d[ \t]+|[<][^@]+[@][^@]+[>]:?[ \t]+)/,
-        command: %r/[ ](RCPT|MAIL|DATA)[ ]+command\b/,
+      StartingOf = {
+        message: [
+          'content-type: message/delivery-status',
+          'content-type: message/disposition-notification',
+          'content-type: text/plain; charset=',
+          'the original message was received at ',
+          'this report relates to your message',
+          'your message could not be delivered',
+          'your message was not delivered to ',
+          'your message was not delivered to the following recipients',
+        ],
+        rfc822: [
+          'content-type: message/rfc822',
+          'content-type: text/rfc822-headers',
+          'return-path: <'
+        ],
       }.freeze
-
       ReadUntil0 = [
         # Stop reading when the following string have appeared at the first of a line
         'a copy of the original message below this line:',
@@ -133,7 +126,7 @@ module Sisimai
 
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            if lowercased =~ MarkingsOf[:message]
+            if StartingOf[:message].any? { |a| lowercased.start_with?(a) }
               readcursor |= Indicators[:deliverystatus]
               next
             end
@@ -141,7 +134,7 @@ module Sisimai
 
           if (readcursor & Indicators[:'message-rfc822']) == 0
             # Beginning of the original message part
-            if lowercased =~ MarkingsOf[:rfc822]
+            if StartingOf[:rfc822].any? { |a| lowercased == a }
               readcursor |= Indicators[:'message-rfc822']
               next
             end
@@ -194,7 +187,7 @@ module Sisimai
                 elsif o[0] == 'x-actual-recipient'
                   # X-Actual-Recipient: RFC822; |IFS=' ' && exec procmail -f- || exit 75 ...
                   # X-Actual-Recipient: rfc822; kijitora@neko.example.jp 
-                  v['alias'] = o[2] unless o[2] =~ /[ \t]+/
+                  v['alias'] = o[2] unless o[2].include?(' ')
                 end
               elsif o[-1] == 'code'
                 # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
@@ -210,20 +203,20 @@ module Sisimai
               end
             else
               # The line did not match with any fields defined in RFC3464
-              if cv = e.match(/\ADiagnostic-Code:[ ]*([^;]+)\z/)
+              if cv = e.match(/\ADiagnostic-Code:[ ]([^;]+)\z/)
                 # There is no value of "diagnostic-type" such as Diagnostic-Code: 554 ...
                 v['diagnosis'] = cv[1]
-              elsif cv = e.match(/\AStatus:[ ]*(\d{3}[ ]+.+)\z/)
+              elsif cv = e.match(/\AStatus:[ ](\d{3}[ ]+.+)\z/)
                 # Status: 553 Exceeded maximum inbound message size
                 v['alterrors'] = cv[1]
-              elsif readslices[-2].start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
+              elsif readslices[-2].start_with?('Diagnostic-Code:') && cv = e.match(/\A[ ]+(.+)\z/)
                 # Continued line of the value of Diagnostic-Code header
                 v['diagnosis'] << ' ' << cv[1]
                 readslices[-1] = 'Diagnostic-Code: ' << e
               else
                 # Get error messages which is written in the message body directly
                 next if e.start_with?(' ', '	')
-                next unless e =~ MarkingsOf[:error]
+                next unless e =~ /\A(?:[45]\d\d[ ]+|[<][^@]+[@][^@]+[>]:?[ ]+)/
 
                 v['alterrors'] ||= ' '
                 v['alterrors']  << ' ' << e
@@ -275,7 +268,7 @@ module Sisimai
             lowercased = e.downcase
             readslices << lowercased
 
-            break if lowercased =~ MarkingsOf[:rfc822]
+            break if StartingOf[:rfc822].include?(lowercased)
             break if ReadUntil0.any? { |v| lowercased.start_with?(v) }
             break if ReadUntil1.any? { |v| lowercased.include?(v) }
             next  if DoNotRead0.any? { |v| lowercased.start_with?(v) }
@@ -348,7 +341,7 @@ module Sisimai
         end
         return nil unless itisbounce
 
-        if recipients == 0 && cv = rfc822text.match(/^To:[ ]*(.+)/)
+        if recipients == 0 && cv = rfc822text.match(/^To:[ ](.+)/)
           # Try to get a recipient address from "To:" header of the original message
           if r = Sisimai::Address.find(cv[1], true)
             # Found a recipient address
@@ -385,14 +378,11 @@ module Sisimai
             e['agent']     = mdabounced['mda'] || 'RFC3464'
             e['reason']    = mdabounced['reason'] || 'undefined'
             e['diagnosis'] = mdabounced['message'] unless mdabounced['message'].empty?
-            e['command']   = ''
+            e['command']   = nil
           end
 
-          e['date']   ||= mhead['date']
-          e['status'] ||= Sisimai::SMTP::Status.find(e['diagnosis']) || ''
-          if cv = e['diagnosis'].match(MarkingsOf[:command])
-            e['command'] = cv[1]
-          end
+          e['date']    ||= mhead['date']
+          e['status']  ||= Sisimai::SMTP::Status.find(e['diagnosis']) || ''
           e['command'] ||= Sisimai::SMTP::Command.find(e['diagnosis'])
         end
 
