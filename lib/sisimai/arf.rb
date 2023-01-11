@@ -145,12 +145,12 @@ module Sisimai
               arfheaders['feedbacktype'] = 'abuse'
               arfheaders['agent'] = 'Microsoft Junk Mail Reporting Program'
 
-            elsif cv = e.match(/\AFrom:[ ]*(.+)\z/)
+            elsif cv = e.match(/\AFrom:[ ](.+)\z/)
               # Microsoft ARF: original sender.
               commondata['from'] = Sisimai::Address.s3s4(cv[1]) if commondata['from'].empty?
               previousfn = 'from'
 
-            elsif e.start_with?(' ', "\t")
+            elsif e.start_with?(' ')
               # Continued line from the previous line
               if previousfn == 'from'
                 # Multiple lines at "From:" field
@@ -164,7 +164,7 @@ module Sisimai
 
             else
               # Get required headers only
-              (lhs, rhs) = e.split(/:[ ]*/, 2)
+              (lhs, rhs) = e.split(/:[ ]/, 2)
               next unless lhs
               lhs.downcase!
 
@@ -189,7 +189,7 @@ module Sisimai
             # Source-IP: 192.0.2.1
             v = dscontents[-1]
 
-            if cv = e.match(/\AOriginal-Rcpt-To:[ ]+[<]?(.+)[>]?\z/) ||
+            if cv = e.match(/\AOriginal-Rcpt-To:[ ][<]?(.+)[>]?\z/) ||
                     e.match(/\ARedacted-Address:[ ]([^ ].+[@])\z/)
               # Original-Rcpt-To header field is optional and may appear any number of times as appropriate:
               # Original-Rcpt-To: <user@example.com>
@@ -202,39 +202,39 @@ module Sisimai
               v['recipient'] = Sisimai::Address.s3s4(cv[1])
               recipients += 1
 
-            elsif cv = e.match(/\AFeedback-Type:[ ]*([^ ]+)\z/)
+            elsif cv = e.match(/\AFeedback-Type:[ ]([^ ]+)\z/)
               # The header field MUST appear exactly once.
               # Feedback-Type: abuse
               arfheaders['feedbacktype'] = cv[1]
 
-            elsif cv = e.match(/\AAuthentication-Results:[ ]*(.+)\z/)
+            elsif cv = e.match(/\AAuthentication-Results:[ ](.+)\z/)
               # "Authentication-Results" indicates the result of one or more authentication checks
               # run by the report generator.
               #   Authentication-Results: mail.example.jp; spf=fail smtp.mail=spammer@example.com
               arfheaders['authres'] = cv[1]
 
-            elsif cv = e.match(/\AUser-Agent:[ ]*(.+)\z/)
+            elsif cv = e.match(/\AUser-Agent:[ ](.+)\z/)
               # The header field MUST appear exactly once.
               # User-Agent: SomeGenerator/1.0
               arfheaders['agent'] = cv[1]
 
-            elsif cv = e.match(/\A(?:Received|Arrival)-Date:[ ]*(.+)\z/)
+            elsif cv = e.match(/\A(?:Received|Arrival)-Date:[ ](.+)\z/)
               # Arrival-Date header is optional and MUST NOT appear more than once.
               # Received-Date: Thu, 29 Apr 2010 00:00:00 JST
               # Arrival-Date: Thu, 29 Apr 2010 00:00:00 +0000
               arfheaders['date'] = cv[1]
 
-            elsif cv = e.match(/\AReporting-MTA:[ ]*dns;[ ]*(.+)\z/)
+            elsif cv = e.match(/\AReporting-MTA:[ ]dns;[ ](.+)\z/)
               # The header is optional and MUST NOT appear more than once.
               # Reporting-MTA: dns; mx.example.jp
               commondata['rhost'] = cv[1]
 
-            elsif cv = e.match(/\ASource-I[Pp]:[ ]*(.+)\z/)
+            elsif cv = e.match(/\ASource-IP:[ ](.+)\z/)
               # The header is optional and MUST NOT appear more than once.
               # Source-IP: 192.0.2.45
               arfheaders['rhost'] = cv[1]
 
-            elsif cv = e.match(/\AOriginal-Mail-From:[ ]*(.+)\z/)
+            elsif cv = e.match(/\AOriginal-Mail-From:[ ](.+)\z/)
               # the header is optional and MUST NOT appear more than once.
               # Original-Mail-From: <somespammer@example.net>
               commondata['from'] = Sisimai::Address.s3s4(cv[1]) if commondata['from'].empty?
