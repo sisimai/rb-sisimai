@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'sisimai/rfc1894'
 
 class RFC1894Test < Minitest::Test
-  Methods = { class: %w[FIELDTABLE field match label] }
+  Methods = { class: %w[FIELDINDEX FIELDTABLE field match label] }
 
   Field01 = [
     'Reporting-MTA: dns; neko.example.jp',
@@ -28,6 +28,16 @@ class RFC1894Test < Minitest::Test
 
   def test_methods
     Methods[:class].each { |e| assert_respond_to Sisimai::RFC1894, e }
+  end
+
+  def test_FIELDINDEX
+    cv = Sisimai::RFC1894.FIELDINDEX
+    assert_instance_of Array, cv
+    refute_empty cv
+
+    ce = assert_raises ArgumentError do
+      Sisimai::RFC1894.FIELDINDEX(nil)
+    end
   end
 
   def test_FIELDTABLE
