@@ -21,6 +21,16 @@ module Sisimai
       end
       HeaderIndex = build_flatten_rfc822header_list.call
 
+      def FIELDINDEX
+        return %w[
+          Resent-Date From Sender Reply-To To Message-ID Subject Return-Path Received Date X-Mailer
+          Content-Type Content-Transfer-Encoding Content-Description Content-Disposition
+        ]
+        # The following fields are not referred in Sisimai
+        #   Resent-From Resent-Sender Resent-Cc Cc Bcc Resent-Bcc In-Reply-To References
+        #   Comments Keywords
+      end
+
       # Grouped RFC822 headers
       # @param    [Symbol] group  RFC822 Header group name
       # @return   [Array,Hash]    RFC822 Header list
@@ -46,7 +56,7 @@ module Sisimai
         value = { 'from' => '', 'by' => '' }
 
         # Received: (qmail 10000 invoked by uid 999); 24 Apr 2013 00:00:00 +0900
-        return [] if argvs =~ /qmail[ ]+.+invoked[ ]+/
+        return [] if argvs.include?('(qmail ') && argvs.include?(' invoked ')
 
         if cr = argvs.match(/\Afrom[ ]+(.+)[ ]+by[ ]+([^ ]+)/)
           # Received: from localhost (localhost) by nijo.example.jp (V8/cf) id s1QB5ma0018057;
@@ -114,29 +124,53 @@ module Sisimai
 
       # Split given entire message body into error message lines and the original message part only
       # include email headers
-      # @param    [String] mbody  Entire message body
-      # @param    [Regexp] regex  Regular expression of the message/rfc822 or the beginning of the
-      #                           original message part
+      # @param    [String] email  Entire message body
+      # @param    [Array]  cutby  List of strings which is a boundary of the original message part
+      # @param    [Bool]   keeps  Flag for keeping strings after "\n\n"
       # @return   [Array]         [Error message lines, The original message]
-      # @since    v4.25.5
-      def fillet(mbody = '', regex)
-        return nil if mbody.empty?
-        return nil unless regex
+      # @since    v5.0.0
+      def part(email = '', cutby = [], keeps = false)
+        return nil if email.empty?
+        return nil if cutby.empty?
 
-        v = mbody.split(regex, 2)
-        v[1] ||= ''
+        boundaryor = ''   # A boundary string divides the error message part and the original message part
+        positionor = nil  # A Position of the boundary string
+        formerpart = ''   # The error message part
+        latterpart = ''   # The original message part
 
-        unless v[1].empty?
+        cutby.each do |e|
+          # Find a boundary string(2nd argument) from the 1st argument
+          positionor = email.index(e); next unless positionor
+          boundaryor = e
+          break
+        end
+
+        if positionor
+          # There is the boundary string in the message body
+          formerpart = email[0, positionor]
+          latterpart = email[positionor + boundaryor.size + 1, email.size - positionor]
+        else
+          # Substitute the entire message to the former part when the boundary string is not included
+          # the "email"
+          formerpart = email
+          latterpart = ''
+        end
+
+        if latterpart.size > 0
           # Remove blank lines, the message body of the original message, and append "\n" at the end
           # of the original message headers
           # 1. Remove leading blank lines
           # 2. Remove text after the first blank line: \n\n
           # 3. Append "\n" at the end of test block when the last character is not "\n"
-          v[1].sub!(/\A[\r\n\s]+/, '')
-          v[1] = v[1][0, v[1].index("\n\n")] if v[1].include?("\n\n")
-          v[1] << "\n" unless v[1].end_with?("\n")
+          latterpart.sub!(/\A[\r\n\s]+/, '')
+          if keeps == false
+            #  Remove text after the first blank line: \n\n when "keeps" is false
+            latterpart = latterpart[0, latterpart.index("\n\n")] if latterpart.include?("\n\n")
+          end
+          latterpart << "\n" unless latterpart.end_with?("\n")
         end
-        return v
+
+        return [formerpart, latterpart]
       end
 
     end
