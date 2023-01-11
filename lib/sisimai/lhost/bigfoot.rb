@@ -6,8 +6,8 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^Content-Type:[ ]message/partial|.freeze
-      MarkingsOf = { message: %r/\A[ \t]+[-]+[ \t]*Transcript of session follows/ }.freeze
+      Boundaries = ['Content-Type: message/partial'].freeze
+      MarkingsOf = { message: %r/\A[ ]+[-]+[ ]*Transcript of session follows/ }.freeze
 
       # Parse bounce messages from Bigfoot
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -21,17 +21,18 @@ module Sisimai::Lhost
         match += 1 if mhead['received'].any? { |a| a.include?('.bigfoot.com') }
         return nil unless match > 0
 
+        require 'sisimai/smtp/command'
         require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         permessage = {}     # (Hash) Store values of each Per-Message field
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readslices = ['']
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        commandtxt = ''     # (String) SMTP Command name begin with the string '>>>'
+        thecommand = ''     # (String) SMTP Command name begin with the string '>>>'
         esmtpreply = ''     # (String) Reply from remote server on SMTP session
         v = nil
 
@@ -87,9 +88,9 @@ module Sisimai::Lhost
               #    ----- Transcript of session follows -----
               # >>> RCPT TO:<destinaion@example.net>
               # <<< 553 Invalid recipient destinaion@example.net (Mode: normal)
-              if cv = e.match(/\A[>]{3}[ ]+([A-Z]{4})[ ]?/)
+              if e.start_with?('>>> ')
                 # >>> DATA
-                commandtxt = cv[1]
+                thecommand = Sisimai::SMTP::Command.find(e)
               elsif cv = e.match(/\A[<]{3}[ ]+(.+)\z/)
                 # <<< Response
                 esmtpreply = cv[1]
@@ -97,7 +98,7 @@ module Sisimai::Lhost
             else
               # Continued line of the value of Diagnostic-Code field
               next unless readslices[-2].start_with?('Diagnostic-Code:')
-              next unless cv = e.match(/\A[ \t]+(.+)\z/)
+              next unless cv = e.match(/\A[ ]+(.+)\z/)
               v['diagnosis'] << ' ' << cv[1]
               readslices[-1] = 'Diagnostic-Code: ' << e
             end
@@ -110,13 +111,13 @@ module Sisimai::Lhost
           e['lhost'] ||= permessage['rhost']
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-          e['command']   = commandtxt
+          e['command']   = thecommand || ''
           if e['command'].empty?
             e['command'] = 'EHLO' unless esmtpreply.empty?
           end
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Bigfoot: http://www.bigfoot.com'; end
     end

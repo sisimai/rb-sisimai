@@ -6,12 +6,11 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r{^(?:
-         Original[ ]message[ ]headers:                # en-US
-        |En-t.tes[ ]de[ ]message[ ]d'origine[ ]:      # fr-FR/En-têtes de message d'origine
-        |Intestazioni[ ]originali[ ]del[ ]messaggio:  # it-CH
-        )
-      }x.freeze
+      Boundaries = [
+        'Original message headers:',                # en-US
+        "tes de message d'origine :",               # fr-FR/En-têtes de message d'origine
+        'Intestazioni originali del messaggio:',    # it-CH
+      ].freeze
       MarkingsOf = {
         message: %r{\A(?:
            Diagnostic[ ]information[ ]for[ ]administrators:               # en-US
@@ -22,7 +21,7 @@ module Sisimai::Lhost
         error:   %r/ ((?:RESOLVER|QUEUE)[.][A-Za-z]+(?:[.]\w+)?);/,
         rhost:   %r{\A(?:
            Generating[ ]server            # en-US
-          |Serveur[ ]de[ ]g[^ ]+ration[ ] # fr-FR/Serveur de génération
+          |Serveur[ ]de[ ]g[^ ]+ration[ ] # fr-FR/Serveur de g辿n辿ration
           |Server[ ]di[ ]generazione      # it-CH
           ):[ ]?(.*)
         }x,
@@ -59,8 +58,8 @@ module Sisimai::Lhost
         return nil if mhead['x-ms-exchange-crosstenant-fromentityheader']
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         connvalues = 0      # (Integer) Flag, 1 if all the value of connheader have been set
@@ -142,7 +141,7 @@ module Sisimai::Lhost
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Microsoft Exchange Server 2007'; end
     end

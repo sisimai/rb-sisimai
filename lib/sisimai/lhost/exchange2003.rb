@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^Content-Type:[ ]message/rfc822|.freeze
+      Boundaries = ['Content-Type: message/rfc822'].freeze
       StartingOf = {
         message: ['Your message'],
         error:   ['did not reach the following recipient(s):'],
@@ -83,8 +83,8 @@ module Sisimai::Lhost
         return nil unless match > 0
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         statuspart = false  # (Boolean) Flag, true = have got delivery status part.
@@ -122,8 +122,8 @@ module Sisimai::Lhost
             #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
             v = dscontents[-1]
 
-            if cv = e.match(/\A[ \t]*([^ ]+[@][^ ]+) on[ \t]*.*\z/) ||
-                    e.match(/\A[ \t]*.+(?:SMTP|smtp)=([^ ]+[@][^ ]+) on[ \t]*.*\z/)
+            if cv = e.match(/\A[ ]*([^ ]+[@][^ ]+) on[ ]*.*\z/) ||
+                    e.match(/\A[ ]*.+(?:SMTP|smtp)=([^ ]+[@][^ ]+) on[ ]*.*\z/)
               # kijitora@example.co.jp on Thu, 29 Apr 2007 16:51:51 -0500
               #   kijitora@example.com on 4/29/99 9:19:59 AM
               if v['recipient']
@@ -135,7 +135,7 @@ module Sisimai::Lhost
               v['msexch'] = false
               recipients += 1
 
-            elsif cv = e.match(/\A[ \t]+(MSEXCH:.+)\z/)
+            elsif cv = e.match(/\A[ ]+(MSEXCH:.+)\z/)
               #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
               v['diagnosis'] ||= ''
               v['diagnosis'] << cv[1]
@@ -159,20 +159,20 @@ module Sisimai::Lhost
             #  Subject: ...
             #  Sent:    Thu, 29 Apr 2010 18:14:35 +0000
             #
-            if cv = e.match(/\A[ \t]+To:[ \t]+(.+)\z/)
+            if cv = e.match(/\A[ ]+To:[ ]+(.+)\z/)
               #  To:      shironeko@example.jp
               next unless connheader['to'].empty?
               connheader['to'] = cv[1]
               connvalues += 1
 
-            elsif cv = e.match(/\A[ \t]+Subject:[ \t]+(.+)\z/)
+            elsif cv = e.match(/\A[ ]+Subject:[ ]+(.+)\z/)
               #  Subject: ...
               next unless connheader['subject'].empty?
               connheader['subject'] = cv[1]
               connvalues += 1
 
-            elsif cv = e.match(%r|\A[ \t]+Sent:[ \t]+([A-Z][a-z]{2},.+[-+]\d{4})\z|) ||
-                       e.match(%r|\A[ \t]+Sent:[ \t]+(\d+[/]\d+[/]\d+[ \t]+\d+:\d+:\d+[ \t].+)|)
+            elsif cv = e.match(%r|\A[ ]+Sent:[ ]+([A-Z][a-z]{2},.+[-+]\d{4})\z|) ||
+                       e.match(%r|\A[ ]+Sent:[ ]+(\d+[/]\d+[/]\d+[ ]+\d+:\d+:\d+[ ].+)|)
               #  Sent:    Thu, 29 Apr 2010 18:14:35 +0000
               #  Sent:    4/29/99 9:19:59 AM
               next unless connheader['date'].empty?
@@ -185,7 +185,7 @@ module Sisimai::Lhost
 
         dscontents.each do |e|
           e.delete('msexch')
-          if cv = e['diagnosis'].match(/\AMSEXCH:.+[ \t]*[(]([0-9A-F]{8})[)][ \t]*(.*)\z/)
+          if cv = e['diagnosis'].match(/\AMSEXCH:.+[ ]*[(]([0-9A-F]{8})[)][ ]*(.*)\z/)
             #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
             capturedcode = cv[1]
             errormessage = cv[2]
@@ -212,14 +212,14 @@ module Sisimai::Lhost
           end
         end
 
-        if emailsteak[1].empty?
+        if emailparts[1].empty?
           # When original message does not included in the bounce message
-          emailsteak[1] << ('From: ' << connheader['to'] << "\n")
-          emailsteak[1] << ('Date: ' << connheader['date'] << "\n")
-          emailsteak[1] << ('Subject: ' << connheader['subject'] << "\n")
+          emailparts[1] << ('From: ' << connheader['to'] << "\n")
+          emailparts[1] << ('Date: ' << connheader['date'] << "\n")
+          emailparts[1] << ('Subject: ' << connheader['subject'] << "\n")
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Microsoft Exchange Server 2003'; end
     end

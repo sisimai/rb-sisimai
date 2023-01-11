@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^Content-Type:[ ]text/rfc822-headers|.freeze
+      Boundaries = ['Content-Type: text/rfc822-headers'].freeze
       StartingOf = { message: ['Hello, this is the mail server on '] }.freeze
       Categories = {
         'bad-domain'          => 'hostunknown',
@@ -34,8 +34,8 @@ module Sisimai::Lhost
         permessage = {}     # (Hash) Store values of each Per-Message field
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
@@ -110,7 +110,7 @@ module Sisimai::Lhost
           e['reason']    = Categories[e['category']] || ''
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'PowerMTA: https://www.sparkpost.com/powermta/'; end
     end

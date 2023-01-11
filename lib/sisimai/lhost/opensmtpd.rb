@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^[ ]+Below is a copy of the original message:|.freeze
+      Boundaries = ['    Below is a copy of the original message:'].freeze
       StartingOf = {
         # http://www.openbsd.org/cgi-bin/man.cgi?query=smtpd&sektion=8
         # opensmtpd-5.4.2p1/smtpd/
@@ -75,8 +75,8 @@ module Sisimai::Lhost
         return nil unless mhead['received'].any? { |a| a.include?(' (OpenSMTPD) with ') }
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
@@ -127,7 +127,7 @@ module Sisimai::Lhost
             break
           end
         end
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'OpenSMTPD'; end
     end

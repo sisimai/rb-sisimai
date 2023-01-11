@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^--- Below this line is a copy of the message[.]|.freeze
+      Boundaries = ['--- Below this line is a copy of the message.'].freeze
       StartingOf = { message: ['Sorry, we were unable to deliver your message'] }.freeze
 
       # Parse bounce messages from Yahoo! MAIL
@@ -21,9 +21,10 @@ module Sisimai::Lhost
         # X-Originating-IP: [192.0.2.9]
         return nil unless mhead['x-ymailisg']
 
+        require 'sisimai/smtp/command'
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
@@ -45,7 +46,7 @@ module Sisimai::Lhost
           # Remote host said: 550 5.1.1 <kijitora@example.org>... User Unknown [RCPT_TO]
           v = dscontents[-1]
 
-          if cv = e.match(/\A[<](.+[@].+)[>]:[ \t]*\z/)
+          if cv = e.match(/\A[<](.+[@].+)[>]:[ ]*\z/)
             # <kijitora@example.org>:
             if v['recipient']
               # There are multiple recipient addresses in the message body.
@@ -61,7 +62,7 @@ module Sisimai::Lhost
               v['diagnosis'] = e
 
               # Get SMTP command from the value of "Remote host said:"
-              if cv = e.match(/\[([A-Z]{4}).*\]\z/) then v['command'] = cv[1] end
+              v['command'] = Sisimai::SMTP::Command.find(e)
             else
               # <mailboxfull@example.jp>:
               # Remote host said:
@@ -70,9 +71,9 @@ module Sisimai::Lhost
               if v['diagnosis'].start_with?('Remote host said:')
                 # Remote host said:
                 # 550 5.2.2 <mailboxfull@example.jp>... Mailbox Full
-                if cv = e.match(/\[([A-Z]{4}).*\]\z/)
+                if cv = Sisimai::SMTP::Command.find(e)
                   # [RCPT_TO]
-                  v['command'] = cv[1]
+                  v['command'] = cv
                 else
                   # 550 5.2.2 <mailboxfull@example.jp>... Mailbox Full
                   v['diagnosis'] = e
@@ -91,7 +92,7 @@ module Sisimai::Lhost
           e['command'] ||= 'RCPT' if e['diagnosis'] =~ /[<].+[@].+[>]/
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Yahoo! MAIL: https://www.yahoo.com'; end
     end

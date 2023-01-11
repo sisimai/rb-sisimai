@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^--- Below this line is a copy of the message[.]|.freeze
+      Boundaries = ['--- Below this line is a copy of the message.'].freeze
       StartingOf = {
         #  qmail-remote.c:248|    if (code >= 500) {
         #  qmail-remote.c:249|      out("h"); outhost(); out(" does not like recipient.\n");
@@ -52,7 +52,6 @@ module Sisimai::Lhost
 
       # qmail-send.c:922| ... (&dline[c],"I'm not going to try again; this message has been in the queue too long.\n")) nomem();
       HasExpired = 'this message has been in the queue too long.'
-      ReCommands = %r/Sorry, no SMTP connection got far enough; most progress was ([A-Z]{4}) /
       ReIsOnHold = %r/\A[^ ]+ does not like recipient[.][ ]+.+this message has been in the queue too long[.]\z/
       FailOnLDAP = {
         # qmail-ldap-1.03-20040101.patch:19817 - 19866
@@ -115,8 +114,8 @@ module Sisimai::Lhost
         return nil unless match > 0
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
@@ -138,7 +137,7 @@ module Sisimai::Lhost
           # Giving up on 192.0.2.153.
           v = dscontents[-1]
 
-          if cv = e.match(/\A(?:To[ ]*:)?[<](.+[@].+)[>]:[ \t]*\z/)
+          if cv = e.match(/\A(?:To[ ]*:)?[<](.+[@].+)[>]:[ ]*\z/)
             # <kijitora@example.jp>:
             if v['recipient']
               # There are multiple recipient addresses in the message body.
@@ -162,6 +161,7 @@ module Sisimai::Lhost
         end
         return nil unless recipients > 0
 
+        require 'sisimai/smtp/command'
         dscontents.each do |e|
           e['agent']     = 'qmail'
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
@@ -175,10 +175,9 @@ module Sisimai::Lhost
               break
             end
 
-            unless e['command']
-              # Verify each regular expression of patches
-              if cv = e['diagnosis'].match(ReCommands) then e['command'] = cv[1].upcase end
-              e['command'] ||= ''
+            if e['diagnosis'].include?('Sorry, no SMTP connection got far enough; most progress was ')
+              # Get the last SMTP command:from the error message
+              e['command'] ||= Sisimai::SMTP::Command.find(e['diagnosis']) || '' 
             end
           end
 
@@ -225,10 +224,11 @@ module Sisimai::Lhost
             end
           end
 
-          e['status'] = Sisimai::SMTP::Status.find(e['diagnosis']) || ''
+          e['command'] ||= Sisimai::SMTP::Command.find(e['diagnosis'])
+          e['status']    = Sisimai::SMTP::Status.find(e['diagnosis']) || ''
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'qmail'; end
     end

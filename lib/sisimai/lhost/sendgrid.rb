@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^Content-Type:[ ]message/rfc822|.freeze
+      Boundaries = ['Content-Type: message/rfc822'].freeze
       StartingOf = { message: ['This is an automatically generated message from SendGrid.'] }.freeze
 
       # Parse bounce messages from SendGrid
@@ -22,16 +22,17 @@ module Sisimai::Lhost
         return nil unless mhead['subject'] == 'Undelivered Mail Returned to Sender'
 
         require 'sisimai/rfc1894'
+        require 'sisimai/smtp/command'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         permessage = {}     # (Hash) Store values of each Per-Message field
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readslices = ['']
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        commandtxt = ''     # (String) SMTP Command name begin with the string '>>>'
+        thecommand = ''     # (String) SMTP Command name begin with the string '>>>'
         v = nil
 
         while e = bodyslices.shift do
@@ -56,7 +57,7 @@ module Sisimai::Lhost
               # Fallback code for empty value or invalid formatted value
               # - Status: (empty)
               # - Diagnostic-Code: 550 5.1.1 ... (No "diagnostic-type" sub field)
-              next unless cv = e.match(/\ADiagnostic-Code:[ ]*(.+)/)
+              next unless cv = e.match(/\ADiagnostic-Code:[ ](.+)/)
               v['diagnosis'] = cv[1]
               next
             end
@@ -98,16 +99,16 @@ module Sisimai::Lhost
             end
           else
             # The line does not begin with a DSN field defined in RFC3464
-            if cv = e.match(/.+ in (?:End of )?([A-Z]{4}).*\z/)
+            if cv = Sisimai::SMTP::Command.find(e)
               # in RCPT TO, in MAIL FROM, end of DATA
-              commandtxt = cv[1]
+              thecommand = cv
             elsif cv = e.match(/\ADiagnostic-Code:[ ]*(.+)\z/)
               # Diagnostic-Code: 550 5.1.1 <kijitora@example.jp>... User Unknown
               v['diagnosis'] = e
             else
               # Continued line of the value of Diagnostic-Code field
               next unless readslices[-2].start_with?('Diagnostic-Code:')
-              next unless cv = e.match(/\A[ \t]+(.+)\z/)
+              next unless cv = e.match(/\A[ ]+(.+)\z/)
               v['diagnosis'] << ' ' << cv[1]
               readslices[-1] = 'Diagnostic-Code: ' << e
             end
@@ -138,10 +139,10 @@ module Sisimai::Lhost
           end
 
           e['lhost'] ||= permessage['rhost']
-          e['command'] = commandtxt
+          e['command'] = thecommand
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'SendGrid: https://sendgrid.com/'; end
     end

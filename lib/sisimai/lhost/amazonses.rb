@@ -7,7 +7,7 @@ module Sisimai::Lhost
 
       # https://aws.amazon.com/ses/
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^content-type:[ ]message/rfc822|.freeze
+      Boundaries = ['Content-Type: message/rfc822'].freeze
       StartingOf = {
         message: ['The following message to <', 'An error occurred while trying to deliver the mail'],
       }.freeze
@@ -25,7 +25,7 @@ module Sisimai::Lhost
         if mbody.start_with?('{')
           # The message body is JSON string
           return nil unless mhead['x-amz-sns-message-id']
-          return nil if mhead['x-amz-sns-message-id'].empty?
+          return nil if     mhead['x-amz-sns-message-id'].empty?
 
           # https://docs.aws.amazon.com/en_us/ses/latest/DeveloperGuide/notification-contents.html
           bouncetype = {
@@ -121,7 +121,7 @@ module Sisimai::Lhost
                 v['action'] = e['action']
                 v['status'] = e['status']
 
-                if cv = e['diagnosticCode'].match(/\A(.+?);[ ]*(.+)\z/)
+                if cv = e['diagnosticCode'].match(/\A(.+?);[ ](.+)\z/)
                   # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
                   v['spec'] = cv[1].upcase
                   v['diagnosis'] = cv[2]
@@ -229,8 +229,8 @@ module Sisimai::Lhost
           fieldtable = Sisimai::RFC1894.FIELDTABLE
           permessage = {}     # (Hash) Store values of each Per-Message field
 
-          emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-          bodyslices = emailsteak[0].split("\n")
+          emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+          bodyslices = emailparts[0].split("\n")
           readslices = ['']
           readcursor = 0      # (Integer) Points the current cursor position
           v = nil
@@ -286,7 +286,7 @@ module Sisimai::Lhost
             else
               # Continued line of the value of Diagnostic-Code field
               next unless readslices[-2].start_with?('Diagnostic-Code:')
-              next unless cv = e.match(/\A[ \t]+(.+)\z/)
+              next unless cv = e.match(/\A[ ]+(.+)\z/)
               v['diagnosis'] << ' ' << cv[1]
               readslices[-1] = 'Diagnostic-Code: ' << e
             end
@@ -329,7 +329,7 @@ module Sisimai::Lhost
             end
           end
 
-          return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+          return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
         end # END of a parser for email message
 
       end

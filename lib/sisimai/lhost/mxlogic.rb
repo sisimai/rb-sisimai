@@ -7,7 +7,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^Included is a copy of the message header:|.freeze
+      Boundaries = ['Included is a copy of the message header:'].freeze
       StartingOf = { message: ['This message was created automatically by mail delivery software.'] }.freeze
       ReCommands = [
         %r/SMTP error from remote (?:mail server|mailer) after ([A-Za-z]{4})/,
@@ -90,8 +90,8 @@ module Sisimai::Lhost
         return nil unless match > 0
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         localhost0 = ''     # (String) Local MTA
@@ -118,7 +118,7 @@ module Sisimai::Lhost
           #    host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
           v = dscontents[-1]
 
-          if cv = e.match(/\A[ \t]*[<]([^ ]+[@][^ ]+)[>]:(.+)\z/)
+          if cv = e.match(/\A[ ]*[<]([^ ]+[@][^ ]+)[>]:(.+)\z/)
             # A message that you have sent could not be delivered to one or more
             # recipients.  This is a permanent error.  The following address failed:
             #
@@ -153,7 +153,7 @@ module Sisimai::Lhost
           unless e['rhost']
             # Get the remote host name
             # host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
-            if cv = e['diagnosis'].match(/host[ ]+([^ \t]+)[ ]\[.+\]:[ ]/) then e['rhost'] = cv[1] end
+            if cv = e['diagnosis'].match(/host[ ]+([^ ]+)[ ]\[.+\]:[ ]/) then e['rhost'] = cv[1] end
 
             unless e['rhost']
               # Get localhost and remote host name from Received header.
@@ -196,7 +196,7 @@ module Sisimai::Lhost
           end
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'McAfee SaaS'; end
     end

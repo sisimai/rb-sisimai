@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^Content-Type:[ ]message/rfc822|.freeze
+      Boundaries = ['Content-Type: message/rfc822'].freeze
       StartingOf = { message: ['--- The following addresses had delivery problems ---'] }.freeze
       ReFailures = {
         'userunknown' => %r{(?:
@@ -32,8 +32,8 @@ module Sisimai::Lhost
         require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readslices = ['']
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
@@ -64,7 +64,7 @@ module Sisimai::Lhost
           #
           v = dscontents[-1]
 
-          if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>][ \t]+[(](.+)[)]\z/)
+          if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>][ ]+[(](.+)[)]\z/)
             # <kijitora@example.co.jp>   (Unknown user kijitora@example.co.jp)
             if v['recipient']
               # There are multiple recipient addresses in the message body.
@@ -81,7 +81,7 @@ module Sisimai::Lhost
             unless o
               # Fallback code for empty value or invalid formatted value
               # - Original-Recipient: <kijitora@example.co.jp>
-              if cv = e.match(/\AOriginal-Recipient:[ ]*([^ ]+)\z/)
+              if cv = e.match(/\AOriginal-Recipient:[ ]([^ ]+)\z/)
                 v['alias'] = Sisimai::Address.s3s4(cv[1])
               end
               next
@@ -92,7 +92,7 @@ module Sisimai::Lhost
           else
             # Continued line of the value of Diagnostic-Code field
             next unless readslices[-2].start_with?('Diagnostic-Code:')
-            next unless cv = e.match(/\A[ \t]+(.+)\z/)
+            next unless cv = e.match(/\A[ ]+(.+)\z/)
             v['diagnosis'] << ' ' << cv[1]
             readslices[-1] = 'Diagnostic-Code: ' << e
           end
@@ -109,7 +109,7 @@ module Sisimai::Lhost
           end
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'McAfee Email Appliance'; end
     end

@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^Received:[ ]*from[ ]mail[.]zoho[.]com[ ]by[ ]mx[.]zohomail[.]com|.freeze
+      Boundaries = ['Received: from mail.zoho.com by mx.zohomail.com'].freeze
       StartingOf = { message: ['This message was created automatically by mail delivery'] }.freeze
       MessagesOf = { 'expired' => ['Host not reachable'] }.freeze
 
@@ -22,8 +22,8 @@ module Sisimai::Lhost
         return nil unless mhead['x-zohomail']
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         qprintable = false
@@ -53,7 +53,7 @@ module Sisimai::Lhost
           # shironeko@example.org Invalid Address, ERROR_CODE :550, ERROR_CODE :Requested action not taken: mailbox unavailable
           v = dscontents[-1]
 
-          if cv = e.match(/\A([^ ]+[@][^ ]+)[ \t]+(.+)\z/)
+          if cv = e.match(/\A([^ ]+[@][^ ]+)[ ]+(.+)\z/)
             # kijitora@example.co.jp Invalid Address, ERROR_CODE :550, ERROR_CODE :5.1.=
             if v['recipient']
               # There are multiple recipient addresses in the message body.
@@ -99,7 +99,7 @@ module Sisimai::Lhost
           end
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Zoho Mail: https://www.zoho.com'; end
     end

@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^Content-type:[ ]message/rfc822|.freeze
+      Boundaries = ['Content-Type: message/rfc822'].freeze
       StartingOf = { message: ['  ----- The following addresses had permanent fatal errors -----'] }.freeze
 
       # Parse bounce messages from TransWARE Active!hunter
@@ -20,8 +20,8 @@ module Sisimai::Lhost
         return nil unless mhead['x-ahmailid']
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
@@ -45,7 +45,7 @@ module Sisimai::Lhost
           # 550 sorry, no mailbox here by that name (#5.1.1 - chkusr)
           v = dscontents[-1]
 
-          if cv = e.match(/\A[>]{3}[ \t]+.+[<]([^ ]+?[@][^ ]+?)[>]\z/)
+          if cv = e.match(/\A[>]{3}[ ]+.+[<]([^ ]+?[@][^ ]+?)[>]\z/)
             # >>> kijitora@example.org <kijitora@example.org>
             if v['recipient']
               # There are multiple recipient addresses in the message body.
@@ -67,7 +67,7 @@ module Sisimai::Lhost
 
         require 'sisimai/string'
         dscontents.each { |e| e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) }
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'TransWARE Active!hunter'; end
     end

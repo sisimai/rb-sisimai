@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r<^(?:Content-type:[ ]*message/rfc822|Return-path:[ ]*)>.freeze
+      Boundaries = ['Content-Type: message/rfc822', 'Return-path: '].freeze
       StartingOf = { message: ['This report relates to a message you sent with the following header fields:'] }.freeze
       MessagesOf = { 'hostunknown' => ['Illegal host/domain name found'] }.freeze
 
@@ -23,8 +23,8 @@ module Sisimai::Lhost
         return nil unless match > 0
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
@@ -60,7 +60,7 @@ module Sisimai::Lhost
           #   Remote system: dns;mx.example.jp (TCP|17.111.174.67|47323|192.0.2.225|25) (6jo.example.jp ESMTP SENDMAIL-VM)
           v = dscontents[-1]
 
-          if cv = e.match(/\A[ \t]+Recipient address:[ \t]*([^ ]+[@][^ ]+)\z/)
+          if cv = e.match(/\A[ ]+Recipient address:[ ]*([^ ]+[@][^ ]+)\z/)
             #   Recipient address: kijitora@example.jp
             if v['recipient']
               # There are multiple recipient addresses in the message body.
@@ -70,24 +70,24 @@ module Sisimai::Lhost
             v['recipient'] = Sisimai::Address.s3s4(cv[1])
             recipients += 1
 
-          elsif cv = e.match(/\A[ \t]+Original address:[ \t]*([^ ]+[@][^ ]+)\z/)
+          elsif cv = e.match(/\A[ ]+Original address:[ ]*([^ ]+[@][^ ]+)\z/)
             #   Original address: kijitora@example.jp
             v['recipient'] = Sisimai::Address.s3s4(cv[1])
 
-          elsif cv = e.match(/\A[ \t]+Date:[ \t]*(.+)\z/)
+          elsif cv = e.match(/\A[ ]+Date:[ ]*(.+)\z/)
             #   Date: Fri, 21 Nov 2014 23:34:45 +0900
             v['date'] = cv[1]
 
-          elsif cv = e.match(/\A[ \t]+Reason:[ \t]*(.+)\z/)
+          elsif cv = e.match(/\A[ ]+Reason:[ ]*(.+)\z/)
             #   Reason: Remote SMTP server has rejected address
             v['diagnosis'] = cv[1]
 
-          elsif cv = e.match(/\A[ \t]+Diagnostic code:[ \t]*([^ ]+);(.+)\z/)
+          elsif cv = e.match(/\A[ ]+Diagnostic code:[ ]*([^ ]+);(.+)\z/)
             #   Diagnostic code: smtp;550 5.1.1 <kijitora@example.jp>... User Unknown
             v['spec'] = cv[1].upcase
             v['diagnosis'] = cv[2]
 
-          elsif cv = e.match(/\A[ \t]+Remote system:[ ]*dns;([^ ]+)[ ]*([^ ]+)[ ]*.+\z/)
+          elsif cv = e.match(/\A[ ]+Remote system:[ ]*dns;([^ ]+)[ ]*([^ ]+)[ ]*.+\z/)
             #   Remote system: dns;mx.example.jp (TCP|17.111.174.67|47323|192.0.2.225|25)
             #     (6jo.example.jp ESMTP SENDMAIL-VM)
             remotehost = cv[1]  # remote host
@@ -117,11 +117,11 @@ module Sisimai::Lhost
               v['status'] = cv[1]
               v['diagnosis'] ||= cv[2]
 
-            elsif cv = e.match(/\AArrival-Date:[ ]*(.+)\z/)
+            elsif cv = e.match(/\AArrival-Date:[ ](.+)\z/)
               # Arrival-date: Thu, 29 Apr 2014 23:34:45 +0000 (GMT)
               v['date'] ||= cv[1]
 
-            elsif cv = e.match(/\AReporting-MTA:[ ]*(?:DNS|dns);[ ]*(.+)\z/)
+            elsif cv = e.match(/\AReporting-MTA:[ ]dns;[ ](.+)\z/)
               # Reporting-MTA: dns;mr21p30im-asmtp004.me.com (tcp-daemon)
               localhost = cv[1]
               v['lhost'] ||= localhost
@@ -141,7 +141,7 @@ module Sisimai::Lhost
           end
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Oracle Communications Messaging Server'; end
     end

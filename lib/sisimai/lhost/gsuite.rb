@@ -6,11 +6,11 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r<^Content-Type:[ ](?:message/rfc822|text/rfc822-headers)>.freeze
+      Boundaries = ['Content-Type: message/rfc822', 'Content-Type: text/rfc822-headers'].freeze
       MarkingsOf = {
         message: %r/\A[*][*][ ].+[ ][*][*]\z/,
         error:   %r/\AThe[ ]response([ ]from[ ]the[ ]remote[ ]server)?[ ]was:\z/,
-        html:    %r{\AContent-Type:[ ]*text/html;[ ]*charset=['"]?(?:UTF|utf)[-]8['"]?\z},
+        html:    %r{\AContent-Type:[ ]text/html;[ ]charset=['"]?(?:UTF|utf)[-]8['"]?\z},
       }.freeze
       MessagesOf = {
         'userunknown'  => ["because the address couldn't be found. Check for typos or unnecessary spaces and try again."],
@@ -33,8 +33,8 @@ module Sisimai::Lhost
         permessage = {}     # (Hash) Store values of each Per-Message field
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         endoferror = false  # (Integer) Flag for a blank line after error messages
@@ -115,7 +115,7 @@ module Sisimai::Lhost
 
               if anotherset['diagnosis']
                 # Continued error messages from the previous line like "550 #5.1.0 Address rejected."
-                next if e =~ /\AContent-Type:/
+                next if e.start_with?('Content-Type:')
                 next if emptylines > 5
                 if e.empty?
                   # Count and next()
@@ -190,7 +190,7 @@ module Sisimai::Lhost
           end
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'G Suite: https://gsuite.google.com'; end
     end

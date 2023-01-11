@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r/^The attachment contains the original mail headers.+$/.freeze
+      Boundaries = ['The attachment contains the original mail headers'].freeze
       MarkingsOf = { message: %r/\A\d+[ ]*error[(]s[)]:/ }.freeze
 
       # Parse bounce messages from Unknown MTA #6
@@ -19,8 +19,8 @@ module Sisimai::Lhost
         return nil unless mhead['subject'].start_with?('There was an error sending your mail')
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
@@ -56,15 +56,16 @@ module Sisimai::Lhost
         end
         return nil unless recipients > 0
 
+        require 'sisimai/smtp/command'
         dscontents.each do |e|
-          if cv = e['diagnosis'].match(/\b(HELO|EHLO|MAIL|RCPT|DATA)\b/)
+          if cv = Sisimai::SMTP::Command.find(e['diagnosis'])
             # ...(Error following RCPT command).
-            e['command'] = cv[1]
+            e['command'] = cv
           end
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Unknown MTA #6'; end
     end

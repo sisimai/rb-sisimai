@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^Content-Type:[ ]message/rfc822|.freeze
+      Boundaries = ['Content-Type: message/rfc822'].freeze
       StartingOf = { message: ['This is the mail system at host yandex.ru.'] }.freeze
 
       # Parse bounce messages from Yandex.Mail
@@ -26,12 +26,13 @@ module Sisimai::Lhost
         return nil unless mhead['from'] == 'mailer-daemon@yandex.ru'
 
         require 'sisimai/rfc1894'
+        require 'sisimai/smtp/command'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         permessage = {}     # (Hash) Store values of each Per-Message field
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readslices = ['']
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
@@ -86,17 +87,17 @@ module Sisimai::Lhost
             end
           else
             # The line does not begin with a DSN field defined in RFC3464
-            if cv = e.match(/[ \t][(]in reply to .*([A-Z]{4}).*/)
+            if e.include?(' (in reply to ') || e.include?('command)')
               # 5.1.1 <userunknown@example.co.jp>... User Unknown (in reply to RCPT TO
-              commandset << cv[1]
+              cv = Sisimai::SMTP::Command.find(e); commandset << cv if cv
 
-            elsif cv = e.match(/([A-Z]{4})[ \t]*.*command[)]\z/)
+            elsif cv = e.match(/([A-Z]{4})[ ]*.*command[)]\z/)
               # to MAIL command)
               commandset << cv[1]
             else
               # Continued line of the value of Diagnostic-Code field
               next unless readslices[-2].start_with?('Diagnostic-Code:')
-              next unless cv = e.match(/\A[ \t]+(.+)\z/)
+              next unless cv = e.match(/\A[ ]+(.+)\z/)
               v['diagnosis'] << ' ' << cv[1]
               readslices[-1] = 'Diagnostic-Code: ' << e
             end
@@ -109,11 +110,11 @@ module Sisimai::Lhost
           e['lhost'] ||= permessage['rhost']
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
 
-          e['command']   = commandset.shift || ''
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].tr("\n", ' '))
+          e['command'] ||= commandset.shift || Sisimai::SMTP::Command.find(e['diagnosis']) || ''
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Yandex.Mail: https://www.yandex.ru'; end
     end
