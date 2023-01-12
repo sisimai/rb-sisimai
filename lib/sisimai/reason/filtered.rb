@@ -24,7 +24,7 @@ module Sisimai
           'user reject',
           'we failed to deliver mail because the following address recipient id refuse to receive mail',  # Willcom
           'you have been blocked by the recipient',
-        ]
+        ].freeze
 
         def text; return 'filtered'; end
         def description; return 'Email rejected due to a header content after SMTP DATA command'; end

@@ -10,20 +10,18 @@ module Sisimai
     #   Diagnostic-Code: X-Unix; 255
     module MailerError
       class << self
-        Regex = %r{(?>
-           \Aprocmail:[ ]    # procmail
-          |bin/(?:procmail|maildrop)
-          |command[ ](?:
-             failed:[ ]
-            |died[ ]with[ ]status[ ]\d+
-            |output:
-            )
-          |exit[ ]\d+
-          |mailer[ ]error
-          |pipe[ ]to[ ][|][/][^ ]+
-          |x[-]unix[;][ ]\d+  # X-UNIX; 127
-          )
-        }x
+        Index = [
+          'procmail: ',
+          'bin/procmail',
+          'bin/maidrop',
+          'command failed: ',
+          'command died with status ',
+          'command output:',
+          'mailer error',
+          'pipe to |/',
+          'x-unix; ',
+        ].freeze
+        Regex = %r/exit[ ]\d+/.freeze
 
         def text; return 'mailererror'; end
         def description; return 'Email returned due to a mailer program has not exited successfully'; end
@@ -34,6 +32,7 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
+          return true if Index.any? { |a| argv1.include?(a) }
           return true if argv1 =~ Regex
           return false
         end

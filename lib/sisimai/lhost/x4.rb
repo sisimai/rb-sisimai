@@ -7,7 +7,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r/^---[ ](?:Below this line is a copy of the message|Original message follows)[.]/.freeze
+      Boundaries = ['--- Below this line is a copy of the message.', 'Original message follows.'].freeze
       StartingOf = { error:  ['Remote host said:'] }.freeze
       MarkingsOf = {
         #  qmail-remote.c:248|    if (code >= 500) {
@@ -71,7 +71,6 @@ module Sisimai::Lhost
       # qmail-send.c:922| ... (&dline[c],"I'm not going to try again; this message has been in the queue too long.\n")) nomem();
       HasExpired = 'this message has been in the queue too long.'
       ReIsOnHold = %r/\A[^ ]+ does not like recipient[.][ ]+.+this message has been in the queue too long[.]\z/
-      ReCommands = %r/Sorry, no SMTP connection got far enough; most progress was ([A-Z]{4})[ ]/
       FailOnLDAP = {
         # qmail-ldap-1.03-20040101.patch:19817 - 19866
         'suspend'     => ['Mailaddress is administrative?le?y disabled'],   # 5.2.1
@@ -132,9 +131,10 @@ module Sisimai::Lhost
         match += 1 if mhead['received'].any? { |a| a =~ tryto }
         return nil unless match > 0
 
+        require 'sisimai/smtp/command'
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
@@ -192,10 +192,9 @@ module Sisimai::Lhost
               break
             end
 
-            unless e['command']
-              # Verify each regular expression of patches
-              if cv = e['diagnosis'].match(ReCommands) then e['command'] = cv[1].upcase end
-              e['command'] ||= ''
+            if e['diagnosis'].include?('Sorry, no SMTP connection got far enough; most progress was ')
+              # Get the last SMTP command:from the error message
+              e['command'] ||= Sisimai::SMTP::Command.find(e['diagnosis']) || '' 
             end
           end
 
@@ -241,9 +240,10 @@ module Sisimai::Lhost
               end
             end
           end
+          e['command'] ||= Sisimai::SMTP::Command.find(e['diagnosis'])
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Unknown MTA #4'; end
     end

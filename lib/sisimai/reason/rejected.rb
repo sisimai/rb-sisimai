@@ -17,7 +17,7 @@ module Sisimai
           '5.1.0 address rejected',
           'recipient address rejected',
           'sender ip address rejected',
-        ]
+        ].freeze
         Index = [
           'access denied (in reply to mail from command)',
           'access denied (sender blacklisted)',
@@ -60,7 +60,8 @@ module Sisimai
           'sender not pre-approved',
           'sender rejected',
           'sender domain is empty',
-          'sender verify failed', # Exim callout
+          'sender verify failed',     # Exim callout
+          'spam reporting address',   # SendGrid|a message to an address has previously been marked as Spam by the recipient.
           'syntax error: empty email address',
           'the message has been rejected by batv defense',
           'this server does not accept mail from',
@@ -69,7 +70,8 @@ module Sisimai
           'you are not allowed to post to this mailing list',
           'you are sending to/from an address that has been blacklisted',
           'your access to submit messages to this e-mail system has been rejected',
-        ]
+          'your email address has been blacklisted',  # MessageLabs
+        ].freeze
 
         def text; return 'rejected'; end
         def description; return "Email rejected due to a sender's email address (envelope from)"; end
@@ -97,12 +99,12 @@ module Sisimai
 
           # Check the value of Diagnosic-Code: header with patterns
           diagnostic = argvs['diagnosticcode'].downcase
-          commandtxt = argvs['smtpcommand']
-          if commandtxt == 'MAIL'
+          thecommand = argvs['smtpcommand']
+          if thecommand == 'MAIL'
             # The session was rejected at 'MAIL FROM' command
             return true if match(diagnostic)
 
-          elsif commandtxt == 'DATA'
+          elsif thecommand == 'DATA'
             # The session was rejected at 'DATA' command
             if tempreason != 'userunknown'
               # Except "userunknown"

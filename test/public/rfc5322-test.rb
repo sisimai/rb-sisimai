@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'sisimai/rfc5322'
 
 class RFC5322Test < Minitest::Test
-  Methods = { class: %w[HEADERFIELDS LONGFIELDS received fillet] }
+  Methods = { class: %w[HEADERFIELDS LONGFIELDS FIELDINDEX received part] }
   ReceivedList = [
     'from mx.example.org (c182128.example.net [192.0.2.128]) by mx.example.jp (8.14.4/8.14.4) with ESMTP id oBB3JxRJ022484 for <shironeko@example.jp>; Sat, 11 Dec 2010 12:20:00 +0900 (JST)',
     'from localhost (localhost [127.0.0.1]) (ftp://ftp.isi.edu/in-notes/rfc1894.txt) by marutamachi.example.org with dsn; Sat, 11 Dec 2010 12:19:59 +0900',
@@ -62,7 +62,7 @@ Received: (from shironeko@localhost)
 	for kijitora@example.net; Thu, 9 Apr 2014 23:34:45 +0900
 Date: Thu, 9 Apr 2014 23:34:45 +0900
 Message-Id: <0000000011111.fff0000000003@mx.example.co.jp>
-Content-Type: text/plain
+content-type:       text/plain
 MIME-Version: 1.0
 From: Shironeko <shironeko@example.co.jp>
 To: Kijitora <shironeko@example.co.jp>
@@ -74,6 +74,16 @@ __END_OF_EMAIL_MESSAGE__
 
   def test_methods
     Methods[:class].each { |e| assert_respond_to Sisimai::RFC5322, e }
+  end
+
+  def test_FIELDINDEX
+    cv = Sisimai::RFC5322.FIELDINDEX
+    assert_instance_of Array, cv
+    refute_empty cv
+
+    cv.each do |e|
+      assert_match /\A[A-Z][A-Za-z-]+\z/, e
+    end
   end
 
   def test_HEADERFIELDS
@@ -142,25 +152,34 @@ __END_OF_EMAIL_MESSAGE__
     assert_equal [], Sisimai::RFC5322.received(nil)
   end
 
-  def test_fillet
-    cv = Sisimai::RFC5322.fillet(EmailMessage, %r|Content-Type:[ ]message/rfc822|)
-    assert_instance_of Array, cv
-    assert_equal 2, cv.size
-    assert_instance_of String, cv[0]
-    assert_instance_of String, cv[1]
+  def test_part
+    emailpart1 = Sisimai::RFC5322.part(EmailMessage, ['Content-Type: message/rfc822'])
+    assert_instance_of Array, emailpart1
+    assert_equal 2, emailpart1.size
+    assert_instance_of String, emailpart1[0]
+    assert_instance_of String, emailpart1[1]
 
-    assert_match /^Final-Recipient: /, cv[0]
-    assert_match /^Subject: /,         cv[1]
-    refute_match /^Return-Path: /,     cv[0]
-    refute_match /binary$/,            cv[0]
-    refute_match /^Remote-MTA: /,      cv[1]
-    refute_match /^Neko-Nyaan/,        cv[1]
+    assert_match /^Final-Recipient: /, emailpart1[0]
+    assert_match /^Subject: /,         emailpart1[1]
+    refute_match /^Return-Path: /,     emailpart1[0]
+    refute_match /binary$/,            emailpart1[0]
+    refute_match /^Remote-MTA: /,      emailpart1[1]
+    refute_match /^Neko-Nyaan/,        emailpart1[1]
 
-    ce = assert_raises ArgumentError do
-      Sisimai::RFC5322.fillet()
-      Sisimai::RFC5322.fillet(nil, nil, nil)
-    end
-    assert_nil Sisimai::RFC5322.fillet(nil)
+    emailpart2 = Sisimai::RFC5322.part(EmailMessage, ['Content-Type: message/rfc822'], true)
+    assert_instance_of Array, emailpart2
+    assert_equal 2, emailpart2.size
+    assert_instance_of String, emailpart2[0]
+    assert_instance_of String, emailpart2[1]
+
+    assert_match /^Final-Recipient: /, emailpart2[0]
+    assert_match /^Subject: /,         emailpart2[1]
+    refute_match /^Return-Path: /,     emailpart2[0]
+    refute_match /binary$/,            emailpart2[0]
+    refute_match /^Remote-MTA: /,      emailpart2[1]
+    refute_match /^Neko-Nyaan/,        emailpart2[1]
+
+    assert_equal true, (emailpart1[1].size < emailpart2[1].size)
   end
 
 end

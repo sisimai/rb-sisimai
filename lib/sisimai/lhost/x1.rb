@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^Received: from \d+[.]\d+[.]\d+[.]\d|.freeze
+      Boundaries = ['Received: from '].freeze
       MarkingsOf = { message: %r/\AThe original message was received at (.+)\z/ }.freeze
 
       # Parse bounce messages from Unknown MTA #1
@@ -19,8 +19,8 @@ module Sisimai::Lhost
         return nil unless mhead['from'].start_with?('"Mail Deliver System" ')
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         datestring = ''     # (String) Date string
@@ -68,7 +68,7 @@ module Sisimai::Lhost
           e['date']      = datestring || ''
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Unknown MTA #1'; end
     end

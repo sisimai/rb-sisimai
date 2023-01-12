@@ -7,7 +7,7 @@ module Sisimai::Lhost
 
       # https://aws.amazon.com/workmail/
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^content-type:[ ]message/rfc822|.freeze
+      Boundaries = ['Content-Type: message/rfc822'].freeze
       StartingOf = { message: ['Technical report:'] }.freeze
 
       # Parse bounce messages from Amazon WorkMail
@@ -35,8 +35,8 @@ module Sisimai::Lhost
         permessage = {}     # (Hash) Store values of each Per-Message field
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
@@ -121,7 +121,7 @@ module Sisimai::Lhost
           e['reason'] ||= Sisimai::SMTP::Status.name(e['status']) || ''
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Amazon WorkMail: https://aws.amazon.com/workmail/'; end
     end

@@ -3,39 +3,32 @@ module Sisimai
   module RFC3834
     class << self
       # http://tools.ietf.org/html/rfc3834
-      MarkingsOf = { :boundary => %r/\A__SISIMAI_PSEUDO_BOUNDARY__\z/ }
-      AutoReply1 = {
+      MarkingsOf = { :boundary => '__SISIMAI_PSEUDO_BOUNDARY__' }
+      LowerLabel = %w[from to subject auto-submitted precedence x-apple-action x-auto-response-suppress].freeze
+      DoNotParse = {
+        'from'    => ['root@', 'postmaster@', 'mailer-daemon@'],
+        'to'      => ['root@'],
+        'subject' => [
+            'security information for', # sudo(1)
+            'mail failure -',           # Exim
+        ],
+      }.freeze
+      AutoReply0 = {
         # http://www.iana.org/assignments/auto-submitted-keywords/auto-submitted-keywords.xhtml
-        'auto-submitted' => %r/\Aauto-(?:generated|replied|notified)/,
-        # https://msdn.microsoft.com/en-us/library/ee219609(v=exchg.80).aspx
-        'x-auto-response-suppress' => %r/(?:oof|autoreply)/,
-        'x-apple-action' => %r/\Avacation\z/,
-        'precedence' => %r/\Aauto_reply\z/,
-        'subject' => %r/\A(?>
-             auto:
-            |auto[ ]response:
-            |automatic[ ]reply:
-            |out[ ]of[ ](?:the[ ])*office:
-          )
-        /x,
+        'auto-submitted' => ['auto-generated', 'auto-replied', 'auto-notified'],
+        'precedence'     => ['auto_reply'],
+        'subject'        => ['auto:', 'auto response:', 'automatic reply:', 'out of office:', 'out of the office:'],
+        'x-apple-action' => ['vacation'],
       }.freeze
-      Excludings = {
-        'subject' => %r/(?:
-             security[ ]information[ ]for  # sudo
-            |mail[ ]failure[ ][-]          # Exim
-            )
-        /x,
-        'from' => %r/(?:root|postmaster|mailer-daemon)[@]/,
-        'to'   => %r/root[@]/,
-      }.freeze
+      AutoReply1 = { 'x-auto-response-suppress' => ['oof', 'autoreply'] }.freeze
       SubjectSet = %r{\A(?>
-         (?:.+?)?Re:
-        |Auto(?:[ ]Response):
-        |Automatic[ ]reply:
-        |Out[ ]of[ ]Office:
+         (?:.+?)?re:
+        |auto(?:[ ]response):
+        |automatic[ ]reply:
+        |out[ ]of[ ]office:
         )
         [ ]*(.+)\z
-      }xi.freeze
+      }x.freeze
 
       # Detect auto reply message as RFC3834
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -45,24 +38,39 @@ module Sisimai
       def inquire(mhead, mbody)
         leave = 0
         match = 0
+        lower = {} 
+
+        LowerLabel.each do |e|
+          # Set lower-cased value of each header related to auto-response
+          next unless mhead.has_key?(e)
+          lower[e] = mhead[e].downcase
+        end
 
         # DETECT_EXCLUSION_MESSAGE
-        Excludings.each_key do |e|
+        DoNotParse.each_key do |e|
           # Exclude message from root@
-          next unless mhead[e]
-          next unless mhead[e]
-          next unless mhead[e].downcase =~ Excludings[e]
+          next unless lower[e]
+          next unless DoNotParse[e].any? { |a| lower[e].include?(a) }
           leave = 1
           break
         end
         return nil if leave > 0
 
-        # DETECT_AUTO_REPLY_MESSAGE
-        AutoReply1.each_key do |e|
+        # DETECT_AUTO_REPLY_MESSAGE0
+        AutoReply0.each_key do |e|
           # RFC3834 Auto-Submitted and other headers
-          next unless mhead[e]
-          next unless mhead[e]
-          next unless mhead[e].downcase =~ AutoReply1[e]
+          next unless lower[e]
+          next unless AutoReply0[e].any? { |a| lower[e].include?(a) }
+          match += 1
+          break
+        end
+
+        # DETECT_AUTO_REPLY_MESSAGE0
+        AutoReply1.each_key do |e|
+          # X-Auto-Response-Suppress: header and other headers
+          break if match > 0
+          next unless lower[e]
+          next unless AutoReply1[e].any? { |a| lower[e].include?(a) }
           match += 1
           break
         end
@@ -97,14 +105,14 @@ module Sisimai
 
         if mhead['content-type']
           # Get the boundary string and set regular expression for matching with the boundary string.
-          b0 = Sisimai::RFC2045.boundary(mhead['content-type'], 0) || ''
-          MarkingsOf[:boundary] = %r/\A\Q#{b0}\E\z/ unless b0.empty?
+          q = Sisimai::RFC2045.boundary(mhead['content-type'], 0) || ''
+          MarkingsOf[:boundary] = q unless q.empty?
         end
 
         # BODY_PARSER: Get vacation message
         while e = bodyslices.shift do
           # Read the first 5 lines except a blank line
-          countuntil += 1 if e =~ MarkingsOf[:boundary]
+          countuntil += 1 if e.include?(MarkingsOf[:boundary])
 
           if e.empty?
             # Check a blank line
@@ -113,8 +121,8 @@ module Sisimai
             next
           end
           next unless e.include?(' ')
-          next if e.start_with?('Content-Type')
-          next if e.start_with?('Content-Transfer')
+          next if     e.start_with?('Content-Type')
+          next if     e.start_with?('Content-Transfer')
 
           v['diagnosis'] ||= ''
           v['diagnosis']  << e + ' '
@@ -127,7 +135,7 @@ module Sisimai
         v['date']      = mhead['date']
         v['status']    = ''
 
-        if cv = mhead['subject'].match(SubjectSet)
+        if cv = lower['subject'].match(SubjectSet)
           # Get the Subject header from the original message
           rfc822part = 'Subject: ' << cv[1] + "\n"
         end

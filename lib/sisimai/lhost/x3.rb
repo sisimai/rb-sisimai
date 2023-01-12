@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^Content-Type:[ ]message/rfc822|.freeze
+      Boundaries = ['Content-Type: message/rfc822'].freeze
       StartingOf = { message: ['      This is an automatically generated Delivery Status Notification.'] }.freeze
 
       # Parse bounce messages from Unknown MTA #3
@@ -18,9 +18,10 @@ module Sisimai::Lhost
         return nil unless mhead['subject'].start_with?('Delivery status notification')
         return nil unless mhead['from'].start_with?('Mail Delivery System')
 
+        require 'sisimai/smtp/command'
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
@@ -53,7 +54,7 @@ module Sisimai::Lhost
           # ============================================================================
           v = dscontents[-1]
 
-          if cv = e.match(/\A[ \t]+[*][ ]([^ ]+[@][^ ]+)\z/)
+          if cv = e.match(/\A[ ]+[*][ ]([^ ]+[@][^ ]+)\z/)
             #   * kijitora@example.com
             if v['recipient']
               # There are multiple recipient addresses in the message body.
@@ -64,10 +65,10 @@ module Sisimai::Lhost
             recipients += 1
           else
             # Detect error message
-            if cv = e.match(/\ASMTP:([^ ]+)[ ](.+)\z/)
+            if e.start_with?('SMTP:')
               # SMTP:RCPT host 192.0.2.8: 553 5.3.0 <kijitora@example.com>... No such user here
-              v['command'] = cv[1].upcase
-              v['diagnosis'] = cv[2]
+              v['command'] = Sisimai::SMTP::Command.find(e)
+              v['diagnosis'] = e
 
             elsif cv = e.match(/\ARouting: (.+)/)
               # Routing: Could not find a gateway for kijitora@example.co.jp
@@ -86,7 +87,7 @@ module Sisimai::Lhost
           e['status']    = Sisimai::SMTP::Status.find(e['diagnosis']) || ''
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Unknown MTA #3'; end
     end

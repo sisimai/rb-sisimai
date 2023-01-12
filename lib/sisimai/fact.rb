@@ -283,7 +283,7 @@ module Sisimai
         p['diagnostictype'] ||= 'SMTP' unless %w[feedback vacation].include?(p['reason'])
 
         # Check the value of SMTP command
-        p['smtpcommand'] = '' unless %w[EHLO HELO MAIL RCPT DATA QUIT].include?(p['smtpcommand'])
+        p['smtpcommand'] = '' unless %w[CONN EHLO HELO STARTTLS AUTH MAIL RCPT DATA QUIT].include?(p['smtpcommand'])
 
         # Create parameters for the constructor
         as = Sisimai::Address.new(p['addresser'])          || next; next if as.void

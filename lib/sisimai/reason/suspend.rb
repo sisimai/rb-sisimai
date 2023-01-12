@@ -8,6 +8,7 @@ module Sisimai
         Index = [
           ' is currently suspended',
           ' temporary locked',
+          'archived recipient',
           'boite du destinataire archivee',
           'email account that you tried to reach is disabled',
           'has been suspended',
@@ -23,7 +24,7 @@ module Sisimai
           'this mailbox is disabled',
           'user suspended',   # http://mail.163.com/help/help_spam_16.htm
           'vdelivermail: account is locked email bounced',
-        ]
+        ].freeze
 
         def text; return 'suspend'; end
         def description; return 'Email rejected due to a recipient account is being suspended'; end

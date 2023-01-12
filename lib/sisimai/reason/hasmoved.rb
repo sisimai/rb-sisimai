@@ -8,7 +8,7 @@ module Sisimai
     # is "5.1.6".
     module HasMoved
       class << self
-        Index = [' has been replaced by ']
+        Index = [' has been replaced by '].freeze
 
         def text; return 'hasmoved'; end
         def description; return "Email rejected due to user's mailbox has moved and is not forwarded automatically"; end

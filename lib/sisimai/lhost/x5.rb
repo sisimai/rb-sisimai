@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^Content-Type:[ ]message/rfc822|.freeze
+      Boundaries = ['Content-Type: message/rfc822'].freeze
       StartingOf = { message: ['Content-Type: message/delivery-status'] }.freeze
 
       # Parse bounce messages from Unknown MTA #5
@@ -44,10 +44,10 @@ module Sisimai::Lhost
         v = nil
 
         # Pick the second message/rfc822 part because the format of email-x5-*.eml is nested structure
-        prefillets = mbody.split(ReBackbone, 2)
-        prefillets[1].sub!(/\A.+?\n\n/s, '')
-        emailsteak = Sisimai::RFC5322.fillet(prefillets[1], ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        cutsbefore = mbody.split(Boundaries[0], 2)
+        cutsbefore[1].sub!(/\A.+?\n\n/s, '')
+        emailparts = Sisimai::RFC5322.part(cutsbefore[1], Boundaries)
+        bodyslices = emailparts[0].split("\n")
 
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email to the previous
@@ -96,7 +96,7 @@ module Sisimai::Lhost
           else
             # Continued line of the value of Diagnostic-Code field
             next unless readslices[-2].start_with?('Diagnostic-Code:')
-            next unless cv = e.match(/\A[ \t]+(.+)\z/)
+            next unless cv = e.match(/\A[ ]+(.+)\z/)
             v['diagnosis'] << ' ' << cv[1]
             readslices[-1] = 'Diagnostic-Code: ' << e
           end
@@ -104,7 +104,7 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         dscontents.each { |e| e['diagnosis'] ||= Sisimai::String.sweep(e['diagnosis']) }
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Unknown MTA #5'; end
     end

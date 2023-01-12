@@ -109,6 +109,7 @@ class LhostCode < Minitest::Test
           end
         end
 
+        warn cf unless listoffact
         recipients = listoffact.size
         errorindex = 0
 

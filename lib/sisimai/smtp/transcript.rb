@@ -43,8 +43,8 @@ module Sisimai
           end
 
           # 3. Remove unused lines, concatenate folded lines
-          argv0.sub!(/\n\n.+\z/m, '')     # Remove strings from the first blank line to the tail
-          argv0.gsub!(/\n[\s\t]+/m, ' ')  # Concatenate folded lines to each previous line
+          argv0.sub!(/\n\n.+\z/m, '') # Remove strings from the first blank line to the tail
+          argv0.gsub!(/\n[ ]+/m, ' ') # Concatenate folded lines to each previous line
 
           argv0.split("\n").each do |e|
             # 4. Read each SMTP command and server response

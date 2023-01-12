@@ -26,7 +26,7 @@ module Sisimai
           'unable to deliver message after multiple retries',
           'was not reachable within the allowed queue period',
           'your message could not be delivered for more than',
-        ]
+        ].freeze
 
         def text; return 'expired'; end
         def description; return 'Delivery time has expired due to a connection failure'; end

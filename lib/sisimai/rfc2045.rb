@@ -274,12 +274,6 @@ module Sisimai
         #   - content-transfer-encoding: quoted-printable  => Content-Transfer-Encoding: quoted-printable
         #   - CHARSET=, BOUNDARY=                          => charset-, boundary=
         #   - message/xdelivery-status                     => message/delivery-status
-        argv1.gsub!(/[Cc]ontent-[Tt]ype:/, 'Content-Type:')
-        argv1.gsub!(/[Cc]ontent-[Tt]ransfer-[Ee]ncoding:/, 'Content-Transfer-Encoding:')
-        argv1.gsub!(/CHARSET=/i, 'charset=')
-        argv1.gsub!(/BOUNDARY=/i, 'boundary=')
-        argv1.gsub!('message/xdelivery-status', 'message/delivery-status')
-
         iso2022set = %r/charset=["']?(iso-2022-[-a-z0-9]+)['"]?\b/
         multiparts = levelout(argv0, argv1)
         flattenout = ''

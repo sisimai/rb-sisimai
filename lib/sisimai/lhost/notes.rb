@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^-------[ ]Returned[ ]Message[ ]--------|.freeze
+      Boundaries = ['------- Returned Message --------'].freeze
       StartingOf = { message: ['------- Failure Reasons '] }.freeze
       MessagesOf = {
         'userunknown' => [
@@ -25,8 +25,8 @@ module Sisimai::Lhost
         return nil unless mhead['subject'].start_with?('Undeliverable message')
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         characters = ''     # (String) Character set name of the bounce mail
@@ -96,7 +96,7 @@ module Sisimai::Lhost
 
         unless recipients > 0
           # Fallback: Get the recpient address from RFC822 part
-          if cv = emailsteak[1].match(/^To:[ ]*(.+)$/)
+          if cv = emailparts[1].match(/^To:[ ]*(.+)$/)
             v['recipient'] = Sisimai::Address.s3s4(cv[1])
             recipients += 1 unless v['recipient'].empty?
           end
@@ -116,7 +116,7 @@ module Sisimai::Lhost
           end
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Lotus Notes'; end
     end

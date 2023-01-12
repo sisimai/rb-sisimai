@@ -11,7 +11,7 @@ module Sisimai
         Index = [
           'mail system full',
           'requested mail action aborted: exceeded storage allocation',   # MS Exchange
-        ]
+        ].freeze
 
         def text; return 'systemfull'; end
         def description; return "Email rejected due to a destination mail server's disk is full"; end

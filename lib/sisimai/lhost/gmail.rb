@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r/^[ ]*-----[ ](?:Original[ ]message|Message[ ]header[ ]follows)[ ]-----/.freeze
+      Boundaries = ['----- Original message -----', '----- Message header follows -----'].freeze
       StartingOf = {
         message: ['Delivery to the following recipient'],
         error:   ['The error that the other server returned was:'],
@@ -153,8 +153,8 @@ module Sisimai::Lhost
         return nil unless mhead['subject'].start_with?('Delivery Status Notification')
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         statecode0 = 0      # (Integer) The value of (state *) in the error message
@@ -187,7 +187,7 @@ module Sisimai::Lhost
           #
           v = dscontents[-1]
 
-          if cv = e.match(/\A[ \t]+([^ ]+[@][^ ]+)\z/)
+          if cv = e.match(/\A[ ]+([^ ]+[@][^ ]+)\z/)
             # kijitora@example.jp: 550 5.2.2 <kijitora@example>... Mailbox Full
             if v['recipient']
               # There are multiple recipient addresses in the message body.
@@ -211,7 +211,7 @@ module Sisimai::Lhost
 
           unless e['rhost']
             # Get the value of remote host
-            if cv = e['diagnosis'].match(/[ \t]+by[ \t]+([^ ]+)[.][ \t]+\[(\d+[.]\d+[.]\d+[.]\d+)\][.]/)
+            if cv = e['diagnosis'].match(/[ ]+by[ ]+([^ ]+)[.][ ]+\[(\d+[.]\d+[.]\d+[.]\d+)\][.]/)
               # Google tried to deliver your message, but it was rejected by the server for the recipient
               # domain example.jp by mx.example.jp. [192.0.2.153].
               hostname = cv[1]
@@ -247,7 +247,7 @@ module Sisimai::Lhost
           e['reason'] = Sisimai::SMTP::Status.name(e['status']).to_s if e['status'] =~ /\A[45][.][1-7][.][1-9]\z/
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Gmail: https://mail.google.com'; end
     end

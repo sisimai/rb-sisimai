@@ -52,7 +52,7 @@ module Sisimai
           'user over quota. (#5.1.1)',    # qmail-toaster
           'was automatically rejected: quota exceeded',
           'would be over the allowed quota',
-        ]
+        ].freeze
 
         def text; return 'mailboxfull'; end
         def description; return "Email rejected due to a recipient's mailbox is full"; end

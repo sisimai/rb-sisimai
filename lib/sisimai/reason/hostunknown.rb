@@ -22,8 +22,8 @@ module Sisimai
           'unknown host',
           'unroutable address',
           'unrouteable address',
-        ]
-        Regex = %r/553[ ][^ ]+[ ]does[ ]not[ ]exist/
+        ].freeze
+        Pairs = [['553 ', ' does not exist']].freeze
 
         def text; return 'hostunknown'; end
         def description; return "Delivery failed due to a domain part of a recipient's email address does not exist"; end
@@ -36,7 +36,11 @@ module Sisimai
         def match(argv1)
           return nil unless argv1
           return true if Index.any? { |a| argv1.include?(a) }
-          return true if argv1 =~ Regex
+          return true if Pairs.any? { |a| 
+            p = (argv1.index(a[0], 0) || -1) + 1
+            q = (argv1.index(a[1], p) || -1) + 1
+            p * q > 0
+          }
           return false
         end
 

@@ -6,9 +6,9 @@ module Sisimai
     module NTTDOCOMO
       class << self
         MessagesOf = {
-          'mailboxfull' => %r/552 too much mail data/,
-          'toomanyconn' => %r/552 too many recipients/,
-          'syntaxerror' => %r/(?:503 bad sequence of commands|504 command parameter not implemented)/,
+          'mailboxfull' => ['552 too much mail data'],
+          'toomanyconn' => ['552 too many recipients'],
+          'syntaxerror' => ['503 bad sequence of commands', '504 command parameter not implemented'],
         }.freeze
 
         # Detect bounce reason from NTT DOCOMO
@@ -16,7 +16,7 @@ module Sisimai
         # @return   [String]                The bounce reason for docomo.ne.jp
         def get(argvs)
           statuscode = argvs['deliverystatus']          || ''
-          commandtxt = argvs['smtpcommand']             || ''
+          thecommand = argvs['smtpcommand']             || ''
           esmtperror = argvs['diagnosticcode'].downcase || ''
           reasontext = ''
 
@@ -51,7 +51,7 @@ module Sisimai
             # The value of "Diagnostic-Code:" field is not empty
             MessagesOf.each_key do |e|
               # Try to match the error message with message patterns defined in "MessagesOf"
-              next unless esmtperror =~ MessagesOf[e]
+              next unless MessagesOf[e].any? { |a| esmtperror.include?(a) }
               reasontext = e
               break
             end
@@ -61,7 +61,7 @@ module Sisimai
             # A bounce reason did not decide from a status code, an error message.
             if statuscode == '5.0.0'
               # Status: 5.0.0
-              if commandtxt == 'RCPT'
+              if thecommand == 'RCPT'
                 # Your message to the following recipients cannot be delivered:
                 #
                 # <***@docomo.ne.jp>:
@@ -77,7 +77,7 @@ module Sisimai
                 # Diagnostic-Code: smtp; 550 Unknown user ***@docomo.ne.jp
                 reasontext = 'userunknown'
 
-              elsif commandtxt == 'DATA'
+              elsif thecommand == 'DATA'
                 # <***@docomo.ne.jp>: host mfsmax.docomo.ne.jp[203.138.181.240] said:
                 # 550 Unknown user ***@docomo.ne.jp (in reply to end of DATA
                 # command)

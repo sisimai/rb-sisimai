@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r<^Content-Type:[ ](?:message/rfc822|text/rfc822-headers)>.freeze
+      Boundaries = ['Content-Type: message/rfc822', 'Content-Type: text/rfc822-headers'].freeze
       StartingOf = {
         # Error text regular expressions which defined in sendmail/savemail.c
         #   savemail.c:1040|if (printheader && !putline("   ----- Transcript of session follows -----\n",
@@ -30,16 +30,17 @@ module Sisimai::Lhost
         return nil if mhead['x-aol-ip']
 
         require 'sisimai/rfc1894'
+        require 'sisimai/smtp/command'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         permessage = {}     # (Hash) Store values of each Per-Message field
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readslices = ['']
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        commandtxt = ''     # (String) SMTP Command name begin with the string '>>>'
+        thecommand = ''     # (String) SMTP Command name begin with the string '>>>'
         esmtpreply = []     # (Array) Reply from remote server on SMTP session
         sessionerr = false  # (Boolean) Flag, "true" if it is SMTP session error
         anotherset = {}     # Another error information
@@ -104,9 +105,9 @@ module Sisimai::Lhost
             # Received-From-MTA: DNS; x1x2x3x4.dhcp.example.ne.jp
             # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
             unless e.start_with?(' ')
-              if cv = e.match(/\A[>]{3}[ ]+([A-Z]{4})[ ]?/)
+              if e.start_with?('>>> ')
                 # >>> DATA
-                commandtxt = cv[1]
+                thecommand = Sisimai::SMTP::Command.find(e)
 
               elsif cv = e.match(/\A[<]{3}[ ]+(.+)\z/)
                 # <<< Response
@@ -129,8 +130,8 @@ module Sisimai::Lhost
                   # ----- Transcript of session follows -----
                   # Message could not be delivered for too long
                   # Message will be deleted from queue
-                  next if e =~ /\A[ \t]*[-]+/
-                  if cv = e.match(/\A[45]\d\d[ \t]([45][.]\d[.]\d)[ \t].+/)
+                  next if e =~ /\A[ ]*[-]+/
+                  if cv = e.match(/\A[45]\d\d[ ]([45][.]\d[.]\d)[ ].+/)
                     # 550 5.1.2 <kijitora@example.org>... Message
                     #
                     # DBI connect('dbname=...')
@@ -150,7 +151,7 @@ module Sisimai::Lhost
             else
               # Continued line of the value of Diagnostic-Code field
               next unless readslices[-2].start_with?('Diagnostic-Code:')
-              next unless cv = e.match(/\A[ \t]+(.+)\z/)
+              next unless cv = e.match(/\A[ ]+(.+)\z/)
               v['diagnosis'] << ' ' << cv[1]
               readslices[-1] = 'Diagnostic-Code: ' << e
             end
@@ -160,26 +161,26 @@ module Sisimai::Lhost
 
         dscontents.each do |e|
           # Set default values if each value is empty.
-          e['lhost'] ||= permessage['rhost']
+          e['diagnosis'] ||= ''
+          e['lhost']     ||= permessage['rhost']
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
-
-          e['command'] ||= commandtxt
-          if e['command'].empty?
-            e['command'] = 'EHLO' unless esmtpreply.empty?
-          end
 
           if anotherset['diagnosis']
             # Copy alternative error message
-            e['diagnosis'] = anotherset['diagnosis'] if e['diagnosis'] =~ /\A[ \t]+\z/
-            e['diagnosis'] = anotherset['diagnosis'] unless e['diagnosis']
-            e['diagnosis'] = anotherset['diagnosis'] if e['diagnosis'] =~ /\A\d+\z/
+            e['diagnosis'] = anotherset['diagnosis'] if e['diagnosis'].start_with?(' ')
+            e['diagnosis'] = anotherset['diagnosis'] if e['diagnosis'].empty?
+            e['diagnosis'] = anotherset['diagnosis'] if e['diagnosis'].=~ /\A\d+\z/
           end
           unless esmtpreply.empty?
             # Replace the error message in "diagnosis" with the ESMTP Reply
             r = esmtpreply.join(' ')
-            e['diagnosis'] = r if r.size > e['diagnosis'].to_s.size
+            e['diagnosis'] = r if r.size > e['diagnosis'].size
           end
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+          e['command'] ||= thecommand || Sisimai::SMTP::Command.find(e['diagnosis']) || ''
+          if e['command'].empty?
+            e['command'] = 'EHLO' unless esmtpreply.empty?
+          end
 
           if anotherset['status']
             # Check alternative status code
@@ -198,7 +199,7 @@ module Sisimai::Lhost
           end
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'V8Sendmail: /usr/sbin/sendmail'; end
     end

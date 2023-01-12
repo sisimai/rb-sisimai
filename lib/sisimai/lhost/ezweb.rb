@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r<^(?:[-]{50}|Content-Type:[ ]*message/rfc822)>.freeze
+      Boundaries = ['--------------------------------------------------', 'Content-Type: message/rfc822'].freeze
       MarkingsOf = {
         message: %r{\A(?:
              The[ ]user[(]s[)][ ]
@@ -54,11 +54,12 @@ module Sisimai::Lhost
         end
         return nil if match < 2
 
+        require 'sisimai/smtp/command'
         require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         rxboundary = %r/\A__SISIMAI_PSEUDO_BOUNDARY__\z/
@@ -97,7 +98,7 @@ module Sisimai::Lhost
 
           if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>]\z/) ||
                   e.match(/\A[<]([^ ]+[@][^ ]+)[>]:?(.*)\z/) ||
-                  e.match(/\A[ \t]+Recipient: [<]([^ ]+[@][^ ]+)[>]/)
+                  e.match(/\A[ ]+Recipient: [<]([^ ]+[@][^ ]+)[>]/)
 
             if v['recipient']
               # There are multiple recipient addresses in the message body.
@@ -118,9 +119,9 @@ module Sisimai::Lhost
           else
             # The line does not begin with a DSN field defined in RFC3464
             next if Sisimai::String.is_8bit(e)
-            if cv = e.match(/\A[ \t]+[>]{3}[ \t]+([A-Z]{4})/)
+            if e.include?('>>> ')
               #    >>> RCPT TO:<******@ezweb.ne.jp>
-              v['command'] = cv[1]
+              v['command'] = Sisimai::SMTP::Command.find(e)
             else
               # Check error message
               if rxmessages.any? { |messages| messages.any? { |message| e =~ message } }
@@ -178,7 +179,7 @@ module Sisimai::Lhost
           e['reason'] = 'userunknown'
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'au EZweb: http://www.au.kddi.com/mobile/'; end
     end

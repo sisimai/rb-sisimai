@@ -23,8 +23,9 @@ module Sisimai::Lhost
         end
         return nil if match < 0
 
+        boundaries = []
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        rebackbone = /^__BOUNDARY_STRING_HERE__/
+        emailparts = []
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         senderaddr = ''     # (String) Sender address in the message body
@@ -37,15 +38,14 @@ module Sisimai::Lhost
 
         if match == 1
           # vtext.com
-          markingsof = { message: %r/\AError:[ \t]/ }
+          markingsof = { message: %r/\AError:[ ]/ }
           messagesof = {
             # The attempted recipient address does not exist.
             'userunknown' => ['550 - Requested action not taken: no such user here'],
           }
-          boundary00 = Sisimai::RFC2045.boundary(mhead['content-type'], 1) || ''
-          rebackbone = Regexp.new('^' << Regexp.escape(boundary00)) unless boundary00.empty?
-          emailsteak = Sisimai::RFC5322.fillet(mbody, rebackbone)
-          bodyslices = emailsteak[0].split("\n")
+          boundaries = [Sisimai::RFC2045.boundary(mhead['content-type'], 1)]
+          emailparts = Sisimai::RFC5322.part(mbody, boundaries)
+          bodyslices = emailparts[0].split("\n")
 
           while e = bodyslices.shift do
             # Read error messages and delivery status lines from the head of the email to the previous
@@ -64,7 +64,7 @@ module Sisimai::Lhost
             #   MAIL FROM: *******@hg.example.com
             #   RCPT TO: *****@vtext.com
             v = dscontents[-1]
-            if cv = e.match(/\A[ \t]+RCPT TO: (.*)\z/)
+            if cv = e.match(/\A[ ]+RCPT TO: (.*)\z/)
               if v['recipient']
                 # There are multiple recipient addresses in the message body.
                 dscontents << Sisimai::Lhost.DELIVERYSTATUS
@@ -75,26 +75,25 @@ module Sisimai::Lhost
               recipients += 1
               next
 
-            elsif cv = e.match(/\A[ \t]+MAIL FROM:[ \t](.+)\z/)
+            elsif cv = e.match(/\A[ ]+MAIL FROM:[ ](.+)\z/)
               #   MAIL FROM: *******@hg.example.com
               senderaddr = cv[1] if senderaddr.empty?
 
-            elsif cv = e.match(/\A[ \t]+Subject:[ \t](.+)\z/)
+            elsif cv = e.match(/\A[ ]+Subject:[ ](.+)\z/)
               #   Subject:
               subjecttxt = cv[1] if subjecttxt.empty?
             else
               # 550 - Requested action not taken: no such user here
-              v['diagnosis'] = e if e =~ /\A(\d{3})[ \t][-][ \t](.*)\z/
+              v['diagnosis'] = e if e =~ /\A(\d{3})[ ][-][ ](.*)\z/
             end
           end
         else
           # vzwpix.com
           startingof = { message: ['Message could not be delivered to mobile'] }
           messagesof = { 'userunknown' => ['No valid recipients for this MM'] }
-          boundary00 = Sisimai::RFC2045.boundary(mhead['content-type'], 1)
-          rebackbone = Regexp.new('^' << Regexp.escape(boundary00)) unless boundary00.empty?
-          emailsteak = Sisimai::RFC5322.fillet(mbody, rebackbone)
-          bodyslices = emailsteak[0].split("\n")
+          boundaries = [Sisimai::RFC2045.boundary(mhead['content-type'], 1)]
+          emailparts = Sisimai::RFC5322.part(mbody, boundaries)
+          bodyslices = emailparts[0].split("\n")
 
           while e = bodyslices.shift do
             # Read error messages and delivery status lines from the head of the email to the previous
@@ -113,7 +112,7 @@ module Sisimai::Lhost
             # Subject: test for bounce
             # Date:  Wed, 20 Jun 2013 10:29:52 +0000
             v = dscontents[-1]
-            if cv = e.match(/\ATo:[ \t]+(.*)\z/)
+            if cv = e.match(/\ATo:[ ]+(.*)\z/)
               if v['recipient']
                 # There are multiple recipient addresses in the message body.
                 dscontents << Sisimai::Lhost.DELIVERYSTATUS
@@ -123,25 +122,25 @@ module Sisimai::Lhost
               recipients += 1
               next
 
-            elsif cv = e.match(/\AFrom:[ \t](.+)\z/)
+            elsif cv = e.match(/\AFrom:[ ](.+)\z/)
               # From: kijitora <kijitora@example.jp>
               senderaddr = Sisimai::Address.s3s4(cv[1]) if senderaddr.empty?
 
-            elsif cv = e.match(/\ASubject:[ \t](.+)\z/)
+            elsif cv = e.match(/\ASubject:[ ](.+)\z/)
               #   Subject:
               subjecttxt = cv[1] if subjecttxt.empty?
             else
               # Message could not be delivered to mobile.
               # Error: No valid recipients for this MM
-              v['diagnosis'] = e if e =~ /\AError:[ \t]+(.+)\z/
+              v['diagnosis'] = e if e =~ /\AError:[ ]+(.+)\z/
             end
           end
         end
         return nil unless recipients > 0
 
         # Set the value of "MAIL FROM:" and "From:"
-        emailsteak[1] << ('From: ' << senderaddr << "\n") unless emailsteak[1] =~ /^From: /
-        emailsteak[1] << ('Subject: ' << subjecttxt << "\n") unless emailsteak[1] =~ /^Subject: /
+        emailparts[1] << ('From: '    << senderaddr << "\n") unless emailparts[1] =~ /^From: /
+        emailparts[1] << ('Subject: ' << subjecttxt << "\n") unless emailparts[1] =~ /^Subject: /
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
@@ -153,7 +152,7 @@ module Sisimai::Lhost
           end
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Verizon Wireless: https://www.verizonwireless.com'; end
     end

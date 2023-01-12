@@ -7,7 +7,7 @@ module Sisimai::Lhost
 
       # https://www.courier-mta.org/courierdsn.html
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r<^Content-Type:[ ](?:message/rfc822|text/rfc822-headers)>.freeze
+      Boundaries = ['Content-Type: message/rfc822', 'Content-Type: text/rfc822-headers'].freeze
       StartingOf = {
         # courier/module.dsn/dsn*.txt
         message: ['DELAYS IN DELIVERING YOUR MESSAGE', 'UNDELIVERABLE MAIL'],
@@ -38,17 +38,18 @@ module Sisimai::Lhost
         end
         return nil unless match > 0
 
+        require 'sisimai/smtp/command'
         require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         permessage = {}     # (Hash) Store values of each Per-Message field
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readslices = ['']
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        commandtxt = ''     # (String) SMTP Command name begin with the string '>>>'
+        thecommand = ''     # (String) SMTP Command name begin with the string '>>>'
         v = nil
 
         while e = bodyslices.shift do
@@ -101,7 +102,7 @@ module Sisimai::Lhost
             end
           else
             # The line does not begin with a DSN field defined in RFC3464
-            if cv = e.match(/\A[>]{3}[ ]+([A-Z]{4})[ ]?/)
+            if e.start_with?('>>> ')
               # Your message to the following recipients cannot be delivered:
               #
               # <kijitora@example.co.jp>:
@@ -109,12 +110,11 @@ module Sisimai::Lhost
               # >>> RCPT TO:<kijitora@example.co.jp>
               # <<< 550 5.1.1 <kijitora@example.co.jp>... User Unknown
               #
-              next unless commandtxt.empty?
-              commandtxt = cv[1]
+              thecommand = Sisimai::SMTP::Command.find(e)
             else
               # Continued line of the value of Diagnostic-Code field
               next unless readslices[-2].start_with?('Diagnostic-Code:')
-              next unless cv = e.match(/\A[ \t]+(.+)\z/)
+              next unless cv = e.match(/\A[ ]+(.+)\z/)
               v['diagnosis'] << ' ' << cv[1]
               readslices[-1] = 'Diagnostic-Code: ' << e
             end
@@ -125,7 +125,7 @@ module Sisimai::Lhost
         dscontents.each do |e|
           # Set default values if each value is empty.
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
-          e['command'] ||= commandtxt || ''
+          e['command'] ||= thecommand || ''
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
 
           MessagesOf.each_key do |r|
@@ -136,7 +136,7 @@ module Sisimai::Lhost
           end
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Courier MTA'; end
     end

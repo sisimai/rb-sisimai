@@ -7,139 +7,112 @@ module Sisimai
     # or the parameter of "HELO/EHLO" command. This reason has added in Sisimai 4.0.0.
     module Blocked
       class << self
+        Index = [
+          ' said: 550 blocked',
+          '//www.spamcop.net/bl.',
+          'access denied. ip name lookup failed',
+          'all mail servers must have a ptr record with a valid reverse dns entry',
+          'bad dns ptr resource record',
+          'bad sender ip address',
+          'banned sending ip',    # Office365
+          'blacklisted by',
+          'blocked using ',
+          'blocked - see http',
+          'dnsbl:attrbl',
+          "can't determine purported responsible address",
+          'cannot find your hostname',
+          'cannot resolve your address',
+          'client host rejected: abus detecte gu_eib_02',     # SFR
+          'client host rejected: abus detecte gu_eib_04',     # SFR
+          'client host rejected: cannot find your hostname',  # Yahoo!
+          'client host rejected: may not be mail exchanger',
+          'client host rejected: was not authenticated',      # Microsoft
+          'confirm this mail server',
+          'connection dropped',
+          'connection refused by',
+          'connection reset by peer',
+          'connection was dropped by remote host',
+          'connections not accepted from ip addresses on spamhaus xbl',
+          'currently sending spam see: ',
+          'domain does not exist:',
+          'dynamic/zombied/spam ips blocked',
+          'error: no valid recipients from ',
+          'esmtp not accepting connections',  # icloud.com
+          'extreme bad ip profile',
+          'fix reverse dns for ',
+          'go away',
+          'helo command rejected:',
+          'host network not allowed',
+          'hosts with dynamic ip',
+          'invalid ip for sending mail of domain',
+          'ips with missing ptr records',
+          'is not allowed to send mail from',
+          'no access from mail server',
+          'no matches to nameserver query',
+          'no ptr record found.',
+          'not currently accepting mail from your ip',    # Microsoft
+          'part of their network is on our block list',
+          'please get a custom reverse dns name from your isp for your host',
+          'please use the smtp server of your isp',
+          'ptr record setup',
+          'refused - see http',
+          'rejected because the sending mta or the sender has not passed validation',
+          'rejecting open proxy', # Sendmail(srvrsmtp.c)
+          'reverse dns failed',
+          'reverse dns required',
+          'sender ip address rejected',
+          'sender ip reverse lookup rejected',
+          'server access forbidden by your ip ',
+          'service not available, closing transmission channel',
+          'smtp error from remote mail server after initial connection:', # Exim
+          "sorry, that domain isn't in my list of allowed rcpthosts",
+          'sorry, your remotehost looks suspiciously like spammer',
+          'temporarily deferred due to unexpected volume or user complaints',
+          'this system will not accept messages from servers/devices with no reverse dns',
+          'to submit messages to this e-mail system has been rejected',
+          'too many spams from your ip',  # free.fr
+          'too many unwanted messages have been sent from the following ip address above',
+          'unresolvable relay host name',
+          'we do not accept mail from dynamic ips',   # @mail.ru
+          'we do not accept mail from hosts with dynamic ip or generic dns ptr-records',
+          'you are not allowed to connect',
+          'you are sending spam',
+          'your network is temporary blacklisted',
+          'your server requires confirmation',
+        ].freeze
+        Pairs = [
+          ['access from ip address ', ' blocked'],
+          ['client host ', ' blocked using'],
+          ['connections will not be accepted from ', " because the ip is in spamhaus's list"],
+          ['dnsbl:rbl ', '>_is_blocked'],
+          ['domain ',' mismatches client ip'],
+          ['dns lookup failure: ', ' try again later'],
+          ['email blocked by ', '.barracudacentral.org'],
+          ['email blocked by ', 'spamhaus'],
+          ['ip ', ' is blocked by earthlink'],    # Earthlink
+          ['is in an ', 'rbl on '],
+          ['mail server at ', ' is blocked'],
+          ['mail from ',' refused:'],
+          ['message from ', ' rejected based on blacklist'],
+          ['messages from ', ' temporarily deferred due to user complaints'], # Yahoo!
+          ['reverse dns lookup for host ', ' failed permanently'],
+          ['server access ', ' forbidden by invalid rdns record of your mail server'],
+          ['server ip ', ' listed as abusive'],
+          ['service permits ', ' unverifyable sending ips'],
+          ['the domain ', ' is blacklisted'],
+          ['the email ', ' is blacklisted'],
+          ['the ip', ' is blacklisted'],
+          ['veuillez essayer plus tard. service refused, please try later. ', '103'],
+          ['veuillez essayer plus tard. service refused, please try later. ', '510'],
+          ["your sender's ip address is listed at ", '.abuseat.org'],
+        ].freeze
         Regex = %r{(?>
-           [ ]said:[ ]550[ ]blocked
-          |[(][^ ]+[@][^ ]+:blocked[)]
-          |access[ ]denied[.][ ]ip[ ]name[ ]lookup[ ]failed
-          |access[ ]from[ ]ip[ ]address[ ][^ ]+[ ]blocked
-          |all[ ]mail[ ]servers[ ]must[ ]have[ ]a[ ]ptr[ ]record[ ]with[ ]a[ ]valid[ ]reverse[ ]dns[ ]entry
-          |bad[ ](:?dns[ ]ptr[ ]resource[ ]record|sender[ ]ip[ ]address)
-          |banned[ ]sending[ ]ip  # Office365
-          |blacklisted[ ]by
-          |(?:blocked|refused)[ ]-[ ]see[ ]https?://
-          |blocked[ ]using[ ]
-          |can[']t[ ]determine[ ]purported[ ]responsible[ ]address
-          |cannot[ ](?:
-             find[ ]your[ ]hostname
-            |resolve[ ]your[ ]address
-            )
-          |client[ ]host[ ](?:
-             [^ ]+[ ]blocked[ ]using
-            |rejected:[ ](?:
-               abus[ ]detecte[ ]gu_eib_0[24]      # SFR
-              |cannot[ ]find[ ]your[ ]hostname    # Yahoo!
-              |may[ ]not[ ]be[ ]mail[ ]exchanger
-              |was[ ]not[ ]authenticated          # Microsoft
-              )
-            )
-          |confirm[ ]this[ ]mail[ ]server
-          |connection[ ](?:
-             dropped
-            |refused[ ]by
-            |reset[ ]by[ ]peer
-            |was[ ]dropped[ ]by[ ]remote[ ]host
-            )
-          |connections[ ](?:
-             not[ ]accepted[ ]from[ ]ip[ ]addresses[ ]on[ ]spamhaus[ ]xbl
-            |will[ ]not[ ]be[ ]accepted[ ]from[ ][^ ]+,[ ]because[ ]the[ ]ip[ ]is[ ]in[ ]spamhaus's[ ]list
-            )
-          |currently[ ]sending[ ]spam[ ]see:[ ]
-          |domain[ ](?:
-             [^ ]+[ ]mismatches[ ]client[ ]ip
-            |does[ ]not[ ]exist:
-            )
-          |dns[ ]lookup[ ]failure:[ ][^ ]+[ ]try[ ]again[ ]later
-          |dnsbl:(?:attrbl|rbl[ ]\d+[<][ ].+[ ][>]_is_blocked)
-          |dynamic/zombied/spam[ ]ips[ ]blocked
-          |email[ ]blocked[ ]by[ ](?:[^ ]+[.]barracudacentral[.]org|spamhaus)
-          |error:[ ]no[ ]valid[ ]recipients[ ]from[ ]
-          |esmtp[ ]not[ ]accepting[ ]connections  # icloud.com
-          |extreme[ ]bad[ ]ip[ ]profile
-          |fix[ ]reverse[ ]dns[ ]for[ ][^ ]+
-          |go[ ]away
-          |helo[ ]command[ ]rejected:
-          |host[ ]+[^ ]refused[ ]to[ ]talk[ ]to[ ]me:[ ]\d+[ ]blocked
-          |host[ ]network[ ]not[ ]allowed
-          |hosts[ ]with[ ]dynamic[ ]ip
-          |http://www[.]spamcop[.]net/bl[.]
-          |invalid[ ]ip[ ]for[ ]sending[ ]mail[ ]of[ ]domain
-          |ip[ ]\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3}[ ]is[ ]blocked[ ]by[ ]EarthLink # Earthlink
-          |is[ ](?:
-             in[ ]a[ ]black[ ]list(?:[ ]at[ ][^ ]+[.])?
-            |in[ ]an[ ][^ ]+rbl[ ]on[ ][^ ]+
-            |not[ ]allowed[ ]to[ ]send[ ]mail[ ]from
-            )
-          |mail[ ]server[ ]at[ ][^ ]+[ ]is[ ]blocked
-          |mail[ ]from[ ]\d+[.]\d+[.]\d+[.]\d[ ]refused:
-          |message[ ]from[ ][^ ]+[ ]rejected[ ]based[ ]on[ ]blacklist
-          |message[ ]was[ ]rejected[ ]for[ ]possible[ ]spam/virus[ ]content
-          |messages[ ]from[ ][^ ]+[ ]temporarily[ ]deferred[ ]due[ ]to[ ]user[ ]complaints   # Yahoo!
-          |no[ ](?:
-             access[ ]from[ ]mail[ ]server
-            |ptr[ ]record[ ]found[.]
-            )
-          |not[ ]currently[ ]accepting[ ]mail[ ]from[ ]your[ ]ip  # Microsoft
-          |part[ ]of[ ]their[ ]network[ ]is[ ]on[ ]our[ ]block[ ]list
-          |please[ ](?:
-             get[ ]a[ ]custom[ ]reverse[ ]dns[ ]name[ ]from[ ]your[ ]isp[ ]for[ ]your[ ]host
-            |use[ ]the[ ]smtp[ ]server[ ]of[ ]your[ ]isp
-            )
-          |ptr[ ]record[ ]setup
-          |rejected[ ]because[ ]the[ ]sending[ ]mta[ ]or[ ]the[ ]sender[ ]has[ ]not[ ]passed[ ]validation
-          |rejecting[ ]open[ ]proxy   # Sendmail(srvrsmtp.c)
-          |reverse[ ]dns[ ](?:
-             failed
-            |required
-            |lookup[ ]for[ ]host[ ][^ ]+[ ]failed[ ]permanently
-            )
-          |sender[ ]ip[ ](?:
-             address[ ]rejected
-            |reverse[ ]lookup[ ]rejected
-            )
-          |server[ ]access[ ](?:
-             [^ ]+[ ]forbidden[ ]by[ ]invalid[ ]rdns[ ]record[ ]of[ ]your[ ]mail[ ]server
-            |forbidden[ ]by[ ]your[ ]ip[ ]
-            )
-          |server[ ]ip[ ][^ ]+[ ]listed[ ]as[ ]abusive
-          |service[ ]not[ ]available,[ ]closing[ ]transmission[ ]channel
-          |service[ ]permits[ ]\d+[ ]unverifyable[ ]sending[ ]ips
-          |smtp[ ]error[ ]from[ ]remote[ ]mail[ ]server[ ]after[ ]initial[ ]connection:   # Exim
-          |sorry,[ ](?:
-             that[ ]domain[ ]isn'?t[ ]in[ ]my[ ]list[ ]of[ ]allowed[ ]rcpthosts
-            |your[ ]remotehost[ ]looks[ ]suspiciously[ ]like[ ]spammer
-            )
-          |temporarily[ ]deferred[ ]due[ ]to[ ]unexpected[ ]volume[ ]or[ ]user[ ]complaints
-          |the[ ](?:email|domain|ip)[ ][^ ]+[ ]is[ ]blacklisted
-          |this[ ]system[ ]will[ ]not[ ]accept[ ]messages[ ]from[ ]servers[/]devices[ ]with[ ]no[ ]reverse[ ]dns
-          |to[ ]submit[ ]messages[ ]to[ ]this[ ]e-mail[ ]system[ ]has[ ]been[ ]rejected
-          |too[ ]many[ ](?:
-             spams[ ]from[ ]your[ ]ip  # free.fr
-            |unwanted[ ]messages[ ]have[ ]been[ ]sent[ ]from[ ]the[ ]following[ ]ip[ ]address[ ]above
-            )
-          |unresolvable[ ]relay[ ]host[ ]name
-          |veuillez[ ]essayer[ ]plus[ ]tard[.][ ]service[ ]refused,[ ]please[ ]try[ ]later[.][ ][0-9a-z_]+(?:103|510)
-          |your[ ](?:
-             network[ ]is[ ]temporary[ ]blacklisted
-            |sender's[ ]ip[ ]address[ ]is[ ]listed[ ]at[ ][^ ]+[.]abuseat[.]org
-            |server[ ]requires[ ]confirmation
-            )
+           [(][^ ]+[@][^ ]+:blocked[)]
+          |host[ ][^ ]+[ ]refused[ ]to[ ]talk[ ]to[ ]me:[ ]\d+[ ]blocked
+          |is[ ]in[ ]a[ ]black[ ]list(?:[ ]at[ ][^ ]+[.])?
           |was[ ]blocked[ ]by[ ][^ ]+
-          |we[ ]do[ ]not[ ]accept[ ]mail[ ]from[ ](?: # @mail.ru
-             dynamic[ ]ips
-            |hosts[ ]with[ ]dynamic[ ]ip[ ]or[ ]generic[ ]dns[ ]ptr-records
-            )
-          |you[ ]are[ ](?:
-             not[ ]allowed[ ]to[ ]connect
-            |sending[ ]spam
-            )
-          |your[ ](?:
-             email[ ]address[ ]has[ ]been[ ]blacklisted
-            |network[ ]is[ ]temporary[ ]blacklisted
-            |sender's[ ]ip[ ]address[ ]is[ ]listed[ ]at[ ][^ ]+[.]abuseat[.]org
-            |server[ ]requires[ ]confirmation
-            )
           )
-        }x
+        }x.freeze
 
         def text; return 'blocked'; end
         def description; return 'Email rejected due to client IP address or a hostname'; end
@@ -150,6 +123,12 @@ module Sisimai
         #                           true: Matched
         def match(argv1)
           return nil unless argv1
+          return true if Index.any? { |a| argv1.include?(a) }
+          return true if Pairs.any? { |a| 
+            p = (argv1.index(a[0], 0) || -1) + 1
+            q = (argv1.index(a[1], p) || -1) + 1
+            p * q > 0
+          }
           return true if argv1 =~ Regex
           return false
         end

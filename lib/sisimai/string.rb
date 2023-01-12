@@ -46,8 +46,8 @@ module Sisimai
       #   sweep('  neko ') #=> 'neko'
       def sweep(argv1)
         return argv1 unless argv1.is_a?(::String)
-        argv1 = argv1.chomp.squeeze(' ').delete("\t").strip
-        argv1 = argv1.sub(/ [-]{2,}[^ \t].+\z/, '')
+        argv1 = argv1.chomp.squeeze(' ').strip
+        argv1 = argv1.sub(/ [-]{2,}[^ ].+\z/, '')
         return argv1
       end
 

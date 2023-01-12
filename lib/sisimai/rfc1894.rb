@@ -43,13 +43,13 @@ module Sisimai
       }.freeze
 
       CapturesOn = {
-        'addr' => %r/\A((?:Original|Final|X-Actual)-[Rr]ecipient):[ ]*(.+?);[ ]*(.+)/,
-        'code' => %r/\A(Diagnostic-Code):[ ]*(.+?);[ ]*(.*)/,
-        'date' => %r/\A((?:Arrival|Last-Attempt)-Date):[ ]*(.+)/,
-        'host' => %r/\A((?:Received-From|Remote|Reporting)-MTA):[ ]*(.+?);[ ]*(.+)/,
-        'list' => %r/\A(Action):[ ]*(delayed|deliverable|delivered|expanded|expired|failed|failure|relayed)/i,
-        'stat' => %r/\A(Status):[ ]*([245][.]\d+[.]\d+)/,
-        'text' => %r/\A(X-Original-Message-ID):[ ]*(.+)/,
+        'addr' => %r/\A((?:Original|Final|X-Actual)-Recipient):[ ](.+?);[ ]*(.+)/,
+        'code' => %r/\A(Diagnostic-Code):[ ](.+?);[ ]*(.*)/,
+        'date' => %r/\A((?:Arrival|Last-Attempt)-Date):[ ](.+)/,
+        'host' => %r/\A((?:Received-From|Remote|Reporting)-MTA):[ ](.+?);[ ]*(.+)/,
+        'list' => %r/\A(Action):[ ](delayed|deliverable|delivered|expanded|expired|failed|failure|relayed)/i,
+        'stat' => %r/\A(Status):[ ]([245][.]\d+[.]\d+)/,
+        'text' => %r/\A(X-Original-Message-ID):[ ](.+)/,
        #'text' => %r/\A(Final-Log-ID|Original-Envelope-Id):[ ]*(.+)/,
       }.freeze
 
@@ -68,6 +68,13 @@ module Sisimai
         'status'                => 'stat',
         'x-original-message-id' => 'text',
       }.freeze
+
+      def FIELDINDEX
+        return %w[
+            Action Arrival-Date Diagnostic-Code Final-Recipient Last-Attempt-Date Original-Recipient
+            Received-From-MTA Remote-MTA Reporting-MTA Status X-Actual-Recipienet X-Original-Message-ID
+        ]
+      end
 
       # Table to be converted to key name defined in Sisimai::Lhost class
       # @param    [Symbol] group  RFC822 Header group name
@@ -102,7 +109,7 @@ module Sisimai
       end
 
       # Returns a field name as a lqbel from the given string
-      # @param    [String] argv0 A line inlcuding field and value defined in RFC3464
+      # @param    [String] argv0 A line including field and value defined in RFC3464
       # @return   [String]       Field name as a label
       # @since v4.25.15
       def label(argv0 = '')

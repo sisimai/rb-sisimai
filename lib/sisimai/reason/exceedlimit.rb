@@ -10,7 +10,7 @@ module Sisimai
         Index = [
           'message header size exceeds limit',
           'message too large',
-        ]
+        ].freeze
 
         def text; return 'exceedlimit'; end
         def description; return 'Email rejected due to an email exceeded the limit'; end

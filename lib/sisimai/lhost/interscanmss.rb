@@ -4,7 +4,7 @@ module Sisimai::Lhost
   module InterScanMSS
     class << self
       require 'sisimai/lhost'
-      ReBackbone = %r|^Content-type:[ ]message/rfc822|.freeze
+      Boundaries = ['Content-Type: message/rfc822'].freeze
 
       # Parse bounce messages from InterScanMSS
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -24,9 +24,10 @@ module Sisimai::Lhost
         match += 1 if tryto.any? { |a| mhead['subject'] == a }
         return nil unless match > 0
 
+        require 'sisimai/smtp/command'
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
 
@@ -36,8 +37,8 @@ module Sisimai::Lhost
           next if e.empty?
 
           v = dscontents[-1]
-          if cv = e.match(/\A.+[<>]{3}[ \t]+.+[<]([^ ]+[@][^ ]+)[>]\z/) ||
-                  e.match(/\A.+[<>]{3}[ \t]+.+[<]([^ ]+[@][^ ]+)[>]/)   ||
+          if cv = e.match(/\A.+[<>]{3}[ ]+.+[<]([^ ]+[@][^ ]+)[>]\z/) ||
+                  e.match(/\A.+[<>]{3}[ ]+.+[<]([^ ]+[@][^ ]+)[>]/)   ||
                   e.match(/\A(?:Reason:[ ]+)?Unable[ ]to[ ]deliver[ ]message[ ]to[ ][<](.+)[>]/)
             # Sent <<< RCPT TO:<kijitora@example.co.jp>
             # Received >>> 550 5.1.1 <kijitora@example.co.jp>... user unknown
@@ -48,24 +49,23 @@ module Sisimai::Lhost
               v = dscontents[-1]
             end
             v['recipient'] = cv[1]
-            v['diagnosis'] = e if e =~ /Unable[ ]to[ ]deliver[ ]/
+            v['diagnosis'] = e if e.include?('Unable to deliver ')
             recipients = dscontents.size
           end
 
-          if cv = e.match(/\ASent[ ]+[<]{3}[ ]+([A-Z]{4})[ ]/)
+          if e.start_with?('Sent <<< ')
             # Sent <<< RCPT TO:<kijitora@example.co.jp>
-            v['command'] = cv[1]
+            v['command'] = Sisimai::SMTP::Command.find(e)
 
           elsif cv = e.match(/\AReceived[ ]+[>]{3}[ ]+(\d{3}[ ]+.+)\z/)
             # Received >>> 550 5.1.1 <kijitora@example.co.jp>... user unknown
             v['diagnosis'] = cv[1]
           else
             # Error message in non-English
-            if cv = e.match(/[ ][>]{3}[ ]([A-Z]{4})/)
-              # >>> RCPT TO ...
-              v['command'] = cv[1]
+            next unless e =~ /[ ][<>]{3}[ ]/
+            v['command'] = Sisimai::SMTP::Command.find(e) if e.include?(' >>> ')
 
-            elsif cv = e.match(/[ ][<]{3}[ ](.+)/)
+            if cv = e.match(/[ ][<]{3}[ ](.+)/)
               # <<< 550 5.1.1 User unknown
               v['diagnosis'] = cv[1]
             end
@@ -75,9 +75,9 @@ module Sisimai::Lhost
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-          e['reason'] = 'userunknown' if e['diagnosis'] =~ /Unable[ ]to[ ]deliver/
+          e['reason'] = 'userunknown' if e['diagnosis'].include?('Unable to deliver')
         end
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Trend Micro InterScan Messaging Security Suite'; end
     end

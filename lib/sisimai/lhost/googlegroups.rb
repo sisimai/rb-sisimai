@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r/^-----[ ]Original[ ]message[ ]-----$/.freeze
+      Boundaries = ['----- Original message -----'].freeze
 
       # Parse bounce messages from Google Groups
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -38,7 +38,7 @@ module Sisimai::Lhost
         #
         # Google Groups
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         recordwide = { 'rhost' => '', 'reason' => '', 'diagnosis' => '' }
         recipients = 0
         v = dscontents[-1]
@@ -47,9 +47,9 @@ module Sisimai::Lhost
         # * The owner of the group may have removed this group.
         # * You may need to join the group before receiving permission to post.
         # * This group may not be open to posting.
-        entiremesg = emailsteak[0].split(/\n\n/, 5).slice(0, 4).join(' ').tr("\n", ' ');
+        entiremesg = emailparts[0].split(/\n\n/, 5).slice(0, 4).join(' ').tr("\n", ' ');
         recordwide['diagnosis'] = Sisimai::String.sweep(entiremesg)
-        recordwide['reason']    = emailsteak[0].scan(/^[ ]?[*][ ]?/).size == 4 ? 'rejected' : 'onhold'
+        recordwide['reason']    = emailparts[0].scan(/^[ ]?[*][ ]?/).size == 4 ? 'rejected' : 'onhold'
         recordwide['rhost']     = Sisimai::RFC5322.received(mhead['received'][0]).shift
 
         mhead['x-failed-recipients'].split(',').each do |e|
@@ -66,7 +66,7 @@ module Sisimai::Lhost
           recordwide.each_key { |r| v[r] = recordwide[r] }
         end
         return nil unless recipients > 0
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Google Groups: https://groups.google.com'; end
     end

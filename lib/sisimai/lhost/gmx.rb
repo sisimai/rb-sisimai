@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^---[ ]The[ ]header[ ]of[ ]the[ ]original[ ]message[ ]is[ ]following[.][ ]---|.freeze
+      Boundaries = ['--- The header of the original message is following. ---'].freeze
       StartingOf = { message: ['This message was created automatically by mail delivery software'] }.freeze
       MessagesOf = { 'expired' => ['delivery retry timeout exceeded'] }.freeze
 
@@ -22,9 +22,10 @@ module Sisimai::Lhost
         # X-UI-Out-Filterresults: unknown:0;
         return nil unless mhead['x-gmx-antispam']
 
+        require 'sisimai/smtp/command'
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
@@ -67,11 +68,11 @@ module Sisimai::Lhost
             v['recipient'] = cv[1]
             recipients += 1
 
-          elsif cv = e.match(/\ASMTP error .+ ([A-Z]{4}) command:\z/)
+          elsif e.start_with?('SMTP error ')
             # SMTP error from remote server after RCPT command:
-            v['command'] = cv[1]
+            v['command'] = Sisimai::SMTP::Command.find(e)
 
-          elsif cv = e.match(/\Ahost:[ \t]*(.+)\z/)
+          elsif cv = e.match(/\Ahost:[ ]*(.+)\z/)
             # host: mx.example.jp
             v['rhost'] = cv[1]
           else
@@ -104,7 +105,7 @@ module Sisimai::Lhost
           end
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'GMX: https://www.gmx.net'; end
     end

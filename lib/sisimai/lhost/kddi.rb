@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^Content-Type:[ ]message/rfc822|.freeze
+      Boundaries = ['Content-Type: message/rfc822'].freeze
       MarkingsOf = {
         message: %r/\AYour[ ]mail[ ](?:
              sent[ ]on:?[ ][A-Z][a-z]{2}[,]
@@ -35,8 +35,8 @@ module Sisimai::Lhost
         return nil unless match > 0
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
@@ -53,7 +53,7 @@ module Sisimai::Lhost
           next if e.empty?
 
           v = dscontents[-1]
-          if cv = e.match(/\A[ \t]+Could not be delivered to: [<]([^ ]+[@][^ ]+)[>]/)
+          if cv = e.match(/\A[ ]+Could not be delivered to: [<]([^ ]+[@][^ ]+)[>]/)
             # Your mail sent on: Thu, 29 Apr 2010 11:04:47 +0900
             #     Could not be delivered to: <******@**.***.**>
             #     As their mailbox is full.
@@ -73,13 +73,15 @@ module Sisimai::Lhost
           else
             #     As their mailbox is full.
             v['diagnosis'] ||= ''
-            v['diagnosis'] << e + ' ' if e.start_with?(' ', "\t")
+            v['diagnosis'] << e + ' ' if e.start_with?(' ')
           end
         end
         return nil unless recipients > 0
 
+        require 'sisimai/smtp/command'
         dscontents.each do |e|
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
+          e['command']   = Sisimai::SMTP::Command.find(e['diagnosis'])
 
           if mhead['x-spasign'].to_s == 'NG'
             # Content-Type: text/plain; ..., X-SPASIGN: NG (spamghetti, au by KDDI)
@@ -102,7 +104,7 @@ module Sisimai::Lhost
 
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'au by KDDI: https://www.au.kddi.com'; end
     end

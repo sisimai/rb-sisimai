@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r/^-------original[ ](?:message|mail[ ]info)/.freeze
+      Boundaries = ['-------original message', '-------original mail info'].freeze
       StartingOf = {
         error:   ['-------server message'],
         command: ['-------SMTP command'],
@@ -24,8 +24,8 @@ module Sisimai::Lhost
         return nil unless mhead['subject'] == 'failure notice'
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         markingset = { 'diagnosis' => false, 'command' => false }
@@ -109,7 +109,7 @@ module Sisimai::Lhost
             e['rhost'] = ee
           end
         end
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Digital Arts m-FILTER'; end
     end

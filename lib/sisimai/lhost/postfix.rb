@@ -7,7 +7,7 @@ module Sisimai::Lhost
 
       # Postfix manual - bounce(5) - http://www.postfix.org/bounce.5.html
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r<^Content-Type:[ ](?:message/rfc822|text/rfc822-headers)>.freeze
+      Boundaries = ['Content-Type: message/rfc822', 'Content-Type: text/rfc822-headers'].freeze
       MarkingsOf = {
         message: %r{\A(?>
            [ ]+The[ ](?:
@@ -16,8 +16,8 @@ module Sisimai::Lhost
               |on[ ].+[ ]program\z    # The Postfix on <os name> program
               )
             |\w+[ ]Postfix[ ]program\z  # The <name> Postfix program
-            |mail[ \t]system\z             # The mail system
-            |\w+[ \t]program\z             # The <custmized-name> program
+            |mail[ ]system\z             # The mail system
+            |\w+[ ]program\z             # The <custmized-name> program
             )
           |This[ ]is[ ]the[ ](?:
              Postfix[ ]program          # This is the Postfix program
@@ -53,11 +53,11 @@ module Sisimai::Lhost
 
         require 'sisimai/rfc1894'
         require 'sisimai/address'
+        require 'sisimai/smtp/command'
         permessage = {}     # (Hash) Store values of each Per-Message field
-
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readslices = ['']
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         nomessages = false  # (Boolean) Delivery report unavailable
@@ -68,7 +68,7 @@ module Sisimai::Lhost
         if sessx
           # The message body starts with 'Transcript of session follows.'
           require 'sisimai/smtp/transcript'
-          transcript = Sisimai::SMTP::Transcript.rise(emailsteak[0], 'In:', 'Out:')
+          transcript = Sisimai::SMTP::Transcript.rise(emailparts[0], 'In:', 'Out:')
 
           return nil unless transcript
           return nil if transcript.size == 0
@@ -84,7 +84,7 @@ module Sisimai::Lhost
 
             elsif e['command'] == 'MAIL'
               # Set the argument of "MAIL" command to pseudo To: header of the original message
-              emailsteak[1] += sprintf("To: %s\n", e['argument']) if emailsteak[1].size == 0
+              emailparts[1] += sprintf("To: %s\n", e['argument']) if emailparts[1].size == 0
 
             elsif e['command'] == 'RCPT'
               # RCPT TO: <...>
@@ -162,25 +162,24 @@ module Sisimai::Lhost
               #
               # <userunknown@example.co.jp>: host mx.example.co.jp[192.0.2.153] said: 550
               # 5.1.1 <userunknown@example.co.jp>... User Unknown (in reply to RCPT TO command)
-              if readslices[-2].start_with?('Diagnostic-Code:') && cv = e.match(/\A[ \t]+(.+)\z/)
+              if readslices[-2].start_with?('Diagnostic-Code:') && cv = e.match(/\A[ ]+(.+)\z/)
                 # Continued line of the value of Diagnostic-Code header
                 v['diagnosis'] << ' ' << cv[1]
                 readslices[-1] = 'Diagnostic-Code: ' << e
 
               elsif cv = e.match(/\A(X-Postfix-Sender):[ ]*rfc822;[ ]*(.+)\z/)
                 # X-Postfix-Sender: rfc822; shironeko@example.org
-                emailsteak[1] << cv[1] << ': ' << cv[2] << "\n"
+                emailparts[1] << cv[1] << ': ' << cv[2] << "\n"
 
               else
-                if cv = e.match(/[ \t][(]in reply to (?:end of )?([A-Z]{4}).*/) ||
-                   cv = e.match(/([A-Z]{4})[ \t]*.*command[)]\z/)
+                if e.include?(' (in reply to ') || e.include?('command)')
                   # 5.1.1 <userunknown@example.co.jp>... User Unknown (in reply to RCPT TO
-                  commandset << cv[1]
+                  q = Sisimai::SMTP::Command.find(e); commandset << q if q
                   anotherset['diagnosis'] ||= ''
                   anotherset['diagnosis'] << ' ' << e
                 else
                   # Alternative error message and recipient
-                  if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>] [(]expanded from [<](.+)[>][)]:[ \t]*(.+)\z/)
+                  if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>] [(]expanded from [<](.+)[>][)]:[ ]*(.+)\z/)
                     # <r@example.ne.jp> (expanded from <kijitora@example.org>): user ...
                     anotherset['recipient'] = cv[1]
                     anotherset['alias']     = cv[2]
@@ -205,7 +204,7 @@ module Sisimai::Lhost
                   else
                     # Get error message continued from the previous line
                     next unless anotherset['diagnosis']
-                    if e =~ /\A[ \t]{4}(.+)\z/
+                    if e =~ /\A[ ]{4}(.+)\z/
                       #    host mx.example.jp said:...
                       anotherset['diagnosis'] << ' ' << e
                     end
@@ -217,8 +216,6 @@ module Sisimai::Lhost
 
         end
 
-
-
         unless recipients > 0
           # Fallback: get a recipient address from error messages
           if anotherset['recipient'].to_s.size > 0
@@ -228,7 +225,7 @@ module Sisimai::Lhost
           else
             # Get a recipient address from message/rfc822 part if the delivery report was unavailable:
             # '--- Delivery report unavailable ---'
-            if nomessages && cv = emailsteak[1].match(/^To:[ ]*(.+)$/)
+            if nomessages && cv = emailparts[1].match(/^To:[ ](.+)$/)
               # Try to get a recipient address from To: field in the original message at message/rfc822 part
               dscontents[-1]['recipient'] = Sisimai::Address.s3s4(cv[1])
               recipients += 1
@@ -281,13 +278,13 @@ module Sisimai::Lhost
             end
           end
 
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-          e['command']   = commandset.shift || nil
-          e['command'] ||= 'HELO' if e['diagnosis'] =~ /refused to talk to me:/
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
+          e['command']   = commandset.shift || Sisimai::SMTP::Command.find(e['diagnosis'])
+          e['command'] ||= 'HELO' if e['diagnosis'].include?('refused to talk to me:')
           e['spec']    ||= 'SMTP' if e['diagnosis'] =~ /host .+ said:/
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Postfix'; end
     end

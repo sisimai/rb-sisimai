@@ -5,16 +5,8 @@ module Sisimai::Lhost
     class << self
       require 'sisimai/lhost'
 
-      ReBackbone = %r|^Original[ ]message[ ]follows[.]|.freeze
+      Boundaries = ['Original message follows.'].freeze
       StartingOf = { error: ['Body of message generated response:'] }.freeze
-
-      ReSMTP = {
-        'conn' => %r/(?:SMTP connection failed,|Unexpected connection response from server:)/,
-        'ehlo' => %r|Unexpected response to EHLO/HELO:|,
-        'mail' => %r|Server response to MAIL FROM:|,
-        'rcpt' => %r|Additional RCPT TO generated following response:|,
-        'data' => %r|DATA command generated response:|,
-      }.freeze
       ReFailures = {
         'hostunknown'   => %r/Unknown host/,
         'userunknown'   => %r/\A(?:Unknown user|Invalid final delivery userid)/,
@@ -32,13 +24,13 @@ module Sisimai::Lhost
       def inquire(mhead, mbody)
         # X-Mailer: <SMTP32 v8.22>
         match  = 0
-        match += 1 if mhead['subject'] =~ /\AUndeliverable Mail[ ]*\z/
+        match += 1 if mhead['subject'].start_with?('Undeliverable Mail ')
         match += 1 if mhead['x-mailer'].to_s.start_with?('<SMTP32 v')
         return nil unless match > 0
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
 
@@ -51,7 +43,7 @@ module Sisimai::Lhost
           # Original message follows.
           v = dscontents[-1]
 
-          if cv = e.match(/\A([^ ]+)[ ](.+)[:][ \t]*([^ ]+[@][^ ]+)/)
+          if cv = e.match(/\A([^ ]+)[ ](.+)[:][ ]*([^ ]+[@][^ ]+)/)
             # Unknown user: kijitora@example.com
             if v['recipient']
               # There are multiple recipient addresses in the message body.
@@ -79,6 +71,7 @@ module Sisimai::Lhost
         end
         return nil unless recipients > 0
 
+        require 'sisimai/smtp/command'
         dscontents.each do |e|
           unless e['alterrors'].to_s.empty?
             # Copy alternative error message
@@ -90,14 +83,9 @@ module Sisimai::Lhost
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
             e.delete('alterrors')
           end
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
+          e['command']   = Sisimai::SMTP::Command.find(e['diagnosis'])
 
-          ReSMTP.each_key do |r|
-            # Detect SMTP command from the message
-            next unless e['diagnosis'] =~ ReSMTP[r]
-            e['command'] = r.upcase
-            break
-          end
 
           ReFailures.each_key do |r|
             # Verify each regular expression of session errors
@@ -107,7 +95,7 @@ module Sisimai::Lhost
           end
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'IPSWITCH IMail Server'; end
     end

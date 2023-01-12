@@ -4,16 +4,24 @@ module Sisimai
   # given as a argument of "rise" method is not a bounce email, the method returns nil.
   module Message
     class << self
+      require 'sisimai/rfc1894'
       require 'sisimai/rfc2045'
       require 'sisimai/rfc5322'
+      require 'sisimai/rfc5965'
       require 'sisimai/address'
       require 'sisimai/string'
       require 'sisimai/order'
       require 'sisimai/lhost'
 
-      DefaultSet = Sisimai::Order.another
-      LhostTable = Sisimai::Lhost.path
-      ReWrapping = %r<^Content-Type:[ ](?:message/rfc822|text/rfc822-headers)>.freeze
+      DefaultSet = Sisimai::Order.another.freeze
+      LhostTable = Sisimai::Lhost.path.freeze
+      Fields1894 = Sisimai::RFC1894.FIELDINDEX.freeze
+      Fields5322 = Sisimai::RFC5322.FIELDINDEX.freeze
+      Fields5965 = Sisimai::RFC5965.FIELDINDEX.freeze
+      FieldIndex = [Fields1894.flatten, Fields5322.flatten, Fields5965.flatten].flatten.freeze
+      FieldTable = FieldIndex.map { |e| [e.downcase, e] }.to_h.freeze
+      ReplacesAs = { 'Content-Type' => [%w[message/xdelivery-status message/delivery-status]] }.freeze
+      Boundaries = ['Content-Type: message/rfc822', 'Content-Type: text/rfc822-headers'].freeze
 
       # Read an email message and convert to structured format
       # @param         [Hash] argvs       Module to be loaded
@@ -45,7 +53,7 @@ module Sisimai
 
         while parseagain < 2 do
           # 1. Split email data to headers and a body part.
-          return nil unless aftersplit = Sisimai::Message.divideup(email)
+          break unless aftersplit = Sisimai::Message.part(email)
 
           # 2. Convert email headers from text to hash reference
           thing['from']   = aftersplit[0]
@@ -74,14 +82,14 @@ module Sisimai
             'tobeloaded' => tobeloaded,
             'tryonfirst' => Sisimai::Order.make(thing['header']['subject'])
           }
-          break if beforefact = Sisimai::Message.parse(param)
-          break unless aftersplit[2] =~ ReWrapping
+          break if beforefact = Sisimai::Message.sift(param)
+          break unless Boundaries.any? { |a| aftersplit[2].include?(a) }
 
-          # 5. Try to parse again
-          #    There is a bounce message inside of mutipart/*, try to parse the first message/rfc822
+          # 5. Try to sift again
+          #    There is a bounce message inside of mutipart/*, try to sift the first message/rfc822
           #    part as a entire message body again.
           parseagain += 1
-          email = aftersplit[2].split(ReWrapping, 2).pop.sub(/\A[\r\n\s]+/, '')
+          email = Sisimai::RFC5322.part(aftersplit[2], Boundaries, true).pop.sub(/\A[\r\n\s]+/, '')
           break unless email.size > 128
         end
         return nil unless beforefact
@@ -140,28 +148,28 @@ module Sisimai
       # Divide email data up headers and a body part.
       # @param         [String] email  Email data
       # @return        [Array]         Email data after split
-      def divideup(email)
+      def part(email)
         return nil if email.empty?
 
-        block = ['', '', '']  # 0:From, 1:Header, 2:Body
+        parts = ['', '', '']  # 0:From, 1:Header, 2:Body
+        email.gsub!(/\A\s+/, '')
         email.gsub!(/\r\n/, "\n")  if email.include?("\r\n")
-        email.gsub!(/[ \t]+$/, '') if email =~ /[ \t]+$/
 
-        (block[1], block[2]) = email.split(/\n\n/, 2)
-        return nil unless block[1]
-        return nil unless block[2]
+        (parts[1], parts[2]) = email.split(/\n\n/, 2)
+        return nil unless parts[1]
+        return nil unless parts[2]
 
-        if block[1].start_with?('From ')
+        if parts[1].start_with?('From ')
           # From MAILER-DAEMON Tue Feb 11 00:00:00 2014
-          block[0] = block[1].split(/\n/, 2)[0].delete("\r")
+          parts[0] = parts[1].split(/\n/, 2)[0].delete("\r")
         else
           # Set pseudo UNIX From line
-          block[0] = 'MAILER-DAEMON Tue Feb 11 00:00:00 2014'
+          parts[0] = 'MAILER-DAEMON Tue Feb 11 00:00:00 2014'
         end
 
-        block[1] << "\n" unless block[1].end_with?("\n")
-        block[2] << "\n"
-        return block
+        parts[1] << "\n" unless parts[1].end_with?("\n")
+        parts[2] << "\n"
+        return parts
       end
 
       # Convert a text including email headers to a hash reference
@@ -213,7 +221,108 @@ module Sisimai
         return headermaps
       end
 
-      # @abstract Parse bounce mail with each MTA module
+      # @abstract Tidy up each field name and format
+      # @param    [String] argv0 Strings including field and value used at an email
+      # @return   [String]       Strings tidied up
+      # @since v5.0.0
+      def tidy(argv0 = '')
+        return '' if argv0.empty?
+
+        email = ''
+        argv0.split("\n").each do |e|
+          # Find and tidy up fields defined in RFC5322, RFC1894, and RFC5965
+          # 1. Find a field label defined in RFC5322, RFC1894, or RFC5965 from this line
+          p0 = e.index(':') || 0
+          cf = e.downcase[0, p0]
+
+          unless FieldTable.has_key?(cf)
+            email << e + "\n"
+            next
+          end
+
+          # 2. There is a field label defined in RFC5322, RFC1894, or RFC5965 from this line.
+          #    Code below replaces the field name with a valid name listed in @fieldindex when
+          #    the field name does not match with a valid name.
+          #    - Before: Message-id: <...>
+          #    - After:  Message-Id: <...>
+          fieldlabel = FieldTable[cf]
+          substring0 = e[0, p0]
+          e[0, p0] = fieldlabel unless substring0.empty?
+
+          # 3. There is no " " (space character) immediately after ":"
+          #    - before: Content-Type:text/plain
+          #    - After:  Content-Type: text/plain
+          substring0 = e[p0 + 1, 1]
+          e[p0, 1] = ': ' if substring0 != ' '
+
+          # 4. Remove redundant space characters after ":"
+          while true
+            # - Before: Message-Id:    <...>
+            # - After:  Message-Id: <...>
+            break unless p0 + 2 < e.size
+            break unless e[p0 + 2, 1] == ' '
+            e[p0 + 2, 1] = ''
+          end
+
+          # 5. Tidy up a sub type of each field defined in RFC1894 such as Reporting-MTA: DNS;...
+          p1 = e.index(';') || -1
+          while true
+            # Such as Diagnostic-Code, Remote-MTA, and so on
+            # - Before: Diagnostic-Code: SMTP;550 User unknown
+            # - After:  Diagnostic-Code: smtp; 550 User unknown
+            break unless p1 > p0
+            break unless ['Content-Type'].concat(Fields1894).any? { |a| a.start_with?(fieldlabel) }
+
+            substring0 = e[p0 + 2, p1 - p0 - 1]
+            e[p0 + 2, substring0.size] = substring0.downcase + ' '
+            break
+          end
+
+          # 6. Remove redundant space characters after ";"
+          while true
+            # - Before: Diagnostic-Code: SMTP;      550 User unknown
+            # - After:  Diagnostic-Code: SMTP; 550 User unknown
+            break unless p1 + 2 < e.size
+            break unless e[p1 + 2, 1] == ' '
+            e[p1 + 2, 1] = ''
+          end
+
+          # 7. Tidy up a value, and a parameter of Content-Type: field
+          while true
+            # Replace the value of "Content-Type" field
+            break unless ReplacesAs.has_key?(fieldlabel)
+            p2 = 0
+
+            ReplacesAs[fieldlabel].each do |f|
+              # Content-Type: message/xdelivery-status
+              p2 = e.index(f[0]) || -1
+              next unless p2 > 1
+
+              e[p2, f[0].size] = f[1]
+              p1 = e.index(';')
+              break
+            end
+
+            # A parameter name of Content-Type field should be a lower-cased string
+            # - Before: Content-Type: text/plain; CharSet=ascii; Boundary=...
+            # - After:  Content-Type: text/plain; charset=ascii; boundary=...
+            break unless fieldlabel == 'Content-Type'
+            p2 = e.index('=') || -1
+            break unless p2 > 0
+            break unless p2 > p1
+
+            substring0 = e[p1 + 2, p2 - p1 - 2]
+            e[p1 + 2, p2 - p1 - 2] = substring0.downcase
+            break
+          end
+          email << e + "\n"
+        end
+
+        email << "\n" unless email.end_with?("\n\n")
+        return email
+      end
+
+      # @abstract Sift bounce mail with each MTA module
       # @param               [Hash] argvs    Processing message entity.
       # @param options argvs [Hash] mail     Email message entity
       # @param options mail  [String] from   From line of mbox
@@ -224,7 +333,7 @@ module Sisimai
       # @param options argvs [Array] tryonfirst  MTA module list to load on first
       # @param options argvs [Array] tobeloaded  User defined MTA module list
       # @return              [Hash]          Parsed and structured bounce mails
-      def parse(argvs)
+      def sift(argvs)
         return nil unless argvs['mail']
         return nil unless argvs['body']
 
@@ -239,6 +348,9 @@ module Sisimai
         mailheader['from']         ||= ''
         mailheader['subject']      ||= ''
         mailheader['content-type'] ||= ''
+
+        # Tidy up each field name and value in the entire message body
+        bodystring = Sisimai::Message.tidy(bodystring)
 
         # Decode BASE64 Encoded message body, rewrite.
         mesgformat = (mailheader['content-type'] || '').downcase
@@ -258,18 +370,16 @@ module Sisimai
             # Content-Type: text/html;...
             bodystring = Sisimai::String.to_plain(bodystring, true)
           end
-        else
+        elsif mesgformat.start_with?('multipart/')
           # NOT text/plain
-          if mesgformat.start_with?('multipart/')
-            # In case of Content-Type: multipart/*
-            p = Sisimai::RFC2045.makeflat(mailheader['content-type'], bodystring)
-            bodystring = p unless p.empty?
-          end
+          # In case of Content-Type: multipart/*
+          p = Sisimai::RFC2045.makeflat(mailheader['content-type'], bodystring)
+          bodystring = p unless p.empty?
         end
-        bodystring = bodystring.scrub('?').delete("\r")
+        bodystring = bodystring.scrub('?').delete("\r").gsub("\t", " ")
 
         haveloaded = {}
-        parseddata = nil
+        havesifted = nil
         modulename = ''
         if hookmethod.is_a? Proc
           # Call the hook method
@@ -292,57 +402,57 @@ module Sisimai
             while r = argvs['tobeloaded'].shift do
               # Call user defined MTA modules
               next if haveloaded[r]
-              parseddata = Module.const_get(r).inquire(mailheader, bodystring)
+              havesifted = Module.const_get(r).inquire(mailheader, bodystring)
               haveloaded[r] = true
               modulename = r
-              throw :PARSER if parseddata
+              throw :PARSER if havesifted
             end
 
             [argvs['tryonfirst'], DefaultSet].flatten.each do |r|
               # Try MTA module candidates
               next if haveloaded[r]
               require LhostTable[r]
-              parseddata = Module.const_get(r).inquire(mailheader, bodystring)
+              havesifted = Module.const_get(r).inquire(mailheader, bodystring)
               haveloaded[r] = true
               modulename = r
-              throw :PARSER if parseddata
+              throw :PARSER if havesifted
             end
 
             unless haveloaded['Sisimai::RFC3464']
               # When the all of Sisimai::Lhost::* modules did not return bounce data, call Sisimai::RFC3464;
               require 'sisimai/rfc3464'
-              parseddata = Sisimai::RFC3464.inquire(mailheader, bodystring)
+              havesifted = Sisimai::RFC3464.inquire(mailheader, bodystring)
               modulename = 'RFC3464'
-              throw :PARSER if parseddata
+              throw :PARSER if havesifted
             end
 
             unless haveloaded['Sisimai::ARF']
               # Feedback Loop message
               require 'sisimai/arf'
-              parseddata = Sisimai::ARF.inquire(mailheader, bodystring) if Sisimai::ARF.is_arf(mailheader)
-              throw :PARSER if parseddata
+              havesifted = Sisimai::ARF.inquire(mailheader, bodystring) if Sisimai::ARF.is_arf(mailheader)
+              throw :PARSER if havesifted
             end
 
             unless haveloaded['Sisimai::RFC3834']
-              # Try to parse the message as auto reply message defined in RFC3834
+              # Try to sift the message as auto reply message defined in RFC3834
               require 'sisimai/rfc3834'
-              parseddata = Sisimai::RFC3834.inquire(mailheader, bodystring)
+              havesifted = Sisimai::RFC3834.inquire(mailheader, bodystring)
               modulename = 'RFC3834'
-              throw :PARSER if parseddata
+              throw :PARSER if havesifted
             end
 
             break # as of now, we have no sample email for coding this block
           end
         end
-        return nil unless parseddata
+        return nil unless havesifted
 
-        parseddata['catch'] = havecaught
+        havesifted['catch'] = havecaught
         modulename = modulename.sub(/\A.+::/, '')
-        parseddata['ds'].each do |e|
+        havesifted['ds'].each do |e|
           e['agent'] = modulename unless e['agent']
           e.each_key { |a| e[a] ||= '' }  # Replace nil with ""
         end
-        return parseddata
+        return havesifted
       end
 
     end

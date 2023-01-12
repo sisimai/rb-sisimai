@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r/^[ \t]*[+]+[ \t]*/.freeze
+      Boundaries = ['+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++']
       StartingOf = {
         message: ['Your message:'],
         error:   ['Could not be delivered because of'],
@@ -22,21 +22,14 @@ module Sisimai::Lhost
         return nil unless mhead['subject'].start_with?('Undeliverable Mail: "')
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         endoferror = false  # (Boolean) Flag for the end of error message
         regularexp = nil
+        q = Sisimai::RFC2045.boundary(mhead['content-type'], 1); Boundaries << q if q
         v = nil
-
-        boundary00 = Sisimai::RFC2045.boundary(mhead['content-type'], 1) || ''
-        regularexp = if boundary00.size > 0
-                       # Convert to regular expression
-                       Regexp.new('\A' << Regexp.escape(boundary00) << '\z')
-                     else
-                       regularexp = %r/\A[ \t]*[+]+[ \t]*\z/
-                     end
 
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email
@@ -91,23 +84,23 @@ module Sisimai::Lhost
               # Reporting-MTA:      <relay.xxxxxxxxxxxx.com>
               # MessageName:        <B549996730000.000000000001.0003.mml>
               # Last-Attempt-Date:  <16:21:07 seg, 22 Dezembro 2014>
-              if cv = e.match(/\AOriginal Sender:[ \t]+[<](.+)[>]\z/)
+              if cv = e.match(/\AOriginal Sender:[ ]+[<](.+)[>]\z/)
                 # Original Sender:    <originalsender@example.com>
                 # Use this line instead of "From" header of the original message.
-                emailsteak[1] << ('From: ' << cv[1] << "\n")
+                emailparts[1] << ('From: ' << cv[1] << "\n")
 
-              elsif cv = e.match(/\ASender-MTA:[ \t]+[<](.+)[>]\z/)
+              elsif cv = e.match(/\ASender-MTA:[ ]+[<](.+)[>]\z/)
                 # Sender-MTA:         <10.11.12.13>
                 v['lhost'] = cv[1]
 
-              elsif cv = e.match(/\AReporting-MTA:[ \t]+[<](.+)[>]\z/)
+              elsif cv = e.match(/\AReporting-MTA:[ ]+[<](.+)[>]\z/)
                 # Reporting-MTA:      <relay.xxxxxxxxxxxx.com>
                 v['rhost'] = cv[1]
 
               elsif cv = e.match(/\A\s+(From|Subject):\s*(.+)\z/)
                 #    From:    originalsender@example.com
                 #    Subject: ...
-                emailsteak[1] << sprintf("%s: %s\n", cv[1], cv[2])
+                emailparts[1] << sprintf("%s: %s\n", cv[1], cv[2])
               end
             end
           end
@@ -115,7 +108,7 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         dscontents.each { |e| e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) }
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Trustwave Secure Email Gateway'; end
     end

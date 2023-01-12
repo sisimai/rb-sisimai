@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^Original[ ]mail[ ]as[ ]follows:|.freeze
+      Boundaries = ['Original mail as follows:'].freeze
       ErrorTitle = {
         'rejected' => %r{(?>
            (?:Ignored[ ])*NOT[ ]MEMBER[ ]article[ ]from[ ]
@@ -52,12 +52,12 @@ module Sisimai::Lhost
       # @since v4.22.3
       def inquire(mhead, mbody)
         return nil unless mhead['x-mlserver']
-        return nil unless mhead['from'] =~ /.+[-]admin[@].+/
+        return nil unless mhead['from'].include?('-admin@')
         return nil unless mhead['message-id'] =~ /\A[<]\d+[.]FML.+[@].+[>]\z/
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         v = nil
 
@@ -109,7 +109,7 @@ module Sisimai::Lhost
           end
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'fml mailing list server/manager'; end
     end

@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r|^Content-Type:[ ]text/rfc822-headers|.freeze
+      Boundaries = ['Content-Type: text/rfc822-headers'].freeze
       StartingOf = { message: ['Content-Type: message/delivery-status'] }.freeze
       ReFailures = {
         'userunknown'   => %r/(?:542 .+ Rejected|No such user)/,
@@ -33,8 +33,8 @@ module Sisimai::Lhost
         permessage = {}     # (Hash) Store values of each Per-Message field
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        bodyslices = emailsteak[0].split("\n")
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        bodyslices = emailparts[0].split("\n")
         readslices = ['']
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
@@ -90,7 +90,7 @@ module Sisimai::Lhost
           else
             # Continued line of the value of Diagnostic-Code field
             next unless readslices[-2].start_with?('Diagnostic-Code:')
-            next unless cv = e.match(/\A[ \t]+(.+)\z/)
+            next unless cv = e.match(/\A[ ]+(.+)\z/)
             v['diagnosis'] << ' ' << cv[1]
             readslices[-1] = 'Diagnostic-Code: ' << e
           end
@@ -112,7 +112,7 @@ module Sisimai::Lhost
           end
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Symantec.cloud http://www.messagelabs.com'; end
     end

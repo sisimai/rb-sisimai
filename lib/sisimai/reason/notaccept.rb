@@ -19,7 +19,7 @@ module Sisimai
           'no mx record found for domain=',   # Oath(Yahoo!)
           'no route for current request',
           'smtp protocol returned a permanent error',
-        ]
+        ].freeze
 
         def text; return 'notaccept'; end
         def description; return 'Delivery failed due to a destination mail server does not accept any email'; end

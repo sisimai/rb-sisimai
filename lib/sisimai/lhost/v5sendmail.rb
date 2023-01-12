@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      ReBackbone = %r/^[ ]+-----[ ](?:Unsent[ ]message[ ]follows|No[ ]message[ ]was[ ]collected)[ ]-----/.freeze
+      Boundaries = ['   ----- Unsent message follows -----', '  ----- No message was collected -----'].freeze
       StartingOf = { message: ['----- Transcript of session follows -----'] }
       MarkingsOf = {
         # Error text regular expressions which defined in src/savemail.c
@@ -35,13 +35,14 @@ module Sisimai::Lhost
       # @return [Nil]           it failed to parse or the arguments are missing
       def inquire(mhead, mbody)
         # :from => %r/\AMail Delivery Subsystem/,
-        return nil unless mhead['subject'] =~ /\AReturned mail: [A-Z]/
+        return nil unless mhead['subject'].start_with?('Returned mail: ')
 
-        emailsteak = Sisimai::RFC5322.fillet(mbody, ReBackbone)
-        return nil if emailsteak[1].empty?
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        return nil unless emailparts[1].size > 0
 
+        require 'sisimai/smtp/command'
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        bodyslices = emailsteak[0].split("\n")
+        bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         responding = []     # (Array) Responses from remote server
@@ -83,9 +84,9 @@ module Sisimai::Lhost
             v['diagnosis'] << ': ' << responding[recipients] if responding[recipients]
             recipients += 1
 
-          elsif cv = e.match(/\A[>]{3}[ ]*([A-Z]{4})[ ]*/)
+          elsif e.start_with?('>>> ')
             # >>> RCPT To:<kijitora@example.org>
-            commandset[recipients] = cv[1]
+            cv = Sisimai::SMTP::Command.find(e); commandset[recipients] = cv if cv
 
           elsif cv = e.match(/\A[<]{3}[ ]+(.+)\z/)
             # <<< Response
@@ -103,14 +104,14 @@ module Sisimai::Lhost
               next
             end
 
-            if cv = e.match(/\A\d{3}[ ]+.+[.]{3}[ \t]*(.+)\z/)
+            if cv = e.match(/\A\d{3}[ ]+.+[.]{3}[ ]*(.+)\z/)
               # 421 example.org (smtp)... Deferred: Connection timed out during user open with example.org
               anotherset['diagnosis'] = cv[1]
             end
           end
         end
 
-        if recipients == 0 && cv = emailsteak[1].match(/^To:[ ]*(.+)$/)
+        if recipients == 0 && cv = emailparts[1].match(/^To:[ ](.+)$/)
           # Get the recipient address from "To:" header at the original message
           dscontents[0]['recipient'] = Sisimai::Address.s3s4(cv[1])
           recipients = 1
@@ -119,7 +120,6 @@ module Sisimai::Lhost
 
         dscontents.each do |e|
           errorindex += 1
-          e['command'] = commandset[errorindex] || ''
           e['diagnosis'] ||= if anotherset['diagnosis'].to_s.size > 0
                                # Copy alternative error message
                                anotherset['diagnosis']
@@ -128,6 +128,7 @@ module Sisimai::Lhost
                                responding[errorindex]
                              end
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+          e['command']   = commandset[errorindex] || Sisimai::SMTP::Command.find(e['diagnosis']) || ''
 
           unless e['recipient'] =~ /\A[^ ]+[@][^ ]+\z/
             # @example.jp, no local part
@@ -139,7 +140,7 @@ module Sisimai::Lhost
           e.delete('sessionerr')
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailsteak[1] }
+        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Sendmail version 5'; end
     end
