@@ -71,7 +71,7 @@ module Sisimai
             mimeencoded0   = cv[4]
 
             decodedtext0 << cv[1]
-            decodedtext0 << if encodingname == 'B'
+            decodedtext0 << if encodingname.upcase == 'B'
                               Base64.decode64(mimeencoded0)
                             else
                               mimeencoded0.unpack('M').first
