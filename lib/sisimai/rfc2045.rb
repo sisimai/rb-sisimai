@@ -52,7 +52,7 @@ module Sisimai
             notdecoded   = cv[4]
 
             textblocks << cv[1]
-            textblocks << if qbencoding == 'B'
+            textblocks << if qbencoding.upcase == 'B'
                               Base64.decode64(notdecoded)
                             else
                               notdecoded.unpack('M').first
