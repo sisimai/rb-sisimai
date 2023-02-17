@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'sisimai/smtp/command'
 
 class SMTPCommandTest < Minitest::Test
-  Methods = { class: %w[find] }
+  Methods = { class: %w[test find] }
   Strings = {
     'HELO' => [
       'lost connection with mx.example.jp[192.0.2.2] while performing the HELO handshake',
@@ -35,10 +35,13 @@ class SMTPCommandTest < Minitest::Test
   end
 
   def test_code
+    assert_equal false, Sisimai::SMTP::Command.test("NEKO")
+    assert_nil Sisimai::SMTP::Command.test("")
     assert_nil Sisimai::SMTP::Command.find("")
 
     Strings.each_key do |e|
       assert_match /[A-Z]{4}/, e
+      assert_equal true, Sisimai::SMTP::Command.test(e)
       Strings[e].each do |ee|
         cv = Sisimai::SMTP::Command.find(ee)
         assert_instance_of String, cv
@@ -47,6 +50,8 @@ class SMTPCommandTest < Minitest::Test
     end
 
     ce = assert_raises ArgumentError do
+      Sisimai::SMTP::Command.test()
+      Sisimai::SMTP::Command.test(nil, nil)
       Sisimai::SMTP::Command.find()
       Sisimai::SMTP::Command.find(nil, nil)
     end
