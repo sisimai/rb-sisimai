@@ -1,5 +1,4 @@
 # http://www.iana.org/assignments/smtp-enhanced-status-codes/smtp-enhanced-status-codes.xhtml
-#
 # -------------------------------------------------------------------------------------------------
 # [Class Sub-Codes]
 # 2.X.Y Success
@@ -8,7 +7,6 @@
 #
 # -------------------------------------------------------------------------------------------------
 # [Subject Sub-Codes]
-#
 # X.0.X --- Other or Undefined Status
 #           There is no additional subject information available.
 #
@@ -53,7 +51,6 @@
 #
 # -------------------------------------------------------------------------------------------------
 # [Enumerated Status Codes]
-#
 # X.0.0  Any    Other undefined Status:(RFC 3463)
 #                 Other undefined status is the only undefined error code. It should be used for all
 #                 errors for which only the class of the error is known.
@@ -201,6 +198,13 @@
 #                 remained on that host too long or because the time-to-live value specified by the
 #                 sender of the message was exceeded. If possible, the code for the actual problem
 #                 found when delivery was attempted should be returned rather than this code.
+
+# X.4.8  421    Retry on IPv4
+#        451      the mail system will not accept this message over IPv6 because it lacks some re-
+#        456      quirments described in the full text of the rejection, however the sending mail
+#                 system can retry immediately to submit the message over IPv4 only.
+#                 https://datatracker.ietf.org/doc/html/draft-martin-smtp-ipv6-to-ipv4-fallback-00
+#
 # -------------------------------------------------------------------------------------------------
 # X.5.0  220    Other or undefined protocol status:(RFC 3463)
 #        250-253  Something was wrong with the protocol necessary to deliver the message to the next
@@ -446,7 +450,6 @@
 #                 (e.g., because it could not return a DSN).
 # -------------------------------------------------------------------------------------------------
 # SAMPLES
-#
 #   554 5.5.0   No recipients have been specified
 #   503 5.5.0   Valid RCPT TO required before BURL
 #   554 5.6.3   Conversion required but not supported
@@ -506,7 +509,8 @@ module Sisimai
           '4.4.5'  => 'systemfull',     # Mail system congestion
           '4.4.6'  => 'networkerror',   # Routing loop detected
           '4.4.7'  => 'expired',        # Delivery time expired
-          # '4.5.0' => 'networkerror',   # Other or undefined protocol status
+          '4.4.8'  => 'networkerror',   # Retry on IPv4
+#         '4.5.0'  => 'networkerror',   # Other or undefined protocol status
           '4.5.3'  => 'systemerror',    # Too many recipients
           '4.5.5'  => 'systemerror',    # Wrong protocol version
           '4.6.0'  => 'contenterror',   # Other or undefined media error
