@@ -91,6 +91,10 @@ class SMTPReply< Minitest::Test
     %w[101 192 270 386 499 567 640 727].each do |e|
       assert_equal false, Sisimai::SMTP::Reply.test(e)
     end
+
+    ce = assert_raises ArgumentError do
+      Sisimai::SMTP::Reply.test(nil, nil, nil)
+    end
   end
 
   def test_find

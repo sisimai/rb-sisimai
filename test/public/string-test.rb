@@ -79,6 +79,11 @@ class StringTest < Minitest::Test
     ip4address.each do |e|
       assert_equal e[1], Sisimai::String.ipv4(e[0]).shift.to_s
     end
+
+    ce = assert_raises ArgumentError do
+      Sisimai::String.ipv4()
+      Sisimai::String.ipv4("nekochan", nil)
+    end
   end
 
   Ht1 = '
