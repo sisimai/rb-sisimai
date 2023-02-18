@@ -58,7 +58,7 @@ module Sisimai
           # 252   Cannot VRFY user, but will accept message and attempt delivery (See Section 3.5.3)
           # 253   OK, <n> pending messages for node <domain> started (See RFC1985)
           # 354   Start mail input; end with <CRLF>.<CRLF>
-          211, 214, 220, 221, 235, 250, 251, 252, 253, 354
+          '211', '214', '220', '221', '235', '250', '251', '252', '253', '354'
         ].freeze
         ReplyCode4 = [
           # 421   <domain> Service not available, closing transmission channel (This may be a reply
@@ -77,7 +77,7 @@ module Sisimai
           #       https://datatracker.ietf.org/doc/html/draft-martin-smtp-ipv6-to-ipv4-fallback-00
           # 458   Unable to queue messages for node <domain> (See RFC1985)
           # 459   Node <domain> not allowed: <reason> (See RFC51985)
-          421, 450, 451, 452, 422, 430, 432, 453, 454, 455, 456, 458, 459
+          '421', '450', '451', '452', '422', '430', '432', '453', '454', '455', '456', '458', '459'
         ].freeze
         ReplyCode5 = [
           # 500   Syntax error, command unrecognized (This may include errors such as command line too long)
@@ -103,8 +103,8 @@ module Sisimai
           # 554   Transaction failed (Or, in the case of a connection-opening response, "No SMTP service here")
           # 555   MAIL FROM/RCPT TO parameters not recognized or not implemented
           # 556   Domain does not accept mail (See RFC7504)
-          550, 552, 553, 551, 521, 525, 502, 520, 523, 524, 530, 533, 534, 535, 538, 551, 555, 556,
-          554, 500, 501, 502, 503, 504,
+          '550', '552', '553', '551', '521', '525', '502', '520', '523', '524', '530', '533', '534',
+          '535', '538', '551', '555', '556', '554', '500', '501', '502', '503', '504',
         ].freeze
         CodeOfSMTP = { '2' => ReplyCode2, '4' => ReplyCode4, '5' => ReplyCode5 }.freeze
 
@@ -140,32 +140,40 @@ module Sisimai
           return true
         end
 
-        IP4Re = %r{\b
-          (?:\d|[01]?\d\d|2[0-4]\d|25[0-5])[.]
-          (?:\d|[01]?\d\d|2[0-4]\d|25[0-5])[.]
-          (?:\d|[01]?\d\d|2[0-4]\d|25[0-5])[.]
-          (?:\d|[01]?\d\d|2[0-4]\d|25[0-5])
-        \b}x
-
         # Get SMTP Reply Code from the given string
         # @param    [String] argv1  String including SMTP Reply Code like 550
+        # @param    [String] argv2  Status code like 5.1.1 or 2 or 4 or 5
         # @return   [String]        SMTP Reply Code
         #           [Nil]           The first argument did not include SMTP Reply Code value
-        def find(argv1 = nil)
-          return nil unless argv1
-          return nil if argv1.empty?
+        def find(argv1 = '', argv2 = 'x')
+          return nil if argv1.to_s.size < 4
           return nil if argv1.upcase.include?('X-UNIX')
 
-          # Convert found IPv4 addresses to '***.***.***.***' to avoid that the following code
-          # detects an octet of the IPv4 adress as an SMTP reply code.
-          argv1 = argv1.gsub(/#{IP4Re}/, '***.***.***.***') if argv1 =~ IP4Re
+          statuscode = argv2[0, 1]
+          replycodes = if statuscode == '5' || statuscode == '4' || statuscode == '2'
+                         CodeOfSMTP[statuscode]
+                       else
+                         [*CodeOfSMTP['5'], *CodeOfSMTP['4'], *CodeOfSMTP['2']]
+                       end
+          esmtperror = ' ' + argv1
+          esmtpreply = '' # SMTP Reply Code
+          replyindex =  0 # A position of SMTP reply code found by the index()
+          formerchar =  0 # a character that is one character before the SMTP reply code
+          latterchar =  0 # a character that is one character after  the SMTP reply code
 
-          if cv = argv1.match(/\b([45][0-7][0-9])\b/) || argv1.match(/\b(25[0-3])\b/)
-            # 550, 447, or 250
-            return cv[1]
-          else
-            return nil
+          replycodes.each do |e|
+            # Try to find an SMTP Reply Code from the given string
+            replyindex = esmtperror.index(e); next unless replyindex
+            formerchar = esmtperror[replyindex - 1, 1].ord || 0
+            lattercahr = esmtperror[replyindex + 3, 1].ord || 0
+
+            next if formerchar > 45 && formerchar < 58
+            next if latterchar > 45 && latterchar < 58
+            esmtpreply = e
+            break
           end
+
+          return esmtpreply
         end
 
       end

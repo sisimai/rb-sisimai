@@ -103,7 +103,7 @@ class SMTPReply< Minitest::Test
 
     ce = assert_raises ArgumentError do
       Sisimai::SMTP::Reply.find()
-      Sisimai::SMTP::Reply.find(nil, nil)
+      Sisimai::SMTP::Reply.find(nil, nil, nil)
     end
     assert_nil Sisimai::SMTP::Reply.find('')
   end
