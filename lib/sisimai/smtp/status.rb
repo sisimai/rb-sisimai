@@ -679,8 +679,30 @@ module Sisimai
         # @see      code
         def name(argv1 = nil)
           return nil unless argv1
-          return nil unless argv1 =~ /\A[245][.]\d[.]\d+\z/
+          return nil unless Sisimai::SMTP::Status.test(argv1)
           return StandardCode[argv1] || nil
+        end
+
+        # Check whether a status code is a valid code or not
+        # @param    [String] argv1  Status code(DSN)
+        # @return   [Boolean]       0 = Invalid status code, 1 = Valid status code
+        # @see      code
+        # @since v5.0.0
+        def test(argv1 = '')
+          return nil   if argv1.to_s.empty?
+          return false if argv1.size < 5
+          return false if argv1.size > 7
+
+          token = []
+          argv1.split('.').each { |e| token << e.to_i }
+          return false unless token.size == 3
+          return false if token[0]  < 2
+          return false if token[0] == 3
+          return false if token[0]  > 5
+          return false if token[1]  < 0
+          return false if token[1]  > 7
+          return false if token[2]  < 0
+          return true
         end
 
         # Get a DSN code value from given string including DSN

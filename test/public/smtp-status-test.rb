@@ -73,11 +73,22 @@ class SMTPStatusTest < Minitest::Test
     assert_nil Sisimai::SMTP::Status.name('')
   end
 
+  def test_test
+    assert_nil Sisimai::SMTP::Status.test('')
+    assert_equal false, Sisimai::SMTP::Status.test('3.14')
+
+    ce = assert_raises ArgumentError do
+      Sisimai::SMTP::Status.test()
+      Sisimai::SMTP::Status.test(nil, nil)
+    end
+  end
+
   def test_find
     Message.each do |e|
       cv = Sisimai::SMTP::Status.find(e)
       assert_instance_of String, cv
       assert_match /\A[245][.]\d+[.]\d\z/, cv
+      assert_equal true, Sisimai::SMTP::Status.test(cv)
     end
 
     ce = assert_raises ArgumentError do
