@@ -2,13 +2,13 @@ require 'minitest/autorun'
 require 'sisimai/smtp/status'
 
 class SMTPStatusTest < Minitest::Test
-  Methods = { class: %w[code name find] }
-  Reasons = [
-    'blocked', 'contenterror', 'exceedlimit', 'expired', 'filtered', 'hasmoved', 'hostunknown',
-    'mailboxfull', 'mailererror', 'mesgtoobig', 'networkerror', 'norelaying', 'notaccept',
-    'onhold', 'rejected', 'securityerror', 'spamdetected', 'suspend', 'systemerror', 'systemfull',
-    'toomanyconn', 'userunknown', 'syntaxerror',
-  ]
+  Methods = { class: %w[code name test find] }
+  Reasons = %w[
+      authfailure badreputation blocked contenterror exceedlimit expired filtered hasmoved
+      hostunknown mailboxfull mailererror mesgtoobig networkerror notaccept onhold rejected
+      norelaying spamdetected virusdetected policyviolation securityerror speeding suspend
+      systemerror systemfull toomanyconn userunknown syntaxerror
+    ]
   CodeSet = %w[
     2.1.5
     4.1.6 4.1.7 4.1.8 4.1.9 4.2.1 4.2.2 4.2.3 4.2.4 4.3.1 4.3.2 4.3.3 4.3.5
