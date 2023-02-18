@@ -51,6 +51,31 @@ module Sisimai
         return argv1
       end
 
+      # Check if each element of the 2nd argument is aligned in the 1st argument or not
+      # @param    [String] argv1  String to be checked
+      # @param    [Array]  argv2  List including the ordered strings
+      # @return   [Bool]          0, 1
+      # @since v5.0.0
+      def aligned(argv1, argv2)
+        return nil if argv1.to_s.empty?
+        return nil unless argv2.is_a? Array
+        return nil unless argv2.size > 1
+
+        align = -1
+        right =  0
+
+        argv2.each do |e|
+          # Get the position of each element in the 1st argument using index()
+          p = argv1.index(e, align + 1)
+          break unless p            # Break this loop when there is no string in the 1st argument
+          align  = e.length + p - 1 # There is an aligned string in the 1st argument
+          right += 1
+        end
+
+        return true if right == argv2.size
+        return false
+      end
+
       # Convert given HTML text to plain text
       # @param    [String]  argv1 HTML text
       # @param    [Boolean] loose Loose check flag
