@@ -4,30 +4,20 @@ module Sisimai::Lhost
   module Postfix
     class << self
       require 'sisimai/lhost'
+      require 'sisimai/smtp/command'
 
       # Postfix manual - bounce(5) - http://www.postfix.org/bounce.5.html
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['Content-Type: message/rfc822', 'Content-Type: text/rfc822-headers'].freeze
-      MarkingsOf = {
-        message: %r{\A(?>
-           [ ]+The[ ](?:
-             Postfix[ ](?:
-               program\z              # The Postfix program
-              |on[ ].+[ ]program\z    # The Postfix on <os name> program
-              )
-            |\w+[ ]Postfix[ ]program\z  # The <name> Postfix program
-            |mail[ ]system\z             # The mail system
-            |\w+[ ]program\z             # The <custmized-name> program
-            )
-          |This[ ]is[ ]the[ ](?:
-             Postfix[ ]program          # This is the Postfix program
-            |\w+[ ]Postfix[ ]program    # This is the <name> Postfix program
-            |\w+[ ]program              # This is the <customized-name> Postfix program
-            |mail[ ]system[ ]at[ ]host  # This is the mail system at host <hostname>.
-            )
-          )
-        }x,
-        # :from => %r/ [(]Mail Delivery System[)]\z/,
+      StartingOf = {
+        # Postfix manual - bounce(5) - http://www.postfix.org/bounce.5.html
+        message: [
+          ['The ', 'Postfix '],           # The Postfix program, The Postfix on <os> program
+          ['The ', 'mail system'],        # The mail system
+          ['The ', 'program'],            # The <name> pogram
+          ['This is the', 'Postfix'],     # This is the Postfix program
+          ['This is the', 'mail system'], # This is the mail system at host <hostname>
+        ],
       }.freeze
 
       # Parse bounce messages from Postfix
@@ -51,9 +41,6 @@ module Sisimai::Lhost
         return nil unless match
         return nil if mhead['x-aol-ip']
 
-        require 'sisimai/rfc1894'
-        require 'sisimai/address'
-        require 'sisimai/smtp/command'
         permessage = {}     # (Hash) Store values of each Per-Message field
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -78,7 +65,7 @@ module Sisimai::Lhost
             v ||= dscontents[-1]
             p   = e['response']
 
-            if e['command'] =~ /\A(?:HELO|EHLO)/
+            if e['command'] == 'HELO' || e['command'] == 'EHLO'
               # Use the argument of EHLO/HELO command as a value of "lhost"
               v['lhost'] = e['argument']
 
@@ -114,7 +101,7 @@ module Sisimai::Lhost
 
             if readcursor == 0
               # Beginning of the bounce message or message/delivery-status part
-              readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
+              readcursor |= Indicators[:deliverystatus] if StartingOf[:message].any? { |a| Sisimai::String.aligned(e, a) }
               next
             end
             next if (readcursor & Indicators[:deliverystatus]) == 0
@@ -151,7 +138,7 @@ module Sisimai::Lhost
                 next unless fieldtable[o[0]]
                 v[fieldtable[o[0]]] = o[2]
 
-                next unless f == 1
+                next unless f
                 permessage[fieldtable[o[0]]] = o[2]
               end
             else
@@ -204,9 +191,9 @@ module Sisimai::Lhost
                   else
                     # Get error message continued from the previous line
                     next unless anotherset['diagnosis']
-                    if e =~ /\A[ ]{4}(.+)\z/
+                    if e.start_with?('    ')
                       #    host mx.example.jp said:...
-                      anotherset['diagnosis'] << ' ' << e
+                      anotherset['diagnosis'] << ' ' << e[4, e.size]
                     end
                   end
                 end
@@ -281,7 +268,7 @@ module Sisimai::Lhost
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
           e['command']   = commandset.shift || Sisimai::SMTP::Command.find(e['diagnosis'])
           e['command'] ||= 'HELO' if e['diagnosis'].include?('refused to talk to me:')
-          e['spec']    ||= 'SMTP' if e['diagnosis'] =~ /host .+ said:/
+          e['spec']    ||= 'SMTP' if Sisimai::String.aligned(e['diagnosis'], ['host ', ' said:'])
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }

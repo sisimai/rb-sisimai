@@ -86,7 +86,7 @@ module Sisimai::Lhost
                 v['lhost'] = '' if v['lhost'].include?('@')
               end
 
-              next unless f == 1
+              next unless f
               permessage[fieldtable[o[0]]] = o[2]
             end
           else
