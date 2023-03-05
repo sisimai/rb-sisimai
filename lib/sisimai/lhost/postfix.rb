@@ -243,7 +243,7 @@ module Sisimai::Lhost
               if e['status'] == '' || e['status'].start_with?('4.0.0', '5.0.0')
                 # Check the value of D.S.N. in anotherset
                 as = Sisimai::SMTP::Status.find(anotherset['diagnosis'])
-                if as && as[-3, 3] != '0.0'
+                if as.size > 0 && as[-3, 3] != '0.0'
                   # The D.S.N. is neither an empty nor *.0.0
                   e['status'] = as
                 end
