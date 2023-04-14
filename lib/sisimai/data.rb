@@ -303,7 +303,7 @@ module Sisimai
           if r.empty?
             # Failed to detect a bounce reason by the value of "rhost"
             r = Sisimai::Rhost.get(o, o.destination) if Sisimai::Rhost.match(o.destination)
-            r = Sisimai::Reason.get(o) if r.empty?
+            r = Sisimai::Reason.get(o) if r.nil? || r.empty?
             r = 'undefined' if r.empty?
           end
           o.reason = r
