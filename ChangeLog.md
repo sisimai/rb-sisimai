@@ -3,13 +3,15 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.15p1
+v4.25.15p2
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
 - changes:
   - Fix `Sisimai::MIME.mimedecode()` method when the encoding name is lower case
     "b" (not "B") like `=?utf-8?b?...` #251 Thanks to @revsystem
+  - #253 Fix code in `Sisimai::Data.make()` method to handle `nil` returned from
+    `Sisimai::Rhost.get()` method. Thanks to @axfcampos
 
 v4.25.15
 --------------------------------------------------------------------------------
