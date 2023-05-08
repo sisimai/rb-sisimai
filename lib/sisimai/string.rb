@@ -63,7 +63,6 @@ module Sisimai
 
         align = -1
         right =  0
-
         argv2.each do |e|
           # Get the position of each element in the 1st argument using index()
           p = argv1.index(e, align + 1)
