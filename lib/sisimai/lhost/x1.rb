@@ -7,7 +7,7 @@ module Sisimai::Lhost
 
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['Received: from '].freeze
-      MarkingsOf = { message: %r/\AThe original message was received at (.+)\z/ }.freeze
+      MarkingsOf = { message: ['The original message was received at '] }.freeze
 
       # Parse bounce messages from Unknown MTA #1
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -31,7 +31,7 @@ module Sisimai::Lhost
           # line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
+            readcursor |= Indicators[:deliverystatus] if e.start_with?(MarkingsOf[:message][0])
             next
           end
           next if (readcursor & Indicators[:deliverystatus]) == 0
@@ -45,20 +45,22 @@ module Sisimai::Lhost
           # kijitora@example.co.jp [User unknown]
           v = dscontents[-1]
 
-          if cv = e.match(/\A([^ ]+?[@][^ ]+?)[ ]+\[(.+)\]\z/)
+          if Sisimai::String.aligned(e, ['@', ' [', ']'])
             # kijitora@example.co.jp [User unknown]
             if v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = cv[1]
-            v['diagnosis'] = cv[2]
+            p1 = e.index(' ')
+            p2 = e.index(']')
+            v['recipient'] = e[0, p1]
+            v['diagnosis'] = e[p1 + 2, p2 - p1 - 2]
             recipients += 1
 
-          elsif cv = e.match(MarkingsOf[:message])
+          elsif e.start_with?(MarkingsOf[:message][0])
             # The original message was received at Thu, 29 Apr 2010 23:34:45 +0900 (JST)
-            datestring = cv[1]
+            datestring = e[MarkingsOf[:message][0].size, e.size]
           end
         end
         return nil unless recipients > 0

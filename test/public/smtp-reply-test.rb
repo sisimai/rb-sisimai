@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'sisimai/smtp/reply'
 
 class SMTPReply< Minitest::Test
-  Methods = { class: %w[find] }
+  Methods = { class: %w[test find] }
   Message = [
     'smtp; 250 2.1.5 Ok',
     'smtp; 550 5.1.1 <kijitora@example.co.jp>... User Unknown',
@@ -30,7 +30,7 @@ class SMTPReply< Minitest::Test
     'SMTP; 550 5.1.1 <userunknown@bouncehammer.jp>... User Unknown',
     "smtp;  550 'arathib@vnet.IBM.COM' is not a",
     'smtp; 550 user unknown',
-    'smtp; 426 connection timed out',
+    'smtp; 421 connection timed out',
     'smtp;550 5.2.1 <kijitora@example.jp>... User Unknown',
     'smtp; 550 5.7.1 Message content rejected, UBE, id=00000-00-000',
     '550 5.1.1 sid=i01K1n00l0kn1Em01 Address rejected foobar@foobar.com. [code=28] ',
@@ -86,16 +86,28 @@ class SMTPReply< Minitest::Test
     Methods[:class].each { |e| assert_respond_to Sisimai::SMTP::Reply, e }
   end
 
+  def test_test
+    assert_nil Sisimai::SMTP::Reply.test()
+    %w[101 192 270 386 499 567 640 727].each do |e|
+      assert_equal false, Sisimai::SMTP::Reply.test(e)
+    end
+
+    ce = assert_raises ArgumentError do
+      Sisimai::SMTP::Reply.test(nil, nil, nil)
+    end
+  end
+
   def test_find
     Message.each do |e|
       cv = Sisimai::SMTP::Reply.find(e)
       assert_instance_of String, cv
       assert_match /\A[245][0-5][0-9]\z/, cv
+      assert_equal true, Sisimai::SMTP::Reply.test(cv)
     end
 
     ce = assert_raises ArgumentError do
       Sisimai::SMTP::Reply.find()
-      Sisimai::SMTP::Reply.find(nil, nil)
+      Sisimai::SMTP::Reply.find(nil, nil, nil)
     end
     assert_nil Sisimai::SMTP::Reply.find('')
   end

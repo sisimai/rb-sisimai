@@ -8,40 +8,34 @@ module Sisimai::Lhost
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['Original mail as follows:'].freeze
       ErrorTitle = {
-        'rejected' => %r{(?>
-           (?:Ignored[ ])*NOT[ ]MEMBER[ ]article[ ]from[ ]
-          |reject[ ]mail[ ](?:.+:|from)[ ],
-          |Spam[ ]mail[ ]from[ ]a[ ]spammer[ ]is[ ]rejected
-          |You[ ].+[ ]are[ ]not[ ]member
-          )
-        }x,
-        'systemerror' => %r{(?:
-           fml[ ]system[ ]error[ ]message
-          |Loop[ ]Alert:[ ]
-          |Loop[ ]Back[ ]Warning:[ ]
-          |WARNING:[ ]UNIX[ ]FROM[ ]Loop
-          )
-        }x,
-        'securityerror' => %r/Security Alert/,
+        'rejected' => [
+          ' are not member',
+          'NOT MEMBER article from ',
+          'reject mail ',
+          'Spam mail from a spammer is rejected',
+        ],
+        'systemerror' => [
+          'fml system error message',
+          'Loop Alert: ',
+          'Loop Back Warning: ',
+          'WARNING: UNIX FROM Loop',
+        ],
+        'securityerror' => ['Security Alert'],
       }.freeze
       ErrorTable = {
-        'rejected' => %r{(?>
-          (?:Ignored[ ])*NOT[ ]MEMBER[ ]article[ ]from[ ]
-          |reject[ ](?:
-             mail[ ]from[ ].+[@].+
-            |since[ ].+[ ]header[ ]may[ ]cause[ ]mail[ ]loop
-            |spammers:
-            )
-          |You[ ]are[ ]not[ ]a[ ]member[ ]of[ ]this[ ]mailing[ ]list
-          )
-        }x,
-        'systemerror' => %r{(?:
-           Duplicated[ ]Message-ID
-          |fml[ ].+[ ]has[ ]detected[ ]a[ ]loop[ ]condition[ ]so[ ]that
-          |Loop[ ]Back[ ]Warning:
-          )
-        }x,
-        'securityerror' => %r/Security alert:/,
+        'rejected' => [
+          ' header may cause mail loop',
+          'NOT MEMBER article from ',
+          'reject mail from ',
+          'reject spammers:',
+          'You are not a member of this mailing list',
+        ],
+        'systemerror' => [
+          ' has detected a loop condition so that',
+          'Duplicated Message-ID',
+          'Loop Back Warning:',
+        ],
+        'securityerror' => ['Security alert:'],
       }.freeze
 
       # Parse bounce messages from fml mailling list server/manager
@@ -53,7 +47,7 @@ module Sisimai::Lhost
       def inquire(mhead, mbody)
         return nil unless mhead['x-mlserver']
         return nil unless mhead['from'].include?('-admin@')
-        return nil unless mhead['message-id'] =~ /\A[<]\d+[.]FML.+[@].+[>]\z/
+        return nil unless mhead['message-id'].index('.FML') > 1
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -70,14 +64,16 @@ module Sisimai::Lhost
           # Original mail as follows:
           v = dscontents[-1]
 
-          if cv = e.match(/[<]([^ ]+?[@][^ ]+?)[>][.]\z/)
-            # Duplicated Message-ID in <2ndml@example.com>.
+          p1 = e.index('<')  || -1
+          p2 = e.rindex('>') || -1
+          if p1 > 0 && p2 > 0
+            # You are not a member of this mailing list <neko-nyaan@example.org>.
             if v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = cv[1]
+            v['recipient'] = e[p1 + 1, p2 - p1 - 1]
             v['diagnosis'] = e
             recipients += 1
           else
@@ -93,7 +89,7 @@ module Sisimai::Lhost
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           ErrorTable.each_key do |f|
             # Try to match with error messages defined in ErrorTable
-            next unless e['diagnosis'] =~ ErrorTable[f]
+            next unless ErrorTable[f].any? { |a| e['diagnosis'].include?(a) }
             e['reason'] = f
             break
           end

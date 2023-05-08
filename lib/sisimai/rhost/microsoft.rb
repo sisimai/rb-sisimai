@@ -7,7 +7,7 @@ module Sisimai
     # https://technet.microsoft.com/en-us/library/bb232118
     # https://learn.microsoft.com/en-us/Exchange/mail-flow-best-practices/non-delivery-reports-in-exchange-online/non-delivery-reports-in-exchange-online
     # https://learn.microsoft.com/en-us/Exchange/mail-flow/non-delivery-reports-and-bounce-messages/non-delivery-reports-and-bounce-messages
-    module ExchangeOnline
+    module Microsoft
       class << self
         MessagesOf = {
           'authfailure' => [
@@ -709,7 +709,7 @@ module Sisimai
           return argvs['reason'] unless argvs['reason'].empty?
           return '' if argvs['diagnosticcode'].empty?
           return '' if argvs['deliverystatus'].empty?
-          return '' unless argvs['deliverystatus'] =~ /\A[245][.]\d[.]\d+\z/
+          return '' unless Sisimai::SMTP::Status.test(argvs['deliverystatus'])
 
           statuscode = argvs['deliverystatus']
           esmtperror = argvs['diagnosticcode'].downcase

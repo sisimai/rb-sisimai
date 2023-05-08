@@ -34,10 +34,9 @@ module Sisimai::Lhost
         encodedmsg = ''
         v = nil
 
-        if cv = mhead['content-type'].match(/\A.+;[ ]*charset=(.+)\z/)
-          # Get character set name
-          # Content-Type: text/plain; charset=ISO-2022-JP
-          characters = cv[1].downcase
+        if mhead['content-type'].include?('charset=')
+          # Get character set name, Content-Type: text/plain; charset=ISO-2022-JP
+          characters = mhead['content-type'][mhead['content-type'].index('charset=') + 8, mhead['content-type'].size].downcase
         end
 
         while e = bodyslices.shift do
@@ -57,7 +56,7 @@ module Sisimai::Lhost
           #
           # ------- Returned Message --------
           v = dscontents[-1]
-          if e =~ /\A[^ ]+[@][^ ]+/
+          if e.include?('@') && e.index(' ').nil?
             # kijitora@notes.example.jp
             if v['recipient']
               # There are multiple recipient addresses in the message body.
@@ -96,8 +95,10 @@ module Sisimai::Lhost
 
         unless recipients > 0
           # Fallback: Get the recpient address from RFC822 part
-          if cv = emailparts[1].match(/^To:[ ]*(.+)$/)
-            v['recipient'] = Sisimai::Address.s3s4(cv[1])
+          p1 = emailparts[1].index("\nTo: ")     || -1
+          p2 = emailparts[1].index("\n", p1 + 6) || -1
+          if p1 > 0
+            v['recipient'] = Sisimai::Address.s3s4(emailparts[1][p1 + 5, p2 - p1 - 5]) || ''
             recipients += 1 unless v['recipient'].empty?
           end
         end

@@ -15,44 +15,33 @@ module Sisimai::Lhost
         #
         # Characters: K,Z,D in qmail-qmqpc.c, qmail-send.c, qmail-rspawn.c
         #  K = success, Z = temporary error, D = permanent error
-        message: ['Hi. This is the qmail'],
         error:   ['Remote host said:'],
+        message: ['Hi. This is the qmail'],
+        rhost:   ['Giving up on ', 'Connected to ', 'remote host '],
       }.freeze
-
-      ReSMTP = {
+      CommandSet = {
         # Error text regular expressions which defined in qmail-remote.c
         # qmail-remote.c:225|  if (smtpcode() != 220) quit("ZConnected to "," but greeting failed");
-        'conn' => %r/(?:Error:)?Connected to [^ ]+ but greeting failed[.]/,
+        'conn' => [' but greeting failed.'],
         # qmail-remote.c:231|  if (smtpcode() != 250) quit("ZConnected to "," but my name was rejected");
-        'ehlo' => %r/(?:Error:)?Connected to [^ ]+ but my name was rejected[.]/,
+        'ehlo' => [' but my name was rejected.'],
         # qmail-remote.c:238|  if (code >= 500) quit("DConnected to "," but sender was rejected");
         # reason = rejected
-        'mail' => %r/(?:Error:)?Connected to [^ ]+ but sender was rejected[.]/,
+        'mail' => [' but sender was rejected.'],
         # qmail-remote.c:249|  out("h"); outhost(); out(" does not like recipient.\n");
         # qmail-remote.c:253|  out("s"); outhost(); out(" does not like recipient.\n");
         # reason = userunknown
-        'rcpt' => %r/(?:Error:)?[^ ]+ does not like recipient[.]/,
+        'rcpt' => [' does not like recipient.'],
         # qmail-remote.c:265|  if (code >= 500) quit("D"," failed on DATA command");
         # qmail-remote.c:266|  if (code >= 400) quit("Z"," failed on DATA command");
         # qmail-remote.c:271|  if (code >= 500) quit("D"," failed after I sent the message");
         # qmail-remote.c:272|  if (code >= 400) quit("Z"," failed after I sent the message");
-        'data' => %r{(?:
-           (?:Error:)?[^ ]+[ ]failed[ ]on[ ]DATA[ ]command[.]
-          |(?:Error:)?[^ ]+[ ]failed[ ]after[ ]I[ ]sent[ ]the[ ]message[.]
-          )
-        }x,
+        'data' => [' failed on DATA command', ' failed after I sent the message'],
       }.freeze
-      # qmail-remote.c:261|  if (!flagbother) quit("DGiving up on ","");
-      ReHost = %r{(?:
-         Giving[ ]up[ ]on[ ]([^ ]+[0-9a-zA-Z])[.]?\z
-        |Connected[ ]to[ ]([-0-9a-zA-Z.]+[0-9a-zA-Z])[ ]
-        |remote[ ]host[ ]([-0-9a-zA-Z.]+[0-9a-zA-Z])[ ]said:
-        )
-      }x
 
       # qmail-send.c:922| ... (&dline[c],"I'm not going to try again; this message has been in the queue too long.\n")) nomem();
       HasExpired = 'this message has been in the queue too long.'
-      ReIsOnHold = %r/\A[^ ]+ does not like recipient[.][ ]+.+this message has been in the queue too long[.]\z/
+      OnHoldPair = [' does not like recipient.', 'this message has been in the queue too long.'].freeze
       FailOnLDAP = {
         # qmail-ldap-1.03-20040101.patch:19817 - 19866
         'suspend'     => ['Mailaddress is administrative?le?y disabled'],   # 5.2.1
@@ -107,10 +96,14 @@ module Sisimai::Lhost
         # by qmail, see https://cr.yp.to/qmail.html
         #   e.g.) Received: (qmail 12345 invoked for bounce); 29 Apr 2009 12:34:56 -0000
         #         Subject: failure notice
-        tryto  = /\A[(]qmail[ ]+\d+[ ]+invoked[ ]+(?:for[ ]+bounce|from[ ]+network)[)]/
+        tryto  = [['(qmail ', 'invoked for bounce)'], ['(qmail ', 'invoked from ', 'network)']]
         match  = 0
         match += 1 if mhead['subject'] == 'failure notice'
-        match += 1 if mhead['received'].any? { |a| a =~ tryto }
+        mhead['received'].each do |e|
+          # Received: (qmail 2222 invoked for bounce);29 Apr 2017 23:34:45 +0900
+          # Received: (qmail 2202 invoked from network); 29 Apr 2018 00:00:00 +0900
+          match += 1 if tryto.any? { |a| Sisimai::String.aligned(e, a) }
+        end
         return nil unless match > 0
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
@@ -137,14 +130,14 @@ module Sisimai::Lhost
           # Giving up on 192.0.2.153.
           v = dscontents[-1]
 
-          if cv = e.match(/\A(?:To[ ]*:)?[<](.+[@].+)[>]:[ ]*\z/)
+          if e.start_with?('<') && Sisimai::String.aligned(e, ['<', '@', '>', ':'])
             # <kijitora@example.jp>:
             if v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = cv[1]
+            v['recipient'] = Sisimai::Address.s3s4(e[e.index('<'), e.size])
             recipients += 1
 
           elsif dscontents.size == recipients
@@ -155,22 +148,28 @@ module Sisimai::Lhost
             v['alterrors'] = e if e.start_with?(StartingOf[:error][0])
 
             next if v['rhost']
-            next unless cv = e.match(ReHost)
-            v['rhost'] = cv[1]
+            StartingOf[:rhost].each do |r|
+              # Find a remote host name
+              p1 = e.index(r); next unless p1
+              cm = r.size
+              p2 = e.index(' ', p1 + cm + 1) || p2 = e.rindex('.') 
+
+              v['rhost'] = e[p1 + cm, p2 - p1 - cm]
+              break
+            end
           end
         end
         return nil unless recipients > 0
 
-        require 'sisimai/smtp/command'
         dscontents.each do |e|
           e['agent']     = 'qmail'
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
 
           unless e['command']
             # Get the SMTP command name for the session
-            ReSMTP.each_key do |r|
+            CommandSet.each_key do |r|
               # Verify each regular expression of SMTP commands
-              next unless e['diagnosis'] =~ ReSMTP[r]
+              next unless CommandSet[r].any? { |a| e['diagnosis'].include?(a) }
               e['command'] = r.upcase
               break
             end
@@ -191,7 +190,7 @@ module Sisimai::Lhost
             e['reason'] = 'blocked'
           else
             # Try to match with each error message in the table
-            if e['diagnosis'] =~ ReIsOnHold
+            if Sisimai::String.aligned(e['diagnosis'], OnHoldPair)
               # To decide the reason require pattern match with Sisimai::Reason::* modules
               e['reason'] = 'onhold'
             else

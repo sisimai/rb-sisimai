@@ -1,5 +1,5 @@
 module RhostEngineTest::Public
-  module ExchangeOnline
+  module Microsoft
     IsExpected = {
       # INDEX => [['D.S.N.', 'replycode', 'REASON', 'hardbounce'], [...]]
       '01' => [['5.7.606', '550', 'blocked',         false]],

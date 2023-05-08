@@ -4,30 +4,20 @@ module Sisimai::Lhost
   module Postfix
     class << self
       require 'sisimai/lhost'
+      require 'sisimai/smtp/command'
 
       # Postfix manual - bounce(5) - http://www.postfix.org/bounce.5.html
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['Content-Type: message/rfc822', 'Content-Type: text/rfc822-headers'].freeze
-      MarkingsOf = {
-        message: %r{\A(?>
-           [ ]+The[ ](?:
-             Postfix[ ](?:
-               program\z              # The Postfix program
-              |on[ ].+[ ]program\z    # The Postfix on <os name> program
-              )
-            |\w+[ ]Postfix[ ]program\z  # The <name> Postfix program
-            |mail[ ]system\z             # The mail system
-            |\w+[ ]program\z             # The <custmized-name> program
-            )
-          |This[ ]is[ ]the[ ](?:
-             Postfix[ ]program          # This is the Postfix program
-            |\w+[ ]Postfix[ ]program    # This is the <name> Postfix program
-            |\w+[ ]program              # This is the <customized-name> Postfix program
-            |mail[ ]system[ ]at[ ]host  # This is the mail system at host <hostname>.
-            )
-          )
-        }x,
-        # :from => %r/ [(]Mail Delivery System[)]\z/,
+      StartingOf = {
+        # Postfix manual - bounce(5) - http://www.postfix.org/bounce.5.html
+        message: [
+          ['The ', 'Postfix '],           # The Postfix program, The Postfix on <os> program
+          ['The ', 'mail system'],        # The mail system
+          ['The ', 'program'],            # The <name> pogram
+          ['This is the', 'Postfix'],     # This is the Postfix program
+          ['This is the', 'mail system'], # This is the mail system at host <hostname>
+        ],
       }.freeze
 
       # Parse bounce messages from Postfix
@@ -51,9 +41,6 @@ module Sisimai::Lhost
         return nil unless match
         return nil if mhead['x-aol-ip']
 
-        require 'sisimai/rfc1894'
-        require 'sisimai/address'
-        require 'sisimai/smtp/command'
         permessage = {}     # (Hash) Store values of each Per-Message field
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -78,7 +65,7 @@ module Sisimai::Lhost
             v ||= dscontents[-1]
             p   = e['response']
 
-            if e['command'] =~ /\A(?:HELO|EHLO)/
+            if e['command'] == 'HELO' || e['command'] == 'EHLO'
               # Use the argument of EHLO/HELO command as a value of "lhost"
               v['lhost'] = e['argument']
 
@@ -114,7 +101,7 @@ module Sisimai::Lhost
 
             if readcursor == 0
               # Beginning of the bounce message or message/delivery-status part
-              readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
+              readcursor |= Indicators[:deliverystatus] if StartingOf[:message].any? { |a| Sisimai::String.aligned(e, a) }
               next
             end
             next if (readcursor & Indicators[:deliverystatus]) == 0
@@ -151,7 +138,7 @@ module Sisimai::Lhost
                 next unless fieldtable[o[0]]
                 v[fieldtable[o[0]]] = o[2]
 
-                next unless f == 1
+                next unless f
                 permessage[fieldtable[o[0]]] = o[2]
               end
             else
@@ -162,52 +149,54 @@ module Sisimai::Lhost
               #
               # <userunknown@example.co.jp>: host mx.example.co.jp[192.0.2.153] said: 550
               # 5.1.1 <userunknown@example.co.jp>... User Unknown (in reply to RCPT TO command)
-              if readslices[-2].start_with?('Diagnostic-Code:') && cv = e.match(/\A[ ]+(.+)\z/)
+              if readslices[-2].start_with?('Diagnostic-Code:') && e.include?(' ')
                 # Continued line of the value of Diagnostic-Code header
-                v['diagnosis'] << ' ' << cv[1]
+                v['diagnosis'] << ' ' << Sisimai::String.sweep(e)
                 readslices[-1] = 'Diagnostic-Code: ' << e
 
-              elsif cv = e.match(/\A(X-Postfix-Sender):[ ]*rfc822;[ ]*(.+)\z/)
+              elsif Sisimai::String.aligned(e, ['X-Postfix-Sender:', 'rfc822;', '@'])
                 # X-Postfix-Sender: rfc822; shironeko@example.org
-                emailparts[1] << cv[1] << ': ' << cv[2] << "\n"
+                emailparts[1] << 'X-Postfix-Sender: ' << Sisimai::Address.s3s4(e[e.index(';') + 1, e.size]) << "\n"
 
               else
+                # Alternative error message and recipient
                 if e.include?(' (in reply to ') || e.include?('command)')
                   # 5.1.1 <userunknown@example.co.jp>... User Unknown (in reply to RCPT TO
                   q = Sisimai::SMTP::Command.find(e); commandset << q if q
                   anotherset['diagnosis'] ||= ''
                   anotherset['diagnosis'] << ' ' << e
+
+                elsif Sisimai::String.aligned(e, ['<', '@', '>', '(expanded from<', '):'])
+                  # <r@example.ne.jp> (expanded from <kijitora@example.org>): user ...
+                  p1 = e.index('> ')
+                  p2 = e.index('(expanded from ', p1)
+                  p3 = e.index('>): ', p2 + 14)
+                  anotherset['recipient'] = Sisimai::Address.s3s4(e[0, p1])
+                  anotherset['alias']     = Sisimai::Address.s3s4(e[p2 + 15, p3 - p2 - 15])
+                  anotherset['diagnosis'] = e[p3 + 3, e.size]
+
+                elsif e.start_with?('<') && Sisimai::String.aligned(e, ['<', '@', '>:'])
+                  # <kijitora@exmaple.jp>: ...
+                  anotherset['recipient'] = Sisimai::Address.s3s4(e[0, e.index('>')])
+                  anotherset['diagnosis'] = e[e.index('>:') + 2, e.size]
+
+                elsif e.include?('--- Delivery report unavailable ---')
+                  # postfix-3.1.4/src/bounce/bounce_notify_util.c
+                  # bounce_notify_util.c:602|if (bounce_info->log_handle == 0
+                  # bounce_notify_util.c:602||| bounce_log_rewind(bounce_info->log_handle)) {
+                  # bounce_notify_util.c:602|if (IS_FAILURE_TEMPLATE(bounce_info->template)) {
+                  # bounce_notify_util.c:602|    post_mail_fputs(bounce, "");
+                  # bounce_notify_util.c:602|    post_mail_fputs(bounce, "\t--- delivery report unavailable ---");
+                  # bounce_notify_util.c:602|    count = 1;              /* xxx don't abort */
+                  # bounce_notify_util.c:602|}
+                  # bounce_notify_util.c:602|} else {
+                  nomessages = true
                 else
-                  # Alternative error message and recipient
-                  if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>] [(]expanded from [<](.+)[>][)]:[ ]*(.+)\z/)
-                    # <r@example.ne.jp> (expanded from <kijitora@example.org>): user ...
-                    anotherset['recipient'] = cv[1]
-                    anotherset['alias']     = cv[2]
-                    anotherset['diagnosis'] = cv[3]
-
-                  elsif cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>]:(.*)\z/)
-                    # <kijitora@exmaple.jp>: ...
-                    anotherset['recipient'] = cv[1]
-                    anotherset['diagnosis'] = cv[2]
-
-                  elsif e.include?('--- Delivery report unavailable ---')
-                    # postfix-3.1.4/src/bounce/bounce_notify_util.c
-                    # bounce_notify_util.c:602|if (bounce_info->log_handle == 0
-                    # bounce_notify_util.c:602||| bounce_log_rewind(bounce_info->log_handle)) {
-                    # bounce_notify_util.c:602|if (IS_FAILURE_TEMPLATE(bounce_info->template)) {
-                    # bounce_notify_util.c:602|    post_mail_fputs(bounce, "");
-                    # bounce_notify_util.c:602|    post_mail_fputs(bounce, "\t--- delivery report unavailable ---");
-                    # bounce_notify_util.c:602|    count = 1;              /* xxx don't abort */
-                    # bounce_notify_util.c:602|}
-                    # bounce_notify_util.c:602|} else {
-                    nomessages = true
-                  else
-                    # Get error message continued from the previous line
-                    next unless anotherset['diagnosis']
-                    if e =~ /\A[ ]{4}(.+)\z/
-                      #    host mx.example.jp said:...
-                      anotherset['diagnosis'] << ' ' << e
-                    end
+                  # Get an error message continued from the previous line
+                  next unless anotherset['diagnosis']
+                  if e.start_with?('    ')
+                    #    host mx.example.jp said:...
+                    anotherset['diagnosis'] << ' ' << e[4, e.size]
                   end
                 end
               end
@@ -225,9 +214,11 @@ module Sisimai::Lhost
           else
             # Get a recipient address from message/rfc822 part if the delivery report was unavailable:
             # '--- Delivery report unavailable ---'
-            if nomessages && cv = emailparts[1].match(/^To:[ ](.+)$/)
+            p1 = emailparts[1].index("\nTo: ")     || -1
+            p2 = emailparts[1].index("\n", p1 + 6) || -1
+            if nomessages && p1 > 0
               # Try to get a recipient address from To: field in the original message at message/rfc822 part
-              dscontents[-1]['recipient'] = Sisimai::Address.s3s4(cv[1])
+              dscontents[-1]['recipient'] = Sisimai::Address.s3s4(emailparts[1][p1 + 5, p2 - p1 - 5])
               recipients += 1
             end
           end
@@ -241,39 +232,47 @@ module Sisimai::Lhost
 
           if anotherset['diagnosis']
             # Copy alternative error message
-            e['diagnosis'] = anotherset['diagnosis'] unless e['diagnosis']
+            anotherset['diagnosis'] = Sisimai::String.sweep(anotherset['diagnosis'])
+            e['diagnosis'] = anotherset['diagnosis'] if e['diagnosis'].nil? || e['diagnosis'].empty?
 
             if e['diagnosis'] =~ /\A\d+\z/
+              # Override the value of diagnostic code message
               e['diagnosis'] = anotherset['diagnosis']
             else
               # More detailed error message is in "anotherset"
-              as = nil  # status
-              ar = nil  # replycode
+              as = '' # status
+              ar = '' # replycode
 
               e['status']    ||= ''
               e['replycode'] ||= ''
 
-              if e['status'] == '' || e['status'].start_with?('4.0.0', '5.0.0')
+              if e['status'].empty? || e['status'].start_with?('4.0.0', '5.0.0')
                 # Check the value of D.S.N. in anotherset
-                as = Sisimai::SMTP::Status.find(anotherset['diagnosis'])
-                if as && as[-3, 3] != '0.0'
+                as = Sisimai::SMTP::Status.find(anotherset['diagnosis']) || ''
+                if as.size > 0 && as[-4, 4] != '.0.0'
                   # The D.S.N. is neither an empty nor *.0.0
                   e['status'] = as
                 end
               end
 
-              if e['replycode'] == '' || e['replycode'].start_with?('400', '500')
-                # Check the value of SMTP reply code in anotherset
-                ar = Sisimai::SMTP::Reply.find(anotherset['diagnosis'])
-                if ar && ar[-2, 2].to_i != 0
+              if e['replycode'].empty? || e['replycode'].end_with?('00')
+                # Check the value of SMTP reply code in $anotherset
+                ar = Sisimai::SMTP::Reply.find(anotherset['diagnosis']) || ''
+                if ar.size > 0 && ar.end_with?('00') == false
                   # The SMTP reply code is neither an empty nor *00
                   e['replycode'] = ar
                 end
               end
 
-              if (as || ar) && (anotherset['diagnosis'].size > e['diagnosis'].size)
-                # Update the error message in e['diagnosis']
+              while true
+                # Replace e['diagnosis'] with the value of anotherset['diagnosis'] when all the
+                # following conditions have not matched.
+                break if (as + ar).size == 0
+                break if anotherset['diagnosis'].size < e['diagnosis'].size
+                break if anotherset['diagnosis'].include?(e['diagnosis']) == false
+
                 e['diagnosis'] = anotherset['diagnosis']
+                break
               end
             end
           end
@@ -281,7 +280,7 @@ module Sisimai::Lhost
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
           e['command']   = commandset.shift || Sisimai::SMTP::Command.find(e['diagnosis'])
           e['command'] ||= 'HELO' if e['diagnosis'].include?('refused to talk to me:')
-          e['spec']    ||= 'SMTP' if e['diagnosis'] =~ /host .+ said:/
+          e['spec']    ||= 'SMTP' if Sisimai::String.aligned(e['diagnosis'], ['host ', ' said:'])
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }

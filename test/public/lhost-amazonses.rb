@@ -17,7 +17,7 @@ module LhostEngineTest::Public
       '14' => [['5.7.1',   '554', 'blocked',         false]],
       '15' => [['5.7.1',   '554', 'blocked',         false]],
       '16' => [['5.7.1',   '521', 'blocked',         false]],
-      '17' => [['4.4.7',   '',    'expired',         false]],
+      '17' => [['4.4.2',   '421', 'expired',         false]],
       '18' => [['5.4.4',   '550', 'hostunknown',     true]],
       '19' => [['5.7.1',   '550', 'suspend',         false]],
       '20' => [['5.2.1',   '550', 'suspend',         false]],

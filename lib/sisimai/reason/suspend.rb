@@ -47,6 +47,7 @@ module Sisimai
         def true(argvs)
           return nil  if argvs['deliverystatus'].empty?
           return true if argvs['reason'] == 'suspend'
+          return true if argvs['replycode'].to_i == 525
           return true if match(argvs['diagnosticcode'].downcase)
           return false
         end

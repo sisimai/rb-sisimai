@@ -11,7 +11,6 @@ module Sisimai::Lhost
         message: ['Delivery to the following recipient'],
         error:   ['The error that the other server returned was:'],
       }.freeze
-      MarkingsOf = { start: %r/Technical details of (?:permanent|temporary) failure:/ }.freeze
       MessagesOf = {
         'expired' => [
           'DNS Error: Could not contact DNS servers',
@@ -157,7 +156,6 @@ module Sisimai::Lhost
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        statecode0 = 0      # (Integer) The value of (state *) in the error message
         v = nil
 
         while e = bodyslices.shift do
@@ -187,7 +185,7 @@ module Sisimai::Lhost
           #
           v = dscontents[-1]
 
-          if cv = e.match(/\A[ ]+([^ ]+[@][^ ]+)\z/)
+          if e.start_with?(' ') && e.include?('@')
             # kijitora@example.jp: 550 5.2.2 <kijitora@example>... Mailbox Full
             if v['recipient']
               # There are multiple recipient addresses in the message body.
@@ -195,7 +193,7 @@ module Sisimai::Lhost
               v = dscontents[-1]
             end
 
-            r = Sisimai::Address.s3s4(cv[1])
+            r = Sisimai::Address.s3s4(e[e.rindex(' ') + 1, e.size])
             next unless Sisimai::Address.is_emailaddress(r)
             v['recipient'] = r
             recipients += 1
@@ -226,7 +224,10 @@ module Sisimai::Lhost
             end
           end
 
-          if cv = e['diagnosis'].match(/[(]state[ ](\d+)[)][.]/) then statecode0 = cv[1] end
+          p1 = e['diagnosis'].rindex(' ') || -1
+          p2 = e['diagnosis'].rindex(')') || -1
+          statecode0 = e['diagnosis'][p1 + 1, p2 - p1 - 1] || 0
+
           if StateTable[statecode0]
             # (state *)
             e['reason']  = StateTable[statecode0]['reason']
@@ -244,7 +245,8 @@ module Sisimai::Lhost
 
           # Set pseudo status code
           e['status'] = Sisimai::SMTP::Status.find(e['diagnosis']) || ''
-          e['reason'] = Sisimai::SMTP::Status.name(e['status']).to_s if e['status'] =~ /\A[45][.][1-7][.][1-9]\z/
+          next if e['status'].size == 0 || e['status'].include?('.0')
+          e['reason'] = Sisimai::SMTP::Status.name(e['status']).to_s || ''
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }

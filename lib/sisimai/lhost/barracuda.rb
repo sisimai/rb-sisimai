@@ -19,7 +19,6 @@ module Sisimai::Lhost
         # Subject: **Message you sent blocked by our bulk email filter**
         return nil unless mhead['subject'].to_s.end_with?('our bulk email filter**')
 
-        require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         permessage = {}     # (Hash) Store values of each Per-Message field
 
@@ -71,7 +70,7 @@ module Sisimai::Lhost
               next unless fieldtable[o[0]]
               v[fieldtable[o[0]]] = o[2]
 
-              next unless f == 1
+              next unless f
               permessage[fieldtable[o[0]]] = o[2]
             end
           end

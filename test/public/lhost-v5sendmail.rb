@@ -2,7 +2,7 @@ module LhostEngineTest::Public
   module V5sendmail
     IsExpected = {
       # INDEX => [['D.S.N.', 'replycode', 'REASON', 'hardbounce'], [...]]
-      '01' => [['5.0.947', '',    'expired',         false]],
+      '01' => [['4.0.947', '421', 'expired',         false]],
       '02' => [['5.0.912', '550', 'hostunknown',     true]],
       '03' => [['5.0.911', '550', 'userunknown',     true]],
       '04' => [['5.0.912', '550', 'hostunknown',     true],

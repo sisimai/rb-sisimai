@@ -21,7 +21,6 @@ module Sisimai::Lhost
         return nil unless mhead['return-path'] == '<apps@sendgrid.net>'
         return nil unless mhead['subject'] == 'Undelivered Mail Returned to Sender'
 
-        require 'sisimai/rfc1894'
         require 'sisimai/smtp/command'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         permessage = {}     # (Hash) Store values of each Per-Message field
@@ -57,8 +56,7 @@ module Sisimai::Lhost
               # Fallback code for empty value or invalid formatted value
               # - Status: (empty)
               # - Diagnostic-Code: 550 5.1.1 ... (No "diagnostic-type" sub field)
-              next unless cv = e.match(/\ADiagnostic-Code:[ ](.+)/)
-              v['diagnosis'] = cv[1]
+              v['diagnosis'] = e[e.index(':') + 2, e.size] if e.start_with?('Diagnostic-Code: ')
               next
             end
 
@@ -84,17 +82,21 @@ module Sisimai::Lhost
               v['diagnosis'] = o[2]
             elsif o[-1] == 'date'
               # Arrival-Date: 2012-12-31 23-59-59
-              next unless cv = e.match(/\AArrival-Date: (\d{4})[-](\d{2})[-](\d{2}) (\d{2})[-](\d{2})[-](\d{2})\z/)
-              o[1] << 'Thu, ' << cv[3] + ' '
-              o[1] << Sisimai::DateTime.monthname(false)[cv[2].to_i - 1]
-              o[1] << ' ' << cv[1] + ' ' << [cv[4], cv[5], cv[6]].join(':')
+              next unless e.start_with?('Arrival-Date: ')
+              cf = e[e.index(': ') + 2, e.size].split(' '); next unless cf.size == 2
+              cw = cf[0].split('-');                        next unless cw.size == 3
+              ce = cf[1].split('-');                        next unless ce.size == 3
+
+              o[1] << 'Thu, ' << cw[2] + ' '
+              o[1] << Sisimai::DateTime.monthname(false)[cw[1].to_i - 1]
+              o[1] << ' ' << cw[0] + ' ' << ce.join(':')
               o[1] << ' ' << Sisimai::DateTime.abbr2tz('CDT')
             else
               # Other DSN fields defined in RFC3464
               next unless fieldtable[o[0]]
               v[fieldtable[o[0]]] = o[2]
 
-              next unless f == 1
+              next unless f
               permessage[fieldtable[o[0]]] = o[2]
             end
           else
@@ -102,14 +104,15 @@ module Sisimai::Lhost
             if cv = Sisimai::SMTP::Command.find(e)
               # in RCPT TO, in MAIL FROM, end of DATA
               thecommand = cv
-            elsif cv = e.match(/\ADiagnostic-Code:[ ]*(.+)\z/)
+            elsif e.start_with?('Diagnostic-Code: ')
               # Diagnostic-Code: 550 5.1.1 <kijitora@example.jp>... User Unknown
-              v['diagnosis'] = e
+              v['diagnosis'] = e[e.index(':') + 2, e.size]
             else
               # Continued line of the value of Diagnostic-Code field
               next unless readslices[-2].start_with?('Diagnostic-Code:')
-              next unless cv = e.match(/\A[ ]+(.+)\z/)
-              v['diagnosis'] << ' ' << cv[1]
+              next unless e.start_with?(' ')
+              v['diagnosis'] ||= ''
+              v['diagnosis'] << ' ' << Sisimai::String.sweep(e)
               readslices[-1] = 'Diagnostic-Code: ' << e
             end
           end
@@ -119,10 +122,8 @@ module Sisimai::Lhost
         dscontents.each do |e|
           # Get the value of SMTP status code as a pseudo D.S.N.
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-          if cv = e['diagnosis'].match(/\b([45])\d\d[ \t]*/)
-            # 4xx or 5xx
-            e['status'] = cv[1] + '.0.0'
-          end
+          e['replycode'] = Sisimai::SMTP::Reply.find(e['diagnosis']) || ''
+          e['status']    = e['replycode'][0, 1] + '.0.0' if e['replycode'].size == 3
 
           if e['status'] == '5.0.0' || e['status'] == '4.0.0'
             # Get the value of D.S.N. from the error message or the value of Diagnostic-Code header.

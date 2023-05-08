@@ -224,7 +224,7 @@ class AddressTest < Minitest::Test
 
     ce = assert_raises ArgumentError do
       Sisimai::Address.is_mailerdaemon()
-      Sisimai::Address.is_mailerdaemon(nil)
+      Sisimai::Address.is_mailerdaemon(nil, nil)
     end
     assert_match /wrong number of arguments/, ce.to_s
   end
@@ -242,13 +242,13 @@ class AddressTest < Minitest::Test
       'undisclosed-sender-in-headers@libsisimai.org.invalid',
       'undisclosed-recipient-in-headers@libsisimai.org.invalid',
     ]
-    assert_equal ct[0], Sisimai::Address.undisclosed('s')
-    assert_equal ct[1], Sisimai::Address.undisclosed('r')
-    assert_nil          Sisimai::Address.undisclosed('')
+    assert_equal ct[1], Sisimai::Address.undisclosed(1)
+    assert_equal ct[0], Sisimai::Address.undisclosed(nil)
+    assert_equal ct[1], Sisimai::Address.undisclosed("r")
 
     ce = assert_raises ArgumentError do
-      Sisimai::Address.undisclosed()
-      Sisimai::Address.undisclosed(nil)
+      Sisimai::Address.undisclosed(nil, nil)
+      Sisimai::Address.undisclosed(nil, nil, nil)
     end
     assert_match /wrong number of arguments/, ce.to_s
   end

@@ -45,12 +45,12 @@ module Sisimai
           return argvs['reason'] unless argvs['reason'].empty?
 
           statusmesg = argvs['diagnosticcode']
+          positionib = statusmesg.index(' IB') || -1
           reasontext = ''
 
-          if cv = statusmesg.match(/\s(IB\d{3})\b/)
-            # 192.0.2.22 has sent to too many recipients this hour. IB607 ...
-            reasontext = ErrorCodes[cv[1]]
-          else
+          # 192.0.2.22 has sent to too many recipients this hour. IB607 ...
+          reasontext = ErrorCodes[statusmesg[positionib + 1, 5]] || '' if positionib > 1
+          if reasontext.empty?
             # 553 http://www.spamhaus.org/query/bl?ip=192.0.0.222
             MessagesOf.each_key do |e|
               MessagesOf[e].each do |f|
@@ -61,6 +61,7 @@ module Sisimai
               break unless reasontext.empty?
             end
           end
+
           return reasontext
         end
 

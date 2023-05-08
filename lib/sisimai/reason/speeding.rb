@@ -6,6 +6,7 @@ module Sisimai
     module Speeding
       class << self
         Index = [
+          'mail sent from your IP address has been temporarily rate limited',
           'please try again slower',
           'receiving mail at a rate that prevents additional messages from being delivered',
         ].freeze

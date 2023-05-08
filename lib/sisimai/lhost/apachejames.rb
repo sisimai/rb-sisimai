@@ -32,7 +32,7 @@ module Sisimai::Lhost
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        diagnostic = ''     # (String) Alternative diagnostic message
+        issuedcode = ''     # (String) Alternative diagnostic message
         subjecttxt = nil    # (String) Alternative Subject text
         gotmessage = nil    # (Boolean) Flag for error message
         v = nil
@@ -60,23 +60,23 @@ module Sisimai::Lhost
           #   Number of lines: 64
           v = dscontents[-1]
 
-          if cv = e.match(/\A[ ][ ]RCPT[ ]TO:[ ]([^ ]+[@][^ ]+)\z/)
+          if e.start_with?('  RCPT TO: ')
             #   RCPT TO: kijitora@example.org
             if v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = cv[1]
+            v['recipient'] = e[12, e.size]
             recipients += 1
 
-          elsif cv = e.match(/\A[ ][ ]Sent[ ]date:[ ](.+)\z/)
+          elsif e.start_with?('  Sent date: ')
             #   Sent date: Thu Apr 29 01:20:50 JST 2015
-            v['date'] = cv[1]
+            v['date'] = e[13, e.size]
 
-          elsif cv = e.match(/\A[ ][ ]Subject:[ ](.+)\z/)
+          elsif e.start_with?('  Subject: ')
             #   Subject: Nyaaan
-            subjecttxt = cv[1]
+            subjecttxt = e[11, e.size]
           else
             next if gotmessage
             if v['diagnosis']
@@ -106,9 +106,9 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         # Set the value of subjecttxt as a Subject if there is no original message in the bounce mail.
-        emailparts[1] << ('Subject: ' << subjecttxt << "\n") unless emailparts[1] =~ /^Subject: /
+        emailparts[1] << ('Subject: ' << subjecttxt << "\n") unless emailparts[1].index("\nSubject:")
 
-        dscontents.each { |e| e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'] || diagnostic) }
+        dscontents.each { |e| e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'] || issuedcode) }
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Java Apache Mail Enterprise Server'; end

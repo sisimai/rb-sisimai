@@ -29,7 +29,6 @@ module Sisimai::Lhost
       def inquire(mhead, mbody)
         return nil unless mhead['subject'].to_s.start_with?('Delivery report')
 
-        require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         permessage = {}     # (Hash) Store values of each Per-Message field
 
@@ -81,7 +80,7 @@ module Sisimai::Lhost
               next unless fieldtable[o[0]]
               v[fieldtable[o[0]]] = o[2]
 
-              next unless f == 1
+              next unless f
               permessage[fieldtable[o[0]]] = o[2]
             end
           else
@@ -95,9 +94,9 @@ module Sisimai::Lhost
             #
             #  <kijitora@example.jp>  delivery failed; will not continue trying
             #
-            if cv = e.match(/\AX-PowerMTA-BounceCategory:[ ]*(.+)\z/)
+            if e.start_with?('X-PowerMTA-BounceCategory: ')
               # X-PowerMTA-BounceCategory: bad-mailbox
-              v['category'] = cv[1]
+              v['category'] = e[e.index(':') + 2, e.size]
             end
           end
         end

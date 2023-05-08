@@ -25,8 +25,6 @@ module Sisimai::Lhost
         return nil unless mhead['x-yandex-uniq']
         return nil unless mhead['from'] == 'mailer-daemon@yandex.ru'
 
-        require 'sisimai/rfc1894'
-        require 'sisimai/smtp/command'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         permessage = {}     # (Hash) Store values of each Per-Message field
 
@@ -82,23 +80,21 @@ module Sisimai::Lhost
               next unless fieldtable[o[0]]
               v[fieldtable[o[0]]] = o[2]
 
-              next unless f == 1
+              next unless f
               permessage[fieldtable[o[0]]] = o[2]
             end
           else
             # The line does not begin with a DSN field defined in RFC3464
             if e.include?(' (in reply to ') || e.include?('command)')
               # 5.1.1 <userunknown@example.co.jp>... User Unknown (in reply to RCPT TO
-              cv = Sisimai::SMTP::Command.find(e); commandset << cv if cv
+              cv = Sisimai::SMTP::Command.find(e)
+              commandset << cv if cv
 
-            elsif cv = e.match(/([A-Z]{4})[ ]*.*command[)]\z/)
-              # to MAIL command)
-              commandset << cv[1]
             else
               # Continued line of the value of Diagnostic-Code field
               next unless readslices[-2].start_with?('Diagnostic-Code:')
-              next unless cv = e.match(/\A[ ]+(.+)\z/)
-              v['diagnosis'] << ' ' << cv[1]
+              next unless e.start_with?(' ')
+              v['diagnosis'] << ' ' << Sisimai::String.sweep(e)
               readslices[-1] = 'Diagnostic-Code: ' << e
             end
           end

@@ -1,5 +1,5 @@
 module RhostEngineTest::Public
-  module GoogleApps
+  module Google
     IsExpected = {
       # INDEX => [['D.S.N.', 'replycode', 'REASON', 'hardbounce'], [...]]
       '01' => [['5.2.1',   '550', 'suspend',         false]],

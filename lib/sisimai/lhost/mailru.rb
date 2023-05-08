@@ -50,17 +50,19 @@ module Sisimai::Lhost
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to parse or the arguments are missing
       def inquire(mhead, mbody)
-        return nil unless mhead['from'] =~ /[<]?mailer-daemon[@].*mail[.]ru[>]?/i
-        return nil unless mhead['message-id'].end_with?('.mail.ru>', 'smailru.net>')
-        return nil unless mhead['subject'] =~ %r{(?:
-           Mail[ ]delivery[ ]failed(:[ ]returning[ ]message[ ]to[ ]sender)?
-          |Warning:[ ]message[ ].+[ ]delayed[ ]+
-          |Delivery[ ]Status[ ]Notification
-          |Mail[ ]failure
-          |Message[ ]frozen
-          |error[(]s[)][ ]in[ ]forwarding[ ]or[ ]filtering
-          )
-        }x
+        mfrom  = mhead['from'].downcase
+        msgid  = mhead['message-id'] ? mhead['message-id'].downcase : ''
+        match  = 0
+        match += 1 if mfrom.include?('mailer-daemon@') && mfrom.include?('mail.ru')
+        match += 1 if msgid.end_with?('.mail.ru>', 'smailru.net>')
+        match += 1 if [
+          'Delivery Status Notification',
+          'Mail delivery failed',
+          'Mail failure',
+          'Message frozen',
+          'Warning: message ',
+          'error(s) in forwarding or filtering'].any? { |a| mhead['subject'].include?(a) }
+        return nil unless match > 2
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -101,14 +103,14 @@ module Sisimai::Lhost
           #    host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
           v = dscontents[-1]
 
-          if cv = e.match(/\A[ ]+([^ ]+[@][^ ]+[.][a-zA-Z]+)\z/)
+          if e.start_with?('  ') && e.include?('    ') == false && e.index('@') > 1
             #   kijitora@example.jp
             if v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = cv[1]
+            v['recipient'] = e[2, e.size]
             recipients += 1
 
           elsif dscontents.size == recipients

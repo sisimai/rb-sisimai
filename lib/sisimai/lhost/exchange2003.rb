@@ -135,10 +135,10 @@ module Sisimai::Lhost
               v['msexch'] = false
               recipients += 1
 
-            elsif cv = e.match(/\A[ ]+(MSEXCH:.+)\z/)
+            elsif e.start_with?(' ') && e.include?('MSEXCH:')
               #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
               v['diagnosis'] ||= ''
-              v['diagnosis'] << cv[1]
+              v['diagnosis'] << e[e.index('MSEXCH:'), e.size]
             else
               next if v['msexch']
               if v['diagnosis'].to_s.start_with?('MSEXCH:')
@@ -159,24 +159,23 @@ module Sisimai::Lhost
             #  Subject: ...
             #  Sent:    Thu, 29 Apr 2010 18:14:35 +0000
             #
-            if cv = e.match(/\A[ ]+To:[ ]+(.+)\z/)
+            if e.start_with?('  To: ') || e.start_with?('      To: ')
               #  To:      shironeko@example.jp
               next unless connheader['to'].empty?
-              connheader['to'] = cv[1]
+              connheader['to'] = e[e.rindex(' ') + 1, e.size]
               connvalues += 1
 
-            elsif cv = e.match(/\A[ ]+Subject:[ ]+(.+)\z/)
+            elsif e.start_with?('      Subject: ') || e.start_with?('  Subject: ')
               #  Subject: ...
               next unless connheader['subject'].empty?
-              connheader['subject'] = cv[1]
+              connheader['subject'] = e[e.rindex(' ') + 1, e.size]
               connvalues += 1
 
-            elsif cv = e.match(%r|\A[ ]+Sent:[ ]+([A-Z][a-z]{2},.+[-+]\d{4})\z|) ||
-                       e.match(%r|\A[ ]+Sent:[ ]+(\d+[/]\d+[/]\d+[ ]+\d+:\d+:\d+[ ].+)|)
+            elsif e.start_with?('  Sent: ') || e.start_with?('      Sent: ')
               #  Sent:    Thu, 29 Apr 2010 18:14:35 +0000
               #  Sent:    4/29/99 9:19:59 AM
               next unless connheader['date'].empty?
-              connheader['date'] = cv[1]
+              connheader['date'] = e[e.index(':') + 2, e.size]
               connvalues += 1
             end
           end
@@ -185,10 +184,13 @@ module Sisimai::Lhost
 
         dscontents.each do |e|
           e.delete('msexch')
-          if cv = e['diagnosis'].match(/\AMSEXCH:.+[ ]*[(]([0-9A-F]{8})[)][ ]*(.*)\z/)
+          e['diagnosis'] ||= ''
+          if e['diagnosis'].start_with?('MSEXCH:')
             #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
-            capturedcode = cv[1]
-            errormessage = cv[2]
+            p1 = e['diagnosis'].index('(') || -1
+            p2 = e['diagnosis'].index(')') || -1
+            capturedcode = e['diagnosis'][p1 + 1, 8]
+            errormessage = e['diagnosis'][p2 + 1, e['diagnosis'].size]
 
             ErrorCodes.each_key do |r|
               # Find captured code from the error code table

@@ -3,7 +3,7 @@ module Sisimai
     # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Fact object as an argument
     # of get() method when the value of "rhost" of the object is "mx*.qq.com". This class is called
     # only Sisimai::Fact class.
-    module TencentQQ
+    module Tencent
       class << self
         MessagesOf = {
           # https://service.mail.qq.com/cgi-bin/help?id=20022

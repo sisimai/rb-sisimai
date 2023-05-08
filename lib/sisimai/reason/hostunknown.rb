@@ -6,6 +6,8 @@ module Sisimai
     # Status: field in a bounce mail is "5.1.2".
     module HostUnknown
       class << self
+        require 'sisimai/string'
+
         Index = [
           'domain does not exist',
           'domain is not reachable',
@@ -36,11 +38,7 @@ module Sisimai
         def match(argv1)
           return nil unless argv1
           return true if Index.any? { |a| argv1.include?(a) }
-          return true if Pairs.any? { |a| 
-            p = (argv1.index(a[0], 0) || -1) + 1
-            q = (argv1.index(a[1], p) || -1) + 1
-            p * q > 0
-          }
+          return true if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
           return false
         end
 
@@ -52,17 +50,17 @@ module Sisimai
         def true(argvs)
           return true if argvs['reason'] == 'hostunknown'
 
-          diagnostic = argvs['diagnosticcode'].downcase || ''
+          issuedcode = argvs['diagnosticcode'].downcase || ''
           statuscode = argvs['deliverystatus'] || ''
 
           if Sisimai::SMTP::Status.name(statuscode).to_s == 'hostunknown'
             # Status: 5.1.2
             # Diagnostic-Code: SMTP; 550 Host unknown
             require 'sisimai/reason/networkerror'
-            return true unless Sisimai::Reason::NetworkError.match(diagnostic)
+            return true unless Sisimai::Reason::NetworkError.match(issuedcode)
           else
             # Check the value of Diagnosic-Code: header with patterns
-            return true if match(diagnostic)
+            return true if match(issuedcode)
           end
 
           return false

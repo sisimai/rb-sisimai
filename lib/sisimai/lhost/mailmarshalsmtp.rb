@@ -52,7 +52,7 @@ module Sisimai::Lhost
           #    dummyuser@blabla.xxxxxxxxxxxx.com
           v = dscontents[-1]
 
-          if cv = e.match(/\A[ ]{4}([^ ]+[@][^ ]+)\z/)
+          if e.start_with?('    ') && e.index('@') > 1
             # The following recipients were affected:
             #    dummyuser@blabla.xxxxxxxxxxxx.com
             if v['recipient']
@@ -60,7 +60,7 @@ module Sisimai::Lhost
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = cv[1]
+            v['recipient'] = e[4, e.size]
             recipients += 1
           else
             # Get error message lines
@@ -84,23 +84,29 @@ module Sisimai::Lhost
               # Reporting-MTA:      <relay.xxxxxxxxxxxx.com>
               # MessageName:        <B549996730000.000000000001.0003.mml>
               # Last-Attempt-Date:  <16:21:07 seg, 22 Dezembro 2014>
-              if cv = e.match(/\AOriginal Sender:[ ]+[<](.+)[>]\z/)
+              p1 = e.index('<')
+              p2 = e.index('>')
+              if e.start_with?('Original Sender: ')
                 # Original Sender:    <originalsender@example.com>
                 # Use this line instead of "From" header of the original message.
-                emailparts[1] << ('From: ' << cv[1] << "\n")
+                emailparts[1] << ('From: ' << e[p1 + 1, p2 - p1 - 1] << "\n")
 
-              elsif cv = e.match(/\ASender-MTA:[ ]+[<](.+)[>]\z/)
+              elsif e.start_with?('Sender-MTA: ')
                 # Sender-MTA:         <10.11.12.13>
-                v['lhost'] = cv[1]
+                v['lhost'] = e[p1 + 1, p2 - p1 - 1]
 
-              elsif cv = e.match(/\AReporting-MTA:[ ]+[<](.+)[>]\z/)
+              elsif e.start_with?('Reporting-MTA: ')
                 # Reporting-MTA:      <relay.xxxxxxxxxxxx.com>
-                v['rhost'] = cv[1]
+                v['rhost'] = e[p1 + 1, p2 - p1 - 1]
 
-              elsif cv = e.match(/\A\s+(From|Subject):\s*(.+)\z/)
+              elsif e.include?(' From:') || e.include?(' Subject:')
                 #    From:    originalsender@example.com
                 #    Subject: ...
-                emailparts[1] << sprintf("%s: %s\n", cv[1], cv[2])
+                p1 = e.index(' From:') || e.index(' Subject:')
+                p2 = e.index(':')
+                cf = e[p1 + 1, p2 - p1 - 1]
+                cv = Sisimai::String.sweep(e[p2 + 1, e.size])
+                emailparts[1] << sprintf("%s: %s\n", cf, cv)
               end
             end
           end

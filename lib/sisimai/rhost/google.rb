@@ -3,7 +3,7 @@ module Sisimai
     # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Fact object as an argument
     # of get() method when the value of "rhost" of the object is "aspmx.l.google.com". This class is
     # called only Sisimai::Fact class.
-    module GoogleApps
+    module Google
       class << self
         MessagesOf = {
           'authfailure' => [
@@ -233,10 +233,9 @@ module Sisimai
         # @see      https://support.google.com/a/answer/3726730?hl=en
         def get(argvs)
           return argvs['reason'] unless argvs['reason'].empty?
-          return '' if argvs['replycode'].empty?
           return '' if argvs['diagnosticcode'].empty?
-          return '' if argvs['deliverystatus'].empty?
-          return '' unless argvs['deliverystatus'] =~ /\A[245][.]\d[.]\d+\z/
+          return '' unless Sisimai::SMTP::Reply.test(argvs['replycode'])
+          return '' unless Sisimai::SMTP::Status.test(argvs['deliverystatus'])
 
           statuscode = argvs['deliverystatus'][2,6]
           esmtpreply = argvs['replycode'][1,2]

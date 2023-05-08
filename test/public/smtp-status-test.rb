@@ -2,13 +2,13 @@ require 'minitest/autorun'
 require 'sisimai/smtp/status'
 
 class SMTPStatusTest < Minitest::Test
-  Methods = { class: %w[code name find] }
-  Reasons = [
-    'blocked', 'contenterror', 'exceedlimit', 'expired', 'filtered', 'hasmoved', 'hostunknown',
-    'mailboxfull', 'mailererror', 'mesgtoobig', 'networkerror', 'norelaying', 'notaccept',
-    'onhold', 'rejected', 'securityerror', 'spamdetected', 'suspend', 'systemerror', 'systemfull',
-    'toomanyconn', 'userunknown', 'syntaxerror',
-  ]
+  Methods = { class: %w[code name test find] }
+  Reasons = %w[
+      authfailure badreputation blocked contenterror exceedlimit expired filtered hasmoved
+      hostunknown mailboxfull mailererror mesgtoobig networkerror notaccept onhold rejected
+      norelaying spamdetected virusdetected policyviolation securityerror speeding suspend
+      systemerror systemfull toomanyconn userunknown syntaxerror
+    ]
   CodeSet = %w[
     2.1.5
     4.1.6 4.1.7 4.1.8 4.1.9 4.2.1 4.2.2 4.2.3 4.2.4 4.3.1 4.3.2 4.3.3 4.3.5
@@ -73,16 +73,44 @@ class SMTPStatusTest < Minitest::Test
     assert_nil Sisimai::SMTP::Status.name('')
   end
 
+  def test_test
+    assert_nil Sisimai::SMTP::Status.test('')
+    assert_equal false, Sisimai::SMTP::Status.test('3.14')
+
+    ce = assert_raises ArgumentError do
+      Sisimai::SMTP::Status.test()
+      Sisimai::SMTP::Status.test(nil, nil)
+    end
+  end
+
   def test_find
     Message.each do |e|
       cv = Sisimai::SMTP::Status.find(e)
       assert_instance_of String, cv
       assert_match /\A[245][.]\d+[.]\d\z/, cv
+      assert_equal true, Sisimai::SMTP::Status.test(cv)
     end
 
     ce = assert_raises ArgumentError do
       Sisimai::SMTP::Status.find()
-      Sisimai::SMTP::Status.find(nil, nil)
+      Sisimai::SMTP::Status.find(nil, nil, nil)
+    end
+    assert_nil Sisimai::SMTP::Status.find('')
+  end
+
+  def test_prefer
+    assert_nil Sisimai::SMTP::Status.prefer(nil)
+    assert_equal '5.2.2', Sisimai::SMTP::Status.prefer('5.2.2', '')
+    assert_equal '5.3.5', Sisimai::SMTP::Status.prefer('', '5.3.5')
+    assert_equal '5.1.1', Sisimai::SMTP::Status.prefer('5.0.0', '5.1.1')
+    assert_equal '5.2.1', Sisimai::SMTP::Status.prefer('5.2.0', '5.2.1')
+    assert_equal '4.2.2', Sisimai::SMTP::Status.prefer('4.4.7', '4.2.2')
+    assert_equal '5.7.8', Sisimai::SMTP::Status.prefer('5.7.8', '4.4.0', 550)
+    assert_equal '4.2.1', Sisimai::SMTP::Status.prefer('4.2.1', '5.7.0', 421)
+
+    ce = assert_raises ArgumentError do
+      Sisimai::SMTP::Status.prefer()
+      Sisimai::SMTP::Status.prefer(nil, nil, nil, nil)
     end
     assert_nil Sisimai::SMTP::Status.find('')
   end

@@ -45,7 +45,7 @@ class SMTPError < Minitest::Test
     Bounces[:hard].each do |e|
       assert_equal 'hard', Sisimai::SMTP::Error.soft_or_hard(e)
       assert_equal 'hard', Sisimai::SMTP::Error.soft_or_hard(e, '503 Not accept any email') if e == 'notaccept'
-      assert_equal 'soft', Sisimai::SMTP::Error.soft_or_hard(e, '409 Not accept any email') if e == 'notaccept'
+      assert_equal 'soft', Sisimai::SMTP::Error.soft_or_hard(e, '458 Not accept any email') if e == 'notaccept'
     end
     NoError.each { |e| assert_equal '', Sisimai::SMTP::Error.soft_or_hard(e) }
 

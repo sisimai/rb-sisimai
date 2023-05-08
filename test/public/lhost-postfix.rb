@@ -3,7 +3,7 @@ module LhostEngineTest::Public
     IsExpected = {
       # INDEX => [['D.S.N.', 'replycode', 'REASON', 'hardbounce'], [...]]
       '01' => [['5.1.1',   '',    'mailererror',     false]],
-      '02' => [['5.1.1',   '550', 'userunknown',     true],
+      '02' => [['5.2.1',   '550', 'userunknown',     true],
                ['5.1.1',   '550', 'userunknown',     true]],
       '03' => [['5.0.0',   '550', 'filtered',        false]],
       '04' => [['5.1.1',   '550', 'userunknown',     true]],
@@ -15,7 +15,7 @@ module LhostEngineTest::Public
       '10' => [['5.1.8',   '553', 'rejected',        false]],
       '11' => [['5.1.8',   '553', 'rejected',        false],
                ['5.1.8',   '553', 'rejected',        false]],
-      '13' => [['5.2.2',   '550', 'mailboxfull',     false],
+      '13' => [['5.2.1',   '550', 'userunknown',     true],
                ['5.2.2',   '550', 'mailboxfull',     false]],
       '14' => [['5.1.1',   '',    'userunknown',     true]],
       '15' => [['4.4.1',   '',    'expired',         false]],

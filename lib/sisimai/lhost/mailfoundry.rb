@@ -45,14 +45,14 @@ module Sisimai::Lhost
           # This has been a permanent failure. No further delivery attempts will be made.
           v = dscontents[-1]
 
-          if cv = e.match(/\AUnable to deliver message to: [<]([^ ]+[@][^ ]+)[>]\z/)
+          if e.start_with?('Unable to deliver message to: <') && e.index('@') > 1
             # Unable to deliver message to: <kijitora@example.org>
             if v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = cv[1]
+            v['recipient'] = e[e.index('<'), e.size]
             recipients += 1
           else
             # Error message

@@ -198,28 +198,34 @@ module Sisimai
                 next unless fieldtable[o[0]]
                 v[fieldtable[o[0]]] = o[2]
 
-                next unless f == 1
+                next unless f
                 permessage[fieldtable[o[0]]] = o[2]
               end
             else
               # The line did not match with any fields defined in RFC3464
-              if cv = e.match(/\ADiagnostic-Code:[ ]([^;]+)\z/)
+              if e.start_with?('Diagnostic-Code: ') && e.include?(';') == false
                 # There is no value of "diagnostic-type" such as Diagnostic-Code: 554 ...
-                v['diagnosis'] = cv[1]
-              elsif cv = e.match(/\AStatus:[ ](\d{3}[ ]+.+)\z/)
+                v['diagnosis'] = e[e.index(' ') + 1, e.size]
+
+              elsif e.start_with?('Status: ') && Sisimai::SMTP::Reply.find(e[8, 3])
                 # Status: 553 Exceeded maximum inbound message size
-                v['alterrors'] = cv[1]
-              elsif readslices[-2].start_with?('Diagnostic-Code:') && cv = e.match(/\A[ ]+(.+)\z/)
+                v['alterrors'] = e[8, e.size]
+
+              elsif readslices[-2].start_with?('Diagnostic-Code:') && cv = e.start_with?(' ')
                 # Continued line of the value of Diagnostic-Code header
-                v['diagnosis'] << ' ' << cv[1]
+                v['diagnosis'] << ' ' << e
                 readslices[-1] = 'Diagnostic-Code: ' << e
               else
                 # Get error messages which is written in the message body directly
-                next if e.start_with?(' ', '	')
-                next unless e =~ /\A(?:[45]\d\d[ ]+|[<][^@]+[@][^@]+[>]:?[ ]+)/
+                next if e.start_with?(' ', '	', 'X')
+                cr = Sisimai::SMTP::Reply.find(e) || ''
+                ca = Sisimai::Address.find(e)     || []
+                co = Sisimai::String.aligned(e, ['<', '@', '>']) 
 
-                v['alterrors'] ||= ' '
-                v['alterrors']  << ' ' << e
+                if cr.size > 0 || (ca.size > 0 && co)
+                  v['alterrors'] ||= ' '
+                  v['alterrors']  << ' ' << e
+                end
               end
             end
           end # End of if: rfc822
@@ -329,9 +335,9 @@ module Sisimai
               recipients += 1
               itisbounce ||= true
 
-            elsif cv = e.match(/[(](?:expanded|generated)[ ]from:?[ ]([^@]+[@][^@]+)[)]/)
+            elsif e.include?('(expanded from') || e.include?('(generated from')
               # (expanded from: neko@example.jp)
-              b['alias'] = Sisimai::Address.s3s4(cv[1])
+              b['alias'] = Sisimai::Address.s3s4(e[e.rindex(' ') + 1, e.size])
             end
             b['diagnosis'] ||= ''
             b['diagnosis']  << ' ' << e
@@ -341,9 +347,11 @@ module Sisimai
         end
         return nil unless itisbounce
 
-        if recipients == 0 && cv = rfc822text.match(/^To:[ ](.+)/)
+        p1 = rfc822text.index("\nTo: ")     || -1
+        p2 = rfc822text.index("\n", p1 + 6) || -1
+        if recipients == 0 && p1 > 0
           # Try to get a recipient address from "To:" header of the original message
-          if r = Sisimai::Address.find(cv[1], true)
+          if r = Sisimai::Address.find(rfc822text[p1 + 5, p2 - p1 - 5], true)
             # Found a recipient address
             dscontents << Sisimai::Lhost.DELIVERYSTATUS if dscontents.size == recipients
             b = dscontents[-1]

@@ -7,8 +7,7 @@ module Sisimai::Lhost
 
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['   ----- Unsent message follows -----', '  ----- No message was collected -----'].freeze
-      StartingOf = { message: ['----- Transcript of session follows -----'] }
-      MarkingsOf = {
+      StartingOf = {
         # Error text regular expressions which defined in src/savemail.c
         #   savemail.c:485| (void) fflush(stdout);
         #   savemail.c:486| p = queuename(e->e_parent, 'x');
@@ -25,7 +24,8 @@ module Sisimai::Lhost
         #   savemail.c:497|   while (fgets(buf, sizeof buf, xfile) != NULL)
         #   savemail.c:498|       putline(buf, fp, m);
         #   savemail.c:499|   (void) fclose(xfile);
-        error:   %r/\A[.]+ while talking to .+[:]\z/,
+        error:   [' while talking to '],
+        message: ['----- Transcript of session follows -----'],
       }.freeze
 
       # Parse bounce messages from Sendmail version 5
@@ -45,9 +45,9 @@ module Sisimai::Lhost
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
+        anotherset = {}     # (Hash) Another error information
         responding = []     # (Array) Responses from remote server
         commandset = []     # (Array) SMTP command which is sent to remote server
-        anotherset = {}     # (Hash) Another error information
         errorindex = -1     # (Integer)
         v = nil
 
@@ -70,15 +70,17 @@ module Sisimai::Lhost
           # 421 example.org (smtp)... Deferred: Connection timed out during user open with example.org
           v = dscontents[-1]
 
-          if cv = e.match(/\A\d{3}[ ]+[<]([^ ]+[@][^ ]+)[>][.]{3}[ ]*(.+)\z/)
+          if e.start_with?('5', '4') && Sisimai::String.aligned(e, [' <', '@', '>...'])
             # 550 <kijitora@example.org>... User unknown
             if v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = cv[1]
-            v['diagnosis'] = cv[2]
+            p1 = e.index('<', 0)
+            p2 = e.index('>...')
+            v['recipient'] = e[p1 + 1, p2 - p1 - 1]
+            v['diagnosis'] = e[p2 + 5, e.size]
 
             # Concatenate the response of the server and error message
             v['diagnosis'] << ': ' << responding[recipients] if responding[recipients]
@@ -88,38 +90,44 @@ module Sisimai::Lhost
             # >>> RCPT To:<kijitora@example.org>
             cv = Sisimai::SMTP::Command.find(e); commandset[recipients] = cv if cv
 
-          elsif cv = e.match(/\A[<]{3}[ ]+(.+)\z/)
+          elsif e.start_with?('<<< ')
             # <<< Response
             # <<< 501 <shironeko@example.co.jp>... no access from mail server [192.0.2.55] which is an open relay.
             # <<< 550 Requested User Mailbox not found. No such user here.
-            responding[recipients] = cv[1]
+            responding[recipients] = e[4, e.size]
+
           else
             # Detect SMTP session error or connection error
             next if v['sessionerr']
 
-            if e =~ MarkingsOf[:error]
+            if e.include?(StartingOf[:error][0])
               # ----- Transcript of session follows -----
               # ... while talking to mta.example.org.:
               v['sessionerr'] = true
               next
             end
 
-            if cv = e.match(/\A\d{3}[ ]+.+[.]{3}[ ]*(.+)\z/)
+            if e.start_with?('4', '5') && e.include?('... ')
               # 421 example.org (smtp)... Deferred: Connection timed out during user open with example.org
-              anotherset['diagnosis'] = cv[1]
+              anotherset['replycode'] = e[0, 3]
+              anotherset['diagnosis'] = e[e.index('... ') + 4, e.size]
             end
           end
         end
 
-        if recipients == 0 && cv = emailparts[1].match(/^To:[ ](.+)$/)
+        p1 = emailparts[1].index("\nTo: ")     || -1
+        p2 = emailparts[1].index("\n", p1 + 6) || -1
+        if recipients == 0 && p1 > 0
           # Get the recipient address from "To:" header at the original message
-          dscontents[0]['recipient'] = Sisimai::Address.s3s4(cv[1])
+          dscontents[0]['recipient'] = Sisimai::Address.s3s4(emailparts[1][p1, p2 - p1 - 5])
           recipients = 1
         end
         return nil unless recipients > 0
 
         dscontents.each do |e|
           errorindex += 1
+          e.delete('sessionerr')
+
           e['diagnosis'] ||= if anotherset['diagnosis'].to_s.size > 0
                                # Copy alternative error message
                                anotherset['diagnosis']
@@ -128,16 +136,15 @@ module Sisimai::Lhost
                                responding[errorindex]
                              end
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+          e['replycode'] = Sisimai::SMTP::Reply.find(e['diagnosis']) || anotherset['replycode']
           e['command']   = commandset[errorindex] || Sisimai::SMTP::Command.find(e['diagnosis']) || ''
 
-          unless e['recipient'] =~ /\A[^ ]+[@][^ ]+\z/
-            # @example.jp, no local part
-            if cv = e['diagnosis'].match(/[<]([^ ]+[@][^ ]+)[>]/)
-              # Get email address from the value of Diagnostic-Code header
-              e['recipient'] = cv[1]
-            end
-          end
-          e.delete('sessionerr')
+          # @example.jp, no local part
+          # Get email address from the value of Diagnostic-Code header
+          next if e['recipient'].include?('@')
+          p1 = e['diagnosis'].index('<'); next unless p1
+          p2 = e['diagnosis'].index('>'); next unless p2
+          e['recipient'] = Sisimai::Address.s3s4(e[p1, p2 - p1])
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }

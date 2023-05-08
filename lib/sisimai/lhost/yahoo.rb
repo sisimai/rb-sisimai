@@ -46,16 +46,17 @@ module Sisimai::Lhost
           # Remote host said: 550 5.1.1 <kijitora@example.org>... User Unknown [RCPT_TO]
           v = dscontents[-1]
 
-          if cv = e.match(/\A[<](.+[@].+)[>]:[ ]*\z/)
+          if e.start_with?('<') && Sisimai::String.aligned(e, ['<', '@', '>:'])
             # <kijitora@example.org>:
             if v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = cv[1]
+            v['recipient'] = Sisimai::Address.s3s4(e[0, e.index('>:')])
             v['diagnosis'] = ''
             recipients += 1
+
           else
             if e.start_with?('Remote host said:')
               # Remote host said: 550 5.1.1 <kijitora@example.org>... User Unknown [RCPT_TO]
@@ -89,7 +90,7 @@ module Sisimai::Lhost
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].gsub(/\\n/, ' '))
-          e['command'] ||= 'RCPT' if e['diagnosis'] =~ /[<].+[@].+[>]/
+          e['command'] ||= 'RCPT' if Sisimai::String.aligned(e['diagnosis'], ['<', '@', '>'])
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }

@@ -35,6 +35,14 @@ module Sisimai
     }.freeze
     Delimiters  = { '<' => 1, '>' => 1, '(' => 1, ')' => 1, '"' => 1, ',' => 1 }.freeze
 
+    # Return pseudo recipient or sender address
+    # @param    [Symbol] argv0  Address type: true = recipient, false = sender
+    # @return   [String, nil]   Pseudo recipient address or sender address or nil when the argv1 is
+    #                           neither :r nor :s
+    def self.undisclosed(argv0 = false)
+      return sprintf('undisclosed-%s-in-headers@libsisimai.org.invalid', argv0 ? 'recipient' : 'sender')
+    end
+
     # Check that the argument is an email address or not
     # @param    [String] email  Email address string
     # @return   [True,False]    true: is an email address
@@ -48,32 +56,24 @@ module Sisimai
     end
 
     # Check that the argument is mailer-daemon or not
-    # @param    [String] email  Email address
+    # @param    [String] argv0  Email address
     # @return   [True,False]    true: mailer-daemon
     #                           false: Not mailer-daemon
-    def self.is_mailerdaemon(email)
-      return false unless email.is_a?(::String)
-      regex = %r/(?:
-         (?:mailer-daemon|postmaster)[@]
-        |[<(](?:mailer-daemon|postmaster)[)>]
-        |\A(?:mailer-daemon|postmaster)\z
-        |[ ]?mailer-daemon[ ]
-        )
-      /x.freeze
-      return true if email.downcase =~ regex
+    def self.is_mailerdaemon(argv0 = nil)
+      return false unless argv0
+      return false unless argv0.size > 0
+      return false unless argv0.is_a?(::String)
+
+      email = argv0.downcase
+      postmaster = [
+        'mailer-daemon@', '<mailer-daemon>', '(mailer-daemon)', ' mailer-daemon ',
+        'postmaster@', '<postmaster>', '(postmaster)'
+      ].freeze
+
+      return true if postmaster.any? { |a| email.include?(a) }
+      return true if email == 'mailer-daemon'
+      return true if email == 'postmaster'
       return false
-    end
-
-    # Return pseudo recipient or sender address
-    # @param    [Symbol] argv1  Address type: :r or :s
-    # @return   [String, nil]   Pseudo recipient address or sender address or nil when the argv1 is
-    #                           neither :r nor :s
-    def self.undisclosed(argv1)
-      return nil unless argv1
-      return nil unless %w[r s].index(argv1)
-
-      local = argv1 == 'r' ? 'recipient' : 'sender'
-      return sprintf('undisclosed-%s-in-headers@libsisimai.org.invalid', local)
     end
 
     def self.find(argv1 = nil, addrs = false)
@@ -252,10 +252,12 @@ module Sisimai
 
         unless v[:address].empty?
           # Remove the comment from the address
-          if cv = v[:address].match(/(.*)([(].+[)])(.*)/)
+          if Sisimai::String.aligned(v[:address], ['(', ')'])
             # (nyaan)nekochan@example.org, nekochan(nyaan)cat@example.org or nekochan(nyaan)@example.org
-            v[:address] = cv[1] << cv[3]
-            v[:comment] = cv[2]
+            p1 = v[:address].index('(')
+            p2 = v[:address].index(')')
+            v[:address] = v[:address][0, p1] + v[:address][p2 + 1, v[:address].size]
+            v[:comment] = v[:address][p1, p2 - p1 - 1]
           end
           readbuffer << v
         end
@@ -264,7 +266,7 @@ module Sisimai
       while e = readbuffer.shift do
         # The element must not include any character except from 0x20 to 0x7e.
         next if e[:address] =~ /[^\x20-\x7e]/
-        unless e[:address]  =~ /\A.+[@].+\z/
+        if e[:address].include?('@') == false
           # Allow if the argument is MAILER-DAEMON
           next unless Sisimai::Address.is_mailerdaemon(e[:address])
         end
@@ -343,58 +345,72 @@ module Sisimai
     attr_accessor :name, :comment
 
     # Constructor of Sisimai::Address
-    # @param    [Hash] argv1        Email address, name, and other elements
+    # @param    [Hash] argvs        Email address, name, and other elements
     # @return   [Sisimai::Address]  Object or nil when the email address was not valid.
     # @example  new({address: 'neko@example.org', name: 'Neko', comment: '(nyaan)')} # => Sisimai::Address object
-    def initialize(argv1)
-      return nil unless argv1.is_a? Hash
-      return nil unless argv1[:address]
-      return nil if argv1[:address].empty?
+    def initialize(argvs)
+      return nil unless argvs.is_a? Hash
+      return nil unless argvs[:address]
+      return nil if argvs[:address].empty?
 
       heads = ['<']
       tails = ['>', ',', '.', ';']
-      if cv = argv1[:address].match(/\A([^\s]+)[@]([^@]+)\z/) ||
-              argv1[:address].match(/\A(["].+?["])[@]([^@]+)\z/)
+      point = argvs[:address].rindex('@')
+      if cv = argvs[:address].match(/\A([^\s]+)[@]([^@]+)\z/) ||
+              argvs[:address].match(/\A(["].+?["])[@]([^@]+)\z/)
         # Get the local part and the domain part from the email address
-        lpart = cv[1]; heads.each { |e| lpart.gsub!(/\A#{e}/, '') if lpart.start_with?(e) }
-        dpart = cv[2]; tails.each { |e| dpart.gsub!(/#{e}\z/, '') if dpart.end_with?(e)   }
-        email = Sisimai::Address.expand_verp(argv1[:address])
+        lpart = argvs[:address][0, point]
+        dpart = argvs[:address][point + 1,  argvs[:address].size]
+        email = Sisimai::Address.expand_verp(argvs[:address])
         aname = nil
 
         unless email
           # Is not VERP address, try to expand the address as an alias
-          email = Sisimai::Address.expand_alias(argv1[:address]) || ''
+          email = Sisimai::Address.expand_alias(argvs[:address]) || ''
           aname = true unless email.empty?
         end
 
-        if email =~ /\A.+[@].+?\z/
+        if email.include?('@')
           # The address is a VERP or an alias
           if aname
             # The address is an alias: neko+nyaan@example.jp
-            @alias = argv1[:address]
+            @alias = argvs[:address]
           else
             # The address is a VERP: b+neko=example.jp@example.org
-            @verp  = argv1[:address]
+            @verp  = argvs[:address]
           end
         end
+
+        heads.each do |e|
+          while lpart[0, 1] == e
+            lpart[0, 1] = ''
+          end
+        end
+
+        tails.each do |e|
+          while dpart[-1, 1] == e
+            dpart[-1, 1] = ''
+          end
+        end
+
         @user    = lpart
         @host    = dpart
         @address = lpart + '@' + dpart
       else
         # The argument does not include "@"
-        return nil unless Sisimai::Address.is_mailerdaemon(argv1[:address])
-        return nil if argv1[:address].include?(' ')
+        return nil unless Sisimai::Address.is_mailerdaemon(argvs[:address])
+        return nil if argvs[:address].include?(' ')
 
         # The argument does not include " "
-        @user    = argv1[:address]
+        @user    = argvs[:address]
         @host  ||= ''
-        @address = argv1[:address]
+        @address = argvs[:address]
       end
 
       @alias ||= ''
       @verp  ||= ''
-      @name    = argv1[:name]    || ''
-      @comment = argv1[:comment] || ''
+      @name    = argvs[:name]    || ''
+      @comment = argvs[:comment] || ''
     end
 
     # Check whether the object has valid content or not

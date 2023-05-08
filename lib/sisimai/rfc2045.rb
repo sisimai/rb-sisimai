@@ -352,7 +352,7 @@ module Sisimai
             bodystring << bodyinside
           end
 
-          if mediatypev =~ %r</(?:delivery-status|feedback-report|rfc822)>
+          if mediatypev.include?('/delivery-status') || mediatypev.include?('/feedback-report') || mediatypev.include?('/rfc822')
             # Add Content-Type: header of each part (will be used as a delimiter at Sisimai::Lhost)
             # into the body inside when the value of Content-Type: field is message/delivery-status,
             # message/rfc822, or text/rfc822-headers

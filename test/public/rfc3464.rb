@@ -18,7 +18,7 @@ module LhostEngineTest::Public
       '35' => [['5.0.0',   '550', 'rejected',        false],
                ['4.0.0',   '',    'expired',         false],
                ['5.0.0',   '550', 'filtered',        false]],
-      '36' => [['4.0.0',   '426', 'expired',         false]],
+      '36' => [['4.0.0',   '',    'expired',         false]],
       '37' => [['5.0.912', '',    'hostunknown',     true]],
       '38' => [['5.0.922', '',    'mailboxfull',     false]],
       '39' => [['5.0.901', '',    'onhold',          false]],

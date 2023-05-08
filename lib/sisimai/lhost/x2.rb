@@ -15,8 +15,12 @@ module Sisimai::Lhost
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to parse or the arguments are missing
       def inquire(mhead, mbody)
-        return nil unless mhead['from'].include?('MAILER-DAEMON@')
-        return nil unless mhead['subject'] =~ %r/\A(?>Delivery failure|fail(?:ure|ed) delivery)/
+        match   = nil
+        match ||= 1 if mhead['from'].include?('MAILER-DAEMON@')
+        match ||= 1 if mhead['subject'].start_with?('Delivery failure')
+        match ||= 1 if mhead['subject'].start_with?('failure delivery')
+        match ||= 1 if mhead['subject'].start_with?('failed delivery')
+        return nil unless match
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -43,14 +47,14 @@ module Sisimai::Lhost
           # This user doesn't have a example.com account (kijitora@example.com) [0]
           v = dscontents[-1]
 
-          if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>]:\z/)
+          if e.start_with?('<') && Sisimai::String.aligned(e, ['<', '@', '>', ':'])
             # <kijitora@example.com>:
             if v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = cv[1]
+            v['recipient'] = e[1, e.size - 3]
             recipients += 1
           else
             # This user doesn't have a example.com account (kijitora@example.com) [0]

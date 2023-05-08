@@ -83,7 +83,7 @@ module Sisimai::Lhost
               next unless fieldtable[o[0]]
               v[fieldtable[o[0]]] = o[2]
 
-              next unless f == 1
+              next unless f
               permessage[fieldtable[o[0]]] = o[2]
             end
           end
@@ -102,7 +102,7 @@ module Sisimai::Lhost
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
 
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-          if e['status'].to_s.start_with?('5.0.0', '5.1.0', '4.0.0', '4.1.0')
+          if e['status'].to_s.end_with?('.0.0', '.1.0')
             # Get other D.S.N. value from the error message
             errormessage = e['diagnosis']
 
@@ -113,12 +113,10 @@ module Sisimai::Lhost
             e['status'] = Sisimai::SMTP::Status.find(errormessage) || e['status']
           end
 
-          if cv = e['diagnosis'].match(/[<]([245]\d\d)[ ].+[>]/)
-            # 554 4.4.7 Message expired: unable to deliver in 840 minutes.
-            # <421 4.4.2 Connection timed out>
-            e['replycode'] = cv[1]
-          end
-          e['reason'] ||= Sisimai::SMTP::Status.name(e['status']) || ''
+          # 554 4.4.7 Message expired: unable to deliver in 840 minutes.
+          # <421 4.4.2 Connection timed out>
+          e['replycode'] = Sisimai::SMTP::Reply.find(e['diagnosis']) || ''
+          e['reason']  ||= Sisimai::SMTP::Status.name(e['status'])   || ''
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }

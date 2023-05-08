@@ -14,9 +14,8 @@ module Sisimai::Lhost
         '------ This is a copy of the message, including all the headers. ------',
         'Content-Type: message/rfc822',
       ].freeze
-      StartingOf = { deliverystatus: ['Content-Type: message/delivery-status'] }.freeze
-      MarkingsOf = {
-        # Error text regular expressions which defined in exim/src/deliver.c
+      StartingOf = {
+        # Error text strings which defined in exim/src/deliver.c
         #
         # deliver.c:6292| fprintf(f,
         # deliver.c:6293|"This message was created automatically by mail delivery software.\n");
@@ -33,19 +32,19 @@ module Sisimai::Lhost
         # deliver.c:6304|"could not be delivered to one or more of its recipients. The following\n"
         # deliver.c:6305|"address(es) failed:\n", sender_address);
         # deliver.c:6306|          }
-        alias:   %r/\A([ ]+an undisclosed address)\z/,
-        frozen:  %r/\AMessage [^ ]+ (?:has been frozen|was frozen on arrival)/,
-        message: %r{\A(?>
-           This[ ]message[ ]was[ ]created[ ]automatically[ ]by[ ]mail[ ]delivery[ ]software[.]
-          |A[ ]message[ ]that[ ]you[ ]sent[ ]was[ ]rejected[ ]by[ ]the[ ]local[ ]scanning[ ]code
-          |A[ ]message[ ]that[ ]you[ ]sent[ ]contained[ ]one[ ]or[ ]more[ ]recipient[ ]addresses[ ]
-          |A[ ]message[ ]that[ ]you[ ]sent[ ]could[ ]not[ ]be[ ]delivered[ ]to[ ]all[ ]of[ ]its[ ]recipients
-          |Message[ ][^ ]+[ ](?:has[ ]been[ ]frozen|was[ ]frozen[ ]on[ ]arrival)
-          |The[ ][^ ]+[ ]router[ ]encountered[ ]the[ ]following[ ]error[(]s[)]:
-          )
-         }x,
+        deliverystatus: ['Content-Type: message/delivery-status'],
+        frozen:         [' has been frozen', ' was frozen on arrival'],
+        message:        [
+          'This message was created automatically by mail delivery software.',
+          'A message that you sent was rejected by the local scannning code',
+          'A message that you sent contained one or more recipient addresses ',
+          'A message that you sent could not be delivered to all of its recipients',
+          ' has been frozen',
+          ' was frozen on arrival',
+          ' router encountered the following error(s):',
+        ],
       }.freeze
-
+      MarkingsOf = { alias: %r/\A([ ]+an undisclosed address)\z/ }.freeze
       ReCommands = [
         # transports/smtp.c:564|  *message = US string_sprintf("SMTP error from remote mail server after %s%s: "
         # transports/smtp.c:837|  string_sprintf("SMTP error from remote mail server after RCPT TO:<%s>: "
@@ -124,25 +123,22 @@ module Sisimai::Lhost
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to parse or the arguments are missing
       def inquire(mhead, mbody)
-        return nil if mhead['from'] =~ /[@].+[.]mail[.]ru[>]?/
+        return nil if mhead['from'].include?('.mail.ru')
 
         # Message-Id: <E1P1YNN-0003AD-Ga@example.org>
         # X-Failed-Recipients: kijitora@example.ed.jp
         match  = 0
         match += 1 if mhead['from'].start_with?('Mail Delivery System')
         match += 1 if mhead['message-id'].to_s =~ %r/\A[<]\w{7}[-]\w{6}[-]\w{2}[@]/
-        match += 1 if mhead['subject'] =~ %r{(?:
-           Mail[ ]delivery[ ]failed(:[ ]returning[ ]message[ ]to[ ]sender)?
-          |Warning:[ ]message[ ][^ ]+[ ]delayed[ ]+
-          |Delivery[ ]Status[ ]Notification
-          |Mail[ ]failure
-          |Message[ ]frozen
-          |error[(]s[)][ ]in[ ]forwarding[ ]or[ ]filtering
-          )
-        }x
+        match += 1 if %w[
+          'Delivery Status Notification',
+          'Mail delivery failed',
+          'Mail failure',
+          'Message frozen',
+          'Warning: message ',
+          'error(s) in forwarding or filtering'].any? { |a| mhead['subject'].include?(a) }
         return nil if match < 2
 
-        require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -164,9 +160,9 @@ module Sisimai::Lhost
           # line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or message/delivery-status part
-            if e =~ MarkingsOf[:message]
+            if StartingOf[:message].any? { |a| e.include?(a) }
               readcursor |= Indicators[:deliverystatus]
-              next unless e =~ MarkingsOf[:frozen]
+              next unless StartingOf[:frozen].any? { |a| e.include?(a) }
             end
           end
           next if (readcursor & Indicators[:deliverystatus]) == 0
@@ -225,7 +221,7 @@ module Sisimai::Lhost
           else
             next if e.empty?
 
-            if e =~ MarkingsOf[:frozen]
+            if StartingOf[:frozen].any? { |a| e.include?(a) }
               # Message *** has been frozen by the system filter.
               # Message *** was frozen on arrival by ACL.
               v['alterrors'] ||= ''

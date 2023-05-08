@@ -51,6 +51,76 @@ module Sisimai
         return argv1
       end
 
+      # Check if each element of the 2nd argument is aligned in the 1st argument or not
+      # @param    [String] argv1  String to be checked
+      # @param    [Array]  argv2  List including the ordered strings
+      # @return   [Bool]          0, 1
+      # @since v5.0.0
+      def aligned(argv1, argv2)
+        return nil if argv1.to_s.empty?
+        return nil unless argv2.is_a? Array
+        return nil unless argv2.size > 1
+
+        align = -1
+        right =  0
+        argv2.each do |e|
+          # Get the position of each element in the 1st argument using index()
+          p = argv1.index(e, align + 1)
+          break unless p            # Break this loop when there is no string in the 1st argument
+          align  = e.length + p - 1 # There is an aligned string in the 1st argument
+          right += 1
+        end
+
+        return true if right == argv2.size
+        return false
+      end
+
+      # Find an IPv4 address from the given string
+      # @param    [String] argv1  String including an IPv4 address
+      # @return   [Array]         List of IPv4 addresses
+      # @since v5.0.0
+      def ipv4(argv0)
+        return nil if argv0.to_s.empty?
+        return []  if argv0.size < 7
+
+        ipv4a = []
+        %w|( ) [ ]|.each do |e|
+          # Rewrite: "mx.example.jp[192.0.2.1]" => "mx.example.jp 192.0.2.1"
+          p0 = argv0.index(e); next unless p0
+          argv0[p0, 1] = ' '
+        end
+
+        argv0.split(' ').each do |e|
+          # Find string including an IPv4 address
+          next unless e.index('.')  # IPv4 address must include "." character
+
+          lx = e.size; next if lx < 7 || lx > 17  # 0.0.0.0 = 7, [255.255.255.255] = 17
+          cu = 0  # Cursor for seeking each octet of an IPv4 address
+          as = '' # ASCII Code of each character
+          eo = '' # Buffer of each octet of IPv4 Address
+
+          while cu < lx
+            # Check whether each character is a number or "." or not
+            as  = e[cu, 1].ord
+            cu += 1
+
+            if as < 48 || as > 57
+              # The character is not a number(0-9)
+              break if as      != 46  # The character is not "."
+              next  if eo      == ''  # The current buffer is empty
+              break if eo.to_i > 255  # The current buffer is greater than 255
+              eo = ''
+              next
+            end
+            eo << as.chr
+            break if eo.to_i > 255
+          end
+          ipv4a << e if eo.size > 0 && eo.to_i < 256
+        end
+
+        return ipv4a
+      end
+
       # Convert given HTML text to plain text
       # @param    [String]  argv1 HTML text
       # @param    [Boolean] loose Loose check flag

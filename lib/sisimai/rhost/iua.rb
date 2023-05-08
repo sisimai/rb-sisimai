@@ -24,11 +24,11 @@ module Sisimai
         # @return   [String]                The bounce reason at https://www.i.ua/
         def get(argvs)
           return argvs['reason'] unless argvs['reason'].empty?
+          issuedcode = argvs['diagnosticcode'].downcase
+          codenumber = issuedcode.index('.i.ua/err/') > 0 ? issuedcode[issuedcode.index('/err/') + 5, 2] : 0
+          codenumber = codenumber[0, 1] if codenumber.index('/') == 1
 
-          if cv = argvs['diagnosticcode'].downcase.match(%r|[.]i[.]ua/err/(\d+)|)
-            return ErrorCodes[cv[1]] || ''
-          end
-          return ''
+          return ErrorCodes[codenumber] || ''
         end
 
       end

@@ -53,7 +53,7 @@ module Sisimai::Lhost
           # 5.1.1 <shironeko@example.jp>... User Unknown
           v = dscontents[-1]
 
-          if cv = e.match(/\A["]([^ ]+[@][^ ]+)["]:\z/) || e.match(/\A[<]([^ ]+[@][^ ]+)[>]\z/)
+          if e.include?('@') && ( e.start_with?('"') || e.start_with?('<') )
             # "shironeko@example.jp":
             # ---- OR ----
             # <kijitora@6jo.example.co.jp>
@@ -65,16 +65,16 @@ module Sisimai::Lhost
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = cv[1]
+            v['recipient'] = Sisimai::Address.s3s4(e)
             recipients += 1
 
           elsif e.start_with?('SMTP error ')
             # SMTP error from remote server after RCPT command:
             v['command'] = Sisimai::SMTP::Command.find(e)
 
-          elsif cv = e.match(/\Ahost:[ ]*(.+)\z/)
+          elsif e.start_with?('host:')
             # host: mx.example.jp
-            v['rhost'] = cv[1]
+            v['rhost'] = e[6, e.size]
           else
             # Get error message
             if e =~ /\b[45][.]\d[.]\d\b/ || e =~ /[<][^ ]+[@][^ ]+[>]/ || e =~ /\b[45]\d{2}\b/

@@ -183,7 +183,7 @@ module Sisimai::Lhost
                 next if o[0] =~ /\A(?:diagnostic-code|final-recipient)\z/
                 v[fieldtable[o[0]]] = o[2]
 
-                next unless f == 1
+                next unless f
                 permessage[fieldtable[o[0]]] = o[2]
               else
                 # Capture "Diagnostic-Code:" field because no error messages have been captured

@@ -7,7 +7,7 @@ module Sisimai::Lhost
 
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['The attachment contains the original mail headers'].freeze
-      MarkingsOf = { message: %r/\A\d+[ ]*error[(]s[)]:/ }.freeze
+      StartingOf = { message: ['We had trouble delivering your message. Full details follow:'] }.freeze
 
       # Parse bounce messages from Unknown MTA #6
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -30,18 +30,26 @@ module Sisimai::Lhost
           # line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
+            readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])
             next
           end
           next if (readcursor & Indicators[:deliverystatus]) == 0
           next if e.empty?
 
+          # We had trouble delivering your message. Full details follow:
+          #
+          # Subject: 'Nyaan'
+          # Date: 'Thu, 29 Apr 2012 23:34:45 +0000'
+          #          
           # 1 error(s):
           #
           # SMTP Server <mta2.example.jp> rejected recipient <kijitora@examplejp> 
           #   (Error following RCPT command). It responded as follows: [550 5.1.1 User unknown]v = dscontents[-1]
-          v = dscontents[-1]
-          if cv = e.match(/<([^ @]+[@][^ @]+)>/) || e.match(/errors:[ ]*([^ ]+[@][^ ]+)/)
+          v  = dscontents[-1]
+          p1 = e.index('The following recipients returned permanent errors: ')
+          p2 = e.index('SMTP Server <')
+
+          if p1 == 0 || p2 == 0
             # SMTP Server <mta2.example.jp> rejected recipient <kijitora@examplejp> 
             # The following recipients returned permanent errors: neko@example.jp.
             if v['recipient']
@@ -49,7 +57,23 @@ module Sisimai::Lhost
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = Sisimai::Address.s3s4(cv[1])
+
+            if p1 == 0
+              # The following recipients returned permanent errors: neko@example.jp.
+              p1 = e.index('errors: ')
+              p2 = e.index(' ', p1 + 8)
+              v['recipient'] = Sisimai::Address.s3s4(e[p1 + 8, p2 - p1 - 8])
+
+            elsif p2 == 0
+              # SMTP Server <mta2.example.jp> rejected recipient <kijitora@examplejp> 
+              p1 = e.rindex('<')
+              p2 = e.rindex('>')
+              v['recipient'] = Sisimai::Address.s3s4(e[p1, p2 - p1])
+
+            else
+              next
+            end
+
             v['diagnosis'] = e
             recipients += 1
           end

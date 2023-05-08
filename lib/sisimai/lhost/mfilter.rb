@@ -11,7 +11,6 @@ module Sisimai::Lhost
         error:   ['-------server message'],
         command: ['-------SMTP command'],
       }.freeze
-      MarkingsOf = { message: %r/\A[^ ]+[@][^ ]+[.][a-zA-Z]+\z/ }.freeze
 
       # Parse bounce messages from Digital Arts m-FILTER
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -36,7 +35,9 @@ module Sisimai::Lhost
           # line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
+            if e.include?('@') && e.include?(' ') == false && Sisimai::Address.is_emailaddress(e)
+              readcursor |= Indicators[:deliverystatus]
+            end
           end
           next if (readcursor & Indicators[:deliverystatus]) == 0
           next if e.empty?
@@ -58,7 +59,7 @@ module Sisimai::Lhost
           # -------original message
           v = dscontents[-1]
 
-          if cv = e.match(/\A([^ ]+[@][^ ]+)\z/)
+          if e.include?('@') && e.include?(' ') == false
             # 以下のメールアドレスへの送信に失敗しました。
             # kijitora@example.jp
             if v['recipient']
@@ -66,10 +67,10 @@ module Sisimai::Lhost
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = cv[1]
+            v['recipient'] = e
             recipients += 1
 
-          elsif e =~ /\A[A-Z]{4}/
+          elsif e.size == 4 && e.index(' ').nil?
             # -------SMTP command
             # DATA
             next if v['command']
