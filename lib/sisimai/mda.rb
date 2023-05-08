@@ -6,19 +6,12 @@ module Sisimai
         # dovecot/src/deliver/deliver.c
         # 11: #define DEFAULT_MAIL_REJECTION_HUMAN_REASON \
         # 12: "Your message to <%t> was automatically rejected:%n%r"
-        'dovecot'    => %r/\AYour message to [^ ]+ was automatically rejected:\z/,
-        'mail.local' => %r/\Amail[.]local: /,
-        'procmail'   => %r/\Aprocmail: /,
-        'maildrop'   => %r/\Amaildrop: /,
-        'vpopmail'   => %r/\Avdelivermail: /,
-        'vmailmgr'   => %r/\Avdeliver: /,
-      }.freeze
-      MarkingsOf = {
-        message: %r{\A(?>
-           Your[ ]message[ ]to[ ][^ ]+[ ]was[ ]automatically[ ]rejected:\z
-          |(?:mail[.]local|procmail|maildrop|vdelivermail|vdeliver):[ ]
-          )
-        }x
+        'dovecot'    => ['Your message to ', ' was automatically rejected:'],
+        'mail.local' => ['mail.local: '],
+        'procmail'   => ['procmail: '],
+        'maildrop'   => ['maildrop: '],
+        'vpopmail'   => ['vdelivermail: '],
+        'vmailmgr'   => ['vdeliver: '],
       }.freeze
 
       # dovecot/src/deliver/mail-send.c:94
@@ -79,42 +72,36 @@ module Sisimai
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to parse or the arguments are missing
       def inquire(mhead, mbody)
+        return nil unless mhead
+        return nil unless mbody.size > 0
         return nil unless mhead['from'].downcase.start_with?('mail delivery subsystem','mailer-daemon', 'postmaster')
 
-        agentname0 = ''   # [String] MDA name
+        deliversby = ''   # [String] Mail Delivery Agent name
         reasonname = ''   # [String] Error reason
         bouncemesg = ''   # [String] Error message
-        bodyslices = mbody.split("\n")
-        linebuffer = []
+        linebuffer = mbody.split("\n")
 
-        while e = bodyslices.shift do
-          # Check each line with each MDA's symbol regular expression.
-          if agentname0 == ''
-            # Try to match with each regular expression
-            next if e.empty?
-            next unless e =~ MarkingsOf[:message]
+        AgentNames.each_key do |e|
+          # Find a mail delivery agent name from the entire message body
+          p = mbody.index(AgentNames[e][0])
+          next unless p
 
-            AgentNames.each_key do |f|
-              # Detect the agent name from the line
-              next unless e =~ AgentNames[f]
-              agentname0 = f
-              break
-            end
+          if AgentNames[e].size > 1
+            # Try to find the 2nd argument
+            q = mbody.index(AgentNames[e][1])
+            next unless q
+            next if p > q
           end
-
-          # Append error message lines to @linebuffer
-          linebuffer << e
-          break if e.empty?
+          deliversby = e
+          break
         end
-        return nil if agentname0.empty?
-        return nil if linebuffer.empty?
+        return nil if deliversby.empty?
 
-        MessagesOf[agentname0].each_key do |e|
+        MessagesOf[deliversby].each_key do |e|
           # Detect an error reason from message patterns of the MDA.
-          duplicated = linebuffer.dup
-          while f = duplicated.shift do
-            # Whether the error message include each message defined in $MessagesOf
-            next unless MessagesOf[agentname0][e].any? { |a| f.downcase.include?(a) }
+          linebuffer.each do |f|
+            # Whether the error message include each message defined in MessagesOf
+            next unless MessagesOf[deliversby][e].any? { |a| f.downcase.include?(a) }
             reasonname = e
             bouncemesg = f
             break
@@ -123,7 +110,7 @@ module Sisimai
         end
 
         return {
-          'mda'     => agentname0,
+          'mda'     => deliversby,
           'reason'  => reasonname || '',
           'message' => bouncemesg || '',
         }
