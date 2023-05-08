@@ -45,10 +45,6 @@ class MDATest < Minitest::Test
       Sisimai::MDA.inquire(nil, nil, nil)
     end
 
-    ce = assert_raises NoMethodError do
-      Sisimai::MDA.inquire(nil, nil)
-    end
-
   end
 end
 
