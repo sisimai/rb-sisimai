@@ -707,26 +707,165 @@ module Sisimai
 
         # Get a DSN code value from given string including DSN
         # @param    [String] argv1  String including DSN
-        # @return   [String, Nil]   DSN or Nil if the first agument did not include DSN
-        def find(argv1 = nil)
-          return nil unless argv1
-          return nil if argv1.empty?
+        # @param    [String] argv2  An SMTP Reply Code or 2 or 4 or 5
+        # @return   [String, Nil]   An SMTP Status Code
+        def find(argv1 = nil, argv2 = '0')
+          return nil if argv1.to_s.empty?
+          return nil if argv1.size < 7
 
-          found = nil
-          CodePatterns.each do |e|
-            # Get the value of D.S.N. in the text
-            next unless r = argv1.match(e)
-            found = r[1]
+          givenclass = argv2[0, 1]
+          eestatuses = if givenclass == '2' || givenclass == '4' || givenclass == '5' 
+                         [givenclass + '.']
+                       else
+                         ['5.', '4.', '2.']
+                       end
+          esmtperror = ' ' + argv1 + ' '
+          lookingfor = []
 
-            if argv1 =~ /\b(?:#{found}[.]\d{1,3}|\d{1,3}[.]#{found})\b/
-              # Clear and skip if the value is an IPv4 address
-              found = nil
-              next
-            end
-            break
+          Sisimai::String.ipv4(esmtperror).each do |e|
+            # Rewrite an IPv4 address in the given string(argv1) with '***.***.***.***'
+            p0 = esmtperror.index(e) || next
+            esmtperror[p0, e.size] = '***.***.***.***'
           end
 
-          return found
+          eestatuses.each do |e|
+            # Count the number of "5.", "4.", and "2." in the error message
+            p0 = 0; p1 = 0
+            while p0
+              # Find all of the "5." and "4." string and store its postion
+              p0 = esmtperror.index(e, p1) || break
+              lookingfor << [p0, e]
+              p1 = p0 + 5
+            end
+          end
+          return nil if lookingfor.size == 0
+
+          statuscode = []   # List of SMTP Status Code, Keep the order of appearances
+          anotherone = ''   # Alternative code
+          readbuffer = ''
+          characters = []   # Characters around the status code found by index()
+          indexofees = nil  # A position of SMTP status code found by the index()
+
+          lookingfor.sort_by(&:first).each do |e|
+            # Try to find an SMTP Status Code from the given string
+            indexofees = esmtperror.index(e[1], e[0]); next unless indexofees
+            characters = [esmtperror[indexofees - 1, 1].ord]  # [0] The previous character of the status
+            [2, 3].each do |i|
+              # [1] The value of the "Subject", "5.[7].261"
+              # [2] "." chacater, a separator of the Subject and the Detail
+              if indexofees + 1 + i > esmtperror.size
+                characters << 0
+              else
+                characters << esmtperror[indexofees + i, 1].ord
+              end
+            end
+
+            next if characters[0]  > 45 && characters[0]  <  58 # Previous character is a number
+            next if characters[0] == 86 || characters[0] == 118 # Avoid a version number("V" or "v")
+            next if characters[1]  < 48 || characters[1]  >  55 # The value of the subject is not a number(0-7)
+            next if characters[2] != 46                         # It is not a "." character: a separator
+            readbuffer = e[1] + characters[1].chr + '.'
+
+            [4, 5, 6, 7].each do |i|
+              # [3] The 1st digit of the detail
+              # [4] The 2nd digit of the detail
+              # [5] The 3rd digit of the detail
+              # [6] The next character
+              if indexofees + 1 + i > esmtperror.size
+                characters << 0
+              else
+                characters << esmtperror[indexofees + i, 1].ord
+              end
+            end
+
+            next if characters[3] < 48 || characters[3] > 57  # The 1st digit of the detail is not a number
+            readbuffer << characters[3].chr
+
+            if readbuffer.index('.0.0') || readbuffer == '4.4.7'
+              # Find another status code except *.0.0, 4.4.7
+              anotherone = readbuffer
+              next
+            end
+
+            if characters[4] < 48 || characters[4] > 57
+              # The 2nd digit of the detail is not a number
+              statuscode << readbuffer
+              next
+            end
+            readbuffer << characters[4].chr # The 2nd digit of the detail is a number
+
+            if characters[5] < 48 || characters[5] > 57
+              # The 3rd digit of the detail is not a number
+              statuscode << readbuffer
+              next
+            end
+            readbuffer << characters[5].chr # The 3rd digit of the detail is a number
+
+            next if characters[6] > 47 && characters[6] < 58
+            statuscode << readbuffer
+          end
+
+          statuscode << anotherone if anotherone.size > 0
+          return nil if statuscode.size == 0
+          return statuscode.shift
+        end
+
+        # Return the preferred value selected from the arguments
+        # @param    [String] argv0  The value of Status:
+        # @param    [String] argv1  The delivery status picked from the error message
+        # @param    [String] argv2  The value of An SMTP Reply Code
+        # @return   [String]        The preferred value
+        # @since v5.0.0
+        def prefer(argv0 = nil, argv1 = nil, argv2 = nil)
+          return argv1 unless argv0; return argv1 unless argv0.size > 4
+          return argv0 unless argv1; return argv0 unless argv1.size > 4
+
+          statuscode = argv0
+          codeinmesg = argv1
+          esmtpreply = argv2 || '000'
+          the1stchar = {
+            'field' => statuscode[0, 1].to_i,
+            'error' => codeinmesg[0, 1].to_i,
+            'reply' => esmtpreply.to_s[0, 1].to_i,
+          }
+
+          if the1stchar['reply'] > 0 && the1stchar['field'] != the1stchar['error']
+            # There is the 3rd argument (an SMTP Reply Code)
+            # Returns the value of $argv0 or $argv1 which begins with the 1st character of argv2
+            return statuscode if the1stchar['reply'] == the1stchar['field']
+            return codeinmesg if the1stchar['reply'] == the1stchar['error']
+          end
+          return statuscode if statuscode == codeinmesg
+
+          zeroindex1 = { 'field' => statuscode.index('.0')   || -1, 'error' => codeinmesg.index('.0')   || -1 }
+          zeroindex2 = { 'field' => statuscode.index('.0.0') || -1, 'error' => codeinmesg.index('.0.0') || -1 }
+
+          if zeroindex2['field'] > 0
+            # "Status:" field is "X.0.0"
+            return codeinmesg if zeroindex2['error'] < 0
+            return statuscode
+          end
+
+          if zeroindex1['field'] > 0
+            # "Status:" field is "X.Y.0" or "X.0.Z"
+            return codeinmesg if zeroindex1['error'] < 0
+          end
+
+          return statuscode if zeroindex2['error'] > 0        # An SMTP status code is "X.0.0"
+          return codeinmesg if statuscode == '4.4.7'          # "4.4.7" is an ambiguous code
+          return codeinmesg if statuscode.start_with?('5.3.') # "5.3.Z" is an error of a system
+
+          if statuscode == '5.1.1'
+            # "5.1.1" is a code of "userunknown"
+            return statuscode if zeroindex1['error'] > 0
+            return codeinmesg
+
+          elsif statuscode == '5.1.3'
+            # "5.1.3"
+            return codeinmesg if codeinmesg.start_with?('5.7.')
+          end
+
+          return statuscode
         end
 
       end
