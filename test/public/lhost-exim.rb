@@ -14,7 +14,7 @@ module LhostEngineTest::Public
       '29' => [['5.0.0',   '550', 'authfailure',     false]],
       '30' => [['5.7.1',   '554', 'userunknown',     true]],
       '31' => [['5.0.912', '',    'hostunknown',     true]],
-      '32' => [['5.0.971', '571', 'blocked',         false]],
+      '32' => [['5.0.971', '',    'blocked',         false]],
       '33' => [['5.0.971', '554', 'blocked',         false]],
       '34' => [['5.7.1',   '554', 'blocked',         false]],
       '35' => [['5.0.971', '550', 'blocked',         false]],

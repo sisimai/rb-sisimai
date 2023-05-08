@@ -21,7 +21,7 @@ module LhostEngineTest::Private
       '01017' => [['2.6.0',   '250', 'delivered',       false]],
       '01018' => [['2.6.0',   '250', 'delivered',       false]],
       '01019' => [['5.7.1',   '554', 'blocked',         false]],
-      '01020' => [['4.4.7',   '',    'expired',         false]],
+      '01020' => [['4.4.2',   '421', 'expired',         false]],
       '01021' => [['5.4.4',   '550', 'hostunknown',     true]],
       '01022' => [['5.5.1',   '550', 'blocked',         false]],
       '01023' => [['5.7.1',   '550', 'suspend',         false]],
@@ -30,7 +30,7 @@ module LhostEngineTest::Private
       '01026' => [['5.7.1',   '554', 'norelaying',      false]],
       '01027' => [['5.2.2',   '552', 'mailboxfull',     false]],
       '01028' => [['5.4.7',   '',    'expired',         false]],
-      '01029' => [['5.3.0',   '550', 'filtered',        false]],
+      '01029' => [['5.1.0',   '550', 'userunknown',     true]],
       '01030' => [['2.6.0',   '250', 'delivered',       false]],
       '01031' => [['2.6.0',   '250', 'delivered',       false]],
     }
