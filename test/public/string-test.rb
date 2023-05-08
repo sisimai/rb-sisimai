@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'sisimai/string'
 
 class StringTest < Minitest::Test
-  Methods = { class: %w[token is_8bit sweep aligned to_plain to_utf8] }
+  Methods = { class: %w[token is_8bit sweep aligned ipv4 to_plain to_utf8] }
 
   def test_methods
     Methods[:class].each { |e| assert_respond_to Sisimai::String, e }
