@@ -98,22 +98,22 @@ module Sisimai
           return true if tempreason == 'rejected' # Delivery status code points "rejected".
 
           # Check the value of Diagnosic-Code: header with patterns
-          diagnostic = argvs['diagnosticcode'].downcase
-          thecommand = argvs['smtpcommand']
+          issuedcode = argvs['diagnosticcode'].downcase
+          thecommand = argvs['smtpcommand'] || ''
           if thecommand == 'MAIL'
             # The session was rejected at 'MAIL FROM' command
-            return true if match(diagnostic)
+            return true if match(issuedcode)
 
           elsif thecommand == 'DATA'
             # The session was rejected at 'DATA' command
             if tempreason != 'userunknown'
               # Except "userunknown"
-              return true if match(diagnostic)
+              return true if match(issuedcode)
             end
           elsif %w[onhold undefined securityerror systemerror].include?(tempreason)
             # Try to match with message patterns when the temporary reason is "onhold", "undefined",
             # "securityerror", or "systemerror"
-            return true if match(diagnostic)
+            return true if match(issuedcode)
           end
           return false
         end

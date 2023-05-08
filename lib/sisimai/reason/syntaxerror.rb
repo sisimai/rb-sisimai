@@ -25,7 +25,10 @@ module Sisimai
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
           return true if argvs['reason'] == 'syntaxerror'
-          return true if argvs['replycode'] =~ /\A[45]0[1-7]\z/
+
+          reply = argvs['replycode'].to_i
+          return true if reply > 400 && reply < 408
+          return true if reply > 500 && reply < 508
           return false
         end
 

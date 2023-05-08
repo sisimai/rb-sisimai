@@ -10,6 +10,8 @@ module Sisimai
     #    Last-Attempt-Date: Thu, 9 Apr 2008 23:34:45 +0900 (JST)
     module SpamDetected
       class << self
+        require 'sisimai/string'
+
         Index = [
           ' - spam',
           '//www.spamhaus.org/help/help_spam_16.htm',
@@ -22,7 +24,6 @@ module Sisimai
           'blocked by policy: no spam please',
           'blocked by spamassassin',                      # rejected by SpamAssassin
           'blocked for abuse. see http://att.net/blocks', # AT&T
-          'bulk email',
           'cannot be forwarded because it was detected as spam',
           'considered unsolicited bulk e-mail (spam) by our mail filters',
           'content filter rejection',
@@ -56,9 +57,11 @@ module Sisimai
           'probable spam',
           'reject bulk.advertising',
           'rejected: spamassassin score ',
+          'rejected - bulk email',
           'rejecting banned content',
           'rejecting mail content',
           'related to content with spam-like characteristics',
+          'sender domain listed at ',
           'sending address not accepted due to spam filter',
           'spam blocked',
           'spam check',
@@ -103,16 +106,13 @@ module Sisimai
           ['mail rejete. mail rejected. ', '506'],
           ['our filters rate at and above ', ' percent probability of being spam'],
           ['rejected by ', ' (spam)'],
+          ['rejected due to spam ', 'classification'],
+          ['rejected due to spam ', 'content'],
           ['rule imposed as ', ' is blacklisted on'],
           ['spam ', ' exceeded'],
           ['this message scored ', ' spam points'],
         ].freeze
-        Regex = %r{(?>
-           (?:\d[.]\d[.]\d|\d{3})[ ]spam\z
-          |rejected[ ]due[ ]to[ ]spam[ ](?:url[ ]in[ ])?(?:classification|content)
-          |sender[ ]domain[ ]listed[ ]at[ ][^ ]+
-          )
-        }x.freeze
+        Regex = %r/(?:\d[.]\d[.]\d|\d{3})[ ]spam\z/.freeze
 
         def text; return 'spamdetected'; end
         def description; return 'Email rejected by spam filter running on the remote host'; end
@@ -124,11 +124,7 @@ module Sisimai
         def match(argv1)
           return nil unless argv1
           return true if Index.any? { |a| argv1.include?(a) }
-          return true if Pairs.any? { |a| 
-            p = (argv1.index(a[0], 0) || -1) + 1
-            q = (argv1.index(a[1], p) || -1) + 1
-            p * q > 0
-          }
+          return true if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
           return true if argv1 =~ Regex
           return false
         end

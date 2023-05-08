@@ -14,6 +14,8 @@ module Sisimai
     #
     module PolicyViolation
       class << self
+        require 'sisimai/string'
+
         Index = [
           'an illegal attachment on your message',
           'because the recipient is not accepting mail with ',    # AOL Phoenix
@@ -37,9 +39,10 @@ module Sisimai
           'the message was rejected by organization policy',
           'this message was blocked because its content presents a potential',
           'we do not accept messages containing images or other attachments',
-          'you have exceeded the allowable number of posts without solving a captcha',
-          'you have exceeded the the allowable number of posts without solving a captcha',
           "you're using a mass mailer",
+        ].freeze
+        Pairs = [
+          ['you have exceeded the', 'allowable number of posts without solving a captcha'],
         ].freeze
 
         def text; return 'policyviolation'; end
@@ -53,6 +56,7 @@ module Sisimai
         def match(argv1)
           return nil unless argv1
           return true if Index.any? { |a| argv1.include?(a) }
+          return true if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
           return false
         end
 

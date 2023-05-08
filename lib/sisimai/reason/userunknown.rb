@@ -14,6 +14,8 @@ module Sisimai
     #   RCPT TO command)
     module UserUnknown
       class << self
+        require 'sisimai/string'
+
         PreMatches = %w[NoRelaying Blocked MailboxFull HasMoved Rejected NotAccept]
         ModulePath = {
           'Sisimai::Reason::NoRelaying'  => 'sisimai/reason/norelaying',
@@ -61,6 +63,7 @@ module Sisimai
           'no such mailbox',
           'no such person at this address',
           'no such recipient',
+
           'no such user',
           'no thank you rejected: account unavailable',
           'no valid recipients, bye',
@@ -117,8 +120,8 @@ module Sisimai
           ['adresse d au moins un destinataire invalide. invalid recipient.', '416'],
           ['adresse d au moins un destinataire invalide. invalid recipient.', '418'],
           ['bad', 'recipient'],
-          ['mailbox ', ' does not exist'],
-          ['mailbox ', ' unavailable'],
+          ['mailbox ', 'does not exist'],
+          ['mailbox ', 'unavailable or access denied'],
           ['no ', ' in name directory'],
           ['non', 'existent user'],
           ['rcpt <', ' does not exist'],
@@ -144,11 +147,7 @@ module Sisimai
         def match(argv1)
           return nil unless argv1
           return true if Index.any? { |a| argv1.include?(a) }
-          return true if Pairs.any? { |a| 
-            p = (argv1.index(a[0], 0) || -1) + 1
-            q = (argv1.index(a[1], p) || -1) + 1
-            p * q > 0
-          }
+          return true if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
           return false
         end
 
@@ -163,7 +162,7 @@ module Sisimai
           tempreason = Sisimai::SMTP::Status.name(argvs['deliverystatus']) || ''
           return false if tempreason == 'suspend'
 
-          diagnostic = argvs['diagnosticcode'].downcase
+          issuedcode = argvs['diagnosticcode'].downcase
           if tempreason == 'userunknown'
             # *.1.1 = 'Bad destination mailbox address'
             #   Status: 5.1.1
@@ -182,7 +181,7 @@ module Sisimai
                 next
               end
 
-              next unless r.match(diagnostic)
+              next unless r.match(issuedcode)
               # Match with reason defined in Sisimai::Reason::* except UserUnknown.
               matchother = true
               break
@@ -192,7 +191,7 @@ module Sisimai
           elsif argvs['smtpcommand'] == 'RCPT'
             # When the SMTP command is not "RCPT", the session rejected by other
             # reason, maybe.
-            return true if match(diagnostic)
+            return true if match(issuedcode)
           end
 
           return false

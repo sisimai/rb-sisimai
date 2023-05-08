@@ -17,6 +17,8 @@ module Sisimai
     #
     module SecurityError
       class << self
+        require 'sisimai/string'
+
         Index = [
           'account not subscribed to ses',
           'authentication credentials invalid',
@@ -34,11 +36,11 @@ module Sisimai
         ].freeze
         Pairs = [
           ['authentication failed; server ', ' said: '],  # Postfix
+          ['authentification invalide', '305'],
           ['authentification requise', '402'],
           ['domain ', ' is a dead domain'],
           ['user ', ' is not authorized to perform ses:sendrawemail on resource'],
         ].freeze
-        Regex = %r/codes?[ ]d'?[ ]*authentification[ ]invalide.+[0-9a-z_]+305/.freeze
 
         def text; return 'securityerror'; end
         def description; return 'Email rejected due to security violation was detected on a destination host'; end
@@ -50,12 +52,7 @@ module Sisimai
         def match(argv1)
           return nil unless argv1
           return true if Index.any? { |a| argv1.include?(a) }
-          return true if Pairs.any? { |a| 
-            p = (argv1.index(a[0], 0) || -1) + 1
-            q = (argv1.index(a[1], p) || -1) + 1
-            p * q > 0
-          }
-          return true if argv1 =~ Regex
+          return true if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
           return false
         end
 
