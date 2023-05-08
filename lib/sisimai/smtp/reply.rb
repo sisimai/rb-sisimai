@@ -145,8 +145,8 @@ module Sisimai
         # @param    [String] argv2  Status code like 5.1.1 or 2 or 4 or 5
         # @return   [String]        SMTP Reply Code
         #           [Nil]           The first argument did not include SMTP Reply Code value
-        def find(argv1 = '', argv2 = 'x')
-          return nil if argv1.to_s.size < 4
+        def find(argv1 = '', argv2 = '0')
+          return nil if argv1.to_s.size < 3
           return nil if argv1.upcase.include?('X-UNIX')
 
           statuscode = argv2[0, 1]
@@ -155,7 +155,7 @@ module Sisimai
                        else
                          [*CodeOfSMTP['5'], *CodeOfSMTP['4'], *CodeOfSMTP['2']]
                        end
-          esmtperror = ' ' + argv1
+          esmtperror = ' ' + argv1 + ' '
           esmtpreply = '' # SMTP Reply Code
           replyindex =  0 # A position of SMTP reply code found by the index()
           formerchar =  0 # a character that is one character before the SMTP reply code
@@ -165,7 +165,7 @@ module Sisimai
             # Try to find an SMTP Reply Code from the given string
             replyindex = esmtperror.index(e); next unless replyindex
             formerchar = esmtperror[replyindex - 1, 1].ord || 0
-            lattercahr = esmtperror[replyindex + 3, 1].ord || 0
+            latterchar = esmtperror[replyindex + 3, 1].ord || 0
 
             next if formerchar > 45 && formerchar < 58
             next if latterchar > 45 && latterchar < 58
@@ -173,6 +173,7 @@ module Sisimai
             break
           end
 
+          return nil if esmtpreply.empty?
           return esmtpreply
         end
 
