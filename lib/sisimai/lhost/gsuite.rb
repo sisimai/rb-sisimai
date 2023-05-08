@@ -8,9 +8,8 @@ module Sisimai::Lhost
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['Content-Type: message/rfc822', 'Content-Type: text/rfc822-headers'].freeze
       MarkingsOf = {
-        message: %r/\A[*][*][ ].+[ ][*][*]\z/,
-        error:   %r/\AThe[ ]response([ ]from[ ]the[ ]remote[ ]server)?[ ]was:\z/,
-        html:    %r{\AContent-Type:[ ]text/html;[ ]charset=['"]?(?:UTF|utf)[-]8['"]?\z},
+        message: ['** '],
+        error:   ['The response was:', 'The response from the remote server was:'],
       }.freeze
       MessagesOf = {
         'userunknown'  => ["because the address couldn't be found. Check for typos or unnecessary spaces and try again."],
@@ -28,7 +27,6 @@ module Sisimai::Lhost
         return nil unless mhead['subject'].start_with?('Delivery Status Notification')
         return nil unless mhead['x-gm-message-state']
 
-        require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         permessage = {}     # (Hash) Store values of each Per-Message field
 
@@ -47,7 +45,7 @@ module Sisimai::Lhost
           # line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or message/delivery-status part
-            readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
+            readcursor |= Indicators[:deliverystatus] if MarkingsOf[:message].any? { |a| e.start_with?(a) }
           end
           next if (readcursor & Indicators[:deliverystatus]) == 0
 
@@ -99,10 +97,10 @@ module Sisimai::Lhost
               next unless e.start_with?(' ')
               v['diagnosis'] << e
 
-            elsif e =~ MarkingsOf[:error]
+            elsif MarkingsOf[:error].any? { |a| e.start_with?(a) }
               # Detect SMTP session error or connection error
               # The response from the remote server was:
-              anotherset['diagnosis'] << e
+              anotherset['diagnosis'] << ' ' << e
             else
               # ** Address not found **
               #
@@ -111,11 +109,9 @@ module Sisimai::Lhost
               #
               # The response from the remote server was:
               # 550 #5.1.0 Address rejected.
-              next if e =~ MarkingsOf[:html]
-
+              next if e.start_with?('Content-Type:')
               if anotherset['diagnosis']
                 # Continued error messages from the previous line like "550 #5.1.0 Address rejected."
-                next if e.start_with?('Content-Type:')
                 next if emptylines > 5
                 if e.empty?
                   # Count and next()
@@ -129,7 +125,7 @@ module Sisimai::Lhost
                 # Your message wasn't delivered to * because the address couldn't be found.
                 # Check for typos or unnecessary spaces and try again.
                 next if e.empty?
-                next unless e =~ MarkingsOf[:message]
+                next unless MarkingsOf[:message].any? { |a| e.start_with?(a) }
                 anotherset['diagnosis'] = e
               end
             end
@@ -146,7 +142,7 @@ module Sisimai::Lhost
             # Copy alternative error message
             e['diagnosis'] = anotherset['diagnosis'] unless e['diagnosis']
 
-            if e['diagnosis'] =~ /\A\d+\z/
+            if e['diagnosis'].include?(' ') == false && e['diagnosis'].to_i > 0
               e['diagnosis'] = anotherset['diagnosis']
             else
               # More detailed error message is in "anotherset"

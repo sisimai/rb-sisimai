@@ -7,7 +7,7 @@ module Sisimai::Lhost
 
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['Content-Type: message/partial'].freeze
-      MarkingsOf = { message: %r/\A[ ]+[-]+[ ]*Transcript of session follows/ }.freeze
+      MarkingsOf = { message: '   ----- Transcript of session follows -----' }.freeze
 
       # Parse bounce messages from Bigfoot
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -43,7 +43,7 @@ module Sisimai::Lhost
 
           if readcursor == 0
             # Beginning of the bounce message or message/delivery-status part
-            readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
+            readcursor |= Indicators[:deliverystatus] if e.start_with?(MarkingsOf[:message])
             next
           end
           next if (readcursor & Indicators[:deliverystatus]) == 0
@@ -91,15 +91,15 @@ module Sisimai::Lhost
               if e.start_with?('>>> ')
                 # >>> DATA
                 thecommand = Sisimai::SMTP::Command.find(e)
-              elsif cv = e.match(/\A[<]{3}[ ]+(.+)\z/)
+              elsif e.start_with?('<<< ')
                 # <<< Response
-                esmtpreply = cv[1]
+                esmtpreply = e[4, e.size - 4]
               end
             else
               # Continued line of the value of Diagnostic-Code field
               next unless readslices[-2].start_with?('Diagnostic-Code:')
-              next unless cv = e.match(/\A[ ]+(.+)\z/)
-              v['diagnosis'] << ' ' << cv[1]
+              next unless e.start_with?(' ')
+              v['diagnosis'] << ' ' << Sisimai::String.sweep(e[1, e.size])
               readslices[-1] = 'Diagnostic-Code: ' << e
             end
           end

@@ -22,7 +22,6 @@ module Sisimai::Lhost
         return nil unless mhead['x-mailer']
         return nil unless mhead['x-mailer'] == 'SurfControl E-mail Filter'
 
-        require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -56,24 +55,27 @@ module Sisimai::Lhost
           # --- Message non-deliverable.
           v = dscontents[-1]
 
-          if cv = e.match(/\AAddressed To:[ ]*([^ ]+?[@][^ ]+?)\z/)
+          if e.start_with?('Addressed To:') && e.index('@') > 1
             # Addressed To: kijitora@example.com
             if v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = cv[1]
+            v['recipient'] = Sisimai::Address.s3s4(e[e.index(':') + 2, e.size])
             recipients += 1
 
-          elsif e =~ /\A(?:Sun|Mon|Tue|Wed|Thu|Fri|Sat)[ ,]/
+          elsif %w[Sun Mon Tue Wed Thu Fri Sat].any? { |a| e.start_with?(a) }
             # Thu 29 Apr 2010 23:34:45 +0900
             v['date'] = e
 
-          elsif cv = e.match(/\A[^ ]+[@][^ ]+:[ ]*\[(\d+[.]\d+[.]\d+[.]\d)\],[ ]*(.+)\z/)
+          elsif Sisimai::String.aligned(e, ['@', ':', ' ', '[', '],', '...'])
             # kijitora@example.com: [192.0.2.5], 550 kijitora@example.com... No such user
-            v['rhost'] = cv[1]
-            v['diagnosis'] = cv[2]
+            p1 = e.index('[')
+            p2 = e.index('],', p1 + 1)
+            v['rhost'] = e[p1 + 1, p2 - p1 - 1]
+            v['diagnosis'] = Sisimai::String.sweep(e[p2 + 2, e.size])
+
           else
             # Fallback, parse RFC3464 headers.
             if f = Sisimai::RFC1894.match(e)
@@ -85,8 +87,8 @@ module Sisimai::Lhost
             else
               # Continued line of the value of Diagnostic-Code field
               next unless readslices[-2].start_with?('Diagnostic-Code:')
-              next unless cv = e.match(/\A[ ]+(.+)\z/)
-              v['diagnosis'] << ' ' << cv[1]
+              next unless e.start_with?(' ')
+              v['diagnosis'] << ' ' << Sisimai::String.sweep(e)
               readslices[-1] = 'Diagnostic-Code: ' << e
             end
           end

@@ -36,19 +36,21 @@ module Sisimai::Lhost
           # line of the beginning of the original message.
           next if e.empty?
 
-          v = dscontents[-1]
-          if cv = e.match(/\A.+[<>]{3}[ ]+.+[<]([^ ]+[@][^ ]+)[>]\z/) ||
-                  e.match(/\A.+[<>]{3}[ ]+.+[<]([^ ]+[@][^ ]+)[>]/)   ||
-                  e.match(/\A(?:Reason:[ ]+)?Unable[ ]to[ ]deliver[ ]message[ ]to[ ][<](.+)[>]/)
+          v  = dscontents[-1]
+          p1 = e.index(' <<< ') || -1 # Sent <<< ...
+          p2 = e.index(' >>> ') || -1 # Received >>> ...
+          if e.include?('@') && e.include?(' <') && ( p1 > 1 || p2 > 1 || e.include?('Unable to deliver ') )
             # Sent <<< RCPT TO:<kijitora@example.co.jp>
             # Received >>> 550 5.1.1 <kijitora@example.co.jp>... user unknown
             # Unable to deliver message to <kijitora@neko.example.jp>
-            if v['recipient'] && cv[1] != v['recipient']
+            cr = e[e.rindex('<') + 1, e.rindex('>') - e.rindex('<') - 1]
+
+            if v['recipient'] && cr != v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = cv[1]
+            v['recipient'] = cr
             v['diagnosis'] = e if e.include?('Unable to deliver ')
             recipients = dscontents.size
           end
@@ -57,18 +59,15 @@ module Sisimai::Lhost
             # Sent <<< RCPT TO:<kijitora@example.co.jp>
             v['command'] = Sisimai::SMTP::Command.find(e)
 
-          elsif cv = e.match(/\AReceived[ ]+[>]{3}[ ]+(\d{3}[ ]+.+)\z/)
+          elsif e.start_with?('Received >>> ')
             # Received >>> 550 5.1.1 <kijitora@example.co.jp>... user unknown
-            v['diagnosis'] = cv[1]
+            v['diagnosis'] = e[e.index(' >>> ') + 4, e.size]
           else
             # Error message in non-English
-            next unless e =~ /[ ][<>]{3}[ ]/
             v['command'] = Sisimai::SMTP::Command.find(e) if e.include?(' >>> ')
-
-            if cv = e.match(/[ ][<]{3}[ ](.+)/)
-              # <<< 550 5.1.1 User unknown
-              v['diagnosis'] = cv[1]
-            end
+            p3 = e.index(' <<< ')
+            next unless p3
+            v['diagnosis'] = e[p3 + 4, e.size]
           end
         end
         return nil unless recipients > 0

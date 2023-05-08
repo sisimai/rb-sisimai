@@ -53,15 +53,15 @@ module Sisimai::Lhost
           # shironeko@example.org Invalid Address, ERROR_CODE :550, ERROR_CODE :Requested action not taken: mailbox unavailable
           v = dscontents[-1]
 
-          if cv = e.match(/\A([^ ]+[@][^ ]+)[ ]+(.+)\z/)
+          if Sisimai::String.aligned(e, ['@', ' ', 'ERROR_CODE :'])
             # kijitora@example.co.jp Invalid Address, ERROR_CODE :550, ERROR_CODE :5.1.=
             if v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = cv[1]
-            v['diagnosis'] = cv[2]
+            v['recipient'] = e[0, e.index(' ')]
+            v['diagnosis'] = e[e.index(' ') + 1, e.size]
 
             if v['diagnosis'].end_with?('=')
               # Quoted printable
@@ -70,7 +70,7 @@ module Sisimai::Lhost
             end
             recipients += 1
 
-          elsif cv = e.match(/\A\[Status: .+[<]([^ ]+[@][^ ]+)[>],/)
+          elsif e.start_with?('[Status: ')
             # Expired
             # [Status: Error, Address: <kijitora@6kaku.example.co.jp>, ResponseCode 421, , Host not reachable.]
             if v['recipient']
@@ -78,7 +78,9 @@ module Sisimai::Lhost
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = cv[1]
+            p1 = e.index('<')
+            p2 = e.index('>', p1 + 2)
+            v['recipient'] = Sisimai::Address.s3s4(e[p1, p2 - p1])
             v['diagnosis'] = e
             recipients += 1
           else

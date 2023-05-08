@@ -178,7 +178,6 @@ module Sisimai::Lhost
               v['lhost']     = o['reportingMTA'] || ''
               v['diagnosis'] = o['smtpResponse'] || ''
               v['status']    = Sisimai::SMTP::Status.find(v['diagnosis']) || ''
-              v['replycode'] = Sisimai::SMTP::Reply.find(v['diagnosis'])  || ''
               v['reason']    = 'delivered'
               v['action']    = 'delivered'
 
@@ -310,7 +309,7 @@ module Sisimai::Lhost
             permessage.each_key { |a| e[a] ||= permessage[a] || '' }
 
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].to_s.tr("\n", ' '))
-            if e['status'].to_s.start_with?('5.0.0', '5.1.0', '4.0.0', '4.1.0')
+            if e['status'].to_s.end_with?('.0.0', '.1.0')
               # Get other D.S.N. value from the error message
               errormessage = e['diagnosis']
 
@@ -320,6 +319,7 @@ module Sisimai::Lhost
               end
               e['status'] = Sisimai::SMTP::Status.find(errormessage) || e['status']
             end
+            e['replycode'] ||= Sisimai::SMTP::Reply.find(e['diagnosis'], e['status'])
 
             MessagesOf.each_key do |r|
               # Verify each regular expression of session errors

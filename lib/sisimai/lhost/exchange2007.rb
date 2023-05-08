@@ -12,20 +12,17 @@ module Sisimai::Lhost
         'Intestazioni originali del messaggio:',    # it-CH
       ].freeze
       MarkingsOf = {
-        message: %r{\A(?:
-           Diagnostic[ ]information[ ]for[ ]administrators:               # en-US
-          |Informations[ ]de[ ]diagnostic[ ]pour[ ]les[ ]administrateurs  # fr-FR
-          |Informazioni[ ]di[ ]diagnostica[ ]per[ ]gli[ ]amministratori   # it-CH
-          )
-        }x,
-        error:   %r/ ((?:RESOLVER|QUEUE)[.][A-Za-z]+(?:[.]\w+)?);/,
-        rhost:   %r{\A(?:
-           Generating[ ]server            # en-US
-          |Serveur[ ]de[ ]g[^ ]+ration[ ] # fr-FR/Serveur de gè¾¿nè¾¿ration
-          |Server[ ]di[ ]generazione      # it-CH
-          ):[ ]?(.*)
-        }x,
-        subject: %r/\A(?:Undeliverable|Non_remis_|Non[ ]recapitabile):/,
+        message: [
+          'Diagnostic information for administrators:',           # en-US
+          'Informations de diagnostic pour les administrateurs',  # fr-FR
+          'Informazioni di diagnostica per gli amministratori',   # it-CH
+        ],
+        error:   [' RESOLVER.', ' QUEUE.'],
+        rhost:   [
+          'Generating server',        # en-US
+          'Serveur de g',             # fr-FR/Serveur de g’Hn’Hration
+          'Server di generazione',    # it-CH
+        ]
       }.freeze
       NDRSubject = {
         'SMTPSEND.DNS.NonExistentDomain' => 'hostunknown',   # 554 5.4.4 SMTPSEND.DNS.NonExistentDomain
@@ -49,9 +46,16 @@ module Sisimai::Lhost
       # @return [Nil]           it failed to parse or the arguments are missing
       def inquire(mhead, mbody)
         # Content-Language: en-US, fr-FR
-        return nil unless mhead['subject'] =~ MarkingsOf[:subject]
+        match   = nil
+        match ||= 1 if mhead['subject'].start_with?('Undeliverable')
+        match ||= 1 if mhead['subject'].start_with?('Non_remis_')
+        match ||= 1 if mhead['subject'].start_with?('Non recapitabile')
+        return nil unless match
         return nil unless mhead['content-language']
-        return nil unless mhead['content-language'] =~ /\A[a-z]{2}(?:[-][A-Z]{2})?\z/
+
+        match += 1 if mhead['content-language'].size == 2 # JP
+        match += 1 if mhead['content-language'].size == 5 # ja-JP
+        return nil unless match > 1
 
         # These headers exist only a bounce mail from Office365
         return nil if mhead['x-ms-exchange-crosstenant-originalarrivaltime']
@@ -73,7 +77,7 @@ module Sisimai::Lhost
           # line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
+            readcursor |= Indicators[:deliverystatus] if MarkingsOf[:message].any? { |a| e.start_with?(a) }
             next
           end
           next if (readcursor & Indicators[:deliverystatus]) == 0
@@ -89,14 +93,14 @@ module Sisimai::Lhost
             # Original message headers:
             v = dscontents[-1]
 
-            if cv = e.match(/\A([^ @]+[@][^ @]+)\z/)
+            if e.include?('@') && e.include?(' ') == false
               # kijitora@example.jp
               if v['recipient']
                 # There are multiple recipient addresses in the message body.
                 dscontents << Sisimai::Lhost.DELIVERYSTATUS
                 v = dscontents[-1]
               end
-              v['recipient'] = cv[1]
+              v['recipient'] = Sisimai::Address.s3s4(e)
               v['diagnosis'] = ''
               recipients += 1
 
@@ -119,26 +123,32 @@ module Sisimai::Lhost
             # Diagnostic information for administrators:
             #
             # Generating server: mta22.neko.example.org
-            next unless cv = e.match(MarkingsOf[:rhost])
+            next unless MarkingsOf[:rhost].any? { |a| e.start_with?(a) }
             next unless connheader['rhost'].empty?
-            connheader['rhost'] = cv[1]
+            connheader['rhost'] = e[e.index(':') + 1, e.size]
             connvalues += 1
           end
         end
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          if cv = e['diagnosis'].match(MarkingsOf[:error])
-            # #550 5.1.1 RESOLVER.ADR.RecipNotFound; not found ##
-            f = cv[1]
-            NDRSubject.each_key do |r|
-              # Try to match with error subject strings
-              next unless f == r
-              e['reason'] = NDRSubject[r]
-              break
-            end
-          end
+          p = -1
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+          MarkingsOf[:error].each do |q|
+            # Find an error message, get an error code.
+            p = e['diagnosis'].index(q) || -1
+            break if p > -1
+          end
+          next unless p > 0
+
+          # #550 5.1.1 RESOLVER.ADR.RecipNotFound; not found ##
+          f = e['diagnosis'][p + 1, e['diagnosis'].index(';') - p -1]
+          NDRSubject.each_key do |r|
+            # Try to match with error subject strings
+            next unless f == r
+            e['reason'] = NDRSubject[r]
+            break
+          end
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }

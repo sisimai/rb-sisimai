@@ -76,10 +76,10 @@ module Sisimai::Lhost
             v['recipient'] ||= e
             recipients += 1
 
-          elsif cv = e.match(/\A[ ][ ]([^ ]+[@][^ ]+)\z/)
+          elsif e.start_with?('  ') && e.include?('@') && e.index(' ', 3).nil?
             # Continued from the line "was not delivered to:"
             #   kijitora@example.net
-            v['recipient'] = Sisimai::Address.s3s4(cv[1])
+            v['recipient'] = Sisimai::Address.s3s4(e[2, e.size])
 
           elsif e.start_with?('because:')
             # because:
@@ -89,9 +89,9 @@ module Sisimai::Lhost
               # Error message, continued from the line "because:"
               v['diagnosis'] = e
 
-            elsif cv = e.match(/\A[ ][ ]Subject: (.+)\z/)
+            elsif e.start_with?('  Subject: ')
               #   Subject: Nyaa
-              subjecttxt = cv[1]
+              subjecttxt = e[11, e.size]
 
             elsif f = Sisimai::RFC1894.match(e)
               # There are some fields defined in RFC3464, try to match 
@@ -136,7 +136,7 @@ module Sisimai::Lhost
         end
 
         # Set the value of subjecttxt as a Subject if there is no original message in the bounce mail.
-        emailparts[1] << ('Subject: ' << subjecttxt << "\n") unless emailparts[1] =~ /^Subject: /
+        emailparts[1] << ('Subject: ' << subjecttxt << "\n") unless emailparts[1].include?("\nSubject:")
 
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end

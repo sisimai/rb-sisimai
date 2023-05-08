@@ -22,7 +22,8 @@ module Sisimai::Lhost
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to parse or the arguments are missing
       def inquire(mhead, mbody)
-        return nil unless mhead['from'] =~ /postmaster[@](?:biglobe|inacatv|tmtv|ttv)[.]ne[.]jp/
+        return nil unless mhead['from'].include?('postmaster@')
+        return nil unless %w[biglobe inacatv tmtv ttv].any? { |a| mhead['from'].include?('@' + a + '.ne.jp') }
         return nil unless mhead['subject'].start_with?('Returned mail:')
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]

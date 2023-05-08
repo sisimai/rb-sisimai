@@ -8,12 +8,12 @@ module Sisimai::Lhost
       Boundaries = ['Original message follows.'].freeze
       StartingOf = { error: ['Body of message generated response:'] }.freeze
       ReFailures = {
-        'hostunknown'   => %r/Unknown host/,
-        'userunknown'   => %r/\A(?:Unknown user|Invalid final delivery userid)/,
-        'mailboxfull'   => %r/\AUser mailbox exceeds allowed size/,
-        'securityerror' => %r/\ARequested action not taken: virus detected/,
-        'undefined'     => %r/\Aundeliverable to /,
-        'expired'       => %r/\ADelivery failed \d+ attempts/,
+        'hostunknown'   => ['Unknown host'],
+        'userunknown'   => ['Unknown user', 'Invalid final delivery userid'],
+        'mailboxfull'   => ['User mailbox exceeds allowed size'],
+        'virusdetected' => ['Requested action not taken: virus detected'],
+        'undefined'     => ['undeliverable to'],
+        'expired'       => ['Delivery failed '],
       }.freeze
 
       # Parse bounce messages from IMailServer
@@ -54,14 +54,14 @@ module Sisimai::Lhost
             v['recipient'] = cv[3]
             recipients += 1
 
-          elsif cv = e.match(/\Aundeliverable[ ]+to[ ]+(.+)\z/)
+          elsif e.start_with?('undeliverable ')
             # undeliverable to kijitora@example.com
             if v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = Sisimai::Address.s3s4(cv[1])
+            v['recipient'] = Sisimai::Address.s3s4(e)
             recipients += 1
           else
             # Other error message text
@@ -86,10 +86,9 @@ module Sisimai::Lhost
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
           e['command']   = Sisimai::SMTP::Command.find(e['diagnosis'])
 
-
           ReFailures.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailures[r]
+            next unless ReFailures[r].any? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r
             break
           end

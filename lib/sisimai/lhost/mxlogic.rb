@@ -81,12 +81,7 @@ module Sisimai::Lhost
         match += 1 if mhead['x-mxl-hash']
         match += 1 if mhead['x-mxl-notehash']
         match += 1 if mhead['from'].start_with?('Mail Delivery System')
-        match += 1 if mhead['subject'] =~ %r{(?:
-             Mail[ ]delivery[ ]failed(:[ ]returning[ ]message[ ]to[ ]sender)?
-            |Warning:[ ]message[ ][^ ]+[ ]delayed[ ]+
-            |Delivery[ ]Status[ ]Notification
-            )
-        }x
+        match += 1 if ['Delivery Status Notification', 'Mail delivery failed', 'Warning: message '].any? { |a| mhead['subject'].include?(a) }
         return nil unless match > 0
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
@@ -118,7 +113,7 @@ module Sisimai::Lhost
           #    host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
           v = dscontents[-1]
 
-          if cv = e.match(/\A[ ]*[<]([^ ]+[@][^ ]+)[>]:(.+)\z/)
+          if e.start_with?('  <') && e.include?('@') && e.include?('>:')
             # A message that you have sent could not be delivered to one or more
             # recipients.  This is a permanent error.  The following address failed:
             #
@@ -128,8 +123,8 @@ module Sisimai::Lhost
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = cv[1]
-            v['diagnosis'] = cv[2]
+            v['recipient'] = e[3, e.index('>:') - 3]
+            v['diagnosis'] = e[e.index('>:') + 3, e.size]
             recipients += 1
 
           elsif dscontents.size == recipients
@@ -142,8 +137,13 @@ module Sisimai::Lhost
 
         unless mhead['received'].empty?
           # Get the name of local MTA
-          # Received: from marutamachi.example.org (c192128.example.net [192.0.2.128])
-          if cv = mhead['received'][-1].match(/from[ ]([^ ]+) /) then localhost0 = cv[1] end
+          p1 = mhead['received'][-1].downcase.index('from ')
+          p2 = mhead['received'][-1].index(' ', p1 + 5)
+
+          if (p1 + 1) * (p2 + 1) > 0
+            # Received: from marutamachi.example.org (c192128.example.net [192.0.2.128])
+            localhost0 = mhead['received'][-1][p1 + 5, p2 - p1 - 5]
+          end
         end
 
         dscontents.each do |e|
@@ -152,8 +152,11 @@ module Sisimai::Lhost
 
           unless e['rhost']
             # Get the remote host name
+            p1 = e['diagnosis'].index('host ') || -1
+            p2 = e['diagnosis'].index(' ', p1 + 5)
+
             # host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
-            if cv = e['diagnosis'].match(/host[ ]+([^ ]+)[ ]\[.+\]:[ ]/) then e['rhost'] = cv[1] end
+            e['rhost'] = e['diagnosis'][p1 + 5, p2 - p1 - 5] if p1 > -1
 
             unless e['rhost']
               # Get localhost and remote host name from Received header.

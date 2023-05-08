@@ -16,7 +16,6 @@ module Sisimai::Lhost
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to parse or the arguments are missing
       def inquire(mhead, mbody)
-        # :received => %r/[ ][(]MessagingServer[)][ ]with[ ]/,
         match  = 0
         match += 1 if mhead['content-type'].include?('Boundary_(ID_')
         match += 1 if mhead['subject'].start_with?('Delivery Notification: ')
@@ -60,45 +59,49 @@ module Sisimai::Lhost
           #   Remote system: dns;mx.example.jp (TCP|17.111.174.67|47323|192.0.2.225|25) (6jo.example.jp ESMTP SENDMAIL-VM)
           v = dscontents[-1]
 
-          if cv = e.match(/\A[ ]+Recipient address:[ ]*([^ ]+[@][^ ]+)\z/)
+          if e.start_with?('  Recipient address: ') && e.index('@') > 1
             #   Recipient address: kijitora@example.jp
             if v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = Sisimai::Address.s3s4(cv[1])
+            v['recipient'] = Sisimai::Address.s3s4(e[e.rindex(' ') + 1, e.size])
             recipients += 1
 
-          elsif cv = e.match(/\A[ ]+Original address:[ ]*([^ ]+[@][^ ]+)\z/)
+          elsif e.start_with?('  Original address: ') && e.index('@') > 1
             #   Original address: kijitora@example.jp
-            v['recipient'] = Sisimai::Address.s3s4(cv[1])
+            v['recipient'] = Sisimai::Address.s3s4(e[e.rindex(' ') + 1, e.size])
 
-          elsif cv = e.match(/\A[ ]+Date:[ ]*(.+)\z/)
+          elsif e.start_with?('  Date: ')
             #   Date: Fri, 21 Nov 2014 23:34:45 +0900
-            v['date'] = cv[1]
+            v['date'] = e[e.index(':') + 2, e.size]
 
-          elsif cv = e.match(/\A[ ]+Reason:[ ]*(.+)\z/)
+          elsif e.start_with?('  Reason: ')
             #   Reason: Remote SMTP server has rejected address
-            v['diagnosis'] = cv[1]
+            v['diagnosis'] = e[e.index(':') + 2, e.size]
 
-          elsif cv = e.match(/\A[ ]+Diagnostic code:[ ]*([^ ]+);(.+)\z/)
+          elsif e.start_with?('  Diagnostic code: ')
             #   Diagnostic code: smtp;550 5.1.1 <kijitora@example.jp>... User Unknown
-            v['spec'] = cv[1].upcase
-            v['diagnosis'] = cv[2]
+            p1 = e.index(':')
+            p2 = e.index(';')
+            v['spec'] = e[p1 + 2, p2 - p1 - 2].upcase
+            v['diagnosis'] = e[p2 + 1, e.size]
 
-          elsif cv = e.match(/\A[ ]+Remote system:[ ]*dns;([^ ]+)[ ]*([^ ]+)[ ]*.+\z/)
+          elsif e.start_with?('  Remote system: ')
             #   Remote system: dns;mx.example.jp (TCP|17.111.174.67|47323|192.0.2.225|25)
             #     (6jo.example.jp ESMTP SENDMAIL-VM)
-            remotehost = cv[1]  # remote host
-            sessionlog = cv[2]  # smtp session
+            p1 = e.index(';')
+            p2 = e.index('(')
+            remotehost = e[p1 + 1, p2 - p1 - 2]
+            sessionlog = e[p2, e.size].split('|')
             v['rhost'] = remotehost
 
             # The value does not include ".", use IP address instead.
             # (TCP|17.111.174.67|47323|192.0.2.225|25)
-            next unless cv = sessionlog.match(/\A[(]TCP|(.+)|\d+|(.+)|\d+[)]/)
-            v['lhost'] = cv[1]
-            v['rhost'] = cv[2] unless remotehost =~ /[^.]+[.][^.]+/
+            next unless sessionlog[0] == '(TCP'
+            v['lhost'] = sessionlog[1]
+            v['rhost'] = sessionlog[3] unless remotehost.index('.') > 1
           else
             # Original-envelope-id: 0NFC009FLKOUVMA0@mr21p30im-asmtp004.me.com
             # Reporting-MTA: dns;mr21p30im-asmtp004.me.com (tcp-daemon)
@@ -112,20 +115,22 @@ module Sisimai::Lhost
             #  (6jo.example.jp ESMTP SENDMAIL-VM)
             # Diagnostic-code: smtp;550 5.1.1 <kijitora@example.jp>... User Unknown
             #
-            if cv = e.match(/\AStatus:[ ]*(\d[.]\d[.]\d)[ ]*[(](.+)[)]\z/)
+            if e.start_with?('Status: ')
               # Status: 5.1.1 (Remote SMTP server has rejected address)
-              v['status'] = cv[1]
-              v['diagnosis'] ||= cv[2]
+              p1 = e.index(':')
+              p2 = e.index('(')
+              v['status']      = e[p1 + 2, p2 - p1 - 3]
+              v['diagnosis'] ||= e[p2 + 1, e[e.index(')') - p2 - 1]]
 
-            elsif cv = e.match(/\AArrival-Date:[ ](.+)\z/)
+            elsif e.start_with?('Arrival-Date: ')
               # Arrival-date: Thu, 29 Apr 2014 23:34:45 +0000 (GMT)
-              v['date'] ||= cv[1]
+              v['date'] ||= e[e.index(':') + 2, e.size]
 
-            elsif cv = e.match(/\AReporting-MTA:[ ]dns;[ ](.+)\z/)
+            elsif e.start_with?('Reporting-MTA: ')
               # Reporting-MTA: dns;mr21p30im-asmtp004.me.com (tcp-daemon)
-              localhost = cv[1]
+              localhost = e[e.index(';') + 1, e.size]
               v['lhost'] ||= localhost
-              v['lhost']   = localhost unless v['lhost'] =~ /[^.]+[.][^ ]+/
+              v['lhost']   = localhost unless v['lhost'].index('.') > 0
             end
           end
         end

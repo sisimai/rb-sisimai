@@ -31,10 +31,11 @@ module Sisimai::Lhost
       def inquire(mhead, mbody)
         match  = 0
         match += 1 if mhead['from'].include?('Courier mail server at ')
-        match += 1 if mhead['subject'] =~ /(?:NOTICE: mail delivery status[.]|WARNING: delayed mail[.])/
+        match += 1 if mhead['subject'].include?('NOTICE: mail delivery status.')
+        match += 1 if mhead['subject'].include?('WARNING: delayed mail.')
         if mhead['message-id']
           # Message-ID: <courier.4D025E3A.00001792@5jo.example.org>
-          match += 1 if mhead['message-id'] =~ /\A[<]courier[.][0-9A-F]+[.]/
+          match += 1 if mhead['message-id'].start_with?('<courier.')
         end
         return nil unless match > 0
 

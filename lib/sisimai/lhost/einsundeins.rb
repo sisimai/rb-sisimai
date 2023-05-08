@@ -51,14 +51,14 @@ module Sisimai::Lhost
           # http://postmaster.1and1.com/en/error-messages?ip=%1s
           v = dscontents[-1]
 
-          if cv = e.match(/\A([^ ]+[@][^ ]+?)[:]?\z/)
+          if e.include?('@') && e.include?(' ') == false
             # general@example.eu
             if v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = cv[1]
+            v['recipient'] = Sisimai::Address.s3s4(e)
             recipients += 1
 
           elsif e.start_with?(StartingOf[:error][0])
@@ -93,7 +93,7 @@ module Sisimai::Lhost
             e['status']  = Sisimai::SMTP::Status.find(e['diagnosis'])
           else
             # For the following reason:
-            e['diagnosis'].gsub(/\A#{StartingOf[:error][0]}/, '')
+            e['diagnosis'][0, StartingOf[:error][0].size] = ''
           end
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 

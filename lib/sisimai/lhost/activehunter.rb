@@ -45,27 +45,27 @@ module Sisimai::Lhost
           # 550 sorry, no mailbox here by that name (#5.1.1 - chkusr)
           v = dscontents[-1]
 
-          if cv = e.match(/\A[>]{3}[ ]+.+[<]([^ ]+?[@][^ ]+?)[>]\z/)
+          if e.start_with?('>>> ') && e.index('@') > 1
             # >>> kijitora@example.org <kijitora@example.org>
             if v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = cv[1]
+            v['recipient'] = Sisimai::Address.s3s4(e[e.index('<'), e.size])
             v['diagnosis'] = ''
             recipients += 1
           else
             #  ----- Transcript of session follows -----
             # 550 sorry, no mailbox here by that name (#5.1.1 - chkusr)
-            next unless e =~ /\A[0-9A-Za-z]+/
+            next if e[0, 1].ord <  48
+            next if e[0, 1].ord > 122
             next unless v['diagnosis'].empty?
             v['diagnosis'] = e
           end
         end
         return nil unless recipients > 0
 
-        require 'sisimai/string'
         dscontents.each { |e| e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) }
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end

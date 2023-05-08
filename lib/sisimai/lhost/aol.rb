@@ -31,7 +31,6 @@ module Sisimai::Lhost
         # X-Outbound-Mail-Relay-Sender: rfc822; shironeko@aol.example.jp
         return nil unless mhead['x-aol-ip']
 
-        require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         permessage = {}     # (Hash) Store values of each Per-Message field
 

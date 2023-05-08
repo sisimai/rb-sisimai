@@ -54,14 +54,14 @@ module Sisimai::Lhost
           # ============================================================================
           v = dscontents[-1]
 
-          if cv = e.match(/\A[ ]+[*][ ]([^ ]+[@][^ ]+)\z/)
+          if e.include?('  * ') && e.include?('@')
             #   * kijitora@example.com
             if v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = cv[1]
+            v['recipient'] = e[e.index(' * ') + 3, e.size]
             recipients += 1
           else
             # Detect error message
@@ -70,13 +70,13 @@ module Sisimai::Lhost
               v['command'] = Sisimai::SMTP::Command.find(e)
               v['diagnosis'] = e
 
-            elsif cv = e.match(/\ARouting: (.+)/)
+            elsif e.start_with?('Routing: ')
               # Routing: Could not find a gateway for kijitora@example.co.jp
-              v['diagnosis'] = cv[1]
+              v['diagnosis'] = e[9, e.size]
 
-            elsif cv = e.match(/\ADiagnostic-Code: smtp; (.+)/)
+            elsif e.start_with?('Diagnostic-Code: smtp; ')
               # Diagnostic-Code: smtp; 552 5.2.2 Over quota
-              v['diagnosis'] = cv[1]
+              v['diagnosis'] = e[e.index(';') + 2, e.size]
             end
           end
         end

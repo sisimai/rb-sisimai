@@ -27,7 +27,6 @@ module Sisimai::Lhost
         # Feedback-ID: 1.us-west-2.HX6/J9OVlHTadQhEu1+wdF9DBj6n6Pa9sW5Y/0pSOi8=:AmazonSES
         return nil unless mhead['x-ses-outgoing']
 
-        require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         permessage = {}     # (Hash) Store values of each Per-Message field
 
@@ -88,8 +87,8 @@ module Sisimai::Lhost
           else
             # Continued line of the value of Diagnostic-Code field
             next unless readslices[-2].start_with?('Diagnostic-Code:')
-            next unless cv = e.match(/\A[ ]+(.+)\z/)
-            v['diagnosis'] << ' ' << cv[1]
+            next unless e.start_with?(' ')
+            v['diagnosis'] << ' ' << Sisimai::String.sweep(e)
             readslices[-1] = 'Diagnostic-Code: ' << e
           end
         end

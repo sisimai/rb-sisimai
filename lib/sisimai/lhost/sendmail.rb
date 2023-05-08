@@ -4,6 +4,9 @@ module Sisimai::Lhost
   module Sendmail
     class << self
       require 'sisimai/lhost'
+      require 'sisimai/smtp/reply'
+      require 'sisimai/smtp/status'
+      require 'sisimai/smtp/command'
 
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['Content-Type: message/rfc822', 'Content-Type: text/rfc822-headers'].freeze
@@ -26,14 +29,14 @@ module Sisimai::Lhost
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to parse or the arguments are missing
       def inquire(mhead, mbody)
-        return nil unless mhead['subject'] =~ /(?:see transcript for details\z|\AWarning: )/
         return nil if mhead['x-aol-ip']
+        match   = nil
+        match ||= true if mhead['subject'].end_with?('see transcript for details')
+        match ||= true if mhead['subject'].start_with?('Warning: ')
+        return nil unless match
 
-        require 'sisimai/rfc1894'
-        require 'sisimai/smtp/command'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         permessage = {}     # (Hash) Store values of each Per-Message field
-
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         bodyslices = emailparts[0].split("\n")
@@ -109,9 +112,10 @@ module Sisimai::Lhost
                 # >>> DATA
                 thecommand = Sisimai::SMTP::Command.find(e)
 
-              elsif cv = e.match(/\A[<]{3}[ ]+(.+)\z/)
+              elsif e.start_with?('<<< ')
                 # <<< Response
-                esmtpreply << cv[1] unless esmtpreply.index(cv[1])
+                cv = e[4, e.size - 4]
+                esmtpreply << cv unless esmtpreply.index(cv)
               else
                 # Detect SMTP session error or connection error
                 next if sessionerr
@@ -122,21 +126,23 @@ module Sisimai::Lhost
                   next
                 end
 
-                if cv = e.match(/\A[<](.+)[>][.]+ (.+)\z/)
+                if e.start_with?('<') && Sisimai::String.aligned(e, ['@', '>.', ' '])
                   # <kijitora@example.co.jp>... Deferred: Name server: example.co.jp.: host name lookup failure
-                  anotherset['recipient'] = cv[1]
-                  anotherset['diagnosis'] = cv[2]
+                  anotherset['recipient'] = Sisimai::Address.s3s4(e[0, e.index('>')])
+                  anotherset['diagnosis'] = e[e.index(' ') + 1, e.size]
                 else
                   # ----- Transcript of session follows -----
                   # Message could not be delivered for too long
                   # Message will be deleted from queue
-                  next if e =~ /\A[ ]*[-]+/
-                  if cv = e.match(/\A[45]\d\d[ ]([45][.]\d[.]\d)[ ].+/)
+                  cr = Sisimai::SMTP::Reply.find(e)  || ''
+                  cs = Sisimai::SMTP::Status.find(e) || ''
+
+                  if cr.size + cs.size > 7
                     # 550 5.1.2 <kijitora@example.org>... Message
                     #
                     # DBI connect('dbname=...')
                     # 554 5.3.0 unknown mailer error 255
-                    anotherset['status'] = cv[1]
+                    anotherset['status']      = cs
                     anotherset['diagnosis'] ||= ''
                     anotherset['diagnosis'] << ' ' << e
 
@@ -151,8 +157,8 @@ module Sisimai::Lhost
             else
               # Continued line of the value of Diagnostic-Code field
               next unless readslices[-2].start_with?('Diagnostic-Code:')
-              next unless cv = e.match(/\A[ ]+(.+)\z/)
-              v['diagnosis'] << ' ' << cv[1]
+              next unless e.start_with?(' ')
+              v['diagnosis'] << ' ' << Sisimai::String.sweep(e)
               readslices[-1] = 'Diagnostic-Code: ' << e
             end
           end
@@ -168,35 +174,41 @@ module Sisimai::Lhost
           if anotherset['diagnosis']
             # Copy alternative error message
             e['diagnosis'] = anotherset['diagnosis'] if e['diagnosis'].start_with?(' ')
-            e['diagnosis'] = anotherset['diagnosis'] if e['diagnosis'].empty?
             e['diagnosis'] = anotherset['diagnosis'] if e['diagnosis'].=~ /\A\d+\z/
+            e['diagnosis'] = anotherset['diagnosis'] if e['diagnosis'].empty?
           end
-          unless esmtpreply.empty?
-            # Replace the error message in "diagnosis" with the ESMTP Reply
-            r = esmtpreply.join(' ')
-            e['diagnosis'] = r if r.size > e['diagnosis'].size
+
+          while true
+            # Replace or append the error message in "diagnosis" with the ESMTP Reply Code when the
+            # following conditions have matched
+            break if esmtpreply.empty?
+            break if recipients != 1
+
+            e['diagnosis'] = sprintf("%s %s", esmtpreply.join(' '), e['diagnosis'])
+            break
           end
+
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           e['command'] ||= thecommand || Sisimai::SMTP::Command.find(e['diagnosis']) || ''
           if e['command'].empty?
             e['command'] = 'EHLO' unless esmtpreply.empty?
           end
 
-          if anotherset['status']
-            # Check alternative status code
-            if e['status'].empty? || e['status'] !~ /\A[45][.]\d[.]\d{1,3}\z/
-              # Override alternative status code
-              e['status'] = anotherset['status']
-            end
+          while true
+            # Check alternative status code and override it
+            break unless anotherset.has_key?('status')
+            break unless anotherset['status'].size > 0
+            break if     Sisimai::SMTP::Status.test(e['status'])
+
+            e['status'] = anotherset['status']
+            break
           end
 
-          unless e['recipient'] =~ /\A[^ ]+[@][^ ]+\z/
-            # @example.jp, no local part
-            if cv = e['diagnosis'].match(/[<]([^ ]+[@][^ ]+)[>]/)
-              # Get email address from the value of Diagnostic-Code header
-              e['recipient'] = cv[1]
-            end
-          end
+          # @example.jp, no local part
+          # # Get email address from the value of Diagnostic-Code field
+          next unless e['recipient'].start_with?('@')
+          cv = Sisimai::Address.find(e['diagnosis'], true) || []
+          e['recipient'] = cv[0][:address] if cv.size > 0
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
@@ -205,3 +217,4 @@ module Sisimai::Lhost
     end
   end
 end
+

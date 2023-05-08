@@ -7,13 +7,7 @@ module Sisimai::Lhost
 
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['Content-Type: message/rfc822'].freeze
-      MarkingsOf = {
-        message: %r/\AYour[ ]mail[ ](?:
-             sent[ ]on:?[ ][A-Z][a-z]{2}[,]
-            |attempted[ ]to[ ]be[ ]delivered[ ]on:?[ ][A-Z][a-z]{2}[,]
-            )
-        /x,
-      }.freeze
+      MarkingsOf = { message: ['Your mail sent on:', 'Your mail attempted to be delivered on:'] }.freeze
       MessagesOf = {
         'mailboxfull' => ['As their mailbox is full'],
         'norelaying'  => ['Due to the following SMTP relay error'],
@@ -28,7 +22,7 @@ module Sisimai::Lhost
       def inquire(mhead, mbody)
         # :'message-id' => %r/[@].+[.]ezweb[.]ne[.]jp[>]\z/,
         match  = 0
-        match += 1 if mhead['from'] =~ /no-reply[@].+[.]dion[.]ne[.]jp/
+        match += 1 if Sisimai::String.aligned(mhead['from'], ['no-reply@.', '.dion.ne.jp'])
         match += 1 if mhead['reply-to'].to_s == 'no-reply@app.auone-net.jp'
         match += 1 if mhead['received'].any? { |a| a.include?('ezweb.ne.jp (') }
         match += 1 if mhead['received'].any? { |a| a.include?('.au.com (') }
@@ -46,14 +40,14 @@ module Sisimai::Lhost
           # line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            readcursor |= Indicators[:deliverystatus] if e =~ MarkingsOf[:message]
+            readcursor |= Indicators[:deliverystatus] if MarkingsOf[:message].any? { |a| e.start_with?(a) }
             next
           end
           next if (readcursor & Indicators[:deliverystatus]) == 0
           next if e.empty?
 
           v = dscontents[-1]
-          if cv = e.match(/\A[ ]+Could not be delivered to: [<]([^ ]+[@][^ ]+)[>]/)
+          if e.include?(' Could not be delivered to: <')
             # Your mail sent on: Thu, 29 Apr 2010 11:04:47 +0900
             #     Could not be delivered to: <******@**.***.**>
             #     As their mailbox is full.
@@ -62,14 +56,14 @@ module Sisimai::Lhost
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            r = Sisimai::Address.s3s4(cv[1])
+            r = Sisimai::Address.s3s4(e[e.index('<') + 1, e.size])
             next unless Sisimai::Address.is_emailaddress(r)
             v['recipient'] = r
             recipients += 1
 
-          elsif cv = e.match(/Your mail sent on: (.+)\z/)
+          elsif e.include?('Your mail sent on: ')
             # Your mail sent on: Thu, 29 Apr 2010 11:04:47 +0900
-            v['date'] = cv[1]
+            v['date'] = e[19, e.size]
           else
             #     As their mailbox is full.
             v['diagnosis'] ||= ''

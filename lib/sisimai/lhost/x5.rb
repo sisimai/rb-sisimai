@@ -35,7 +35,6 @@ module Sisimai::Lhost
         end
         return nil if match < 2
 
-        require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         readslices = ['']
@@ -44,10 +43,10 @@ module Sisimai::Lhost
         v = nil
 
         # Pick the second message/rfc822 part because the format of email-x5-*.eml is nested structure
-        cutsbefore = mbody.split(Boundaries[0], 2)
-        cutsbefore[1].sub!(/\A.+?\n\n/s, '')
-        emailparts = Sisimai::RFC5322.part(cutsbefore[1], Boundaries)
-        bodyslices = emailparts[0].split("\n")
+        cutsbefore    = mbody.split(Boundaries[0], 2)
+        cutsbefore[1] = cutsbefore[1][cutsbefore[1].index("\n\n") + 2, cutsbefore[1].size]
+        emailparts    = Sisimai::RFC5322.part(cutsbefore[1], Boundaries)
+        bodyslices    = emailparts[0].split("\n")
 
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email to the previous
@@ -96,8 +95,8 @@ module Sisimai::Lhost
           else
             # Continued line of the value of Diagnostic-Code field
             next unless readslices[-2].start_with?('Diagnostic-Code:')
-            next unless cv = e.match(/\A[ ]+(.+)\z/)
-            v['diagnosis'] << ' ' << cv[1]
+            next unless e.start_with?(' ')
+            v['diagnosis'] << ' ' << Sisimai::String.sweep(e)
             readslices[-1] = 'Diagnostic-Code: ' << e
           end
         end

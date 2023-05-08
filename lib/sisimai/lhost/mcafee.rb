@@ -8,15 +8,7 @@ module Sisimai::Lhost
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['Content-Type: message/rfc822'].freeze
       StartingOf = { message: ['--- The following addresses had delivery problems ---'] }.freeze
-      ReFailures = {
-        'userunknown' => %r{(?:
-           [ ]User[ ][(].+[@].+[)][ ]unknown[.][ ]
-          |550[ ]Unknown[ ]user[ ][^ ]+[@][^ ]+
-          |550[ ][<].+?[@].+?[>][.]+[ ]User[ ]not[ ]exist
-          |No[ ]such[ ]user
-          )
-        }x,
-      }.freeze
+      MessagesOf = { 'userunknown' => [' User not exist', ' unknown.', '550 Unknown user ', 'No such user'] }.freeze
 
       # Parse bounce messages from McAfee Email Appliance
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -29,7 +21,6 @@ module Sisimai::Lhost
         return nil unless mhead['x-nai-header'].start_with?('Modified by McAfee ')
         return nil unless mhead['subject'] == 'Delivery Status'
 
-        require 'sisimai/rfc1894'
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -37,7 +28,7 @@ module Sisimai::Lhost
         readslices = ['']
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        diagnostic = ''     # (String) Alternative diagnostic message
+        issuedcode = ''     # (String) Alternative diagnostic message
         v = nil
 
         while e = bodyslices.shift do
@@ -64,15 +55,15 @@ module Sisimai::Lhost
           #
           v = dscontents[-1]
 
-          if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>][ ]+[(](.+)[)]\z/)
+          if Sisimai::String.aligned(e, ['<', '@', '>', '(', ')'])
             # <kijitora@example.co.jp>   (Unknown user kijitora@example.co.jp)
             if v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = cv[1]
-            diagnostic = cv[2]
+            v['recipient'] = Sisimai::Address.s3s4(e[e.index('<'), e.index('>')])
+            issuedcode = e[e.index('(') + 1, e.size]
             recipients += 1
 
           elsif f = Sisimai::RFC1894.match(e)
@@ -81,8 +72,8 @@ module Sisimai::Lhost
             unless o
               # Fallback code for empty value or invalid formatted value
               # - Original-Recipient: <kijitora@example.co.jp>
-              if cv = e.match(/\AOriginal-Recipient:[ ]([^ ]+)\z/)
-                v['alias'] = Sisimai::Address.s3s4(cv[1])
+              if e.start_with?('Original-Recipient: ')
+                v['alias'] = Sisimai::Address.s3s4(e[e.index(':') + 1, e.size])
               end
               next
             end
@@ -92,18 +83,18 @@ module Sisimai::Lhost
           else
             # Continued line of the value of Diagnostic-Code field
             next unless readslices[-2].start_with?('Diagnostic-Code:')
-            next unless cv = e.match(/\A[ ]+(.+)\z/)
-            v['diagnosis'] << ' ' << cv[1]
+            next unless e.start_with?(' ')
+            v['diagnosis'] << ' ' << Sisimai::String.sweep(e)
             readslices[-1] = 'Diagnostic-Code: ' << e
           end
         end
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'] || diagnostic)
-          ReFailures.each_key do |r|
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'] || issuedcode)
+          MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless e['diagnosis'] =~ ReFailures[r]
+            next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r
             break
           end
