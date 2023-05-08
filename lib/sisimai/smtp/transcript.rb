@@ -3,6 +3,9 @@ module Sisimai
     # Sisimai::SMTP::Transcript is a parser for transcript logs of SMTP session
     module Transcript
       class << self
+        require 'sisimai/smtp/reply'
+        require 'sisimai/smtp/status'
+
         #  Parse a transcript of an SMTP session and makes structured data
         # @param    [String] argv0  A transcript text MTA returned
         # @param    [String] argv1  A label string of a SMTP client
@@ -34,17 +37,23 @@ module Sisimai
           parameters = ''   # Command parameters of MAIL, RCPT
           cursession = nil  # Current session for $esmtp
 
-          if argv0.index('<<<') < argv0.index('>>>')
+          cv = ''
+          p0 = argv0.index('<<<') || -1 # Server response
+          p1 = argv0.index('>>>') || -1 # Sent command
+          if p0 < p1
             # An SMTP server response starting with '<<<' is the first
             esmtp << table.call
             cursession = esmtp[-1]
             cursession['command'] = 'CONN'
-            argv0.sub!(/\A.+?<<</m, '<<<')
+            argv0 = argv0[p0, argv0.size] if p0 > -1
+          else
+            # An SMTP command starting with '>>>' is the first
+            argv0 = argv0[p1, argv0.size] if p1 > -1
           end
 
           # 3. Remove unused lines, concatenate folded lines
-          argv0.sub!(/\n\n.+\z/m, '') # Remove strings from the first blank line to the tail
-          argv0.gsub!(/\n[ ]+/m, ' ') # Concatenate folded lines to each previous line
+          argv0 = argv0[0, argv0.index("\n\n") - 1] # Remove strings from the first blank line to the tail
+          argv0.gsub!(/\n[ ]+/m, ' ')               # Concatenate folded lines to each previous line
 
           argv0.split("\n").each do |e|
             # 4. Read each SMTP command and server response
@@ -87,7 +96,9 @@ module Sisimai
               end
             else
               # SMTP server sent a response "<<< response text"
-              next unless e.start_with?('<<< ')
+              p = e.index('<<< '); next unless p == 0
+
+              e = e[4, e.size]
 
               e.sub!(/\A<<<[ ]/, '')
               if cv = e.match(/\A([2-5]\d\d)[ ]/) then cursession['response']['reply'] = cv[1] end
