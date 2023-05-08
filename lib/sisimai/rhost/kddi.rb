@@ -19,7 +19,7 @@ module Sisimai
 
           MessagesOf.each_key do |e|
             # Try to match the error message with message patterns defined in $MessagesOf
-            next unless statusmesg.end_with?(MessagesOf[e])
+            next unless statusmesg.include?(MessagesOf[e])
             reasontext = e
             break
           end

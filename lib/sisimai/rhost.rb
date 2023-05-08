@@ -5,23 +5,17 @@ module Sisimai
   module Rhost
     class << self
       RhostClass = {
-        'cox.net'                     => 'Cox',
-        '.prod.outlook.com'           => 'ExchangeOnline',
-        '.protection.outlook.com'     => 'ExchangeOnline',
-        'laposte.net'                 => 'FrancePTT',
-        'orange.fr'                   => 'FrancePTT',
-        'wanadoo.fr'                  => 'FrancePTT',
-        'smtp.secureserver.net'       => 'GoDaddy',
-        'mailstore1.secureserver.net' => 'GoDaddy',
-        'aspmx.l.google.com'          => 'GoogleApps',
-        'gmail-smtp-in.l.google.com'  => 'GoogleApps',
-        '.email.ua'                   => 'IUA',
-        'lsean.ezweb.ne.jp'           => 'KDDI',
-        'msmx.au.com'                 => 'KDDI',
-        '.mimecast.com'               => 'Mimecast',
-        'mfsmax.docomo.ne.jp'         => 'NTTDOCOMO',
-        'charter.net'                 => 'Spectrum',
-        '.qq.com'                     => 'TencentQQ',
+          'Cox'       => ['cox.net'],
+          'FrancePTT' => ['.laposte.net', '.orange.fr', '.wanadoo.fr'],
+          'GoDaddy'   => ['smtp.secureserver.net', 'mailstore1.secureserver.net'],
+          'Google'    => ['aspmx.l.google.com', 'gmail-smtp-in.l.google.com'],
+          'IUA'       => ['.email.ua'],
+          'KDDI'      => ['.ezweb.ne.jp', 'msmx.au.com'],
+          'Microsoft' => ['.prod.outlook.com', '.protection.outlook.com'],
+          'Mimecast'  => ['.mimecast.com'],
+          'NTTDOCOMO' => ['mfsmax.docomo.ne.jp'],
+          'Spectrum'  => ['charter.net'],
+          'Tencent'   => ['.qq.com'],
       }.freeze
 
       # The value of "rhost" is listed in RhostClass or not
@@ -33,10 +27,9 @@ module Sisimai
 
         host0 = rhost.downcase
         match = false
-
         RhostClass.each_key do |e|
           # Try to match with each key of RhostClass
-          next unless host0.end_with?(e)
+          next unless RhostClass[e].any? { |a| host0.end_with?(a) }
           match = true
           break
         end
@@ -54,9 +47,9 @@ module Sisimai
 
         RhostClass.each_key do |e|
           # Try to match with each key of RhostClass
-          next unless remotehost.end_with?(e)
-          modulename = 'Sisimai::Rhost::' << RhostClass[e]
-          rhostclass = modulename.gsub('::', '/').downcase
+          next unless RhostClass[e].any? { |a| remotehost.end_with?(a) }
+          modulename = 'Sisimai::Rhost::' << e
+          rhostclass = 'sisimai/rhost/' << e.downcase
           break
         end
         return nil if rhostclass.empty?
