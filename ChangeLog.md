@@ -43,6 +43,18 @@ v5.0.0(beta5)
     multi parted begins with "message/rfc822".
   - #218 Add error messages in some European languages into Office365 and Domino
   - #228 Implement `Sisimai::SMTP::Transcript` for parsing a transcript of session log
+  - #254 Reduce 61% of regular expressions
+    - Implement the following methods:
+      - `Sisimai::SMTP::Command.test`
+      - `Sisimai::SMTP::Reply.test`
+      - `Sisimai::SMTP::Status.test`
+      - `Sisimai::SMTP::Status.prefer`
+      - `Sisimai::String.aligned`
+      - `Sisimai::String.ipv4`
+  - Rename the following classes in `Sisimai::Rhost`:
+    - `Sisimai::Rhost::Microsoft` (ExchangeOnline)
+    - `Sisimai::Rhost::Google` (GoogleApps)
+    - `Sisimai::Rhost::Tencent` (TencentQQ)
   - Add a sample email bounced from Rakuten Mobile: sisimai/set-of-emails#20
     - `lhost-postfix-76.eml` (userunknown)
   - Add sample emails bounced from Amazon SES
