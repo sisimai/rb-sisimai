@@ -8,8 +8,6 @@ module Sisimai
       AutoReply1 = {
         # http://www.iana.org/assignments/auto-submitted-keywords/auto-submitted-keywords.xhtml
         'auto-submitted' => %r/\Aauto-(?:generated|replied|notified)/,
-        # https://msdn.microsoft.com/en-us/library/ee219609(v=exchg.80).aspx
-        'x-auto-response-suppress' => %r/(?:oof|autoreply)/,
         'x-apple-action' => %r/\Avacation\z/,
         'precedence' => %r/\Aauto_reply\z/,
         'subject' => %r/\A(?>
