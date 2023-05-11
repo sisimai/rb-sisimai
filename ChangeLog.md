@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.15p3
+v4.25.15p4
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -13,6 +13,7 @@ v4.25.15p3
   - #253 Fix code in `Sisimai::Data.make()` method to handle `nil` returned from
     `Sisimai::Rhost.get()` method. Thanks to @axfcampos
   - Tiny code improvement: import code from sisimai/p5-sisimai#493 (message.rb)
+  - Tiny code improvement: import code from sisimai/p5-sisimai#494 (rfc3834.rb)
 
 v4.25.15
 --------------------------------------------------------------------------------
