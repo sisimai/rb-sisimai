@@ -4,7 +4,7 @@ module Sisimai
     class << self
       # http://tools.ietf.org/html/rfc3834
       MarkingsOf = { :boundary => '__SISIMAI_PSEUDO_BOUNDARY__' }
-      LowerLabel = %w[from to subject auto-submitted precedence x-apple-action x-auto-response-suppress].freeze
+      LowerLabel = %w[from to subject auto-submitted precedence x-apple-action].freeze
       DoNotParse = {
         'from'    => ['root@', 'postmaster@', 'mailer-daemon@'],
         'to'      => ['root@'],
@@ -20,7 +20,6 @@ module Sisimai
         'subject'        => ['auto:', 'auto response:', 'automatic reply:', 'out of office:', 'out of the office:'],
         'x-apple-action' => ['vacation'],
       }.freeze
-      AutoReply1 = { 'x-auto-response-suppress' => ['oof', 'autoreply'] }.freeze
       SubjectSet = %r{\A(?>
          (?:.+?)?re:
         |auto(?:[ ]response):
@@ -61,16 +60,6 @@ module Sisimai
           # RFC3834 Auto-Submitted and other headers
           next unless lower[e]
           next unless AutoReply0[e].any? { |a| lower[e].include?(a) }
-          match += 1
-          break
-        end
-
-        # DETECT_AUTO_REPLY_MESSAGE0
-        AutoReply1.each_key do |e|
-          # X-Auto-Response-Suppress: header and other headers
-          break if match > 0
-          next unless lower[e]
-          next unless AutoReply1[e].any? { |a| lower[e].include?(a) }
           match += 1
           break
         end
