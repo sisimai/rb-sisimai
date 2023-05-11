@@ -159,9 +159,22 @@ module Sisimai
         # Set pseudo UNIX From line
         block[0] = 'MAILER-DAEMON Tue Feb 11 00:00:00 2014'
       end
-
       block[1] << "\n" unless block[1].end_with?("\n")
+
+      %w[image/ application/ text/html].each do |e|
+        # https://github.com/sisimai/p5-sisimai/issues/492, Reduce email size
+        p0 = 0
+        p1 = 0
+        ep = e == 'text/html' ? '</html>' : "--\n"
+        while true
+          # Remove each part from "Content-Type: image/..." to "--\n" (the end of each boundary)
+          p0 = block[2].index('Content-Type: ' + e, p0); break unless p0
+          p1 = block[2].index(ep, p0 + 32);              break unless p1
+          block[2][p0, p1 - p0] = ''
+        end
+      end
       block[2] << "\n"
+
       return block
     end
 
