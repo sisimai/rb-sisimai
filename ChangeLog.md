@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.15p2
+v4.25.15p3
 --------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -12,6 +12,7 @@ v4.25.15p2
     "b" (not "B") like `=?utf-8?b?...` #251 Thanks to @revsystem
   - #253 Fix code in `Sisimai::Data.make()` method to handle `nil` returned from
     `Sisimai::Rhost.get()` method. Thanks to @axfcampos
+  - Tiny code improvement: import code from sisimai/p5-sisimai#493 (message.rb)
 
 v4.25.15
 --------------------------------------------------------------------------------
