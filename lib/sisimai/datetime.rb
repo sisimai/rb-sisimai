@@ -213,7 +213,7 @@ module Sisimai
           # Parse each piece of time
           if p =~ /\A[A-Z][a-z]{2,}[,]?\z/
             # Day of week or Day of week; Thu, Apr, ...
-            p.gsub!(/,\z/, '') if p.end_with?(',')  # "Thu," => "Thu"
+            p[-1, 1] = '' if p.end_with?(',')  # "Thu," => "Thu"
             p = p[0,3] if p.size > 3
 
             if DayOfWeek[:abbr].include?(p)
@@ -256,7 +256,7 @@ module Sisimai
             # Time: 1:4 => 01:04:00
             v[:T] = sprintf('%02d:%02d:00', cr[1].to_i, cr[2].to_i)
 
-          elsif p =~ /\A[APap][Mm]\z/
+          elsif p.downcase == 'am' || p.downcase == 'pm'
             # AM or PM
             afternoon1 = 1
           else
