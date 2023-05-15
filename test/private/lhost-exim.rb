@@ -100,7 +100,6 @@ module LhostEngineTest::Private
       '01099' => [['4.0.947', '',    'expired',         false]],
       '01100' => [['5.0.0',   '',    'mailererror',     false]],
       '01101' => [['5.0.0',   '',    'mailererror',     false]],
-      '01102' => [['5.0.0',   '',    'mailererror',     false]],
       '01103' => [['5.0.900', '',    'undefined',       false],
                   ['5.0.900', '',    'undefined',       false],
                   ['5.0.0',   '',    'undefined',       false]],
