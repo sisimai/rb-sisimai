@@ -3,7 +3,7 @@ require 'sisimai/datetime'
 require 'time'
 
 class DateTimeTest < Minitest::Test
-  Methods = { class: %w[monthname dayofweek parse abbr2tz tz2second second2tz] }
+  Methods = { class: %w[monthname parse abbr2tz tz2second second2tz] }
 
   def test_methods
     Methods[:class].each { |e| assert_respond_to Sisimai::DateTime, e }
@@ -22,23 +22,6 @@ class DateTimeTest < Minitest::Test
 
     ce = assert_raises ArgumentError do
       Sisimai::DateTime.monthname(nil, nil)
-    end
-    assert_match /wrong number of arguments/, ce.to_s
-  end
-
-  def test_dayofweek
-    cv = Sisimai::DateTime.dayofweek(false)
-    assert_instance_of Array, cv
-    assert_equal 'Mon', cv[1]
-    assert_equal 'Fri', cv[5]
-
-    cv = Sisimai::DateTime.dayofweek(true)
-    assert_instance_of Array, cv
-    assert_equal 'Tuesday', cv[2]
-    assert_equal 'Thursday', cv[4]
-
-    ce = assert_raises ArgumentError do
-      Sisimai::DateTime.dayofweek(nil, nil)
     end
     assert_match /wrong number of arguments/, ce.to_s
   end

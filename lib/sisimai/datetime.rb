@@ -182,17 +182,6 @@ module Sisimai
         return MonthName[value]
       end
 
-      # List of day of week
-      # @param    [Boolean] argv1 Require full name
-      # @return   [Array, String] List of day of week or day of week
-      # @example  Get the names of each day of week
-      #   dayofweek()     #=> [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ]
-      #   dayofweek(true) #=> [ 'Sunday', 'Monday', 'Tuesday', ... ]
-      def dayofweek(argv1 = false)
-        value = argv1 ? :full : :abbr
-        return DayOfWeek[value]
-      end
-
       # Parse date string; strptime() wrapper
       # @param    [String] argv1  Date string
       # @return   [String]        Converted date string
