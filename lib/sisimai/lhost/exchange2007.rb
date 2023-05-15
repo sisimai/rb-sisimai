@@ -104,20 +104,25 @@ module Sisimai::Lhost
               v['diagnosis'] = ''
               recipients += 1
 
-            elsif cv = e.match(/([45]\d{2})[ ]([45][.]\d[.]\d+)?[ ]?.+\z/)
-              # #550 5.1.1 RESOLVER.ADR.RecipNotFound; not found ##
-              # #550 5.2.3 RESOLVER.RST.RecipSizeLimit; message too large for this recipient ##
-              # Remote Server returned '550 5.1.1 RESOLVER.ADR.RecipNotFound; not found'
-              # 3/09/2016 8:05:56 PM - Remote Server at mydomain.com (10.1.1.3) returned '550 4.4.7 QUEUE.Expired; message expired'
-              v['replycode'] = cv[1]
-              v['status']    = cv[2]
-              v['diagnosis'] = e
             else
               # Continued line of error messages
-              next if v['diagnosis'].to_s.empty?
-              next unless v['diagnosis'].end_with?('=')
-              v['diagnosis']  = v['diagnosis'].chomp('=')
-              v['diagnosis'] << e
+              cr = Sisimai::SMTP::Reply.find(e)
+              cs = Sisimai::SMTP::Status.find(e)
+              if cr || cs
+                # #550 5.1.1 RESOLVER.ADR.RecipNotFound; not found ##
+                # #550 5.2.3 RESOLVER.RST.RecipSizeLimit; message too large for this recipient ##
+                # Remote Server returned '550 5.1.1 RESOLVER.ADR.RecipNotFound; not found'
+                # 3/09/2016 8:05:56 PM - Remote Server at mydomain.com (10.1.1.3) returned '550 4.4.7 QUEUE.Expired; message expired'
+                v['replycode'] = cr || ''
+                v['status']    = cs || ''
+                v['diagnosis'] = e
+              else
+                # Continued line of error messages
+                next if v['diagnosis'].to_s.empty?
+                next unless v['diagnosis'].end_with?('=')
+                v['diagnosis']  = v['diagnosis'].chomp('=')
+                v['diagnosis'] << e
+              end
             end
           else
             # Diagnostic information for administrators:
