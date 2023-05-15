@@ -3,35 +3,10 @@ require 'sisimai/datetime'
 require 'time'
 
 class DateTimeTest < Minitest::Test
-  Methods = { class: %w[to_second monthname dayofweek parse abbr2tz tz2second second2tz] }
+  Methods = { class: %w[monthname dayofweek parse abbr2tz tz2second second2tz] }
 
   def test_methods
     Methods[:class].each { |e| assert_respond_to Sisimai::DateTime, e }
-  end
-
-  def test_to_second
-    assert_equal 86400, Sisimai::DateTime.to_second('1d')
-    assert_equal 86400 * 7 * 2, Sisimai::DateTime.to_second('2w')
-    assert_equal 86400 * 14 * 3, Sisimai::DateTime.to_second('3f').to_i
-    assert_equal 10205771, Sisimai::DateTime.to_second('4l').to_i
-    assert_equal 39446190, Sisimai::DateTime.to_second('5q')
-    assert_equal 189341712, Sisimai::DateTime.to_second('6y')
-    assert_equal 883594656, Sisimai::DateTime.to_second('7o')
-    assert_equal 23, Sisimai::DateTime.to_second('gs').to_i
-    assert_equal 188, Sisimai::DateTime.to_second('pm').to_i
-    assert_equal 9785, Sisimai::DateTime.to_second('eh').to_i
-    assert_equal 0, Sisimai::DateTime.to_second(-1)
-    assert_equal 0, Sisimai::DateTime.to_second(-4294967296)
-    assert_equal 0, Sisimai::DateTime.to_second(nil)
-    assert_equal 0, Sisimai::DateTime.to_second(false)
-    assert_equal 0, Sisimai::DateTime.to_second('')
-    assert_equal 0, Sisimai::DateTime.to_second(22)
-
-    ce = assert_raises ArgumentError do
-      Sisimai::DateTime.to_second()
-      Sisimai::DateTime.to_second(nil, nil)
-    end
-    assert_match /wrong number of arguments/, ce.to_s
   end
 
   def test_monthname

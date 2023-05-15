@@ -171,40 +171,6 @@ module Sisimai
         #'YEKT' => '+0500', # Yekaterinburg Time                UTC+05:00
       }.freeze
 
-      # Convert to second
-      # @param    [String] argv1  Digit and a unit of time
-      # @return   [Integer]       n: seconds
-      #                           0: 0 or invalid unit of time
-      # @example  Get the value of seconds
-      #   to_second('1d') #=> 86400
-      #   to_second('2h') #=>  7200
-      def to_second(argv1)
-        return 0 unless argv1.is_a?(::String)
-
-        getseconds = 0
-        unitoftime = TimeUnit.keys.join
-        mathconsts = MathematicalConstant.keys.join
-
-        if cr = argv1.match(/\A(\d+|\d+[.]\d+)([#{unitoftime}])?\z/)
-          # 1d, 1.5w
-          n = cr[1].to_f
-          u = cr[2] || 'd'
-          getseconds = n * TimeUnit[u].to_f
-
-        elsif cr = argv1.match(/\A(\d+|\d+[.]\d+)?([#{mathconsts}])([#{unitoftime}])?\z/)
-          # 1pd, 1.5pw
-          n = cr[1].to_f || 1
-          n = 1 if n.to_i == 0
-          m = MathematicalConstant[cr[2]].to_f
-          u = cr[3] || 'd'
-          getseconds = n * m * TimeUnit[u].to_f
-        else
-          getseconds = 0
-        end
-
-        return getseconds
-      end
-
       # Month name list
       # @param    [Boolean] argv1  Require full name or not
       # @return   [Array, String]  Month name list or month name
