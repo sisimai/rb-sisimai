@@ -122,8 +122,7 @@ module Sisimai::Lhost
             #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
             v = dscontents[-1]
 
-            if cv = e.match(/\A[ ]*([^ ]+[@][^ ]+) on[ ]*.*\z/) ||
-                    e.match(/\A[ ]*.+(?:SMTP|smtp)=([^ ]+[@][^ ]+) on[ ]*.*\z/)
+            if Sisimai::String.aligned(e, ['@', ' on '])
               # kijitora@example.co.jp on Thu, 29 Apr 2007 16:51:51 -0500
               #   kijitora@example.com on 4/29/99 9:19:59 AM
               if v['recipient']
@@ -131,7 +130,9 @@ module Sisimai::Lhost
                 dscontents << Sisimai::Lhost.DELIVERYSTATUS
                 v = dscontents[-1]
               end
-              v['recipient'] = cv[1]
+              p1 = e.downcase.index('smtp='); p1 = p1.nil? ? 0 : p1 + 5
+              p2 = e.index(' on ') + 1
+              v['recipient'] = Sisimai::Address.s3s4(e[p1, p2])
               v['msexch'] = false
               recipients += 1
 
