@@ -60,7 +60,7 @@ module Sisimai::Lhost
           #
           v = dscontents[-1]
 
-          if cv = e.match(/\A([^ ]+[@][^ ]+)\z/)
+          if e.include?('@') && e.include?(' ') == false
             #    ----- The following addresses had delivery problems -----
             # ********@***.biglobe.ne.jp
             if v['recipient']
@@ -69,12 +69,11 @@ module Sisimai::Lhost
               v = dscontents[-1]
             end
 
-            r = Sisimai::Address.s3s4(cv[1])
-            next unless Sisimai::Address.is_emailaddress(r)
-            v['recipient'] = r
+            next unless Sisimai::Address.is_emailaddress(e)
+            v['recipient'] = e
             recipients += 1
           else
-            next if e =~ /\A[^\w]/
+            next if e.include?('--')
             v['diagnosis'] ||= ''
             v['diagnosis'] << e + ' '
           end
