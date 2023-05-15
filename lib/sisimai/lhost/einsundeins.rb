@@ -83,11 +83,14 @@ module Sisimai::Lhost
           e['diagnosis'] ||= ''
           e['diagnosis']   = e['alterrors'] if e['diagnosis'].empty?
 
-          if cv = e['diagnosis'].match(/host:[ ]+(.+?)[ ]+.+[ ]+reason:.+/)
+          if Sisimai::String.aligned(e['diagnosis'], ['host: ', ' reason:'])
             # SMTP error from remote server for TEXT command,
             #   host: smtp-in.orange.fr (193.252.22.65)
             #   reason: 550 5.2.0 Mail rejete. Mail rejected. ofr_506 [506]
-            e['rhost']   = cv[1]
+            p1 = e['diagnosis'].index('host: ')
+            p2 = e['diagnosis'].index(' reason:')
+
+            e['rhost']   = Sisimai::String.sweep(e['diagnosis'][p1 + 6, p2 - p1 - 6])
             e['command'] = 'DATA' if e['diagnosis'].include?('for TEXT command')
             e['spec']    = 'SMTP' if e['diagnosis'].include?('SMTP error')
             e['status']  = Sisimai::SMTP::Status.find(e['diagnosis'])
