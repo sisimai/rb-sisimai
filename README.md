@@ -52,7 +52,7 @@ Key Features
   * 2 times higher than bounceHammer
   * Support 68 MTAs/MDAs/ESPs
   * Support Feedback Loop Message(ARF)
-  * Can detect 29 error reasons
+  * Can detect 32 error reasons
 
 Command line demo
 ---------------------------------------------------------------------------------------------------
