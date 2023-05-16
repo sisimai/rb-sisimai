@@ -284,7 +284,7 @@ module Sisimai
           #   - message/delivery-status, message/rfc822, message/partial, message/feedback-report
           istexthtml = false
           mediatypev = parameter(e[0]) || 'text/plain';
-          next unless mediatypev =~ %r<\A(?:text|message)/>
+          next if mediatypev.start_with?('text/', 'message/') == false
 
           if mediatypev == 'text/html'
             # Skip text/html part when the value of Content-Type: header in an internal part of
