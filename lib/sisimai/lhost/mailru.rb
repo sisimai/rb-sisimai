@@ -148,7 +148,9 @@ module Sisimai::Lhost
         unless mhead['received'].empty?
           # Get the name of local MTA
           # Received: from marutamachi.example.org (c192128.example.net [192.0.2.128])
-          if cv = mhead['received'][-1].match(/from[ ]([^ ]+)/) then localhost0 = cv[1] end
+          p1 = mhead['received'][-1].index('from ')     || -1
+          p2 = mhead['received'][-1].index(' ', p1 + 5) || -1
+          localhost0 = mhead['received'][-1][p1 + 5, p2 - p1 - 5] if p1 > -1
         end
 
         dscontents.each do |e|
@@ -165,12 +167,15 @@ module Sisimai::Lhost
             e.delete('alterrors')
           end
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
-          e['diagnosis'].sub!(/\b__.+\z/, '')
+          p1 = e['diagnosis'].rindex('__') || -1
+          e['diagnosis'] = e['diagnosis'][0, p1 - 1] if p1 > 2
 
           unless e['rhost']
             # Get the remote host name
             # host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
-            if cv = e['diagnosis'].match(/host[ ]+([^ ]+)[ ]\[.+\]:[ ]/) then e['rhost'] = cv[1] end
+            p1 = e['diagnosis'].index('host ')     || -1
+            p2 = e['diagnosis'].index(' ', p1 + 5) || -1
+            e['rhost'] = e['diagnosis'][p1 + 5, p2 - p1 - 5] if p1 > -1
 
             unless e['rhost']
               # Get localhost and remote host name from Received header.

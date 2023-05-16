@@ -74,18 +74,17 @@ module Sisimai::Lhost
           #    <<< 550 <******@ezweb.ne.jp>: User unknown
           v = dscontents[-1]
 
-          if cv = e.match(/\A[<]([^ ]+[@][^ ]+)[>]\z/) ||
-                  e.match(/\A[<]([^ ]+[@][^ ]+)[>]:?(.*)\z/) ||
-                  e.match(/\A[ ]+Recipient: [<]([^ ]+[@][^ ]+)[>]/)
+          if Sisimai::String.aligned(e, ['<', '@', '>']) && (e.include?('Recipient: <') || e.start_with?('<'))
+            #    Recipient: <******@ezweb.ne.jp> OR <***@ezweb.ne.jp>: 550 user unknown ...
+            p1 = e.index('<') || -1
+            p2 = e.index('>') || -1
 
             if v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-
-            r = Sisimai::Address.s3s4(cv[1])
-            v['recipient'] = r
+            v['recipient'] = Sisimai::Address.s3s4(e[p1, p2 - p1])
             recipients += 1
 
           elsif f = Sisimai::RFC1894.match(e)

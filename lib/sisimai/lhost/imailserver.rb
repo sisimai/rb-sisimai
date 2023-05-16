@@ -43,15 +43,16 @@ module Sisimai::Lhost
           # Original message follows.
           v = dscontents[-1]
 
-          if cv = e.match(/\A([^ ]+)[ ](.+)[:][ ]*([^ ]+[@][^ ]+)/)
+          p0 = e.index(': ') || -1
+          if p0 > 8 && Sisimai::String.aligned(e, [': ', '@'])
             # Unknown user: kijitora@example.com
             if v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['diagnosis'] = cv[1] + ' ' + cv[2]
-            v['recipient'] = cv[3]
+            v['diagnosis'] = e
+            v['recipient'] = Sisimai::Address.s3s4(e[p0 + 2, e.size])
             recipients += 1
 
           elsif e.start_with?('undeliverable ')

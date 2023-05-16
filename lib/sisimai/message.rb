@@ -62,16 +62,18 @@ module Sisimai
           # 3. Decode and rewrite the "Subject:" header
           unless thing['header']['subject'].empty?
             # Decode MIME-Encoded "Subject:" header
-            s = thing['header']['subject']
-            q = Sisimai::RFC2045.is_encoded(s) ? Sisimai::RFC2045.decodeH(s.split(/[ ]/)) : s
+            cv = thing['header']['subject']
+            cq = Sisimai::RFC2045.is_encoded(cv) ? Sisimai::RFC2045.decodeH(cv.split(/[ ]/)) : cv
+            cl = cq.downcase
+            p1 = cl.index('fwd:'); p1 = cl.index('fw:') unless p1
 
             # Remove "Fwd:" string from the Subject: header
-            if cv = q.downcase.match(/\A[ \t]*fwd?:[ ]*(.*)\z/)
+            if p1
               # Delete quoted strings, quote symbols(>)
-              q = cv[1]
+              cq = Sisimai::String.sweep(cq[cq.index(':') + 1, cq.size])
               aftersplit[2] = aftersplit[2].gsub(/^[>]+[ ]/, '').gsub(/^[>]$/, '')
             end
-            thing['header']['subject'] = q
+            thing['header']['subject'] = cq
           end
 
           # 4. Rewrite message body for detecting the bounce reason
@@ -153,7 +155,7 @@ module Sisimai
 
         parts = ['', '', '']  # 0:From, 1:Header, 2:Body
         email.gsub!(/\A\s+/, '')
-        email.gsub!(/\r\n/, "\n")  if email.include?("\r\n")
+        email.gsub!(/\r\n/, "\n") if email.include?("\r\n")
 
         (parts[1], parts[2]) = email.split(/\n\n/, 2)
         return nil unless parts[1]

@@ -103,11 +103,9 @@ module Sisimai::Lhost
           if e['status'].to_s.start_with?('5.0.0', '5.1.0', '4.0.0', '4.1.0')
             # Get other D.S.N. value from the error message
             errormessage = e['diagnosis']
-
-            if cv = e['diagnosis'].match(/["'](\d[.]\d[.]\d.+)['"]/)
-              # 5.1.0 - Unknown address error 550-'5.7.1 ...
-              errormessage = cv[1]
-            end
+            p1 = e['diagnosis'].index("-'");  p1 = e['diagnosis'].index('-"')  unless p1
+            p2 = e['diagnosis'].rindex("' "); p2 = e['diagnosis'].rindex('" ') unless p2
+            errormessage = e['diagnosis'][p1 + 2, p2 - p1 - 2] if p1 && p2
             e['status'] = Sisimai::SMTP::Status.find(errormessage) || e['status']
           end
 

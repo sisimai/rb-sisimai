@@ -171,40 +171,6 @@ module Sisimai
         #'YEKT' => '+0500', # Yekaterinburg Time                UTC+05:00
       }.freeze
 
-      # Convert to second
-      # @param    [String] argv1  Digit and a unit of time
-      # @return   [Integer]       n: seconds
-      #                           0: 0 or invalid unit of time
-      # @example  Get the value of seconds
-      #   to_second('1d') #=> 86400
-      #   to_second('2h') #=>  7200
-      def to_second(argv1)
-        return 0 unless argv1.is_a?(::String)
-
-        getseconds = 0
-        unitoftime = TimeUnit.keys.join
-        mathconsts = MathematicalConstant.keys.join
-
-        if cr = argv1.match(/\A(\d+|\d+[.]\d+)([#{unitoftime}])?\z/)
-          # 1d, 1.5w
-          n = cr[1].to_f
-          u = cr[2] || 'd'
-          getseconds = n * TimeUnit[u].to_f
-
-        elsif cr = argv1.match(/\A(\d+|\d+[.]\d+)?([#{mathconsts}])([#{unitoftime}])?\z/)
-          # 1pd, 1.5pw
-          n = cr[1].to_f || 1
-          n = 1 if n.to_i == 0
-          m = MathematicalConstant[cr[2]].to_f
-          u = cr[3] || 'd'
-          getseconds = n * m * TimeUnit[u].to_f
-        else
-          getseconds = 0
-        end
-
-        return getseconds
-      end
-
       # Month name list
       # @param    [Boolean] argv1  Require full name or not
       # @return   [Array, String]  Month name list or month name
@@ -214,17 +180,6 @@ module Sisimai
       def monthname(argv1 = false)
         value = argv1 ? :full : :abbr
         return MonthName[value]
-      end
-
-      # List of day of week
-      # @param    [Boolean] argv1 Require full name
-      # @return   [Array, String] List of day of week or day of week
-      # @example  Get the names of each day of week
-      #   dayofweek()     #=> [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ]
-      #   dayofweek(true) #=> [ 'Sunday', 'Monday', 'Tuesday', ... ]
-      def dayofweek(argv1 = false)
-        value = argv1 ? :full : :abbr
-        return DayOfWeek[value]
       end
 
       # Parse date string; strptime() wrapper
@@ -258,7 +213,7 @@ module Sisimai
           # Parse each piece of time
           if p =~ /\A[A-Z][a-z]{2,}[,]?\z/
             # Day of week or Day of week; Thu, Apr, ...
-            p.gsub!(/,\z/, '') if p.end_with?(',')  # "Thu," => "Thu"
+            p[-1, 1] = '' if p.end_with?(',')  # "Thu," => "Thu"
             p = p[0,3] if p.size > 3
 
             if DayOfWeek[:abbr].include?(p)
@@ -301,7 +256,7 @@ module Sisimai
             # Time: 1:4 => 01:04:00
             v[:T] = sprintf('%02d:%02d:00', cr[1].to_i, cr[2].to_i)
 
-          elsif p =~ /\A[APap][Mm]\z/
+          elsif p.downcase == 'am' || p.downcase == 'pm'
             # AM or PM
             afternoon1 = 1
           else

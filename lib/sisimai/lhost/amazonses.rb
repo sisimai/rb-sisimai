@@ -121,19 +121,19 @@ module Sisimai::Lhost
                 v['action'] = e['action']
                 v['status'] = e['status']
 
-                if cv = e['diagnosticCode'].match(/\A(.+?);[ ](.+)\z/)
+                if p0 = e['diagnosticCode'].index(';') || -1; p0 > 3
                   # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
-                  v['spec'] = cv[1].upcase
-                  v['diagnosis'] = cv[2]
+                  v['spec']      = e['diagnosticCode'][0, p0].upcase
+                  v['diagnosis'] = e['diagnosticCode'][p0 + 2, e['diagnosticCode'].size]
                 else
                   v['diagnosis'] = e['diagnosticCode']
                 end
 
                 # 'reportingMTA' => 'dsn; a27-23.smtp-out.us-west-2.amazonses.com',
-                if cv = o['reportingMTA'].match(/\Adsn;[ ](.+)\z/) then v['lhost'] = cv[1] end
+                p0 = o['reportingMTA'].index('dsn; ')
+                v['lhost'] = Sisimai::String.sweep(o['reportingMTA'][p0 + 5, o['reportingMTA'].size]) if p0
 
-                if bouncetype[o['bounceType']] &&
-                   bouncetype[o['bounceType']][o['bounceSubType']]
+                if bouncetype[o['bounceType']] && bouncetype[o['bounceType']][o['bounceSubType']]
                   # 'bounce' => {
                   #   'bounceType'    => 'Permanent',
                   #   'bounceSubType' => 'General'
@@ -285,8 +285,8 @@ module Sisimai::Lhost
             else
               # Continued line of the value of Diagnostic-Code field
               next unless readslices[-2].start_with?('Diagnostic-Code:')
-              next unless cv = e.match(/\A[ ]+(.+)\z/)
-              v['diagnosis'] << ' ' << cv[1]
+              next unless e.start_with?(' ')
+              v['diagnosis'] << ' ' << e
               readslices[-1] = 'Diagnostic-Code: ' << e
             end
           end
@@ -311,12 +311,11 @@ module Sisimai::Lhost
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].to_s.tr("\n", ' '))
             if e['status'].to_s.end_with?('.0.0', '.1.0')
               # Get other D.S.N. value from the error message
+              # 5.1.0 - Unknown address error 550-'5.7.1 ...
               errormessage = e['diagnosis']
-
-              if cv = e['diagnosis'].match(/["'](\d[.]\d[.]\d.+)['"]/)
-                # 5.1.0 - Unknown address error 550-'5.7.1 ...
-                errormessage = cv[1]
-              end
+              p1 = e['diagnosis'].index("-'");  p1 = e['diagnosis'].index('-"')  unless p1
+              p2 = e['diagnosis'].rindex("' "); p2 = e['diagnosis'].rindex('" ') unless p2
+              errormessage = e['diagnosis'][p1 + 2, p2 - p1 - 2] if p1 && p2
               e['status'] = Sisimai::SMTP::Status.find(errormessage) || e['status']
             end
             e['replycode'] ||= Sisimai::SMTP::Reply.find(e['diagnosis'], e['status'])
