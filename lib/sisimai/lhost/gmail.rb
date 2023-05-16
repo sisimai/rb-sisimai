@@ -209,18 +209,17 @@ module Sisimai::Lhost
 
           unless e['rhost']
             # Get the value of remote host
-            if cv = e['diagnosis'].match(/[ ]+by[ ]+([^ ]+)[.][ ]+\[(\d+[.]\d+[.]\d+[.]\d+)\][.]/)
+            if Sisimai::String.aligned(e['diagnosis'], [' by ', '. [', ']. '])
               # Google tried to deliver your message, but it was rejected by the server for the recipient
               # domain example.jp by mx.example.jp. [192.0.2.153].
-              hostname = cv[1]
-              ipv4addr = cv[2]
-              e['rhost'] = if hostname =~ /[-0-9a-zA-Z]+[.][a-zA-Z]+\z/
-                             # Maybe valid hostname
-                             hostname.downcase
-                           else
-                             # Use IP address instead
-                             ipv4addr
-                           end
+              p1 = e['diagnosis'].rindex(' by ') || -1
+              p2 = e['diagnosis'].rindex('. [' ) || -1
+              hostname = e['diagnosis'][p1 + 4, p2 - p1 - 4]
+              ipv4addr = e['diagnosis'][p2 + 3, e['diagnosis'].rindex(']. ') - p2 - 3]
+              lastchar = hostname[-1, 1].upcase.ord
+
+              e['rhost']   = hostname if lastchar > 64 && lastchar < 91
+              e['rhost'] ||= ipv4addr
             end
           end
 
