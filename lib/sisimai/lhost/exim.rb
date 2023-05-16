@@ -345,9 +345,9 @@ module Sisimai::Lhost
         unless mhead['received'].empty?
           # Get the name of local MTA
           # Received: from marutamachi.example.org (c192128.example.net [192.0.2.128])
-          p1 = mhead['received'].index('from ')
-          p2 = mhead['received'].index(' ', p1 + 5) if p1
-          localhost0 = mhead['received'][p1 + 5, p2 - p1 - 5] if p1 && p2
+          p1 = mhead['received'][-1].index('from ')     || -1
+          p2 = mhead['received'][-1].index(' ', p1 + 5) || -1
+          localhost0 = mhead['received'][-1][p1 + 5, p2 - p1 - 5] if p1 > -1 && p2 > -1
         end
 
         dscontents.each do |e|
