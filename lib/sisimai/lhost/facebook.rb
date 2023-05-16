@@ -149,14 +149,8 @@ module Sisimai::Lhost
           e['lhost']   ||= permessage['lhost']
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
-          if cv = e['diagnosis'].match(/\b([A-Z]{3})[-]([A-Z])(\d)\b/)
-            # Diagnostic-Code: smtp; 550 5.1.1 RCP-P2
-            lhs = cv[1]
-            rhs = cv[2]
-            num = cv[3]
-
-            fbresponse = sprintf('%s-%s%d', lhs, rhs, num)
-          end
+          p0 = e['diagnosis'].index('-') || -1
+          fbresponse = e['diagnosis'][p0 - 3, 6] if p0 > 0
 
           catch :SESSION do
             ReFailures.each_key do |r|
