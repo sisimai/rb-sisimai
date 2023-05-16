@@ -43,7 +43,7 @@ v5.0.0(beta5)
     multi parted begins with "message/rfc822".
   - #218 Add error messages in some European languages into Office365 and Domino
   - #228 Implement `Sisimai::SMTP::Transcript` for parsing a transcript of session log
-  - #254 Reduce 61% of regular expressions
+  - #254, #255 Reduce 78% of regular expressions
     - Implement the following methods:
       - `Sisimai::SMTP::Command.test`
       - `Sisimai::SMTP::Reply.test`
