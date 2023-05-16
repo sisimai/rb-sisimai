@@ -3,10 +3,10 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.15p4
+v4.25.16
 --------------------------------------------------------------------------------
-- release: ""
-- version: ""
+- release: "Tue, 16 May 2023 15:11:22 +0900 (JST)"
+- version: "4.25.16"
 - changes:
   - Fix `Sisimai::MIME.mimedecode()` method when the encoding name is lower case
     "b" (not "B") like `=?utf-8?b?...` #251 Thanks to @revsystem
