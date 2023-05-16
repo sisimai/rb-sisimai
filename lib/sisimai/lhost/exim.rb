@@ -44,7 +44,7 @@ module Sisimai::Lhost
           ' router encountered the following error(s):',
         ],
       }.freeze
-      MarkingsOf = { alias: %r/\A([ ]+an undisclosed address)\z/ }.freeze
+      MarkingsOf = { alias: ' an undisclosed address' }.freeze
       ReCommands = [
         # transports/smtp.c:564|  *message = US string_sprintf("SMTP error from remote mail server after %s%s: "
         # transports/smtp.c:837|  string_sprintf("SMTP error from remote mail server after RCPT TO:<%s>: "
@@ -128,8 +128,9 @@ module Sisimai::Lhost
         # Message-Id: <E1P1YNN-0003AD-Ga@example.org>
         # X-Failed-Recipients: kijitora@example.ed.jp
         match  = 0
+        msgid  = mhead['message-id'] || ''
         match += 1 if mhead['from'].start_with?('Mail Delivery System')
-        match += 1 if mhead['message-id'].to_s =~ %r/\A[<]\w{7}[-]\w{6}[-]\w{2}[@]/
+        match += 1 if msgid.start_with?('<') && msgid.index('-') == 8 && msgid.index('@') == 18
         match += 1 if %w[
           'Delivery Status Notification',
           'Mail delivery failed',
@@ -178,46 +179,69 @@ module Sisimai::Lhost
           #    host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
           v = dscontents[-1]
 
-          if cv = e.match(/\A[ ]{2}([^ ]+[@][^ ]+[.]?[a-zA-Z]+)(:.+)?\z/) ||
-                  e.match(/\A[ ]{2}[^ ]+[@][^ ]+[.][a-zA-Z]+[ ]<(.+?[@].+?)>:.+\z/) ||
-                  e.match(MarkingsOf[:alias])
-            #   kijitora@example.jp
-            #   sabineko@example.jp: forced freeze
-            #   mikeneko@example.jp <nekochan@example.org>: ...
-            #
-            # deliver.c:4549|  printed = US"an undisclosed address";
-            #   an undisclosed address
-            #     (generated from kijitora@example.jp)
-            r = cv[1]
+          cv = ''
+          ce = false
+          while true
+            # Check if the line matche the following patterns:
+            break unless e.start_with?('  ')              # The line should start with "  " (2 spaces)
+            break unless e.include?('@')                  # "@" should be included (email)
+            break unless e.include?('.')                  # "." should be included (domain part)
+            break unless e.include?('pipe to |') == false # Exclude "pipe to /path/to/prog" line
 
+            break unless e[2, 1] != ' '
+            break unless e[2, 1] != '<'
+            ce = true
+            break
+          end
+
+          if ce || e.include?(MarkingsOf[:alias])
+            # The line is including an email address
             if v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            # v['recipient'] = cv[1]
 
-            if cv = e.match(/\A[ ]+[^ ]+[@][^ ]+[.][a-zA-Z]+[ ]<(.+?[@].+?)>:.+\z/)
-              # parser.c:743| while (bracket_count-- > 0) if (*s++ != '>')
-              # parser.c:744|   {
-              # parser.c:745|   *errorptr = s[-1] == 0
-              # parser.c:746|     ? US"'>' missing at end of address"
-              # parser.c:747|     : string_sprintf("malformed address: %.32s may not follow %.*s",
-              # parser.c:748|     s-1, (int)(s - US mailbox - 1), mailbox);
-              # parser.c:749|   goto PARSE_FAILED;
-              # parser.c:750|   }
-              r = cv[1]
-              v['diagnosis'] = e
+            if e.include?(MarkingsOf[:alias])
+              # The line does not include an email address
+              # deliver.c:4549|  printed = US"an undisclosed address";
+              #   an undisclosed address
+              #     (generated from kijitora@example.jp)
+              cv = e[2, e.size]
+            else
+              #   kijitora@example.jp
+              #   sabineko@example.jp: forced freeze
+              #   mikeneko@example.jp <nekochan@example.org>: ...
+              p1 = e.index(' <') || -1
+              p2 = e.index('>:') || -1
+
+              if p1 > 1 && p2 > 1
+                # There are an email address and an error message in the line
+                # parser.c:743| while (bracket_count-- > 0) if (*s++ != '>')
+                # parser.c:744|   {
+                # parser.c:745|   *errorptr = s[-1] == 0
+                # parser.c:746|     ? US"'>' missing at end of address"
+                # parser.c:747|     : string_sprintf("malformed address: %.32s may not follow %.*s",
+                # parser.c:748|     s-1, (int)(s - US mailbox - 1), mailbox);
+                # parser.c:749|   goto PARSE_FAILED;
+                # parser.c:750|   }
+                cv = Sisimai::Address.s3s4(e[p1 + 1, p2 - p1 - 1])
+                v['diagnosis'] = Sisimai::String.sweep(e[p2 + 1, e.size])
+              else
+                # There is an email address only in the line
+                #   kijitora@example.jp
+                cv = Sisimai::Address.s3s4(e[2, e.size])
+              end
             end
-            v['recipient'] = r
+            v['recipient'] = cv
             recipients += 1
 
-          elsif cv = e.match(/\A[ ]+[(]generated[ ]from[ ](.+)[)]\z/) ||
-                     e.match(/\A[ ]+generated[ ]by[ ]([^ ]+[@][^ ]+)/)
+          elsif e.include?(' (generated from ') || e.include?(' generated by ')
             #     (generated from kijitora@example.jp)
             #  pipe to |/bin/echo "Some pipe output"
             #    generated by userx@myhost.test.ex
-            v['alias'] = cv[1]
+            v['alias'] = Sisimai::Address.s3s4(e[e.rindex(' ') + 1, e.size])
+
           else
             next if e.empty?
 
@@ -226,60 +250,59 @@ module Sisimai::Lhost
               # Message *** was frozen on arrival by ACL.
               v['alterrors'] ||= ''
               v['alterrors'] <<  e + ' '
-            else
-              if !boundary00.empty?
-                # --NNNNNNNNNN-eximdsn-MMMMMMMMMM
-                # Content-type: message/delivery-status
-                # ...
-                if Sisimai::RFC1894.match(e)
-                  # "e" matched with any field defined in RFC3464
-                  next unless o = Sisimai::RFC1894.field(e)
+            elsif !boundary00.empty?
+              # --NNNNNNNNNN-eximdsn-MMMMMMMMMM
+              # Content-type: message/delivery-status
+              # ...
+              if Sisimai::RFC1894.match(e)
+                # "e" matched with any field defined in RFC3464
+                next unless o = Sisimai::RFC1894.field(e)
 
-                  if o[-1] == 'addr'
-                    # Final-Recipient: rfc822; kijitora@example.jp
-                    # X-Actual-Recipient: rfc822; kijitora@example.co.jp
-                    next unless o[0] == 'final-recipient'
-                    v['spec'] ||= o[2].include?('@') ? 'SMTP' : 'X-UNIX'
+                if o[-1] == 'addr'
+                  # Final-Recipient: rfc822; kijitora@example.jp
+                  # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                  next unless o[0] == 'final-recipient'
+                  v['spec'] ||= o[2].include?('@') ? 'SMTP' : 'X-UNIX'
 
-                  elsif o[-1] == 'code'
-                    # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
-                    v['spec'] = o[1]
-                    v['diagnosis'] = o[2]
+                elsif o[-1] == 'code'
+                  # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
+                  v['spec'] = o[1]
+                  v['diagnosis'] = o[2]
 
-                  else
-                    # Other DSN fields defined in RFC3464
-                    next unless fieldtable[o[0]]
-                    v[fieldtable[o[0]]] = o[2]
-                  end
                 else
-                  # Error message ?
-                  next if nextcursor == 1
-
-                  # Content-type: message/delivery-status
-                  nextcursor = 1 if e.start_with?(StartingOf[:deliverystatus][0])
-                  v['alterrors'] ||= ''
-                  if e.start_with?("\s", "\t")
-                    e.sub!(/\A[\s\t]+/, '')
-                    v['alterrors'] << e + ' ' unless v['alterrors'].include?(e)
-                  end
+                  # Other DSN fields defined in RFC3464
+                  next unless fieldtable[o[0]]
+                  v[fieldtable[o[0]]] = o[2]
                 end
               else
-                if dscontents.size == recipients
-                  # Error message
-                  next if e.empty?
-                  v['diagnosis'] ||= ''
-                  v['diagnosis'] << e + '  '
+                # Error message ?
+                next if nextcursor == 1
+
+                # Content-type: message/delivery-status
+                nextcursor = 1 if e.start_with?(StartingOf[:deliverystatus][0])
+                v['alterrors'] ||= ''
+                if e.start_with?("\s", "\t")
+                  e.sub!(/\A[\s\t]+/, '')
+                  v['alterrors'] << e + ' ' unless v['alterrors'].include?(e)
+                end
+              end
+            else
+              # There is no boundary string in $boundary00
+              if dscontents.size == recipients
+                # Error message
+                next if e.empty?
+                v['diagnosis'] ||= ''
+                v['diagnosis'] << e + '  '
+              else
+                # Error message when email address above does not include '@' and domain part.
+                if e.include?(' pipe to |/')
+                  # pipe to |/path/to/prog ...
+                  #   generated by kijitora@example.com
+                  v['diagnosis'] = e
                 else
-                  # Error message when email address above does not include '@' and domain part.
-                  if e.include?(' pipe to |/')
-                    # pipe to |/path/to/prog ...
-                    #   generated by kijitora@example.com
-                    v['diagnosis'] = e
-                  else
-                    next unless e.start_with?('    ')
-                    v['alterrors'] ||= ''
-                    v['alterrors'] << e + ' '
-                  end
+                  next unless e.start_with?('    ')
+                  v['alterrors'] ||= ''
+                  v['alterrors'] << e + ' '
                 end
               end
             end
@@ -322,7 +345,9 @@ module Sisimai::Lhost
         unless mhead['received'].empty?
           # Get the name of local MTA
           # Received: from marutamachi.example.org (c192128.example.net [192.0.2.128])
-          if cv = mhead['received'][-1].match(/from[ ]([^ ]+)/) then localhost0 = cv[1] end
+          p1 = mhead['received'].index('from ')
+          p2 = mhead['received'].index(' ', p1 + 5) if p1
+          localhost0 = mhead['received'][p1 + 5, p2 - p1 - 5] if p1 && p2
         end
 
         dscontents.each do |e|
@@ -363,23 +388,23 @@ module Sisimai::Lhost
             if e['diagnosis'].start_with?('-') || e['diagnosis'].end_with?('__')
               # Override the value of diagnostic code message
               e['diagnosis'] = e['alterrors'] unless e['alterrors'].empty?
-            else
-              # Check the both value and try to match
-              if e['diagnosis'].size < e['alterrors'].size
-                # Override the value of diagnostic code message because the value of alterrors includes
-                # the value of diagnosis.
-                e['diagnosis'] = e['alterrors'] if e['alterrors'].downcase.include?(e['diagnosis'].downcase)
-              end
+
+            elsif e['diagnosis'].size < e['alterrors'].size
+              # Override the value of diagnostic code message because the value of alterrors includes
+              # the value of diagnosis.
+              e['diagnosis'] = e['alterrors'] if e['alterrors'].downcase.include?(e['diagnosis'].downcase)
             end
             e.delete('alterrors')
           end
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
-          e['diagnosis'].sub!(/\b__.+\z/, '')
+          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''; p1 = e['diagnosis'].index('__') || -1
+          e['diagnosis'] = e['diagnosis'][0, p1]                     if p1 > 1
 
           unless e['rhost']
             # Get the remote host name
             # host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
-            if cv = e['diagnosis'].match(/host[ ]+([^ ]+)[ ]\[.+\]:[ ]/) then e['rhost'] = cv[1] end
+            p1 = e['diagnosis'].index('host ')     || -1
+            p2 = e['diagnosis'].index(' ', p1 + 5) || -1
+            e['rhost'] = e['diagnosis'][p1 + 5, p2 - p1 - 5] if p1 > -1
 
             unless e['rhost']
               # Get localhost and remote host name from Received header.
@@ -416,7 +441,8 @@ module Sisimai::Lhost
 
               unless e['reason']
                 # The reason "expired"
-                e['reason'] = 'expired' if DelayedFor.any? { |a| e['diagnosis'].include?(a) }
+                e['reason']   = 'expired' if DelayedFor.any? { |a| e['diagnosis'].include?(a) }
+                e['reason'] ||= 'mailererror' if e['diagnosis'].include?('pipe to |')
               end
             end
           end
@@ -430,39 +456,39 @@ module Sisimai::Lhost
           #
           # The value of "Status:" indicates permanent error but the value of SMTP reply code in
           # Diagnostic-Code: field is "TEMPERROR"!!!!
-          sv = e['status']    || Sisimai::SMTP::Status.find(e['diagnosis'])
-          rv = e['replycode'] || Sisimai::SMTP::Reply.find(e['diagnosis'])
+          cs = e['status']    || Sisimai::SMTP::Status.find(e['diagnosis'])
+          cr = e['replycode'] || Sisimai::SMTP::Reply.find(e['diagnosis'])
           s1 = 0  # First character of Status as integer
           r1 = 0  # First character of SMTP reply code as integer
 
           while true
             # "Status:" field did not exist in the bounce message
-            break if sv
-            break unless rv
+            break if cs
+            break unless cr
 
             # Check SMTP reply code, Generate pseudo DSN code from SMTP reply code
-            r1 = rv[0, 1].to_i
+            r1 = cr[0, 1].to_i
             if r1 == 4
               # Get the internal DSN(temporary error)
-              sv = Sisimai::SMTP::Status.code(e['reason'], true)
+              cs = Sisimai::SMTP::Status.code(e['reason'], true)
 
             elsif r1 == 5
               # Get the internal DSN(permanent error)
-              sv = Sisimai::SMTP::Status.code(e['reason'], false)
+              cs = Sisimai::SMTP::Status.code(e['reason'], false)
             end
             break
           end
 
-          s1 = sv[0, 1].to_i if sv
+          s1 = cs[0, 1].to_i if cs
           v1 = s1 + r1
           v1 << e['status'][0, 1].to_i if e['status']
 
           if v1 > 0
             # Status or SMTP reply code exists, Set pseudo DSN into the value of "status" accessor
-            e['status'] = sv if r1 > 0
+            e['status'] = cs if r1 > 0
           else
             # Neither Status nor SMTP reply code exist
-            sv = if %w[expired mailboxfull].include?(e['reason'])
+            cs = if %w[expired mailboxfull].include?(e['reason'])
                    # Set pseudo DSN (temporary error)
                    Sisimai::SMTP::Status.code(e['reason'], true)
                  else
@@ -470,7 +496,7 @@ module Sisimai::Lhost
                    Sisimai::SMTP::Status.code(e['reason'], false)
                  end
           end
-          e['status'] ||= sv.to_s
+          e['status'] ||= cs.to_s
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
