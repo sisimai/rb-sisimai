@@ -96,7 +96,6 @@ isexpected = [
   { 'n' => '01099', 'r' => /expired/ },
   { 'n' => '01100', 'r' => /mailererror/ },
   { 'n' => '01101', 'r' => /mailererror/ },
-  { 'n' => '01102', 'r' => /mailererror/ },
   { 'n' => '01103', 'r' => /undefined/ },
   { 'n' => '01104', 'r' => /mailererror/ },
   { 'n' => '01105', 'r' => /mailererror/ },
