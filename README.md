@@ -2,8 +2,6 @@
 
 [![License](https://img.shields.io/badge/license-BSD%202--Clause-orange.svg)](https://github.com/sisimai/rb-sisimai/blob/master/LICENSE)
 [![Coverage Status](https://img.shields.io/coveralls/sisimai/rb-sisimai.svg)](https://coveralls.io/r/sisimai/rb-sisimai)
-[![Build Status](https://travis-ci.org/sisimai/rb-sisimai.svg?branch=master)](https://travis-ci.org/sisimai/rb-sisimai) 
-[![Codacy Badge](https://api.codacy.com/project/badge/grade/38340177e6284a65be69c0c7c3dc2b58)](https://www.codacy.com/app/azumakuniyuki/rb-sisimai)
 [![Ruby](https://img.shields.io/badge/ruby-v2.4.0--v2.7.0-red.svg)](https://www.ruby-lang.org/)
 [![Gem Version](https://badge.fury.io/rb/sisimai.svg)](https://badge.fury.io/rb/sisimai)
 
