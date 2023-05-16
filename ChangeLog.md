@@ -61,6 +61,18 @@ v5.0.0(beta5)
     - `lhost-postfix-77.eml` (norelaying)
     - `lhost-postfix-78.eml` (contenterror)
 
+v4.25.16
+---------------------------------------------------------------------------------------------------
+- release: "Tue, 16 May 2023 15:11:22 +0900 (JST)"
+- version: "4.25.16"
+- changes:
+  - Fix `Sisimai::MIME.mimedecode()` method when the encoding name is lower case "b" (not "B") like
+    `=?utf-8?b?...` #251 Thanks to @revsystem
+  - Fix code in `Sisimai::Data.make()` method to handle `nil` returned from `Sisimai::Rhost.get()`
+    method. Thanks to @axfcampos #253
+  - Tiny code improvement: import code from sisimai/p5-sisimai#493 (message.rb)
+  - Tiny code improvement: import code from sisimai/p5-sisimai#494 (rfc3834.rb)
+
 v4.25.15
 ---------------------------------------------------------------------------------------------------
 - release: "Thu, 22 Dec 2022 13:13:13 +0900 (JST)"
