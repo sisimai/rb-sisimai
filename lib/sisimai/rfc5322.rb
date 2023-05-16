@@ -2,6 +2,7 @@ module Sisimai
   # Sisimai::RFC5322 provide methods for checking email address.
   module RFC5322
     class << self
+      require 'sisimai/string'
       HeaderTable = {
         :messageid => %w[message-id],
         :subject   => %w[subject],
@@ -47,27 +48,31 @@ module Sisimai
       end
 
       # Convert Received headers to a structured data
-      # @param    [String] argvs  Received header
+      # @param    [String] argv1  Received header
       # @return   [Array]         Received header as a structured data
-      def received(argvs)
-        return [] unless argvs.is_a?(::String)
+      def received(argv1)
+        return [] unless argv1.is_a?(::String)
 
         hosts = []
         value = { 'from' => '', 'by' => '' }
 
         # Received: (qmail 10000 invoked by uid 999); 24 Apr 2013 00:00:00 +0900
-        return [] if argvs.include?('(qmail ') && argvs.include?(' invoked ')
+        return [] if argv1.include?('(qmail ') && argv1.include?(' invoked ')
 
-        if cr = argvs.match(/\Afrom[ ]+(.+)[ ]+by[ ]+([^ ]+)/)
+        p1 = argv1.index('from ')     || -1
+        p2 = argv1.index('by ')       || -1
+        p3 = argv1.index(' ', p2 + 3) || -1
+
+        if p1 == 0 && p2 > 1 && p2 < p3
           # Received: from localhost (localhost) by nijo.example.jp (V8/cf) id s1QB5ma0018057;
           #   Wed, 26 Feb 2014 06:05:48 -0500
-          value['from'] = cr[1]
-          value['by']   = cr[2]
+          value['from'] = Sisimai::String.sweep(argv1[p1 + 5, p2 - p1 - 5])
+          value['by']   = Sisimai::String.sweep(argv1[p2 + 3, p3 - p2 - 3])
 
-        elsif cr = argvs.match(/\bby[ ]+([^ ]+)(.+)/)
+        elsif p1 != 0 && p2 > -1
           # Received: by 10.70.22.98 with SMTP id c2mr1838265pdf.3; Fri, 18 Jul 2014 00:31:02 -0700 (PDT)
-          value['from'] = cr[1] + cr[2]
-          value['by']   = cr[1]
+          value['from'] = Sisimai::String.sweep(argv1[p2 + 3, argv1.size])
+          value['by']   = Sisimai::String.sweep(argv1[p2 + 3, p3 - p2 - 3])
         end
 
         if value['from'].include?(' ')
@@ -81,13 +86,13 @@ module Sisimai
 
           while e = received.shift do
             # Received: from [10.22.22.222] (smtp-gateway.kyoto.ocn.ne.jp [192.0.2.222])
-            if e =~ /\A[\[(]\d+[.]\d+[.]\d+[.]\d+[)\]]\z/
+            cv = Sisimai::String.ipv4(e) || []
+            if cv.size > 0
               # [192.0.2.1] or (192.0.2.1)
-              e = e.delete('[]()')
-              addrlist << e
+              addrlist.append(*cv)
             else
               # hostname
-              e = e.delete('()')
+              e = e.delete('()').strip
               namelist << e
             end
           end
