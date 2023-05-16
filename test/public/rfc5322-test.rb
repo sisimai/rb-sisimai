@@ -141,7 +141,7 @@ __END_OF_EMAIL_MESSAGE__
 
       cv.each do |ee|
         assert_instance_of String, ee
-        assert_match /\A[-.0-9A-Za-z]+\z/, ee
+        assert_match %r{\A[-/:.0-9A-Za-z]+\z}, ee
       end
     end
 
