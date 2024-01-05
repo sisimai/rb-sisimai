@@ -3,6 +3,14 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.25.16p1
+--------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - #256 Tiny code improvement on `Sisimai::Lhost::EinsUndEins` to parse bounce
+    emails in slightly different formats.
+
 v4.25.16
 --------------------------------------------------------------------------------
 - release: "Tue, 16 May 2023 15:11:22 +0900 (JST)"
