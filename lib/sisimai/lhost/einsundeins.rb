@@ -51,8 +51,9 @@ module Sisimai::Lhost
           # http://postmaster.1and1.com/en/error-messages?ip=%1s
           v = dscontents[-1]
 
-          if e.include?('@') && e.include?(' ') == false
-            # general@example.eu
+          if cv = e.match(/\A\s*([^ ]+[@][^ ]+?)[:]?\z/)
+            # general@example.eu OR
+            # the line begin with 4 space characters, end with ":" like "    neko@example.eu:"
             if v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
@@ -79,9 +80,11 @@ module Sisimai::Lhost
         end
         return nil unless recipients > 0
 
+        require 'sisimai/smtp/command'
         dscontents.each do |e|
           e['diagnosis'] ||= ''
           e['diagnosis']   = e['alterrors'] if e['diagnosis'].empty?
+          e['command']     = Sisimai::SMTP::Command.find(e['diagnosis'])
 
           if Sisimai::String.aligned(e['diagnosis'], ['host: ', ' reason:'])
             # SMTP error from remote server for TEXT command,
