@@ -12,21 +12,14 @@ module Sisimai
         Index = [
           ' said: 550 blocked',
           '//www.spamcop.net/bl.',
-          'access denied. ip name lookup failed',
-          'all mail servers must have a ptr record with a valid reverse dns entry',
-          'bad dns ptr resource record',
           'bad sender ip address',
           'banned sending ip',    # Office365
           'blacklisted by',
           'blocked using ',
           'blocked - see http',
           'dnsbl:attrbl',
-          "can't determine purported responsible address",
-          'cannot find your hostname',
-          'cannot resolve your address',
           'client host rejected: abus detecte gu_eib_02',     # SFR
           'client host rejected: abus detecte gu_eib_04',     # SFR
-          'client host rejected: cannot find your hostname',  # Yahoo!
           'client host rejected: may not be mail exchanger',
           'client host rejected: was not authenticated',      # Microsoft
           'confirm this mail server',
@@ -41,42 +34,31 @@ module Sisimai
           'error: no valid recipients from ',
           'esmtp not accepting connections',  # icloud.com
           'extreme bad ip profile',
-          'fix reverse dns for ',
           'go away',
           'helo command rejected:',
           'host network not allowed',
           'hosts with dynamic ip',
           'invalid ip for sending mail of domain',
-          'ips with missing ptr records',
           'is not allowed to send mail from',
           'no access from mail server',
           'no matches to nameserver query',
-          'no ptr record found.',
           'not currently accepting mail from your ip',    # Microsoft
           'part of their network is on our block list',
-          'please get a custom reverse dns name from your isp for your host',
           'please use the smtp server of your isp',
-          'ptr record setup',
           'refused - see http',
           'rejected because the sending mta or the sender has not passed validation',
           'rejecting open proxy', # Sendmail(srvrsmtp.c)
-          'reverse dns failed',
-          'reverse dns required',
           'sender ip address rejected',
-          'sender ip reverse lookup rejected',
           'server access forbidden by your ip ',
           'service not available, closing transmission channel',
           'smtp error from remote mail server after initial connection:', # Exim
           "sorry, that domain isn't in my list of allowed rcpthosts",
           'sorry, your remotehost looks suspiciously like spammer',
           'temporarily deferred due to unexpected volume or user complaints',
-          'this system will not accept messages from servers/devices with no reverse dns',
           'to submit messages to this e-mail system has been rejected',
           'too many spams from your ip',  # free.fr
           'too many unwanted messages have been sent from the following ip address above',
-          'unresolvable relay host name',
           'we do not accept mail from dynamic ips',   # @mail.ru
-          'we do not accept mail from hosts with dynamic ip or generic dns ptr-records',
           'you are not allowed to connect',
           'you are sending spam',
           'your network is temporary blacklisted',
@@ -87,8 +69,6 @@ module Sisimai
           ['client host ', ' blocked using'],
           ['connections will not be accepted from ', " because the ip is in spamhaus's list"],
           ['dnsbl:rbl ', '>_is_blocked'],
-          ['domain ',' mismatches client ip'],
-          ['dns lookup failure: ', ' try again later'],
           ['email blocked by ', '.barracudacentral.org'],
           ['email blocked by ', 'spamhaus'],
           ['ip ', ' is blocked by earthlink'],    # Earthlink
@@ -97,10 +77,7 @@ module Sisimai
           ['mail from ',' refused:'],
           ['message from ', ' rejected based on blacklist'],
           ['messages from ', ' temporarily deferred due to user complaints'], # Yahoo!
-          ['reverse dns lookup for host ', ' failed permanently'],
-          ['server access ', ' forbidden by invalid rdns record of your mail server'],
           ['server ip ', ' listed as abusive'],
-          ['service permits ', ' unverifyable sending ips'],
           ['the domain ', ' is blacklisted'],
           ['the email ', ' is blacklisted'],
           ['the ip', ' is blacklisted'],
