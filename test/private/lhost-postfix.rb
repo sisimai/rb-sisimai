@@ -289,6 +289,7 @@ module LhostEngineTest::Private
       '01277' => [['5.7.26',  '550', 'authfailure',     false]],
       '01278' => [['5.7.25',  '550', 'requireptr',      false]],
       '01279' => [['5.2.2',   '552', 'mailboxfull',     false]],
+      '01280' => [['5.7.1',   '550', 'notcompliantrfc', false]],
     }
   end
 end

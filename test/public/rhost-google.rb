@@ -9,6 +9,7 @@ module RhostEngineTest::Public
       '05' => [['5.2.2',   '552', 'mailboxfull',     false]],
       '06' => [['5.7.25',  '550', 'requireptr',      false]],
       '07' => [['5.2.1',   '550', 'suspend',         false]],
+      '08' => [['5.7.1',   '550', 'notcompliantrfc', false]],
     }
   end
 end
