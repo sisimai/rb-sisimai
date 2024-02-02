@@ -1,0 +1,102 @@
+Return-Path: <>
+X-Original-To: neko@example.jp
+Delivered-To: michitsuna@example.jp
+Received: from mail1.example.org (unknown [192.0.2.202])
+	by mx4.example.jp (Postfix) with ESMTPS id 4Fj7HtFjgnzLxB5K
+	for <neko@example.jp>; Thu, 22 Feb 2023 18:30:22 +0900 (JST)
+Authentication-Results: mx4.example.jp; arc=none smtp.client-ip=192.0.2.202
+ARC-Seal:i=1; a=rsa-sha256; d=example.jp; s=ss2018; t=1151913043; cv=none;
+	b=neko/nyaan+cat/
+ARC-Message-Signature:i=1; a=rsa-sha256; d=example.jp; s=ss2018;
+	t=2222222201; c=relaxed/relaxed;
+	bh=neko+nyaan=;
+	h=Received:Date:From:Subject:To:Auto-Submitted:MIME-Version:
+	 Content-Type:Message-Id; b=neko+nyaan+/cat+/
+ARC-Authentication-Results:i=1; mx4.example.jp; dmarc=none (p=none dis=none) header.from=mail1.example.org; spf=none smtp.helo=mail1.example.org; arc=none smtp.client-ip=192.0.2.202
+Authentication-Results: mx4.example.jp; dmarc=none (p=none dis=none) header.from=mail1.example.org
+Authentication-Results: mx4.example.jp; spf=none smtp.helo=mail1.example.org
+Received: by mail1.example.org (Postfix)
+	id 5ZGLGdBZw6z5FwBg; Thu, 22 Feb 2023 18:30:22 +0900 (JST)
+Date: Thu, 22 Feb 2023 18:30:22 +0900 (JST)
+From: MAILER-DAEMON@mail1.example.org (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: neko@example.jp
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="d140gHGZxpzCP4C8.1151913043/mail1.example.org"
+Message-Id: <5ZGLGdBZw6z5FwBg@mail1.example.org>
+
+This is a MIME-encapsulated message.
+
+--d140gHGZxpzCP4C8.1151913043/mail1.example.org
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host mail1.example.org.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<michitsuna@google.example.com> (expanded from <michitsuna@example.org>): host
+    gmail-smtp-in.l.google.com[142.251.170.27] said: 550-5.7.25
+    [192.0.2.202] The IP address sending this message does not have a
+    550-5.7.25 PTR record setup, or the corresponding forward DNS entry does
+    not 550-5.7.25 point to the sending IP. As a policy, Gmail does not accept
+    messages 550-5.7.25 from IPs with missing PTR records. For more
+    information, go to 550 5.7.25
+    https://support.google.com/mail/answer/81126#ip-practices
+    neko-1785a7g6767a6agg.2 - gsmtp (in reply to
+    end of DATA command)
+
+--d140gHGZxpzCP4C8.1151913043/mail1.example.org
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mail1.example.org
+X-Postfix-Queue-ID: d140gHGZxpzCP4C8
+X-Postfix-Sender: rfc822; neko@example.jp
+Arrival-Date: Thu, 22 Feb 2023 18:30:22 +0900 (JST)
+
+Final-Recipient: rfc822; michitsuna@google.example.com
+Original-Recipient: rfc822;michitsuna@example.org
+Action: failed
+Status: 5.7.25
+Remote-MTA: dns; gmail-smtp-in.l.google.com
+Diagnostic-Code: smtp; 550-5.7.25 [192.0.2.202] The IP address sending this
+    message does not have a 550-5.7.25 PTR record setup, or the corresponding
+    forward DNS entry does not 550-5.7.25 point to the sending IP. As a policy,
+    Gmail does not accept messages 550-5.7.25 from IPs with missing PTR
+    records. For more information, go to 550 5.7.25
+    https://support.google.com/mail/answer/81126#ip-practices
+    neko-1785a7g6767a6agg.2 - gsmtp
+
+--d140gHGZxpzCP4C8.1151913043/mail1.example.org
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <neko@example.jp>
+Received: from mx4.example.jp (ane.example.jp [192.0.2.202])
+	by mail1.example.org (Postfix) with ESMTPS id d140gHGZxpzCP4C8
+	for <michitsuna@example.org>; Thu, 22 Feb 2023 18:30:22 +0900 (JST)
+Authentication-Results: mail1.example.org; arc=pass smtp.remote-ip=192.0.2.202
+From: <neko@example.jp>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.100.31\))
+Subject: Nyaan
+Message-Id: <222222EA-20C2-2200-EEEE-2222CEEEEA21@example.jp>
+Date: Thu, 22 Feb 2023 18:30:22 +0900
+To: michitsuna@example.org
+X-Mailer: Apple Mail (2.3696.100.31)
+
+Nyaan
+
+--d140gHGZxpzCP4C8.1151913043/mail1.example.org--
