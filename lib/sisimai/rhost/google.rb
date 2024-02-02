@@ -86,6 +86,9 @@ module Sisimai
           'norelaying' => [
             ['550', '5.7.0', 'mail relay denied'],
           ],
+          'notcompliantrfc' => [
+            ['550', '5.7.1', 'this message is not rfc 5322 compliant'],
+          ],
           'policyviolation' => [
             ['550', '5.7.1', 'messages with multiple addresses in from: header are not accepted'],
 
