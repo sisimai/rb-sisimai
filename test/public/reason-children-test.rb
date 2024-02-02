@@ -19,6 +19,7 @@ class ReasonChildrenTest < Minitest::Test
     'NetworkError'    => ['554 5.4.6 Too many hops'],
     'NoRelaying'      => ['550 5.0.0 Relaying Denied'],
     'NotAccept'       => ['556 SMTP protocol returned a permanent error'],
+    'NotCompliantRFC' => ['550 5.7.1 This message is not RFC 5322 compliant. There are multiple Subject headers.'],
     'OnHold'          => ['5.0.901 error'],
     'Rejected'        => ['550 5.1.8 Domain of sender address example.org does not exist'],
     'RequirePTR'      => ['550 5.7.25 [192.0.2.25] The IP address sending this message does not have a PTR record setup'],

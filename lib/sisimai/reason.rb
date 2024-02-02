@@ -8,9 +8,9 @@ module Sisimai
       def index
         return %w[
           AuthFailure BadReputation Blocked ContentError ExceedLimit Expired Filtered HasMoved
-          HostUnknown MailboxFull MailerError MesgTooBig NetworkError NotAccept OnHold Rejected
-          NoRelaying Speeding SpamDetected VirusDetected PolicyViolation SecurityError Suspend
-          RequirePTR SystemError SystemFull TooManyConn UserUnknown SyntaxError
+          HostUnknown MailboxFull MailerError MesgTooBig NetworkError NotAccept NotCompliantRFC
+          OnHold Rejected NoRelaying Speeding SpamDetected VirusDetected PolicyViolation 
+          SecurityError Suspend RequirePTR SystemError SystemFull TooManyConn UserUnknown SyntaxError
         ]
       end
 
@@ -38,7 +38,8 @@ module Sisimai
       ClassOrder = [
         %w[
           MailboxFull MesgTooBig ExceedLimit Suspend HasMoved NoRelaying AuthFailure UserUnknown
-          Filtered RequirePTR Rejected HostUnknown SpamDetected Speeding TooManyConn Blocked
+          Filtered RequirePTR NotCompliantRFC Rejected HostUnknown SpamDetected Speeding TooManyConn
+          Blocked
         ],
         %w[
           MailboxFull SpamDetected PolicyViolation VirusDetected NoRelaying AuthFailure
