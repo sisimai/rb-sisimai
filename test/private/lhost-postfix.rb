@@ -176,7 +176,7 @@ module LhostEngineTest::Private
       '01167' => [['4.0.0',   '',    'blocked',         false]],
       '01168' => [['5.0.0',   '',    'rejected',        false]],
       '01169' => [['5.0.0',   '550', 'userunknown',     true]],
-      '01170' => [['5.0.0',   '550', 'blocked',         false]],
+      '01170' => [['5.0.0',   '550', 'requireptr',      false]],
       '01171' => [['5.2.0',   '',    'mailboxfull',     false]],
       '01172' => [['4.3.0',   '',    'mailererror',     false]],
       '01173' => [['4.4.2',   '',    'networkerror',    false]],
@@ -222,9 +222,9 @@ module LhostEngineTest::Private
       '01213' => [['5.1.1',   '550', 'userunknown',     true]],
       '01214' => [['5.2.1',   '550', 'speeding',        false]],
       '01215' => [['5.2.1',   '550', 'speeding',        false]],
-      '01216' => [['4.0.0',   '',    'blocked',         false]],
-      '01217' => [['4.0.0',   '',    'blocked',         false]],
-      '01218' => [['4.0.0',   '',    'blocked',         false]],
+      '01216' => [['4.0.0',   '',    'requireptr',      false]],
+      '01217' => [['4.0.0',   '',    'requireptr',      false]],
+      '01218' => [['4.0.0',   '',    'requireptr',      false]],
       '01219' => [['5.0.0',   '550', 'suspend',         false]],
       '01220' => [['5.0.0',   '550', 'virusdetected',   false]],
       '01221' => [['5.1.1',   '',    'userunknown',     true]],
@@ -285,6 +285,10 @@ module LhostEngineTest::Private
       '01274' => [['5.0.939', '',    'mailererror',     false]],
       '01275' => [['5.4.14',  '554', 'networkerror',    false],
                   ['5.4.14',  '554', 'networkerror',    false]],
+      '01276' => [['5.7.26',  '550', 'authfailure',     false]],
+      '01277' => [['5.7.26',  '550', 'authfailure',     false]],
+      '01278' => [['5.7.25',  '550', 'requireptr',      false]],
+      '01279' => [['5.2.2',   '552', 'mailboxfull',     false]],
     }
   end
 end

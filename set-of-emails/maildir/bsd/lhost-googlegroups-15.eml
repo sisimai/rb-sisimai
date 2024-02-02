@@ -1,0 +1,174 @@
+Delivered-To: kijitora-cat-neko-nyaan@google.example.com
+Received: by 2002:ab2:1785:0:b0:19a:50ce:a944 with SMTP id x5csp577194lqe;
+        Thu, 26 Feb 2023 18:30:56 -0800 (PST)
+X-Received: by 2002:a05:651c:2228:b0:295:9c2e:7324 with SMTP id y40-20020a05651c222800b002959c2e7324mr6911855ljq.4.1677465056139;
+        Thu, 26 Feb 2023 18:30:56 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1677465056; cv=none;
+        d=google.com; s=arc-20160816;
+        b=OP8D/87B1NpWlJIFLb1Ryp9sBLMQEn0UmitQx/lhOphS5Y7h5VMQdue/m03cyueBqh
+         zWoeGi5vFkSzfqkopcggWfv26ZjF7ECHEWTULvw1Ddf1XqErTWOR9zjoxI5U71Kjg3CA
+         2JtSCWTN2JG81XAnspYKc2qX7UUPISnl6mP5NjKzuDyHQKE3AtCHaAvy+/zUIXNfGZC5
+         VQVXi8C0cYMPMkFfh6qBlU64K9D5H+m4XB12tkRYzhejyAVz1z0UkgPcazLiqvCIPf5d
+         5AajrntYaTvOar/K8+F1X3TYucNmWfGyXzPcBfCy6OjsdF4WUJ+P4WyPkcC4ZMnQuzTF
+         eemA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=in-reply-to:references:subject:from:date:message-id:auto-submitted
+         :to:dkim-signature;
+        bh=o7cpmqx+tgCx5m+g8oZRWsGCIo8X32S8zBkahP2egx0=;
+        b=qp3ixYdgDwSmM9zTspitM3aUqmuQqGf52SlCuvGRrjksgHbHoSY6jRljQpWPDkwUlR
+         LdN/dyIBBmx2HqnVEjcwaajj52M+wJdQAdGj7gu2g+SP06VpmW+szmuMtqC13cJqlNhd
+         VJ67sS7oBJVRm4Jy5RmE2lfpnPMduLKo4MKQc6Uj7yxkeQlP4iNCVPfp1McXyhxtFHns
+         KogLbkS8NFpA04RaC4tabvp4vDup1/bFS/JRPBE4IQiYyUqVrG8s7o/0U5DznTy3Zsgf
+         zpxCIWd9zYzzmWFeKdyJNmAaH6e7/s+5rQVGe/ryc2q4lPNadxPcsMjOoJ2d29RCyFMy
+         /q0A==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@googlemail.com header.s=20210112 header.b=PqBP51+l;
+       spf=none (google.com: mail-sor-f69.google.com does not designate permitted sender hosts) smtp.helo=mail-sor-f69.google.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=googlemail.com
+Return-Path: <>
+Received: from mail-sor-f69.google.com (mail-sor-f69.google.com. [209.85.220.69])
+        by mx.google.com with SMTPS id q4-20020a2e9144000000b002946a078ae0sor1225584ljg.16.2023.02.26.18.30.56
+        for <kijitora-cat-neko-nyaan@google.example.com>
+        (Google Transport Security);
+        Thu, 26 Feb 2023 18:30:56 -0800 (PST)
+Received-SPF: none (google.com: mail-sor-f69.google.com does not designate permitted sender hosts) client-ip=209.85.220.69;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@googlemail.com header.s=20210112 header.b=PqBP51+l;
+       spf=none (google.com: mail-sor-f69.google.com does not designate permitted sender hosts) smtp.helo=mail-sor-f69.google.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=googlemail.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20210112;
+        h=in-reply-to:references:subject:from:date:message-id:auto-submitted
+         :to:from:to:cc:subject:date:message-id:reply-to;
+        bh=o7cpmqx+tgCx5m+g8oZRWsGCIo8X32S8zBkahP2egx0=;
+        b=PqBP51+lcin2uB1zGXsK534CFC9hpjVMDQRkzfbcTLcn9dQoqN2Mqs+6yHelWNr4eX
+         iZ0EVsWqfkU10OngaL9ThubvJqbYhZbc2Gcn0LdiqGrhMxPNSQ34rh/nlEODsbbJf2VW
+         693Q+Z2ZhhZEapenSlVZjt8yz4CRi0qTdXkUPMEAnBEMpNviY2RidqALyeGgZBO5bNCm
+         FJd6AqwcHWW39mkM/iogaQjVVuxS68j8RApvY45meW+2JU718KqwmjVbP2KZ/ITCjOtf
+         TvNrRnHviC5vlUQKpmgpA2O/IzohR+nLnZctyT0KmRFNT/64gIm0fXNtrBnO8H2h5guG
+         9KEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:references:subject:from:date:message-id:auto-submitted
+         :to:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=o7cpmqx+tgCx5m+g8oZRWsGCIo8X32S8zBkahP2egx0=;
+        b=A5Pr4scyEyeQ8hEk1X/11Ny4vP9lDOgOFCbADSW8su0Rq9MpPOp9qzYd85NcptzYaJ
+         ppKYZKCmzxoyQ3ZpPjo2EE/hXov0uG8I2uyWRuLrZETzVfIrtuWcri7E4xevduA9kdhu
+         nNrB9v2oFGRP5+Qz250EP2JHQLr02yLBjk7Bjz4cQDWsxGoyKLXNmLIeef84O6CgwiSp
+         z47l7B0D6LeL3DsUn15BVi2dPE4WNy6WayLXectHuguPV0e0MAipvveS81atFaRlgn0M
+         ri1GaOyX1O482y53Dzp0CxpMn4ncGjy16fiIbCYWhM1zFXWlwE0gh0KUUvIi5Ufbu8Vw
+         qDPQ==
+X-Gm-Message-State: AO0yUKUJaTXy+S83h8MMnRXh7sfSuZ7HejgVWHxgkbSYtw+QqlbGU2lF 7AXe9LaunF0Hpx5yxJZoRdluHO2zI0nVlH5Xf5XAZw==
+X-Google-Smtp-Source: AK7set/UsC/BGtW9CgmWT8fuRPR2fZ9bqAPkWp9ktaIpWH7ZEk6t6+2qHXF6VAriVlypEme5zhNO1UrtaRrYckjLRErmeFA6MB/l9as=
+X-Received: by 2002:a05:651c:1614:b0:293:27a9:ef34 with SMTP id f20-20020a05651c161400b0029327a9ef34mr2807111ljq.0.1677465056065;
+        Thu, 26 Feb 2023 18:30:56 -0800 (PST)
+Content-Type: multipart/report; boundary="000000000000ca2d9205f5a5444d"; report-type=delivery-status
+To: kijitora-cat-neko-nyaan@google.example.com
+Received: by 2002:a05:651c:1614:b0:293:27a9:ef34 with SMTP id f20-20020a05651c161400b0029327a9ef34mr2834317ljq.0; Thu, 26 Feb 2023 18:30:56 -0800 (PST)
+Return-Path: <>
+Auto-Submitted: auto-replied
+Message-ID: <63fc15e0.050a0220.58de0.183e.GMR@mx.google.com>
+Date: Thu, 26 Feb 2023 18:30:56 -0800 (PST)
+From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
+Subject: Delivery Status Notification (Failure)
+X-Failed-Recipients: neko-nyaan-cat-meeting@google-groups.example.com
+
+--000000000000ca2d9205f5a5444d
+Content-Type: multipart/related; boundary="000000000000ca332c05f5a5444e"
+
+--000000000000ca332c05f5a5444e
+Content-Type: multipart/alternative; boundary="000000000000ca333105f5a5444f"
+
+--000000000000ca333105f5a5444f
+Content-Type: text/plain; charset="UTF-8"
+
+
+** Message not delivered **
+
+You're sending this from a different address or alias using the 'Send mail as' feature. The settings for your 'Send mail as' account are misconfigured or out of date. Check those settings and try resending.
+
+Learn more here: https://support.google.com/mail/?p=CustomFromDenied
+
+The response was:
+
+Unspecified Error (SENT_SECOND_EHLO): Smtp server does not advertise AUTH capability
+
+--000000000000ca333105f5a5444f
+Content-Type: text/html; charset="UTF-8"
+
+
+<html>
+<head>
+<style>
+* {
+font-family:Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+</style>
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" class="email-wrapper" style="padding-top:32px;background-color:#ffffff;"><tbody>
+<tr><td>
+<table cellpadding=0 cellspacing=0><tbody>
+<tr><td style="max-width:560px;padding:24px 24px 32px;background-color:#fafafa;border:1px solid #e0e0e0;border-radius:2px">
+<img style="padding:0 24px 16px 0;float:left" width=72 height=72 alt="Error Icon" src="cid:icon.png">
+<table style="min-width:272px;padding-top:8px"><tbody>
+<tr><td><h2 style="font-size:20px;color:#212121;font-weight:bold;margin:0">
+Message not delivered
+</h2></td></tr>
+<tr><td style="padding-top:20px;color:#757575;font-size:16px;font-weight:normal;text-align:left">
+You're sending this from a different address or alias using the 'Send mail as' feature. The settings for your 'Send mail as' account are misconfigured or out of date. Check those settings and try resending.
+</td></tr>
+<tr><td style="padding-top:24px;color:#4285F4;font-size:14px;font-weight:bold;text-align:left">
+<a style="text-decoration:none" href="https://support.google.com/mail/?p=CustomFromDenied">LEARN MORE</a>
+</td></tr>
+</tbody></table>
+</td></tr>
+</tbody></table>
+</td></tr>
+<tr style="border:none;background-color:#fff;font-size:12.8px;width:90%">
+<td align="left" style="padding:48px 10px">
+The response was:<br/>
+<p style="font-family:monospace">
+Unspecified Error (SENT_SECOND_EHLO): Smtp server does not advertise AUTH capability
+</p>
+</td>
+</tr>
+</tbody></table>
+</body>
+</html>
+
+--000000000000ca333105f5a5444f--
+--000000000000ca332c05f5a5444e
+Content-Type: image/png; name="icon.png"
+Content-Disposition: attachment; filename="icon.png"
+Content-Transfer-Encoding: base64
+Content-ID: <icon.png>
+
+
+--000000000000ca332c05f5a5444e--
+--000000000000ca2d9205f5a5444d
+Content-Type: message/delivery-status
+
+
+--000000000000ca2d9205f5a5444d
+Content-Type: message/rfc822
+
+X-Gm-Message-State: AO0yUKVhi7hlxZPb1quoNAHFXZJYgxvbTGotZqnNumozCBfX0y128Dd7 ntdOGQFAIqeTt2XVskzfywmr4dxrTq5ZkcUjJd8=
+X-Google-Smtp-Source: AK7set9BQ/++KfZD1JUmMUMiZsssix2NWMbSdwZ9fNTVQYWVFsuwS0n2iAfCxXwTBPTRWmYP524J/ncm2F65UJI4xAk=
+X-Received: by 2002:a05:651c:1614:b0:293:27a9:ef34 with SMTP id f20-20020a05651c161400b0029327a9ef34mr2807080ljq.0.1677465053122; Thu, 26 Feb 2023 18:30:53 -0800 (PST)
+MIME-Version: 1.0
+In-Reply-To: <CAByYQsEaO0O4GgfWivReAX=r_OECkcwQgkgSbXJy7LeCm5vvNg@mail.gmail.com>
+From: <michitsuna@example.jp>
+Date: Mon, 27 Feb 2023 11:30:40 +0900
+X-Gmail-Original-Message-ID: <CAByYQsF5qdTf_h-1AAVPW0RgR1YN+LE=+0Uv9LpQ4aA_myPtCw@mail.gmail.com>
+Message-ID: <CAByYQsF5qdTf_h-1AAVPW0RgR1YN+LE=+0Uv9LpQ4aA_myPtCw@mail.gmail.com>
+Subject: Nyaan
+To: <nekochan@example.co.jp>
+Content-Type: multipart/mixed; boundary="0000000000009d969b05f5a54484"
+
+--0000000000009d969b05f5a54484
+
+----- Message truncated -----
+--0000000000009d969b05f5a54484--
+
+--000000000000ca2d9205f5a5444d--

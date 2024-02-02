@@ -1,0 +1,82 @@
+Return-Path: <>
+X-Original-To: michitsuna@example.jp
+Delivered-To: postmaster@example.jp
+Received: from smtp-gw1.example.jp (smtp-gw1 [192.0.2.251])
+	by mx1.example.jp (Postfix) with ESMTPS id 2vK5npVrJQzj589p
+	for <michitsuna@example.jp>; Thu,  1 Apr 2023 23:34:45 +0900 (JST)
+Received: by smtp-gw1.example.jp (Postfix)
+	id fm3wCsf3rqzGL2JS; Thu,  1 Apr 2023 23:34:45 +0900 (JST)
+Date: Thu,  1 Apr 2023 23:34:45 +0900 (JST)
+From: MAILER-DAEMON@smtp-gw1.example.jp (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: michitsuna@example.jp
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="qbddfL3NB0z0D2Ld.1087617357/smtp-gw1.example.jp"
+Message-Id: <fm3wCsf3rqzGL2JS@smtp-gw1.example.jp>
+
+This is a MIME-encapsulated message.
+
+--qbddfL3NB0z0D2Ld.1087617357/smtp-gw1.example.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host smtp-gw1.example.jp.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@google.example.com>: host gmail-smtp-in.l.google.com[108.177.125.26] said:
+    552-5.2.2 The recipient's inbox is out of storage space and inactive.
+    Please 552-5.2.2 direct the recipient to 552 5.2.2
+    https://support.google.com/mail/?p=OverQuotaPerm
+    c2-202229zmZBNM3agi23.222 - gsmtp (in reply to RCPT TO command)
+
+--qbddfL3NB0z0D2Ld.1087617357/smtp-gw1.example.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; smtp-gw1.example.jp
+X-Postfix-Queue-ID: qbddfL3NB0z0D2Ld
+X-Postfix-Sender: rfc822; michitsuna@example.jp
+Arrival-Date: Thu,  1 Apr 2023 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; kijitora@google.example.com
+Original-Recipient: rfc822;kijitora@google.example.com
+Action: failed
+Status: 5.2.2
+Remote-MTA: dns; gmail-smtp-in.l.google.com
+Diagnostic-Code: smtp; 552-5.2.2 The recipient's inbox is out of storage space
+    and inactive. Please 552-5.2.2 direct the recipient to 552 5.2.2
+    https://support.google.com/mail/?p=OverQuotaPerm
+    c2-202229zmZBNM3agi23.222 - gsmtp
+
+--qbddfL3NB0z0D2Ld.1087617357/smtp-gw1.example.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <michitsuna@example.jp>
+Received: from mx55.example.jp (mta55 [192.0.2.248])
+	by smtp-gw1.example.jp (Postfix) with ESMTP id qbddfL3NB0z0D2Ld
+	for <kijitora@google.example.com>; Thu,  1 Apr 2023 23:34:45 +0900 (JST)
+MIME-Version: 1.0
+From: <michitsuna@example.jp>
+To: <kijitora@google.example.com>
+Date: 1 Apr 2023 23:34:45 +0900
+Subject: Nyaan
+Content-Type: text/plain; charset=iso-2022-jp
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <qbddfL3NB0z0D2Ld@smtp-gw1.example.jp>
+
+Nyaan?
+
+--qbddfL3NB0z0D2Ld.1087617357/smtp-gw1.example.jp--
+

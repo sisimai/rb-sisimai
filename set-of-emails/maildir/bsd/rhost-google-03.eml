@@ -1,0 +1,101 @@
+Return-Path: <>
+X-Original-To: postmaster@example.jp
+Delivered-To: michitsuna@example.jp
+Received: from secure.example.jp (localhost [127.0.0.1])
+	by secure.example.jp (Postfix) with ESMTP id JfFDQjgCW0zMSm1y
+	for <postmaster@example.jp>; Thu,  9 Apr 2022 23:34:45 +0900 (JST)
+Received: from mail4.example.com (mx4.example.com [192.0.2.24])
+	by secure.example.jp (Postfix) with ESMTPS id 4SnNbh0r3mz24sXs
+	for <postmaster@example.jp>; Thu,  9 Apr 2022 23:34:45 +0900 (JST)
+Authentication-Results: secure.example.jp; dmarc=none (p=none dis=none) header.from=mail4.example.com
+Authentication-Results: secure.example.jp; spf=fail smtp.helo=mail4.example.com
+Received: by mail4.example.com (Postfix)
+	id vdvMsDwBrhz8r3rH; Thu,  9 Apr 2022 23:34:45 +0900 (JST)
+Delivered-To: nginx@mail4.example.com
+Received: by mail4.example.com (Postfix)
+	id t8WLKlmm99zqL71C; Thu,  9 Apr 2022 23:34:45 +0900 (JST)
+Date: Thu,  9 Apr 2022 23:34:45 +0900 (JST)
+From: MAILER-DAEMON@mail4.example.com (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: nginx@mail4.example.com
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="Lms5yfCw0Vz5CRp3.1647426971/mail4.example.com"
+Message-Id: <t8WLKlmm99zqL71C@mail4.example.com>
+X-Virus-Scanned: ClamAV using ClamSMTP
+
+This is a MIME-encapsulated message.
+
+--Lms5yfCw0Vz5CRp3.1647426971/mail4.example.com
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host mail4.example.com.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@google.example.com> (expanded from <neko@example.co.jp>): host
+    gmail-smtp-in.l.google.com[64.233.188.26] said: 550-5.7.26 The MAIL FROM
+    domain [mail4.example.com] has an SPF record with a 550-5.7.26 hard fail
+    policy (-all) but it fails to pass SPF checks with the ip: 550-5.7.26
+    [192.0.2.24]. To best protect our users from spam and phishing,
+    550-5.7.26 the message has been blocked. For instructions on setting up
+    550-5.7.26 authentication, go to 550 5.7.26
+    https://support.google.com/mail/answer/81126#authentication
+    2-222222630d46222222b002b2d2neko2cat2222222cat.22 - gsmtp (in reply to end
+    of DATA command)
+
+--Lms5yfCw0Vz5CRp3.1647426971/mail4.example.com
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mail4.example.com
+X-Postfix-Queue-ID: Lms5yfCw0Vz5CRp3
+X-Postfix-Sender: rfc822; nginx@mail4.example.com
+Arrival-Date: Thu,  9 Apr 2022 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; kijitora@google.example.com
+Original-Recipient: rfc822;neko@example.co.jp
+Action: failed
+Status: 5.7.26
+Remote-MTA: dns; gmail-smtp-in.l.google.com
+Diagnostic-Code: smtp; 550-5.7.26 The MAIL FROM domain [mail4.example.com] has
+    an SPF record with a 550-5.7.26 hard fail policy (-all) but it fails to
+    pass SPF checks with the ip: 550-5.7.26 [192.0.2.24]. To best protect
+    our users from spam and phishing, 550-5.7.26 the message has been blocked.
+    For instructions on setting up 550-5.7.26 authentication, go to 550 5.7.26
+    https://support.google.com/mail/answer/81126#authentication
+    2-222222630d46222222b002b2d2neko2cat2222222cat.22 - gsmtp
+
+--Lms5yfCw0Vz5CRp3.1647426971/mail4.example.com
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <nginx@mail4.example.com>
+Received: from mail4.example.com (localhost [127.0.0.1])
+	by mail4.example.com (Postfix) with ESMTP id Lms5yfCw0Vz5CRp3
+	for <neko@example.co.jp>; Thu,  9 Apr 2022 23:34:45 +0900 (JST)
+Received: by mail4.example.com (Postfix, from userid 22)
+	id vDcsF1hr4zzywp69; Thu,  9 Apr 2022 23:34:45 +0900 (JST)
+To: neko@example.co.jp
+Subject: Nyaan
+Date: Thu, 09 Apr 2022 23:34:45 +0900
+From: kijitora@google.example.com
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ISO-2022-JP
+Content-Transfer-Encoding: 7bit
+Message-Id: <vDcsF1hr4zzywp69@mail4.example.com>
+X-Virus-Scanned: ClamAV using ClamSMTP
+
+Nyaan?
+
+--Lms5yfCw0Vz5CRp3.1647426971/mail4.example.com--

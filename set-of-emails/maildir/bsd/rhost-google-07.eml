@@ -1,0 +1,69 @@
+Return-Path: <>
+X-Original-To: michitsuna@example.jp
+Delivered-To: neko@example.jp
+Received: from email-2202eaaf.example.com (ip-192.0.2.22.ap-northeast-1.compute.internal [192.0.2.22])
+	by mx1.example.jp (Postfix) with ESMTPS id lkG8VwJH5Yzv9RK6
+	for <michitsuna@example.jp>; Thu,  1 Apr 2022 18:30:22 +0900 (JST)
+Date: Thu, 1 Apr 2022 18:30:22 +0900
+From: Mail Delivery Subsystem <MAILER-DAEMON@email-2202eaaf.example.com>
+Message-Id: <2202111122.HMP53fyp8mzchsMt@email-2202eaaf.example.com>
+To: <michitsuna@example.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="HMP53fyp8mzchsMt.plH0sKGySnzKtJbt/email-2202eaaf.example.com"
+Subject: Returned mail: see transcript for details
+
+This is a MIME-encapsulated message
+
+--HMP53fyp8mzchsMt.plH0sKGySnzKtJbt/email-2202eaaf.example.com
+
+The original message was received at Thu, 1 Apr 2022 18:30:22 +0900
+from e22-2.example.ne.jp [127.0.0.1]
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora-cat@google.example.com>
+    (reason: 550-5.2.1 The email account that you tried to reach is inactive. For more)
+
+   ----- Transcript of session follows -----
+... while talking to aspmx.l.google.com.:
+>>> DATA
+<<< 550-5.2.1 The email account that you tried to reach is inactive. For more
+<<< 550-5.2.1 information, go to
+<<< 550 5.2.1  https://support.google.com/mail/?p=DisabledUser neko-15789a6671ag7789128947.22 - gsmtp
+550 5.1.1 <kijitora-cat@google.example.com>... User unknown
+<<< 503-5.5.1 RCPT first. A mail transaction protocol command was issued out of
+<<< 503-5.5.1 sequence. For more information, go to
+<<< 503-5.5.1  https://support.google.com/a/answer/3221692 and review RFC 5321
+<<< 503 5.5.1 specifications. neko-15789a6671ag7789128947.22 - gsmtp
+
+--HMP53fyp8mzchsMt.plH0sKGySnzKtJbt/email-2202eaaf.example.com
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; email-2202eaaf.example.com
+Received-From-MTA: DNS; e22-2.example.ne.jp
+Arrival-Date: Thu, 1 Apr 2022 18:30:22 +0900
+
+Final-Recipient: RFC822; kijitora-cat@google.example.com
+X-Actual-Recipient: rfc822; kijitora-cat@google.example.com
+Action: failed
+Status: 5.2.1
+Remote-MTA: DNS; aspmx.l.google.com
+Diagnostic-Code: SMTP; 550-5.2.1 The email account that you tried to reach is inactive. For more
+Last-Attempt-Date: Thu, 1 Apr 2022 18:30:22 +0900
+
+--HMP53fyp8mzchsMt.plH0sKGySnzKtJbt/email-2202eaaf.example.com
+Content-Type: message/rfc822
+
+Return-Path: <michitsuna@example.jp>
+MIME-Version: 1.0
+From: <michitsuna@example.jp>
+To: <kijitora-cat@google.example.com>
+Date: 1 Apr 2022 18:30:22 +0900
+Subject: Nyaan
+Content-Type: text/plain; charset=iso-2022-jp
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <4TQbcJ4XtCzhbY75@smtps.example.jp>
+
+Nyaan?
+
+--HMP53fyp8mzchsMt.plH0sKGySnzKtJbt/email-2202eaaf.example.com--

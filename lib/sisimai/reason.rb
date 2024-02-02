@@ -10,7 +10,7 @@ module Sisimai
           AuthFailure BadReputation Blocked ContentError ExceedLimit Expired Filtered HasMoved
           HostUnknown MailboxFull MailerError MesgTooBig NetworkError NotAccept OnHold Rejected
           NoRelaying Speeding SpamDetected VirusDetected PolicyViolation SecurityError Suspend
-          SystemError SystemFull TooManyConn UserUnknown SyntaxError
+          RequirePTR SystemError SystemFull TooManyConn UserUnknown SyntaxError
         ]
       end
 
@@ -38,7 +38,7 @@ module Sisimai
       ClassOrder = [
         %w[
           MailboxFull MesgTooBig ExceedLimit Suspend HasMoved NoRelaying AuthFailure UserUnknown
-          Filtered Rejected HostUnknown SpamDetected Speeding TooManyConn Blocked
+          Filtered RequirePTR Rejected HostUnknown SpamDetected Speeding TooManyConn Blocked
         ],
         %w[
           MailboxFull SpamDetected PolicyViolation VirusDetected NoRelaying AuthFailure

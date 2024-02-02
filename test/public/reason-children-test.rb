@@ -21,6 +21,7 @@ class ReasonChildrenTest < Minitest::Test
     'NotAccept'       => ['556 SMTP protocol returned a permanent error'],
     'OnHold'          => ['5.0.901 error'],
     'Rejected'        => ['550 5.1.8 Domain of sender address example.org does not exist'],
+    'RequirePTR'      => ['550 5.7.25 [192.0.2.25] The IP address sending this message does not have a PTR record setup'],
     'PolicyViolation' => ['570 5.7.7 Email not accepted for policy reasons'],
     'SecurityError'   => ['570 5.7.0 Authentication failure'],
     'SpamDetected'    => ['570 5.7.7 Spam Detected'],

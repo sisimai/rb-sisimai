@@ -22,7 +22,7 @@ module LhostEngineTest::Private
       '01016' => [['4.4.7',   '',    'networkerror',    false]],
       '01017' => [['4.4.7',   '',    'networkerror',    false]],
       '01018' => [['5.1.2',   '550', 'hostunknown',     true]],
-      '01019' => [['4.7.1',   '450', 'blocked',         false]],
+      '01019' => [['4.7.1',   '450', 'requireptr',      false]],
       '01020' => [['4.4.7',   '',    'expired',         false]],
       '01021' => [['4.4.7',   '',    'expired',         false]],
       '01022' => [['4.4.7',   '',    'expired',         false]],
@@ -51,7 +51,7 @@ module LhostEngineTest::Private
       '01044' => [['5.1.1',   '550', 'userunknown',     true]],
       '01045' => [['5.1.1',   '550', 'userunknown',     true]],
       '01046' => [['5.1.1',   '550', 'userunknown',     true]],
-      '01047' => [['5.1.1',   '550', 'blocked',         false]],
+      '01047' => [['5.1.1',   '550', 'requireptr',      false]],
       '01048' => [['5.1.1',   '550', 'userunknown',     true]],
       '01049' => [['5.1.1',   '550', 'userunknown',     true]],
       '01050' => [['5.1.1',   '550', 'userunknown',     true]],
@@ -172,7 +172,7 @@ module LhostEngineTest::Private
       '01165' => [['5.2.3',   '552', 'exceedlimit',     false]],
       '01166' => [['5.6.9',   '550', 'contenterror',    false]],
       '01167' => [['5.7.1',   '554', 'norelaying',      false]],
-      '01168' => [['4.7.1',   '450', 'blocked',         false]],
+      '01168' => [['4.7.1',   '450', 'requireptr',      false]],
       '01169' => [['5.7.9',   '554', 'policyviolation', false]],
       '01170' => [['4.7.1',   '450', 'blocked',         false]],
       '01171' => [['4.4.7',   '',    'expired',         false]],
@@ -234,6 +234,7 @@ module LhostEngineTest::Private
       '01228' => [['5.1.1',   '550', 'userunknown',     true]],
       '01229' => [['5.4.1',   '550', 'rejected',        false]],
       '01230' => [['5.2.0',   '550', 'filtered',        false]],
+      '01231' => [['5.2.1',   '550', 'suspend',         false]],
     }
   end
 end

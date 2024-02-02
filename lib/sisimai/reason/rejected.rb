@@ -28,6 +28,7 @@ module Sisimai
           'backscatter protection detected an invalid or expired email address',  # MDaemon
           "because the sender isn't on the recipient's list of senders to accept mail from",
           'bogus mail from',          # IMail - block empty sender
+          "can't determine purported responsible address",
           'connections not accepted from servers without a valid sender domain',
           'denied [bouncedeny]',      # McAfee
           'denied by secumail valid-address-filter',
@@ -53,6 +54,7 @@ module Sisimai
           'returned mail not accepted here',
           'rfc 1035 violation: recursive cname records for',
           'rule imposed mailbox access for',  # MailMarshal
+          'sending this from a different address or alias using the ',
           'sender address has been blacklisted',
           'sender email address rejected',
           'sender is in my black list',
