@@ -34,6 +34,7 @@ v5.0.0(beta5)
       - Implement the following error reasons:
         - `AuthFailure` is a bounce reason which rejected due to SPF, DKIM, or DMARC failure #236
         - `BadReputation` is a bounce reason which rejected due to an IP address reputation #240
+        - `NotCompliantRFC` is a bounce reason which rejected due to non-compliance with RFC
         - `RequirePTR` is a bounce reason which rejected due to missing PTR or having invalid PTR
         - `Speeding` is a bounce reason which rejected due to exceeding a rate limit or sending too
           fast #239
