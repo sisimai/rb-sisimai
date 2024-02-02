@@ -526,7 +526,7 @@ module Sisimai
           '4.7.15' => 'securityerror',  # Priority Level is too low
           '4.7.16' => 'mesgtoobig',     # Message is too big for the specified priority
           '4.7.24' => 'authfailure ',   # SPF validation error
-          '4.7.25' => 'blocked',        # Reverse DNS validation failed
+          '4.7.25' => 'requireptr',     # Reverse DNS validation failed
           # ---------------------------------------------------------------------------------------
           '5.1.0'  => 'userunknown',    # Other address status
           '5.1.1'  => 'userunknown',    # Bad destination mailbox address
@@ -590,7 +590,7 @@ module Sisimai
           '5.7.22' => 'authfailure',    # No valid author-matched DKIM signature found
           '5.7.23' => 'authfailure',    # SPF validation failed
           '5.7.24' => 'authfailure',    # SPF validation error
-          '5.7.25' => 'blocked',        # Reverse DNS validation failed
+          '5.7.25' => 'requireptr',     # Reverse DNS validation failed
           '5.7.26' => 'authfailure',    # Multiple authentication checks failed
           '5.7.27' => 'notaccept',      # MX resource record of a destination host is Null MX: RFC7505
         }.freeze
@@ -614,6 +614,7 @@ module Sisimai
             'notaccept'     => '4.0.932',
             'onhold'        => '4.0.901',
             'rejected'      => '4.0.918',
+            'requireptr'    => '4.0.973',
             'securityerror' => '4.0.970',
             'spamdetected'  => '4.0.980',
             'speeding'      => '4.0.946',
@@ -643,6 +644,7 @@ module Sisimai
             'onhold'          => '5.0.901',
             'policyviolation' => '5.0.972',
             'rejected'        => '5.0.918',
+            'requireptr'      => '5.0.973',
             'securityerror'   => '5.0.970',
             'spamdetected'    => '5.0.980',
             'speeding'        => '5.0.946',

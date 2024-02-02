@@ -61,11 +61,6 @@ module Sisimai
             #   to our servers. Please use the SMTP relay at your service provider instead. For
             #   more information, visit https://support.google.com/mail/answer/10336
             ['550', '5.7.1', "the ip you're using to send mail is not authorized to send email directly to our servers"],
-
-            # - 550 5.7.25 The IP address sending this message does not have a PTR record setup, or
-            #   the corresponding forward DNS entry does not point to the sending IP. As a policy,
-            #   Gmail does not accept messages from IPs with missing PTR records.
-            ['550', '5.7.25', 'the ip address sending this message does not have a ptr record setup'],
           ],
           'contenterror' => [
               ['554', '5.6.0', 'mail message is malformed. Not accepted'],
@@ -116,6 +111,12 @@ module Sisimai
             ['550', '5.7.0', 'mail sending denied'],
 
             ['550', '5.7.1', 'unauthenticated email is not accepted from this domain'],
+          ],
+          'requireptr' => [
+            # - 550 5.7.25 The IP address sending this message does not have a PTR record setup, or
+            #   the corresponding forward DNS entry does not point to the sending IP. As a policy,
+            #   Gmail does not accept messages from IPs with missing PTR records.
+            ['550', '5.7.25', 'the ip address sending this message does not have a ptr record setup'],
           ],
           'securityerror' => [
             ['421', '4.7.0', 'tls required for rcpt domain, closing connection'],
@@ -177,6 +178,7 @@ module Sisimai
           ],
           'suspend' => [
             ['550', '5.2.1', 'the email account that you tried to reach is disabled'],
+            ['550', '5.2.1', 'the email account that you tried to reach is inactive'],
           ],
           'syntaxerror' => [
             ['451', '4.5.0', 'smtp protocol violation, visit rfc 2821'],
