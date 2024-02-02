@@ -90,6 +90,7 @@ class ReasonTest < Minitest::Test
     'smtp;550 5.2.2 <mikeneko@example.co.jp>... Mailbox Full',
     'smtp;550 Requested action not taken: mailbox unavailable (-2019901852:4030:-2147467259)',
     'smtp;550 5.1.1 <kijitora@example.or.jp>... User unknown',
+    'smtp; 550 5.7.25 The ip address sending this message does not have a ptr record setup',
     '451 4.7.650 The mail server [192.0.2.2] has been temporarily rate limited due to IP reputation.',
     '451 4.7.1 <smtp3.example.jp[192.0.2.1]>: Client host rejected: Please try again slower',
     '550 5.1.1 <kijitora@example.jp>... User Unknown ',

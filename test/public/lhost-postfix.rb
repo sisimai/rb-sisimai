@@ -53,7 +53,7 @@ module LhostEngineTest::Public
       '57' => [['5.2.1',   '550', 'userunknown',     true]],
       '58' => [['5.7.1',   '550', 'badreputation',   false]],
       '59' => [['5.2.1',   '550', 'speeding',        false]],
-      '60' => [['4.0.0',   '',    'blocked',         false]],
+      '60' => [['4.0.0',   '',    'requireptr',      false]],
       '61' => [['5.0.0',   '550', 'suspend',         false]],
       '62' => [['5.0.0',   '550', 'virusdetected',   false]],
       '63' => [['5.2.2',   '552', 'mailboxfull',     false]],

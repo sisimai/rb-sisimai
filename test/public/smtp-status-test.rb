@@ -7,7 +7,7 @@ class SMTPStatusTest < Minitest::Test
       authfailure badreputation blocked contenterror exceedlimit expired filtered hasmoved
       hostunknown mailboxfull mailererror mesgtoobig networkerror notaccept onhold rejected
       norelaying spamdetected virusdetected policyviolation securityerror speeding suspend
-      systemerror systemfull toomanyconn userunknown syntaxerror
+      requireptr systemerror systemfull toomanyconn userunknown syntaxerror
     ]
   CodeSet = %w[
     2.1.5
@@ -33,6 +33,7 @@ class SMTPStatusTest < Minitest::Test
     'SMTP; 552-5.7.0 This message was blocked because its content presents a potential',
     'SMTP; 550 5.1.1 Requested action not taken: mailbox unavailable',
     'SMTP; 550 5.7.1 IP address blacklisted by recipient',
+    'SMTP; 550 5.7.25 The ip address sending this message does not have a ptr record setup',
   ]
 
   def test_methods
@@ -87,7 +88,7 @@ class SMTPStatusTest < Minitest::Test
     Message.each do |e|
       cv = Sisimai::SMTP::Status.find(e)
       assert_instance_of String, cv
-      assert_match /\A[245][.]\d+[.]\d\z/, cv
+      assert_match /\A[245][.]\d+[.]\d{1,3}\z/, cv
       assert_equal true, Sisimai::SMTP::Status.test(cv)
     end
 

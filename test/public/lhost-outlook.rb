@@ -10,7 +10,7 @@ module LhostEngineTest::Public
       '06' => [['4.4.7',   '',    'expired',         false]],
       '07' => [['4.4.7',   '',    'expired',         false]],
       '08' => [['5.5.0',   '550', 'userunknown',     true]],
-      '09' => [['5.5.0',   '550', 'blocked',         false]],
+      '09' => [['5.5.0',   '550', 'requireptr',      false]],
     }
   end
 end

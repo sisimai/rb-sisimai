@@ -10,7 +10,7 @@ module LhostEngineTest::Public
       '05' => [['5.2.3',   '552', 'exceedlimit',     false]],
       '06' => [['5.6.9',   '550', 'contenterror',    false]],
       '07' => [['5.7.1',   '554', 'norelaying',      false]],
-      '08' => [['4.7.1',   '450', 'blocked',         false]],
+      '08' => [['4.7.1',   '450', 'requireptr',      false]],
       '09' => [['5.7.9',   '554', 'policyviolation', false]],
       '10' => [['4.7.1',   '450', 'blocked',         false]],
       '11' => [['4.4.7',   '',    'networkerror',    false]],
