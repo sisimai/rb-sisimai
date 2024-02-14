@@ -36,7 +36,6 @@ module Sisimai
       email = data.scrub('?').gsub("\r\n", "\n").gsub("\r", "\n")
       thing = { 'from' => '','header' => {}, 'rfc822' => '', ds => [], 'catch' => nil }
 
-      #methodargv = { 'data' => email, 'hook' => argvs[:hook] || nil }
       # 1. Load specified MTA modules
       [:load, :order].each do |e|
         # Order of MTA modules
