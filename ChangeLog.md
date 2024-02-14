@@ -3,9 +3,18 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.25.16p2
+--------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - Merge #260 fix for parsing a bounce mail from an EWS Server with a new line
+    code(CR). Thanks to @nick4tech
+  - Register `set-of-emails/maildir/mac/reported-from-nick4tech-san-01.eml`
+
 v4.25.16p1
 --------------------------------------------------------------------------------
-- release: ""Thu,  1 Feb 2024 12:25:22 +0900 (JST)
+- release: "Thu,  1 Feb 2024 12:25:22 +0900 (JST)"
 - version: "4.25.16p1"
 - changes:
   - #256 Tiny code improvement on `Sisimai::Lhost::EinsUndEins` to parse bounce

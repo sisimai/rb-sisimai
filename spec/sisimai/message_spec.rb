@@ -30,7 +30,7 @@ describe Sisimai::Message do
       example('#catch returns Hash')  { expect(messageobj.catch).to be_a Hash }
 
       context "contains invalid CRLF using \r instead of \r\n" do
-        let(:mime) { mime = File.read('./set-of-emails/invalid_bounce.txt') }
+        let(:mime) { mime = File.read('./set-of-emails/maildir/mac/reported-from-nick4tech-san-01.eml') }
         it "should still return a valid message" do
           msg = cn.new(data: mime, field: [], hook: nil)
           expect(msg.void).to_not be true
