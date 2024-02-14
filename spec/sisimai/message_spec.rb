@@ -28,12 +28,20 @@ describe Sisimai::Message do
       example('#rfc822 returns Hash') { expect(messageobj.rfc822).to be_a Hash }
       example('#from returns String') { expect(messageobj.from).to be_a String }
       example('#catch returns Hash')  { expect(messageobj.catch).to be_a Hash }
+
+      context "contains invalid CRLF using \r instead of \r\n" do
+        let(:mime) { mime = File.read('./set-of-emails/invalid_bounce.txt') }
+        it "should still return a valid message" do
+          msg = cn.new(data: mime, field: [], hook: nil)
+          expect(msg.void).to_not be true
+        end
+      end
     end
   end
 
   messageobj = cn.new(
-    data: mailstring, 
-    hook: callbackto, 
+    data: mailstring,
+    hook: callbackto,
     order:
       %w[Sisimai::Lhost::Sendmail Sisimai::Lhost::Postfix Sisimai::Lhost::Qmail
          Sisimai::Lhost::Exchange2003 Sisimai::Lhost::Gmail Sisimai::Lhost::Verizon
