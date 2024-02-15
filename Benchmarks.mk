@@ -23,8 +23,8 @@ SPEEDTESTDIR := tmp/emails-for-speed-test
 COMMANDARGVS := -I./lib -rsisimai
 TOBEEXECUTED := 'Sisimai.rise($$*.shift, delivered: true, vacation: true)' $(PUBLICMAILS)
 PROFILEARGVS := -rrblineprof -rrblineprof-report
-PROFCOMMANDS := 'p = lineprof(%r|./lib/sisimai|) { Sisimai.make($$*.shift, delivered: true) }; LineProf.report(p, out: "pf")'
-HOWMANYMAILS := $(RUBY) $(COMMANDARGVS) -le 'puts Sisimai.make($$*.shift, delivered: true).size' 
+PROFCOMMANDS := 'p = lineprof(%r|./lib/sisimai|) { Sisimai.rise($$*.shift, delivered: true, vacation: true) }; LineProf.report(p, out: "pf")'
+HOWMANYMAILS := $(RUBY) $(COMMANDARGVS) -le 'puts Sisimai.rise($$*.shift, delivered: true, vacation: true).size' 
 
 # -----------------------------------------------------------------------------
 .PHONY: clean
