@@ -2,8 +2,18 @@
 
 [![License](https://img.shields.io/badge/license-BSD%202--Clause-orange.svg)](https://github.com/sisimai/rb-sisimai/blob/master/LICENSE)
 [![Coverage Status](https://img.shields.io/coveralls/sisimai/rb-sisimai.svg)](https://coveralls.io/r/sisimai/rb-sisimai)
-[![Ruby](https://img.shields.io/badge/ruby-v2.1.0--v2.6.0-red.svg)](https://www.ruby-lang.org/)
+[![Ruby](https://img.shields.io/badge/ruby-v2.1.0--v3.3.0-red.svg)](https://www.ruby-lang.org/)
 [![Gem Version](https://badge.fury.io/rb/sisimai.svg)](https://badge.fury.io/rb/sisimai)
+
+> [!IMPORTANT]
+> **The default branch of this repository is [5-stable](https://github.com/sisimai/rb-sisimai/tree/5-stable)
+> (Sisimai 5) since 2nd February 2024.**
+> If you want to clone the old version, see the [4-stable](https://github.com/sisimai/rb-sisimai/tree/4-stable)
+> branch instead. We have moved away from using both the `main` and `master` branches in our development process.
+
+> [!WARNING]
+> Sisimai 5 requires Ruby 2.4 or later. Check the version of Ruby in your system before installing/upgrading
+> by `ruby -v` command.
 
 - [**README-JA(日本語)**](README-JA.md)
 - [What is Sisimai](#what-is-sisimai)
@@ -71,7 +81,7 @@ More details about system requirements are available at
 
 * [Ruby 2.1.0 or later](http://www.ruby-lang.org/)
   * [__Oj | The fastest JSON parser and object serializer__](https://rubygems.org/gems/oj)
-* Also works on [JRuby 9.0.4.0 or later](http://jruby.org)
+* Also works on [JRuby 9.0.4.0 - 9.1.17.0](http://jruby.org)
   * [__JrJackson | A mostly native JRuby wrapper for the java jackson json processor jar__](https://rubygems.org/gems/jrjackson)
 
 Install
@@ -80,10 +90,10 @@ Install
 
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-4.25.5.gem (100%)
-Successfully installed sisimai-4.25.5
-Parsing documentation for sisimai-4.25.5
-Installing ri documentation for sisimai-4.25.5
+Fetching: sisimai-4.25.16.gem (100%)
+Successfully installed sisimai-4.25.16
+Parsing documentation for sisimai-4.25.16
+Installing ri documentation for sisimai-4.25.16
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -99,8 +109,8 @@ gem install bundle rake rspec coveralls
 ...
 4 gems installed
 bundle exec rake install
-sisimai 4.25.5 built to pkg/sisimai-4.25.5.gem.
-sisimai (4.25.5) installed.
+sisimai 4.25.16 built to pkg/sisimai-4.25.16.gem.
+sisimai (4.25.16) installed.
 ```
 
 Usage
@@ -217,8 +227,9 @@ and bounceHammer are available at
 
 | Features                                    | Ruby version   | Perl version  |
 |---------------------------------------------|----------------|---------------|
-| System requirements                         | Ruby 2.1 - 2.6 | Perl 5.10 -   |
-|                                             | JRuby 9.0.4.0- |               |
+| System requirements                         | Ruby 2.1 - 3.3 | Perl 5.10 -   |
+|                                             | JRuby 9.0.4.0  |               |
+|                                             | - 9.1.17.0     |               |
 | Analytical precision ratio(2000 emails)[1]  | 1.00           | 1.00          |
 | The speed of parsing email(1000 emails)     | 2.22s[2]       | 1.35s         |
 | How to install                              | gem install    | cpanm, cpm    |
@@ -258,7 +269,7 @@ Other Information
 Related Sites
 -------------------------------------------------------------------------------
 * __@libsisimai__ | [Sisimai on Twitter (@libsisimai)](https://twitter.com/libsisimai)
-* __libSISIMAI.ORG__ | [Sisimai | The successor to bounceHammer, Library to parse bounce mails](https://libsisimai.org/)
+* __LIBSISIMAI.ORG__ | [SISIMAI | MAIL ANALYZING INTERFACE | DECODING BOUNCES, BETTER AND FASTER.](https://libsisimai.org/)
 * __Sisimai Blog__ | [blog.libsisimai.org](http://blog.libsisimai.org/)
 * __Facebook Page__ | [facebook.com/libsisimai](https://www.facebook.com/libsisimai/)
 * __GitHub__ | [github.com/sisimai/rb-sisimai](https://github.com/sisimai/rb-sisimai)
@@ -281,7 +292,7 @@ Author
 
 Copyright
 ===============================================================================
-Copyright (C) 2015-2023 azumakuniyuki, All Rights Reserved.
+Copyright (C) 2015-2024 azumakuniyuki, All Rights Reserved.
 
 License
 ===============================================================================

@@ -2,8 +2,17 @@
 
 [![License](https://img.shields.io/badge/license-BSD%202--Clause-orange.svg)](https://github.com/sisimai/rb-sisimai/blob/master/LICENSE)
 [![Coverage Status](https://img.shields.io/coveralls/sisimai/rb-sisimai.svg)](https://coveralls.io/r/sisimai/rb-sisimai)
-[![Ruby](https://img.shields.io/badge/ruby-v2.1.0--v2.6.0-red.svg)](https://www.ruby-lang.org/)
+[![Ruby](https://img.shields.io/badge/ruby-v2.1.0--v3.3.0-red.svg)](https://www.ruby-lang.org/)
 [![Gem Version](https://badge.fury.io/rb/sisimai.svg)](https://badge.fury.io/rb/sisimai)
+
+> [!IMPORTANT]
+> **2024年2月2日の時点でこのリポジトリのデフォルトブランチは[5-stable](https://github.com/sisimai/rb-sisimai/tree/5-stable)
+> (Sisimai 5)になりました。** もし古いバージョンを使いたい場合は[4-stable](https://github.com/sisimai/rb-sisimai/tree/4-stable)
+> ブランチを見てください。また`main`や`master`ブランチはもうこのリポジトリでは使用していません。
+
+> [!WARNING]
+> Sisimai 5はRuby 2.4以上が必要です。インストール/アップグレードを実行する前に`ruby -v`コマンドで
+> システムに入っているRubyのバージョンを確認してください。
 
 - [**README(English)**](README.md)
 - [シシマイ? | What is Sisimai](#what-is-sisimai)
@@ -66,7 +75,7 @@ Sisimaiの動作環境についての詳細は
 
 * [Ruby 2.1.0 or later](http://www.ruby-lang.org/)
   * [__Oj | The fastest JSON parser and object serializer__](https://rubygems.org/gems/oj)
-* Also works on [JRuby 9.0.4.0 or later](http://jruby.org)
+* Also works on [JRuby 9.0.4.0 - 9.1.17.0](http://jruby.org)
   * [__JrJackson | A mostly native JRuby wrapper for the java jackson json processor jar__](https://rubygems.org/gems/jrjackson)
 
 Install
@@ -75,10 +84,10 @@ Install
 
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-4.25.5.gem (100%)
-Successfully installed sisimai-4.25.5
-Parsing documentation for sisimai-4.25.5
-Installing ri documentation for sisimai-4.25.5
+Fetching: sisimai-4.25.16.gem (100%)
+Successfully installed sisimai-4.25.16
+Parsing documentation for sisimai-4.25.16
+Installing ri documentation for sisimai-4.25.16
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -94,8 +103,8 @@ gem install bundle rake rspec coveralls
 ...
 4 gems installed
 bundle exec rake install
-sisimai 4.25.5 built to pkg/sisimai-4.25.5.gem.
-sisimai (4.25.5) installed.
+sisimai 4.25.16 built to pkg/sisimai-4.25.16.gem.
+sisimai (4.25.16) installed.
 ```
 
 Usage
@@ -212,8 +221,9 @@ Differences between Ruby version and Perl version
 
 | 機能                                        | Ruby version   | Perl version  |
 |---------------------------------------------|----------------|---------------|
-| 動作環境                                    | Ruby 2.1 - 2.6 | Perl 5.10 -   |
-|                                             | JRuby 9.0.4.0- |               |
+| 動作環境                                    | Ruby 2.1 - 3.3 | Perl 5.10 -   |
+|                                             | JRuby 9.0.4.0  |               |
+|                                             | - 9.1.17.0     |               |
 | 解析精度の割合(2000通のメール)[1]           | 1.00           | 1.00          |
 | メール解析速度(1000通のメール)              | 2.22秒[2]      | 1.35秒        |
 | インストール方法                            | gem install    | cpanm, cpm    |
@@ -251,7 +261,7 @@ Other Information
 Related sites
 -------------------------------------------------------------------------------
 * __@libsisimai__ | [Sisimai on Twitter (@libsisimai)](https://twitter.com/libsisimai)
-* __libSISIMAI.ORG__ | [Sisimai | The successor to bounceHammer, Library to parse bounce mails](https://libsisimai.org/)
+* __LIBSISIMAI.ORG__ | [SISIMAI | MAIL ANALYZING INTERFACE | DECODING BOUNCES, BETTER AND FASTER.](https://libsisimai.org/)
 * __Sisimai Blog__ | [blog.libsisimai.org](http://blog.libsisimai.org/)
 * __Facebook Page__ | [facebook.com/libsisimai](https://www.facebook.com/libsisimai/)
 * __GitHub__ | [github.com/sisimai/rb-sisimai](https://github.com/sisimai/rb-sisimai)
@@ -274,7 +284,7 @@ Author
 
 Copyright
 ===============================================================================
-Copyright (C) 2015-2023 azumakuniyuki, All Rights Reserved.
+Copyright (C) 2015-2024 azumakuniyuki, All Rights Reserved.
 
 License
 ===============================================================================
