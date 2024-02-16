@@ -29,19 +29,19 @@ BENCH_TARGETS = profile speed-test loc
 
 depend:
 	gem install $(DEPENDENCIES)
-	if [ test -d "$(JRUBY)" ]; then \
+	if [ -d "$(JRUBY)" ]; then \
 		PATH="$(JRUBY)/bin:$$PATH" $(JRUBY)/bin/gem install $(DEPENDENCIES); \
 	fi
 
 install-from-rubygems:
 	gem install $(NAME)
-	if [ test -d "$(JRUBY)" ]; then \
+	if [ -d "$(JRUBY)" ]; then \
 		PATH="$(JRUBY)/bin:$$PATH" $(JRUBY)/bin/gem install $(NAME); \
 	fi
 
 install-from-local:
 	$(RAKE) install
-	if [ test -d "$(JRUBY)" ]; then \
+	if [ -d "$(JRUBY)" ]; then \
 		PATH="$(JRUBY)/bin:$$PATH" $(JRUBY)/bin/rake install; \
 	fi
 
