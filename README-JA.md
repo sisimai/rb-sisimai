@@ -312,7 +312,35 @@ Output example
 ![](https://libsisimai.org/static/images/demo/sisimai-5-cli-dump-r01.gif)
 
 ```json
-[{"destination":"google.example.com","lhost":"gmail-smtp-in.l.google.com","hardbounce":0,"reason":"authfailure","catch":null,"addresser":"michitsuna@example.jp","alias":"nekochan@example.co.jp","smtpagent":"Postfix","smtpcommand":"DATA","senderdomain":"example.jp","listid":"","action":"failed","feedbacktype":"","messageid":"hwK7pzjzJtz0RF9Y@relay3.example.com","origin":"./gmail-5.7.26.eml","recipient":"kijitora@google.example.com","rhost":"gmail-smtp-in.l.google.com","subject":"Nyaan","timezoneoffset":"+0900","replycode":550,"token":"84656774898baa90660be3e12fe0526e108d4473","diagnostictype":"SMTP","timestamp":1650119685,"diagnosticcode":"host gmail-smtp-in.l.google.com[64.233.187.27] said: This mail has been blocked because the sender is unauthenticated. Gmail requires all senders to authenticate with either SPF or DKIM. Authentication results: DKIM = did not pass SPF [relay3.example.com] with ip: [192.0.2.22] = did not pass For instructions on setting up authentication, go to https://support.google.com/mail/answer/81126#authentication c2-202200202020202020222222cat.127 - gsmtp (in reply to end of DATA command)","deliverystatus":"5.7.26"}]
+[
+  {
+    "destination": "google.example.com",
+    "lhost": "gmail-smtp-in.l.google.com",
+    "hardbounce": 0,
+    "reason": "authfailure",
+    "catch": null,
+    "addresser": "michitsuna@example.jp",
+    "alias": "nekochan@example.co.jp",
+    "smtpagent": "Postfix",
+    "smtpcommand": "DATA",
+    "senderdomain": "example.jp",
+    "listid": "",
+    "action": "failed",
+    "feedbacktype": "",
+    "messageid": "hwK7pzjzJtz0RF9Y@relay3.example.com",
+    "origin": "./gmail-5.7.26.eml",
+    "recipient": "kijitora@google.example.com",
+    "rhost": "gmail-smtp-in.l.google.com",
+    "subject": "Nyaan",
+    "timezoneoffset": "+0900",
+    "replycode": 550,
+    "token": "84656774898baa90660be3e12fe0526e108d4473",
+    "diagnostictype": "SMTP",
+    "timestamp": 1650119685,
+    "diagnosticcode": "host gmail-smtp-in.l.google.com[64.233.187.27] said: This mail has been blocked because the sender is unauthenticated. Gmail requires all senders to authenticate with either SPF or DKIM. Authentication results: DKIM = did not pass SPF [relay3.example.com] with ip: [192.0.2.22] = did not pass For instructions on setting up authentication, go to https://support.google.com/mail/answer/81126#authentication c2-202200202020202020222222cat.127 - gsmtp (in reply to end of DATA command)",
+    "deliverystatus": "5.7.26"
+  }
+]
 ```
 
 Differences between Sisimai 4 and Sisimai 5
