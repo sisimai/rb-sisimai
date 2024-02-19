@@ -262,9 +262,9 @@ code = lambda do |args|
   kind = args['kind']   # (String) Sisimai::Mail.kind
   mail = args['mail']   # (String) Entire email message
   path = args['path']   # (String) Sisimai::Mail.path
-  sisi = args['sisi']   # (Array)  List of Sisimai::Fact
+  fact = args['fact']   # (Array)  List of Sisimai::Fact
 
-  sisi.each do |e|
+  fact.each do |e|
     # "catch"アクセサの中に独自の情報を保存する
     e.catch ||= {}
     e.catch['size'] = mail.size
@@ -277,7 +277,7 @@ code = lambda do |args|
     e.catch['parsedat'] = Time.new.localtime.to_s
 
     # "X-Sisimai-Parsed:"ヘッダーを追加して別のPATHに元メールを保存する
-    a = sprintf("X-Sisimai-Parsed: %d", sisi.size)
+    a = sprintf("X-Sisimai-Parsed: %d", fact.size)
     p = sprintf("/path/to/another/directory/sisimai-%s.eml", e.token)
     v = mail.sub(/^(From:.+?)$/, '\1' + "\n" + a)
     f = File.open(p, 'w:UTF-8')
