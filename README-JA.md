@@ -57,7 +57,7 @@ Sisimai(シシマイ)は複雑で多種多様なバウンスメールを解析�
 [github.com/sisimai/p5-sisimai](https://github.com/sisimai/p5-sisimai/)で公開しているPerl版シシマイ
 から移植しました。
 
-![](https://libsisimai.org/static/images/figure/sisimai-overview-1.png)
+![](https://libsisimai.org/static/images/figure/sisimai-overview-2.png)
 
 The key features of Sisimai
 ---------------------------------------------------------------------------------------------------

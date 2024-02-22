@@ -57,7 +57,7 @@ delivery failure, such as the reason for the bounce and the recipient email addr
 data. It is also possible to output in JSON format. The Ruby version of Sisimai is ported from the
 Perl version of Sisimai at [github.com/sisimai/p5-sisimai](https://github.com/sisimai/p5-sisimai/).
 
-![](https://libsisimai.org/static/images/figure/sisimai-overview-1.png)
+![](https://libsisimai.org/static/images/figure/sisimai-overview-2.png)
 
 The key features of Sisimai
 ---------------------------------------------------------------------------------------------------
