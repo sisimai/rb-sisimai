@@ -593,6 +593,9 @@ module Sisimai
           '5.7.25' => 'requireptr',     # Reverse DNS validation failed
           '5.7.26' => 'authfailure',    # Multiple authentication checks failed
           '5.7.27' => 'notaccept',      # MX resource record of a destination host is Null MX: RFC7505
+          '5.7.28' => 'spamdetected',   # The message appears to be part of a mail flood of similar abusive messages.
+          '5.7.29' => 'authfailure',    # This status code may be returned when a message fails ARC validation.
+          '5.7.30' => 'securityerror',  # REQUIRETLS support required
         }.freeze
 
         InternalCode = {
