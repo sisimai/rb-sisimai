@@ -45,7 +45,7 @@ module LhostEngineTest::Public
       '40' => [['5.2.0',   '550', 'filtered',        false]],
       '41' => [['5.0.0',   '554', 'filtered',        false]],
       '42' => [['5.1.2',   '550', 'hostunknown',     true]],
-      '43' => [['5.7.1',   '550', 'policyviolation', false]],
+      '43' => [['5.7.1',   '550', 'notcompliantrfc', false]],
       '44' => [['5.6.0',   '552', 'contenterror',    false]],
       '45' => [['5.1.1',   '550', 'userunknown',     true]],
       '46' => [['5.5.0',   '550', 'userunknown',     true]],

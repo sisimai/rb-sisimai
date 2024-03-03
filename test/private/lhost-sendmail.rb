@@ -223,7 +223,7 @@ module LhostEngineTest::Private
       '01217' => [['4.7.0',   '421', 'blocked',         false]],
       '01218' => [['4.7.0',   '421', 'blocked',         false]],
       '01219' => [['5.7.27',  '550', 'notaccept',       true]],
-      '01220' => [['5.7.1',   '550', 'policyviolation', false]],
+      '01220' => [['5.7.1',   '550', 'notcompliantrfc', false]],
       '01221' => [['5.6.0',   '552', 'contenterror',    false]],
       '01222' => [['5.7.1',   '550', 'authfailure',     false]],
       '01223' => [['5.7.1',   '550', 'authfailure',     false]],
