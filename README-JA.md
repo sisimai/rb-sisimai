@@ -14,11 +14,9 @@
 > Sisimai 5はRuby 2.4以上が必要です。インストール/アップグレードを実行する前に`ruby -v`コマンドで
 > システムに入っているRubyのバージョンを確認してください。
 
-> [!CAUTION]
-> 2024年2月2日の時点で[Sisimai 5](https://github.com/sisimai/rb-sisimai/releases/tag/v5.0.0)は
-> [RubyGems.org](https://rubygems.org/gems/sisimai)にアップロードしていません。数ヶ月以内には
-> アップロードをする予定ですが、それまではこのリポジトリではから`git clone`してください。
-
+> [!NOTE]
+> SisimaiはPerlモジュールまたはRuby Gemですが、PHPやPython、GoやRustなどJSONを読める言語であれば
+> どのような環境においても解析結果を得ることでバウンスの発生状況を捉えるのにとても有用です。
 
 - [**README(English)**](README.md)
 - [シシマイ? | What is Sisimai](#what-is-sisimai)
@@ -110,17 +108,12 @@ Sisimaiの動作環境についての詳細は[Sisimai | シシマイを使っ�
 Install
 ---------------------------------------------------------------------------------------------------
 ### From RubyGems.org
-> [!CAUTION]
-> 2024年2月2日の時点で[Sisimai 5](https://github.com/sisimai/rb-sisimai/releases/tag/v5.0.0)は
-> [RubyGems.org](https://rubygems.org/gems/sisimai)にアップロードしていません。数ヶ月以内には
-> アップロードをする予定ですが、それまではこのリポジトリではから`git clone`してください。
-
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-4.25.16.gem (100%)
-Successfully installed sisimai-4.25.16
-Parsing documentation for sisimai-4.25.16
-Installing ri documentation for sisimai-4.25.16
+Fetching: sisimai-5.0.1.gem (100%)
+Successfully installed sisimai-5.0.1
+Parsing documentation for sisimai-5.0.1
+Installing ri documentation for sisimai-5.0.1
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```

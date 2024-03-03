@@ -1,5 +1,6 @@
-# Sisimai is a Ruby module for analyzing RFC5322 bounce emails and generating structured data from
-# parsed results.
+# Sisimai is a library that decodes complex and diverse bounce emails and outputs the results of
+# the delivery failure, such as the reason for the bounce and the recipient email address, in
+# structured data. It is also possible to output in JSON format. 
 require 'sisimai/version'
 module Sisimai
   class << self
@@ -12,15 +13,15 @@ module Sisimai
       return Sisimai.rise(argv0, **argv1)
     end
 
-    # Wrapper method for parsing mailbox/maidir
+    # Wrapper method for decoding mailbox/maidir
     # @param         [String] argv0      Path to mbox or Maildir/
     # @param         [Hash]   argv0      or Hash (decoded JSON)
     # @param         [IO]     argv0      or STDIN object
-    # @param         [Hash]   argv1      Parser options(delivered=false)
+    # @param         [Hash]   argv1      Options for decoding(delivered=false)
     # @options argv1 [Boolean] delivered true: Include "delivered" reason
     # @options argv1 [Boolean] vacation  true: Include "vacation" reason
     # @options argv1 [Array]   c___      Proc object to a callback method for the message and each file
-    # @return        [Array]             Parsed objects
+    # @return        [Array]             Decoded objects
     # @return        [nil]               nil if the argument was wrong or an empty array
     def rise(argv0, **argv1)
       return nil unless argv0
@@ -33,7 +34,7 @@ module Sisimai
       sisi = []
 
       while r = mail.data.read do
-        # Read and parse each email file
+        # Read and decode each email file
         path = mail.data.path
         args = { data: r, hook: c___[0], origin: path, delivered: argv1[:delivered], vacation: argv1[:vacation] }
         fact = Sisimai::Fact.rise(**args) || []
@@ -56,15 +57,15 @@ module Sisimai
       return sisi
     end
 
-    # Wrapper method to parse mailbox/Maildir and dump as JSON
+    # Wrapper method to decode mailbox/Maildir and dump as JSON
     # @param         [String] argv0      Path to mbox or Maildir/
     # @param         [Hash]   argv0      or Hash (decoded JSON)
     # @param         [IO]     argv0      or STDIN object
-    # @param         [Hash] argv1        Parser options
+    # @param         [Hash] argv1        Options for decoding
     # @options argv1 [Integer] delivered true: Include "delivered" reason
     # @options argv1 [Integer] vacation  true: Include "vacation" reason
     # @options argv1 [Lambda]  hook      Lambda object to be called back
-    # @return        [String]            Parsed data as JSON text
+    # @return        [String]            Decoded data as JSON text
     def dump(argv0, **argv1)
       return nil unless argv0
       nyaan = Sisimai.rise(argv0, **argv1) || []
@@ -80,8 +81,8 @@ module Sisimai
       return jsonstring
     end
 
-    # Parser engine list (MTA modules)
-    # @return   [Hash]     Parser engine table
+    # Decoding engine list (MTA modules)
+    # @return   [Hash]     Decoding engine table
     def engine
       table = {}
 

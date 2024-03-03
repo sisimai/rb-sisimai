@@ -15,10 +15,10 @@
 > Sisimai 5 requires Ruby 2.4 or later. Check the version of Ruby in your system before installing/upgrading
 > by `ruby -v` command.
 
-> [!CAUTION]
-> [Sisimai 5](https://github.com/sisimai/rb-sisimai/releases/tag/v5.0.0) has not been uploaded to
-> [RubyGems.org](https://rubygems.org/gems/sisimai) yet as of February 2nd. It will be available on
-> RubyGems.org within a few months, but until then, please clone it from this repository.
+> [!NOTE]
+> Sisimai is a Ruby Gem or Perl module, but it can be used in any environment where JSON can be read,
+> such as PHP, Python, Go, and Rust. By obtaining the analysis results, it is very useful for understanding
+> the bounce occurrence status. 
 
 - [**README-JA(日本語)**](README-JA.md)
 - [What is Sisimai](#what-is-sisimai)
@@ -108,17 +108,12 @@ More details about system requirements are available at
 Install
 ---------------------------------------------------------------------------------------------------
 ### From RubyGems
-> [!CAUTION]
-> [Sisimai 5](https://github.com/sisimai/p5-sisimai/releases/tag/v5.0.0) has not been uploaded to
-> [RubyGems.org](https://rubygems.org/gems/sisimai) yet as of February 2nd. It will be available on
-> RubyGems.org within a few months, but until then, please clone it from this repository.
-
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-4.25.16.gem (100%)
-Successfully installed sisimai-4.25.16
-Parsing documentation for sisimai-4.25.16
-Installing ri documentation for sisimai-4.25.16
+Fetching: sisimai-5.0.1.gem (100%)
+Successfully installed sisimai-5.0.1
+Parsing documentation for sisimai-5.0.1
+Installing ri documentation for sisimai-5.0.1
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```

@@ -3,10 +3,10 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v5.0.0p1
+v5.0.1
 ---------------------------------------------------------------------------------------------------
-- release: ""
-- version: ""
+- release: "Sun,  3 Mar 2024 17:17:17 +0900 (JST)"
+- version: "5.0.1"
 - changes:
   - #263 Implement three SMTP status codes as follows: `5.7.28`, `5.7.29` and `5.7.30` described in
     https://www.iana.org/assignments/smtp-enhanced-status-codes/smtp-enhanced-status-codes.xhtml
@@ -17,7 +17,7 @@ v5.0.0p1
 
 v5.0.0
 ---------------------------------------------------------------------------------------------------
-- release: ""Fri,  2 Feb 2024 23:22:22 +0900 (JST)
+- release: "Fri,  2 Feb 2024 23:22:22 +0900 (JST)"
 - version: "5.0.0"
 - changes:
   - **INCOMPATIBLE CHANGES SINCE SISIMAI VERSION 4**
