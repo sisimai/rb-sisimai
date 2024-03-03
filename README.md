@@ -74,7 +74,7 @@ The key features of Sisimai
     * Ruby (Hash, Array)
     * JSON 
       * (by using [`oj`](https://rubygems.org/gems/oj) gem at CRuby)
-      * (by using [`jrjackson`](https://rubygems.org/gems/jrjackson) gem at JRuby)
+      * ~~(by using [`jrjackson`](https://rubygems.org/gems/jrjackson) gem at JRuby)~~
     * YAML ([`yaml`](https://rubygems.org/gems/yaml) gem required)
   * __Easy to Install, Use.__
     * `gem install`
@@ -102,8 +102,9 @@ More details about system requirements are available at
 
 * [Ruby 2.4.0 or later](http://www.ruby-lang.org/)
   * [__oj | The fastest JSON parser and object serializer__](https://rubygems.org/gems/oj)
-* Also works on [JRuby 9.0.4.0 - 9.1.17.0](http://jruby.org)
-  * [__jrjackson | A mostly native JRuby wrapper for the java jackson json processor jar__](https://rubygems.org/gems/jrjackson)
+* ~~Also works on [JRuby 9.0.4.0 - 9.1.17.0](http://jruby.org)~~
+  * ~~[__jrjackson | A mostly native JRuby wrapper for the java jackson json processor jar__](https://rubygems.org/gems/jrjackson)~~
+  * [Is anyone running Sisimai on JRuby ?](https://github.com/sisimai/rb-sisimai/issues/267)
 
 Install
 ---------------------------------------------------------------------------------------------------
@@ -349,7 +350,7 @@ Beginning with v5.0.0, Sisimai requires **Ruby 2.4.0 or later.**
 | Features                                             | Sisimai 4          | Sisimai 5           |
 |------------------------------------------------------|--------------------|---------------------|
 | System requirements (CRuby)                          | 2.1 - 3.3.0        | **2.4** - 3.3.0     |
-| System requirements (JRuby)                          | 9.0.4.0 - 9.1.17.0 | 9.0.4.0 - 9.1.17.0  |
+| ~~System requirements (JRuby)                        | 9.0.4.0 - 9.1.17.0 | 9.0.4.0 - 9.1.17.0  |~~
 | Callback feature for the original email file         | N/A                | Available[^3]       |
 | The number of MTA/ESP modules                        | 68                 | 70                  |
 | The number of detectable bounce reasons              | 29                 | 34                  |

@@ -72,7 +72,7 @@ The key features of Sisimai
     * Ruby (Hash, Array)
     * JSON 
       * ([`oj`](https://rubygems.org/gems/oj)を使用(CRuby))
-      * ([`jrjackson`](https://rubygems.org/gems/jrjackson)を使用(JRuby))
+      * ~~([`jrjackson`](https://rubygems.org/gems/jrjackson)を使用(JRuby))~~
     * YAML ([`yaml`](https://rubygems.org/gems/yaml)が必要)
   * __インストールも使用も簡単__
     * `gem install`
@@ -102,8 +102,9 @@ Sisimaiの動作環境についての詳細は[Sisimai | シシマイを使っ�
 
 * [Ruby 2.4.0 or later](http://www.ruby-lang.org/)
   * [__oj | The fastest JSON parser and object serializer__](https://rubygems.org/gems/oj)
-* Also works on [JRuby 9.0.4.0 - 9.1.17.0](http://jruby.org)
-  * [__jrjackson | A mostly native JRuby wrapper for the java jackson json processor jar__](https://rubygems.org/gems/jrjackson)
+* ~~Also works on [JRuby 9.0.4.0 - 9.1.17.0](http://jruby.org)~~
+  * ~~[__jrjackson | A mostly native JRuby wrapper for the java jackson json processor jar__](https://rubygems.org/gems/jrjackson)~~
+  * [Is anyone running Sisimai on JRuby ?](https://github.com/sisimai/rb-sisimai/issues/267)
 
 Install
 ---------------------------------------------------------------------------------------------------
@@ -349,7 +350,7 @@ Sisimai 5.0.0から**Ruby 2.4以上**が必要になります。
 | 機能                                                 | Sisimai 4          | Sisimai 5           |
 |------------------------------------------------------|--------------------|---------------------|
 | 動作環境(CRuby)                                      | 2.1 -              | **2.4** - 3.3.0     |
-| 動作環境(JRuby)                                      | 9.0.4.0 - 9.1.17.0 | 9.0.4.0 - 9.1.17.0  |
+| ~~動作環境(JRuby)                                    | 9.0.4.0 - 9.1.17.0 | 9.0.4.0 - 9.1.17.0  |~~
 | 元メールファイルを操作可能なコールバック機能         | なし               | あり[^3]            |
 | 解析エンジン(MTA/ESPモジュール)の数                  | 68                 | 70                  |
 | 検出可能なバウンス理由の数                           | 29                 | 34                  |
