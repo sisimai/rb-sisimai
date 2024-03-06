@@ -28,6 +28,7 @@ jobs:
           key: ${{ runner.os }}-ruby-${{ matrix.cruby }}-${{ hashFiles('./gem.snapshot') }}
       - run: ruby -v
       - run: rake publictest
+      - run: rake privatetest
   test-jruby:
     name: rake test with JRuby ${{ matrix.jruby }}
     runs-on: ubuntu-latest
