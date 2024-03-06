@@ -6,7 +6,7 @@ on:
     branches: ["5-stable"]
 jobs:
   test:
-    name: Make Test with Ruby ${{ matrix.ruby }}
+    name: make Test with Ruby ${{ matrix.ruby }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -18,7 +18,8 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-      - run: gem install bundle rake minitest
+      - run: gem install minitest -v 5.15.0
+      - run: gem install bundle rake
       - name: Cache the dependent gems
         uses: actions/cache@v2
         with:
