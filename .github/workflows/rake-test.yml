@@ -19,6 +19,7 @@ jobs:
         with:
           ruby-version: ${{ matrix.cruby }}
       - run: gem install minitest -v 5.15.0
+      - run: gem install oj -v 3.10.0
       - run: gem install bundle rake oj
       - name: Cache the dependent gems
         uses: actions/cache@v2
