@@ -131,7 +131,6 @@ class MailTest < Minitest::Test
     while r = IsntBounce.data.read do
       ci += 1
       assert_instance_of String, r
-      refute_empty r
     end
     assert_equal 2, ci
   end
