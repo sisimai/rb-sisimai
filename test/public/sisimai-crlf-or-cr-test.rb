@@ -17,9 +17,15 @@ class EmailCRLFTest < Minitest::Test
 
       cv.each do |ee|
         assert_instance_of Sisimai::Fact, ee
-        assert_instance_of Sisimai::Time, ee.timestamp
         assert_instance_of Sisimai::Address, ee.addresser
         assert_instance_of Sisimai::Address, ee.recipient
+
+        # [WORKAROUND] #159, #267
+        if RUBY_PLATFORM.start_with?('java')
+          assert_instance_of ::DateTime, ee.timestamp
+        else
+          assert_instance_of Sisimai::Time, ee.timestamp
+        end
 
         assert_match /[@]/, ee.addresser.address
         assert_match /[@]/, ee.recipient.address

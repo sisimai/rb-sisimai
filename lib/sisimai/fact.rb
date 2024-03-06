@@ -46,6 +46,18 @@ module Sisimai
     RFC822Head = Sisimai::RFC5322.HEADERFIELDS(:all)
     ActionList = { delayed: 1, delivered: 1, expanded: 1, failed: 1, relayed: 1 };
 
+    if RUBY_PLATFORM.start_with?('java')
+      # [WORKAROUND] #159 #267 JRuby seems to fail and throws exception at strptime(), but this
+      # issue might be fixed in a future version of JRuby.
+      #   https://gist.github.com/hiroyuki-sato/6ef40245874d4c847a95ef99886e4fa7
+      #   https://github.com/sisimai/rb-sisimai/issues/267#issuecomment-1976642884
+      #   https://github.com/jruby/jruby/issues/8139
+      #   https://github.com/sisimai/rb-sisimai/issues/267
+      TimeModule = ::DateTime
+    else
+      TimeModule = Sisimai::Time
+    end
+
     # Constructor of Sisimai::Fact
     # @param    [Hash] argvs    Including each parameter
     # @return   [Sisimai::Fact] Structured email data
@@ -188,7 +200,7 @@ module Sisimai
 
         begin
           # Convert from the date string to an object then calculate time zone offset.
-          t = Sisimai::Time.strptime(datestring, '%a, %d %b %Y %T')
+          t = TimeModule.strptime(datestring, '%a, %d %b %Y %T')
           p['timestamp'] = (t.to_time.to_i - zoneoffset) || nil
         rescue
           warn ' ***warning: Failed to strptime ' << datestring.to_s
@@ -339,7 +351,7 @@ module Sisimai
         o['catch']          = p['catch'] || nil
         o['hardbounce']     = p['hardbounce']
         o['replycode']      = Sisimai::SMTP::Reply.find(p['diagnosticcode']).to_s if o['replycode'].empty?
-        o['timestamp']      = Sisimai::Time.parse(::Time.at(p['timestamp']).to_s)
+        o['timestamp']      = TimeModule.parse(::Time.at(p['timestamp']).to_s)
         o['timezoneoffset'] = p['timezoneoffset'] || '+0000'
 
         # REASON: Decide the reason of email bounce
