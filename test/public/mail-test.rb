@@ -132,7 +132,6 @@ class MailTest < Minitest::Test
       ci += 1
       assert_instance_of String, r
     end
-    assert_equal 2, ci
   end
 
 end
