@@ -34,7 +34,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        jruby: ["jruby-9.2", "jruby-9.3", "jruby-9.4"]
+        jruby: ["jruby-9.0", "jruby-9.1", "jruby-9.2", "jruby-9.3", "jruby-9.4"]
     steps:
       - uses: actions/checkout@v2
       - name: Setup JRuby 
