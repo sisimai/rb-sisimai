@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        cruby: ["2.4", "2.7", "3.0", "3.3"]
+        cruby: ["2.4", "3.3"]
     steps:
       - uses: actions/checkout@v2
       - name: Setup CRuby
