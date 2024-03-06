@@ -4,6 +4,7 @@ class LhostCode < Minitest::Test
 
   def initialize(v = ''); return super(v); end
   def enginetest(enginename = nil, isexpected = {}, privateset = false, onlydebugs = 0)
+    return nil unless Dir.exist?('set-of-emails/private')
     return nil unless enginename
     return nil if isexpected.empty?
 
