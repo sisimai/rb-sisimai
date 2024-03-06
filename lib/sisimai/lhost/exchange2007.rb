@@ -147,7 +147,7 @@ module Sisimai::Lhost
           next unless p > 0
 
           # #550 5.1.1 RESOLVER.ADR.RecipNotFound; not found ##
-          f = e['diagnosis'][p + 1, e['diagnosis'].index(';') - p -1]
+          f = e['diagnosis'][p + 1, e['diagnosis'].index(';') - p - 1]
           NDRSubject.each_key do |r|
             # Try to match with error subject strings
             next unless f == r
