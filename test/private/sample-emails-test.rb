@@ -1,11 +1,13 @@
 require 'minitest/autorun'
 class PrivateSampleEmailTest < Minitest::Test
-  Samples = [
-    './set-of-emails/private',
-  ]
+  Samples = ['./set-of-emails/private']
 
   def test_privatesamples
     Samples.each do |de|
+      unless Dir.exist?(de)
+        skip 'set-of-emails/private exists in developers machine only'
+      end
+
       assert_equal true, File.exist?(de)
       assert_equal true, File.readable?(de)
       assert_equal true, File.executable?(de)
