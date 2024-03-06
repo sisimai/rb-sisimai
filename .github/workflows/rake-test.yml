@@ -51,4 +51,5 @@ jobs:
           key: ${{ runner.os }}-ruby-${{ matrix.jruby }}-${{ hashFiles('./gem.snapshot') }}
       - run: ruby -v
       - run: rake publictest
+      - run: rake privatetest
 
