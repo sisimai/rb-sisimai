@@ -5,26 +5,48 @@ on:
   pull_request:
     branches: ["5-stable"]
 jobs:
-  test:
-    name: make Test with Ruby ${{ matrix.ruby }}
+  test-cruby:
+    name: rake test with CRuby ${{ matrix.cruby }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        ruby: ["2.4", "2.7", "3.0", "3.3", "jruby-9.2", "jruby-9.3", "jruby-9.4"]
+        cruby: ["2.4", "2.7", "3.0", "3.3"]
     steps:
       - uses: actions/checkout@v2
-      - name: Setup ruby
+      - name: Setup CRuby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{ matrix.ruby }}
+          ruby-version: ${{ matrix.cruby }}
       - run: gem install minitest -v 5.15.0
-      - run: gem install bundle rake
+      - run: gem install bundle rake oj
       - name: Cache the dependent gems
         uses: actions/cache@v2
         with:
           path: ./cache
-          key: ${{ runner.os }}-ruby-${{ matrix.ruby }}-${{ hashFiles('./gem.snapshot') }}
+          key: ${{ runner.os }}-ruby-${{ matrix.cruby }}-${{ hashFiles('./gem.snapshot') }}
       - run: ruby -v
-      - run: rake test
+      - run: rake publictest
+  test-jruby:
+    name: rake test with JRuby ${{ matrix.jruby }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        jruby: ["jruby-9.2", "jruby-9.3", "jruby-9.4"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup JRuby 
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.jruby }}
+      - run: gem install minitest -v 5.15.0
+      - run: gem install bundle rake jrjackson
+      - name: Cache the dependent gems
+        uses: actions/cache@v2
+        with:
+          path: ./cache
+          key: ${{ runner.os }}-ruby-${{ matrix.jruby }}-${{ hashFiles('./gem.snapshot') }}
+      - run: ruby -v
+      - run: rake publictest
 
