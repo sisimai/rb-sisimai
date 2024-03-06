@@ -1,0 +1,29 @@
+name: rake test
+on:
+  push:
+    branches: ["5-stable"]
+  pull_request:
+    branches: ["5-stable"]
+jobs:
+  test:
+    name: Make Test with Ruby ${{ matrix.ruby }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ["2.4", "2.7", "3.0", "3.3", "jruby-9.2", "jruby-9.3", "jruby-9.4"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - run: gem install bundle rake minitest
+      - name: Cache the dependent gems
+        uses: actions/cache@v2
+        with:
+          path: ./cache
+          key: ${{ runner.os }}-ruby-${{ matrix.ruby }}-${{ hashFiles('./gem.snapshot') }}
+      - run: ruby -v
+      - run: rake test
+
