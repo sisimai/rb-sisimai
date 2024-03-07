@@ -89,7 +89,7 @@ module Sisimai
             cv = Sisimai::String.ipv4(e) || []
             if cv.size > 0
               # [192.0.2.1] or (192.0.2.1)
-              addrlist.append(*cv)
+              addrlist.push(*cv)
             else
               # hostname
               e = e.delete('()').strip

@@ -54,9 +54,15 @@ class SisimaiTest < Minitest::Test
 
       cr.each do |ee|
         assert_instance_of Sisimai::Fact,    ee
-        assert_instance_of Sisimai::Time,    ee.timestamp
         assert_instance_of Sisimai::Address, ee.recipient
         assert_instance_of Sisimai::Address, ee.recipient
+
+        # [WORKAROUND] #159, #267
+        if RUBY_PLATFORM.start_with?('java')
+          assert_instance_of ::DateTime, ee.timestamp
+        else
+          assert_instance_of Sisimai::Time, ee.timestamp
+        end
 
         assert_respond_to ee, 'softbounce'
         assert_respond_to ee, 'damn'
@@ -81,7 +87,12 @@ class SisimaiTest < Minitest::Test
           if eee == 'catch'
             assert_empty cv['catch']
           else
-            assert_equal ee.send(eee.to_sym), cv[eee], 'Sisimai::Fact.' << eee
+            # [WORKAROUND] #159, #267
+            if RUBY_PLATFORM.start_with?('java') && eee == 'timestamp'
+              assert_equal Time.parse(ee.send(eee.to_sym).iso8601).to_i, cv[eee], 'Sisimai::Fact.' << eee
+            else
+              assert_equal ee.send(eee.to_sym), cv[eee], 'Sisimai::Fact.' << eee
+            end
           end
         end
 

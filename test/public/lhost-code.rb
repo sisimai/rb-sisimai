@@ -4,6 +4,7 @@ class LhostCode < Minitest::Test
 
   def initialize(v = ''); return super(v); end
   def enginetest(enginename = nil, isexpected = {}, privateset = false, onlydebugs = 0)
+    return nil unless Dir.exist?('set-of-emails/private')
     return nil unless enginename
     return nil if isexpected.empty?
 
@@ -408,8 +409,14 @@ class LhostCode < Minitest::Test
           cv = rr.timestamp
           ct = sprintf("%s [%s-%02d] #timestamp =", ce, e, errorindex)
 
-          assert_instance_of Sisimai::Time, cv
-          assert_equal true, cv.to_json > 0, sprintf("%s %d", ct, cv.to_json)
+          # [WORKAROUND] #159, #267
+          if RUBY_PLATFORM.start_with?('java')
+            assert_instance_of ::DateTime, cv
+          else
+            assert_instance_of Sisimai::Time, cv
+            assert_equal true, cv.to_json > 0, sprintf("%s %d", ct, cv.to_json)
+          end
+
           refute_empty cv.rfc2822,           sprintf("%s %s", ct, cv.rfc2822)
 
           # ---------------------------------------------------------------------------------------
@@ -442,6 +449,7 @@ class LhostCode < Minitest::Test
           assert_instance_of String, cv
           refute_empty cv, sprintf("%s %s", ct, cv[0, 32])
 
+          # [WORKAROUND] #159, #267
           if RUBY_PLATFORM.start_with?('java')
             # java-based ruby environment like JRuby.
             begin
@@ -450,6 +458,7 @@ class LhostCode < Minitest::Test
             rescue StandardError => je
               warn '***warning: Failed to JrJackson::Json.load: ' << je.to_s
             end
+            assert_equal cj['timestamp'], Time.parse(rr.timestamp.iso8601).to_i, sprintf("%s %s", ct, cj['timestamp'])
           else
             # MRI
             begin
@@ -458,13 +467,13 @@ class LhostCode < Minitest::Test
             rescue StandardError => je
               warn '***warning: Failed to Oj.load: ' << je.to_s
             end
+            assert_equal cj['timestamp'], rr.timestamp.to_json, sprintf("%s %s", ct, cj['timestamp'])
           end
 
           assert_instance_of Hash, cj
           assert_empty cj['catch'], sprintf("%s %s", ct, "")
           assert_equal cj['addresser'], rr.addresser.address, sprintf("%s %s", ct, cj['addresser'])
           assert_equal cj['recipient'], rr.recipient.address, sprintf("%s %s", ct, cj['recipient'])
-          assert_equal cj['timestamp'], rr.timestamp.to_json, sprintf("%s %s", ct, cj['timestamp'])
 
           # ---------------------------------------------------------------------------------------
           # DUMP(YAML)
@@ -482,7 +491,13 @@ class LhostCode < Minitest::Test
           assert_empty cy['catch'], sprintf("%s %s", ct, "")
           assert_equal cy['addresser'], rr.addresser.address, sprintf("%s %s", ct, cy['addresser'])
           assert_equal cy['recipient'], rr.recipient.address, sprintf("%s %s", ct, cy['recipient'])
-          assert_equal cy['timestamp'], rr.timestamp.to_json, sprintf("%s %s", ct, cy['timestamp'])
+
+          # [WORKAROUND] #159, #267
+          if RUBY_PLATFORM.start_with?('java')
+            assert_equal cy['timestamp'], Time.parse(rr.timestamp.iso8601).to_i, sprintf("%s %s", ct, cy['timestamp'])
+          else
+            assert_equal cy['timestamp'], rr.timestamp.to_json, sprintf("%s %s", ct, cy['timestamp'])
+          end
 
           # ---------------------------------------------------------------------------------------
           # SOFTBOUNCE
