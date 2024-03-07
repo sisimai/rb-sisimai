@@ -70,7 +70,7 @@ module Sisimai::Lhost
         %r/\A5[.]7[.]1[23]\z/    => 'rejected',
         %r/\A5[.]7[.]124\z/      => 'rejected',
         %r/\A5[.]7[.]13[3-6]\z/  => 'rejected',
-        %r/\A5[.]7[.]23\z/       => 'blocked',
+        %r/\A5[.]7[.]23\z/       => 'authfailure',
         %r/\A5[.]7[.]25\z/       => 'networkerror',
         %r/\A5[.]7[.]50[1-3]\z/  => 'spamdetected',
         %r/\A5[.]7[.]50[4-5]\z/  => 'filtered',
