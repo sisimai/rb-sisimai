@@ -20,6 +20,7 @@ module Sisimai
           'dmarc policy',
           'please inspect your spf settings',
           'sender policy framework (spf) fail',
+          'sender policy framework violation',
           'spf (sender policy framework) domain authentication fail',
           'spf check: fail',
         ].freeze

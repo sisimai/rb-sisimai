@@ -29,6 +29,7 @@ module Sisimai
           'insecure mail relay',
           'recipient address rejected: access denied',
           "sorry, you don't authenticate or the domain isn't in my list of allowed rcpthosts",
+          'starttls is required to send mail',
           'tls required but not supported',   # SendGrid:the recipient mailserver does not support TLS or have a valid certificate
           'unauthenticated senders not allowed',
           'verification failure',

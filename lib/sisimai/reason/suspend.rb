@@ -21,6 +21,7 @@ module Sisimai
           'recipient rejected: temporarily inactive',
           'recipient suspend the service',
           'this account has been disabled or discontinued',
+          'this address no longer accepts mail',
           'this mailbox is disabled',
           'user suspended',   # http://mail.163.com/help/help_spam_16.htm
           'vdelivermail: account is locked email bounced',

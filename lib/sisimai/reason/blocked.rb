@@ -46,6 +46,7 @@ module Sisimai
           'part of their network is on our block list',
           'please use the smtp server of your isp',
           'refused - see http',
+          'rejected - multi-blacklist', # junkemailfilter.com
           'rejected because the sending mta or the sender has not passed validation',
           'rejecting open proxy', # Sendmail(srvrsmtp.c)
           'sender ip address rejected',
@@ -78,6 +79,7 @@ module Sisimai
           ['message from ', ' rejected based on blacklist'],
           ['messages from ', ' temporarily deferred due to user complaints'], # Yahoo!
           ['server ip ', ' listed as abusive'],
+          ['sorry! your ip address', ' is blocked by rbl'], # junkemailfilter.com
           ['the domain ', ' is blacklisted'],
           ['the email ', ' is blacklisted'],
           ['the ip', ' is blacklisted'],

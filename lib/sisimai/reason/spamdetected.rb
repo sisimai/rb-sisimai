@@ -76,6 +76,7 @@ module Sisimai
           'spam score ',
           'spambouncer identified spam',  # SpamBouncer identified SPAM
           'spamming not allowed',
+          'too many spam complaints',
           'too much spam.',               # Earthlink
           'the email message was detected as spam',
           'the message has been rejected by spam filtering engine',

@@ -15,6 +15,7 @@ module Sisimai
           'boite du destinataire pleine',
           'delivery failed: over quota',
           'disc quota exceeded',
+          'diskspace quota',
           'does not have enough space',
           'exceeded storage allocation',
           'exceeding its mailbox quota',
