@@ -3,6 +3,33 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v5.0.1p1
+---------------------------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - #271 #267 Sisimai 5 works on JRuby again. Thanks to @hiroyuki-sato
+    - #159 Implement workarounds at `Sisimai::Fact` and some public tests with `DateTime` class to
+      run Sisimai on JRuby, to avoid failing `strptime()`
+    - #269 Replace `Array#append` with `Array#push` at `Sisimai::RFC5322` because `Array#append` is
+      only available in Ruby 2.5 and above
+  - We have started testing JRuby 9.2 and 9.4 on GitHub Actions
+  - Disable 2 tests in `test/public/mail-test.rb` that fails on GitHub Actions only
+  - `5.7.23` returned from Office365 is an error related to SPF vilation (authfailure)
+  - #272 Fixed an issue that Sisimai could not get the value of `alias` address correctly when an
+    email forwarded and bounced
+  - `Sisimai::RFC5322.received` now returns a list including all the elements except date time and
+    (comments) found in the `Received` header
+  - Update the error message patterns in `Sisimai::Rhost::Mimecast`
+  - Update the error message patterns in the followings:
+    - `AuthFailure`
+    - `Blocked`
+    - `Expired`
+    - `MailboxFull`
+    - `SecurityError`
+    - `SpamDetected`
+    - `Suspend`
+
 v5.0.1
 ---------------------------------------------------------------------------------------------------
 - release: "Sun,  3 Mar 2024 17:17:17 +0900 (JST)"
