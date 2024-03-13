@@ -171,6 +171,7 @@ class LhostCode < Minitest::Test
 
           assert_instance_of String, cv
           refute_nil cv, sprintf("%s %s", ct, cv)
+          refute_equal cv, rr.recipient.address, sprintf("%s %s != %s", ct, cv, rr.recipient.address)
 
           # ---------------------------------------------------------------------------------------
           # CATCH
@@ -256,7 +257,7 @@ class LhostCode < Minitest::Test
           # ---------------------------------------------------------------------------------------
           # LHOST
           cv = rr.lhost
-          cr = %r/\A[\x21-\x7e]+\z/
+          cr = %r/\A[^\s\[\]\(\)]+\z/
           ct = sprintf("%s [%s-%02d] #lhost =", ce, e, errorindex)
 
           assert_instance_of String, cv
@@ -339,7 +340,7 @@ class LhostCode < Minitest::Test
           # ---------------------------------------------------------------------------------------
           # RHOST
           cv = rr.rhost
-          cr = %r/\A[-.:0-9A-Za-z]+\z/
+          cr = %r/\A[^\s\[\]\(\)]+\z/
           ct = sprintf("%s [%s-%02d] #rhost =", ce, e, errorindex)
 
           assert_instance_of String, cv
