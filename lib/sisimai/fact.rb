@@ -208,12 +208,12 @@ module Sisimai
         next unless p['timestamp']
 
         # OTHER_TEXT_HEADERS:
-        recvheader = mesg1['header']['received'] || []
-        unless recvheader.empty?
-          # Get localhost and remote host name from Received header.
-          %w[lhost rhost].each { |a| e[a] ||= '' }
-          e['lhost'] = Sisimai::RFC5322.received(recvheader[0]).shift if e['lhost'].empty?
-          e['rhost'] = Sisimai::RFC5322.received(recvheader[-1]).pop  if e['rhost'].empty?
+        rr = mesg1['header']['received'] || []
+        unless rr.empty?
+          # Get a localhost and a remote host name from Received header.
+          p['rhost'] = Sisimai::RFC5322.received(rr[-1])[1] if p['rhost'].empty?
+          p['lhost'] = '' if p['rhost'] == p['lhost']
+          p['lhost'] = Sisimai::RFC5322.received(rr[ 0])[0] if p['lhost'].empty?
         end
 
         # Remove square brackets and curly brackets from the host variable
@@ -353,6 +353,32 @@ module Sisimai
         o['replycode']      = Sisimai::SMTP::Reply.find(p['diagnosticcode']).to_s if o['replycode'].empty?
         o['timestamp']      = TimeModule.parse(::Time.at(p['timestamp']).to_s)
         o['timezoneoffset'] = p['timezoneoffset'] || '+0000'
+
+        # ALIAS
+        while true do
+          # Look up the Envelope-To address from the Received: header in the original message
+          # when the recipient address is same with the value of o['alias'].
+          break if o['alias'].empty?
+          break if o['recipient'].address != o['alias']
+          break unless rfc822data.has_key?('received')
+          break if rfc822data['received'].empty?
+
+          rfc822data['received'].reverse.each do |er|
+            # Search for the string " for " from the Received: header
+            next unless er.include?(' for ')
+
+            af = Sisimai::RFC5322.received(er)
+            next if af.empty?
+            next if af[5].empty?
+            next unless Sisimai::Address.is_emailaddress(af[5])
+            next if o['recipient'].address == af[5]
+
+            o['alias'] = af[5]
+            break
+          end
+          break
+        end
+        o['alias'] = '' if o['alias'] == o['recipient'].address
 
         # REASON: Decide the reason of email bounce
         if o['reason'].empty? || RetryIndex[o['reason']]
