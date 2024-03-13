@@ -110,10 +110,10 @@ Install
 ### From RubyGems.org
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-5.0.1.gem (100%)
-Successfully installed sisimai-5.0.1
-Parsing documentation for sisimai-5.0.1
-Installing ri documentation for sisimai-5.0.1
+Fetching: sisimai-5.0.2.gem (100%)
+Successfully installed sisimai-5.0.2
+Parsing documentation for sisimai-5.0.2
+Installing ri documentation for sisimai-5.0.2
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -141,13 +141,13 @@ if [ -d "/usr/local/jr" ]; then \
 ...
 3 gems installed
 /opt/local/bin/rake install
-sisimai 5.0.0 built to pkg/sisimai-5.0.0.gem.
-sisimai (5.0.0) installed.
+sisimai 5.0.2 built to pkg/sisimai-5.0.2.gem.
+sisimai (5.0.2) installed.
 if [ -d "/usr/local/jr" ]; then \
 		PATH="/usr/local/jr/bin:$PATH" /usr/local/jr/bin/rake install; \
 	fi
-sisimai 5.0.0 built to pkg/sisimai-5.0.0-java.gem.
-sisimai (5.0.0) installed.
+sisimai 5.0.2 built to pkg/sisimai-5.0.2-java.gem.
+sisimai (5.0.2) installed.
 ```
 
 Usage
@@ -354,9 +354,9 @@ Sisimai 5.0.0から**Ruby 2.4以上**が必要になります。
 | 解析エンジン(MTA/ESPモジュール)の数                  | 68                 | 70                  |
 | 検出可能なバウンス理由の数                           | 29                 | 34                  |
 | 依存Gem数(Ruby Standard Gemsを除く)                  | 1 Gem              | 1 Gem               |
-| ソースコードの行数                                   | 10,800 行          | 11,400 行           |
+| ソースコードの行数                                   | 10,800 行          | 11,370 行           |
 | テストフレームワーク                                 | rspec              | minitest            |
-| テスト件数(spec/またはtest/ディレクトリ)             | 311,000 件         | 336,000 件          |
+| テスト件数(spec/またはtest/ディレクトリ)             | 311,000 件         | 338,000 件          |
 | 1秒間に解析できるバウンスメール数[^4]                | 231 通             | 305 通              |
 | ライセンス                                           | 2条項BSD           | 2条項BSD            |
 | 開発会社による商用サポート                           | 提供中             | 提供中              |

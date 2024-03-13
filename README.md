@@ -109,10 +109,10 @@ Install
 ### From RubyGems
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-5.0.1.gem (100%)
-Successfully installed sisimai-5.0.1
-Parsing documentation for sisimai-5.0.1
-Installing ri documentation for sisimai-5.0.1
+Fetching: sisimai-5.0.2.gem (100%)
+Successfully installed sisimai-5.0.2
+Parsing documentation for sisimai-5.0.2
+Installing ri documentation for sisimai-5.0.2
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -140,13 +140,13 @@ if [ -d "/usr/local/jr" ]; then \
 ...
 3 gems installed
 /opt/local/bin/rake install
-sisimai 5.0.0 built to pkg/sisimai-5.0.0.gem.
-sisimai (5.0.0) installed.
+sisimai 5.0.2 built to pkg/sisimai-5.0.2.gem.
+sisimai (5.0.2) installed.
 if [ -d "/usr/local/jr" ]; then \
 		PATH="/usr/local/jr/bin:$PATH" /usr/local/jr/bin/rake install; \
 	fi
-sisimai 5.0.0 built to pkg/sisimai-5.0.0-java.gem.
-sisimai (5.0.0) installed.
+sisimai 5.0.2 built to pkg/sisimai-5.0.2-java.gem.
+sisimai (5.0.2) installed.
 ```
 
 Usage
@@ -353,9 +353,9 @@ Beginning with v5.0.0, Sisimai requires **Ruby 2.4.0 or later.**
 | The number of MTA/ESP modules                        | 68                 | 70                  |
 | The number of detectable bounce reasons              | 29                 | 34                  |
 | Dependencies (Except Ruby Standard Gems)             | 1 gem              | 1 gem               |
-| Source lines of code                                 | 10,300 lines       | 11,300 lines        |
+| Source lines of code                                 | 10,300 lines       | 11,370 lines        |
 | Test frameworks                                      | rspec              | minitest            |
-| The number of tests in spec/ or test/ directory      | 311,000 tests      | 336,000 tests       | 
+| The number of tests in spec/ or test/ directory      | 311,000 tests      | 338,000 tests       | 
 | The number of bounce emails decoded/sec (CRuby)[^4]  | 231 emails         | 305 emails          |
 | License                                              | 2 Clause BSD       | 2 Caluse BSD        |
 | Commercial support                                   | Available          | Available           |
