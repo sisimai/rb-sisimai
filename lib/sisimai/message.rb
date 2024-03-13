@@ -198,17 +198,26 @@ module Sisimai
         # Select and convert all the headers in $argv0. The following regular expression is based on
         # https://gist.github.com/xtetsuji/b080e1f5551d17242f6415aba8a00239
         headermaps = { 'subject' => '' }
-        recvheader = []
+        receivedby = []
         argv0.scan(/^([\w-]+):[ ]*(.*?)\n(?![\s\t])/m) { |e| headermaps[e[0].downcase] = e[1] }
         headermaps.delete('received')
         headermaps.each_key { |e| headermaps[e].gsub!(/\n[\s\t]+/, ' ') }
 
         if argv0.include?('Received:')
           # Capture values of each Received: header
-          recvheader = argv0.scan(/^Received:[ ]*(.*?)\n(?![\s\t])/m).flatten
-          recvheader.each { |e| e.gsub!(/\n[\s\t]+/, ' ') }
+          re = argv0.scan(/^Received:[ ]*(.*?)\n(?![\s\t])/m).flatten
+          re.each do |e|
+            # 1. Exclude the Received header including "(qmail ** invoked from network)".
+            # 2. Convert all consecutive spaces and line breaks into a single space character.
+            next if e.include?(' invoked by uid')
+            next if e.include?(' invoked from network')
+
+            e.gsub!(/\n[\s\t]+/, ' ')
+            e.squeeze!("\n\t ")
+            receivedby << e
+          end
         end
-        headermaps['received'] = recvheader
+        headermaps['received'] = receivedby
 
         return headermaps unless argv1
         return headermaps if headermaps['subject'].empty?
