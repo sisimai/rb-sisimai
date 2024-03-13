@@ -101,7 +101,7 @@ More details about system requirements are available at
 
 * [Ruby 2.4.0 or later](http://www.ruby-lang.org/)
   * [__oj | The fastest JSON parser and object serializer__](https://rubygems.org/gems/oj)
-* Also works on [JRuby 9.2 or later](http://jruby.org)~~
+* Also works on [JRuby 9.2 or later](http://jruby.org)
   * [__jrjackson | A mostly native JRuby wrapper for the java jackson json processor jar__](https://rubygems.org/gems/jrjackson)
 
 Install
@@ -301,7 +301,7 @@ One-Liner
 
 Output example
 ---------------------------------------------------------------------------------------------------
-![](https://libsisimai.org/static/images/demo/sisimai-5-cli-dump-p01.gif)
+![](https://libsisimai.org/static/images/demo/sisimai-5-cli-dump-r01.gif)
 
 ```json
 [
