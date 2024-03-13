@@ -3,10 +3,10 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v5.0.1p1
+v5.0.2
 ---------------------------------------------------------------------------------------------------
-- release: ""
-- version: ""
+- release: "Wed, 13 Mar 2024 13:00:00 +0900 (JST)"
+- version: "5.0.2"
 - changes:
   - #271 #267 Sisimai 5 works on JRuby again. Thanks to @hiroyuki-sato
     - #159 Implement workarounds at `Sisimai::Fact` and some public tests with `DateTime` class to
