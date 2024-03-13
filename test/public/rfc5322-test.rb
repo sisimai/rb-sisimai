@@ -134,15 +134,24 @@ __END_OF_EMAIL_MESSAGE__
   end
 
   def test_received
+    # Check each value returned from Sisimai::RFC5322.received
+    # 0: (from)   "hostname"
+    # 1: (by)     "hostname"
+    # 2: (via)    "protocol/tcp"
+    # 3: (with)   "protocol/smtp"
+    # 4: (id)     "queue-id"
+    # 5: (for)    "envelope-to address"
     ReceivedList.each do |e|
       cv = Sisimai::RFC5322.received(e)
       assert_instance_of Array, cv
       refute_empty cv
-
-      cv.each do |ee|
-        assert_instance_of String, ee
-        assert_match %r{\A[-/:.0-9A-Za-z]+\z}, ee
-      end
+      assert_equal 6, cv.size
+      assert_match /\A[^\s\(\)\[\];]+\z/, cv[0] if cv[0].size > 0
+      assert_match /\A[^\s\(\)\[\];]+\z/, cv[1] if cv[1].size > 0
+      assert_equal 0, cv[2].size
+      assert_match /\A[^\s;]+\z/, cv[3]         if cv[3].size > 0
+      assert_match /\A[^\s;]+\z/, cv[4]         if cv[4].size > 0
+      assert_match /[^\s;]+[@][^\s;]+/, cv[5]   if cv[5].size > 0
     end
 
     ce = assert_raises ArgumentError do
