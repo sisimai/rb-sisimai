@@ -89,7 +89,6 @@ module Sisimai::Lhost
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        localhost0 = ''     # (String) Local MTA
         v = nil
 
         while e = bodyslices.shift do
@@ -135,19 +134,14 @@ module Sisimai::Lhost
         end
         return nil unless recipients > 0
 
-        unless mhead['received'].empty?
-          # Get the name of local MTA
-          p1 = mhead['received'][-1].downcase.index('from ')
-          p2 = mhead['received'][-1].index(' ', p1 + 5)
-
-          if (p1 + 1) * (p2 + 1) > 0
-            # Received: from marutamachi.example.org (c192128.example.net [192.0.2.128])
-            localhost0 = mhead['received'][-1][p1 + 5, p2 - p1 - 5]
-          end
-        end
+        # Get the name of the local MTA
+        # Received: from marutamachi.example.org (c192128.example.net [192.0.2.128])
+        receivedby = mhead['received'] || []
+        recvdtoken = Sisimai::RFC5322.received(receivedby[-1])
 
         dscontents.each do |e|
-          e['lhost'] = localhost0
+          # Check the error message, the rhost, the lhost, and the smtp command.
+          e['lhost'] = recvdtoken[0]
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].gsub(/[-]{2}.*\z/, ''))
 
           unless e['rhost']
@@ -156,12 +150,8 @@ module Sisimai::Lhost
             p2 = e['diagnosis'].index(' ', p1 + 5)
 
             # host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
-            e['rhost'] = e['diagnosis'][p1 + 5, p2 - p1 - 5] if p1 > -1
-
-            unless e['rhost']
-              # Get localhost and remote host name from Received header.
-              e['rhost'] = Sisimai::RFC5322.received(mhead['received'][-1]).pop unless mhead['received'].empty?
-            end
+            e['rhost']   = e['diagnosis'][p1 + 5, p2 - p1 - 5] if p1 > -1
+            e['rhost'] ||= recvdtoken[1]
           end
 
           unless e['command']

@@ -146,7 +146,6 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         dscontents.each do |e|
-          e['lhost']   ||= permessage['lhost']
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
           p0 = e['diagnosis'].index('-') || -1

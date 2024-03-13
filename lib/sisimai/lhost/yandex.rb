@@ -103,7 +103,6 @@ module Sisimai::Lhost
 
         dscontents.each do |e|
           # Set default values if each value is empty.
-          e['lhost'] ||= permessage['rhost']
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
 
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].tr("\n", ' '))

@@ -234,5 +234,13 @@ class SisimaiTest < Minitest::Test
     end
   end
 
+  def test_forwarded
+    cv = Sisimai.rise('./set-of-emails/maildir/bsd/lhost-sendmail-60.eml')
+    assert_instance_of Array, cv
+    assert_instance_of Sisimai::Fact, cv[0]
+    assert_equal 'neko@libsisimai.org', cv[0].alias
+    assert_equal 'kijitora-cat@google.example.com', cv[0].recipient.address
+  end
+
 end
 

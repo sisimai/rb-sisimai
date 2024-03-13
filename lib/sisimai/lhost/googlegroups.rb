@@ -48,9 +48,10 @@ module Sisimai::Lhost
         # * You may need to join the group before receiving permission to post.
         # * This group may not be open to posting.
         entiremesg = emailparts[0].split(/\n\n/, 5).slice(0, 4).join(' ').tr("\n", ' ');
+        receivedby = mhead['received'] || []
         recordwide['diagnosis'] = Sisimai::String.sweep(entiremesg)
         recordwide['reason']    = emailparts[0].scan(/^[ ]?[*][ ]?/).size == 4 ? 'rejected' : 'onhold'
-        recordwide['rhost']     = Sisimai::RFC5322.received(mhead['received'][0]).shift
+        recordwide['rhost']     = Sisimai::RFC5322.received(receivedby[0])[1]
 
         mhead['x-failed-recipients'].split(',').each do |e|
           # X-Failed-Recipients: neko@example.jp, nyaan@example.org, ...

@@ -62,6 +62,7 @@ module LhostEngineTest::Public
       '57' => [['5.7.27',  '550', 'notaccept',       true]],
       '58' => [['5.7.1',   '550', 'authfailure',     false]],
       '59' => [['5.7.1',   '550', 'authfailure',     false]],
+      '60' => [['5.7.26',  '550', 'authfailure',     false]],
     }
   end
 end

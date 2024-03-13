@@ -1,0 +1,85 @@
+Return-Path: <>
+X-Original-To: nekochan@email.example.jp
+Delivered-To: mail@email.example.jp
+Received: from mx311.ume.example.ne.jp (ip-192-0-2-25.us-east-1.compute.internal [192.0.2.25])
+	by mx1.email.example.jp (Postfix) with ESMTPS id Ln2ZS7LPwxzW4HMF
+	for <nekochan@email.example.jp>; Wed,  7 Feb 2024 23:34:45 +0900 (JST)
+Received: from localhost (localhost)
+	by mx311.ume.example.ne.jp (8.16.1/8.16.1) id 3LGub1et091679;
+	Wed, 7 Feb 2024 23:34:45 +0900 (JST)
+	(envelope-from MAILER-DAEMON)
+Date: Wed, 7 Feb 2024 23:34:45 +0900 (JST)
+From: Mail Delivery Subsystem <MAILER-DAEMON@mx311.ume.example.ne.jp>
+To: <nekochan@email.example.jp>
+Message-Id: <202402072222.3LGub1et091679@mx311.ume.example.ne.jp>
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="3LGub1et091679.1157497350/mx311.ume.example.ne.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--3LGub1et091679.1157497350/mx311.ume.example.ne.jp
+
+The original message was received at Wed, 7 Feb 2024 23:34:45 +0900 (JST)
+from localhost [127.0.0.1]
+
+   ----- The following addresses had permanent fatal errors -----
+<kijitora-cat@google.example.com>
+    (reason: 550-5.7.26 The MAIL FROM domain [email.example.jp] has an SPF record with a hard fail)
+
+   ----- Transcript of session follows -----
+... while talking to gmail-smtp-in.l.google.com.:
+>>> DATA
+<<< 550-5.7.26 The MAIL FROM domain [email.example.jp] has an SPF record with a hard fail
+<<< 550-5.7.26 policy (-all) but it fails to pass SPF checks with the ip:
+<<< 550-5.7.26 [203.0.113.22]. To best protect our users from spam and phishing,
+<<< 550-5.7.26 the message has been blocked. For instructions on setting up
+<<< 550-5.7.26 authentication, go to
+<<< 550 5.7.26  https://support.google.com/mail/answer/81126#authentication q2.22 - gsmtp
+554 5.0.0 Service unavailable
+
+--3LGub1et091679.1157497350/mx311.ume.example.ne.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mx311.ume.example.ne.jp
+Arrival-Date: Wed, 7 Feb 2024 23:34:45 +0900 (JST)
+
+Final-Recipient: RFC822; kijitora-cat@google.example.com
+X-Actual-Recipient: rfc822; kijitora-cat@google.example.com
+Action: failed
+Status: 5.7.26
+Remote-MTA: DNS; gmail-smtp-in.l.google.com
+Diagnostic-Code: SMTP; 550-5.7.26 The MAIL FROM domain [email.example.jp] has an SPF record with a hard fail
+Last-Attempt-Date: Wed, 7 Feb 2024 23:34:45 +0900 (JST)
+
+--3LGub1et091679.1157497350/mx311.ume.example.ne.jp
+Content-Type: message/rfc822
+
+Return-Path: <nekochan@email.example.jp>
+Received: from mx311.ume.example.ne.jp (localhost [127.0.0.1])
+	by mx311.ume.example.ne.jp (8.16.1/8.16.1) with ESMTP id ujmeV2ZG033926
+	for <kijitora-cat@google.example.com>; Wed, 7 Feb 2024 23:34:45 +0900 (JST)
+	(envelope-from nekochan@email.example.jp)
+Received: (from kijitora@localhost)
+	by mx311.ume.example.ne.jp (8.16.1/8.16.1/Submit) id BJObadmZ060489
+	for kijitora-cat@google.example.com; Wed, 7 Feb 2024 23:34:45 +0900 (JST)
+	(envelope-from nekochan@email.example.jp)
+Received: from relay1.email.example.jp (relay1.email.example.jp [192.168.168.168])
+	by mx311.ume.example.ne.jp (8.16.1/8.16.1) with ESMTPS id Mf73VCB9P8z4lM3b
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO)
+	for <neko@libsisimai.org>; Wed, 7 Feb 2024 23:34:45 +0900 (JST)
+	(envelope-from nekochan@email.example.jp)
+Content-Type: text/plain; charset=us-ascii
+Message-Id: <50ad190.20240207.2202@relay1.email.example.jp>
+Content-Transfer-Encoding: 7bit
+Subject: Nyaan
+From: <nekochan@email.example.jp>
+To: <neko@libsisimai.org>
+Date: 7 Feb 2024 23:34:45 +0900
+MIME-Version: 1.0
+
+Nyaan?
+
+--3LGub1et091679.1157497350/mx311.ume.example.ne.jp--

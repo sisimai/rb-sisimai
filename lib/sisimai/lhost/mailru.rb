@@ -69,7 +69,6 @@ module Sisimai::Lhost
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        localhost0 = ''     # (String) Local MTA
         v = nil
 
         while e = bodyslices.shift do
@@ -145,18 +144,13 @@ module Sisimai::Lhost
         end
         return nil unless recipients > 0
 
-        unless mhead['received'].empty?
-          # Get the name of local MTA
-          # Received: from marutamachi.example.org (c192128.example.net [192.0.2.128])
-          p1 = mhead['received'][-1].index('from ')     || -1
-          p2 = mhead['received'][-1].index(' ', p1 + 5) || -1
-          localhost0 = mhead['received'][-1][p1 + 5, p2 - p1 - 5] if p1 > -1
-        end
+        # Get the name of the local MTA
+        # Received: from marutamachi.example.org (c192128.example.net [192.0.2.128])
+        receivedby = mhead['received'] || []
+        recvdtoken = Sisimai::RFC5322.received(receivedby[-1])
 
         dscontents.each do |e|
-          # Set default values if each value is empty.
-          e['lhost'] ||= localhost0
-
+          # Check the error message, the rhost, the lhost, and the smtp command.
           unless e['alterrors'].to_s.empty?
             # Copy alternative error message
             e['diagnosis'] ||= e['alterrors']
@@ -175,13 +169,10 @@ module Sisimai::Lhost
             # host neko.example.jp [192.0.2.222]: 550 5.1.1 <kijitora@example.jp>... User Unknown
             p1 = e['diagnosis'].index('host ')     || -1
             p2 = e['diagnosis'].index(' ', p1 + 5) || -1
-            e['rhost'] = e['diagnosis'][p1 + 5, p2 - p1 - 5] if p1 > -1
-
-            unless e['rhost']
-              # Get localhost and remote host name from Received header.
-              e['rhost'] = Sisimai::RFC5322.received(mhead['received'][-1]).pop unless mhead['received'].empty?
-            end
+            e['rhost']   = e['diagnosis'][p1 + 5, p2 - p1 - 5] if p1 > -1
+            e['rhost'] ||= recvdtoken[1]
           end
+          e['lhost'] ||= recvdtoken[0]
 
           unless e['command']
             # Get the SMTP command name for the session

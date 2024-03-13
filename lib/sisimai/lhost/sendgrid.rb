@@ -124,6 +124,7 @@ module Sisimai::Lhost
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           e['replycode'] = Sisimai::SMTP::Reply.find(e['diagnosis']) || ''
           e['status']    = e['replycode'][0, 1] + '.0.0' if e['replycode'].size == 3
+          e['command']   = thecommand
 
           if e['status'] == '5.0.0' || e['status'] == '4.0.0'
             # Get the value of D.S.N. from the error message or the value of Diagnostic-Code header.
@@ -138,9 +139,6 @@ module Sisimai::Lhost
               e['status'] = Sisimai::SMTP::Status.code('expired') || e['status']
             end
           end
-
-          e['lhost'] ||= permessage['rhost']
-          e['command'] = thecommand
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
