@@ -42,7 +42,7 @@ module Sisimai::Lhost
 
           # Your message:
           #    From:    originalsender@example.com
-          #    Subject: IIdentifica蟾ｽ驕俳
+          #    Subject: ...
           #
           # Could not be delivered because of
           #

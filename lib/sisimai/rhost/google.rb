@@ -359,7 +359,7 @@ module Sisimai
             ['535', '5.7.1', 'username and password not accepted'],
             ['535', '5.7.8', 'username and password not accepted'],
 
-            # - 421 4.7.29 Your email has been rate limited because this message wasnÅft sent over a
+            # - 421 4.7.29 Your email has been rate limited because this message wasn't sent over a
             #   TLS connection. Gmail requires all bulk email senders to use TLS/SSL for SMTP conn-
             #   ections.
             ['421', '4.7.29', 'senders to use tls/ssl for smtp'],
