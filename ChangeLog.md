@@ -13,6 +13,7 @@ v5.0.2p2
     - https://support.google.com/a/answer/3726730?hl=en
     - Implement SMTP error codes as follows: `4.7.23`, `4.7.30`, and `4.7.32`
     - Shortened error message patterns to make them more adaptable to minor sentence changes.
+  - Multibyte characters in the code and comments have been replaced with ASCII characters #278
 
 v5.0.2
 ---------------------------------------------------------------------------------------------------
