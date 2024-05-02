@@ -3,6 +3,17 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v5.0.2p2
+---------------------------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - Remove `.travis.yml` from this repository
+  - Follow updates in Gmail SMTP error codes on April 2024 at `Sisimai::Rhost::Google` #275 #277
+    - https://support.google.com/a/answer/3726730?hl=en
+    - Implement SMTP error codes as follows: `4.7.23`, `4.7.30`, and `4.7.32`
+    - Shortened error message patterns to make them more adaptable to minor sentence changes.
+
 v5.0.2
 ---------------------------------------------------------------------------------------------------
 - release: "Wed, 13 Mar 2024 13:00:00 +0900 (JST)"
