@@ -1,0 +1,27 @@
+Date: Thu, 2 May 2024 17:48:55 +0000 (UTC)
+From: example@icloud.com
+Reply-To: example@icloud.com
+To: opt-out-100731.e75std53hz8rnmy4r@example.org
+Message-ID: <898B6152-36BC-4F4B-ABF8-2694A88CB5FC@icloud.com>
+Subject: unsubscribe
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com;
+	s=1a1hai; t=1714672136;	bh=63IYtxpNtEan90vzJQT9iqnMeWHy9rlx8iFLnco1rRc=;
+	h=Content-Type:From:Mime-Version:Date:Subject:Message-Id:To;
+	b=AoovfvadwxCx8Pp5yD62kw1AcKMQV32RhSrBsyw4qLr/CVsQo1tIh+xCUPdI7So9i
+	 paxzn20YdVvHuP3f8CxT/q3x9WaQV3NDAmbbQumYwOpJk7yNXRkuWNjIlt6isZM0tb
+	 FK8v+Tq3j3Va83mZ6OeR8ZjvfY8ImjewEOTEZ79sNxToaaHvRuDWRbzt4uaktRuL44
+	 j1wEjiKxgy6f7bOC2XJyRaf41BtCm4V6TGtcBF9hOEMzn6LulaLgashs3yGQ92wkb9
+	 OLSy1uP0iA4nj/qAM+QaauAFzmqYmqa9r7rUFCjqf01q4gvn1QfO4QVqiRQXiMXc8e
+	 QPSqskbSbsIQA==
+X-Proofpoint-GUID: fiybgv3DewxSxApGH8GnpeSw3OZld4ll
+Auto-Submitted: auto-replied
+X-Apple-Unsubscribe: true
+X-Proofpoint-ORIG-GUID: fiybgv3DewxSxApGH8GnpeSw3OZld4ll
+X-Virus-Status: Clean
+
+Apple Mail sent this email to unsubscribe from the message =E2=80=9Cunsubsc=
+ribe=E2=80=9D.
+
