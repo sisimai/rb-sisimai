@@ -37,13 +37,12 @@ module Sisimai
       #                           false: is not Feedback loop
       def is_arf(heads)
         return false unless heads
+
+        # Content-Type: multipart/report; report-type=feedback-report; ...
+        return true if Sisimai::String.aligned(heads['content-type'], ['report-type=', 'feedback-report'])
+
         match = false
-
-        if Sisimai::String.aligned(heads['content-type'], ['report-type=', 'feedback-report'])
-          # Content-Type: multipart/report; report-type=feedback-report; ...
-          match = true
-
-        elsif heads['content-type'].include?('multipart/mixed')
+        if heads['content-type'].include?('multipart/mixed')
           # Microsoft (Hotmail, MSN, Live, Outlook) uses its own report format.
           # Amazon SES Complaints bounces
           cv = Sisimai::Address.s3s4(heads['from'])
@@ -54,6 +53,8 @@ module Sisimai
             match = true if ReportFrom.any? { |a| cv.include?(a) }
           end
         end
+        match = true if heads['x-apple-unsubscribe'] == 'true'
+
         return match
       end
 
@@ -280,6 +281,24 @@ module Sisimai
           arfheaders['rhost'] = mhead['subject'][mhead['subject'].rindex(' ') + 1, mhead['subject'].size]
           commondata['diagnosis'] =
             'This is a Microsoft email abuse report for an email message received from IP' << arfheaders['rhost'] + ' on ' << mhead['date']
+
+        elsif mhead['subject'].include?('unsubscribe')
+          # Apple Mail sent this email to unsubscribe from the message
+          while true
+            # Subject: unsubscribe
+            # Content-Type: text/plain; charset=UTF-8
+            # Auto-Submitted: auto-replied
+            # X-Apple-Unsubscribe: true
+            #
+            # Apple Mail sent this email to unsubscribe from the message
+            break unless mhead['x-apple-unsubscribe']
+            break unless mhead['x-apple-unsubscribe'] == 'true'
+            break unless mbody.include?('Apple Mail sent this email to unsubscribe from the message');
+
+            dscontents[-1]['recipient'] = Sisimai::Address.s3s4(mhead['from'])
+            dscontents[-1]['feedbacktype'] = 'opt-out'
+            break
+          end
         end
 
         dscontents.each do |e|
