@@ -455,6 +455,9 @@ module Sisimai
             # - This message usually indicates an issue on the destination email server. Check the
             #   validity of the recipient address. Determine if the destination server is configur-
             #   ed correctly to receive the messages.
+            ['4.4.317', 0, 0, 'starttls is required to send mail'],
+            ['5.4.317', 0, 0, 'starttls is required to send mail'],
+
             ['4.7.321', 0, 0, 'starttls-not-supported: destination mail server must support tls to receive mail'],
             ['5.7.321', 0, 0, 'starttls-not-supported: destination mail server must support tls to receive mail'],
 
@@ -598,6 +601,11 @@ module Sisimai
             ['4.4.24', 0, 0, 'message failed to be replicated: insufficient system resource:'],
             ['4.4.25', 0, 0, 'message failed to be replicated: no healthy secondary server available to accept replica at this time.'],
             ['4.4.28', 0, 0, 'message failed to be replicated: the operation was canceled'],
+
+            # 550 5.4.318 Message expired, connection reset (SuspiciousRemoteServerError)
+            # 450 4.4.318 Connection was closed abruptly (SuspiciousRemoteServerError)
+            ['4.4.318', 0, 0, '(suspiciousremoteservererror)'],
+            ['5.4.318', 0, 0, '(suspiciousremoteservererror)'],
 
             # - status=deferred (host hotmail-com.olc.protection.outlook.com[192.0.2.1] said:
             #   451 4.7.500 Server busy. Please try again later from [192.0.2.2]. (AS761) (in reply
