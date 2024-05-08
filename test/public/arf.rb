@@ -25,6 +25,7 @@ module LhostEngineTest::Public
       '23' => [['', '', 'feedback', false, 'abuse'       ]],
       '24' => [['', '', 'feedback', false, 'abuse'       ]],
       '25' => [['', '', 'feedback', false, 'abuse'       ]],
+      '26' => [['', '', 'feedback', false, 'opt-out'     ]],
     }
   end
 end

@@ -452,7 +452,7 @@ module Sisimai
             unless haveloaded['Sisimai::ARF']
               # Feedback Loop message
               require 'sisimai/arf'
-              havesifted = Sisimai::ARF.inquire(mailheader, bodystring) if Sisimai::ARF.is_arf(mailheader)
+              havesifted = Sisimai::ARF.inquire(mailheader, bodystring)
               throw :PARSER if havesifted
             end
 
