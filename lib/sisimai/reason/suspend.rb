@@ -12,17 +12,21 @@ module Sisimai
           'boite du destinataire archivee',
           'email account that you tried to reach is disabled',
           'has been suspended',
+          'inactive account',
           'invalid/inactive user',
           'is a deactivated mailbox', # http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=20022&&no=1000742
           'is unavailable: user is terminated',
           'mailbox currently suspended',
+          'mailbox disabled',
           'mailbox is frozen',
           'mailbox unavailable or access denied',
           'recipient rejected: temporarily inactive',
           'recipient suspend the service',
           'this account has been disabled or discontinued',
+          'this account has been temporarily suspended',
           'this address no longer accepts mail',
           'this mailbox is disabled',
+          'user or domain is disabled',
           'user suspended',   # http://mail.163.com/help/help_spam_16.htm
           'vdelivermail: account is locked email bounced',
         ].freeze

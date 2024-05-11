@@ -62,6 +62,7 @@ module Sisimai
           'we do not accept mail from dynamic ips',   # @mail.ru
           'you are not allowed to connect',
           'you are sending spam',
+          'your ip address is listed in the rbl',
           'your network is temporary blacklisted',
           'your server requires confirmation',
         ].freeze
