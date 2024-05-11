@@ -8,6 +8,7 @@ module Sisimai
     module MailboxFull
       class << self
         Index = [
+          '452 insufficient disk space',
           'account disabled temporarly for exceeding receiving limits',
           'account is exceeding their quota',
           'account is over quota',
@@ -35,7 +36,9 @@ module Sisimai
           'maildir delivery failed: userdisk quota ',
           'maildir delivery failed: domaindisk quota ',
           'mailfolder is full',
+          'no space left on device',
           'not enough storage space in',
+          'not sufficient disk space',
           'over the allowed quota',
           'quota exceeded',
           'quota violation for',

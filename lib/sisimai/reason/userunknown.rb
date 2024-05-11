@@ -76,7 +76,9 @@ module Sisimai
           'recipient address rejected: invalid user',
           'recipient address rejected: invalid-recipient',
           'recipient address rejected: unknown user',
+          'recipient address rejected: userunknown',
           'recipient does not exist',
+          'recipient is not accepted',
           'recipient is not local',
           'recipient not exist',
           'recipient not found',
@@ -125,6 +127,7 @@ module Sisimai
           ['no ', ' in name directory'],
           ['non', 'existent user'],
           ['rcpt <', ' does not exist'],
+          ['rcpt (', 't exist '],
           ['recipient ', ' was not found in'],
           ['recipient address rejected: user ', '  does not exist'],
           ['recipient address rejected: user unknown in ', '  table'],
@@ -135,6 +138,7 @@ module Sisimai
           ['unknown local', 'part'],
           ['user ', ' was not found'],
           ['user ', ' does not exist'],
+          ['user (', ') unknown'],
         ].freeze
 
         def text; return 'userunknown'; end

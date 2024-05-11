@@ -7,10 +7,13 @@ module Sisimai
     # the message you sent has been in the queue for long time.
     module Expired
       class << self
+        require 'sisimai/string'
+
         Index = [
           'connection timed out',
           'could not find a gateway for',
           'delivery attempts will continue to be',
+          'delivery expired',
           'delivery time expired',
           'failed to deliver to domain ',
           'giving up on',
@@ -28,6 +31,9 @@ module Sisimai
           'was not reachable within the allowed queue period',
           'your message could not be delivered for more than',
         ].freeze
+        Pairs = [
+          ['could not be delivered for', ' days'],
+        ].freeze
 
         def text; return 'expired'; end
         def description; return 'Delivery time has expired due to a connection failure'; end
@@ -39,6 +45,7 @@ module Sisimai
         def match(argv1)
           return nil unless argv1
           return true if Index.any? { |a| argv1.include?(a) }
+          return true if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
           return false
         end
 

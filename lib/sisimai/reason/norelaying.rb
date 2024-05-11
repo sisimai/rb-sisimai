@@ -24,6 +24,7 @@ module Sisimai
           'relay not permitted',
           'relaying denied',  # Sendmail
           'relaying mail to ',
+          'specified domain is not allowed',
           "that domain isn't in my list of allowed rcpthost",
           'this system is not configured to relay mail',
           'unable to relay for',
