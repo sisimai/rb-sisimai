@@ -63,7 +63,6 @@ module Sisimai
           'no such mailbox',
           'no such person at this address',
           'no such recipient',
-
           'no such user',
           'no thank you rejected: account unavailable',
           'no valid recipients, bye',
