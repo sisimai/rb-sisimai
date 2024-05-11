@@ -18,6 +18,14 @@ v5.0.2p2
   - Add the following error message patterns returned from Exchange Online #281
     - 4.4.317, 5.4.317: STARTTLS is required to send mail
     - 4.4.318, 5.4.318: Connection was closed abruptly (SuspiciousRemoteServerError)
+  - #282 Added 16 error message patterns into the following reasons:
+    - `Blocked`
+    - `Expire`
+    - `Filtered`
+    - `MailboxFull`
+    - `NoRelaying`
+    - `Suspend` 
+    - `UserUnknown`
 
 v5.0.2
 ---------------------------------------------------------------------------------------------------
