@@ -3,15 +3,18 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v5.0.2p2
+v5.0.2p3
 ---------------------------------------------------------------------------------------------------
 - release: ""
 - version: ""
 - changes:
   - Remove `.travis.yml` from this repository
-  - Follow updates in Gmail SMTP error codes on April 2024 at `Sisimai::Rhost::Google` #275 #277
+  - Follow updates in Gmail SMTP errors and codes on Apr 29 and May 10 at `Sisimai::Rhost::Google`
+    #275 #277 #283
     - https://support.google.com/a/answer/3726730?hl=en
-    - Implement SMTP error codes as follows: `4.7.23`, `4.7.30`, and `4.7.32`
+    - https://github.com/azumakuniyuki/feb-2024-no-auth-no-entry/commit/1d6adede
+    - https://github.com/azumakuniyuki/feb-2024-no-auth-no-entry/commit/d477b178
+    - Implement SMTP error codes as follows: `4.7.23`, `4.7.30`, `4.7.32`, `5.7.29`, and `5.7.30`
     - Shortened error message patterns to make them more adaptable to minor sentence changes.
   - Multibyte characters in the code and comments have been replaced with ASCII characters #278
   - #279 #280 Deal the Apple unsubscribe notification as an ARF message. Thanks to @mnmallea
