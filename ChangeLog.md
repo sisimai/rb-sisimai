@@ -23,7 +23,7 @@ v5.0.2p3
     - 4.4.318, 5.4.318: Connection was closed abruptly (SuspiciousRemoteServerError)
   - #282 Added 16 error message patterns into the following reasons:
     - `Blocked`
-    - `Expire`
+    - `Expired`
     - `Filtered`
     - `MailboxFull`
     - `NoRelaying`
