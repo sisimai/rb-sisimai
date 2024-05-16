@@ -1,0 +1,86 @@
+Return-Path: <>
+X-Original-To: neko@example.jp
+Delivered-To: return@example.jp
+Received: from relay1.example.ne.jp (ip-10-25-26-27.ip-block.example.net [10.25.26.27])
+	by mx1.example.jp (Postfix) with ESMTPS id KF65BTjb2jzpq4Pk
+	for <neko@example.jp>; Thu, 29 Apr 2024 23:34:45 +0900 (JST)
+Received: from localhost (localhost)
+	by relay1.example.ne.jp (8.17.2/8.17.2) id gWjKPD2i071354;
+	Thu, 29 Apr 2024 23:34:45 +0900 (JST)
+	(envelope-from MAILER-DAEMON)
+MIME-Version: 1.0
+Date: Thu, 29 Apr 2024 23:34:45 +0900 (JST)
+From: Mail Delivery Subsystem <MAILER-DAEMON@relay1.example.ne.jp>
+To: <neko@example.jp>
+Message-Id: <20240429233445.gWjKPD2i071354@relay1.example.ne.jp>
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="gWjKPD2i071354.1423881060/relay1.example.ne.jp"
+Subject: Returned mail: see transcript for details
+Auto-Submitted: auto-generated (failure)
+
+This is a MIME-encapsulated message
+
+--gWjKPD2i071354.1423881060/relay1.example.ne.jp
+
+The original message was received at Thu, 29 Apr 2024 23:34:45 +0900 (JST)
+from localhost [127.0.0.1]
+
+   ----- The following addresses had permanent fatal errors -----
+<pseudo-local-part-of-microsoft@outlook.com>
+    (reason: 550 5.7.509 Access denied, sending domain [EXAMPLE.JP] does not pass DMARC verification and has a D...E22] [JUTN0NNV051736.eop-eur22.prod.protection.outlook.com 2024-04-29T23:34:45.000Z K2TP4MV8R6ZF2XN2])
+
+   ----- Transcript of session follows -----
+... while talking to apc.olc.protection.outlook.com.:
+>>> DATA
+<<< 550 5.7.509 Access denied, sending domain [EXAMPLE.JP] does not pass DMARC verification and has a DMARC policy of reject. [7FQL1BDY0XZ5XGTW.JPNP222.PROD.OUTLOOK.COM 2024-04-29T23:34:45.000Z NG5X6YLY2QZK8T7B] [VB0JMRQKNLZPTQMN.eurprd06.prod.outlook.com 2024-04-29T23:34:45.000Z HTTZYWCWHTZK8F8N] [JUTN0NNV051736.eop-eur22.prod.protection.outlook.com 2024-04-29T23:34:45.000Z K2TP4MV8R6ZF2XN2]
+554 5.0.0 Service unavailable
+
+--gWjKPD2i071354.1423881060/relay1.example.ne.jp
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; relay1.example.ne.jp
+Received-From-MTA: DNS; localhost
+Arrival-Date: Thu, 29 Apr 2024 23:34:45 +0900 (JST)
+
+Final-Recipient: RFC822; pseudo-local-part-of-microsoft@outlook.com
+X-Actual-Recipient: rfc822; pseudo-local-part-of-microsoft@outlook.com
+Action: failed
+Status: 5.7.509
+Remote-MTA: DNS; apc.olc.protection.outlook.com
+Diagnostic-Code: SMTP; 550 5.7.509 Access denied, sending domain [EXAMPLE.JP] does not pass DMARC verification and has a DMARC policy of reject. [7FQL1BDY0XZ5XGTW.JPNP222.PROD.OUTLOOK.COM 2024-04-29T23:34:45.000Z NG5X6YLY2QZK8T7B] [VB0JMRQKNLZPTQMN.eurprd06.prod.outlook.com 2024-04-29T23:34:45.000Z HTTZYWCWHTZK8F8N] [JUTN0NNV051736.eop-eur22.prod.protection.outlook.com 2024-04-29T23:34:45.000Z K2TP4MV8R6ZF2XN2]
+Last-Attempt-Date: Thu, 29 Apr 2024 23:34:45 +0900 (JST)
+
+--gWjKPD2i071354.1423881060/relay1.example.ne.jp
+Content-Type: message/rfc822
+
+Return-Path: <neko@example.jp>
+Received: from relay1.example.ne.jp (localhost [127.0.0.1])
+	by relay1.example.ne.jp (8.17.2/8.17.2) with ESMTP id YQKNBhqe049695
+	for <pseudo-local-part-of-microsoft@outlook.com>; Thu, 29 Apr 2024 23:34:45 +0900 (JST)
+	(envelope-from neko@example.jp)
+Received: (from neko-nyaan-cat@localhost)
+	by relay1.example.ne.jp (8.17.2/8.17.2/Submit) id J05hAdU8018709
+	for pseudo-local-part-of-microsoft@outlook.com; Thu, 29 Apr 2024 23:34:45 +0900 (JST)
+	(envelope-from neko@example.jp)
+Received: from relay0.example.jp (relay0.example.jp [192.0.2.25])
+	by relay1.example.ne.jp (8.17.2/8.17.2) with ESMTPS id Ufhljuhn061193
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO)
+	for <kijitora@example.co.jp>; Thu, 29 Apr 2024 23:34:45 +0900 (JST)
+	(envelope-from neko@example.jp)
+Received: from MTA1 (unknown [10.9.8.7])
+	by relay0.example.jp (Postfix) with ESMTP id Mgt61KRzl7zjTNcc
+	for <kijitora@example.co.jp>; Thu, 29 Apr 2024 23:34:45 +0900 (JST)
+From: <neko@example.jp>
+To: "Kijitora, Cat" <kijitora@example.co.jp>
+Reply-To: sironeko@cat.example.org
+Date: 29 Apr 2024 23:34:45 +0900
+Subject: Nyaaaaan
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-2022-jp
+Message-Id: <Mgt61KRzl7zjTNcc@relay0.example.jp>
+Content-Transfer-Encoding: 8bit
+
+Nyaan?
+
+--gWjKPD2i071354.1423881060/relay1.example.ne.jp--
+
