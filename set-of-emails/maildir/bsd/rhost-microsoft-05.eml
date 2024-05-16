@@ -1,0 +1,83 @@
+Return-Path: <>
+X-Original-To: kijitora@example.jp
+Delivered-To: return@example.jp
+Received: from relay0.example.jp (relay0 [10.25.26.27])
+	by relay1.example.jp (Postfix) with ESMTPS id nhpzScP2kkzDgQ8L
+	for <kijitora@example.jp>; Thu,  9 May 2024 23:34:45 +0900 (JST)
+Received: by relay0.example.jp (Postfix)
+	id 9ltCcYNCJ4zblqrq; Thu,  9 May 2024 23:34:45 +0900 (JST)
+Date: Thu,  9 May 2024 23:34:45 +0900 (JST)
+From: MAILER-DAEMON@relay0.example.jp (Mail Delivery System)
+To: kijitora@example.jp
+Subject: Undelivered Mail Returned to Sender
+Message-Id: <9ltCcYNCJ4zblqrq@relay0.example.jp>
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="WpZGzDpcy1zw5NGv.1098352336/relay0.example.jp"
+
+This is a MIME-encapsulated message.
+
+--WpZGzDpcy1zw5NGv.1098352336/relay0.example.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host relay0.example.jp.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<pseudo-local-part-of-microsoft@outlook.com>: host
+    outlook-com.olc.protection.outlook.com[52.101.68.1] said: 451 4.7.650 The
+    mail server [192.0.2.25] has been temporarily rate limited due to IP
+    reputation. For e-mail delivery information, see
+    https://postmaster.live.com (S3113)
+    [5NY1SSJFSTZJRJBG.eurprd02.prod.outlook.com 2024-05-09T23:34:45.000Z
+    GLXTWVLGZHZNHVXY] (in reply to MAIL FROM command)
+
+--WpZGzDpcy1zw5NGv.1098352336/relay0.example.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; relay0.example.jp
+X-Postfix-Queue-ID: WpZGzDpcy1zw5NGv
+X-Postfix-Sender: rfc822; kijitora@example.jp
+Arrival-Date: Thu,  9 May 2024 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; pseudo-local-part-of-microsoft@outlook.com
+Original-Recipient: rfc822;pseudo-local-part-of-microsoft@outlook.com
+Action: failed
+Status: 4.7.650
+Remote-MTA: dns; outlook-com.olc.protection.outlook.com
+Diagnostic-Code: smtp; 451 4.7.650 The mail server [192.0.2.25] has been
+    temporarily rate limited due to IP reputation. For e-mail delivery
+    information, see https://postmaster.live.com (S3113)
+    [5NY1SSJFSTZJRJBG.eurprd02.prod.outlook.com 2024-05-09T23:34:45.000Z
+    GLXTWVLGZHZNHVXY]
+
+--WpZGzDpcy1zw5NGv.1098352336/relay0.example.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <kijitora@example.jp>
+Received: from mailhub1.example.jp (unknown [10.9.8.7])
+	by relay0.example.jp (Postfix) with ESMTP id WpZGzDpcy1zw5NGv
+	for <pseudo-local-part-of-microsoft@outlook.com>; Thu,  9 May 2024 23:34:45 +0900 (JST)
+From: <kijitora@example.jp>
+To: <pseudo-local-part-of-microsoft@outlook.com>
+Date: 9 May 2024 23:34:45 +0900
+Message-Id: <WpZGzDpcy1zw5NGv@relay0.example.jp>
+Subject: Nyaan
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-2022-jp
+
+Nyaan?
+
+--WpZGzDpcy1zw5NGv.1098352336/relay0.example.jp--

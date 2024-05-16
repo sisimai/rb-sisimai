@@ -6,6 +6,7 @@ module RhostEngineTest::Public
       '02' => [['5.4.1',   '550', 'userunknown',     true]],
       '03' => [['5.1.10',  '550', 'userunknown',     true]],
       '04' => [['5.7.509', '550', 'authfailure',     false]],
+      '05' => [['4.7.650', '451', 'badreputation',   false]],
     }
   end
 end
