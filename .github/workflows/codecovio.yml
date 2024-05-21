@@ -1,0 +1,33 @@
+name: Upload coverage reports to Codecov
+on:
+  push:
+    branches: ["5-stable"]
+  pull_request:
+    branches: ["5-stable"]
+jobs:
+  codecov:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository(CRuby)
+        uses: actions/checkout@v4
+      - name: Setup CRuby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+      - name: Install minitest
+        run: gem install minitest -v 5.15.0
+      - name: Install oj
+        run: gem install oj -v 3.10.0
+      - name: Install bundle, rake, simplecov, and simplecov-cobertura
+        run: gem install bundle rake simplecov simplecov-cobertura
+      - name: Check the CRuby version
+        run: ruby -v
+      - name: Execute public tests with the coverage report
+        run: ruby -I./lib ./test/coverage.rb
+      - name: Run Codecov on GitHub Actions
+        uses: codecov/codecov-action@v4.4.0
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/coverage.xml
+          verbose: true
+

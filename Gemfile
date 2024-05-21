@@ -7,5 +7,7 @@ group :development, :test do
   gem 'rake',  :require => false
   gem 'minitest', :require => false
   gem 'coveralls', :require => false
+  gem 'simplecov', :require => false
+  gem 'simplecov-cobertura', :require => false
 end
 
