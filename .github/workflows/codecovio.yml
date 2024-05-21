@@ -23,7 +23,7 @@ jobs:
       - name: Check the CRuby version
         run: ruby -v
       - name: Execute public tests with the coverage report
-        run: ruby ./test/coverage.rb
+        run: ruby -I./lib ./test/coverage.rb
       - name: Run Codecov on GitHub Actions
         uses: codecov/codecov-action@v4.4.0
         with:
