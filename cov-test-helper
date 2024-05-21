@@ -1,0 +1,10 @@
+# test_helper.rb
+require 'simplecov'
+require 'simplecov-cobertura'
+
+SimpleCov.start do
+  coverage_dir 'tmp/coverage'
+end
+
+SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+
