@@ -1,7 +1,7 @@
 require 'simplecov'
 require 'simplecov-cobertura'
 
-SimpleCov.start
+SimpleCov.start { add_filter ['test/public/', 'test/private/'] }
 SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
 
 LhostEngine = './test/public/lhost-engine-test.rb'
