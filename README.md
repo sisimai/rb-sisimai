@@ -109,10 +109,10 @@ Install
 ### From RubyGems
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-5.0.2.gem (100%)
-Successfully installed sisimai-5.0.2
-Parsing documentation for sisimai-5.0.2
-Installing ri documentation for sisimai-5.0.2
+Fetching: sisimai-5.0.3.gem (100%)
+Successfully installed sisimai-5.0.3
+Parsing documentation for sisimai-5.0.3
+Installing ri documentation for sisimai-5.0.3
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -140,13 +140,13 @@ if [ -d "/usr/local/jr" ]; then \
 ...
 3 gems installed
 /opt/local/bin/rake install
-sisimai 5.0.2 built to pkg/sisimai-5.0.2.gem.
-sisimai (5.0.2) installed.
+sisimai 5.0.3 built to pkg/sisimai-5.0.3.gem.
+sisimai (5.0.3) installed.
 if [ -d "/usr/local/jr" ]; then \
 		PATH="/usr/local/jr/bin:$PATH" /usr/local/jr/bin/rake install; \
 	fi
-sisimai 5.0.2 built to pkg/sisimai-5.0.2-java.gem.
-sisimai (5.0.2) installed.
+sisimai 5.0.3 built to pkg/sisimai-5.0.3-java.gem.
+sisimai (5.0.3) installed.
 ```
 
 Usage
