@@ -78,6 +78,15 @@ class SMTPStatusTest < Minitest::Test
   def test_test
     assert_nil Sisimai::SMTP::Status.test('')
     assert_equal false, Sisimai::SMTP::Status.test('3.14')
+    assert_equal false, Sisimai::SMTP::Status.test('9.99')
+    assert_equal false, Sisimai::SMTP::Status.test('5.0.3.2')
+    assert_equal false, Sisimai::SMTP::Status.test('1.0.0')
+    assert_equal false, Sisimai::SMTP::Status.test('3.1.4')
+    assert_equal false, Sisimai::SMTP::Status.test('6.7.8')
+    assert_equal false, Sisimai::SMTP::Status.test('5.-1.0')
+    assert_equal false, Sisimai::SMTP::Status.test('5.12.0')
+    assert_equal false, Sisimai::SMTP::Status.test('5.2.-2')
+    assert_equal false, Sisimai::SMTP::Status.test('5.2.2220')
 
     ce = assert_raises ArgumentError do
       Sisimai::SMTP::Status.test()
@@ -109,6 +118,8 @@ class SMTPStatusTest < Minitest::Test
     assert_equal '4.2.2', Sisimai::SMTP::Status.prefer('4.4.7', '4.2.2')
     assert_equal '5.7.8', Sisimai::SMTP::Status.prefer('5.7.8', '4.4.0', 550)
     assert_equal '4.2.1', Sisimai::SMTP::Status.prefer('4.2.1', '5.7.0', 421)
+    assert_equal '5.7.26',Sisimai::SMTP::Status.prefer('5.7', '5.7.26', 421)
+    assert_equal '5.7.26',Sisimai::SMTP::Status.prefer('5.7.26', '5.7', 421)
 
     ce = assert_raises ArgumentError do
       Sisimai::SMTP::Status.prefer()
