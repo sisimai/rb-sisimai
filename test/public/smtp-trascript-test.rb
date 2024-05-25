@@ -25,10 +25,9 @@ class SMTPTranscriptTest < Minitest::Test
 
     end
 
-#   ce = assert_raises ArgumentError do
-#     Sisimai::SMTP::Transcript.rise()
-#     Sisimai::SMTP::Transcript.rise(nil, nil, nil)
-#   end
+    ce = assert_raises ArgumentError do
+      Sisimai::SMTP::Transcript.rise(nil, nil, nil, nil)
+    end
     assert_nil Sisimai::SMTP::Transcript.rise('')
 
   end
