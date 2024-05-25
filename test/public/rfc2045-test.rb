@@ -169,6 +169,7 @@ Reason: 550 maria@dest.example.net... No such user'
     assert_equal       2,     cv.size
     assert_equal 'text/plain; charset="utf-8"', cv[0]
     assert_equal 'quoted-printable',            cv[1]
+    assert_nil Sisimai::RFC2045.haircut('')
 
     ce = assert_raises ArgumentError do
       Sisimai::RFC2045.haircut()
@@ -220,6 +221,9 @@ Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
       refute_empty e[0]
       refute_empty e[2]
     end
+
+    assert_instance_of Array, Sisimai::RFC2045.levelout('', 'neko')
+    assert_instance_of Array, Sisimai::RFC2045.levelout('neko', '')
 
     ce = assert_raises ArgumentError do
       Sisimai::RFC2045.levelout()
@@ -289,6 +293,9 @@ Received: ...
     refute_match /[<]html[>]/,  cv
     refute_match /4AAQSkZJRgABAQEBLAEsAAD/, cv
     assert_empty  Sisimai::RFC2045.makeflat()
+    assert_nil    Sisimai::RFC2045.makeflat(nil, 'neko')
+    assert_nil    Sisimai::RFC2045.makeflat('neko', nil)
+    assert_empty  Sisimai::RFC2045.makeflat('multipart/mixed', 'neko')
 
     ce = assert_raises ArgumentError do
       Sisimai::RFC2045.makeflat()
