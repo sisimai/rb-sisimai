@@ -108,6 +108,8 @@ class RFC1894Test < Minitest::Test
     end
 
     Field99.each { |e| assert_nil Sisimai::RFC1894.field(e) }
+    assert_nil Sisimai::RFC1894.field('')
+    assert_nil Sisimai::RFC1894.field('neko')
 
     ce = assert_raises ArgumentError do
       Sisimai::RFC1894.field()

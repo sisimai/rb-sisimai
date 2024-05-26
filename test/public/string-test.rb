@@ -59,6 +59,8 @@ class StringTest < Minitest::Test
     assert_nil          Sisimai::String.aligned(nil, nil)
     assert_equal true,  Sisimai::String.aligned(Fr, ['rfc822', ' <', '@', '>'])
     assert_equal false, Sisimai::String.aligned(Fr, ['rfc822', '<<', ' ', '>'])
+    assert_nil          Sisimai::String.aligned(nil,'')
+    assert_nil          Sisimai::String.aligned(nil,'2')
 
     ce = assert_raises ArgumentError do
       Sisimai::String.aligned()
@@ -79,6 +81,8 @@ class StringTest < Minitest::Test
     ip4address.each do |e|
       assert_equal e[1], Sisimai::String.ipv4(e[0]).shift.to_s
     end
+    assert_nil Sisimai::String.ipv4('')
+    assert_instance_of Array, Sisimai::String.ipv4('3.14')
 
     ce = assert_raises ArgumentError do
       Sisimai::String.ipv4()
@@ -124,6 +128,7 @@ class StringTest < Minitest::Test
     refute_empty cv
     assert_match /<body>/, cv
     assert_match /Nyaan/,  cv
+    assert_nil Sisimai::String.to_plain('')
 
     ce = assert_raises ArgumentError do
       Sisimai::String.to_plain()
@@ -132,6 +137,5 @@ class StringTest < Minitest::Test
     assert_match /wrong number of arguments/, ce.to_s
   end
 
-
-
 end
+

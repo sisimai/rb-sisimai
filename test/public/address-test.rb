@@ -124,6 +124,10 @@ class AddressTest < Minitest::Test
         ca[1] = ''
       end
 
+      assert_equal true, Sisimai::Address.new('').void
+      assert_equal true, Sisimai::Address.new({}).void
+      assert_equal true, Sisimai::Address.new({address: ''}).void
+
       assert_instance_of Sisimai::Address, cv
       assert_equal false, cv.void
       assert_equal e[1],  cv.address, sprintf("[%02d/%02d] value[0] = %s", ci, cx, e[1])
@@ -186,6 +190,8 @@ class AddressTest < Minitest::Test
     assert_equal false, cv.void
     assert_equal 'neko@example.jp', Sisimai::Address.expand_verp(ct)
     assert_equal ct, cv.verp
+    assert_nil Sisimai::Address.expand_verp(222222)
+    assert_nil Sisimai::Address.expand_verp('neko')
 
     ce = assert_raises ArgumentError do
       Sisimai::Address.expand_verp()
@@ -201,6 +207,7 @@ class AddressTest < Minitest::Test
     assert_equal false, cv.void
     assert_equal 'neko@example.jp', Sisimai::Address.expand_alias(ct)
     assert_equal ct, cv.alias
+    assert_nil Sisimai::Address.expand_alias('neko')
 
     ce = assert_raises ArgumentError do
       Sisimai::Address.expand_alias()
@@ -221,6 +228,8 @@ class AddressTest < Minitest::Test
     Postmaster.each do |e|
       assert_equal true, Sisimai::Address.is_mailerdaemon(e)
     end
+    assert_equal false, Sisimai::Address.is_mailerdaemon('')
+    assert_equal false, Sisimai::Address.is_mailerdaemon(22)
 
     ce = assert_raises ArgumentError do
       Sisimai::Address.is_mailerdaemon()

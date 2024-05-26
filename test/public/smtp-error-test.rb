@@ -13,7 +13,13 @@ class SMTPError < Minitest::Test
   }
   NoError = ['delivered', 'feedback', 'vacation']
   WasSent = ['smtp; 2.1.5 250 OK']
-  TempErr = ['smtp; 450 4.0.0 Temporary failure']
+  TempErr = [
+    'smtp; 450 4.0.0 Temporary failure',
+    'smtp; 555 4.4.7 Message expired: unable to deliver in 840 minutes.<421 4.4.2 Connection timed out>',
+    'SMTP; 450 4.7.1 Access denied. IP name lookup failed [192.0.2.222]',
+    'smtp; 451 4.7.650 The mail server [192.0.2.25] has been',
+    '4.4.1 (Persistent transient failure - routing/network: no answer from host)',
+  ]
   PermErr = [
     'smtp;550 5.2.2 <mikeneko@example.co.jp>... Mailbox Full',
     'smtp; 550 5.1.1 Mailbox does not exist',

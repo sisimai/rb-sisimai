@@ -97,6 +97,7 @@ class SisimaiTest < Minitest::Test
         end
 
         refute_empty ee.dump('json')
+        assert_nil ee.dump('neko')
       end
 
       mesghook = lambda do |argv|
@@ -240,6 +241,11 @@ class SisimaiTest < Minitest::Test
     assert_instance_of Sisimai::Fact, cv[0]
     assert_equal 'neko@libsisimai.org', cv[0].alias
     assert_equal 'kijitora-cat@google.example.com', cv[0].recipient.address
+  end
+
+  def test_match
+    assert_equal 'userunknown', Sisimai.match('550 5.1.1 User unknown')
+    assert_nil Sisimai.match('')
   end
 
 end

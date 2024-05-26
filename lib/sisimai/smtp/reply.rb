@@ -125,9 +125,10 @@ module Sisimai
 
           if first == 2
             # 2yz
-            return false if reply < 211
-            return false if reply > 252
-            return false if reply > 221 && reply < 250
+            return true  if reply == 235
+            return false if reply <  211
+            return false if reply >  252
+            return false if reply >  221 && reply < 250
             return true
           end
 

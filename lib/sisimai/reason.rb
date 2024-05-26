@@ -216,7 +216,7 @@ module Sisimai
         end
         return reasontext unless reasontext.empty?
 
-        if issuedcode.upcase == 'X-UNIX'
+        if issuedcode.upcase.include?('X-UNIX; ')
           # X-Unix; ...
           reasontext = 'mailererror'
         else

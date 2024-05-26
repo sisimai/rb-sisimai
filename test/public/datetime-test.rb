@@ -57,6 +57,7 @@ class DateTimeTest < Minitest::Test
     'Sun, 29 May 2014 1:2 +0900',
     '4/29/01 11:34:45 PM',
     '2014-03-26 00-01-19',
+    '29-04-2017 22:22',
   ]
   InvalidDate = [
     'Thu, 13 Cat 2000 22:22:22 +2222',
@@ -110,6 +111,7 @@ class DateTimeTest < Minitest::Test
     assert_match /wrong number of arguments/, ce.to_s
     assert_nil Sisimai::DateTime.abbr2tz('NEKO')
     assert_nil Sisimai::DateTime.abbr2tz('NYAN')
+    assert_nil Sisimai::DateTime.abbr2tz(nil)
   end
 
   def test_tz2second
