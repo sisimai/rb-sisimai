@@ -51,10 +51,22 @@ class ReasonChildrenTest < Minitest::Test
       refute_empty cx.description
       assert_includes [true, false, nil], cx.true(cw)
 
+      unless e.match(/\A(?:Content|Expire|Mailer|Network|Policy|Security|System|User|NoRelay|OnHold)/)
+        # Skip a class its true() method always return undef
+        cw['reason'] = e.downcase
+        assert_equal true, cx.true(cw)
+
+        cw['reason'] = 'undefined'
+        cw['diagnosticcode'] = Reasons[e][0]
+        cw['smtpcommand'] = if e.match(/(Rejected|NotAccept)/) then 'MAIL' else cv.smtpcommand end
+        assert_equal true, cx.true(cw)
+      end
+
       next if e == 'OnHold'
       Reasons[e].each do |ee|
         assert_equal true, cx.match(ee.downcase)
       end
+      assert_nil cx.match(nil)
 
       ce = assert_raises ArgumentError do
         cx.text(nil)
