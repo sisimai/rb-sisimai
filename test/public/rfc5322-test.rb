@@ -153,6 +153,9 @@ __END_OF_EMAIL_MESSAGE__
       assert_match /\A[^\s;]+\z/, cv[4]         if cv[4].size > 0
       assert_match /[^\s;]+[@][^\s;]+/, cv[5]   if cv[5].size > 0
     end
+    assert_instance_of Array, Sisimai::RFC5322.received({})
+    assert_instance_of Array, Sisimai::RFC5322.received('Received: (qmail 10000 invoked by uid 999); 24 Apr 2013 00:00:00 +0900')
+    assert_instance_of Array, Sisimai::RFC5322.received('Received: (qmail 222 invoked from network); 29 Apr 2010 23:34:45 +0900')
 
     ce = assert_raises ArgumentError do
       Sisimai::RFC5322.received()
@@ -189,6 +192,8 @@ __END_OF_EMAIL_MESSAGE__
     refute_match /^Neko-Nyaan/,        emailpart2[1]
 
     assert_equal true, (emailpart1[1].size < emailpart2[1].size)
+    assert_nil Sisimai::RFC5322.part('', 'neko')
+    assert_nil Sisimai::RFC5322.part('neko', '')
   end
 
 end
