@@ -97,6 +97,7 @@ class SisimaiTest < Minitest::Test
         end
 
         refute_empty ee.dump('json')
+        assert_nil ee.dump('neko')
       end
 
       mesghook = lambda do |argv|
