@@ -122,7 +122,9 @@ __END_OF_EMAIL_MESSAGE__
   end
 
   def test_load
-    assert_instance_of Array, Sisimai::Message.load({})
+    assert_instance_of Array, Sisimai::Message.load('load' => ['Sisimai::Lhost::Postfix'], 'order' => ['Sisimai::Lhost::Postfix'])
+    assert_instance_of Array, Sisimai::Message.load('load' => {}, 'order' => [])
+    assert_instance_of Array, Sisimai::Message.load('load' => [], 'order' => {})
     ce = assert_raises ArgumentError do
       Sisimai::Message.load()
       Sisimai::Message.load(nil, nil)
