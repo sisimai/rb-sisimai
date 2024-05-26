@@ -19,7 +19,6 @@ class LhostCode < Minitest::Test
 
     lhostindex = Sisimai::Lhost.index; lhostindex << 'ARF' << 'RFC3464' << 'RFC3834'
     isnotlhost = %w[ARF RFC3464 RFC3834]
-    methodlist = %w[inquire]
     samplepath = 'set-of-emails/maildir/bsd'
     modulepath = ''
     modulename = ''
