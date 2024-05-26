@@ -169,8 +169,10 @@ class ReasonTest < Minitest::Test
       assert_equal true, cv.include?(cb)
       assert_equal ca, cb
     end
-  end
 
+    assert_nil Sisimai::Reason.match(nil)
+    assert_equal 'mailererror', Sisimai::Reason.match('X-Unix; 77')
+  end
 
 end
 
