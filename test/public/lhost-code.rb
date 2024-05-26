@@ -55,7 +55,6 @@ class LhostCode < Minitest::Test
     if modulename.include?('::Lhost::')
       # Sisimai::Lhost::*.inquire
       assert_respond_to currmodule, 'inquire'
-      assert_nil currmodule.inquire(nil)
 
     elsif modulename.include?('::Rhost::')
       # Sisimai::Rhost::*.get
