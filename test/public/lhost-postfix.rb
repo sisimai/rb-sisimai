@@ -67,7 +67,7 @@ module LhostEngineTest::Public
       '71' => [['5.7.1',   '554', 'authfailure',     false]],
       '72' => [['5.7.1',   '550', 'authfailure',     false]],
       '73' => [['5.7.1',   '550', 'authfailure',     false]],
-      '74' => [['4.7.0',   '421', 'blocked',         false]],
+      '74' => [['4.7.0',   '421', 'badreputation',   false]],
       '75' => [['4.3.0',   '451', 'systemerror',     false]],
       '76' => [['5.0.0',   '550', 'userunknown',     true]],
       '77' => [['5.0.0',   '554', 'norelaying',      false]],

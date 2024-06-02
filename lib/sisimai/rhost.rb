@@ -5,6 +5,7 @@ module Sisimai
   module Rhost
     class << self
       RhostClass = {
+        'Apple'     => ['.mail.icloud.com', '.apple.com', '.me.com'],
         'Cox'       => ['cox.net'],
         'FrancePTT' => ['.laposte.net', '.orange.fr', '.wanadoo.fr'],
         'GoDaddy'   => ['smtp.secureserver.net', 'mailstore1.secureserver.net'],
@@ -16,6 +17,7 @@ module Sisimai
         'NTTDOCOMO' => ['mfsmax.docomo.ne.jp'],
         'Spectrum'  => ['charter.net'],
         'Tencent'   => ['.qq.com'],
+        'YahooInc'  => ['.yahoodns.net'],
       }.freeze
 
       # The value of "rhost" is listed in RhostClass or not
