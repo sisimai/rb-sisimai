@@ -1,0 +1,75 @@
+Return-Path: <>
+Delivered-To: neko@example.jp
+Received: from smtp1.example.jp (smtp1 [192.0.2.26])
+	by mx1.example.jp (Postfix) with ESMTPS id SGXNhJQdfczZsR5q
+	for <kijitora@example.jp>; Thu, 29 Apr 2022 23:34:45 +0900 (JST)
+Received: by smtp1.example.jp (Postfix)
+	id jGd1g4yXDZz3NtXL; Thu, 29 Apr 2022 23:34:45 +0900 (JST)
+Date: Thu, 29 Apr 2022 23:34:45 +0900 (JST)
+From: MAILER-DAEMON@smtp1.example.jp (Mail Delivery System)
+To: kijitora@example.jp
+Message-Id: <jGd1g4yXDZz3NtXL@smtp1.example.jp>
+Subject: Undelivered Mail Returned to Sender
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="8nhz33cQRrzZfKG7.1697834505/smtp1.example.jp"
+MIME-Version: 1.0
+
+This is a MIME-encapsulated message.
+
+--8nhz33cQRrzZfKG7.1697834505/smtp1.example.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host smtp1.example.jp.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<pseudo-local-part-of-apple-icloud-mail@icloud.com>: host mx02.mail.icloud.com[17.56.9.31] said: 552
+    5.2.2 <pseudo-local-part-of-apple-icloud-mail@icloud.com>: user is over quota (in reply to RCPT TO
+    command)
+
+--8nhz33cQRrzZfKG7.1697834505/smtp1.example.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; smtp1.example.jp
+X-Postfix-Queue-ID: 8nhz33cQRrzZfKG7
+X-Postfix-Sender: rfc822; kijitora@example.jp
+Arrival-Date: Thu, 29 Apr 2022 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; pseudo-local-part-of-apple-icloud-mail@icloud.com
+Original-Recipient: rfc822;pseudo-local-part-of-apple-icloud-mail@icloud.com
+Action: failed
+Status: 5.2.2
+Remote-MTA: dns; mx02.mail.icloud.com
+Diagnostic-Code: smtp; 552 5.2.2 <pseudo-local-part-of-apple-icloud-mail@icloud.com>: user is over
+    quota
+
+--8nhz33cQRrzZfKG7.1697834505/smtp1.example.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <kijitora@example.jp>
+Received: from MAILHUB-1 (unknown [192.0.2.25])
+	by smtp1.example.jp (Postfix) with ESMTP id 8nhz33cQRrzZfKG7
+	for <pseudo-local-part-of-apple-icloud-mail@icloud.com>; Thu, 29 Apr 2022 23:34:45 +0900 (JST)
+MIME-Version: 1.0
+From: <kijitora@example.jp>
+To: <pseudo-local-part-of-apple-icloud-mail@icloud.com>
+Date: 29 Apr 2022 23:34:45 +0900
+Message-Id: <8nhz33cQRrzZfKG7@smtp1.example.jp>
+Content-Type: text/plain; charset=us-ascii
+Subject: Nyaan?
+
+Nyaan?
+
+--8nhz33cQRrzZfKG7.1697834505/smtp1.example.jp--
+
