@@ -383,6 +383,7 @@ module Sisimai
         # REASON: Decide the reason of email bounce
         if o['reason'].empty? || RetryIndex[o['reason']]
           # The value of "reason" is empty or is needed to check with other values again
+          o['reason'] = '' if o['reason'].start_with?('onhold', 'undefined')
           re = ''; de = o['destination']
           re = Sisimai::Rhost.get(o) if Sisimai::Rhost.match(o['rhost'])
           if re.empty?
