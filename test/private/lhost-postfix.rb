@@ -240,7 +240,7 @@ module LhostEngineTest::Private
       '01231' => [['5.7.9',   '550', 'policyviolation', false],
                   ['5.7.1',   '550', 'authfailure',     false],
                   ['5.7.1',   '550', 'authfailure',     false]],
-      '01232' => [['4.7.0',   '421', 'blocked',         false]],
+      '01232' => [['4.7.0',   '421', 'badreputation',   false]],
       '01233' => [['5.0.0',   '550', 'blocked',         false]],
       '01234' => [['5.0.0',   '553', 'rejected',        false]],
       '01235' => [['5.0.0',   '554', 'spamdetected',    false]],

@@ -1,0 +1,79 @@
+Return-path: <>
+Envelope-to: nekonyaan@example.com
+Delivery-date: Thu, 17 Jul 2014 23:34:45 -0500
+Received: from mail-in2.apple.com ([192.0.2.1]:1111)
+	by neko.example.com with esmtp (Exim 4.80)
+	id 20000A-00000B-NN
+	for nekonyaan@example.com; Thu, 17 Jul 2014 23:34:45 -0500
+From: <Mailer-Daemon@mail-in2.apple.com> (Mail Delivery System)
+Message-ID: <AA.BB.00000.00000CCC@mail-in2.apple.com>
+To: nekonyaan@example.com
+Subject: Undelivered Mail Returned to Sender
+Date: Thu, 17 Jul 2014 23:34:45 -0700
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+ boundary="RnJpIEp1bCAxMyAyMjowNzoyMyBKU1QgMjAxOAo="
+
+This is a MIME-encapsulated message.
+
+--RnJpIEp1bCAxMyAyMjowNzoyMyBKU1QgMjAxOAo=
+Content-Description: Notification
+Content-Type: text/plain
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to <postmaster@example.jp>
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+<kijitora@example.jp>: 550 5.1.6 recipient no longer on server: kijitora@example.jp
+
+
+--RnJpIEp1bCAxMyAyMjowNzoyMyBKU1QgMjAxOAo=
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+X-Symantec-Messaging-Gateway-Queue-ID: AA/AA-00000-00000000
+X-Symantec-Messaging-Gateway-Sender: rfc822; nekonyaan@example.com
+Reporting-MTA: dns; mail-in2.apple.com
+Arrival-Date: Thu, 17 Jul 2014 23:34:45 -0700
+
+Final-Recipient: rfc822; kijitora@example.jp
+Status: 5.1.6
+Action: failed
+Last-Attempt-Date: Thu, 17 Jul 2014 23:34:45 -0700
+Diagnostic-Code: smtp; 550 5.1.6 recipient no longer on server: kijitora@example.jp
+
+--RnJpIEp1bCAxMyAyMjowNzoyMyBKU1QgMjAxOAo=
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Received: from r1.example.com (r1.example.com [203.0.113.4])
+	by mail-in2.apple.com (Apple Secure Mail Relay) with SMTP id AA.AA.00000.00000000; Thu, 17 Jul 2014 23:34:45 -0700 (PDT)
+Received: by r1.example.com (Postfix, from userid 2202)
+	id AAAAAAAACCCCC; Thu, 17 Jul 2014 23:34:45 -0500 (CDT)
+Received: from smtp2.example.com (smtp.example.com [192.0.2.225])
+	by r1.example.com (Postfix) with ESMTP id BBBBBBBB22222
+	for <kijitora@example.jp>; Thu, 17 Jul 2014 23:34:45 -0500 (CDT)
+Received: by smtp2.example.com (Postfix, from userid 2220)
+	id AAAAAAAA00000; Thu, 17 Jul 2014 23:34:45 -0500 (CDT)
+Received: from neko.example.com (neko.example.com [198.51.100.198])
+	by smtp2.example.com (Postfix) with ESMTP id EEEEEEEE11112
+	for <kijitora@example.jp>; Thu, 17 Jul 2014 23:34:45 -0500 (CDT)
+Received: from neko22 by neko.example.com with local (Exim 4.80)
+	(envelope-from <nekonyaan@example.com>)
+	id 2Aneko-00022X-BB
+	for kijitora@example.jp; Thu, 17 Jul 2014 23:34:45 -0500
+To: kijitora@example.jp
+Subject: Nyaan
+Date: Thu, 17 Jul 2014 23:34:45 -0500
+From: "Neko, Nyaan" <nekonyaan@example.com>
+Message-ID: <c15e793e1c6acf9fbc39d1547bbd98b4@example.com>
+MIME-Version: 1.0
+Content-Type: text/plain
+
+Nyaan
+
+--RnJpIEp1bCAxMyAyMjowNzoyMyBKU1QgMjAxOAo=--

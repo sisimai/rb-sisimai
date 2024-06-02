@@ -15,7 +15,10 @@ module RhostEngineTest
       emailindex = ARGV[1] || 0
 
       # % grep -h module lib/sisimai/rhost/*.rb | grep -vE '(Sisimai|Rhost)' | awk '{ print $2 }'
-      rhostindex = %w[Cox FrancePTT GoDaddy Google IUA KDDI Microsoft Mimecast NTTDOCOMO Spectrum Tencent]
+      rhostindex = %w[
+        Apple Cox FrancePTT GoDaddy Google IUA KDDI Microsoft Mimecast NTTDOCOMO Spectrum Tencent
+        YahooInc
+      ]
       enginelist = []
       enginename = ''
 

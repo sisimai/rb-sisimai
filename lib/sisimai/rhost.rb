@@ -5,17 +5,19 @@ module Sisimai
   module Rhost
     class << self
       RhostClass = {
-          'Cox'       => ['cox.net'],
-          'FrancePTT' => ['.laposte.net', '.orange.fr', '.wanadoo.fr'],
-          'GoDaddy'   => ['smtp.secureserver.net', 'mailstore1.secureserver.net'],
-          'Google'    => ['aspmx.l.google.com', 'gmail-smtp-in.l.google.com'],
-          'IUA'       => ['.email.ua'],
-          'KDDI'      => ['.ezweb.ne.jp', 'msmx.au.com'],
-          'Microsoft' => ['.prod.outlook.com', '.protection.outlook.com'],
-          'Mimecast'  => ['.mimecast.com'],
-          'NTTDOCOMO' => ['mfsmax.docomo.ne.jp'],
-          'Spectrum'  => ['charter.net'],
-          'Tencent'   => ['.qq.com'],
+        'Apple'     => ['.mail.icloud.com', '.apple.com', '.me.com'],
+        'Cox'       => ['cox.net'],
+        'FrancePTT' => ['.laposte.net', '.orange.fr', '.wanadoo.fr'],
+        'GoDaddy'   => ['smtp.secureserver.net', 'mailstore1.secureserver.net'],
+        'Google'    => ['aspmx.l.google.com', 'gmail-smtp-in.l.google.com'],
+        'IUA'       => ['.email.ua'],
+        'KDDI'      => ['.ezweb.ne.jp', 'msmx.au.com'],
+        'Microsoft' => ['.prod.outlook.com', '.protection.outlook.com'],
+        'Mimecast'  => ['.mimecast.com'],
+        'NTTDOCOMO' => ['mfsmax.docomo.ne.jp'],
+        'Spectrum'  => ['charter.net'],
+        'Tencent'   => ['.qq.com'],
+        'YahooInc'  => ['.yahoodns.net'],
       }.freeze
 
       # The value of "rhost" is listed in RhostClass or not

@@ -43,7 +43,7 @@ module LhostEngineTest::Public
       '38' => [['5.7.1',   '550', 'spamdetected',    false]],
       '39' => [['4.4.5',   '452', 'systemfull',      false]],
       '40' => [['5.2.0',   '550', 'filtered',        false]],
-      '41' => [['5.0.0',   '554', 'filtered',        false]],
+      '41' => [['5.0.0',   '554', 'userunknown',     true]],
       '42' => [['5.1.2',   '550', 'hostunknown',     true]],
       '43' => [['5.7.1',   '550', 'notcompliantrfc', false]],
       '44' => [['5.6.0',   '552', 'contenterror',    false]],
