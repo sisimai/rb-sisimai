@@ -3,6 +3,24 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v5.0.3p1
+---------------------------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - #288 Consolidate error messages scattered under `Sisimai::Reason::*` into `Sisimai::Rhost::*`
+    classes for each email service #289
+    - `Sisimai::Rhost::YahooInc` for https://senders.yahooinc.com/smtp-error-codes/
+    - `Sisimai::Rhost::Apple` for iCloud Mail
+    - The following sample emails in `set-of-emails/maildir/bsd`:
+    - `rhost-yahooinc-01.eml`
+    - `rhost-yahooinc-02.eml`
+    - `rhost-yaoooinc-03.eml`
+    - `rhost-apple-01.eml`
+    - `rhost-apple-02.eml`
+    - `rhost-apple-03.eml`
+    - `rhost-apple-04.eml`
+
 v5.0.3
 ---------------------------------------------------------------------------------------------------
 - release: "Wed, 22 May 2024 14:12:22 +0900 (JST)"
