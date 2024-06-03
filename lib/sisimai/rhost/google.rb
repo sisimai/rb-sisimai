@@ -513,21 +513,19 @@ module Sisimai
         # @return   [String]                The bounce reason for Google Workspace
         # @see      https://support.google.com/a/answer/3726730?hl=en
         def get(argvs)
-          return argvs['reason'] unless argvs['reason'].empty?
-          return '' if argvs['diagnosticcode'].empty?
           return '' unless Sisimai::SMTP::Reply.test(argvs['replycode'])
           return '' unless Sisimai::SMTP::Status.test(argvs['deliverystatus'])
 
           statuscode = argvs['deliverystatus'][2,6]
           esmtpreply = argvs['replycode'][1,2]
-          esmtperror = argvs['diagnosticcode'].downcase
+          issuedcode = argvs['diagnosticcode'].downcase
           reasontext = ''
 
           MessagesOf.each_key do |e|
             # Each key is a reason name
             MessagesOf[e].each do |f|
               # Try to match an SMTP reply code, a D.S.N, and an error message
-              next unless esmtperror.include?(f[2])
+              next unless issuedcode.include?(f[2])
               next unless f[0].end_with?(esmtpreply)
               next unless f[1].end_with?(statuscode)
               reasontext = e
