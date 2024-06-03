@@ -386,6 +386,7 @@ module Sisimai
           o['reason'] = '' if o['reason'].start_with?('onhold', 'undefined')
           re = ''; de = o['destination']
           re = Sisimai::Rhost.get(o) if Sisimai::Rhost.match(o['rhost'])
+
           if re.empty?
             # Failed to detect a bounce reason by the value of "rhost"
             re = Sisimai::Rhost.get(o, de) if Sisimai::Rhost.match(de)
