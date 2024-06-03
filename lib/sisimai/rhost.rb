@@ -46,6 +46,7 @@ module Sisimai
         remotehost = proxy || argvs['rhost'].downcase
         rhostclass = ''
         modulename = ''
+        return '' if argvs['diagnosticcode'].empty?
 
         RhostClass.each_key do |e|
           # Try to match with each key of RhostClass
@@ -54,7 +55,7 @@ module Sisimai
           rhostclass = 'sisimai/rhost/' << e.downcase
           break
         end
-        return nil if rhostclass.empty?
+        return '' if rhostclass.empty?
 
         require rhostclass
         reasontext = Module.const_get(modulename).get(argvs)

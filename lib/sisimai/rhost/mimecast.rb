@@ -67,6 +67,15 @@ module Sisimai
             #   the associated IP address from the RBL.
             #[550, '< details of RBL >'], NEED AN ACTUAL ERROR MESSAGE STRING
           ],
+          'expired' => [
+            # - Journal messages past the expiration
+            # - Attempts are being made to journal mail past the set expiry threshold.
+            #   A retry response will replace the failure because the message is marked for retry
+            #   if rejected, causing the journal queue to grow.
+            # - Check to confirm there are no significant time discrepancies on the mail server.
+            #   Discontinue journaling old messages past the expiry threshold.
+            [550, 'Journal messages past the expiration'],
+          ],
           'mesgtoobig' => [
             # - The email size either exceeds an Email Size Limit policy or is larger than the
             #   Mimecast service limit. The default is 100 MB for the Legacy MTA, and 200 MB for
@@ -96,6 +105,7 @@ module Sisimai
             # - Mimecast customers should contact Mimecast Support to add the Authorized Outbound
             #   address, or to take other remedial action.
             [451, 'open relay not allowed'],
+            [451, 'open relay is not allowed'],
           ],
           'notaccept' => [
             # - The customer account Inbound emails are disabled in the Administration Console.
@@ -133,6 +143,7 @@ module Sisimai
             # - The message has triggered a Geographical Restriction policy.
             # - Delete or amend the policy.
             [554, 'host network not allowed'],
+            [554, 'host network, not allowed'],
           ],
           'rejected' => [
             # - The sender's email address or domain has triggered a Blocked Senders Policy or
@@ -160,6 +171,7 @@ module Sisimai
             #   sage on SMTP port 25.
             [535, 'incorrect authentication data'],
             [550, 'submitter failed to disabled'],
+            [550, 'submitter failed to authenticate'],
 
             # - This email has been sent using SMTP, but TLS is required by policy.
             # - Delete or change the Secure Receipt or Secure Delivery policy enforcing TLS.
@@ -271,9 +283,8 @@ module Sisimai
         # @return   [String]                The bounce reason for mimecast.com
         def get(argvs)
           return '' unless Sisimai::SMTP::Reply.test(argvs['replycode'])
-          return '' unless argvs['diagnosticcode']
 
-          esmtperror = argvs['diagnosticcode'].downcase || ''
+          issuedcode = argvs['diagnosticcode'].downcase || ''
           esmtpreply = argvs['replycode'].to_i
           reasontext = ''
 
@@ -282,7 +293,7 @@ module Sisimai
             MessagesOf[e].each do |f|
               # Find an error reason
               next unless esmtpreply == f[0]
-              next unless esmtperror.include?(f[1])
+              next unless issuedcode.include?(f[1])
               reasontext = e
               break
             end

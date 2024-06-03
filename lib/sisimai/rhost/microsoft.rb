@@ -713,14 +713,13 @@ module Sisimai
         # Detect bounce reason from Exchange Server 2019 or older and Exchange Online
         # @param    [Sisimai::Fact] argvs   Parsed email object
         # @return   [String]                The bounce reason for Exchange Online
+        # @since v4.17.2
         def get(argvs)
-          return argvs['reason'] unless argvs['reason'].empty?
-          return '' if argvs['diagnosticcode'].empty?
           return '' if argvs['deliverystatus'].empty?
           return '' unless Sisimai::SMTP::Status.test(argvs['deliverystatus'])
 
           statuscode = argvs['deliverystatus']
-          esmtperror = argvs['diagnosticcode'].downcase
+          issuedcode = argvs['diagnosticcode'].downcase
           thirddigit = statuscode.split('.')[-1].to_i
           reasontext = ''
 
@@ -738,7 +737,7 @@ module Sisimai
                 next if     thirddigit > f[2]
               end
 
-              next unless esmtperror.include?(f[3])
+              next unless issuedcode.include?(f[3])
               reasontext = e
               break
             end
