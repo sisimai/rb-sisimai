@@ -3,7 +3,7 @@ module RhostEngineTest::Public
     IsExpected = {
       # INDEX => [['D.S.N.', 'replycode', 'REASON', 'hardbounce'], [...]]
       '02' => [['5.1.3',   '553', 'blocked',         false]],
-      '03' => [['5.1.1',   '550', 'toomanyconn',     false]],
+      '03' => [['5.1.1',   '550', 'speeding',        false]],
     }
   end
 end
