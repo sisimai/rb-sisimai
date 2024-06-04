@@ -80,7 +80,7 @@ The key features of Sisimai
     * `gem install`
     * `git clone && make`
   * __High Precision of Analysis__
-    * Support [70 MTAs/MDAs/ESPs](https://libsisimai.org/en/engine/)
+    * Support [72 MTAs/MDAs/ESPs](https://libsisimai.org/en/engine/)
     * Support Feedback Loop Message(ARF)
     * Can detect [34 bounce reasons](https://libsisimai.org/en/reason/)
 
@@ -350,12 +350,12 @@ Beginning with v5.0.0, Sisimai requires **Ruby 2.4.0 or later.**
 | System requirements (CRuby)                          | 2.1 - 3.3.0        | **2.4** or later    |
 | System requirements (JRuby)                          | 9.0.4.0 - 9.1.17.0 | **9.2** or later    |
 | Callback feature for the original email file         | N/A                | Available[^3]       |
-| The number of MTA/ESP modules                        | 68                 | 70                  |
+| The number of MTA/ESP modules                        | 68                 | 72                  |
 | The number of detectable bounce reasons              | 29                 | 34                  |
 | Dependencies (Except Ruby Standard Gems)             | 1 gem              | 1 gem               |
-| Source lines of code                                 | 10,300 lines       | 11,370 lines        |
+| Source lines of code                                 | 10,300 lines       | 11,600 lines        |
 | Test frameworks                                      | rspec              | minitest            |
-| The number of tests in spec/ or test/ directory      | 311,000 tests      | 338,000 tests       | 
+| The number of tests in spec/ or test/ directory      | 311,000 tests      | 414,000 tests       | 
 | The number of bounce emails decoded/sec (CRuby)[^4]  | 231 emails         | 305 emails          |
 | License                                              | 2 Clause BSD       | 2 Caluse BSD        |
 | Commercial support                                   | Available          | Available           |
@@ -392,9 +392,11 @@ available at [LIBSISIMAI.ORG/EN/ENGINE](https://libsisimai.org/en/engine/)
 
 | `Sisimai::Rhost::`                                   | Sisimai 4          | Sisimai 5           |
 |------------------------------------------------------|--------------------|---------------------|
+| Apple iCloud Mail (added at v5.0.3p1)                | None               | `Apple`             |
 | Microsoft Exchange Online                            | `ExchangeOnline`   | `Microsoft`         |
 | Google Workspace                                     | `GoogleApps`       | `Google`            |
 | Tencent                                              | `TencentQQ`        | `Tencent`           |
+| Yahoo Mail (added at v5.0.3p1)                       | None               | `YahooInc`          |
 
 Bounce Reasons
 ---------------------------------------------------------------------------------------------------
