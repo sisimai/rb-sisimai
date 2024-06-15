@@ -15,6 +15,7 @@ module Sisimai
           'insecure mail relay',
           'is not permitted to relay through this server without authentication',
           'mail server requires authentication when attempting to send to a non-local e-mail address', # MailEnable
+          'no relaying',
           'not a gateway',
           'not allowed to relay through this machine',
           'not an open relay, so get lost',
