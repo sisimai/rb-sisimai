@@ -1,0 +1,47 @@
+Return-Path: <>
+X-Original-To: postmaster@df.example.jp
+Received: from df.example.jp (unknown [203.0.113.25])
+	by email.example.org (Postfix) with ESMTP id 4VzRlY2BnYz22WHV
+	for <postmaster@df.example.jp>; Wed, 12 Jun 2024 09:50:01 +0900 (JST)
+Authentication-Results: email.example.org; arc=none smtp.client-ip=203.0.113.25
+ARC-Seal:i=1; a=rsa-sha256; d=example.org; s=df0000; t=1718153401; cv=none;
+	b=Aa6dx2aZWbc5+HHP6GWRuTDksoDILYe1Qag6nc+HMVzSq/Sunfl+sCRgKyuTMchQAV5BFf8WrNpMsUBRu1aWdrA16kNnti34GrB4OaAnzb93OOBLNAwPFJsBcmsGb4iFhF0kw2msFspIsx1E9cyZVbuRx5VPjCGYfQDrYhcx1vzohckRfs8YbUBKsvC67vGk0MlXMIOHm/ayXCwDtMHtwun0aEtW9KU6V5vKY33ByWnIi8mCQc3jim8dA76VRhc9VEjkN6wiyhdzyWugtUKPMfI2IYVizik5z6Ef1DezZTXBF8mxMrWR+Tlzt5kxzqD/F8SG8sxjJ0Vq8clVNN4QCQ==
+ARC-Message-Signature:i=1; a=rsa-sha256; d=example.org; s=df0000;
+	t=1718153401; c=relaxed/relaxed;
+	bh=qtLe3nGOhauxLg043qtKLg2CSSeMsLKUMouV9O9TU+c=;
+	h=Received:X-Original-To:From:To:Subject:Message-Id:Date; b=gPtPLENgBo56g3Lf+H7Tq5ESLC7YDUC/B3HZs0Sp7OaCNKMx7HspKwsrmk6RMlLt1RMAeYrQllhhoE8KGjuEwI+nQnur0BrOGgYqBqv3Q16iKBZvXecpRv8bptXt1xc/mkyE4AzkFS49N7qEKtTEEVLyOiIBH7+hP3OWRptOvLudSNAtDt8WyYO5ztKiDEGiJeFrV9JPevpTejVYGDikes7qoywsM0Q7a8lE4LU7XFj/6dD0NiS5+lIxdprixDSnrhdG+v8Tolks1VU+BwV3xlz7heP+xfuphdhy7TOYMfVIhEV3taUThFd2D8RKHkcGp2ksR9XTL44qYaQy43gMPQ==
+ARC-Authentication-Results:i=1; email.example.org; dkim=permerror (bad message/signature format); arc=none smtp.client-ip=203.0.113.25
+Authentication-Results:email.example.org; dkim=permerror (bad message/signature format)
+Received: from MAILER-DAEMON
+	id e071e
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Wed, 12 Jun 2024 09:39:51 +0900
+X-Original-To: <neko-nyaan@example.org>
+From: MAILER-DAEMON <>
+To: postmaster@df.example.jp
+Subject: Mail delivery failed
+Message-Id: <e071e@df.example.jp>
+Date: Wed, 12 Jun 2024 09:39:51 +0900
+
+This is the DragonFly Mail Agent v0.13 at df.example.jp.
+
+There was an error delivering your mail to <neko-nyaan@example.org>.
+
+email.example.org [192.0.2.25] did not like our RCPT TO:
+525 5.7.13 <neko-nyaan@example.org>: Recipient address rejected: Disabled recipient address
+
+Original message follows.
+
+Received: from root (uid 0)
+	(envelope-from postmaster@df.example.jp)
+	id e0003
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Wed, 12 Jun 2024 09:39:51 +0900
+Subject: Nyaan?
+To: <neko-nyaan@example.org>
+User-Agent: mail (GNU Mailutils 3.14)
+Date: Wed, 12 Jun 2024 09:39:51 +0900
+Message-Id: <6668ee57.e0003.59d8306d@df.example.jp>
+From: <postmaster@df.example.jp>
+
+df.example.jp

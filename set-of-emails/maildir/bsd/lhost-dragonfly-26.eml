@@ -1,0 +1,33 @@
+Received: from MAILER-DAEMON
+	id e071e
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Wed, 12 Jun 2024 08:46:42 +0900
+X-Original-To: <userunknown@example.org>
+From: MAILER-DAEMON <>
+To: kijitora@df.example.jp
+Subject: Mail delivery failed
+Message-Id: <e071e@df.example.jp>
+Date: Wed, 12 Jun 2024 08:46:42 +0900
+
+This is the DragonFly Mail Agent v0.13 at df.example.jp.
+
+There was an error delivering your mail to <userunknown@example.org>.
+
+mbox.example.org [192.0.2.25] did not like our RCPT TO:
+550 5.1.1 <userunknown@example.org>: Recipient address rejected: User unknown
+
+Original message follows.
+
+Received: from root (uid 0)
+	(envelope-from kijitora@df.example.jp)
+	id e0003
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Wed, 12 Jun 2024 08:46:42 +0900
+Subject: Nyaan ?
+To: nekochan
+User-Agent: mail (GNU Mailutils 3.14)
+Date: Wed, 12 Jun 2024 08:46:42 +0900
+Message-Id: <6668e1e2.e0003.9b9b713@df.example.jp>
+From: <kijitora@df.example.jp>
+
+df.example.jp

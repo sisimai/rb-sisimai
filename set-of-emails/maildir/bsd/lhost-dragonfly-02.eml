@@ -1,0 +1,32 @@
+Received: from MAILER-DAEMON
+	id e0720
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Tue, 11 Jun 2024 18:04:02 +0900
+X-Original-To: <pseudo-local-part@outlook.example.com>
+From: MAILER-DAEMON <>
+To: kijitora@df.example.jp
+Subject: Mail delivery failed
+Message-Id: <e0720@df.example.jp>
+Date: Tue, 11 Jun 2024 18:04:02 +0900
+
+This is the DragonFly Mail Agent v0.13 at df.example.jp.
+
+There was an error delivering your mail to <pseudo-local-part@outlook.example.com>.
+
+outlook-com.olc.protection.outlook.com [52.101.42.17] did not like our final DATA:
+550 5.7.509 Access denied, sending domain [DF.EXAMPLE.JP] does not pass DMARC verification and has a DMARC policy of reject. [TYCP286MB3363.JPNP286.PROD.OUTLOOK.COM 2024-06-11T09:04:02.679Z 08DC8850F12E1502] [MW4PR04CA0381.namprd04.prod.outlook.com 2024-06-11T09:04:02.743Z 08DC87B4931D8FD2] [CO1PEPF000066EC.namprd05.prod.outlook.com 2024-06-11T09:04:02.731Z 08DC89E7235090DB]
+
+Message headers follow.
+
+Received: from root (uid 0)
+	(envelope-from kijitora@df.example.jp)
+	id e06d1
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Tue, 11 Jun 2024 18:04:00 +0900
+Subject: Nyaan 01
+To: <pseudo-local-part@outlook.example.com>
+User-Agent: mail (GNU Mailutils 3.14)
+Date: Tue, 11 Jun 2024 18:04:00 +0900
+Message-Id: <66681300.e06d1.6964aaf9@df.example.jp>
+From: <kijitora@df.example.jp>
+

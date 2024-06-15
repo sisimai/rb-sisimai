@@ -1,0 +1,32 @@
+Received: from MAILER-DAEMON
+	id e0734
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Tue, 11 Jun 2024 19:11:34 +0900
+X-Original-To: <userunknown@libsisimai.net>
+From: MAILER-DAEMON <>
+To: kijitora@df.example.jp
+Subject: Mail delivery failed
+Message-Id: <e0734@df.example.jp>
+Date: Tue, 11 Jun 2024 19:11:34 +0900
+
+This is the DragonFly Mail Agent v0.13 at df.example.jp.
+
+There was an error delivering your mail to <userunknown@libsisimai.net>.
+
+mail-inbound.libsisimai.net [192.0.2.25] did not like our RCPT TO:
+550 5.1.1 <userunknown@libsisimai.net>: Recipient address rejected: User unknown. See https://libsisimai.org/en/reason/#userunknown
+
+Message headers follow.
+
+Received: from root (uid 0)
+	(envelope-from kijitora@df.example.jp)
+	id e0732
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Tue, 11 Jun 2024 19:11:34 +0900
+Subject: Nyaan 01
+To: <userunknown@libsisimai.net>
+User-Agent: mail (GNU Mailutils 3.14)
+Date: Tue, 11 Jun 2024 19:11:34 +0900
+Message-Id: <666822d6.e0732.f6410e7@df.example.jp>
+From: <kijitora@df.example.jp>
+

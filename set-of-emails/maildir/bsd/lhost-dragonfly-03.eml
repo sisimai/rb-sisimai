@@ -1,0 +1,32 @@
+Received: from MAILER-DAEMON
+	id e0720
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Tue, 11 Jun 2024 18:09:35 +0900
+X-Original-To: <pseudo-local-part@yahoo-inc.example.com>
+From: MAILER-DAEMON <>
+To: kijitora@df.example.jp
+Subject: Mail delivery failed
+Message-Id: <e0720@df.example.jp>
+Date: Tue, 11 Jun 2024 18:09:35 +0900
+
+This is the DragonFly Mail Agent v0.13 at df.example.jp.
+
+There was an error delivering your mail to <pseudo-local-part@yahoo-inc.example.com>.
+
+mta5.am0.yahoodns.net [67.195.204.79] did not like our final DATA:
+554 5.7.9 Message not accepted for policy reasons. See https://senders.yahooinc.com/error-codes
+
+Message headers follow.
+
+Received: from root (uid 0)
+	(envelope-from kijitora@df.example.jp)
+	id e06d1
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Tue, 11 Jun 2024 18:09:33 +0900
+Subject: Nyaan 01
+To: <pseudo-local-part@yahoo-inc.example.com>
+User-Agent: mail (GNU Mailutils 3.14)
+Date: Tue, 11 Jun 2024 18:09:33 +0900
+Message-Id: <6668144d.e06d1.1bdca37a@df.example.jp>
+From: <kijitora@df.example.jp>
+

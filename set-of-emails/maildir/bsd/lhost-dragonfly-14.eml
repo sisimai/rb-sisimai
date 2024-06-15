@@ -1,0 +1,32 @@
+Received: from MAILER-DAEMON
+	id e0728
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Tue, 11 Jun 2024 18:39:33 +0900
+X-Original-To: <mesgtoobig@libsisimai.net>
+From: MAILER-DAEMON <>
+To: kijitora@df.example.jp
+Subject: Mail delivery failed
+Message-Id: <e0728@df.example.jp>
+Date: Tue, 11 Jun 2024 18:39:33 +0900
+
+This is the DragonFly Mail Agent v0.13 at df.example.jp.
+
+There was an error delivering your mail to <mesgtoobig@libsisimai.net>.
+
+mail-inbound.libsisimai.net [192.0.2.25] did not like our RCPT TO:
+554 5.3.4 <mesgtoobig@libsisimai.net>: Recipient address rejected: Message too big for system. See https://libsisimai.org/en/reason/#mesgtoobig
+
+Message headers follow.
+
+Received: from root (uid 0)
+	(envelope-from kijitora@df.example.jp)
+	id e0726
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Tue, 11 Jun 2024 18:39:33 +0900
+Subject: Nyaan 01
+To: <mesgtoobig@libsisimai.net>
+User-Agent: mail (GNU Mailutils 3.14)
+Date: Tue, 11 Jun 2024 18:39:33 +0900
+Message-Id: <66681b55.e0726.3201b1e4@df.example.jp>
+From: <kijitora@df.example.jp>
+

@@ -1,0 +1,36 @@
+Received: from MAILER-DAEMON
+	id e0720
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Tue, 11 Jun 2024 18:02:02 +0900
+X-Original-To: <pseudo-local-part@google.example.com>
+From: MAILER-DAEMON <>
+To: kijitora@df.example.jp
+Subject: Mail delivery failed
+Message-Id: <e0720@df.example.jp>
+Date: Tue, 11 Jun 2024 18:02:02 +0900
+
+This is the DragonFly Mail Agent v0.13 at df.example.jp.
+
+There was an error delivering your mail to <pseudo-local-part@google.example.com>.
+
+gmail-smtp-in.l.google.com [74.125.203.27] did not like our final DATA:
+550-5.7.26 Unauthenticated email from example.jp is not accepted due to domain's
+550-5.7.26 DMARC policy. Please contact the administrator of example.jp domain if
+550-5.7.26 this was a legitimate mail. To learn about the DMARC initiative, go
+550-5.7.26 to
+550 5.7.26  https://support.google.com/mail/?p=DmarcRejection 98e67ed59e1d1-2c2d0e28189si6418580a91.13 - gsmtp
+
+Message headers follow.
+
+Received: from root (uid 0)
+	(envelope-from kijitora@df.example.jp)
+	id e06d1
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Tue, 11 Jun 2024 18:02:00 +0900
+Subject: Nyaan 01
+To: <pseudo-local-part@google.example.com>
+User-Agent: mail (GNU Mailutils 3.14)
+Date: Tue, 11 Jun 2024 18:02:00 +0900
+Message-Id: <66681288.e06d1.3824794@df.example.jp>
+From: <kijitora@df.example.jp>
+
