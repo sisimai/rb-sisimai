@@ -3,13 +3,15 @@ on:
   push:
     branches: ["5-stable"]
   pull_request:
-    branches: ["5-stable"]
+    branches: ["*"]
 jobs:
   codecov:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository(CRuby)
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
       - name: Setup CRuby
         uses: ruby/setup-ruby@v1
         with:
