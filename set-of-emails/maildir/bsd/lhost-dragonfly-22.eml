@@ -1,0 +1,32 @@
+Received: from MAILER-DAEMON
+	id e072e
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Tue, 11 Jun 2024 19:01:34 +0900
+X-Original-To: <syntaxerror@libsisimai.net>
+From: MAILER-DAEMON <>
+To: kijitora@df.example.jp
+Subject: Mail delivery failed
+Message-Id: <e072e@df.example.jp>
+Date: Tue, 11 Jun 2024 19:01:34 +0900
+
+This is the DragonFly Mail Agent v0.13 at df.example.jp.
+
+There was an error delivering your mail to <syntaxerror@libsisimai.net>.
+
+mail-inbound.libsisimai.net [192.0.2.25] did not like our RCPT TO:
+501 5.1.3 <syntaxerror@libsisimai.net>: Recipient address rejected: Bad destination mailbox address syntax. See https://libsisimai.org/en/reason/#syntaxerror
+
+Message headers follow.
+
+Received: from root (uid 0)
+	(envelope-from kijitora@df.example.jp)
+	id e072c
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Tue, 11 Jun 2024 19:01:34 +0900
+Subject: Nyaan 01
+To: <syntaxerror@libsisimai.net>
+User-Agent: mail (GNU Mailutils 3.14)
+Date: Tue, 11 Jun 2024 19:01:34 +0900
+Message-Id: <6668207e.e072c.4296cb8d@df.example.jp>
+From: <kijitora@df.example.jp>
+

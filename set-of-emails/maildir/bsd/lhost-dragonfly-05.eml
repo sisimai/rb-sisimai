@@ -1,0 +1,32 @@
+Received: from MAILER-DAEMON
+	id e0724
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Tue, 11 Jun 2024 18:17:34 +0900
+X-Original-To: <authfailure@libsisimai.net>
+From: MAILER-DAEMON <>
+To: kijitora@df.example.jp
+Subject: Mail delivery failed
+Message-Id: <e0724@df.example.jp>
+Date: Tue, 11 Jun 2024 18:17:34 +0900
+
+This is the DragonFly Mail Agent v0.13 at df.example.jp.
+
+There was an error delivering your mail to <authfailure@libsisimai.net>.
+
+mail-inbound.libsisimai.net [192.0.2.25] did not like our RCPT TO:
+550 5.7.26 <authfailure@libsisimai.net>: Recipient address rejected: Multiple authentication checks failed
+
+Message headers follow.
+
+Received: from root (uid 0)
+	(envelope-from kijitora@df.example.jp)
+	id e0722
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Tue, 11 Jun 2024 18:17:33 +0900
+Subject: Nyaan 01
+To: <authfailure@libsisimai.net>
+User-Agent: mail (GNU Mailutils 3.14)
+Date: Tue, 11 Jun 2024 18:17:33 +0900
+Message-Id: <6668162d.e0722.3a6a6f36@df.example.jp>
+From: <kijitora@df.example.jp>
+

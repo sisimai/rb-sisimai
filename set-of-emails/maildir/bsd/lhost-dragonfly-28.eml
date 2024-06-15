@@ -1,0 +1,47 @@
+Return-Path: <>
+X-Original-To: postmaster@example.jp
+Received: from df.example.jp (unknown [203.0.113.25])
+	by email.example.jp (Postfix) with ESMTP id 4VzSm22Fq6z22WHr
+	for <postmaster@example.jp>; Wed, 12 Jun 2024 10:35:30 +0900 (JST)
+Authentication-Results: email.example.jp; arc=none smtp.client-ip=203.0.113.25
+ARC-Seal:i=1; a=rsa-sha256; d=example.jp; s=df0000; t=1718156130; cv=none;
+	b=LYheUbwAQZx+UTra1Gq61WKiKaaBte76ziws00qhCWtiVZShnx4uzqdaQgrBrIJ4F6+SzWXlh9Ar7nlZr/+P7NxdlLDRhS4kbAsbEwp32hoM08aOYAu6uvE5V+tvz1Hsx/1/enoF4RzUPTdFdIAsIAu/QLPQl11yeSvgE10mU9RhmhgC0jubuDNrYraPvKt6XhP79cqByU8Vp+8yv5Sf/QwK7zoYdQYl1LkeuA6iBdDjmqgDwmvggtD785Dw/3td3NYqhUEe7W5q21VapqDbAKyrxQ86B5hXTLkbhRkTkiPCqfKD8900nGCAzeRgLGJuS5P4NC0zpVFhzkINJPnaDQ==
+ARC-Message-Signature:i=1; a=rsa-sha256; d=example.jp; s=df0000;
+	t=1718156130; c=relaxed/relaxed;
+	bh=rC1R89/fFYo+5Zu9UyyVZZPF58MZntYNYclZPMuSAro=;
+	h=Received:X-Original-To:From:To:Subject:Message-Id:Date; b=KtTXoPQ2AuJxILrKm9XA3jmFGCiW4xLMfVE4THSe+oGRt9y+CIf+VK1Beg9t0FX4+yyb/YTz1DIOJabb3J0J3Ge0gSNgTd//u2YHgVZY0EjYCXiZ4WEcDyvxkkJr+nLynFND0ul1MumG5a5bIldDptSHOWhCAgNk50wZXMlFNBWZ2LZCudOXxnOW49deqG7EPvmltB4Jo1wY7bcpAsYz3BMtSPTkyDGnOtJfMgyayfbh/YlHSRl8YMztUh4YU3b9+tWJlSR0rFvJ7Mum/SqsibxaH8uM+YWtikP2trteCL6fQVFfYP8+L7sPWQQBYrMZ5xf6kZegh4h91D1Fe5g85Q==
+ARC-Authentication-Results:i=1; email.example.jp; dkim=permerror (bad message/signature format); arc=none smtp.client-ip=203.0.113.25
+Authentication-Results:email.example.jp; dkim=permerror (bad message/signature format)
+Received: from MAILER-DAEMON
+	id e076e
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Wed, 12 Jun 2024 10:35:30 +0900
+X-Original-To: <kijitora@example.com>
+From: MAILER-DAEMON <>
+To: postmaster@example.jp
+Subject: Mail delivery failed
+Message-Id: <e076e@df.example.jp>
+Date: Wed, 12 Jun 2024 10:35:30 +0900
+
+This is the DragonFly Mail Agent v0.13 at df.example.jp.
+
+There was an error delivering your mail to <kijitora@example.com>.
+
+email.example.jp [192.0.2.25] did not like our RCPT TO:
+552 5.2.2 <kijitora@example.com>: Recipient address rejected: Mailbox full
+
+Original message follows.
+
+Received: from root (uid 0)
+	(envelope-from postmaster@example.jp)
+	id e0003
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Wed, 12 Jun 2024 10:35:30 +0900
+Subject: Nyaan?
+To: nekochan
+User-Agent: mail (GNU Mailutils 3.14)
+Date: Wed, 12 Jun 2024 10:35:30 +0900
+Message-Id: <6668fb62.e0003.6977ecf3@df.example.jp>
+From: <postmaster@example.jp>
+
+df.example.jp

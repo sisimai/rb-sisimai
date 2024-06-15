@@ -1,0 +1,33 @@
+Received: from MAILER-DAEMON
+	id e072e
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Tue, 11 Jun 2024 18:59:34 +0900
+X-Original-To: <suspend@libsisimai.net>
+From: MAILER-DAEMON <>
+To: kijitora@df.example.jp
+Subject: Mail delivery failed
+Message-Id: <e072e@df.example.jp>
+Date: Tue, 11 Jun 2024 18:59:34 +0900
+
+This is the DragonFly Mail Agent v0.13 at df.example.jp.
+
+There was an error delivering your mail to <suspend@libsisimai.net>.
+
+mail-inbound.libsisimai.net [192.0.2.25] did not like our RCPT TO:
+525 5.7.13 <suspend@libsisimai.net>: Recipient address rejected: User account disabled. See https://libsisimai.org/en/reason/#suspend
+
+Message headers follow.
+
+Received: from root (uid 0)
+	(envelope-from kijitora@df.example.jp)
+	id e072c
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Tue, 11 Jun 2024 18:59:34 +0900
+Subject: Nyaan 01
+To: <suspend@libsisimai.net>
+User-Agent: mail (GNU Mailutils 3.14)
+Date: Tue, 11 Jun 2024 18:59:34 +0900
+Message-Id: <66682006.e072c.184b1dc1@df.example.jp>
+From: <kijitora@df.example.jp>
+
+

@@ -1,0 +1,31 @@
+Received: from MAILER-DAEMON
+	id e0724
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Tue, 11 Jun 2024 18:15:33 +0900
+X-Original-To: <postmaster@cx.libsisimai.org>
+From: MAILER-DAEMON <>
+To: kijitora@df.example.jp
+Subject: Mail delivery failed
+Message-Id: <e0724@df.example.jp>
+Date: Tue, 11 Jun 2024 18:15:33 +0900
+
+This is the DragonFly Mail Agent v0.13 at df.example.jp.
+
+There was an error delivering your mail to <postmaster@cx.libsisimai.org>.
+
+DNS lookup failure: host cx.libsisimai.org not found
+
+Message headers follow.
+
+Received: from root (uid 0)
+	(envelope-from kijitora@df.example.jp)
+	id e0722
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Tue, 11 Jun 2024 18:15:33 +0900
+Subject: Nyaan 01
+To: <postmaster@cx.libsisimai.org>
+User-Agent: mail (GNU Mailutils 3.14)
+Date: Tue, 11 Jun 2024 18:15:33 +0900
+Message-Id: <666815b5.e0722.4e479ce6@df.example.jp>
+From: <kijitora@df.example.jp>
+

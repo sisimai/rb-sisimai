@@ -105,6 +105,7 @@ module Sisimai
         'loop-alert'    => ['Sisimai::Lhost::FML'],
         'mail-delivery' => [
           'Sisimai::Lhost::Exim',
+          'Sisimai::Lhost::DragonFly',
           'Sisimai::Lhost::MailRu',
           'Sisimai::Lhost::GMX',
           'Sisimai::Lhost::EinsUndEins',
