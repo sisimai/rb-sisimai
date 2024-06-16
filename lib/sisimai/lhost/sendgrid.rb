@@ -9,7 +9,7 @@ module Sisimai::Lhost
       Boundaries = ['Content-Type: message/rfc822'].freeze
       StartingOf = { message: ['This is an automatically generated message from SendGrid.'] }.freeze
 
-      # @abstract Decodes the bounce message from SendGrid
+      # @abstract Decodes the bounce message from Twilio SendGrid
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part

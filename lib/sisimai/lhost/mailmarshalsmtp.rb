@@ -14,7 +14,7 @@ module Sisimai::Lhost
         rcpts:   ['The following recipients were affected:'],
       }.freeze
 
-      # @abstract Decodes the bounce message from MailMarshalSMTP
+      # @abstract Decodes the bounce message from Trustwave Secure Email Gateway (Formerly MailMarshalSMTP)
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part

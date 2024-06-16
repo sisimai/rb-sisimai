@@ -9,7 +9,7 @@ module Sisimai::Lhost
       Boundaries = ['--- Below this line is a copy of the message.'].freeze
       StartingOf = { message: ['Sorry, we were unable to deliver your message'] }.freeze
 
-      # @abstract Decodes the bounce message from Yahoo! MAIL
+      # @abstract Decodes the bounce message from Yahoo Mail
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part

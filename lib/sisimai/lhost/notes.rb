@@ -16,7 +16,7 @@ module Sisimai::Lhost
         'networkerror' => ['Message has exceeded maximum hop count'],
       }.freeze
 
-      # @abstract Decodes the bounce messages from HCL Notes
+      # @abstract Decodes the bounce messages from HCL Notes (Formerly IBM Notes (Formerly Lotus Notes))
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part

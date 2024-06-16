@@ -1,5 +1,5 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Sendmail decodes a bounce email which created by Sendmail Open Source  https://sendmail.org/.
+  # Sisimai::Lhost::Sendmail decodes a bounce email which created by Sendmail Open Source https://sendmail.org/.
   # Methods in the module are called from only Sisimai::Message.
   module Sendmail
     class << self
@@ -23,7 +23,7 @@ module Sisimai::Lhost
         error:   ['... while talking to '],
       }.freeze
 
-      # @abstract Decodes the bounce message from Sendmail
+      # @abstract Decodes the bounce message from Sendmail Open Source
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part

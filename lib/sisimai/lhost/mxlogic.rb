@@ -1,5 +1,5 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::MXLogic decodes a bounce email which created by McAfee SaaS (formerly MX Logic).
+  # Sisimai::Lhost::MXLogic decodes a bounce email which created by McAfee SaaS (formerly MXLogic).
   # Methods in the module are called from only Sisimai::Message.
   module MXLogic
     class << self
@@ -67,7 +67,7 @@ module Sisimai::Lhost
         'was frozen on arrival by ',
       ].freeze
 
-      # @abstract Decodes the bounce message from MXLogic
+      # @abstract Decodes the bounce message from McAfee Saas (Formerly MXLogic)
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part

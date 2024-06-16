@@ -9,7 +9,7 @@ module Sisimai::Lhost
       Boundaries = ['Content-Type: message/rfc822'].freeze
       StartingOf = { message: ['This is the mail system at host yandex.ru.'] }.freeze
 
-      # @abstract Decodes the bounce message from Yandex.Mail
+      # @abstract Decodes the bounce message from Yandex Mail
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part

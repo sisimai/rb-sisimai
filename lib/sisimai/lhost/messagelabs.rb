@@ -14,7 +14,7 @@ module Sisimai::Lhost
         'securityerror' => ['Please turn on SMTP Authentication in your mail client'],
       }.freeze
 
-      # @abstract Decodes the bounce message from Symantec.cloud(MessageLabs)
+      # @abstract Decodes the bounce message from Email Security (formerly Symantec.cloud (formerly MessageLabs))
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part

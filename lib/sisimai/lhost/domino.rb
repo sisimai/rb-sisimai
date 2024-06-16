@@ -20,7 +20,7 @@ module Sisimai::Lhost
         'systemerror' => ['Several matches found in Domino Directory'],
       }.freeze
 
-      # @abstract Decodes the bounce message from IBM Domino Server
+      # @abstract Decodes the bounce message from HCL Domino (formerly IBM Domino Server (formerly Lotus Domino))
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part

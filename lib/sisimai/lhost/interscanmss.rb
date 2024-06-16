@@ -7,7 +7,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
       Boundaries = ['Content-Type: message/rfc822'].freeze
 
-      # @abstract Decodes the bounce message from InterScanMSS
+        # @abstract Decodes the bounce message from Trend Micro InterScanMSS Messaging Secutiry Suie
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part

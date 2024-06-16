@@ -17,7 +17,7 @@ module Sisimai::Lhost
         'expired'       => ['Delivery failed '],
       }.freeze
 
-      # @abstract Decodes the bounce message from IMailServer
+      # @abstract Decodes the bounce message from Progress iMail Server
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
