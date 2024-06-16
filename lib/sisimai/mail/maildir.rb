@@ -27,7 +27,7 @@ module Sisimai
         @handle = Dir.open(argv1)
       end
 
-      # Maildir reader, works as a iterator.
+      # Maildir reader, works as an iterator.
       # @return       [String] Contents of file in Maildir/
       def read
         return nil unless self.offset < self.size
