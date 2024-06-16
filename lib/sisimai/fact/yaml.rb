@@ -1,7 +1,7 @@
 module Sisimai
   class Fact
-    # Sisimai::Fact::YAML dumps parsed data object as a YAML format. This class and method should be
-    # called from the parent object "Sisimai::Fact".
+    # Sisimai::Fact::YAML dumps decoded data object as a YAML format. This class and method should
+    # be called from the parent object "Sisimai::Fact".
     module YAML
       class << self
         require 'yaml'

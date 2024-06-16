@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::SendGrid parses a bounce email which created by SendGrid. Methods in the module
-  # are called from only Sisimai::Message.
+  # Sisimai::Lhost::SendGrid decodes a bounce email which created by Twilio SendGrid https://sendgrid.com/.
+  # Methods in the module are called from only Sisimai::Message.
   module SendGrid
     class << self
       require 'sisimai/lhost'
@@ -9,11 +9,11 @@ module Sisimai::Lhost
       Boundaries = ['Content-Type: message/rfc822'].freeze
       StartingOf = { message: ['This is an automatically generated message from SendGrid.'] }.freeze
 
-      # Parse bounce messages from SendGrid
+      # @abstract Decodes the bounce message from SendGrid
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         # Return-Path: <apps@sendgrid.net>
         # X-Mailer: MIME-tools 5.502 (Entity 5.502)

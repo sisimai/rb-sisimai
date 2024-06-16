@@ -1,6 +1,7 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::V5sendmail parses a bounce email which created by Sendmail version 5. Methods in
-  # the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::V5sendmail decodes a bounce email which created by Sendmail version 5 or any
+  # email appliances based on Sendmail version 5.
+  # Methods in the module are called from only Sisimai::Message.
   module V5sendmail
     class << self
       require 'sisimai/lhost'
@@ -28,11 +29,11 @@ module Sisimai::Lhost
         message: ['----- Transcript of session follows -----'],
       }.freeze
 
-      # Parse bounce messages from Sendmail version 5
+      # @abstract Decodes the bounce message from Sendmail version 5
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         # :from => %r/\AMail Delivery Subsystem/,
         return nil unless mhead['subject'].start_with?('Returned mail: ')

@@ -1,5 +1,5 @@
 module Sisimai
-  # Sisimai::Fact generate parsed data
+  # Sisimai::Fact generate the list of decoded bounce data
   class Fact
     require 'sisimai/message'
     require 'sisimai/rfc1894'

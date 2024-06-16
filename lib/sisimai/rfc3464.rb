@@ -1,5 +1,5 @@
 module Sisimai
-  # Sisimai::RFC3464 - bounce mail parser class for Fallback.
+  # Sisimai::RFC3464 - bounce mail decoder class for Fallback.
   module RFC3464
     class << self
       require 'sisimai/lhost'
@@ -96,7 +96,7 @@ module Sisimai
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         permessage = {}     # (Hash) Store values of each Per-Message field
@@ -233,7 +233,7 @@ module Sisimai
 
         # -----------------------------------------------------------------------------------------
         while true
-          # Fallback, parse entire message body
+          # Fallback, decode the entire message body
           break if recipients > 0
 
           # Failed to get a recipient address at code above

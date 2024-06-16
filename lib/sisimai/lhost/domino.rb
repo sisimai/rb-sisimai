@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Domino parses a bounce email which created by IBM Domino Server. Methods in the
-  # module are called from only Sisimai::Message.
+  # Sisimai::Lhost::Domino decodes a bounce email which created by HCL Domino https://www.hcl-software.com/domino.
+  # Methods in the module are called from only Sisimai::Message.
   module Domino
     class << self
       require 'sisimai/lhost'
@@ -20,11 +20,11 @@ module Sisimai::Lhost
         'systemerror' => ['Several matches found in Domino Directory'],
       }.freeze
 
-      # Parse bounce messages from IBM Domino Server
+      # @abstract Decodes the bounce message from IBM Domino Server
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         return nil unless mhead['subject'].start_with?('DELIVERY FAILURE:', 'DELIVERY_FAILURE:')
 

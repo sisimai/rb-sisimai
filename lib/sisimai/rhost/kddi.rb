@@ -11,7 +11,7 @@ module Sisimai
         }.freeze
 
         # Detect bounce reason from au (KDDI)
-        # @param    [Sisimai::Fact] argvs   Parsed email object
+        # @param    [Sisimai::Fact] argvs   Decoded email object
         # @return   [String]                The bounce reason for au.com or ezweb.ne.jp
         # @since v4.22.6
         def get(argvs)

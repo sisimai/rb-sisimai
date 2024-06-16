@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::ApacheJames parses a bounce email which created by ApacheJames. Methods in the
-  # module are called from only Sisimai::Message.
+  # Sisimai::Lhost::ApacheJames decodes a bounce email which created by ApacheJames https://james.apache.org/.
+  # Methods in the module are called from only Sisimai::Message.
   module ApacheJames
     class << self
       require 'sisimai/lhost'
@@ -15,11 +15,11 @@ module Sisimai::Lhost
         error:   ['Error message below:'],
       }.freeze
 
-      # Parse bounce messages from Apache James
+      # @abstract decodes the bounce message from Apache James
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         match  = 0
         match += 1 if mhead['subject'] == '[BOUNCE]'

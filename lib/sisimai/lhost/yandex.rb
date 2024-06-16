@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Yandex parses a bounce email which created by Yandex.Mail. Methods in the module
-  # are called from only Sisimai::Message.
+  # Sisimai::Lhost::Yandex decodes a bounce email which created by Yandex Mail https://360.yandex.com/mail/'.
+  # Methods in the module are called from only Sisimai::Message.
   module Yandex
     class << self
       require 'sisimai/lhost'
@@ -9,11 +9,11 @@ module Sisimai::Lhost
       Boundaries = ['Content-Type: message/rfc822'].freeze
       StartingOf = { message: ['This is the mail system at host yandex.ru.'] }.freeze
 
-      # Parse bounce messages from Yandex.Mail
+      # @abstract Decodes the bounce message from Yandex.Mail
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         # X-Yandex-Front: mxback1h.mail.yandex.net
         # X-Yandex-TimeMark: 1417885948

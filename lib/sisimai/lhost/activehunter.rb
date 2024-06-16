@@ -1,5 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Activehunter parses a bounce email which created by TransWARE Active!hunter.
+  # Sisimai::Lhost::Activehunter decodes a bounce email which created by QUALITIA Active!hunter
+  # https://www.qualitia.com/jp/product/ah/function.html.
   # Methods in the module are called from only Sisimai::Message.
   module Activehunter
     class << self
@@ -9,11 +10,11 @@ module Sisimai::Lhost
       Boundaries = ['Content-Type: message/rfc822'].freeze
       StartingOf = { message: ['  ----- The following addresses had permanent fatal errors -----'] }.freeze
 
-      # Parse bounce messages from TransWARE Active!hunter
+      # @abstract decodes the bounce message from QUALITIA Active!hunter
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         # :from    => %r/\A"MAILER-DAEMON"/,
         # :subject => %r/FAILURE NOTICE :/,

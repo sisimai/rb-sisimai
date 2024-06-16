@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::MailRu parses a bounce email which created by @mail.ru. Methods in the module are
-  # called from only Sisimai::Message.
+  # Sisimai::Lhost::MailRu decodes a bounce email which created by @mail.ru https://mail.ru/.
+  # Methods in the module are called from only Sisimai::Message.
   module MailRu
     class << self
       # Based on Sisimai::Lhost::Exim
@@ -44,11 +44,11 @@ module Sisimai::Lhost
         'contenterror' => ['Too many "Received" headers'],
       }.freeze
 
-      # Parse bounce messages from @mail.ru
+      # @abstract Decodes the bounce message from @mail.ru
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         mfrom  = mhead['from'].downcase
         msgid  = mhead['message-id'] ? mhead['message-id'].downcase : ''

@@ -1,17 +1,17 @@
 module Sisimai
   module SMTP
-    # Sisimai::SMTP::Transcript is a parser for transcript logs of SMTP session
+    # Sisimai::SMTP::Transcript is a decoder for the transcript logs of the SMTP session
     module Transcript
       class << self
         require 'sisimai/smtp/reply'
         require 'sisimai/smtp/status'
 
-        #  Parse a transcript of an SMTP session and makes structured data
+        # @abstract decodes the transcript of the SMTP session and makes structured data
         # @param    [String] argv0  A transcript text MTA returned
         # @param    [String] argv1  A label string of a SMTP client
         # @apram    [String] argv2  A label string of a SMTP server
         # @return   [Array]         Structured data
-        #           [Nil]           Failed to parse or the 1st argument is missing
+        #           [Nil]           Failed to decode or the 1st argument is missing
         # @since v5.0.0
         def rise(argv0 = '', argv1 = '>>>', argv2 = '<<<')
           return nil if argv0.size == 0

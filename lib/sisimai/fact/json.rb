@@ -1,7 +1,7 @@
 module Sisimai
   class Fact
-    # Sisimai::Fact::JSON dumps parsed data object as a JSON format. This class and method should be
-    # called from the parent object "Sisimai::Fact".
+    # Sisimai::Fact::JSON dumps decoded data object as a JSON format. This class and method should
+    # be called from the parent object "Sisimai::Fact".
     module JSON
       class << self
         # Serializer (JSON)

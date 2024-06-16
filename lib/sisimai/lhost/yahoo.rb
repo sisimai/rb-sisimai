@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Yahoo parses a bounce email which created by Yahoo! MAIL. Methods in the module
-  # are called from only Sisimai::Message.
+  # Sisimai::Lhost::Yahoo decodes a bounce email which created by Yahoo Mail https://mail.yahoo.com/.
+  # Methods in the module are called from only Sisimai::Message.
   module Yahoo
     class << self
       require 'sisimai/lhost'
@@ -9,11 +9,11 @@ module Sisimai::Lhost
       Boundaries = ['--- Below this line is a copy of the message.'].freeze
       StartingOf = { message: ['Sorry, we were unable to deliver your message'] }.freeze
 
-      # Parse bounce messages from Yahoo! MAIL
+      # @abstract Decodes the bounce message from Yahoo! MAIL
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         # X-YMailISG: YtyUVyYWLDsbDh...
         # X-YMail-JAS: Pb65aU4VM1mei...

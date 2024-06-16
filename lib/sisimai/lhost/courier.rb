@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Courier parses a bounce email which created by Courier MTA. Methods in the module
-  # are called from only Sisimai::Message.
+  # Sisimai::Lhost::Courier decodes a bounce email which created by Courier MTA https://www.courier-mta.org/.
+  # Methods in the module are called from only Sisimai::Message.
   module Courier
     class << self
       require 'sisimai/lhost'
@@ -23,11 +23,11 @@ module Sisimai::Lhost
         'networkerror' => ['DNS lookup failed.'],
       }.freeze
 
-      # Parse bounce messages from Courier MTA
+      # @abstract Decodes the bounce message from Courier MTA
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         match  = 0
         match += 1 if mhead['from'].include?('Courier mail server at ')

@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::FML parses a bounce email which created by fml. Methods in the module are called
-  # from only Sisimai::Message.
+  # Sisimai::Lhost::FML decodes a bounce email which created by fml mailing list server/manager
+  # https://www.fml.org/. Methods in the module are called from only Sisimai::Message.
   module FML
     class << self
       require 'sisimai/lhost'
@@ -38,11 +38,11 @@ module Sisimai::Lhost
         'securityerror' => ['Security alert:'],
       }.freeze
 
-      # Parse bounce messages from fml mailling list server/manager
+      # @abstract Decodes the bounce message from fml mailling list server/manager
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       # @since v4.22.3
       def inquire(mhead, mbody)
         return nil unless mhead['x-mlserver']

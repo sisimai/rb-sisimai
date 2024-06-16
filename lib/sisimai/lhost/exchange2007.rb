@@ -1,5 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Exchange2007 parses a bounce email which created by Microsoft Exchange Server 2007.
+  # Sisimai::Lhost::Exchange2007 decodes a bounce email which created by Microsoft Exchange Server
+  # 2007 https://www.microsoft.com/microsoft-365/exchange/email.
   # Methods in the module are called from only Sisimai::Message.
   module Exchange2007
     class << self
@@ -39,11 +40,11 @@ module Sisimai::Lhost
         'QUEUE.Expired'                  => 'expired',       # 550 4.4.7 QUEUE.Expired
       }.freeze
 
-      # Parse bounce messages from Microsoft Exchange Server 2007
+      # @abstract Decodes the bounce message from Microsoft Exchange Server 2007
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         # Content-Language: en-US, fr-FR
         match   = nil

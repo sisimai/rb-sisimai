@@ -1,5 +1,5 @@
 module Sisimai
-  # Sisimai::ARF is a parser for email returned as a FeedBack Loop report message.
+  # Sisimai::ARF is a decoder for the email returned as a FeedBack Loop report message.
   module ARF
     class << self
       require 'sisimai/lhost'
@@ -58,11 +58,11 @@ module Sisimai
         return match
       end
 
-      # Detect an error for Feedback Loop
+      # @abstract Detect an error for Feedback Loop
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         return nil unless self.is_arf(mhead)
 

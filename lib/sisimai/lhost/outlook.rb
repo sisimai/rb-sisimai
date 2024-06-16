@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Outlook parses a bounce email which created by Microsoft Outlook.com. Methods in
-  # the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::Outlook decode a bounce email which created by Microsoft outlook.com https://www.outlook.com/.
+  # Methods in the module are called from only Sisimai::Message.
   module Outlook
     class << self
       require 'sisimai/lhost'
@@ -13,11 +13,11 @@ module Sisimai::Lhost
         'userunknown' => ['Requested action not taken: mailbox unavailable'],
       }.freeze
 
-      # Parse bounce messages from Microsoft Outlook.com
+      # @abstract Decodes the bounce message from Microsoft Outlook.com
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         # X-Message-Delivery: Vj0xLjE7RD0wO0dEPTA7U0NMPTk7bD0xO3VzPTE=
         # X-Message-Info: AuEzbeVr9u5fkDpn2vR5iCu5wb6HBeY4iruBjnutBzpStnUabbM...

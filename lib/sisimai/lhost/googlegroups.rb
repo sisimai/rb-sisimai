@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::GoogleGroups parses a bounce email which created by Google Groups. Methods in the
-  # module are called from only Sisimai::Message.
+  # Sisimai::Lhost::GoogleGroups decodes a bounce email which created by Google Groups https://groups.google.com.
+  # Methods in the module are called from only Sisimai::Message.
   module GoogleGroups
     class << self
       require 'sisimai/lhost'
@@ -8,11 +8,11 @@ module Sisimai::Lhost
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['----- Original message -----'].freeze
 
-      # Parse bounce messages from Google Groups
+      # @abstract Decodes the bounce message from Google Groups
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       # @since v4.25.6
       def inquire(mhead, mbody)
         return nil unless mhead['from'].end_with?('<mailer-daemon@googlemail.com>')

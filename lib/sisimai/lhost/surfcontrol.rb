@@ -1,5 +1,5 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::SurfControl parses a bounce email which created by WebSense SurfControl.
+  # Sisimai::Lhost::SurfControl decodes a bounce email which created by WebSense SurfControl.
   # Methods in the module are called from only Sisimai::Message.
   module SurfControl
     class << self
@@ -9,11 +9,11 @@ module Sisimai::Lhost
       Boundaries = ['Content-Type: message/rfc822'].freeze
       StartingOf = { message: ['Your message could not be sent.'] }.freeze
 
-      # Parse bounce messages from SurfControl
+      # @abstract Decodes the bounce message from SurfControl
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         # X-SEF-ZeroHour-RefID: fgs=000000000
         # X-SEF-Processed: 0_0_0_000__2010_04_29_23_34_45
@@ -77,7 +77,7 @@ module Sisimai::Lhost
             v['diagnosis'] = Sisimai::String.sweep(e[p2 + 2, e.size])
 
           else
-            # Fallback, parse RFC3464 headers.
+            # Fallback, Decode RFC3464 headers.
             if f = Sisimai::RFC1894.match(e)
               # "e" matched with any field defined in RFC3464
               next unless o = Sisimai::RFC1894.field(e)
