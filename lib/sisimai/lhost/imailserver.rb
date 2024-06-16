@@ -1,5 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::IMailServer parses a bounce email which created by Ipswitch IMail Server.
+  # Sisimai::Lhost::IMailServer decodes a bounce email which created by Progress iMail Server
+  # https://community.progress.com/s/products/imailserver.
   # Methods in the module are called from only Sisimai::Message.
   module IMailServer
     class << self
@@ -16,11 +17,11 @@ module Sisimai::Lhost
         'expired'       => ['Delivery failed '],
       }.freeze
 
-      # Parse bounce messages from IMailServer
+      # @abstract Decodes the bounce message from Progress iMail Server
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         # X-Mailer: <SMTP32 v8.22>
         match  = 0

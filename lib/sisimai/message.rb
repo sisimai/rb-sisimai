@@ -351,11 +351,11 @@ module Sisimai
       # @param options mail  [String] from   From line of mbox
       # @param options mail  [Hash]   header Email header data
       # @param options mail  [String] rfc822 Original message part
-      # @param options mail  [Array]  ds     Delivery status list(parsed data)
+      # @param options mail  [Array]  ds     Delivery status list(decoded data)
       # @param options argvs [String] body   Email message body
       # @param options argvs [Array] tryonfirst  MTA module list to load on first
       # @param options argvs [Array] tobeloaded  User defined MTA module list
-      # @return              [Hash]          Parsed and structured bounce mails
+      # @return              [Hash]          Decoded and structured bounce mails
       def sift(argvs)
         return nil unless argvs['mail']
         return nil unless argvs['body']
@@ -414,7 +414,7 @@ module Sisimai
           end
         end
 
-        catch :PARSER do
+        catch :DECODER do
           while true
             # 1. User-Defined Module
             # 2. MTA Module Candidates to be tried on first
@@ -428,7 +428,7 @@ module Sisimai
               havesifted = Module.const_get(r).inquire(mailheader, bodystring)
               haveloaded[r] = true
               modulename = r
-              throw :PARSER if havesifted
+              throw :DECODER if havesifted
             end
 
             [argvs['tryonfirst'], DefaultSet].flatten.each do |r|
@@ -438,7 +438,7 @@ module Sisimai
               havesifted = Module.const_get(r).inquire(mailheader, bodystring)
               haveloaded[r] = true
               modulename = r
-              throw :PARSER if havesifted
+              throw :DECODER if havesifted
             end
 
             unless haveloaded['Sisimai::RFC3464']
@@ -446,14 +446,14 @@ module Sisimai
               require 'sisimai/rfc3464'
               havesifted = Sisimai::RFC3464.inquire(mailheader, bodystring)
               modulename = 'RFC3464'
-              throw :PARSER if havesifted
+              throw :DECODER if havesifted
             end
 
             unless haveloaded['Sisimai::ARF']
               # Feedback Loop message
               require 'sisimai/arf'
               havesifted = Sisimai::ARF.inquire(mailheader, bodystring)
-              throw :PARSER if havesifted
+              throw :DECODER if havesifted
             end
 
             unless haveloaded['Sisimai::RFC3834']
@@ -461,7 +461,7 @@ module Sisimai
               require 'sisimai/rfc3834'
               havesifted = Sisimai::RFC3834.inquire(mailheader, bodystring)
               modulename = 'RFC3834'
-              throw :PARSER if havesifted
+              throw :DECODER if havesifted
             end
 
             break # as of now, we have no sample email for coding this block

@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Aol parses a bounce email which created by Aol Mail. Methods in the module are
-  # called from only Sisimai::Message.
+  # Sisimai::Lhost::Aol decodes a bounce email which created by Aol Mail https://mail.aol.com/.
+  # Methods in the module are called from only Sisimai::Message.
   module Aol
     class << self
       require 'sisimai/lhost'
@@ -13,11 +13,11 @@ module Sisimai::Lhost
         'notaccept'   => ['type=MX: Malformed or unexpected name server reply'],
       }.freeze
 
-      # Parse bounce messages from Aol Mail
+      # @abstract Decodes the bounce message from Aol Mail
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         # X-AOL-IP: 192.0.2.135
         # X-AOL-VSS-INFO: 5600.1067/98281

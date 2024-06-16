@@ -47,7 +47,7 @@ module Sisimai
         }.freeze
 
         # Detect bounce reason from Tencent QQ
-        # @param    [Sisimai::Fact] argvs   Parsed email object
+        # @param    [Sisimai::Fact] argvs   Decoded email object
         # @return   [String]                The bounce reason at Tencent QQ
         def get(argvs)
           issuedcode = argvs['diagnosticcode'].downcase

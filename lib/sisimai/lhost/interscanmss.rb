@@ -1,16 +1,17 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::InterScanMSS parses a bounce email which created by Trend Micro InterScan Messaging
-  # Security Suite. Methods in the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::InterScanMSS decodes a bounce email which created by Trend Micro InterScan
+  # Messaging Security Suite https://www.trendmicro.com/en_us/business/products/user-protection/sps/email-and-collaboration/interscan-messaging.html.
+  # Methods in the module are called from only Sisimai::Message.
   module InterScanMSS
     class << self
       require 'sisimai/lhost'
       Boundaries = ['Content-Type: message/rfc822'].freeze
 
-      # Parse bounce messages from InterScanMSS
+        # @abstract Decodes the bounce message from Trend Micro InterScanMSS Messaging Secutiry Suie
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         # :received => %r/[ ][(]InterScanMSS[)][ ]with[ ]/,
         match = 0

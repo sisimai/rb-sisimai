@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::GSuite parses a bounce email which created by G Suite. Methods in the module are
-  # called from only Sisimai::Message.
+  # Sisimai::Lhost::GSuite decodes a bounce email which created by Google Workspace https://workspace.google.com/.
+  # Methods in the module are called from only Sisimai::Message.
   module GSuite
     class << self
       require 'sisimai/lhost'
@@ -17,11 +17,11 @@ module Sisimai::Lhost
         'networkerror' => [' had no relevant answers.', ' responded with code NXDOMAIN'],
       }.freeze
 
-      # Parse bounce messages from G Suite (Transfer from G Suite to a destinaion host)
+      # @abstract Decodes the bounce message from G Suite (Transfer from G Suite to a destinaion host)
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         return nil unless mhead['from'].end_with?('<mailer-daemon@googlemail.com>')
         return nil unless mhead['subject'].start_with?('Delivery Status Notification')

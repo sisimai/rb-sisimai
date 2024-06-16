@@ -55,7 +55,7 @@ module Sisimai
       ]
 
       # Detect the bounce reason
-      # @param    [Hash] argvs  Parsed email object
+      # @param    [Hash] argvs  Decoded email object
       # @return   [String, nil] Bounce reason or nil if the argument is missing or not Hash
       # @see anotherone
       def get(argvs)
@@ -112,7 +112,7 @@ module Sisimai
       end
 
       # Detect the other bounce reason, fall back method for get()
-      # @param    [Hash] argvs  Parsed email object
+      # @param    [Hash] argvs  Decoded email object
       # @return   [String, Nil] Bounce reason or nli if the argument is missing or not Hash
       # @see get
       def anotherone(argvs)

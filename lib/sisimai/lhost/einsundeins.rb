@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::EinsUndEins parses a bounce email which created by 1&1. Methods in the module are
-  # called from only Sisimai::Message.
+  # Sisimai::Lhost::EinsUndEins decodes a bounce email which created by 1&1 https://www.1und1.de/.
+  # Methods in the module are called from only Sisimai::Message.
   module EinsUndEins
     class << self
       require 'sisimai/lhost'
@@ -13,11 +13,11 @@ module Sisimai::Lhost
       }.freeze
       MessagesOf = { 'mesgtoobig' => ['Mail size limit exceeded'] }.freeze
 
-      # Parse bounce messages from 1&1
+      # @abstract Decode the bounce message from 1&1
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         return nil unless mhead['from'].start_with?('"Mail Delivery System"')
         return nil unless mhead['subject'] == 'Mail delivery failed: returning message to sender'

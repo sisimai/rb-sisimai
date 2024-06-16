@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Facebook parses a bounce email which created by Facebook. Methods in the module
-  # are called from only Sisimai::Message.
+  # Sisimai::Lhost::Facebook decodes a bounce email which created by Facebook https://www.facebook.com.
+  # Methods in the module are called from only Sisimai::Message.
   module Facebook
     class << self
       require 'sisimai/lhost'
@@ -68,11 +68,11 @@ module Sisimai::Lhost
         ],
       }.freeze
 
-      # Parse bounce messages from Facebook
+      # @abstract Decodes the bounce message from Facebook
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         return nil unless mhead['from'] == 'Facebook <mailer-daemon@mx.facebook.com>'
         return nil unless mhead['subject'] == 'Sorry, your message could not be delivered'

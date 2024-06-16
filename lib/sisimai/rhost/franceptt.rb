@@ -123,7 +123,7 @@ module Sisimai
         }.freeze
 
         # Detect bounce reason from Oranage or La Poste
-        # @param    [Sisimai::Fact] argvs   Parsed email object
+        # @param    [Sisimai::Fact] argvs   Decoded email object
         # @return   [String]                The bounce reason for Orange or La Poste
         # @see      https://www.postmastery.com/orange-postmaster-smtp-error-codes-ofr/
         #           https://smtpfieldmanual.com/provider/orange

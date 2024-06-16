@@ -279,7 +279,7 @@ module Sisimai
         }.freeze
 
         # Detect bounce reason from Mimecast
-        # @param    [Sisimai::Fact] argvs   Parsed email object
+        # @param    [Sisimai::Fact] argvs   Decoded email object
         # @return   [String]                The bounce reason for mimecast.com
         def get(argvs)
           return '' unless Sisimai::SMTP::Reply.test(argvs['replycode'])

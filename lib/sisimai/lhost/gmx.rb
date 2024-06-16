@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::GMX parses a bounce email which created by GMX. Methods in the module are called
-  # from only Sisimai::Message.
+  # Sisimai::Lhost::GMX decodes a bounce email which created by GMX https://gmx.net/.
+  # Methods in the module are called from only Sisimai::Message.
   module GMX
     class << self
       require 'sisimai/lhost'
@@ -10,11 +10,11 @@ module Sisimai::Lhost
       StartingOf = { message: ['This message was created automatically by mail delivery software'] }.freeze
       MessagesOf = { 'expired' => ['delivery retry timeout exceeded'] }.freeze
 
-      # Parse bounce messages from GMX
+      # @abstract Decodes the bounce message from GMX
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         # Envelope-To: <kijitora@mail.example.com>
         # X-GMX-Antispam: 0 (Mail was not recognized as spam); Detail=V3;

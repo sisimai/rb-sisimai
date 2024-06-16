@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Sendmail parses a bounce email which created by v8 Sendmail. Methods in the module
-  # are called from only Sisimai::Message.
+  # Sisimai::Lhost::Sendmail decodes a bounce email which created by Sendmail Open Source https://sendmail.org/.
+  # Methods in the module are called from only Sisimai::Message.
   module Sendmail
     class << self
       require 'sisimai/lhost'
@@ -23,11 +23,11 @@ module Sisimai::Lhost
         error:   ['... while talking to '],
       }.freeze
 
-      # Parse bounce messages from Sendmail
+      # @abstract Decodes the bounce message from Sendmail Open Source
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         return nil if mhead['x-aol-ip']
         match   = nil

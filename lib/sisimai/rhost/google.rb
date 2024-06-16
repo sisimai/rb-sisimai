@@ -509,7 +509,7 @@ module Sisimai
         }.freeze
 
         # Detect bounce reason from Google Workspace
-        # @param    [Sisimai::Fact] argvs   Parsed email object
+        # @param    [Sisimai::Fact] argvs   Decoded email object
         # @return   [String]                The bounce reason for Google Workspace
         # @see      https://support.google.com/a/answer/3726730?hl=en
         def get(argvs)

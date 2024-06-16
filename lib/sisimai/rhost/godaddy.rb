@@ -202,7 +202,7 @@ module Sisimai
         }.freeze
 
         # Detect bounce reason from GoDaddy
-        # @param    [Sisimai::Fact] argvs   Parsed email object
+        # @param    [Sisimai::Fact] argvs   Decoded email object
         # @return   [String]                The bounce reason for GoDaddy
         # @see      https://ca.godaddy.com/help/fix-rejected-email-with-a-bounce-error-40685
         # @since v4.22.2

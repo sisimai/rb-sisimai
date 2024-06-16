@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Gmail parses a bounce email which created by Gmail. Methods in the module are
-  # called from only Sisimai::Message.
+  # Sisimai::Lhost::Gmail decodes a bounce email which created by Gmail https://mail.google.com/.
+  # Methods in the module are called from only Sisimai::Message.
   module Gmail
     class << self
       require 'sisimai/lhost'
@@ -96,11 +96,11 @@ module Sisimai::Lhost
         '18' => { 'command' => 'DATA', 'reason' => 'filtered' },
       }.freeze
 
-      # Parse bounce messages from Gmail
+      # @abstract Decodes the bounce message from Gmail
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         # From: Mail Delivery Subsystem <mailer-daemon@googlemail.com>
         # Received: from vw-in-f109.1e100.net [74.125.113.109] by ...

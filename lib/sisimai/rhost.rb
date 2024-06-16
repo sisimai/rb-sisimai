@@ -39,7 +39,7 @@ module Sisimai
       end
 
       # Detect the bounce reason from certain remote hosts
-      # @param    [Hash]   argvs  Parsed email data
+      # @param    [Hash]   argvs  Decoded email data
       # @param    [String] proxy  The alternative of the "rhost"
       # @return   [String]        The value of bounce reason
       def get(argvs, proxy = nil)

@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Barracuda parses a bounce email which created by Barracuda. Methods in the module
-  # are called from only Sisimai::Message.
+  # Sisimai::Lhost::Barracuda decodes a bounce email which created by Barracuda https://www.barracuda.com/.
+  # Methods in the module are called from only Sisimai::Message.
   module Barracuda
     class << self
       require 'sisimai/lhost'
@@ -9,11 +9,11 @@ module Sisimai::Lhost
       Boundaries = ['Content-Type: text/rfc822-headers'].freeze
       StartingOf = { message: ['Your message to:'] }.freeze
 
-      # Parse bounce messages from Barracuda
+      # @abstract Decodes the bounce message from Barracuda
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       # @since v4.25.6
       def inquire(mhead, mbody)
         # Subject: **Message you sent blocked by our bulk email filter**

@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::ReceivingSES parses a bounce email which created by Amazon Simple Email Service.
-  # Methods in the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::ReceivingSES decodes a bounce email which created by Amazon Simple Email Service
+  # https://aws.amazon.com/ses.  Methods in the module are called from only Sisimai::Message.
   module ReceivingSES
     class << self
       require 'sisimai/lhost'
@@ -17,11 +17,11 @@ module Sisimai::Lhost
         'contenterror' => ['Message content rejected'],
       }.freeze
 
-      # Parse bounce messages from Amazon SES/Receiving
+      # @abstract Decodes the bounce message from Amazon SES/Receiving
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         # X-SES-Outgoing: 2015.10.01-54.240.27.7
         # Feedback-ID: 1.us-west-2.HX6/J9OVlHTadQhEu1+wdF9DBj6n6Pa9sW5Y/0pSOi8=:AmazonSES

@@ -20,7 +20,7 @@ module Sisimai
         }.freeze
 
         # Detect bounce reason from https://www.i.ua/
-        # @param    [Sisimai::Fact] argvs   Parsed email object
+        # @param    [Sisimai::Fact] argvs   Decoded email object
         # @return   [String]                The bounce reason at https://www.i.ua/
         def get(argvs)
           return argvs['reason'] unless argvs['reason'].empty?

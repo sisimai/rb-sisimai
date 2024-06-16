@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::PowerMTA parses a bounce email which created by PowerMTA. Methods in the module
-  # are called from only Sisimai::Message.
+  # Sisimai::Lhost::PowerMTA decodes a bounce email which created by PowerMTA https://bird.com/email/power-mta.
+  # Methods in the module are called from only Sisimai::Message.
   module PowerMTA
     class << self
       require 'sisimai/lhost'
@@ -20,11 +20,11 @@ module Sisimai::Lhost
         'spam-related'        => 'spamdetected',
       }.freeze
 
-      # Parse bounce messages from PowerMTA
+      # @abstract Decodes the bounce message from PowerMTA
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       # @since v4.25.6
       def inquire(mhead, mbody)
         return nil unless mhead['subject'].to_s.start_with?('Delivery report')

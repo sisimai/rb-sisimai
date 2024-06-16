@@ -12,7 +12,7 @@ module Sisimai
         }.freeze
 
         # Detect bounce reason from NTT DOCOMO
-        # @param    [Sisimai::Fact] argvs   Parsed email object
+        # @param    [Sisimai::Fact] argvs   Decoded email object
         # @return   [String]                The bounce reason for docomo.ne.jp
         def get(argvs)
           statuscode = argvs['deliverystatus']          || ''

@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::MailFoundry parses a bounce email which created by MailFoundry. Methods in the
-  # module are called from only Sisimai::Message.
+  # Sisimai::Lhost::MailFoundry decodes a bounce email which created by MailFoundry https://www.barracuda.com/.
+  # Methods in the module are called from only Sisimai::Message.
   module MailFoundry
     class << self
       require 'sisimai/lhost'
@@ -12,11 +12,11 @@ module Sisimai::Lhost
         error:   ['Delivery failed for the following reason:'],
       }.freeze
 
-      # Parse bounce messages from MailFoundry
+      # @abstract Decodes the bounce message from MailFoundry
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         return nil unless mhead['subject'] == 'Message delivery has failed'
         return nil unless mhead['received'].any? { |a| a.include?('(MAILFOUNDRY) id ') }

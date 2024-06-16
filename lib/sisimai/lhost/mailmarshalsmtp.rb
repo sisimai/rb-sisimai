@@ -1,6 +1,7 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::MailMarshalSMTP parses a bounce email which created by Trustwave Secure Email
-  # Gateway: formerly MailMarshal SMTP. Methods in the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::MailMarshalSMTP decodes a bounce email which created by Trustwave Secure Email
+  # Gateway: formerly MailMarshal SMTP https://www.trustwave.com/en-us/services/email-security/.
+  # Methods in the module are called from only Sisimai::Message.
   module MailMarshalSMTP
     class << self
       require 'sisimai/lhost'
@@ -13,11 +14,11 @@ module Sisimai::Lhost
         rcpts:   ['The following recipients were affected:'],
       }.freeze
 
-      # Parse bounce messages from MailMarshalSMTP
+      # @abstract Decodes the bounce message from Trustwave Secure Email Gateway (Formerly MailMarshalSMTP)
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         return nil unless mhead['subject'].start_with?('Undeliverable Mail: "')
 

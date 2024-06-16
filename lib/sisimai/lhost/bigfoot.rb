@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Bigfoot parses a bounce email which created by Bigfoot. Methods in the module
-  # are called from only Sisimai::Message.
+  # Sisimai::Lhost::Bigfoot decodes a bounce email which created by Bigfoot https://www.bigfoot.com/.
+  # Methods in the module are called from only Sisimai::Message.
   module Bigfoot
     class << self
       require 'sisimai/lhost'
@@ -9,11 +9,11 @@ module Sisimai::Lhost
       Boundaries = ['Content-Type: message/partial'].freeze
       MarkingsOf = { message: '   ----- Transcript of session follows -----' }.freeze
 
-      # Parse bounce messages from Bigfoot
+      # @abstract Decodes the bounce message from Bigfoot
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         # :subject  => %r/\AReturned mail: /,
         match  = 0

@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Qmail parses a bounce email which created by qmail. Methods in the module are called
-  # from only Sisimai::Message.
+  # Sisimai::Lhost::Qmail decodes a bounce email which created by qmail  https://cr.yp.to/qmail.html.
+  # Methods in the module are called from only Sisimai::Message.
   module Qmail
     class << self
       require 'sisimai/lhost'
@@ -86,11 +86,11 @@ module Sisimai::Lhost
         ],
       }.freeze
 
-      # Parse bounce messages from qmail
+      # @abstract Decodes the bounce message from qmail
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         # Pre process email headers and the body part of the message which generated
         # by qmail, see https://cr.yp.to/qmail.html

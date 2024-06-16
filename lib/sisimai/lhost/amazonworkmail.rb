@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::AmazonWorkMail parses a bounce email which created by Amazon WorkMail. Methods
-  # in the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::AmazonWorkMail decodes a bounce email which created by Amazon WorkMail https://aws.amazon.com/workmail/.
+  # Methods in the module are called from only Sisimai::Message.
   module AmazonWorkMail
     class << self
       require 'sisimai/lhost'
@@ -10,11 +10,11 @@ module Sisimai::Lhost
       Boundaries = ['Content-Type: message/rfc822'].freeze
       StartingOf = { message: ['Technical report:'] }.freeze
 
-      # Parse bounce messages from Amazon WorkMail
+      # @abstract Decodes the bounce message from Amazon WorkMail
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         # X-Mailer: Amazon WorkMail
         # X-Original-Mailer: Amazon WorkMail

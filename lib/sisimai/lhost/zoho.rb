@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Zoho parses a bounce email which created by Zoho Mail. Methods in the module are
-  # called from only Sisimai::Message.
+  # Sisimai::Lhost::Zoho decodes a bounce email which created by Zoho Mail https://www.zoho.com/mail/.
+  # Methods in the module are called from only Sisimai::Message.
   module Zoho
     class << self
       require 'sisimai/lhost'
@@ -10,11 +10,11 @@ module Sisimai::Lhost
       StartingOf = { message: ['This message was created automatically by mail delivery'] }.freeze
       MessagesOf = { 'expired' => ['Host not reachable'] }.freeze
 
-      # Parse bounce messages from Zoho Mail
+      # @abstract Decodes the bounce message from Zoho Mail
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         # X-ZohoMail: Si CHF_MF_NL SS_10 UW48 UB48 FMWL UW48 UB48 SGR3_1_09124_42
         # X-Zoho-Virus-Status: 2

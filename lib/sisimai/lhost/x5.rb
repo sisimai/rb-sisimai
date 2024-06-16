@@ -1,5 +1,5 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::X5 parses a bounce email which created by Unknown MTA #5. Methods in the module
+  # Sisimai::Lhost::X5 decodes a bounce email which created by Unknown MTA #5. Methods in the module
   # are called from only Sisimai::Message.
   module X5
     class << self
@@ -9,11 +9,11 @@ module Sisimai::Lhost
       Boundaries = ['Content-Type: message/rfc822'].freeze
       StartingOf = { message: ['Content-Type: message/delivery-status'] }.freeze
 
-      # Parse bounce messages from Unknown MTA #5
+      # @abstract Decodes the bounce message from Unknown MTA #5
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         match  = 0
         match += 1 if mhead['to'].to_s.include?('NotificationRecipients')

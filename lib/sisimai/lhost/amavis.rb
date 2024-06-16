@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Amavis parses a bounce email which created by amavsid-new. Methods in the module
-  # are called from only Sisimai::Message.
+  # Sisimai::Lhost::Amavis decodes a bounce email which created by amavsid-new.
+  # Methods in the module are called from only Sisimai::Message.
   module Amavis
     class << self
       require 'sisimai/lhost'
@@ -68,11 +68,11 @@ module Sisimai::Lhost
         ],
       }.freeze
 
-      # Parse bounce messages from amavisd-new
+      # @abstract Decodes the bounce message from amavisd-new
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       # @since v4.25.0
       def inquire(mhead, mbody)
         # From: "Content-filter at neko1.example.jp" <postmaster@neko1.example.jp>

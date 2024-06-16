@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Postfix parses a bounce email which created by Postfix. Methods in the module are
-  # called from only Sisimai::Message.
+  # Sisimai::Lhost::Postfix decodes a bounce email which created by Postfix https://www.postfix.org/.
+  # Methods in the module are called from only Sisimai::Message.
   module Postfix
     class << self
       require 'sisimai/lhost'
@@ -20,11 +20,11 @@ module Sisimai::Lhost
         ],
       }.freeze
 
-      # Parse bounce messages from Postfix
+      # @abstract Decodes the bounce message from Postfix
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         match = nil
         sessx = nil

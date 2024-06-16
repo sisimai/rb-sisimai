@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::McAfee parses a bounce email which created by McAfee Email Appliance. Methods in
-  # the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::McAfee decodes a bounce email which created by McAfee Email Appliance.
+  # Methods in the module are called from only Sisimai::Message.
   module McAfee
     class << self
       require 'sisimai/lhost'
@@ -10,11 +10,11 @@ module Sisimai::Lhost
       StartingOf = { message: ['--- The following addresses had delivery problems ---'] }.freeze
       MessagesOf = { 'userunknown' => [' User not exist', ' unknown.', '550 Unknown user ', 'No such user'] }.freeze
 
-      # Parse bounce messages from McAfee Email Appliance
+      # @abstract Decodes the bounce message from McAfee Email Appliance
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         # X-NAI-Header: Modified by McAfee Email and Web Security Virtual Appliance
         return nil unless mhead['x-nai-header']

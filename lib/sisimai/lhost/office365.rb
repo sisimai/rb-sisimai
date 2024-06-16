@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Office365 parses a bounce email which created by Microsoft Office 365. Methods in
-  # the module are called from only Sisimai::Message.
+  # Sisimai::Lhost::Office365 decodes a bounce email which created by Microsoft 365 https://office.microsoft.com/'.
+  # Methods in the module are called from only Sisimai::Message.
   module Office365
     class << self
       require 'sisimai/lhost'
@@ -89,11 +89,11 @@ module Sisimai::Lhost
         RCPT: %r/unknown recipient or mailbox unavailable ->.+[<]?.+[@].+[.][a-zA-Z]+[>]?/,
       }.freeze
 
-      # Parse bounce messages from Microsoft Office 365
+      # @abstract decodes the bounce message from Microsoft 365
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         # X-MS-Exchange-Message-Is-Ndr:
         # X-Microsoft-Antispam-PRVS: <....@...outlook.com>

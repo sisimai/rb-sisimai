@@ -33,7 +33,7 @@ module Sisimai
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         leave = 0
         match = 0
@@ -98,7 +98,7 @@ module Sisimai
           MarkingsOf[:boundary] = q unless q.empty?
         end
 
-        # BODY_PARSER: Get vacation message
+        # MESSAGE_BODY: Get the vacation message
         while e = bodyslices.shift do
           # Read the first 5 lines except a blank line
           countuntil += 1 if e.include?(MarkingsOf[:boundary])

@@ -21,7 +21,7 @@ module Sisimai
         @handle = stdin
       end
 
-      # Mbox reader, works as a iterator.
+      # Mbox reader, works as an iterator.
       # @return   [String] Contents of mbox
       def read
         readhandle = self.handle

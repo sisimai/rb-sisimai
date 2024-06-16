@@ -1,6 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::EZweb parses a bounce email which created by au EZweb. Methods in the module are
-  # called from only Sisimai::Message.
+  # Sisimai::Lhost::EZweb decodes a bounce email which created by au EZweb https://www.au.com/mobile/.
+  # Methods in the module are called from only Sisimai::Message.
   module EZweb
     class << self
       require 'sisimai/lhost'
@@ -25,11 +25,11 @@ module Sisimai::Lhost
         'onhold' => ['Each of the following recipients was rejected by a remote mail server'],
       }.freeze
 
-      # Parse bounce messages from au EZweb
+      # @abstract Decodes the bounce message from au EZweb
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
-      # @return [Nil]           it failed to parse or the arguments are missing
+      # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         match  = 0
         match += 1 if mhead['from'].include?('Postmaster@ezweb.ne.jp')
