@@ -1,0 +1,32 @@
+From MAILER-DAEMON Sun Jun 16 18:30:26 2024
+Received: from MAILER-DAEMON
+	id e06d1
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Sun, 16 Jun 2024 18:30:26 +0900
+X-Original-To: <expired@libsisimai.net>
+From: MAILER-DAEMON <>
+To: kijitora@df.example.jp
+Subject: Mail delivery failed
+Message-Id: <e06d1@df.example.jp>
+Date: Sun, 16 Jun 2024 18:30:26 +0900
+
+This is the DragonFly Mail Agent v0.13 at df.example.jp.
+
+There was an error delivering your mail to <expired@libsisimai.net>.
+
+Could not deliver for the last 432000 seconds. Giving up.
+
+Message headers follow.
+
+Received: from kijitora (uid 0)
+	(envelope-from kijitora@df.example.jp)
+	id e0724
+	by df.example.jp (DragonFly Mail Agent v0.13);
+	Tue, 11 Jun 2024 18:27:33 +0900
+Subject: Nyaan 02
+To: <expired@libsisimai.net>
+User-Agent: mail (GNU Mailutils 3.14)
+Date: Tue, 11 Jun 2024 18:27:33 +0900
+Message-Id: <66681885.e0724.329a3871@df.example.jp>
+From: <kijitora@df.example.jp>
+
