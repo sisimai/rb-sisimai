@@ -3,13 +3,13 @@ require 'sisimai/rhost'
 require 'sisimai'
 
 class RhostTest < Minitest::Test
-  Methods = { class:  %w[get match] }
+  Methods = { class:  %w[get] }
 
   def test_methods
     Methods[:class].each { |e| assert_respond_to Sisimai::Rhost, e }
   end
 
-  def test_get_and_match
+  def test_get
     Dir.glob('./set-of-emails/maildir/bsd/rhost-*.eml').each do |e|
       cv = Sisimai.rise(e)
       assert_instance_of Array, cv
@@ -22,16 +22,10 @@ class RhostTest < Minitest::Test
         refute_empty ee.reason
         cx = ee.damn
 
-        if Sisimai::Rhost.match(ee.rhost)
-          cr = Sisimai::Rhost.get(cx)
-          next if cr.empty?
-          assert_equal cx['reason'], cr
-        else
-          cr = Sisimai::Rhost.get(cx, cx['destination'])
-          refute_empty cx['destination']
-          refute_empty cr
-          assert_equal cx['reason'], cr
-        end
+        cr = Sisimai::Rhost.get(cx)
+        refute_empty cx['destination']
+        refute_empty cr
+        assert_equal cx['reason'], cr
       end
 
     end
@@ -39,8 +33,6 @@ class RhostTest < Minitest::Test
     ce = assert_raises ArgumentError do
       Sisimai::Rhost.get()
       Sisimai::Rhost.get(nil, nil, nil)
-      Sisimai::Rhost.match()
-      Sisimai::Rhost.match(nil, nil)
     end
   end
 end
