@@ -1,0 +1,62 @@
+Delivered-To: kijitora@df.example.jp
+Received: from df.example.jp (df.example.jp [local])
+	by df.example.jp (OpenSMTPD) with ESMTPA id 576b025e
+	for <kijitora@df.example.jp>;
+	Fri, 21 Jun 2024 05:51:59 +0000 (UTC)
+Subject: Delivery status notification: delayed
+From: Mailer Daemon <MAILER-DAEMON@df.example.jp>
+To: kijitora@df.example.jp
+Date: Fri, 21 Jun 2024 05:51:59 +0000 (UTC)
+MIME-Version: 1.0
+Content-Type: multipart/mixed;boundary="15462020948069980410/df.example.jp"
+Message-ID: <74f4ebe8d6e046ed@df.example.jp>
+
+This is a MIME-encapsulated message.
+
+--15462020948069980410/df.example.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+    Hi!
+
+    This is the MAILER-DAEMON, please DO NOT REPLY to this email.
+
+    A message is delayed for more than 0 seconds for the following
+    list of recipients:
+
+systemfull@libsisimai.net: Envelope expired
+
+    Please note that this is only a temporary failure report.
+    The message is kept in the queue for up to 7 days.
+    You DO NOT NEED to re-send the message to these recipients.
+
+    Below is a copy of the original message:
+
+--15462020948069980410/df.example.jp
+Content-Description: Delivery Report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; df.example.jp
+
+Final-Recipient: rfc822; systemfull@libsisimai.net
+Action: delayed
+Status: 4.4.7
+
+--15462020948069980410/df.example.jp
+Content-Description: Message headers
+Content-Type: text/rfc822-headers
+
+Received: from localhost (df.example.jp [local])
+	by df.example.jp (OpenSMTPD) with ESMTPA id 50173677
+	for <systemfull@libsisimai.net>;
+	Mon, 17 Jun 2024 05:51:58 +0000 (UTC)
+From: <kijitora@df.example.jp>
+Subject: Nyaan 31
+To: <systemfull@libsisimai.net>
+User-Agent: mail (GNU Mailutils 3.14)
+Date: Mon, 17 Jun 2024 14:51:58 +0900
+Message-ID: <74f4e4b860e0ad3f@df.example.jp>
+
+Nyaan?
+
+--15462020948069980410/df.example.jp--
