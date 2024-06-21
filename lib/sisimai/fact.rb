@@ -383,17 +383,9 @@ module Sisimai
         # REASON: Decide the reason of email bounce
         if o['reason'].empty? || RetryIndex[o['reason']]
           # The value of "reason" is empty or is needed to check with other values again
-          o['reason'] = '' if o['reason'].start_with?('onhold', 'undefined')
-          re = ''; de = o['destination']
-          re = Sisimai::Rhost.get(o) if Sisimai::Rhost.match(o['rhost'])
-
-          if re.empty?
-            # Failed to detect a bounce reason by the value of "rhost"
-            re = Sisimai::Rhost.get(o, de) if Sisimai::Rhost.match(de)
-            re = Sisimai::Reason.get(o)    if re.empty?
-            re = 'undefined'               if re.empty?
-          end
-          o['reason'] = re
+          re = o['reason'].empty? ? 'undefined' : o['reason']
+          o['reason'] = Sisimai::Rhost.get(o) || Sisimai::Reason.get(o)
+          o['reason'] = re if o['reason'].empty?
         end
 
         # HARDBOUNCE: Set the value of "hardbounce", default value of "bouncebounce" is false

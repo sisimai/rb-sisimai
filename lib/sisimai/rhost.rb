@@ -20,45 +20,35 @@ module Sisimai
         'YahooInc'  => ['.yahoodns.net'],
       }.freeze
 
-      # The value of "rhost" is listed in RhostClass or not
-      # @param    [String] argvs  Remote host name
-      # @return   [True,False]    True: matched
-      #                           False: did not match
-      def match(rhost)
-        return false if rhost.empty?
-
-        host0 = rhost.downcase
-        match = false
-        RhostClass.each_key do |e|
-          # Try to match with each key of RhostClass
-          next unless RhostClass[e].any? { |a| host0.end_with?(a) }
-          match = true
-          break
-        end
-        return match
-      end
-
       # Detect the bounce reason from certain remote hosts
       # @param    [Hash]   argvs  Decoded email data
-      # @param    [String] proxy  The alternative of the "rhost"
       # @return   [String]        The value of bounce reason
-      def get(argvs, proxy = nil)
-        remotehost = proxy || argvs['rhost'].downcase
+      def get(argvs)
+        return nil if argvs['diagnosticcode'].empty?
+
+        remotehost = argvs['rhost'].downcase
+        domainpart = argvs['destination'].downcase
+        return nil if (remotehost + domainpart).empty?
+
+        rhostmatch = nil
         rhostclass = ''
         modulename = ''
-        return '' if argvs['diagnosticcode'].empty?
 
         RhostClass.each_key do |e|
-          # Try to match with each key of RhostClass
-          next unless RhostClass[e].any? { |a| remotehost.end_with?(a) }
+          # Try to match with each value of RhostClass
+          rhostmatch   = true if RhostClass[e].any? { |a| remotehost.end_with?(a) }
+          rhostmatch ||= true if RhostClass[e].any? { |a| domainpart.end_with?(a) }
+          next unless rhostmatch
+
           modulename = 'Sisimai::Rhost::' << e
           rhostclass = 'sisimai/rhost/' << e.downcase
           break
         end
-        return '' if rhostclass.empty?
+        return nil if rhostclass.empty?
 
         require rhostclass
         reasontext = Module.const_get(modulename).get(argvs)
+        return nil if reasontext.empty?
         return reasontext
       end
     end
