@@ -1,0 +1,63 @@
+Delivered-To: kijitora@df.example.jp
+Received: from df.example.jp (df.example.jp [local])
+	by df.example.jp (OpenSMTPD) with ESMTPA id 4c015419
+	for <kijitora@df.example.jp>;
+	Fri, 21 Jun 2024 07:55:04 +0000 (UTC)
+Subject: Delivery status notification: failed
+From: Mailer Daemon <MAILER-DAEMON@df.example.jp>
+To: kijitora@df.example.jp
+Date: Fri, 21 Jun 2024 07:55:04 +0000 (UTC)
+MIME-Version: 1.0
+Content-Type: multipart/mixed;boundary="15462020962910357743/df.example.jp"
+Message-ID: <74f4ebf9c7b8c013@df.example.jp>
+
+This is a MIME-encapsulated message.
+
+--15462020962910357743/df.example.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+    Hi!
+
+    This is the MAILER-DAEMON, please DO NOT REPLY to this email.
+
+    An error has occurred while attempting to deliver a message for
+    the following list of recipients:
+
+userunknown@libsisimai.net: 550 5.1.1 <userunknown@libsisimai.net>: Recipient address rejected: User unknown
+mailboxfull@libsisimai.net: 552 5.2.2 <mailboxfull@libsisimai.net>: Recipient address rejected: Mailbox full
+
+    Below is a copy of the original message:
+
+--15462020962910357743/df.example.jp
+Content-Description: Delivery Report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; df.example.jp
+
+Final-Recipient: rfc822; userunknown@libsisimai.net
+Action: failed
+Status: 5.0.0
+
+Final-Recipient: rfc822; mailboxfull@libsisimai.net
+Action: failed
+Status: 5.0.0
+
+--15462020962910357743/df.example.jp
+Content-Description: Message headers
+Content-Type: text/rfc822-headers
+
+Received: from localhost (df.example.jp [local])
+	by df.example.jp (OpenSMTPD) with ESMTPA id 7b6dd533
+	for <nekochan@df.example.jp>;
+	Fri, 21 Jun 2024 07:55:02 +0000 (UTC)
+From: <kijitora@df.example.jp>
+Subject: Nyaan ??
+To: nekochan@df.example.jp
+User-Agent: mail (GNU Mailutils 3.14)
+Date: Fri, 21 Jun 2024 16:55:02 +0900
+Message-ID: <74f4ebf4e64e4266@df.example.jp>
+
+Nyaan?
+
+--15462020962910357743/df.example.jp--

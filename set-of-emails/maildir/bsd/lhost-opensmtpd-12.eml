@@ -1,0 +1,62 @@
+Delivered-To: kijitora@df.example.jp
+Received: from df.example.jp (df.example.jp [local])
+	by df.example.jp (OpenSMTPD) with ESMTPA id 94c5a197
+	for <kijitora@df.example.jp>;
+	Mon, 17 Jun 2024 07:44:38 +0000 (UTC)
+Subject: Delivery status notification: delayed
+From: Mailer Daemon <MAILER-DAEMON@df.example.jp>
+To: kijitora@df.example.jp
+Date: Mon, 17 Jun 2024 07:44:38 +0000 (UTC)
+MIME-Version: 1.0
+Content-Type: multipart/mixed;boundary="15462020824679807191/df.example.jp"
+Message-ID: <74f4e59c4543178c@df.example.jp>
+
+This is a MIME-encapsulated message.
+
+--15462020824679807191/df.example.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+    Hi!
+
+    This is the MAILER-DAEMON, please DO NOT REPLY to this email.
+
+    A message is delayed for more than 4 hours for the following
+    list of recipients:
+
+neko@nyaan.jp: No MX found for domain
+
+    Please note that this is only a temporary failure report.
+    The message is kept in the queue for up to 7 days.
+    You DO NOT NEED to re-send the message to these recipients.
+
+    Below is a copy of the original message:
+
+--15462020824679807191/df.example.jp
+Content-Description: Delivery Report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; df.example.jp
+
+Final-Recipient: rfc822; neko@nyaan.jp
+Action: delayed
+Status: 4.0.0
+
+--15462020824679807191/df.example.jp
+Content-Description: Message headers
+Content-Type: text/rfc822-headers
+
+Received: from localhost (df.example.jp [local])
+	by df.example.jp (OpenSMTPD) with ESMTPA id 58588365
+	for <neko@nyaan.jp>;
+	Mon, 17 Jun 2024 04:57:57 +0000 (UTC)
+From: <kijitora@df.example.jp>
+Subject: Nyaan 04
+To: <neko@nyaan.jp>
+User-Agent: mail (GNU Mailutils 3.14)
+Date: Mon, 17 Jun 2024 13:57:57 +0900
+Message-ID: <74f4e3a292556888@df.example.jp>
+
+Nyaan?
+
+--15462020824679807191/df.example.jp--

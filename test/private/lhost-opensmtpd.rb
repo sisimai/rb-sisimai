@@ -19,6 +19,9 @@ module LhostEngineTest::Private
       '01013' => [['5.0.912', '',    'hostunknown',     true]],
       '01014' => [['5.0.947', '',    'expired',         false]],
       '01015' => [['5.0.944', '',    'networkerror',    false]],
+      '01016' => [['5.0.912', '',    'hostunknown',     true]],
+      '01017' => [['5.7.26',  '550', 'authfailure',     false]],
+      '01018' => [['5.0.932', '',    'notaccept',       true]],
     }
   end
 end
