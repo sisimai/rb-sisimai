@@ -1,0 +1,46 @@
+Received: indimail-mta queue 58965 by host email.example.jp
+ (invoked by alias); Wed, 26 Jun 2024 15:21:00 +0900
+Delivered-To: postmaster@email.example.jp
+X-Forwarded-To: kijitora
+X-Forwarded-For:
+Received: indimail-mta queue 58962 by host email.example.jp
+ (invoked for bounce); Wed, 26 Jun 2024 15:21:00 +0900
+Date: Wed, 26 Jun 2024 15:21:00 +0900
+X-Bounced-Address: <pseudo-local-part-of-each-esp@gmail.com>
+From: MAILER-DAEMON@email.example.jp
+To: postmaster@email.example.jp
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="1719382885email.example.jp671473"
+Subject: failure notice
+
+--1719382885email.example.jp671473
+
+Hi. This is the qmail-send program at email.example.jp.
+I'm afraid I wasn't able to deliver your message to the following addresses.
+This is a permanent error; I've given up. Sorry it didn't work out.
+
+<pseudo-local-part-of-each-esp@gmail.com>:
+From: <postmaster@email.example.jp> RCPT: <pseudo-local-part-of-each-esp@gmail.com> 74.125.203.26 failed after I sent the message.
+Remote host said: 550-5.7.26 Unauthenticated email from example.jp is not accepted due to domain's
+550-5.7.26 DMARC policy. Please contact the administrator of example.jp domain if
+550-5.7.26 this was a legitimate mail. To learn about the DMARC initiative, go
+550-5.7.26 to
+550 5.7.26  https://support.google.com/mail/?p=DmarcRejection d9443c01a7336-1f9eb3b6e81si99625855ad.239 - gsmtp
+
+--- Enclosed is a copy of the message.
+
+--1719382885email.example.jp671473
+Content-Type: message/rfc822
+
+Return-Path: <postmaster@email.example.jp>
+Received: indimail-mta queue 58880 by host email.example.jp
+ (invoked by uid 0); Wed, 26 Jun 2024 15:20:58 +0900
+Date: 26 Jun 2024 06:20:58 -0000
+Message-ID: <20240626062058.58879.qmail@email.example.jp>
+From: postmaster@email.example.jp
+To: pseudo-local-part-of-each-esp@gmail.com
+Subject: Nyaan?
+
+Nyaaaaaan
+
+--1719382885email.example.jp671473--

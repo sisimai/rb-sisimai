@@ -1,0 +1,41 @@
+Received: indimail-mta queue 41791 by host email.example.jp
+ (invoked by alias); Wed, 26 Jun 2024 15:13:25 +0900
+Delivered-To: postmaster@email.example.jp
+X-Forwarded-To: kijitora
+X-Forwarded-For:
+Received: indimail-mta queue 41788 by host email.example.jp
+ (invoked for bounce); Wed, 26 Jun 2024 15:13:25 +0900
+Date: Wed, 26 Jun 2024 15:13:25 +0900
+X-Bounced-Address: <libgsasl7-dev@email.example.jp>
+From: MAILER-DAEMON@email.example.jp
+To: postmaster@email.example.jp
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="1719382432email.example.jp671472"
+Subject: failure notice
+
+--1719382432email.example.jp671472
+
+Hi. This is the qmail-send program at email.example.jp.
+I'm afraid I wasn't able to deliver your message to the following addresses.
+This is a permanent error; I've given up. Sorry it didn't work out.
+
+<libgsasl7-dev@email.example.jp>:
+Sorry, no mailbox here by that name. (#5.1.1)
+
+--- Enclosed is a copy of the message.
+
+--1719382432email.example.jp671472
+Content-Type: message/rfc822
+
+Return-Path: <postmaster@email.example.jp>
+Received: indimail-mta queue 41785 by host email.example.jp
+ (invoked by uid 0); Wed, 26 Jun 2024 15:13:25 +0900
+Date: Wed, 26 Jun 2024 15:13:25 +0900
+Message-ID: <20240626061325.41784.indimail@idhost>
+From: postmaster@email.example.jp
+To: libgsasl7-dev@email.example.jp
+Subject: Nyaan?
+
+Nyaaaaaan
+
+--1719382432email.example.jp671472--
