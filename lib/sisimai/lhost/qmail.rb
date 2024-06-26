@@ -1,5 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Qmail decodes a bounce email which created by qmail  https://cr.yp.to/qmail.html.
+  # Sisimai::Lhost::Qmail decodes a bounce email which created by qmail https://cr.yp.to/qmail.html
+  # or qmail clones or notqmail https://notqmail.org/.
   # Methods in the module are called from only Sisimai::Message.
   module Qmail
     class << self
@@ -79,9 +80,12 @@ module Sisimai::Lhost
           'system error',
           'Unable to',
         ],
+        'notaccept' => [
+          # notqmail 1.08 returns the following error message when the destination MX is NullMX
+          "Sorry, I couldn't find a mail exchanger or IP address",
+        ],
         'networkerror' => [
           "Sorry, I wasn't able to establish an SMTP connection",
-          "Sorry, I couldn't find a mail exchanger or IP address",
           "Sorry. Although I'm listed as a best-preference MX or A for that host",
         ],
       }.freeze
@@ -181,11 +185,7 @@ module Sisimai::Lhost
           end
 
           # Detect the reason of bounce
-          if e['command'] == 'MAIL'
-            # MAIL | Connected to 192.0.2.135 but sender was rejected.
-            e['reason'] = 'rejected'
-
-          elsif %w[HELO EHLO].index(e['command'])
+          if %w[HELO EHLO].index(e['command'])
             # HELO | Connected to 192.0.2.135 but my name was rejected.
             e['reason'] = 'blocked'
           else

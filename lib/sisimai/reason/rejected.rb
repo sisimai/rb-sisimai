@@ -63,6 +63,7 @@ module Sisimai
           'sender rejected',
           'sender domain is empty',
           'sender verify failed',     # Exim callout
+          'sender was rejected',      # qmail
           'spam reporting address',   # SendGrid|a message to an address has previously been marked as Spam by the recipient.
           'syntax error: empty email address',
           'the message has been rejected by batv defense',

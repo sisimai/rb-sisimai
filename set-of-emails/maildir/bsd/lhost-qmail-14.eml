@@ -1,0 +1,34 @@
+Return-Path: <>
+Delivered-To: nyaaaaan@nq.example.jp
+Received: (qmail 44488 invoked by alias); 24 Jun 2024 08:54:02 -0000
+Delivered-To: kijitora@nq.example.jp
+Received: (qmail 44485 invoked for bounce); 24 Jun 2024 08:54:02 -0000
+Date: 24 Jun 2024 08:54:02 -0000
+From: MAILER-DAEMON@nq.example.jp
+To: kijitora@nq.example.jp
+Subject: failure notice
+
+Hi. This is the qmail-send program at nq.example.jp.
+I'm afraid I wasn't able to deliver your message to the following addresses.
+This is a permanent error; I've given up. Sorry it didn't work out.
+
+<pseudo-local-part-of-google-gmail@gmail.com>:
+74.125.204.27 failed after I sent the message.
+Remote host said: 550-5.7.26 Unauthenticated email from example.jp is not accepted due to domain's
+550-5.7.26 DMARC policy. Please contact the administrator of example.jp domain if
+550-5.7.26 this was a legitimate mail. To learn about the DMARC initiative, go
+550-5.7.26 to
+550 5.7.26  https://support.google.com/mail/?p=DmarcRejection 98e67ed59e1d1-2c819db36a9si6099002a91.116 - gsmtp
+
+--- Below this line is a copy of the message.
+
+Return-Path: <kijitora@nq.example.jp>
+Received: (qmail 44482 invoked by uid 0); 24 Jun 2024 08:54:01 -0000
+Date: 24 Jun 2024 08:54:01 -0000
+Message-ID: <20240624085401.44481.qmail@nq.example.jp>
+From: kijitora@nq.example.jp
+To: pseudo-local-part-of-google-gmail@gmail.com
+Subject: Nyaan?
+
+Nyaaaaaan
+
