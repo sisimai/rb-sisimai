@@ -1,0 +1,31 @@
+Return-Path: <>
+Delivered-To: nyaaaaan@nq.example.jp
+Received: (qmail 3019 invoked by alias); 25 Jun 2024 10:36:44 -0000
+Delivered-To: kijitora@nq.example.jp
+Received: (qmail 3016 invoked for bounce); 25 Jun 2024 10:36:44 -0000
+Date: 25 Jun 2024 10:36:44 -0000
+From: MAILER-DAEMON@nq.example.jp
+To: kijitora@nq.example.jp
+Subject: failure notice
+
+Hi. This is the qmail-send program at nq.example.jp.
+I'm afraid I wasn't able to deliver your message to the following addresses.
+This is a permanent error; I've given up. Sorry it didn't work out.
+
+<pseudo-local-part-of-yahoo-inc@yahoo.com>:
+Connected to 98.136.96.74 but sender was rejected.
+Remote host said: 421 4.7.0 [TSS04] Messages from 192.0.2.25 temporarily deferred due to unexpected volume or user complaints - 4.16.55.1; see https://postmaster.yahooinc.com/error-codes
+I'm not going to try again; this message has been in the queue too long.
+
+--- Below this line is a copy of the message.
+
+Return-Path: <kijitora@nq.example.jp>
+Received: (qmail 40682 invoked by uid 0); 24 Jun 2024 06:10:02 -0000
+Date: 24 Jun 2024 06:10:02 -0000
+Message-ID: <20240624061002.40681.qmail@nq.example.jp>
+From: nyaaaaan@nq.example.jp
+To: pseudo-local-part-of-yahoo-inc@yahoo.com
+Subject: Nyaan?
+
+Nyaaaaaan
+
