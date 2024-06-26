@@ -1,0 +1,54 @@
+Received: indimail-mta queue 85898 by host email.example.jp
+ (invoked by alias); Wed, 26 Jun 2024 15:32:59 +0900
+Delivered-To: postmaster@email.example.jp
+X-Forwarded-To: kijitora
+X-Forwarded-For:
+Received: indimail-mta queue 85895 by host email.example.jp
+ (invoked for bounce); Wed, 26 Jun 2024 15:32:59 +0900
+Date: Wed, 26 Jun 2024 15:32:59 +0900
+X-Bounced-Address: <userunknown@libsisimai.net>
+From: MAILER-DAEMON@email.example.jp
+To: postmaster@email.example.jp
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="1719383605email.example.jp671495"
+Subject: failure notice
+
+--1719383605email.example.jp671495
+
+Hi. This is the qmail-send program at email.example.jp.
+I'm afraid I wasn't able to deliver your message to the following addresses.
+This is a permanent error; I've given up. Sorry it didn't work out.
+
+<mailboxfull@libsisimai.net>:
+From: <postmaster@email.example.jp> RCPT: <mailboxfull@libsisimai.net> 192.0.2.25 does not like recipient.
+Remote host said: 552 5.2.2 <mailboxfull@libsisimai.net>: Recipient address rejected: Mailbox full. See https://libsisimai.org/en/reason/#mailboxfull
+Giving up on 192.0.2.25.
+
+<userunknown@libsisimai.net>:
+From: <postmaster@email.example.jp> RCPT: <userunknown@libsisimai.net> 192.0.2.25 does not like recipient.
+Remote host said: 550 5.1.1 <userunknown@libsisimai.net>: Recipient address rejected: User unknown. See https://libsisimai.org/en/reason/#userunknown
+Giving up on 192.0.2.25.
+
+--- Enclosed is a copy of the message.
+
+--1719383605email.example.jp671495
+Content-Type: message/rfc822
+
+Return-Path: <postmaster@email.example.jp>
+Received: indimail-mta queue 85886 by host email.example.jp
+ (invoked by alias); Wed, 26 Jun 2024 15:32:58 +0900
+Delivered-To: nekochan@email.example.jp
+X-Forwarded-To: userunknown@libsisimai.net
+X-Forwarded-To: mailboxfull@libsisimai.net
+X-Forwarded-For: postmaster@email.example.jp
+Received: indimail-mta queue 85882 by host email.example.jp
+ (invoked by uid 0); Wed, 26 Jun 2024 15:32:58 +0900
+Date: 26 Jun 2024 06:32:58 -0000
+Message-ID: <20240626063258.85881.qmail@email.example.jp>
+From: postmaster@email.example.jp
+To: nekochan@email.example.jp
+Subject: Nyaan?
+
+Nyaaaaaan
+
+--1719383605email.example.jp671495--

@@ -1,0 +1,42 @@
+Received: indimail-mta queue 63631 by host email.example.jp
+ (invoked by alias); Wed, 26 Jun 2024 15:23:05 +0900
+Delivered-To: postmaster@email.example.jp
+X-Forwarded-To: kijitora
+X-Forwarded-For:
+Received: indimail-mta queue 63628 by host email.example.jp
+ (invoked for bounce); Wed, 26 Jun 2024 15:23:05 +0900
+Date: Wed, 26 Jun 2024 15:23:05 +0900
+X-Bounced-Address: <pseudo-local-part-of-each-esp@outlook.com>
+From: MAILER-DAEMON@email.example.jp
+To: postmaster@email.example.jp
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="1719383005email.example.jp671477"
+Subject: failure notice
+
+--1719383005email.example.jp671477
+
+Hi. This is the qmail-send program at email.example.jp.
+I'm afraid I wasn't able to deliver your message to the following addresses.
+This is a permanent error; I've given up. Sorry it didn't work out.
+
+<pseudo-local-part-of-each-esp@outlook.com>:
+From: <postmaster@email.example.jp> RCPT: <pseudo-local-part-of-each-esp@outlook.com> 52.101.68.13 failed after I sent the message.
+Remote host said: 550 5.7.509 Access denied, sending domain [EMAIL.EXAMPLE.JP] does not pass DMARC verification and has a DMARC policy of reject. [OS3P286MB3225.JPNP286.PROD.OUTLOOK.COM 2024-06-26T06:23:31.981Z 08DC953DDFEF8CDC] [DU2PR04CA0231.eurprd04.prod.outlook.com 2024-06-26T06:23:32.106Z 08DC954347CB33D2] [DB1PEPF000509F7.eurprd02.prod.outlook.com 2024-06-26T06:23:32.109Z 08DC907B9339EC86]
+
+--- Enclosed is a copy of the message.
+
+--1719383005email.example.jp671477
+Content-Type: message/rfc822
+
+Return-Path: <postmaster@email.example.jp>
+Received: indimail-mta queue 63356 by host email.example.jp
+ (invoked by uid 0); Wed, 26 Jun 2024 15:22:58 +0900
+Date: 26 Jun 2024 06:22:58 -0000
+Message-ID: <20240626062258.63355.qmail@email.example.jp>
+From: postmaster@email.example.jp
+To: pseudo-local-part-of-each-esp@outlook.com
+Subject: Nyaan?
+
+Nyaaaaaan
+
+--1719383005email.example.jp671477--
