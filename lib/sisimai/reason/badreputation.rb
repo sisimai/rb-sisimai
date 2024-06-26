@@ -19,6 +19,7 @@ module Sisimai
           'has been temporarily rate limited due to ip reputation',
           'ip/domain reputation problems',
           'likely suspicious due to the very low reputation',
+          'temporarily deferred due to unexpected volume or user complaints', # Yahoo Inc.
           "the sending mta's poor reputation",
         ].freeze
         def text; return 'badreputation'; end
@@ -40,7 +41,6 @@ module Sisimai
         #                                 false: is not BadReputation
         # @see      http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return nil  if argvs['deliverystatus'].empty?
           return true if argvs['reason'] == 'badreputation'
           return true if match(argvs['diagnosticcode'].downcase)
           return false
