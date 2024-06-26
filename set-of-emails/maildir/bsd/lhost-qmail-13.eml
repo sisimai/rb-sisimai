@@ -1,0 +1,29 @@
+Return-Path: <>
+Delivered-To: nyaaaaan@nq.example.jp
+Received: (qmail 44453 invoked by alias); 24 Jun 2024 08:52:01 -0000
+Delivered-To: kijitora@nq.example.jp
+Received: (qmail 44450 invoked for bounce); 24 Jun 2024 08:52:01 -0000
+Date: 24 Jun 2024 08:52:01 -0000
+From: MAILER-DAEMON@nq.example.jp
+To: kijitora@nq.example.jp
+Subject: failure notice
+
+Hi. This is the qmail-send program at nq.example.jp.
+I'm afraid I wasn't able to deliver your message to the following addresses.
+This is a permanent error; I've given up. Sorry it didn't work out.
+
+<nekochan@cx.libsisimai.com>:
+Sorry, I couldn't find any host named cx.libsisimai.com. (#5.1.2)
+
+--- Below this line is a copy of the message.
+
+Return-Path: <kijitora@nq.example.jp>
+Received: (qmail 44447 invoked by uid 0); 24 Jun 2024 08:52:01 -0000
+Date: 24 Jun 2024 08:52:01 -0000
+Message-ID: <20240624085201.44446.qmail@nq.example.jp>
+From: kijitora@nq.example.jp
+To: nekochan@cx.libsisimai.com
+Subject: Nyaan?
+
+Nyaaaaaan
+

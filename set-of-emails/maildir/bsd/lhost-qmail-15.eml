@@ -1,0 +1,30 @@
+Return-Path: <>
+Delivered-To: nyaaaaan@nq.example.jp
+Received: (qmail 44559 invoked by alias); 24 Jun 2024 08:58:06 -0000
+Delivered-To: kijitora@nq.example.jp
+Received: (qmail 44556 invoked for bounce); 24 Jun 2024 08:58:06 -0000
+Date: 24 Jun 2024 08:58:06 -0000
+From: MAILER-DAEMON@nq.example.jp
+To: kijitora@nq.example.jp
+Subject: failure notice
+
+Hi. This is the qmail-send program at nq.example.jp.
+I'm afraid I wasn't able to deliver your message to the following addresses.
+This is a permanent error; I've given up. Sorry it didn't work out.
+
+<pseudo-local-part-of-microsoft-outlook@outlook.com>:
+52.101.68.24 failed after I sent the message.
+Remote host said: 550 5.7.509 Access denied, sending domain [NQ.EXAMPLE.JP] does not pass DMARC verification and has a DMARC policy of reject. [TY1P286MB3121.JPNP286.PROD.OUTLOOK.COM 2024-06-24T08:58:06.389Z 08DC93087F48F48A] [DB8PR06CA0025.eurprd06.prod.outlook.com 2024-06-24T08:58:06.520Z 08DC93D582D74098] [DB3PEPF0000885D.eurprd02.prod.outlook.com 2024-06-24T08:58:06.531Z 08DC908A5B97C2F4]
+
+--- Below this line is a copy of the message.
+
+Return-Path: <kijitora@nq.example.jp>
+Received: (qmail 44553 invoked by uid 0); 24 Jun 2024 08:58:01 -0000
+Date: 24 Jun 2024 08:58:01 -0000
+Message-ID: <20240624085801.44552.qmail@nq.example.jp>
+From: kijitora@nq.example.jp
+To: pseudo-local-part-of-microsoft-outlook@outlook.com
+Subject: Nyaan?
+
+Nyaaaaaan
+

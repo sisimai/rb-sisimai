@@ -1,0 +1,38 @@
+Return-Path: <>
+Delivered-To: kijitora@nq.example.jp
+Received: (qmail 44667 invoked by alias); 24 Jun 2024 09:04:01 -0000
+Delivered-To: kijitora@nq.example.jp
+Received: (qmail 44664 invoked for bounce); 24 Jun 2024 09:04:01 -0000
+Date: 24 Jun 2024 09:04:01 -0000
+From: MAILER-DAEMON@nq.example.jp
+To: kijitora@nq.example.jp
+Subject: failure notice
+
+Hi. This is the qmail-send program at nq.example.jp.
+I'm afraid I wasn't able to deliver your message to the following addresses.
+This is a permanent error; I've given up. Sorry it didn't work out.
+
+<userunknown@libsisimai.net>:
+192.0.2.25 does not like recipient.
+Remote host said: 550 5.1.1 <userunknown@libsisimai.net>: Recipient address rejected: User unknown. See https://libsisimai.org/en/reason/#userunknown
+Giving up on 192.0.2.25.
+
+<mailboxfull@libsisimai.net>:
+192.0.2.25 does not like recipient.
+Remote host said: 552 5.2.2 <mailboxfull@libsisimai.net>: Recipient address rejected: Mailbox full. See https://libsisimai.org/en/reason/#mailboxfull
+Giving up on 192.0.2.25.
+
+--- Below this line is a copy of the message.
+
+Return-Path: <kijitora@nq.example.jp>
+Received: (qmail 44661 invoked by alias); 24 Jun 2024 09:04:01 -0000
+Delivered-To: nekochan@nq.example.jp
+Received: (qmail 44657 invoked by uid 0); 24 Jun 2024 09:04:01 -0000
+Date: 24 Jun 2024 09:04:01 -0000
+Message-ID: <20240624090401.44656.qmail@nq.example.jp>
+From: kijitora@nq.example.jp
+To: nekochan@nq.example.jp
+Subject: Nyaan?
+
+Nyaaaaaan
+

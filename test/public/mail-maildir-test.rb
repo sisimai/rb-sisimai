@@ -5,7 +5,7 @@ class MailMaildirTest < Minitest::Test
   Methods = { class: %w[new], object: %w[path dir file size handle offset read] }
   Samples = ['./set-of-emails/maildir/bsd', './set-of-emails/maildir/mac']
   Maildir = Sisimai::Mail::Maildir.new(Samples[0])
-  DirSize = 576
+  DirSize = 585
 
   def test_methods
     Methods[:class].each  { |e| assert_respond_to Sisimai::Mail::Maildir, e }
