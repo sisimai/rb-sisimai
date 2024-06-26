@@ -79,9 +79,12 @@ module Sisimai::Lhost
           'system error',
           'Unable to',
         ],
+        'notaccept' => [
+          # notqmail 1.08 returns the following error message when the destination MX is NullMX
+          "Sorry, I couldn't find a mail exchanger or IP address",
+        ],
         'networkerror' => [
           "Sorry, I wasn't able to establish an SMTP connection",
-          "Sorry, I couldn't find a mail exchanger or IP address",
           "Sorry. Although I'm listed as a best-preference MX or A for that host",
         ],
       }.freeze
