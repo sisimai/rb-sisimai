@@ -1,5 +1,6 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::Qmail decodes a bounce email which created by qmail  https://cr.yp.to/qmail.html.
+  # Sisimai::Lhost::Qmail decodes a bounce email which created by qmail https://cr.yp.to/qmail.html
+  # or qmail clones or notqmail https://notqmail.org/.
   # Methods in the module are called from only Sisimai::Message.
   module Qmail
     class << self
@@ -184,11 +185,7 @@ module Sisimai::Lhost
           end
 
           # Detect the reason of bounce
-          if e['command'] == 'MAIL'
-            # MAIL | Connected to 192.0.2.135 but sender was rejected.
-            e['reason'] = 'rejected'
-
-          elsif %w[HELO EHLO].index(e['command'])
+          if %w[HELO EHLO].index(e['command'])
             # HELO | Connected to 192.0.2.135 but my name was rejected.
             e['reason'] = 'blocked'
           else
