@@ -23,6 +23,13 @@ module LhostEngineTest::Public
                ['5.2.2',   '552', 'mailboxfull',     false]],
       '18' => [['5.1.1',   '550', 'userunknown',     true]],
       '19' => [['4.7.0',   '421', 'badreputation',   false]],
+      '20' => [['5.7.26',  '550', 'authfailure',     false]],
+      '21' => [['5.1.1',   '',    'userunknown',     true]],
+      '22' => [['5.7.509', '550', 'authfailure',     false]],
+      '23' => [['5.1.1',   '550', 'userunknown',     true]],
+      '24' => [['5.2.2',   '552', 'mailboxfull',     false]],
+      '25' => [['5.2.2',   '552', 'mailboxfull',     false],
+               ['5.1.1',   '550', 'userunknown',     true]],
     }
   end
 end
