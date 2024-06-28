@@ -499,23 +499,6 @@ class LhostCode < Minitest::Test
             assert_equal cy['timestamp'], rr.timestamp.to_json, sprintf("%s %s", ct, cy['timestamp'])
           end
 
-          # ---------------------------------------------------------------------------------------
-          # SOFTBOUNCE
-          if false
-            cv = rr.softbounce
-            cr = %r/\A[-]?[01]\z/
-            ct = sprintf("%s [%s-%02d] #softbounce =", ce, e, errorindex)
-
-            assert_instance_of Integer, cv
-            refute_empty cv.to_s,  sprintf("%s %s", ct, cv)
-            if %w[delivered feedback vacation].include?(rr.reason)
-              assert_equal -1, cv, sprintf("%s %s", ct, cv)
-            else
-              assert_equal  0, cv, sprintf("%s %s", ct, cv) if rr.hardbounce == true
-              assert_equal  1, cv, sprintf("%s %s", ct, cv) if rr.hardbounce == false
-            end
-          end
-
         end # END OF Sisimai::Fact LIST
         emailindex += 1
         assert_equal true, errorindex > 0, sprintf("%s is including %d bounces", mailobject.data.path, errorindex)

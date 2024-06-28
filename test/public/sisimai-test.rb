@@ -3,7 +3,7 @@ require 'sisimai'
 require 'json'
 
 class SisimaiTest < Minitest::Test
-  Methods = { class: %w[version libname rise dump engine reason match make] }
+  Methods = { class: %w[version libname rise dump engine reason match] }
   Samples = {
     mailbox: './set-of-emails/mailbox/mbox-0',
     maildir: './set-of-emails/maildir/bsd',
@@ -63,8 +63,6 @@ class SisimaiTest < Minitest::Test
         else
           assert_instance_of Sisimai::Time, ee.timestamp
         end
-
-        assert_respond_to ee, 'softbounce'
         assert_respond_to ee, 'damn'
 
         refute_empty ee.addresser.address
@@ -163,17 +161,6 @@ class SisimaiTest < Minitest::Test
       refute_empty cr
       cr.each { |ee| assert_nil ee.catch }
     end
-  end
-
-  def test_make
-    # For the backward compatible
-    ce = assert_raises ArgumentError do
-      Sisimai.make()
-      Sisimai.make('/path/to/email', 1)
-    end
-    assert_match %r/wrong number of arguments/, ce.to_s
-    assert_nil Sisimai.make(nil)
-    assert_nil Sisimai.make(false)
   end
 
   def test_dump

@@ -7,12 +7,6 @@ module Sisimai
     def version(); return Sisimai::VERSION; end
     def libname(); return 'Sisimai';        end
 
-    # Emulate "rise" method for the backward compatible
-    def make(argv0, **argv1)
-      warn ' ***warning: Sisimai.make will be removed at v5.1.0. Use Sisimai.rise instead';
-      return Sisimai.rise(argv0, **argv1)
-    end
-
     # Wrapper method for decoding mailbox/maidir
     # @param         [String] argv0      Path to mbox or Maildir/
     # @param         [Hash]   argv0      or Hash (decoded JSON)

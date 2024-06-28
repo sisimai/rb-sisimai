@@ -437,15 +437,6 @@ module Sisimai
       return listoffact
     end
 
-    # Emulate "softbounce" accessor for the backward compatible
-    # @return   [Integer]
-    def softbounce
-      warn ' ***warning: Sisimai::Fact.softbounce will be removed at v5.1.0. Use Sisimai::Fact.hardbounce instead'
-      return  0 if self.hardbounce
-      return -1 if self.reason == 'delivered' || self.reason == 'feedback' || self.reason == 'vacation'
-      return  1
-    end
-
     # Convert from Sisimai::Fact object to a Hash
     # @return   [Hash] Hashed data
     def damn
