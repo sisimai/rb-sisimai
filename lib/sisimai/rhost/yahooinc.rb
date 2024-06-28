@@ -38,6 +38,10 @@ module Sisimai
             'not accepted for policy reasons',
           ],
           'rejected' => [
+            # - 451 Message temporarily deferred due to unresolvable RFC.5321 from domain.
+            #   See https://senders.yahooinc.com/error-codes#unresolvable-from-domain
+            'due to unresolvable rfc.5321 domain',
+
             # - 553 5.7.2 [TSS09] All messages from 192.0.2.25 will be permanently deferred;
             #   Retrying will NOT succeed. See https://postmaster.yahooinc.com/error-codes
             # - 553 5.7.2 [TSS11] All messages from 192.0.2.25 will be permanently deferred;
@@ -46,14 +50,14 @@ module Sisimai
           ],
           'speeding' => [
             # - 450 User is receiving mail too quickly
-            'User is receiving mail too quickly',
+            'user is receiving mail too quickly',
           ],
           'suspend' => [
             # - 554 delivery error: dd ****@yahoo.com is no longer valid.
             # - 554 30 Sorry, your message to *****@aol.jp cannot be delivered.
             #   This mailbox is disabled (554.30)
             ' is no longer valid.',
-            'This mailbox is disabled',
+            'this mailbox is disabled',
           ],
           'syntaxerror' => [
             # - 501 Syntax error in parameters or arguments
