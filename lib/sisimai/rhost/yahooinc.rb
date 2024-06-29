@@ -11,12 +11,6 @@ module Sisimai
             #   requires all senders to authenticate with either SPF or DKIM.
             'yahoo requires all senders to authenticate with either spf or dkim',
           ],
-          'badreputation' => [
-            # - 421 4.7.0 [TSS04] Messages from 192.0.2.25 temporarily deferred due to unexpected
-            #   volume or user complaints - 4.16.55.1;
-            #   see https://postmaster.yahooinc.com/error-codes (in reply to MAIL FROM command))
-            'temporarily deferred due to unexpected volume or user complaints',
-          ],
           'blocked' => [
             # - 553 5.7.1 [BL21] Connections will not be accepted from 192.0.2.25,
             #   because the ip is in Spamhaus's list; see http://postmaster.yahoo.com/550-bl23.html
@@ -38,6 +32,11 @@ module Sisimai
             'not accepted for policy reasons',
           ],
           'rejected' => [
+            # - 421 4.7.0 [TSS04] Messages from 192.0.2.25 temporarily deferred due to unexpected
+            #   volume or user complaints - 4.16.55.1;
+            #   see https://postmaster.yahooinc.com/error-codes (in reply to MAIL FROM command))
+            'temporarily deferred due to unexpected volume or user complaints',
+
             # - 451 Message temporarily deferred due to unresolvable RFC.5321 from domain.
             #   See https://senders.yahooinc.com/error-codes#unresolvable-from-domain
             'due to unresolvable rfc.5321 domain',
