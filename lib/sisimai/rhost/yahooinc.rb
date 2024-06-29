@@ -80,7 +80,7 @@ module Sisimai
         # @see      https://senders.yahooinc.com/smtp-error-codes
         #           https://smtpfieldmanual.com/provider/yahoo
         #           https://www.postmastery.com/yahoo-postmaster/
-        # @since v5.0.4
+        # @since v5.1.0
         def get(argvs)
           issuedcode = argvs['diagnosticcode'].downcase
           reasontext = ''

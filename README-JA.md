@@ -110,10 +110,10 @@ Install
 ### From RubyGems.org
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-5.0.3.gem (100%)
-Successfully installed sisimai-5.0.3
-Parsing documentation for sisimai-5.0.3
-Installing ri documentation for sisimai-5.0.3
+Fetching: sisimai-5.1.0.gem (100%)
+Successfully installed sisimai-5.1.0
+Parsing documentation for sisimai-5.1.0
+Installing ri documentation for sisimai-5.1.0
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -141,13 +141,13 @@ if [ -d "/usr/local/jr" ]; then \
 ...
 3 gems installed
 /opt/local/bin/rake install
-sisimai 5.0.3 built to pkg/sisimai-5.0.3.gem.
-sisimai (5.0.3) installed.
+sisimai 5.1.0 built to pkg/sisimai-5.1.0.gem.
+sisimai (5.1.0) installed.
 if [ -d "/usr/local/jr" ]; then \
 		PATH="/usr/local/jr/bin:$PATH" /usr/local/jr/bin/rake install; \
 	fi
-sisimai 5.0.3 built to pkg/sisimai-5.0.3-java.gem.
-sisimai (5.0.3) installed.
+sisimai 5.1.0 built to pkg/sisimai-5.1.0-java.gem.
+sisimai (5.1.0) installed.
 ```
 
 Usage
@@ -391,12 +391,12 @@ Sisimai 5で3個のESPモジュール名(解析エンジン)が変更になり�
 
 | `Sisimai::`                                     | Sisimai 4               | Sisimai 5           |
 |-------------------------------------------------|-------------------------|---------------------|
-| Apple iCloud Mail (added at v5.0.3p1)           | なし                    | `Rhost::Apple`      |
+| Apple iCloud Mail (added at v5.1.0)             | なし                    | `Rhost::Apple`      |
 | Microsoft Exchange Online                       | `Rhost::ExchangeOnline` | `Rhost::Microsoft`  |
 | Google Workspace                                | `Rhost::GoogleApps`     | `Rhost::Google`     |
 | Tencent                                         | `Rhost::TencentQQ`      | `Rhost::Tencent`    |
-| Yahoo Mail (added at v5.0.3p1)                  | なし                    | `Rhost::YahooInc`   |
-| DragonFly Mail Agent (added at v5.0.3p2)        | なし                    | `Lhost::DragonFly`  |
+| Yahoo Mail (added at v5.1.0)                    | なし                    | `Rhost::YahooInc`   |
+| DragonFly Mail Agent (added at v5.1.0)          | なし                    | `Lhost::DragonFly`  |
 
 Bounce Reasons
 ---------------------------------------------------------------------------------------------------
