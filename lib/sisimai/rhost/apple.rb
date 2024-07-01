@@ -68,7 +68,7 @@ module Sisimai
         # @see      https://support.apple.com/en-us/102322
         #           https://www.postmastery.com/icloud-postmastery-page/
         #           https://smtpfieldmanual.com/provider/apple
-        # @since v5.0.4
+        # @since v5.1.0
         def get(argvs)
           issuedcode = argvs['diagnosticcode'].downcase
           reasontext = ''

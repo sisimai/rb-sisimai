@@ -32,9 +32,15 @@ module Sisimai
             'not accepted for policy reasons',
           ],
           'rejected' => [
+            # Observed the following error message since around March 2024:
+            #
             # - 421 4.7.0 [TSS04] Messages from 192.0.2.25 temporarily deferred due to unexpected
             #   volume or user complaints - 4.16.55.1;
             #   see https://postmaster.yahooinc.com/error-codes (in reply to MAIL FROM command))
+            #
+            # However, the same error message is returned even for domains that are considered to
+            # have a poor reputation without SPF, DKIM, or DMARC settings, or for other reasons.
+            # It seems that the error message is not as granular as Google's.
             'temporarily deferred due to unexpected volume or user complaints',
 
             # - 451 Message temporarily deferred due to unresolvable RFC.5321 from domain.
@@ -80,7 +86,7 @@ module Sisimai
         # @see      https://senders.yahooinc.com/smtp-error-codes
         #           https://smtpfieldmanual.com/provider/yahoo
         #           https://www.postmastery.com/yahoo-postmaster/
-        # @since v5.0.4
+        # @since v5.1.0
         def get(argvs)
           issuedcode = argvs['diagnosticcode'].downcase
           reasontext = ''
