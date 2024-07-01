@@ -3,10 +3,10 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v5.0.3p5
+v5.1.0
 ---------------------------------------------------------------------------------------------------
-- release: ""
-- version: ""
+- release: "Mon,  1 Jul 2024 12:02:22 +0900 (JST)"
+- version: "5.1.0"
 - changes:
   - #297 #300 Remove v4 compatible features
     - `Sisimai.make()`
