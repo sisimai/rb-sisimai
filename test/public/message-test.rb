@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'sisimai/message'
 
 class MessageTest < Minitest::Test
-  Methods = { class:  %w[rise load sift part tidy makemap] }
+  Methods = { class:  %w[rise sift part tidy makemap] }
   Mailbox = './set-of-emails/mailbox/mbox-0'
   Fhandle = File.open(Mailbox, 'r')
   Mailtxt = Fhandle.read; Fhandle.close
@@ -78,14 +78,7 @@ __END_OF_EMAIL_MESSAGE__
     assert_instance_of Hash,   cv['rfc822']
     assert_instance_of String, cv['from']
 
-    ca = {
-      data: Mailtxt,
-      hook: Lambda1,
-      order:[
-        'Sisimai::Lhost::Sendmail', 'Sisimai::Lhost::Postfix', 'Sisimai::Lhost::qmail',
-        'Sisimai::Lhost::Exchange2003', 'Sisimai::Lhost::Gmail', 'Sisimai::Lhost::Verizon',
-      ]
-    }
+    ca = { data: Mailtxt, hook: Lambda1 }
     cv = Sisimai::Message.rise(**ca)
     assert_instance_of Hash,  cv
     assert_instance_of Array, cv['ds']
@@ -118,16 +111,6 @@ __END_OF_EMAIL_MESSAGE__
 
     ce = assert_raises NoMethodError do
       Sisimai::Message.rise()
-    end
-  end
-
-  def test_load
-    assert_instance_of Array, Sisimai::Message.load('load' => ['Sisimai::Lhost::Postfix'], 'order' => ['Sisimai::Lhost::Postfix'])
-    assert_instance_of Array, Sisimai::Message.load('load' => {}, 'order' => [])
-    assert_instance_of Array, Sisimai::Message.load('load' => [], 'order' => {})
-    ce = assert_raises ArgumentError do
-      Sisimai::Message.load()
-      Sisimai::Message.load(nil, nil)
     end
   end
 

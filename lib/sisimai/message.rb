@@ -26,8 +26,6 @@ module Sisimai
       # Read an email message and convert to structured format
       # @param         [Hash] argvs       Module to be loaded
       # @options argvs [String] :data     Entire email message
-      # @options argvs [Array]  :load     User defined MTA module list
-      # @options argvs [Array]  :order    The order of MTA modules
       # @options argvs [Code]   :hook     Reference to callback method
       # @return        [Sisimai::Message] Structured email data or nil if each
       #                                   value of the arguments are missing
@@ -36,16 +34,6 @@ module Sisimai
         email = argvs[:data].scrub('?').gsub("\r\n", "\n")
         thing = { 'from' => '','header' => {}, 'rfc822' => '', 'ds' => [], 'catch' => nil }
         param = {}
-
-        # 0. Load specified MTA modules
-        [:load, :order].each do |e|
-          # Order of MTA modules
-          next unless argvs[e]
-          next unless argvs[e].is_a? Array
-          next if argvs[e].empty?
-          param[e.to_s] = argvs[e]
-        end
-        tobeloaded = Sisimai::Message.load(param)
 
         aftersplit = nil
         beforefact = nil
@@ -81,7 +69,6 @@ module Sisimai
             'hook' => argvs[:hook] || nil,
             'mail' => thing,
             'body' => aftersplit[2],
-            'tobeloaded' => tobeloaded,
             'tryonfirst' => Sisimai::Order.make(thing['header']['subject'])
           }
           break if beforefact = Sisimai::Message.sift(param)
@@ -106,46 +93,7 @@ module Sisimai
         return thing
       end
 
-      # Load MTA modules which specified at 'order' and 'load' in the argument
-      # @param         [Hash] argvs       Module information to be loaded
-      # @options argvs [Array]  load      User defined MTA module list
-      # @options argvs [Array]  order     The order of MTA modules
-      # @return        [Array]            Module list
-      # @since v4.20.0
-      def load(argvs)
-        modulelist = []
-        tobeloaded = []
-
-        %w[load order].each do |e|
-          # The order of MTA modules specified by user
-          next unless argvs[e]
-          next unless argvs[e].is_a? Array
-          next if argvs[e].empty?
-
-          modulelist += argvs['order'] if e == 'order'
-          next unless e == 'load'
-
-          # Load user defined MTA module
-          argvs['load'].each do |v|
-            # Load user defined MTA module
-            begin
-              require v.to_s.gsub('::', '/').downcase
-            rescue LoadError
-              warn ' ***warning: Failed to load ' << v
-              next
-            end
-            tobeloaded << v
-          end
-        end
-
-        while e = modulelist.shift do
-          # Append the custom order of MTA modules
-          next if tobeloaded.index(e)
-          tobeloaded << e
-        end
-
-        return tobeloaded
-      end
+      def load(argvs); ' ***warning: Sisimai::Message->load will be removed at v5.1.1'; return []; end
 
       # Divide email data up headers and a body part.
       # @param         [String] email  Email data
@@ -354,7 +302,6 @@ module Sisimai
       # @param options mail  [Array]  ds     Delivery status list(decoded data)
       # @param options argvs [String] body   Email message body
       # @param options argvs [Array] tryonfirst  MTA module list to load on first
-      # @param options argvs [Array] tobeloaded  User defined MTA module list
       # @return              [Hash]          Decoded and structured bounce mails
       def sift(argvs)
         return nil unless argvs['mail']
@@ -416,21 +363,11 @@ module Sisimai
 
         catch :DECODER do
           while true
-            # 1. User-Defined Module
-            # 2. MTA Module Candidates to be tried on first
-            # 3. Sisimai::Lhost::*
-            # 4. Sisimai::RFC3464
+            # 1. MTA Module Candidates to be tried on first
+            # 2. Sisimai::Lhost::*
+            # 3. Sisimai::RFC3464
             # 5. Sisimai::ARF
             # 6. Sisimai::RFC3834
-            while r = argvs['tobeloaded'].shift do
-              # Call user defined MTA modules
-              next if haveloaded[r]
-              havesifted = Module.const_get(r).inquire(mailheader, bodystring)
-              haveloaded[r] = true
-              modulename = r
-              throw :DECODER if havesifted
-            end
-
             [argvs['tryonfirst'], DefaultSet].flatten.each do |r|
               # Try MTA module candidates
               next if haveloaded[r]
