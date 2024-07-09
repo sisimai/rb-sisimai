@@ -366,8 +366,8 @@ module Sisimai
             # 1. MTA Module Candidates to be tried on first
             # 2. Sisimai::Lhost::*
             # 3. Sisimai::RFC3464
-            # 5. Sisimai::ARF
-            # 6. Sisimai::RFC3834
+            # 4. Sisimai::ARF
+            # 5. Sisimai::RFC3834
             [argvs['tryonfirst'], DefaultSet].flatten.each do |r|
               # Try MTA module candidates
               next if haveloaded[r]
