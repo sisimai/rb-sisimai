@@ -9,6 +9,7 @@ v5.1.0p1
 - version: ""
 - changes:
   - Warn if `Sisimai::Message.load` method was called #302 #303
+  - Remove unused method `Sisimai::Order.deault` #304
 
 v5.1.0
 ---------------------------------------------------------------------------------------------------

@@ -178,10 +178,6 @@ module Sisimai
         return Subject[first] || []
       end
 
-      # @abstract Make default order of MTA modules to be loaded
-      # @return   [Array] Default order list of MTA modules
-      def default; return Sisimai::Lhost.index.map { |e| 'Sisimai::Lhost::' << e }; end
-
       # @abstract Make MTA module list as a spare
       # @return   [Array] Ordered module list
       def another; return [OrderE0, OrderE1].flatten; end
