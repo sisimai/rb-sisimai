@@ -96,8 +96,6 @@ module Sisimai
     # @options argvs [Boolean] delivered  Include the result which has "delivered" reason
     # @options argvs [Boolean] vacation   Include the result which has "vacation" reason
     # @options argvs [Proc]    hook       Proc object of callback method
-    # @options argvs [Array]   load       User defined MTA module list
-    # @options argvs [Array]   order      The order of MTA modules
     # @options argvs [String]  origin     Path to the original email file
     # @return        [Array]              Array of Sisimai::Fact objects
     def self.rise(**argvs)
@@ -105,9 +103,7 @@ module Sisimai
       return nil unless argvs.is_a? Hash
 
       email = argvs[:data]; return nil unless email
-      loads = argvs[:load]  || nil
-      order = argvs[:order] || nil
-      args1 = { data: email, hook: argvs[:hook], load: loads, order: order }
+      args1 = { data: email, hook: argvs[:hook] }
       mesg1 = Sisimai::Message.rise(**args1)
 
       return nil unless mesg1
