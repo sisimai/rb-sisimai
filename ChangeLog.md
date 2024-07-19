@@ -3,6 +3,13 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v5.1.0p1
+---------------------------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - Warn if `Sisimai::Message.load` method was called #302 #303
+
 v5.1.0
 ---------------------------------------------------------------------------------------------------
 - release: "Mon,  1 Jul 2024 12:02:22 +0900 (JST)"
