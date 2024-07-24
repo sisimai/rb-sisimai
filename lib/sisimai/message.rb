@@ -212,7 +212,7 @@ module Sisimai
           end
 
           # 2. There is a field label defined in RFC5322, RFC1894, or RFC5965 from this line.
-          #    Code below replaces the field name with a valid name listed in @fieldindex when
+          #    Code below replaces the field name with a valid name listed in FieldTable when
           #    the field name does not match with a valid name.
           #    - Before: Message-id: <...>
           #    - After:  Message-Id: <...>
@@ -265,13 +265,12 @@ module Sisimai
             p2 = 0
 
             ReplacesAs[fieldlabel].each do |f|
-              # Content-Type: message/xdelivery-status
-              p2 = e.index(f[0]) || -1
-              next unless p2 > 1
+              # - Before: Content-Type: message/xdelivery-status; ...
+              # - After:  Content-Type: message/delivery-status; ...
+              p2 = e.index(f[0]) || -1; next unless p2 > 1
 
               e[p2, f[0].size] = f[1]
               p1 = e.index(';')
-              break
             end
 
             # A parameter name of Content-Type field should be a lower-cased string
