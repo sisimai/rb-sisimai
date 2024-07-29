@@ -384,8 +384,9 @@ module Sisimai::Lhost
               e['diagnosis'] = e['alterrors'] unless e['alterrors'].empty?
 
             elsif e['diagnosis'].size < e['alterrors'].size
-              # Override the value of diagnostic code message because the value of alterrors includes
-              # the value of diagnosis.
+              # Override the value of diagnostic code message with the value of alterrors because
+              # the latter includes the former.
+              e['alterrors'].squeeze!(' ')
               e['diagnosis'] = e['alterrors'] if e['alterrors'].downcase.include?(e['diagnosis'].downcase)
             end
             e.delete('alterrors')
