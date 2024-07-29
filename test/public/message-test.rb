@@ -61,6 +61,32 @@ Subject: Nyaaaan
 Nyaaan
 __END_OF_EMAIL_MESSAGE__
 '
+  RFC1894 = {
+    'ac-0' => { 'a' => 'Action: failed', 'b' => ['Action: FAILED', 'ACTION:   Failed'] },
+    'ad-0' => { 'a' => 'Arrival-Date: Sat, 3 Oct 2020 20:11:48 +0900', 'b' => ['Arrival-DATE: Sat,      3 Oct 2020 20:11:48 +0900']},
+    'dc-0' => { 'a' => 'Diagnostic-Code: smtp; 550 Host does not accept mail', 'b' => ['Diagnostic-code:SMTP;550 Host does not accept mail']},
+    'fr-0' => { 'a' => 'Final-Recipient: rfc822; neko@libsisimai.org', 'b' => ['Final-recipient: RFC822;NEKO@libsisimai.org']},
+    'la-0' => { 'a' => 'Last-Attempt-Date: Sat, 3 Oct 2020 20:12:06 +0900', 'b' => ['Last-Attempt-DATE:Sat, 3    Oct 2020 20:12:06 +0900']},
+    'or-0' => { 'a' => 'Original-Recipient: rfc822; neko@example.com', 'b' => ['Original-recipient:rfc822;NEKO@example.com']},
+    'fm-0' => { 'a' => 'Received-From-MTA: dns; localhost', 'b' => ['Received-From-mta:    DNS; LocalHost']},
+    'rm-0' => { 'a' => 'Remote-MTA: dns; mx.libsisimai.org', 'b' => ['Remote-mta: DNS; mx.libsisimai.org']},
+    'rm-1' => { 'a' => 'Reporting-MTA: dns; nyaan.example.jp', 'b' => ['Reporting-mta: DNS;   nyaan.example.jp']},
+    'st-0' => { 'a' => 'Status: 5.0.0 (permanent failure)', 'b' => ['STATUS:    5.0.0 (permanent failure)']},
+    'xa-0' => { 'a' => 'X-Actual-Recipient: rfc822; neko@libsisimai.org', 'b' => ['X-Actual-rEcipient:rfc822;NEKO@libsisimai.org']},
+    'xo-0' => { 'a' => 'X-Original-Message-ID: <NEKOCHAN>', 'b' => ['x-original-message-ID:     <NEKOCHAN>']},
+    'ct-0' => { 'a' => 'Content-Type: text/plain', 'b' => ['content-type:     TEXT/plain'] },
+    'ct-1' => {
+      'a' => 'Content-Type: message/delivery-status; charset=us-ascii; boundary="Neko-Nyaan-22=="',
+      'b' => [
+        'Content-Type:   message/xdelivery-status; charset=us-ascii; boundary="Neko-Nyaan-22=="',
+        'Content-Type: message/xdelivery-status;   charset=us-ascii; boundary="Neko-Nyaan-22=="',
+        'Content-Type: message/xdelivery-status; charset=us-ascii;   boundary="Neko-Nyaan-22=="',
+        'content-type: message/xdelivery-status; CharSet=us-ascii; Boundary="Neko-Nyaan-22=="',
+        'content-Type: Message/Xdelivery-Status; CharSet=us-ascii; Boundary="Neko-Nyaan-22=="',
+        'Content-type:message/xdelivery-status;CharSet=us-ascii;Boundary="Neko-Nyaan-22=="',
+      ],
+    },
+  }
 
   def test_methods
     Methods[:class].each { |e| assert_respond_to Sisimai::Message, e }
@@ -120,6 +146,20 @@ __END_OF_EMAIL_MESSAGE__
     assert_equal true, cv.size > 0
     assert_match %r|Content-Type: text/plain|, cv
     refute_match %r|content-type:   |, cv
+
+  RFC1894.each_key do |e|
+    f = RFC1894[e]
+
+    f['b'].each do |p|
+      v = Sisimai::Message.tidy(p)
+      v = v.chomp("")
+      assert_equal f['a'], v
+    end
+  end
+
+
+
+
   end
 end
 
