@@ -200,92 +200,97 @@ module Sisimai
         return '' if argv0.empty?
 
         email = ''
-        argv0.split("\n").each do |e|
+        lines = argv0.split("\n")
+        index = -1
+        lines.each do |e|
           # Find and tidy up fields defined in RFC5322, RFC1894, and RFC5965
           # 1. Find a field label defined in RFC5322, RFC1894, or RFC5965 from this line
-          p0 = e.index(':') || 0
+          p0 = e.index(':') || -1
           cf = e.downcase[0, p0]
+          fn = FieldTable[cf] || ''
 
-          unless FieldTable.has_key?(cf)
+          index += 1
+          if fn == ''
+            # There is neither ":" character nor the field listed in $FieldTable
             email << e + "\n"
             next
           end
 
-          # 2. There is a field label defined in RFC5322, RFC1894, or RFC5965 from this line.
-          #    Code below replaces the field name with a valid name listed in FieldTable when
-          #    the field name does not match with a valid name.
-          #    - Before: Message-id: <...>
-          #    - After:  Message-Id: <...>
-          fieldlabel = FieldTable[cf]
-          substring0 = e[0, p0]
-          e[0, p0] = fieldlabel unless substring0.empty?
-
-          # 3. There is no " " (space character) immediately after ":"
-          #    - before: Content-Type:text/plain
-          #    - After:  Content-Type: text/plain
-          substring0 = e[p0 + 1, 1]
-          e[p0, 1] = ': ' if substring0 != ' '
-
-          # 4. Remove redundant space characters after ":"
-          while true
-            # - Before: Message-Id:    <...>
-            # - After:  Message-Id: <...>
-            break unless p0 + 2 < e.size
-            break unless e[p0 + 2, 1] == ' '
-            e[p0 + 2, 1] = ''
-          end
-
-          # 5. Tidy up a sub type of each field defined in RFC1894 such as Reporting-MTA: DNS;...
-          p1 = e.index(';') || -1
+          # 2. Tidy up a sub type of each field defined in RFC1894 such as Reporting-MTA: DNS;...
+          ab = []
+          bf = e[p0 + 1, e.size - p0 - 1]
+          p1 = bf.index(';')
           while true
             # Such as Diagnostic-Code, Remote-MTA, and so on
             # - Before: Diagnostic-Code: SMTP;550 User unknown
             # - After:  Diagnostic-Code: smtp; 550 User unknown
-            break unless p1 > p0
-            break unless ['Content-Type'].concat(Fields1894).any? { |a| a.start_with?(fieldlabel) }
+            break unless ['Content-Type'].concat(Fields1894).any? { |a| a == fn }
 
-            substring0 = e[p0 + 2, p1 - p0 - 1]
-            e[p0 + 2, substring0.size] = substring0.downcase + ' '
+            if p1
+              # The field including one or more ";"
+              bf.split(';').each do |f|
+                # 2-1. Trim leading and trailing space characters from the current buffer
+                f.strip!
+                ps = ''
+
+                # 2-2. Convert some parameters to the lower-cased string
+                while true
+                  # For example,
+                  # - Content-Type: Message/delivery-status => message/delivery-status
+                  # - Content-Type: Charset=UTF8            => charset=utf8
+                  # - Reporting-MTA: DNS; ...               => dns
+                  # - Final-Recipient: RFC822; ...          => rfc822
+                  break if f.include?(' ')
+
+                  p2 = f.index('=')
+                  if p2
+                    # charset=, boundary=, and other pairs divided by "="
+                    ps = f[0, p2].downcase
+                    f[0, p2] = ps
+                  end
+                  f.downcase! unless ps == 'boundary'
+                  break
+                end
+                ab << f
+              end
+
+              while true
+                # Diagnostic-Code: x-unix;
+                #   /var/email/kijitora/Maildir/tmp/1000000000.A000000B00000.neko22:
+                #   Disk quota exceeded
+                break unless fn == 'Diagnostic-Code'
+                break unless ab.size == 1
+                break unless lines[index + 1].start_with?(' ')
+
+                ab << ''
+                break
+              end
+              bf = ab.join('; ') # Insert " " (space characer) immediately after ";"
+              ab = []
+
+            else
+              # There is no ";" in the field
+              break if fn.end_with?('-Date')        # Arrival-Date, Last-Attempt-Date
+              break if fn.end_with?('-Message-ID')  # X-Original-Message-ID
+              bf.downcase!
+            end
             break
           end
 
-          # 6. Remove redundant space characters after ";"
-          while true
-            # - Before: Diagnostic-Code: SMTP;      550 User unknown
-            # - After:  Diagnostic-Code: SMTP; 550 User unknown
-            break unless p1 + 2 < e.size
-            break unless e[p1 + 2, 1] == ' '
-            e[p1 + 2, 1] = ''
-          end
-
-          # 7. Tidy up a value, and a parameter of Content-Type: field
-          while true
+          # 3. Tidy up a value, and a parameter of Content-Type: field
+          if ReplacesAs.has_key?(fn)
             # Replace the value of "Content-Type" field
-            break unless ReplacesAs.has_key?(fieldlabel)
-            p2 = 0
-
-            ReplacesAs[fieldlabel].each do |f|
+            ReplacesAs[fn].each do |f|
               # - Before: Content-Type: message/xdelivery-status; ...
               # - After:  Content-Type: message/delivery-status; ...
-              p2 = e.index(f[0]) || -1; next unless p2 > 1
-
-              e[p2, f[0].size] = f[1]
-              p1 = e.index(';')
+              p1 = bf.index(f[0]) || next
+              bf[p1, f[0].size] = f[1]
             end
-
-            # A parameter name of Content-Type field should be a lower-cased string
-            # - Before: Content-Type: text/plain; CharSet=ascii; Boundary=...
-            # - After:  Content-Type: text/plain; charset=ascii; boundary=...
-            break unless fieldlabel == 'Content-Type'
-            p2 = e.index('=') || -1
-            break unless p2 > 0
-            break unless p2 > p1
-
-            substring0 = e[p1 + 2, p2 - p1 - 2]
-            e[p1 + 2, p2 - p1 - 2] = substring0.downcase
-            break
           end
-          email << e + "\n"
+
+          # 4. Remove redundant space characters
+          bf = bf.squeeze(' ').strip
+          email << sprintf("%s: %s\n", fn, bf)
         end
 
         email << "\n" unless email.end_with?("\n\n")
