@@ -125,6 +125,7 @@ module Sisimai::Lhost
           elsif o[-1] == 'code'
             # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
             v['spec'] = o[1]
+            v['spec'] = 'SMTP' if v['spec'].upcase == 'X-POSTFIX'
             v['diagnosis'] = o[2]
           else
             # Other DSN fields defined in RFC3464
