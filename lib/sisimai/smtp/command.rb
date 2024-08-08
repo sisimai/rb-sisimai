@@ -16,10 +16,8 @@ module Sisimai
           return nil  if argv0.empty?
           return nil  if argv0.size < 4
 
-          comm0 = %w[HELO EHLO MAIL RCPT DATA QUIT RSET NOOP VRFY ETRN EXPN HELP]
-          comm1 = %w[AUTH STARTTLS XFORWARD]
-          return true if comm0.any? { |a| argv0.include?(a) }
-          return true if comm1.any? { |a| argv0.include?(a) }
+          table = %w[HELO EHLO MAIL RCPT DATA QUIT RSET NOOP VRFY ETRN EXPN HELP AUTH STARTTLS XFORWARD]
+          return true if table.any? { |a| argv0.include?(a) }
           return true if argv0.include?('CONN') # CONN is a pseudo SMTP command used only in Sisimai
           return false
         end
