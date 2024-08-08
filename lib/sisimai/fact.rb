@@ -43,7 +43,7 @@ module Sisimai
     attr_accessor(*@@rwaccessors)
 
     RetryIndex = Sisimai::Reason.retry
-    RFC822Head = Sisimai::RFC5322.HEADERFIELDS(:all)
+    RFC822Head = Sisimai::RFC5322.HEADERTABLE
     ActionList = { delayed: 1, delivered: 1, expanded: 1, failed: 1, relayed: 1 };
 
     if RUBY_PLATFORM.start_with?('java')

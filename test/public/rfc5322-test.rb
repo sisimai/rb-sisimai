@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'sisimai/rfc5322'
 
 class RFC5322Test < Minitest::Test
-  Methods = { class: %w[HEADERFIELDS LONGFIELDS FIELDINDEX received part] }
+  Methods = { class: %w[HEADERTABLE HEADERFIELDS LONGFIELDS FIELDINDEX received part] }
   ReceivedList = [
     'from mx.example.org (c182128.example.net [192.0.2.128]) by mx.example.jp (8.14.4/8.14.4) with ESMTP id oBB3JxRJ022484 for <shironeko@example.jp>; Sat, 11 Dec 2010 12:20:00 +0900 (JST)',
     'from localhost (localhost [127.0.0.1]) (ftp://ftp.isi.edu/in-notes/rfc1894.txt) by marutamachi.example.org with dsn; Sat, 11 Dec 2010 12:19:59 +0900',
@@ -76,6 +76,22 @@ __END_OF_EMAIL_MESSAGE__
     Methods[:class].each { |e| assert_respond_to Sisimai::RFC5322, e }
   end
 
+  def test_HEADERTABLE
+    cv = Sisimai::RFC5322.HEADERTABLE
+    assert_instance_of Hash, cv
+    refute_empty cv
+
+    cv.each_key do |e|
+      assert_instance_of Array, cv[e]
+      refute_empty cv[e]
+
+      cv[e].each do |ee|
+        assert_instance_of String, ee
+        assert_match /\A[a-z-]+\z/, ee
+      end
+    end
+  end
+
   def test_FIELDINDEX
     cv = Sisimai::RFC5322.FIELDINDEX
     assert_instance_of Array, cv
@@ -93,22 +109,8 @@ __END_OF_EMAIL_MESSAGE__
     cv.each { |e| assert_match /\A[a-z-]+\z/, e }
 
     cv = Sisimai::RFC5322.HEADERFIELDS('neko')
-    assert_instance_of Hash, cv
-    refute_empty cv
-
-    cv.each_key do |e|
-      assert_instance_of Array, cv[e]
-      refute_empty cv[e]
-
-      cv[e].each do |ee|
-        assert_instance_of String, ee
-        assert_match /\A[a-z-]+\z/, ee
-      end
-    end
-
-    ce = assert_raises ArgumentError do
-      Sisimai::RFC5322.HEADERFIELDS(nil, nil)
-    end
+    assert_instance_of Array, cv
+    assert_empty cv
   end
 
   def test_LONGFIELDS

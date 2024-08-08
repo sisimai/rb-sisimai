@@ -12,6 +12,7 @@ module Sisimai
         :addresser => %w[from return-path reply-to errors-to reverse-path x-postfix-sender envelope-from x-envelope-from],
         :recipient => %w[to delivered-to forward-path envelope-to x-envelope-to resent-to apparently-to],
       }.freeze
+      def HEADERTABLE; return HeaderTable; end
 
       def FIELDINDEX
         return %w[
@@ -25,10 +26,10 @@ module Sisimai
 
       # Grouped RFC822 headers
       # @param    [Symbol] group  RFC822 Header group name
-      # @return   [Array,Hash]    RFC822 Header list
+      # @return   [Array]         RFC822 Header list
       def HEADERFIELDS(group = '')
         return HeaderTable[group] if HeaderTable[group]
-        return HeaderTable
+        return []
       end
 
       # Fields that might be long
