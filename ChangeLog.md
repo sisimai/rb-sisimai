@@ -10,7 +10,8 @@ v5.1.0p1
 - changes:
   - Warn if `Sisimai::Message.load` method was called #302 #303
   - Remove unused method `Sisimai::Order.deault` #304
-  - Fix bug in Sisimai::Message.tidy() method #305
+  - Fix bug in `Sisimai::Message.tidy()` method #305
+  - Code improvement in `Sisimai::RFC5322` and `Sisimai::ARF`
 
 v5.1.0
 ---------------------------------------------------------------------------------------------------
