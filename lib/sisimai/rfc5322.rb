@@ -13,16 +13,6 @@ module Sisimai
         :recipient => %w[to delivered-to forward-path envelope-to x-envelope-to resent-to apparently-to],
       }.freeze
 
-      build_flatten_rfc822header_list = lambda do
-        # Convert HEADER: structured hash table to flatten hash table for being called from Sisimai::Lhost::*
-        fv = {}
-        HeaderTable.each_value do |e|
-          e.each { |ee| fv[ee] = true }
-        end
-        return fv
-      end
-      HeaderIndex = build_flatten_rfc822header_list.call
-
       def FIELDINDEX
         return %w[
           Resent-Date From Sender Reply-To To Message-ID Subject Return-Path Received Date X-Mailer
@@ -37,7 +27,6 @@ module Sisimai
       # @param    [Symbol] group  RFC822 Header group name
       # @return   [Array,Hash]    RFC822 Header list
       def HEADERFIELDS(group = '')
-        return HeaderIndex if group.empty?
         return HeaderTable[group] if HeaderTable[group]
         return HeaderTable
       end

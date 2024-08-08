@@ -87,15 +87,6 @@ __END_OF_EMAIL_MESSAGE__
   end
 
   def test_HEADERFIELDS
-    cv = Sisimai::RFC5322.HEADERFIELDS
-    assert_instance_of Hash, cv
-    refute_empty cv
-
-    cv.each_key do |e|
-      assert_match /\A[a-z-]+\z/, e
-      assert_equal true, cv[e]
-    end
-
     cv = Sisimai::RFC5322.HEADERFIELDS(:date)
     assert_instance_of Array, cv
     refute_empty cv

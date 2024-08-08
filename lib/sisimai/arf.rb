@@ -27,7 +27,6 @@ module Sisimai
       }.freeze
       ReportFrom = ['staff@hotmail.com', 'complaints@email-abuse.amazonses.com'];
       LongFields = Sisimai::RFC5322.LONGFIELDS
-      RFC822Head = Sisimai::RFC5322.HEADERFIELDS
 
       def description; return 'Abuse Feedback Reporting Format'; end
 
@@ -164,9 +163,6 @@ module Sisimai
               (lhs, rhs) = e.split(/:[ ]/, 2)
               next unless lhs
               lhs.downcase!
-
-              previousfn = ''
-              next unless RFC822Head[lhs]
 
               previousfn  = lhs
               rfc822part << e + "\n"
