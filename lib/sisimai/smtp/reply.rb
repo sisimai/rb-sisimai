@@ -127,10 +127,9 @@ module Sisimai
 
           if first == 2
             # 2yz
-            return true  if reply == 235
-            return false if reply <  211
-            return false if reply >  252
-            return false if reply >  221 && reply < 250
+            return true  if reply == 235                # 235 is a valid code for AUTH (RFC4954)
+            return false if reply >  253                # The maximum code of 2xy is 253 (RFC5248)
+            return false if reply >  221 && reply < 250 # There is no reply code between 221 and 250 
             return true
           end
 
