@@ -12,6 +12,7 @@ v5.1.0p1
   - Remove unused method `Sisimai::Order.deault` #304
   - Fix bug in `Sisimai::Message.tidy()` method #305
   - Code improvement in `Sisimai::RFC5322` and `Sisimai::ARF`
+  - Fix the minimum and the maximum SMTP Reply code: 221 and 557 in `Sisimai::SMTP::Reply`
 
 v5.1.0
 ---------------------------------------------------------------------------------------------------
