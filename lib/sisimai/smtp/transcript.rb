@@ -38,14 +38,14 @@ module Sisimai
           cursession = nil  # Current session for $esmtp
 
           cv = ''
-          p0 = argv0.index('<<<') || -1 # Server response
           p1 = argv0.index('>>>') || -1 # Sent command
-          if p0 < p1
+          p2 = argv0.index('<<<') || -1 # Server response
+          if p2 < p1
             # An SMTP server response starting with '<<<' is the first
             esmtp << table.call
             cursession = esmtp[-1]
             cursession['command'] = 'CONN'
-            argv0 = argv0[p0, argv0.size] if p0 > -1
+            argv0 = argv0[p2, argv0.size] if p2 > -1
           else
             # An SMTP command starting with '>>>' is the first
             argv0 = argv0[p1, argv0.size] if p1 > -1
@@ -55,6 +55,7 @@ module Sisimai
           argv0 = argv0[0, argv0.index("\n\n") - 1] # Remove strings from the first blank line to the tail
           argv0.gsub!(/\n[ ]+/m, ' ')               # Concatenate folded lines to each previous line
 
+          p3 = 0; p4 = 0
           argv0.split("\n").each do |e|
             # 4. Read each SMTP command and server response
             if e.start_with?('>>> ')
