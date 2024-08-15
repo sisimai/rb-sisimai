@@ -26,19 +26,17 @@ module Sisimai::Lhost
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
-        match = nil
-        sessx = nil
+        match = 0
 
         if mhead['subject'].include?('SMTP server: errors from ')
           # src/smtpd/smtpd_chat.c:|337: post_mail_fprintf(notice, "Subject: %s SMTP server: errors from %s",
           # src/smtpd/smtpd_chat.c:|338:   var_mail_name, state->namaddr);
-          match = true
-          sessx = true
+          match = 2
         else
           # Subject: Undelivered Mail Returned to Sender
-          match = true if mhead['subject'] == 'Undelivered Mail Returned to Sender'
+          match = 1 if mhead['subject'] == 'Undelivered Mail Returned to Sender'
         end
-        return nil unless match
+        return nil if match == 0
         return nil if mhead['x-aol-ip']
 
         permessage = {}     # (Hash) Store values of each Per-Message field
@@ -52,7 +50,7 @@ module Sisimai::Lhost
         anotherset = {}     # Another error information
         v = nil
 
-        if sessx
+        if match == 2
           # The message body starts with 'Transcript of session follows.'
           require 'sisimai/smtp/transcript'
           transcript = Sisimai::SMTP::Transcript.rise(emailparts[0], 'In:', 'Out:')
