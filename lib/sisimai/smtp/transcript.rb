@@ -34,17 +34,16 @@ module Sisimai
               }
             }
           end
-          parameters = ''   # Command parameters of MAIL, RCPT
-          cursession = nil  # Current session for $esmtp
 
           cv = ''
+          cx = nil                      # Current session for esmtp
           p1 = argv0.index('>>>') || -1 # Sent command
           p2 = argv0.index('<<<') || -1 # Server response
           if p2 < p1
             # An SMTP server response starting with '<<<' is the first
             esmtp << table.call
-            cursession = esmtp[-1]
-            cursession['command'] = 'CONN'
+            cx = esmtp[-1]
+            cx['command'] = 'CONN'
             argv0 = argv0[p2, argv0.size] if p2 > -1
           else
             # An SMTP command starting with '>>>' is the first
@@ -55,7 +54,6 @@ module Sisimai
           argv0 = argv0[0, argv0.index("\n\n") - 1] # Remove strings from the first blank line to the tail
           argv0.gsub!(/\n[ ]+/m, ' ')               # Concatenate folded lines to each previous line
 
-          p3 = 0; p4 = 0
           argv0.split("\n").each do |e|
             # 4. Read each SMTP command and server response
             if e.start_with?('>>> ')
@@ -64,17 +62,18 @@ module Sisimai
                 # >>> SMTP Command
                 thecommand = cv[1]
                 commandarg = cv[2]
+                parameters = ''
 
                 esmtp << table.call
-                cursession = esmtp[-1]
-                cursession['command'] = thecommand.upcase
+                cx = esmtp[-1]
+                cx['command'] = thecommand.upcase
 
                 if thecommand =~ /\A(?:MAIL|RCPT|XFORWARD)/
                   # MAIL or RCPT
                   if cv = commandarg.match(/\A(?:FROM|TO):[ ]*<(.+[@].+)>[ ]*(.*)\z/)
                     # >>> MAIL FROM: <neko@example.com> SIZE=65535
                     # >>> RCPT TO: <kijitora@example.org>
-                    cursession['argument'] = cv[1]
+                    cx['argument'] = cv[1]
                     parameters = cv[2]
 
                   else
@@ -88,11 +87,11 @@ module Sisimai
 
                   parameters.split(" ").each do |p|
                     # SIZE=22022, PROTO=SMTP, and so on
-                    if cv = p.match(/\A([^ =]+)=([^ =]+)\z/) then cursession['parameter'][cv[1].downcase] = cv[2] end
+                    if cv = p.match(/\A([^ =]+)=([^ =]+)\z/) then cx['parameter'][cv[1].downcase] = cv[2] end
                   end
                 else
                   # HELO, EHLO, AUTH, DATA, QUIT or Other SMTP command
-                  cursession['argument'] = commandarg
+                  cx['argument'] = commandarg
                 end
               end
             else
@@ -102,9 +101,9 @@ module Sisimai
               e = e[4, e.size]
 
               e.sub!(/\A<<<[ ]/, '')
-              if cv = e.match(/\A([2-5]\d\d)[ ]/) then cursession['response']['reply'] = cv[1] end
-              if cv = e.match(/\A[245]\d\d[ ]([245][.]\d{1,3}[.]\d{1,3})[ ]/) then cursession['response']['status'] = cv[1] end
-              cursession['response']['text'] << e
+              if cv = e.match(/\A([2-5]\d\d)[ ]/) then cx['response']['reply'] = cv[1] end
+              if cv = e.match(/\A[245]\d\d[ ]([245][.]\d{1,3}[.]\d{1,3})[ ]/) then cx['response']['status'] = cv[1] end
+              cx['response']['text'] << e
             end
           end
 
