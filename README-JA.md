@@ -12,7 +12,7 @@
 
 > [!CAUTION]
 > **Sisimai 4.25.14p11およびそれ以前のバージョンには 正規表現に関する脆弱性
-> (ReDoS: CVE-2022-4891)[https://jvndb.jvn.jp/ja/contents/2022/JVNDB-2022-005663.html]があります。
+> pReDoS: CVE-2022-4891](https://jvndb.jvn.jp/ja/contents/2022/JVNDB-2022-005663.html)があります。
 > 該当するバージョンをお使いの場合はv4.25.14p12以降へアップグレードしてください。
 
 > [!WARNING]

@@ -13,7 +13,7 @@
 
 > [!CAUTION]
 > **Sisimai versions 4.25.14p11 and earlier contain a regular expression vulnerability 
-> (ReDoS: CVE-2022-4891)[https://nvd.nist.gov/vuln/detail/CVE-2022-4891].
+> [ReDoS: CVE-2022-4891](https://nvd.nist.gov/vuln/detail/CVE-2022-4891).
 > If you are using one of these versions, please upgrade to v4.25.14p12 or later.**
 
 > [!WARNING]
