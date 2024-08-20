@@ -11,6 +11,11 @@
 > If you want to clone the old version, see the [4-stable](https://github.com/sisimai/rb-sisimai/tree/4-stable)
 > branch instead. We have moved away from using both the `main` and `master` branches in our development process.
 
+> [!CAUTION]
+> **Sisimai versions 4.25.14p11 and earlier contain a regular expression vulnerability 
+> [ReDoS: CVE-2022-4891](https://nvd.nist.gov/vuln/detail/CVE-2022-4891).
+> If you are using one of these versions, please upgrade to v4.25.14p12 or later.**
+
 > [!WARNING]
 > Sisimai 5 requires Ruby 2.4 or later. Check the version of Ruby in your system before installing/upgrading
 > by `ruby -v` command.
