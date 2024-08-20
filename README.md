@@ -11,6 +11,11 @@
 > branch instead. We have moved away from using both the `main` and `master` branches in our development process.
 [^1]: Specify `-b 4-stable` when you clone Sisimai 4 for example, `git clone -b 4-stable https://github.com/sisimai/rb-sisimai.git`
 
+> [!CAUTION]
+> **Sisimai versions 4.25.14p11 and earlier contain a regular expression vulnerability 
+> (ReDoS: CVE-2022-4891)[https://nvd.nist.gov/vuln/detail/CVE-2022-4891].
+> If you are using one of these versions, please upgrade to v4.25.14p12 or later.**
+
 > [!WARNING]
 > Sisimai 5 requires Ruby 2.4 or later. Check the version of Ruby in your system before installing/upgrading
 > by `ruby -v` command.
