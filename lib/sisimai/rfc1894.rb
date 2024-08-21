@@ -151,7 +151,6 @@ module Sisimai
           else
             # - Action: failed
             # - Status: 5.2.2
-            table[1] = ''
             table[2] = group == 'date' ? cv[2] : cv[2].downcase
 
             # Correct invalid value in Action field:
