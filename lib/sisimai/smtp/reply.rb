@@ -151,17 +151,14 @@ module Sisimai
           return nil if argv1.to_s.size < 3
           return nil if argv1.upcase.include?('X-UNIX')
 
+          esmtperror = ' ' + argv1 + ' '
+          esmtpreply = ''
           statuscode = argv2[0, 1]
           replycodes = if statuscode == '5' || statuscode == '4' || statuscode == '2'
                          CodeOfSMTP[statuscode]
                        else
                          [*CodeOfSMTP['5'], *CodeOfSMTP['4'], *CodeOfSMTP['2']]
                        end
-          esmtperror = ' ' + argv1 + ' '
-          esmtpreply = '' # SMTP Reply Code
-          replyindex =  0 # A position of SMTP reply code found by the index()
-          formerchar =  0 # a character that is one character before the SMTP reply code
-          latterchar =  0 # a character that is one character after  the SMTP reply code
 
           replycodes.each do |e|
             # Try to find an SMTP Reply Code from the given string
