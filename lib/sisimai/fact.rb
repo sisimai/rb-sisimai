@@ -145,14 +145,13 @@ module Sisimai
           next if p['reason'] == 'vacation'
         end
 
-        # EMAILADDRESS: Detect email address from message/rfc822 part
+        # EMAILADDRESS: Detect an email address from message/rfc822 part
         RFC822Head[:addresser].each do |f|
           # Check each header in message/rfc822 part
-          g = f.downcase
-          next unless rfc822data[g]
-          next if rfc822data[g].empty?
+          next unless rfc822data[f]
+          next if rfc822data[f].empty?
 
-          j = Sisimai::Address.find(rfc822data[g]) || next
+          j = Sisimai::Address.find(rfc822data[f]) || next
           p['addresser'] = j.shift
           break
         end
