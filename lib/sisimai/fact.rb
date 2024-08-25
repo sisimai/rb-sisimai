@@ -93,9 +93,9 @@ module Sisimai
     # Constructor of Sisimai::Fact
     # @param         [Hash]   argvs
     # @options argvs [String]  data       Entire email message
-    # @options argvs [Boolean] delivered  Include the result which has "delivered" reason
-    # @options argvs [Boolean] vacation   Include the result which has "vacation" reason
-    # @options argvs [Proc]    hook       Proc object of callback method
+    # @options argvs [Boolean] delivered  true if the result which has "delivered" reason is included
+    # @options argvs [Boolean] vacation   true if the result which has "vacation" reason is included
+    # @options argvs [Proc]    hook       Proc object of the callback method
     # @options argvs [String]  origin     Path to the original email file
     # @return        [Array]              Array of Sisimai::Fact objects
     def self.rise(**argvs)
