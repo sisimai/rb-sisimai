@@ -158,7 +158,6 @@ module Sisimai
           p['addresser'] = j.shift
         end
         next unless p['addresser']
-        next unless p['recipient']
 
         # TIMESTAMP: Convert from a time stamp or a date string to a machine time.
         datestring = nil
