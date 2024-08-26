@@ -116,6 +116,8 @@ module Sisimai
 
       while e = deliveries.shift do
         # Create parameters for each Sisimai::Fact object
+        next if e['recipient'].size < 5
+
         o = {}  # To be passed to each accessor of Sisimai::Fact
         p = {
           'action'         => e['action']       || '',
