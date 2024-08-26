@@ -117,6 +117,8 @@ module Sisimai
       while e = deliveries.shift do
         # Create parameters for each Sisimai::Fact object
         next if e['recipient'].size < 5
+        next if ! argvs[:vacation]  && e['reason'] == 'vacation'
+        next if ! argvs[:delivered] && e['status'].start_with?('2.')
 
         o = {}  # To be passed to each accessor of Sisimai::Fact
         p = {
@@ -137,15 +139,6 @@ module Sisimai
           'smtpagent'      => e['agent']        || '',
           'smtpcommand'    => e['command']      || '',
         }
-        unless argvs[:delivered]
-          # Skip if the value of "deliverystatus" begins with "2." such as 2.1.5
-          next if p['deliverystatus'].start_with?('2.')
-        end
-
-        unless argvs[:vacation]
-          # Skip if the value of "reason" is "vacation"
-          next if p['reason'] == 'vacation'
-        end
 
         # EMAILADDRESS: Detect an email address from message/rfc822 part
         RFC822Head[:addresser].each do |f|
