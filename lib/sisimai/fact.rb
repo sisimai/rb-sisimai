@@ -173,18 +173,17 @@ module Sisimai
 
         # Set "date" getting from the value of "Date" in the bounce message
         datevalues << mesg1['header']['date'] if datevalues.size < 2
-
         while v = datevalues.shift do
           # Parse each date value in the array
-          datestring = Sisimai::DateTime.parse(v)
-          break if datestring
-        end
+          datestring = Sisimai::DateTime.parse(v) || next
 
-        if datestring && cv = datestring.match(/\A(.+)[ ]+([-+]\d{4})\z/)
-          # Get the value of timezone offset from datestring: Wed, 26 Feb 2014 06:05:48 -0500
-          datestring = cv[1]
-          zoneoffset = Sisimai::DateTime.tz2second(cv[2])
-          p['timezoneoffset'] = cv[2]
+          if cv = datestring.match(/\A(.+)[ ]+([-+]\d{4})\z/)
+            # Get the value of timezone offset from datestring: Wed, 26 Feb 2014 06:05:48 -0500
+            datestring = cv[1]
+            zoneoffset = Sisimai::DateTime.tz2second(cv[2])
+            p['timezoneoffset'] = cv[2]
+          end
+          break if datestring
         end
 
         begin
