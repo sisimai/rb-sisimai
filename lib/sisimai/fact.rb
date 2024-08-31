@@ -206,13 +206,28 @@ module Sisimai
 
         # Remove square brackets and curly brackets from the host variable
         %w[rhost lhost].each do |v|
-          p[v] = p[v].split('@')[-1] if p[v].include?('@')
+          next if p[v].size == 0
+
+          if p[v].include?('@')
+            # Use the domain part as a remote/local host when the value is an email address
+            p[v] = p[v].split('@')[-1]
+          end
           p[v].delete!('[]()')    # Remove square brackets and curly brackets from the host variable
           p[v].sub!(/\A.+=/, '')  # Remove string before "="
-          p[v].chomp!("\r") if p[v].end_with?("\r") # Remove CR at the end of the value
+          p[v].sub!("\r", '')     # Remove CR at the end of the value
 
-          # Check space character in each value and get the first element
-          p[v] = p[v].split(' ', 2).shift if p[v].include?(' ')
+          if p[v].include?(' ')
+            # Check space character in each value and get the first hostname
+            ee = p[v].split(' ')
+            ee.each do |w|
+              # get a hostname from the string like "127.0.0.1 x109-20.example.com 192.0.2.20"
+              # or "mx.sp.example.jp 192.0.2.135"
+              next if w =~ /\A\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3}\z/; # Skip if it is an IPv4 address
+              p[v] = w
+              break
+            end
+          end
+          p[v] = ee[0] if p[v].empty? || p[v].include?(' ')
           p[v].chomp!('.') if p[v].end_with?('.')   # Remove "." at the end of the value
         end
 
