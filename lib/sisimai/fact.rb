@@ -314,8 +314,9 @@ module Sisimai
             end
           end
 
-          p1 = p['diagnosticcode'].downcase.index('<html>')
-          p2 = p['diagnosticcode'].downcase.index('</html>')
+          dc = p['diagnosticcode'].downcase
+          p1 = dc.index('<html>')
+          p2 = dc.index('</html>')
           p['diagnosticcode'][p1, p2 + 7 - p1] = '' if p1 && p2
           p['diagnosticcode'] = Sisimai::String.sweep(p['diagnosticcode'])
         end
