@@ -227,7 +227,7 @@ module Sisimai
               break
             end
           end
-          p[v] = ee[0] if p[v].empty? || p[v].include?(' ')
+          p[v] = ee[0] if p[v].include?(' ')
           p[v].chomp!('.') if p[v].end_with?('.')   # Remove "." at the end of the value
         end
 
