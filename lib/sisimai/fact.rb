@@ -120,8 +120,8 @@ module Sisimai
         next if ! argvs[:vacation]  && e['reason'] == 'vacation'
         next if ! argvs[:delivered] && e['status'].start_with?('2.')
 
-        o = {}  # To be passed to each accessor of Sisimai::Fact
-        p = {
+        thing = {}  # To be passed to each accessor of Sisimai::Fact
+        piece = {
           'action'         => e['action']       || '',
           'alias'          => e['alias']        || '',
           'catch'          => mesg1['catch']    || nil,
@@ -147,17 +147,17 @@ module Sisimai
           next if rfc822data[f].empty?
 
           j = Sisimai::Address.find(rfc822data[f]) || next
-          p['addresser'] = j.shift
+          piece['addresser'] = j.shift
           break
         end
 
-        unless p['addresser']
+        unless piece['addresser']
           # Fallback: Get the sender address from the header of the bounced email if the address is
           # not set at loop above.
           j = Sisimai::Address.find(mesg1['header']['to']) || []
-          p['addresser'] = j.shift
+          piece['addresser'] = j.shift
         end
-        next unless p['addresser']
+        next unless piece['addresser']
 
         # TIMESTAMP: Convert from a time stamp or a date string to a machine time.
         datestring = nil
@@ -181,7 +181,7 @@ module Sisimai
             # Get the value of timezone offset from datestring: Wed, 26 Feb 2014 06:05:48 -0500
             datestring = cv[1]
             zoneoffset = Sisimai::DateTime.tz2second(cv[2])
-            p['timezoneoffset'] = cv[2]
+            piece['timezoneoffset'] = cv[2]
           end
           break if datestring
         end
@@ -189,52 +189,52 @@ module Sisimai
         begin
           # Convert from the date string to an object then calculate time zone offset.
           t = TimeModule.strptime(datestring, '%a, %d %b %Y %T')
-          p['timestamp'] = (t.to_time.to_i - zoneoffset) || nil
+          piece['timestamp'] = (t.to_time.to_i - zoneoffset) || nil
         rescue
           warn ' ***warning: Failed to strptime ' << datestring.to_s
         end
-        next unless p['timestamp']
+        next unless piece['timestamp']
 
         # OTHER_TEXT_HEADERS:
         rr = mesg1['header']['received'] || []
         unless rr.empty?
           # Get a localhost and a remote host name from Received header.
-          p['rhost'] = Sisimai::RFC5322.received(rr[-1])[1] if p['rhost'].empty?
-          p['lhost'] = '' if p['rhost'] == p['lhost']
-          p['lhost'] = Sisimai::RFC5322.received(rr[ 0])[0] if p['lhost'].empty?
+          piece['rhost'] = Sisimai::RFC5322.received(rr[-1])[1] if piece['rhost'].empty?
+          piece['lhost'] = '' if piece['rhost'] == piece['lhost']
+          piece['lhost'] = Sisimai::RFC5322.received(rr[ 0])[0] if piece['lhost'].empty?
         end
 
         # Remove square brackets and curly brackets from the host variable
         %w[rhost lhost].each do |v|
-          next if p[v].size == 0
+          next if piece[v].size == 0
 
-          if p[v].include?('@')
+          if piece[v].include?('@')
             # Use the domain part as a remote/local host when the value is an email address
-            p[v] = p[v].split('@')[-1]
+            piece[v] = piece[v].split('@')[-1]
           end
-          p[v].delete!('[]()')    # Remove square brackets and curly brackets from the host variable
-          p[v].sub!(/\A.+=/, '')  # Remove string before "="
-          p[v].sub!("\r", '')     # Remove CR at the end of the value
+          piece[v].delete!('[]()')    # Remove square brackets and curly brackets from the host variable
+          piece[v].sub!(/\A.+=/, '')  # Remove string before "="
+          piece[v].sub!("\r", '')     # Remove CR at the end of the value
 
-          if p[v].include?(' ')
+          if piece[v].include?(' ')
             # Check space character in each value and get the first hostname
-            ee = p[v].split(' ')
+            ee = piece[v].split(' ')
             ee.each do |w|
               # get a hostname from the string like "127.0.0.1 x109-20.example.com 192.0.2.20"
               # or "mx.sp.example.jp 192.0.2.135"
               next if w =~ /\A\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3}\z/; # Skip if it is an IPv4 address
-              p[v] = w
+              piece[v] = w
               break
             end
           end
-          p[v] = ee[0] if p[v].include?(' ')
-          p[v].chomp!('.') if p[v].end_with?('.')   # Remove "." at the end of the value
+          piece[v] = ee[0] if piece[v].include?(' ')
+          piece[v].chomp!('.') if piece[v].end_with?('.')   # Remove "." at the end of the value
         end
 
         # Subject: header of the original message
-        p['subject'] = rfc822data['subject'] || ''
-        p['subject'].scrub!('?')
-        p['subject'].chomp!("\r") if p['subject'].end_with?("\r")
+        piece['subject'] = rfc822data['subject'] || ''
+        piece['subject'].scrub!('?')
+        piece['subject'].chomp!("\r") if piece['subject'].end_with?("\r")
 
         # The value of "List-Id" header
         if Sisimai::String.aligned(rfc822data['list-id'], ['<', '.', '>'])
@@ -242,10 +242,10 @@ module Sisimai
           # Get the value of List-Id header: "List name <list-id@example.org>"
           p0 = rfc822data['list-id'].index('<') + 1
           p1 = rfc822data['list-id'].index('>')
-          p['listid'] = rfc822data['list-id'][p0, p1 - p0]
+          piece['listid'] = rfc822data['list-id'][p0, p1 - p0]
         else
           # Invalid value of the List-Id: field
-          p['listid'] = ''
+          piece['listid'] = ''
         end
 
         # The value of "Message-Id" header
@@ -254,26 +254,26 @@ module Sisimai
           # Leave only string inside of angle brackets(<>)
           p0 = rfc822data['message-id'].index('<') + 1
           p1 = rfc822data['message-id'].index('>')
-          p['messageid'] = rfc822data['message-id'][p0, p1 - p0]
+          piece['messageid'] = rfc822data['message-id'][p0, p1 - p0]
         else
           # Invalid value of the Message-Id: field
-          p['messageid'] = ''
+          piece['messageid'] = ''
         end
 
         # CHECK_DELIVERY_STATUS_VALUE: Cleanup the value of "Diagnostic-Code:" header
-        if p['diagnosticcode'].to_s.size > 0
+        if piece['diagnosticcode'].to_s.size > 0
           # Get an SMTP Reply Code and an SMTP Enhanced Status Code
-          p['diagnosticcode'].chop if p['diagnosticcode'][-1, 1] == "\r"
+          piece['diagnosticcode'].chop if piece['diagnosticcode'][-1, 1] == "\r"
 
-          cs = Sisimai::SMTP::Status.find(p['diagnosticcode'])    || ''
-          cr = Sisimai::SMTP::Reply.find(p['diagnosticcode'], cs) || ''
-          p['deliverystatus'] = Sisimai::SMTP::Status.prefer(p['deliverystatus'], cs, cr)
+          cs = Sisimai::SMTP::Status.find(piece['diagnosticcode'])    || ''
+          cr = Sisimai::SMTP::Reply.find(piece['diagnosticcode'], cs) || ''
+          piece['deliverystatus'] = Sisimai::SMTP::Status.prefer(piece['deliverystatus'], cs, cr)
 
           if cr.size == 3
             # There is an SMTP reply code in the error message
-            p['replycode'] = cr if p['replycode'].to_s.empty?
+            piece['replycode'] = cr if piece['replycode'].to_s.empty?
 
-            if p['diagnosticcode'].include?(cr + '-')
+            if piece['diagnosticcode'].include?(cr + '-')
               # 550-5.7.1 [192.0.2.222] Our system has detected that this message is
               # 550-5.7.1 likely unsolicited mail. To reduce the amount of spam sent to Gmail,
               # 550-5.7.1 this message has been blocked. Please visit
@@ -289,81 +289,81 @@ module Sisimai
               ['-', " "].each do |q|
                 # Remove strings: "550-5.7.1", and "550 5.7.1" from the error message
                 cx = sprintf("%s%s%s", cr, q, cs)
-                p0 = p['diagnosticcode'].index(cx)
+                p0 = piece['diagnosticcode'].index(cx)
                 while p0
                   # Remove strings like "550-5.7.1"
-                  p['diagnosticcode'][p0, cx.size] = ''
-                  p0 = p['diagnosticcode'].index(cx)
+                  piece['diagnosticcode'][p0, cx.size] = ''
+                  p0 = piece['diagnosticcode'].index(cx)
                 end
 
                 # Remove "553-" and "553 " (SMTP reply code only) from the error message
                 cx = sprintf("%s%s", cr, q)
-                p0 = p['diagnosticcode'].index(cx)
+                p0 = piece['diagnosticcode'].index(cx)
                 while p0
                   # Remove strings like "553-"
-                  p['diagnosticcode'][p0, cx.size] = ''
-                  p0 = p['diagnosticcode'].index(cx)
+                  piece['diagnosticcode'][p0, cx.size] = ''
+                  p0 = piece['diagnosticcode'].index(cx)
                 end
               end
 
-              if p['diagnosticcode'].index(cr).to_i > 1
+              if piece['diagnosticcode'].index(cr).to_i > 1
                 # Add "550 5.1.1" into the head of the error message when the error message does not
                 # begin with "550"
-                p['diagnosticcode'] = sprintf("%s %s %s", cr, cs, p['diagnosticcode'])
+                piece['diagnosticcode'] = sprintf("%s %s %s", cr, cs, piece['diagnosticcode'])
               end
             end
           end
 
-          dc = p['diagnosticcode'].downcase
+          dc = piece['diagnosticcode'].downcase
           p1 = dc.index('<html>')
           p2 = dc.index('</html>')
-          p['diagnosticcode'][p1, p2 + 7 - p1] = '' if p1 && p2
-          p['diagnosticcode'] = Sisimai::String.sweep(p['diagnosticcode'])
+          piece['diagnosticcode'][p1, p2 + 7 - p1] = '' if p1 && p2
+          piece['diagnosticcode'] = Sisimai::String.sweep(piece['diagnosticcode'])
         end
 
-        if Sisimai::String.is_8bit(p['diagnosticcode'])
+        if Sisimai::String.is_8bit(piece['diagnosticcode'])
           # To avoid incompatible character encodings: ASCII-8BIT and UTF-8 (Encoding::CompatibilityError
-          p['diagnosticcode'] = p['diagnosticcode'].force_encoding('UTF-8').scrub('?')
+          piece['diagnosticcode'] = piece['diagnosticcode'].force_encoding('UTF-8').scrub('?')
         end
 
-        p['diagnostictype']   = nil        if p['diagnostictype'].empty?
-        p['diagnostictype'] ||= 'X-UNIX'   if p['reason'] == 'mailererror'
-        p['diagnostictype'] ||= 'SMTP' unless %w[feedback vacation].include?(p['reason'])
+        piece['diagnostictype']   = nil        if piece['diagnostictype'].empty?
+        piece['diagnostictype'] ||= 'X-UNIX'   if piece['reason'] == 'mailererror'
+        piece['diagnostictype'] ||= 'SMTP' unless %w[feedback vacation].include?(piece['reason'])
 
         # Check the value of SMTP command
-        p['smtpcommand'] = '' unless Sisimai::SMTP::Command.test(p['smtpcommand'])
+        piece['smtpcommand'] = '' unless Sisimai::SMTP::Command.test(piece['smtpcommand'])
 
         # Create parameters for the constructor
-        as = Sisimai::Address.new(p['addresser'])          || next; next if as.void
-        ar = Sisimai::Address.new(address: p['recipient']) || next; next if ar.void
+        as = Sisimai::Address.new(piece['addresser'])          || next; next if as.void
+        ar = Sisimai::Address.new(address: piece['recipient']) || next; next if ar.void
         ea = %w[
           action deliverystatus diagnosticcode diagnostictype feedbacktype lhost listid messageid
           origin reason replycode rhost smtpagent smtpcommand subject 
         ]
 
-        o = {
+        thing = {
           'addresser'    => as,
           'recipient'    => ar,
           'senderdomain' => as.host,
           'destination'  => ar.host,
-          'alias'        => p['alias'] || ar.alias,
-          'token'        => Sisimai::String.token(as.address, ar.address, p['timestamp']),
+          'alias'        => piece['alias'] || ar.alias,
+          'token'        => Sisimai::String.token(as.address, ar.address, piece['timestamp']),
         }
 
         # Other accessors
-        ea.each { |q| o[q] ||= p[q] || '' }
-        o['catch']          = p['catch'] || nil
-        o['hardbounce']     = p['hardbounce']
-        o['replycode']      = Sisimai::SMTP::Reply.find(p['diagnosticcode']).to_s if o['replycode'].empty?
-        o['timestamp']      = TimeModule.parse(::Time.at(p['timestamp']).to_s)
-        o['timezoneoffset'] = p['timezoneoffset'] || '+0000'
+        ea.each { |q| thing[q] ||= piece[q] || '' }
+        thing['catch']          = piece['catch'] || nil
+        thing['hardbounce']     = piece['hardbounce']
+        thing['replycode']      = Sisimai::SMTP::Reply.find(piece['diagnosticcode']).to_s if thing['replycode'].empty?
+        thing['timestamp']      = TimeModule.parse(::Time.at(piece['timestamp']).to_s)
+        thing['timezoneoffset'] = piece['timezoneoffset'] || '+0000'
 
         # ALIAS
         while true do
           # Look up the Envelope-To address from the Received: header in the original message
-          # when the recipient address is same with the value of o['alias'].
-          break if o['alias'].empty?
-          break if o['recipient'].address != o['alias']
+          # when the recipient address is same with the value of thing['alias'].
+          break if thing['alias'].empty?
+          break if thing['recipient'].address != thing['alias']
           break unless rfc822data.has_key?('received')
           break if rfc822data['received'].empty?
 
@@ -375,68 +375,68 @@ module Sisimai
             next if af.empty?
             next if af[5].empty?
             next unless Sisimai::Address.is_emailaddress(af[5])
-            next if o['recipient'].address == af[5]
+            next if thing['recipient'].address == af[5]
 
-            o['alias'] = af[5]
+            thing['alias'] = af[5]
             break
           end
           break
         end
-        o['alias'] = '' if o['alias'] == o['recipient'].address
+        thing['alias'] = '' if thing['alias'] == thing['recipient'].address
 
         # REASON: Decide the reason of email bounce
-        if o['reason'].empty? || RetryIndex[o['reason']]
+        if thing['reason'].empty? || RetryIndex[thing['reason']]
           # The value of "reason" is empty or is needed to check with other values again
-          re = o['reason'].empty? ? 'undefined' : o['reason']
-          o['reason'] = Sisimai::Rhost.get(o) || Sisimai::Reason.get(o)
-          o['reason'] = re if o['reason'].empty?
+          re = thing['reason'].empty? ? 'undefined' : thing['reason']
+          thing['reason'] = Sisimai::Rhost.get(thing) || Sisimai::Reason.get(thing)
+          thing['reason'] = re if thing['reason'].empty?
         end
 
         # HARDBOUNCE: Set the value of "hardbounce", default value of "bouncebounce" is false
-        if o['reason'] == 'delivered' || o['reason'] == 'feedback' || o['reason'] == 'vacation'
+        if thing['reason'] == 'delivered' || thing['reason'] == 'feedback' || thing['reason'] == 'vacation'
           # The value of "reason" is "delivered", "vacation" or "feedback".
-          o['replycode'] = '' unless o['reason'] == 'delivered'
+          thing['replycode'] = '' unless thing['reason'] == 'delivered'
         else
-          smtperrors = p['deliverystatus'] + ' ' << p['diagnosticcode']
+          smtperrors = piece['deliverystatus'] + ' ' << piece['diagnosticcode']
           smtperrors = '' if smtperrors.size < 4
-          softorhard = Sisimai::SMTP::Error.soft_or_hard(o['reason'], smtperrors)
-          o['hardbounce'] = true if softorhard == 'hard'
+          softorhard = Sisimai::SMTP::Error.soft_or_hard(thing['reason'], smtperrors)
+          thing['hardbounce'] = true if softorhard == 'hard'
         end
 
         # DELIVERYSTATUS: Set a pseudo status code if the value of "deliverystatus" is empty
-        if o['deliverystatus'].empty?
-          smtperrors = p['replycode'] + ' ' << p['diagnosticcode']
+        if thing['deliverystatus'].empty?
+          smtperrors = piece['replycode'] + ' ' << piece['diagnosticcode']
           smtperrors = '' if smtperrors.size < 4
           permanent1 = Sisimai::SMTP::Error.is_permanent(smtperrors)
           permanent1 = true if permanent1 == nil
-          o['deliverystatus'] = Sisimai::SMTP::Status.code(o['reason'], permanent1 ? false : true) || ''
+          thing['deliverystatus'] = Sisimai::SMTP::Status.code(thing['reason'], permanent1 ? false : true) || ''
         end
 
         # REPLYCODE: Check both of the first digit of "deliverystatus" and "replycode"
-        cx = [o['deliverystatus'][0, 1], o['replycode'][0, 1]]
+        cx = [thing['deliverystatus'][0, 1], thing['replycode'][0, 1]]
         if cx[0] != cx[1]
           # The class of the "Status:" is defer with the first digit of the reply code
-          cx[1] = Sisimai::SMTP::Reply.find(p['diagnosticcode'], cx[0]) || ''
-          o['replycode'] = cx[1].start_with?(cx[0]) ? cx[1] : ''
+          cx[1] = Sisimai::SMTP::Reply.find(piece['diagnosticcode'], cx[0]) || ''
+          thing['replycode'] = cx[1].start_with?(cx[0]) ? cx[1] : ''
         end
 
-        unless ActionList.has_key?(o['action'])
+        unless ActionList.has_key?(thing['action'])
           # There is an action value which is not described at RFC1894
-          if ox = Sisimai::RFC1894.field('Action: ' << o['action'])
+          if ox = Sisimai::RFC1894.field('Action: ' << thing['action'])
             # Rewrite the value of "Action:" field to the valid value
             #
             #    The syntax for the action-field is:
             #       action-field = "Action" ":" action-value
             #       action-value = "failed" / "delayed" / "delivered" / "relayed" / "expanded"
-            o['action'] = ox[2]
+            thing['action'] = ox[2]
           end
         end
-        o['action'] = 'delayed' if o['reason'] == 'expired'
-        if o['action'].empty?
-          o['action'] = 'failed' if cx[0] == '4' || cx[0] == '5'
+        thing['action'] = 'delayed' if thing['reason'] == 'expired'
+        if thing['action'].empty?
+          thing['action'] = 'failed' if cx[0] == '4' || cx[0] == '5'
         end
 
-        listoffact << Sisimai::Fact.new(o)
+        listoffact << Sisimai::Fact.new(thing)
       end
       return listoffact
     end
