@@ -394,9 +394,10 @@ module Sisimai
 
         # HARDBOUNCE: Set the value of "hardbounce", default value of "bouncebounce" is false
         if thing['reason'] == 'delivered' || thing['reason'] == 'feedback' || thing['reason'] == 'vacation'
-          # The value of "reason" is "delivered", "vacation" or "feedback".
+          # Delete the value of ReplyCode when the Reason is "feedback" or "vacation"
           thing['replycode'] = '' unless thing['reason'] == 'delivered'
         else
+          # The reason is not "delivered", or "feedback", or "vacation"
           smtperrors = piece['deliverystatus'] + ' ' << piece['diagnosticcode']
           smtperrors = '' if smtperrors.size < 4
           softorhard = Sisimai::SMTP::Error.soft_or_hard(thing['reason'], smtperrors)
