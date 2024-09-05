@@ -55,7 +55,7 @@ module Sisimai::Lhost
           readslices << e # Save the current line for the next loop
 
           if readcursor == 0
-            # Beginning of the bounce message or message/delivery-status part
+            # Beginning of the bounce message or the message/delivery-status part
             readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])
             next
           end
@@ -109,15 +109,15 @@ module Sisimai::Lhost
             # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
             unless e.start_with?(' ')
               if e.start_with?('>>> ')
-                # >>> DATA
+                # >>> DATA (Client Command)
                 thecommand = Sisimai::SMTP::Command.find(e)
 
               elsif e.start_with?('<<< ')
-                # <<< Response
+                # <<< Response from the SMTP server
                 cv = e[4, e.size - 4]
                 esmtpreply << cv unless esmtpreply.index(cv)
               else
-                # Detect SMTP session error or connection error
+                # Detect an SMTP session error or a connection error
                 next if sessionerr
                 if e.start_with?(StartingOf[:error][0])
                   # ----- Transcript of session follows -----
