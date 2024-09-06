@@ -113,7 +113,6 @@ module Sisimai
           ['spam ', ' exceeded'],
           ['this message scored ', ' spam points'],
         ].freeze
-        Regex = %r/(?:\d[.]\d[.]\d|\d{3})[ ]spam\z/.freeze
 
         def text; return 'spamdetected'; end
         def description; return 'Email rejected by spam filter running on the remote host'; end
@@ -126,7 +125,6 @@ module Sisimai
           return nil unless argv1
           return true if Index.any? { |a| argv1.include?(a) }
           return true if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
-          return true if argv1 =~ Regex
           return false
         end
 
