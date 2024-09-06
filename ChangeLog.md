@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v5.1.0p1
+v5.1.0p2
 ---------------------------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -13,6 +13,10 @@ v5.1.0p1
   - Fix bug in `Sisimai::Message.tidy()` method #305
   - Code improvement in `Sisimai::RFC5322` and `Sisimai::ARF`
   - Fix the minimum and the maximum SMTP Reply code: 221 and 557 in `Sisimai::SMTP::Reply`
+  - Remove regular expressions from error message patterns at the following classes: #308
+    - `Sisimai::Reason::Blocked`
+    - `Sisimai::Reason::MailerError`
+    - `Sisimai::Reason::SpamDetected`
 
 v5.1.0
 ---------------------------------------------------------------------------------------------------
