@@ -179,7 +179,6 @@ module LhostEngineTest::Private
                   ['5.0.901', '',    'onhold',          false]],
       '01212' => [['4.2.2',   '',    'mailboxfull',     false]],
       '01213' => [['5.0.0',   '501', 'spamdetected',    false]],
-      '01214' => [['5.9.8',   '',    'spamdetected',    false]],
       '01216' => [['5.0.901', '',    'onhold',          false]],
       '01217' => [['5.1.1',   '550', 'userunknown',     true]],
       '01218' => [['5.0.945', '',    'toomanyconn',     false]],

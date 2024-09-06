@@ -39,6 +39,7 @@ module Sisimai
           'host network not allowed',
           'hosts with dynamic ip',
           'invalid ip for sending mail of domain',
+          'is in a black list',
           'is not allowed to send mail from',
           'no access from mail server',
           'no matches to nameserver query',
@@ -59,6 +60,7 @@ module Sisimai
           'to submit messages to this e-mail system has been rejected',
           'too many spams from your ip',  # free.fr
           'too many unwanted messages have been sent from the following ip address above',
+          'was blocked by ',
           'we do not accept mail from dynamic ips',   # @mail.ru
           'you are not allowed to connect',
           'you are sending spam',
@@ -67,12 +69,14 @@ module Sisimai
           'your server requires confirmation',
         ].freeze
         Pairs = [
+          ['(', '@', ':blocked)'],
           ['access from ip address ', ' blocked'],
           ['client host ', ' blocked using'],
           ['connections will not be accepted from ', " because the ip is in spamhaus's list"],
           ['dnsbl:rbl ', '>_is_blocked'],
           ['email blocked by ', '.barracudacentral.org'],
           ['email blocked by ', 'spamhaus'],
+          ['host ', ' refused to talk to me: ', ' blocked'],
           ['ip ', ' is blocked by earthlink'],    # Earthlink
           ['is in an ', 'rbl on '],
           ['mail server at ', ' is blocked'],
@@ -88,13 +92,6 @@ module Sisimai
           ['veuillez essayer plus tard. service refused, please try later. ', '510'],
           ["your sender's ip address is listed at ", '.abuseat.org'],
         ].freeze
-        Regex = %r{(?>
-           [(][^ ]+[@][^ ]+:blocked[)]
-          |host[ ][^ ]+[ ]refused[ ]to[ ]talk[ ]to[ ]me:[ ]\d+[ ]blocked
-          |is[ ]in[ ]a[ ]black[ ]list(?:[ ]at[ ][^ ]+[.])?
-          |was[ ]blocked[ ]by[ ][^ ]+
-          )
-        }x.freeze
 
         def text; return 'blocked'; end
         def description; return 'Email rejected due to client IP address or a hostname'; end
@@ -107,7 +104,6 @@ module Sisimai
           return nil unless argv1
           return true if Index.any? { |a| argv1.include?(a) }
           return true if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
-          return true if argv1 =~ Regex
           return false
         end
 
