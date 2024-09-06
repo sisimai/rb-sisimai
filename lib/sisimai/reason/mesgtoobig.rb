@@ -52,10 +52,7 @@ module Sisimai
 
           #  5.2.3   Message length exceeds administrative limit
           return false if( tempreason == 'exceedlimit' || statuscode == '5.2.3' )
-
-          # Check the value of Diagnosic-Code: header with patterns
-          return true if match(argvs['diagnosticcode'].downcase)
-          return false
+          return match(argvs['diagnosticcode'].downcase)
         end
 
       end

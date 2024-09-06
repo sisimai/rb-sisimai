@@ -42,8 +42,7 @@ module Sisimai
         # @see      http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
           return true if argvs['reason'] == 'badreputation'
-          return true if match(argvs['diagnosticcode'].downcase)
-          return false
+          return match(argvs['diagnosticcode'].downcase)
         end
 
       end

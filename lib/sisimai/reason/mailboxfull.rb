@@ -84,10 +84,7 @@ module Sisimai
           # Status: 4.2.2
           # Diagnostic-Code: SMTP; 450 4.2.2 <***@example.jp>... Mailbox Full
           return true if Sisimai::SMTP::Status.name(argvs['deliverystatus']).to_s == 'mailboxfull'
-
-          # Check the value of Diagnosic-Code: header with patterns
-          return true if match(argvs['diagnosticcode'].downcase)
-          return false
+          return match(argvs['diagnosticcode'].downcase)
         end
 
       end

@@ -38,8 +38,7 @@ module Sisimai
           # Remote-MTA: dns; smtp.example.jp
           # Diagnostic-Code: smtp; 451 4.7.1 <mx.example.org[192.0.2.2]>: Client host rejected:
           #                  Please try again slower
-          return true if match(argvs['diagnosticcode'].downcase)
-          return false
+          return match(argvs['diagnosticcode'].downcase)
         end
 
       end

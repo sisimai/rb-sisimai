@@ -32,8 +32,7 @@ module Sisimai
         # @see http://www.ietf.org/rfc/rfc5322.txt
         def true(argvs)
           return true if argvs['reason'] == 'notcompliantrfc'
-          return true if match(argvs['diagnosticcode'].downcase)
-          return false
+          return match(argvs['diagnosticcode'].downcase)
         end
 
       end

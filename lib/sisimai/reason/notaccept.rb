@@ -45,8 +45,7 @@ module Sisimai
           # SMTP Reply Code is 554 or 556
           return true  if [521, 554, 556].index(argvs['replycode'].to_i)
           return false if argvs['smtpcommand'] != 'MAIL'
-          return true  if match(argvs['diagnosticcode'].downcase)
-          return false
+          return match(argvs['diagnosticcode'].downcase)
         end
 
       end

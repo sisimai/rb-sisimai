@@ -52,10 +52,7 @@ module Sisimai
           return nil  if argvs['deliverystatus'].empty?
           return true if argvs['reason'] == 'authfailure'
           return true if Sisimai::SMTP::Status.name(argvs['deliverystatus']).to_s == 'authfailure'
-
-          # Check the value of Diagnosic-Code: header with patterns
-          return true if match(argvs['diagnosticcode'].downcase)
-          return false
+          return match(argvs['diagnosticcode'].downcase)
         end
 
       end

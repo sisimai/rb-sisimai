@@ -115,8 +115,7 @@ module Sisimai
         def true(argvs)
           return true if argvs['reason'] == 'blocked'
           return true if Sisimai::SMTP::Status.name(argvs['deliverystatus']).to_s == 'blocked'
-          return true if match(argvs['diagnosticcode'].downcase)
-          return false
+          return match(argvs['diagnosticcode'].downcase)
         end
 
       end

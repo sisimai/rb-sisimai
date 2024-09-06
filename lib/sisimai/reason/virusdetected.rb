@@ -49,8 +49,7 @@ module Sisimai
           # and the entire message body after the DATA command.
           return true  if argvs['reason'] == 'virusdetected'
           return false if %w[CONN EHLO HELO MAIL RCPT].include?(argvs['smtpcommand'])
-          return true  if match(argvs['diagnosticcode'].downcase)
-          return false
+          return match(argvs['diagnosticcode'].downcase)
         end
 
       end
