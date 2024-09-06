@@ -11,6 +11,7 @@ module Sisimai
     module MailerError
       class << self
         Index = [
+          ' || exit ',
           'procmail: ',
           'bin/procmail',
           'bin/maidrop',
@@ -21,7 +22,6 @@ module Sisimai
           'pipe to |/',
           'x-unix; ',
         ].freeze
-        Regex = %r/exit[ ]\d+/.freeze
 
         def text; return 'mailererror'; end
         def description; return 'Email returned due to a mailer program has not exited successfully'; end
@@ -33,7 +33,6 @@ module Sisimai
         def match(argv1)
           return nil unless argv1
           return true if Index.any? { |a| argv1.include?(a) }
-          return true if argv1 =~ Regex
           return false
         end
 
