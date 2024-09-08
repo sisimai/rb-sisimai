@@ -70,6 +70,9 @@ module Sisimai
         #           https://smtpfieldmanual.com/provider/apple
         # @since v5.1.0
         def get(argvs)
+          return '' unless argvs
+          return '' unless argvs['diagnosticcode'].size > 0
+
           issuedcode = argvs['diagnosticcode'].downcase
           reasontext = ''
 
