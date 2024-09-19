@@ -381,7 +381,7 @@ module Sisimai::Lhost
 
             if e['diagnosis'].start_with?('-') || e['diagnosis'].end_with?('__')
               # Override the value of diagnostic code message
-              e['diagnosis'] = e['alterrors'] unless e['alterrors'].empty?
+              e['diagnosis'] = e['alterrors']
 
             elsif e['diagnosis'].size < e['alterrors'].size
               # Override the value of diagnostic code message with the value of alterrors because
