@@ -328,6 +328,7 @@ module Sisimai
           ],
           'notaccept' => [
             ['4.3.2', 0, 0, 'system not accepting network messages'],
+            ['4.4.4', 0, 0, 'hosted tenant which has no mail-enabled subscriptions'],
 
             # Exchange Server 2019 ----------------------------------------------------------------
             # - You're using the ABP Routing agent, and the recipient isn't a member of the global
