@@ -37,7 +37,7 @@ module Sisimai
         RhostClass.each_key do |e|
           # Try to match with each value of RhostClass
           rhostmatch   = true if RhostClass[e].any? { |a| remotehost.end_with?(a) }
-          rhostmatch ||= true if RhostClass[e].any? { |a| domainpart.end_with?(a) }
+          rhostmatch ||= true if RhostClass[e].any? { |a| a.end_with?(domainpart) }
           next unless rhostmatch
 
           modulename = 'Sisimai::Rhost::' << e
