@@ -8,7 +8,7 @@ module Sisimai
     require 'sisimai/address'
     require 'sisimai/datetime'
     require 'sisimai/time'
-    require 'sisimai/smtp/error'
+    require 'sisimai/smtp/failure'
     require 'sisimai/smtp/command'
     require 'sisimai/string'
     require 'sisimai/rhost'
@@ -400,7 +400,7 @@ module Sisimai
           # The reason is not "delivered", or "feedback", or "vacation"
           smtperrors = piece['deliverystatus'] + ' ' << piece['diagnosticcode']
           smtperrors = '' if smtperrors.size < 4
-          softorhard = Sisimai::SMTP::Error.soft_or_hard(thing['reason'], smtperrors)
+          softorhard = Sisimai::SMTP::Failure.soft_or_hard(thing['reason'], smtperrors)
           thing['hardbounce'] = true if softorhard == 'hard'
         end
 
@@ -408,7 +408,7 @@ module Sisimai
         if thing['deliverystatus'].empty?
           smtperrors = piece['replycode'] + ' ' << piece['diagnosticcode']
           smtperrors = '' if smtperrors.size < 4
-          permanent1 = Sisimai::SMTP::Error.is_permanent(smtperrors)
+          permanent1 = Sisimai::SMTP::Failure.is_permanent(smtperrors)
           permanent1 = true if permanent1 == nil
           thing['deliverystatus'] = Sisimai::SMTP::Status.code(thing['reason'], permanent1 ? false : true) || ''
         end

@@ -1,7 +1,7 @@
 require 'minitest/autorun'
-require 'sisimai/smtp/error'
+require 'sisimai/smtp/failure'
 
-class SMTPError < Minitest::Test
+class SMTPFailure < Minitest::Test
   Methods = { class: %w[find] }
   Bounces = {
     soft: [
@@ -35,31 +35,31 @@ class SMTPError < Minitest::Test
   ]
 
   def test_is_permanent
-    WasSent.each { |e| assert_nil          Sisimai::SMTP::Error.is_permanent(e) }
-    TempErr.each { |e| assert_equal false, Sisimai::SMTP::Error.is_permanent(e) }
-    PermErr.each { |e| assert_equal true,  Sisimai::SMTP::Error.is_permanent(e) }
+    WasSent.each { |e| assert_nil          Sisimai::SMTP::Failure.is_permanent(e) }
+    TempErr.each { |e| assert_equal false, Sisimai::SMTP::Failure.is_permanent(e) }
+    PermErr.each { |e| assert_equal true,  Sisimai::SMTP::Failure.is_permanent(e) }
 
     ce = assert_raises ArgumentError do
-      Sisimai::SMTP::Error.is_permanent()
-      Sisimai::SMTP::Error.is_permanent(nil, nil)
+      Sisimai::SMTP::Failure.is_permanent()
+      Sisimai::SMTP::Failure.is_permanent(nil, nil)
     end
-    assert_nil Sisimai::SMTP::Error.is_permanent(nil)
+    assert_nil Sisimai::SMTP::Failure.is_permanent(nil)
   end
 
   def test_soft_or_hard
-    Bounces[:soft].each { |e| assert_equal 'soft', Sisimai::SMTP::Error.soft_or_hard(e) }
+    Bounces[:soft].each { |e| assert_equal 'soft', Sisimai::SMTP::Failure.soft_or_hard(e) }
     Bounces[:hard].each do |e|
-      assert_equal 'hard', Sisimai::SMTP::Error.soft_or_hard(e)
-      assert_equal 'hard', Sisimai::SMTP::Error.soft_or_hard(e, '503 Not accept any email') if e == 'notaccept'
-      assert_equal 'soft', Sisimai::SMTP::Error.soft_or_hard(e, '458 Not accept any email') if e == 'notaccept'
+      assert_equal 'hard', Sisimai::SMTP::Failure.soft_or_hard(e)
+      assert_equal 'hard', Sisimai::SMTP::Failure.soft_or_hard(e, '503 Not accept any email') if e == 'notaccept'
+      assert_equal 'soft', Sisimai::SMTP::Failure.soft_or_hard(e, '458 Not accept any email') if e == 'notaccept'
     end
-    NoError.each { |e| assert_equal '', Sisimai::SMTP::Error.soft_or_hard(e) }
+    NoError.each { |e| assert_equal '', Sisimai::SMTP::Failure.soft_or_hard(e) }
 
     ce = assert_raises ArgumentError do
-      Sisimai::SMTP::Error.soft_or_hard()
-      Sisimai::SMTP::Error.soft_or_hard(nil, nil, nil)
+      Sisimai::SMTP::Failure.soft_or_hard()
+      Sisimai::SMTP::Failure.soft_or_hard(nil, nil, nil)
     end
-    assert_nil Sisimai::SMTP::Error.soft_or_hard(nil)
+    assert_nil Sisimai::SMTP::Failure.soft_or_hard(nil)
   end
 
 end

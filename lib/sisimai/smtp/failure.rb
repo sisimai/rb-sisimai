@@ -1,7 +1,7 @@
 module Sisimai
   module SMTP
-    # Sisimai::SMTP::Error is utilities for checking SMTP Errors from error message text.
-    module Error
+    # Sisimai::SMTP::Failure is utilities for checking SMTP Errors from error message text.
+    module Failure
       class << self
         require 'sisimai/smtp/reply'
         require 'sisimai/smtp/status'
