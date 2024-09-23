@@ -1,7 +1,7 @@
 module Sisimai
   module Rhost
     # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Fact object as an argument
-    # of get() method when the value of "destination" of the object is "mail.icloud.com" or "apple.com".
+    # of find() method when the value of "destination" of the object is "mail.icloud.com" or "apple.com".
     # This class is called only Sisimai::Fact class.
     module Apple
       class << self
@@ -69,7 +69,7 @@ module Sisimai
         #           https://www.postmastery.com/icloud-postmastery-page/
         #           https://smtpfieldmanual.com/provider/apple
         # @since v5.1.0
-        def get(argvs)
+        def find(argvs)
           return '' unless argvs
           return '' unless argvs['diagnosticcode'].size > 0
 

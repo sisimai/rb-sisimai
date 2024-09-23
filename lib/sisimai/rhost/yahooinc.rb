@@ -1,7 +1,7 @@
 module Sisimai
   module Rhost
     # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Fact object as an argument
-    # of get() method when the value of "destination" of the object is "*.yahoodns.net".
+    # of find() method when the value of "destination" of the object is "*.yahoodns.net".
     # This class is called only Sisimai::Fact class.
     module YahooInc
       class << self
@@ -87,7 +87,7 @@ module Sisimai
         #           https://smtpfieldmanual.com/provider/yahoo
         #           https://www.postmastery.com/yahoo-postmaster/
         # @since v5.1.0
-        def get(argvs)
+        def find(argvs)
           issuedcode = argvs['diagnosticcode'].downcase
           reasontext = ''
 

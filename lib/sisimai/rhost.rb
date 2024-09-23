@@ -1,6 +1,6 @@
 module Sisimai
   # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Fact object as an argument
-  # of get() method when the value of rhost of the object is listed in the results of Sisimai::Rhost
+  # of find() method when the value of rhost of the object is listed in the results of Sisimai::Rhost
   # ->list method. This class is called only Sisimai::Fact class.
   module Rhost
     class << self
@@ -23,7 +23,7 @@ module Sisimai
       # Detect the bounce reason from certain remote hosts
       # @param    [Hash]   argvs  Decoded email data
       # @return   [String]        The value of bounce reason
-      def get(argvs)
+      def find(argvs)
         return nil if argvs['diagnosticcode'].empty?
 
         remotehost = argvs['rhost'].downcase
@@ -47,7 +47,7 @@ module Sisimai
         return nil if rhostclass.empty?
 
         require rhostclass
-        reasontext = Module.const_get(modulename).get(argvs)
+        reasontext = Module.const_get(modulename).find(argvs)
         return nil if reasontext.empty?
         return reasontext
       end

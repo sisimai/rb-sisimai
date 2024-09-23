@@ -1,7 +1,7 @@
 module Sisimai
   module Rhost
     # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Fact object as an argument
-    # of get() method when the value of "rhost" of the object is "mx*.qq.com". This class is called
+    # of find() method when the value of "rhost" of the object is "mx*.qq.com". This class is called
     # only Sisimai::Fact class.
     module Tencent
       class << self
@@ -49,7 +49,7 @@ module Sisimai
         # Detect bounce reason from Tencent QQ
         # @param    [Sisimai::Fact] argvs   Decoded email object
         # @return   [String]                The bounce reason at Tencent QQ
-        def get(argvs)
+        def find(argvs)
           issuedcode = argvs['diagnosticcode'].downcase
           reasontext = ''
 

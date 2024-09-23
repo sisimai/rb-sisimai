@@ -1,7 +1,7 @@
 module Sisimai
   module Rhost
     # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Fact object as an argument
-    # of get() method when the value of "destination" of the object is "charter.net". This class is
+    # of find() method when the value of "destination" of the object is "charter.net". This class is
     # called only Sisimai::Fact class.
     module Cox
       class << self
@@ -129,7 +129,7 @@ module Sisimai
         # @return   [String, Nil]           The bounce reason at Cox
         # @see      https://www.cox.com/residential/support/email-error-codes.html
         # @since v4.25.8
-        def get(argvs)
+        def find(argvs)
           issuedcode = argvs['diagnosticcode']
           codenumber = 0
 

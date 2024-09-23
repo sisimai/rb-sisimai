@@ -57,8 +57,8 @@ class LhostCode < Minitest::Test
       assert_respond_to currmodule, 'inquire'
 
     elsif modulename.include?('::Rhost::')
-      # Sisimai::Rhost::*.get
-      assert_respond_to currmodule, 'get'
+      # Sisimai::Rhost::*.find
+      assert_respond_to currmodule, 'find'
     end
 
     isexpected.keys.sort.each do |e|

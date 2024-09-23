@@ -388,7 +388,7 @@ module Sisimai
         if thing['reason'].empty? || RetryIndex[thing['reason']]
           # The value of "reason" is empty or is needed to check with other values again
           re = thing['reason'].empty? ? 'undefined' : thing['reason']
-          thing['reason'] = Sisimai::Rhost.get(thing) || Sisimai::Reason.get(thing)
+          thing['reason'] = Sisimai::Rhost.find(thing) || Sisimai::Reason.get(thing)
           thing['reason'] = re if thing['reason'].empty?
         end
 
