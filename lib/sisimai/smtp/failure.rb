@@ -6,111 +6,91 @@ module Sisimai
         require 'sisimai/smtp/reply'
         require 'sisimai/smtp/status'
 
-        SoftOrHard = {
-          'soft' => %w[
-            blocked contenterror exceedlimit expired filtered mailboxfull mailererror mesgtoobig
-            networkerror norelaying policyviolation rejected securityerror spamdetected suspend
-            syntaxerror systemerror systemfull toomanyconn virusdetected],
-          'hard' => %w[hasmoved hostunknown userunknown]
-        }.freeze
-
-        # Permanent error or not
+        # Returns true if the given string indicates a permanent error
         # @param    [String] argv1  String including SMTP Status code
         # @return   [Boolean]       true:  Permanet error
-        #                           false: Temporary error
-        #                           nil:   is not an error
+        #                           false: Is not a permanent error
         # @since v4.17.3
         def is_permanent(argv1 = '')
-          return nil unless argv1
-          permanent1 = nil
-          statuscode = Sisimai::SMTP::Status.find(argv1) || Sisimai::SMTP::Reply.find(argv1) || '0'
+          return false unless argv1
+          return false unless argv1.size > 0
 
-          if (classvalue = statuscode[0, 1].to_i) > 0
-            # 2, 4, or 5
-            if classvalue == 5
-              # Permanent error
-              permanent1 = true
-
-            elsif classvalue == 4
-              # Temporary error
-              permanent1 = false
-
-            elsif classvalue == 2
-              # Succeeded
-              permanent1 = nil
-            end
-          else
-            # Check with regular expression
-            v = argv1.downcase
-            permanent1 = if v.include?('temporar') || v.include?('persistent')
-                           # Temporary failure
-                           false
-                         elsif v.include?('permanent')
-                           # Permanently failure
-                           true
-                         end
-          end
-
-          return permanent1
+          statuscode = Sisimai::SMTP::Status.find(argv1) || Sisimai::SMTP::Reply.find(argv1) || ''
+          return true if statuscode[0, 1] == "5"
+          return true if argv1.downcase.include?(' permanent ')
+          return false
         end
 
-        # Check softbounce or not
+        # Returns true if the given string indicates a temporary error
+        # @param    [String] argv1  String including SMTP Status code
+        # @return   [Boolean]       true:  Temporary error
+        #                           false: is not a temporary error
+        # @since v5.2.0
+        def is_temporary(argv1 = '')
+          return false unless argv1
+          return false unless argv1.size > 0
+
+          statuscode = Sisimai::SMTP::Status.find(argv1) || Sisimai::SMTP::Reply.find(argv1) || ''
+          issuedcode = argv1.downcase
+
+          return true if statuscode[0, 1] == "4"
+          return true if issuedcode.include?(' temporar')
+          return true if issuedcode.include?(' persistent')
+          return false
+        end
+
+        # Checks the reason sisimai detected is a hard bounce or not
         # @param    [String] argv1  Detected bounce reason
         # @param    [String] argv2  String including SMTP Status code
-        # @return   [String]        'soft': Soft bounce
-        #                           'hard': Hard bounce
-        #                           '':     May not be bounce ?
-        # @since v4.17.3
-        def soft_or_hard(argv1 = '', argv2 = '')
-          return nil unless argv1
-          return nil if argv1.empty?
-          value = nil
+        # @return   [Boolean]       true: is a hard bounce
+        def is_hardbounce(argv1 = '', argv2 = '')
+          return false unless argv1
+          return false unless argv1.size > 0
 
-          if %w[delivered feedback vacation].include?(argv1)
-            # These are not dealt as a bounce reason
-            value = ''
+          return false if argv1 == "undefined" || argv1 == "onhold"
+          return false if argv1 == "delivered" || argv1 == "feedback"    || argv1 == "vacation"
+          return true  if argv1 == "hasmoved"  || argv1 == "userunknown" || argv1 == "hostunknown"
+          return false if argv1 != "notaccept" 
 
-          elsif argv1 == 'onhold' || argv1 == 'undefined'
-            # It should be "soft" when a reason is "onhold" or "undefined"
-            value = 'soft'
+          # NotAccept: 5xx => hard bounce, 4xx => soft bounce
+          hardbounce = false
+          if argv2.size > 0
+            # Check the 2nd argument(a status code or a reply code)
+            cv = Sisimai::SMTP::Status.find(argv2, "") || Sisimai::SMTP::Reply.find(argv2, "") || ""
 
-          elsif argv1 == 'notaccept'
-            # NotAccept: 5xx => hard bounce, 4xx => soft bounce
-            if argv2.size > 0
-              # Get D.S.N. or SMTP reply code from The 2nd argument string
-              statuscode = Sisimai::SMTP::Status.find(argv2) || Sisimai::SMTP::Reply.find(argv2) || '0'
-              value = if statuscode.start_with?('4')
-                        # Deal as a "soft bounce"
-                        'soft'
-                      else
-                        # 5 or 0, deal as a "hard bounce"
-                        'hard'
-                      end
-            else
-              # "notaccept" is a hard bounce
-              value = 'hard'
-            end
-
+            # The SMTP status code or the SMTP reply code starts with "5"
+            # Deal as a hard bounce when the error message does not indicate a temporary error 
+            hardbounce = true if cv[0, 1] == "5" || Sisimai::SMTP::Failure.is_temporary(argv2) == false
           else
-            # Check all the reasons defined at the above
-            catch :SOFT_OR_HARD do
-              while true
-                %w[hard soft].each do |e|
-                  # Soft or Hard?
-                  SoftOrHard[e].each do |f|
-                    # Hard bounce?
-                    next unless argv1 == f
-                    value = e
-                    throw :SOFT_OR_HARD
-                  end
-                end
-
-                break
-              end
-            end
+            # Deal "NotAccept" as a hard bounce when the 2nd argument is empty
+            hardbounce = true
           end
+          return hardbounce
+        end
 
-          return value
+        # Checks the reason sisimai detected is a soft bounce or not
+        # @param    [String] argv1  Detected bounce reason
+        # @param    [String] argv2  String including SMTP Status code
+        # @return   [Boolean]       true: is a soft bounce
+        def is_softbounce(argv1 = '', argv2 = '')
+          return false unless argv1
+          return false unless argv1.size > 0
+
+          return false if argv1 == "delivered" || argv1 == "feedback"    || argv1 == "vacation"
+          return false if argv1 == "hasmoved"  || argv1 == "userunknown" || argv1 == "hostunknown"
+          return true  if argv1 == "undefined" || argv1 == "onhold"
+          return true  if argv1 != "notaccept" 
+
+          # NotAccept: 5xx => hard bounce, 4xx => soft bounce
+          softbounce = false
+          if argv2.size > 0
+            # Check the 2nd argument(a status code or a reply code)
+            cv = Sisimai::SMTP::Status.find(argv2, "") || Sisimai::SMTP::Reply.find(argv2, "") || ""
+
+            # The SMTP status code or the SMTP reply code starts with "4"
+            softbounce = true if cv[0, 1] == "4"
+          end
+          return softbounce
         end
 
       end

@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'sisimai/smtp/failure'
 
 class SMTPFailure < Minitest::Test
-  Methods = { class: %w[find] }
+  Methods = { class: %w[is_permanent is_temporary is_hardbounce is_softbounce] }
   Bounces = {
     soft: [
       'blocked', 'contenterror', 'exceedlimit', 'expired', 'filtered', 'mailboxfull', 'mailererror',
@@ -34,8 +34,12 @@ class SMTPFailure < Minitest::Test
     'SMTP; 550 5.7.1 IP address blacklisted by recipient',
   ]
 
+  def test_methods
+    Methods[:class].each { |e| assert_respond_to Sisimai::SMTP::Failure, e }
+  end
+
   def test_is_permanent
-    WasSent.each { |e| assert_nil          Sisimai::SMTP::Failure.is_permanent(e) }
+    WasSent.each { |e| assert_equal false, Sisimai::SMTP::Failure.is_permanent(e) }
     TempErr.each { |e| assert_equal false, Sisimai::SMTP::Failure.is_permanent(e) }
     PermErr.each { |e| assert_equal true,  Sisimai::SMTP::Failure.is_permanent(e) }
 
@@ -43,23 +47,46 @@ class SMTPFailure < Minitest::Test
       Sisimai::SMTP::Failure.is_permanent()
       Sisimai::SMTP::Failure.is_permanent(nil, nil)
     end
-    assert_nil Sisimai::SMTP::Failure.is_permanent(nil)
   end
 
-  def test_soft_or_hard
-    Bounces[:soft].each { |e| assert_equal 'soft', Sisimai::SMTP::Failure.soft_or_hard(e) }
-    Bounces[:hard].each do |e|
-      assert_equal 'hard', Sisimai::SMTP::Failure.soft_or_hard(e)
-      assert_equal 'hard', Sisimai::SMTP::Failure.soft_or_hard(e, '503 Not accept any email') if e == 'notaccept'
-      assert_equal 'soft', Sisimai::SMTP::Failure.soft_or_hard(e, '458 Not accept any email') if e == 'notaccept'
-    end
-    NoError.each { |e| assert_equal '', Sisimai::SMTP::Failure.soft_or_hard(e) }
+  def test_is_temporary
+    WasSent.each { |e| assert_equal false, Sisimai::SMTP::Failure.is_temporary(e) }
+    TempErr.each { |e| assert_equal true,  Sisimai::SMTP::Failure.is_temporary(e) }
+    PermErr.each { |e| assert_equal false, Sisimai::SMTP::Failure.is_temporary(e) }
 
     ce = assert_raises ArgumentError do
-      Sisimai::SMTP::Failure.soft_or_hard()
-      Sisimai::SMTP::Failure.soft_or_hard(nil, nil, nil)
+      Sisimai::SMTP::Failure.is_temporary()
+      Sisimai::SMTP::Failure.is_temporary(nil, nil)
     end
-    assert_nil Sisimai::SMTP::Failure.soft_or_hard(nil)
+  end
+
+  def test_is_hardbounce
+    Bounces[:soft].each { |e| assert_equal false, Sisimai::SMTP::Failure.is_hardbounce(e) }
+    Bounces[:hard].each do |e|
+      assert_equal true,  Sisimai::SMTP::Failure.is_hardbounce(e)
+      assert_equal true,  Sisimai::SMTP::Failure.is_hardbounce(e, '503 Not accept any email') if e == 'notaccept'
+      assert_equal false, Sisimai::SMTP::Failure.is_hardbounce(e, '458 Not accept any email') if e == 'notaccept'
+    end
+
+    ce = assert_raises ArgumentError do
+      Sisimai::SMTP::Failure.is_hardbounce()
+      Sisimai::SMTP::Failure.is_hardbounce(nil, nil, nil)
+    end
+  end
+
+  def test_is_softbounce
+    Bounces[:soft].each { |e| assert_equal true, Sisimai::SMTP::Failure.is_softbounce(e) }
+    Bounces[:hard].each do |e|
+      assert_equal false, Sisimai::SMTP::Failure.is_softbounce(e)
+      assert_equal false, Sisimai::SMTP::Failure.is_softbounce(e, '503 Not accept any email') if e == 'notaccept'
+      assert_equal true,  Sisimai::SMTP::Failure.is_softbounce(e, '458 Not accept any email') if e == 'notaccept'
+    end
+
+    ce = assert_raises ArgumentError do
+      Sisimai::SMTP::Failure.is_softbounce()
+      Sisimai::SMTP::Failure.is_softbounce(nil, nil, nil)
+    end
   end
 
 end
+
