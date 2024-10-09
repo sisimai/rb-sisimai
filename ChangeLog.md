@@ -3,7 +3,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v5.1.0p2
+v5.1.0p3
 ---------------------------------------------------------------------------------------------------
 - release: ""
 - version: ""
@@ -34,6 +34,7 @@ v5.1.0p2
     - `Sisimai::Reason::Blocked`
     - `Sisimai::Reason::MailerError`
     - `Sisimai::Reason::SpamDetected`
+  - Fix typo in `Sisimai::Rhost::YahooInc` #310
 
 v5.1.0
 ---------------------------------------------------------------------------------------------------
