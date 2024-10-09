@@ -381,7 +381,7 @@ module Sisimai::Lhost
 
             if e['diagnosis'].start_with?('-') || e['diagnosis'].end_with?('__')
               # Override the value of diagnostic code message
-              e['diagnosis'] = e['alterrors'] unless e['alterrors'].empty?
+              e['diagnosis'] = e['alterrors']
 
             elsif e['diagnosis'].size < e['alterrors'].size
               # Override the value of diagnostic code message with the value of alterrors because
@@ -448,47 +448,21 @@ module Sisimai::Lhost
           #
           # The value of "Status:" indicates permanent error but the value of SMTP reply code in
           # Diagnostic-Code: field is "TEMPERROR"!!!!
-          cs = e['status']    || Sisimai::SMTP::Status.find(e['diagnosis'])
-          cr = e['replycode'] || Sisimai::SMTP::Reply.find(e['diagnosis'])
-          s1 = 0  # First character of Status as integer
-          r1 = 0  # First character of SMTP reply code as integer
+          re = e['reason'] || ''
+          cr = Sisimai::SMTP::Reply.find(e['diagnosis'], e['status'] || '') || ''
+          cs = Sisimai::SMTP::Status.find(e['diagnosis'], cr)
+          cv = ''
 
-          while true
-            # "Status:" field did not exist in the bounce message
-            break if cs
-            break unless cr
+          if cr[0,1] == "4" || re == "expired" || re == "mailboxfull"
+            # Set the pseudo status code as a temporary error
+            cv = Sisimai::SMTP::Status.code(re, true)
 
-            # Check SMTP reply code, Generate pseudo DSN code from SMTP reply code
-            r1 = cr[0, 1].to_i
-            if r1 == 4
-              # Get the internal DSN(temporary error)
-              cs = Sisimai::SMTP::Status.code(e['reason'], true)
-
-            elsif r1 == 5
-              # Get the internal DSN(permanent error)
-              cs = Sisimai::SMTP::Status.code(e['reason'], false)
-            end
-            break
-          end
-
-          s1 = cs[0, 1].to_i if cs
-          v1 = s1 + r1
-          v1 << e['status'][0, 1].to_i if e['status']
-
-          if v1 > 0
-            # Status or SMTP reply code exists, Set pseudo DSN into the value of "status" accessor
-            e['status'] = cs if r1 > 0
           else
-            # Neither Status nor SMTP reply code exist
-            cs = if %w[expired mailboxfull].include?(e['reason'])
-                   # Set pseudo DSN (temporary error)
-                   Sisimai::SMTP::Status.code(e['reason'], true)
-                 else
-                   # Set pseudo DSN (permanent error)
-                   Sisimai::SMTP::Status.code(e['reason'], false)
-                 end
+            # Set the pseudo status code as a permanent error
+            cv = Sisimai::SMTP::Status.code(re, false)
           end
-          e['status'] ||= cs.to_s
+          e['replycode'] ||= cr
+          e['status']    ||= Sisimai::SMTP::Status.prefer(cs, cv, cr)
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }

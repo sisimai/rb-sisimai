@@ -1,7 +1,7 @@
 module Sisimai
   module Rhost
     # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Fact object as an argument
-    # of get() method when the value of "destination" of the object is "charter.net". This class is
+    # of find() method when the value of "destination" of the object is "charter.net". This class is
     # called only Sisimai::Fact class.
     module Spectrum
       class << self
@@ -100,7 +100,7 @@ module Sisimai
         # @param    [Sisimai::Fact] argvs   Decoded email object
         # @return   [String, Nil]           The bounce reason at Spectrum
         # @since v4.25.8
-        def get(argvs)
+        def find(argvs)
           issuedcode = argvs['diagnosticcode']
           reasontext = ''
           codenumber = if cv = issuedcode.match(/AUP#[-A-Za-z]*(\d{4})/) then cv[1].to_i else 0 end

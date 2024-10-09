@@ -8,7 +8,7 @@ module Sisimai
     require 'sisimai/address'
     require 'sisimai/datetime'
     require 'sisimai/time'
-    require 'sisimai/smtp/error'
+    require 'sisimai/smtp/failure'
     require 'sisimai/smtp/command'
     require 'sisimai/string'
     require 'sisimai/rhost'
@@ -388,7 +388,7 @@ module Sisimai
         if thing['reason'].empty? || RetryIndex[thing['reason']]
           # The value of "reason" is empty or is needed to check with other values again
           re = thing['reason'].empty? ? 'undefined' : thing['reason']
-          thing['reason'] = Sisimai::Rhost.get(thing) || Sisimai::Reason.get(thing)
+          thing['reason'] = Sisimai::Rhost.find(thing) || Sisimai::Reason.get(thing)
           thing['reason'] = re if thing['reason'].empty?
         end
 
@@ -400,17 +400,17 @@ module Sisimai
           # The reason is not "delivered", or "feedback", or "vacation"
           smtperrors = piece['deliverystatus'] + ' ' << piece['diagnosticcode']
           smtperrors = '' if smtperrors.size < 4
-          softorhard = Sisimai::SMTP::Error.soft_or_hard(thing['reason'], smtperrors)
-          thing['hardbounce'] = true if softorhard == 'hard'
+          thing['hardbounce'] = Sisimai::SMTP::Failure.is_hardbounce(thing['reason'], smtperrors)
         end
 
         # DELIVERYSTATUS: Set a pseudo status code if the value of "deliverystatus" is empty
         if thing['deliverystatus'].empty?
           smtperrors = piece['replycode'] + ' ' << piece['diagnosticcode']
           smtperrors = '' if smtperrors.size < 4
-          permanent1 = Sisimai::SMTP::Error.is_permanent(smtperrors)
-          permanent1 = true if permanent1 == nil
-          thing['deliverystatus'] = Sisimai::SMTP::Status.code(thing['reason'], permanent1 ? false : true) || ''
+          permanent0 = Sisimai::SMTP::Failure.is_permanent(smtperrors)
+          temporary0 = Sisimai::SMTP::Failure.is_temporary(smtperrors)
+          temporary1 = temporary0; temporary1 = false if !permanent0 && !temporary1 
+          thing['deliverystatus'] = Sisimai::SMTP::Status.code(thing['reason'], temporary1) || ''
         end
 
         # REPLYCODE: Check both of the first digit of "deliverystatus" and "replycode"

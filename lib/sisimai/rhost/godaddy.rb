@@ -1,7 +1,7 @@
 module Sisimai
   module Rhost
     # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Fact object as an argument
-    # of get() method when the value of "rhost" of the object is "*.secureserver.net". This class is
+    # of find() method when the value of "rhost" of the object is "*.secureserver.net". This class is
     # called only Sisimai::Fact class.
     module GoDaddy
       class << self
@@ -206,7 +206,7 @@ module Sisimai
         # @return   [String]                The bounce reason for GoDaddy
         # @see      https://ca.godaddy.com/help/fix-rejected-email-with-a-bounce-error-40685
         # @since v4.22.2
-        def get(argvs)
+        def find(argvs)
           issuedcode = argvs['diagnosticcode']
           positionib = issuedcode.index(' IB') || -1
           reasontext = ''

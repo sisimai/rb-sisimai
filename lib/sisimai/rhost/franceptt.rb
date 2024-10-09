@@ -1,7 +1,7 @@
 module Sisimai
   module Rhost
     # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Fact object as an argument
-    # of get() method when the value of "rhost" of the object is "*.laposte.net" or "*.orange.fr".
+    # of find() method when the value of "rhost" of the object is "*.laposte.net" or "*.orange.fr".
     # This class is called only Sisimai::Fact class.
     module FrancePTT
       class << self
@@ -127,7 +127,7 @@ module Sisimai
         # @return   [String]                The bounce reason for Orange or La Poste
         # @see      https://www.postmastery.com/orange-postmaster-smtp-error-codes-ofr/
         #           https://smtpfieldmanual.com/provider/orange
-        def get(argvs)
+        def find(argvs)
           issuedcode = argvs['diagnosticcode']
           reasontext = ''
 

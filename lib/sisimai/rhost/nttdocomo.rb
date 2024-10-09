@@ -1,7 +1,7 @@
 module Sisimai
   module Rhost
     # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Fact object as an argument
-    # of get() method when the value of "rhost" of the object is "mfsmax.docomo.ne.jp". This class
+    # of find() method when the value of "rhost" of the object is "mfsmax.docomo.ne.jp". This class
     # is called only Sisimai::Fact class.
     module NTTDOCOMO
       class << self
@@ -14,7 +14,7 @@ module Sisimai
         # Detect bounce reason from NTT DOCOMO
         # @param    [Sisimai::Fact] argvs   Decoded email object
         # @return   [String]                The bounce reason for docomo.ne.jp
-        def get(argvs)
+        def find(argvs)
           statuscode = argvs['deliverystatus']          || ''
           thecommand = argvs['smtpcommand']             || ''
           esmtperror = argvs['diagnosticcode'].downcase || ''

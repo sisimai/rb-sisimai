@@ -1,7 +1,7 @@
 module Sisimai
   module Rhost
     # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Fact object as an argument
-    # of get() method when the value of "rhost" of the object is "lsean.ezweb.ne.jp" or "msmx.au.com".
+    # of find() method when the value of "rhost" of the object is "lsean.ezweb.ne.jp" or "msmx.au.com".
     # This class is called only Sisimai::Fact class.
     module KDDI
       class << self
@@ -14,7 +14,7 @@ module Sisimai
         # @param    [Sisimai::Fact] argvs   Decoded email object
         # @return   [String]                The bounce reason for au.com or ezweb.ne.jp
         # @since v4.22.6
-        def get(argvs)
+        def find(argvs)
           issuedcode = argvs['diagnosticcode'].downcase
           reasontext = ''
 

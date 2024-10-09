@@ -124,65 +124,60 @@ module Sisimai
         actiontext = argvs['action']                  || ''
         statuscode = argvs['deliverystatus']          || ''
         reasontext = Sisimai::SMTP::Status.name(statuscode) || ''
+        trytomatch = reasontext.empty? ? true : false
+        trytomatch ||= true if GetRetried[reasontext] || codeformat != 'SMTP'
 
-        catch :TRY_TO_MATCH do
-          while true
-            trytomatch   = reasontext.empty? ? true : false
-            trytomatch ||= true if GetRetried[reasontext]
-            trytomatch ||= true if codeformat != 'SMTP'
-            throw :TRY_TO_MATCH unless trytomatch
-
-            # Could not decide the reason by the value of Status:
-            ClassOrder[1].each do |e|
-              # Trying to match with other patterns in Sisimai::Reason::* classes
-              p = 'Sisimai::Reason::' << e
-              r = nil
-              begin
-                require ModulePath[p]
-                r = Module.const_get(p)
-              rescue
-                warn ' ***warning: Failed to load ' << p
-                next
-              end
-
-              next unless r.match(issuedcode)
-              reasontext = e.downcase
-              break
+        while trytomatch
+          # Could not decide the reason by the value of Status:
+          ClassOrder[1].each do |e|
+            # Trying to match with other patterns in Sisimai::Reason::* classes
+            p = 'Sisimai::Reason::' << e
+            r = nil
+            begin
+              require ModulePath[p]
+              r = Module.const_get(p)
+            rescue
+              warn ' ***warning: Failed to load ' << p
+              next
             end
-            throw :TRY_TO_MATCH unless reasontext.empty?
 
-            # Check the value of Status:
-            code2digit = statuscode[0, 3] || ''
-            if code2digit == '5.6' || code2digit == '4.6'
-              #  X.6.0   Other or undefined media error
-              reasontext = 'contenterror'
-
-            elsif code2digit == '5.7' || code2digit == '4.7'
-              #  X.7.0   Other or undefined security status
-              reasontext = 'securityerror'
-
-            elsif codeformat.start_with?('X-UNIX')
-              # Diagnostic-Code: X-UNIX; ...
-              reasontext = 'mailererror'
-
-            else
-              # 50X Syntax Error?
-              require 'sisimai/reason/syntaxerror'
-              reasontext = 'syntaxerror' if Sisimai::Reason::SyntaxError.true(argvs)
-            end
-            throw :TRY_TO_MATCH unless reasontext.empty?
-
-            # Check the value of Action: field, first
-            if actiontext.start_with?('delayed', 'expired')
-              # Action: delayed, expired
-              reasontext = 'expired'
-            else
-              # Rejected at connection or after EHLO|HELO
-              thecommand = argvs['smtpcommand'] || ''
-              reasontext = 'blocked' if %w[HELO EHLO].index(thecommand)
-            end
-            throw :TRY_TO_MATCH
+            next unless r.match(issuedcode)
+            reasontext = e.downcase
+            break
           end
+          break unless reasontext.empty?
+
+          # Check the value of Status:
+          code2digit = statuscode[0, 3] || ''
+          if code2digit == '5.6' || code2digit == '4.6'
+            #  X.6.0   Other or undefined media error
+            reasontext = 'contenterror'
+
+          elsif code2digit == '5.7' || code2digit == '4.7'
+            #  X.7.0   Other or undefined security status
+            reasontext = 'securityerror'
+
+          elsif codeformat.start_with?('X-UNIX')
+            # Diagnostic-Code: X-UNIX; ...
+            reasontext = 'mailererror'
+
+          else
+            # 50X Syntax Error?
+            require 'sisimai/reason/syntaxerror'
+            reasontext = 'syntaxerror' if Sisimai::Reason::SyntaxError.true(argvs)
+          end
+          break unless reasontext.empty?
+
+          # Check the value of Action: field, first
+          if actiontext.start_with?('delayed', 'expired')
+            # Action: delayed, expired
+            reasontext = 'expired'
+          else
+            # Rejected at connection or after EHLO|HELO
+            thecommand = argvs['smtpcommand'] || ''
+            reasontext = 'blocked' if %w[HELO EHLO].index(thecommand)
+          end
+          break
         end
         return reasontext
       end

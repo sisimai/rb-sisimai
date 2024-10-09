@@ -1,7 +1,7 @@
 module Sisimai
   module Rhost
     # Sisimai::Rhost detects the bounce reason from the content of Sisimai::Fact object as an argu-
-    # ment of get() method when the value of "rhost" of the object is "*.mimecast.com". This class
+    # ment of find() method when the value of "rhost" of the object is "*.mimecast.com". This class
     # is called only Sisimai::Fact class.
     module Mimecast
       class << self
@@ -281,7 +281,7 @@ module Sisimai
         # Detect bounce reason from Mimecast
         # @param    [Sisimai::Fact] argvs   Decoded email object
         # @return   [String]                The bounce reason for mimecast.com
-        def get(argvs)
+        def find(argvs)
           return '' unless Sisimai::SMTP::Reply.test(argvs['replycode'])
 
           issuedcode = argvs['diagnosticcode'].downcase || ''
