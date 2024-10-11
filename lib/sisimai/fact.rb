@@ -2,6 +2,7 @@ module Sisimai
   # Sisimai::Fact generate the list of decoded bounce data
   class Fact
     require 'sisimai/message'
+    require 'sisimai/rfc1123'
     require 'sisimai/rfc1894'
     require 'sisimai/rfc5322'
     require 'sisimai/reason'
@@ -196,12 +197,28 @@ module Sisimai
         next unless piece['timestamp']
 
         # OTHER_TEXT_HEADERS:
-        rr = mesg1['header']['received'] || []
-        unless rr.empty?
-          # Get a localhost and a remote host name from Received header.
-          piece['rhost'] = Sisimai::RFC5322.received(rr[-1])[1] if piece['rhost'].empty?
-          piece['lhost'] = '' if piece['rhost'] == piece['lhost']
-          piece['lhost'] = Sisimai::RFC5322.received(rr[ 0])[0] if piece['lhost'].empty?
+        recv = mesg1['header']['received'] || []
+        if piece['rhost'].empty?
+          # Try to pick a remote hostname from Received: headers of the bounce message
+          recv.reverse.each do |re|
+            # Check the Received: headers backwards and get a remote hostname
+            cv = Sisimai::RFC5322.received(re)[0]
+            next unless Sisimai::RFC1123.is_validhostname(cv)
+            piece['rhost'] = cv
+            break
+          end
+        end
+        piece['lhost'] = '' if piece['rhost'] == piece['lhost']
+
+        if piece['rhost'].empty?
+          # Try to pick a local hostname from Received: headers of the bounce message
+          recv.each do |le|
+            # Check the Received: headers backwards and get a local hostname
+            cv = Sisimai::RFC5322.received(le)[0]
+            next unless Sisimai::RFC1123.is_validhostname(cv)
+            piece['lhost'] = cv
+            break
+          end
         end
 
         # Remove square brackets and curly brackets from the host variable
