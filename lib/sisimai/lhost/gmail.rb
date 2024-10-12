@@ -151,6 +151,7 @@ module Sisimai::Lhost
         return nil unless mhead['from'].end_with?('<mailer-daemon@googlemail.com>')
         return nil unless mhead['subject'].start_with?('Delivery Status Notification')
 
+        require 'sisimai/address'
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         bodyslices = emailparts[0].split("\n")
@@ -204,6 +205,7 @@ module Sisimai::Lhost
         end
         return nil unless recipients > 0
 
+        require 'sisimai/string'
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
