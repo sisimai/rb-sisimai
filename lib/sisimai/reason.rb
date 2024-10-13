@@ -1,6 +1,6 @@
 module Sisimai
   # Sisimai::Reason detects the bounce reason from the Hash table which is to be constructed to 
-  # Sisimai::Fact object as an argument of get() method. This class is called only Sisimai::Fact class.
+  # Sisimai::Fact object as an argument of find() method. This class is called only Sisimai::Fact.
   module Reason
     class << self
       # All the error reason list Sisimai support
@@ -58,7 +58,7 @@ module Sisimai
       # @param    [Hash] argvs  Decoded email object
       # @return   [String, nil] Bounce reason or nil if the argument is missing or not Hash
       # @see anotherone
-      def get(argvs)
+      def find(argvs)
         return nil unless argvs
         unless GetRetried[argvs['reason']]
           # Return reason text already decided except reason match with the regular expression of
@@ -111,10 +111,10 @@ module Sisimai
         return reasontext
       end
 
-      # Detect the other bounce reason, fall back method for get()
+      # Detect the other bounce reason, fall back method for find()
       # @param    [Hash] argvs  Decoded email object
       # @return   [String, Nil] Bounce reason or nli if the argument is missing or not Hash
-      # @see get
+      # @see      find()
       def anotherone(argvs)
         return argvs['reason'] unless argvs['reason'].empty?
 

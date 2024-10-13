@@ -3,7 +3,7 @@ require 'sisimai/reason'
 require 'sisimai'
 
 class ReasonTest < Minitest::Test
-  Methods = { class:  %w[get path retry index match] }
+  Methods = { class:  %w[find path retry index match] }
   Message = [
     'smtp; 550 5.1.1 <kijitora@example.co.jp>... User Unknown',
     'smtp; 550 Unknown user kijitora@example.jp',
@@ -104,11 +104,11 @@ class ReasonTest < Minitest::Test
     Methods[:class].each { |e| assert_respond_to Sisimai::Reason, e }
   end
 
-  def test_get
-    assert_nil Sisimai::Reason.get(nil)
+  def test_find
+    assert_nil Sisimai::Reason.find(nil)
     ce = assert_raises ArgumentError do
-      Sisimai::Reason.get()
-      Sisimai::Reason.get(nil, nil)
+      Sisimai::Reason.find()
+      Sisimai::Reason.find(nil, nil)
     end
   end
 
