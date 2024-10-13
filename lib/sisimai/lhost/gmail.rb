@@ -223,16 +223,21 @@ module Sisimai::Lhost
             e['rhost'] ||= ipv4addr
           end
 
-          p1 = e['diagnosis'].rindex(' ') || -1
-          p2 = e['diagnosis'].rindex(')') || -1
-          statecode0 = e['diagnosis'][p1 + 1, p2 - p1 - 1] || 0
+          while true do
+            # Find "(state 18)" and pick "18" as a key of statetable
+            p1 = e['diagnosis'].rindex(' (state ');   break unless p1
+            p2 = e['diagnosis'].rindex(')');          break unless p2
+                                                      break if p1 > p2
+            cu = e['diagnosis'][p1 + 8, p2 - p1 - 8]
+            break if cu.empty?
+            break unless StateTable[cu]
+            e['reason']  = StateTable[cu]['reason']
+            e['command'] = StateTable[cu]['command']
+            break
+          end
 
-          if StateTable[statecode0]
-            # (state *)
-            e['reason']  = StateTable[statecode0]['reason']
-            e['command'] = StateTable[statecode0]['command']
-          else
-            # No state code
+          if e['reason'].nil?
+            # There is no no state code in the error message
             MessagesOf.each_key do |r|
               # Verify each regular expression of session errors
               next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
@@ -240,7 +245,7 @@ module Sisimai::Lhost
               break
             end
           end
-          next unless e['reason']
+          e['reason'] ||= ''; next if e['reason'].empty?
 
           # Set pseudo status code
           e['status'] = Sisimai::SMTP::Status.find(e['diagnosis']) || ''
