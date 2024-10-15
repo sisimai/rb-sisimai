@@ -76,21 +76,10 @@ module Sisimai::Lhost
             # host: mx.example.jp
             v['rhost'] = e[6, e.size]
           else
-            # Get error message
-            if Sisimai::SMTP::Status.find(e) || Sisimai::String.aligned(e, ['<', '@', '>'])
-              # 5.1.1 <shironeko@example.jp>... User Unknown
-              v['diagnosis'] ||= e
-            else
-              next if e.empty?
-              if e.start_with?('Reason:')
-                # Reason:
-                # delivery retry timeout exceeded
-                v['diagnosis'] = e
-
-              elsif v['diagnosis'] == 'Reason:'
-                v['diagnosis'] = e
-              end
-            end
+            # Get error messages
+            next if e.empty?
+            v['diagnosis'] ||= ''
+            v['diagnosis']  += e + ' '
           end
         end
         return nil unless recipients > 0
