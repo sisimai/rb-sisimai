@@ -4,8 +4,6 @@ module Sisimai::Lhost
   module GoogleGroups
     class << self
       require 'sisimai/lhost'
-
-      Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['----- Original message -----'].freeze
 
       # @abstract Decodes the bounce message from Google Groups
@@ -39,7 +37,6 @@ module Sisimai::Lhost
         # Google Groups
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
-        recordwide = { 'rhost' => '', 'reason' => '', 'diagnosis' => '' }
         recipients = 0
         v = dscontents[-1]
 
@@ -49,9 +46,12 @@ module Sisimai::Lhost
         # * This group may not be open to posting.
         entiremesg = emailparts[0].split(/\n\n/, 5).slice(0, 4).join(' ').tr("\n", ' ');
         receivedby = mhead['received'] || []
-        recordwide['diagnosis'] = Sisimai::String.sweep(entiremesg)
-        recordwide['reason']    = emailparts[0].scan(/^[ ]?[*][ ]?/).size == 4 ? 'rejected' : 'onhold'
-        recordwide['rhost']     = Sisimai::RFC5322.received(receivedby[0])[1]
+        recordwide = {
+          'diagnosis' => Sisimai::String.sweep(entiremesg),
+          'reason'    => 'onhold',
+          'rhost'     => Sisimai::RFC5322.received(receivedby[0])[1],
+        }
+        recordwide['reason'] = 'rejected' if emailparts[0].scan(/^[ ]?[*][ ]?/).size == 4
 
         mhead['x-failed-recipients'].split(',').each do |e|
           # X-Failed-Recipients: neko@example.jp, nyaan@example.org, ...
