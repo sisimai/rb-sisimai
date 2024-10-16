@@ -4,7 +4,7 @@ module Sisimai::Lhost
   module GoogleGroups
     class << self
       require 'sisimai/lhost'
-      Boundaries = ['----- Original message -----'].freeze
+      Boundaries = ['----- Original message -----', 'Content-Type: message/rfc822'].freeze
 
       # @abstract Decodes the bounce message from Google Groups
       # @param  [Hash] mhead    Message headers of a bounce email
