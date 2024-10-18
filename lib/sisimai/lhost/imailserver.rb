@@ -8,12 +8,12 @@ module Sisimai::Lhost
 
       Boundaries = ['Original message follows.'].freeze
       StartingOf = { error: ['Body of message generated response:'] }.freeze
-      ReFailures = {
+      MessagesOf = {
         'hostunknown'   => ['Unknown host'],
         'userunknown'   => ['Unknown user', 'Invalid final delivery userid'],
         'mailboxfull'   => ['User mailbox exceeds allowed size'],
         'virusdetected' => ['Requested action not taken: virus detected'],
-        'undefined'     => ['undeliverable to'],
+        'spamdetected'  => ['Blacklisted URL in message'],
         'expired'       => ['Delivery failed '],
       }.freeze
 
@@ -45,24 +45,15 @@ module Sisimai::Lhost
           v = dscontents[-1]
 
           p0 = e.index(': ') || -1
-          if p0 > 8 && Sisimai::String.aligned(e, [': ', '@'])
+          if (p0 > 8 && Sisimai::String.aligned(e, [': ', '@'])) || e.start_with?('undeliverable ')
             # Unknown user: kijitora@example.com
-            if v['recipient']
-              # There are multiple recipient addresses in the message body.
-              dscontents << Sisimai::Lhost.DELIVERYSTATUS
-              v = dscontents[-1]
-            end
-            v['diagnosis'] = e
-            v['recipient'] = Sisimai::Address.s3s4(e[p0 + 2, e.size])
-            recipients += 1
-
-          elsif e.start_with?('undeliverable ')
             # undeliverable to kijitora@example.com
             if v['recipient']
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
+            v['diagnosis'] = e
             v['recipient'] = Sisimai::Address.s3s4(e)
             recipients += 1
           else
@@ -88,9 +79,9 @@ module Sisimai::Lhost
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
           e['command']   = Sisimai::SMTP::Command.find(e['diagnosis'])
 
-          ReFailures.each_key do |r|
+          MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless ReFailures[r].any? { |a| e['diagnosis'].include?(a) }
+            next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r
             break
           end
