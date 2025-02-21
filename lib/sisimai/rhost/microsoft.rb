@@ -645,6 +645,12 @@ module Sisimai
             #   envelope recipients into smaller chunks (chunking) and resend the message.
             ['4.5.3', 0, 0, 'too many recipients'],
 
+            # - 451 4.7.652 The mail server [192.0.2.251] has exceeded the maximum number of
+            #   connections. (S3115) [Name=Protocol Filter Agent][AGT=PFA][MxId=11BA9B3FA168ABBF]
+            #   [BN3PEPF0000B370.namprd21.prod.outlook.com 2025-02-20T14:30:32.425Z 08DD4D9FD5AFF45C]
+            #   (in reply to MAIL FROM command))
+            ["4.7.652", "", "", "has exceeded the maximum number of connections"],
+
             # Previous versions of Exchange Server ------------------------------------------------
             ['5.2.122', 0, 0, 'the recipient has exceeded their limit for'],
           ],
