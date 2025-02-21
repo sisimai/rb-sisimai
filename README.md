@@ -114,10 +114,10 @@ Install
 ### From RubyGems
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-5.1.0.gem (100%)
-Successfully installed sisimai-5.1.0
-Parsing documentation for sisimai-5.1.0
-Installing ri documentation for sisimai-5.1.0
+Fetching: sisimai-5.2.0.gem (100%)
+Successfully installed sisimai-5.2.0
+Parsing documentation for sisimai-5.2.0
+Installing ri documentation for sisimai-5.2.0
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -145,13 +145,13 @@ if [ -d "/usr/local/jr" ]; then \
 ...
 3 gems installed
 /opt/local/bin/rake install
-sisimai 5.1.0 built to pkg/sisimai-5.1.0.gem.
-sisimai (5.1.0) installed.
+sisimai 5.2.0 built to pkg/sisimai-5.2.0.gem.
+sisimai (5.2.0) installed.
 if [ -d "/usr/local/jr" ]; then \
 		PATH="/usr/local/jr/bin:$PATH" /usr/local/jr/bin/rake install; \
 	fi
-sisimai 5.1.0 built to pkg/sisimai-5.1.0-java.gem.
-sisimai (5.1.0) installed.
+sisimai 5.2.0 built to pkg/sisimai-5.2.0-java.gem.
+sisimai (5.2.0) installed.
 ```
 
 Usage
@@ -355,13 +355,13 @@ Beginning with v5.0.0, Sisimai requires **Ruby 2.4.0 or later.**
 | System requirements (CRuby)                          | 2.1 - 3.3.0        | **2.4** or later    |
 | System requirements (JRuby)                          | 9.0.4.0 - 9.1.17.0 | **9.2** or later    |
 | Callback feature for the original email file         | N/A                | Available[^3]       |
-| The number of MTA/ESP modules                        | 68                 | 73                  |
-| The number of detectable bounce reasons              | 29                 | 34                  |
+| The number of MTA/ESP modules                        | 68                 | 58                  |
+| The number of detectable bounce reasons              | 29                 | 36                  |
 | Dependencies (Except Ruby Standard Gems)             | 1 gem              | 1 gem               |
-| Source lines of code                                 | 10,300 lines       | 11,660 lines        |
+| Source lines of code                                 | 10,300 lines       | 9,800 lines         |
 | Test frameworks                                      | rspec              | minitest            |
-| The number of tests in spec/ or test/ directory      | 311,000 tests      | 414,000 tests       | 
-| The number of bounce emails decoded/sec (CRuby)[^4]  | 231 emails         | 305 emails          |
+| The number of tests in spec/ or test/ directory      | 311,000 tests      | 410,000 tests       | 
+| The number of bounce emails decoded/sec (CRuby)[^4]  | 290 emails         | 305 emails          |
 | License                                              | 2 Clause BSD       | 2 Caluse BSD        |
 | Commercial support                                   | Available          | Available           |
 
@@ -416,6 +416,8 @@ detect is available at [LIBSISIMAI.ORG/EN/REASON](https://libsisimai.org/en/reas
 | missing PTR/having invalid PTR                       | `Blocked`          | `RequirePTR`        |
 | non-compliance with RFC[^7]                          | `SecurityError`    | `NotCompliantRFC`   |
 | exceeding a rate limit or sending too fast           | `SecurityError`    | `Speeding`          |
+| STARTTLS-related errors (added at v5.2.0)            | `SecurityError`    | `FailedSTARTTLS`    |
+| Recipient in the suppression list (added at v5.2.0)  | `OnHold`           | `Suppressed`        |
 
 [^7]: RFC5322 and related RFCs
 
@@ -439,11 +441,11 @@ Related Sites
 ---------------------------------------------------------------------------------------------------
 * __@libsisimai__ | [Sisimai on Twitter (@libsisimai)](https://twitter.com/libsisimai)
 * __LIBSISIMAI.ORG__ | [SISIMAI | MAIL ANALYZING INTERFACE | DECODING BOUNCES, BETTER AND FASTER.](https://libsisimai.org/)
-* __Sisimai Blog__ | [blog.libsisimai.org](http://blog.libsisimai.org/)
 * __Facebook Page__ | [facebook.com/libsisimai](https://www.facebook.com/libsisimai/)
 * __GitHub__ | [github.com/sisimai/rb-sisimai](https://github.com/sisimai/rb-sisimai)
 * __RubyGems.org__ | [rubygems.org/gems/sisimai](https://rubygems.org/gems/sisimai)
 * __Perl verson__ | [Perl version of Sisimai](https://github.com/sisimai/p5-sisimai)
+* __Go verson__ | [Go version of Sisimai](https://github.com/sisimai/go-sisimai)
 * __Fixtures__ | [set-of-emails - Sample emails for "make test"](https://github.com/sisimai/set-of-emails)
 
 See also
@@ -461,7 +463,7 @@ Author
 
 Copyright
 ===================================================================================================
-Copyright (C) 2015-2024 azumakuniyuki, All Rights Reserved.
+Copyright (C) 2015-2025 azumakuniyuki, All Rights Reserved.
 
 License
 ===================================================================================================
