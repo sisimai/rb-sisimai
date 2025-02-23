@@ -1,0 +1,70 @@
+Received: from CAT000-NEKO222.hotmail.com (cat000-neko222.hotmail.com [198.51.100.22])
+	(using TLSv1 with cipher AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by neko1.example.co.jp (Postfix) with ESMTPS id FFFFFFFF000
+	for <sironeko@example.co.jp>; Thu, 29 Apr 2015 23:34:45 +0000 (UTC)
+Received: from CAT004-NEKO200.hotmail.com ([198.51.100.12]) by CAT004-NEKO222.hotmail.com
+	over TLS secured channel with Microsoft SMTPSVC(7.5.7601.22751);
+	Thu, 29 Apr 2015 23:34:45 -0800
+From: postmaster@hotmail.com
+To: sironeko@example.co.jp
+Date: Thu, 29 Apr 2015 23:34:45 -0800
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="0022FFAB0000=_0000FFFF002222EE00220022220000?NEKO22.22"
+Message-ID: <0000000000000000f@BAY004-NEKO22.hotmail.com>
+Subject: Delivery Status Notification (Failure)
+X-OriginalArrivalTime: 29 Apr 2015 23:34:45.0000 (UTC) FILETIME=[00000000:00000000]
+
+This is a MIME-formatted message.  
+Portions of this message may be unreadable without a MIME-capable mail program.
+
+--0022FFAB0000=_0000FFFF002222EE00220022220000?NEKO22.22
+Content-Type: text/plain; charset=unicode-1-1-utf-7
+
+This is an automatically generated Delivery Status Notification.
+
+Delivery to the following recipients failed.
+
+       kijitora@hotmail.example.com
+
+
+
+
+--0022FFAB0000=_0000FFFF002222EE00220022220000?NEKO22.22
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns;BAY004-NEKO22.hotmail.com
+Received-From-MTA: dns;CAT004-NEKO22.hotmail.com
+Arrival-Date: Thu, 29 Apr 2015 23:34:45 -0800
+
+Final-Recipient: rfc822;kijitora@hotmail.example.com
+Action: failed
+Status: 5.5.0
+Diagnostic-Code: smtp;550 Requested action not taken: mailbox unavailable (-0000000022:2222:-0000000022)
+
+--0022FFAB0000=_0000FFFF002222EE00220022220000?NEKO22.22
+Content-Type: message/rfc822
+
+Received: from CAT004-NEKO0002.hotmail.com ([192.0.2.89]) by BAY004-NEKO22.hotmail.com
+	over TLS secured channel with Microsoft SMTPSVC(7.5.7601.22751);
+	Thu, 29 Apr 2015 23:34:45 -0800
+Received: from CAT004-NYAAN22.hotmail.com ([192.0.2.66]) by CAT004-NEKO0R02.hotmail.com
+	over TLS secured channel with Microsoft SMTPSVC(7.5.7601.22751);
+	Thu, 29 Apr 2015 23:34:45 -0800
+Received: from r091.example.org (neko.example.co.jp [203.0.113.31])
+	(Authenticated sender: sironeko-nyaan)
+	by r1.example.co.jp (Postfix) with ESMTPA id EEEEEEEE000
+	for <kijitora@hotmail.com>; Thu, 29 Apr 2015 23:34:45 +0000 (UTC)
+From: "Neko, Nyaan" <sironeko@example.co.jp>
+To: Kijitora <kijitora@hotmail.com>
+Subject: Nyaan
+Date: Thu, 29 Apr 2015 23:34:45 -0000
+Message-ID: <000000222220000000000000fffffff@example.co.jp>
+MIME-Version: 1.0
+Content-Type: text/plain
+Return-Path: sironeko@example.co.jp
+
+Nyaan
+
+--0022FFAB0000=_0000FFFF002222EE00220022220000?NEKO22.22--
