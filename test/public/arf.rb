@@ -21,9 +21,9 @@ module LhostEngineTest::Public
       '19' => [['', '', 'feedback', false, 'auth-failure']],
       '20' => [['', '', 'feedback', false, 'auth-failure']],
       '21' => [['', '', 'feedback', false, 'abuse'       ]],
-#     '22' => [['', '', 'feedback', false, 'abuse'       ]],
-#     '23' => [['', '', 'feedback', false, 'abuse'       ]],
-#     '24' => [['', '', 'feedback', false, 'abuse'       ]],
+      '22' => [['', '', 'feedback', false, 'abuse'       ]],
+      '23' => [['', '', 'feedback', false, 'abuse'       ]],
+      '24' => [['', '', 'feedback', false, 'abuse'       ]],
       '25' => [['', '', 'feedback', false, 'abuse'       ]],
       '26' => [['', '', 'feedback', false, 'opt-out'     ]],
     }

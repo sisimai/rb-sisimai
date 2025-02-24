@@ -115,10 +115,10 @@ Install
 ### From RubyGems.org
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-5.1.0.gem (100%)
-Successfully installed sisimai-5.1.0
-Parsing documentation for sisimai-5.1.0
-Installing ri documentation for sisimai-5.1.0
+Fetching: sisimai-5.2.0.gem (100%)
+Successfully installed sisimai-5.2.0
+Parsing documentation for sisimai-5.2.0
+Installing ri documentation for sisimai-5.2.0
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -146,13 +146,13 @@ if [ -d "/usr/local/jr" ]; then \
 ...
 3 gems installed
 /opt/local/bin/rake install
-sisimai 5.1.0 built to pkg/sisimai-5.1.0.gem.
-sisimai (5.1.0) installed.
+sisimai 5.2.0 built to pkg/sisimai-5.2.0.gem.
+sisimai (5.2.0) installed.
 if [ -d "/usr/local/jr" ]; then \
 		PATH="/usr/local/jr/bin:$PATH" /usr/local/jr/bin/rake install; \
 	fi
-sisimai 5.1.0 built to pkg/sisimai-5.1.0-java.gem.
-sisimai (5.1.0) installed.
+sisimai 5.2.0 built to pkg/sisimai-5.2.0-java.gem.
+sisimai (5.2.0) installed.
 ```
 
 Usage
@@ -353,16 +353,16 @@ Sisimai 5.0.0から**Ruby 2.4以上**が必要になります。
 
 | 機能                                                 | Sisimai 4          | Sisimai 5           |
 |------------------------------------------------------|--------------------|---------------------|
-| 動作環境(CRuby)                                      | 2.1 -              | **2.4** or later    |
+| 動作環境(CRuby)                                      | 2.1 - 3.3.0        | **2.4** or later    |
 | 動作環境(JRuby)                                      | 9.0.4.0 - 9.1.17.0 | **9.2** or later    |
 | 元メールファイルを操作可能なコールバック機能         | なし               | あり[^3]            |
-| 解析エンジン(MTA/ESPモジュール)の数                  | 68                 | 73                  |
-| 検出可能なバウンス理由の数                           | 29                 | 34                  |
+| 解析エンジン(MTA/ESPモジュール)の数                  | 68                 | 58                  |
+| 検出可能なバウンス理由の数                           | 29                 | 36                  |
 | 依存Gem数(Ruby Standard Gemsを除く)                  | 1 Gem              | 1 Gem               |
-| ソースコードの行数                                   | 10,800 行          | 11,660 行           |
+| ソースコードの行数                                   | 10,800 行          | 9,860 行            |
 | テストフレームワーク                                 | rspec              | minitest            |
-| テスト件数(spec/またはtest/ディレクトリ)             | 311,000 件         | 414,000 件          |
-| 1秒間に解析できるバウンスメール数[^4]                | 231 通             | 305 通              |
+| テスト件数(spec/またはtest/ディレクトリ)             | 311,000 件         | 410,000 件          |
+| 1秒間に解析できるバウンスメール数[^4]                | 290 通             | 305 通              |
 | ライセンス                                           | 2条項BSD           | 2条項BSD            |
 | 開発会社による商用サポート                           | 提供中             | 提供中              |
 
@@ -415,6 +415,8 @@ Sisimai 5では新たに5個のバウンス理由が増えました。検出可�
 | PTRレコードが未設定または無効なPTRレコード           | `Blocked`          | `RequirePTR`        |
 | RFCに準拠していないメール[^7]                        | `SecurityError`    | `NotCompliantRFC`   |
 | 単位時間の流量制限・送信速度が速すぎる               | `SecurityError`    | `Speeding`          |
+| STARTTLS関連のエラー (added at v5.2.0)               | `SecurityError`    | `FailedSTARTTLS`    |
+| 宛先がサプレッションリストに一致 (added at v5.2.0)   | `OnHold`           | `Suppressed`        |
 
 [^7]: RFC5322など
 
@@ -436,11 +438,11 @@ Related sites
 ---------------------------------------------------------------------------------------------------
 * __@libsisimai__ | [Sisimai on Twitter (@libsisimai)](https://twitter.com/libsisimai)
 * __LIBSISIMAI.ORG__ | [SISIMAI | MAIL ANALYZING INTERFACE | DECODING BOUNCES, BETTER AND FASTER.](https://libsisimai.org/)
-* __Sisimai Blog__ | [blog.libsisimai.org](http://blog.libsisimai.org/)
 * __Facebook Page__ | [facebook.com/libsisimai](https://www.facebook.com/libsisimai/)
 * __GitHub__ | [github.com/sisimai/rb-sisimai](https://github.com/sisimai/rb-sisimai)
 * __RubyGems.org__ | [rubygems.org/gems/sisimai](https://rubygems.org/gems/sisimai)
 * __Perl verson__ | [Perl version of Sisimai](https://github.com/sisimai/p5-sisimai)
+* __Go verson__ | [Go version of Sisimai](https://github.com/sisimai/go-sisimai)
 * __Fixtures__ | [set-of-emails - Sample emails for "make test"](https://github.com/sisimai/set-of-emails)
 
 See also
@@ -458,7 +460,7 @@ Author
 
 Copyright
 ===================================================================================================
-Copyright (C) 2015-2024 azumakuniyuki, All Rights Reserved.
+Copyright (C) 2015-2025 azumakuniyuki, All Rights Reserved.
 
 License
 ===================================================================================================

@@ -71,7 +71,7 @@ module LhostEngineTest::Public
       '75' => [['4.3.0',   '451', 'systemerror',     false]],
       '76' => [['5.0.0',   '550', 'userunknown',     true]],
       '77' => [['5.0.0',   '554', 'norelaying',      false]],
-      '78' => [['5.0.0',   '554', 'contenterror',    false]],
+      '78' => [['5.0.0',   '554', 'notcompliantrfc', false]],
     }
   end
 end

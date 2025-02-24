@@ -9,6 +9,7 @@ module LhostEngineTest::Public
       '04' => [['5.7.0',   '550', 'blocked',         false]],
       '05' => [['5.1.1',   '553', 'userunknown',     true]],
       '06' => [['4.0.947', '',    'expired',         false]],
+      '07' => [['4.0.922', '',    'mailboxfull',     false]],
       '08' => [['4.0.947', '',    'expired',         false]],
       '29' => [['5.0.0',   '550', 'authfailure',     false]],
       '30' => [['5.7.1',   '554', 'userunknown',     true]],

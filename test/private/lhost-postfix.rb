@@ -279,7 +279,7 @@ module LhostEngineTest::Private
       '1268'  => [['5.0.0',   '550', 'suspend',         false]],
       '1269'  => [['5.0.0',   '550', 'virusdetected',   false]],
       '1270'  => [['5.0.0',   '554', 'norelaying',      false]],
-      '1271'  => [['5.0.0',   '554', 'contenterror',    false]],
+      '1271'  => [['5.0.0',   '554', 'notcompliantrfc', false]],
       '1272'  => [['5.0.0',   '550', 'rejected',        false]],
       '1273'  => [['5.0.0',   '550', 'rejected',        false]],
       '1274'  => [['5.0.939', '',    'mailererror',     false]],

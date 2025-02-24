@@ -7,10 +7,16 @@ module Sisimai
     # example, there are multiple "Subject" headers in the email.
     module NotCompliantRFC
       class << self
+        require 'sisimai/string'
         Index = [
-        'this message is not rfc 5322 compliant',
-        'https://support.google.com/mail/?p=rfcmessagenoncompliant',
+          'duplicate header',
+          'this message is not rfc 5322 compliant',
+          'https://support.google.com/mail/?p=rfcmessagenoncompliant',
         ].freeze
+        Pairs = [
+          [' multiple ', ' header'],
+        ].freeze
+        
 
         def text; return 'notcompliantrfc'; end
         def description; return 'Email rejected due to non-compliance with RFC'; end
@@ -22,6 +28,7 @@ module Sisimai
         def match(argv1)
           return nil unless argv1
           return true if Index.any? { |a| argv1.include?(a) }
+          return true if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
           return false
         end
 
