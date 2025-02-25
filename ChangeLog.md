@@ -3,10 +3,10 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v5.1.0p6
+v5.2.0
 ---------------------------------------------------------------------------------------------------
-- release: ""
-- version: ""
+- release: "5.2.0"
+- version: "Tue, 25 Feb 2025 11:17:31 +0900 (JST)"
 - changes:
   - **Keep compatibility with the Go language version of Sisimai** #311 #318 #327
     - **BREAKING CHANGES AT EXTERNAL USER APIs**
