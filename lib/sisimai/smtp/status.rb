@@ -735,7 +735,7 @@ module Sisimai
                        else
                          ['5.', '4.', '2.']
                        end
-          esmtperror = ' ' + argv1 + ' '
+          esmtperror = ' ' + argv1 + '   ' # Why 3 space characters? see https://github.com/sisimai/p5-sisimai/issues/574
           lookingfor = []
 
           Sisimai::RFC791.find(esmtperror).each do |e|
