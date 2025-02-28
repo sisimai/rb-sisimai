@@ -36,6 +36,15 @@ class SMTPStatusTest < Minitest::Test
     'SMTP; 550 5.7.25 The ip address sending this message does not have a ptr record setup',
     'smtp; 550-5.7.1 This message is not RFC 5322 compliant. There are multiple Subject 550-5.7.1 headers',
   ]
+  Bug_574 = [
+    # https://github.com/sisimai/p5-sisimai/issues/574
+    'SMTP; 5.0.',
+    'SMTP; 5.1. ',
+    'NEKO; 5.2. ',
+    'NYAN; 5.3..',
+    'E 5.4..',
+    '5 5.5..',
+  ]
 
   def test_methods
     Methods[:class].each { |e| assert_respond_to Sisimai::SMTP::Status, e }
@@ -100,6 +109,12 @@ class SMTPStatusTest < Minitest::Test
       assert_instance_of String, cv
       assert_match /\A[245][.]\d+[.]\d{1,3}\z/, cv
       assert_equal true, Sisimai::SMTP::Status.test(cv)
+    end
+
+    Bug_574.each do |e|
+      cv = Sisimai::SMTP::Status.find(e)
+      assert_instance_of String, cv
+      assert_equal "", cv
     end
 
     ce = assert_raises ArgumentError do
