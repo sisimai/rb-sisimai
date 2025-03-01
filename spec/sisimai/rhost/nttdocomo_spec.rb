@@ -7,8 +7,8 @@ require 'sisimai/rhost/nttdocomo'
 describe Sisimai::Rhost::NTTDOCOMO do
   rs = {
     '01' => { 'status' => %r/\A5[.]2[.]0\z/, 'reason' => %r/filtered/ },
-    '02' => { 'status' => %r/\A5[.]0[.]0\z/, 'reason' => %r/rejected/ },
-    '03' => { 'status' => %r/\A5[.]0[.]0\z/, 'reason' => %r/rejected/ },
+    '02' => { 'status' => %r/\A5[.]0[.]0\z/, 'reason' => %r/userunknown/ },
+    '03' => { 'status' => %r/\A5[.]0[.]0\z/, 'reason' => %r/userunknown/ },
   }
   describe 'bounce mail from NTT DOCOMO' do
     rs.each_key.each do |n|
