@@ -5,8 +5,8 @@ require 'sisimai'
 class RhostTest < Minitest::Test
   Methods = { class:  %w[name find] }
   Classes = %w[
-    Aol Apple Cox Facebook FrancePTT GoDaddy Google GSuite IUA KDDI MessageLabs Microsoft Mimecast
-    NTTDOCOMO Outlook Spectrum Tencent YahooInc
+    Aol Apple Cloudflare Cox Facebook FrancePTT GoDaddy Google GSuite IUA KDDI MessageLabs Microsoft
+    Mimecast NTTDOCOMO Outlook Spectrum Tencent YahooInc
   ]
   Objects = []
 
