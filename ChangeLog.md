@@ -3,6 +3,13 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v5.2.0p1
+---------------------------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - Implement `Sisimai::Rhost::Cloudflare` #336 #337
+
 v5.2.0
 ---------------------------------------------------------------------------------------------------
 - release: "5.2.0"
