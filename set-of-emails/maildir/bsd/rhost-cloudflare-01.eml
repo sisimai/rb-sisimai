@@ -1,0 +1,75 @@
+Return-Path: <>
+Received: from relay.mx.example.jp (unknown [192.0.2.21])
+	by sisimai.mx.example.jp (Postfix) with ESMTPS id m6SrZSzVjhzC3KjV
+	for <neko@mx.example.jp>; Tue,  2 Jul 2024 23:34:45 +0900 (JST)
+Date: Tue,  2 Jul 2024 23:34:45 +0900 (JST)
+From: MAILER-DAEMON@relay.mx.example.jp (Mail Delivery System)
+To: neko@mx.example.jp
+Message-Id: <qQYlj9jhzdzY6WHr@relay.mx.example.jp>
+Subject: Undelivered Mail Returned to Sender
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="yKvJXwrDt6zP1H5n.1316187218/relay.mx.example.jp"
+
+This is a MIME-encapsulated message.
+
+--yKvJXwrDt6zP1H5n.1316187218/relay.mx.example.jp
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host relay.mx.example.jp.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora-neko@example.com>: host route3.mx.cloudflare.net[162.159.205.25]
+    said: 421 4.3.0 Upstream error, please check
+    https://developers.cloudflare.com/email-routing/postmaster for possible
+    reasons why. RsrUEMk60942 (in reply to end of DATA command)
+
+--yKvJXwrDt6zP1H5n.1316187218/relay.mx.example.jp
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; relay.mx.example.jp
+X-Postfix-Queue-ID: yKvJXwrDt6zP1H5n
+X-Postfix-Sender: rfc822; neko@mx.example.jp
+Arrival-Date: Tue,  2 Jul 2024 23:34:45 +0900 (JST)
+
+Final-Recipient: rfc822; kijitora-neko@example.com
+Original-Recipient: rfc822;kijitora-neko@example.com
+Action: failed
+Status: 4.3.0
+Remote-MTA: dns; route3.mx.cloudflare.net
+Diagnostic-Code: smtp; 421 4.3.0 Upstream error, please check
+    https://developers.cloudflare.com/email-routing/postmaster for possible
+    reasons why. RsrUEMk60942
+
+--yKvJXwrDt6zP1H5n.1316187218/relay.mx.example.jp
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <neko@mx.example.jp>
+Received: from local-mail-hub-1.example.jp (unknown [192.0.2.253])
+	by relay.mx.example.jp (Postfix) with ESMTP id yKvJXwrDt6zP1H5n
+	for <kijitora-neko@example.com>; Tue,  2 Jul 2024 23:34:45 +0900 (JST)
+From: <neko@mx.example.jp>
+Date: Tue, 02 Jul 2024 23:34:45 +0900
+Message-Id: <QtF9aH-aSDIzG-WP@mx.example.jp>
+To: <kijitora-neko@example.com>
+Subject: Nyaaaaaan
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+
+Nyaan?
+
+--yKvJXwrDt6zP1H5n.1316187218/relay.mx.example.jp--
+
