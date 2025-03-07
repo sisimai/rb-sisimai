@@ -50,6 +50,8 @@ module Sisimai
 
           isexpected.each do |e|
             # Open each email in set-of-emails/ directory
+            e['n'].gsub!(/^0+/, '')
+
             samplefile = nil
             mailobject = nil
             indexlabel = sprintf("%02d", e['n'].to_i)
