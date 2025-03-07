@@ -11,6 +11,9 @@ v4.25.16p2
   - Merge #260 fix for parsing a bounce mail from an EWS Server with a new line
     code(CR). Thanks to @nick4tech
   - Register `set-of-emails/maildir/mac/reported-from-nick4tech-san-01.eml`
+  - #333 NTT DOCOMO (Major Japanese mobile carrier) no longer returns a bounce
+    mail due to domain rejection or similar email settings, but instead were
+    being delivered to the spam folder after March 13th. #335
 
 v4.25.16p1
 --------------------------------------------------------------------------------
