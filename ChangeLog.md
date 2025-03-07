@@ -3,12 +3,15 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v5.2.0p1
+v5.2.0p2
 ---------------------------------------------------------------------------------------------------
 - release: ""
 - version: ""
 - changes:
   - Implement `Sisimai::Rhost::Cloudflare` #336 #337
+  - #333 NTT DOCOMO (Major Japanese mobile carrier) no longer returns a bounce mail due to domain
+    rejection or similar email settings, but instead were being delivered to the spam folder after
+    March 13th. #334
 
 v5.2.0
 ---------------------------------------------------------------------------------------------------
