@@ -13,8 +13,8 @@ module LhostEngineTest::Private
                   ['5.2.2',   '550', 'mailboxfull',     false]],
       '1023'  => [['5.1.1',   '550', 'userunknown',     true]],
       '1024'  => [['5.1.1',   '550', 'userunknown',     true]],
-      '1025'  => [['5.5.0',   '550', 'filtered',        false]],
-      '1026'  => [['5.5.0',   '550', 'filtered',        false]],
+      '1025'  => [['5.5.0',   '550', 'userunknown',     true]],
+      '1026'  => [['5.5.0',   '550', 'userunknown',     true]],
       '1027'  => [['5.5.0',   '550', 'userunknown',     true]],
     }
   end
