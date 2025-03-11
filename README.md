@@ -67,14 +67,14 @@ Perl version of Sisimai at [github.com/sisimai/p5-sisimai](https://github.com/si
 The key features of Sisimai
 ---------------------------------------------------------------------------------------------------
 * __Decode email bounces to structured data__
-  * Sisimai provides detailed insights into bounce emails by extracting 24 key data points.[^2]
+  * Sisimai provides detailed insights into bounce emails by extracting 26 key data points.[^2]
     * __Essential information__: `timestamp`, `origin`
     * __Sender information__: `addresser`, `senderdomain`, 
     * __Recipient information__: `recipient`, `destination`, `alias`
-    * __Delivery information__: `action`, `replycode`,`action`, `replycode`, `deliverystatus`
-    * __Bounce details__: `reason`, `diagnosticcode`, `diagnostictype`, `feedbacktype`, `hardbounce`
+    * __Delivery information__: `action`, `replycode`, `deliverystatus`, `command`
+    * __Bounce details__: `reason`, `diagnosticcode`, `diagnostictype`, `feedbacktype`, `feedbackid`, `hardbounce`
     * __Message details__: `subject`, `messageid`, `listid`,
-    * __Additional information__: `smtpagent`, `timezoneoffset`, `lhost`, `rhost`, `token`, `catch`
+    * __Additional information__: `decodedby`, `timezoneoffset`, `lhost`, `rhost`, `token`, `catch`
   * Output formats
     * Ruby (Hash, Array)
     * JSON 
@@ -85,9 +85,9 @@ The key features of Sisimai
     * `gem install`
     * `git clone && make`
   * __High Precision of Analysis__
-    * Support [73 MTAs/MDAs/ESPs](https://libsisimai.org/en/engine/)
+    * Support [59 MTAs/MDAs/ESPs](https://libsisimai.org/en/engine/)
     * Support Feedback Loop Message(ARF)
-    * Can detect [34 bounce reasons](https://libsisimai.org/en/reason/)
+    * Can detect [36 bounce reasons](https://libsisimai.org/en/reason/)
 
 [^2]: The callback function allows you to add your own data under the `catch` accessor.
 
@@ -114,10 +114,10 @@ Install
 ### From RubyGems
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-5.2.0.gem (100%)
-Successfully installed sisimai-5.2.0
-Parsing documentation for sisimai-5.2.0
-Installing ri documentation for sisimai-5.2.0
+Fetching: sisimai-5.2.1.gem (100%)
+Successfully installed sisimai-5.2.1
+Parsing documentation for sisimai-5.2.1
+Installing ri documentation for sisimai-5.2.1
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -145,13 +145,13 @@ if [ -d "/usr/local/jr" ]; then \
 ...
 3 gems installed
 /opt/local/bin/rake install
-sisimai 5.2.0 built to pkg/sisimai-5.2.0.gem.
-sisimai (5.2.0) installed.
+sisimai 5.2.1 built to pkg/sisimai-5.2.1.gem.
+sisimai (5.2.1) installed.
 if [ -d "/usr/local/jr" ]; then \
 		PATH="/usr/local/jr/bin:$PATH" /usr/local/jr/bin/rake install; \
 	fi
-sisimai 5.2.0 built to pkg/sisimai-5.2.0-java.gem.
-sisimai (5.2.0) installed.
+sisimai 5.2.1 built to pkg/sisimai-5.2.1-java.gem.
+sisimai (5.2.1) installed.
 ```
 
 Usage
@@ -318,8 +318,8 @@ Output example
     "catch": null,
     "addresser": "michitsuna@example.jp",
     "alias": "nekochan@example.co.jp",
-    "smtpagent": "Postfix",
-    "smtpcommand": "DATA",
+    "decodedby": "Postfix",
+    "command": "DATA",
     "senderdomain": "example.jp",
     "listid": "",
     "action": "failed",
@@ -355,13 +355,13 @@ Beginning with v5.0.0, Sisimai requires **Ruby 2.4.0 or later.**
 | System requirements (CRuby)                          | 2.1 - 3.3.0        | **2.4** or later    |
 | System requirements (JRuby)                          | 9.0.4.0 - 9.1.17.0 | **9.2** or later    |
 | Callback feature for the original email file         | N/A                | Available[^3]       |
-| The number of MTA/ESP modules                        | 68                 | 58                  |
+| The number of MTA/ESP modules                        | 68                 | 59                  |
 | The number of detectable bounce reasons              | 29                 | 36                  |
 | Dependencies (Except Ruby Standard Gems)             | 1 gem              | 1 gem               |
 | Source lines of code                                 | 10,300 lines       | 9,800 lines         |
 | Test frameworks                                      | rspec              | minitest            |
 | The number of tests in spec/ or test/ directory      | 311,000 tests      | 410,000 tests       | 
-| The number of bounce emails decoded/sec (CRuby)[^4]  | 290 emails         | 305 emails          |
+| The number of bounce emails decoded/sec (CRuby)[^4]  | 290 emails         | 360 emails          |
 | License                                              | 2 Clause BSD       | 2 Caluse BSD        |
 | Commercial support                                   | Available          | Available           |
 

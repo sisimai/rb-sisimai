@@ -65,14 +65,14 @@ Sisimai(シシマイ)は複雑で多種多様なバウンスメールを解析�
 The key features of Sisimai
 ---------------------------------------------------------------------------------------------------
 * __バウンスメールを構造化したデータに変換__
-  * 以下24項目の情報を含むデータ構造[^2]
+  * 以下26項目の情報を含むデータ構造[^2]
     * __基本的情報__: `timestamp`, `origin`
     * __発信者情報__: `addresser`, `senderdomain`, 
     * __受信者情報__: `recipient`, `destination`, `alias`
-    * __配信の情報__: `action`, `replycode`,`action`, `replycode`, `deliverystatus`
+    * __配信の情報__: `action`, `replycode`, `deliverystatus`, `command`
     * __エラー情報__: `reason`, `diagnosticcode`, `diagnostictype`, `feedbacktype`, `hardbounce`
     * __メール情報__: `subject`, `messageid`, `listid`,
-    * __その他情報__: `smtpagent`, `timezoneoffset`, `lhost`, `rhost`, `token`, `catch`
+    * __その他情報__: `decodedby`, `timezoneoffset`, `lhost`, `rhost`, `token`, `catch`
   * __出力可能な形式__
     * Ruby (Hash, Array)
     * JSON 
@@ -319,8 +319,8 @@ Output example
     "catch": null,
     "addresser": "michitsuna@example.jp",
     "alias": "nekochan@example.co.jp",
-    "smtpagent": "Postfix",
-    "smtpcommand": "DATA",
+    "decodedby": "Postfix",
+    "command": "DATA",
     "senderdomain": "example.jp",
     "listid": "",
     "action": "failed",
@@ -362,7 +362,7 @@ Sisimai 5.0.0から**Ruby 2.4以上**が必要になります。
 | ソースコードの行数                                   | 10,800 行          | 9,860 行            |
 | テストフレームワーク                                 | rspec              | minitest            |
 | テスト件数(spec/またはtest/ディレクトリ)             | 311,000 件         | 410,000 件          |
-| 1秒間に解析できるバウンスメール数[^4]                | 290 通             | 305 通              |
+| 1秒間に解析できるバウンスメール数[^4]                | 290 通             | 360 通              |
 | ライセンス                                           | 2条項BSD           | 2条項BSD            |
 | 開発会社による商用サポート                           | 提供中             | 提供中              |
 
