@@ -95,10 +95,10 @@ Install
 
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-4.25.16.gem (100%)
-Successfully installed sisimai-4.25.16
-Parsing documentation for sisimai-4.25.16
-Installing ri documentation for sisimai-4.25.16
+Fetching: sisimai-4.25.17.gem (100%)
+Successfully installed sisimai-4.25.17
+Parsing documentation for sisimai-4.25.17
+Installing ri documentation for sisimai-4.25.17
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -114,8 +114,8 @@ gem install bundle rake rspec coveralls
 ...
 4 gems installed
 bundle exec rake install
-sisimai 4.25.16 built to pkg/sisimai-4.25.16.gem.
-sisimai (4.25.16) installed.
+sisimai 4.25.17 built to pkg/sisimai-4.25.17.gem.
+sisimai (4.25.17) installed.
 ```
 
 Usage
@@ -279,7 +279,8 @@ Related Sites
 * __Facebook Page__ | [facebook.com/libsisimai](https://www.facebook.com/libsisimai/)
 * __GitHub__ | [github.com/sisimai/rb-sisimai](https://github.com/sisimai/rb-sisimai)
 * __RubyGems.org__ | [rubygems.org/gems/sisimai](https://rubygems.org/gems/sisimai)
-* __Perl verson__ | [Perl version of Sisimai](https://github.com/sisimai/p5-sisimai)
+* __Perl version__ | [Perl version of Sisimai](https://github.com/sisimai/p5-sisimai)
+* __Go version__ | [Go version of Sisimai 5](https://github.com/sisimai/go-sisimai)
 * __Fixtures__ | [set-of-emails - Sample emails for "make test"](https://github.com/sisimai/set-of-emails)
 
 See also
@@ -297,7 +298,7 @@ Author
 
 Copyright
 ===============================================================================
-Copyright (C) 2015-2024 azumakuniyuki, All Rights Reserved.
+Copyright (C) 2015-2025 azumakuniyuki, All Rights Reserved.
 
 License
 ===============================================================================
