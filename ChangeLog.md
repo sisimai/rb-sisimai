@@ -3,10 +3,10 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v4.25.16p2
+v4.25.17
 --------------------------------------------------------------------------------
-- release: ""
-- version: ""
+- release: "Wed, 12 Mar 2025 06:40:01 +0900 (JST)"
+- version: "4.25.17"
 - changes:
   - Merge #260 fix for parsing a bounce mail from an EWS Server with a new line
     code(CR). Thanks to @nick4tech
