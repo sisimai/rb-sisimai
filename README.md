@@ -361,7 +361,7 @@ Beginning with v5.0.0, Sisimai requires **Ruby 2.4.0 or later.**
 | Source lines of code                                 | 10,300 lines       | 9,800 lines         |
 | Test frameworks                                      | rspec              | minitest            |
 | The number of tests in spec/ or test/ directory      | 311,000 tests      | 410,000 tests       | 
-| The number of bounce emails decoded/sec (CRuby)[^4]  | 290 emails         | 360 emails          |
+| The number of bounce emails decoded/sec (CRuby)[^4]  | 620 emails         | 620 emails          |
 | License                                              | 2 Clause BSD       | 2 Caluse BSD        |
 | Commercial support                                   | Available          | Available           |
 
