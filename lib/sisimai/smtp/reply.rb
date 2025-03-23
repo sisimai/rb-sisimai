@@ -58,8 +58,11 @@ module Sisimai
           # 251   User not local; will forward to <forward-path> (See Section 3.4)
           # 252   Cannot VRFY user, but will accept message and attempt delivery (See Section 3.5.3)
           # 253   OK, <n> pending messages for node <domain> started (See RFC1985)
+          # 334   A server challenge is sent as a 334 reply with the text part containing the [BASE64]
+          #       encoded string supplied by the SASL mechanism.  This challenge MUST NOT contain any
+          #       text other than the BASE64 encoded challenge. (RFC4954)
           # 354   Start mail input; end with <CRLF>.<CRLF>
-          '211', '214', '220', '221', '235', '250', '251', '252', '253', '354'
+          '211', '214', '220', '221', '235', '250', '251', '252', '253', '334', '354'
         ].freeze
         ReplyCode4 = [
           # 421   <domain> Service not available, closing transmission channel (This may be a reply
@@ -86,7 +89,6 @@ module Sisimai
           # 502   Command not implemented (see Section 4.2.4)
           # 503   Bad sequence of commands
           # 504   Command parameter not implemented
-          # 520   Please use the correct QHLO ID (See https://datatracker.ietf.org/doc/id/draft-fanf-smtp-quickstart-01.txt)
           # 521   Host does not accept mail (See RFC7504)
           # 523   Encryption Needed (See RFC5248)
           # 524   (See RFC5248)
@@ -104,11 +106,27 @@ module Sisimai
           # 554   Transaction failed (Or, in the case of a connection-opening response, "No SMTP service here")
           # 555   MAIL FROM/RCPT TO parameters not recognized or not implemented
           # 556   Domain does not accept mail (See RFC7504)
-          # 557   draft-moore-email-addrquery-01
-          '550', '552', '553', '551', '521', '525', '502', '520', '523', '524', '530', '533', '534',
-          '535', '538', '551', '555', '556', '554', '557', '500', '501', '502', '503', '504',
+          "550", "552", "553", "551", "521", "525", "523", "524", "530", "533", "534", "535", "538",
+          "555", "556", "554", "500", "501", "502", "503", "504",
         ].freeze
         CodeOfSMTP = { '2' => ReplyCode2, '4' => ReplyCode4, '5' => ReplyCode5 }.freeze
+        Associated = {
+          "422" => ["AUTH",     "4.7.12",  "securityerror"], # RFC5238
+          "432" => ["AUTH",     "4.7.12",  "securityerror"], # RFC4954, RFC5321
+          "500" => ["",         "",        "syntaxerror"],   # RFC5321
+          "501" => ["",         "",        "syntaxerror"],   # RFC5321
+          "502" => ["",         "",        "syntaxerror"],   # RFC5321
+          "503" => ["",         "",        "syntaxerror"],   # RFC5321
+          "504" => ["",         "",        "syntaxerror"],   # RFC5321
+          "521" => ["CONN",     "",        "notaccept"],     # RFC7504
+          "523" => ["AUTH",     "",        "securityerror"], # RFC5248
+          "524" => ["AUTH",     "",        "securityerror"], # RFC5248
+          "525" => ["AUTH",     "",        "securityerror"], # RFC5248
+          "534" => ["AUTH",     "5.7.9",   "securityerror"], # RFC4954, RFC5248
+          "535" => ["AUTH",     "5.7.8",   "securityerror"], # RFC4954, RFC5248
+          "538" => ["AUTH",     "5.7.11",  "securityerror"], # RFC4954, RFC5248
+          "556" => ["RCPT",     "",        "notaccept"],     # RFC7504
+        }.freeze
 
         # Check whether a reply code is a valid code or not
         # @param    [String] argv1  Reply Code(DSN)
@@ -122,7 +140,7 @@ module Sisimai
           first = (reply / 100).to_i
 
           return false if reply < 211
-          return false if reply > 557
+          return false if reply > 556
           return false if reply % 100 > 59
 
           if first == 2
@@ -135,7 +153,7 @@ module Sisimai
 
           if first == 3
             # 3yz
-            return false unless reply == 354
+            return false unless reply == 334 || reply == 354
             return true
           end
 
@@ -182,6 +200,11 @@ module Sisimai
           return esmtpreply
         end
 
+        # associatedwith returns a slice associated with the SMTP reply code of the argument
+        # @param    [String] argv1  SMTP reply code like 550
+        # @return   [Array]         ["SMTP Command", "DSN", "Reason"]
+        # @since v5.2.2
+        def associatedwith(argv1 = ''); return Associated[argv1] || []; end
       end
     end
   end
