@@ -892,6 +892,15 @@ module Sisimai
           return statuscode
         end
 
+        # is_explicit() returns 0 when the argument is empty or is an internal code
+        # @param    string argv1  Status code
+        # @return   bool          false: The delivery status code is not explicit
+        def is_explicit(argv1 = '')
+          return false if argv1.nil?
+          return false if argv1.empty?
+          return false if argv1.size == 7 && argv1.start_with?("5.0.9", "4.0.9")
+          return true
+        end
       end
     end
   end

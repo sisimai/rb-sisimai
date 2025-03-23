@@ -143,5 +143,15 @@ class SMTPStatusTest < Minitest::Test
     assert_empty Sisimai::SMTP::Status.find('')
   end
 
+  def test_is_explicit
+    CodeSet.each do |e|
+      assert_equal true, Sisimai::SMTP::Status.is_explicit(e)
+    end
+    ["", "5.0.999", "4.0.999"].each do |e|
+      assert_equal false, Sisimai::SMTP::Status.is_explicit(e)
+    end
+  end
+
+
 end
 
