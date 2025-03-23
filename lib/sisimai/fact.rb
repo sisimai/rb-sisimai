@@ -473,6 +473,16 @@ module Sisimai
         thing["action"] = "delayed"   if thing["action"].empty? && thing["reason"] == "expired"
         thing["action"] = "failed"    if thing["action"].empty? && cx[0] == "4" || cx[0] == "5"
 
+        if thing["replycode"].size > 0
+          # Fill empty values: ["SMTP Command", "DSN", "Reason"]
+          cv = Sisimai::SMTP::Reply.associatedwith(thing["replycode"])
+          if cv.size > 0
+            thing["command"]        = cv[0] if cv[0] != "" && thing["command"].empty?
+            thing["deliverystatus"] = cv[1] if cv[1] != "" && Sisimai::SMTP::Status.is_explicit(thing["deliverystatus"]) == false
+            thing["reason"]         = cv[2] if cv[2] != "" && Sisimai::Reason.is_explicit(thing["reason"]) == false
+          end
+        end
+
         # Feedback-ID: 1.us-west-2.QHuyeCQrGtIIMGKQfVdUhP9hCQR2LglVOrRamBc+Prk=:AmazonSES
         thing["feedbackid"] = rfc822data["feedback-id"] || ""
 
