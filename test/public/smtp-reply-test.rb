@@ -1,5 +1,7 @@
 require 'minitest/autorun'
 require 'sisimai/smtp/reply'
+require 'sisimai/smtp/status'
+require 'sisimai/smtp/command'
 
 class SMTPReply< Minitest::Test
   Methods = { class: %w[test find] }
@@ -116,4 +118,14 @@ class SMTPReply< Minitest::Test
     assert_empty Sisimai::SMTP::Reply.find('')
   end
 
+  def test_associatedwith
+    %w[422 432 500 501 502 503 504 521 523 524 525 534 535 538 556].each do |e|
+      cv = Sisimai::SMTP::Reply.associatedwith(e)
+      assert_instance_of Array, cv
+      assert_equal 3, cv.size
+      assert_equal true, Sisimai::SMTP::Command.test(cv[0]) if cv[0].size > 0
+      assert_equal true, Sisimai::SMTP::Status.test(cv[1])  if cv[1].size > 0
+      assert_equal true, cv[2].size > 0
+    end
+  end
 end
