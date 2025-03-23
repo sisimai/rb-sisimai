@@ -43,7 +43,7 @@ module Sisimai
           return true if argvs['reason'] == 'notaccept'
 
           # SMTP Reply Code is 554 or 556
-          return true  if [521, 554, 556].index(argvs['replycode'].to_i)
+          return true  if [521, 556].index(argvs['replycode'].to_i)
           return false if argvs['command'] != 'MAIL'
           return match(argvs['diagnosticcode'].downcase)
         end
