@@ -3,6 +3,13 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v5.2.1p1
+---------------------------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - Sisimai works on Ruby 3.4
+
 v5.2.1
 ---------------------------------------------------------------------------------------------------
 - release: "Wed, 12 Mar 2025 06:50:25 +0900 (JST)"
