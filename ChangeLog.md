@@ -9,6 +9,10 @@ v5.2.1p1
 - version: ""
 - changes:
   - Sisimai works on Ruby 3.4
+  - SMTP reply code improvements
+    - Update the list of SMTP reply codes in `Sisimai::SMTP::Reply`
+    - Implement `Sisimai::SMTP::Reply.associatedwith`
+    - Implement `Sisimai::SMTP::Status.is_explicit`
 
 v5.2.1
 ---------------------------------------------------------------------------------------------------
