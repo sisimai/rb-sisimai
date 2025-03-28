@@ -1,6 +1,6 @@
 ![](https://libsisimai.org/static/images/logo/sisimai-x01.png)
 [![License](https://img.shields.io/badge/license-BSD%202--Clause-orange.svg)](https://github.com/sisimai/rb-sisimai/blob/master/LICENSE)
-[![Ruby](https://img.shields.io/badge/ruby-v2.4.0--v3.3.0-red.svg)](https://www.ruby-lang.org/)
+[![Ruby](https://img.shields.io/badge/ruby-v2.4.0--v3.4.0-red.svg)](https://www.ruby-lang.org/)
 [![Gem Version](https://badge.fury.io/rb/sisimai.svg)](https://badge.fury.io/rb/sisimai)
 [![codecov](https://codecov.io/github/sisimai/rb-sisimai/graph/badge.svg?token=YGkyluNWiZ)](https://codecov.io/github/sisimai/rb-sisimai)
 
