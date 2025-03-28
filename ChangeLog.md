@@ -3,11 +3,12 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v5.2.1p1
+v5.3.0
 ---------------------------------------------------------------------------------------------------
-- release: ""
-- version: ""
+- release: "Sat, 29 Mar 2025 06:04:41 +0900 (JST)"
+- version: "5.3.0"
 - changes:
+  - Collateral update due to the Go version of Sisimai's broken module path fix.
   - Sisimai works on Ruby 3.4
   - SMTP reply code improvements
     - Update the list of SMTP reply codes in `Sisimai::SMTP::Reply`
