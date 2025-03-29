@@ -98,8 +98,6 @@ module Sisimai
         return thing
       end
 
-      def load(argvs); ' ***warning: Sisimai::Message.load will be removed at v5.3.0'; return []; end
-
       # Divide email data up headers and a body part.
       # @param         [String] email  Email data
       # @return        [Array]         Email data after split
