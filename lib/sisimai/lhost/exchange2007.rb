@@ -85,8 +85,7 @@ module Sisimai::Lhost
             readcursor |= Indicators[:deliverystatus] if StartingOf[:message].any? { |a| e.start_with?(a) }
             next
           end
-          next if (readcursor & Indicators[:deliverystatus]) == 0
-          next if e == ""
+          next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
 
           # Diagnostic information for administrators:
           #

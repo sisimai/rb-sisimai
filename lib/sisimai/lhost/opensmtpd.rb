@@ -76,12 +76,11 @@ module Sisimai::Lhost
         return nil unless mhead['from'].start_with?('Mailer Daemon <')
         return nil unless mhead['received'].any? { |a| a.include?(' (OpenSMTPD) with ') }
 
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        v = nil
 
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email to the previous
@@ -91,8 +90,7 @@ module Sisimai::Lhost
             readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])
             next
           end
-          next if (readcursor & Indicators[:deliverystatus]) == 0
-          next if e.empty?
+          next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
 
           #    Hi!
           #

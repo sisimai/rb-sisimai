@@ -36,10 +36,9 @@ module Sisimai::Lhost
         # Thanks,
         #
         # Google Groups
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = dscontents[-1]
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         recipients = 0
-        v = dscontents[-1]
 
         # * You might have spelled or formatted the group name incorrectly.
         # * The owner of the group may have removed this group.

@@ -121,10 +121,9 @@ module Sisimai::Lhost
         require "sisimai/smtp/reply"
         require "sisimai/smtp/status"
         require "sisimai/smtp/command"
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = dscontents[-1]
         recipients = 0  # (Integer) The number of 'Final-Recipient' header
         whatnotify = jsonobject["notificationType"][0, 1] || ""
-        v          = dscontents[-1]
 
         if whatnotify == "B"
           # "notificationType":"Bounce"

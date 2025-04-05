@@ -37,7 +37,7 @@ module Sisimai
         end
 
         permessage = {}
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         alternates = Sisimai::Lhost.DELIVERYSTATUS
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         readslices = [""]
@@ -46,7 +46,6 @@ module Sisimai
         beforemesg = ""     # (String) String before StartingOf[:message]
         goestonext = false  # (Bool) Flag: do not append the line into beforemesg
         isboundary = [Sisimai::RFC2045.boundary(mhead["content-type"], 0)]; isboundary[0] ||= ""
-        v = nil
 
         while emailparts[0].index('@').nil? do
           # There is no email address in the first element of emailparts
@@ -138,8 +137,7 @@ module Sisimai
             end
             next
           end
-          next if (readcursor & Indicators[:deliverystatus]) == 0
-          next if e.empty?
+          next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
 
           f = Sisimai::RFC1894.match(e)
           if f > 0

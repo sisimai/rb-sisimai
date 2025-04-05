@@ -22,13 +22,12 @@ module Sisimai::Lhost
         return nil unless mhead['x-mailer'].to_s == 'm-FILTER'
         return nil unless mhead['subject'] == 'failure notice'
 
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         markingset = { 'diagnosis' => false, 'command' => false }
-        v = nil
 
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email to the previous
@@ -39,8 +38,7 @@ module Sisimai::Lhost
               readcursor |= Indicators[:deliverystatus]
             end
           end
-          next if (readcursor & Indicators[:deliverystatus]) == 0
-          next if e.empty?
+          next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
 
           # このメールは「m-FILTER」が自動的に生成して送信しています。
           # メールサーバーとの通信中、下記の理由により

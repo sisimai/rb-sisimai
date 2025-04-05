@@ -83,7 +83,7 @@ module Sisimai::Lhost
         end
         return nil unless match > 0
 
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
@@ -95,7 +95,6 @@ module Sisimai::Lhost
           'date'    => '',  # The value of "Date"
           'subject' => '',  # The value of "Subject"
         }
-        v = nil
 
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email to the previous
@@ -105,8 +104,7 @@ module Sisimai::Lhost
             readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])
             next
           end
-          next if (readcursor & Indicators[:deliverystatus]) == 0
-          next if statuspart
+          next if (readcursor & Indicators[:deliverystatus]) == 0 || statuspart == true
 
           if connvalues == connheader.keys.size
             # did not reach the following recipient(s):

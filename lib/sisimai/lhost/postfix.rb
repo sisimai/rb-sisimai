@@ -38,11 +38,10 @@ module Sisimai::Lhost
           # Subject: Undelivered Mail Returned to Sender
           match = 1 if mhead['subject'] == 'Undelivered Mail Returned to Sender'
         end
-        return nil if match == 0
-        return nil if mhead['x-aol-ip']
+        return nil if match == 0 || mhead['x-aol-ip']
 
         permessage = {}     # (Hash) Store values of each Per-Message field
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         bodyslices = emailparts[0].split("\n")
         readslices = ['']
@@ -50,7 +49,6 @@ module Sisimai::Lhost
         nomessages = false  # (Boolean) Delivery report unavailable
         commandset = []     # (Array) ``in reply to * command'' list
         anotherset = {}     # Another error information
-        v = nil
 
         if match == 2
           # The message body starts with 'Transcript of session follows.'
@@ -104,8 +102,7 @@ module Sisimai::Lhost
               readcursor |= Indicators[:deliverystatus] if StartingOf[:message].any? { |a| Sisimai::String.aligned(e, a) }
               next
             end
-            next if (readcursor & Indicators[:deliverystatus]) == 0
-            next if e.empty?
+            next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
 
             f = Sisimai::RFC1894.match(e)
             if f > 0

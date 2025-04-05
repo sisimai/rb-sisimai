@@ -24,7 +24,7 @@ module Sisimai::Lhost
         return nil if match < 0
 
         boundaries = []
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = []
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
@@ -33,7 +33,6 @@ module Sisimai::Lhost
         markingsof = {}     # (Hash) Delimiter patterns
         startingof = {}     # (Hash) Delimiter strings
         messagesof = {}     # (Hash) Error message patterns
-        v = nil
 
         if match == 1
           # vtext.com
@@ -54,8 +53,7 @@ module Sisimai::Lhost
               readcursor |= Indicators[:deliverystatus] if e.start_with?(markingsof[:message][0])
               next
             end
-            next if (readcursor & Indicators[:deliverystatus]) == 0
-            next if e.empty?
+            next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
 
             # Message details:
             #   Subject: Test message
@@ -102,8 +100,7 @@ module Sisimai::Lhost
               readcursor |= Indicators[:deliverystatus] if e.start_with?(startingof[:message][0])
               next
             end
-            next if (readcursor & Indicators[:deliverystatus]) == 0
-            next if e.empty?
+            next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
 
             # Original Message:
             # From: kijitora <kijitora@example.jp>

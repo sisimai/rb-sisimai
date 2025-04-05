@@ -18,13 +18,12 @@ module Sisimai::Lhost
         return nil unless mhead['subject'].start_with?('Returned Mail: ')
         return nil unless mhead['from'].start_with?('"Mail Deliver System" ')
 
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         datestring = ''     # (String) Date string
-        v = nil
 
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email to the previous
@@ -34,8 +33,7 @@ module Sisimai::Lhost
             readcursor |= Indicators[:deliverystatus] if e.start_with?(MarkingsOf[:message][0])
             next
           end
-          next if (readcursor & Indicators[:deliverystatus]) == 0
-          next if e.empty?
+          next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
 
           # The original message was received at Thu, 29 Apr 2010 23:34:45 +0900 (JST)
           # from shironeko@example.jp

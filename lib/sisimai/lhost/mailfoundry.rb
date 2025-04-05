@@ -21,12 +21,11 @@ module Sisimai::Lhost
         return nil unless mhead['subject'] == 'Message delivery has failed'
         return nil unless mhead['received'].any? { |a| a.include?('(MAILFOUNDRY) id ') }
 
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        v = nil
 
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email to the previous
@@ -35,8 +34,7 @@ module Sisimai::Lhost
             # Beginning of the bounce message or delivery status part
             readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])
           end
-          next if (readcursor & Indicators[:deliverystatus]) == 0
-          next if e.empty?
+          next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
 
           # Unable to deliver message to: <kijitora@example.org>
           # Delivery failed for the following reason:
@@ -61,8 +59,7 @@ module Sisimai::Lhost
               v['diagnosis'] = e
             else
               # Detect error message
-              next if v['diagnosis'].nil? || v['diagnosis'].empty?
-              next if e.start_with?('-')
+              next if v['diagnosis'].nil? || v['diagnosis'].empty? || e.start_with?('-')
               v['diagnosis'] << ' ' << e
             end
           end

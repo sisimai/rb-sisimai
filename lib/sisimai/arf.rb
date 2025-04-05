@@ -70,7 +70,7 @@ module Sisimai
       def inquire(mhead, mbody)
         return nil unless self.is_arf(mhead)
 
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = dscontents[-1]
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         bodyslices = emailparts[0].split("\n")
         reportpart = false
@@ -80,7 +80,6 @@ module Sisimai
         remotehost = ""   # The value of "Source-IP" field
         reportedby = ""   # The value of "Reporting-MTA" field
         anotherone = ""   # Other fields(append to Diagnosis)
-        v = dscontents[-1]
 
         # 3.1.  Required Fields
         #
@@ -120,8 +119,7 @@ module Sisimai
             end
             next
           end
-          next unless readcursor & Indicators[:deliverystatus] > 0
-          next if e.empty?
+          next if (readcursor & Indicators[:deliverystatus]) > 0 || e.empty?
           if e == ReportFrom then reportpart = true; next; end
 
           if reportpart

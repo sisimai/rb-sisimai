@@ -26,13 +26,12 @@ module Sisimai::Lhost
         match += 1 if mhead["received"].any? { |a| a.include?("JAMES SMTP Server") }
         return nil unless match > 0
 
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = dscontents[-1]
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         bodyslices = emailparts[0].split("\n")
         readcursor = 0                # Points the current cursor position
         recipients = 0                # The number of 'Final-Recipient' header
         alternates = ["", "", "", ""] # [Envelope-From, Header-From, Date, Subject]
-        v          = dscontents[-1]
 
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email to the previous
@@ -48,8 +47,7 @@ module Sisimai::Lhost
             v["diagnosis"] << e << " " if e != ""
             next
           end
-          next if (readcursor & Indicators[:deliverystatus]) == 0
-          next if e.empty?
+          next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
 
           # Message details:
           #   Subject: Nyaaan

@@ -71,8 +71,7 @@ module Sisimai
       ].freeze
 
       return true if postmaster.any? { |a| email.include?(a) }
-      return true if email == 'mailer-daemon'
-      return true if email == 'postmaster'
+      return true if email == 'mailer-daemon' || email == 'postmaster'
       return false
     end
 

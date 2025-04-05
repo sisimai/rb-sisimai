@@ -22,12 +22,11 @@ module Sisimai::Lhost
         match += 1 if mhead['subject'].start_with?('Delivery Notification: ')
         return nil unless match > 0
 
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        v = nil
 
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email to the previous
@@ -37,8 +36,7 @@ module Sisimai::Lhost
             readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])
             next
           end
-          next if (readcursor & Indicators[:deliverystatus]) == 0
-          next if e.empty?
+          next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
 
           # --Boundary_(ID_0000000000000000000000)
           # Content-type: text/plain; charset=us-ascii

@@ -20,12 +20,11 @@ module Sisimai::Lhost
         # :subject => %r/FAILURE NOTICE :/,
         return nil unless mhead['x-ahmailid']
 
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        v = nil
 
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email to the previous
@@ -35,8 +34,7 @@ module Sisimai::Lhost
             readcursor |= Indicators[:deliverystatus] if e == StartingOf[:message][0]
             next
           end
-          next if (readcursor & Indicators[:deliverystatus]) == 0
-          next if e.empty?
+          next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
 
           #  ----- The following addresses had permanent fatal errors -----
           #

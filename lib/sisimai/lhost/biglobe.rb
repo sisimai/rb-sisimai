@@ -26,12 +26,11 @@ module Sisimai::Lhost
         return nil unless %w[biglobe inacatv tmtv ttv].any? { |a| mhead['from'].include?('@' + a + '.ne.jp') }
         return nil unless mhead['subject'].start_with?('Returned mail:')
 
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        v = nil
 
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email to the previous
@@ -41,8 +40,7 @@ module Sisimai::Lhost
             readcursor |= Indicators[:deliverystatus] if e == StartingOf[:message][0]
             next
           end
-          next if (readcursor & Indicators[:deliverystatus]) == 0
-          next if e.empty?
+          next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
 
           # This is a MIME-encapsulated message.
           #

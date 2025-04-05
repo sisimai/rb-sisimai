@@ -168,14 +168,13 @@ module Sisimai::Lhost
         require "sisimai/rfc2045"
         require "sisimai/smtp/command"
 
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         nextcursor = false
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         boundary00 = ""     # (String) Boundary string
-        v = nil
 
         if mhead["content-type"]
           # Get the boundary string and set regular expression for matching with the boundary string.
@@ -194,8 +193,7 @@ module Sisimai::Lhost
               next unless StartingOf["frozen"].any? { |a| e.include?(a) }
             end
           end
-          next if (readcursor & Indicators[:deliverystatus]) == 0
-          next if e.empty?
+          next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
 
           # This message was created automatically by mail delivery software.
           #

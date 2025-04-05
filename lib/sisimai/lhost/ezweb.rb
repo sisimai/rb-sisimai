@@ -43,13 +43,12 @@ module Sisimai::Lhost
         return nil if match < 2
 
         fieldtable = Sisimai::RFC1894.FIELDTABLE
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         substrings = []; Messagesof.each_value { |a| substrings << a }; substrings.flatten!
-        v = nil
 
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email to the previous
@@ -58,8 +57,7 @@ module Sisimai::Lhost
             # Beginning of the bounce message or delivery status part
             readcursor |= Indicators[:deliverystatus] if StartingOf[:message].any? { |a| e.include?(a) }
           end
-          next if (readcursor & Indicators[:deliverystatus]) == 0
-          next if e.empty?
+          next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
 
           # The user(s) account is disabled.
           #
@@ -84,7 +82,7 @@ module Sisimai::Lhost
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v["recipient"]  = Sisimai::Address.s3s4(e[p1, p2 - p1])
+            v["recipient"] = Sisimai::Address.s3s4(e[p1, p2 - p1])
             v["diagnosis"] << " " << e
             recipients += 1
 

@@ -22,14 +22,13 @@ module Sisimai::Lhost
       def inquire(mhead, mbody)
         return nil unless mhead['subject'].start_with?('Undeliverable Mail: "')
 
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         endoferror = false  # (Boolean) Flag for the end of error message
         q = Sisimai::RFC2045.boundary(mhead['content-type'], 1); Boundaries << q if q
-        v = nil
 
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email

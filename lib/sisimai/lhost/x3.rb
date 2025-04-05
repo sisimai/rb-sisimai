@@ -34,8 +34,7 @@ module Sisimai::Lhost
             readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])
             next
           end
-          next if (readcursor & Indicators[:deliverystatus]) == 0
-          next if e.empty?
+          next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
 
           # ============================================================================
           #      This is an automatically generated Delivery Status Notification.

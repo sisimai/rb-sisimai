@@ -66,7 +66,7 @@ module Sisimai
         return nil if match < 1
 
         require 'sisimai/lhost'
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = dscontents[-1]
         bodyslices = mbody.scrub('?').split("\n")
         rfc822part = '' # (String) message/rfc822-headers part
         recipients = 0  # (Integer) The number of 'Final-Recipient' header
@@ -74,12 +74,10 @@ module Sisimai
         haveloaded = 0  # (Integer) The number of lines loaded from message body
         blanklines = 0  # (Integer) Counter for countinuous blank lines
         countuntil = 1  # (Integer) Maximum value of blank lines in the body part
-        v = dscontents[-1]
 
         # RECIPIENT_ADDRESS
         %w[from return-path].each do |e|
           # Try to get the address of the recipient
-          next unless mhead[e]
           next unless mhead[e]
           v['recipient'] = mhead[e]
           break
@@ -109,9 +107,7 @@ module Sisimai
             break if blanklines > countuntil
             next
           end
-          next unless e.include?(' ')
-          next if     e.start_with?('Content-Type')
-          next if     e.start_with?('Content-Transfer')
+          next if !e.include?(' ') || e.start_with?('Content-Type', 'Content-Transfer')
 
           v['diagnosis'] ||= ''
           v['diagnosis']  << e + ' '

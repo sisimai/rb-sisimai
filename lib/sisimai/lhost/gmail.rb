@@ -152,12 +152,11 @@ module Sisimai::Lhost
         return nil unless mhead['subject'].start_with?('Delivery Status Notification')
 
         require 'sisimai/address'
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        v = nil
 
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email to the previous
@@ -166,8 +165,7 @@ module Sisimai::Lhost
             # Beginning of the bounce message or delivery status part
             readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])
           end
-          next if (readcursor & Indicators[:deliverystatus]) == 0
-          next if e.empty?
+          next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
 
           # Technical details of permanent failure:=20
           # Google tried to deliver your message, but it was rejected by the recipient =

@@ -43,14 +43,13 @@ module Sisimai::Lhost
 
         require 'sisimai/rfc1123'
         require 'sisimai/smtp/command'
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         anotherone = {}     # (Hash) Another error information
         remotehost = ""     # The last remote hostname
-		    curcommand = ""     # The last SMTP command
-        v = nil
+        curcommand = ""     # The last SMTP command
 
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email to the previous
@@ -60,8 +59,7 @@ module Sisimai::Lhost
             readcursor |= Indicators[:deliverystatus] if e.include?(StartingOf[:message][0])
             next
           end
-          next if (readcursor & Indicators[:deliverystatus]) == 0
-          next if e.empty?
+          next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
 
           #    ----- Transcript of session follows -----
           # While talking to smtp.example.com:

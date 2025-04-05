@@ -24,7 +24,7 @@ module Sisimai::Lhost
       def inquire(mhead, mbody)
         return nil unless mhead['subject'].start_with?('Undeliverable message')
 
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
@@ -32,7 +32,6 @@ module Sisimai::Lhost
         characters = ''     # (String) Character set name of the bounce mail
         removedmsg = 'MULTIBYTE CHARACTERS HAVE BEEN REMOVED'
         encodedmsg = ''
-        v = nil
 
         if mhead['content-type'].include?('charset=')
           # Get character set name, Content-Type: text/plain; charset=ISO-2022-JP
@@ -66,8 +65,7 @@ module Sisimai::Lhost
             v["recipient"] = e if v["recipient"].empty?
             recipients += 1
           else
-            next if e.empty?
-            next if e.start_with?('-')
+            next if e.empty? || e.start_with?('-')
 
             if e =~ /[^\x20-\x7e]/
               # Error message is not ISO-8859-1

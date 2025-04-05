@@ -38,7 +38,7 @@ module Sisimai::Lhost
 
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         permessage = {}     # (Hash) Store values of each Per-Message field
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         bodyslices = emailparts[0].split("\n")
         readslices = ['']
@@ -48,7 +48,6 @@ module Sisimai::Lhost
         esmtpreply = []     # (Array) Reply from remote server on SMTP session
         sessionerr = false  # (Boolean) Flag, "true" if it is SMTP session error
         anotherset = {}     # Another error information
-        v = nil
 
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email to the previous
@@ -60,8 +59,7 @@ module Sisimai::Lhost
             readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])
             next
           end
-          next if (readcursor & Indicators[:deliverystatus]) == 0
-          next if e.empty?
+          next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
 
           f = Sisimai::RFC1894.match(e)
           if f > 0
@@ -182,8 +180,7 @@ module Sisimai::Lhost
           while true
             # Replace or append the error message in "diagnosis" with the ESMTP Reply Code when the
             # following conditions have matched
-            break if esmtpreply.empty?
-            break if recipients != 1
+            break if esmtpreply.empty? || recipients != 1
 
             e['diagnosis'] = sprintf("%s %s", esmtpreply.join(' '), e['diagnosis'])
             break

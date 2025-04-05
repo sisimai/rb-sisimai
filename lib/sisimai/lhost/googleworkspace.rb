@@ -49,8 +49,7 @@ module Sisimai::Lhost
               entiremesg << e + " "
             end
           end
-          next if (readcursor & Indicators[:deliverystatus]) == 0
-          next if e.empty?
+          next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
 
           # ** Message not delivered **
           # You're sending this from a different address or alias using the 'Send mail as' feature.
