@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'sisimai/rfc5322'
 
 class RFC5322Test < Minitest::Test
-  Methods = { class: %w[HEADERTABLE HEADERFIELDS LONGFIELDS FIELDINDEX received part] }
+  Methods = { class: %w[HEADERTABLE HEADERFIELDS FIELDINDEX received part] }
   ReceivedList = [
     'from mx.example.org (c182128.example.net [192.0.2.128]) by mx.example.jp (8.14.4/8.14.4) with ESMTP id oBB3JxRJ022484 for <shironeko@example.jp>; Sat, 11 Dec 2010 12:20:00 +0900 (JST)',
     'from localhost (localhost [127.0.0.1]) (ftp://ftp.isi.edu/in-notes/rfc1894.txt) by marutamachi.example.org with dsn; Sat, 11 Dec 2010 12:19:59 +0900',
@@ -111,19 +111,6 @@ __END_OF_EMAIL_MESSAGE__
     cv = Sisimai::RFC5322.HEADERFIELDS('neko')
     assert_instance_of Array, cv
     assert_empty cv
-  end
-
-  def test_LONGFIELDS
-    cv = Sisimai::RFC5322.LONGFIELDS
-    assert_instance_of Hash, cv
-    cv.each_key do |e|
-      assert_match /\A[a-z-]+\z/, e
-      assert_equal true, cv[e]
-    end
-
-    ce = assert_raises ArgumentError do
-      Sisimai::RFC5322.LONGFIELDS(nil)
-    end
   end
 
   def test_received

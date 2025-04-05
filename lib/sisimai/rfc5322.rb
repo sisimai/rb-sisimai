@@ -32,12 +32,6 @@ module Sisimai
         return []
       end
 
-      # Fields that might be long
-      # @return   [Hash] Long filed(email header) list
-      def LONGFIELDS
-        return { 'to' => true, 'from' => true, 'subject' => true, 'message-id' => true }
-      end
-
       # Convert Received headers to a structured data
       # @param    [String] argv1  Received header
       # @return   [Array]         Received header as a structured data
