@@ -17,7 +17,6 @@ module Sisimai::Lhost
         "Content-Type: message/rfc822",
         "Original message follows.",
       ].freeze
-      RelayedVia = [["(qmail ", "invoked for bounce)"], ["(qmail ", "invoked from ", "network)"]].freeze
       EmailTitle = [
         "failure notice", # qmail-send.c:Subject: failure notice\n\
         "Failure Notice", # Yahoo
@@ -138,7 +137,7 @@ module Sisimai::Lhost
         mhead["received"].each do |e|
           # Received: (qmail 2222 invoked for bounce);29 Apr 2017 23:34:45 +0900
           # Received: (qmail 2202 invoked from network); 29 Apr 2018 00:00:00 +0900
-          proceedsto = true if RelayedVia.any? { |a| Sisimai::String.aligned(e, a) }
+          proceedsto = true if Sisimai::String.aligned(e, ["(qmail", " invoked "])
         end
         return nil if proceedsto == false
 
