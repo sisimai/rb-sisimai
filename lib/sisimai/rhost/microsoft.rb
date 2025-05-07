@@ -23,6 +23,15 @@ module Sisimai
             # - Access denied, sending domain [$SenderDomain] does not pass DMARC verification
             # - The sender's domain in the 5322.From address doesn't pass DMARC.
             ['5.7.509', 0, 0, 'does not pass dmarc verification'],
+
+            # - After careful consideration and to ensure the protection of users and remove any confusion on
+            #   why a message was in the junk folder for both the recipient and sender, we have made a decision
+            #   to reject messages that don't pass the required authentication requirements detailed above.
+            #   The rejected messages will be designated as "550; 5.7.515 Access denied, sending domain
+            #   [SendingDomain] does not meet the required authentication level." 
+            #   This change will state taking effect on May 5th as originally stated. 
+            # - 550; 5.7.515 Access denied, sending domain [SendingDomain] does not meet the required authentication level.
+            ["5.7.515", "", "", "does not meet the required authentication level"],
           ],
           'badreputation' => [
             # Undocumented error messages ---------------------------------------------------------
