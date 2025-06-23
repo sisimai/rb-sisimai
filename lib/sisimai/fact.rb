@@ -48,7 +48,7 @@ module Sisimai
 
     RetryIndex = Sisimai::Reason.retry
     RFC822Head = Sisimai::RFC5322.HEADERTABLE
-    ActionList = { delayed: 1, delivered: 1, expanded: 1, failed: 1, relayed: 1 };
+    ActionList = {delayed: 1, delivered: 1, expanded: 1, failed: 1, relayed: 1};
 
     if RUBY_PLATFORM.start_with?('java')
       # [WORKAROUND] #159 #267 JRuby seems to fail and throws exception at strptime(), but this
@@ -108,7 +108,7 @@ module Sisimai
       return nil unless argvs.is_a? Hash
 
       email = argvs[:data]; return nil unless email
-      args1 = { data: email, hook: argvs[:hook] }
+      args1 = {data: email, hook: argvs[:hook]}
       mesg1 = Sisimai::Message.rise(**args1)
       return nil unless mesg1
       return nil unless mesg1['ds']
@@ -402,8 +402,7 @@ module Sisimai
             next unless er.include?(' for ')
 
             af = Sisimai::RFC5322.received(er)
-            next if af.empty?
-            next if af[5].empty?
+            next if af.empty? || af[5].empty?
             next unless Sisimai::Address.is_emailaddress(af[5])
             next if thing['recipient'].address == af[5]
 
@@ -509,7 +508,7 @@ module Sisimai
         v['recipient']  = self.recipient.address
         v['timestamp']  = self.timestamp.to_time.to_i
 
-        # Backward compatibility until v5.2.0
+        # Backward compatibility until v5.5.0
         v["smtpagent"] = self.decodedby
         v["smtpcommand"] = self.command
         data = v
