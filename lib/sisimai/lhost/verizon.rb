@@ -30,13 +30,11 @@ module Sisimai::Lhost
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         senderaddr = ''     # (String) Sender address in the message body
         subjecttxt = ''     # (String) Subject of the original message
-        markingsof = {}     # (Hash) Delimiter patterns
-        startingof = {}     # (Hash) Delimiter strings
         messagesof = {}     # (Hash) Error message patterns
 
         if match == 1
           # vtext.com
-          markingsof = { message: ['Error: '] }
+          markingsof = {message: ['Error: ']}
           messagesof = {
             # The attempted recipient address does not exist.
             'userunknown' => ['550 - Requested action not taken: no such user here'],
@@ -86,8 +84,8 @@ module Sisimai::Lhost
           end
         else
           # vzwpix.com
-          startingof = { message: ['Message could not be delivered to mobile'] }
-          messagesof = { 'userunknown' => ['No valid recipients for this MM'] }
+          startingof = {message: ['Message could not be delivered to mobile']}
+          messagesof = {'userunknown' => ['No valid recipients for this MM']}
           boundaries = [Sisimai::RFC2045.boundary(mhead['content-type'], 1)]
           emailparts = Sisimai::RFC5322.part(mbody, boundaries)
           bodyslices = emailparts[0].split("\n")
@@ -148,7 +146,7 @@ module Sisimai::Lhost
           end
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
+        return {"ds" => dscontents, "rfc822" => emailparts[1]}
       end
       def description; return 'Verizon Wireless: https://www.verizonwireless.com'; end
     end
