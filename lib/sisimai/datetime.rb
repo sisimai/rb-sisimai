@@ -4,34 +4,7 @@ module Sisimai
     require 'date'
 
     class << self
-      BASE_D = 86400    # 1 day = 86400 sec
-      BASE_Y = 365.2425 # 1 year = 365.2425 days
-      BASE_L = 29.53059 # 1 lunar month = 29.53059 days
-
-      CONST_P = 4 * Math.atan2(1, 1)  # PI, 3.1415926535
-      CONST_E = Math.exp(1)           # e, Napier's constant
-      TZ_OFFSET = 54000               # Max time zone offset, 54000 seconds
-
-      TimeUnit = {
-        'o' => (BASE_D * BASE_Y * 4), # Olympiad, 4 years
-        'y' => (BASE_D * BASE_Y),     # Year, Gregorian Calendar
-        'q' => (BASE_D * BASE_Y / 4), # Quarter, year/4
-        'l' => (BASE_D * BASE_L),     # Lunar month
-        'f' => (BASE_D * 14),         # Fortnight, 2 weeks
-        'w' => (BASE_D * 7),          # Week, 604800 seconds
-        'd' => BASE_D,                # Day
-        'h' => 3600,                  # Hour
-        'b' => 86.4,                  # Beat, Swatch internet time: 1000b = 1d
-        'm' => 60,                    # Minute,
-        's' => 1,                     # Second
-      }.freeze
-
-      MathematicalConstant = {
-        'e' => CONST_E,
-        'p' => CONST_P,
-        'g' => CONST_E**CONST_P,
-      }.freeze
-
+      TZ_OFFSET = 54000 # Max time zone offset, 54000 seconds
       MonthName = {
         full: %w[January February March April May June July August September October November December],
         abbr: %w[Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec],
@@ -398,7 +371,7 @@ module Sisimai
         return '+0000' unless argv1.is_a?(::Integer)
         return nil if argv1.abs > TZ_OFFSET  # UTC+14 + 1(DST?)
 
-        digit = { :operator => '+' }
+        digit = {:operator => '+'}
         digit[:operator] = '-' if argv1 < 0
         digit[:hours]    = (argv1.abs / 3600).to_i
         digit[:minutes]  = ((argv1.abs % 3600) / 60).to_i
