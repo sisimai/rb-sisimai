@@ -31,7 +31,7 @@ module Sisimai
           return "" unless Sisimai::SMTP::Command.test(argv0)
 
           issuedcode = " " + argv0.downcase + " "
-          commandmap = { "STAR" => "STARTTLS", "XFOR" => "XFORWARD" }
+          commandmap = {"STAR" => "STARTTLS", "XFOR" => "XFORWARD"}
           commandset = []
 
           Detectable.each do |e|

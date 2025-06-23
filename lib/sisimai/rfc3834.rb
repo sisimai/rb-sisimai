@@ -3,7 +3,7 @@ module Sisimai
   module RFC3834
     class << self
       # http://tools.ietf.org/html/rfc3834
-      MarkingsOf = { :boundary => '__SISIMAI_PSEUDO_BOUNDARY__' }
+      MarkingsOf = {:boundary => '__SISIMAI_PSEUDO_BOUNDARY__'}
       LowerLabel = %w[from to subject auto-submitted precedence x-apple-action].freeze
       DoNotParse = {
         'from'    => ['root@', 'postmaster@', 'mailer-daemon@'],

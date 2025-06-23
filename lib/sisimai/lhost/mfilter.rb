@@ -27,7 +27,7 @@ module Sisimai::Lhost
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        markingset = { 'diagnosis' => false, 'command' => false }
+        markingset = {'diagnosis' => false, 'command' => false}
 
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email to the previous
@@ -109,7 +109,7 @@ module Sisimai::Lhost
             e['rhost'] = ee
           end
         end
-        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
+        return {"ds" => dscontents, "rfc822" => emailparts[1]}
       end
       def description; return 'Digital Arts m-FILTER'; end
     end

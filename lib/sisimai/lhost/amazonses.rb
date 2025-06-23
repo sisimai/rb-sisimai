@@ -212,7 +212,7 @@ module Sisimai::Lhost
           next if jsonobject["mail"]["commonHeaders"].has_key?(e) == false
           cv << sprintf("%s: %s\n", e.capitalize, jsonobject["mail"]["commonHeaders"][e])
         end
-        return { "ds" => dscontents, "rfc822" => cv }
+        return {"ds" => dscontents, "rfc822" => cv}
       end
       def description; return 'Amazon SES(Sending): https://aws.amazon.com/ses/'; end
     end

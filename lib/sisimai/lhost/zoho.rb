@@ -7,8 +7,8 @@ module Sisimai::Lhost
 
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['Received: from mail.zoho.com by mx.zohomail.com'].freeze
-      StartingOf = { message: ['This message was created automatically by mail delivery'] }.freeze
-      MessagesOf = { 'expired' => ['Host not reachable'] }.freeze
+      StartingOf = {message: ['This message was created automatically by mail delivery']}.freeze
+      MessagesOf = {'expired' => ['Host not reachable']}.freeze
 
       # @abstract Decodes the bounce message from Zoho Mail
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -99,7 +99,7 @@ module Sisimai::Lhost
           end
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
+        return {"ds" => dscontents, "rfc822" => emailparts[1]}
       end
       def description; return 'Zoho Mail: https://www.zoho.com'; end
     end

@@ -7,7 +7,7 @@ module Sisimai::Lhost
 
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['------- Returned Message --------'].freeze
-      StartingOf = { message: ['------- Failure Reasons '] }.freeze
+      StartingOf = {message: ['------- Failure Reasons ']}.freeze
       MessagesOf = {
         'userunknown' => [
           'User not listed in public Name & Address Book',
@@ -113,7 +113,7 @@ module Sisimai::Lhost
           end
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
+        return {"ds" => dscontents, "rfc822" => emailparts[1]}
       end
       def description; return 'Lotus Notes'; end
     end

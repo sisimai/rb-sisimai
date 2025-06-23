@@ -7,7 +7,7 @@ module Sisimai::Lhost
 
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['--- Original message follows.'].freeze
-      StartingOf = { message: ['Unable to deliver message to the following address'] }.freeze
+      StartingOf = {message: ['Unable to deliver message to the following address']}.freeze
 
       # @abstract Decodes the bounce message from Unknown MTA #2
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -62,7 +62,7 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         dscontents.each { |e| e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) }
-        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
+        return {"ds" => dscontents, "rfc822" => emailparts[1]}
       end
       def description; return 'Unknown MTA #2'; end
     end

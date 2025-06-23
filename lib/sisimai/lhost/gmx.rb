@@ -7,8 +7,8 @@ module Sisimai::Lhost
 
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['--- The header of the original message is following. ---'].freeze
-      StartingOf = { message: ['This message was created automatically by mail delivery software'] }.freeze
-      MessagesOf = { 'expired' => ['delivery retry timeout exceeded'] }.freeze
+      StartingOf = {message: ['This message was created automatically by mail delivery software']}.freeze
+      MessagesOf = {'expired' => ['delivery retry timeout exceeded']}.freeze
 
       # @abstract Decodes the bounce message from GMX
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -92,7 +92,7 @@ module Sisimai::Lhost
           end
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
+        return {"ds" => dscontents, "rfc822" => emailparts[1]}
       end
       def description; return 'GMX: https://www.gmx.net'; end
     end

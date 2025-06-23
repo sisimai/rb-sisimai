@@ -37,7 +37,7 @@ module Sisimai
       def rise(**argvs)
         return nil unless argvs
         email = argvs[:data].scrub('?').gsub("\r\n", "\n")
-        thing = { 'from' => '','header' => {}, 'rfc822' => '', 'ds' => [], 'catch' => nil }
+        thing = {'from' => '','header' => {}, 'rfc822' => '', 'ds' => [], 'catch' => nil}
         param = {}
 
         aftersplit = nil
@@ -148,7 +148,7 @@ module Sisimai
 
         # Select and convert all the headers in $argv0. The following regular expression is based on
         # https://gist.github.com/xtetsuji/b080e1f5551d17242f6415aba8a00239
-        headermaps = { 'subject' => '' }
+        headermaps = {'subject' => ''}
         receivedby = []
         argv0.scan(/^([\w-]+):[ ]*(.*?)\n(?!\s)/m) { |e| headermaps[e[0].downcase] = e[1] }
         headermaps.delete('received')
@@ -361,7 +361,7 @@ module Sisimai
         if hookmethod.is_a? Proc
           # Call the hook method
           begin
-            p = { 'headers' => mailheader, 'message' => bodystring }
+            p = {'headers' => mailheader, 'message' => bodystring}
             havecaught = hookmethod.call(p)
           rescue StandardError => ce
             warn ' ***warning: Something is wrong in hook method ":hook":' << ce.to_s

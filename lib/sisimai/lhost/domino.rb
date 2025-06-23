@@ -7,7 +7,7 @@ module Sisimai::Lhost
 
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['Content-Type: message/rfc822'].freeze
-      StartingOf = { message: ['Your message'] }.freeze
+      StartingOf = {message: ['Your message']}.freeze
       MessagesOf = {
         "filtered"    => ["Cannot route mail to user"],
         "systemerror" => ["Several matches found in Domino Directory"],
@@ -136,7 +136,7 @@ module Sisimai::Lhost
         # Set the value of subjecttxt as a Subject if there is no original message in the bounce mail.
         emailparts[1] << ('Subject: ' << subjecttxt << "\n") unless emailparts[1].include?("\nSubject:")
 
-        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
+        return {"ds" => dscontents, "rfc822" => emailparts[1]}
       end
       def description; return 'IBM Domino Server'; end
     end

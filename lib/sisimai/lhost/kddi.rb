@@ -7,7 +7,7 @@ module Sisimai::Lhost
 
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['Content-Type: message/rfc822'].freeze
-      StartingOf = { message: ['Your mail sent on:', 'Your mail attempted to be delivered on:'] }.freeze
+      StartingOf = {message: ['Your mail sent on:', 'Your mail attempted to be delivered on:']}.freeze
       MessagesOf = {
         'mailboxfull' => ['As their mailbox is full'],
         'norelaying'  => ['Due to the following SMTP relay error'],
@@ -94,7 +94,7 @@ module Sisimai::Lhost
           end
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
+        return {"ds" => dscontents, "rfc822" => emailparts[1]}
       end
       def description; return 'au by KDDI: https://www.au.kddi.com'; end
     end

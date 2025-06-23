@@ -7,7 +7,7 @@ module Sisimai::Lhost
 
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['Content-Type: message/rfc822'].freeze
-      StartingOf = { message: ['      This is an automatically generated Delivery Status Notification.'] }.freeze
+      StartingOf = {message: ['      This is an automatically generated Delivery Status Notification.']}.freeze
 
       # @abstract Decodes the bounce message from Unknown MTA #3
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -86,7 +86,7 @@ module Sisimai::Lhost
           e['status']    = Sisimai::SMTP::Status.find(e['diagnosis'])
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
+        return {"ds" => dscontents, "rfc822" => emailparts[1]}
       end
       def description; return 'Unknown MTA #3'; end
     end

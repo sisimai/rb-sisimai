@@ -13,7 +13,7 @@ module Sisimai
     # @return   [Sisimai::Mail, Nil]  Object or nil if the argument was wrong
     def initialize(argv1)
       classname = nil
-      parameter = { 'path' => argv1, 'kind' => nil, 'data' => nil }
+      parameter = {'path' => argv1, 'kind' => nil, 'data' => nil}
 
       if argv1.is_a?(::String)
         # Path to mail or '<STDIN>' ?

@@ -7,7 +7,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Boundaries = ['Original message follows.'].freeze
-      StartingOf = { error: ['Body of message generated response:'] }.freeze
+      StartingOf = {error: ['Body of message generated response:']}.freeze
       MessagesOf = {
         'hostunknown'   => ['Unknown host'],
         'userunknown'   => ['Unknown user', 'Invalid final delivery userid'],
@@ -86,7 +86,7 @@ module Sisimai::Lhost
           end
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
+        return {"ds" => dscontents, "rfc822" => emailparts[1]}
       end
       def description; return 'IPSWITCH IMail Server'; end
     end
