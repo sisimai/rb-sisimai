@@ -30,13 +30,13 @@ module Sisimai
       while r = mail.data.read do
         # Read and decode each email file
         path = mail.data.path
-        args = { data: r, hook: c___[0], origin: path, delivered: argv1[:delivered], vacation: argv1[:vacation] }
+        args = {data: r, hook: c___[0], origin: path, delivered: argv1[:delivered], vacation: argv1[:vacation]}
         fact = Sisimai::Fact.rise(**args) || []
 
         if c___[1]
           # Run the callback function specified with "c___" parameter of Sisimai.rise after reading
           # each email file in Maildir/ every time
-          args = { 'kind' => kind, 'mail' => r, 'path' => path, 'fact' => fact }
+          args = {'kind' => kind, 'mail' => r, 'path' => path, 'fact' => fact}
           begin
             c___[1].call(args) if c___[1].is_a?(Proc)
           rescue StandardError => ce
