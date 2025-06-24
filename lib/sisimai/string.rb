@@ -11,31 +11,26 @@ module Sisimai
       # @param  [String]  addr1 Sender address
       # @param  [String]  addr2 Recipient address
       # @param  [Integer] epoch Machine time of the email bounce
-      # @return [String]        Message token(MD5 hex digest)
-      # @return [String]        Blank/failed to create token
+      # @return [String]        Message token(MD5 hex digest) or blank(failed to create token)
       # @see    http://en.wikipedia.org/wiki/ASCII
       def token(addr1, addr2, epoch)
-        return nil unless addr1.is_a?(::String)
-        return nil unless addr2.is_a?(::String)
-        return nil unless epoch.is_a?(Integer)
-        return nil if addr1.empty?
-        return nil if addr2.empty?
+        return "" unless addr1.is_a?(::String)
+        return "" unless addr2.is_a?(::String)
+        return "" unless epoch.is_a?(Integer)
+        return "" if addr1.empty? || addr2.empty?
 
         # Format: STX(0x02) Sender-Address RS(0x1e) Recipient-Address ETX(0x03)
         require 'digest/sha1'
-        return Digest::SHA1.hexdigest(
-          sprintf("\x02%s\x1e%s\x1e%d\x03", addr1.downcase, addr2.downcase, epoch)
-        )
+        return Digest::SHA1.hexdigest(sprintf("\x02%s\x1e%s\x1e%d\x03", addr1.downcase, addr2.downcase, epoch))
       end
 
       # The argument is 8-bit text or not
       # @param    [String] argvs  Any string to be checked
-      # @return   [True,False]    false: ASCII Characters only
-      #                           true:  Including 8-bit character
+      # @return   [Boolean]       false: ASCII Characters only, true: Including 8-bit character
       def is_8bit(argvs)
         v = argvs.to_s
-        return nil  if v.empty?
-        return true unless v =~ /\A[\x00-\x7f]*\z/
+        return false if v.empty?
+        return true  unless v =~ /\A[\x00-\x7f]*\z/
         return false
       end
 
@@ -54,12 +49,12 @@ module Sisimai
       # Check if each element of the 2nd argument is aligned in the 1st argument or not
       # @param    [String] argv1  String to be checked
       # @param    [Array]  argv2  List including the ordered strings
-      # @return   [Bool]          0, 1
+      # @return   [Boolean]
       # @since v5.0.0
       def aligned(argv1, argv2)
-        return nil if argv1.to_s.empty?
-        return nil unless argv2.is_a? Array
-        return nil unless argv2.size > 1
+        return false if argv1.to_s.empty?
+        return false unless argv2.is_a? Array
+        return false unless argv2.size > 1
 
         align = -1
         right =  0
@@ -80,7 +75,7 @@ module Sisimai
       # @param    [Boolean] loose Loose check flag
       # @return   [String]  Plain text
       def to_plain(argv1 = '', loose = false)
-        return nil if argv1.empty?
+        return "" if argv1.empty?
 
         plain = argv1
         if loose || plain =~ Match[:html] || plain =~ Match[:body]
@@ -113,7 +108,7 @@ module Sisimai
       # @param    [String] argv2  Encoding name before converting
       # @return   [String]        UTF-8 Encoded string
       def to_utf8(argv1 = '', argv2 = nil)
-        return nil if argv1.empty?
+        return "" if argv1.empty?
 
         encodefrom = argv2 || false
         getencoded = ''

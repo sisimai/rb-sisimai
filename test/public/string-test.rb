@@ -18,10 +18,10 @@ class StringTest < Minitest::Test
     assert_instance_of String, cv
     assert_equal           Ts, cv
 
-    assert_nil Sisimai::String.token('', '', 0)
-    assert_nil Sisimai::String.token(Es, '', 0)
-    assert_nil Sisimai::String.token('', Er, 0)
-    assert_nil Sisimai::String.token(Es, Er, nil)
+    assert_empty Sisimai::String.token('', '', 0)
+    assert_empty Sisimai::String.token(Es, '', 0)
+    assert_empty Sisimai::String.token('', Er, 0)
+    assert_empty Sisimai::String.token(Es, Er, nil)
 
     ce = assert_raises ArgumentError do
       Sisimai::String.token()
@@ -34,7 +34,7 @@ class StringTest < Minitest::Test
   def test_is_8bit
     assert_equal true,  Sisimai::String.is_8bit('ニャーン')
     assert_equal false, Sisimai::String.is_8bit('Nyaaaaan')
-    assert_nil          Sisimai::String.is_8bit(nil)
+    assert_equal false, Sisimai::String.is_8bit(nil)
 
     ce = assert_raises ArgumentError do
       Sisimai::String.is_8bit()
@@ -56,11 +56,11 @@ class StringTest < Minitest::Test
   end
 
   def test_aligned
-    assert_nil          Sisimai::String.aligned(nil, nil)
+    assert_equal false, Sisimai::String.aligned(nil, nil)
     assert_equal true,  Sisimai::String.aligned(Fr, ['rfc822', ' <', '@', '>'])
     assert_equal false, Sisimai::String.aligned(Fr, ['rfc822', '<<', ' ', '>'])
-    assert_nil          Sisimai::String.aligned(nil,'')
-    assert_nil          Sisimai::String.aligned(nil,'2')
+    assert_equal false, Sisimai::String.aligned(nil,'')
+    assert_equal false, Sisimai::String.aligned(nil,'2')
 
     ce = assert_raises ArgumentError do
       Sisimai::String.aligned()
@@ -107,7 +107,7 @@ class StringTest < Minitest::Test
     refute_empty cv
     assert_match /<body>/, cv
     assert_match /Nyaan/,  cv
-    assert_nil Sisimai::String.to_plain('')
+    assert_empty Sisimai::String.to_plain('')
 
     ce = assert_raises ArgumentError do
       Sisimai::String.to_plain()

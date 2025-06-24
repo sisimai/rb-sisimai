@@ -312,7 +312,7 @@ module Sisimai
               # Content-Transfer-Encoding: 7bit
               if cv = e[0].downcase.match(iso2022set)
                 # Content-Type: text/plain; charset=ISO-2022-JP
-                bodystring = Sisimai::String.to_utf8(bodyinside, cv[1]) || ''
+                bodystring = Sisimai::String.to_utf8(bodyinside, cv[1])
               else
                 # No "charset" parameter in the value of Content-Type: header
                 bodystring = bodyinside
@@ -324,7 +324,7 @@ module Sisimai
 
             if istexthtml
               # Try to delete HTML tags inside of text/html part whenever possible
-              bodystring = Sisimai::String.to_plain(bodystring) || ''
+              bodystring = Sisimai::String.to_plain(bodystring)
             end
             next if bodystring.empty?
 
@@ -341,7 +341,7 @@ module Sisimai
                 bodystring.scrub!('?')
               else
                 # ISO-8859-1, GB2312, and so on
-                bodystring = Sisimai::String.to_utf8(bodystring, ctxcharset) || ''
+                bodystring = Sisimai::String.to_utf8(bodystring, ctxcharset)
               end
               bodystring << "\n\n"
             end
