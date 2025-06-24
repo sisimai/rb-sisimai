@@ -170,8 +170,8 @@ class SisimaiTest < Minitest::Test
       Sisimai.dump('/path/to/email', 1)
     end
     assert_match %r/wrong number of arguments/, ce.to_s
-    assert_nil Sisimai.dump(nil)
-    assert_nil Sisimai.dump(false)
+    assert_empty Sisimai.dump(nil)
+    assert_empty Sisimai.dump(false)
 
     Samples.each_key do |e|
       cf = Samples[e]
@@ -233,7 +233,7 @@ class SisimaiTest < Minitest::Test
 
   def test_match
     assert_equal 'userunknown', Sisimai.match('550 5.1.1 User unknown')
-    assert_nil Sisimai.match('')
+    assert_empty Sisimai.match('')
   end
 
 end

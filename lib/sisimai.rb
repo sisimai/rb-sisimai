@@ -61,7 +61,7 @@ module Sisimai
     # @options argv1 [Lambda]  hook      Lambda object to be called back
     # @return        [String]            Decoded data as JSON text
     def dump(argv0, **argv1)
-      return nil unless argv0
+      return "" unless argv0
       nyaan = Sisimai.rise(argv0, **argv1) || []
 
       if RUBY_PLATFORM.start_with?('java')
@@ -124,7 +124,7 @@ module Sisimai
     # @param    [String]    Error message text
     # @return   [String]    Reason text
     def match(argvs = '')
-      return nil if argvs.empty?
+      return "" if argvs.empty?
       require 'sisimai/reason'
       return Sisimai::Reason.match(argvs.downcase)
     end
