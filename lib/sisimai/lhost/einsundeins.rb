@@ -11,7 +11,7 @@ module Sisimai::Lhost
         message: ['This message was created automatically by mail delivery software'],
         error:   ['For the following reason:'],
       }.freeze
-      MessagesOf = { 'mesgtoobig' => ['Mail size limit exceeded'] }.freeze
+      MessagesOf = {'mesgtoobig' => ['Mail size limit exceeded']}.freeze
 
       # @abstract Decode the bounce message from 1&1
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -108,7 +108,7 @@ module Sisimai::Lhost
           end
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
+        return {"ds" => dscontents, "rfc822" => emailparts[1]}
       end
       def description; return '1&1: https://www.1und1.de'; end
     end

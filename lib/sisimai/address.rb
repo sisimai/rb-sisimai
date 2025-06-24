@@ -12,7 +12,7 @@ module Sisimai
       #   dtext           = NO-WS-CTL /     ; Non white space controls
       #                     %d33-90 /       ; The rest of the US-ASCII
       #                     %d94-126        ;  characters not including "[", "]", or "\"
-      re             = { rfc5322: nil, ignored: nil, domain: nil }
+      re             = {rfc5322: nil, ignored: nil, domain: nil}
       atom           = %r([a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+)o
       quoted_string  = %r/"(?:\\[^\r\n]|[^\\"])*"/o
       domain_literal = %r/\[(?:\\[\x01-\x09\x0B-\x0c\x0e-\x7f]|[\x21-\x5a\x5e-\x7e])*\]/o
@@ -33,7 +33,7 @@ module Sisimai
       :'quoted-string' => (1 << 1),    # "Neko, Nyaan"
       :'comment-block' => (1 << 2),    # (neko)
     }.freeze
-    Delimiters  = { '<' => 1, '>' => 1, '(' => 1, ')' => 1, '"' => 1, ',' => 1 }.freeze
+    Delimiters  = {'<' => 1, '>' => 1, '(' => 1, ')' => 1, '"' => 1, ',' => 1}.freeze
 
     # Return pseudo recipient or sender address
     # @param    [Symbol] argv0  Address type: true = recipient, false = sender
@@ -49,8 +49,7 @@ module Sisimai
     #                           false: is not an email address
     def self.is_emailaddress(email)
       return false unless email.is_a?(::String)
-      return false if email =~ %r/(?:[\x00-\x1f]|\x1f)/
-      return false if email.size > 254
+      return false if email =~ %r/(?:[\x00-\x1f]|\x1f)/ || email.size > 254
       return true  if email =~ Re[:ignored]
       return false
     end
@@ -86,7 +85,7 @@ module Sisimai
       #   #=> [{ address: 'neko@example.org', name: 'Neko', comment: '(nyaan)'}]
       return nil unless argv1
 
-      emailtable = { address: '', name: '', comment: '' }
+      emailtable = {address: '', name: '', comment: ''}
       addrtables = []
       readbuffer = []
       readcursor = 0
@@ -116,7 +115,7 @@ module Sisimai
                 # The cursor is not in neither the quoted-string nor the comment block
                 readcursor = 0  # reset cursor position
                 readbuffer << v
-                v = { address: '', name: '', comment: '' }
+                v = {address: '', name: '', comment: ''}
                 p = ''
               end
             else

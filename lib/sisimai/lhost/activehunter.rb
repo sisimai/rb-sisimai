@@ -8,7 +8,7 @@ module Sisimai::Lhost
 
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['Content-Type: message/rfc822'].freeze
-      StartingOf = { message: ['  ----- The following addresses had permanent fatal errors -----'] }.freeze
+      StartingOf = {message: ['  ----- The following addresses had permanent fatal errors -----']}.freeze
 
       # @abstract decodes the bounce message from QUALITIA Active!hunter
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -66,7 +66,7 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         dscontents.each { |e| e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) }
-        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
+        return {"ds" => dscontents, "rfc822" => emailparts[1]}
       end
       def description; return 'TransWARE Active!hunter'; end
     end

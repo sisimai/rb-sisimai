@@ -53,12 +53,9 @@ module Sisimai
           end
         end
 
-        while true
-          # X-Apple-Unsubscribe: true
-          break unless heads.has_key?("x-apple-unsubscribe")
-          return true if heads["x-apple-unsubscribe"] == "true"
-          break
-        end
+        # X-Apple-Unsubscribe: true
+        return false unless heads.has_key?("x-apple-unsubscribe")
+        return true  if heads["x-apple-unsubscribe"] == "true"
         return false
       end
 

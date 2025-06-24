@@ -20,7 +20,7 @@ module Sisimai
         "Content-Type: message/partial",
         "Content-Disposition: inline", # See lhost-amavis-*.eml, lhost-facebook-*.eml
       ].freeze
-      StartingOf = { message: ["Content-Type: message/delivery-status"] }.freeze
+      StartingOf = {message: ["Content-Type: message/delivery-status"]}.freeze
       FieldTable = Sisimai::RFC1894.FIELDTABLE
 
       # Decode a bounce mail which have fields defined in RFC3464

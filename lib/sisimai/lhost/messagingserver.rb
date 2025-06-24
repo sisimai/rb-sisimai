@@ -8,8 +8,8 @@ module Sisimai::Lhost
 
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['Content-Type: message/rfc822', 'Return-path: '].freeze
-      StartingOf = { message: ['This report relates to a message you sent with the following header fields:'] }.freeze
-      MessagesOf = { 'hostunknown' => ['Illegal host/domain name found'] }.freeze
+      StartingOf = {message: ['This report relates to a message you sent with the following header fields:']}.freeze
+      MessagesOf = {'hostunknown' => ['Illegal host/domain name found']}.freeze
 
       # @abstract Decodes the bounce message from MessagingServer
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -146,7 +146,7 @@ module Sisimai::Lhost
           end
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
+        return {"ds" => dscontents, "rfc822" => emailparts[1]}
       end
       def description; return 'Oracle Communications Messaging Server'; end
     end

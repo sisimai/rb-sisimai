@@ -856,8 +856,8 @@ module Sisimai
           end
           return statuscode if statuscode == codeinmesg
 
-          zeroindex1 = { 'field' => statuscode.index('.0')   || -1, 'error' => codeinmesg.index('.0')   || -1 }
-          zeroindex2 = { 'field' => statuscode.index('.0.0') || -1, 'error' => codeinmesg.index('.0.0') || -1 }
+          zeroindex1 = {'field' => statuscode.index('.0')   || -1, 'error' => codeinmesg.index('.0')   || -1}
+          zeroindex2 = {'field' => statuscode.index('.0.0') || -1, 'error' => codeinmesg.index('.0.0') || -1}
 
           if zeroindex2['field'] > 0
             # "Status:" field is "X.0.0"

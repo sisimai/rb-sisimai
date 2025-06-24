@@ -7,7 +7,7 @@ module Sisimai::Lhost
 
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['Received: from '].freeze
-      MarkingsOf = { message: ['The original message was received at '] }.freeze
+      MarkingsOf = {message: ['The original message was received at ']}.freeze
 
       # @abstract Decodes the bounce message from Unknown MTA #1
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -68,7 +68,7 @@ module Sisimai::Lhost
           e['date']      = datestring || ''
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
+        return {"ds" => dscontents, "rfc822" => emailparts[1]}
       end
       def description; return 'Unknown MTA #1'; end
     end

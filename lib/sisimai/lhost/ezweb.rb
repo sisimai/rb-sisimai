@@ -7,7 +7,7 @@ module Sisimai::Lhost
 
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ["--------------------------------------------------", "Content-Type: message/rfc822"].freeze
-      StartingOf = { message: ['The user(s) ', 'Your message ', 'Each of the following', '<'] }.freeze
+      StartingOf = {message: ['The user(s) ', 'Your message ', 'Each of the following', '<']}.freeze
       Messagesof = {
         # notaccept: ['The following recipients did not receive this message:'],
         'expired' => [
@@ -146,7 +146,7 @@ module Sisimai::Lhost
           e["reason"] = "userunknown" if e["diagnosis"].start_with?("<")
         end
 
-        return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
+        return {"ds" => dscontents, "rfc822" => emailparts[1]}
       end
       def description; return 'au EZweb: http://www.au.kddi.com/mobile/'; end
     end

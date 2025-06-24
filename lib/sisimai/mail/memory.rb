@@ -24,7 +24,7 @@ module Sisimai
 
         if argv1.start_with?('From ')
           # UNIX mbox
-          @payload = argv1.split(/^From /).map! { |e| e = 'From ' + e }
+          @payload = argv1.scrub().split(/^From /).map! { |e| e = 'From ' + e }
           @payload.shift
         else
           @payload = [argv1]

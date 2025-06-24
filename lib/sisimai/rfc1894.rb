@@ -57,9 +57,9 @@ module Sisimai
        #"text" => ["X-Original-Message-ID", "Final-Log-ID", "Original-Envelope-ID"],
       }.freeze
 
-      SubtypeSet = { "addr" => "RFC822", "cdoe" => "SMTP", "host" => "DNS" }.freeze
+      SubtypeSet = {"addr" => "RFC822", "cdoe" => "SMTP", "host" => "DNS"}.freeze
       ActionList = ["failed", "delayed", "delivered", "relayed", "expanded"].freeze
-      Correction = { 'deliverable' => 'delivered', 'expired' => 'delayed', 'failure' => 'failed' }
+      Correction = {'deliverable' => 'delivered', 'expired' => 'delayed', 'failure' => 'failed'}
       FieldGroup = {
         'original-recipient'    => 'addr',
         'final-recipient'       => 'addr',
