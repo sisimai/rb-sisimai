@@ -18,7 +18,7 @@ class LDATest < Minitest::Test
   end
 
   def test_find
-    assert_nil Sisimai::LDA.find(nil)
+    assert_empty Sisimai::LDA.find(nil)
     assert_empty Sisimai::LDA.find({"diagnosticcode" => ""})
     assert_empty Sisimai::LDA.find({"diagnosticcode" => "nyaan", "command" => "RCPT"})
 
