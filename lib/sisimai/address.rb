@@ -132,7 +132,7 @@ module Sisimai
             else
               # <neko@nyaan.example.org>
               readcursor |= Indicators[:'email-address']
-              v[:address] << e
+              v[:address] += e
               p = :address
             end
             next
