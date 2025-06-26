@@ -7,10 +7,9 @@ module Sisimai
 
       # Check that the argument is MIME-Encoded string or not
       # @param    [String] argvs  String to be checked
-      # @return   [True,False]    false: Not MIME encoded string
-      #                           true:  MIME encoded string
+      # @return   [Boolean]       false: Not MIME encoded string, true: MIME encoded string
       def is_encoded(argv1)
-        return nil unless argv1
+        return false unless argv1
 
         text1 = argv1.delete('"')
         mime1 = false
@@ -88,18 +87,18 @@ module Sisimai
       # @param  [String] argv0   MIME Encoded text
       # @return [String]         MIME-Decoded text
       def decodeB(argv0 = nil)
-        return nil unless argv0
+        return "" if argv0.nil? || argv0.empty?
 
         p = nil
         if cv = argv0.match(%r|([+/\=0-9A-Za-z\r\n]+)|) then p = Base64.decode64(cv[1]) end
-        return p ? p.scrub('?') : nil
+        return p ? p.scrub('?') : ""
       end
 
       # Decode MIME Quoted-Printable Encoded string
       # @param  [String] argv0   MIME Encoded text
       # @return [String]         MIME Decoded text
       def decodeQ(argv0 = nil)
-        return nil unless argv0
+        return "" if argv0.nil? || argv0.empty?
         return argv0.unpack('M').first.scrub('?')
       end
 
@@ -109,7 +108,7 @@ module Sisimai
       # @return   [String]        The value of the parameter
       # @since v5.0.0
       def parameter(argv0 = '', argv1 = '')
-        return nil if argv0.empty?
+        return "" if argv0.empty?
         parameterq = argv1.size > 0 ? argv1 + '=' : ''
         paramindex = argv1.size > 0 ? argv0.index(parameterq) : 0
         return '' unless paramindex
@@ -128,7 +127,7 @@ module Sisimai
       #                            1: End of boundary
       # @return   [String] Boundary string
       def boundary(argv0 = '', start = -1)
-        return nil if argv0.empty?
+        return "" if argv0.empty?
         btext = parameter(argv0, 'boundary')
         return '' if btext.empty?
 
@@ -264,10 +263,8 @@ module Sisimai
       # @param    [String] argv1  A pointer to multipart/* message blocks
       # @return   [String]        Message body
       def makeflat(argv0 = '', argv1 = '')
-        return nil unless argv0
-        return nil unless argv1
-        return ''  unless argv0.index('multipart/')
-        return ''  unless argv0.index('boundary=')
+        return "" if argv0.nil? || argv1.nil?
+        return "" if argv0.index('multipart/') == false || argv0.index('boundary=') == false
 
         # Some bounce messages include lower-cased "content-type:" field such as the followings:
         #   - content-type: message/delivery-status        => Content-Type: message/delivery-status
@@ -284,7 +281,7 @@ module Sisimai
           #   - text/plain, text/rfc822-headers
           #   - message/delivery-status, message/rfc822, message/partial, message/feedback-report
           istexthtml = false
-          mediatypev = parameter(e[0]) || 'text/plain';
+          mediatypev = parameter(e[0]); mediatypev = "text/plain" if mediatypev.empty?
           next if mediatypev.start_with?('text/', 'message/') == false
 
           if mediatypev == 'text/html'
