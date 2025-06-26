@@ -10,21 +10,18 @@ module Sisimai
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
-        # @return   [True,False]    false: Did not match
-        #                           true: Matched
-        def match(_argv1)
-          return false
-        end
+        # @return   [Boolean]       false: Did not match, true: Matched
+        def match(_argv1); return false; end
 
         # On hold, Could not decide the bounce reason...
         # @param    [Sisimai::Fact] argvs   Object to be detected the reason
-        # @return   [True,False]            true: Status code is "onhold"
+        # @return   [Boolean]               true:  Status code is "onhold"
         #                                   false: is not "onhold"
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return nil  if argvs['deliverystatus'].empty?
-          return true if argvs['reason'] == 'onhold'
-          return true if Sisimai::SMTP::Status.name(argvs['deliverystatus']).to_s == 'onhold'
+          return false if argvs['deliverystatus'].empty?
+          return true  if argvs['reason'] == 'onhold'
+          return true  if Sisimai::SMTP::Status.name(argvs['deliverystatus']).to_s == 'onhold'
           return false
         end
       end

@@ -120,24 +120,23 @@ module Sisimai
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
-        # @return   [True,False]    false: Did not match
-        #                           true: Matched
+        # @return   [Boolean]       false: Did not match, true: Matched
         def match(argv1)
-          return nil unless argv1
-          return true if Index.any? { |a| argv1.include?(a) }
-          return true if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
+          return false unless argv1
+          return true  if Index.any? { |a| argv1.include?(a) }
+          return true  if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
           return false
         end
 
         # Rejected due to spam content in the message
         # @param    [Sisimai::Fact] argvs   Object to be detected the reason
-        # @return   [True,False]            true: rejected due to spam
+        # @return   [Boolean]               true: rejected due to spam
         #                                   false: is not rejected due to spam
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return nil  if argvs['deliverystatus'].empty?
-          return true if argvs['reason'] == 'spamdetected'
-          return true if Sisimai::SMTP::Status.name(argvs['deliverystatus']).to_s == 'spamdetected'
+          return false if argvs['deliverystatus'].empty?
+          return true  if argvs['reason'] == 'spamdetected'
+          return true  if Sisimai::SMTP::Status.name(argvs['deliverystatus']).to_s == 'spamdetected'
 
           # The value of "reason" isn't "spamdetected" when the value of "command" is an SMTP command
           # to be sent before the SMTP DATA command because all the MTAs read the headers and the

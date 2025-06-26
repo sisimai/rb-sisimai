@@ -42,18 +42,17 @@ module Sisimai
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
-        # @return   [True,False]    false: Did not match
-        #                           true: Matched
+        # @return   [Boolean]       false: Did not match, true: Matched
         def match(argv1)
-          return nil unless argv1
-          return true if Index.any? { |a| argv1.include?(a) }
-          return true if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
+          return false unless argv1
+          return true  if Index.any? { |a| argv1.include?(a) }
+          return true  if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
           return false
         end
 
         # Check the email rejected due to missing PTR record or having invalid PTR record OR not
         # @param    [Hash] argvs  Hash to be detected the value of reason
-        # @return   [true,false]  true: is missing PTR or invalid PTR
+        # @return   [Boolean]     true:  is missing PTR or invalid PTR
         #                         false: is not blocked due to missing PTR record
         # @see      http://www.ietf.org/rfc/rfc5322.txt
         def true(argvs)

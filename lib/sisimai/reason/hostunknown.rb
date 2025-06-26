@@ -32,19 +32,18 @@ module Sisimai
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
-        # @return   [True,False]    false: Did not match
-        #                           true:  Matched
+        # @return   [Boolean]       false: Did not match, true: Matched
         # @since v4.0.0
         def match(argv1)
-          return nil unless argv1
-          return true if Index.any? { |a| argv1.include?(a) }
-          return true if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
+          return false unless argv1
+          return true  if Index.any? { |a| argv1.include?(a) }
+          return true  if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
           return false
         end
 
         # Whether the host is unknown or not
         # @param    [Sisimai::Fact] argvs   Object to be detected the reason
-        # @return   [True,False]            true: is unknown host
+        # @return   [Boolean]               true:  is unknown host
         #                                   false: is not unknown host.
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)

@@ -68,7 +68,7 @@ class ReasonChildrenTest < Minitest::Test
       Reasons[e].each do |ee|
         assert_equal true, cx.match(ee.downcase)
       end
-      assert_nil cx.match(nil)
+      assert_equal false, cx.match(nil)
 
       ce = assert_raises ArgumentError do
         cx.text(nil)

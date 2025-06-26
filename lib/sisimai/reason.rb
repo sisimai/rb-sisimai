@@ -65,10 +65,10 @@ module Sisimai
 
       # Detect the bounce reason
       # @param    [Hash] argvs  Decoded email object
-      # @return   [String, nil] Bounce reason or nil if the argument is missing or not Hash
+      # @return   [String] Bounce reason or an empty string if the argument is missing or not Hash
       # @see anotherone
       def find(argvs)
-        return nil unless argvs
+        return "" unless argvs
         unless GetRetried[argvs['reason']]
           # Return reason text already decided except reason match with the regular expression of
           # retry() method.

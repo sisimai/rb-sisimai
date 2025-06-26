@@ -105,7 +105,7 @@ class ReasonTest < Minitest::Test
   end
 
   def test_find
-    assert_nil Sisimai::Reason.find(nil)
+    assert_empty Sisimai::Reason.find(nil)
     ce = assert_raises ArgumentError do
       Sisimai::Reason.find()
       Sisimai::Reason.find(nil, nil)

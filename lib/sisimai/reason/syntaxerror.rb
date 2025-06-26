@@ -14,12 +14,11 @@ module Sisimai
       class << self
         def text; return 'syntaxerror'; end
         def description; return 'Email rejected due to syntax error at sent commands in SMTP session'; end
-        def match(*); return nil; end
+        def match(*); return false; end
 
         # Connection rejected due to syntax error or not
         # @param    [Sisimai::Fact] argvs   Object to be detected the reason
-        # @return   [True,False]            true: Connection rejected due to
-        #                                         syntax error
+        # @return   [Boolean]               true:  Connection rejected due to syntax error
         #                                   false: is not syntax error
         # @since 4.1.25
         # @see http://www.ietf.org/rfc/rfc2822.txt
@@ -27,8 +26,7 @@ module Sisimai
           return true if argvs['reason'] == 'syntaxerror'
 
           reply = argvs['replycode'].to_i
-          return true if reply > 400 && reply < 408
-          return true if reply > 500 && reply < 508
+          return true if reply > 400 && reply < 408 || reply > 500 && reply < 508
           return false
         end
 
