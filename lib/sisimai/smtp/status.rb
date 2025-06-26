@@ -690,13 +690,12 @@ module Sisimai
 
         # Convert from the status code to the reason string
         # @param    [String] argv1  Status code(DSN)
-        # @return   [String]        Reason name 
-        #           [Nil]           The first argument did not match with values in reason list
+        # @return   [String]        Reason name or an empty string
         # @see      code
         def name(argv1 = nil)
-          return nil unless argv1
-          return nil unless Sisimai::SMTP::Status.test(argv1)
-          return StandardCode[argv1] || nil
+          return "" unless argv1
+          return "" unless Sisimai::SMTP::Status.test(argv1)
+          return StandardCode[argv1] || ""
         end
 
         # Check whether a status code is a valid code or not

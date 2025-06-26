@@ -247,7 +247,7 @@ module Sisimai::Lhost
           # Set pseudo status code
           e['status'] = Sisimai::SMTP::Status.find(e['diagnosis'])
           next if e['status'].size == 0 || e['status'].include?('.0')
-          e['reason'] = Sisimai::SMTP::Status.name(e['status']).to_s || ''
+          e['reason'] = Sisimai::SMTP::Status.name(e['status'])
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }

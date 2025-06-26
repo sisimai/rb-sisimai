@@ -52,7 +52,7 @@ module Sisimai
           issuedcode = argvs['diagnosticcode'].downcase || ''
           statuscode = argvs['deliverystatus'] || ''
 
-          if Sisimai::SMTP::Status.name(statuscode).to_s == 'hostunknown'
+          if Sisimai::SMTP::Status.name(statuscode) == 'hostunknown'
             # To prevent classifying DNS errors as "HostUnknown"
             require 'sisimai/reason/networkerror'
             return true unless Sisimai::Reason::NetworkError.match(issuedcode)

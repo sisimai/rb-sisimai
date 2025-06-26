@@ -57,7 +57,7 @@ module Sisimai
         # @see      http://www.ietf.org/rfc/rfc5322.txt
         def true(argvs)
           return true if argvs['reason'] == 'requireptr'
-          return true if Sisimai::SMTP::Status.name(argvs['deliverystatus']).to_s == 'requireptr'
+          return true if Sisimai::SMTP::Status.name(argvs['deliverystatus']) == 'requireptr'
           return match(argvs['diagnosticcode'].downcase)
         end
 

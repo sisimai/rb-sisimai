@@ -161,7 +161,7 @@ module Sisimai
         def true(argvs)
           return true if argvs['reason'] == 'userunknown'
 
-          tempreason = Sisimai::SMTP::Status.name(argvs['deliverystatus']) || ''
+          tempreason = Sisimai::SMTP::Status.name(argvs['deliverystatus'])
           return false if tempreason == 'suspend'
 
           issuedcode = argvs['diagnosticcode'].downcase

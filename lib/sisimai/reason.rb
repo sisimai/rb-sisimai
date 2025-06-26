@@ -132,7 +132,7 @@ module Sisimai
         codeformat = argvs['diagnostictype']          || ''
         actiontext = argvs['action']                  || ''
         statuscode = argvs['deliverystatus']          || ''
-        reasontext = Sisimai::SMTP::Status.name(statuscode) || ''
+        reasontext = Sisimai::SMTP::Status.name(statuscode)
         trytomatch = reasontext.empty? ? true : false
         trytomatch ||= true if GetRetried[reasontext] || codeformat != 'SMTP'
 
@@ -195,7 +195,7 @@ module Sisimai
       # @param    [String] argv1  Error message
       # @return   [String]        Bounce reason
       def match(argv1)
-        return nil unless argv1
+        return "" unless argv1
 
         reasontext = ''
         issuedcode = argv1.downcase
@@ -226,8 +226,8 @@ module Sisimai
         else
           # Detect the bounce reason from "Status:" code
           require 'sisimai/smtp/status'
-          cv = Sisimai::SMTP::Status.find(argv1)
-          reasontext = Sisimai::SMTP::Status.name(cv) || 'undefined'
+          reasontext = Sisimai::SMTP::Status.name(Sisimai::SMTP::Status.find(argv1))
+          reasontext = "undefined" if reasontext.empty?
         end
         return reasontext
       end

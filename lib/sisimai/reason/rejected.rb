@@ -96,7 +96,7 @@ module Sisimai
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
           return true if argvs['reason'] == 'rejected'
-          tempreason = Sisimai::SMTP::Status.name(argvs['deliverystatus']) || 'undefined'
+          tempreason = Sisimai::SMTP::Status.name(argvs['deliverystatus'])
           return true if tempreason == 'rejected' # Delivery status code points "rejected".
 
           # Check the value of Diagnosic-Code: header with patterns
@@ -112,7 +112,7 @@ module Sisimai
               # Except "userunknown"
               return true if match(issuedcode)
             end
-          elsif %w[onhold undefined securityerror systemerror].include?(tempreason)
+          elsif %w[onhold undefined securityerror systemerror].include?(tempreason) || tempreason == ""
             # Try to match with message patterns when the temporary reason is "onhold", "undefined",
             # "securityerror", or "systemerror"
             return true if match(issuedcode)

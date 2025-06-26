@@ -41,7 +41,7 @@ module Sisimai
           require 'sisimai/reason/spamdetected'
           return true  if argvs["reason"] == "blocked"
           return false if Sisimai::Reason::SpamDetected.true(argvs)
-          return true  if Sisimai::SMTP::Status.name(argvs["deliverystatus"]).to_s == "contenterror"
+          return true  if Sisimai::SMTP::Status.name(argvs["deliverystatus"]) == "contenterror"
           return match(argvs["diagnosticcode"].downcase)
         end
 

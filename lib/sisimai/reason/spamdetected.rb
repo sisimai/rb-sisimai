@@ -136,7 +136,7 @@ module Sisimai
         def true(argvs)
           return false if argvs['deliverystatus'].empty?
           return true  if argvs['reason'] == 'spamdetected'
-          return true  if Sisimai::SMTP::Status.name(argvs['deliverystatus']).to_s == 'spamdetected'
+          return true  if Sisimai::SMTP::Status.name(argvs['deliverystatus']) == 'spamdetected'
 
           # The value of "reason" isn't "spamdetected" when the value of "command" is an SMTP command
           # to be sent before the SMTP DATA command because all the MTAs read the headers and the

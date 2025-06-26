@@ -21,7 +21,7 @@ module Sisimai
         def true(argvs)
           return false if argvs['deliverystatus'].empty?
           return true  if argvs['reason'] == 'onhold'
-          return true  if Sisimai::SMTP::Status.name(argvs['deliverystatus']).to_s == 'onhold'
+          return true  if Sisimai::SMTP::Status.name(argvs['deliverystatus']) == 'onhold'
           return false
         end
       end
