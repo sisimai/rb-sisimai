@@ -30,7 +30,7 @@ module Sisimai
       def path
         index = Sisimai::Reason.index
         table = {}
-        index.each { |e| table['Sisimai::Reason::' << e] = 'sisimai/reason/' << e.downcase }
+        index.each { |e| table['Sisimai::Reason::' + e] = 'sisimai/reason/' + e.downcase }
         return table
       end
 
