@@ -167,9 +167,7 @@ module Sisimai
         return "" unless argv1.is_a?(::String)
         return "" if argv1.empty?
 
-        datestring = argv1
-        datestring.sub!(/[,](\d+)/, ', \1') # Thu,13 -> Thu, 13
-        datestring.sub!(/(\d{1,2}),/, '\1') # Apr,29 -> Apr 29
+        datestring = argv1.sub(/[,](\d+)/, ', \1').sub(/(\d{1,2}),/, '\1')
         timetokens = datestring.split(' ')
         afternoon1 = 0    # (Integer) After noon flag
         altervalue = {}   # (Hash) To store alternative values
