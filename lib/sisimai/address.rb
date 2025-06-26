@@ -229,7 +229,7 @@ module Sisimai
           end # End of if('"')
         else
           # The character is not a delimiter
-          p.empty? ? (v[:name] << e) : (v[p] << e)
+          p.empty? ? (v[:name] += e) : (v[p] += e)
           next
         end
       end
