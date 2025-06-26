@@ -179,7 +179,7 @@ module Sisimai
         datevalues << mesg1['header']['date'] if datevalues.size < 2
         while v = datevalues.shift do
           # Parse each date value in the array
-          datestring = Sisimai::DateTime.parse(v) || next
+          datestring = Sisimai::DateTime.parse(v); next if datestring.empty?
 
           if cv = datestring.match(/\A(.+)[ ]+([-+]\d{4})\z/)
             # Get the value of timezone offset from datestring: Wed, 26 Feb 2014 06:05:48 -0500

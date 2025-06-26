@@ -81,7 +81,7 @@ class DateTimeTest < Minitest::Test
     end
 
     InvalidDate.each do |e|
-      assert_nil Sisimai::DateTime.parse(e)
+      assert_empty Sisimai::DateTime.parse(e)
     end
 
     ce = assert_raises ArgumentError do
@@ -89,8 +89,8 @@ class DateTimeTest < Minitest::Test
       Sisimai::DateTime.parse(nil, nil)
     end
     assert_match /wrong number of arguments/, ce.to_s
-    assert_nil Sisimai::DateTime.parse(nil)
-    assert_nil Sisimai::DateTime.parse('')
+    assert_empty Sisimai::DateTime.parse(nil)
+    assert_empty Sisimai::DateTime.parse('')
   end
 
   def test_abbr2tz
@@ -109,9 +109,9 @@ class DateTimeTest < Minitest::Test
       Sisimai::DateTime.abbr2tz(nil, nil)
     end
     assert_match /wrong number of arguments/, ce.to_s
-    assert_nil Sisimai::DateTime.abbr2tz('NEKO')
-    assert_nil Sisimai::DateTime.abbr2tz('NYAN')
-    assert_nil Sisimai::DateTime.abbr2tz(nil)
+    assert_empty Sisimai::DateTime.abbr2tz('NEKO')
+    assert_empty Sisimai::DateTime.abbr2tz('NYAN')
+    assert_empty Sisimai::DateTime.abbr2tz(nil)
   end
 
   def test_tz2second
@@ -121,9 +121,9 @@ class DateTimeTest < Minitest::Test
     assert_equal -32400, Sisimai::DateTime.tz2second('-0900')
     assert_equal  43200, Sisimai::DateTime.tz2second('+1200')
     assert_equal -43200, Sisimai::DateTime.tz2second('-1200')
-    assert_nil           Sisimai::DateTime.tz2second('+1800')
-    assert_nil           Sisimai::DateTime.tz2second('-1800')
-    assert_nil           Sisimai::DateTime.tz2second('NYAAN')
+    assert_equal      0, Sisimai::DateTime.tz2second('+1800')
+    assert_equal      0, Sisimai::DateTime.tz2second('-1800')
+    assert_equal      0, Sisimai::DateTime.tz2second('NYAAN')
 
     ce = assert_raises ArgumentError do
       Sisimai::DateTime.tz2second()
@@ -147,7 +147,7 @@ class DateTimeTest < Minitest::Test
     assert_equal '+0000', Sisimai::DateTime.second2tz('neko')
     assert_equal '+0000', Sisimai::DateTime.second2tz('')
     assert_equal '+0000', Sisimai::DateTime.second2tz(nil)
-    assert_nil            Sisimai::DateTime.second2tz(65535)
-    assert_nil            Sisimai::DateTime.second2tz(-65535)
+    assert_empty          Sisimai::DateTime.second2tz(65535)
+    assert_empty          Sisimai::DateTime.second2tz(-65535)
   end
 end

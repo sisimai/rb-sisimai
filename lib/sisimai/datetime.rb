@@ -164,8 +164,8 @@ module Sisimai
       #   parse("2015-11-03T23:34:45 Tue")    #=> Tue, 3 Nov 2015 23:34:45 +0900
       #   parse("Tue, Nov 3 2015 2:2:2")      #=> Tue, 3 Nov 2015 02:02:02 +0900
       def parse(argv1)
-        return nil unless argv1.is_a?(::String)
-        return nil if argv1.empty?
+        return "" unless argv1.is_a?(::String)
+        return "" if argv1.empty?
 
         datestring = argv1
         datestring.sub!(/[,](\d+)/, ', \1') # Thu,13 -> Thu, 13
@@ -240,7 +240,7 @@ module Sisimai
 
             elsif p =~ /\A[(]?[A-Z]{2,5}[)]?\z/
               # Timezone abbreviation; JST, GMT, UTC, ...
-              v[:z] ||= abbr2tz(p) || '+0000'
+              v[:z] ||= abbr2tz(p); v[:z] = "+0000" if v[:z].empty?
             else
               # Other date format
               if cr = p.match(%r|\A(\d{4})[-/](\d{1,2})[-/](\d{1,2})\z|)
@@ -306,12 +306,12 @@ module Sisimai
         if v.value?(nil)
           # Strange date format
           warn sprintf(' ***warning: Strange date format [%s]', datestring)
-          return nil
+          return ""
         end
 
         if v[:Y].to_i < 1902 || v[:Y].to_i > 2037
           # -(2^31) ~ (2^31)
-          return nil
+          return ""
         end
 
         # Build date string
@@ -321,23 +321,23 @@ module Sisimai
 
       # Abbreviation -> Tiemzone
       # @param    [String] argv1  Abbr. e.g.) JST, GMT, PDT
-      # @return   [String, Nil]   +0900, +0000, -0600 or nil if the argument is invalid format or
-      #                           not supported abbreviation
+      # @return   [String]        +0900, +0000, -0600 or an empty string if the argument is invalid
+      #                           format or not supported abbreviation
       # @example  Get the timezone string of "JST"
       #   abbr2tz('JST')  #=> '+0900'
       def abbr2tz(argv1)
-        return nil unless argv1.is_a?(::String)
-        return TimeZones[argv1]
+        return "" unless argv1.is_a?(::String)
+        return TimeZones[argv1] || ""
       end
 
       # Convert to second
       # @param    [String] argv1  Timezone string e.g) +0900
-      # @return   [Integer, Nil]  n: seconds or nil it the argument is invalid format string
+      # @return   [Integer]       n: seconds or 0 when the argument is invalid format
       # @see      second2tz
       # @example  Convert '+0900' to seconds
       #   tz2second('+0900')  #=> 32400
       def tz2second(argv1)
-        return nil unless argv1.is_a?(::String)
+        return 0 unless argv1.is_a?(::String)
         ztime = 0
 
         if cr = argv1.match(/\A([-+])(\d)(\d)(\d{2})\z/)
@@ -351,13 +351,13 @@ module Sisimai
           ztime += (digit[:'minutes'] * 60)
           ztime *= -1 if digit[:'operator'] == '-'
 
-          return nil if ztime.abs > TZ_OFFSET
+          return 0 if ztime.abs > TZ_OFFSET
           return ztime
 
         elsif argv1 =~ /\A[A-Za-z]+\z/
           return tz2second(TimeZones[argv1])
         else
-          return nil
+          return 0
         end
       end
 
@@ -369,7 +369,7 @@ module Sisimai
       #   second2tz(12345)    #=> '+0325'
       def second2tz(argv1)
         return '+0000' unless argv1.is_a?(::Integer)
-        return nil if argv1.abs > TZ_OFFSET  # UTC+14 + 1(DST?)
+        return "" if argv1.abs > TZ_OFFSET  # UTC+14 + 1(DST?)
 
         digit = {:operator => '+'}
         digit[:operator] = '-' if argv1 < 0
