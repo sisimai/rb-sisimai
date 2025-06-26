@@ -215,7 +215,7 @@ module Sisimai
           index += 1
           if fn == ''
             # There is neither ":" character nor the field listed in $FieldTable
-            email << e + "\n"
+            email += e + "\n"
             next
           end
 
