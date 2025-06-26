@@ -63,7 +63,7 @@ module Sisimai
     # Alias method of Sisimai::Mail.data.read()
     # @return   [String] Contents of mbox/Maildir
     def read
-      return nil unless data
+      return "" if data.nil?
       return data.read
     end
 
