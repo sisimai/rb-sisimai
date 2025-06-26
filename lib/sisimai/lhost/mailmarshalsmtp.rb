@@ -28,7 +28,6 @@ module Sisimai::Lhost
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         endoferror = false  # (Boolean) Flag for the end of error message
-        q = Sisimai::RFC2045.boundary(mhead['content-type'], 1); Boundaries << q if q
 
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email
@@ -73,7 +72,7 @@ module Sisimai::Lhost
               # Append error messages
               endoferror = true if e.start_with?(StartingOf[:rcpts][0])
               next if endoferror
-              v['diagnosis'] << ' ' << e
+              v['diagnosis'] += ' ' + e
             else
               # Additional Information
               # ======================
@@ -88,7 +87,7 @@ module Sisimai::Lhost
               if e.start_with?('Original Sender: ')
                 # Original Sender:    <originalsender@example.com>
                 # Use this line instead of "From" header of the original message.
-                emailparts[1] << ('From: ' << e[p1 + 1, p2 - p1 - 1] << "\n")
+                emailparts[1] += ('From: ' + e[p1 + 1, p2 - p1 - 1] + "\n")
 
               elsif e.start_with?('Sender-MTA: ')
                 # Sender-MTA:         <10.11.12.13>
@@ -105,7 +104,7 @@ module Sisimai::Lhost
                 p2 = e.index(':')
                 cf = e[p1 + 1, p2 - p1 - 1]
                 cv = Sisimai::String.sweep(e[p2 + 1, e.size])
-                emailparts[1] << sprintf("%s: %s\n", cf, cv)
+                emailparts[1] += sprintf("%s: %s\n", cf, cv)
               end
             end
           end
