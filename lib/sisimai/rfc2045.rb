@@ -347,7 +347,7 @@ module Sisimai
 
           else
             # There is no Content-Transfer-Encoding header in the part
-            bodystring << bodyinside
+            bodystring += bodyinside
           end
 
           if delimiters.any? { |a| mediatypev.include?(a) }
@@ -359,7 +359,7 @@ module Sisimai
 
           # Append "\n" when the last character of $bodystring is not LF
           bodystring << "\n\n" unless bodystring[-2, 2] == "\n\n"
-          flattenout << bodystring
+          flattenout += bodystring
         end
 
         return flattenout
