@@ -112,7 +112,7 @@ module Sisimai
       names += %w[Delivered Feedback Undefined Vacation]
       while e = names.shift do
         # Call .description() method of Sisimai::Reason::*
-        r = 'Sisimai::Reason::' << e
+        r = 'Sisimai::Reason::' + e
         require r.gsub('::', '/').downcase
         table[e.to_sym] = Module.const_get(r).send(:description)
       end
