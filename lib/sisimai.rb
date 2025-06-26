@@ -40,7 +40,7 @@ module Sisimai
           begin
             c___[1].call(args) if c___[1].is_a?(Proc)
           rescue StandardError => ce
-            warn ' ***warning: Something is wrong in the second element of the ":c___":' << ce.to_s
+            warn ' ***warning: Something is wrong in the second element of the ":c___":' + ce.to_s
           end
         end
 
@@ -81,14 +81,14 @@ module Sisimai
       table = {}
 
       %w[Lhost ARF RFC3464 RFC3834].each do |e|
-        r = 'Sisimai::' << e
+        r = 'Sisimai::' + e
         require r.gsub('::', '/').downcase
 
         if e == 'Lhost'
           # Sisimai::Lhost::*
           Module.const_get(r).send(:index).each do |ee|
             # Load and get the value of "description" from each module
-            rr = 'Sisimai::' << e + '::' << ee
+            rr = 'Sisimai::' + e + '::' + ee
             require rr.gsub('::', '/').downcase
             table[rr.to_sym] = Module.const_get(rr).send(:description)
           end
