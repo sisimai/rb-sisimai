@@ -55,7 +55,7 @@ module Sisimai
               eo = ''
               next
             end
-            eo << as.chr
+            eo += as.chr
             break if eo.to_i > 255
           end
           ipv4a << e if eo.size > 0 && eo.to_i < 256
