@@ -6,10 +6,10 @@ module Sisimai
       class << self
         # Serializer (JSON)
         # @param    [Sisimai::Fact] argvs Object
-        # @return   [String, nil]         Dumped data or nil if the argument is missing
+        # @return   [String]              Dumped data or an empty string if the argument is missing
         def dump(argvs)
-          return nil unless argvs
-          return nil unless argvs.is_a? Sisimai::Fact
+          return "" unless argvs
+          return "" unless argvs.is_a? Sisimai::Fact
 
           if RUBY_PLATFORM.start_with?('java')
             # java-based ruby environment like JRuby.
