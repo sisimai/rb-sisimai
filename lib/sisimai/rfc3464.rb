@@ -175,7 +175,7 @@ module Sisimai
                 # There are other error messages as a comment such as the following:
                 # Status: 5.0.0 (permanent failure)
                 # Status: 4.0.0 (cat.example.net: host name lookup failure)
-                v["diagnosis"] << " " + o[4] + " "
+                v["diagnosis"] += " " + o[4] + " "
               end
               next unless FieldTable[o[0]]
               next if o[3] == "host" && Sisimai::RFC1123.is_internethost(o[2]) == false
