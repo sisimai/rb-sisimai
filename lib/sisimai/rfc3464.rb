@@ -133,7 +133,7 @@ module Sisimai
               break if e.start_with?("--")              # Boundary string
               break if e.include?("--- The follow")     # ----- The following addresses had delivery problems -----
               break if e.include?("--- Transcript")     # ----- Transcript of session follows -----
-              beforemesg << e + " "; break
+              beforemesg += e + " "; break
             end
             next
           end
