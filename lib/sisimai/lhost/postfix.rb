@@ -150,12 +150,12 @@ module Sisimai::Lhost
               # 5.1.1 <userunknown@example.co.jp>... User Unknown (in reply to RCPT TO command)
               if readslices[-2].start_with?('Diagnostic-Code:') && e.include?(' ')
                 # Continued line of the value of Diagnostic-Code header
-                v['diagnosis'] << ' ' << Sisimai::String.sweep(e)
-                readslices[-1] = 'Diagnostic-Code: ' << e
+                v['diagnosis'] += ' ' + Sisimai::String.sweep(e)
+                readslices[-1] = 'Diagnostic-Code: ' + e
 
               elsif Sisimai::String.aligned(e, ['X-Postfix-Sender:', 'rfc822;', '@'])
                 # X-Postfix-Sender: rfc822; shironeko@example.org
-                emailparts[1] << 'X-Postfix-Sender: ' << Sisimai::Address.s3s4(e[e.index(';') + 1, e.size]) << "\n"
+                emailparts[1] += 'X-Postfix-Sender: ' + Sisimai::Address.s3s4(e[e.index(';') + 1, e.size]) + "\n"
 
               else
                 # Alternative error message and recipient
@@ -163,7 +163,7 @@ module Sisimai::Lhost
                   # 5.1.1 <userunknown@example.co.jp>... User Unknown (in reply to RCPT TO
                   cv = Sisimai::SMTP::Command.find(e) || ""; commandset << cv unless cv.empty?
                   anotherset['diagnosis'] ||= ''
-                  anotherset['diagnosis'] << ' ' << e
+                  anotherset['diagnosis']  += ' ' + e
 
                 elsif Sisimai::String.aligned(e, ['<', '@', '>', '(expanded from<', '):'])
                   # <r@example.ne.jp> (expanded from <kijitora@example.org>): user ...
