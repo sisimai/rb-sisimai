@@ -195,7 +195,7 @@ module Sisimai::Lhost
               # Find captured code from the error code table
               next unless ErrorCodes[r].index(capturedcode)
               e['reason'] = r
-              e['status'] = Sisimai::SMTP::Status.code(r) || ""
+              e['status'] = Sisimai::SMTP::Status.code(r)
               break
             end
             e['diagnosis'] = errormessage

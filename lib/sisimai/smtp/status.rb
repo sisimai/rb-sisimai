@@ -677,11 +677,11 @@ module Sisimai
         # @param    [String]     argv1  Reason name
         # @param    [True,False] argv2  false: Permanent error
         #                               true:  Temporary error
-        # @return   [String, Nil]       DSN or Nil if the 1st argument is missing
+        # @return   [String]            DSN or an empty string if the 1st argument is missing
         # @see      name
         def code(argv1 = nil, argv2 = false)
-          return nil unless argv1
-          return nil if argv1.empty?
+          return "" unless argv1
+          return "" if argv1.empty?
 
           table = argv2 ? InternalCode[:temporary] : InternalCode[:permanent]
           code0 = table[argv1] || InternalCode[:permanent][argv1] || nil
