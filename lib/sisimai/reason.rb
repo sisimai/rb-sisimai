@@ -30,7 +30,7 @@ module Sisimai
       def path
         index = Sisimai::Reason.index
         table = {}
-        index.each { |e| table['Sisimai::Reason::' + e] = 'sisimai/reason/' + e.downcase }
+        index.each { |e| table["Sisimai::Reason::#{e}"] = "sisimai/reason/#{e.downcase}" }
         return table
       end
 
@@ -85,13 +85,13 @@ module Sisimai
           ClassOrder[0].each do |e|
             # Check the value of Diagnostic-Code: and the value of Status:, it is a deliverystats,
             # with true() method in each Sisimai::Reason::* class.
-            p = 'Sisimai::Reason::' + e
+            p = "Sisimai::Reason::#{e}"
             r = nil
             begin
               require ModulePath[p]
               r = Module.const_get(p)
             rescue
-              warn ' ***warning: Failed to load ' + p
+              warn " ***warning: Failed to load #{p}"
               next
             end
             next unless r.true(argvs)
@@ -140,13 +140,13 @@ module Sisimai
           # Could not decide the reason by the value of Status:
           ClassOrder[1].each do |e|
             # Trying to match with other patterns in Sisimai::Reason::* classes
-            p = 'Sisimai::Reason::' + e
+            p = "Sisimai::Reason::#{e}"
             r = nil
             begin
               require ModulePath[p]
               r = Module.const_get(p)
             rescue
-              warn ' ***warning: Failed to load ' + p
+              warn " ***warning: Failed to load #{p}"
               next
             end
 
@@ -204,13 +204,13 @@ module Sisimai
         ClassOrder[2].each do |e|
           # Check the value of Diagnostic-Code: and the value of Status:, it is a deliverystats, with
           # true() method in each Sisimai::Reason::* class.
-          p = 'Sisimai::Reason::' + e
+          p = "Sisimai::Reason::#{e}"
           r = nil
           begin
             require ModulePath[p]
             r = Module.const_get(p)
           rescue
-            warn ' ***warning: Failed to load ' + p
+            warn " ***warning: Failed to load #{p}"
             next
           end
 
