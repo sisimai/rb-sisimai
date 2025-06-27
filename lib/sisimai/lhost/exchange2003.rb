@@ -137,18 +137,18 @@ module Sisimai::Lhost
 
             elsif e.start_with?(' ') && e.include?('MSEXCH:')
               #     MSEXCH:IMS:KIJITORA CAT:EXAMPLE:EXCHANGE 0 (000C05A6) Unknown Recipient
-              v['diagnosis'] << e[e.index('MSEXCH:'), e.size]
+              v['diagnosis'] += e[e.index('MSEXCH:'), e.size]
             else
               next if v['msexch']
               if v['diagnosis'].start_with?('MSEXCH:')
                 # Continued from MEEXCH in the previous line
                 v['msexch'] = true
-                v['diagnosis'] << ' ' << e
+                v['diagnosis'] += " #{e}"
                 statuspart = true
               else
                 # Error message in the body part
                 v['alterrors'] ||= ''
-                v['alterrors'] << ' ' << e
+                v['alterrors'] += " #{e}"
               end
             end
           else
@@ -206,7 +206,7 @@ module Sisimai::Lhost
             next if e["alterrors"].empty?
 
             # Copy alternative error message
-            e['diagnosis'] = e['alterrors'] + ' ' + e['diagnosis']
+            e['diagnosis'] = "#{e['alterrors']} #{e['diagnosis']}"
             e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
             e.delete('alterrors')
           end
@@ -214,9 +214,9 @@ module Sisimai::Lhost
 
         if emailparts[1].empty?
           # When original message does not included in the bounce message
-          emailparts[1] << ('From: ' << connheader['to'] << "\n")
-          emailparts[1] << ('Date: ' << connheader['date'] << "\n")
-          emailparts[1] << ('Subject: ' << connheader['subject'] << "\n")
+          emailparts[1] += "From: #{connheader['to']}\n"
+          emailparts[1] += "Date: #{connheader['date']}\n"
+          emailparts[1] += "Subject: #{connheader['subject']}\n"
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
