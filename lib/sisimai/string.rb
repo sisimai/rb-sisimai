@@ -84,11 +84,10 @@ module Sisimai
           # 3. <a href = 'http://...'>...</a> to " http://... "
           # 4. <a href = 'mailto:...'>...</a> to " Value <mailto:...> "
           plain.scrub!('?')
-          plain.gsub!(%r|<head>.+</head>|im, '')
-          plain.gsub!(%r|<style.+?>.+</style>|im, '')
-          plain.gsub!(%r|<a\s+href\s*=\s*['"](https?://.+?)['"].*?>(.*?)</a>|i, '[\2](\1)')
-          plain.gsub!(%r|<a\s+href\s*=\s*["']mailto:([^\s]+?)["']>(.*?)</a>|i, '[\2](mailto:\1)')
-
+          plain = plain.gsub(%r|<head>.+</head>|im, '')
+          plain = plain.gsub(%r|<style.+?>.+</style>|im, '')
+          plain = plain.gsub(%r|<a\s+href\s*=\s*['"](https?://.+?)['"].*?>(.*?)</a>|i, '[\2](\1)')
+          plain = plain.gsub(%r|<a\s+href\s*=\s*["']mailto:([^\s]+?)["']>(.*?)</a>|i, '[\2](mailto:\1)')
           plain = plain.gsub(/<[^<@>]+?>\s*/, ' ')              # Delete HTML tags except <neko@example.jp>
           plain = plain.gsub(/&lt;/, '<').gsub(/&gt;/, '>')     # Convert to angle brackets
           plain = plain.gsub(/&amp;/, '&').gsub(/&nbsp;/, ' ')  # Convert to "&"
