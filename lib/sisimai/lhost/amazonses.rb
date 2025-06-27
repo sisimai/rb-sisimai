@@ -111,7 +111,7 @@ module Sisimai::Lhost
           end
         rescue StandardError => ce
           # Something wrong in decoding JSON
-          warn ' ***warning: Failed to decode JSON: ' << ce.to_s
+          warn " ***warning: Failed to decode JSON: #{ce.to_s}"
           return nil
         end
         return nil if jsonobject.has_key?("notificationType") == false
@@ -206,11 +206,11 @@ module Sisimai::Lhost
 
         cv = ""
         jsonobject["mail"]["headers"].each do |e|
-          cv << sprintf("%s: %s\n", e["name"], e["value"])
+          cv += sprintf("%s: %s\n", e["name"], e["value"])
         end
         %w[date subject].each do |e|
           next if jsonobject["mail"]["commonHeaders"].has_key?(e) == false
-          cv << sprintf("%s: %s\n", e.capitalize, jsonobject["mail"]["commonHeaders"][e])
+          cv += sprintf("%s: %s\n", e.capitalize, jsonobject["mail"]["commonHeaders"][e])
         end
         return {"ds" => dscontents, "rfc822" => cv}
       end
