@@ -57,7 +57,7 @@ module Sisimai
           'Sisimai::RFC3464' => 'sisimai/rfc3464',
           'Sisimai::RFC3834' => 'sisimai/rfc3834',
         }
-        index.each { |e| table['Sisimai::Lhost::' + e] = 'sisimai/lhost/' + e.downcase }
+        index.each { |e| table["Sisimai::Lhost::#{e}"] = "sisimai/lhost/#{e.downcase}" }
         return table
       end
 
