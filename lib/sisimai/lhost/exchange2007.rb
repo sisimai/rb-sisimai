@@ -123,9 +123,9 @@ module Sisimai::Lhost
               if cr != "" || cs != "" || e.include?("Remote Server ")
                 # Remote Server returned '550 5.1.1 RESOLVER.ADR.RecipNotFound; not found'
                 # 3/09/2016 8:05:56 PM - Remote Server at mydomain.com (10.1.1.3) returned '550 4.4.7 QUEUE.Expired; message expired'
-                v["replycode"] = cr
-                v["status"]    = cs
-                v["diagnosis"] << e << " "
+                v["replycode"]  = cr
+                v["status"]     = cs
+                v["diagnosis"] += "#{e }"
               end
             end
           end
