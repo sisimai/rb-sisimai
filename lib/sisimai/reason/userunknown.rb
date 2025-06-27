@@ -173,13 +173,13 @@ module Sisimai
             matchother = false
             PreMatches.each do |e|
               # Check the value of "Diagnostic-Code" with other error patterns.
-              p = 'Sisimai::Reason::' << e
+              p = "Sisimai::Reason::#{e}"
               r = nil
               begin
                 require ModulePath[p]
                 r = Module.const_get(p)
               rescue
-                warn '***warning: Failed to load ' << p
+                warn "***warning: Failed to load #{p}"
                 next
               end
 
