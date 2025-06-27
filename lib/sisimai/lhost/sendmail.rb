@@ -145,13 +145,13 @@ module Sisimai::Lhost
                     # 554 5.3.0 unknown mailer error 255
                     anotherset['status']      = cs
                     anotherset['diagnosis'] ||= ''
-                    anotherset['diagnosis']  += ' ' + e
+                    anotherset['diagnosis']  += " #{e}"
 
                   elsif e.start_with?('Message ', 'Warning: ')
                     # Message could not be delivered for too long
                     # Warning: message still undelivered after 4 hours
                     anotherset['diagnosis'] ||= ''
-                    anotherset['diagnosis']  += ' ' + e
+                    anotherset['diagnosis']  += " #{e}"
                   end
                 end
               end
@@ -159,8 +159,8 @@ module Sisimai::Lhost
               # Continued line of the value of Diagnostic-Code field
               next unless readslices[-2].start_with?('Diagnostic-Code:')
               next unless e.start_with?(' ')
-              v['diagnosis'] += ' ' + Sisimai::String.sweep(e)
-              readslices[-1] = 'Diagnostic-Code: ' + e
+              v['diagnosis'] += " #{Sisimai::String.sweep(e)}"
+              readslices[-1]  = "Diagnostic-Code: #{e}"
             end
           end
         end # End of message/delivery-status
