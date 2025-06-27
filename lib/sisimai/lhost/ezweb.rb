@@ -82,8 +82,8 @@ module Sisimai::Lhost
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v["recipient"] = Sisimai::Address.s3s4(e[p1, p2 - p1])
-            v["diagnosis"] << " " << e
+            v["recipient"]  = Sisimai::Address.s3s4(e[p1, p2 - p1])
+            v["diagnosis"] += " #{e}"
             recipients += 1
 
           elsif Sisimai::RFC1894.match(e) > 0
@@ -97,22 +97,22 @@ module Sisimai::Lhost
             next if Sisimai::String.is_8bit(e)
             if e.include?(" >>> ")
               #    >>> RCPT TO:<******@ezweb.ne.jp>
-              v["command"] = Sisimai::SMTP::Command.find(e)
-              v["diagnosis"] << " " << e
+              v["command"]    = Sisimai::SMTP::Command.find(e)
+              v["diagnosis"] += " #{e}"
 
             elsif e.include?(" <<< ")
               #    <<< 550 ...
-              v["diagnosis"] << " " << e
+              v["diagnosis"] += " #{e}"
 
             else
               # Check error message
               isincluded = false
               if substrings.any? { |a| e.include?(a) }
                 # Check with regular expressions of each error
-                v["diagnosis"] << " " << e
+                v["diagnosis"] += " #{e}"
                 isincluded = true
               end
-              v["diagnosis"] << " " << e if isincluded
+              v["diagnosis"] += " #{e}" if isincluded
             end
           end
         end
