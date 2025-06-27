@@ -72,7 +72,7 @@ module Sisimai::Lhost
               # Append error messages
               endoferror = true if e.start_with?(StartingOf[:rcpts][0])
               next if endoferror
-              v['diagnosis'] += ' ' + e
+              v['diagnosis'] += " #{e}"
             else
               # Additional Information
               # ======================
@@ -87,7 +87,7 @@ module Sisimai::Lhost
               if e.start_with?('Original Sender: ')
                 # Original Sender:    <originalsender@example.com>
                 # Use this line instead of "From" header of the original message.
-                emailparts[1] += ('From: ' + e[p1 + 1, p2 - p1 - 1] + "\n")
+                emailparts[1] += ("From: #{e[p1 + 1, p2 - p1 - 1]}\n")
 
               elsif e.start_with?('Sender-MTA: ')
                 # Sender-MTA:         <10.11.12.13>
