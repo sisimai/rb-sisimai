@@ -73,7 +73,7 @@ module Sisimai
           unless ctxcharset.casecmp('UTF-8') == 0
             # Characterset is not UTF-8
             begin
-              p .encode!('UTF-8', ctxcharset)
+              p.encode!('UTF-8', ctxcharset)
             rescue
               p = 'FAILED TO CONVERT THE SUBJECT'
             end
