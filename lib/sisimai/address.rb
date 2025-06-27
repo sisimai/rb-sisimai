@@ -164,7 +164,7 @@ module Sisimai
                 # Comment: <neko(nyaan)@example.org>
                 readcursor |= Indicators[:'comment-block']
                 v[:comment] << ' ' if v[:comment].end_with?(')')
-                v[:comment] << e
+                v[:comment] += e
                 p = :comment
               end
             elsif readcursor & Indicators[:'comment-block'] > 0
@@ -179,7 +179,7 @@ module Sisimai
               # The beginning of a comment block
               readcursor |= Indicators[:'comment-block']
               v[:comment] << ' ' if v[:comment].end_with?(')')
-              v[:comment] << e
+              v[:comment] += e
               p = :comment
             end
             next
@@ -219,7 +219,7 @@ module Sisimai
               v[p] << e
             else
               # Display name like "Neko, Nyaan"
-              v[:name] << e
+              v[:name] += e
               next unless readcursor & Indicators[:'quoted-string'] > 0
               next if v[:name].end_with?(%Q|\x5c"|) # "Neko, Nyaan \"...
               readcursor &= ~Indicators[:'quoted-string']
@@ -281,7 +281,7 @@ module Sisimai
           e.delete(:comment)
         else
           # Remove double-quotations, trailing spaces.
-          [:name, :comment].each { |f| e[f].strip! }
+          [:name, :comment].each { |f| e[f] = e[f].strip }
           e[:comment] = '' unless e[:comment] =~ /\A[(].+[)]/
           e[:name].squeeze!(' ')     unless e[:name] =~ /\A["].+["]\z/
           e[:name].sub!(/\A["]/, '') unless e[:name] =~ /\A["].+["][@]/
