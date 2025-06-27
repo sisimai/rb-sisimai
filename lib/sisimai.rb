@@ -81,14 +81,14 @@ module Sisimai
       table = {}
 
       %w[Lhost ARF RFC3464 RFC3834].each do |e|
-        r = 'Sisimai::' + e
+        r = "Sisimai::#{e}"
         require r.gsub('::', '/').downcase
 
         if e == 'Lhost'
           # Sisimai::Lhost::*
           Module.const_get(r).send(:index).each do |ee|
             # Load and get the value of "description" from each module
-            rr = 'Sisimai::' + e + '::' + ee
+            rr = "Sisimai::#{e}::#{ee}"
             require rr.gsub('::', '/').downcase
             table[rr.to_sym] = Module.const_get(rr).send(:description)
           end
@@ -112,7 +112,7 @@ module Sisimai
       names += %w[Delivered Feedback Undefined Vacation]
       while e = names.shift do
         # Call .description() method of Sisimai::Reason::*
-        r = 'Sisimai::Reason::' + e
+        r = "Sisimai::Reason::#{e}"
         require r.gsub('::', '/').downcase
         table[e.to_sym] = Module.const_get(r).send(:description)
       end
