@@ -59,13 +59,12 @@ module Sisimai
             textblocks[-1].gsub!(/\r\n/, '')
             textblocks << cv[5]
           else
-            textblocks << if textblocks.empty? then e else ' ' << e end
+            textblocks << if textblocks.empty? then e else " #{e}" end
           end
         end
-
         return '' if textblocks.empty?
-        p = textblocks.join('')
 
+        p = textblocks.join('')
         if ctxcharset && qbencoding
           # utf8 => UTF-8
           ctxcharset = 'UTF-8' if ctxcharset.casecmp('UTF8') == 0
@@ -73,14 +72,14 @@ module Sisimai
           unless ctxcharset.casecmp('UTF-8') == 0
             # Characterset is not UTF-8
             begin
-              p.encode!('UTF-8', ctxcharset)
+              p = p.encode!('UTF-8', ctxcharset)
             rescue
               p = 'FAILED TO CONVERT THE SUBJECT'
             end
           end
         end
-
-        return p.force_encoding('UTF-8').scrub('?')
+        q = p.dup
+        return q.force_encoding('UTF-8').scrub('?')
       end
 
       # Decode MIME BASE64 Encoded string
@@ -174,8 +173,8 @@ module Sisimai
           elsif e.index('boundary=') || e.index('charset=')
             # "Content-Type" field has boundary="..." or charset="utf-8"
             next if headerpart[0].empty?
-            headerpart[0] << " " << e
-            headerpart[0].gsub!(/\s\s+/, ' ')
+            headerpart[0] += " #{e}"
+            headerpart[0]  = headerpart[0].gsub(/\s\s+/, ' ')
           end
         end
         return headerpart if heads
@@ -196,7 +195,7 @@ module Sisimai
           break if mediatypev.index('/feedback-report')
           break if ctencoding.empty?
 
-          multipart1[2] << sprintf("Content-Transfer-Encoding: %s\n", ctencoding)
+          multipart1[2] += sprintf("Content-Transfer-Encoding: %s\n", ctencoding)
           break
         end
 
@@ -205,10 +204,10 @@ module Sisimai
           break if lowerchunk.empty?
           break if lowerchunk[0, 1] == "\n"
 
-          multipart1[2] << "\n"
+          multipart1[2] += "\n"
           break
         end
-        multipart1[2] << lowerchunk
+        multipart1[2] += lowerchunk
         return multipart1
       end
 
@@ -340,7 +339,7 @@ module Sisimai
                 # ISO-8859-1, GB2312, and so on
                 bodystring = Sisimai::String.to_utf8(bodystring, ctxcharset)
               end
-              bodystring << "\n\n"
+              bodystring += "\n\n"
             end
 
             bodystring.gsub!(/\r\n/, "\n") if bodystring.include?("\r\n") # Convert CRLF to LF
@@ -358,7 +357,7 @@ module Sisimai
           end
 
           # Append "\n" when the last character of $bodystring is not LF
-          bodystring << "\n\n" unless bodystring[-2, 2] == "\n\n"
+          bodystring += "\n\n" unless bodystring[-2, 2] == "\n\n"
           flattenout += bodystring
         end
 

@@ -206,13 +206,13 @@ module Sisimai
                 # In the case of multiple "message/delivery-status" line
                 next if e.start_with?("Content-") # Content-Disposition:, ...
                 next if e.start_with?("--")       # Boundary string
-                beforemesg << e + " "; next
+                beforemesg += "#{e} "; next
               end
 
               # Diagnostic-Code: SMTP; 550-5.7.26 The MAIL FROM domain [email.example.jp]
               #    has an SPF record with a hard fail
               next unless e.start_with?(" ")
-              v["diagnosis"] << " " + Sisimai::String.sweep(e)
+              v["diagnosis"] += " #{Sisimai::String.sweep(e)}"
             end
           end
         end
