@@ -94,7 +94,7 @@ module Sisimai::Lhost
           p1 = emailparts[1].index("\nTo: ")     || -1
           p2 = emailparts[1].index("\n", p1 + 6) || -1
           if p1 > 0
-            v['recipient'] = Sisimai::Address.s3s4(emailparts[1][p1 + 5, p2 - p1 - 5]) || ''
+            v['recipient'] = Sisimai::Address.s3s4(emailparts[1][p1 + 5, p2 - p1 - 5])
             recipients += 1 unless v['recipient'].empty?
           end
         end

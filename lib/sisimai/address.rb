@@ -45,10 +45,9 @@ module Sisimai
 
     # Check that the argument is an email address or not
     # @param    [String] email  Email address string
-    # @return   [True,False]    true: is an email address
-    #                           false: is not an email address
+    # @return   [Boolean]       true: is an email address, false: is not an email address
     def self.is_emailaddress(email)
-      return false unless email.is_a?(::String)
+      return false if email.is_a?(::String) == false
       return false if email =~ %r/(?:[\x00-\x1f]|\x1f)/ || email.size > 254
       return true  if email =~ Re[:ignored]
       return false
@@ -59,9 +58,7 @@ module Sisimai
     # @return   [True,False]    true: mailer-daemon
     #                           false: Not mailer-daemon
     def self.is_mailerdaemon(argv0 = nil)
-      return false unless argv0
-      return false unless argv0.size > 0
-      return false unless argv0.is_a?(::String)
+      return false if argv0.to_s == "" || argv0.is_a?(::String) == false
 
       email = argv0.downcase
       postmaster = [
@@ -299,8 +296,8 @@ module Sisimai
     # @return   [String]        Email address without comment, brackets
     # @example  s3s4('<neko@example.cat>') #=> 'neko@example.cat'
     def self.s3s4(input)
-      return nil unless input
-      return input unless input.is_a? Object::String
+      return "" if input.to_s == ""
+      return "" if input.is_a?(Object::String) == false
 
       addrs = Sisimai::Address.find(input, true) || []
       return input if addrs.empty?
