@@ -110,7 +110,7 @@ module Sisimai
           next if !e.include?(' ') || e.start_with?('Content-Type', 'Content-Transfer')
 
           v['diagnosis'] ||= ''
-          v['diagnosis']  << e + ' '
+          v['diagnosis']  += "#{e }"
           haveloaded += 1
           break if haveloaded >= maxmsgline
         end
@@ -122,7 +122,7 @@ module Sisimai
 
         if cv = lower['subject'].match(SubjectSet)
           # Get the Subject header from the original message
-          rfc822part = 'Subject: ' << cv[1] + "\n"
+          rfc822part = "Subject: #{cv[1]}\n"
         end
         return { 'ds' => dscontents, 'rfc822' => rfc822part }
       end
