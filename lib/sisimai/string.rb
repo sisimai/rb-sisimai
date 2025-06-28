@@ -92,11 +92,7 @@ module Sisimai
           plain = plain.gsub(/&lt;/, '<').gsub(/&gt;/, '>')     # Convert to angle brackets
           plain = plain.gsub(/&amp;/, '&').gsub(/&nbsp;/, ' ')  # Convert to "&"
           plain = plain.gsub(/&quot;/, '"').gsub(/&apos;/, "'") # Convert to " and '
-
-          if argv1.size > plain.size
-            plain  = plain.squeeze(' ')
-            plain << "\n"
-          end
+          plain = "#{plain.squeeze(' ')}\n" if argv1.size > plain.size
         end
 
         return plain

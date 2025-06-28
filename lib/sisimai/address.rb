@@ -107,10 +107,10 @@ module Sisimai
               # An email address has already been picked
               if readcursor & Indicators[:'comment-block'] > 0
                 # The cursor is in the comment block (Neko, Nyaan)
-                v[:comment] << e
+                v[:comment] += e
               elsif readcursor & Indicators[:'quoted-string'] > 0
                 # "Neko, Nyaan"
-                v[:name] << e
+                v[:name] += e
               else
                 # The cursor is not in neither the quoted-string nor the comment block
                 readcursor = 0  # reset cursor position
@@ -120,7 +120,7 @@ module Sisimai
               end
             else
               # "Neko, Nyaan" <neko@nyaan.example.org> OR <"neko,nyaan"@example.org>
-              p.empty? ? (v[:name] << e) : (v[p] << e)
+              p.empty? ? (v[:name] += e) : (v[p] += e)
             end
             next
           end # End of if(',')
@@ -128,7 +128,7 @@ module Sisimai
           if e == '<'
             # <: The beginning of an email address or not
             if v[:address].size > 0
-              p.empty? ? (v[:name] << e) : (v[p] << e)
+              p.empty? ? (v[:name] += e) : (v[p] += e)
             else
               # <neko@nyaan.example.org>
               readcursor |= Indicators[:'email-address']
@@ -144,11 +144,11 @@ module Sisimai
             if readcursor & Indicators[:'email-address'] > 0
               # <neko@example.org>
               readcursor &= ~Indicators[:'email-address']
-              v[:address] << e
+              v[:address] += e
               p = ''
             else
               # a comment block or a display name
-              p.empty? ? (v[:name] << e) : (v[:comment] << e)
+              p.empty? ? (v[:name] == e) : (v[:comment] -= e)
             end
             next
           end # End of if('>')
@@ -159,26 +159,26 @@ module Sisimai
               # <"neko(nyaan)"@example.org> or <neko(nyaan)@example.org>
               if v[:address].include?('"')
                 # Quoted local part: <"neko(nyaan)"@example.org>
-                v[:address] << e
+                v[:address] += e
               else
                 # Comment: <neko(nyaan)@example.org>
                 readcursor |= Indicators[:'comment-block']
-                v[:comment] << ' ' if v[:comment].end_with?(')')
+                v[:comment] += ' ' if v[:comment].end_with?(')')
                 v[:comment] += e
                 p = :comment
               end
             elsif readcursor & Indicators[:'comment-block'] > 0
               # Comment at the outside of an email address (...(...)
-              v[:comment] << ' ' if v[:comment].end_with?(')')
-              v[:comment] << e
+              v[:comment] += ' ' if v[:comment].end_with?(')')
+              v[:comment] += e
 
             elsif readcursor & Indicators[:'quoted-string'] > 0
               # "Neko, Nyaan(cat)", Deal as a display name
-              v[:name] << e
+              v[:name] += e
             else
               # The beginning of a comment block
               readcursor |= Indicators[:'comment-block']
-              v[:comment] << ' ' if v[:comment].end_with?(')')
+              v[:comment] += ' ' if v[:comment].end_with?(')')
               v[:comment] += e
               p = :comment
             end
@@ -191,22 +191,22 @@ module Sisimai
               # <"neko(nyaan)"@example.org> OR <neko(nyaan)@example.org>
               if v[:address].include?('"')
                 # Quoted string in the local part: <"neko(nyaan)"@example.org>
-                v[:address] << e
+                v[:address] += e
               else
                 # Comment: <neko(nyaan)@example.org>
                 readcursor &= ~Indicators[:'comment-block']
-                v[:comment] << e
+                v[:comment] += e
                 p = :address
               end
             elsif readcursor & Indicators[:'comment-block'] > 0
               # Comment at the outside of an email address (...(...)
               readcursor &= ~Indicators[:'comment-block']
-              v[:comment] << e
+              v[:comment] += e
               p = ''
             else
               # Deal as a display name
               readcursor &= ~Indicators[:'comment-block']
-              v[:name] << e
+              v[:name] += e
               p = ''
             end
             next
@@ -216,7 +216,7 @@ module Sisimai
             # The beginning or the end of a quoted-string
             if p.size > 0
               # email-address or comment-block
-              v[p] << e
+              v[p] += e
             else
               # Display name like "Neko, Nyaan"
               v[:name] += e

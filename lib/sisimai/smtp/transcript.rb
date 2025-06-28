@@ -97,10 +97,8 @@ module Sisimai
             else
               # SMTP server sent a response "<<< response text"
               p = e.index('<<< '); next unless p == 0
+              e = e[4, e.size].sub(/\A<<<[ ]/, '')
 
-              e = e[4, e.size]
-
-              e.sub!(/\A<<<[ ]/, '')
               if cv = e.match(/\A([2-5]\d\d)[ ]/) then cx['response']['reply'] = cv[1] end
               if cv = e.match(/\A[245]\d\d[ ]([245][.]\d{1,3}[.]\d{1,3})[ ]/) then cx['response']['status'] = cv[1] end
               cx['response']['text'] << e

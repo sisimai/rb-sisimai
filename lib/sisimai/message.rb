@@ -296,7 +296,7 @@ module Sisimai
           email += sprintf("%s: %s\n", fn, bf)
         end
 
-        email << "\n" unless email.end_with?("\n\n")
+        email += "\n" unless email.end_with?("\n\n")
         return email
       end
 
@@ -364,7 +364,7 @@ module Sisimai
             p = {'headers' => mailheader, 'message' => bodystring}
             havecaught = hookmethod.call(p)
           rescue StandardError => ce
-            warn ' ***warning: Something is wrong in hook method ":hook":' << ce.to_s
+            warn ' ***warning: Something is wrong in hook method ":hook":' + ce.to_s
           end
         end
 

@@ -19,7 +19,7 @@ module Sisimai
           begin
             yamlstring = ::YAML.dump(damneddata)
           rescue StandardError => ce
-            warn '***warning: Failed to YAML.dump: ' << ce.to_s
+            warn '***warning: Failed to YAML.dump: ' + ce.to_s
           end
 
           return yamlstring
