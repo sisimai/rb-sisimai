@@ -680,8 +680,7 @@ module Sisimai
         # @return   [String]            DSN or an empty string if the 1st argument is missing
         # @see      name
         def code(argv1 = nil, argv2 = false)
-          return "" unless argv1
-          return "" if argv1.empty?
+          return "" if argv1.to_s.empty?
 
           table = argv2 ? InternalCode[:temporary] : InternalCode[:permanent]
           code0 = table[argv1] || InternalCode[:permanent][argv1] || nil
@@ -693,8 +692,7 @@ module Sisimai
         # @return   [String]        Reason name or an empty string
         # @see      code
         def name(argv1 = nil)
-          return "" unless argv1
-          return "" unless Sisimai::SMTP::Status.test(argv1)
+          return "" unless Sisimai::SMTP::Status.test(argv1.to_s)
           return StandardCode[argv1] || ""
         end
 
@@ -704,9 +702,7 @@ module Sisimai
         # @see      code
         # @since v5.0.0
         def test(argv1 = '')
-          return false if argv1.to_s.empty?
-          return false if argv1.size < 5
-          return false if argv1.size > 7
+          return false if argv1.to_s.empty? || argv1.size < 5 || argv1.size > 7
 
           token = []
           argv1.split('.').each { |e| token << e.to_i }
@@ -725,8 +721,7 @@ module Sisimai
         # @param    [String] argv2  An SMTP Reply Code or 2 or 4 or 5
         # @return   [String, Nil]   An SMTP Status Code
         def find(argv1 = nil, argv2 = '0')
-          return "" if argv1.to_s.empty?
-          return "" if argv1.size < 7
+          return "" if argv1.to_s.empty? || argv1.size < 7
 
           givenclass = argv2[0, 1]
           eestatuses = if givenclass == '2' || givenclass == '4' || givenclass == '5' 
