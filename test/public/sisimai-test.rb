@@ -88,9 +88,9 @@ class SisimaiTest < Minitest::Test
           else
             # [WORKAROUND] #159, #267
             if RUBY_PLATFORM.start_with?('java') && eee == 'timestamp'
-              assert_equal Time.parse(ee.send(eee.to_sym).iso8601).to_i, cv[eee], 'Sisimai::Fact.' << eee
+              assert_equal Time.parse(ee.send(eee.to_sym).iso8601).to_i, cv[eee], "Sisimai::Fact.#{eee}"
             else
-              assert_equal ee.send(eee.to_sym), cv[eee], 'Sisimai::Fact.' << eee
+              assert_equal ee.send(eee.to_sym), cv[eee], "Sisimai::Fact.#{eee}"
             end
           end
         end

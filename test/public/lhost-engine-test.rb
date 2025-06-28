@@ -8,7 +8,7 @@ module LhostEngineTest
 
     def test_lhostengine
       directory1 = './test/public'
-      patternset = ['lhost-*.rb', 'arf-*.rb', 'rfc3464.rb', 'rfc3834.rb'].map { |e| e = directory1 + '/' << e }
+      patternset = ['lhost-*.rb', 'arf-*.rb', 'rfc3464.rb', 'rfc3834.rb'].map { |e| e = "#{directory1}/#{e}" }
       patternset.map { |e| e = directory1 + e }
 
       checksonly = ARGV[0] || ''
@@ -67,7 +67,7 @@ module LhostEngineTest
         end
 
         enginename = lhostindex.select { |v| v.downcase == e }.shift if enginename.empty?
-        lhostclass = Module.const_get('LhostEngineTest::Public::' << enginename)
+        lhostclass = Module.const_get("LhostEngineTest::Public::#{enginename}")
         Lo.enginetest(enginename, lhostclass::IsExpected, false, emailindex)
       end
 

@@ -44,7 +44,7 @@ class ReasonChildrenTest < Minitest::Test
     assert_instance_of Hash, cw
 
     Reasons.each_key do |e|
-      cr = 'Sisimai::Reason::' << e
+      cr = "Sisimai::Reason::#{e}"
       require cr.downcase.gsub('::', '/')
       cx = Module.const_get(cr)
 
@@ -79,7 +79,7 @@ class ReasonChildrenTest < Minitest::Test
     end
 
     %w[Delivered Feedback Undefined Vacation SyntaxError].each do |e|
-      cr = 'Sisimai::Reason::' << e
+      cr = "Sisimai::Reason::#{e}"
       require cr.downcase.gsub('::', '/')
       cx = Module.const_get(cr)
 

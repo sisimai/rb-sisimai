@@ -17,7 +17,7 @@ class RhostTest < Minitest::Test
   def test_name
     Dir.glob('./set-of-emails/maildir/bsd/rhost-*.eml').each do |e|
       cv = Sisimai.rise(e); assert_instance_of Array, cv
-      warn "\nFile = " << e
+      warn "\nFile = #{e}"
       cv.each do |ee|
         assert_instance_of Sisimai::Fact, ee
         fo = ee.damn
