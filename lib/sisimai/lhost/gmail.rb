@@ -197,7 +197,7 @@ module Sisimai::Lhost
             v['recipient'] = r
             recipients += 1
           else
-            v["diagnosis"] << e << " "
+            v["diagnosis"] += "#{e }"
           end
         end
         return nil unless recipients > 0

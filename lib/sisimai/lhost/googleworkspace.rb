@@ -46,7 +46,7 @@ module Sisimai::Lhost
             if e.start_with?(StartingOf[:message][0])
               # ** Message not delivered **
               readcursor |= Indicators[:deliverystatus]
-              entiremesg << e + " "
+              entiremesg += "#{e }"
             end
           end
           next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
@@ -58,7 +58,7 @@ module Sisimai::Lhost
           # The response was:
           # Unspecified Error (SENT_SECOND_EHLO): Smtp server does not advertise AUTH capability
           next if e.start_with?("Content-Type: ")
-          entiremesg << e + " "
+          entiremesg += "#{e }"
         end
 
         while recipients == 0 do

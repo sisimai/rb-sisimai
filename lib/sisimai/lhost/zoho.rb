@@ -84,7 +84,7 @@ module Sisimai::Lhost
           else
             # Continued line
             next unless qprintable
-            v['diagnosis'] << e
+            v['diagnosis'] += e
           end
         end
         return nil unless recipients > 0

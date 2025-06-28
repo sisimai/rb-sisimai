@@ -80,7 +80,7 @@ module Sisimai::Lhost
 
             if remotehost == ""
               # Keep error messages before "While talking to ..." line
-              anotherone[recipients] ||= ""; anotherone[recipients] << " " << e
+              anotherone[recipients] ||= ""; anotherone[recipients] += " #{e}"
               next
             end
 
@@ -88,9 +88,9 @@ module Sisimai::Lhost
               # The recipient address is the same address with the last appeared address
               # like "550 <mikeneko@example.co.jp>... User unknown"
               # Append this line to the string which is keeping error messages
-              v["diagnosis"] << " " << e
-              v["replycode"] = Sisimai::SMTP::Reply.find(e)
-              curcommand     = ""
+              v["diagnosis"] += " #{e}"
+              v["replycode"]  = Sisimai::SMTP::Reply.find(e)
+              curcommand      = ""
             else
               # The recipient address in this line differs from the last appeared address
               # or is the first recipient address in this bounce message
@@ -99,12 +99,12 @@ module Sisimai::Lhost
                 dscontents << Sisimai::Lhost.DELIVERYSTATUS
                 v = dscontents[-1]
               end
-              recipients += 1
-              v["recipient"] = cv
-              v["rhost"]     = remotehost
-              v["replycode"] = Sisimai::SMTP::Reply.find(e)
-              v["diagnosis"] << " " << e
-              v["command"]   = curcommand if v["command"].empty?
+              recipients     += 1
+              v["recipient"]  = cv
+              v["rhost"]      = remotehost
+              v["replycode"]  = Sisimai::SMTP::Reply.find(e)
+              v["diagnosis"] += " #{e}"
+              v["command"]    = curcommand if v["command"].empty?
             end
           else
             # This line does not include a recipient address
@@ -120,10 +120,10 @@ module Sisimai::Lhost
                 # >>> QUIT
                 # <<< 421 dns.example.org Sorry, unable to contact destination SMTP daemon.
                 # <<< 550 Requested User Mailbox not found. No such user here.
-                v["diagnosis"] << " " << e
+                v["diagnosis"] += " #{e}"
               else
                 # 421 Other error message
-                anotherone[recipients] ||= ""; anotherone[recipients] << " " << e
+                anotherone[recipients] ||= ""; anotherone[recipients] += " #{e}"
               end
             end
           end

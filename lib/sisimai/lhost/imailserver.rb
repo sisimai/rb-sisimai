@@ -57,8 +57,8 @@ module Sisimai::Lhost
             recipients += 1
           else
             # Other error message text
-            v['alterrors'] << ' ' << e if v['alterrors']
-            v['alterrors'] = e if e.include?(StartingOf[:error][0])
+            v['alterrors'] += " #{e}" if v['alterrors']
+            v['alterrors']  = e if e.include?(StartingOf[:error][0])
           end
         end
         return nil unless recipients > 0
@@ -68,7 +68,7 @@ module Sisimai::Lhost
           unless e['alterrors'].to_s.empty?
             # Copy alternative error message
             e['diagnosis'] = if e['diagnosis']
-                               e['alterrors'] + ' ' + e['diagnosis']
+                               "#{e['alterrors']} #{e['diagnosis']}"
                              else
                                e['alterrors']
                              end
