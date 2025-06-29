@@ -23,7 +23,7 @@
 > SisimaiはPerlモジュールまたはRuby Gemですが、PHPやPython、GoやRustなどJSONを読める言語であれば
 > どのような環境においても解析結果を得ることでバウンスの発生状況を捉えるのにとても有用です。
 
-- [**README(English)**](README.md)
+- [**README(🇬🇧)**](README.md)
 - [シシマイ? | What is Sisimai](#what-is-sisimai)
     - [主な特徴的機能 | The key features](#the-key-features-of-sisimai)
     - [コマンドラインでのデモ | Command line demo](#command-line-demo)
@@ -447,7 +447,7 @@ Related sites
 
 See also
 ---------------------------------------------------------------------------------------------------
-* [README.md - README.md in English](https://github.com/sisimai/rb-sisimai/blob/master/README.md)
+* [README.md - README.md in English(🇬🇧)](https://github.com/sisimai/rb-sisimai/blob/master/README.md)
 * [RFC3463 - Enhanced Mail System Status Codes](https://tools.ietf.org/html/rfc3463)
 * [RFC3464 - An Extensible Message Format for Delivery Status Notifications](https://tools.ietf.org/html/rfc3464)
 * [RFC3834 - Recommendations for Automatic Responses to Electronic Mail](https://tools.ietf.org/html/rfc3834)

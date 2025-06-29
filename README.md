@@ -25,7 +25,7 @@
 > such as PHP, Python, Go, and Rust. By obtaining the analysis results, it is very useful for understanding
 > the bounce occurrence status. 
 
-- [**README-JA(譌･譛ｬ隱**](README-JA.md)
+- [**README-JA(🇯🇵)**](README-JA.md)
 - [What is Sisimai](#what-is-sisimai)
     - [The key features of sisimai](#the-key-features-of-sisimai)
     - [Command line demo](#command-line-demo)
@@ -450,7 +450,7 @@ Related Sites
 
 See also
 ---------------------------------------------------------------------------------------------------
-* [README-JA.md - README.md in Japanese(譌･譛ｬ隱](https://github.com/sisimai/rb-sisimai/blob/master/README-JA.md)
+* [README-JA.md - README.md in Japanese(🇯🇵)](https://github.com/sisimai/rb-sisimai/blob/master/README-JA.md)
 * [RFC3463 - Enhanced Mail System Status Codes](https://tools.ietf.org/html/rfc3463)
 * [RFC3464 - An Extensible Message Format for Delivery Status Notifications](https://tools.ietf.org/html/rfc3464)
 * [RFC3834 - Recommendations for Automatic Responses to Electronic Mail](https://tools.ietf.org/html/rfc3834)
