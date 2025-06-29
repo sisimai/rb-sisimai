@@ -27,24 +27,23 @@ module Sisimai
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
-        # @return   [True,False]    false: Did not match
-        #                           true: Matched
+        # @return   [Boolean]       false: Did not match, true: Matched
         def match(argv1)
-          return nil unless argv1
-          return true if Index.any? { |a| argv1.include?(a) }
+          return false unless argv1
+          return true  if Index.any? { |a| argv1.include?(a) }
           return false
         end
 
         # The message size is too big for the remote host
         # @param    [Sisimai::Fact] argvs   Object to be detected the reason
-        # @return   [True,False]            true: is too big message size
+        # @return   [Boolean]               true:  is too big message size
         #                                   false: is not big
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
           return true if argvs['reason'] == 'mesgtoobig'
 
           statuscode = argvs['deliverystatus'] || ''
-          tempreason = Sisimai::SMTP::Status.name(statuscode) || ''
+          tempreason = Sisimai::SMTP::Status.name(statuscode)
 
           # Delivery status code points "mesgtoobig".
           # Status: 5.3.4

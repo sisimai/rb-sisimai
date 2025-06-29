@@ -30,7 +30,7 @@ module Sisimai
       def path
         index = Sisimai::Reason.index
         table = {}
-        index.each { |e| table['Sisimai::Reason::' << e] = 'sisimai/reason/' << e.downcase }
+        index.each { |e| table["Sisimai::Reason::#{e}"] = "sisimai/reason/#{e.downcase}" }
         return table
       end
 
@@ -65,10 +65,10 @@ module Sisimai
 
       # Detect the bounce reason
       # @param    [Hash] argvs  Decoded email object
-      # @return   [String, nil] Bounce reason or nil if the argument is missing or not Hash
+      # @return   [String] Bounce reason or an empty string if the argument is missing or not Hash
       # @see anotherone
       def find(argvs)
-        return nil unless argvs
+        return "" unless argvs
         unless GetRetried[argvs['reason']]
           # Return reason text already decided except reason match with the regular expression of
           # retry() method.
@@ -85,13 +85,13 @@ module Sisimai
           ClassOrder[0].each do |e|
             # Check the value of Diagnostic-Code: and the value of Status:, it is a deliverystats,
             # with true() method in each Sisimai::Reason::* class.
-            p = 'Sisimai::Reason::' << e
+            p = "Sisimai::Reason::#{e}"
             r = nil
             begin
               require ModulePath[p]
               r = Module.const_get(p)
             rescue
-              warn ' ***warning: Failed to load ' << p
+              warn " ***warning: Failed to load #{p}"
               next
             end
             next unless r.true(argvs)
@@ -132,7 +132,7 @@ module Sisimai
         codeformat = argvs['diagnostictype']          || ''
         actiontext = argvs['action']                  || ''
         statuscode = argvs['deliverystatus']          || ''
-        reasontext = Sisimai::SMTP::Status.name(statuscode) || ''
+        reasontext = Sisimai::SMTP::Status.name(statuscode)
         trytomatch = reasontext.empty? ? true : false
         trytomatch ||= true if GetRetried[reasontext] || codeformat != 'SMTP'
 
@@ -140,13 +140,13 @@ module Sisimai
           # Could not decide the reason by the value of Status:
           ClassOrder[1].each do |e|
             # Trying to match with other patterns in Sisimai::Reason::* classes
-            p = 'Sisimai::Reason::' << e
+            p = "Sisimai::Reason::#{e}"
             r = nil
             begin
               require ModulePath[p]
               r = Module.const_get(p)
             rescue
-              warn ' ***warning: Failed to load ' << p
+              warn " ***warning: Failed to load #{p}"
               next
             end
 
@@ -195,7 +195,7 @@ module Sisimai
       # @param    [String] argv1  Error message
       # @return   [String]        Bounce reason
       def match(argv1)
-        return nil unless argv1
+        return "" unless argv1
 
         reasontext = ''
         issuedcode = argv1.downcase
@@ -204,13 +204,13 @@ module Sisimai
         ClassOrder[2].each do |e|
           # Check the value of Diagnostic-Code: and the value of Status:, it is a deliverystats, with
           # true() method in each Sisimai::Reason::* class.
-          p = 'Sisimai::Reason::' << e
+          p = "Sisimai::Reason::#{e}"
           r = nil
           begin
             require ModulePath[p]
             r = Module.const_get(p)
           rescue
-            warn ' ***warning: Failed to load ' << p
+            warn " ***warning: Failed to load #{p}"
             next
           end
 
@@ -226,8 +226,8 @@ module Sisimai
         else
           # Detect the bounce reason from "Status:" code
           require 'sisimai/smtp/status'
-          cv = Sisimai::SMTP::Status.find(argv1)
-          reasontext = Sisimai::SMTP::Status.name(cv) || 'undefined'
+          reasontext = Sisimai::SMTP::Status.name(Sisimai::SMTP::Status.find(argv1))
+          reasontext = "undefined" if reasontext.empty?
         end
         return reasontext
       end

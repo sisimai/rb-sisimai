@@ -47,7 +47,7 @@ module Sisimai
               frombuffer = r
               break
             end
-            readbuffer << r
+            readbuffer += r
           end
 
           seekoffset = filehandle.pos - frombuffer.bytesize

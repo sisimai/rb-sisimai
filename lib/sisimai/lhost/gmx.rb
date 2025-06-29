@@ -76,7 +76,7 @@ module Sisimai::Lhost
           else
             # Get error messages
             next if e.empty?
-            v['diagnosis']  += e + ' '
+            v['diagnosis'] += "#{e }"
           end
         end
         return nil unless recipients > 0

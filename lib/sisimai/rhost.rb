@@ -74,8 +74,8 @@ module Sisimai
         return "" if argvs.nil?
 
         rhostclass = name(argvs); return "" if rhostclass.empty?
-        modulepath = "sisimai/rhost/"   << rhostclass.downcase; require modulepath
-        modulename = "Sisimai::Rhost::" << rhostclass
+        modulepath = "sisimai/rhost/#{rhostclass.downcase}"; require modulepath
+        modulename = "Sisimai::Rhost::#{rhostclass}"
 
         #rhostclass = "sisimai/rhost/" << modulename.downcase.split("::")[2]; require rhostclass
         reasontext = Module.const_get(modulename).find(argvs)

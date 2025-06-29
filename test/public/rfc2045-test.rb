@@ -40,7 +40,7 @@ class RFC2045Test < Minitest::Test
       Sisimai::RFC2045.is_encoded("", "")
     end
     assert_match /wrong number of arguments/, ce.to_s
-    assert_nil   Sisimai::RFC2045.is_encoded(nil)
+    assert_equal false, Sisimai::RFC2045.is_encoded(nil)
   end
 
   IR1 = [
@@ -75,9 +75,9 @@ class RFC2045Test < Minitest::Test
   Pt7 = 'にゃーん'
   def test_decodeB
     # decocdeB returns the original string when it is not encoded text
-    assert_nil    Sisimai::RFC2045.decodeB(nil)
-    assert_nil    Sisimai::RFC2045.decodeB(Pt7)
-    assert_equal  Pt7, Sisimai::RFC2045.decodeB(Be7).force_encoding('UTF-8')
+    assert_empty Sisimai::RFC2045.decodeB(nil)
+    assert_empty Sisimai::RFC2045.decodeB(Pt7)
+    assert_equal Pt7, Sisimai::RFC2045.decodeB(Be7).force_encoding('UTF-8')
 
     ce = assert_raises ArgumentError do
       Sisimai::RFC2045.decodeB()
@@ -96,7 +96,7 @@ e Neko Nyaan (neko@example.org; +0-000-000-0000) for all other needs.
 '
   def test_decodeQ
     # Part of Quoted-Printable
-    assert_nil            Sisimai::RFC2045.decodeQ(nil)
+    assert_empty          Sisimai::RFC2045.decodeQ(nil)
     assert_equal 'Neko',  Sisimai::RFC2045.decodeQ(Qe4)
     assert_equal 'neko',  Sisimai::RFC2045.decodeQ('neko')
 
@@ -292,10 +292,10 @@ Received: ...
     assert_match /Received:/,   cv
     refute_match /[<]html[>]/,  cv
     refute_match /4AAQSkZJRgABAQEBLAEsAAD/, cv
-    assert_empty  Sisimai::RFC2045.makeflat()
-    assert_nil    Sisimai::RFC2045.makeflat(nil, 'neko')
-    assert_nil    Sisimai::RFC2045.makeflat('neko', nil)
-    assert_empty  Sisimai::RFC2045.makeflat('multipart/mixed', 'neko')
+    assert_empty Sisimai::RFC2045.makeflat()
+    assert_empty Sisimai::RFC2045.makeflat(nil, 'neko')
+    assert_empty Sisimai::RFC2045.makeflat('neko', nil)
+    assert_empty Sisimai::RFC2045.makeflat('multipart/mixed', 'neko')
 
     ce = assert_raises ArgumentError do
       Sisimai::RFC2045.makeflat()

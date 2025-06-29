@@ -16,6 +16,7 @@ CP    := cp
 RM    := rm -f
 
 DEPENDENCIES  = bundle rake minitest
+RUBYARGUMENT  = --enable-frozen-string-literal
 .DEFAULT_GOAL = git-status
 REPOS_TARGETS = git-status git-push git-commit-amend git-tag-list git-diff git-reset-soft \
 				git-rm-cached git-branch
@@ -58,11 +59,11 @@ release:
 test: user-test author-test
 user-test:
 	# Suppress warning messages until v5.5.0
-	rake publictest 2> /dev/null
+	RUBYOPT="$(RUBYARGUMENT)" rake publictest 2> /dev/null
 
 author-test:
 	# Suppress warning messages until v5.5.0
-	rake privatetest 2> /dev/null
+	RUBYOPT="$(RUBYARGUMENT)" rake privatetest 2> /dev/null
 
 check:
 	find lib -type f -exec grep --color -E ' $$' {} /dev/null \;

@@ -134,7 +134,7 @@ module Sisimai::Lhost
         end
 
         # Set the value of subjecttxt as a Subject if there is no original message in the bounce mail.
-        emailparts[1] << ('Subject: ' << subjecttxt << "\n") unless emailparts[1].include?("\nSubject:")
+        emailparts[1] += "Subject: #{subjecttxt}\n" unless emailparts[1].include?("\nSubject:")
 
         return {"ds" => dscontents, "rfc822" => emailparts[1]}
       end

@@ -119,7 +119,7 @@ module Sisimai
           # Set pseudo UNIX From line
           parts[0] = 'MAILER-DAEMON Tue Feb 11 00:00:00 2014'
         end
-        parts[1] << "\n" unless parts[1].end_with?("\n")
+        parts[1] += "\n" unless parts[1].end_with?("\n")
 
         %w[image/ application/ text/html].each do |e|
           # https://github.com/sisimai/p5-sisimai/issues/492, Reduce email size
@@ -128,12 +128,12 @@ module Sisimai
           ep = e == 'text/html' ? '</html>' : "--\n"
           while true
             # Remove each part from "Content-Type: image/..." to "--\n" (the end of each boundary)
-            p0 = parts[2].index('Content-Type: ' + e, p0); break unless p0
+            p0 = parts[2].index("Content-Type: #{e}", p0); break unless p0
             p1 = parts[2].index(ep, p0 + 32);              break unless p1
             parts[2][p0, p1 - p0] = ''
           end
         end
-        parts[2] << "\n"
+        parts[2] += "\n"
         return parts
       end
 
@@ -152,7 +152,7 @@ module Sisimai
         receivedby = []
         argv0.scan(/^([\w-]+):[ ]*(.*?)\n(?!\s)/m) { |e| headermaps[e[0].downcase] = e[1] }
         headermaps.delete('received')
-        headermaps.each_key { |e| headermaps[e].gsub!(/\n\s+/, ' ') }
+        headermaps.each_key { |e| headermaps[e] = headermaps[e].gsub(/\n\s+/, ' ') }
 
         if argv0.include?('Received:')
           # Capture values of each Received: header
@@ -215,7 +215,7 @@ module Sisimai
           index += 1
           if fn == ''
             # There is neither ":" character nor the field listed in $FieldTable
-            email << e + "\n"
+            email += "#{e}\n"
             next
           end
 
@@ -293,10 +293,10 @@ module Sisimai
 
           # 4. Remove redundant space characters
           bf = bf.squeeze(' ').strip
-          email << sprintf("%s: %s\n", fn, bf)
+          email += sprintf("%s: %s\n", fn, bf)
         end
 
-        email << "\n" unless email.end_with?("\n\n")
+        email += "\n" unless email.end_with?("\n\n")
         return email
       end
 
@@ -364,7 +364,7 @@ module Sisimai
             p = {'headers' => mailheader, 'message' => bodystring}
             havecaught = hookmethod.call(p)
           rescue StandardError => ce
-            warn ' ***warning: Something is wrong in hook method ":hook":' << ce.to_s
+            warn ' ***warning: Something is wrong in hook method ":hook":' + ce.to_s
           end
         end
 

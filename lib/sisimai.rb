@@ -40,7 +40,7 @@ module Sisimai
           begin
             c___[1].call(args) if c___[1].is_a?(Proc)
           rescue StandardError => ce
-            warn ' ***warning: Something is wrong in the second element of the ":c___":' << ce.to_s
+            warn ' ***warning: Something is wrong in the second element of the ":c___":' + ce.to_s
           end
         end
 
@@ -61,7 +61,7 @@ module Sisimai
     # @options argv1 [Lambda]  hook      Lambda object to be called back
     # @return        [String]            Decoded data as JSON text
     def dump(argv0, **argv1)
-      return nil unless argv0
+      return "" unless argv0
       nyaan = Sisimai.rise(argv0, **argv1) || []
 
       if RUBY_PLATFORM.start_with?('java')
@@ -81,14 +81,14 @@ module Sisimai
       table = {}
 
       %w[Lhost ARF RFC3464 RFC3834].each do |e|
-        r = 'Sisimai::' << e
+        r = "Sisimai::#{e}"
         require r.gsub('::', '/').downcase
 
         if e == 'Lhost'
           # Sisimai::Lhost::*
           Module.const_get(r).send(:index).each do |ee|
             # Load and get the value of "description" from each module
-            rr = 'Sisimai::' << e + '::' << ee
+            rr = "Sisimai::#{e}::#{ee}"
             require rr.gsub('::', '/').downcase
             table[rr.to_sym] = Module.const_get(rr).send(:description)
           end
@@ -112,7 +112,7 @@ module Sisimai
       names += %w[Delivered Feedback Undefined Vacation]
       while e = names.shift do
         # Call .description() method of Sisimai::Reason::*
-        r = 'Sisimai::Reason::' << e
+        r = "Sisimai::Reason::#{e}"
         require r.gsub('::', '/').downcase
         table[e.to_sym] = Module.const_get(r).send(:description)
       end
@@ -124,7 +124,7 @@ module Sisimai
     # @param    [String]    Error message text
     # @return   [String]    Reason text
     def match(argvs = '')
-      return nil if argvs.empty?
+      return "" if argvs.empty?
       require 'sisimai/reason'
       return Sisimai::Reason.match(argvs.downcase)
     end

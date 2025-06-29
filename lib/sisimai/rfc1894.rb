@@ -108,9 +108,8 @@ module Sisimai
       #                          2: Matched with per-recipient field
       # @since v4.25.0
       def match(argv0 = '')
-        return 0 unless argv0
-        return 0 unless argv0.size > 0
-        label = Sisimai::RFC1894.label(argv0); return 0 unless label
+        return 0 if argv0.to_s == ""
+        label = Sisimai::RFC1894.label(argv0); return 0 if label.empty?
         match = 0
 
         FieldNames[0].each_key do |e|
@@ -135,7 +134,7 @@ module Sisimai
       # @return   [String]       Field name as a label
       # @since v4.25.15
       def label(argv0 = '')
-        return nil if argv0.empty?
+        return "" if argv0.empty?
         return argv0.split(':', 2).shift.downcase
       end
 

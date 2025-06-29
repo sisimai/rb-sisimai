@@ -79,7 +79,7 @@ module Sisimai::Lhost
             recipients += 1
           else
             # Pick the error message
-            v['diagnosis'] << ' ' << e
+            v['diagnosis'] += " #{e}"
 
             # Pick the remote hostname, and the SMTP command
             # net.c:500| snprintf(errmsg, sizeof(errmsg), "%s [%s] did not like our %s:\n%s",

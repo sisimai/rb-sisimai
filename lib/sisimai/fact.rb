@@ -179,7 +179,7 @@ module Sisimai
         datevalues << mesg1['header']['date'] if datevalues.size < 2
         while v = datevalues.shift do
           # Parse each date value in the array
-          datestring = Sisimai::DateTime.parse(v) || next
+          datestring = Sisimai::DateTime.parse(v); next if datestring.empty?
 
           if cv = datestring.match(/\A(.+)[ ]+([-+]\d{4})\z/)
             # Get the value of timezone offset from datestring: Wed, 26 Feb 2014 06:05:48 -0500
@@ -195,7 +195,7 @@ module Sisimai
           t = TimeModule.strptime(datestring, '%a, %d %b %Y %T')
           piece['timestamp'] = (t.to_time.to_i - zoneoffset) || nil
         rescue
-          warn ' ***warning: Failed to strptime ' << datestring.to_s
+          warn " ***warning: Failed to strptime #{datestring.to_s}"
         end
         next unless piece['timestamp']
 
@@ -433,14 +433,14 @@ module Sisimai
           thing['replycode'] = '' unless thing['reason'] == 'delivered'
         else
           # The reason is not "delivered", or "feedback", or "vacation"
-          smtperrors = piece['deliverystatus'] + ' ' << piece['diagnosticcode']
+          smtperrors = "#{piece['deliverystatus']} #{piece['diagnosticcode']}"
           smtperrors = '' if smtperrors.size < 4
           thing['hardbounce'] = Sisimai::SMTP::Failure.is_hardbounce(thing['reason'], smtperrors)
         end
 
         # DELIVERYSTATUS: Set a pseudo status code if the value of "deliverystatus" is empty
         if thing['deliverystatus'].empty?
-          smtperrors = piece['replycode'] + ' ' << piece['diagnosticcode']
+          smtperrors = "#{piece['replycode']} #{piece['diagnosticcode']}"
           smtperrors = '' if smtperrors.size < 4
           permanent0 = Sisimai::SMTP::Failure.is_permanent(smtperrors)
           temporary0 = Sisimai::SMTP::Failure.is_temporary(smtperrors)
@@ -458,7 +458,7 @@ module Sisimai
 
         unless ActionList.has_key?(thing['action'])
           # There is an action value which is not described at RFC1894
-          if ox = Sisimai::RFC1894.field('Action: ' << thing['action'])
+          if ox = Sisimai::RFC1894.field("Action: #{thing['action']}")
             # Rewrite the value of "Action:" field to the valid value
             #
             #    The syntax for the action-field is:
@@ -525,12 +525,12 @@ module Sisimai
     #           [Nil]           The value of the first argument is neither "json" nor "yaml"
     def dump(type = 'json')
       return nil unless %w[json yaml].include?(type)
-      referclass = 'Sisimai::Fact::' << type.upcase
+      referclass = "Sisimai::Fact::#{type.upcase}"
 
       begin
         require referclass.downcase.gsub('::', '/')
       rescue
-        warn '***warning: Failed to load' << referclass
+        warn "***warning: Failed to load #{referclass}"
       end
 
       dumpeddata = Module.const_get(referclass).dump(self)

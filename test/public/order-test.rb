@@ -17,7 +17,7 @@ class OrderTest < Minitest::Test
       assert_instance_of String, e
       assert_match /\ASisimai::Lhost::/, e
 
-      cf = 'lib/' << e.gsub('::', '/').downcase + '.rb'
+      cf = "lib/#{e.gsub('::', '/').downcase}.rb"
       assert_equal true, File.exist?(cf), cf
     end
 
@@ -37,7 +37,7 @@ class OrderTest < Minitest::Test
       assert_instance_of String, e
       assert_match /\ASisimai::Lhost::/, e
 
-      cf = 'lib/' << e.gsub('::', '/').downcase + '.rb'
+      cf = "lib/#{e.gsub('::', '/').downcase}.rb"
       assert_equal true, File.exist?(cf), cf
     end
 

@@ -133,7 +133,7 @@ module Sisimai
               break if e.start_with?("--")              # Boundary string
               break if e.include?("--- The follow")     # ----- The following addresses had delivery problems -----
               break if e.include?("--- Transcript")     # ----- Transcript of session follows -----
-              beforemesg << e + " "; break
+              beforemesg += "#{e} "; break
             end
             next
           end
@@ -175,7 +175,7 @@ module Sisimai
                 # There are other error messages as a comment such as the following:
                 # Status: 5.0.0 (permanent failure)
                 # Status: 4.0.0 (cat.example.net: host name lookup failure)
-                v["diagnosis"] << " " + o[4] + " "
+                v["diagnosis"] += " #{o[4]} "
               end
               next unless FieldTable[o[0]]
               next if o[3] == "host" && Sisimai::RFC1123.is_internethost(o[2]) == false
@@ -206,13 +206,13 @@ module Sisimai
                 # In the case of multiple "message/delivery-status" line
                 next if e.start_with?("Content-") # Content-Disposition:, ...
                 next if e.start_with?("--")       # Boundary string
-                beforemesg << e + " "; next
+                beforemesg += "#{e} "; next
               end
 
               # Diagnostic-Code: SMTP; 550-5.7.26 The MAIL FROM domain [email.example.jp]
               #    has an SPF record with a hard fail
               next unless e.start_with?(" ")
-              v["diagnosis"] << " " + Sisimai::String.sweep(e)
+              v["diagnosis"] += " #{Sisimai::String.sweep(e)}"
             end
           end
         end

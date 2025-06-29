@@ -19,7 +19,7 @@ module Sisimai
         # Path to mail or '<STDIN>' ?
         if argv1 == '<STDIN>'
           # Sisimai::Mail.new('<STDIN>')
-          classname = self.class.to_s << '::STDIN'
+          classname = "#{self.class.to_s}::STDIN"
           parameter['kind'] = 'stdin'
           parameter['path'] = '<STDIN>'
         else
@@ -28,24 +28,24 @@ module Sisimai
 
           if mediatype == 'file'
             # The argument is a file, it is an mbox or email file in Maildir/
-            classname = self.class.to_s << '::Mbox'
+            classname = "#{self.class.to_s}::Mbox"
             parameter['kind'] = 'mailbox'
 
           elsif mediatype == 'directory'
-            # The agument is not a file, it is a Maildir/
-            classname = self.class.to_s << '::Maildir'
+            # The agument is not a file, it is a Maildij/
+            classname = "#{self.class.to_s}::Maildir"
             parameter['kind'] = 'maildir'
 
           elsif mediatype == 'memory'
             # The argument is an email string
-            classname = self.class.to_s << '::Memory'
+            classname = "#{self.class.to_s}::Memory"
             parameter['kind'] = 'memory'
             parameter['path'] = 'MEMORY'
           end
         end
       elsif argv1.is_a?(IO)
         # Read from STDIN, The argument neither a mailbox nor a Maildir/.
-        classname = self.class.to_s << '::STDIN'
+        classname = "#{self.class.to_s}::STDIN"
         parameter['kind'] = 'stdin'
         parameter['path'] = '<STDIN>'
       end
@@ -63,7 +63,7 @@ module Sisimai
     # Alias method of Sisimai::Mail.data.read()
     # @return   [String] Contents of mbox/Maildir
     def read
-      return nil unless data
+      return "" if data.nil?
       return data.read
     end
 

@@ -17,27 +17,26 @@ module Sisimai
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
-        # @return   [True,False]    false: Did not match
-        #                           true: Matched
+        # @return   [Boolean]       false: Did not match, true: Matched
         def match(argv1)
-          return nil unless argv1
-          return true if Index.any? { |a| argv1.include?(a) }
+          return false unless argv1
+          return true  if Index.any? { |a| argv1.include?(a) }
           return false
         end
 
         # Exceed limit or not
         # @param    [Sisimai::Fact] argvs Object to be detected the reason
-        # @return   [True,False]          true: Exceeds the limit
+        # @return   [Boolean]             true:  Exceeds the limit
         #                                 false: Did not exceed the limit
         # @see      http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return nil  if argvs['deliverystatus'].empty?
-          return true if argvs['reason'] == 'exceedlimit'
+          return false if argvs['deliverystatus'].empty?
+          return true  if argvs['reason'] == 'exceedlimit'
 
           # Delivery status code points exceedlimit.
           # Status: 5.2.3
           # Diagnostic-Code: SMTP; 552 5.2.3 Message size exceeds fixed maximum message size
-          return true if Sisimai::SMTP::Status.name(argvs['deliverystatus']).to_s == 'exceedlimit'
+          return true if Sisimai::SMTP::Status.name(argvs['deliverystatus']) == 'exceedlimit'
           return match(argvs['diagnosticcode'].downcase)
         end
 

@@ -105,7 +105,7 @@ class ReasonTest < Minitest::Test
   end
 
   def test_find
-    assert_nil Sisimai::Reason.find(nil)
+    assert_empty Sisimai::Reason.find(nil)
     ce = assert_raises ArgumentError do
       Sisimai::Reason.find()
       Sisimai::Reason.find(nil, nil)
@@ -170,7 +170,7 @@ class ReasonTest < Minitest::Test
       assert_equal ca, cb
     end
 
-    assert_nil Sisimai::Reason.match(nil)
+    assert_empty Sisimai::Reason.match(nil)
     assert_equal 'mailererror', Sisimai::Reason.match('X-Unix; 77')
   end
 

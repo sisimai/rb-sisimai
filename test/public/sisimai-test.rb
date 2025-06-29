@@ -88,9 +88,9 @@ class SisimaiTest < Minitest::Test
           else
             # [WORKAROUND] #159, #267
             if RUBY_PLATFORM.start_with?('java') && eee == 'timestamp'
-              assert_equal Time.parse(ee.send(eee.to_sym).iso8601).to_i, cv[eee], 'Sisimai::Fact.' << eee
+              assert_equal Time.parse(ee.send(eee.to_sym).iso8601).to_i, cv[eee], "Sisimai::Fact.#{eee}"
             else
-              assert_equal ee.send(eee.to_sym), cv[eee], 'Sisimai::Fact.' << eee
+              assert_equal ee.send(eee.to_sym), cv[eee], "Sisimai::Fact.#{eee}"
             end
           end
         end
@@ -170,8 +170,8 @@ class SisimaiTest < Minitest::Test
       Sisimai.dump('/path/to/email', 1)
     end
     assert_match %r/wrong number of arguments/, ce.to_s
-    assert_nil Sisimai.dump(nil)
-    assert_nil Sisimai.dump(false)
+    assert_empty Sisimai.dump(nil)
+    assert_empty Sisimai.dump(false)
 
     Samples.each_key do |e|
       cf = Samples[e]
@@ -233,7 +233,7 @@ class SisimaiTest < Minitest::Test
 
   def test_match
     assert_equal 'userunknown', Sisimai.match('550 5.1.1 User unknown')
-    assert_nil Sisimai.match('')
+    assert_empty Sisimai.match('')
   end
 
 end

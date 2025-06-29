@@ -133,8 +133,8 @@ module Sisimai::Lhost
         return nil unless recipients > 0
 
         # Set the value of "MAIL FROM:" and "From:"
-        emailparts[1] << ('From: '    << senderaddr << "\n") if emailparts[1].include?("\nFrom: ") == false
-        emailparts[1] << ('Subject: ' << subjecttxt << "\n") if emailparts[1].include?("\nSubject: ") == false
+        emailparts[1] += "From: #{senderaddr}\n"    if emailparts[1].include?("\nFrom: ")    == false
+        emailparts[1] += "Subject: #{subjecttxt}\n" if emailparts[1].include?("\nSubject: ") == false
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])

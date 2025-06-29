@@ -68,9 +68,9 @@ module Sisimai
       # @param  [Sisimai::Fact] argvs Decoded email object
       # @return [String]        Bounce reason
       def find(argvs)
-        return nil if argvs.nil?
-        return ""  if argvs["diagnosticcode"].empty?
-        return ""  if argvs["command"] != "" && argvs["command"] != "DATA"
+        return "" if argvs.nil?
+        return "" if argvs["diagnosticcode"].empty?
+        return "" if argvs["command"] != "" && argvs["command"] != "DATA"
 
         deliversby = ""   # [String] Local Delivery Agent name
         reasontext = ""   # [String] Error reason

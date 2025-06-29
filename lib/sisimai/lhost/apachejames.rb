@@ -44,7 +44,7 @@ module Sisimai::Lhost
               readcursor |= Indicators[:deliverystatus]
               next
             end
-            v["diagnosis"] << e << " " if e != ""
+            v["diagnosis"] += "#{e }" if e != ""
             next
           end
           next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
@@ -91,16 +91,16 @@ module Sisimai::Lhost
 
         if emailparts[1].empty?
           # The original message is empty
-          emailparts[1] << sprintf("From: %s\n", alternates[1]) if alternates[1] != ""
-          emailparts[1] << sprintf("Date: %s\n", alternates[2]) if alternates[2] != ""
+          emailparts[1] += sprintf("From: %s\n", alternates[1]) if alternates[1] != ""
+          emailparts[1] += sprintf("Date: %s\n", alternates[2]) if alternates[2] != ""
         end
         if emailparts[1].include?("Return-Path: ") == false
           # Set the envelope from address as a Return-Path: header
-          emailparts[1] << sprintf("Return-Path: <%s>\n", alternates[0]) if alternates[0] != ""
+          emailparts[1] += sprintf("Return-Path: <%s>\n", alternates[0]) if alternates[0] != ""
         end
         if emailparts[1].include?("\nSubject: ") == false
           # Set the envelope from address as a Return-Path: header
-          emailparts[1] << sprintf("Subject: %s\n", alternates[3]) if alternates[3] != ""
+          emailparts[1] += sprintf("Subject: %s\n", alternates[3]) if alternates[3] != ""
         end
 
         dscontents.each { |e| e["diagnosis"] = Sisimai::String.sweep(e["diagnosis"]) }

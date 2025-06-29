@@ -677,11 +677,10 @@ module Sisimai
         # @param    [String]     argv1  Reason name
         # @param    [True,False] argv2  false: Permanent error
         #                               true:  Temporary error
-        # @return   [String, Nil]       DSN or Nil if the 1st argument is missing
+        # @return   [String]            DSN or an empty string if the 1st argument is missing
         # @see      name
         def code(argv1 = nil, argv2 = false)
-          return nil unless argv1
-          return nil if argv1.empty?
+          return "" if argv1.to_s.empty?
 
           table = argv2 ? InternalCode[:temporary] : InternalCode[:permanent]
           code0 = table[argv1] || InternalCode[:permanent][argv1] || nil
@@ -690,13 +689,11 @@ module Sisimai
 
         # Convert from the status code to the reason string
         # @param    [String] argv1  Status code(DSN)
-        # @return   [String]        Reason name 
-        #           [Nil]           The first argument did not match with values in reason list
+        # @return   [String]        Reason name or an empty string
         # @see      code
         def name(argv1 = nil)
-          return nil unless argv1
-          return nil unless Sisimai::SMTP::Status.test(argv1)
-          return StandardCode[argv1] || nil
+          return "" unless Sisimai::SMTP::Status.test(argv1.to_s)
+          return StandardCode[argv1] || ""
         end
 
         # Check whether a status code is a valid code or not
@@ -705,29 +702,23 @@ module Sisimai
         # @see      code
         # @since v5.0.0
         def test(argv1 = '')
-          return false if argv1.to_s.empty?
-          return false if argv1.size < 5
-          return false if argv1.size > 7
+          return false if argv1.to_s.empty? || argv1.size < 5 || argv1.size > 7
 
           token = []
           argv1.split('.').each { |e| token << e.to_i }
           return false unless token.size == 3
-          return false if token[0]  < 2
-          return false if token[0] == 3
-          return false if token[0]  > 5
-          return false if token[1]  < 0
-          return false if token[1]  > 7
-          return false if token[2]  < 0
+          return false if token[0] < 2 || token[0] == 3 || token[0]  > 5
+          return false if token[1] < 0 || token[1]  > 7
+          return false if token[2] < 0
           return true
         end
 
         # Get a DSN code value from given string including DSN
         # @param    [String] argv1  String including DSN
         # @param    [String] argv2  An SMTP Reply Code or 2 or 4 or 5
-        # @return   [String, Nil]   An SMTP Status Code
+        # @return   [String]        An SMTP Status Code or an empty string
         def find(argv1 = nil, argv2 = '0')
-          return "" if argv1.to_s.empty?
-          return "" if argv1.size < 7
+          return "" if argv1.to_s.empty? || argv1.size < 7
 
           givenclass = argv2[0, 1]
           eestatuses = if givenclass == '2' || givenclass == '4' || givenclass == '5' 
@@ -896,8 +887,7 @@ module Sisimai
         # @param    string argv1  Status code
         # @return   bool          false: The delivery status code is not explicit
         def is_explicit(argv1 = '')
-          return false if argv1.nil?
-          return false if argv1.empty?
+          return false if argv1.nil? || argv1.empty?
           return false if argv1.size == 7 && argv1.start_with?("5.0.9", "4.0.9")
           return true
         end

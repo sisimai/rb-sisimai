@@ -78,7 +78,7 @@ module Sisimai::Lhost
           else
             # If you know the general guide of this list, please send mail with
             # the mail body
-            v['diagnosis'] << e
+            v['diagnosis'] += e
           end
         end
         return nil unless recipients > 0

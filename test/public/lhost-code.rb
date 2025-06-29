@@ -35,13 +35,13 @@ class LhostCode < Minitest::Test
 
     if isnotlhost.include?(enginename)
       # ARF, RFC3464, RFC3834
-      modulepath = 'sisimai/' << enginename.downcase
-      modulename = 'Sisimai::' << enginename
+      modulepath = "sisimai/#{enginename.downcase}"
+      modulename = "Sisimai::#{enginename}"
     else
       # Sisimai::Lhost or Sisimai::Rhost
       nameprefix = caller[0].include?('/lhost-engine-test') ? 'Lhost' : 'Rhost'
-      modulepath = 'sisimai/' << nameprefix.downcase << '/' << enginename.downcase
-      modulename = 'Sisimai::' << nameprefix << '::' << enginename
+      modulepath = "sisimai/#{nameprefix.downcase}/#{enginename.downcase}"
+      modulename = "Sisimai::#{nameprefix}::#{enginename}"
       nameprefix = nameprefix.downcase + '-'
     end
     require modulepath
@@ -462,7 +462,7 @@ class LhostCode < Minitest::Test
               require 'jrjackson'
               cj = JrJackson::Json.load(cv)
             rescue StandardError => je
-              warn '***warning: Failed to JrJackson::Json.load: ' << je.to_s
+              warn '***warning: Failed to JrJackson::Json.load: ' + je.to_s
             end
             assert_equal cj['timestamp'], Time.parse(rr.timestamp.iso8601).to_i, sprintf("%s %s", ct, cj['timestamp'])
           else
@@ -471,7 +471,7 @@ class LhostCode < Minitest::Test
               require 'oj'
               cj = Oj.load(cv, :mode => :compat)
             rescue StandardError => je
-              warn '***warning: Failed to Oj.load: ' << je.to_s
+              warn '***warning: Failed to Oj.load: ' + je.to_s
             end
             assert_equal cj['timestamp'], rr.timestamp.to_json, sprintf("%s %s", ct, cj['timestamp'])
           end

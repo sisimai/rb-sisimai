@@ -45,10 +45,9 @@ module Sisimai
 
     # Check that the argument is an email address or not
     # @param    [String] email  Email address string
-    # @return   [True,False]    true: is an email address
-    #                           false: is not an email address
+    # @return   [Boolean]       true: is an email address, false: is not an email address
     def self.is_emailaddress(email)
-      return false unless email.is_a?(::String)
+      return false if email.is_a?(::String) == false
       return false if email =~ %r/(?:[\x00-\x1f]|\x1f)/ || email.size > 254
       return true  if email =~ Re[:ignored]
       return false
@@ -59,9 +58,7 @@ module Sisimai
     # @return   [True,False]    true: mailer-daemon
     #                           false: Not mailer-daemon
     def self.is_mailerdaemon(argv0 = nil)
-      return false unless argv0
-      return false unless argv0.size > 0
-      return false unless argv0.is_a?(::String)
+      return false if argv0.to_s == "" || argv0.is_a?(::String) == false
 
       email = argv0.downcase
       postmaster = [
@@ -107,10 +104,10 @@ module Sisimai
               # An email address has already been picked
               if readcursor & Indicators[:'comment-block'] > 0
                 # The cursor is in the comment block (Neko, Nyaan)
-                v[:comment] << e
+                v[:comment] += e
               elsif readcursor & Indicators[:'quoted-string'] > 0
                 # "Neko, Nyaan"
-                v[:name] << e
+                v[:name] += e
               else
                 # The cursor is not in neither the quoted-string nor the comment block
                 readcursor = 0  # reset cursor position
@@ -120,7 +117,7 @@ module Sisimai
               end
             else
               # "Neko, Nyaan" <neko@nyaan.example.org> OR <"neko,nyaan"@example.org>
-              p.empty? ? (v[:name] << e) : (v[p] << e)
+              p.empty? ? (v[:name] += e) : (v[p] += e)
             end
             next
           end # End of if(',')
@@ -128,11 +125,11 @@ module Sisimai
           if e == '<'
             # <: The beginning of an email address or not
             if v[:address].size > 0
-              p.empty? ? (v[:name] << e) : (v[p] << e)
+              p.empty? ? (v[:name] += e) : (v[p] += e)
             else
               # <neko@nyaan.example.org>
               readcursor |= Indicators[:'email-address']
-              v[:address] << e
+              v[:address] += e
               p = :address
             end
             next
@@ -144,11 +141,11 @@ module Sisimai
             if readcursor & Indicators[:'email-address'] > 0
               # <neko@example.org>
               readcursor &= ~Indicators[:'email-address']
-              v[:address] << e
+              v[:address] += e
               p = ''
             else
               # a comment block or a display name
-              p.empty? ? (v[:name] << e) : (v[:comment] << e)
+              p.empty? ? (v[:name] == e) : (v[:comment] -= e)
             end
             next
           end # End of if('>')
@@ -159,27 +156,27 @@ module Sisimai
               # <"neko(nyaan)"@example.org> or <neko(nyaan)@example.org>
               if v[:address].include?('"')
                 # Quoted local part: <"neko(nyaan)"@example.org>
-                v[:address] << e
+                v[:address] += e
               else
                 # Comment: <neko(nyaan)@example.org>
                 readcursor |= Indicators[:'comment-block']
-                v[:comment] << ' ' if v[:comment].end_with?(')')
-                v[:comment] << e
+                v[:comment] += ' ' if v[:comment].end_with?(')')
+                v[:comment] += e
                 p = :comment
               end
             elsif readcursor & Indicators[:'comment-block'] > 0
               # Comment at the outside of an email address (...(...)
-              v[:comment] << ' ' if v[:comment].end_with?(')')
-              v[:comment] << e
+              v[:comment] += ' ' if v[:comment].end_with?(')')
+              v[:comment] += e
 
             elsif readcursor & Indicators[:'quoted-string'] > 0
               # "Neko, Nyaan(cat)", Deal as a display name
-              v[:name] << e
+              v[:name] += e
             else
               # The beginning of a comment block
               readcursor |= Indicators[:'comment-block']
-              v[:comment] << ' ' if v[:comment].end_with?(')')
-              v[:comment] << e
+              v[:comment] += ' ' if v[:comment].end_with?(')')
+              v[:comment] += e
               p = :comment
             end
             next
@@ -191,22 +188,22 @@ module Sisimai
               # <"neko(nyaan)"@example.org> OR <neko(nyaan)@example.org>
               if v[:address].include?('"')
                 # Quoted string in the local part: <"neko(nyaan)"@example.org>
-                v[:address] << e
+                v[:address] += e
               else
                 # Comment: <neko(nyaan)@example.org>
                 readcursor &= ~Indicators[:'comment-block']
-                v[:comment] << e
+                v[:comment] += e
                 p = :address
               end
             elsif readcursor & Indicators[:'comment-block'] > 0
               # Comment at the outside of an email address (...(...)
               readcursor &= ~Indicators[:'comment-block']
-              v[:comment] << e
+              v[:comment] += e
               p = ''
             else
               # Deal as a display name
               readcursor &= ~Indicators[:'comment-block']
-              v[:name] << e
+              v[:name] += e
               p = ''
             end
             next
@@ -216,10 +213,10 @@ module Sisimai
             # The beginning or the end of a quoted-string
             if p.size > 0
               # email-address or comment-block
-              v[p] << e
+              v[p] += e
             else
               # Display name like "Neko, Nyaan"
-              v[:name] << e
+              v[:name] += e
               next unless readcursor & Indicators[:'quoted-string'] > 0
               next if v[:name].end_with?(%Q|\x5c"|) # "Neko, Nyaan \"...
               readcursor &= ~Indicators[:'quoted-string']
@@ -229,7 +226,7 @@ module Sisimai
           end # End of if('"')
         else
           # The character is not a delimiter
-          p.empty? ? (v[:name] << e) : (v[p] << e)
+          p.empty? ? (v[:name] += e) : (v[p] += e)
           next
         end
       end
@@ -281,7 +278,7 @@ module Sisimai
           e.delete(:comment)
         else
           # Remove double-quotations, trailing spaces.
-          [:name, :comment].each { |f| e[f].strip! }
+          [:name, :comment].each { |f| e[f] = e[f].strip }
           e[:comment] = '' unless e[:comment] =~ /\A[(].+[)]/
           e[:name].squeeze!(' ')     unless e[:name] =~ /\A["].+["]\z/
           e[:name].sub!(/\A["]/, '') unless e[:name] =~ /\A["].+["][@]/
@@ -299,8 +296,8 @@ module Sisimai
     # @return   [String]        Email address without comment, brackets
     # @example  s3s4('<neko@example.cat>') #=> 'neko@example.cat'
     def self.s3s4(input)
-      return nil unless input
-      return input unless input.is_a? Object::String
+      return "" if input.to_s == ""
+      return "" if input.is_a?(Object::String) == false
 
       addrs = Sisimai::Address.find(input, true) || []
       return input if addrs.empty?
@@ -313,8 +310,8 @@ module Sisimai
     # @example  Expand VERP address
     #   expand_verp('bounce+neko=example.org@example.org') #=> 'neko@example.org'
     def self.expand_verp(email)
-      return nil unless email.is_a? Object::String
-      return nil unless cv = email.split('@', 2).first.match(/\A[-\w]+?[+](\w[-.\w]+\w)[=](\w[-.\w]+\w)\z/)
+      return "" unless email.is_a? Object::String
+      return "" unless cv = email.split('@', 2).first.match(/\A[-\w]+?[+](\w[-.\w]+\w)[=](\w[-.\w]+\w)\z/)
       verp0 = cv[1] + '@' + cv[2]
       return verp0 if Sisimai::Address.is_emailaddress(verp0)
     end
@@ -325,10 +322,10 @@ module Sisimai
     # @example  Expand alias
     #   expand_alias('neko+straycat@example.org') #=> 'neko@example.org'
     def self.expand_alias(email)
-      return nil unless Sisimai::Address.is_emailaddress(email)
+      return "" unless Sisimai::Address.is_emailaddress(email)
 
       local = email.split('@')
-      return nil unless cv = local[0].match(/\A([-\w]+?)[+].+\z/)
+      return "" unless cv = local[0].match(/\A([-\w]+?)[+].+\z/)
       return cv[1] + '@' + local[1]
     end
 
@@ -345,11 +342,9 @@ module Sisimai
     # Constructor of Sisimai::Address
     # @param    [Hash] argvs        Email address, name, and other elements
     # @return   [Sisimai::Address]  Object or nil when the email address was not valid.
-    # @example  new({address: 'neko@example.org', name: 'Neko', comment: '(nyaan)')} # => Sisimai::Address object
+    # @example  new(address: 'neko@example.org', name: 'Neko', comment: '(nyaan)') # => Sisimai::Address object
     def initialize(argvs)
-      return nil unless argvs.is_a? Hash
-      return nil unless argvs[:address]
-      return nil if argvs[:address].empty?
+      return nil if argvs.is_a?(Hash) == false || argvs[:address].nil? || argvs[:address].empty?
 
       heads = ['<']
       tails = ['>', ',', '.', ';']
@@ -362,10 +357,10 @@ module Sisimai
         email = Sisimai::Address.expand_verp(argvs[:address])
         aname = nil
 
-        unless email
+        if email.empty?
           # Is not VERP address, try to expand the address as an alias
-          email = Sisimai::Address.expand_alias(argvs[:address]) || ''
-          aname = true unless email.empty?
+          email = Sisimai::Address.expand_alias(argvs[:address])
+          aname = true if email.empty? == false
         end
 
         if email.include?('@')
@@ -420,15 +415,11 @@ module Sisimai
 
     # Returns the value of address as String
     # @return [String] Email address
-    def to_json(*)
-      return self.address.to_s
-    end
+    def to_json(*); return self.address.to_s; end
 
     # Returns the value of address as String
     # @return [String] Email address
-    def to_s
-      return self.address.to_s
-    end
+    def to_s; return self.address.to_s; end
 
   end
 end

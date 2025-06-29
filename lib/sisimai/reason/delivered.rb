@@ -14,8 +14,8 @@ module Sisimai
       class << self
         def text; return 'delivered'; end
         def description; return 'Email delivered successfully'; end
-        def match;   return nil; end
-        def true(*); return nil; end
+        def match;   return false; end
+        def true(*); return false; end
       end
     end
   end

@@ -39,7 +39,7 @@ module Sisimai
         def xfield(argv1 = "")
           return [] if argv1.nil? || argv1.empty?
           party = Sisimai::RFC3464::ThirdParty.returnedby(argv1); return [] if party.empty?
-          return Module.const_get("Sisimai::RFC3464::ThirdParty::" << party).xfield(argv1)
+          return Module.const_get("Sisimai::RFC3464::ThirdParty::#{party}").xfield(argv1)
         end
       end
 

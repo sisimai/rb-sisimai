@@ -60,7 +60,7 @@ module Sisimai::Lhost
             else
               # Detect error message
               next if v['diagnosis'].nil? || v['diagnosis'].empty? || e.start_with?('-')
-              v['diagnosis'] << ' ' << e
+              v['diagnosis'] += " #{e}"
             end
           end
         end

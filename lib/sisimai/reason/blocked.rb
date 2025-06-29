@@ -100,23 +100,21 @@ module Sisimai
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
-        # @return   [True,False]    false: Did not match
-        #                           true: Matched
+        # @return   [Boolean]       false: Did not match, true: Matched
         def match(argv1)
-          return nil unless argv1
-          return true if Index.any? { |a| argv1.include?(a) }
-          return true if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
+          return false unless argv1
+          return true  if Index.any? { |a| argv1.include?(a) }
+          return true  if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
           return false
         end
 
         # Blocked due to client IP address or hostname
         # @param    [Hash] argvs  Hash to be detected the value of reason
-        # @return   [true,false]  true: is blocked
-        #                         false: is not blocked by the client
+        # @return   [Boolean]     true: is blocked, false: is not blocked by the client
         # @see      http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
           return true if argvs['reason'] == 'blocked'
-          return true if Sisimai::SMTP::Status.name(argvs['deliverystatus']).to_s == 'blocked'
+          return true if Sisimai::SMTP::Status.name(argvs['deliverystatus']) == 'blocked'
           return match(argvs['diagnosticcode'].downcase)
         end
 

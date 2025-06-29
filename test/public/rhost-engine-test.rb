@@ -30,7 +30,7 @@ module RhostEngineTest
       enginelist.each do |e|
         require sprintf("%s/rhost-%s.rb", directory1, e)
         enginename = rhostindex.select { |v| v.downcase == e }.shift
-        rhostclass = Module.const_get('RhostEngineTest::Public::' << enginename)
+        rhostclass = Module.const_get("RhostEngineTest::Public::#{enginename}")
         Ro.enginetest(enginename, rhostclass::IsExpected, false, emailindex)
       end
 

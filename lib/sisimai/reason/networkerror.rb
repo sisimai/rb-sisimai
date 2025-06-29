@@ -34,22 +34,19 @@ module Sisimai
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
-        # @return   [True,False]    false: Did not match
-        #                           true: Matched
+        # @return   [Boolean]       false: Did not match, true: Matched
         def match(argv1)
-          return nil unless argv1
-          return true if Index.any? { |a| argv1.include?(a) }
+          return false unless argv1
+          return true  if Index.any? { |a| argv1.include?(a) }
           return false
         end
 
         # The bounce reason is network error or not
         # @param    [Sisimai::Fact] argvs   Object to be detected the reason
-        # @return   [True,False]            true: is network error
+        # @return   [Boolean]               true:  is network error
         #                                   false: is not network error
         # @see http://www.ietf.org/rfc/rfc2822.txt
-        def true(_argvs)
-          return nil
-        end
+        def true(_argvs); return false; end
 
       end
     end

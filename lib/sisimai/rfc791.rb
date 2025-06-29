@@ -18,6 +18,7 @@ module Sisimai
         end
         return true
       end
+
       # Find an IPv4 address from the given string
       # @param    [String] argv1  String including an IPv4 address
       # @return   [Array]         List of IPv4 addresses
@@ -26,14 +27,15 @@ module Sisimai
         return nil if argv0.to_s.empty?
         return []  if argv0.size < 7
 
+        given = argv0.dup
         ipv4a = []
         %w|( ) [ ] ,|.each do |e|
           # Rewrite: "mx.example.jp[192.0.2.1]" => "mx.example.jp 192.0.2.1"
-          p0 = argv0.index(e); next unless p0
-          argv0[p0, 1] = ' '
+          p0 = given.index(e); next unless p0
+          given[p0, 1] = ' '
         end
 
-        argv0.split(' ').each do |e|
+        given.split(' ').each do |e|
           # Find string including an IPv4 address
           next unless e.index('.')  # IPv4 address must include "." character
 
@@ -55,7 +57,7 @@ module Sisimai
               eo = ''
               next
             end
-            eo << as.chr
+            eo += as.chr
             break if eo.to_i > 255
           end
           ipv4a << e if eo.size > 0 && eo.to_i < 256

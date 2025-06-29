@@ -10,8 +10,8 @@ module Sisimai
         # @param    [Sisimai::Fact] argvs Object
         # @return   [String, nil]         Dumped data or nil if the argument is missing
         def dump(argvs)
-          return nil unless argvs
-          return nil unless argvs.is_a? Sisimai::Fact
+          return "" unless argvs
+          return "" unless argvs.is_a? Sisimai::Fact
 
           damneddata = argvs.damn
           yamlstring = nil
@@ -19,7 +19,7 @@ module Sisimai
           begin
             yamlstring = ::YAML.dump(damneddata)
           rescue StandardError => ce
-            warn '***warning: Failed to YAML.dump: ' << ce.to_s
+            warn '***warning: Failed to YAML.dump: ' + ce.to_s
           end
 
           return yamlstring

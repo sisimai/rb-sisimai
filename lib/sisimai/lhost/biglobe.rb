@@ -72,7 +72,7 @@ module Sisimai::Lhost
             recipients += 1
           else
             next if e.include?('--')
-            v['diagnosis'] << e + ' '
+            v['diagnosis'] += "#{e }"
           end
         end
         return nil unless recipients > 0

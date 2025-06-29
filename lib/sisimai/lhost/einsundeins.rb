@@ -66,13 +66,13 @@ module Sisimai::Lhost
           else
             if v['diagnosis']
               # Get error message and append error message strings
-              v['diagnosis'] << ' ' << e
+              v['diagnosis'] += " #{e}"
             else
               # OR the following format:
               #   neko@example.fr:
               #   SMTP error from remote server for TEXT command, host: ...
               v['alterrors'] ||= ''
-              v['alterrors'] << ' ' << e
+              v['alterrors']  += " #{e}"
             end
           end
         end

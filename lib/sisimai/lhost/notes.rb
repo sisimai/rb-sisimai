@@ -81,10 +81,10 @@ module Sisimai::Lhost
                 # No character set in Content-Type header
                 encodedmsg = removedmsg
               end
-              v['diagnosis'] << encodedmsg
+              v['diagnosis'] += encodedmsg
             else
               # Error message does not include multi-byte character
-              v['diagnosis'] << e
+              v['diagnosis'] += e
             end
           end
         end
@@ -94,7 +94,7 @@ module Sisimai::Lhost
           p1 = emailparts[1].index("\nTo: ")     || -1
           p2 = emailparts[1].index("\n", p1 + 6) || -1
           if p1 > 0
-            v['recipient'] = Sisimai::Address.s3s4(emailparts[1][p1 + 5, p2 - p1 - 5]) || ''
+            v['recipient'] = Sisimai::Address.s3s4(emailparts[1][p1 + 5, p2 - p1 - 5])
             recipients += 1 unless v['recipient'].empty?
           end
         end

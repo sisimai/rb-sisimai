@@ -26,11 +26,10 @@ module Sisimai
 
         # Try to match that the given text and regular expressions
         # @param    [String] argv1  String to be matched with regular expressions
-        # @return   [True,False]    false: Did not match
-        #                           true: Matched
+        # @return   [Boolean]       false: Did not match, true: Matched
         def match(argv1)
-          return nil unless argv1
-          return true if Index.any? { |a| argv1.include?(a) }
+          return false unless argv1
+          return true  if Index.any? { |a| argv1.include?(a) }
           return false
         end
 
@@ -40,10 +39,8 @@ module Sisimai
         #                                   false: Accept
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return true if argvs['reason'] == 'notaccept'
-
-          # SMTP Reply Code is 554 or 556
-          return true  if [521, 556].index(argvs['replycode'].to_i)
+          return true  if argvs['reason'] == 'notaccept'
+          return true  if [521, 556].index(argvs['replycode'].to_i) # SMTP Reply Code is 554 or 556
           return false if argvs['command'] != 'MAIL'
           return match(argvs['diagnosticcode'].downcase)
         end

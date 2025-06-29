@@ -176,8 +176,8 @@ module Sisimai::Lhost
 
           elsif dscontents.size == recipients
             # Append error message
-            v["diagnosis"] << e + " "
-            v["alterrors"] = e if e.start_with?(StartingOf["error"][0])
+            v["diagnosis"] += "#{e} "
+            v["alterrors"]  = e if e.start_with?(StartingOf["error"][0])
 
             next if v["rhost"] != ""
             StartingOf["rhost"].each do |r|

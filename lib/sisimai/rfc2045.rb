@@ -7,10 +7,9 @@ module Sisimai
 
       # Check that the argument is MIME-Encoded string or not
       # @param    [String] argvs  String to be checked
-      # @return   [True,False]    false: Not MIME encoded string
-      #                           true:  MIME encoded string
+      # @return   [Boolean]       false: Not MIME encoded string, true: MIME encoded string
       def is_encoded(argv1)
-        return nil unless argv1
+        return false unless argv1
 
         text1 = argv1.delete('"')
         mime1 = false
@@ -60,13 +59,12 @@ module Sisimai
             textblocks[-1].gsub!(/\r\n/, '')
             textblocks << cv[5]
           else
-            textblocks << if textblocks.empty? then e else ' ' << e end
+            textblocks << if textblocks.empty? then e else " #{e}" end
           end
         end
-
         return '' if textblocks.empty?
-        p = textblocks.join('')
 
+        p = textblocks.join('')
         if ctxcharset && qbencoding
           # utf8 => UTF-8
           ctxcharset = 'UTF-8' if ctxcharset.casecmp('UTF8') == 0
@@ -74,32 +72,32 @@ module Sisimai
           unless ctxcharset.casecmp('UTF-8') == 0
             # Characterset is not UTF-8
             begin
-              p .encode!('UTF-8', ctxcharset)
+              p = p.encode!('UTF-8', ctxcharset)
             rescue
               p = 'FAILED TO CONVERT THE SUBJECT'
             end
           end
         end
-
-        return p.force_encoding('UTF-8').scrub('?')
+        q = p.dup
+        return q.force_encoding('UTF-8').scrub('?')
       end
 
       # Decode MIME BASE64 Encoded string
       # @param  [String] argv0   MIME Encoded text
       # @return [String]         MIME-Decoded text
       def decodeB(argv0 = nil)
-        return nil unless argv0
+        return "" if argv0.nil? || argv0.empty?
 
         p = nil
         if cv = argv0.match(%r|([+/\=0-9A-Za-z\r\n]+)|) then p = Base64.decode64(cv[1]) end
-        return p ? p.scrub('?') : nil
+        return p ? p.scrub('?') : ""
       end
 
       # Decode MIME Quoted-Printable Encoded string
       # @param  [String] argv0   MIME Encoded text
       # @return [String]         MIME Decoded text
       def decodeQ(argv0 = nil)
-        return nil unless argv0
+        return "" if argv0.nil? || argv0.empty?
         return argv0.unpack('M').first.scrub('?')
       end
 
@@ -109,7 +107,7 @@ module Sisimai
       # @return   [String]        The value of the parameter
       # @since v5.0.0
       def parameter(argv0 = '', argv1 = '')
-        return nil if argv0.empty?
+        return "" if argv0.empty?
         parameterq = argv1.size > 0 ? argv1 + '=' : ''
         paramindex = argv1.size > 0 ? argv0.index(parameterq) : 0
         return '' unless paramindex
@@ -128,7 +126,7 @@ module Sisimai
       #                            1: End of boundary
       # @return   [String] Boundary string
       def boundary(argv0 = '', start = -1)
-        return nil if argv0.empty?
+        return "" if argv0.empty?
         btext = parameter(argv0, 'boundary')
         return '' if btext.empty?
 
@@ -175,8 +173,8 @@ module Sisimai
           elsif e.index('boundary=') || e.index('charset=')
             # "Content-Type" field has boundary="..." or charset="utf-8"
             next if headerpart[0].empty?
-            headerpart[0] << " " << e
-            headerpart[0].gsub!(/\s\s+/, ' ')
+            headerpart[0] += " #{e}"
+            headerpart[0]  = headerpart[0].gsub(/\s\s+/, ' ')
           end
         end
         return headerpart if heads
@@ -197,7 +195,7 @@ module Sisimai
           break if mediatypev.index('/feedback-report')
           break if ctencoding.empty?
 
-          multipart1[2] << sprintf("Content-Transfer-Encoding: %s\n", ctencoding)
+          multipart1[2] += sprintf("Content-Transfer-Encoding: %s\n", ctencoding)
           break
         end
 
@@ -206,10 +204,10 @@ module Sisimai
           break if lowerchunk.empty?
           break if lowerchunk[0, 1] == "\n"
 
-          multipart1[2] << "\n"
+          multipart1[2] += "\n"
           break
         end
-        multipart1[2] << lowerchunk
+        multipart1[2] += lowerchunk
         return multipart1
       end
 
@@ -264,10 +262,8 @@ module Sisimai
       # @param    [String] argv1  A pointer to multipart/* message blocks
       # @return   [String]        Message body
       def makeflat(argv0 = '', argv1 = '')
-        return nil unless argv0
-        return nil unless argv1
-        return ''  unless argv0.index('multipart/')
-        return ''  unless argv0.index('boundary=')
+        return "" if argv0.nil? || argv1.nil?
+        return "" if argv0.index('multipart/') == false || argv0.index('boundary=') == false
 
         # Some bounce messages include lower-cased "content-type:" field such as the followings:
         #   - content-type: message/delivery-status        => Content-Type: message/delivery-status
@@ -284,7 +280,7 @@ module Sisimai
           #   - text/plain, text/rfc822-headers
           #   - message/delivery-status, message/rfc822, message/partial, message/feedback-report
           istexthtml = false
-          mediatypev = parameter(e[0]) || 'text/plain';
+          mediatypev = parameter(e[0]); mediatypev = "text/plain" if mediatypev.empty?
           next if mediatypev.start_with?('text/', 'message/') == false
 
           if mediatypev == 'text/html'
@@ -312,7 +308,7 @@ module Sisimai
               # Content-Transfer-Encoding: 7bit
               if cv = e[0].downcase.match(iso2022set)
                 # Content-Type: text/plain; charset=ISO-2022-JP
-                bodystring = Sisimai::String.to_utf8(bodyinside, cv[1]) || ''
+                bodystring = Sisimai::String.to_utf8(bodyinside, cv[1])
               else
                 # No "charset" parameter in the value of Content-Type: header
                 bodystring = bodyinside
@@ -324,7 +320,7 @@ module Sisimai
 
             if istexthtml
               # Try to delete HTML tags inside of text/html part whenever possible
-              bodystring = Sisimai::String.to_plain(bodystring) || ''
+              bodystring = Sisimai::String.to_plain(bodystring)
             end
             next if bodystring.empty?
 
@@ -341,16 +337,16 @@ module Sisimai
                 bodystring.scrub!('?')
               else
                 # ISO-8859-1, GB2312, and so on
-                bodystring = Sisimai::String.to_utf8(bodystring, ctxcharset) || ''
+                bodystring = Sisimai::String.to_utf8(bodystring, ctxcharset)
               end
-              bodystring << "\n\n"
+              bodystring += "\n\n"
             end
 
             bodystring.gsub!(/\r\n/, "\n") if bodystring.include?("\r\n") # Convert CRLF to LF
 
           else
             # There is no Content-Transfer-Encoding header in the part
-            bodystring << bodyinside
+            bodystring += bodyinside
           end
 
           if delimiters.any? { |a| mediatypev.include?(a) }
@@ -361,8 +357,8 @@ module Sisimai
           end
 
           # Append "\n" when the last character of $bodystring is not LF
-          bodystring << "\n\n" unless bodystring[-2, 2] == "\n\n"
-          flattenout << bodystring
+          bodystring += "\n\n" unless bodystring[-2, 2] == "\n\n"
+          flattenout += bodystring
         end
 
         return flattenout

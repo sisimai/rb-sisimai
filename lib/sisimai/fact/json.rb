@@ -6,10 +6,10 @@ module Sisimai
       class << self
         # Serializer (JSON)
         # @param    [Sisimai::Fact] argvs Object
-        # @return   [String, nil]         Dumped data or nil if the argument is missing
+        # @return   [String]              Dumped data or an empty string if the argument is missing
         def dump(argvs)
-          return nil unless argvs
-          return nil unless argvs.is_a? Sisimai::Fact
+          return "" unless argvs
+          return "" unless argvs.is_a? Sisimai::Fact
 
           if RUBY_PLATFORM.start_with?('java')
             # java-based ruby environment like JRuby.
@@ -17,7 +17,7 @@ module Sisimai
               require 'jrjackson'
               jsonstring = JrJackson::Json.dump(argvs.damn)
             rescue StandardError => ce
-              warn '***warning: Failed to JrJackson::Json.dump: ' << ce.to_s
+              warn '***warning: Failed to JrJackson::Json.dump: ' + ce.to_s
             end
           else
             # MRI
@@ -25,7 +25,7 @@ module Sisimai
               require 'oj'
               jsonstring = Oj.dump(argvs.damn, :mode => :compat)
             rescue StandardError => ce
-              warn '***warning: Failed to Oj.dump: ' << ce.to_s
+              warn '***warning: Failed to Oj.dump: ' + ce.to_s
             end
           end
 

@@ -66,7 +66,7 @@ class SMTPStatusTest < Minitest::Test
       Sisimai::SMTP::Status.code()
       Sisimai::SMTP::Status.code(nil, nil, nil)
     end
-    assert_nil Sisimai::SMTP::Status.code('')
+    assert_empty Sisimai::SMTP::Status.code('')
   end
 
   def test_name
@@ -81,7 +81,7 @@ class SMTPStatusTest < Minitest::Test
       Sisimai::SMTP::Status.name()
       Sisimai::SMTP::Status.name(nil, nil)
     end
-    assert_nil Sisimai::SMTP::Status.name('')
+    assert_empty Sisimai::SMTP::Status.name('')
   end
 
   def test_test
