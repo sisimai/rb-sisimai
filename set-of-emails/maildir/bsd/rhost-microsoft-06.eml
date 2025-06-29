@@ -1,0 +1,45 @@
+Return-Path: <>
+Delivered-To: neko@e.nyaaaan.example.onmicrosoft.com
+Received: from relay.nyaaaan.example.onmicrosoft.com (unknown [192.0.2.25])
+	by ee.nyaaaan.example.onmicrosoft.com (Postfix) with ESMTPS id JFzCqYfyTkzvHbZW
+	for <neko@e.nyaaaan.example.onmicrosoft.com>; Sun, 25 May 2025 22:22:22 +0900 (JST)
+Received: from cat.example.co.jp (ip-192-0-2-225.us-west-1.compute.internal [192.0.2.225])
+	by relay.nyaaaan.example.onmicrosoft.com (Postfix) with ESMTPS id D09y2f7PVFzmfJf9
+	for <kijitora@nyaaaan.example.onmicrosoft.com>; Sun, 25 May 2025 22:22:22 +0900 (JST)
+Message-ID: <20250525222222.00002.nekochan@cat.example.co.jp>
+Date: 25 May 2025 22:22:22 +0900
+From: MAILER-DAEMON@cat.example.co.jp
+To: kijitora@nyaaaan.example.onmicrosoft.com
+Subject: failure notice
+
+Hi. This is the qmail-send program at cat.example.co.jp.
+I'm afraid I wasn't able to deliver your message to the following addresses.
+This is a permanent error; I've given up. Sorry it didn't work out.
+
+<sabineko@example.onmicrosoft.com>:
+198.51.100.25 failed after I sent the message.
+Remote host said: 550 5.7.515 Access denied, sending domain NYAAAAN.EXAMPLE.JP doesn't meet the required authentication level. The sender's domain in the 5322.From address doesn't meet the authentication requirements defined for the sender. To learn how to fix this see: https://go.microsoft.com/fwlink/p/?linkid=2319303 Spf= Fail , Dkim= Pass , DMARC= Pass [0000000000000.JPNP255.PROD.OUTLOOK.COM 2025-05-25T22:22:22.000Z 0000000000000EEE] [0000000000000.jpnprd00.prod.outlook.com 2025-05-25T22:22:22.000Z 0000000000000EEE] [0000000000000EE.apcprd00.prod.outlook.com 2025-05-25T22:22:22.000Z 0000000000000EEE]
+
+--- Below this line is a copy of the message.
+
+Return-Path: <kijitora@nyaaaan.example.onmicrosoft.com>
+Received: (qmail 32768 invoked by uid 99); 25 May 2025 22:22:22 +0900
+Delivered-To: mikeneko@example.org
+Received: (qmail 32767 invoked by uid 99); 25 May 2025 22:22:22 +0900
+Received: from relay-2.nyaaaan.example.onmicrosoft.com (203.0.113.25)
+  by cat.example.co.jp with ESMTPS (AES256-GCM-SHA384 encrypted); 25 May 2025 22:22:22 +0900
+Received: from relay-1.nyaaaan.example.onmicrosoft.com (unknown [192.0.2.254])
+	by relay-2.nyaaaan.example.onmicrosoft.com (Postfix) with ESMTP id djK8m53Kqpzf8pK9
+	for <mikeneko@example.org>; Sun, 25 May 2025 22:22:22 +0900 (JST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 relay-2.nyaaaan.example.onmicrosoft.com djK8m53Kqpzf8pK9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nyaaaan.example.onmicrosoft.com;
+Content-Type: text/plain; charset=us-ascii
+MIME-Version: 1.0
+From: <kijitora@nyaaaan.example.onmicrosoft.com>
+Date: Sun, 25 May 2025 22:22:22 +0900
+Subject: Nyaaaan?
+Message-Id: <5E82FFFE9D95.88616A92ACCB@relay-1.nyaaaan.example.onmicrosoft.com>
+To: <mikeneko@example.org>
+
+Nyaaaan?
+
