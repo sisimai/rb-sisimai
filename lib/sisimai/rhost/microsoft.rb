@@ -24,14 +24,12 @@ module Sisimai
             # - The sender's domain in the 5322.From address doesn't pass DMARC.
             ['5.7.509', 0, 0, 'does not pass dmarc verification'],
 
-            # - After careful consideration and to ensure the protection of users and remove any confusion on
-            #   why a message was in the junk folder for both the recipient and sender, we have made a decision
-            #   to reject messages that don't pass the required authentication requirements detailed above.
-            #   The rejected messages will be designated as "550; 5.7.515 Access denied, sending domain
-            #   [SendingDomain] does not meet the required authentication level." 
-            #   This change will state taking effect on May 5th as originally stated. 
-            # - 550; 5.7.515 Access denied, sending domain [SendingDomain] does not meet the required authentication level.
-            ["5.7.515", "", "", "does not meet the required authentication level"],
+            # - 550 5.7.515 Access denied, sending domain EXAMPLE.JP doesn't meet the required
+            #   authentication level. The sender's domain in the 5322.From address doesn't meet
+            #   the authentication requirements defined for the sender. To learn how to fix this
+            #   see: https://go.microsoft.com/fwlink/p/?linkid=2319303
+            #   Spf= Fail , Dkim= Pass , DMARC= Pass ...
+            ["5.7.515", 0, 0, "doesn't meet the required authentication level"],
           ],
           'badreputation' => [
             # Undocumented error messages ---------------------------------------------------------
@@ -606,11 +604,16 @@ module Sisimai
             ['5.2.14', 0, 0, 'misconfigured forwarding address'],
 
             # Undocumented error messages ---------------------------------------------------------
-            ['4.4.3',  0, 0, 'temporary server error. please try again later attr18'],
-            ['4.7.0',  0, 0, 'temporary server error. please try again later. prx4 nexthop:'],
-            ['4.4.24', 0, 0, 'message failed to be replicated: insufficient system resource:'],
-            ['4.4.25', 0, 0, 'message failed to be replicated: no healthy secondary server available to accept replica at this time.'],
-            ['4.4.28', 0, 0, 'message failed to be replicated: the operation was canceled'],
+            # - 451 4.4.22 Message failed to be replicated: no healthy peers found ... (in reply to end of DATA command)
+            # - 451 4.4.23 Message failed to be replicated: No healthy secondary server available
+            #   to accept replica at this time. ... (in reply to end of DATA command)
+            # - 451 4.4.28 Message failed to be replicated:
+            #   Microsoft.Exchange.Transport.Net.Http.TransportHttpException(session Id: -1) ...(in reply to end of DATA command)
+            # - 451 4.4.28 Message failed to be replicated:
+            #   System.Net.Http.HttpRequestException(session Id: ****) ... (in reply to end of DATA command)
+            ["4.4.", "22", "28", "message failed to be replicated:"],
+            ["4.4.3",  "",   "", "temporary server error. please try again later attr18"],
+            ["4.7.0",  "",   "", "temporary server error. please try again later. prx4 nexthop:"],
 
             # 550 5.4.318 Message expired, connection reset (SuspiciousRemoteServerError)
             # 450 4.4.318 Connection was closed abruptly (SuspiciousRemoteServerError)
