@@ -37,8 +37,7 @@ module Sisimai
       # @return   [Array]         Received header as a structured data
       def received(argv1)
         return [] unless argv1.is_a?(::String)
-        return [] if argv1.include?(' invoked by uid')
-        return [] if argv1.include?(' invoked from network')
+        return [] if argv1.include?(' invoked by uid') || argv1.include?(' invoked from network')
 
         # - https://datatracker.ietf.org/doc/html/rfc5322
         #   received        =   "Received:" *received-token ";" date-time CRLF
@@ -99,41 +98,30 @@ module Sisimai
           # Check alternatives in "other", and then delete uninformative values.
           next if e.nil?
           next if e.size < 4
-          next if e == 'unknown'
-          next if e == 'localhost'
-          next if e == '[127.0.0.1]'
-          next if e == '[IPv6:::1]'
-          next unless e.include?('.')
-          next if e.include?('=')
+          next if e == 'unknown' || e == 'localhost' || e == '[127.0.0.1]' || e == '[IPv6:::1]'
+          next if e.include?('.') == false || e.include?('=') == true
           alter << e
         end
 
         %w[from by].each do |e|
           # Remove square brackets from the IP address such as "[192.0.2.25]"
-          next if token[e].nil?
-          next if token[e].empty?
-          next unless token[e].start_with?('[')
+          next if token[e].to_s.empty? || token[e].start_with?('[') == false
           token[e] = Sisimai::RFC791.find(token[e]).shift || ''
         end
         token['from'] ||= ''
 
         while true do
           # Prefer hostnames over IP addresses, except for localhost.localdomain and similar.
-          break if token['from'] == 'localhost'
-          break if token['from'] == 'localhost.localdomain'
-          break unless token['from'].include?('.')  # A hostname without a domain name
-          break unless Sisimai::RFC791.find(token['from']).empty?
+          break if token['from'] == 'localhost' || token['from'] == 'localhost.localdomain'
+          break if token['from'].include?('.') == false || Sisimai::RFC791.find(token['from']).empty? == false
 
-          # No need to rewrite token['from']
-          right = true
+          right = true # No need to rewrite token['from']
           break
         end
 
         while true do
           # Try to rewrite uninformative hostnames and IP addresses in token['from']
-          break if right        # There is no need to rewrite
-          break if alter.empty? # There is no alternative to rewriting
-          break if alter[0].include?(token['from'])
+          break if right || alter.empty? || alter[0].include?(token['from'])
 
           if token['from'].start_with?('localhost')
             # localhost or localhost.localdomain

@@ -108,8 +108,7 @@ module Sisimai
       #                          2: Matched with per-recipient field
       # @since v4.25.0
       def match(argv0 = '')
-        return 0 unless argv0
-        return 0 unless argv0.size > 0
+        return 0 if argv0.to_s == ""
         label = Sisimai::RFC1894.label(argv0); return 0 if label.empty?
         match = 0
 

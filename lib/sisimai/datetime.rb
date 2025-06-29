@@ -164,8 +164,7 @@ module Sisimai
       #   parse("2015-11-03T23:34:45 Tue")    #=> Tue, 3 Nov 2015 23:34:45 +0900
       #   parse("Tue, Nov 3 2015 2:2:2")      #=> Tue, 3 Nov 2015 02:02:02 +0900
       def parse(argv1)
-        return "" unless argv1.is_a?(::String)
-        return "" if argv1.empty?
+        return "" if argv1.is_a?(::String) == false || argv1.empty?
 
         datestring = argv1.sub(/[,](\d+)/, ', \1').sub(/(\d{1,2}),/, '\1')
         timetokens = datestring.split(' ')
@@ -306,11 +305,7 @@ module Sisimai
           warn sprintf(' ***warning: Strange date format [%s]', datestring)
           return ""
         end
-
-        if v[:Y].to_i < 1902 || v[:Y].to_i > 2037
-          # -(2^31) ~ (2^31)
-          return ""
-        end
+        return "" if v[:Y].to_i < 1902 || v[:Y].to_i > 2037 # -(2^31) ~ (2^31)
 
         # Build date string
         #   Thu, 29 Apr 2004 10:01:11 +0900
@@ -324,7 +319,7 @@ module Sisimai
       # @example  Get the timezone string of "JST"
       #   abbr2tz('JST')  #=> '+0900'
       def abbr2tz(argv1)
-        return "" unless argv1.is_a?(::String)
+        return "" if argv1.is_a?(::String) == false
         return TimeZones[argv1] || ""
       end
 
@@ -335,7 +330,7 @@ module Sisimai
       # @example  Convert '+0900' to seconds
       #   tz2second('+0900')  #=> 32400
       def tz2second(argv1)
-        return 0 unless argv1.is_a?(::String)
+        return 0 if argv1.is_a?(::String) == false
         ztime = 0
 
         if cr = argv1.match(/\A([-+])(\d)(\d)(\d{2})\z/)

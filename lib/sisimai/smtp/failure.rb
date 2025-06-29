@@ -12,8 +12,7 @@ module Sisimai
         #                           false: Is not a permanent error
         # @since v4.17.3
         def is_permanent(argv1 = '')
-          return false unless argv1
-          return false unless argv1.size > 0
+          return false if argv1.to_s == ""
 
           statuscode = Sisimai::SMTP::Status.find(argv1)
           statuscode = Sisimai::SMTP::Reply.find(argv1) if statuscode.empty?
@@ -28,16 +27,14 @@ module Sisimai
         #                           false: is not a temporary error
         # @since v5.2.0
         def is_temporary(argv1 = '')
-          return false unless argv1
-          return false unless argv1.size > 0
+          return false if argv1.to_s == ""
 
           statuscode = Sisimai::SMTP::Status.find(argv1);
           statuscode = Sisimai::SMTP::Reply.find(argv1) if statuscode.empty?
           issuedcode = argv1.downcase
 
           return true if statuscode[0, 1] == "4"
-          return true if issuedcode.include?(' temporar')
-          return true if issuedcode.include?(' persistent')
+          return true if issuedcode.include?(' temporar') || issuedcode.include?(' persistent')
           return false
         end
 
@@ -46,9 +43,7 @@ module Sisimai
         # @param    [String] argv2  String including SMTP Status code
         # @return   [Boolean]       true: is a hard bounce
         def is_hardbounce(argv1 = '', argv2 = '')
-          return false unless argv1
-          return false unless argv1.size > 0
-
+          return false if argv1.to_s == ""
           return false if argv1 == "undefined" || argv1 == "onhold"
           return false if argv1 == "delivered" || argv1 == "feedback"    || argv1 == "vacation"
           return true  if argv1 == "hasmoved"  || argv1 == "userunknown" || argv1 == "hostunknown"
@@ -76,9 +71,7 @@ module Sisimai
         # @param    [String] argv2  String including SMTP Status code
         # @return   [Boolean]       true: is a soft bounce
         def is_softbounce(argv1 = '', argv2 = '')
-          return false unless argv1
-          return false unless argv1.size > 0
-
+          return false if argv1.to_s == ""
           return false if argv1 == "delivered" || argv1 == "feedback"    || argv1 == "vacation"
           return false if argv1 == "hasmoved"  || argv1 == "userunknown" || argv1 == "hostunknown"
           return true  if argv1 == "undefined" || argv1 == "onhold"

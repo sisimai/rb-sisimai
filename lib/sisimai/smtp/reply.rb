@@ -163,11 +163,9 @@ module Sisimai
         # Get SMTP Reply Code from the given string
         # @param    [String] argv1  String including SMTP Reply Code like 550
         # @param    [String] argv2  Status code like 5.1.1 or 2 or 4 or 5
-        # @return   [String]        SMTP Reply Code
-        #           [Nil]           The first argument did not include SMTP Reply Code value
+        # @return   [String]        SMTP Reply Code or an empty string
         def find(argv1 = '', argv2 = '0')
-          return "" if argv1.to_s.size < 3
-          return "" if argv1.upcase.include?('X-UNIX')
+          return "" if argv1.to_s.size < 3 || argv1.upcase.include?('X-UNIX')
 
           esmtperror = ' ' + argv1 + ' '
           esmtpreply = ''

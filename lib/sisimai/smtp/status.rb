@@ -707,19 +707,16 @@ module Sisimai
           token = []
           argv1.split('.').each { |e| token << e.to_i }
           return false unless token.size == 3
-          return false if token[0]  < 2
-          return false if token[0] == 3
-          return false if token[0]  > 5
-          return false if token[1]  < 0
-          return false if token[1]  > 7
-          return false if token[2]  < 0
+          return false if token[0] < 2 || token[0] == 3 || token[0]  > 5
+          return false if token[1] < 0 || token[1]  > 7
+          return false if token[2] < 0
           return true
         end
 
         # Get a DSN code value from given string including DSN
         # @param    [String] argv1  String including DSN
         # @param    [String] argv2  An SMTP Reply Code or 2 or 4 or 5
-        # @return   [String, Nil]   An SMTP Status Code
+        # @return   [String]        An SMTP Status Code or an empty string
         def find(argv1 = nil, argv2 = '0')
           return "" if argv1.to_s.empty? || argv1.size < 7
 
@@ -890,8 +887,7 @@ module Sisimai
         # @param    string argv1  Status code
         # @return   bool          false: The delivery status code is not explicit
         def is_explicit(argv1 = '')
-          return false if argv1.nil?
-          return false if argv1.empty?
+          return false if argv1.nil? || argv1.empty?
           return false if argv1.size == 7 && argv1.start_with?("5.0.9", "4.0.9")
           return true
         end

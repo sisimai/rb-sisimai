@@ -108,13 +108,6 @@ module Sisimai
           return nil if esmtp.size == 0
           return esmtp
         end
-
-
-
-
-          
-
-
       end
     end
   end

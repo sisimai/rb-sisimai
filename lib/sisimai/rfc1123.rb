@@ -24,7 +24,7 @@ module Sisimai
       ].freeze
       StartAfter = [
           "generating server: ",      # (Exchange2007) en-US/Generating server: mta4.example.org
-          "serveur de g",             # (Exchange2007) fr-FR/Serveur de g辿n辿ration
+          "serveur de g",             # (Exchange2007) fr-FR/Serveur de g辿?辿?ation
           "server di generazione",    # (Exchange2007) it-CH
           "genererande server",       # (Exchange2007) sv-SE
       ].freeze
@@ -38,14 +38,10 @@ module Sisimai
       # @since v5.2.0
       def is_internethost(argv0 = '')
         return false unless argv0
-        return false if argv0.size <   4
-        return false if argv0.size > 255
+        return false if argv0.size < 4 || argv0.size > 255
         return false if argv0.include?(".") == false
-        return false if argv0.include?("..")
-        return false if argv0.include?("--")
-        return false if argv0.start_with?(".")
-        return false if argv0.start_with?("-")
-        return false if argv0.end_with?("-")
+        return false if argv0.include?("..") || argv0.include?("--")
+        return false if argv0.start_with?(".", "-") || argv0.end_with?("-")
 
         hostnameok = true
         characters = argv0.upcase.split("")
