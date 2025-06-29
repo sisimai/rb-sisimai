@@ -190,8 +190,8 @@ class AddressTest < Minitest::Test
     assert_equal false, cv.void
     assert_equal 'neko@example.jp', Sisimai::Address.expand_verp(ct)
     assert_equal ct, cv.verp
-    assert_nil Sisimai::Address.expand_verp(222222)
-    assert_nil Sisimai::Address.expand_verp('neko')
+    assert_empty Sisimai::Address.expand_verp(222222)
+    assert_empty Sisimai::Address.expand_verp('neko')
 
     ce = assert_raises ArgumentError do
       Sisimai::Address.expand_verp()
@@ -207,7 +207,7 @@ class AddressTest < Minitest::Test
     assert_equal false, cv.void
     assert_equal 'neko@example.jp', Sisimai::Address.expand_alias(ct)
     assert_equal ct, cv.alias
-    assert_nil Sisimai::Address.expand_alias('neko')
+    assert_empty Sisimai::Address.expand_alias('neko')
 
     ce = assert_raises ArgumentError do
       Sisimai::Address.expand_alias()

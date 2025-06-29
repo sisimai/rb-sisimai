@@ -310,8 +310,8 @@ module Sisimai
     # @example  Expand VERP address
     #   expand_verp('bounce+neko=example.org@example.org') #=> 'neko@example.org'
     def self.expand_verp(email)
-      return nil unless email.is_a? Object::String
-      return nil unless cv = email.split('@', 2).first.match(/\A[-\w]+?[+](\w[-.\w]+\w)[=](\w[-.\w]+\w)\z/)
+      return "" unless email.is_a? Object::String
+      return "" unless cv = email.split('@', 2).first.match(/\A[-\w]+?[+](\w[-.\w]+\w)[=](\w[-.\w]+\w)\z/)
       verp0 = cv[1] + '@' + cv[2]
       return verp0 if Sisimai::Address.is_emailaddress(verp0)
     end
@@ -322,10 +322,10 @@ module Sisimai
     # @example  Expand alias
     #   expand_alias('neko+straycat@example.org') #=> 'neko@example.org'
     def self.expand_alias(email)
-      return nil unless Sisimai::Address.is_emailaddress(email)
+      return "" unless Sisimai::Address.is_emailaddress(email)
 
       local = email.split('@')
-      return nil unless cv = local[0].match(/\A([-\w]+?)[+].+\z/)
+      return "" unless cv = local[0].match(/\A([-\w]+?)[+].+\z/)
       return cv[1] + '@' + local[1]
     end
 
@@ -342,11 +342,9 @@ module Sisimai
     # Constructor of Sisimai::Address
     # @param    [Hash] argvs        Email address, name, and other elements
     # @return   [Sisimai::Address]  Object or nil when the email address was not valid.
-    # @example  new({address: 'neko@example.org', name: 'Neko', comment: '(nyaan)')} # => Sisimai::Address object
+    # @example  new(address: 'neko@example.org', name: 'Neko', comment: '(nyaan)') # => Sisimai::Address object
     def initialize(argvs)
-      return nil unless argvs.is_a? Hash
-      return nil unless argvs[:address]
-      return nil if argvs[:address].empty?
+      return nil if argvs.is_a?(Hash) == false || argvs[:address].nil? || argvs[:address].empty?
 
       heads = ['<']
       tails = ['>', ',', '.', ';']
@@ -359,10 +357,10 @@ module Sisimai
         email = Sisimai::Address.expand_verp(argvs[:address])
         aname = nil
 
-        unless email
+        if email.empty?
           # Is not VERP address, try to expand the address as an alias
-          email = Sisimai::Address.expand_alias(argvs[:address]) || ''
-          aname = true unless email.empty?
+          email = Sisimai::Address.expand_alias(argvs[:address])
+          aname = true if email.empty? == false
         end
 
         if email.include?('@')
@@ -417,15 +415,11 @@ module Sisimai
 
     # Returns the value of address as String
     # @return [String] Email address
-    def to_json(*)
-      return self.address.to_s
-    end
+    def to_json(*); return self.address.to_s; end
 
     # Returns the value of address as String
     # @return [String] Email address
-    def to_s
-      return self.address.to_s
-    end
+    def to_s; return self.address.to_s; end
 
   end
 end
