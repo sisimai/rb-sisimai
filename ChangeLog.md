@@ -3,6 +3,18 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v5.4.0
+---------------------------------------------------------------------------------------------------
+- release: "Tue,  1 Jul 2025 20:22:22 +0900 (JST)"
+- version: "5.4.0"
+- changes:
+  - #341 #342 #345 Implement the new status code `5.7.515` as `authfailure` and other undocumented
+    status codes begin with `4.4.` as `systemerror` of Microsoft in `Sisimai::Rhost::Microsoft`.
+  - #343 #346 Some internal methods do not return `nil`, standardize return values to align with
+    zero-value principle.
+  - #347 Support a frozen string literal
+  - #349 #350 Implement new status codes of Google: `4.7.40` and `5.7.32` as `authfailure`.
+
 v5.3.0
 ---------------------------------------------------------------------------------------------------
 - release: "Sat, 29 Mar 2025 06:04:41 +0900 (JST)"
