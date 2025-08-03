@@ -3,6 +3,13 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v5.4.0p1
+---------------------------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - #352 Update SMTP error and status codes of Gmail updated in August 2025.
+
 v5.4.0
 ---------------------------------------------------------------------------------------------------
 - release: "Tue,  1 Jul 2025 20:22:22 +0900 (JST)"
