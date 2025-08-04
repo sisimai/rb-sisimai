@@ -6,7 +6,7 @@ module Sisimai
     class << self
       RhostClass = {
         "Aol"         => [".mail.aol.com", ".mx.aol.com"],
-        "Apple"       => [".mail.icloud.com", ".apple.com", ".me.com"],
+        "Apple"       => [".mail.icloud.com", ".apple.com", ".me.com", "privaterelay.appleid.com"],
         "Cloudflare"  => [".mx.cloudflare.net"],
         "Cox"         => ["cox.net"],
         "Facebook"    => [".facebook.com"],
