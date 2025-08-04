@@ -290,6 +290,7 @@ module LhostEngineTest::Private
       '1278'  => [['5.7.25',  '550', 'requireptr',      false]],
       '1279'  => [['5.2.2',   '552', 'mailboxfull',     false]],
       '1280'  => [['5.7.1',   '550', 'notcompliantrfc', false]],
+      '1281'  => [['5.1.1',   '550', 'userunknown',      true]],
     }
   end
 end
