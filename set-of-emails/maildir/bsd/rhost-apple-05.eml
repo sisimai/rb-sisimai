@@ -1,0 +1,96 @@
+Return-Path: <>
+X-Original-To: michitsuna@example.co.jp
+Delivered-To: azumakuniyuki@example.co.jp
+Received: by mbox.example.org (Postfix)
+	id 4br8Qn53tPz20Q07; Mon, 28 Jul 2025 15:56:33 +0900 (JST)
+Date: Mon, 28 Jul 2025 15:56:33 +0900 (JST)
+From: MAILER-DAEMON@mbox.example.org (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: michitsuna@example.co.jp
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="4br8Ql1PsKz1ylgh.1753685793/mbox.example.org"
+Message-Id: <4br8Qn53tPz20Q07@mbox.example.org>
+
+This is a MIME-encapsulated message.
+
+--4br8Ql1PsKz1ylgh.1753685793/mbox.example.org
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host mbox.example.org.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<test-of-zhzkndneko@privaterelay.appleid.com>: host
+    smtp1.privaterelay.appleid.com[17.57.152.15] said: 550 5.1.1
+    <test-of-zhzkndneko@privaterelay.appleid.com>: user not found (in reply to
+    RCPT TO command)
+
+--4br8Ql1PsKz1ylgh.1753685793/mbox.example.org
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mbox.example.org
+X-Postfix-Queue-ID: 4br8Ql1PsKz1ylgh
+X-Postfix-Sender: rfc822; michitsuna@example.co.jp
+Arrival-Date: Mon, 28 Jul 2025 15:56:31 +0900 (JST)
+
+Final-Recipient: rfc822; test-of-zhzkndneko@privaterelay.appleid.com
+Original-Recipient: rfc822;test-of-zhzkndneko@privaterelay.appleid.com
+Action: failed
+Status: 5.1.1
+Remote-MTA: dns; smtp1.privaterelay.appleid.com
+Diagnostic-Code: smtp; 550 5.1.1 <test-of-zhzkndneko@privaterelay.appleid.com>:
+    user not found
+
+--4br8Ql1PsKz1ylgh.1753685793/mbox.example.org
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <michitsuna@example.co.jp>
+Received: from smtpclient.apple (p220222-ipngnfx01kyoto.kyoto.ocn.ne.jp [192.0.2.22])
+	by mbox.example.org (Postfix) with ESMTPSA id 4br8Ql1PsKz1ylgh
+	for <test-of-zhzkndneko@privaterelay.appleid.com>; Mon, 28 Jul 2025 15:56:31 +0900 (JST)
+Authentication-Results: mbox.example.org; arc=none smtp.client-ip=192.0.2.22
+ARC-Seal:i=1; a=rsa-sha256; d=example.org; s=nekochan; t=1753685791; cv=none;
+	b=DTXIneAf3JGovi47VQy3NCS9aWkKP6pBvSw5yfS7jYw9Eo/wmU9wBQWUrTePDvKb8CbRqCrtgmuuJHLl+OBUfTznMD6VC0ChjM5dcUkbr3Q4vokMbVDCevn1Zeyb7aYjEdimsRCgLvKr4YI22OJX8uTwcokdxL1l85vr8Ti/R/dlbtIoPeciAP3GXUWOko4C0g1gQyTtbxOWI634xcHaPRNwDzdd67pAjPYIslgYCwqY7n4Lv/ncRYewIVYrgxipimsjLa2lZmwcr22SXkaJuFytxn3vDQd76z1gIK1vqPPPXed1QOvmR5nnr+2YC133MOLS4R3Bqo2j8Ui9955frw==
+ARC-Message-Signature:i=1; a=rsa-sha256; d=example.org; s=nekochan;
+	t=1753685791; c=relaxed/relaxed;
+	bh=06Wq0p4F3Xn2qy2jIfWYlVEHUus/7tEHaBItwhN9yIU=;
+	h=DKIM-Signature:From:Content-Type:Content-Transfer-Encoding:
+	 Mime-Version:Subject:Message-Id:Date:To:X-Mailer; b=qjdrsgKX+CWYvGwrVQqiFEghvV9VTgNsBHtk4/TKkjRB3zhfz1z6KXPG/LtSrUBpR+kRxAwcFF6um+VQCtJv9i5QJSDJIMgo5udvNFyXcNilItwSkziUs1ak0DSxLGIt910xINpSf/Y/ZIadSBg/HFB33uiJ/EXo3k0r40urVRj2t+F14aG0OLC9Dz7AO4M2ALL65AAPpxG/kxMJGpz0GrMIj1om/h+B+n1YX5dG4k4O5xVNShEoFfWfoAQ4UIHW9kF336t4+C/LLqL6qRQet+ZDWopdh5jErLX/osce9gf//VXKv5NV5iSC45ZtlvThlkEOWAKY7HUVI6K7/hHOzw==
+ARC-Authentication-Results:i=1; mbox.example.org; arc=none smtp.client-ip=192.0.2.22
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=example.org;
+	s=nekochan; t=1753685791;
+	bh=06Wq0p4F3Xn2qy2jIfWYlVEHUus/7tEHaBItwhN9yIU=;
+	h=From:Subject:Message-Id:Date:To:X-Mailer:From;
+	b=QVIcHPhk1gLdclwQgFQR1fjGwqmgUlgnILI8SrUQ1SFAydWnWbn6iAcY1s03wzpWz
+	 OCHGcFvbTOFqj2pw2EAD1Zcmp/5kfpZfiBf4rpJQb1KjVc2QCcWJz7hES4eseEBFCl
+	 +ztGoiLtpzZeJ18ol0zY6Ufm2j5U2aIOUdNuqCYnRTF0nswiMSxWr+UIjF3lnndWL/
+	 GKORz+3TTBNVBBdUEb9DRfW4UIq8I2HzxLdHzox++wR8psNVatKY2A5TNAoyrOhJTA
+	 47xjcsfBSDOMpYd4g9OWT8ZR74/V/KjqXUNKGm+i+nlFSSrYzsGfXqPxQQulhPUOQ+
+	 P8iLE85YLI8ww==
+From: <michitsuna@example.co.jp>
+Content-Type: text/plain;
+	charset=utf-8
+Content-Transfer-Encoding: base64
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.400.131.1.6\))
+Subject: Nyaan
+Message-Id: <1DC7AD94-5957-47C5-BF6E-826BE9640EAE@example.co.jp>
+Date: Mon, 28 Jul 2025 15:56:20 +0900
+To: test-of-zhzkndneko@privaterelay.appleid.com
+X-Mailer: Apple Mail (2.3826.400.131.1.6)
+
+DQpfX19fX19fX19fX19fX19fX19fX+S4v+W8gOS5gF/kuL/lpKfjgLUv5Lq85LmAX+S4v+WmmdCj
+
+--4br8Ql1PsKz1ylgh.1753685793/mbox.example.org--
