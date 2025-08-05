@@ -8,6 +8,7 @@ v5.4.0p1
 - release: ""
 - version: ""
 - changes:
+  - #353 Support a bounce mail returned from `privaterelay.appleid.com`.
   - #352 Update SMTP error and status codes of Gmail updated in August 2025.
 
 v5.4.0
