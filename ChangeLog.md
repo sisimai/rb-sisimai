@@ -10,6 +10,8 @@ v5.4.0p1
 - changes:
   - #353 Support a bounce mail returned from `privaterelay.appleid.com`.
   - #352 Update SMTP error and status codes of Gmail updated in August 2025.
+  - #354 #355 Bug fix:The 2nd and 3rd elements should be an integer at `Sisimai::Rhost::Microsoft`.
+    Thanks to @kawai-markerise
 
 v5.4.0
 ---------------------------------------------------------------------------------------------------
