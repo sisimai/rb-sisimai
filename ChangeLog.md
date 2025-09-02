@@ -3,6 +3,13 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v5.4.1p1
+---------------------------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - #358 #359 Fix the file encoding of `Sisimai::Lhost::Exchange2007`: sjis => utf8
+
 v5.4.1
 ---------------------------------------------------------------------------------------------------
 - release: "Sun, 31 Aug 2025 09:22:25 +0900 (JST)"
