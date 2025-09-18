@@ -346,6 +346,8 @@ module Sisimai
 
           else
             # There is no Content-Transfer-Encoding header in the part
+            be = bodyinside.encoding.to_s
+            bodyinside  = Sisimai::String.to_utf8(bodyinside, be) unless be == 'UTF-8' 
             bodystring += bodyinside
           end
 
