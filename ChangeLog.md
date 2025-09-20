@@ -11,6 +11,7 @@ v5.4.1p1
   - #358 #359 Fix the file encoding of `Sisimai::Lhost::Exchange2007`: sjis => utf8
   - #361 #362 Fix encoding problem (ASCII-8BIT, UTF-8). Thanks to @timoschilling
   - #360 #364 Update SMTP reply codes defined in `Sisimai::SMTP::Reply.Associated`.
+  - #365 Implement `Sisimai::SMTP::Status.is_ambiguous` method.
 
 v5.4.1
 ---------------------------------------------------------------------------------------------------
