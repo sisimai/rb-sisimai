@@ -249,7 +249,7 @@ module LhostEngineTest::Private
       '1287'  => [['5.0.0',   '550', 'filtered',        false]],
       '1288'  => [['5.3.4',   '552', 'mesgtoobig',      false]],
       '1289'  => [['4.0.0',   '',    'notaccept',       false]],
-      '1290'  => [['4.3.0',   '451', 'onhold',          false]],
+      '1290'  => [['4.3.0',   '451', 'systemerror',     false]],
       '1300'  => [['5.1.0',   '550', 'userunknown',     true]],
       '1301'  => [['5.0.0',   '',    'spamdetected',    false]],
       '1302'  => [['5.0.0',   '550', 'filtered',        false]],

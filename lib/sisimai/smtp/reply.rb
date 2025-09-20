@@ -113,18 +113,25 @@ module Sisimai
         Associated = {
           "422" => ["AUTH",     "4.7.12",  "securityerror"], # RFC5238
           "432" => ["AUTH",     "4.7.12",  "securityerror"], # RFC4954, RFC5321
+          "451" => ["",         "",        "systemerror"],   # RFC2465, RFC5321
+          "452" => ["",         "",        "systemfull"],    # RFC5321
+          "454" => ["AUTH",     "4.7.0",   "securityerror"], # RFC3027, RFC4954
+          "455" => ["",         "",        "syntaxerror"],   # RFC5321
           "500" => ["",         "",        "syntaxerror"],   # RFC5321
           "501" => ["",         "",        "syntaxerror"],   # RFC5321
           "502" => ["",         "",        "syntaxerror"],   # RFC5321
           "503" => ["",         "",        "syntaxerror"],   # RFC5321
           "504" => ["",         "",        "syntaxerror"],   # RFC5321
           "521" => ["CONN",     "",        "notaccept"],     # RFC7504
-          "523" => ["AUTH",     "",        "securityerror"], # RFC5248
-          "524" => ["AUTH",     "",        "securityerror"], # RFC5248
-          "525" => ["AUTH",     "",        "securityerror"], # RFC5248
+          "523" => ["AUTH",     "5.7.10",  "securityerror"], # RFC5248
+          "524" => ["AUTH",     "5.7.11",  "securityerror"], # RFC5248
+          "525" => ["AUTH",     "5.7.13",  "securityerror"], # RFC5248
           "534" => ["AUTH",     "5.7.9",   "securityerror"], # RFC4954, RFC5248
           "535" => ["AUTH",     "5.7.8",   "securityerror"], # RFC4954, RFC5248
           "538" => ["AUTH",     "5.7.11",  "securityerror"], # RFC4954, RFC5248
+          "551" => ["",         "",        "hasmoved"],      # RFC5321, RFC5336, RFC6531
+          "552" => ["",         "",        "mailboxfull"],   # RFC5321
+          "555" => ["",         "",        "syntaxerror"],   # RFC5321
           "556" => ["RCPT",     "",        "notaccept"],     # RFC7504
         }.freeze
 

@@ -21,7 +21,7 @@ module LhostEngineTest::Public
       '36' => [['4.0.0',   '',    'expired',         false]],
       '40' => [['4.4.6',   '',    'networkerror',    false]],
       '42' => [['5.0.0',   '',    'filtered',        false]],
-      '43' => [['4.3.0',   '451', 'onhold',          false]],
+      '43' => [['4.3.0',   '451', 'systemerror',     false]],
       '51' => [['5.1.0',   '550', 'userunknown',     true]],
       '52' => [['4.0.0',   '',    'notaccept',       false]],
       '53' => [['4.0.0',   '',    'networkerror',    false]],
