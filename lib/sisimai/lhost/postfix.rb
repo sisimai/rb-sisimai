@@ -6,6 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
       require 'sisimai/rfc1123'
       require 'sisimai/smtp/reply'
+      require 'sisimai/smtp/status'
       require 'sisimai/smtp/command'
 
       # Postfix manual - bounce(5) - http://www.postfix.org/bounce.5.html
@@ -240,13 +241,11 @@ module Sisimai::Lhost
               # More detailed error message is in "anotherset"
               as = '' # status
               ar = '' # replycode
-              if e['status'].empty? || e['status'].start_with?('4.0.0', '5.0.0')
+              if Sisimai::SMTP::Status.is_ambiguous(e['status'])
                 # Check the value of D.S.N. in anotherset
+                # The D.S.N. is neither an empty nor *.0.0
                 as = Sisimai::SMTP::Status.find(anotherset['diagnosis'])
-                if as.size > 0 && as[-4, 4] != '.0.0'
-                  # The D.S.N. is neither an empty nor *.0.0
-                  e['status'] = as
-                end
+                e['status'] = as unless Sisimai::SMTP::Status.is_ambiguous(as)
               end
 
               if e['replycode'].empty? || e['replycode'].end_with?('00')

@@ -152,6 +152,13 @@ class SMTPStatusTest < Minitest::Test
     end
   end
 
-
+  def test_is_ambiguous
+    CodeSet.each do |e|
+      assert_equal false, Sisimai::SMTP::Status.is_ambiguous(e)
+    end
+    ["", "5.0.0", "4.0.0", "2.0.0"].each do |e|
+      assert_equal true,  Sisimai::SMTP::Status.is_ambiguous(e)
+    end
+  end
 end
 

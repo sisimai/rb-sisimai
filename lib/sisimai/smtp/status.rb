@@ -788,7 +788,7 @@ module Sisimai
             next if characters[3] < 48 || characters[3] > 57  # The 1st digit of the detail is not a number
             readbuffer << characters[3].chr
 
-            if readbuffer.index('.0.0') || readbuffer == '4.4.7'
+            if Sisimai::SMTP::Status.is_ambiguous(readbuffer) || readbuffer == "4.4.7"
               # Find another status code except *.0.0, 4.4.7
               anotherone = readbuffer
               next
@@ -890,6 +890,15 @@ module Sisimai
           return false if argv1.nil? || argv1.empty?
           return false if argv1.size == 7 && argv1.start_with?("5.0.9", "4.0.9")
           return true
+        end
+
+        # is_ambiguous() returns true when the argument is not empty and ends with ".0.0".
+        # @param    string argv1  Status code
+        # @return   bool          false: The delivery status code is not ambiguous
+        def is_ambiguous(argv1 = '')
+          return true if argv1.nil? || argv1.empty?
+          return true if argv1.size == 5 && argv1.end_with?(".0.0")
+          return false
         end
       end
     end
