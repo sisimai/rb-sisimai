@@ -112,6 +112,7 @@ module Sisimai
           'user unknown',
           'utilisateur inconnu !',
           'vdeliver: invalid or unknown virtual user',
+          'weil die adresse nicht gefunden wurde oder keine e-mails empfangen kann',
           'your envelope recipient is in my badrcptto list',
         ].freeze
         Pairs = [
