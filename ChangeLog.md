@@ -12,6 +12,7 @@ v5.4.1p1
   - #361 #362 Fix encoding problem (ASCII-8BIT, UTF-8). Thanks to @timoschilling
   - #360 #364 Update SMTP reply codes defined in `Sisimai::SMTP::Reply.Associated`.
   - #365 Implement `Sisimai::SMTP::Status.is_ambiguous` method.
+  - #363 Sisimai partially supports the media types described in RFC6533 such as `message/global`.
 
 v5.4.1
 ---------------------------------------------------------------------------------------------------
