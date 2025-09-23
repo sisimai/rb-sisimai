@@ -291,6 +291,8 @@ module LhostEngineTest::Private
       '1279'  => [['5.2.2',   '552', 'mailboxfull',     false]],
       '1280'  => [['5.7.1',   '550', 'notcompliantrfc', false]],
       '1281'  => [['5.1.1',   '550', 'userunknown',      true]],
+      '1282'  => [['5.1.1',   '550', 'userunknown',      true]],
+      '1283'  => [['5.4.4',   '',    'hostunknown',      true]],
     }
   end
 end
