@@ -21,12 +21,15 @@ module Sisimai
       FieldIndex = [Fields1894.flatten, Fields5322.flatten, Fields5965.flatten].flatten.freeze
       FieldTable = FieldIndex.map { |e| [e.downcase, e] }.to_h.freeze
       Boundaries = ['Content-Type: message/rfc822', 'Content-Type: text/rfc822-headers'].freeze
-      ReplacesAs = {
-        "Content-Type" => [
-          %w[message/xdelivery-status message/delivery-status],
-          %w[message/disposition-notification message/delivery-status],
-        ]
-      }.freeze
+      MediaTypes = [
+        %w[message/xdelivery-status message/delivery-status],
+        %w[message/disposition-notification message/delivery-status],
+        %w[message/global-delivery-status message/delivery-status],
+        %w[message/global-disposition-notification  message/delivery-status],
+        %w[message/global-delivery-status message/delivery-status],
+        %w[message/global-headers text/rfc822-headers],
+        %w[message/global message/rfc822],
+      ].freeze
 
       # Read an email message and convert to structured format
       # @param         [Hash] argvs       Module to be loaded
@@ -281,9 +284,9 @@ module Sisimai
           end
 
           # 3. Tidy up a value, and a parameter of Content-Type: field
-          if ReplacesAs.has_key?(fn)
+          if fn == "Content-Type"
             # Replace the value of "Content-Type" field
-            ReplacesAs[fn].each do |f|
+            MediaTypes.each do |f|
               # - Before: Content-Type: message/xdelivery-status; ...
               # - After:  Content-Type: message/delivery-status; ...
               p1 = bf.index(f[0]) || next
