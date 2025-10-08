@@ -13,6 +13,7 @@ v5.4.1p1
   - #360 #364 Update SMTP reply codes defined in `Sisimai::SMTP::Reply.Associated`.
   - #365 Implement `Sisimai::SMTP::Status.is_ambiguous` method.
   - #363 Sisimai partially supports the media types described in RFC6533 such as `message/global`.
+  - #368 #369 Fix the index out of range bug in multipart blocks. Thanks to @timoschilling
 
 v5.4.1
 ---------------------------------------------------------------------------------------------------
