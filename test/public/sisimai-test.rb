@@ -198,8 +198,12 @@ class SisimaiTest < Minitest::Test
   def test_normal
     Normals.keys.each do |e|
       cf = Normals[e]
-      assert_nil Sisimai.rise(cf)
-      assert_equal '[]', Sisimai.dump(cf)
+      fh = Dir.open(cf)
+      while r = fh.read do
+        next if r == '.' || r == '..'
+        assert_nil Sisimai.rise(cf + "/" + r)
+        assert_equal '[]', Sisimai.dump(cf + "/" + r)
+      end
     end
   end
 

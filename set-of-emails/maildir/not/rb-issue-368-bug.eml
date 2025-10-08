@@ -1,0 +1,39 @@
+From MAILER-DAEMON  Sat Oct  4 08:00:09 2025
+Return-Path: <>
+Date: Sat, 04 Oct 2025 08:00:07 +0200
+Auto-Submitted: auto-replied
+From: postmaster@yyyyyy.de
+To: bounce+xxxx=yyyyyy.net@zzzzzzzz.net
+Subject: email bounce notification
+
+########################################################################
+##       automatic bounce notification (english text below)           ##
+########################################################################
+
+This message is to inform you that an email you sent was rejected.
+Your message was rejected and discarded because it wasn't possible to
+save the message in the target mailbox.
+
+Please don't reply to this email because it is automaticaly generated.
+You may want to wait some time to give the recipient the chance to
+solve the problem (i.e. mailbox full) and then resend your email.
+
+reject reason: Mailbox full
+target mail address: xxxx@yyyyyy.net
+
+------------------------------------------------------------------------
+bounced E-Mail:
+
+From bounce+xxxx=yyyyyy.net@zzzzzzzz.net  Sat Oct  4 08:00:07 2025
+Date: Sat, 04 Oct 2025 06:00:03 +0000
+From: Name <ccccc@zzzzzzzz.net>
+To: xxxx@yyyyyy.net
+Message-ID: <68e0b7e3615cd_1dc7010592ed@7cf4d87f87-9r5w2.mail>
+Subject: SUBJECT
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_68e0b7e359d08_1dc701059085";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+

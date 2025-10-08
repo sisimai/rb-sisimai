@@ -224,8 +224,10 @@ module Sisimai
         multiparts = argv1.split(Regexp.new(Regexp.escape(boundary01) + "\n"))
         partstable = []
 
-        multiparts.shift if multiparts[0].size  < 8
-        multiparts.pop   if multiparts[-1].size < 8
+        # Remove empty or useless preamble and epilogue of multipart/* block
+        multiparts.shift if multiparts[0].size < 8
+        return []        if multiparts.empty?
+        multiparts.pop   if multiparts.size > 2 && multiparts[-1].size < 8
 
         while e = multiparts.shift do
           # Check each part and breaks up internal multipart/* block
