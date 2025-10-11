@@ -79,7 +79,6 @@ class SisimaiTest < Minitest::Test
         assert_equal ee.timestamp.to_time.to_i, cv['timestamp']
 
         cv.each_key do |eee|
-          next if eee == "smtpcommand"
           next if ee.send(eee).class.to_s.start_with?('Sisimai::')
           next if eee == 'subject'
 

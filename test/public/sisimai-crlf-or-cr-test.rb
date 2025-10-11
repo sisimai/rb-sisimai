@@ -41,7 +41,6 @@ class EmailCRLFTest < Minitest::Test
 
         dx.each_key do |eee|
           next unless dx[eee].is_a? ::String
-          next if eee == "smtpcommand"
           next if ee.send(eee).class.to_s.start_with?('Sisimai::')
           next if eee == 'subject'
 
