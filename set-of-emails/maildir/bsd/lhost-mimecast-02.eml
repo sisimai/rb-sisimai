@@ -1,0 +1,59 @@
+Return-Path: <>
+X-Original-To: sisi@errors.rr.example.jp
+Delivered-To: sisi@errors.rr.example.jp
+Received: from smtp.rr.example.jp (unknown [192.0.2.25])
+ by be.rr.example.jp (Postfix) with ESMTPS id 86ZvZmL8hKzWT593
+ for <sisi@errors.rr.example.jp>; Sat,  8 Feb 2025 20:22:22 +0900 (JST)
+Received: from eu-smtp-delivery-255.mimecast.com (ip-192-0-2-22.ap-northeast-1.compute.internal [192.0.2.22])
+ by smtp.rr.example.jp (Postfix) with ESMTP id qQSDNz8RQjzVCWf3
+ for <kijitora@rr.example.jp>; Sat,  8 Feb 2025 20:22:21 +0900 (JST)
+Subject: [Postmaster] Email Delivery Failure
+Message-Id: <000000002-1111111110222@uk-mta-64.uk.mimecast.lan>
+Date: Sat, 08 Feb 2025 11:22:30 +0000
+From: Postmaster <postmaster@example.com>
+To: <kijitora@rr.example.jp>
+Mime-Version: 1.0
+X-MC-System: =aHR0cHM6Ly9saWJzaXNpbWFpLm9yZy8K
+X-Mimecast-Originator: <>
+Content-Type: multipart/report; report-type=delivery-status;
+ boundary="MCBoundary=_14916154590123456"
+
+--MCBoundary=_14916154590123456
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+This is a delivery failure notification message indicating that
+an email you addressed to email address :
+-- sabatora@example.net
+
+could not be delivered. The problem appears to be :
+-- Recipient email address is possibly incorrect
+
+Additional information follows :
+-- 5.7.54 SMTP; Unable to relay recipient in non-accepted domain
+
+This condition occurred after 1 attempt(s) to deliver over
+a period of 0 hour(s).
+
+If you sent the email to multiple recipients, you will receive one
+of these messages for each one which failed delivery,  otherwise
+they have been sent.
+
+--MCBoundary=_14916154590123456
+Content-Type: message/delivery-status; charset=UTF-8
+
+DISPLAY_DATE_FORMAT : EEE, dd MMM yyyy HH:mm:ss zzz
+Original-Envelope-Id : 5gENiF_01OCe5ak-neko22
+Reporting-MTA : dns;eu-smtp-inbound-delivery-1.mimecast.com
+Arrival-Date : Sat, 08 Feb 2025 11:22:21 GMT
+Action : failed
+Status : 5.0.0
+Diagnostic-Code : smtp;550 5.7.54 SMTP; Unable to relay recipient in non-accepted domain
+Last-Attempt-Date : Sat, 08 Feb 2025 11:22:28 GMT
+Original-Recipient : rfc/822;sabatora@example.net
+Remote-MTA : example.net
+Final-Recipient : rfc/822;sabatora@example.net
+
+
+--MCBoundary=_14916154590123456--
+

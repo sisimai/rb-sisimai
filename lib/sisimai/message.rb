@@ -212,7 +212,7 @@ module Sisimai
           # Find and tidy up fields defined in RFC5322, RFC1894, and RFC5965
           # 1. Find a field label defined in RFC5322, RFC1894, or RFC5965 from this line
           p0 = e.index(':') || -1
-          cf = e.downcase[0, p0]
+          cf = e.downcase[0, p0].to_s.rstrip
           fn = FieldTable[cf] || ''
 
           index += 1
@@ -255,6 +255,7 @@ module Sisimai
                     f[0, p2] = ps
                   end
                   f.downcase! unless ps == 'boundary'
+                  f = 'rfc822' if f == 'rfc/822'
                   break
                 end
                 ab << f

@@ -1,0 +1,46 @@
+Return-Path: <>
+X-Original-To: neko@error.example.jp
+Delivered-To: neko@error.example.jp
+Received: from smtp.example.jp (unknown [192.0.2.25])
+	by eb.example.jp (Postfix) with ESMTPS id X4RDMVtpJ9z25xtV
+	for <neko@error.example.jp>; Mon, 29 Apr 2024 18:30:22 +0900 (JST)
+Authentication-Results: eb.example.jp;
+	dkim=pass (1024-bit key, unprotected) header.d=ef.example.org header.i=@ef.example.org header.a=rsa-sha256 header.s=mimecast20180622 header.b=e...
+Received: from us-smtp-delivery-225.mimecast.com (ip-192-0-2-125.us-east-1.compute.internal [192.0.2.22])
+	by smtp.example.jp (Postfix) with ESMTP id Zgr2Fply9TzPD185
+	for <kijitora@example.jp>; Mon, 29 Apr 2024 18:30:22 +0900 (JST)
+Authentication-Results: smtp.example.jp;
+	dkim=pass (1024-bit key; unprotected) header.d=ef.example.org header.i=@ef.example.org header.a=rsa-sha256 header.s=mimecast20180622 header.b=e...
+Subject: [Postmaster] Email Delivery Failure
+Message-Id: <0123456789-1102117314000@us-mta-587.us.mimecast.lan>
+Date: Mon, 29 Apr 2024 20:30:00 +1100
+From: "postmaster" <postmaster@ef.example.org>
+To: <kijitora@example.jp>
+Mime-Version: 1.0
+X-MC-System: =UmV0dXJuLVBhdGg6IDw+ClgtT3JpZ2luYWwtVG86IG5la29AZXJyb3IuZXhhbXBs
+X-Mimecast-Originator: <>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+This is an automated alert notification. Please do not reply.
+
+An email that you attempted to send to the following address could not be d=
+elivered:
+-- sabineko@neko.ef.example.org
+
+The problem appears to be :
+-- Recipient email address is possibly incorrect
+
+Additional information follows :
+-- 5.4.1 Recipient address rejected: Access denied. [QQQQQQE00000000.jpnprd=
+01.prod.outlook.com 2024-02-19T09:30:25.255Z FFFFFFFFFFEEEEEE]
+
+This condition occurred after 1 attempt(s) to deliver over
+a period of 0 hour(s).
+
+If you sent the email to multiple recipients, you will receive one
+of these messages for each one which failed delivery,  otherwise
+they have been sent.
+
+If you require further information, please contact the Service Desk.
+
