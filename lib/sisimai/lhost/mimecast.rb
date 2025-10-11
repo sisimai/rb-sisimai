@@ -47,7 +47,7 @@ module Sisimai::Lhost
           if e.start_with?('-- ')
             # An email that you attempted to send to the following address could not be delivered:
             # -- sabineko@neko.ef.example.org
-            cv = e[3..]
+            cv = e[3, 256]
             if cv.include?(' ') == false
               # -- sotoneko@cat.example.com
               if v["recipient"] != ""
