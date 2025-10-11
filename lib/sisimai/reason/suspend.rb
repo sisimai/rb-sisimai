@@ -22,6 +22,7 @@ module Sisimai
           'mailbox unavailable or access denied',
           'recipient rejected: temporarily inactive',
           'recipient suspend the service',
+          "the email account that you tried to reach is inactive",
           'this account has been disabled or discontinued',
           'this account has been temporarily suspended',
           'this address no longer accepts mail',

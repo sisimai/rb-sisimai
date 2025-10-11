@@ -28,7 +28,7 @@ module Sisimai
           'specified domain is not allowed',
           "that domain isn't in my list of allowed rcpthost",
           'this system is not configured to relay mail',
-          'unable to relay for',
+          'unable to relay ',
           "we don't handle mail for",
         ].freeze
 
