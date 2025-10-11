@@ -83,9 +83,9 @@ The key features of Sisimai
     * `gem install`
     * `git clone && make`
   * __高い解析精度__
-    * [73種類のMTAs/MDAs/ESPs](https://libsisimai.org/en/engine/)に対応
+    * [60種類のMTAs/MDAs/ESPs](https://libsisimai.org/en/engine/)に対応
     * Feedback Loop(ARF)にも対応
-    * [34種類のバウンス理由](https://libsisimai.org/en/reason/)を検出
+    * [36種類のバウンス理由](https://libsisimai.org/en/reason/)を検出
 
 [^2]: コールバック機能を使用すると`catch`アクセサの下に独自のデータを追加できます
 
@@ -356,10 +356,10 @@ Sisimai 5.0.0から**Ruby 2.4以上**が必要になります。
 | 動作環境(CRuby)                                      | 2.1 - 3.3.0        | **2.4** or later    |
 | 動作環境(JRuby)                                      | 9.0.4.0 - 9.1.17.0 | **9.2** or later    |
 | 元メールファイルを操作可能なコールバック機能         | なし               | あり[^3]            |
-| 解析エンジン(MTA/ESPモジュール)の数                  | 68                 | 58                  |
+| 解析エンジン(MTA/ESPモジュール)の数                  | 68                 | 60                  |
 | 検出可能なバウンス理由の数                           | 29                 | 36                  |
 | 依存Gem数(Ruby Standard Gemsを除く)                  | 1 Gem              | 1 Gem               |
-| ソースコードの行数                                   | 10,800 行          | 9,860 行            |
+| ソースコードの行数                                   | 10,800 行          | 9,800 行            |
 | テストフレームワーク                                 | rspec              | minitest            |
 | テスト件数(spec/またはtest/ディレクトリ)             | 311,000 件         | 410,000 件          |
 | 1秒間に解析できるバウンスメール数[^4]                | 620 通             | 620 通              |
@@ -402,6 +402,7 @@ Sisimai 5で3個のESPモジュール名(解析エンジン)が変更になり�
 | Tencent                                         | `Rhost::TencentQQ`      | `Rhost::Tencent`    |
 | Yahoo Mail (added at v5.1.0)                    | なし                    | `Rhost::YahooInc`   |
 | DragonFly Mail Agent (added at v5.1.0)          | なし                    | `Lhost::DragonFly`  |
+| Mimecast (added at v5.5.0)                      | なし                    | `Lhost::Mimecast`   |
 
 Bounce Reasons
 ---------------------------------------------------------------------------------------------------

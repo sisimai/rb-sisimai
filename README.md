@@ -85,7 +85,7 @@ The key features of Sisimai
     * `gem install`
     * `git clone && make`
   * __High Precision of Analysis__
-    * Support [59 MTAs/MDAs/ESPs](https://libsisimai.org/en/engine/)
+    * Support [60 MTAs/MDAs/ESPs](https://libsisimai.org/en/engine/)
     * Support Feedback Loop Message(ARF)
     * Can detect [36 bounce reasons](https://libsisimai.org/en/reason/)
 
@@ -355,7 +355,7 @@ Beginning with v5.0.0, Sisimai requires **Ruby 2.4.0 or later.**
 | System requirements (CRuby)                          | 2.1 - 3.3.0        | **2.4** or later    |
 | System requirements (JRuby)                          | 9.0.4.0 - 9.1.17.0 | **9.2** or later    |
 | Callback feature for the original email file         | N/A                | Available[^3]       |
-| The number of MTA/ESP modules                        | 68                 | 59                  |
+| The number of MTA/ESP modules                        | 68                 | 60                  |
 | The number of detectable bounce reasons              | 29                 | 36                  |
 | Dependencies (Except Ruby Standard Gems)             | 1 gem              | 1 gem               |
 | Source lines of code                                 | 10,300 lines       | 9,800 lines         |
@@ -403,6 +403,7 @@ available at [LIBSISIMAI.ORG/EN/ENGINE](https://libsisimai.org/en/engine/)
 | Tencent                                         | `Rhost::TencentQQ`      | `Rhost::Tencent`    |
 | Yahoo Mail (added at v5.1.0)                    | None                    | `Rhost::YahooInc`   |
 | DragonFly Mail Agent (added at v5.1.0)          | None                    | `Lhost::DragonFly`  |
+| Mimecast (added at v5.5.0)                      | None                    | `Lhost::Mimecast`   |
 
 Bounce Reasons
 ---------------------------------------------------------------------------------------------------
