@@ -15,6 +15,9 @@ v5.4.1p1
   - #363 Sisimai partially supports the media types described in RFC6533 such as `message/global`.
   - #368 #369 Fix the index out of range bug in multipart blocks. Thanks to @timoschilling
   - #367 #370 Implement `Sisimai::Lhost::Mimecast`.
+  - #325 #323 Remove the following accessors and JSON keys of `Sisimai::Fact` deprecated at v5.2.0.
+    - `smtpagent` (use `decodedby` instead)
+    - `smtpcommand` (use `command` instead)
 
 v5.4.1
 ---------------------------------------------------------------------------------------------------
