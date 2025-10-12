@@ -58,12 +58,10 @@ release:
 
 test: user-test author-test
 user-test:
-	# Suppress warning messages until v5.5.0
-	RUBYOPT="$(RUBYARGUMENT)" rake publictest 2> /dev/null
+	RUBYOPT="$(RUBYARGUMENT)" rake publictest
 
 author-test:
-	# Suppress warning messages until v5.5.0
-	RUBYOPT="$(RUBYARGUMENT)" rake privatetest 2> /dev/null
+	RUBYOPT="$(RUBYARGUMENT)" rake privatetest
 
 check:
 	find lib -type f -exec grep --color -E ' $$' {} /dev/null \;

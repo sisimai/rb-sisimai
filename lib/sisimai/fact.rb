@@ -507,10 +507,6 @@ module Sisimai
         v['addresser']  = self.addresser.address
         v['recipient']  = self.recipient.address
         v['timestamp']  = self.timestamp.to_time.to_i
-
-        # Backward compatibility until v5.5.0
-        v["smtpagent"] = self.decodedby
-        v["smtpcommand"] = self.command
         data = v
       rescue
         warn ' ***warning: Failed to execute Sisimai::Fact.damn'
@@ -542,9 +538,6 @@ module Sisimai
     def to_json(*)
       return self.dump('json')
     end
-
-    def smtpagent;  warn " ***warning: Sisimai::Fact.smtpagent will be removed at v5.5.0"; return self.decodedby; end
-    def smtpcomand; warn " ***warning: Sisimai::Fact.smtpcommand will be removed at v5.5.0"; return self.command; end
   end
 end
 
