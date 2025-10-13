@@ -20,6 +20,18 @@ module LhostEngineTest::Private
       '1016'  => [['5.2.3',   '550', 'exceedlimit',     false]],
       '1017'  => [['5.1.10',  '550', 'userunknown',     true]],
       '1018'  => [['5.1.10',  '550', 'userunknown',     true]],
+      '1019'  => [['5.4.317', '550', 'failedstarttls',  false]],
+      '1020'  => [['5.7.23',  '550', 'authfailure',     false]],
+      '1021'  => [['5.7.509', '550', 'authfailure',     false]],
+      '1022'  => [['5.4.317', '550', 'failedstarttls',  false]],
+      '1023'  => [['5.4.317', '550', 'failedstarttls',  false]],
+      '1024'  => [['5.4.318', '550', 'systemerror',     false]],
+      '1025'  => [['5.1.351', '550', 'userunknown',     true]],
+      '1026'  => [['4.2.0',   '',    'systemerror',     false]],
+      '1027'  => [['4.4.0',   '451', 'systemerror',     false]], # TODO: 5.4.3
+      '1028'  => [['5.7.520', '550', 'securityerror',   false]],
+      '1029'  => [['5.7.1',   '550', 'policyviolation', false]],
+      '1030'  => [['5.4.317', '550', 'expired',         false]],
     }
   end
 end
