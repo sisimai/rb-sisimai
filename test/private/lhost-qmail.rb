@@ -78,6 +78,20 @@ module LhostEngineTest::Private
       '1071'  => [['5.7.1',   '554', 'norelaying',      false]],
       '1072'  => [['5.0.912', '',    'hostunknown',     true]],
       '1073'  => [['5.0.921', '',    'suspend',         false]],
+      '1074'  => [['5.1.1',   '550', 'userunknown',      true], # TODO: 
+                  ['5.4.4',   '',    'notaccept',        true],
+                  ['5.4.4',   '',    'notaccept',        true],
+                  ['5.1.2',   '',    'userunknown',      true],
+                  ['5.7.26',  '550', 'authfailure',     false],
+                  ['5.7.509', '550', 'authfailure',     false],
+                  ['5.1.1',   '550', 'userunknown',      true],
+                  ['5.1.1',   '550', 'userunknown',      true],
+                  ['5.2.2',   '552', 'mailboxfull',     false]],
+      '1075'  => [['5.1.1',   '550', 'userunknown',      true],
+                  ['5.2.2',   '552', 'mailboxfull',     false],
+                  ['4.7.0',   '421', 'badreputation',   false],
+                  ['4.7.0',   '421', 'userunknown',      true]], # TOOD: badreputation
+};
     }
   end
 end
