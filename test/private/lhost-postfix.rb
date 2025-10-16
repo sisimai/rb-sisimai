@@ -311,6 +311,24 @@ module LhostEngineTest::Private
       '1299'  => [['4.7.1',   '453', 'norelaying',      false]],
       '1300'  => [['4.7.0',   '421', 'blocked',         false]],
       '1301'  => [['4.3.2',   '451', 'speeding',        false]],
+  #   '1302'  => [['5.2.0',   '',    'mailererror',     false]], # TODO: Sisimai::Address->is_emailaddress()
+      '1303'  => [['5.0.0',   '550', 'onhold',          false]],
+      '1304'  => [['5.0.0',   '550', 'onhold',          false]],
+      '1305'  => [['5.0.0',   '550', 'onhold',          false]],
+      '1306'  => [['4.0.0',   '451', 'systemerror',     false]],
+      '1307'  => [['4.2.1',   '450', 'speeding',        false]],
+      '1308'  => [['4.4.1',   '',    'networkerror',    false]],
+      '1309'  => [['4.3.5',   '451', 'systemerror',     false]],
+      '1310'  => [['4.3.1',   '452', 'systemfull',      false]],
+      '1311'  => [['5.5.1',   '503', 'syntaxerror',     false]],
+      '1312'  => [['5.3.0',   '521', 'systemerror',     false]],
+      '1313'  => [['5.4.12',  '554', 'networkerror',    false]],
+      '1314'  => [['5.2.1',   '',    'suspend',         false]],
+      '1315'  => [['4.0.0',   '421', 'onhold',          false]],
+      '1316'  => [['5.7.1',   '554', 'blocked',         false]],
+      '1317'  => [['4.7.0',   '421', 'badreputation',   false]],
+      '1318'  => [['5.0.0',   '553', 'norelaying',      false]],
+      '1319'  => [['4.0.0',   '450', 'suspend',         false]],
     }
   end
 end

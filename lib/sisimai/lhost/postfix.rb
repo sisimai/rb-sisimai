@@ -114,18 +114,22 @@ module Sisimai::Lhost
               if o[3] == 'addr'
                 # Final-Recipient: rfc822; kijitora@example.jp
                 # X-Actual-Recipient: rfc822; kijitora@example.co.jp
-                if o[0] == 'final-recipient'
-                  # Final-Recipient: rfc822; kijitora@example.jp
-                  if v["recipient"] != ""
-                    # There are multiple recipient addresses in the message body.
-                    dscontents << Sisimai::Lhost.DELIVERYSTATUS
-                    v = dscontents[-1]
+                if Sisimai::Address.is_emailaddress(o[2])
+                  # The email address is a valid email address, avoid an email address
+                  # without a valid domain part such as "neko@mailhost".
+                  if o[0] == 'final-recipient'
+                    # Final-Recipient: rfc822; kijitora@example.jp
+                    if v["recipient"] != ""
+                      # There are multiple recipient addresses in the message body.
+                      dscontents << Sisimai::Lhost.DELIVERYSTATUS
+                      v = dscontents[-1]
+                    end
+                    v['recipient'] = o[2]
+                    recipients += 1
+                  else
+                    # X-Actual-Recipient: rfc822; kijitora@example.co.jp
+                    v['alias'] = o[2]
                   end
-                  v['recipient'] = o[2]
-                  recipients += 1
-                else
-                  # X-Actual-Recipient: rfc822; kijitora@example.co.jp
-                  v['alias'] = o[2]
                 end
               elsif o[3] == 'code'
                 # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
@@ -207,9 +211,10 @@ module Sisimai::Lhost
 
         if recipients == 0
           # Fallback: get a recipient address from error messages
-          if anotherset['recipient'].to_s.size > 0
+          if anotherset['recipient'].to_s.size > 0 || anotherset['alias'].to_s.size > 0
             # Set a recipient address
             dscontents[-1]['recipient'] = anotherset['recipient']
+            dscontents[-1]['recipient'] = anotherset['alias'] unless anotherset['recipient']
             recipients += 1
           else
             # Get a recipient address from message/rfc822 part if the delivery report was unavailable:
