@@ -15,8 +15,11 @@ module Sisimai::Lhost
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
-        return nil unless mhead['subject'].start_with?('Returned Mail: ')
-        return nil unless mhead['from'].start_with?('"Mail Deliver System" ')
+        proceedsto = false
+        proceedsto = true if mhead['subject'].start_with?('Returned Mail: ')
+        proceedsto = true if mhead['subject'].start_with?('Mail Delivery Failure')
+        proceedsto = true if Sisimai::String.aligned(mhead['from'], ['"Mail Deliver', 'System" '])
+        return nil unless proceedsto
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)

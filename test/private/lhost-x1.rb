@@ -8,6 +8,8 @@ module LhostEngineTest::Private
       '1003'  => [['5.0.910', '',    'filtered',        false]],
       '1004'  => [['5.0.910', '',    'filtered',        false]],
       '1005'  => [['5.0.910', '',    'filtered',        false]],
+      '1006'  => [['5.0.910', '',    'filtered',        false]],
+      '1007'  => [['5.0.947', '',    'expired',         false]],
     }
   end
 end
