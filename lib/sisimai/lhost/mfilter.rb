@@ -19,8 +19,12 @@ module Sisimai::Lhost
       # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         # X-Mailer: m-FILTER
-        return nil unless mhead['x-mailer'].to_s == 'm-FILTER'
-        return nil unless mhead['subject'] == 'failure notice'
+        proceedsto = false
+        proceedsto = true if mhead['x-mailer'].to_s == 'm-FILTER'
+        proceedsto = true if Boundaries.any? { |a| mbody.include?(a) }
+        proceedsto = true if StartingOf[:error].any?   { |a| mbody.include?(a) }
+        proceedsto = true if StartingOf[:command].any? { |a| mbody.include?(a) }
+        return nil unless proceedsto
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
