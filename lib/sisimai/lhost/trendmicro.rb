@@ -1,13 +1,13 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::InterScanMSS decodes a bounce email which created by Trend Micro InterScan
-  # Messaging Security Suite https://www.trendmicro.com/en_us/business/products/user-protection/sps/email-and-collaboration/interscan-messaging.html.
+  # Sisimai::Lhost::TrendMicro decodes a bounce email which created by TREND VISION ONE: Email and
+  # Collaboration Security: https://www.trendmicro.com/en_us/business/products/email-and-collaboration.html
   # Methods in the module are called from only Sisimai::Message.
-  module InterScanMSS
+  module TrendMicro
     class << self
       require 'sisimai/lhost'
       Boundaries = ['Content-Type: message/rfc822'].freeze
 
-        # @abstract Decodes the bounce message from Trend Micro InterScanMSS Messaging Secutiry Suie
+        # @abstract Decodes the bounce message from Trend Micro TREND VISION ONE
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
@@ -78,7 +78,7 @@ module Sisimai::Lhost
         end
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
-      def description; return 'Trend Micro InterScan Messaging Security Suite'; end
+      def description; return 'TREND VISION ONE(Email and Collaboration Security)'; end
     end
   end
 end
