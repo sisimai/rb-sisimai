@@ -1,5 +1,5 @@
 module LhostEngineTest::Private
-  module InterScanMSS
+  module TrendMicro
     IsExpected = {
       # INDEX => [['D.S.N.', 'replycode', 'REASON', 'hardbounce'], [...]]
       '1001'  => [['5.1.1',   '550', 'userunknown',     true]],

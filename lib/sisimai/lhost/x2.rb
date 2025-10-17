@@ -7,7 +7,11 @@ module Sisimai::Lhost
 
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['--- Original message follows.'].freeze
-      StartingOf = {message: ['Unable to deliver message to the following address']}.freeze
+      StartingOf = {
+        message: [
+          "Unable to deliver message to the following address",
+          "This Delivery Status Notification is sent from MTA",
+        ]}.freeze
 
       # @abstract Decodes the bounce message from Unknown MTA #2
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -33,7 +37,7 @@ module Sisimai::Lhost
           # line of the beginning of the original message.
           if readcursor == 0
             # Beginning of the bounce message or delivery status part
-            readcursor |= Indicators[:deliverystatus] if e.start_with?(StartingOf[:message][0])
+            readcursor |= Indicators[:deliverystatus] if StartingOf[:message].any? { |a| e.start_with?(a) }
             next
           end
           next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
@@ -43,18 +47,42 @@ module Sisimai::Lhost
           #
           # <kijitora@example.com>:
           # This user doesn't have a example.com account (kijitora@example.com) [0]
+          # 
+          # --- OR ---
+          # 
+          # This Delivery Status Notification is sent from MTA...
+          # 
+          # Your delivery to the following address has been failed.
+          # Please refer to the below for details.
+          # ------------------------------------------------------
+          # 
+          # Delivery failed: kijitora@example.co.jp
+          # 192.0.2.25 does not like recipient.
+          # Remote host said[Response Message]: 550 5.1.1 <kijitora@example.co.jp>:
+          #   Recipient address rejected: User unknown in local recipient table
+          # Giving up on 192.0.2.25.
+          # STEP: RCPT TO
           v = dscontents[-1]
 
-          if e.start_with?('<') && Sisimai::String.aligned(e, ['<', '@', '>', ':'])
+          if e.start_with?('<')                 && Sisimai::String.aligned(e, ['<', '@', '>:']) ||
+             e.start_with?('Delivery failed: ') && Sisimai::String.aligned(e, ['failed: ', '@'])
             # <kijitora@example.com>:
+            # Delivery failed: kijitora@example.co.jp
             if v["recipient"] != ""
               # There are multiple recipient addresses in the message body.
               dscontents << Sisimai::Lhost.DELIVERYSTATUS
               v = dscontents[-1]
             end
-            v['recipient'] = e[1, e.size - 3]
+            v['recipient'] = e[1, e.size - 3] if e.start_with?('<')
+            v['recipient'] = e[e.index(': ') + 2, e.size - 1] if v['recipient'].empty?
             recipients += 1
-          else
+
+          elsif e.start_with?('STEP: ')
+            # STEP: RCPT TO
+            # STEP: DATA SEND
+            v['command'] = Sisimai::SMTP::Command.find(e)
+
+          elsif e.start_with?('-----') == false
             # This user doesn't have a example.com account (kijitora@example.com) [0]
             v['diagnosis'] += " #{e}"
           end
