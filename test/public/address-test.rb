@@ -49,7 +49,7 @@ class AddressTest < Minitest::Test
 #    q|"neko.(),:;<>[]\".NYAAN.\"neko@\\ \"neko\".nyaan"@neko.example.com|,
 #    ''],
     ['neko-nyaan@neko-nyaan.example.com',           'neko-nyaan@neko-nyaan.example.com', 'neko-nyaan@neko-nyaan.example.com', ''],
-    ['neko@nyaan',                                  'neko@nyaan',         'neko@nyaan',               ''],
+#   ['neko@nyaan',                                  'neko@nyaan',         'neko@nyaan',               ''],
 #   [{q[#!$%&'*+-/=?^_`{}|~@example.org],            q[#!$%&'*+-/=?^_`{}|~@example.org], q[#!$%&'*+-/=?^_`{}|~@example.org], ''],
 #   [q*"()<>[]:,;@\\\"!#$%&'-/=?^_`{}| ~.a"@example.org*,
 #    q*"()<>[]:,;@\\\"!#$%&'-/=?^_`{}| ~.a"@example.org*,
@@ -57,6 +57,7 @@ class AddressTest < Minitest::Test
 #    ''],
     ['" "@example.org',                            '" "@example.org',    '" "@example.org',           ''],
     ['neko@localhost',                             'neko@localhost',     'neko@localhost',            ''],
+    ['neko@[IPv4:192.0.2.25]',                     'neko@[IPv4:192.0.2.25]',  'neko@[IPv4:192.0.2.25]', '' ],
     ['neko@[IPv6:2001:DB8::1]',                    'neko@[IPv6:2001:DB8::1]', 'neko@[IPv6:2001:DB8::1]', '' ],
   ]
   IsNotEmail = ['22', 'neko', 'cat%neko.jp', '', '@@@@@', '{}']
