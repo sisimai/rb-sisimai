@@ -1,33 +1,6 @@
 module Sisimai
   # Sisimai::Address provide methods for dealing email address.
   class Address
-    build_regular_expressions = lambda do
-      # See http://www.ietf.org/rfc/rfc5322.txt
-      #  or http://www.ex-parrot.com/pdw/Mail-RFC822-Address.html ...
-      #   addr-spec       = local-part "@" domain
-      #   local-part      = dot-atom / quoted-string / obs-local-part
-      #   domain          = dot-atom / domain-literal / obs-domain
-      #   domain-literal  = [CFWS] "[" *([FWS] dcontent) [FWS] "]" [CFWS]
-      #   dcontent        = dtext / quoted-pair
-      #   dtext           = NO-WS-CTL /     ; Non white space controls
-      #                     %d33-90 /       ; The rest of the US-ASCII
-      #                     %d94-126        ;  characters not including "[", "]", or "\"
-      re             = {rfc5322: nil, ignored: nil, domain: nil}
-      atom           = %r([a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+)o
-      quoted_string  = %r/"(?:\\[^\r\n]|[^\\"])*"/o
-      domain_literal = %r/\[(?:\\[\x01-\x09\x0B-\x0c\x0e-\x7f]|[\x21-\x5a\x5e-\x7e])*\]/o
-      dot_atom       = %r/#{atom}(?:[.]#{atom})*/o
-      local_part     = %r/(?:#{dot_atom}|#{quoted_string})/o
-      domain         = %r/(?:#{dot_atom}|#{domain_literal})/o
-
-      re[:rfc5322]   = %r/\A#{local_part}[@]#{domain}\z/o
-      re[:ignored]   = %r/\A#{local_part}[.]*[@]#{domain}\z/o
-      re[:domain]    = %r/\A#{domain}\z/o
-
-      return re
-    end
-
-    Re          = build_regular_expressions.call
     Indicators  = {
       :'email-address' => (1 << 0),    # <neko@example.org>
       :'quoted-string' => (1 << 1),    # "Neko, Nyaan"
@@ -47,9 +20,99 @@ module Sisimai
     # @param    [String] email  Email address string
     # @return   [Boolean]       true: is an email address, false: is not an email address
     def self.is_emailaddress(email)
-      return false if email.is_a?(::String) == false
-      return false if email =~ %r/(?:[\x00-\x1f]|\x1f)/ || email.size > 254
-      return true  if email =~ Re[:ignored]
+      return false if email.is_a?(::String) == false || email.size < 5;
+
+      email = email.strip
+      width = email.size
+      lasta = email.rindex('@') || -1
+      lastd = email.rindex('.') || -1
+
+      return false if width > 254;            # The maximum length of an email address is 254
+      return false if lasta < 1 || lasta > 64 # The maximum length of a local part is 64
+      return false if width - lasta > 253     # The maximum length of a domain part is 252
+
+      quote = is_quotedaddress(email); if quote == false
+        # The email address is not a quoted address
+        ap = email.index('@') || -1
+        return false if ap != lasta             # There are 2 or more '@'.
+        return false if email.index(' ') != nil # There is 1 or more ' '.
+      end
+
+      upper = email.upcase.split('')
+      ipv46 = Sisimai::RFC1123.is_domainliteral(email)
+      match = true
+
+      j = -1; email.split('').each do |e|
+        # 31 < The ASCII code of each character < 127
+        p = e.ord; j += 1
+
+        if j < lasta
+          # The email address has quoted local part like "neko@cat"@example.org
+          if p < 32 || p > 126
+            # Before ' ' || After '~'
+            match = false
+            break
+          end
+          next if j == 0  # The character is the first character
+
+          if quote
+            # The email address has quoted local part like "neko@cat"@example.org
+            jp = email[j - 1, 1]
+            if jp.ord == 92 # 92 = '\'
+              # When the previous character IS '\', only the followings are allowed: '\', '"'
+              if p != 92 && p != 34 then match = false; break; end
+            else
+              # When the previous character IS NOT '\'
+              if p == 34 && j + 1 < lasta then match = false; break; end
+            end
+          else
+            # The local part is not quoted
+            # ".." is not allowed in a local part when the local part is not quoted by "" but
+            # Non-RFC compliant email addresses still persist in the world.
+            #
+            # The following characters are not allowed in a local part without "..."@example.jp
+            if e == ',' || e == '@' || e == ':' || e == ';' || e == '(' then match = false; break; end
+            if e == ')' || e == '<' || e == '>' || e == '[' || e == ']' then match = false; break; end
+          end
+        else
+          # A domain part of the email address: string after the last "@"
+          next if p == 64 # '@'
+          if p <   45 then match = false; break; end  # Before '-'
+          if p ==  47 then match = false; break; end  # Equals '/'
+          if p ==  92 then match = false; break; end  # Equals '\'
+          if p >  122 then match = false; break; end  # After  'z'
+
+          if ipv46 == false
+            # Such as "example.jp", "neko.example.org"
+            if p > 57 && p < 64 then match = false; break; end  # ':' to '?'
+            if p > 90 && p < 97 then match = false; break; end  # '[' to '`'
+          else
+            # Such as "[IPv4:192.0.2.25]"
+            if p > 59 && p < 64 then match = false; break; end  # ';' to '?'
+            if p > 93 && p < 97 then match = false; break; end  # '^' to '`'
+          end
+
+          if j > lastd && ipv46 == false
+            # *TLD of the domain part: string after the last '.'
+            q = upper[j].ord
+            if q < 65 then match = false; break; end  # Before 'A'
+            if q > 90 then match = false; break; end  # After  'z'
+          end
+        end
+      end
+
+      # Check that the domain part is a valid internet host or not
+      match = Sisimai::RFC1123.is_internethost(email[lasta + 1, 255]) if match && ipv46 == false
+      return match
+    end
+
+    # Checks that the local part of the argument is quoted address or not.
+    # @param    [String] argv0  Email address
+    # @return   [True,False]    false: is not a quoted address
+    #                           true: is a quoted address
+    def self.is_quotedaddress(argv0)
+      return false if argv0.is_a?(::String) == false
+      return true  if argv0.start_with?('"') && argv0.include?('"@')
       return false
     end
 

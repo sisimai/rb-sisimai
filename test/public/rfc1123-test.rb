@@ -6,7 +6,6 @@ class RFC1123Test < Minitest::Test
 
   Hostnames0 = [
     '',
-    'localhost',
     '127.0.0.1',
     'cat',
     'neko',
@@ -21,6 +20,21 @@ class RFC1123Test < Minitest::Test
     'mx1.example.jp',
     'mx1.example.jp.',
     'a.jp',
+    'localhost',
+    'localhost6',
+  ]
+  IP46Domain = [
+      ['', false],
+      ['<neko@example.jp>', false],
+      ['<neko@[IPv4:192.0.2.25]>', true],
+      ['neko@[IPv4:192.0.2.25]', true],
+      ['neko@[Neko:192.0.2.25]', false],
+      ['neko@[IPv6:192.0.2.25]', false],
+      ['neko@[IPv6:2001:DB8::1]', true],
+      ['neko@[IPv5:2001:DB8::1]', false],
+      ['<neko@[IPv6:2001:DB8::1]>', true],
+      ['neko@[IPv6:2001:0DB8:0000:0000:0000:0000:0000:0001]', true],
+      ['<neko@[IPv6:2001:0DB8:0000:0000:0000:0000:0000:0001]>', true],
   ]
   ServerSaid = [
     '<neko@example.jp>: host neko.example.jp[192.0.2.2] said: 550 5.7.1 This message was not accepted due to domain (libsisimai.org) owner DMARC policy',
@@ -54,6 +68,17 @@ class RFC1123Test < Minitest::Test
 
     ce = assert_raises ArgumentError do
       Sisimai::RFC1123.is_internethost(nil, nil)
+    end
+  end
+
+  def test_is_domainliteral
+    IP46Domain.each do |e|
+      # IPv4 or IPv6
+      assert_equal e[1], Sisimai::RFC1123.is_domainliteral(e[0])
+    end
+
+    ce = assert_raises ArgumentError do
+      Sisimai::RFC1123.is_domainliteral(nil, nil)
     end
   end
 
