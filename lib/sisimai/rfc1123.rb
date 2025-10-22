@@ -3,6 +3,7 @@ module Sisimai
   module RFC1123
     class << self
       require 'sisimai/string'
+      require 'sisimai/rfc791'
       Sandwiched = [
           # (Postfix) postfix/src/smtp/smtp_proto.c: "host %s said: %s (in reply to %s)",
           # - <kijitora@example.com>: host re2.example.com[198.51.100.2] said: 550 ...
@@ -39,6 +40,7 @@ module Sisimai
       def is_internethost(argv0 = '')
         return false unless argv0
         return false if argv0.size < 4 || argv0.size > 255
+        return true  if argv0 == 'localhost' || argv0 == 'localhost6'
         return false if argv0.include?(".") == false
         return false if argv0.include?("..") || argv0.include?("--")
         return false if argv0.start_with?(".", "-") || argv0.end_with?("-")
@@ -63,6 +65,49 @@ module Sisimai
           if f > 47 && f < 58 then hostnameok = false; break; end
         end
         return hostnameok
+      end
+
+      # returns true if the domain part is [IPv4:...] or [IPv6:...].
+      # @param    [String] email  Email address.
+      # @return   [Boolean]       false: the domain part is not a domain literal.
+      #                           true:  the domain part is a domain literal.
+      def is_domainliteral(email)
+        return false if email.is_a?(::String) == false
+
+        email = email.delete_prefix('<').delete_suffix('>')
+        return false if email.size < 16 # e@[IPv4:0.0.0.0] is 16 characters
+        return false if email[-1, 1] != ']'
+
+        lastb = email.rindex('@[IPv'); return false if lastb == false
+        dpart = email.split('@')[-1]
+
+        if email.include?('@[IPv4:')
+          # neko@[IPv4:192.0.2.25]
+          ipv4a = email[lastb + 7, 16].delete_suffix(']')
+          return Sisimai::RFC791.is_ipv4address(ipv4a)
+
+        elsif email.include?('@[IPv6:')
+          # neko@[IPv6:2001:0DB8:0000:0000:0000:0000:0000:0001]
+          # neko@[IPv6:2001:0DB8:0000:0000:0000:0000:0000:0001]
+          # IPv6-address-literal  = "IPv6:" IPv6-addr
+          #    IPv6-addr      = IPv6-full / IPv6-comp / IPv6v4-full / IPv6v4-comp
+          #    IPv6-hex       = 1*4HEXDIG
+          #    IPv6-full      = IPv6-hex 7(":" IPv6-hex)
+          #    IPv6-comp      = [IPv6-hex *5(":" IPv6-hex)] "::"
+          #                     [IPv6-hex *5(":" IPv6-hex)]
+          #                     ; The "::" represents at least 2 16-bit groups of
+          #                     ; zeros.  No more than 6 groups in addition to the
+          #                     ; "::" may be present.
+          #    IPv6v4-full    = IPv6-hex 5(":" IPv6-hex) ":" IPv4-address-literal
+          #    IPv6v4-comp    = [IPv6-hex *3(":" IPv6-hex)] "::"
+          #                     [IPv6-hex *3(":" IPv6-hex) ":"]
+          #                     IPv4-address-literal
+          #                     ; The "::" represents at least 2 16-bit groups of
+          #                     ; zeros.  No more than 4 groups in addition to the
+          #                     ; "::" and IPv4-address-literal may be present.
+          return true if dpart.size > 2 && dpart.rindex(':') > 7
+        end
+        return false
       end
 
       # find() returns a valid internet hostname found from the argument
