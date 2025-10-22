@@ -1,6 +1,6 @@
 ![](https://libsisimai.org/static/images/logo/sisimai-x01.png)
 [![License](https://img.shields.io/badge/license-BSD%202--Clause-orange.svg)](https://github.com/sisimai/rb-sisimai/blob/master/LICENSE)
-[![Ruby](https://img.shields.io/badge/ruby-v2.4.0--v3.4.0-red.svg)](https://www.ruby-lang.org/)
+[![Ruby](https://img.shields.io/badge/ruby-v2.5.0--v3.4.0-red.svg)](https://www.ruby-lang.org/)
 [![Gem Version](https://badge.fury.io/rb/sisimai.svg)](https://badge.fury.io/rb/sisimai)
 [![codecov](https://codecov.io/github/sisimai/rb-sisimai/graph/badge.svg?token=YGkyluNWiZ)](https://codecov.io/github/sisimai/rb-sisimai)
 
@@ -16,7 +16,7 @@
 > 該当するバージョンをお使いの場合はv4.25.14p12以降へアップグレードしてください。**
 
 > [!WARNING]
-> Sisimai 5はRuby 2.4以上が必要です。インストール/アップグレードを実行する前に`ruby -v`コマンドで
+> Sisimai 5はRuby 2.5以上が必要です。インストール/アップグレードを実行する前に`ruby -v`コマンドで
 > システムに入っているRubyのバージョンを確認してください。
 
 > [!NOTE]
@@ -105,7 +105,7 @@ Sisimaiの動作環境についての詳細は[Sisimai | シシマイを使っ�
 をご覧ください。
 
 
-* [Ruby 2.4.0 or later](http://www.ruby-lang.org/)
+* [Ruby 2.5.0 or later](http://www.ruby-lang.org/)
   * [__oj | The fastest JSON parser and object serializer__](https://rubygems.org/gems/oj)
 * Also works on [JRuby 9.2 or later](http://jruby.org)
   * [__jrjackson | A mostly native JRuby wrapper for the java jackson json processor jar__](https://rubygems.org/gems/jrjackson)
@@ -125,7 +125,7 @@ Done installing documentation for sisimai after 6 seconds
 
 ### From GitHub
 > [!WARNING]
-> Sisimai 5はRuby 2.4以上が必要です。インストール/アップグレードを実行する前に`ruby -v`コマンドで
+> Sisimai 5はRuby 2.5以上が必要です。インストール/アップグレードを実行する前に`ruby -v`コマンドで
 > システムに入っているRubyのバージョンを確認してください。
 
 ```shell
@@ -349,11 +349,11 @@ Differences between Sisimai 4 and Sisimai 5
 
 Features
 ---------------------------------------------------------------------------------------------------
-Sisimai 5.0.0から**Ruby 2.4以上**が必要になります。
+Sisimai 5.0.0から**Ruby 2.5以上**が必要になります。
 
 | 機能                                                 | Sisimai 4          | Sisimai 5           |
 |------------------------------------------------------|--------------------|---------------------|
-| 動作環境(CRuby)                                      | 2.1 - 3.3.0        | **2.4** or later    |
+| 動作環境(CRuby)                                      | 2.1 - 3.3.0        | **2.5** or later    |
 | 動作環境(JRuby)                                      | 9.0.4.0 - 9.1.17.0 | **9.2** or later    |
 | 元メールファイルを操作可能なコールバック機能         | なし               | あり[^3]            |
 | 解析エンジン(MTA/ESPモジュール)の数                  | 68                 | 60                  |

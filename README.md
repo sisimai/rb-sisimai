@@ -1,6 +1,6 @@
 ![](https://libsisimai.org/static/images/logo/sisimai-x01.png)
 [![License](https://img.shields.io/badge/license-BSD%202--Clause-orange.svg)](https://github.com/sisimai/rb-sisimai/blob/master/LICENSE)
-[![Ruby](https://img.shields.io/badge/ruby-v2.4.0--v3.4.0-red.svg)](https://www.ruby-lang.org/)
+[![Ruby](https://img.shields.io/badge/ruby-v2.5.0--v3.4.0-red.svg)](https://www.ruby-lang.org/)
 [![Gem Version](https://badge.fury.io/rb/sisimai.svg)](https://badge.fury.io/rb/sisimai)
 [![codecov](https://codecov.io/github/sisimai/rb-sisimai/graph/badge.svg?token=YGkyluNWiZ)](https://codecov.io/github/sisimai/rb-sisimai)
 
@@ -17,7 +17,7 @@
 > If you are using one of these versions, please upgrade to v4.25.14p12 or later.**
 
 > [!WARNING]
-> Sisimai 5 requires Ruby 2.4 or later. Check the version of Ruby in your system before installing/upgrading
+> Sisimai 5 requires Ruby 2.5 or later. Check the version of Ruby in your system before installing/upgrading
 > by `ruby -v` command.
 
 > [!NOTE]
@@ -104,7 +104,7 @@ System requirements
 More details about system requirements are available at
 [Sisimai | Getting Started](https://libsisimai.org/en/start/) page.
 
-* [Ruby 2.4.0 or later](http://www.ruby-lang.org/)
+* [Ruby 2.5.0 or later](http://www.ruby-lang.org/)
   * [__oj | The fastest JSON parser and object serializer__](https://rubygems.org/gems/oj)
 * Also works on [JRuby 9.2 or later](http://jruby.org)
   * [__jrjackson | A mostly native JRuby wrapper for the java jackson json processor jar__](https://rubygems.org/gems/jrjackson)
@@ -124,7 +124,7 @@ Done installing documentation for sisimai after 6 seconds
 
 ### From GitHub
 > [!WARNING]
-> Sisimai 5 requires Ruby 2.4 or later. Check the version of Ruby in your system before installing/upgrading
+> Sisimai 5 requires Ruby 2.5 or later. Check the version of Ruby in your system before installing/upgrading
 > by `ruby -v` command.
 
 ```shell
@@ -348,11 +348,11 @@ differences are available at [Sisimai | Differences](https://libsisimai.org/en/d
 
 Features
 ---------------------------------------------------------------------------------------------------
-Beginning with v5.0.0, Sisimai requires **Ruby 2.4.0 or later.**
+Beginning with v5.0.0, Sisimai requires **Ruby 2.5.0 or later.**
 
 | Features                                             | Sisimai 4          | Sisimai 5           |
 |------------------------------------------------------|--------------------|---------------------|
-| System requirements (CRuby)                          | 2.1 - 3.3.0        | **2.4** or later    |
+| System requirements (CRuby)                          | 2.1 - 3.3.0        | **2.5** or later    |
 | System requirements (JRuby)                          | 9.0.4.0 - 9.1.17.0 | **9.2** or later    |
 | Callback feature for the original email file         | N/A                | Available[^3]       |
 | The number of MTA/ESP modules                        | 68                 | 60                  |
