@@ -241,7 +241,7 @@ module Sisimai
           end
           piece[v].delete!('[]()')    # Remove square brackets and curly brackets from the host variable
           piece[v].sub!(/\A.+=/, '')  # Remove string before "="
-          piece[v].sub!("\r", '')     # Remove CR at the end of the value
+          piece[v].delete_suffix("\r")# Remove CR at the end of the value
 
           if piece[v].include?(' ')
             # Check space character in each value and get the first hostname
@@ -255,13 +255,13 @@ module Sisimai
             end
           end
           piece[v] = ee[0] if piece[v].include?(' ')
-          piece[v].chomp!('.') if piece[v].end_with?('.')   # Remove "." at the end of the value
+          piece[v].delete_suffix!('.')  # Remove "." at the end of the value
         end
 
         # Subject: header of the original message
         piece['subject'] = rfc822data['subject'] || ''
         piece['subject'].scrub!('?')
-        piece['subject'].chomp!("\r") if piece['subject'].end_with?("\r")
+        piece['subject'].delete_suffix("\r")
 
         # The value of "List-Id" header
         if Sisimai::String.aligned(rfc822data['list-id'], ['<', '.', '>'])
@@ -290,7 +290,7 @@ module Sisimai
         # CHECK_DELIVERY_STATUS_VALUE: Cleanup the value of "Diagnostic-Code:" header
         if piece['diagnosticcode'].to_s.size > 0
           # Get an SMTP Reply Code and an SMTP Enhanced Status Code
-          piece['diagnosticcode'].chop if piece['diagnosticcode'][-1, 1] == "\r"
+          piece['diagnosticcode'].delete_suffix("\r")
 
           cs = Sisimai::SMTP::Status.find(piece['diagnosticcode'])
           cr = Sisimai::SMTP::Reply.find(piece['diagnosticcode'], cs)

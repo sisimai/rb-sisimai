@@ -333,7 +333,7 @@ module Sisimai
         # an IP address like neko@[192.0.2.222]
         e[:address] = e[:address].gsub(/\A[\[<{('`]/, '').gsub(/[.,'`>});]\z/, '')
         e[:address] = e[:address].gsub(/[^A-Za-z]\z/, '') unless e[:address].include?('@[')
-        e[:address] = e[:address].sub(/\A["]/, '').chomp('"') unless e[:address] =~ /\A["].+["][@]/
+        e[:address] = e[:address].delete_prefix('"').delete_suffix('"') unless is_quotedaddress(e[:address])
 
         if addrs
           # Almost compatible with parse() method, returns email address only
@@ -342,10 +342,10 @@ module Sisimai
         else
           # Remove double-quotations, trailing spaces.
           [:name, :comment].each { |f| e[f] = e[f].strip }
-          e[:comment] = '' unless e[:comment] =~ /\A[(].+[)]/
-          e[:name].squeeze!(' ')     unless e[:name] =~ /\A["].+["]\z/
-          e[:name].sub!(/\A["]/, '') unless e[:name] =~ /\A["].+["][@]/
-          e[:name].chomp!('"')
+          e[:comment] = ''              unless e[:comment] =~ /\A[(].+[)]/
+          e[:name].squeeze!(' ')        unless e[:name]    =~ /\A["].+["]\z/
+          e[:name].delete_prefix!('"')  unless is_quotedaddress(e[:name])
+          e[:name].delete_suffix!('"')
         end
         addrtables << e
       end
@@ -416,7 +416,7 @@ module Sisimai
               argvs[:address].match(/\A(["].+?["])[@]([^@]+)\z/)
         # Get the local part and the domain part from the email address
         lpart = argvs[:address][0, point]
-        dpart = argvs[:address][point + 1,  argvs[:address].size]
+        dpart = argvs[:address][point + 1, argvs[:address].size]
         email = Sisimai::Address.expand_verp(argvs[:address])
         aname = nil
 
