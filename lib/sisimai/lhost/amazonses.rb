@@ -87,8 +87,7 @@ module Sisimai::Lhost
             p3 = sespayload.index("{", p2 + 9)
             p4 = sespayload.index("\n", p2 + 9)
             sespayload = sespayload[p3, p4 - p3]
-            sespayload = sespayload.chop if sespayload[-1, 1] == ","
-            sespayload = sespayload.chop if sespayload[-1, 1] == '"'
+            sespayload = sespayload.delete_suffix(',').delete_suffix('"')
           end
 
           break if sespayload.include?("notificationType") == false
