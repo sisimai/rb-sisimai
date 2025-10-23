@@ -16,8 +16,8 @@ module Sisimai
       # @return   [Sisimai::Mail::Mbox]   Object
       #           [Nil]                   is not specified or does not exist
       def initialize(argv1)
-        raise Errno::ENOENT   unless File.exist?(argv1)
-        raise 'is not a file' unless File.ftype(argv1) == 'file'
+        raise Errno::ENOENT   if File.exist?(argv1) == false
+        raise 'is not a file' if File.ftype(argv1)  != 'file'
 
         @path   = argv1
         @dir    = File.dirname(argv1)
@@ -30,7 +30,7 @@ module Sisimai
       # Mbox reader, works as an iterator.
       # @return   [String] Contents of mbox
       def read
-        return nil unless self.offset < self.size
+        return nil if self.offset >= self.size
 
         seekoffset = self.offset || 0
         filehandle = self.handle
@@ -53,7 +53,7 @@ module Sisimai
           seekoffset = filehandle.pos - frombuffer.bytesize
           frombuffer = ''
           self.offset = seekoffset
-          filehandle.close unless self.offset < self.size
+          filehandle.close if self.offset >= self.size
         end
 
         return readbuffer.to_s
