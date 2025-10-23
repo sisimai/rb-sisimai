@@ -31,7 +31,7 @@ module Sisimai
         # @return   [Boolean]       false: Did not match, true: Matched
         # @since 4.22.0
         def match(argv1)
-          return false unless argv1
+          return false if argv1.nil? || argv1.empty?
           return true  if Index.any? { |a| argv1.include?(a) }
           return false
         end
