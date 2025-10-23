@@ -78,14 +78,14 @@ module Sisimai
 
         LocalAgent.each_key do |e|
           # Find a lcoal delivery agent name from the entire message body
-          next unless LocalAgent[e].any? { |a| issuedcode.include?(a) }
+          next if LocalAgent[e].none? { |a| issuedcode.include?(a) }
           deliversby = e; break
         end
         return "" if deliversby.empty?
 
         MessagesOf[deliversby].each_key do |e|
           # The key is a bounce reason name
-          next unless MessagesOf[deliversby][e].any? { |a| issuedcode.include?(a) }
+          next if MessagesOf[deliversby][e].none? { |a| issuedcode.include?(a) }
           reasontext = e; break
         end
 
