@@ -182,7 +182,7 @@ module Sisimai::Lhost
             next if v["rhost"] != ""
             StartingOf["rhost"].each do |r|
               # Find a remote host name
-              p1 = e.index(r); next unless p1
+              p1 = e.index(r); next if p1.nil?
               cm = r.size
               p2 = e.index(" ", p1 + cm + 1) || p2 = e.rindex(".") 
 
@@ -191,7 +191,7 @@ module Sisimai::Lhost
             end
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         dscontents.each do |e|
           # Tidy up the error message in e['diagnosis'], Try to detect the bounce reason.
@@ -200,7 +200,7 @@ module Sisimai::Lhost
           # Get the SMTP command name for the session
           CommandSet.each_key do |r|
             # Get the last SMTP command
-            next unless CommandSet[r].any? { |a| e["diagnosis"].include?(a) }
+            next if CommandSet[r].none? { |a| e["diagnosis"].include?(a) }
             e["command"] = r
             break
           end
@@ -224,10 +224,10 @@ module Sisimai::Lhost
               [e["alterrors"], e["diagnosis"]].each do |f|
                 # Try to detect an error reason
                 break if e["reason"] != ""
-                next unless f
+                next  if f.nil?
                 MessagesOf.each_key do |r|
                   # The key is a bounce reason name
-                  next unless MessagesOf[r].any? { |a| f.include?(a) }
+                  next if MessagesOf[r].none? { |a| f.include?(a) }
                   e["reason"] = r
                   break
                 end
@@ -235,7 +235,7 @@ module Sisimai::Lhost
 
                 FailOnLDAP.each_key do |r|
                   # The key is a bounce reason name
-                  next unless FailOnLDAP[r].any? { |a| f.include?(a) }
+                  next if FailOnLDAP[r].none? { |a| f.include?(a) }
                   e["reason"] = r
                   break
                 end

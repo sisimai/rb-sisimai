@@ -27,7 +27,7 @@ module Sisimai::Lhost
         match  = 0
         match += 1 if mhead['subject'].start_with?('Undeliverable Mail ')
         match += 1 if mhead['x-mailer'].to_s.start_with?('<SMTP32 v')
-        return nil unless match > 0
+        return nil if match == 0
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -61,11 +61,11 @@ module Sisimai::Lhost
             v['alterrors']  = e if e.include?(StartingOf[:error][0])
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         require 'sisimai/smtp/command'
         dscontents.each do |e|
-          unless e['alterrors'].to_s.empty?
+          if e['alterrors'].nil? == false && e['alterrors'].empty? == false
             # Copy alternative error message
             e['diagnosis'] = if e['diagnosis']
                                "#{e['alterrors']} #{e['diagnosis']}"
@@ -80,7 +80,7 @@ module Sisimai::Lhost
 
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
+            next if MessagesOf[r].none? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r
             break
           end

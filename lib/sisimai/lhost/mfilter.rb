@@ -24,7 +24,7 @@ module Sisimai::Lhost
         proceedsto = true if Boundaries.any? { |a| mbody.include?(a) }
         proceedsto = true if StartingOf[:error].any?   { |a| mbody.include?(a) }
         proceedsto = true if StartingOf[:command].any? { |a| mbody.include?(a) }
-        return nil unless proceedsto
+        return nil if proceedsto == false
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -95,7 +95,7 @@ module Sisimai::Lhost
             end
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
@@ -109,7 +109,7 @@ module Sisimai::Lhost
           e['lhost'] = Sisimai::RFC5322.received(rheads[0]).shift if e["lhost"].empty?
           [rhosts[0], rhosts[1]].each do |ee|
             # Avoid "... by m-FILTER"
-            next unless ee.include?('.')
+            next if ee.include?('.') == false
             e['rhost'] = ee
           end
         end

@@ -19,7 +19,7 @@ module Sisimai::Lhost
         proceedsto = true if mhead['subject'].start_with?('Returned Mail: ')
         proceedsto = true if mhead['subject'].start_with?('Mail Delivery Failure')
         proceedsto = true if Sisimai::String.aligned(mhead['from'], ['"Mail Deliver', 'System" '])
-        return nil unless proceedsto
+        return nil if proceedsto == false
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -64,7 +64,7 @@ module Sisimai::Lhost
             datestring = e[MarkingsOf[:message][0].size, e.size]
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])

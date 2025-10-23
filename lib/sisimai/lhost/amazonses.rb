@@ -149,7 +149,7 @@ module Sisimai::Lhost
 
           ReasonPair.each_key do |f|
             #  Try to find the bounce reason by "bounceSubType"
-            next unless ReasonPair[f] == p["bounceSubType"]
+            next if ReasonPair[f] != p["bounceSubType"]
             v["reason"] = f; break
           end
 

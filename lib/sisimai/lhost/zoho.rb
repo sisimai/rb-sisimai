@@ -19,7 +19,7 @@ module Sisimai::Lhost
         # X-ZohoMail: Si CHF_MF_NL SS_10 UW48 UB48 FMWL UW48 UB48 SGR3_1_09124_42
         # X-Zoho-Virus-Status: 2
         # X-Mailer: Zoho Mail
-        return nil unless mhead['x-zohomail']
+        return nil if mhead['x-zohomail'].nil?
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -68,7 +68,7 @@ module Sisimai::Lhost
             end
             recipients += 1
 
-          elsif e.start_with?('[Status: ')
+          elsif e.start_with?('[Status: ') && e.include?('<') && e.include?('>')
             # Expired
             # [Status: Error, Address: <kijitora@6kaku.example.co.jp>, ResponseCode 421, , Host not reachable.]
             if v["recipient"] != ""
@@ -83,17 +83,17 @@ module Sisimai::Lhost
             recipients += 1
           else
             # Continued line
-            next unless qprintable
+            next if qprintable == false
             v['diagnosis'] += e
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].tr("\n", ' '))
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
+            next if MessagesOf[r].none? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r
             break
           end

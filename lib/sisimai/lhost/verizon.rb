@@ -16,7 +16,7 @@ module Sisimai::Lhost
         while true
           # Check the value of "From" header
           # :'subject' => %r/Undeliverable Message/,
-          break unless mhead['received'].any? { |a| a.include?('.vtext.com (') }
+          break if mhead['received'].none? { |a| a.include?('.vtext.com (') }
           match = 1 if mhead['from'] == 'post_master@vtext.com'
           match = 0 if Sisimai::String.aligned(mhead['from'], ['sysadmin@', '.vzwpix.com'])
           break
@@ -130,7 +130,7 @@ module Sisimai::Lhost
             end
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         # Set the value of "MAIL FROM:" and "From:"
         emailparts[1] += "From: #{senderaddr}\n"    if emailparts[1].include?("\nFrom: ")    == false
@@ -140,7 +140,7 @@ module Sisimai::Lhost
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           messagesof.each_key do |r|
             # Verify each regular expression of session errors
-            next unless messagesof[r].any? { |a| e['diagnosis'].include?(a) }
+            next if messagesof[r].none? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r
             break
           end

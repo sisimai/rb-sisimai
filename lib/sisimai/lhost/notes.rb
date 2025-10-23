@@ -22,7 +22,7 @@ module Sisimai::Lhost
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
-        return nil unless mhead['subject'].start_with?('Undeliverable message')
+        return nil if mhead['subject'].start_with?('Undeliverable message') == false
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -89,16 +89,16 @@ module Sisimai::Lhost
           end
         end
 
-        unless recipients > 0
+        if recipients == 0
           # Fallback: Get the recpient address from RFC822 part
           p1 = emailparts[1].index("\nTo: ")     || -1
           p2 = emailparts[1].index("\n", p1 + 6) || -1
           if p1 > 0
             v['recipient'] = Sisimai::Address.s3s4(emailparts[1][p1 + 5, p2 - p1 - 5])
-            recipients += 1 unless v['recipient'].empty?
+            recipients += 1 if v['recipient'].empty? == false
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
@@ -106,7 +106,7 @@ module Sisimai::Lhost
 
           MessagesOf.each_key do |r|
             # Check each regular expression of Notes error messages
-            next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
+            next if MessagesOf[r].none? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r
             e['status'] = Sisimai::SMTP::Status.code(r.to_s) || ''
             break

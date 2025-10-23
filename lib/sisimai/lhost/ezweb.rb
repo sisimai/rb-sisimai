@@ -116,7 +116,7 @@ module Sisimai::Lhost
             end
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         dscontents.each do |e|
           # Check each value of DeliveryMatter{}, try to detect the bounce reason.
@@ -134,7 +134,7 @@ module Sisimai::Lhost
                 # Try to match with each session error message
                 Messagesof[r].each do |f|
                   # Check each error message pattern
-                  next unless e['diagnosis'].include?(f)
+                  next if e['diagnosis'].include?(f) == false
                   e['reason'] = r
                   throw :FINDREASON
                 end

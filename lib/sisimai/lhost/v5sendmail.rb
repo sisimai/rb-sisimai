@@ -36,10 +36,10 @@ module Sisimai::Lhost
       # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         # :from => %r/\AMail Delivery Subsystem/,
-        return nil unless mhead['subject'].start_with?('Returned mail: ')
+        return nil if mhead['subject'].start_with?('Returned mail: ') == false
 
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
-        return nil unless emailparts[1].size > 0
+        return nil if emailparts[1].size == 0
 
         require 'sisimai/rfc1123'
         require 'sisimai/smtp/command'
@@ -133,7 +133,7 @@ module Sisimai::Lhost
           # There is no recipient address in the error message
           anotherone.each_key do |e|
             # Try to pick an recipient address, a reply code, and error messages
-            cv = Sisimai::Address.s3s4(anotherone[e]); next unless Sisimai::Address.is_emailaddress(cv)
+            cv = Sisimai::Address.s3s4(anotherone[e]); next if Sisimai::Address.is_emailaddress(cv) == false
             cr = Sisimai::SMTP::Reply.find(anotherone[e])
 
             dscontents[e]["recipient"] = cv
@@ -150,13 +150,13 @@ module Sisimai::Lhost
             if p1 > 0
               # Get the recipient address from "To:" header at the original message
               cv = Sisimai::Address.s3s4(emailparts[1][p1, p2 - p1 - 5])
-              return nil unless Sisimai::Address.is_emailaddress(cv)
+              return nil if Sisimai::Address.is_emailaddress(cv) == false
               dscontents[0]["recipient"] = cv
               recipients += 1
             end
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         j = 0; dscontents.each do |e|
           # Tidy up the error message in e.Diagnosis
@@ -169,8 +169,8 @@ module Sisimai::Lhost
           # @example.jp, no local part
           # Get email address from the value of Diagnostic-Code header
           next if e['recipient'].include?('@')
-          p1 = e['diagnosis'].index('<'); next unless p1
-          p2 = e['diagnosis'].index('>'); next unless p2
+          p1 = e['diagnosis'].index('<'); next if p1.nil?
+          p2 = e['diagnosis'].index('>'); next if p2.nil?
           e['recipient'] = Sisimai::Address.s3s4(e[p1, p2 - p1])
         end
 

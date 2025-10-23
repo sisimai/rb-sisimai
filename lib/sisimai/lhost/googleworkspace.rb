@@ -26,10 +26,9 @@ module Sisimai::Lhost
       # @return [Nil]           it failed to decode or the arguments are missing
       # @see https://workspace.google.com/.
       def inquire(mhead, mbody)
-        return nil if     mbody.include?("\nDiagnostic-Code:")
-        return nil if     mbody.include?("\nFinal-Recipient:")
-        return nil unless mhead["from"].include?('<mailer-daemon@googlemail.com>')
-        return nil unless mhead["subject"].include?("Delivery Status Notification")
+        return nil if mbody.include?("\nDiagnostic-Code:") || mbody.include?("\nFinal-Recipient:")
+        return nil if mhead["from"].include?('<mailer-daemon@googlemail.com>') == false
+        return nil if mhead["subject"].include?("Delivery Status Notification") == false
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -64,7 +63,7 @@ module Sisimai::Lhost
         while recipients == 0 do
           # Pick the recipient address from the value of To: header of the original message after
           # Content-Type: message/rfc822 field
-          p0 = emailparts[1].index("\nTo:"); break unless p0
+          p0 = emailparts[1].index("\nTo:"); break if p0.nil?
           p1 = emailparts[1].index("\n", p0 + 2)
           cv = Sisimai::Address.s3s4(emailparts[1][p0 + 4, p1 - p0])
           dscontents[0]["recipient"] = cv
@@ -78,7 +77,7 @@ module Sisimai::Lhost
           e["diagnosis"] = Sisimai::String.sweep(e["diagnosis"])
           MessagesOf.each_key do |r|
             # Guess an reason of the bounce
-            next unless MessagesOf[r].any? { |a| e["diagnosis"].include?(a) }
+            next if MessagesOf[r].none? { |a| e["diagnosis"].include?(a) }
             e["reason"] = r
             break
           end

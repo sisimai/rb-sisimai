@@ -26,7 +26,7 @@ module Sisimai::Lhost
         match += 1 if mhead['reply-to'].to_s == 'no-reply@app.auone-net.jp'
         match += 1 if mhead['received'].any? { |a| a.include?('ezweb.ne.jp (') }
         match += 1 if mhead['received'].any? { |a| a.include?('.au.com (') }
-        return nil unless match > 0
+        return nil if match == 0
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -55,7 +55,7 @@ module Sisimai::Lhost
               v = dscontents[-1]
             end
             r = Sisimai::Address.s3s4(e[e.index('<') + 1, e.size])
-            next unless Sisimai::Address.is_emailaddress(r)
+            next if Sisimai::Address.is_emailaddress(r) == false
             v['recipient'] = r
             recipients += 1
 
@@ -67,7 +67,7 @@ module Sisimai::Lhost
             v['diagnosis'] += "#{e} " if e.start_with?(' ')
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         require 'sisimai/smtp/command'
         dscontents.each do |e|
@@ -86,7 +86,7 @@ module Sisimai::Lhost
               # SMTP command is not RCPT
               MessagesOf.each_key do |r|
                 # Verify each regular expression of session errors
-                next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
+                next if MessagesOf[r].none? { |a| e['diagnosis'].include?(a) }
                 e['reason'] = r
                 break
               end

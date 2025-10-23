@@ -16,7 +16,7 @@ module Sisimai::Lhost
       # @return [Nil]           it failed to decode or the arguments are missing
       # @since v4.25.6
       def inquire(mhead, mbody)
-        return nil unless mhead['subject'].start_with?('There was an error sending your mail')
+        return nil if mhead['subject'].start_with?('There was an error sending your mail') == false
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -76,7 +76,7 @@ module Sisimai::Lhost
             recipients += 1
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         require 'sisimai/smtp/command'
         dscontents.each do |e|

@@ -21,7 +21,7 @@ module Sisimai::Lhost
           # Message-Id: <0123456789-1102117314000@us-mta-25.us.mimecast.lan>
           match += 1 if mhead['message-id'].include?('.mimecast.lan>')
         end
-        return nil unless match > 0
+        return nil if match == 0
 
         require 'sisimai/rfc1123'
         require 'sisimai/rfc1894'
@@ -78,17 +78,17 @@ module Sisimai::Lhost
                 v['diagnosis'] = o[2]
               else
                 # Other DSN fields defined in RFC3464
-                next unless fieldtable[o[0]]
+                next if fieldtable[o[0]].nil?
                 next if o[3] == "host" && Sisimai::RFC1123.is_internethost(o[2]) == false
                 v[fieldtable[o[0]]] = o[2]
 
-                next unless f == 1
+                next if f != 1
                 permessage[fieldtable[o[0]]] = o[2]
               end
             end
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         dscontents.each do |e|
           # Set default values if each value is empty.

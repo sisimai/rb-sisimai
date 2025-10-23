@@ -74,14 +74,14 @@ module Sisimai::Lhost
             throw :EXCHANGE_OR_NOT if mhead['received'].empty?
             mhead['received'].each do |e|
               # Received: by ***.**.** with Internet Mail Service (5.5.2657.72)
-              next unless e.include?(' with Internet Mail Service (')
+              next if e.include?(' with Internet Mail Service (') == false
               match += 1
               throw :EXCHANGE_OR_NOT
             end
             break
           end
         end
-        return nil unless match > 0
+        return nil if match == 0
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -160,26 +160,26 @@ module Sisimai::Lhost
             #
             if e.start_with?('  To: ') || e.start_with?('      To: ')
               #  To:      shironeko@example.jp
-              next unless connheader['to'].empty?
+              next if connheader['to'].empty? == false
               connheader['to'] = e[e.rindex(' ') + 1, e.size]
               connvalues += 1
 
             elsif e.start_with?('      Subject: ') || e.start_with?('  Subject: ')
               #  Subject: ...
-              next unless connheader['subject'].empty?
+              next if connheader['subject'].empty? == false
               connheader['subject'] = e[e.rindex(' ') + 1, e.size]
               connvalues += 1
 
             elsif e.start_with?('  Sent: ') || e.start_with?('      Sent: ')
               #  Sent:    Thu, 29 Apr 2010 18:14:35 +0000
               #  Sent:    4/29/99 9:19:59 AM
-              next unless connheader['date'].empty?
+              next if connheader['date'].empty? == false
               connheader['date'] = e[e.index(':') + 2, e.size]
               connvalues += 1
             end
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         dscontents.each do |e|
           e.delete('msexch')
@@ -193,7 +193,7 @@ module Sisimai::Lhost
 
             ErrorCodes.each_key do |r|
               # Find captured code from the error code table
-              next unless ErrorCodes[r].index(capturedcode)
+              next if ErrorCodes[r].index(capturedcode).nil?
               e['reason'] = r
               e['status'] = Sisimai::SMTP::Status.code(r)
               break
