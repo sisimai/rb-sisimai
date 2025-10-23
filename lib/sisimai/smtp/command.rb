@@ -28,7 +28,7 @@ module Sisimai
         # @return   [String]        An SMTP command
         # @since v5.0.0
         def find(argv0 = '')
-          return "" unless Sisimai::SMTP::Command.test(argv0)
+          return "" if Sisimai::SMTP::Command.test(argv0) == false
 
           issuedcode = " " + argv0.downcase + " "
           commandmap = {"STAR" => "STARTTLS", "XFOR" => "XFORWARD"}
@@ -36,7 +36,7 @@ module Sisimai
 
           Detectable.each do |e|
             # Find an SMTP command from the given string
-            p0 = argv0.index(e); next unless p0
+            p0 = argv0.index(e); next if p0.nil?
             if e.include?(" ") == false
               # For example, "RCPT T" does not appear in an email address or a domain name
               cx = true; while true do

@@ -160,7 +160,7 @@ module Sisimai
 
           if first == 3
             # 3yz
-            return false unless reply == 334 || reply == 354
+            return false if reply != 334 && reply != 354
             return true
           end
 
