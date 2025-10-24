@@ -10,8 +10,7 @@ module Sisimai
         # @param    [Sisimai::Fact] argvs Object
         # @return   [String, nil]         Dumped data or nil if the argument is missing
         def dump(argvs)
-          return "" unless argvs
-          return "" unless argvs.is_a? Sisimai::Fact
+          return "" if argvs.nil? || argvs.is_a?(Sisimai::Fact) == false
 
           damneddata = argvs.damn
           yamlstring = nil

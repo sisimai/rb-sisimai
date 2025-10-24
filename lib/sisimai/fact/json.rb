@@ -8,8 +8,7 @@ module Sisimai
         # @param    [Sisimai::Fact] argvs Object
         # @return   [String]              Dumped data or an empty string if the argument is missing
         def dump(argvs)
-          return "" unless argvs
-          return "" unless argvs.is_a? Sisimai::Fact
+          return "" if argvs.nil? || argvs.is_a?(Sisimai::Fact) == false
 
           if RUBY_PLATFORM.start_with?('java')
             # java-based ruby environment like JRuby.
