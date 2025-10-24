@@ -88,13 +88,13 @@ module Sisimai
         #           https://www.postmastery.com/yahoo-postmaster/
         # @since v5.1.0
         def find(argvs)
-          return argvs['reason'] unless argvs['reason'].empty?
+          return argvs['reason'] if argvs['reason'].empty? == false
           issuedcode = argvs['diagnosticcode'].downcase
           reasontext = ''
 
           MessagesOf.each_key do |e|
             MessagesOf[e].each do |f|
-              next unless issuedcode.include?(f)
+              next if issuedcode.include?(f) == false
               reasontext = e
               break
             end

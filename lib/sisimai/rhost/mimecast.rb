@@ -283,8 +283,8 @@ module Sisimai
         # @param    [Sisimai::Fact] argvs   Decoded email object
         # @return   [String]                The bounce reason for mimecast.com
         def find(argvs)
-          return argvs['reason'] unless argvs['reason'].empty?
-          return '' unless Sisimai::SMTP::Reply.test(argvs['replycode'])
+          return argvs['reason'] if argvs['reason'].empty? == false
+          return '' if Sisimai::SMTP::Reply.test(argvs['replycode']) == false
 
           issuedcode = argvs['diagnosticcode'].downcase || ''
           esmtpreply = argvs['replycode'].to_i
@@ -294,12 +294,11 @@ module Sisimai
             # Try to match the error message with message patterns defined in "MessagesOf"
             MessagesOf[e].each do |f|
               # Find an error reason
-              next unless esmtpreply == f[0]
-              next unless issuedcode.include?(f[1])
+              next if esmtpreply != f[0] || issuedcode.include?(f[1]) == false
               reasontext = e
               break
             end
-            break unless reasontext.empty?
+            break if reasontext.empty? == false
           end
 
           return reasontext

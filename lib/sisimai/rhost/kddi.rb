@@ -21,7 +21,7 @@ module Sisimai
 
           MessagesOf.each_key do |e|
             # Try to match the error message with message patterns defined in $MessagesOf
-            next unless issuedcode.include?(MessagesOf[e])
+            next if issuedcode.include?(MessagesOf[e]) == false
             reasontext = e
             break
           end

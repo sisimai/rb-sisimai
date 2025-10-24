@@ -142,7 +142,7 @@ module Sisimai
           issuedcode = issuedcode.downcase
           MessagesOf.each_key do |e|
             MessagesOf[e].each do |f|
-              next unless issuedcode.include?(f)
+              next if issuedcode.include?(f) == false
               reasontext = e
               break
             end

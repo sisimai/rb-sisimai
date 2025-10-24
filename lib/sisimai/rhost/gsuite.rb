@@ -24,7 +24,7 @@ module Sisimai
 
           MessagesOf.each_key do |e|
             # Try to match the error message with message patterns defined in $MessagesOf
-            next unless MessagesOf[e].any? { |a| argvs["diagnosticcode"].include?(a) }
+            next if MessagesOf[e].none? { |a| argvs["diagnosticcode"].include?(a) }
             next if e == "networkerror" && (statuscode == "5" || esmtpreply == "5")
             next if e == "hostunknown"  && (statuscode == "4" || statuscode == "")
             next if e == "hostunknown"  && (esmtpreply == "4" || esmtpreply == "")
