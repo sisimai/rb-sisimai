@@ -41,15 +41,14 @@ module Sisimai
 
         LowerLabel.each do |e|
           # Set lower-cased value of each header related to auto-response
-          next unless mhead.has_key?(e)
+          next if mhead.has_key?(e) == false
           lower[e] = mhead[e].downcase
         end
 
         # DETECT_EXCLUSION_MESSAGE
         DoNotParse.each_key do |e|
           # Exclude message from root@
-          next unless lower[e]
-          next unless DoNotParse[e].any? { |a| lower[e].include?(a) }
+          next if lower[e].nil? || DoNotParse[e].none? { |a| lower[e].include?(a) }
           leave = 1
           break
         end
@@ -58,8 +57,7 @@ module Sisimai
         # DETECT_AUTO_REPLY_MESSAGE0
         AutoReply0.each_key do |e|
           # RFC3834 Auto-Submitted and other headers
-          next unless lower[e]
-          next unless AutoReply0[e].any? { |a| lower[e].include?(a) }
+          next if lower[e].nil? || AutoReply0[e].none? { |a| lower[e].include?(a) }
           match += 1
           break
         end
@@ -78,7 +76,7 @@ module Sisimai
         # RECIPIENT_ADDRESS
         %w[from return-path].each do |e|
           # Try to get the address of the recipient
-          next unless mhead[e]
+          next if mhead[e].nil?
           v['recipient'] = mhead[e]
           break
         end
@@ -88,12 +86,12 @@ module Sisimai
           v['recipient'] = Sisimai::Address.s3s4(v['recipient'])
           recipients += 1
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         if mhead['content-type']
           # Get the boundary string and set regular expression for matching with the boundary string.
           q = Sisimai::RFC2045.boundary(mhead['content-type'], 0) || ''
-          MarkingsOf[:boundary] = q unless q.empty?
+          MarkingsOf[:boundary] = q if q.empty? == false
         end
 
         # MESSAGE_BODY: Get the vacation message
