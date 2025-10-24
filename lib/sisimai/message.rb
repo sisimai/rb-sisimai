@@ -38,7 +38,7 @@ module Sisimai
       # @return        [Sisimai::Message] Structured email data or nil if each
       #                                   value of the arguments are missing
       def rise(**argvs)
-        return nil unless argvs
+        return nil if argvs.nil?
         email = argvs[:data].scrub('?').gsub("\r\n", "\n")
         thing = {'from' => '','header' => {}, 'rfc822' => '', 'ds' => [], 'catch' => nil}
         param = {}
@@ -56,12 +56,12 @@ module Sisimai
           thing['header'] = Sisimai::Message.makemap(aftersplit[1])
 
           # 3. Decode and rewrite the "Subject:" header
-          unless thing['header']['subject'].empty?
+          if thing['header']['subject'].empty? == false
             # Decode MIME-Encoded "Subject:" header
             cv = thing['header']['subject']
             cq = Sisimai::RFC2045.is_encoded(cv) ? Sisimai::RFC2045.decodeH(cv.split(/[ ]/)) : cv
             cl = cq.downcase
-            p1 = cl.index('fwd:'); p1 = cl.index('fw:') unless p1
+            p1 = cl.index('fwd:'); p1 = cl.index('fw:') if p1.nil?
 
             # Remove "Fwd:" string from the Subject: header
             if p1
@@ -80,17 +80,16 @@ module Sisimai
             'tryonfirst' => Sisimai::Order.make(thing['header']['subject'])
           }
           break if beforefact = Sisimai::Message.sift(param)
-          break unless Boundaries.any? { |a| aftersplit[2].include?(a) }
+          break if Boundaries.none? { |a| aftersplit[2].include?(a) }
 
           # 5. Try to sift again
           #    There is a bounce message inside of mutipart/*, try to sift the first message/rfc822
           #    part as a entire message body again.
           parseagain += 1
           email = Sisimai::RFC5322.part(aftersplit[2], Boundaries, true).pop.sub(/\A\s+/, '')
-          break unless email.size > 128
+          break if email.size < 128
         end
-        return nil unless beforefact
-        return nil if beforefact.empty?
+        return nil if beforefact.nil? || beforefact.empty?
 
         # 6. Rewrite headers of the original message in the body part
         %w|ds catch rfc822|.each { |e| thing[e] = beforefact[e] }
@@ -112,8 +111,7 @@ module Sisimai
         email.gsub!(/\r\n/, "\n") if email.include?("\r\n")
 
         (parts[1], parts[2]) = email.split(/\n\n/, 2)
-        return nil unless parts[1]
-        return nil unless parts[2]
+        return nil if parts[1].nil? || parts[2].nil?
 
         if parts[1].start_with?('From ')
           # From MAILER-DAEMON Tue Feb 11 00:00:00 2014
@@ -122,7 +120,7 @@ module Sisimai
           # Set pseudo UNIX From line
           parts[0] = 'MAILER-DAEMON Tue Feb 11 00:00:00 2014'
         end
-        parts[1] += "\n" unless parts[1].end_with?("\n")
+        parts[1] += "\n" if parts[1].end_with?("\n") == false
 
         %w[image/ application/ text/html].each do |e|
           # https://github.com/sisimai/p5-sisimai/issues/492, Reduce email size
@@ -131,8 +129,8 @@ module Sisimai
           ep = e == 'text/html' ? '</html>' : "--\n"
           while true
             # Remove each part from "Content-Type: image/..." to "--\n" (the end of each boundary)
-            p0 = parts[2].index("Content-Type: #{e}", p0); break unless p0
-            p1 = parts[2].index(ep, p0 + 32);              break unless p1
+            p0 = parts[2].index("Content-Type: #{e}", p0); break if p0.nil?
+            p1 = parts[2].index(ep, p0 + 32);              break if p1.nil?
             parts[2][p0, p1 - p0] = ''
           end
         end
@@ -173,8 +171,7 @@ module Sisimai
         end
         headermaps['received'] = receivedby
 
-        return headermaps unless argv1
-        return headermaps if headermaps['subject'].empty?
+        return headermaps if argv1.nil? || headermaps['subject'].empty?
 
         # Convert MIME-Encoded subject
         if Sisimai::String.is_8bit(headermaps['subject'])
@@ -230,7 +227,7 @@ module Sisimai
             # Such as Diagnostic-Code, Remote-MTA, and so on
             # - Before: Diagnostic-Code: SMTP;550 User unknown
             # - After:  Diagnostic-Code: smtp; 550 User unknown
-            break unless ['Content-Type'].concat(Fields1894).any? { |a| a == fn }
+            break if ['Content-Type'].concat(Fields1894).none? { |a| a == fn }
 
             if p1
               # The field including one or more ";"
@@ -254,7 +251,7 @@ module Sisimai
                     ps = f[0, p2].downcase
                     f[0, p2] = ps
                   end
-                  f.downcase! unless ps == 'boundary'
+                  f.downcase! if ps != 'boundary'
                   f = 'rfc822' if f == 'rfc/822'
                   break
                 end
@@ -265,9 +262,9 @@ module Sisimai
                 # Diagnostic-Code: x-unix;
                 #   /var/email/kijitora/Maildir/tmp/1000000000.A000000B00000.neko22:
                 #   Disk quota exceeded
-                break unless fn == 'Diagnostic-Code'
-                break unless ab.size == 1
-                break unless lines[index + 1].start_with?(' ')
+                break if fn != 'Diagnostic-Code'
+                break if ab.size != 1
+                break if lines[index + 1].start_with?(' ') == false
 
                 ab << ''
                 break
@@ -300,7 +297,7 @@ module Sisimai
           email += sprintf("%s: %s\n", fn, bf)
         end
 
-        email += "\n" unless email.end_with?("\n\n")
+        email += "\n" if email.end_with?("\n\n") == false
         return email
       end
 
@@ -315,14 +312,13 @@ module Sisimai
       # @param options argvs [Array] tryonfirst  MTA module list to load on first
       # @return              [Hash]          Decoded and structured bounce mails
       def sift(argvs)
-        return nil unless argvs['mail']
-        return nil unless argvs['body']
+        return nil if argvs['mail'].nil? || argvs['body'].nil?
 
         mailheader = argvs['mail']['header']
         bodystring = argvs['body']
         hookmethod = argvs['hook'] || nil
         havecaught = nil
-        return nil unless mailheader
+        return nil if mailheader.nil?
 
         # PRECHECK_EACH_HEADER:
         # Set empty string if the value is nil
@@ -355,7 +351,7 @@ module Sisimai
           # NOT text/plain
           # In case of Content-Type: multipart/*
           p = Sisimai::RFC2045.makeflat(mailheader['content-type'], bodystring)
-          bodystring = p unless p.empty?
+          bodystring = p if p.empty? == false
         end
         bodystring = bodystring.scrub('?').delete("\r").gsub("\t", " ")
 
@@ -416,7 +412,7 @@ module Sisimai
             break # as of now, we have no sample email for coding this block
           end
         end
-        return nil unless havesifted
+        return nil if havesifted.nil?
 
         havesifted['catch'] = havecaught
         modulename = modulename.sub(/\A.+::/, '')
