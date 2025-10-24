@@ -38,8 +38,7 @@ module Sisimai
       # @return   [Boolean]      false: is not a valid internet host, true: is a valid interneet host
       # @since v5.2.0
       def is_internethost(argv0 = '')
-        return false unless argv0
-        return false if argv0.size < 4 || argv0.size > 255
+        return false if argv0.nil? || argv0.size < 4 || argv0.size > 255
         return true  if argv0 == 'localhost' || argv0 == 'localhost6'
         return false if argv0.include?(".") == false
         return false if argv0.include?("..") || argv0.include?("--")
@@ -115,8 +114,7 @@ module Sisimai
       # @return   string        A valid internet hostname found in the argument
       # @since v5.2.0
       def find(argv1 = "")
-        return "" unless argv1
-        return "" unless argv1.size > 4
+        return "" if argv1.nil? || argv1.size < 5
 
         sourcetext = argv1.downcase
         sourcelist = []
@@ -136,7 +134,7 @@ module Sisimai
           Sandwiched.each do |e|
             # Check a hostname exists between the $e->[0] and $e->[1] at array "Sandwiched"
             # Each array in Sandwiched have 2 elements
-            next unless Sisimai::String.aligned(sourcetext, e)
+            next if Sisimai::String.aligned(sourcetext, e) == false
 
             p1 = sourcetext.index(e[0])
             p2 = sourcetext.index(e[1])
@@ -157,7 +155,7 @@ module Sisimai
           end
           ExistUntil.each do |e|
             # ExistUntil have some strings, not an array
-            p1 = sourcetext.index(e); next unless p1
+            p1 = sourcetext.index(e); next if p1.nil?
             sourcelist = sourcetext[0, p1].split(" ")
             throw :MAKELIST
           end
@@ -171,9 +169,9 @@ module Sisimai
           e.chop! if e[-1, 1] == "." # Remove "." at the end of the string
           e.delete!('[]()<>:;')
 
-          next unless e.size > 3
-          next unless e.include?(".")
-          next unless Sisimai::RFC1123.is_internethost(e)
+          next if e.size < 4
+          next if e.include?(".") == false
+          next if Sisimai::RFC1123.is_internethost(e) == false
           foundtoken << e
         end
         return ""            if foundtoken.size == 0
