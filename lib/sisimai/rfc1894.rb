@@ -114,16 +114,16 @@ module Sisimai
 
         FieldNames[0].each_key do |e|
           # Per-Message fields
-          next unless label == e
-          next unless argv0.include?(FieldNames[0][label])
+          next if label != e
+          next if argv0.include?(FieldNames[0][label]) == false
           match = 1; break
         end
         return match if match > 0
 
         FieldNames[1].each_key do |e|
           # Per-Recipient field
-          next unless label == e
-          next unless argv0.include?(FieldNames[1][label])
+          next if label != e
+          next if argv0.include?(FieldNames[1][label]) == false
           match = 2; break
         end
         return match
@@ -147,9 +147,7 @@ module Sisimai
         label = Sisimai::RFC1894.label(argv0)
         group = FieldGroup[label] || ''
         parts = argv0.split(":", 2); parts[1] = parts[1].nil? ? "" : Sisimai::String.sweep(parts[1])
-
-        return nil if group.empty?
-        return nil unless CapturesOn[group]
+        return nil if group.empty? || CapturesOn[group].nil?
 
         # Try to match with each pattern of Per-Message field, Per-Recipient field
         #   - 0: Field-Name
