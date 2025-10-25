@@ -6,7 +6,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
-      Boundaries = ['Received: from '].freeze
+      Boundaries = ['Content-Type: message/rfc822', 'Received: from '].freeze
       MarkingsOf = {message: ['The original message was received at ']}.freeze
 
       # @abstract Decodes the bounce message from Unknown MTA #1
