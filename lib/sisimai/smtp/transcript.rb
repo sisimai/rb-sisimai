@@ -17,8 +17,8 @@ module Sisimai
           return nil if argv0.size == 0
 
           # 1. Replace label strings of SMTP client/server at the each line
-          argv0.gsub!(/^[ ]+#{argv1}\s+/m, '>>> '); return nil unless argv0.include?('>>> ')
-          argv0.gsub!(/^[ ]+#{argv2}\s+/m, '<<< '); return nil unless argv0.include?('<<< ')
+          argv0.gsub!(/^[ ]+#{argv1}\s+/m, '>>> '); return nil if argv0.include?('>>> ') == false
+          argv0.gsub!(/^[ ]+#{argv2}\s+/m, '<<< '); return nil if argv0.include?('<<< ') == false
 
           # 2. Remove strings until the first '<<<' or '>>>'
           esmtp = []
@@ -96,7 +96,7 @@ module Sisimai
               end
             else
               # SMTP server sent a response "<<< response text"
-              p = e.index('<<< '); next unless p == 0
+              p = e.index('<<< '); next if p.nil? && p != 0
               e = e[4, e.size].sub(/\A<<<[ ]/, '')
 
               if cv = e.match(/\A([2-5]\d\d)[ ]/) then cx['response']['reply'] = cv[1] end

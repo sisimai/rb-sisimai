@@ -23,7 +23,7 @@ module Sisimai::Lhost
         match += 1 if mhead['from'].start_with?('"InterScan MSS"')
         match += 1 if mhead['from'].start_with?('"InterScan Notification"')
         match += 1 if tryto.any? { |a| mhead['subject'] == a }
-        return nil unless match > 0
+        return nil if match == 0
 
         require 'sisimai/smtp/command'
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
@@ -65,12 +65,11 @@ module Sisimai::Lhost
           else
             # Error message in non-English
             v['command'] = Sisimai::SMTP::Command.find(e) if e.include?(' >>> ')
-            p3 = e.index(' <<< ')
-            next unless p3
+            p3 = e.index(' <<< '); next if p3.nil?
             v['diagnosis'] = e[p3 + 4, e.size]
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])

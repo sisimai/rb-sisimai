@@ -151,7 +151,7 @@ module Sisimai
               if o[0] == "final-recipient"
                 # Final-Recipient: rfc822; kijitora@example.jp
                 # Final-Recipient: x400; /PN=...
-                cv = Sisimai::Address.s3s4(o[2]); next unless Sisimai::Address.is_emailaddress(cv)
+                cv = Sisimai::Address.s3s4(o[2]); next if Sisimai::Address.is_emailaddress(cv) == false
                 cw = dscontents.size;             next if cw > 0 && cv == dscontents[cw - 1]["recipient"]
 
                 if v["recipient"] != ""
@@ -177,18 +177,18 @@ module Sisimai
                 # Status: 4.0.0 (cat.example.net: host name lookup failure)
                 v["diagnosis"] += " #{o[4]} "
               end
-              next unless FieldTable[o[0]]
+              next if FieldTable[o[0]].nil?
               next if o[3] == "host" && Sisimai::RFC1123.is_internethost(o[2]) == false
               v[FieldTable[o[0]]] = o[2]
 
-              next unless f == 1
+              next if f != 1
               permessage[FieldTable[o[0]]] = o[2]
             end
           else
             # Check that the line is a continued line of the value of Diagnostic-Code: field or not
             if e.start_with?("X-") && e.include?(": ")
               # This line is a MTA-Specific fields begins with "X-"
-              next unless Sisimai::RFC3464::ThirdParty.is3rdparty(e)
+              next if Sisimai::RFC3464::ThirdParty.is3rdparty(e) == false
               cv = Sisimai::RFC3464::ThirdParty.xfield(e)
 
               if cv.size > 0 && FieldTable[cv[0].downcase] == nil
@@ -197,7 +197,7 @@ module Sisimai
                 v["reason"] = cv[4][p1 + 1, cv[4].size] if cv[4].start_with?("reason:")
               else
                 # Set the value picked from "X-*" field to $dscontents when the current value is empty
-                z = FieldTable[cv[0].downcase]; next unless z
+                z = FieldTable[cv[0].downcase]; next if z.nil?
                 v[z] ||=  cv[2]
               end
             else
@@ -211,7 +211,7 @@ module Sisimai
 
               # Diagnostic-Code: SMTP; 550-5.7.26 The MAIL FROM domain [email.example.jp]
               #    has an SPF record with a hard fail
-              next unless e.start_with?(" ")
+              next if e.start_with?(" ") == false
               v["diagnosis"] += " #{Sisimai::String.sweep(e)}"
             end
           end

@@ -68,11 +68,11 @@ module Sisimai
       # @return   [String] Bounce reason or an empty string if the argument is missing or not Hash
       # @see anotherone
       def find(argvs)
-        return "" unless argvs
-        unless GetRetried[argvs['reason']]
+        return "" if argvs.nil?
+        if GetRetried[argvs['reason']].nil?
           # Return reason text already decided except reason match with the regular expression of
           # retry() method.
-          return argvs['reason'] unless argvs['reason'].empty?
+          return argvs['reason'] if argvs['reason'].empty? == false
         end
         return 'delivered' if argvs['deliverystatus'].start_with?('2.')
 
@@ -94,7 +94,7 @@ module Sisimai
               warn " ***warning: Failed to load #{p}"
               next
             end
-            next unless r.true(argvs)
+            next if r.true(argvs) == false
             reasontext = r.text
             break
           end
@@ -113,7 +113,7 @@ module Sisimai
             # Try to match with message patterns in Sisimai::Reason::Vacation
             require 'sisimai/reason/vacation'
             reasontext   = 'vacation' if Sisimai::Reason::Vacation.match(issuedcode.downcase)
-            reasontext ||= 'onhold'   unless issuedcode.empty?
+            reasontext ||= 'onhold'   if issuedcode.empty? == false
             reasontext ||= 'undefined'
           end
         end
@@ -125,7 +125,7 @@ module Sisimai
       # @return   [String, Nil] Bounce reason or nli if the argument is missing or not Hash
       # @see      find()
       def anotherone(argvs)
-        return argvs['reason'] unless argvs['reason'].empty?
+        return argvs['reason'] if argvs['reason'].empty? == false
 
         require 'sisimai/smtp/status'
         issuedcode = argvs['diagnosticcode'].downcase || ''
@@ -150,11 +150,11 @@ module Sisimai
               next
             end
 
-            next unless r.match(issuedcode)
+            next if r.match(issuedcode) == false
             reasontext = e.downcase
             break
           end
-          break unless reasontext.empty?
+          break if reasontext.empty? == false
 
           # Check the value of Status:
           code2digit = statuscode[0, 3] || ''
@@ -175,7 +175,7 @@ module Sisimai
             require 'sisimai/reason/syntaxerror'
             reasontext = 'syntaxerror' if Sisimai::Reason::SyntaxError.true(argvs)
           end
-          break unless reasontext.empty?
+          break if reasontext.empty? == false
 
           # Check the value of Action: field, first
           if actiontext.start_with?('delayed', 'expired')
@@ -195,7 +195,7 @@ module Sisimai
       # @param    [String] argv1  Error message
       # @return   [String]        Bounce reason
       def match(argv1)
-        return "" unless argv1
+        return "" if argv1.nil?
 
         reasontext = ''
         issuedcode = argv1.downcase
@@ -214,11 +214,11 @@ module Sisimai
             next
           end
 
-          next unless r.match(issuedcode)
+          next if r.match(issuedcode) == false
           reasontext = r.text
           break
         end
-        return reasontext unless reasontext.empty?
+        return reasontext if reasontext.empty? == false
 
         if issuedcode.upcase.include?('X-UNIX; ')
           # X-Unix; ...

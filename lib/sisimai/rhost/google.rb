@@ -527,8 +527,8 @@ module Sisimai
         # @see      https://support.google.com/a/answer/3726730?hl=en
         def find(argvs)
           return "" if argvs["diagnosticcode"].empty?
-          return '' unless Sisimai::SMTP::Reply.test(argvs['replycode'])
-          return '' unless Sisimai::SMTP::Status.test(argvs['deliverystatus'])
+          return '' if Sisimai::SMTP::Reply.test(argvs['replycode']) == false
+          return '' if Sisimai::SMTP::Status.test(argvs['deliverystatus']) == false
 
           statuscode = argvs['deliverystatus'][2,6]
           esmtpreply = argvs['replycode'][1,2]
@@ -539,13 +539,13 @@ module Sisimai
             # Each key is a reason name
             MessagesOf[e].each do |f|
               # Try to match an SMTP reply code, a D.S.N, and an error message
-              next unless issuedcode.include?(f[2])
-              next unless f[0].end_with?(esmtpreply)
-              next unless f[1].end_with?(statuscode)
+              next if issuedcode.include?(f[2])  == false
+              next if f[0].end_with?(esmtpreply) == false
+              next if f[1].end_with?(statuscode) == false
               reasontext = e
               break
             end
-            break unless reasontext.empty?
+            break if reasontext.empty? == false
           end
 
           return reasontext

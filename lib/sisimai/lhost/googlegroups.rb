@@ -13,11 +13,10 @@ module Sisimai::Lhost
       # @return [Nil]           it failed to decode or the arguments are missing
       # @since v4.25.6
       def inquire(mhead, mbody)
-        return nil unless mbody.include?("Google Groups")
-        return nil unless mhead['from'].end_with?('<mailer-daemon@googlemail.com>')
-        return nil unless mhead['subject'].start_with?('Delivery Status Notification')
-        return nil unless mhead['x-failed-recipients']
-        return nil unless mhead['x-google-smtp-source']
+        return nil if mbody.include?("Google Groups") == false
+        return nil if mhead['from'].end_with?('<mailer-daemon@googlemail.com>') == false
+        return nil if mhead['subject'].start_with?('Delivery Status Notification') == false
+        return nil if mhead['x-failed-recipients'].nil? || mhead['x-google-smtp-source'].nil?
 
         # Hello kijitora@libsisimai.org,
         #
@@ -55,7 +54,7 @@ module Sisimai::Lhost
 
         mhead['x-failed-recipients'].split(',').each do |e|
           # X-Failed-Recipients: neko@example.jp, nyaan@example.org, ...
-          next unless Sisimai::Address.is_emailaddress(e)
+          next if Sisimai::Address.is_emailaddress(e) == false
 
           if v["recipient"] != ""
             # There are multiple recipient addresses in the message body.
@@ -66,7 +65,7 @@ module Sisimai::Lhost
           recipients += 1
           recordwide.each_key { |r| v[r] = recordwide[r] }
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Google Groups: https://groups.google.com'; end

@@ -735,7 +735,7 @@ module Sisimai
         # @since v4.17.2
         def find(argvs)
           return '' if argvs['deliverystatus'].empty?
-          return '' unless Sisimai::SMTP::Status.test(argvs['deliverystatus'])
+          return '' if Sisimai::SMTP::Status.test(argvs['deliverystatus']) == false
 
           statuscode = argvs['deliverystatus']
           issuedcode = argvs['diagnosticcode'].downcase
@@ -748,19 +748,18 @@ module Sisimai
               # ["status-code", min, max, "error message"]
               if f[1] == f[2]
                 # This error code have no range
-                next unless statuscode == f[0]
+                next if statuscode != f[0]
               else
                 # This error code has a range
-                next unless statuscode.start_with?(f[0])
-                next if     thirddigit < f[1]
-                next if     thirddigit > f[2]
+                next if statuscode.start_with?(f[0]) == false
+                next if thirddigit < f[1] || thirddigit > f[2]
               end
 
-              next unless issuedcode.include?(f[3])
+              next if issuedcode.include?(f[3]) == false
               reasontext = e
               break
             end
-            break unless reasontext.empty?
+            break if reasontext.empty? == false
           end
 
           return reasontext

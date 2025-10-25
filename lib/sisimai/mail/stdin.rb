@@ -13,7 +13,7 @@ module Sisimai
       # @param    [IO::STDIN] stdin      Standard-In
       # @return   [Sisimai::Mail::STDIN] Object
       def initialize(stdin = $stdin)
-        raise 'is not an IO object' unless stdin.is_a?(IO)
+        raise 'is not an IO object' if stdin.is_a?(IO) == false
 
         @path   = '<STDIN>'
         @size   = nil
@@ -32,7 +32,7 @@ module Sisimai
         end
 
         begin
-          readhandle = STDIN unless readhandle
+          readhandle = STDIN if readhandle.nil?
           while r = readhandle.gets
             break if readbuffer.size > 0 && r.start_with?('From ')
             readbuffer << r

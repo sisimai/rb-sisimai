@@ -9,7 +9,7 @@ module Sisimai
       # @param    [String] argvs  String to be checked
       # @return   [Boolean]       false: Not MIME encoded string, true: MIME encoded string
       def is_encoded(argv1)
-        return false unless argv1
+        return false if argv1.nil? || argv1.empty?
 
         text1 = argv1.delete('"')
         mime1 = false
@@ -69,7 +69,7 @@ module Sisimai
           # utf8 => UTF-8
           ctxcharset = 'UTF-8' if ctxcharset.casecmp('UTF8') == 0
 
-          unless ctxcharset.casecmp('UTF-8') == 0
+          if ctxcharset.casecmp('UTF-8') != 0
             # Characterset is not UTF-8
             begin
               p = p.encode!('UTF-8', ctxcharset)
@@ -109,12 +109,11 @@ module Sisimai
       def parameter(argv0 = '', argv1 = '')
         return "" if argv0.empty?
         parameterq = argv1.size > 0 ? argv1 + '=' : ''
-        paramindex = argv1.size > 0 ? argv0.index(parameterq) : 0
-        return '' unless paramindex
+        paramindex = argv1.size > 0 ? argv0.index(parameterq) : 0; return '' if paramindex.nil?
 
         # Find the value of the parameter name specified in argv1
         foundtoken = argv0[paramindex + parameterq.size, argv0.size].split(';', 2)[0] || ''
-        foundtoken = foundtoken.downcase unless argv1 == 'boundary'
+        foundtoken = foundtoken.downcase if argv1 != 'boundary'
         foundtoken = foundtoken.delete('"').delete("'")
         return foundtoken
       end
@@ -147,8 +146,8 @@ module Sisimai
         return nil if block.empty?
 
         (upperchunk, lowerchunk) = block.split("\n\n", 2)
-        return ['', ''] if     upperchunk.to_s.empty?
-        return ['', ''] unless upperchunk.index('Content-Type')
+        return ['', ''] if upperchunk.nil? || upperchunk.empty?
+        return ['', ''] if upperchunk.index('Content-Type').nil?
 
         headerpart = ['', ''] # ["text/plain; charset=iso-2022-jp; ...", "quoted-printable"]
         multipart1 = []       # [headerpart, "body"]
@@ -236,8 +235,7 @@ module Sisimai
             # There is nested multipart/* block
             boundary02 = boundary(f[0], -1); next if boundary02.empty?
             bodyinside = f[-1].split("\n\n", 2)[-1]
-            next unless bodyinside.size > 8
-            next unless bodyinside.index(boundary02)
+            next if bodyinside.size < 9 || bodyinside.index(boundary02).nil?
 
             v = levelout(f[0], bodyinside)
             partstable += v if v.size > 0
@@ -330,7 +328,7 @@ module Sisimai
             # the following errors:
             #   - incompatible character encodings: ASCII-8BIT and UTF-8
             #   - invalid byte sequence in UTF-8
-            unless bodystring.encoding.to_s == 'UTF-8'
+            if bodystring.encoding.to_s != 'UTF-8'
               # ASCII-8BIT or other 8bit encodings
               ctxcharset = parameter(e[0], 'charset')
               if ctxcharset.empty?
@@ -349,7 +347,7 @@ module Sisimai
           else
             # There is no Content-Transfer-Encoding header in the part
             be = bodyinside.encoding.to_s
-            bodyinside  = Sisimai::String.to_utf8(bodyinside, be) unless be == 'UTF-8' 
+            bodyinside  = Sisimai::String.to_utf8(bodyinside, be) if be != 'UTF-8' 
             bodystring += bodyinside
           end
 
@@ -361,7 +359,7 @@ module Sisimai
           end
 
           # Append "\n" when the last character of $bodystring is not LF
-          bodystring += "\n\n" unless bodystring[-2, 2] == "\n\n"
+          bodystring += "\n\n" if bodystring[-2, 2] != "\n\n"
           flattenout += bodystring
         end
 

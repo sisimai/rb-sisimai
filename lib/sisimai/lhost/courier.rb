@@ -36,7 +36,7 @@ module Sisimai::Lhost
           # Message-ID: <courier.4D025E3A.00001792@5jo.example.org>
           match += 1 if mhead['message-id'].start_with?('<courier.')
         end
-        return nil unless match > 0
+        return nil if match == 0
 
         require 'sisimai/rfc1123'
         require 'sisimai/rfc1894'
@@ -94,11 +94,11 @@ module Sisimai::Lhost
               v['diagnosis'] = o[2]
             else
               # Other DSN fields defined in RFC3464
-              next unless fieldtable[o[0]]
+              next if fieldtable[o[0]].nil?
               next if o[3] == "host" && Sisimai::RFC1123.is_internethost(o[2]) == false
               v[fieldtable[o[0]]] = o[2]
 
-              next unless f == 1
+              next if f != 1
               permessage[fieldtable[o[0]]] = o[2]
             end
           else
@@ -114,14 +114,14 @@ module Sisimai::Lhost
               thecommand = Sisimai::SMTP::Command.find(e)
             else
               # Continued line of the value of Diagnostic-Code field
-              next unless readslices[-2].start_with?('Diagnostic-Code:')
-              next unless e.start_with?(' ')
+              next if readslices[-2].start_with?('Diagnostic-Code:') == false
+              next if e.start_with?(' ') == false
               v['diagnosis'] += " #{Sisimai::String.sweep(e)}"
               readslices[-1]  = "Diagnostic-Code: #{e}"
             end
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         dscontents.each do |e|
           # Set default values if each value is empty.
@@ -131,7 +131,7 @@ module Sisimai::Lhost
 
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
+            next if MessagesOf[r].none? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r
             break
           end

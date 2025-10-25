@@ -148,7 +148,7 @@ module Sisimai
         # @param    [String] argv1  String to be matched with regular expressions
         # @return   [Boolean]       false: Did not match, true: Matched
         def match(argv1)
-          return false unless argv1
+          return false if argv1.nil? || argv1.empty?
           return true  if Index.any? { |a| argv1.include?(a) }
           return true  if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
           return false
@@ -184,12 +184,12 @@ module Sisimai
                 next
               end
 
-              next unless r.match(issuedcode)
+              next if r.match(issuedcode) == false
               # Match with reason defined in Sisimai::Reason::* except UserUnknown.
               matchother = true
               break
             end
-            return true unless matchother # Did not match with other message patterns
+            return true if matchother == false  # Did not match with other message patterns
 
           elsif argvs['command'] == 'RCPT'
             # When the SMTP command is not "RCPT", the session rejected by other

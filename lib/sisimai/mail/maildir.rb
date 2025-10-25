@@ -16,8 +16,8 @@ module Sisimai
       # @return   [Sisimai::Mail::Maildir]  Object
       #           [Nil]                     is not a directory or does not exist
       def initialize(argv1)
-        raise Errno::ENOENT  unless File.exist?(argv1)
-        raise Errno::ENOTDIR unless File.ftype(argv1) == 'directory'
+        raise Errno::ENOENT  if File.exist?(argv1) == false
+        raise Errno::ENOTDIR if File.ftype(argv1)  != 'directory'
 
         @path   = nil
         @size   = Dir.entries(argv1).size
@@ -30,7 +30,7 @@ module Sisimai
       # Maildir reader, works as an iterator.
       # @return       [String] Contents of file in Maildir/
       def read
-        return nil unless self.offset < self.size
+        return nil if self.offset >= self.size
         seekhandle = self.handle
         readbuffer = ''
 
@@ -61,7 +61,7 @@ module Sisimai
             self.file    = r
             break
           end
-          seekhandle.close unless self.offset < self.size
+          seekhandle.close if self.offset >= self.size
         end
 
         return readbuffer

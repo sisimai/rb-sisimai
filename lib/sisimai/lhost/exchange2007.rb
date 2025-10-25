@@ -143,11 +143,11 @@ module Sisimai::Lhost
           p3 = emailparts[0].index("\n", p2 + 20);              break if p3.nil?
           cv = Sisimai::Address.s3s4(emailparts[0][p2 + 20, p3 - p2 - 20])
 
-          break unless Sisimai::Address.is_emailaddress(cv)
+          break if Sisimai::Address.is_emailaddress(cv) == false
           dscontents[0]["recipient"] = cv
           recipients += 1
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         dscontents.each do |e|
           # Tidy up the error message in $e->{'diagnosis'}, Try to detect the bounce reason.

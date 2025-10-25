@@ -26,7 +26,7 @@ module Sisimai::Lhost
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
-        return nil unless mhead['subject'].start_with?('DELIVERY FAILURE:', 'DELIVERY_FAILURE:')
+        return nil if mhead['subject'].start_with?('DELIVERY FAILURE:', 'DELIVERY_FAILURE:') == false
 
         require 'sisimai/rfc1123'
         require 'sisimai/rfc1894'
@@ -107,17 +107,17 @@ module Sisimai::Lhost
                 v['diagnosis'] = o[2] if v['diagnosis'].empty?
               else
                 # Other DSN fields defined in RFC3464
-                next unless fieldtable[o[0]]
+                next if fieldtable[o[0]].nil?
                 next if o[3] == "host" && Sisimai::RFC1123.is_internethost(o[2]) == false
                 v[fieldtable[o[0]]] = o[2]
 
-                next unless f == 1
+                next if f != 1
                 permessage[fieldtable[o[0]]] = o[2]
               end
             end
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
@@ -126,7 +126,7 @@ module Sisimai::Lhost
 
           MessagesOf.each_key do |r|
             # Check each regular expression of Domino error messages
-            next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
+            next if MessagesOf[r].none? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r
             e['status'] = Sisimai::SMTP::Status.code(r, false) if e["status"].empty?
             break
@@ -134,7 +134,7 @@ module Sisimai::Lhost
         end
 
         # Set the value of subjecttxt as a Subject if there is no original message in the bounce mail.
-        emailparts[1] += "Subject: #{subjecttxt}\n" unless emailparts[1].include?("\nSubject:")
+        emailparts[1] += "Subject: #{subjecttxt}\n" if emailparts[1].include?("\nSubject:") == false
 
         return {"ds" => dscontents, "rfc822" => emailparts[1]}
       end

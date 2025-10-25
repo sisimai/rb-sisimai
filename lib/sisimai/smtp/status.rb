@@ -692,7 +692,7 @@ module Sisimai
         # @return   [String]        Reason name or an empty string
         # @see      code
         def name(argv1 = nil)
-          return "" unless Sisimai::SMTP::Status.test(argv1.to_s)
+          return "" if Sisimai::SMTP::Status.test(argv1.to_s) == false
           return StandardCode[argv1] || ""
         end
 
@@ -706,7 +706,7 @@ module Sisimai
 
           token = []
           argv1.split('.').each { |e| token << e.to_i }
-          return false unless token.size == 3
+          return false if token.size != 3
           return false if token[0] < 2 || token[0] == 3 || token[0]  > 5
           return false if token[1] < 0 || token[1]  > 7
           return false if token[2] < 0
@@ -755,7 +755,7 @@ module Sisimai
 
           lookingfor.sort_by(&:first).each do |e|
             # Try to find an SMTP Status Code from the given string
-            indexofees = esmtperror.index(e[1], e[0]); next unless indexofees
+            indexofees = esmtperror.index(e[1], e[0]); next if indexofees.nil?
             characters = [esmtperror[indexofees - 1, 1].ord]  # [0] The previous character of the status
             [2, 3].each do |i|
               # [1] The value of the "Subject", "5.[7].261"
@@ -827,8 +827,8 @@ module Sisimai
         # @return   [String]        The preferred value
         # @since v5.0.0
         def prefer(argv0 = nil, argv1 = nil, argv2 = nil)
-          return argv1 unless argv0; return argv1 unless argv0.size > 4
-          return argv0 unless argv1; return argv0 unless argv1.size > 4
+          return argv1 if argv0.nil?; return argv1 if argv0.size < 5
+          return argv0 if argv1.nil?; return argv0 if argv1.size < 5
 
           statuscode = argv0
           codeinmesg = argv1

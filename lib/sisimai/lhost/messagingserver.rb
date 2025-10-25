@@ -20,7 +20,7 @@ module Sisimai::Lhost
         match  = 0
         match += 1 if mhead['content-type'].include?('Boundary_(ID_')
         match += 1 if mhead['subject'].start_with?('Delivery Notification: ')
-        return nil unless match > 0
+        return nil if match == 0
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -63,7 +63,7 @@ module Sisimai::Lhost
             #   Recipient address: @smtp.example.net:kijitora@server
             #   Original address: kijitora@example.jp
             cv = Sisimai::Address.s3s4(e[e.rindex(' ') + 1, e.size])
-            next unless Sisimai::Address.is_emailaddress(cv)
+            next if Sisimai::Address.is_emailaddress(cv) == false
 
             if v["recipient"] != "" && cv != v['recipient']
               # There are multiple recipient addresses in the message body.
@@ -99,9 +99,9 @@ module Sisimai::Lhost
 
             # The value does not include ".", use IP address instead.
             # (TCP|17.111.174.67|47323|192.0.2.225|25)
-            next unless sessionlog[0] == '(TCP'
+            next if sessionlog[0] != '(TCP'
             v['lhost'] = sessionlog[1]
-            v['rhost'] = sessionlog[3] unless remotehost.index('.') > 1
+            v['rhost'] = sessionlog[3] if remotehost.index('.') < 2
           else
             # Original-envelope-id: 0NFC009FLKOUVMA0@mr21p30im-asmtp004.me.com
             # Reporting-MTA: dns;mr21p30im-asmtp004.me.com (tcp-daemon)
@@ -118,7 +118,7 @@ module Sisimai::Lhost
             if e.start_with?('Status: ')
               # Status: 5.1.1 (Remote SMTP server has rejected address)
               p1 = e.index(':')
-              p2 = e.index('(')
+              p2 = e.index('('); next if p2.nil?
               v['status']    = e[p1 + 2, p2 - p1 - 3]
               v['diagnosis'] = e[p2 + 1, e[e.index(')') - p2 - 1]] if v["diagnosis"].empty?
 
@@ -130,17 +130,17 @@ module Sisimai::Lhost
               # Reporting-MTA: dns;mr21p30im-asmtp004.me.com (tcp-daemon)
               localhost = e[e.index(';') + 1, e.size]
               v['lhost'] = localhost if v["lhost"].empty?
-              v['lhost'] = localhost unless v['lhost'].index('.') > 0
+              v['lhost'] = localhost if v['lhost'].index('.') < 1
             end
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
+            next if MessagesOf[r].none? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r
             break
           end

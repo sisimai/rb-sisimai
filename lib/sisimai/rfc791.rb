@@ -31,13 +31,13 @@ module Sisimai
         ipv4a = []
         %w|( ) [ ] ,|.each do |e|
           # Rewrite: "mx.example.jp[192.0.2.1]" => "mx.example.jp 192.0.2.1"
-          p0 = given.index(e); next unless p0
+          p0 = given.index(e); next if p0.nil?
           given[p0, 1] = ' '
         end
 
         given.split(' ').each do |e|
           # Find string including an IPv4 address
-          next unless e.index('.')  # IPv4 address must include "." character
+          next if e.index('.').nil? # IPv4 address must include "." character
 
           lx = e.size; next if lx < 7 || lx > 17  # 0.0.0.0 = 7, [255.255.255.255] = 17
           cu = 0  # Cursor for seeking each octet of an IPv4 address

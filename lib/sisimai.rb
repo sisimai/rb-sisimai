@@ -44,7 +44,7 @@ module Sisimai
           end
         end
 
-        sisi += fact unless fact.empty?
+        sisi += fact if fact.empty? == false
       end
 
       return nil if sisi.empty?

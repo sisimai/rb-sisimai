@@ -145,7 +145,7 @@ module Sisimai
             # The error code was not found in ErrorCodes
             MessagesOf.each_key do |e|
               # Try to find with each error message defined in MessagesOf
-              next unless MessagesOf[e].any? { |a| issuedcode.include?(a) }
+              next if MessagesOf[e].none? { |a| issuedcode.include?(a) }
               reasontext = e
               break
             end

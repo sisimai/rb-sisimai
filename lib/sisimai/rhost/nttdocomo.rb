@@ -16,7 +16,7 @@ module Sisimai
         # @param    [Sisimai::Fact] argvs   Decoded email object
         # @return   [String]                The bounce reason for docomo.ne.jp
         def find(argvs)
-          return argvs['reason'] unless argvs['reason'].empty?
+          return argvs['reason'] if argvs['reason'].empty? == false
           statuscode = argvs['deliverystatus']          || ''
           thecommand = argvs['command']                 || ''
           esmtperror = argvs['diagnosticcode'].downcase || ''
@@ -58,7 +58,7 @@ module Sisimai
               #   bounce reason will be definitively "userunknown". This is because NTT DOCOMO
               #   no longer rejects emails via SMTP for domain-specific rejection or specified
               #   reception filters.
-              next unless MessagesOf[e].any? { |a| esmtperror.include?(a) }
+              next if MessagesOf[e].none? { |a| esmtperror.include?(a) }
               reasontext = e
               break
             end

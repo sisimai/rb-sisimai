@@ -85,7 +85,7 @@ module Sisimai
 
           ErrorCodes.each_key do |e|
             # The key is a bounce reason name
-            next unless ErrorCodes[e].any? { |a| errorlabel == a }
+            next if ErrorCodes[e].none? { |a| errorlabel == a }
             reasontext = e
             break
           end

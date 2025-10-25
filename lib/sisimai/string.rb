@@ -14,10 +14,8 @@ module Sisimai
       # @return [String]        Message token(MD5 hex digest) or blank(failed to create token)
       # @see    http://en.wikipedia.org/wiki/ASCII
       def token(addr1, addr2, epoch)
-        return "" unless addr1.is_a?(::String)
-        return "" unless addr2.is_a?(::String)
-        return "" unless epoch.is_a?(Integer)
-        return "" if addr1.empty? || addr2.empty?
+        return "" if addr1.is_a?(::String) == false || addr2.is_a?(::String) == false
+        return "" if addr1.empty? || addr2.empty? || epoch.is_a?(Integer) == false
 
         # Format: STX(0x02) Sender-Address RS(0x1e) Recipient-Address ETX(0x03)
         require 'digest/sha1'
@@ -30,7 +28,7 @@ module Sisimai
       def is_8bit(argvs)
         v = argvs.to_s
         return false if v.empty?
-        return true  unless v =~ /\A[\x00-\x7f]*\z/
+        return true  if v !~ /\A[\x00-\x7f]*\z/
         return false
       end
 
@@ -40,7 +38,7 @@ module Sisimai
       # @example  Clean up text
       #   sweep('  neko ') #=> 'neko'
       def sweep(argv1)
-        return argv1 unless argv1.is_a?(::String)
+        return argv1 if argv1.is_a?(::String) == false
         argv1 = argv1.chomp.squeeze(' ').strip
         argv1 = argv1.sub(/ [-]{2,}[^ ].+\z/, '')
         return argv1
@@ -52,16 +50,14 @@ module Sisimai
       # @return   [Boolean]
       # @since v5.0.0
       def aligned(argv1, argv2)
-        return false if argv1.to_s.empty?
-        return false unless argv2.is_a? Array
-        return false unless argv2.size > 1
+        return false if argv1.to_s.empty? || argv2.is_a?(Array) == false || argv2.size < 2
 
         align = -1
         right =  0
         argv2.each do |e|
           # Get the position of each element in the 1st argument using index()
           p = argv1.index(e, align + 1)
-          break unless p            # Break this loop when there is no string in the 1st argument
+          break if p == nil         # Break this loop when there is no string in the 1st argument
           align  = e.length + p - 1 # There is an aligned string in the 1st argument
           right += 1
         end

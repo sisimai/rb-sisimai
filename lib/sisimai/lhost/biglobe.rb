@@ -22,9 +22,9 @@ module Sisimai::Lhost
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
-        return nil unless mhead['from'].include?('postmaster@')
-        return nil unless %w[biglobe inacatv tmtv ttv].any? { |a| mhead['from'].include?('@' + a + '.ne.jp') }
-        return nil unless mhead['subject'].start_with?('Returned mail:')
+        return nil if mhead['from'].include?('postmaster@') == false
+        return nil if %w[biglobe inacatv tmtv ttv].none? { |a| mhead['from'].include?('@' + a + '.ne.jp') }
+        return nil if mhead['subject'].start_with?('Returned mail:') == false
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -67,7 +67,7 @@ module Sisimai::Lhost
               v = dscontents[-1]
             end
 
-            next unless Sisimai::Address.is_emailaddress(e)
+            next if Sisimai::Address.is_emailaddress(e) == false
             v['recipient'] = e
             recipients += 1
           else
@@ -75,14 +75,14 @@ module Sisimai::Lhost
             v['diagnosis'] += "#{e }"
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
 
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
+            next if MessagesOf[r].none? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r
             break
           end

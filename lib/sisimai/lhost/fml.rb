@@ -45,9 +45,9 @@ module Sisimai::Lhost
       # @return [Nil]           it failed to decode or the arguments are missing
       # @since v4.22.3
       def inquire(mhead, mbody)
-        return nil unless mhead['x-mlserver']
-        return nil unless mhead['from'].include?('-admin@')
-        return nil unless mhead['message-id'].index('.FML') > 1
+        return nil if mhead['x-mlserver'].nil?
+        return nil if mhead['from'].include?('-admin@') == false
+        return nil if mhead['message-id'].index('.FML') < 2
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -81,22 +81,22 @@ module Sisimai::Lhost
             v['diagnosis'] += e
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           ErrorTable.each_key do |f|
             # Try to match with error messages defined in ErrorTable
-            next unless ErrorTable[f].any? { |a| e['diagnosis'].include?(a) }
+            next if ErrorTable[f].none? { |a| e['diagnosis'].include?(a) }
             e['reason'] = f
             break
           end
 
-          unless e['reason']
+          if e['reason'].nil?
             # Error messages in the message body did not matched
             ErrorTitle.each_key do |f|
               # Try to match with the Subject string
-              next unless ErrorTitle[f].any? { |a| mhead["subject"].include?(a) }
+              next if ErrorTitle[f].none? { |a| mhead["subject"].include?(a) }
               e['reason'] = f
               break
             end

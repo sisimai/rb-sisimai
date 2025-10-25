@@ -44,14 +44,14 @@ module Sisimai
           # 3. lhost: local MTA hostname
           RhostClass.each_key do |e|
             # Try to match the domain part of the recipient address with each value of RhostClass
-            next unless RhostClass[e].any? { |a| a.end_with?(domainpart) }
+            next if RhostClass[e].none? { |a| a.end_with?(domainpart) }
             rhostclass = e
             throw :FINDRHOST
           end
 
           RhostClass.each_key do |e|
             # Try to match the remote host with each value of RhostClass
-            next unless RhostClass[e].any? { |a| remotehost.end_with?(a) }
+            next if RhostClass[e].none? { |a| remotehost.end_with?(a) }
             rhostclass = e
             throw :FINDRHOST
           end
@@ -59,7 +59,7 @@ module Sisimai
           # Neither the remote host nor the destination did not matched with any value of RhostClass
           RhostClass.each_key do |e|
             # Try to match the client host with each value of RhostClass
-            next unless RhostClass[e].any? { |a| clienthost.end_with?(a) }
+            next if RhostClass[e].none? { |a| clienthost.end_with?(a) }
             rhostclass = e
             throw :FINDRHOST
           end

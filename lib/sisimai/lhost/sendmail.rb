@@ -31,10 +31,10 @@ module Sisimai::Lhost
       # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
         return nil if mhead['x-aol-ip']
-        match   = nil
+        match   = false
         match ||= true if mhead['subject'].end_with?('see transcript for details')
         match ||= true if mhead['subject'].start_with?('Warning: ')
-        return nil unless match
+        return nil if match == false
 
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         permessage = {}     # (Hash) Store values of each Per-Message field
@@ -89,11 +89,11 @@ module Sisimai::Lhost
               v['diagnosis'] = o[2]
             else
               # Other DSN fields defined in RFC3464
-              next unless fieldtable[o[0]]
+              next if fieldtable[o[0]].nil?
               next if o[3] == "host" && Sisimai::RFC1123.is_internethost(o[2]) == false
               v[fieldtable[o[0]]] = o[2]
 
-              next unless f == 1
+              next if f != 1
               permessage[fieldtable[o[0]]] = o[2]
             end
           else
@@ -108,7 +108,7 @@ module Sisimai::Lhost
             # Reporting-MTA: dns; mx.example.jp
             # Received-From-MTA: DNS; x1x2x3x4.dhcp.example.ne.jp
             # Arrival-Date: Wed, 29 Apr 2009 16:03:18 +0900
-            unless e.start_with?(' ')
+            if e.start_with?(' ') == false
               if e.start_with?('>>> ')
                 # >>> DATA (Client Command)
                 thecommand = Sisimai::SMTP::Command.find(e) if thecommand.empty?
@@ -116,7 +116,7 @@ module Sisimai::Lhost
               elsif e.start_with?('<<< ')
                 # <<< Response from the SMTP server
                 cv = e[4, e.size - 4]
-                esmtpreply << cv unless esmtpreply.index(cv)
+                esmtpreply << cv if esmtpreply.index(cv).nil?
               else
                 # Detect an SMTP session error or a connection error
                 next if sessionerr
@@ -157,14 +157,14 @@ module Sisimai::Lhost
               end
             else
               # Continued line of the value of Diagnostic-Code field
-              next unless readslices[-2].start_with?('Diagnostic-Code:')
-              next unless e.start_with?(' ')
+              next if readslices[-2].start_with?('Diagnostic-Code:') == false
+              next if e.start_with?(' ') == false
               v['diagnosis'] += " #{Sisimai::String.sweep(e)}"
               readslices[-1]  = "Diagnostic-Code: #{e}"
             end
           end
         end # End of message/delivery-status
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         dscontents.each do |e|
           # Set default values if each value is empty.
@@ -193,9 +193,9 @@ module Sisimai::Lhost
 
           while true
             # Check alternative status code and override it
-            break unless anotherset.has_key?('status')
-            break unless anotherset['status'].size > 0
-            break if     Sisimai::SMTP::Status.test(e['status'])
+            break if anotherset.has_key?('status') == false
+            break if anotherset['status'].size == 0
+            break if Sisimai::SMTP::Status.test(e['status'])
 
             e['status'] = anotherset['status']
             break
@@ -203,7 +203,7 @@ module Sisimai::Lhost
 
           # @example.jp, no local part
           # # Get email address from the value of Diagnostic-Code field
-          next unless e['recipient'].start_with?('@')
+          next if e['recipient'].start_with?('@') == false
           cv = Sisimai::Address.find(e['diagnosis'], true) || []
           e['recipient'] = cv[0][:address] if cv.size > 0
         end

@@ -20,7 +20,7 @@ module Sisimai::Lhost
         # X-GMX-Antispam: 0 (Mail was not recognized as spam); Detail=V3;
         # X-GMX-Antivirus: 0 (no virus found)
         # X-UI-Out-Filterresults: unknown:0;
-        return nil unless mhead['x-gmx-antispam']
+        return nil if mhead['x-gmx-antispam'].nil?
 
         require 'sisimai/smtp/command'
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
@@ -79,14 +79,14 @@ module Sisimai::Lhost
             v['diagnosis'] += "#{e }"
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].tr("\n", ' '))
 
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
+            next if MessagesOf[r].none? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r
             break
           end

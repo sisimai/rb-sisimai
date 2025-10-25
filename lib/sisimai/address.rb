@@ -143,7 +143,7 @@ module Sisimai
       # @example  Parse email address
       #   find('Neko <neko(nyaan)@example.org>')
       #   #=> [{ address: 'neko@example.org', name: 'Neko', comment: '(nyaan)'}]
-      return nil unless argv1
+      return nil if argv1.nil? || argv1.empty?
 
       emailtable = {address: '', name: '', comment: ''}
       addrtables = []
@@ -280,7 +280,7 @@ module Sisimai
             else
               # Display name like "Neko, Nyaan"
               v[:name] += e
-              next unless readcursor & Indicators[:'quoted-string'] > 0
+              next if readcursor & Indicators[:'quoted-string'] == 0
               next if v[:name].end_with?(%Q|\x5c"|) # "Neko, Nyaan \"...
               readcursor &= ~Indicators[:'quoted-string']
               p = ''
@@ -308,7 +308,7 @@ module Sisimai
           v[:address] = v[:name]
         end
 
-        unless v[:address].empty?
+        if v[:address].empty? == false
           # Remove the comment from the address
           if Sisimai::String.aligned(v[:address], ['(', ')'])
             # (nyaan)nekochan@example.org, nekochan(nyaan)cat@example.org or nekochan(nyaan)@example.org
@@ -326,14 +326,14 @@ module Sisimai
         next if e[:address] =~ /[^\x20-\x7e]/
         if e[:address].include?('@') == false
           # Allow if the argument is MAILER-DAEMON
-          next unless Sisimai::Address.is_mailerdaemon(e[:address])
+          next if Sisimai::Address.is_mailerdaemon(e[:address]) == false
         end
 
         # Remove angle brackets, other brackets, and quotations: []<>{}'` except a domain part is
         # an IP address like neko@[192.0.2.222]
         e[:address] = e[:address].gsub(/\A[\[<{('`]/, '').gsub(/[.,'`>});]\z/, '')
-        e[:address] = e[:address].gsub(/[^A-Za-z]\z/, '') unless e[:address].include?('@[')
-        e[:address] = e[:address].delete_prefix('"').delete_suffix('"') unless is_quotedaddress(e[:address])
+        e[:address] = e[:address].gsub(/[^A-Za-z]\z/, '') if e[:address].include?('@[') == false
+        e[:address] = e[:address].delete_prefix('"').delete_suffix('"') if is_quotedaddress(e[:address]) == false
 
         if addrs
           # Almost compatible with parse() method, returns email address only
@@ -385,7 +385,7 @@ module Sisimai
     # @example  Expand alias
     #   expand_alias('neko+straycat@example.org') #=> 'neko@example.org'
     def self.expand_alias(email)
-      return "" unless Sisimai::Address.is_emailaddress(email)
+      return "" if Sisimai::Address.is_emailaddress(email) == false
 
       local = email.split('@')
       return "" unless cv = local[0].match(/\A([-\w]+?)[+].+\z/)
@@ -454,8 +454,7 @@ module Sisimai
         @address = lpart + '@' + dpart
       else
         # The argument does not include "@"
-        return nil unless Sisimai::Address.is_mailerdaemon(argvs[:address])
-        return nil if argvs[:address].include?(' ')
+        return nil if Sisimai::Address.is_mailerdaemon(argvs[:address]) == false || argvs[:address].include?(' ')
 
         # The argument does not include " "
         @user    = argvs[:address]

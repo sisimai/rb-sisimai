@@ -203,7 +203,7 @@ module Sisimai
               # The piece is the value of a day
               if v[:d]
                 # 2-digit year?
-                altervalue[:Y] = p unless v[:Y]
+                altervalue[:Y] = p if v[:Y].nil?
               else
                 # The value is "day"
                 v[:d] = p
@@ -361,7 +361,7 @@ module Sisimai
       # @example  Get timezone offset string of specified seconds
       #   second2tz(12345)    #=> '+0325'
       def second2tz(argv1)
-        return '+0000' unless argv1.is_a?(::Integer)
+        return '+0000' if argv1.is_a?(::Integer) == false
         return "" if argv1.abs > TZ_OFFSET  # UTC+14 + 1(DST?)
 
         digit = {:operator => '+'}

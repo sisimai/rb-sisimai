@@ -83,7 +83,7 @@ module Sisimai
         # @param    [String] argv1  String to be matched with regular expressions
         # @return   [Boolean]       false: Did not match, true: Matched
         def match(argv1)
-          return false unless argv1
+          return false if argv1.nil? || argv1.empty?
           return false if IsNot.any? { |a| argv1.include?(a) }
           return true  if Index.any? { |a| argv1.include?(a) }
           return false

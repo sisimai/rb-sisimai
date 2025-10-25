@@ -36,7 +36,7 @@ module Sisimai
       # @param    [String] argv1  Received header
       # @return   [Array]         Received header as a structured data
       def received(argv1)
-        return [] unless argv1.is_a?(::String)
+        return [] if argv1.is_a?(::String) == false
         return [] if argv1.include?(' invoked by uid') || argv1.include?(' invoked from network')
 
         # - https://datatracker.ietf.org/doc/html/rfc5322
@@ -63,14 +63,14 @@ module Sisimai
         recvd.each do |e|
           # Look up each label defined in "label" from Received header
           index += 1
-          break unless index < range; f = e.downcase
-          next  unless label.any? { |a| f == a }
+          break if index >= range; f = e.downcase
+          next  if label.none? { |a| f == a }
           token[f] = recvd[index + 1] || next
           token[f] = token[f].downcase.delete('();')
 
-          next  unless f == 'from'
-          break unless index + 2 < range
-          next  unless recvd[index + 2].start_with?('(')
+          next  if f != 'from'
+          break if index + 2 >= range
+          next  if recvd[index + 2].start_with?('(') == false
 
           # Get and keep a hostname in the comment as follows:
           # from mx1.example.com (c213502.kyoto.example.ne.jp [192.0.2.135]) by mx.example.jp (V8/cf)
@@ -90,7 +90,7 @@ module Sisimai
 
           # The 2nd element after the current element is a continuation of the current element.
           # such as "(c213502.kyoto.example.ne.jp", "[192.0.2.135])"
-          break unless index + 3 < range
+          break if index + 3 >= range
           other << recvd[index + 3].delete('();')
         end
 
@@ -173,7 +173,7 @@ module Sisimai
 
         cutby.each do |e|
           # Find a boundary string(2nd argument) from the 1st argument
-          positionor = email.index(e); next unless positionor
+          positionor = email.index(e); next if positionor.nil?
           boundaryor = e
           break
         end
@@ -200,7 +200,7 @@ module Sisimai
             #  Remove text after the first blank line: \n\n when "keeps" is false
             latterpart = latterpart[0, latterpart.index("\n\n")] if latterpart.include?("\n\n")
           end
-          latterpart << "\n" unless latterpart.end_with?("\n")
+          latterpart << "\n" if latterpart.end_with?("\n") == false
         end
 
         return [formerpart, latterpart]

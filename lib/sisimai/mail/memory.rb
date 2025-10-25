@@ -14,7 +14,7 @@ module Sisimai
       # @return   [Sisimai::Mail::Memory] Object
       #           [Nil]                   is not specified or does not exist
       def initialize(argv1)
-        raise 'is not a String' unless argv1.is_a? ::String
+        raise 'is not a String' if argv1.is_a?(::String) == false
         raise 'is empty'        if argv1.empty?
 
         @path    = '<MEMORY>'

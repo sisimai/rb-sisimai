@@ -24,7 +24,7 @@ module Sisimai::Lhost
         match += 1 if mhead["subject"] == "[BOUNCE]"
         match += 1 if mhead["message-id"].to_s.include?(".JavaMail.")
         match += 1 if mhead["received"].any? { |a| a.include?("JAMES SMTP Server") }
-        return nil unless match > 0
+        return nil if match == 0
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = dscontents[-1]
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -87,7 +87,7 @@ module Sisimai::Lhost
 
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         if emailparts[1].empty?
           # The original message is empty

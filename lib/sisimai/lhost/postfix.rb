@@ -56,8 +56,7 @@ module Sisimai::Lhost
           require 'sisimai/smtp/transcript'
           transcript = Sisimai::SMTP::Transcript.rise(emailparts[0], 'In:', 'Out:')
 
-          return nil unless transcript
-          return nil if transcript.size == 0
+          return nil if transcript.nil? || transcript.size == 0
 
           transcript.each do |e|
             # Pick email addresses, error messages, and the last SMTP command.
@@ -138,11 +137,11 @@ module Sisimai::Lhost
                 v['diagnosis'] = o[2]
               else
                 # Other DSN fields defined in RFC3464
-                next unless fieldtable[o[0]]
+                next if fieldtable[o[0]].nil?
                 next if o[3] == "host" && Sisimai::RFC1123.is_internethost(o[2]) == false
                 v[fieldtable[o[0]]] = o[2]
 
-                next unless f == 1
+                next if f != 1
                 permessage[fieldtable[o[0]]] = o[2]
               end
             else
@@ -166,7 +165,7 @@ module Sisimai::Lhost
                 # Alternative error message and recipient
                 if e.include?(' (in reply to ') || e.include?('command)')
                   # 5.1.1 <userunknown@example.co.jp>... User Unknown (in reply to RCPT TO
-                  cv = Sisimai::SMTP::Command.find(e) || ""; commandset << cv unless cv.empty?
+                  cv = Sisimai::SMTP::Command.find(e) || ""; commandset << cv if cv.empty? == false
                   anotherset['diagnosis'] ||= ''
                   anotherset['diagnosis']  += " #{e}"
 
@@ -197,7 +196,7 @@ module Sisimai::Lhost
                   nomessages = true
                 else
                   # Get an error message continued from the previous line
-                  next unless anotherset['diagnosis']
+                  next if anotherset['diagnosis'].nil?
                   if e.start_with?('    ')
                     #    host mx.example.jp said:...
                     anotherset['diagnosis'] += " #{e[4, e.size]}"
@@ -214,7 +213,7 @@ module Sisimai::Lhost
           if anotherset['recipient'].to_s.size > 0 || anotherset['alias'].to_s.size > 0
             # Set a recipient address
             dscontents[-1]['recipient'] = anotherset['recipient']
-            dscontents[-1]['recipient'] = anotherset['alias'] unless anotherset['recipient']
+            dscontents[-1]['recipient'] = anotherset['alias'] if anotherset['recipient'].nil?
             recipients += 1
           else
             # Get a recipient address from message/rfc822 part if the delivery report was unavailable:
@@ -228,7 +227,7 @@ module Sisimai::Lhost
             end
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         dscontents.each do |e|
           # Set default values if each value is empty.
@@ -250,7 +249,7 @@ module Sisimai::Lhost
                 # Check the value of D.S.N. in anotherset
                 # The D.S.N. is neither an empty nor *.0.0
                 as = Sisimai::SMTP::Status.find(anotherset['diagnosis'])
-                e['status'] = as unless Sisimai::SMTP::Status.is_ambiguous(as)
+                e['status'] = as if Sisimai::SMTP::Status.is_ambiguous(as) == false
               end
 
               if e['replycode'].empty? || e['replycode'].end_with?('00')

@@ -101,7 +101,7 @@ module Sisimai
         # @return   [String, Nil]           The bounce reason at Spectrum
         # @since v4.25.8
         def find(argvs)
-          return argvs['reason'] unless argvs['reason'].empty?
+          return argvs['reason'] if argvs['reason'].empty? == false
           issuedcode = argvs['diagnosticcode']
           reasontext = ''
           codenumber = if cv = issuedcode.match(/AUP#[-A-Za-z]*(\d{4})/) then cv[1].to_i else 0 end

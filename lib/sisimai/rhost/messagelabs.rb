@@ -22,7 +22,7 @@ module Sisimai
 
           MessagesOf.each_key do |e|
             # Try to match the error message with message patterns defined in $MessagesOf
-            next unless MessagesOf[e].any? { |a| issuedcode.include?(a) }
+            next if MessagesOf[e].none? { |a| issuedcode.include?(a) }
             reasontext = e
             break
           end

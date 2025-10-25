@@ -19,8 +19,8 @@ module Sisimai::Lhost
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
-        return nil unless mhead['from'].start_with?('"Mail Delivery System"')
-        return nil unless mhead['subject'] == 'Mail delivery failed: returning message to sender'
+        return nil if mhead['from'].start_with?('"Mail Delivery System"') == false
+        return nil if mhead['subject'] != 'Mail delivery failed: returning message to sender'
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -76,7 +76,7 @@ module Sisimai::Lhost
             end
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         require 'sisimai/smtp/command'
         dscontents.each do |e|
@@ -102,7 +102,7 @@ module Sisimai::Lhost
 
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
+            next if MessagesOf[r].none? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r
             break
           end

@@ -22,8 +22,7 @@ module Sisimai
         # @param    string argv1   A line of a bounce mail
         # @return   string         An MTA name of the 3rd party
         def returnedby(argv1 = "")
-          return "" unless argv1
-          return "" unless argv1.start_with?("X-")
+          return "" if argv1.nil? || argv1.start_with?("X-") == false
 
           ThirdParty.each_key do |e|
             # Does the argument include the 3rd party specific field?

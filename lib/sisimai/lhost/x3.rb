@@ -15,8 +15,8 @@ module Sisimai::Lhost
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
-        return nil unless mhead['subject'].start_with?('Delivery status notification')
-        return nil unless mhead['from'].start_with?('Mail Delivery System')
+        return nil if mhead['subject'].start_with?('Delivery status notification') == false
+        return nil if mhead['from'].start_with?('Mail Delivery System') == false
 
         require 'sisimai/smtp/command'
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
@@ -79,7 +79,7 @@ module Sisimai::Lhost
             end
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])

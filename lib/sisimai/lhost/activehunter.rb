@@ -18,7 +18,7 @@ module Sisimai::Lhost
       def inquire(mhead, mbody)
         # :from    => %r/\A"MAILER-DAEMON"/,
         # :subject => %r/FAILURE NOTICE :/,
-        return nil unless mhead['x-ahmailid']
+        return nil if mhead['x-ahmailid'].nil?
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -57,13 +57,12 @@ module Sisimai::Lhost
           else
             #  ----- Transcript of session follows -----
             # 550 sorry, no mailbox here by that name (#5.1.1 - chkusr)
-            next if e[0, 1].ord <  48
-            next if e[0, 1].ord > 122
-            next unless v['diagnosis'].empty?
+            next if e[0, 1].ord <  48 || e[0, 1].ord > 122
+            next if v['diagnosis'].empty? == false
             v['diagnosis'] = e
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         dscontents.each { |e| e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) }
         return {"ds" => dscontents, "rfc822" => emailparts[1]}

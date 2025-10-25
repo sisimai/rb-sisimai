@@ -38,8 +38,8 @@ module Sisimai::Lhost
       # @return [Hash]          Bounce data list and message/rfc822 part
       # @return [Nil]           it failed to decode or the arguments are missing
       def inquire(mhead, mbody)
-        return nil unless mhead['subject'].start_with?('Mail delivery failed')
-        return nil unless mhead['received'].any? { |a| a.include?(' (DragonFly Mail Agent') }
+        return nil if mhead['subject'].start_with?('Mail delivery failed') == false
+        return nil if mhead['received'].none? { |a| a.include?(' (DragonFly Mail Agent') }
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -83,7 +83,7 @@ module Sisimai::Lhost
 
             # Pick the remote hostname, and the SMTP command
             # net.c:500| snprintf(errmsg, sizeof(errmsg), "%s [%s] did not like our %s:\n%s",
-            next unless e.include?(' did not like our ')
+            next if e.include?(' did not like our ') == false
             next if v['rhost'] != ""
 
             p = e.split(' ', 3)
@@ -91,13 +91,13 @@ module Sisimai::Lhost
             v['command'] = Sisimai::SMTP::Command.find(e)
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
-            next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
+            next if MessagesOf[r].none? { |a| e['diagnosis'].include?(a) }
             e['reason'] = r
             break
           end

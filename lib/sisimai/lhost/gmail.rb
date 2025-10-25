@@ -148,8 +148,8 @@ module Sisimai::Lhost
         #   The error that the other server returned was:
         #   550 5.1.1 <userunknown@example.jp>... User Unknown
         #
-        return nil unless mhead['from'].end_with?('<mailer-daemon@googlemail.com>')
-        return nil unless mhead['subject'].start_with?('Delivery Status Notification')
+        return nil if mhead['from'].end_with?('<mailer-daemon@googlemail.com>') == false
+        return nil if mhead['subject'].start_with?('Delivery Status Notification') == false
 
         require 'sisimai/address'
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
@@ -193,14 +193,14 @@ module Sisimai::Lhost
             end
 
             r = Sisimai::Address.s3s4(e[e.rindex(' ') + 1, e.size])
-            next unless Sisimai::Address.is_emailaddress(r)
+            next if Sisimai::Address.is_emailaddress(r) == false
             v['recipient'] = r
             recipients += 1
           else
             v["diagnosis"] += "#{e }"
           end
         end
-        return nil unless recipients > 0
+        return nil if recipients == 0
 
         require 'sisimai/string'
         require 'sisimai/rfc1123'
@@ -222,12 +222,12 @@ module Sisimai::Lhost
 
           while true do
             # Find "(state 18)" and pick "18" as a key of statetable
-            p1 = e['diagnosis'].rindex(' (state ');   break unless p1
-            p2 = e['diagnosis'].rindex(')');          break unless p2
+            p1 = e['diagnosis'].rindex(' (state ');   break if p1.nil?
+            p2 = e['diagnosis'].rindex(')');          break if p2.nil?
                                                       break if p1 > p2
             cu = e['diagnosis'][p1 + 8, p2 - p1 - 8]
             break if cu.empty?
-            break unless StateTable[cu]
+            break if StateTable[cu].nil?
             e['reason']  = StateTable[cu]['reason']
             e['command'] = StateTable[cu]['command']
             break
@@ -237,7 +237,7 @@ module Sisimai::Lhost
             # There is no no state code in the error message
             MessagesOf.each_key do |r|
               # Verify each regular expression of session errors
-              next unless MessagesOf[r].any? { |a| e['diagnosis'].include?(a) }
+              next if MessagesOf[r].none? { |a| e['diagnosis'].include?(a) }
               e['reason'] = r
               break
             end

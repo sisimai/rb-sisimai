@@ -104,15 +104,12 @@ module Sisimai
     # @options argvs [String]  origin     Path to the original email file
     # @return        [Array]              Array of Sisimai::Fact objects
     def self.rise(**argvs)
-      return nil unless argvs
-      return nil unless argvs.is_a? Hash
+      return nil if argvs.is_a?(Hash) == false
 
-      email = argvs[:data]; return nil unless email
+      email = argvs[:data]; return nil if email.nil?
       args1 = {data: email, hook: argvs[:hook]}
       mesg1 = Sisimai::Message.rise(**args1)
-      return nil unless mesg1
-      return nil unless mesg1['ds']
-      return nil unless mesg1['rfc822']
+      return nil if mesg1.nil? || mesg1['ds'].nil? || mesg1['rfc822'].nil?
 
       deliveries = mesg1['ds'].dup
       rfc822data = mesg1['rfc822']
@@ -147,31 +144,30 @@ module Sisimai
         # EMAILADDRESS: Detect an email address from message/rfc822 part
         RFC822Head[:addresser].each do |f|
           # Check each header in message/rfc822 part
-          next unless rfc822data[f]
-          next if rfc822data[f].empty?
+          next if rfc822data[f].nil? || rfc822data[f].empty?
 
           j = Sisimai::Address.find(rfc822data[f]) || next
           piece['addresser'] = j.shift
           break
         end
 
-        unless piece['addresser']
+        if piece['addresser'].nil?
           # Fallback: Get the sender address from the header of the bounced email if the address is
           # not set at loop above.
           j = Sisimai::Address.find(mesg1['header']['to']) || []
           piece['addresser'] = j.shift
         end
-        next unless piece['addresser']
+        next if piece['addresser'].nil?
 
         # TIMESTAMP: Convert from a time stamp or a date string to a machine time.
         datestring = nil
         zoneoffset = 0
-        datevalues = []; datevalues << e['date'] unless e['date'].to_s.empty?
+        datevalues = []; datevalues << e['date'] if e['date'].to_s.empty? == false
 
         # Date information did not exist in message/delivery-status part,...
         RFC822Head[:date].each do |f|
           # Get the value of Date header or other date related header.
-          next unless rfc822data[f]
+          next if rfc822data[f].nil?
           datevalues << rfc822data[f]
         end
 
@@ -197,7 +193,7 @@ module Sisimai
         rescue
           warn " ***warning: Failed to strptime #{datestring.to_s}"
         end
-        next unless piece['timestamp']
+        next if piece['timestamp'].nil?
 
         # OTHER_TEXT_HEADERS:
         recv = mesg1["header"]["received"] || []
@@ -213,7 +209,7 @@ module Sisimai
               # Check the Received: headers backwards and get a remote hostname
               break if piece["rhost"].size > 0
               cv = Sisimai::RFC5322.received(re)[0]
-              next unless Sisimai::RFC1123.is_internethost(cv)
+              next if Sisimai::RFC1123.is_internethost(cv) == false
               piece['rhost'] = cv
             end
           end
@@ -225,7 +221,7 @@ module Sisimai
           recv.each do |le|
             # Check the Received: headers backwards and get a local hostname
             cv = Sisimai::RFC5322.received(le)[0]
-            next unless Sisimai::RFC1123.is_internethost(cv)
+            next if Sisimai::RFC1123.is_internethost(cv) == false
             piece['lhost'] = cv
             break
           end
@@ -355,11 +351,11 @@ module Sisimai
 
         piece["diagnostictype"] = "X-UNIX" if piece["reason"] == "mailererror"
         if piece["diagnostictype"].empty?
-          piece["diagnostictype"] = "SMTP" unless %w[feedback vacation].include?(piece["reason"])
+          piece["diagnostictype"] = "SMTP" if %w[feedback vacation].include?(piece["reason"]) == false
         end
 
         # Check the value of SMTP command
-        piece['command'] = '' unless Sisimai::SMTP::Command.test(piece['command'])
+        piece['command'] = '' if Sisimai::SMTP::Command.test(piece['command']) == false
 
         # Create parameters for the constructor
         as = Sisimai::Address.new(piece['addresser'])          || next; next if as.void
@@ -394,16 +390,15 @@ module Sisimai
           # when the recipient address is same with the value of thing['alias'].
           break if thing['alias'].empty?
           break if thing['recipient'].address != thing['alias']
-          break unless rfc822data.has_key?('received')
+          break if rfc822data.has_key?('received') == false
           break if rfc822data['received'].empty?
 
           rfc822data['received'].reverse.each do |er|
             # Search for the string " for " from the Received: header
-            next unless er.include?(' for ')
+            next if er.include?(' for ') == false
 
             af = Sisimai::RFC5322.received(er)
-            next if af.empty? || af[5].empty?
-            next unless Sisimai::Address.is_emailaddress(af[5])
+            next if af.empty? || af[5].empty? || Sisimai::Address.is_emailaddress(af[5]) == false
             next if thing['recipient'].address == af[5]
 
             thing['alias'] = af[5]
@@ -430,7 +425,7 @@ module Sisimai
         # HARDBOUNCE: Set the value of "hardbounce", default value of "bouncebounce" is false
         if thing['reason'] == 'delivered' || thing['reason'] == 'feedback' || thing['reason'] == 'vacation'
           # Delete the value of ReplyCode when the Reason is "feedback" or "vacation"
-          thing['replycode'] = '' unless thing['reason'] == 'delivered'
+          thing['replycode'] = '' if thing['reason'] != 'delivered'
         else
           # The reason is not "delivered", or "feedback", or "vacation"
           smtperrors = "#{piece['deliverystatus']} #{piece['diagnosticcode']}"
@@ -456,7 +451,7 @@ module Sisimai
           thing['replycode'] = cx[1].start_with?(cx[0]) ? cx[1] : ''
         end
 
-        unless ActionList.has_key?(thing['action'])
+        if ActionList.has_key?(thing['action']) == false
           # There is an action value which is not described at RFC1894
           if ox = Sisimai::RFC1894.field("Action: #{thing['action']}")
             # Rewrite the value of "Action:" field to the valid value
@@ -520,7 +515,7 @@ module Sisimai
     # @return   [String]        data
     #           [Nil]           The value of the first argument is neither "json" nor "yaml"
     def dump(type = 'json')
-      return nil unless %w[json yaml].include?(type)
+      return nil if %w[json yaml].include?(type) == false
       referclass = "Sisimai::Fact::#{type.upcase}"
 
       begin
