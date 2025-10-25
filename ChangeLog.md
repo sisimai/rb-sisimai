@@ -18,6 +18,7 @@ v5.4.1p1
   - #325 #323 Remove the following accessors and JSON keys of `Sisimai::Fact` deprecated at v5.2.0.
     - `smtpagent` (use `decodedby` instead)
     - `smtpcommand` (use `command` instead)
+  - #375 #377 #378 Sisimai requires Ruby 2.5 or later.
 
 v5.4.1
 ---------------------------------------------------------------------------------------------------
