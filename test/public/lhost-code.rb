@@ -208,7 +208,7 @@ class LhostCode < Minitest::Test
           # ---------------------------------------------------------------------------------------
           # DIAGNOSTICTYPE
           cv = rr.diagnostictype
-          cr = %r/\A(?:LMTP|SMTP|UNKNOWN|X[.]?[45]00|X-[0-9A-Z-]+)/
+          cr = %r/\A(?:DNS|LMTP|SMTP|UNKNOWN|X[.]?[45]00|X-[0-9A-Z-]+)/
           ct = sprintf("%s [%s-%02d] #diagnostictype =", ce, e, errorindex)
 
           assert_instance_of String, cv

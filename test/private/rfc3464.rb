@@ -267,6 +267,19 @@ module LhostEngineTest::Private
       '1318'  => [['5.4.1',   '550', 'rejected',        false]],
       '1319'  => [['5.0.0',   '',    'userunknown',      true]],
       '1320'  => [['5.7.0',   '550', 'filtered',        false]],
+      '1321'  => [['5.4.1',   '550', 'userunknown',     true]],
+      '1322'  => [['5.1.1',   '550', 'userunknown',     true]],
+      '1323'  => [['5.7.0',   '554', 'spamdetected',    false]],
+      '1324'  => [['5.4.14',  '554', 'networkerror',    false]],
+      '1325'  => [['5.1.2',   '',    'hostunknown',     true]],
+      '1326'  => [['5.7.0',   '554', 'spamdetected',    false]],
+      '1327'  => [['4.4.7',   '',    'expired',         false]],
+      '1328'  => [['5.4.4',   '',    'hostunknown',     true]],
+      '1329'  => [['5.7.1',   '',    'securityerror',   false]],
+      '1330'  => [['5.0.911', '550', 'userunknown',     true]],
+      '1331'  => [['5.4.7',   '',    'expired',         false]],
+      '1332'  => [['5.3.0',   '550', 'filtered',        false]],
+      '1333'  => [['4.4.1',   '',    'expired',         false]],
     }
   end
 end
