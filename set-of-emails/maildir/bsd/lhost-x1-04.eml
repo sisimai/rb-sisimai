@@ -1,0 +1,45 @@
+Return-Path: <>
+X-Original-To: sys@errors.example.co.jp
+Delivered-To: sys@errors.example.co.jp
+Received: from relay1.example.co.jp (unknown [192.0.2.25])
+ by fix1.example.co.jp (Postfix) with ESMTPS id 86D6tkrSLzzDbK49
+ for <sys@errors.example.co.jp>; Fri, 21 Mar 2025 22:22:55 +0900 (JST)
+Received: from smtp1-345.cx.example.jp (ip-192-0-2l-55.ap-northeast-1.compute.internal [192.0.2.55])
+ by relay1.example.co.jp (Postfix) with ESMTPS id NSmKWNCkDnztbX2t
+ for <nekochan@example.co.jp>; Fri, 21 Mar 2025 22:22:55 +0900 (JST)
+From: "Mail Deliver System" <MAILER-DAEMON@fix1.example.co.jp>
+To: nekochan@example.co.jp
+Subject: Warning--Could not send mail for past 8.5 hours
+Content-Type: multipart/mixed; boundary="---E/mjVtpDQzYXz0cXDNcneko202"
+Message-Id: <kWg4502WjwzmSdWs@fix1.example.co.jp>
+Date: Fri, 21 Mar 2025 22:22:55 +0900 (JST)
+
+This is a multi-part message in MIME format.
+
+-----E/mjVtpDQzYXz0cXDNcneko202
+Content-Type: text/plain
+
+The original message was received at Fri, 21 Mar 2025 13:13:48 +0900 (JST)
+from nekochan@example.co.jp
+
+---The following addresses had delivery errors---
+
+kijitora-neko@neko.example.go.jp [Connection timed out]
+
+
+-----E/mjVtpDQzYXz0cXDNcneko202
+Content-Type: message/rfc822
+
+Return-Path: <nekochan@example.co.jp>
+From: <nekochan@example.co.jp>
+Date: Fri, 21 Mar 2025 13:13:48 +0900
+Subject: Nyaan?
+Message-Id: <000000000000.22222222NEKO@localhost>
+To: <kijitora-neko@neko.example.go.jp>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-2022-jp
+Content-Transfer-Encoding: quoted-printable
+
+Nyaan?
+
+-----E/mjVtpDQzYXz0cXDNcneko202--

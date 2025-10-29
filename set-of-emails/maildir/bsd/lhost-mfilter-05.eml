@@ -1,0 +1,41 @@
+Return-Path: <>
+X-Original-To: system@errors.example.org
+Delivered-To: system@errors.example.org
+Received: from relay1.example.org (unknown [192.0.2.20])
+ by sys.example.org (Postfix) with ESMTPS id zkxVXLYvL8zRVYdx
+ for <system@errors.example.org>; Sun, 30 Mar 2025 23:34:55 +0900 (JST)
+Received: from smtpd.relaying.example.jp (ip-192-0-2-2.ap-northeast-1.compute.internal [192.0.2.2])
+ by relay1.example.org (Postfix) with ESMTPS id SPCY8TBznXzt2VRQ
+ for <nekochan@example.org>; Sun, 30 Mar 2025 23:34:55 +0900 (JST)
+Received: by smtpd.relaying.example.jp (localhost) id SMNgMS1V071253; Sun, 30 Mar 2025 23:34:55 +0900
+Received: from esmtp2.example.co.jp ([192.0.2.25])
+ by relay.relaying.example.jp (relayhost) id Jr3FHeoX083118
+ Sun, 30 Mar 2025 23:34:54 +0900
+Received: from esmtp2.example.co.jp ([127.0.0.1]) by smtphost with ESMTP; Sun, 30 Mar 2025 23:34:53 +0900
+Reply-To: <>
+X-Mailer: local-mailhub
+Message-Id: <000000000000.00000.00000000.POSTMASTER@EXAMPLE.CO.JP>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: Base64
+From: postmaster <postmaster@example.co.jp>
+To: nekochan@example.org
+Date: Sun, 30 Mar 2025 00:56:39 +0900
+Subject: failure notice
+
+44GT44Gu44Oh44O844Or44Gv44CM44Oh44O844Or44K344Og44OG44Og44CN44GM
+6Ieq5YuV55qE44Gr55Sf5oiQ44GX44Gm6YCB5L+h44GX44Gm44GE44G+44GZ44CC
+CuODoeODvOODq+OCteODvOODkOODvOOBqOOBrumAmuS/oeS4reOAgeS4i+iomOOB
+rueQhueUseOBq+OCiOOCigrjgZPjga7jg6Hjg7zjg6vjga/pgIHkv6HjgafjgY3j
+gb7jgZvjgpPjgafjgZfjgZ/jgIIKCuS7peS4i+OBruODoeODvOODq+OCouODieOD
+rOOCueOBuOOBrumAgeS/oeOBq+WkseaVl+OBl+OBvuOBl+OBn+OAggpraWppdG9y
+YUBleGFtcGxlLmNvLmpwCgoKLS0tLS0tLXNlcnZlciBtZXNzYWdlCjQ1MiA0LjMu
+MSBJbnN1ZmZpY2llbnQgc3lzdGVtIHJlc291cmNlcyAoVXNlZERpc2tTcGFjZVtE
+OlxQcm9ncmFtIEZpbGVzXE1pY3Jvc29mdFxFeGNoYW5nZSBTZXJ2ZXJcVjE1XFRy
+YW5zcG9ydFJvbGVzXGRhdGFcUXVldWVdKQoKLS0tLS0tLVNNVFAgY29tbWFuZApE
+QVRBCgotLS0tLS0tb3JpZ2luYWwgbWFpbCBpbmZvCkZyb206IG5la29jaGFuQGV4
+YW1wbGUub3JnClN1YmplY3Q6IOODi+ODo+ODvOODs++8nwpEYXRlOiBTYXQsIDI5
+IE1hciAyMDI1IDIzOjUyOjIyICswOTAwCk1lc3NhZ2UtSUQ6IDwwMDAwMDAwMDAy
+MTEuMjIyMjIyMjIyMDAwQGxvY2FsaG9zdD4KQk9EWToKLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpOeWFhbgoK
+

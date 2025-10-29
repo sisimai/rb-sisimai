@@ -1,0 +1,81 @@
+Return-Path: <>
+X-Original-To: nekochan@smtp.example.org
+Delivered-To: mail@smtp.example.org
+Received: from mailhub0 (ip-192-0-2-25.ap-northeast-1.compute.internal [192.0.2.25])
+	by re1.smtp.example.org (Postfix) with ESMTPS id vQgJNkN94LzpGl2M
+	for <nekochan@smtp.example.org>; Thu,  7 Nov 2024 22:22:19 +0900 (JST)
+Received: by mailhub0 (Postfix) id 720D5D4D56BF; Thu,  7 Nov 2024 22:21:23 +0900 (JST)
+Date: Thu,  7 Nov 2024 22:21:23 +0900 (JST)
+From: MAILER-DAEMON@mailhub0 (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: nekochan@smtp.example.org
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="B1CABDB88213.1157730000/mailhub0"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20241100000000.B26CFC3B7CE@mailhub0>
+
+This is a MIME-encapsulated message.
+
+--B1CABDB88213.1157730000/mailhub0
+Content-Description: Notification
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+This is the mail system at host mailhub0.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@mailhub0> (expanded from <nekko@c.example.co.jp>): can't create user
+    output file. Command output: procmail: Lock failure on
+    "/var/virtmail/k/ij/it/kijitora/mailbox.lock" procmail: Error while
+    writing to "/var/virtmail/k/ij/it/kijitora/mailbox"
+
+--B1CABDB88213.1157730000/mailhub0
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mailhub0
+X-Postfix-Queue-ID: B1CABDB88213
+X-Postfix-Sender: rfc822; nekochan@smtp.example.org
+Arrival-Date: Thu,  7 Nov 2024 22:21:21 +0900 (JST)
+
+Final-Recipient: rfc822; kijitora@mailhub0
+Original-Recipient: rfc822;nekko@c.example.co.jp
+Action: failed
+Status: 5.2.0
+Diagnostic-Code: x-unix; procmail: Lock failure on
+    "/var/virtmail/k/ij/it/kijitora/mailbox.lock" procmail: Error while
+    writing to "/var/virtmail/k/ij/it/kijitora/mailbox"
+
+--B1CABDB88213.1157730000/mailhub0
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+Content-Transfer-Encoding: 8bit
+
+Return-Path: <nekochan@smtp.example.org>
+Received: from relaying1.smtp.example.org (relaying1.smtp.example.org [192.0.2.1])
+	by mailhub0 (Postfix) with ESMTP id B1CABDB88213
+	for <nekko@c.example.co.jp>; Thu,  7 Nov 2024 22:21:21 +0900 (JST)
+MIME-Version: 1.0
+Subject: Nyaan?
+From: <nekochan@smtp.example.org>
+To: <nekko@c.example.co.jp>
+Date: 7 Nov 2024 15:19:45 +0900
+Content-Type: text/plain; charset=iso-2022-jp
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <cwLHKS2rB9zDX8SS@relaying1.smtp.example.org>
+
+Nyaan?
+
+--B1CABDB88213.1157730000/mailhub0--
+

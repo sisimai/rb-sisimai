@@ -1,0 +1,26 @@
+Return-Path: <MAILER-DAEMON@em.example.jp>
+X-Original-To: sys@errors.example.co.jp
+Delivered-To: sys@errors.example.co.jp
+Received: from relay1.example.co.jp (unknown [192.0.2.25])
+ by fix1.example.co.jp (Postfix) with ESMTPS id mkpxxD10tyzKg6Zp
+ for <sys@errors.example.co.jp>; Mon,  6 Jan 2025 22:22:37 +0900 (JST)
+Received: from mailhub.example.jp (ip-192-0-2-50.ap-northeast-1.compute.internal [192.0.2.50])
+ by relay1.example.co.jp (Postfix) with ESMTPS id 3KkXpk75Q0zMwVmP
+ for <nekochan@example.co.jp>; Mon,  6 Jan 2025 22:22:29 +0900 (JST)
+Received: from localhost by mailhub.example.jp;
+  06 Jan 2025 22:22:29 +0900
+Message-Id: <000000000512@mailhub.example.co.jp>
+Date: 06 Jan 2025 22:22:29 +0900
+To: nekochan@example.co.jp
+From: "Mail Delivery System" <MAILER-DAEMON@em.example.jp>
+Content-Type: text/plain;charset=iso-2022-jp
+Content-Transfer-Encoding: quoted-printable
+Subject: Mail Delivery Failure
+
+The original message was received at 06 Jan 2025 22:22:29 +0900
+from nekochan@example.co.jp
+
+---The following addresses had delivery errors---
+
+kijitora@example.org [User unknown]
+

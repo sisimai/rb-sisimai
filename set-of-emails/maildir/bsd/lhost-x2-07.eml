@@ -1,0 +1,30 @@
+Return-Path: <postmaster@ebd.example.co.jp>
+X-Original-To: sys@errors.esmtp.example.org
+Delivered-To: sys@errors.esmtp.example.org
+Received: from relay1.esmtp.example.org (unknown [192.0.2.25])
+ by emb1.esmtp.example.org (Postfix) with ESMTPS id MLYhZ0hxH9z8wxSn
+ for <sys@errors.esmtp.example.org>; Mon,  6 Jan 2025 12:22:52 +0900 (JST)
+Received: from ebd.example.co.jp (ip-192-0-2-55.ap-northeast-1.compute.internal [192.0.2.55])
+ by relay1.esmtp.example.org (Postfix) with ESMTPS id p3pSqPsbnWzhXNlq
+ for <nekochan@esmtp.example.org>; Mon,  6 Jan 2025 12:22:52 +0900 (JST)
+Date: 6 Jan 2025 12:22:52 +0900
+From: postmaster@ebd.example.co.jp
+To: nekochan@esmtp.example.org
+Subject: Delivery failure
+MIME-Version: 1.0Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Message-Id: <0000000000009990@emb1.esmtp.example.org>
+
+NOTICE: Delivery Failure.
+
+This Delivery Status Notification is sent from MTA...
+
+Your delivery to the following address has been failed.
+Please refer to the below for details.
+------------------------------------------------------
+
+Delivery failed: kijitora@example.co.jp
+192.0.2.1 failed after I sent the message.
+Remote host said[Response Message]: 554 5.4.14 Hop count exceeded - possible mail loop ATTR34 [TY0PEP000000000.JPNP255.PROD.OUTLOOK.COM 2025-01-06T03:22:22.000Z 00000564B00B940B]
+STEP: DATA SEND
+
