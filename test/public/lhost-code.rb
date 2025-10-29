@@ -309,7 +309,7 @@ class LhostCode < Minitest::Test
           # ---------------------------------------------------------------------------------------
           # RECIPIENT
           cv = rr.recipient.address
-          cr = %r/\A.+[@][0-9A-Za-z._-]+[A-Za-z]+?\z/;
+          cr = %r/\A.+[@][0-9A-Za-z._-]+[.][A-Za-z]+?\z/;
           ct = sprintf("%s [%s-%02d] #recipient.", ce, e, errorindex)
 
           assert_instance_of Sisimai::Address, rr.recipient

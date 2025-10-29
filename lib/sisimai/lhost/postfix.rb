@@ -169,11 +169,11 @@ module Sisimai::Lhost
                   anotherset['diagnosis'] ||= ''
                   anotherset['diagnosis']  += " #{e}"
 
-                elsif Sisimai::String.aligned(e, ['<', '@', '>', '(expanded from<', '):'])
+                elsif Sisimai::String.aligned(e, ['<', '@', '>', '(expanded from ', '):'])
                   # <r@example.ne.jp> (expanded from <kijitora@example.org>): user ...
-                  p1 = e.index('> ')
-                  p2 = e.index('(expanded from ', p1)
-                  p3 = e.index('>): ', p2 + 14)
+                  p1 = e.index('> ');                   next unless p1
+                  p2 = e.index('(expanded from ', p1);  next unless p2
+                  p3 = e.index('>): ', p2 + 14);        next unless p3
                   anotherset['recipient'] = Sisimai::Address.s3s4(e[0, p1])
                   anotherset['alias']     = Sisimai::Address.s3s4(e[p2 + 15, p3 - p2 - 15])
                   anotherset['diagnosis'] = e[p3 + 3, e.size]
@@ -205,17 +205,20 @@ module Sisimai::Lhost
               end
             end
           end # end of while()
-
         end
 
         if recipients == 0
           # Fallback: get a recipient address from error messages
-          if anotherset['recipient'].to_s.size > 0 || anotherset['alias'].to_s.size > 0
-            # Set a recipient address
-            dscontents[-1]['recipient'] = anotherset['recipient']
-            dscontents[-1]['recipient'] = anotherset['alias'] if anotherset['recipient'].nil?
+          %w[recipient alias].each do |e|
+            # Set a valid recipient address picked from the anotherset
+            next  if anotherset[e].nil? || Sisimai::Address.is_emailaddress(anotherset[e]) == false
+            break if dscontents[-1]['recipient'].empty? == false
+            dscontents[-1]['recipient'] = anotherset[e]
             recipients += 1
-          else
+            break
+          end
+
+          if recipients == 0
             # Get a recipient address from message/rfc822 part if the delivery report was unavailable:
             # '--- Delivery report unavailable ---'
             p1 = emailparts[1].index("\nTo: ")     || -1

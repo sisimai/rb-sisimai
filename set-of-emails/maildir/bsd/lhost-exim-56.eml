@@ -25,15 +25,15 @@ recipients. This is a permanent error. The following address(es) failed:
 
 ------ This is a copy of the message, including all the headers. ------
 
-Return-path: <sironeko@.example.net>
+Return-path: <sironeko@example.net>
 Received: from sironeko by node2.example.net with local (Exim 4.88)
-	(envelope-from <sironeko@.example.net>)
+	(envelope-from <sironeko@example.net>)
 	id nekochan-nyaaan-22
 	for kijitora@example.com; Thu, 29 Apr 2016 23:34:45 +0900
 To: kijitora@example.com
 Subject: Nyaan
 Message-Id: <nekochan-nyaaan-22@node2.example.net>
-From: sironeko@.example.net
+From: sironeko@example.net
 Date: Thu, 29 Apr 2016 23:34:45 +0900
 
 Nyaan

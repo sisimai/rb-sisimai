@@ -102,7 +102,12 @@ module Sisimai
       end
 
       # Check that the domain part is a valid internet host or not
-      match = Sisimai::RFC1123.is_internethost(email[lasta + 1, 255]) if match && ipv46 == false
+      cv = email[lasta + 1, 255]
+      if match == false
+        # The domain part is not valid except "localhost6".
+        return true if cv == "localhost6"
+      end
+      match = Sisimai::RFC1123.is_internethost(cv) if ipv46 == false
       return match
     end
 
