@@ -19,6 +19,7 @@ v5.4.1p1
     - `smtpagent` (use `decodedby` instead)
     - `smtpcommand` (use `command` instead)
   - #375 #377 #378 Sisimai requires Ruby 2.5 or later.
+  - Add new error message pattern for Spamhaus (Blocked).
 
 v5.4.1
 ---------------------------------------------------------------------------------------------------
