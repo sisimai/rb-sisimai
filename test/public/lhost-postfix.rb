@@ -73,6 +73,7 @@ module LhostEngineTest::Public
       '77' => [['5.0.0',   '554', 'norelaying',      false]],
       '78' => [['5.0.0',   '554', 'notcompliantrfc', false]],
       '79' => [['5.2.0',   '',    'mailererror',     false]],
+      '80' => [['5.1.0',   '550', 'blocked',         false]],
     }
   end
 end
