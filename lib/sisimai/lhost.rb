@@ -42,7 +42,7 @@ module Sisimai
         return %w[
           Activehunter AmazonSES ApacheJames Biglobe Courier Domino DragonFly EZweb EinsUndEins Exchange2003
           Exchange2007 Exim FML GMX GoogleWorkspace GoogleGroups Gmail IMailServer KDDI MailFoundry Mimecast
-          MailMarshalSMTP MessagingServer Notes OpenSMTPD Postfix Sendmail TrendMicro V5sendmail Verizon
+          MailMarshal MessagingServer Notes OpenSMTPD Postfix Sendmail TrendMicro V5sendmail Verizon
           X1 X2 X3 X6 Zoho MFILTER Qmail
         ]
       end

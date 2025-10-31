@@ -1,8 +1,8 @@
 module Sisimai::Lhost
-  # Sisimai::Lhost::MailMarshalSMTP decodes a bounce email which created by Trustwave Secure Email
+  # Sisimai::Lhost::MailMarshal decodes a bounce email which created by Trustwave Secure Email
   # Gateway: formerly MailMarshal SMTP https://www.trustwave.com/en-us/services/email-security/.
   # Methods in the module are called from only Sisimai::Message.
-  module MailMarshalSMTP
+  module MailMarshal
     class << self
       require 'sisimai/lhost'
 
@@ -14,7 +14,7 @@ module Sisimai::Lhost
         rcpts:   ['The following recipients were affected:'],
       }.freeze
 
-      # @abstract Decodes the bounce message from Trustwave Secure Email Gateway (Formerly MailMarshalSMTP)
+      # @abstract Decodes the bounce message from Trustwave Secure Email Gateway (Formerly MailMarshal)
       # @param  [Hash] mhead    Message headers of a bounce email
       # @param  [String] mbody  Message body of a bounce email
       # @return [Hash]          Bounce data list and message/rfc822 part
