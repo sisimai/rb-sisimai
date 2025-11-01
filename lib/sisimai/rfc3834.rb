@@ -28,6 +28,9 @@ module Sisimai
         )
         [ ]*(.+)\z
       }x.freeze
+      Suspending = [
+        ["this email inbox", " is no longer in use."],
+      ].freeze
 
       # Detect auto reply message as RFC3834
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -115,6 +118,15 @@ module Sisimai
         v['diagnosis'] ||= mhead['subject']
         v['diagnosis'] = Sisimai::String.sweep(v['diagnosis'])
         v['reason']    = 'vacation'
+
+        cv = v['diagnosis'].downcase
+        Suspending.each do |e|
+          # Check that the auto-replied message indicates the "Suspend" reason or not.
+          next unless Sisimai::String.aligned(cv, e)
+          v['reason'] = 'suspend'
+          break
+        end
+
         v['date']      = mhead['date']
         v['status']    = ''
 
