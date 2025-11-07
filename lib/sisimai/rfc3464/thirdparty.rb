@@ -52,7 +52,7 @@ module Sisimai
           MessagesOf = {
             "bad-domain"          => "hostunknown",
             "bad-mailbox"         => "userunknown",
-            "inactive-mailbox"    => "disabled",
+            "inactive-mailbox"    => "suspend",
             "message-expired"     => "expired",
             "no-answer-from-host" => "networkerror",
             "policy-related"      => "policyviolation",
