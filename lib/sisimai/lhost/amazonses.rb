@@ -45,7 +45,7 @@ module Sisimai::Lhost
       require 'sisimai/lhost'
 
       ReasonPair = {
-        "Supressed"                => "suppressed",
+        "Suppressed"               => "suppressed",
         "OnAccountSuppressionList" => "suppressed",
         "General"                  => "onhold",
         "MailboxFull"              => "mailboxfull",
