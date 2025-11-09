@@ -554,7 +554,7 @@ module Sisimai
           '5.4.0'  => 'networkerror',   # Other or undefined network or routing status
           '5.4.3'  => 'systemerror',    # Directory server failure
           '5.4.4'  => 'hostunknown',    # Unable to route
-          '5.5.2'  => 'syntaxerror',    # If the server cannot BASE64 decode any client response (AUTH)
+          '5.5.2'  => 'systemerror',    # If the server cannot BASE64 decode any client response (AUTH)
           '5.5.3'  => 'toomanyconn',    # Too many recipients
           '5.5.4'  => 'systemerror',    # Invalid command arguments
           '5.5.5'  => 'systemerror',    # Wrong protocol version
