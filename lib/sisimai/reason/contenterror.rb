@@ -9,7 +9,6 @@ module Sisimai
     module ContentError
       class << self
         Index = [
-          'duplicate header',
           'header size exceeds maximum permitted',
           'improper use of 8-bit data in message header',
           'message header size, or recipient list, exceeds policy limit',
