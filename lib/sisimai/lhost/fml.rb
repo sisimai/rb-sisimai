@@ -30,12 +30,12 @@ module Sisimai::Lhost
           'reject spammers:',
           'You are not a member of this mailing list',
         ],
+        'notcompliantrfc' => ['Duplicated Message-ID'],
+        'securityerror' => ['Security alert:'],
         'systemerror' => [
           ' has detected a loop condition so that',
-          'Duplicated Message-ID',
           'Loop Back Warning:',
         ],
-        'securityerror' => ['Security alert:'],
       }.freeze
 
       # @abstract Decodes the bounce message from fml mailling list server/manager
