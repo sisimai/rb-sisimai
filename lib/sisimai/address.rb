@@ -25,7 +25,6 @@ module Sisimai
       email = email.strip
       width = email.size
       lasta = email.rindex('@') || -1
-      lastd = email.rindex('.') || -1
 
       return false if width > 254;            # The maximum length of an email address is 254
       return false if lasta < 1 || lasta > 64 # The maximum length of a local part is 64
@@ -38,9 +37,7 @@ module Sisimai
         return false if email.index(' ') != nil # There is 1 or more ' '.
       end
 
-      upper = email.upcase.split('')
       ipv46 = Sisimai::RFC1123.is_domainliteral(email)
-      match = true
 
       j = -1; email.split('').each do |e|
         # 31 < The ASCII code of each character < 127
@@ -48,22 +45,18 @@ module Sisimai
 
         if j < lasta
           # The email address has quoted local part like "neko@cat"@example.org
-          if p < 32 || p > 126
-            # Before ' ' || After '~'
-            match = false
-            break
-          end
-          next if j == 0  # The character is the first character
+          return false if p < 32 || p > 126 # Before ' ' || After '~'
+          next         if j == 0            # The character is the first character
 
           if quote
             # The email address has quoted local part like "neko@cat"@example.org
             jp = email[j - 1, 1]
             if jp.ord == 92 # 92 = '\'
               # When the previous character IS '\', only the followings are allowed: '\', '"'
-              if p != 92 && p != 34 then match = false; break; end
+              return false if p != 92 && p != 34
             else
               # When the previous character IS NOT '\'
-              if p == 34 && j + 1 < lasta then match = false; break; end
+              return false if p == 34 && j + 1 < lasta
             end
           else
             # The local part is not quoted
@@ -71,44 +64,32 @@ module Sisimai
             # Non-RFC compliant email addresses still persist in the world.
             #
             # The following characters are not allowed in a local part without "..."@example.jp
-            if e == ',' || e == '@' || e == ':' || e == ';' || e == '(' then match = false; break; end
-            if e == ')' || e == '<' || e == '>' || e == '[' || e == ']' then match = false; break; end
+            return false if e == ',' || e == '@' || e == ':' || e == ';' || e == '('
+            return false if e == ')' || e == '<' || e == '>' || e == '[' || e == ']'
           end
         else
           # A domain part of the email address: string after the last "@"
-          next if p == 64 # '@'
-          if p <   45 then match = false; break; end  # Before '-'
-          if p ==  47 then match = false; break; end  # Equals '/'
-          if p ==  92 then match = false; break; end  # Equals '\'
-          if p >  122 then match = false; break; end  # After  'z'
+          next         if p == 64   # '@'
+          return false if p <   45  # Before '-'
+          return false if p ==  47  # Equals '/'
+          return false if p ==  92  # Equals '\'
+          return false if p >  122  # After  'z'
 
           if ipv46 == false
             # Such as "example.jp", "neko.example.org"
-            if p > 57 && p < 64 then match = false; break; end  # ':' to '?'
-            if p > 90 && p < 97 then match = false; break; end  # '[' to '`'
+            return false if p > 57 && p < 64  # ':' to '?'
+            return false if p > 90 && p < 97  # '[' to '`'
           else
             # Such as "[IPv4:192.0.2.25]"
-            if p > 59 && p < 64 then match = false; break; end  # ';' to '?'
-            if p > 93 && p < 97 then match = false; break; end  # '^' to '`'
-          end
-
-          if j > lastd && ipv46 == false
-            # *TLD of the domain part: string after the last '.'
-            q = upper[j].ord
-            if q < 65 then match = false; break; end  # Before 'A'
-            if q > 90 then match = false; break; end  # After  'z'
+            return false if p > 59 && p < 64  # ';' to '?'
+            return false if p > 93 && p < 97  # '^' to '`'
           end
         end
       end
+      return true if ipv46
 
       # Check that the domain part is a valid internet host or not
-      cv = email[lasta + 1, 255]
-      if match == false
-        # The domain part is not valid except "localhost6".
-        return true if cv == "localhost6"
-      end
-      match = Sisimai::RFC1123.is_internethost(cv) if ipv46 == false
-      return match
+      return Sisimai::RFC1123.is_internethost(email[lasta + 1, 255])
     end
 
     # Checks that the local part of the argument is quoted address or not.
