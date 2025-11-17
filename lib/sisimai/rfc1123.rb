@@ -44,26 +44,23 @@ module Sisimai
         return false if argv0.include?("..") || argv0.include?("--")
         return false if argv0.start_with?(".", "-") || argv0.end_with?("-")
 
-        hostnameok = true
         characters = argv0.upcase.split("")
         characters.each do |e|
           # Check each characater is a number or an alphabet
           f = e.ord
-          if f <  45            then hostnameok = false; break; end  # 45 = '-'
-          if f == 47            then hostnameok = false; break; end  # 47 = '/'
-          if f >  57 && f <  65 then hostnameok = false; break; end  # 57 = '9', 65 = 'A'
-          if f >  90            then hostnameok = false; break; end  # 90 = 'Z'
+          return false if f <  45             # 45 = '-'
+          return false if f == 47             # 47 = '/'
+          return false if f >  57 && f <  65  # 57 = '9', 65 = 'A'
+          return false if f >  90             # 90 = 'Z'
         end
-        return false if hostnameok == false
 
         p1 = argv0.rindex(".")
         cv = argv0[p1 + 1, argv0.size - p1]; return false if cv.size > 63
         cv.split("").each do |e|
           # The top level domain should not include a number
-          f = e.ord
-          if f > 47 && f < 58 then hostnameok = false; break; end
+          f = e.ord; return false if f > 47 && f < 58
         end
-        return hostnameok
+        return true
       end
 
       # returns true if the domain part is [IPv4:...] or [IPv6:...].
