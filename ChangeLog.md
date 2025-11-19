@@ -20,8 +20,11 @@ v5.4.1p1
     - `smtpcommand` (use `command` instead)
   - #375 #377 #378 Sisimai requires Ruby 2.5 or later.
   - Add new error message pattern for Spamhaus (Blocked).
+  - #379 Reduce `unless` expression.
+  - #382 `Sisimai::Lhost::MailMarshalSMTP` has been renamed to `Sisimai::Lhost::MailMarshal`.
   - #383 Update `Sisimai::RFC3834` for detecting `Suspend` reason.
   - #384 #385 #386 Fix wrong reason names and typos.
+  - #389 Fixed bugs in `Sisimai::Address.is_emailaddress`.
 
 v5.4.1
 ---------------------------------------------------------------------------------------------------
