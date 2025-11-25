@@ -299,6 +299,16 @@ module Sisimai
             if ctencoding == 'base64'
               # Content-Transfer-Encoding: base64
               bodystring = decodeB(bodyinside) || ''
+              dontappend = false; while first10 = bodystring[0,10] do
+                # Don't pick the decoded part as an error message when the part is
+                # - BASE64 encoded.
+                # - the value of the charset is not utf-8.
+                # - NOT a plain text.
+                break if     Sisimai::String.aligned(e[0], ['charset', '=', 'utf-8'])
+                break unless first10 =~ /[\x00-\x08\x0E-\x1F\x7F-]/
+                dontappend = true; break
+              end
+              next if dontappend
 
             elsif ctencoding == 'quoted-printable'
               # Content-Transfer-Encoding: quoted-printable
