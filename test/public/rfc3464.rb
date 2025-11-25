@@ -37,6 +37,7 @@ module LhostEngineTest::Public
       '63' => [['5.1.1',   '550', 'userunknown',     true]],
       '64' => [['4.0.0',   '',    'networkerror',    false]],
       '65' => [['5.0.0',   '',    'userunknown',     true]],
+      '66' => [['5.0.0',   '',    'filtered',        false]],
     }
   end
 end
