@@ -6,6 +6,12 @@ module Sisimai
     module FrancePTT
       class << self
         ErrorCodes = {
+          # - Your sending IP is listed on Abusix RBL
+          #   Please visit: https://lookup.abusix.com/search?q=$IP
+          "100" => 'blocked',
+
+          # - Your sending IP is listed by SpamHaus RBL
+          #   Please visit: https://check.spamhaus.org/listed/?searchterm=$IP
           # - 550 5.7.1 Service unavailable; client [192.0.2.1] blocked using Spamhaus
           #   Les emails envoyes vers la messagerie Laposte.net ont ete bloques par nos services.
           #   Afin de regulariser votre situation, nous vous invitons a cliquer sur le lien ci-dessous
@@ -15,6 +21,8 @@ module Sisimai
           #   https://www.spamhaus.org/lookup/ LPNAAA_101 (in reply to RCPT TO command))
           '101' => 'blocked',
 
+          # - Your sending IP is listed by Cloudmark RBL
+          #   Please visit: https://csi.cloudmark.com/reset-request/?ip=$IP#
           # - 550 mwinf5c04 ME Adresse IP source bloquee pour incident de spam.
           # - Client host blocked for spamming issues. OFR006_102 Ref http://csi.cloudmark.com ...
           # - 550 5.5.0 Les emails envoyes vers la messagerie Laposte.net ont ete bloques par nos
@@ -25,6 +33,9 @@ module Sisimai
           #   https://senderscore.org/blacklistlookup/  LPN007_102
           '102' => 'blocked',
 
+          # - Your sending IP has been blacklisted by Orange
+          #   Please contact Orange by using our contact form and select option
+          #   "Un problème d'envoi d'emails vers les adresses Orange ou Wanadoo (deliverability issue)"
           # - 550 mwinf5c10 ME Service refuse. Veuillez essayer plus tard.
           # - Service refused, please try later. OFR006_103 192.0.2.1 [103]
           '103' => 'blocked',
@@ -34,31 +45,45 @@ module Sisimai
           # - Too many connections, slow down. LPN105_104
           '104' => 'toomanyconn',
 
-          '105' => nil, # Veuillez essayer plus tard.
-          '107' => nil, # Service refused, please try later. LPN006_107
-          '108' => nil, # service refused, please try later. LPN001_108
-          '109' => nil, # Veuillez essayer plus tard. LPN003_109
-          '201' => nil, # Veuillez essayer plus tard. OFR004_201
+          # - Your IP address is missing a DNS PTR record, it also called a rDNS (reverse DNS)
+          #   Please set up a valid DNS PTR record for your IP address that point to your domain,
+          #   It's important that the sending IP address must match the IP address of the hostname
+          #   defined in the PTR record
+          # - Service refused, please try later. LPN006_107
+          "107" => 'requireptr',
 
-          # - 550 5.7.0 Code d'authentification invalide OFR_305
-          '305' => 'securityerror',
+          # - You are sending too many messages per SMTP connection
+          #   Please reduce the number of messages per connection, recommended value is 100
+          #   messages per connections
+          # - Veuillez essayer plus tard. LPN003_109
+          "109" => 'toomanyconn',
 
-          # - 550 5.5.0 SPF: *** is not allowed to send mail. LPN004_401
-          '401' => 'authfailure',
+          # - Invalid HELO/EHLO
+          #   Please set up a valid HELO/EHLO, it must be fully qualified domain name (FQDN) and
+          #   should resolve (DNS record needed). E.g.: "mail.yourdomain.com"
+          # - Veuillez essayer plus tard. OFR004_201
+          "201" => 'blocked',
+          "20X" => 'blocked',
 
-          # - 550 5.5.0 Authentification requise. Authentication Required. LPN105_402
-          '402' => 'securityerror',
+          # - Sender's Domain name SPF Error
+          #   Please verify your mail from domain name DNS/TXT configuration for your SPF
+          #   configuration. Please visit https://mxtoolbox.com/supertool3?action=spf:$YOUR_DOMAIN
+          #   to check your domain. (replace $YOUR_DOMAIN by your sender domain name)
+          #   Please note:
+          #     If you have changed your DNS record recently, please let DNS caches expire (TTL)
+          "39X" => 'authfailure',
 
-          # - 5.0.1 Emetteur invalide. Invalid Sender.
-          '403' => 'rejected',
-
+          # - Sender's Domain DNS Error
+          #   Please verify your mail from domain name DNS configuration. Your domain name must
+          #   have valid A or MX records. You can check your DNS configuration on MxToolBox
+          #   Please note:
+          #     If you have changed your DNS record recently, please let DNS caches expire (TTL)
           # - 5.0.1 Emetteur invalide. Invalid Sender. LPN105_405
           # - 501 5.1.0 Emetteur invalide. Invalid Sender. OFR004_405 [405] (in reply to MAIL FROM command))
           '405' => 'rejected',
 
-          # Emetteur invalide. Invalid Sender. OFR_415
-          '415' => 'rejected',
-
+          # - User doesn't exist here
+          #   Please remove this email address from your distribution list, it does not exist
           # - 550 5.1.1 Adresse d au moins un destinataire invalide.
           # - Invalid recipient. LPN416 (in reply to RCPT TO command)
           # - Invalid recipient. OFR_416 [416] (in reply to RCPT TO command)
@@ -68,17 +93,15 @@ module Sisimai
           # - Recipient overquota. OFR_417 [417] (in reply to RCPT TO command))
           '417' => 'mailboxfull',
 
-          # - Adresse d au moins un destinataire invalide
-
           # - 550 5.5.0 Boite du destinataire archivee.
           # - Archived recipient. LPN007_420 (in reply to RCPT TO command)
           '420' => 'suspend',
 
-          # - 5.5.3 Mail from not owned by user. LPN105_421.
-          '421' => 'rejected',
-
-          '423' => nil, # Service refused, please try later. LPN105_423
-          '424' => nil, # Veuillez essayer plus tard. LPN105_424
+          # - Your sender domain name has been blacklisted
+          #   Your sender domain name has been blacklisted by Abusix OR SpamHaus, Please visit:
+          #   - https://lookup.abusix.com/search?q=$YOUR_DOMAIN 
+          #   - https://check.spamhaus.org/listed/?searchterm=$YOUR_DOMAIN
+          "425" => 'rejected',
 
           # - 550 5.5.0 Le compte du destinataire est bloque. The recipient account isblocked.
           #   LPN007_426 (in reply to RCPT TO command)
@@ -90,6 +113,9 @@ module Sisimai
           #   LPN007_505 (in reply to end of DATA command)
           '505' => 'systemerror',
 
+          # - Your message has been blocked by Orange, suspected spam
+          #   Please contact Orange by using our contact form and select option
+          #   "Un problème d'envoi d'emails vers les adresses Orange ou Wanadoo (deliverability issue)"
           # - Mail rejete. Mail rejected. OFR_506 [506]
           '506' => 'spamdetected',
 
@@ -97,21 +123,43 @@ module Sisimai
           #   LPN005_510 (in reply to end of DATA command)
           '510' => 'blocked',
 
-          '513' => nil, # Mail rejete. Mail rejected. OUK_513
-
-          # - Taille limite du message atteinte
-          '514' => 'mesgtoobig',
+          # - DMARC authentication failed, message rejected as defined by your DMARC policy
+          #   Please check your SPF/DKIM/DMARC configuration. Please visit MxToolBox DMARC to
+          #   check your domain configuration
+          "515" => 'authfailure',
 
           # - 571 5.7.1 Message refused, DMARC verification Failed.
           # - Message refuse, verification DMARC en echec LPN007_517
           '517' => 'authfailure',
 
-          # - 554 5.7.1 Client host rejected LPN000_630
-          '630' => 'policyviolation',
+          # - The sending IP address is not authorized to send messages for your domain as defined
+          #   in the sender's Domain name SPF configuration (DNS/TXT)
+          #   Please verify your mail from domain name DNS/TXT configuration for your SPF configuration.
+          #   Please visit https://mxtoolbox.com/supertool3?action=spf:$YOUR_DOMAIN to check your
+          #   domain. (replace $YOUR_DOMAIN by your sender domain name)
+          "519" => 'authfailure',
 
+          # - Due to bad behavior you have been rate limited, please try again later
+          #   Due to inappropriate behavior, you have been rate limited. Please check what you
+          #   are trying to send
           # - 421 mwinf5c77 ME Service refuse. Veuillez essayer plus tard. Service refused, please try
           #   later. OFR_999 [999]
-          '999' => 'blocked',
+          "99X" => 'toomanyconn',
+
+          # Other undocumented or old error codes
+          "105" => "",                # Veuillez essayer plus tard.
+          "108" => "",                # service refused, please try later. LPN001_108
+          "305" => "securityerror",   # 550 5.7.0 Code d'authentification invalide OFR_305
+          "401" => "authfailure",     # 550 5.5.0 SPF: *** is not allowed to send mail. LPN004_401
+          "402" => "securityerror",   # 550 5.5.0 Authentification requise. Authentication Required. LPN105_402
+          "403" => "rejected",        # 5.0.1 Emetteur invalide. Invalid Sender.
+          "415" => "rejected",        # Emetteur invalide. Invalid Sender. OFR_415
+          "421" => "rejected",        # 5.5.3 Mail from not owned by user. LPN105_421.
+          "423" => "",                # Service refused, please try later. LPN105_423
+          "424" => "",                # Veuillez essayer plus tard. LPN105_424
+          "513" => "",                # Mail rejete. Mail rejected. OUK_513
+          "514" => "messagetoobig",   # Taille limite du message atteinte
+          "630" => "policyviolation", # 554 5.7.1 Client host rejected LPN000_630
         }.freeze
         MessagesOf = {
           'authfailure' => [
@@ -135,7 +183,8 @@ module Sisimai
           if cv = issuedcode.match(/\b(LPN|LPNAAA|OFR|OUK)(_[0-9]{3}|[0-9]{3}[-_][0-9]{3})\b/i)
             # OUK_513, LPN105-104, OFR102-104, ofr_506
             v = sprintf("%03d", (cv[1] + cv[2])[-3, 3])
-            reasontext = ErrorCodes[v] || 'undefined'
+            x = v.clone; x[-1] = "X"
+            reasontext = ErrorCodes[v] || ErrorCodes[x] || ''
           end
           return reasontext if reasontext.size > 0
 
