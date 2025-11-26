@@ -728,6 +728,55 @@ module Sisimai
             ['5.1.2', 0, 0, 'invalid x.400 address'],
           ],
         }.freeze
+        ErrorCodes = {
+          #  The mail server IP connecting to Outlook.com server has exceeded the rate limit allowed.
+          #  Reason for rate limitation is related to IP/domain reputation.
+          "RP-001" => ["421", "badreputation"],
+
+          #  The mail server IP connecting to Outlook.com server has exceeded the rate limit allowed
+          #  on this connection. Reason for rate limitation is related to IP/domain reputation.
+          "RP-002" => ["421", "badreputation"],
+
+          #  The mail server IP connecting to Outlook.com server has exceeded the connection limit
+          #  allowed. Reason for limitation is related to IP/domain reputation.
+          "RP-003" => ["421", "badreputation"],
+
+          #  Mail rejected by Outlook.com for policy reasons. Reasons for rejection may be related
+          #  to content with spam-like characteristics or IP/domain reputation. 
+          "SC-001" => ["550", "badreputation"],
+
+          #  Mail rejected by Outlook.com for policy reasons. The mail server IP connecting to
+          #  Outlook.com has exhibited namespace mining behavior.
+          "SC-002" => ["550", "policyviolation"],
+
+          #  Mail rejected by Outlook.com for policy reasons. Your IP address appears to be an
+          #  open proxy/relay.
+          "SC-003" => ["550", "blocked"],
+
+          #  Mail rejected by Outlook.com for policy reasons. A block has been placed against your
+          #  IP address because we have received complaints concerning mail coming from that IP
+          #  address. We recommend enrolling in our Junk Email Reporting Program (JMRP), a free
+          #  program intended to help senders remove unwanted recipients from their email list
+          "SC-004" => ["550", "blocked"],
+
+          #  Mail rejected by Outlook.com for policy reasons. We generally do not accept email
+          #  from dynamic IP's as they are not typically used to deliver unauthenticated SMTP email
+          #  to an Internet mail server. (Spamhaus)
+          "DY-001" => ["550", "blocked"],
+
+          #  Mail rejected by Outlook.com for policy reasons. The likely cause is a compromised or
+          #  virus infected server/personal computer.
+          "DY-002" => ["550", "virusdetected"],
+
+          #  Mail rejected by Outlook.com for policy reasons. If you are not an email/network admin
+          #  please contact your Email/Internet Service Provider for help. For more information
+          #  about this block and to request removal please go to: Spamhaus.
+          "OU-001" => ["550", "blocked"],
+
+          #  Mail rejected by Outlook.com for policy reasons. Reasons for rejection may be related
+          #  to content with spam-like characteristics or IP/domain reputation.
+          "OU-002" => ["550", "badreputation"],
+        }.freeze
 
         # Detect bounce reason from Exchange Server 2019 or older and Exchange Online
         # @param    [Sisimai::Fact] argvs   Decoded email object
@@ -760,6 +809,13 @@ module Sisimai
               break
             end
             break if reasontext.empty? == false
+          end
+
+          ErrorCodes.each_key do |e|
+            # The key name is an error code described at Outlook.com Postmaster/Troubleshooting
+            # https://substrate.office.com/ip-domain-management-snds/postmaster/troubleshooting
+            next if argvs['diagnosticcode'].include?(e) == false
+            return ErrorCodes[e][1] if argvs['replycode'] == ErrorCodes[e][0]
           end
 
           return reasontext
