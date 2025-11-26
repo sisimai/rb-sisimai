@@ -188,6 +188,15 @@ module Sisimai
             #   other. They need to correct their forwarding settings.
             'message is looping',
           ],
+          'toomanyconn' => [
+            # - 550 5.7.232 Your message can't be sent because your trial tenant has exceeded
+            #   its daily limit for sending email to external recipients (tenant external
+            #   recipient rate limit)
+            # - 550 5.7.233 - Your message can't be sent because your tenant exceeded its daily
+            #   limit for sending email to external recipients (tenant external recipient rate
+            #   limit)
+            "exceeded its daily limit",
+          ],
           'userunknown' => [
             # - 550 Recipient not found
             # - The recipient is not a valid email address.
