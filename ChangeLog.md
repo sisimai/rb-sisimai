@@ -25,6 +25,15 @@ v5.4.1p1
   - #383 Update `Sisimai::RFC3834` for detecting `Suspend` reason.
   - #384 #385 #386 Fix wrong reason names and typos.
   - #389 Fixed bugs in `Sisimai::Address.is_emailaddress`.
+  - #390 Check that the decoded MIME part is a binary or not in `Sisimai::RFC2045`.
+  - #391 Update SMTP error codes and messages in the following `Sisimai::Rhost` packages:
+    - `Facebook` Update `AuthFailure` and `MailboxFull`
+    - `FrancePTT` Update `AuthFailure`, `Blocked`, `Rejected`, and `TooManyConn`
+    - `GoDaddy` Add `TooManyConn`
+    - `MessageLabs` Add many error message patterns
+    - `Tencent` Add `Speeding`
+    - `Microsoft` Implement SMTP error codes described in Outlook Postmaster/Troubleshooting
+
 
 v5.4.1
 ---------------------------------------------------------------------------------------------------
