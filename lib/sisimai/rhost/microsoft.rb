@@ -789,7 +789,6 @@ module Sisimai
           statuscode = argvs['deliverystatus']
           issuedcode = argvs['diagnosticcode'].downcase
           thirddigit = statuscode.split('.')[-1].to_i
-          reasontext = ''
 
           MessagesOf.each_key do |e|
             # Each key is a reason name
