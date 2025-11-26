@@ -27,7 +27,8 @@ module Sisimai
             'mail content denied',              # https://service.mail.qq.com/detail/122/171
           ],
           'speeding' => [
-            'mailbox unavailable or access denined', # https://service.mail.qq.com/detail/122/166
+            'mailbox unavailable or access denined',      # https://service.mail.qq.com/detail/122/166
+            "frequency of receiving messages is limited", # https://service.mail.qq.com/detail/122/1011
           ],
           'suspend' => [
             'is a deactivated mailbox', # http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=20022&&no=1000742
