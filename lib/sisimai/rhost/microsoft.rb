@@ -804,11 +804,8 @@ module Sisimai
                 next if thirddigit < f[1] || thirddigit > f[2]
               end
 
-              next if issuedcode.include?(f[3]) == false
-              reasontext = e
-              break
+              return e if issuedcode.include?(f[3])
             end
-            break if reasontext.empty? == false
           end
 
           ErrorCodes.each_key do |e|
@@ -818,7 +815,7 @@ module Sisimai
             return ErrorCodes[e][1] if argvs['replycode'] == ErrorCodes[e][0]
           end
 
-          return reasontext
+          return ""
         end
 
       end
