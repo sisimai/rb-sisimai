@@ -14,6 +14,9 @@ module Sisimai
         # @param    [Sisimai::Fact] argvs   Decoded email object
         # @return   [String]                The bounce reason for Aol
         # @since v5.2.0
+        # @see
+        # - Y!Sender Hub/SMTP Error Codes: https://senders.yahooinc.com/smtp-error-codes/
+        # - The MX record of Aol points "mx-aol.mail.gm0.yahoodns.net".
         def find(argvs)
           return "" if argvs["diagnosticcode"].empty?
           issuedcode = argvs["diagnosticcode"]
