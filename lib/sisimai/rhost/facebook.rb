@@ -27,12 +27,18 @@ module Sisimai
             "RCP-P2",   # The attempted recipient's preferences prevent messages from being delivered.
             "RCP-P3",   # The attempted recipient's privacy settings blocked the delivery.
           ],
+          "mailboxfull" => [
+            "INT-P7",   # The attempted recipient has exceeded their storage quota.
+          ],
           "mesgtoobig" => [
             "MSG-P1",   # The message exceeds Facebook's maximum allowed size.
             "INT-P2",   # The message exceeds Facebook's maximum allowed size.
           ],
           "notcompliantrfc" => [
             "MSG-P3",   # The message contains multiple instances of a header field that can only be present once.
+          ],
+          "policyviolation" => [
+            "POL-P8",   # The message does not comply with Facebook's abuse policies and will not be accepted.
           ],
           "rejected" => [
             "DNS-P1",   # Your SMTP MAIL FROM domain does not exist.
@@ -45,13 +51,13 @@ module Sisimai
           ],
           "spamdetected" => [
             "POL-P6",   # The message contains a url that has been blocked by Facebook.
-            "POL-P7",   # The message does not comply with Facebook's abuse policies and will not be accepted.
           ],
           "suspend" => [
             "RCP-T4",   # The attempted recipient address is currently deactivated. The user may or may not reactivate it.
           ],
           "systemerror" => [
-            "RCP-T1",   # The attempted recipient address is not currently available due to an internal system issue. This is a temporary condition.
+            "RCP-T1",   # The attempted recipient address is not currently available due to an internal system issue.
+            "INT-Tx",   # These codes indicate a temporary issue internal to Facebook's system.
           ],
           "toomanyconn" => [
             "CON-T1",   # Facebook's mail server currently has too many connections open to allow another one.
