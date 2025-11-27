@@ -107,7 +107,7 @@ module LhostEngineTest::Private
       '1098'  => [['5.7.1',   '550', 'spamdetected',    false]],
       '1099'  => [['5.7.1',   '550', 'spamdetected',    false]],
       '1100'  => [['5.0.0',   '554', 'spamdetected',    false]],
-      '1101'  => [['5.0.0',   '554', 'virusdetected',   false]],
+      '1101'  => [['5.0.0',   '554', 'spamdetected',    false]],
       '1102'  => [['5.7.1',   '550', 'spamdetected',    false]],
       '1103'  => [['5.0.0',   '550', 'spamdetected',    false]],
       '1104'  => [['5.0.0',   '550', 'spamdetected',    false]],
