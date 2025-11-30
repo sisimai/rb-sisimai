@@ -1,0 +1,86 @@
+Return-Path: <>
+X-Original-To: michitsuna@example.org
+Delivered-To: nekonyaan@example.org
+Received: by mbox.example.org (Postfix)
+	id 4dJF1r4PPvz20Q2D; Tue, 29 Apr 2025 11:47:12 +0900 (JST)
+Date: Tue, 29 Apr 2025 11:47:12 +0900 (JST)
+From: MAILER-DAEMON@mbox.example.org (Mail Delivery System)
+Subject: Undelivered Mail Returned to Sender
+To: michitsuna@example.org
+Auto-Submitted: auto-replied
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="4dJF1p1qt4z20PyL.1234580000/mbox.example.org"
+Message-Id: <4dJF1r4PPvz20Q2D@mbox.example.org>
+
+This is a MIME-encapsulated message.
+
+--4dJF1p1qt4z20PyL.1234580000/mbox.example.org
+Content-Description: Notification
+Content-Type: text/plain; charset=us-ascii
+
+This is the mail system at host mbox.example.org.
+
+I'm sorry to have to inform you that your message could not
+be delivered to one or more recipients. It's attached below.
+
+For further assistance, please send mail to postmaster.
+
+If you do so, please include this problem report. You can
+delete your own text from the attached returned message.
+
+                   The mail system
+
+<kijitora@zoho.example.com>: host smtpin.zoho.com[204.141.33.23] said: 554 5.7.7 Email
+    policy violation detected (in reply to end of DATA command)
+
+--4dJF1p1qt4z20PyL.1234580000/mbox.example.org
+Content-Description: Delivery report
+Content-Type: message/delivery-status
+
+Reporting-MTA: dns; mbox.example.org
+X-Postfix-Queue-ID: 4dJF1p1qt4z20PyL
+X-Postfix-Sender: rfc822; michitsuna@example.org
+Arrival-Date: Tue, 29 Apr 2025 11:47:10 +0900 (JST)
+
+Final-Recipient: rfc822; kijitora@zoho.example.com
+Original-Recipient: rfc822;kijitora@zoho.example.com
+Action: failed
+Status: 5.7.7
+Remote-MTA: dns; smtpin.zoho.com
+Diagnostic-Code: smtp; 554 5.7.7 Email policy violation detected
+
+--4dJF1p1qt4z20PyL.1234580000/mbox.example.org
+Content-Description: Undelivered Message
+Content-Type: message/rfc822
+
+Return-Path: <michitsuna@example.org>
+Received: from smtpclient.apple (p2-255.kyoto.example.ne.jp [192.0.2.25])
+	by mbox.example.org (Postfix) with ESMTPSA id 4dJF1p1qt4z20PyL
+	for <kijitora@zoho.example.com>; Tue, 29 Apr 2025 11:47:10 +0900 (JST)
+Authentication-Results: mbox.example.org; arc=none smtp.client-ip=192.0.2.25
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=example.org;
+	s=neko22; t=1000000000;
+	bh=PTPS44ldRbybtsf2JyOccMKmOaotbn7wXTBZLWOqHr0=;
+	h=From:Subject:Message-Id:Date:To:X-Mailer:From;
+	b=dVV/aqMxVRphpgNYICGJBO1oqI/MBC0qoa0TZSVaL5dtDxOm23+iaQjs2rJv8oRmo
+	 H3QDTWfjopR+04szcFtRVQRXAJQFW0rmaYf4hXwAqqLCR3egw/vILDYV4Pr3lktPzT
+	 u1nZbYhdtgnmN89z/GIGUIKyoumKCK3ADCH2VL0ZFauLnTsiIqDPtFUeETfXiQiZr0
+	 5QbE/iwY29R4NY1s2Spc0BtSHeZDbsfgnccZIZhKUvC2AaJqFMfO3xfAvDSHrGRU/L
+	 0NLS9PyGUR+UL/QVFuGgti1AC3jKvevurqMQnz3Rw1G8zYq8y10h5ta0nZ9HfWbzO8
+	 NZrIa7MtJeCAw==
+From: "Nekodono" <michitsuna@example.org>
+Content-Type: text/plain;
+	charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.400.131.1.6\))
+Subject: Nyaan?
+Message-Id: <6E83AE85-5AF4-4E9B-8B33-64683EF86602@example.org>
+Date: Tue, 29 Apr 2025 11:46:59 +0900
+To: kijitora@zoho.example.com
+X-Mailer: Apple Mail (2.3826.400.131.1.6)
+
+Nyaan?
+
+--4dJF1p1qt4z20PyL.1234580000/mbox.example.org--
+
