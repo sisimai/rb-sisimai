@@ -329,6 +329,10 @@ module LhostEngineTest::Private
       '1317'  => [['4.7.0',   '421', 'badreputation',   false]],
       '1318'  => [['5.0.0',   '553', 'norelaying',      false]],
       '1319'  => [['4.0.0',   '450', 'suspend',         false]],
+      '1320'  => [['5.7.7',   '554', 'policyviolation', false]],
+      '1321'  => [['5.7.1',   '554', 'rejected',        false]],
+      '1322'  => [['5.4.1',   '',    'rejected',        false]],
+      '1323'  => [['5.1.1',   '550', 'userunknown',      true]],
     }
   end
 end
