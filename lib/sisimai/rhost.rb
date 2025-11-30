@@ -24,6 +24,7 @@ module Sisimai
         "Spectrum"    => ["charter.net"],
         "Tencent"     => [".qq.com"],
         "YahooInc"    => [".yahoodns.net"],
+        "Zoho"        => [".zoho.com", ".zoho.eu"],
       }.freeze
 
       # Returns the rhost class name
