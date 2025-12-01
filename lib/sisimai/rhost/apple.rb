@@ -53,10 +53,14 @@ module Sisimai
             #   Try again later - https://support.apple.com/en-us/HT204137
             'due to excessive volume',
           ],
+          'suspend' => [
+            # - https://support.apple.com/guide/icloud/stop-using-or-reactivate-addresses-mm3adb030cbf/icloud
+            # - 550 5.1.1 <****@icloud.com>: inactive email address (in reply to RCPT TO command)
+            "inactive email address",
+          ],
           'userunknown' => [
               # - 550 5.1.1 <****@icloud.com>: inactive email address (in reply to RCPT TO command)
               # - 550 5.1.1 unknown or illegal alias: ****@icloud.com
-              'inactive email address',
               'user does not exist',
               'unknown or illegal alias',
           ],
