@@ -19,7 +19,6 @@ module Sisimai
         Index = [
           'an illegal attachment on your message',
           'because the recipient is not accepting mail with ',    # AOL Phoenix
-          'by non-member to a members-only list',
           'closed mailing list',
           'denied by policy',
           'email not accepted for policy reasons',
@@ -35,9 +34,8 @@ module Sisimai
           'messages with multiple addresses',
           'rejected for policy reasons',
           'protocol violation',
-          'the email address used to send your message is not subscribed to this group',
           'the message was rejected by organization policy',
-          'this message was blocked because its content presents a potential',
+          'this message was blocked because its content presents a potential', # https://support.google.com/mail/answer/6590
           'we do not accept messages containing images or other attachments',
           "you're using a mass mailer",
         ].freeze
