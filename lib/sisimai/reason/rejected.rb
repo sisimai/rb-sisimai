@@ -23,8 +23,8 @@ module Sisimai
           'access denied (sender blacklisted)',
           'address rejected',
           'administrative prohibition',
-          'batv failed to verify',    # SoniWall
-          'batv validation failure',  # SoniWall
+          'batv failed to verify',    # SonicWall
+          'batv validation failure',  # SonicWall
           'backscatter protection detected an invalid or expired email address',  # MDaemon
           "because the sender isn't on the recipient's list of senders to accept mail from",
           'bogus mail from',          # IMail - block empty sender
