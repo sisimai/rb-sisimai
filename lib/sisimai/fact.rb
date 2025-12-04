@@ -43,6 +43,7 @@ module Sisimai
       :timestamp,       # [Sisimai::Time] Date: header in the original message
       :timezoneoffset,  # [Integer] Time zone offset(seconds)
       :token,           # [String] Message token/MD5 Hex digest value
+      :toxic,           # [Boolean] EXPERIMENTAL
     ]
     attr_accessor(*@@rwaccessors)
 
@@ -93,6 +94,7 @@ module Sisimai
       @token          = argvs['token']
       @timestamp      = argvs['timestamp']
       @timezoneoffset = argvs['timezoneoffset']
+      @toxic          = argvs['toxic']
     end
 
     # Constructor of Sisimai::Fact
@@ -139,6 +141,7 @@ module Sisimai
           "replycode"      => e["replycode"],
           "rhost"          => e["rhost"],
           "decodedby"      => e["agent"],
+          "toxic"          => e["toxic"],
         }
 
         # EMAILADDRESS: Detect an email address from message/rfc822 part
@@ -379,6 +382,7 @@ module Sisimai
         thing['catch']          = piece['catch'] || nil
         thing["feedbackid"]     = ""
         thing['hardbounce']     = piece['hardbounce']
+        thing['toxic']          = piece['toxic']
         thing['replycode']      = Sisimai::SMTP::Reply.find(piece['diagnosticcode']) if thing['replycode'].empty?
         thing['timestamp']      = TimeModule.parse(::Time.at(piece['timestamp']).to_s)
         thing['timezoneoffset'] = piece['timezoneoffset'] || '+0000'
@@ -479,10 +483,42 @@ module Sisimai
 
         # Feedback-ID: 1.us-west-2.QHuyeCQrGtIIMGKQfVdUhP9hCQR2LglVOrRamBc+Prk=:AmazonSES
         thing["feedbackid"] = rfc822data["feedback-id"] || ""
+        thing["toxic"]    ||= is_toxic(thing)
 
         listoffact << Sisimai::Fact.new(thing)
       end
       return listoffact
+    end
+
+    def self.is_toxic(thing = nil)
+      return false unless thing
+      cr = thing['reason']         || 'undefined'
+      cv = thing['replycode']      || ''
+      cw = thing['deliverystatus'] || ''
+
+      # 1. Hard bounces or some soft bounces with a permanent error.
+      #   1-1. Hard bounce: UserUnknown, HostUnknown, HasMoved, NotAccept
+      #   1-2. Almost hard bounce: Suspend, Suppressed
+      return false if cv.start_with?('4') || cw.start_with?('4')
+      return true  if %w[userunknown hostunknown hasmoved notaccept suspend suppressed].any? { |a| cr == a }
+
+      if %w[mailboxfull filtered norelaying].any? { |a| cr == a }
+        # 2. Several softbounces: MailboxFull, Filtered, NoRelaying
+        #   2-1. The SMTP command is "RCPT" except "MailboxFull".
+        #   2-2. The SMTP reply code begins with "5" such as "550".
+        #   2-3. The SMTP status code is explicit code (not empty, not 5.0.9XX).
+        #   2-4. The SMTP status code begins with "5." such as "5.1.1".
+        return true  if cr != 'mailboxfull' && thing['command'] == "RCPT"
+        return true  if cv.start_with?('5')
+        return false if Sisimai::SMTP::Status.is_explicit(cw) == false
+        return true  if cw.start_with?('5.')
+
+      elsif cr == 'feedback'
+        # 3. Feedback Loop
+        #   3-1. The Feedback Type is any of "abuse", "fraud", "opt-out"
+        return true  if %w[abuse fraud opt-out].any? { |a| thing['feedbacktype'] == a }
+      end
+      return false
     end
 
     # Convert from Sisimai::Fact object to a Hash
@@ -499,6 +535,7 @@ module Sisimai
         v = {}
         stringdata.each { |e| v[e] = self.send(e.to_sym) || '' }
         v['hardbounce'] = self.hardbounce
+        v['toxic']      = self.toxic
         v['addresser']  = self.addresser.address
         v['recipient']  = self.recipient.address
         v['timestamp']  = self.timestamp.to_time.to_i
