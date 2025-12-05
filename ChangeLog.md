@@ -3,13 +3,13 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
-v5.4.1p1
+v5.5.0
 ---------------------------------------------------------------------------------------------------
-- release: ""
-- version: ""
+- release: "Fri,  5 Dec 2025 17:25:22 +0900 (JST)"
+- version: "5.5.0"
 - changes:
   - #358 #359 Fix the file encoding of `Sisimai::Lhost::Exchange2007`: sjis => utf8
-  - #361 #362 Fix encoding problem (ASCII-8BIT, UTF-8). Thanks to @timoschilling
+  - #361 #362 Fix encoding problem (ASCII-8BIT, UTF-8) in MIME decoding. Thanks to @timoschilling
   - #360 #364 Update SMTP reply codes defined in `Sisimai::SMTP::Reply.Associated`.
   - #365 Implement `Sisimai::SMTP::Status.is_ambiguous` method.
   - #363 Sisimai partially supports the media types described in RFC6533 such as `message/global`.
@@ -26,14 +26,17 @@ v5.4.1p1
   - #384 #385 #386 Fix wrong reason names and typos.
   - #389 Fixed bugs in `Sisimai::Address.is_emailaddress`.
   - #390 Check that the decoded MIME part is a binary or not in `Sisimai::RFC2045`.
-  - #391 Update SMTP error codes and messages in the following `Sisimai::Rhost` packages:
+  - #391 #394 Update SMTP error codes and messages in the following `Sisimai::Rhost` packages:
+    - `Apple` `inactive email address` indicates `Suspend`
     - `Facebook` Update `AuthFailure` and `MailboxFull`
     - `FrancePTT` Update `AuthFailure`, `Blocked`, `Rejected`, and `TooManyConn`
     - `GoDaddy` Add `TooManyConn`
     - `MessageLabs` Add many error message patterns
-    - `Tencent` Add `Speeding`
     - `Microsoft` Implement SMTP error codes described in Outlook Postmaster/Troubleshooting
-
+    - `Tencent` Add `Speeding`
+    - `Zoho` Implement as a new module
+  - #396 Sisimai works on Ruby 3.3.10 and 3.4.7.
+  - #397 EXPERIMENTAL: Implement `toxic` field in the decoded results.
 
 v5.4.1
 ---------------------------------------------------------------------------------------------------
