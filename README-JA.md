@@ -65,7 +65,7 @@ Sisimai(シシマイ)は複雑で多種多様なバウンスメールを解析�
 The key features of Sisimai
 ---------------------------------------------------------------------------------------------------
 * __バウンスメールを構造化したデータに変換__
-  * 以下26項目の情報を含むデータ構造[^2]
+  * 以下27項目の情報を含むデータ構造[^2]
     * __基本的情報__: `timestamp`, `origin`
     * __発信者情報__: `addresser`, `senderdomain`, 
     * __受信者情報__: `recipient`, `destination`, `alias`
@@ -115,10 +115,10 @@ Install
 ### From RubyGems.org
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-5.2.0.gem (100%)
-Successfully installed sisimai-5.2.0
-Parsing documentation for sisimai-5.2.0
-Installing ri documentation for sisimai-5.2.0
+Fetching: sisimai-5.5.0.gem (100%)
+Successfully installed sisimai-5.5.0
+Parsing documentation for sisimai-5.5.0
+Installing ri documentation for sisimai-5.5.0
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -146,13 +146,13 @@ if [ -d "/usr/local/jr" ]; then \
 ...
 3 gems installed
 /opt/local/bin/rake install
-sisimai 5.2.0 built to pkg/sisimai-5.2.0.gem.
-sisimai (5.2.0) installed.
+sisimai 5.5.0 built to pkg/sisimai-5.5.0.gem.
+sisimai (5.5.0) installed.
 if [ -d "/usr/local/jr" ]; then \
 		PATH="/usr/local/jr/bin:$PATH" /usr/local/jr/bin/rake install; \
 	fi
-sisimai 5.2.0 built to pkg/sisimai-5.2.0-java.gem.
-sisimai (5.2.0) installed.
+sisimai 5.5.0 built to pkg/sisimai-5.5.0-java.gem.
+sisimai (5.5.0) installed.
 ```
 
 Usage
@@ -333,6 +333,7 @@ Output example
     "timezoneoffset": "+0900",
     "replycode": 550,
     "token": "84656774898baa90660be3e12fe0526e108d4473",
+    "toxic": false,
     "diagnostictype": "SMTP",
     "timestamp": 1650119685,
     "diagnosticcode": "host gmail-smtp-in.l.google.com[64.233.187.27] said: This mail has been blocked because the sender is unauthenticated. Gmail requires all senders to authenticate with either SPF or DKIM. Authentication results: DKIM = did not pass SPF [relay3.example.com] with ip: [192.0.2.22] = did not pass For instructions on setting up authentication, go to https://support.google.com/mail/answer/81126#authentication c2-202200202020202020222222cat.127 - gsmtp (in reply to end of DATA command)",
@@ -349,7 +350,7 @@ Differences between Sisimai 4 and Sisimai 5
 
 Features
 ---------------------------------------------------------------------------------------------------
-Sisimai 5.0.0から**Ruby 2.5以上**が必要になります。
+Sisimai 5.5.0から**Ruby 2.5以上**が必要になります。
 
 | 機能                                                 | Sisimai 4          | Sisimai 5           |
 |------------------------------------------------------|--------------------|---------------------|
@@ -359,9 +360,9 @@ Sisimai 5.0.0から**Ruby 2.5以上**が必要になります。
 | 解析エンジン(MTA/ESPモジュール)の数                  | 68                 | 60                  |
 | 検出可能なバウンス理由の数                           | 29                 | 36                  |
 | 依存Gem数(Ruby Standard Gemsを除く)                  | 1 Gem              | 1 Gem               |
-| ソースコードの行数                                   | 10,800 行          | 9,800 行            |
+| ソースコードの行数                                   | 10,800 行          | 9,970 行            |
 | テストフレームワーク                                 | rspec              | minitest            |
-| テスト件数(spec/またはtest/ディレクトリ)             | 311,000 件         | 410,000 件          |
+| テスト件数(spec/またはtest/ディレクトリ)             | 311,000 件         | 240,000 件          |
 | 1秒間に解析できるバウンスメール数[^4]                | 620 通             | 620 通              |
 | ライセンス                                           | 2条項BSD           | 2条項BSD            |
 | 開発会社による商用サポート                           | 提供中             | 提供中              |
@@ -401,6 +402,7 @@ Sisimai 5で3個のESPモジュール名(解析エンジン)が変更になり�
 | Google Workspace                                | `Rhost::GoogleApps`     | `Rhost::Google`     |
 | Tencent                                         | `Rhost::TencentQQ`      | `Rhost::Tencent`    |
 | Yahoo Mail (added at v5.1.0)                    | なし                    | `Rhost::YahooInc`   |
+| Zoho (added at v5.5.0)                          | なし                    | `Rhost::Zoho`       |
 | DragonFly Mail Agent (added at v5.1.0)          | なし                    | `Lhost::DragonFly`  |
 | Mimecast (added at v5.5.0)                      | なし                    | `Lhost::Mimecast`   |
 

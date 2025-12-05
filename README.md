@@ -67,14 +67,14 @@ of Sisimai is ported from [the Perl version of Sisimai](https://github.com/sisim
 The key features of Sisimai
 ---------------------------------------------------------------------------------------------------
 * __Decode email bounces to structured data__
-  * Sisimai provides detailed insights into bounce emails by extracting 26 key data points.[^2]
+  * Sisimai provides detailed insights into bounce emails by extracting 27 key data points.[^2]
     * __Essential information__: `timestamp`, `origin`
     * __Sender information__: `addresser`, `senderdomain`, 
     * __Recipient information__: `recipient`, `destination`, `alias`
     * __Delivery information__: `action`, `replycode`, `deliverystatus`, `command`
     * __Bounce details__: `reason`, `diagnosticcode`, `diagnostictype`, `feedbacktype`, `feedbackid`, `hardbounce`
     * __Message details__: `subject`, `messageid`, `listid`,
-    * __Additional information__: `decodedby`, `timezoneoffset`, `lhost`, `rhost`, `token`, `catch`
+    * __Additional information__: `decodedby`, `timezoneoffset`, `lhost`, `rhost`, `token`, `catch`, `toxic`
   * Output formats
     * Ruby (Hash, Array)
     * JSON 
@@ -114,10 +114,10 @@ Install
 ### From RubyGems
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-5.2.1.gem (100%)
-Successfully installed sisimai-5.2.1
-Parsing documentation for sisimai-5.2.1
-Installing ri documentation for sisimai-5.2.1
+Fetching: sisimai-5.5.0.gem (100%)
+Successfully installed sisimai-5.5.0
+Parsing documentation for sisimai-5.5.0
+Installing ri documentation for sisimai-5.5.0
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -145,13 +145,13 @@ if [ -d "/usr/local/jr" ]; then \
 ...
 3 gems installed
 /opt/local/bin/rake install
-sisimai 5.2.1 built to pkg/sisimai-5.2.1.gem.
-sisimai (5.2.1) installed.
+sisimai 5.5.0 built to pkg/sisimai-5.5.0.gem.
+sisimai (5.5.0) installed.
 if [ -d "/usr/local/jr" ]; then \
 		PATH="/usr/local/jr/bin:$PATH" /usr/local/jr/bin/rake install; \
 	fi
-sisimai 5.2.1 built to pkg/sisimai-5.2.1-java.gem.
-sisimai (5.2.1) installed.
+sisimai 5.5.0 built to pkg/sisimai-5.5.0-java.gem.
+sisimai (5.5.0) installed.
 ```
 
 Usage
@@ -332,6 +332,7 @@ Output example
     "timezoneoffset": "+0900",
     "replycode": 550,
     "token": "84656774898baa90660be3e12fe0526e108d4473",
+    "toxic": false,
     "diagnostictype": "SMTP",
     "timestamp": 1650119685,
     "diagnosticcode": "host gmail-smtp-in.l.google.com[64.233.187.27] said: This mail has been blocked because the sender is unauthenticated. Gmail requires all senders to authenticate with either SPF or DKIM. Authentication results: DKIM = did not pass SPF [relay3.example.com] with ip: [192.0.2.22] = did not pass For instructions on setting up authentication, go to https://support.google.com/mail/answer/81126#authentication c2-202200202020202020222222cat.127 - gsmtp (in reply to end of DATA command)",
@@ -348,7 +349,7 @@ differences are available at [Sisimai | Differences](https://libsisimai.org/en/d
 
 Features
 ---------------------------------------------------------------------------------------------------
-Beginning with v5.0.0, Sisimai requires **Ruby 2.5.0 or later.**
+Beginning with v5.5.0, Sisimai requires **Ruby 2.5.0 or later.**
 
 | Features                                             | Sisimai 4          | Sisimai 5           |
 |------------------------------------------------------|--------------------|---------------------|
@@ -358,9 +359,9 @@ Beginning with v5.0.0, Sisimai requires **Ruby 2.5.0 or later.**
 | The number of MTA/ESP modules                        | 68                 | 60                  |
 | The number of detectable bounce reasons              | 29                 | 36                  |
 | Dependencies (Except Ruby Standard Gems)             | 1 gem              | 1 gem               |
-| Source lines of code                                 | 10,300 lines       | 9,800 lines         |
+| Source lines of code                                 | 10,300 lines       | 9,970 lines         |
 | Test frameworks                                      | rspec              | minitest            |
-| The number of tests in spec/ or test/ directory      | 311,000 tests      | 410,000 tests       | 
+| The number of tests in spec/ or test/ directory      | 311,000 tests      | 240,000 tests       | 
 | The number of bounce emails decoded/sec (CRuby)[^4]  | 620 emails         | 620 emails          |
 | License                                              | 2 Clause BSD       | 2 Caluse BSD        |
 | Commercial support                                   | Available          | Available           |
@@ -402,6 +403,7 @@ available at [LIBSISIMAI.ORG/EN/ENGINE](https://libsisimai.org/en/engine/)
 | Google Workspace                                | `Rhost::GoogleApps`     | `Rhost::Google`     |
 | Tencent                                         | `Rhost::TencentQQ`      | `Rhost::Tencent`    |
 | Yahoo Mail (added at v5.1.0)                    | None                    | `Rhost::YahooInc`   |
+| Zoho (added at v5.5.0)                          | None                    | `Rhost::Zoho`       |
 | DragonFly Mail Agent (added at v5.1.0)          | None                    | `Lhost::DragonFly`  |
 | Mimecast (added at v5.5.0)                      | None                    | `Lhost::Mimecast`   |
 
