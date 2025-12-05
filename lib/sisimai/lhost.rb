@@ -9,20 +9,21 @@ module Sisimai
       # @private
       def DELIVERYSTATUS
         return {
-          'spec'         => "",  # Protocl specification
-          'date'         => "",  # The value of Last-Attempt-Date header
-          'rhost'        => "",  # The value of Remote-MTA header
-          'lhost'        => "",  # The value of Received-From-MTA header
-          'alias'        => "",  # The value of alias entry(RHS)
-          'agent'        => "",  # MTA module name
-          'action'       => "",  # The value of Action header
-          'status'       => "",  # The value of Status header
-          'reason'       => "",  # Temporary reason of bounce
-          'command'      => "",  # SMTP command in the message body
-          'replycode'    => "",  # SMTP Reply code
-          'diagnosis'    => "",  # The value of Diagnostic-Code header
-          'recipient'    => "",  # The value of Final-Recipient header
-          'feedbacktype' => "",  # Feedback Type
+          'spec'         => "",     # Protocl specification
+          'date'         => "",     # The value of Last-Attempt-Date header
+          'rhost'        => "",     # The value of Remote-MTA header
+          'lhost'        => "",     # The value of Received-From-MTA header
+          'alias'        => "",     # The value of alias entry(RHS)
+          'agent'        => "",     # MTA module name
+          'action'       => "",     # The value of Action header
+          'status'       => "",     # The value of Status header
+          'reason'       => "",     # Temporary reason of bounce
+          'command'      => "",     # SMTP command in the message body
+          'replycode'    => "",     # SMTP Reply code
+          'diagnosis'    => "",     # The value of Diagnostic-Code header
+          'recipient'    => "",     # The value of Final-Recipient header
+          'feedbacktype' => "",     # Feedback Type
+          'toxic'        => false,  # EXPERIMENTAL
         }
       end
 

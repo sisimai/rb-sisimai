@@ -1,13 +1,13 @@
 module LhostEngineTest::Public
   module RFC3834
     IsExpected = {
-      # INDEX => [['D.S.N.', 'replycode', 'REASON', 'hardbounce'], [...]]
-      '01' => [['',        '', 'vacation', false]],
-      '02' => [['',        '', 'vacation', false]],
-      '03' => [['',        '', 'vacation', false]],
-      '04' => [['',        '', 'vacation', false]],
-      '05' => [['',        '', 'vacation', false]],
-      '06' => [['5.0.921', '', 'suspend',  false]],
+      # INDEX => [['D.S.N.', 'replycode', 'REASON', 'hardbounce', 'toxic'], [...]]
+      '01' => [['',        '', 'vacation', false, false]],
+      '02' => [['',        '', 'vacation', false, false]],
+      '03' => [['',        '', 'vacation', false, false]],
+      '04' => [['',        '', 'vacation', false, false]],
+      '05' => [['',        '', 'vacation', false, false]],
+      '06' => [['5.0.921', '', 'suspend',  false,  true]],
     }
   end
 end
