@@ -6,7 +6,7 @@ module LhostEngineTest::Public
       "02" => [["5.1.1",   "550", "userunknown",      true,  true]],
       "03" => [["5.5.0",   "554", "hostunknown",      true,  true]],
       "04" => [["5.1.1",   "550", "userunknown",      true,  true],
-               ["5.2.2",   "550", "mailboxfull",     false,  rue]],
+               ["5.2.2",   "550", "mailboxfull",     false,  true]],
       "06" => [["4.4.7",   "",    "expired",         false, false]],
       "07" => [["4.4.7",   "",    "expired",         false, false]],
       "08" => [["5.5.0",   "550", "userunknown",      true,  true]],
