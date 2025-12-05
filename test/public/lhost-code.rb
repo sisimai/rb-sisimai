@@ -242,7 +242,7 @@ class LhostCode < Minitest::Test
             # The value of "feedbacktype" is not empty
             refute_empty cv,                        sprintf("%s %s", ct, cv)
             assert_match cr, cv,                    sprintf("%s %s", ct, cv)
-            assert_equal cx[errorindex - 1][4], cv, sprintf("%s %s", ct, cv)
+            assert_equal cx[errorindex - 1][5], cv, sprintf("%s %s", ct, cv)
           else
             # The value of "feedbacktype" is empty
             assert_empty cv, sprintf("%s %s", ct, cv)
@@ -445,6 +445,14 @@ class LhostCode < Minitest::Test
           refute_empty cv,          sprintf("%s %s", ct, cv)
           assert_equal 40, cv.size, sprintf("%s %s", ct, cv)
           assert_match cr, cv,      sprintf("%s %s", ct, cv)
+
+          # ---------------------------------------------------------------------------------------
+          # TOXIC
+          cv = rr.toxic
+          ct = sprintf("%s [%s-%02d] #toxic =", ce, e, errorindex)
+
+          assert_includes [true, false], cv,      sprintf("%s %s", ct, cv.to_s)
+          assert_equal cx[errorindex - 1][4], cv, sprintf("%s %s", ct, cv.to_s)
 
           # ---------------------------------------------------------------------------------------
           # DUMP(JSON)
