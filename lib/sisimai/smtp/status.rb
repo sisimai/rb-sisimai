@@ -494,10 +494,10 @@ module Sisimai
           '4.1.7'  => 'rejected',       # Bad sender's mailbox address syntax
           '4.1.8'  => 'rejected',       # Bad sender's system address
           '4.1.9'  => 'systemerror',    # Message relayed to non-compliant mailer
-          '4.2.1'  => 'blocked',        # Mailbox disabled, not accepting messages
+          '4.2.1'  => 'suspend',        # Mailbox disabled, not accepting messages
           '4.2.2'  => 'mailboxfull',    # Mailbox full
           '4.2.3'  => 'exceedlimit',    # Message length exceeds administrative limit
-          '4.2.4'  => 'filtered',       # Mailing list expansion problem
+          '4.2.4'  => 'systemerror',    # Mailing list expansion problem
           # '4.3.0' => 'systemerror',    # Other or undefined mail system status
           '4.3.1'  => 'systemfull',     # Mail system full
           '4.3.2'  => 'notaccept',      # System not accepting network messages
@@ -513,14 +513,14 @@ module Sisimai
           '4.4.7'  => 'expired',        # Delivery time expired
           '4.4.8'  => 'networkerror',   # Retry on IPv4
 #         '4.5.0'  => 'networkerror',   # Other or undefined protocol status
-          '4.5.3'  => 'systemerror',    # Too many recipients
+          '4.5.3'  => 'toomanyconn',    # Too many recipients
           '4.5.5'  => 'systemerror',    # Wrong protocol version
           '4.6.0'  => 'contenterror',   # Other or undefined media error
           '4.6.2'  => 'contenterror',   # Conversion required and prohibited
           '4.6.5'  => 'contenterror',   # Conversion Failed
           # :'4.7.0' => 'securityerror',  # Other or undefined security status
           '4.7.1'  => 'blocked',        # Delivery not authorized, message refused
-          '4.7.2'  => 'blocked',        # Mailing list expansion prohibited
+          '4.7.2'  => 'rejected',       # Mailing list expansion prohibited
           '4.7.5'  => 'securityerror',  # Cryptographic failure
           '4.7.6'  => 'securityerror',  # Cryptographic algorithm not supported
           '4.7.7'  => 'securityerror',  # Message integrity failure
@@ -544,7 +544,7 @@ module Sisimai
           '5.2.1'  => 'filtered',       # Mailbox disabled, not accepting messages
           '5.2.2'  => 'mailboxfull',    # Mailbox full
           '5.2.3'  => 'exceedlimit',    # Message length exceeds administrative limit
-          '5.2.4'  => 'filtered',       # Mailing list expansion problem
+          '5.2.4'  => 'systemerror',    # Mailing list expansion problem
           '5.3.0'  => 'systemerror',    # Other or undefined mail system status
           '5.3.1'  => 'systemfull',     # Mail system full
           '5.3.2'  => 'notaccept',      # System not accepting network messages
@@ -565,7 +565,7 @@ module Sisimai
           '5.6.3'  => 'contenterror',   # Conversion required but not supported
           '5.6.5'  => 'contenterror',   # Conversion Failed
           '5.6.6'  => 'contenterror',   # Message content not available
-          '5.6.7'  => 'contenterror',   # Non-ASCII addresses not permitted for that sender/recipient
+          '5.6.7'  => 'rejected',       # Non-ASCII addresses not permitted for that sender/recipient
           '5.6.8'  => 'contenterror',   # UTF-8 string reply is required, but not permitted by the SMTP client
           '5.6.9'  => 'contenterror',   # UTF-8 header message cannot be transferred to one or more recipients
           '5.7.0'  => 'securityerror',  # Other or undefined security status
@@ -586,7 +586,7 @@ module Sisimai
           '5.7.16' => 'mesgtoobig',     # Message is too big for the specified priority
           '5.7.17' => 'hasmoved',       # Mailbox owner has changed
           '5.7.18' => 'hasmoved',       # Domain owner has changed
-          '5.7.19' => 'securityerror',  # RRVS test cannot be completed
+          '5.7.19' => 'systemerror',    # RRVS test cannot be completed
           '5.7.20' => 'authfailure',    # No passing DKIM signature found
           '5.7.21' => 'authfailure',    # No acceptable DKIM signature found
           '5.7.22' => 'authfailure',    # No valid author-matched DKIM signature found
