@@ -1,24 +1,26 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::TooManyConn checks the bounce reason is "toomanyconn" or not. This class is
+    # Sisimai::Reason::RateLimited checks the bounce reason is "ratelimited" or not. This class is
     # called only Sisimai::Reason class.
     #
-    # This is the error that SMTP connection was rejected temporarily due to too many concurrency
-    # connections to the remote server. This reason has added in Sisimai 4.1.26.
+    # This is the error that SMTP connection was rejected temporarily due to too many recipients or
+    # too many concurrency connections to the remote server. This reason has added in Sisimai 4.1.26.
     #
     #   <kijitora@example.ne.jp>: host mx02.example.ne.jp[192.0.1.20] said:
     #     452 4.3.2 Connection rate limit exceeded. (in reply to MAIL FROM command)
-    module TooManyConn
+    module RateLimited
       class << self
         Index = [
           'all available ips are at maximum connection limit',    # SendGrid
           'connection rate limit exceeded',
           'exceeds per-domain connection limit for',
           'has exceeded the max emails per hour ',
+          'mail sent from your IP address has been temporarily rate limited',
+          'please try again slower',
+          'receiving mail at a rate that prevents additional messages from being delivered',
           'throttling failure: daily message quota exceeded',
           'throttling failure: maximum sending rate exceeded',
           'too many connections',
-          'too many connections from your host.', # Microsoft
           'too many concurrent smtp connections', # Microsoft
           'too many errors from your ip',         # Free.fr
           'too many recipients',                  # ntt docomo
@@ -27,7 +29,7 @@ module Sisimai
           'we have already made numerous attempts to deliver this message',
         ].freeze
 
-        def text; return 'toomanyconn'; end
+        def text; return 'ratelimited'; end
         def description; return 'SMTP connection rejected temporarily due to too many concurrency connections to the remote host'; end
 
         # Try to match that the given text and regular expressions
@@ -41,12 +43,12 @@ module Sisimai
 
         # Rejected by domain or address filter ?
         # @param    [Sisimai::Fact] argvs   Object to be detected the reason
-        # @return   [Boolean]               true:  is filtered
-        #                                   false: is not filtered
+        # @return   [Boolean]               true:  is rate limited
+        #                                   false: is not rate limited
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return true if argvs['reason'] == 'toomanyconn'
-          return true if Sisimai::SMTP::Status.name(argvs['deliverystatus']) == 'toomanyconn'
+          return true if argvs['reason'] == 'ratelimited'
+          return true if Sisimai::SMTP::Status.name(argvs['deliverystatus']) == 'ratelimited'
           return match(argvs['diagnosticcode'].downcase)
         end
 
