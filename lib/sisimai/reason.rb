@@ -7,10 +7,10 @@ module Sisimai
       # @return   [Array] Reason list
       def index
         return %w[
-          AuthFailure BadReputation Blocked ContentError ExceedLimit Expired FailedSTARTTLS Filtered
-          HasMoved HostUnknown MailboxFull MailerError MesgTooBig NetworkError NotAccept NotCompliantRFC
-          OnHold Rejected NoRelaying Speeding SpamDetected VirusDetected PolicyViolation SecurityError
-          Suspend RequirePTR SystemError SystemFull TooManyConn Suppressed UserUnknown SyntaxError
+          AuthFailure BadReputation Blocked ContentError EmailTooLarge Expired FailedSTARTTLS Filtered
+          HasMoved HostUnknown MailboxFull MailerError NetworkError NotAccept NotCompliantRFC RateLimited
+          OnHold Rejected NoRelaying SpamDetected VirusDetected PolicyViolation SecurityError Suspend
+          RequirePTR SystemError SystemFull Suppressed UserUnknown SyntaxError
         ]
       end
 
@@ -46,20 +46,20 @@ module Sisimai
       GetRetried = Sisimai::Reason.retry
       ClassOrder = [
         %w[
-          MailboxFull MesgTooBig ExceedLimit Suspend HasMoved NoRelaying AuthFailure UserUnknown
-          Filtered RequirePTR NotCompliantRFC BadReputation ContentError Rejected HostUnknown
-          SpamDetected Speeding TooManyConn Blocked
+          MailboxFull EmailTooLarge Suspend HasMoved NoRelaying AuthFailure UserUnknown Filtered
+          RequirePTR NotCompliantRFC BadReputation ContentError Rejected HostUnknown SpamDetected
+          RateLimited Blocked
         ],
         %w[
-          MailboxFull AuthFailure BadReputation Speeding SpamDetected VirusDetected PolicyViolation 
-          NoRelaying SystemError NetworkError Suspend ContentError SystemFull NotAccept Expired
-          FailedSTARTTLS SecurityError Suppressed MailerError
+          MailboxFull AuthFailure BadReputation SpamDetected VirusDetected PolicyViolation NoRelaying
+          SystemError NetworkError Suspend ContentError SystemFull NotAccept Expired FailedSTARTTLS
+          SecurityError Suppressed MailerError
         ],
         %w[
-          MailboxFull MesgTooBig ExceedLimit Suspend UserUnknown Filtered Rejected HostUnknown
-          SpamDetected Speeding TooManyConn Blocked SpamDetected AuthFailure FailedSTARTTLS
-          SecurityError SystemError NetworkError Suspend Expired ContentError HasMoved SystemFull
-          NotAccept MailerError NoRelaying Suppressed SyntaxError OnHold
+          MailboxFull EmailTooLarge Suspend UserUnknown Filtered Rejected HostUnknown SpamDetected
+          RateLimited Blocked SpamDetected AuthFailure FailedSTARTTLS SecurityError SystemError
+          NetworkError Suspend Expired ContentError HasMoved SystemFull NotAccept MailerError
+          NoRelaying Suppressed SyntaxError OnHold
         ]
       ]
 
