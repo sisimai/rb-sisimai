@@ -49,7 +49,7 @@ module Sisimai::Lhost
         "OnAccountSuppressionList" => "suppressed",
         "General"                  => "onhold",
         "MailboxFull"              => "mailboxfull",
-        "MessageTooLarge"          => "mesgtoobig",
+        "MessageTooLarge"          => "emailtoolarge",
         "ContentRejected"          => "contenterror",
         "AttachmentRejected"       => "securityerror",
       }.freeze

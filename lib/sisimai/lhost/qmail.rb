@@ -72,9 +72,9 @@ module Sisimai::Lhost
       OnHoldPair = [" does not like recipient.", "this message has been in the queue too long."].freeze
       FailOnLDAP = {
         # qmail-ldap-1.03-20040101.patch:19817 - 19866
-        "exceedlimit" => ["The message exeeded the maximum size the user accepts"], # 5.2.3
-        "userunknown" => ["Sorry, no mailbox here by that name"],           # 5.1.1
-        "suspend"     => [ # 5.2.1
+        "emailtoolarge" => ["The message exeeded the maximum size the user accepts"], # 5.2.3
+        "userunknown"   => ["Sorry, no mailbox here by that name"], # 5.1.1
+        "suspend"       => [ # 5.2.1
           "Mailaddress is administrativly disabled",
           "Mailaddress is administrativley disabled",
           "Mailaddress is administratively disabled",
@@ -102,8 +102,8 @@ module Sisimai::Lhost
         "mailboxfull" => ["disk quota exceeded"],
         # qmail-qmtpd.c:233| ... result = "Dsorry, that message size exceeds my databytes limit (#5.3.4)";
         # qmail-smtpd.c:391| ... out("552 sorry, that message size exceeds my databytes limit (#5.3.4)\r\n"); return;
-        "mesgtoobig"  => ["Message size exceeds fixed maximum message size:"],
-        "networkerror"=> [
+        "emailtoolarge" => ["Message size exceeds fixed maximum message size:"],
+        "networkerror"  => [
             "Sorry, I wasn't able to establish an SMTP connection",
             "Sorry. Although I'm listed as a best-preference MX or A for that host",
         ],

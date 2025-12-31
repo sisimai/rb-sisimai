@@ -40,7 +40,7 @@ module LhostEngineTest::Public
       '55' => [['5.7.0',   '554', 'spamdetected',    false, false]],
       '56' => [['5.0.971', '554', 'blocked',         false, false]],
       '57' => [['5.0.918', '',    'rejected',        false, false]],
-      '58' => [['5.0.934', '500', 'mesgtoobig',      false, false]],
+      '58' => [['5.0.934', '500', 'emailtoolarge',   false, false]],
       '59' => [['5.1.1',   '550', 'userunknown',      true,  true]],
       '60' => [['5.0.0',   '',    'mailboxfull',     false,  true]],
       '61' => [['5.1.1',   '550', 'userunknown',      true,  true]],

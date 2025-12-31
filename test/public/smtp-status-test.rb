@@ -4,10 +4,10 @@ require 'sisimai/smtp/status'
 class SMTPStatusTest < Minitest::Test
   Methods = { class: %w[code name test find] }
   Reasons = %w[
-      authfailure badreputation blocked contenterror exceedlimit expired filtered hasmoved
-      hostunknown mailboxfull mailererror mesgtoobig networkerror notaccept onhold rejected
-      norelaying spamdetected virusdetected policyviolation securityerror speeding suspend
-      requireptr notcompliantrfc systemerror systemfull toomanyconn userunknown syntaxerror
+      authfailure badreputation blocked contenterror emailtoolarge expired filtered hasmoved
+      hostunknown mailboxfull mailererror networkerror notaccept onhold rejected norelaying
+      spamdetected virusdetected policyviolation securityerror ratelimited suspend requireptr
+      notcompliantrfc systemerror systemfull userunknown syntaxerror
     ]
   CodeSet = %w[
     2.1.5

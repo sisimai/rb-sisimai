@@ -15,8 +15,16 @@ module Sisimai
             'suspected spam ip',        # https://service.mail.qq.com/detail/122/66
             'connection denied',        # https://service.mail.qq.com/detail/122/170
           ],
-          'mesgtoobig' => [
+          'emailtoolarge' => [
             'message too large',        # https://service.mail.qq.com/detail/122/168
+          ],
+          'ratelimited' => [
+            'mailbox unavailable or access denined',      # https://service.mail.qq.com/detail/122/166
+            'ip frequency limited',                       # https://service.mail.qq.com/detail/122/172
+            'domain frequency limited',                   # https://service.mail.qq.com/detail/122/173
+            'sender frequency limited',                   # https://service.mail.qq.com/detail/122/174
+            'connection frequency limited',               # https://service.mail.qq.com/detail/122/175
+            "frequency of receiving messages is limited", # https://service.mail.qq.com/detail/122/1011
           ],
           'rejected' => [
             'suspected spam',                   # https://service.mail.qq.com/detail/122/71
@@ -26,21 +34,11 @@ module Sisimai
             'spam is embedded in the email',    # https://service.mail.qq.com/detail/122/59
             'mail content denied',              # https://service.mail.qq.com/detail/122/171
           ],
-          'speeding' => [
-            'mailbox unavailable or access denined',      # https://service.mail.qq.com/detail/122/166
-            "frequency of receiving messages is limited", # https://service.mail.qq.com/detail/122/1011
-          ],
           'suspend' => [
             'is a deactivated mailbox', # http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=20022&&no=1000742
           ],
           'syntaxerror' => [
             'bad address syntax', # https://service.mail.qq.com/detail/122/167
-          ],
-          'toomanyconn' => [
-            'ip frequency limited',         # https://service.mail.qq.com/detail/122/172
-            'domain frequency limited',     # https://service.mail.qq.com/detail/122/173
-            'sender frequency limited',     # https://service.mail.qq.com/detail/122/174
-            'connection frequency limited', # https://service.mail.qq.com/detail/122/175
           ],
           'userunknown' => [
             'mailbox not found',  # https://service.mail.qq.com/detail/122/169

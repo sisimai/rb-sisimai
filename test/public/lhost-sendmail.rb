@@ -7,7 +7,7 @@ module LhostEngineTest::Public
                ['5.2.1',   '550', 'filtered',        false,  true]],
       '03' => [['5.1.1',   '550', 'userunknown',      true,  true]],
       '04' => [['5.1.8',   '553', 'rejected',        false, false]],
-      '05' => [['5.2.3',   '552', 'exceedlimit',     false, false]],
+      '05' => [['5.2.3',   '552', 'emailtoolarge',   false, false]],
       '06' => [['5.6.9',   '550', 'contenterror',    false, false]],
       '07' => [['5.7.1',   '554', 'norelaying',      false,  true]],
       '08' => [['4.7.1',   '450', 'requireptr',      false, false]],

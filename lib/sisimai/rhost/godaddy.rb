@@ -69,19 +69,19 @@ module Sisimai
           #   retry. IB605
           # - The message has attempted to mail too many recipients.
           # - Reduce the number of recipients and try again.
-          'IB605' => 'toomanyconn',
+          'IB605' => 'ratelimited',
 
           # - 421 Connection refused, too many sessions from This IP. Lower the number of concurrent
           #   sessions. IB007
           # - This IP address currently has too many sessions open.
           # - Check with your email provider to reduce the number of open sessions on your IP
           #   address and then try again.
-          'IB007' => 'toomanyconn',
+          'IB007' => 'ratelimited',
 
           # - 421 Server temporarily unavailable. Try again later. IB101
           # - The email queue is experiencing higher than normal email volume.
           # - Try again later.
-          'IB101' => 'speeding',
+          'IB101' => 'ratelimited',
 
           # - 554 This IP has been temporarily blocked for attempting to send too many messages
           #   containing content judged to be spam by the Internet community. IB110
@@ -112,16 +112,16 @@ module Sisimai
 
           # - 550 This IP has sent too many messages this hour. IB504
           # - This IP address has reached the maximum allowed messages for that hour.
-          'IB504' => 'speeding',
+          'IB504' => 'ratelimited',
 
           # - 550 This message has exceeded the max number of messages per session. Open a new
           #   session and try again. IB510
           # - This IP address has reached the maximum allowed messages for that session.
-          'IB510' => 'speeding',
+          'IB510' => 'ratelimited',
 
           # - 550 This IP has sent too many to too many recipients this hour. IB607
           # - This IP address has reached the maximum allowed recipients for that hour.
-          'IB607' => 'speeding',
+          'IB607' => 'ratelimited',
 
           # Remote block list (RBL) bounces
           # ---------------------------------------------------------------------------------------
@@ -169,6 +169,15 @@ module Sisimai
             #   make space for more email.
             'account storage limit',
           ],
+          'ratelimited' => [
+            # - 550 5.7.232 Your message can't be sent because your trial tenant has exceeded
+            #   its daily limit for sending email to external recipients (tenant external
+            #   recipient rate limit)
+            # - 550 5.7.233 - Your message can't be sent because your tenant exceeded its daily
+            #   limit for sending email to external recipients (tenant external recipient rate
+            #   limit)
+            "exceeded its daily limit",
+          ],
           'spamdetected' => [
             # - 552 Message rejected for spam or virus content
             # - The email message contains a link, attachment, or pattern caught by our filters as spam.
@@ -187,15 +196,6 @@ module Sisimai
             # - This is oftentimes because the receiver has two addresses that forward to each
             #   other. They need to correct their forwarding settings.
             'message is looping',
-          ],
-          'toomanyconn' => [
-            # - 550 5.7.232 Your message can't be sent because your trial tenant has exceeded
-            #   its daily limit for sending email to external recipients (tenant external
-            #   recipient rate limit)
-            # - 550 5.7.233 - Your message can't be sent because your tenant exceeded its daily
-            #   limit for sending email to external recipients (tenant external recipient rate
-            #   limit)
-            "exceeded its daily limit",
           ],
           'userunknown' => [
             # - 550 Recipient not found

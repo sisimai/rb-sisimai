@@ -91,6 +91,18 @@ module Sisimai
             "550 Requested action aborted [4]",
             "has detected that this message is not RFC 5322",
           ],
+          "ratelimited" => [
+            #  - https://knowledge.broadcom.com/external/article/385809
+            #    Email Security Cloud is attempting to deliver the email and recipient MTA is
+            #    responding "452 Too many recipients received this hour".
+            #  - https://knowledge.broadcom.com/external/article/164767
+            #    This error can occur when sending outbound or inbound emails through Email
+            #    Security.Cloud. A non-delivery receipt (NDR) stating delivery contains a message
+            #    that the intended recipient has failed with error:
+            #    "460 too many messages (#4.3.0)"
+            "Too many recipients received this hour",
+            "too many messages",
+          ],
           "rejected" => [
             #  - 550 sender envelope domain not allowed for sender IP address (#5.1.8)
             #    This error occurs when a sender attempts to send an email and any one of the
@@ -136,18 +148,6 @@ module Sisimai
             #    * filtered by Outbound scanning.
             "Message Filtered",
             "filtered by Outbound scanning",
-          ],
-          "toomanyconn" => [
-            #  - https://knowledge.broadcom.com/external/article/385809
-            #    Email Security Cloud is attempting to deliver the email and recipient MTA is
-            #    responding "452 Too many recipients received this hour".
-            #  - https://knowledge.broadcom.com/external/article/164767
-            #    This error can occur when sending outbound or inbound emails through Email
-            #    Security.Cloud. A non-delivery receipt (NDR) stating delivery contains a message
-            #    that the intended recipient has failed with error:
-            #    "460 too many messages (#4.3.0)"
-            "Too many recipients received this hour",
-            "too many messages",
           ],
           "userunknown" => [
             #  - https://knowledge.broadcom.com/external/article/165163
