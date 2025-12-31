@@ -87,7 +87,7 @@ The key features of Sisimai
   * __High Precision of Analysis__
     * Support [60 MTAs/MDAs/ESPs](https://libsisimai.org/en/engine/)
     * Support Feedback Loop Message(ARF)
-    * Can detect [36 bounce reasons](https://libsisimai.org/en/reason/)
+    * Can detect [34 bounce reasons](https://libsisimai.org/en/reason/)
 
 [^2]: The callback function allows you to add your own data under the `catch` accessor.
 
@@ -357,7 +357,7 @@ Beginning with v5.5.0, Sisimai requires **Ruby 2.5.0 or later.**
 | System requirements (JRuby)                          | 9.0.4.0 - 9.1.17.0 | **9.2** or later    |
 | Callback feature for the original email file         | N/A                | Available[^3]       |
 | The number of MTA/ESP modules                        | 68                 | 60                  |
-| The number of detectable bounce reasons              | 29                 | 36                  |
+| The number of detectable bounce reasons              | 29                 | 34                  |
 | Dependencies (Except Ruby Standard Gems)             | 1 gem              | 1 gem               |
 | Source lines of code                                 | 10,300 lines       | 9,970 lines         |
 | Test frameworks                                      | rspec              | minitest            |
@@ -418,8 +418,11 @@ detect is available at [LIBSISIMAI.ORG/EN/REASON](https://libsisimai.org/en/reas
 | low/bad reputation of the sender hostname/IP addr.   | `Blocked`          | `BadReputation`     |
 | missing PTR/having invalid PTR                       | `Blocked`          | `RequirePTR`        |
 | non-compliance with RFC[^7]                          | `SecurityError`    | `NotCompliantRFC`   |
-| exceeding a rate limit or sending too fast           | `SecurityError`    | `Speeding`          |
 | STARTTLS-related errors (added at v5.2.0)            | `SecurityError`    | `FailedSTARTTLS`    |
+| exceeding a rate limit or sending too fast           | `SecurityError`    | `RateLimited`       |
+| too many concurrency connections or recipients       | `TooManyConn`      | `RateLimited`       |
+| Email size is too large for the remote host          | `ExceedLimit`      | `EmailTooLarge`     |
+| Email size is too large for the remote host          | `MesgTooBig`       | `EmailTooLarge`     |
 | Recipient in the suppression list (added at v5.2.0)  | `OnHold`           | `Suppressed`        |
 
 [^7]: RFC5322 and related RFCs
