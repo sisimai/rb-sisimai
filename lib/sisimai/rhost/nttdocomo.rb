@@ -7,8 +7,8 @@ module Sisimai
       class << self
         MessagesOf = {
           'mailboxfull' => ['552 too much mail data'],
+          'ratelimited' => ['552 too many recipients'],
           'syntaxerror' => ['503 bad sequence of commands', '504 command parameter not implemented'],
-          'toomanyconn' => ['552 too many recipients'],
           'userunknown' => ['550 unknown user'],
         }.freeze
 

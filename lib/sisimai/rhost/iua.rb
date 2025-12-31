@@ -11,7 +11,7 @@ module Sisimai
           '2'  => 'userunknown', # User is not found.
           '3'  => 'suspend',     # Mailbox was not used for more than 3 months
           '4'  => 'mailboxfull', # Mailbox is full.
-          '5'  => 'toomanyconn', # Letter sending limit is exceeded.
+          '5'  => 'ratelimited', # Letter sending limit is exceeded.
           '6'  => 'norelaying',  # Use SMTP of your provider to send mail.
           '7'  => 'blocked',     # Wrong value if command HELO/EHLO parameter.
           '8'  => 'rejected',    # Couldn't check sender address.

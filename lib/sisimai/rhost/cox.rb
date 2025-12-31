@@ -37,13 +37,13 @@ module Sisimai
           # - There is a limit to the number of concurrent SMTP connections per IP address to
           #   protect the systems against attack. Ensure that the sending email server is not
           #   opening more than 10 concurrent connections to avoid reaching this limit.
-          'CXCNCT' => 'toomanyconn',
+          'CXCNCT' => 'ratelimited',
 
           # CXMXRT
           #   - The sender has sent email to too many recipients and needs to wait before sending
           #     more email.
           #   - The email sender has exceeded the maximum number of sent email allowed.
-          'CXMXRT' => 'toomanyconn', 
+          'CXMXRT' => 'ratelimited', 
 
           # CDRBL
           # - The sending IP address has been temporarily blocked by Cox due to exhibiting spam-like
@@ -87,6 +87,15 @@ module Sisimai
             'cox too many bad commands from',
             'too many invalid recipients',
           ],
+          'ratelimited' => [
+            # - The sending IP address has exceeded the five maximum concurrent connection limit.
+            # - The SMTP connection has exceeded the 100 email message threshold and was disconnected.
+            # - The sending IP address has exceeded one of these rate limits and has been temporarily
+            #   blocked.
+            'too many sessions from',
+            'requested action aborted: try again later',
+            'message threshold exceeded',
+          ],
           'requireptr' => [
             # - The reverse DNS check of the sending server IP address has failed.
             # - Cox requires that all connecting email servers contain valid reverse DNS PTR records.
@@ -110,15 +119,6 @@ module Sisimai
             # - Our systems are experiencing an issue which is causing a temporary inability to
             #   accept new email.
             'esmtp server temporarily not available',
-          ],
-          'toomanyconn' => [
-            # - The sending IP address has exceeded the five maximum concurrent connection limit.
-            # - The SMTP connection has exceeded the 100 email message threshold and was disconnected.
-            # - The sending IP address has exceeded one of these rate limits and has been temporarily
-            #   blocked.
-            'too many sessions from',
-            'requested action aborted: try again later',
-            'message threshold exceeded',
           ],
           'userunknown' => [
             # - The intended recipient is not a valid Cox Email account.

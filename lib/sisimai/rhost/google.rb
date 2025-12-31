@@ -150,7 +150,7 @@ module Sisimai
             ['550', '5.7.1',  'an unusual rate of unsolicited mail'],
             ['550', '5.7.28', 'an unusual rate of unsolicited mail'],
           ],
-          'exceedlimit' => [
+          'emailtoolarge' => [
             # - 552 5.2.3 Your message exceeded Google's message size limits. For more information,
             #   visit https://support.google.com/mail/answer/6584
             ['552', '5.2.3', "your message exceeded google's message size limits"],
@@ -162,11 +162,22 @@ module Sisimai
             # - 552 5.3.4 The size of the <header name> header value (size bytes) exceeds Google's
             #   limit of limit bytes per individual header size. To view our header size guidelines,
             #   go to Gmail message header limits https://support.google.com/a?p=header-limits
-            ['552', '5.3.4', "exceeds google's limit of limit attachments."],
+            #
+            # - 552 5.3.4 Your message exceeded Google's message size limits. To view our message
+            #   size guidelines, go to Send attachments with your Gmail message.
+            # - https://support.google.com/mail/?p=MaxSizeError
+            #
+            # - 552 5.3.4 The size of your message (size bytes) exceeded Google's message size
+            #   limits of limit bytes. To view our message size guidelines, go to Gmail receiving
+            #   limits in Google Workspace.
+            # - https://support.google.com/mail/?p=MaxSizeError
             ['552', '5.3.4', "your message exceeded google's message header size limits"],
             ['552', '5.3.4', 'bytes per individual header size'],
+            ['552', '5.3.4', "exceeds google's limit of limit attachments."],
             ['552', '5.3.4', "exceeds google's header name limit of"],
-            ['552', '5.3.4', "exceeds google's message header size limit"]
+            ['552', '5.3.4', "exceeds google's message size limit of"],
+            ['552', '5.3.4', "exceeds google's message header size limit"],
+            ['552', '5.3.4', "exceeded google's message size limits"],
           ],
           'expired' => [
             # - 421 4.7.0 Connection expired, try reconnecting. For more information, go to About
@@ -205,18 +216,6 @@ module Sisimai
             ['452', '4.2.2', 'is over quota'],
             ['552', '5.2.2', 'is over quota'],
             ['550', '5.7.1', 'email quota exceeded'],
-          ],
-          'mesgtoobig' => [
-            # - 552 5.3.4 Your message exceeded Google's message size limits. To view our message
-            #   size guidelines, go to Send attachments with your Gmail message.
-            # - https://support.google.com/mail/?p=MaxSizeError
-            ['552', '5.3.4', "exceeded google's message size limits"],
-
-            # - 552 5.3.4 The size of your message (size bytes) exceeded Google's message size
-            #   limits of limit bytes. To view our message size guidelines, go to Gmail receiving
-            #   limits in Google Workspace.
-            # - https://support.google.com/mail/?p=MaxSizeError
-            ['552', '5.3.4', "exceeds google's message size limit of"],
           ],
           'networkerror' => [
             # - 554 5.4.6 Message exceeded 50 hops, this may indicate a mail loop.
@@ -313,6 +312,44 @@ module Sisimai
             #   https://support.google.com/mail/answer/188131
             ['421', '4.7.28', 'sending messages with the same message-id:'],
           ],
+          'ratelimited' => [
+            # - 450 4.2.1 The user you are trying to contact is receiving mail too quickly. Please
+            #   resend your message at a later time. If the user is able to receive mail at that
+            #   time, your message will be delivered. 
+            #   For more information, visit https://support.google.com/mail/answer/22839
+            #
+            # - 450 4.2.1 Peak SMTP relay limit exceeded for customer. This is a temporary error.
+            #   For more information on SMTP relay limits, please contact your administrator or
+            #   visit https://support.google.com/a/answer/6140680
+            ['450', '4.2.1', 'is receiving mail too quickly'],
+            ['450', '4.2.1', 'peak smtp relay limit exceeded for customer'],
+
+            # - 450 4.2.1 The user you are trying to contact is receiving mail at a rate that pre-
+            #   vents additional messages from being delivered. Please resend your message at a
+            #   later time. If the user is able to receive mail at that time, your message will be
+            #   delivered. For more information, visit https://support.google.com/mail/answer/6592
+            # - https://support.google.com/mail/?p=ReceivingRatePerm
+            ['450', '4.2.1', 'rate that prevents additional messages from being delivered'],
+            ['550', '5.2.1', 'rate that prevents additional messages from being delivered'],
+
+            # - 452 4.5.3 Your message has too many recipients. For more information regarding
+            #   Google's sending limits, visit https://support.google.com/mail/answer/6592
+            #   https://support.google.com/mail/?p=TooManyRecipientsError
+            ['452', '4.5.3', 'your message has too many recipients'],
+            ['550', '5.5.3', 'too many recipients for this sender'],
+
+            # - 550 5.4.5 Daily SMTP relay limit exceeded for user. For more information on SMTP
+            #   relay sending limits please contact your administrator or visit SMTP relay service
+            #   error messages.
+            #   https://support.google.com/a/answer/6140680
+            # - https://support.google.com/a/answer/166852
+            ['550', '5.4.5', 'daily sending quota exceeded'],
+            ['550', '5.4.5', 'daily user sending limit exceeded'],
+            ['550', '5.4.5', 'daily smtp relay limit exceeded for'],
+            ['550', '5.7.1', 'daily smtp relay limit exceeded for'],
+            ['550', '5.7.1', 'daily smtp relay sending limit exceeded for'],
+            ['550', '5.7.1', 'this mail has been rate limited'],
+          ],
           'rejected' => [
             # - 550 5.7.0, Mail Sending denied. This error occurs if the sender account is disabled
             #   or not registered within your Google Workspace domain.
@@ -394,38 +431,6 @@ module Sisimai
             # - https://support.google.com/mail/?p=UnsolicitedMessageError
             ['550', '5.7.1', 'likely unsolicited mail'],
           ],
-          'speeding' => [
-            # - 450 4.2.1 The user you are trying to contact is receiving mail too quickly. Please
-            #   resend your message at a later time. If the user is able to receive mail at that
-            #   time, your message will be delivered. 
-            #   For more information, visit https://support.google.com/mail/answer/22839
-            #
-            # - 450 4.2.1 Peak SMTP relay limit exceeded for customer. This is a temporary error.
-            #   For more information on SMTP relay limits, please contact your administrator or
-            #   visit https://support.google.com/a/answer/6140680
-            ['450', '4.2.1', 'is receiving mail too quickly'],
-            ['450', '4.2.1', 'peak smtp relay limit exceeded for customer'],
-
-            # - 450 4.2.1 The user you are trying to contact is receiving mail at a rate that pre-
-            #   vents additional messages from being delivered. Please resend your message at a
-            #   later time. If the user is able to receive mail at that time, your message will be
-            #   delivered. For more information, visit https://support.google.com/mail/answer/6592
-            # - https://support.google.com/mail/?p=ReceivingRatePerm
-            ['450', '4.2.1', 'rate that prevents additional messages from being delivered'],
-            ['550', '5.2.1', 'rate that prevents additional messages from being delivered'],
-
-            # - 550 5.4.5 Daily SMTP relay limit exceeded for user. For more information on SMTP
-            #   relay sending limits please contact your administrator or visit SMTP relay service
-            #   error messages.
-            #   https://support.google.com/a/answer/6140680
-            # - https://support.google.com/a/answer/166852
-            ['550', '5.4.5', 'daily sending quota exceeded'],
-            ['550', '5.4.5', 'daily user sending limit exceeded'],
-            ['550', '5.4.5', 'daily smtp relay limit exceeded for'],
-            ['550', '5.7.1', 'daily smtp relay limit exceeded for'],
-            ['550', '5.7.1', 'daily smtp relay sending limit exceeded for'],
-            ['550', '5.7.1', 'this mail has been rate limited'],
-          ],
           'suspend' => [
             # - 550 5.2.1 The email account that you tried to reach is inactive.
             #   For more information, go to https://support.google.com/mail/?p=DisabledUser
@@ -493,13 +498,6 @@ module Sisimai
             #   For more information, go to About SMTP error messages.
             #   https://support.google.com/a/answer/3221692
             ['454', '4.7.0', 'cannot authenticate due to temporary system problem'],
-          ],
-          'toomanyconn' => [
-            # - 452 4.5.3 Your message has too many recipients. For more information regarding
-            #   Google's sending limits, visit https://support.google.com/mail/answer/6592
-            #   https://support.google.com/mail/?p=TooManyRecipientsError
-            ['452', '4.5.3', 'your message has too many recipients'],
-            ['550', '5.5.3', 'too many recipients for this sender'],
           ],
           'userunknown' => [
             # - 550 5.1.1 The email account that you tried to reach does not exist. Please try dou-

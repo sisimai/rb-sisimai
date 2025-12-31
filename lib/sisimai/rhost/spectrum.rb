@@ -62,11 +62,11 @@ module Sisimai
           # 1300 Spectrum limits the number of concurrent connections from a sender, as well as the
           # 1340 total number of connections allowed. Limits vary based on the reputation of the IP
           #      address. Reduce your number of connections and try again later.
-          [1300, 1340, 'toomanyconn'],
+          [1300, 1340, 'ratelimited'],
 
           # 1350 Spectrum limits emails by the number of messages sent, amount of recipients,
           # 1490 potential for spam and invalid recipients.
-          [1350, 1490, 'speeding'],
+          [1350, 1490, 'ratelimited'],
 
           # 1500 Your email was rejected for attempting to send as a different email address than you
           #      signed in under. Check that you're sending emails from the address you signed in with.
@@ -77,15 +77,15 @@ module Sisimai
           [1520, 0, 'rejected'],
 
           # 1530 Your email was rejected because it's larger than the maximum size of 20MB.
-          [1530, 0, 'mesgtoobig'],
+          [1530, 0, 'emailtoolarge'],
 
           # 1540 Your emails were deferred for attempting to send too many in a single session.
           #      Reconnect and try reducing the number of emails you send at one time.
-          [1540, 0, 'speeding'],
+          [1540, 0, 'ratelimited'],
 
           # 1550 Your email was rejected for having too many recipients in one message. Reduce the
           #      number of recipients and try again later.
-          [1550, 0, 'speeding'],
+          [1550, 0, 'ratelimited'],
 
           # 1560 Your email was rejected for having too many invalid recipients. Check your outgoing
           #      email addresses and try again later.
@@ -93,7 +93,7 @@ module Sisimai
 
           # 1580 You've tried to send messages to too many recipients in a short period of time.
           #      Wait a little while and try again later.
-          [1580, 0, 'speeding'],
+          [1580, 0, 'ratelimited'],
         ].freeze
 
         # Detect bounce reason from https://www.spectrum.com/

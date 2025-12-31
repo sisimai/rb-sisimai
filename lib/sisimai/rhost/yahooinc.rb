@@ -31,6 +31,13 @@ module Sisimai
             #   See https://postmaster.yahooinc.com/error-codes
             'not accepted for policy reasons',
           ],
+          'ratelimited' => [
+            # - 421 Max message per connection reached, closing transmission channel
+            'max message per connection reached',
+
+            # - 450 User is receiving mail too quickly
+            'user is receiving mail too quickly',
+          ],
           'rejected' => [
             # Observed the following error message since around March 2024:
             #
@@ -53,10 +60,6 @@ module Sisimai
             #   Retrying will NOT succeed. See https://postmaster.yahooinc.com/error-codes
             ' will be permanently deferred',
           ],
-          'speeding' => [
-            # - 450 User is receiving mail too quickly
-            'user is receiving mail too quickly',
-          ],
           'suspend' => [
             # - 554 delivery error: dd ****@yahoo.com is no longer valid.
             # - 554 30 Sorry, your message to *****@aol.jp cannot be delivered.
@@ -67,10 +70,6 @@ module Sisimai
           'syntaxerror' => [
             # - 501 Syntax error in parameters or arguments
             'syntax error in parameters or arguments',
-          ],
-          'toomanyconn' => [
-            # - 421 Max message per connection reached, closing transmission channel
-            'max message per connection reached',
           ],
           'userunknown' => [
             # - 554 delivery error: dd This user doesn't have a yahoo.com account (***@yahoo.com)

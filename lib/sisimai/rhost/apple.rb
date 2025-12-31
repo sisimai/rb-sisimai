@@ -44,14 +44,14 @@ module Sisimai
             #   Please visit https://support.apple.com/en-us/HT204137
             'due to local policy',
           ],
-          'rejected' => [
-            # - 450 4.1.8 <kijitora@example.jp>: Sender address rejected: Domain not found
-            'sender address rejected',
-          ],
-          'speeding' => [
+          'ratelimited' => [
             # - 421 4.7.1 Messages to ****@icloud.com deferred due to excessive volume.
             #   Try again later - https://support.apple.com/en-us/HT204137
             'due to excessive volume',
+          ],
+          'rejected' => [
+            # - 450 4.1.8 <kijitora@example.jp>: Sender address rejected: Domain not found
+            'sender address rejected',
           ],
           'suspend' => [
             # - https://support.apple.com/guide/icloud/stop-using-or-reactivate-addresses-mm3adb030cbf/icloud

@@ -69,6 +69,15 @@ module Sisimai
             #   the associated IP address from the RBL.
             #[550, '< details of RBL >'], NEED AN ACTUAL ERROR MESSAGE STRING
           ],
+          'emailtoolarge' => [
+            # - The email size either exceeds an Email Size Limit policy or is larger than the
+            #   Mimecast service limit. The default is 100 MB for the Legacy MTA, and 200 MB for
+            #   "the Latest MTA".
+            # - Resend the message ensuring it's smaller than the limitation set. The transmission
+            #   and content-encoding can add significantly to the total message size (e.g. a mes-
+            #   sage with a 70 MB attachment, can have an overall size larger than 100 MB).
+            [554, 'maximum email size exceeded'],
+          ],
           'expired' => [
             # - Journal messages past the expiration
             # - Attempts are being made to journal mail past the set expiry threshold.
@@ -111,15 +120,6 @@ module Sisimai
             # - Validation on your umbrella account's domain name does not conform to your DNS.
             # - Check you DNS has the required umbrella accounts listed as comma-separated values.
             [554, 'configuration is invalid for this certificate'],
-          ],
-          'mesgtoobig' => [
-            # - The email size either exceeds an Email Size Limit policy or is larger than the
-            #   Mimecast service limit. The default is 100 MB for the Legacy MTA, and 200 MB for
-            #   "the Latest MTA".
-            # - Resend the message ensuring it's smaller than the limitation set. The transmission
-            #   and content-encoding can add significantly to the total message size (e.g. a mes-
-            #   sage with a 70 MB attachment, can have an overall size larger than 100 MB).
-            [554, 'maximum email size exceeded'],
           ],
           'networkerror' => [
             # - The recipients' domains have MX records configured incorrectly
@@ -180,6 +180,31 @@ module Sisimai
             # - Delete or amend the policy.
             [554, 'host network not allowed'],
             [554, 'host network, not allowed'],
+          ],
+          'ratelimited' => [
+            # - There are too many concurrent inbound connections for the account. The default is 20.
+            # - The IP address is automatically removed from the block list after five minutes.
+            #   Continued invalid connections result in the IP being readded to the block list. En-
+            #   sure you don't route outbound or journal messages to Mimecast from an IP address
+            #   that hasn't been authorized to do so.
+            [451, 'account service is temporarily unavailable'],
+
+            # - The sending server issues more than 100 RCPT TO entries. By default, Mimecast only
+            #   accepts 100 RCPT TO entries per message body (DATA). The error triggers the sending
+            #   mail server to provide the DATA for the first 100 recipients before it provides the
+            #   next batch of RCPT TO entries.
+            # - Most mail servers respect the transient error and treat it as a "truncation request".
+            #   If your mail server, firewall, or on-site solution doesn't respect the error, you
+            #   must ensure that no more than 100 recipients are submitted.
+            #   Note:
+            #       Solutions like SMTP Fix-Up / MailGuard and ESMTP inspection on Cisco Pix and
+            #       ASA Firewalls are known not to respect the transient error. We advise you to
+            #       disable this functionality.
+            [452, 'too many recipients'],
+
+            # - There are too many concurrent outbound connections for the account.
+            # - Send the messages in smaller chunks to recipients.
+            [550, 'exceeding outbound thread limit'],
           ],
           'rejected' => [
             # - The sender's email address or domain has triggered a Blocked Senders Policy or
@@ -244,31 +269,6 @@ module Sisimai
             # - Generic error if the reason is unknown
             # - Contact Mimecast Support.
             [451, 'unable to process an email at this time'],
-          ],
-          'toomanyconn' => [
-            # - There are too many concurrent inbound connections for the account. The default is 20.
-            # - The IP address is automatically removed from the block list after five minutes.
-            #   Continued invalid connections result in the IP being readded to the block list. En-
-            #   sure you don't route outbound or journal messages to Mimecast from an IP address
-            #   that hasn't been authorized to do so.
-            [451, 'account service is temporarily unavailable'],
-
-            # - The sending server issues more than 100 RCPT TO entries. By default, Mimecast only
-            #   accepts 100 RCPT TO entries per message body (DATA). The error triggers the sending
-            #   mail server to provide the DATA for the first 100 recipients before it provides the
-            #   next batch of RCPT TO entries.
-            # - Most mail servers respect the transient error and treat it as a "truncation request".
-            #   If your mail server, firewall, or on-site solution doesn't respect the error, you
-            #   must ensure that no more than 100 recipients are submitted.
-            #   Note:
-            #       Solutions like SMTP Fix-Up / MailGuard and ESMTP inspection on Cisco Pix and
-            #       ASA Firewalls are known not to respect the transient error. We advise you to
-            #       disable this functionality.
-            [452, 'too many recipients'],
-
-            # - There are too many concurrent outbound connections for the account.
-            # - Send the messages in smaller chunks to recipients.
-            [550, 'exceeding outbound thread limit'],
           ],
           'userunknown' => [
             # - The email address isn't a valid SMTP address.
