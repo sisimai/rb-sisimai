@@ -9,6 +9,9 @@ v5.X.X
 - version: ""
 - changes:
   - Update some bounce reasons in `Sisimai::SMTP::Status`.
+  - #399 Cosolidate 4 bounce reasons into the following 2 reasons:
+    - `TooManyConn` and `Speeding` are consolidated into `RateLimited`.
+    - `ExceedLimit` and `MesgTooBig` are consolidated into `EmailTooLarge`.
 
 v5.5.0
 ---------------------------------------------------------------------------------------------------
