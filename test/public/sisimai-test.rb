@@ -163,6 +163,28 @@ class SisimaiTest < Minitest::Test
     end
   end
 
+  def test_token
+    es = 'envelope-sender@example.jp'
+    er = 'envelope-recipient@example.org'
+    ts = '239aa35547613b2fa94f40c7f35f4394e99fdd88'
+    fr = 'Final-Recipient: rfc822; <neko@example.jp>'
+    cv = Sisimai::Fact.token(es, er, 1)
+    assert_instance_of String, cv
+    assert_equal           ts, cv
+
+    assert_empty Sisimai::Fact.token('', '', 0)
+    assert_empty Sisimai::Fact.token(es, '', 0)
+    assert_empty Sisimai::Fact.token('', er, 0)
+    assert_empty Sisimai::Fact.token(es, er, nil)
+
+    ce = assert_raises ArgumentError do
+      Sisimai::Fact.token()
+      Sisimai::Fact.token(es)
+      Sisimai::Fact.token(es, er)
+    end
+    assert_match /wrong number of arguments/, ce.to_s
+  end
+
   def test_dump
     ce = assert_raises ArgumentError do
       Sisimai.dump()
