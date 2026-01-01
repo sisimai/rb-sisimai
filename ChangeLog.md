@@ -3,6 +3,13 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v5.X.X
+---------------------------------------------------------------------------------------------------
+- release: ""
+- version: ""
+- changes:
+  - Update some bounce reasons in `Sisimai::SMTP::Status`.
+
 v5.5.0
 ---------------------------------------------------------------------------------------------------
 - release: "Fri,  5 Dec 2025 17:25:22 +0900 (JST)"
