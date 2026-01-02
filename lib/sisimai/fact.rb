@@ -374,7 +374,7 @@ module Sisimai
           'senderdomain' => as.host,
           'destination'  => ar.host,
           'alias'        => piece['alias'] || ar.alias,
-          'token'        => Sisimai::String.token(as.address, ar.address, piece['timestamp']),
+          'token'        => Sisimai::Fact.token(as.address, ar.address, piece['timestamp']),
         }
         ea.each { |q| thing[q] = piece[q] if thing[q].nil? || thing[q].empty? }
 
@@ -519,6 +519,21 @@ module Sisimai
         return true  if %w[abuse fraud opt-out].any? { |a| thing['feedbacktype'] == a }
       end
       return false
+    end
+
+    # Create message token from addresser and recipient
+    # @param  [String]  addr1 Sender address
+    # @param  [String]  addr2 Recipient address
+    # @param  [Integer] epoch Machine time of the email bounce
+    # @return [String]        Message token(MD5 hex digest) or blank(failed to create token)
+    # @see    http://en.wikipedia.org/wiki/ASCII
+    def self.token(addr1, addr2, epoch)
+      return "" if addr1.is_a?(::String) == false || addr2.is_a?(::String) == false
+      return "" if addr1.empty? || addr2.empty? || epoch.is_a?(Integer) == false
+
+      # Format: STX(0x02) Sender-Address RS(0x1e) Recipient-Address ETX(0x03)
+      require 'digest/sha1'
+      return Digest::SHA1.hexdigest(sprintf("\x02%s\x1e%s\x1e%d\x03", addr1.downcase, addr2.downcase, epoch))
     end
 
     # Convert from Sisimai::Fact object to a Hash

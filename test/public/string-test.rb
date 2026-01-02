@@ -2,33 +2,10 @@ require 'minitest/autorun'
 require 'sisimai/string'
 
 class StringTest < Minitest::Test
-  Methods = { class: %w[token is_8bit sweep aligned to_plain to_utf8] }
+  Methods = { class: %w[is_8bit sweep aligned to_plain to_utf8] }
 
   def test_methods
     Methods[:class].each { |e| assert_respond_to Sisimai::String, e }
-  end
-
-  Es = 'envelope-sender@example.jp'
-  Er = 'envelope-recipient@example.org'
-  Ts = '239aa35547613b2fa94f40c7f35f4394e99fdd88'
-  Fr = 'Final-Recipient: rfc822; <neko@example.jp>'
-
-  def test_token
-    cv = Sisimai::String.token(Es, Er, 1)
-    assert_instance_of String, cv
-    assert_equal           Ts, cv
-
-    assert_empty Sisimai::String.token('', '', 0)
-    assert_empty Sisimai::String.token(Es, '', 0)
-    assert_empty Sisimai::String.token('', Er, 0)
-    assert_empty Sisimai::String.token(Es, Er, nil)
-
-    ce = assert_raises ArgumentError do
-      Sisimai::String.token()
-      Sisimai::String.token(Es)
-      Sisimai::String.token(Es, Er)
-    end
-    assert_match /wrong number of arguments/, ce.to_s
   end
 
   def test_is_8bit
@@ -56,9 +33,10 @@ class StringTest < Minitest::Test
   end
 
   def test_aligned
+    fr = 'Final-Recipient: rfc822; <neko@example.jp>'
     assert_equal false, Sisimai::String.aligned(nil, nil)
-    assert_equal true,  Sisimai::String.aligned(Fr, ['rfc822', ' <', '@', '>'])
-    assert_equal false, Sisimai::String.aligned(Fr, ['rfc822', '<<', ' ', '>'])
+    assert_equal true,  Sisimai::String.aligned(fr, ['rfc822', ' <', '@', '>'])
+    assert_equal false, Sisimai::String.aligned(fr, ['rfc822', '<<', ' ', '>'])
     assert_equal false, Sisimai::String.aligned(nil,'')
     assert_equal false, Sisimai::String.aligned(nil,'2')
 
