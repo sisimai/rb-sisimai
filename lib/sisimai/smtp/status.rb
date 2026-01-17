@@ -601,72 +601,37 @@ module Sisimai
         }.freeze
 
         InternalCode = {
-          :temporary => {
-            'authfailure'     => '4.0.926',
-            'badreputation'   => '4.0.975',
-            'blocked'         => '4.0.971',
-            'contenterror'    => '4.0.960',
-            'emailtoolarge'   => '4.0.934',
-            'expired'         => '4.0.947',
-            'failedstarttls'  => '4.0.976',
-            'filtered'        => '4.0.924',
-            # 'hasmoved'      => '4.0.916',
-            # 'hostunknown'   => '4.0.912',
-            'mailboxfull'     => '4.0.922',
-            'mailererror'     => '4.0.939',
-            'networkerror'    => '4.0.944',
-            'norelaying'      => '4.0.909',
-            'notaccept'       => '4.0.932',
-            'notcompliantrfc' => '4.0.974',
-            'onhold'          => '4.0.901',
-            'policyviolaton'  => '4.0.972',
-            'ratelimited'     => '4.0.945',
-            'rejected'        => '4.0.918',
-            'requireptr'      => '4.0.973',
-            'securityerror'   => '4.0.970',
-            'spamdetected'    => '4.0.980',
-            'suppressed'      => '4.0.903',
-            'suspend'         => '4.0.921',
-            'systemerror'     => '4.0.930',
-            'systemfull'      => '4.0.931',
-            'syntaxerror'     => '4.0.902',
-            # 'userunknown'   => '4.0.911',
-            'undefined'       => '4.0.900',
-            'virusdetected'   => '4.0.981',
-          },
-          :permanent => {
-            'authfailure'     => '5.0.926',
-            'badreputation'   => '5.0.975',
-            'blocked'         => '5.0.971',
-            'contenterror'    => '5.0.960',
-            'emailtoolarge'   => '5.0.934',
-            'expired'         => '5.0.947',
-            'failedstarttls'  => '5.0.976',
-            'filtered'        => '5.0.910',
-            'hasmoved'        => '5.0.916',
-            'hostunknown'     => '5.0.912',
-            'mailboxfull'     => '5.0.922',
-            'mailererror'     => '5.0.939',
-            'networkerror'    => '5.0.944',
-            'norelaying'      => '5.0.909',
-            'notaccept'       => '5.0.932',
-            'notcompliantrfc' => '5.0.974',
-            'onhold'          => '5.0.901',
-            'policyviolation' => '5.0.972',
-            'ratelimited'     => '5.0.945',
-            'rejected'        => '5.0.918',
-            'requireptr'      => '5.0.973',
-            'securityerror'   => '5.0.970',
-            'spamdetected'    => '5.0.980',
-            'suppressed'      => '5.0.903',
-            'suspend'         => '5.0.921',
-            'systemerror'     => '5.0.930',
-            'systemfull'      => '5.0.931',
-            'syntaxerror'     => '5.0.902',
-            'userunknown'     => '5.0.911',
-            'undefined'       => '5.0.900',
-            'virusdetected'   => '5.0.981',
-          },
+          'authfailure'     => ['5.9.130', '4.9.130'],
+          'badreputation'   => ['5.9.132', '4.9.132'],
+          'blocked'         => ['5.9.134', '4.9.134'],
+          'contenterror'    => ['5.9.160', '4.9.160'],
+          'emailtoolarge'   => ['5.9.161', '4.9.161'],
+          'expired'         => ['5.9.340', '4.9.340'],
+          'failedstarttls'  => ['5.9.350', '4.9.350'],
+          'filtered'        => ['5.9.210', '4.9.210'],
+          'hasmoved'        => ['5.9.211', ''],
+          'hostunknown'     => ['5.9.212', ''],
+          'mailboxfull'     => ['5.9.220', '4.9.220'],
+          'mailererror'     => ['5.9.230', '4.9.230'],
+          'networkerror'    => ['5.9.341', '4.9.341'],
+          'norelaying'      => ['5.9.214', '4.9.214'],
+          'notaccept'       => ['5.9.215', '4.9.215'],
+          'notcompliantrfc' => ['5.9.162', '4.9.162'],
+          'onhold'          => ['5.9.301', '4.9.301'],
+          'policyviolation' => ['5.9.371', '4.9.371'],
+          'ratelimited'     => ['5.9.131', '4.9.131'],
+          'rejected'        => ['5.9.110', '4.9.110'],
+          'requireptr'      => ['5.9.133', '4.9.133'],
+          'securityerror'   => ['5.9.370', '4.9.370'],
+          'spamdetected'    => ['5.9.164', '4.9.164'],
+          'suppressed'      => ['5.9.310', '4.9.310'],
+          'suspend'         => ['5.9.221', '4.9.221'],
+          'syntaxerror'     => ['5.9.351', '4.9.351'],
+          'systemerror'     => ['5.9.231', '4.9.231'],
+          'systemfull'      => ['5.9.232', '4.9.232'],
+          'undefined'       => ['5.9.300', '4.9.300'],
+          'userunknown'     => ['5.9.213', ''],
+          'virusdetected'   => ['5.9.165', '4.9.165'],
         }.freeze
 
         # Convert from the reason string to the internal status code
@@ -675,12 +640,11 @@ module Sisimai
         #                               true:  Temporary error
         # @return   [String]            DSN or an empty string if the 1st argument is missing
         # @see      name
-        def code(argv1 = nil, argv2 = false)
-          return "" if argv1.to_s.empty?
+        def code(argv1 = "", argv2 = false)
+          return "" if argv1.empty?
 
-          table = argv2 ? InternalCode[:temporary] : InternalCode[:permanent]
-          code0 = table[argv1] || InternalCode[:permanent][argv1] || nil
-          return code0
+          pairs = InternalCode[argv1]; return "" if pairs.nil?
+          return argv2 ? pairs[1] : pairs[0]
         end
 
         # Convert from the status code to the reason string
@@ -827,7 +791,7 @@ module Sisimai
           return argv0 if argv1.nil?; return argv0 if argv1.size < 5
 
           statuscode = argv0
-          codeinmesg = argv1
+          codeinmesg = argv1; return codeinmesg if statuscode.index(".9.") == 1
           esmtpreply = argv2 || '000'
           the1stchar = {
             'field' => statuscode[0, 1].to_i,
@@ -884,7 +848,7 @@ module Sisimai
         # @return   bool          false: The delivery status code is not explicit
         def is_explicit(argv1 = '')
           return false if argv1.nil? || argv1.empty?
-          return false if argv1.size == 7 && argv1.start_with?("5.0.9", "4.0.9")
+          return false if argv1.size == 7 && argv1.start_with?("5.9.", "4.9.")
           return true
         end
 
