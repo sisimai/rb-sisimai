@@ -7,7 +7,7 @@ module LhostEngineTest::Public
       '03' => [['',        '', 'vacation', false, false]],
       '04' => [['',        '', 'vacation', false, false]],
       '05' => [['',        '', 'vacation', false, false]],
-      '06' => [['5.0.921', '', 'suspend',  false,  true]],
+      '06' => [['5.9.221', '', 'suspend',  false,  true]],
     }
   end
 end
