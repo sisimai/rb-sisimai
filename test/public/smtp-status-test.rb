@@ -54,11 +54,11 @@ class SMTPStatusTest < Minitest::Test
     Reasons.each do |e|
       cv = Sisimai::SMTP::Status.code(e)
       assert_instance_of String, cv
-      assert_match /\A5[.]\d[.]9\d+/, cv
+      assert_match /\A5[.]9[.]\d+/, cv
 
       cv = Sisimai::SMTP::Status.code(e, true)
       assert_instance_of String, cv
-      assert_match /\A[45][.]\d[.]9\d+/, cv
+      assert_match /\A[45][.]9[.]\d+/, cv
 
     end
 
@@ -147,7 +147,7 @@ class SMTPStatusTest < Minitest::Test
     CodeSet.each do |e|
       assert_equal true, Sisimai::SMTP::Status.is_explicit(e)
     end
-    ["", "5.0.999", "4.0.999"].each do |e|
+    ["", "5.9.999", "4.9.999"].each do |e|
       assert_equal false, Sisimai::SMTP::Status.is_explicit(e)
     end
   end
