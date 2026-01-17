@@ -15,7 +15,7 @@ module LhostEngineTest::Private
       '1011'  => [['',        '',    'vacation',        false, false]],
       '1012'  => [['',        '',    'vacation',        false, false]],
       '1013'  => [['',        '',    'vacation',        false, false]],
-      '1014'  => [['5.0.921', '',    'suspend',         false,  true]],
+      '1014'  => [['5.9.221', '',    'suspend',         false,  true]],
     }
   end
 end
