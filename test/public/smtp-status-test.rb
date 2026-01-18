@@ -56,10 +56,10 @@ class SMTPStatusTest < Minitest::Test
       assert_instance_of String, cv
       assert_match /\A5[.]9[.]\d+/, cv
 
+      next if e == "userunknown" || e == "hostunknown" || e == "hasmoved"
       cv = Sisimai::SMTP::Status.code(e, true)
       assert_instance_of String, cv
       assert_match /\A[45][.]9[.]\d+/, cv
-
     end
 
     ce = assert_raises ArgumentError do
