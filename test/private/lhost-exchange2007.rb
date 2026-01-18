@@ -14,7 +14,7 @@ module LhostEngineTest::Private
       '1010'  => [['5.1.1',   '550', 'userunknown',      true,  true]],
       '1011'  => [['5.2.3',   '550', 'emailtoolarge',   false, false]],
       '1012'  => [['5.1.1',   '550', 'userunknown',      true,  true]],
-      '1013'  => [['5.0.910', '550', 'filtered',        false,  true]],
+      '1013'  => [['5.9.210', '550', 'filtered',        false,  true]],
       '1014'  => [['4.2.0',   '',    'systemerror',     false, false]],
       '1015'  => [['5.1.1',   '550', 'userunknown',      true,  true]],
       '1016'  => [['5.2.3',   '550', 'emailtoolarge',   false, false]],
