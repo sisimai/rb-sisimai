@@ -5,7 +5,7 @@ module LhostEngineTest::Public
       '01' => [['5.7.26',  '550', 'authfailure',     false, false]],
       '02' => [['5.7.509', '550', 'authfailure',     false, false]],
       '03' => [['5.7.9',   '554', 'policyviolation', false, false]],
-      '04' => [['5.0.912', '',    'hostunknown',      true,  true]],
+      '04' => [['5.9.212', '',    'hostunknown',      true,  true]],
       '05' => [['5.7.26',  '550', 'authfailure',     false, false]],
       '06' => [['5.7.25',  '550', 'requireptr',      false, false]],
       '07' => [['5.6.0',   '550', 'contenterror',    false, false]],
@@ -30,8 +30,8 @@ module LhostEngineTest::Public
       '26' => [['5.1.1',   '550', 'userunknown',      true,  true]],
       '27' => [['5.7.13',  '525', 'suspend',         false,  true]],
       '28' => [['5.2.2',   '552', 'mailboxfull',     false,  true]],
-      '29' => [['5.0.947', '',    'expired',         false, false]],
-      '30' => [['5.0.947', '',    'expired',         false, false]],
+      '29' => [['5.9.340', '',    'expired',         false, false]],
+      '30' => [['5.9.340', '',    'expired',         false, false]],
     }
   end
 end

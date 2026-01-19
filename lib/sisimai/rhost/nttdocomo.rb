@@ -44,7 +44,7 @@ module Sisimai
           # Final-Recipient: RFC822; ***@docomo.ne.jp
           # Action: failed
           # Status: 5.2.0
-          return 'userunknown' if statuscode == '5.1.1' || statuscode == '5.0.911'
+          return 'userunknown' if statuscode == '5.1.1' || statuscode == '5.9.213'
           return 'filtered'    if statuscode == '5.2.0'
 
           MessagesOf.each_key do |e|

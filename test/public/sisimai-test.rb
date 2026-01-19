@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'sisimai'
+require 'sisimai/fact'
 require 'json'
 
 class SisimaiTest < Minitest::Test

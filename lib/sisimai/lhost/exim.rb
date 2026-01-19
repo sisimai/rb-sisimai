@@ -164,9 +164,11 @@ module Sisimai::Lhost
         end
         return nil if proceedsto < 2 && thirdparty == false
 
+        require "sisimai/reason"
         require "sisimai/address"
         require "sisimai/rfc2045"
         require "sisimai/smtp/command"
+        require "sisimai/smtp/failure"
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
@@ -461,21 +463,17 @@ module Sisimai::Lhost
           #
           # The value of "Status:" indicates permanent error but the value of SMTP reply code in
           # Diagnostic-Code: field is "TEMPERROR"!!!!
-          re = e["reason"]
           cr = Sisimai::SMTP::Reply.find(e["diagnosis"], e["status"])
           cs = Sisimai::SMTP::Status.find(e["diagnosis"], cr)
+          re = e["reason"]
           cv = ""
 
-          if cr[0,1] == "4" || re == "expired" || re == "mailboxfull"
+          if Sisimai::SMTP::Failure.is_temporary(cr) || re == "expired" || re == "mailboxfull"
             # Set the pseudo status code as a temporary error
-            cv = Sisimai::SMTP::Status.code(re, true)
-
-          else
-            # Set the pseudo status code as a permanent error
-            cv = Sisimai::SMTP::Status.code(re, false)
+            cv = Sisimai::SMTP::Status.code(re, true) if Sisimai::Reason.is_explicit(re)
           end
           e["replycode"] = cr if e["replycode"].empty?
-          e["status"]    = Sisimai::SMTP::Status.prefer(cs, cv, cr) if e["status"].empty?
+          e["status"]    = Sisimai::SMTP::Status.prefer(cv, cs, cr) if e["status"].empty?
         end
 
         return { "ds" => dscontents, "rfc822" => emailparts[1] }

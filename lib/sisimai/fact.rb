@@ -506,7 +506,7 @@ module Sisimai
         # 2. Several softbounces: MailboxFull, Filtered, NoRelaying
         #   2-1. The SMTP command is "RCPT" except "MailboxFull".
         #   2-2. The SMTP reply code begins with "5" such as "550".
-        #   2-3. The SMTP status code is explicit code (not empty, not 5.0.9XX).
+        #   2-3. The SMTP status code is explicit code (not empty, not 5.9.***).
         #   2-4. The SMTP status code begins with "5." such as "5.1.1".
         return true  if cr != 'mailboxfull' && thing['command'] == "RCPT"
         return true  if cv.start_with?('5')

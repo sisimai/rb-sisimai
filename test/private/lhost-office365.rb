@@ -10,7 +10,7 @@ module LhostEngineTest::Private
       '1006'  => [['5.4.14',  '554', 'networkerror',    false, false]],
       '1007'  => [['5.1.1',   '550', 'userunknown',      true,  true]],
       '1008'  => [['5.1.1',   '550', 'userunknown',      true,  true]],
-      '1009'  => [['5.0.970', '553', 'securityerror',   false, false]],
+      '1009'  => [['5.9.370', '553', 'securityerror',   false, false]],
       '1010'  => [['5.1.0',   '550', 'authfailure',     false, false]],
       '1011'  => [['5.1.351', '550', 'filtered',        false,  true]],
       '1012'  => [['5.1.8',   '501', 'rejected',        false, false]],
