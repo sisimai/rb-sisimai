@@ -13,6 +13,8 @@ v5.X.X
     - `TooManyConn` and `Speeding` are consolidated into `RateLimited`.
     - `ExceedLimit` and `MesgTooBig` are consolidated into `EmailTooLarge`.
   - #401 `Sisimai::String.token()` has been moved to `Sisimai::Fact.token()`.
+  - #403 Internal status code, the value of `deliverystatus` has been reorganized and changed from
+    `5.0.9**` to `5.9.***`.
 
 v5.5.0
 ---------------------------------------------------------------------------------------------------
