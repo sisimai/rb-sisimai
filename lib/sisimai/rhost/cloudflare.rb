@@ -6,6 +6,8 @@ module Sisimai
     module Cloudflare
       class << self
         MessagesOf = {
+          # - 554 <YOUR_IP_ADDRESS> found on one or more RBLs (abusixip). Refer to
+          #   https://developers.cloudflare.com/email-routing/postmaster/#spam-and-abusive-traffic/
           "blocked"     => ["found on one or more DNSBLs"],
           "systemerror" => ["Upstream error"],
         }.freeze
