@@ -143,6 +143,14 @@ module Sisimai
           'IB106' => 'blocked',
         }.freeze
         MessagesOf = {
+          'authfailure' => [
+            # - 550 SPF Sender Invalid - envelope rejected
+            # - 550 5.7.9: This mail has been blocked because the sender is unauthenticated
+            # - 550-5.7.26 DKIM = did not pass
+            "spf sender invalid - envelope rejected",
+            "this mail has been blocked because the sender is unauthenticated",
+            "dkim = did not pass",
+          ],
           'blocked' => [
             # - 554 RBL Reject.
             # - This IP address was blocked from our internal RBL.
@@ -169,14 +177,24 @@ module Sisimai
             #   make space for more email.
             'account storage limit',
           ],
+          'norelaying' => [
+            # - 550 5.7.1: Relay access denied
+            "relay access denied",
+          ],
           'ratelimited' => [
             # - 550 5.7.232 Your message can't be sent because your trial tenant has exceeded
-            #   its daily limit for sending email to external recipients (tenant external
-            #   recipient rate limit)
+            #   its daily limit for sending email to external recipients (tenant external recipient rate limit)
             # - 550 5.7.233 - Your message can't be sent because your tenant exceeded its daily
-            #   limit for sending email to external recipients (tenant external recipient rate
-            #   limit)
+            #   limit for sending email to external recipients (tenant external recipient rate limit)
             "exceeded its daily limit",
+          ],
+          'rejected' => [
+            # - 550 5.1.8 Access denied, bad outbound sender AS (42004)
+            "bad outbound sender as (42004)",
+          ],
+          'securityerror' => [
+            # - 550 Please turn on SMTP Authentication in your mail client
+            "turn on smtp authentication in your mail client",
           ],
           'spamdetected' => [
             # - 552 Message rejected for spam or virus content
