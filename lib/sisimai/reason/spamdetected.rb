@@ -141,7 +141,7 @@ module Sisimai
           # The value of "reason" isn't "spamdetected" when the value of "command" is an SMTP command
           # to be sent before the SMTP DATA command because all the MTAs read the headers and the
           # entire message body after the DATA command.
-          return false if %w[CONN EHLO HELO MAIL RCPT].include?(argvs['command'])
+          return false if Sisimai::SMTP::Command::ExceptDATA.include?(argvs['command'])
           return match(argvs['diagnosticcode'].downcase)
         end
 

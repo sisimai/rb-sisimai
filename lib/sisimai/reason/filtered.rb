@@ -48,7 +48,6 @@ module Sisimai
         def true(argvs)
           return true if argvs['reason'] == 'filtered'
 
-          require 'sisimai/reason/userunknown'
           tempreason = Sisimai::SMTP::Status.name(argvs['deliverystatus'])
           return false if tempreason == 'suspend'
 
@@ -56,12 +55,13 @@ module Sisimai
           thecommand = argvs['command']                 || ''
           if tempreason == 'filtered'
             # Delivery status code points "filtered".
+            require 'sisimai/reason/userunknown'
             return true if Sisimai::Reason::UserUnknown.match(issuedcode) || match(issuedcode)
           else
             # The value of "reason" isn't "filtered" when the value of "command" is an SMTP command
             # to be sent before the SMTP DATA command because all the MTAs read the headers and the
             # entire message body after the DATA command.
-            return false if %w[CONN EHLO HELO MAIL RCPT].include?(thecommand)
+            return false if Sisimai::SMTP::Command::ExceptDATA.include?(thecommand)
             return true  if match(issuedcode) || Sisimai::Reason::UserUnknown.match(issuedcode)
           end
           return false
