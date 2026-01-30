@@ -3,6 +3,7 @@ module Sisimai
     # Sisimai::SMTP::Transcript is an SMTP Command related utilities
     module Command
       ExceptDATA = ["CONN", "EHLO", "HELO", "MAIL", "RCPT"].freeze
+      BeforeRCPT = ["CONN", "EHLO", "EHLO", "MAIL", "AUTH", "STARTTLS"].freeze
       class << self
         Availables = [
           "HELO", "EHLO", "MAIL", "RCPT", "DATA", "QUIT", "RSET", "NOOP", "VRFY", "ETRN", "EXPN",
