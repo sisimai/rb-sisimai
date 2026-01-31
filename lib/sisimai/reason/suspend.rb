@@ -6,30 +6,31 @@ module Sisimai
     module Suspend
       class << self
         Index = [
-          ' is currently suspended',
-          ' temporary locked',
-          'archived recipient',
-          'boite du destinataire archivee',
-          'email account that you tried to reach is disabled',
-          'has been suspended',
-          'inactive account',
-          'invalid/inactive user',
-          'is a deactivated mailbox', # http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=20022&&no=1000742
-          'is unavailable: user is terminated',
-          'mailbox currently suspended',
-          'mailbox disabled',
-          'mailbox is frozen',
-          'mailbox unavailable or access denied',
-          'recipient rejected: temporarily inactive',
-          'recipient suspend the service',
-          "the email account that you tried to reach is inactive",
-          'this account has been disabled or discontinued',
-          'this account has been temporarily suspended',
-          'this address no longer accepts mail',
-          'this mailbox is disabled',
-          'user or domain is disabled',
-          'user suspended',   # http://mail.163.com/help/help_spam_16.htm
-          'vdelivermail: account is locked email bounced',
+          " currently suspended",
+          " temporary locked",
+          "address no longer accepts mail",
+          "archived recipient",
+          "boite du destinataire archivee",
+          "email account that you tried to reach is inactive",
+          "inactive account",
+          "inactivity new mail is not currently being accepted for this mailbox",
+          "invalid/inactive user",
+          "is a deactivated mailbox", # http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=20022&&no=1000742
+          "is unavailable: user is terminated",
+          "mailbox is frozen",
+          "mailbox is inactive",
+          "mailbox unavailable or access denied",
+          "recipient rejected: temporarily inactive",
+          "recipient suspend the service",
+          "user or domain is disabled",
+          "user suspended", # http://mail.163.com/help/help_spam_16.htm
+          "vdelivermail: account is locked email bounced",
+        ].freeze
+        Pairs = [
+          ["account ", "disabled"],
+          ["has been ", "suspended"],
+          ["mailbox ", "disabled"],
+          ["not ", "active"],
         ].freeze
 
         def text; return 'suspend'; end
@@ -41,6 +42,7 @@ module Sisimai
         def match(argv1)
           return false if argv1.nil? || argv1.empty?
           return true  if Index.any? { |a| argv1.include?(a) }
+          return true  if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
           return false
         end
 
