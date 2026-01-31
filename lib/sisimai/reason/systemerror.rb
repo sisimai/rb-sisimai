@@ -9,33 +9,29 @@ module Sisimai
     #   message has been in the queue too long.
     module SystemError
       class << self
-        require 'sisimai/string'
         Index = [
-          'aliasing/forwarding loop broken',
+          "aliasing/forwarding loop broken",
           "can't create user output file",
-          'could not load drd for domain',
-          'internal error reading data',  # Microsoft
-          'internal server error: operation now in progress', # Microsoft
-          'interrupted system call',
-          'it encountered an error while being processed',
-          'it would create a mail loop',
-          'local configuration error',
-          'local error in processing',
-          'loop was found in the mail exchanger',
-          'loops back to myself',
-          'mail system configuration error',
-          'queue file write error',
-          'recipient deferred because there is no mdb',
-          'remote server is misconfigured',
-          'server configuration error',
-          'service currently unavailable',
-          'system config error',
-          'temporary local problem',
-          'timeout waiting for input',
-          'transaction failed ',
+          "cannot send e-mail to yourself",
+          "could not load ",
+          "interrupted system call",
+          "it encountered an error while being processed",
+          "it would create a mail loop",
+          "loop was found in the mail exchanger",
+          "loops back to myself",
+          "queue file write error",
+          "recipient deferred because there is no mdb",
+          "remote server is misconfigured",
+          "service currently unavailable",
+          "temporary local problem",
+          "timeout waiting for input",
+          "transaction failed ",
         ].freeze
         Pairs = [
-          ['unable to connect ', 'daemon'],
+          ["config", " error"],
+          ["internal ", "error"],
+          ["local ", "error"],
+          ["unable to connect ", "daemon"],
         ].freeze
 
         def text; return 'systemerror'; end
