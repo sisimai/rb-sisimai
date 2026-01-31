@@ -9,14 +9,20 @@ module Sisimai
     module ContentError
       class << self
         Index = [
-          'header size exceeds maximum permitted',
-          'improper use of 8-bit data in message header',
-          'message header size, or recipient list, exceeds policy limit',
-          'message mime complexity exceeds the policy maximum',
-          'routing loop detected -- too many received: headers',
-          'this message contain invalid mime headers',
-          'this message contain improperly-formatted binary content',
-          'this message contain text that uses unnecessary base64 encoding',
+          "executable files are not allowed in compressed files",
+          "header error",
+          "header size exceeds maximum permitted",
+          "illegal attachment on your message",
+          "improper use of 8-bit data in message header",
+          "it has a potentially executable attachment",
+          "message contain invalid mime headers",
+          "message contain improperly-formatted binary content",
+          "message contain text that uses unnecessary base64 encoding",
+          "message header size, or recipient list, exceeds policy limit",
+          "message mime complexity exceeds the policy maximum",
+          "message was blocked because its content presents a potential", # https://support.google.com/mail/answer/6590
+          "routing loop detected -- too many received: headers",
+          "we do not accept messages containing images or other attachments",
         ].freeze
 
         def text; return 'contenterror'; end
