@@ -14,13 +14,10 @@ module Sisimai
     #
     module VirusDetected
       class << self
-        Index = [
-          'it has a potentially executable attachment',
-          'the message was rejected because it contains prohibited virus or spam content',
-          'this form of attachment has been used by recent viruses or other malware',
-          'virus detected',
-          'virus phishing/malicious_url detected',
-          'your message was infected with a virus',
+        Index = ["it has a potentially executable attachment"].freeze
+        Pairs = [
+          ["message was ", "ected", " virus"],
+          ["virus", " detected"],
         ].freeze
 
         def text; return 'virusdetected'; end
@@ -33,6 +30,7 @@ module Sisimai
         def match(argv1)
           return false if argv1.nil? || argv1.empty?
           return true  if Index.any? { |a| argv1.include?(a) }
+          return true  if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
           return false
         end
 
