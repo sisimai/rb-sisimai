@@ -28,7 +28,8 @@ module Sisimai
         #                                   false: Has not moved
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return true if argvs['reason'] == 'hasmoved'
+          return true  if argvs['reason'] == 'hasmoved'
+          return false if Sisimai::SMTP::Command::BeforeRCPT.include?(argvs['command'])
           return match(argvs['diagnosticcode'].downcase)
         end
 
