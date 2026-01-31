@@ -9,8 +9,8 @@ module Sisimai
     module SystemFull
       class << self
         Index = [
+          'exceeded storage allocation',   # MS Exchange
           'mail system full',
-          'requested mail action aborted: exceeded storage allocation',   # MS Exchange
         ].freeze
 
         def text; return 'systemfull'; end
