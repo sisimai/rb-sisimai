@@ -297,6 +297,8 @@ module Sisimai
           email += sprintf("%s: %s\n", fn, bf)
         end
 
+        # 5. Convert the lower-cased SMTP command to the upper-cased.
+        email  = email.gsub("after end of data:", "after end of DATA:")
         email += "\n" if email.end_with?("\n\n") == false
         return email
       end
