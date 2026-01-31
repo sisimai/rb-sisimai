@@ -14,33 +14,20 @@ module Sisimai
     #
     module PolicyViolation
       class << self
-        require 'sisimai/string'
-
         Index = [
-          'an illegal attachment on your message',
-          'because the recipient is not accepting mail with ',    # AOL Phoenix
-          'closed mailing list',
-          'denied by policy',
-          'email not accepted for policy reasons',
+          "because the recipient is not accepting mail with ",    # AOL Phoenix
+          "closed mailing list",
+          "delivery not authorized, message refused",
+          "denied by policy",
           # http://kb.mimecast.com/Mimecast_Knowledge_Base/Administration_Console/Monitoring/Mimecast_SMTP_Error_Codes#554
-          'email rejected due to security policies',
-          'header are not accepted',
-          'header error',
-          'local policy violation',
-          'message bounced due to organizational settings',
-          'message given low priority',
-          'message not accepted for policy reasons',
-          'message rejected due to local policy',
-          'messages with multiple addresses',
-          'rejected for policy reasons',
-          'protocol violation',
-          'the message was rejected by organization policy',
-          'this message was blocked because its content presents a potential', # https://support.google.com/mail/answer/6590
-          'we do not accept messages containing images or other attachments',
+          "email rejected due to security policies",
+          "for policy reasons",
+          "local policy violation",
+          "message bounced due to organizational settings",
+          "message given low priority",
+          "message was rejected by organization policy",
+          "protocol violation",
           "you're using a mass mailer",
-        ].freeze
-        Pairs = [
-          ['you have exceeded the', 'allowable number of posts without solving a captcha'],
         ].freeze
 
         def text; return 'policyviolation'; end
@@ -53,7 +40,6 @@ module Sisimai
         def match(argv1)
           return false if argv1.nil? || argv1.empty?
           return true  if Index.any? { |a| argv1.include?(a) }
-          return true  if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
           return false
         end
 

@@ -45,7 +45,7 @@ module LhostEngineTest::Private
       '1041'  => [['5.1.1',   '550', 'userunknown',      true,  true]],
       '1042'  => [['5.1.1',   '550', 'userunknown',      true,  true]],
       '1043'  => [['5.9.213', '550', 'userunknown',      true,  true]],
-      '1044'  => [['5.9.371', '',    'policyviolation', false, false]],
+      '1044'  => [['5.9.131', '',    'ratelimited',     false, false]],
       '1045'  => [['5.9.340', '',    'expired',         false, false]],
       '1046'  => [['5.1.1',   '550', 'userunknown',      true,  true]],
       '1047'  => [['5.1.1',   '550', 'userunknown',      true,  true],

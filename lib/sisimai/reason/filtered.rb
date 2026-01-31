@@ -10,22 +10,18 @@ module Sisimai
     module Filtered
       class << self
         Index = [
-          'because the recipient is only accepting mail from specific email addresses',   # AOL Phoenix
-          'bounced address',  # SendGrid|a message to an address has previously been Bounced.
-          'due to extended inactivity new mail is not currently being accepted for this mailbox',
-          'has restricted sms e-mail',    # AT&T
-          'is not accepting any mail',
+          "account is protected by",
+          "has restricted sms e-mail", # AT&T
+          "is not accepting any mail",
           "message filtered",
-          'message rejected due to user rules',
-          'not found recipient account',
-          'refused due to recipient preferences', # Facebook
-          'resolver.rst.notauthorized',   # Microsoft Exchange
-          'this account is protected by',
-          'user not found',   # Filter on MAIL.RU
-          'user refuses to receive this mail',
-          'user reject',
-          'we failed to deliver mail because the following address recipient id refuse to receive mail',  # Willcom
-          'you have been blocked by the recipient',
+          "message rejected due to user rules",
+          "not found recipient account",
+          "recipient id refuse to receive mail", # Willcom
+          "recipient is only accepting mail from specific email addresses", # AOL Phoenix
+          "refused due to recipient preferences", # Facebook
+          "user refuses to receive this mail",
+          "user reject",
+          "you have been blocked by the recipient",
         ].freeze
 
         def text; return 'filtered'; end
@@ -48,7 +44,6 @@ module Sisimai
         def true(argvs)
           return true if argvs['reason'] == 'filtered'
 
-          require 'sisimai/reason/userunknown'
           tempreason = Sisimai::SMTP::Status.name(argvs['deliverystatus'])
           return false if tempreason == 'suspend'
 
@@ -56,12 +51,13 @@ module Sisimai
           thecommand = argvs['command']                 || ''
           if tempreason == 'filtered'
             # Delivery status code points "filtered".
+            require 'sisimai/reason/userunknown'
             return true if Sisimai::Reason::UserUnknown.match(issuedcode) || match(issuedcode)
           else
             # The value of "reason" isn't "filtered" when the value of "command" is an SMTP command
             # to be sent before the SMTP DATA command because all the MTAs read the headers and the
             # entire message body after the DATA command.
-            return false if %w[CONN EHLO HELO MAIL RCPT].include?(thecommand)
+            return false if Sisimai::SMTP::Command::ExceptDATA.include?(thecommand)
             return true  if match(issuedcode) || Sisimai::Reason::UserUnknown.match(issuedcode)
           end
           return false

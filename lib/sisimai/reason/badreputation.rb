@@ -15,13 +15,13 @@ module Sisimai
     module BadReputation
       class << self
         Index = [
-          'a poor email reputation score',
-          'has been temporarily rate limited due to ip reputation',
-          'ip/domain reputation problems',
-          'likely suspicious due to the very low reputation',
-          'none/bad reputation', # t-online.de
-          'temporarily deferred due to unexpected volume or user complaints', # Yahoo Inc.
-          "the sending mta's poor reputation",
+          "has been temporarily rate limited due to ip reputation",
+          "ip/domain reputation problems",
+          "likely suspicious due to the very low reputation",
+          "none/bad reputation", # t-online.de
+          "poor email reputation score",
+          "sending mta's poor reputation",
+          "temporarily deferred due to unexpected volume or user complaints", # Yahoo Inc.
         ].freeze
         def text; return 'badreputation'; end
         def description; return 'Email rejected due to an IP address reputation'; end

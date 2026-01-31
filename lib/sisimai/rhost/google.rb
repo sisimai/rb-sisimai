@@ -150,6 +150,17 @@ module Sisimai
             ['550', '5.7.1',  'an unusual rate of unsolicited mail'],
             ['550', '5.7.28', 'an unusual rate of unsolicited mail'],
           ],
+          'contenterror' => [
+            # - 552 5.7.0 Our system detected an illegal attachment on your message. Please visit
+            #   http://mail.google.com/support/bin/answer.py?answer=6590 to review our attachment
+            #   guidelines.
+            ['552', '5.7.0', 'illegal attachment on your message'],
+
+            # - 552 5.7.0 This message was blocked because its content presents a potential securi-
+            #   ty issue. Please visit https://support.google.com/mail/?p=BlockedMessage to review
+            #   our message content and attachment content guidelines.
+            ['552', '5.7.0', 'blocked because its content presents a potential security issue'],
+          ],
           'emailtoolarge' => [
             # - 552 5.2.3 Your message exceeded Google's message size limits. For more information,
             #   visit https://support.google.com/mail/answer/6584
@@ -290,27 +301,11 @@ module Sisimai
             ['554', '5.6.0', 'mail message is malformed'],
           ],
           'policyviolation' => [
-            # - 552 5.7.0 Our system detected an illegal attachment on your message. Please visit
-            #   http://mail.google.com/support/bin/answer.py?answer=6590 to review our attachment
-            #   guidelines.
-            ['552', '5.7.0', 'illegal attachment on your message'],
-
-            # - 552 5.7.0 This message was blocked because its content presents a potential securi-
-            #   ty issue. Please visit https://support.google.com/mail/?p=BlockedMessage to review
-            #   our message content and attachment content guidelines.
-            ['552', '5.7.0', 'blocked because its content presents a potential security issue'],
-
             # - 550 5.7.1 The user or domain that you are sending to (or from) has a policy that
             #   prohibited the mail that you sent. Please contact your domain administrator for
             #   further details.
             #   For more information, visit https://support.google.com/a/answer/172179
             ['550', '5.7.1', 'you are sending to (or from) has a policy that prohibited'],
-
-            # - 421 4.7.28 Gmail has detected this message exceeded its quota for sending messages
-            #   with the same Message-ID:. To best protect our users, the message has been tempo-
-            #   rarily rejected. For more information, go to Why has Gmail blocked my messages?.
-            #   https://support.google.com/mail/answer/188131
-            ['421', '4.7.28', 'sending messages with the same message-id:'],
           ],
           'ratelimited' => [
             # - 450 4.2.1 The user you are trying to contact is receiving mail too quickly. Please
@@ -349,6 +344,12 @@ module Sisimai
             ['550', '5.7.1', 'daily smtp relay limit exceeded for'],
             ['550', '5.7.1', 'daily smtp relay sending limit exceeded for'],
             ['550', '5.7.1', 'this mail has been rate limited'],
+
+            # - 421 4.7.28 Gmail has detected this message exceeded its quota for sending messages
+            #   with the same Message-ID:. To best protect our users, the message has been tempo-
+            #   rarily rejected. For more information, go to Why has Gmail blocked my messages?.
+            #   https://support.google.com/mail/answer/188131
+            ['421', '4.7.28', 'sending messages with the same message-id:'],
           ],
           'rejected' => [
             # - 550 5.7.0, Mail Sending denied. This error occurs if the sender account is disabled

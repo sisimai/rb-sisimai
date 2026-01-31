@@ -17,28 +17,22 @@ module Sisimai
     #
     module SecurityError
       class << self
-        require 'sisimai/string'
-
         Index = [
-          'account not subscribed to ses',
-          'authentication credentials invalid',
-          'authentication failure',
-          'authentication required',
-          'authentication turned on in your email client',
-          'executable files are not allowed in compressed files',
-          'insecure mail relay',
-          'recipient address rejected: access denied',
-          "sorry, you don't authenticate or the domain isn't in my list of allowed rcpthosts",
-          'unauthenticated senders not allowed',
-          'verification failure',
-          'you are not authorized to send mail, authentication is required',
+          "account not subscribed to ses",
+          "authentication credentials invalid",
+          "authentication failure",
+          "authentication required",
+          "authentication turned on in your email client",
+          "unauthenticated senders not allowed",
+          "verification failure",
+          "you are not authorized to send mail, authentication is required",
+          "you don't authenticate or the domain isn't in my list of allowed rcpthosts",
         ].freeze
         Pairs = [
-          ['authentication failed; server ', ' said: '],  # Postfix
-          ['authentification invalide', '305'],
-          ['authentification requise', '402'],
-          ['domain ', ' is a dead domain'],
-          ['user ', ' is not authorized to perform ses:sendrawemail on resource'],
+          ["authentication failed; server ", " said: "], # Postfix
+          ["authentification invalide", "305"],
+          ["authentification requise", "402"],
+          ["user ", " is not authorized to perform ses:sendrawemail on resource"],
         ].freeze
 
         def text; return 'securityerror'; end

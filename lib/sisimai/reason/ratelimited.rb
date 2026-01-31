@@ -11,22 +11,22 @@ module Sisimai
     module RateLimited
       class << self
         Index = [
-          'all available ips are at maximum connection limit',    # SendGrid
-          'connection rate limit exceeded',
-          'exceeds per-domain connection limit for',
-          'has exceeded the max emails per hour ',
-          'mail sent from your IP address has been temporarily rate limited',
-          'please try again slower',
-          'receiving mail at a rate that prevents additional messages from being delivered',
-          'throttling failure: daily message quota exceeded',
-          'throttling failure: maximum sending rate exceeded',
-          'too many connections',
-          'too many concurrent smtp connections', # Microsoft
-          'too many errors from your ip',         # Free.fr
-          'too many recipients',                  # ntt docomo
-          'too many smtp sessions for this host', # Sendmail(daemon.c)
-          'trop de connexions, ',
-          'we have already made numerous attempts to deliver this message',
+          "has exceeded the max emails per hour ",
+          "please try again slower",
+          "receiving mail at a rate that prevents additional messages from being delivered",
+          "temporarily deferred due to unexpected volume or user complaints",
+          "throttling failure: ",
+          "too many errors from your ip",         # Free.fr
+          "too many recipients",                  # ntt docomo
+          "too many smtp sessions for this host", # Sendmail(daemon.c)
+          "trop de connexions, ",
+          "we have already made numerous attempts to deliver this message",
+        ].freeze
+        Pairs = [
+          ["exceeded ", "allowable number of posts without solving a captcha"],
+          ["connection ", "limit"],
+          ["temporarily", "rate limited"],
+          ["too many con", "s"],
         ].freeze
 
         def text; return 'ratelimited'; end
@@ -38,6 +38,7 @@ module Sisimai
         def match(argv1)
           return false if argv1.nil? || argv1.empty?
           return true  if Index.any? { |a| argv1.include?(a) }
+          return true  if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
           return false
         end
 

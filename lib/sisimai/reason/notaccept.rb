@@ -11,13 +11,11 @@ module Sisimai
       class << self
         # Destination mail server does not accept any message
         Index = [
-          'does not accept mail',             # Sendmail
-          'host/domain does not accept mail', # iCloud
-          'mail receiving disabled',
-          'name server: .: host not found',   # Sendmail
-          'no mx record found for domain=',   # Oath(Yahoo!)
-          'no route for current request',
-          'smtp protocol returned a permanent error',
+          "does not accept mail",             # Sendmail, iCloud
+          "mail receiving disabled",
+          "name server: .: host not found",   # Sendmail
+          "no mx record found for domain=",   # Oath(Yahoo!)
+          "no route for current request",
         ].freeze
 
         def text; return 'notaccept'; end
@@ -40,7 +38,7 @@ module Sisimai
         def true(argvs)
           return true  if argvs['reason'] == 'notaccept'
           return true  if [521, 556].index(argvs['replycode'].to_i) # SMTP Reply Code is 554 or 556
-          return false if argvs['command'] != 'MAIL'
+          return false if Sisimai::SMTP::Command::BeforeRCPT.include?(argvs['command'])
           return match(argvs['diagnosticcode'].downcase)
         end
 

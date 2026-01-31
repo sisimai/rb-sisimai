@@ -86,7 +86,7 @@ module LhostEngineTest::Private
       '1051'  => [['5.9.213', '550', 'userunknown',       true,  true],
                   ['5.9.213', '550', 'userunknown',       true,  true],
                   ['5.9.212', '550', 'hostunknown',       true,  true]], # invalid domain name
-      '1052'  => [['5.9.134', '550', 'blocked',          false, false],
+      '1052'  => [['5.9.231', '550', 'systemerror',      false, false],
                   ['5.9.212', '550', 'hostunknown',       true,  true],
                   ['5.9.212', '550', 'hostunknown',       true,  true],
                   ['5.9.213', '550', 'userunknown',       true,  true]],

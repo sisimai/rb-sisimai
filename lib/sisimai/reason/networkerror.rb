@@ -11,22 +11,21 @@ module Sisimai
     module NetworkError
       class << self
         Index = [
-          'could not connect and send the mail to',
-          'dns records for the destination computer could not be found',
-          'hop count exceeded - possible mail loop',
-          'host is unreachable',
-          'host name lookup failure',
-          'host not found, try again',
-          'mail forwarding loop for ',
-          'malformed name server reply',
-          'malformed or unexpected name server reply',
-          'maximum forwarding loop count exceeded',
-          'message looping',
-          'message probably in a routing loop',
-          'no route to host',
-          'too many hops',
-          'unable to resolve route ',
-          'unrouteable mail domain',
+          "could not connect and send the mail to",
+          "dns records for the destination computer could not be found",
+          "host is unreachable",
+          "host name lookup failure",
+          "host not found, try again",
+          "maximum forwarding loop count exceeded",
+          "no route to host",
+          "too many hops",
+          "unable to resolve route ",
+          "unrouteable mail domain",
+        ].freeze
+        Pairs = [
+          ["malformed", "name server reply"],
+          ["mail ", "loop"],
+          ["message ", "loop"],
         ].freeze
 
         def text; return 'networkerror'; end
@@ -38,6 +37,7 @@ module Sisimai
         def match(argv1)
           return false if argv1.nil? || argv1.empty?
           return true  if Index.any? { |a| argv1.include?(a) }
+          return true  if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
           return false
         end
 

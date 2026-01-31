@@ -248,7 +248,7 @@ module LhostEngineTest::Private
 #     '1286'  => [['5.5.0',   '550', 'rejected',        false, false]],  # TODO:
       '1287'  => [['5.0.0',   '550', 'filtered',        false,  true]],
       '1288'  => [['5.3.4',   '552', 'emailtoolarge',   false, false]],
-      '1289'  => [['4.0.0',   '',    'notaccept',       false, false]],
+      '1289'  => [['4.0.0',   '',    'suspend',         false, false]],
       '1290'  => [['4.3.0',   '451', 'systemerror',     false, false]],
       '1300'  => [['5.1.0',   '550', 'userunknown',      true,  true]],
       '1301'  => [['5.0.0',   '',    'spamdetected',    false, false]],

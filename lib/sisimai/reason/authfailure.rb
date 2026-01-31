@@ -12,23 +12,19 @@ module Sisimai
     # Diagnostic-Code: smtp; 550 5.7.1 Email rejected per DMARC policy for example.org
     module AuthFailure
       class << self
-        require 'sisimai/string'
-
         Index = [
-          '//spf.pobox.com',
-          'bad spf records for',
-          'dmarc policy',
+          "//spf.pobox.com",
+          "5322.From address doesn't meet the authentication requirements",
+          "bad spf records for",
+          "dmarc policy",
           "doesn't meet the required authentication level",
-          'please inspect your spf settings',
-          'sender policy framework (spf) fail',
-          'sender policy framework violation',
-          'spf (sender policy framework) domain authentication fail',
-          'spf check: fail',
-          "the 5322.From address doesn't meet the authentication requirements defined for the sender",
+          "please inspect your spf settings",
+          "sender policy framework",
+          "spf check: fail",
         ].freeze
         Pairs = [
-          [' is not allowed to send mail.', '_401'],
-          ['is not allowed to send from <', " per it's spf record"],
+          [" is not allowed to send mail.", "_401"],
+          ["is not allowed to send from <", " per it's spf record"],
         ].freeze
 
         def text; return 'authfailure'; end
