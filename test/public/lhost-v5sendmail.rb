@@ -7,7 +7,7 @@ module LhostEngineTest::Public
       '03' => [['5.9.213', '550', 'userunknown',      true,  true]],
       '04' => [['5.9.212', '550', 'hostunknown',      true,  true],
                ['5.9.212', '550', 'hostunknown',      true,  true]],
-      '05' => [['5.9.134', '550', 'blocked',         false, false],
+      '05' => [['5.9.231', '550', 'systemerror',      false, false],
                ['5.9.212', '550', 'hostunknown',      true,  true],
                ['5.9.212', '550', 'hostunknown',      true,  true],
                ['5.9.213', '550', 'userunknown',      true,  true]],
