@@ -6,26 +6,22 @@ module Sisimai
     # Status: field in a bounce mail is "5.1.2".
     module HostUnknown
       class << self
-        require 'sisimai/string'
-
         Index = [
-          'domain does not exist',
-          'domain is not reachable',
-          'domain must exist',
-          'host or domain name not found',
-          'host unknown',
-          'host unreachable',
-          'mail domain mentioned in email address is unknown',
-          'name or service not known',
-          'no such domain',
-          'recipient address rejected: unknown domain name',
-          'recipient domain must exist',
-          'the account or domain may not exist',
-          'unknown host',
-          'unroutable address',
-          'unrouteable address',
+          "domain is not reachable",
+          "domain mentioned in email address is unknown",
+          "domain must exist",
+          "host or domain name not found",
+          "host unknown",
+          "host unreachable",
+          "name or service not known",
+          "no such domain",
+          "recipient address rejected: unknown domain name",
+          "unknown host",
         ].freeze
-        Pairs = [['553 ', ' does not exist']].freeze
+        Pairs = [
+          ["domain ", "not exist"],
+          ["unrout", "able ", "address"],
+        ].freeze
 
         def text; return 'hostunknown'; end
         def description; return "Delivery failed due to a domain part of a recipient's email address does not exist"; end
@@ -47,7 +43,8 @@ module Sisimai
         #                                   false: is not unknown host.
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return true if argvs['reason'] == 'hostunknown'
+          return true  if argvs['reason'] == 'hostunknown'
+          return false if Sisimai::SMTP::Command::BeforeRCPT.include?(argvs['command'])
 
           issuedcode = argvs['diagnosticcode'].downcase || ''
           statuscode = argvs['deliverystatus'] || ''
