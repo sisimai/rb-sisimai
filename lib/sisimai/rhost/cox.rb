@@ -87,6 +87,17 @@ module Sisimai
             'cox too many bad commands from',
             'too many invalid recipients',
           ],
+          'contenterror' => [
+            # - The message has been rejected because it contains an attachment with one of the
+            #   following prohibited file types, which commonly contain viruses: .shb, .shs, .vbe,
+            #   .vbs, .wsc, .wsf, .wsh, .pif, .msc, .msi, .msp, .reg, .sct, .bat, .chm, .isp, .cpl,
+            #   .js, .jse, .scr, .exe.
+            'attachment extension is forbidden',
+          ],
+          'policyviolation' => [
+            # - The sending server has attempted to communicate too soon within the SMTP transaction
+            'esmtp no data before greeting',
+          ],
           'ratelimited' => [
             # - The sending IP address has exceeded the five maximum concurrent connection limit.
             # - The SMTP connection has exceeded the 100 email message threshold and was disconnected.
@@ -96,24 +107,15 @@ module Sisimai
             'requested action aborted: try again later',
             'message threshold exceeded',
           ],
+          'rejected' => [
+            # Cox requires that all sender domains resolve to a valid MX or A-record within DNS.
+            'sender rejected',
+          ],
           'requireptr' => [
             # - The reverse DNS check of the sending server IP address has failed.
             # - Cox requires that all connecting email servers contain valid reverse DNS PTR records.
             'dns check failure - try again later',
             'rejected - no rdns',
-          ],
-          'policyviolation' => [
-            # - The sending server has attempted to communicate too soon within the SMTP transaction
-            # - The message has been rejected because it contains an attachment with one of the
-            #   following prohibited file types, which commonly contain viruses: .shb, .shs, .vbe,
-            #   .vbs, .wsc, .wsf, .wsh, .pif, .msc, .msi, .msp, .reg, .sct, .bat, .chm, .isp, .cpl,
-            #   .js, .jse, .scr, .exe.
-            'esmtp no data before greeting',
-            'attachment extension is forbidden',
-          ],
-          'rejected' => [
-            # Cox requires that all sender domains resolve to a valid MX or A-record within DNS.
-            'sender rejected',
           ],
           'systemerror' => [
             # - Our systems are experiencing an issue which is causing a temporary inability to
