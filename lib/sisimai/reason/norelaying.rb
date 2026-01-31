@@ -10,26 +10,25 @@ module Sisimai
     module NoRelaying
       class << self
         Index = [
-          'as a relay',
-          'email address is not verified.',
-          'insecure mail relay',
-          'is not permitted to relay through this server without authentication',
-          'mail server requires authentication when attempting to send to a non-local e-mail address', # MailEnable
-          'no relaying',
-          'not a gateway',
-          'not allowed to relay through this machine',
-          'not an open relay, so get lost',
-          'not local host',
-          'relay access denied',
-          'relay denied',
-          'relay not permitted',
-          'relaying denied',  # Sendmail
-          'relaying mail to ',
-          'specified domain is not allowed',
-          "that domain isn't in my list of allowed rcpthost",
-          'this system is not configured to relay mail',
-          'unable to relay ',
+          "as a relay",
+          "domain isn't in my list of allowed rcpthost",
+          "email address is not verified.",
+          "insecure mail relay",
+          "no relaying",
+          "not a gateway",
+          "not an open relay, so get lost",
+          "not local host",
+          "relay not permitted",
+          "relaying denied", # Sendmail
+          "relaying mail to ",
+          "send to a non-local e-mail address", # MailEnable
+          "specified domain is not allowed",
+          "unable to relay ",
           "we don't handle mail for",
+        ].freeze
+        Pairs = [
+          ["relay ", "denied"],
+          [" not ", " to relay"],
         ].freeze
 
         def text; return 'norelaying'; end
@@ -41,6 +40,7 @@ module Sisimai
         def match(argv1)
           return false if argv1.nil? || argv1.empty?
           return true  if Index.any? { |a| argv1.include?(a) }
+          return true  if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
           return false
         end
 
