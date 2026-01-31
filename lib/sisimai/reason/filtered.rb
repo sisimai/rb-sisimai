@@ -10,22 +10,18 @@ module Sisimai
     module Filtered
       class << self
         Index = [
-          'because the recipient is only accepting mail from specific email addresses',   # AOL Phoenix
-          'bounced address',  # SendGrid|a message to an address has previously been Bounced.
-          'due to extended inactivity new mail is not currently being accepted for this mailbox',
-          'has restricted sms e-mail',    # AT&T
-          'is not accepting any mail',
+          "account is protected by",
+          "has restricted sms e-mail", # AT&T
+          "is not accepting any mail",
           "message filtered",
-          'message rejected due to user rules',
-          'not found recipient account',
-          'refused due to recipient preferences', # Facebook
-          'resolver.rst.notauthorized',   # Microsoft Exchange
-          'this account is protected by',
-          'user not found',   # Filter on MAIL.RU
-          'user refuses to receive this mail',
-          'user reject',
-          'we failed to deliver mail because the following address recipient id refuse to receive mail',  # Willcom
-          'you have been blocked by the recipient',
+          "message rejected due to user rules",
+          "not found recipient account",
+          "recipient id refuse to receive mail", # Willcom
+          "recipient is only accepting mail from specific email addresses", # AOL Phoenix
+          "refused due to recipient preferences", # Facebook
+          "user refuses to receive this mail",
+          "user reject",
+          "you have been blocked by the recipient",
         ].freeze
 
         def text; return 'filtered'; end
