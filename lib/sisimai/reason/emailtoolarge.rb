@@ -7,20 +7,17 @@ module Sisimai
     module EmailTooLarge
       class << self
         Index = [
-          'exceeded maximum inbound message size',
-          'exceeded the maximum incoming message size',
-          'line limit exceeded',
-          'max message size exceeded',
-          'message file too big',
-          'message header size exceeds limit',
-          'message length exceeds administrative limit',
-          'message size exceeds fixed limit',
-          'message size exceeds fixed maximum message size',
-          'message size exceeds maximum value',
-          'message too big',
-          'message too large',
-          'size limit',
-          'taille limite du message atteinte',
+          "line limit exceeded",
+          "mail file size exceeds the maximum size allowed for mail delivery",
+          "message too large",
+          "size limit",
+          "taille limite du message atteinte",
+        ].freeze
+        Pairs = [
+          ["exceeded", "message size"],
+          ["message ", "exceeds ", "limit"],
+          ["message ", "size", "exceed"],
+          ["message ", "too", "big"],
         ].freeze
 
         def text; return 'emailtoolarge'; end
@@ -32,6 +29,7 @@ module Sisimai
         def match(argv1)
           return false if argv1.nil? || argv1.empty?
           return true  if Index.any? { |a| argv1.include?(a) }
+          return true  if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
           return false
         end
 
