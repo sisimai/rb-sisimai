@@ -115,10 +115,10 @@ Install
 ### From RubyGems.org
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-5.5.0.gem (100%)
-Successfully installed sisimai-5.5.0
-Parsing documentation for sisimai-5.5.0
-Installing ri documentation for sisimai-5.5.0
+Fetching: sisimai-5.6.0.gem (100%)
+Successfully installed sisimai-5.6.0
+Parsing documentation for sisimai-5.6.0
+Installing ri documentation for sisimai-5.6.0
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -146,13 +146,13 @@ if [ -d "/usr/local/jr" ]; then \
 ...
 3 gems installed
 /opt/local/bin/rake install
-sisimai 5.5.0 built to pkg/sisimai-5.5.0.gem.
-sisimai (5.5.0) installed.
+sisimai 5.6.0 built to pkg/sisimai-5.6.0.gem.
+sisimai (5.6.0) installed.
 if [ -d "/usr/local/jr" ]; then \
 		PATH="/usr/local/jr/bin:$PATH" /usr/local/jr/bin/rake install; \
 	fi
-sisimai 5.5.0 built to pkg/sisimai-5.5.0-java.gem.
-sisimai (5.5.0) installed.
+sisimai 5.6.0 built to pkg/sisimai-5.6.0-java.gem.
+sisimai (5.6.0) installed.
 ```
 
 Usage
@@ -360,7 +360,7 @@ Sisimai 5.5.0から**Ruby 2.5以上**が必要になります。
 | 解析エンジン(MTA/ESPモジュール)の数                  | 68                 | 60                  |
 | 検出可能なバウンス理由の数                           | 29                 | 34                  |
 | 依存Gem数(Ruby Standard Gemsを除く)                  | 1 Gem              | 1 Gem               |
-| ソースコードの行数                                   | 10,800 行          | 9,970 行            |
+| ソースコードの行数                                   | 10,800 行          | 9,700 行            |
 | テストフレームワーク                                 | rspec              | minitest            |
 | テスト件数(spec/またはtest/ディレクトリ)             | 311,000 件         | 240,000 件          |
 | 1秒間に解析できるバウンスメール数[^4]                | 620 通             | 620 通              |
