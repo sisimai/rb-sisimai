@@ -2,11 +2,12 @@ RELEASE NOTES for Ruby version of Sisimai
 ===================================================================================================
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
+- document: "https://libsisimai.org/"
 
 v5.6.0
 ---------------------------------------------------------------------------------------------------
-- release: ""
-- version: ""
+- release: "Mon,  2 Feb 2026 18:30:22 +0900 (JST)"
+- version: "5.6.0"
 - changes:
   - **Changes in Bounce Reason Categorization**
     - Update bounce status mappings in `Sisimai::SMTP::Status`.
@@ -21,6 +22,7 @@ v5.6.0
     - Temporary error `4.0.9**` has been changed to `4.9.***`.
     - Permanent error `5.0.9**` has been changed to `5.9.***`.
   - #401 `Sisimai::String.token` has been moved to `Sisimai::Fact.token()`.
+  - Happy Birthday to Suzu (formerly known as "Neko-dono" Michitsuna).
 
 v5.5.0
 ---------------------------------------------------------------------------------------------------
