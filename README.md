@@ -114,10 +114,10 @@ Install
 ### From RubyGems
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-5.5.0.gem (100%)
-Successfully installed sisimai-5.5.0
-Parsing documentation for sisimai-5.5.0
-Installing ri documentation for sisimai-5.5.0
+Fetching: sisimai-5.6.0.gem (100%)
+Successfully installed sisimai-5.6.0
+Parsing documentation for sisimai-5.6.0
+Installing ri documentation for sisimai-5.6.0
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -145,13 +145,13 @@ if [ -d "/usr/local/jr" ]; then \
 ...
 3 gems installed
 /opt/local/bin/rake install
-sisimai 5.5.0 built to pkg/sisimai-5.5.0.gem.
-sisimai (5.5.0) installed.
+sisimai 5.6.0 built to pkg/sisimai-5.6.0.gem.
+sisimai (5.6.0) installed.
 if [ -d "/usr/local/jr" ]; then \
 		PATH="/usr/local/jr/bin:$PATH" /usr/local/jr/bin/rake install; \
 	fi
-sisimai 5.5.0 built to pkg/sisimai-5.5.0-java.gem.
-sisimai (5.5.0) installed.
+sisimai 5.6.0 built to pkg/sisimai-5.6.0-java.gem.
+sisimai (5.6.0) installed.
 ```
 
 Usage
@@ -359,7 +359,7 @@ Beginning with v5.5.0, Sisimai requires **Ruby 2.5.0 or later.**
 | The number of MTA/ESP modules                        | 68                 | 60                  |
 | The number of detectable bounce reasons              | 29                 | 34                  |
 | Dependencies (Except Ruby Standard Gems)             | 1 gem              | 1 gem               |
-| Source lines of code                                 | 10,300 lines       | 9,970 lines         |
+| Source lines of code                                 | 10,300 lines       | 9,700 lines         |
 | Test frameworks                                      | rspec              | minitest            |
 | The number of tests in spec/ or test/ directory      | 311,000 tests      | 240,000 tests       | 
 | The number of bounce emails decoded/sec (CRuby)[^4]  | 620 emails         | 620 emails          |
