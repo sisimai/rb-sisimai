@@ -64,7 +64,9 @@ module Sisimai::Lhost
       def inquire(mhead, mbody)
         proceedsto  = 0
         proceedsto += 1 if EmailTitle.any? { |a| mhead["subject"].include?(a) }
-        proceedsto += 1 if MailSender.any? { |a| mhead["from"].include?(a) }
+        proceedsto += 1 if MailSender.any? { |a| mhead["from"].include?(a)    }
+        proceedsto += 1 if StartingOf[:error].any?   { |a| mbody.include?(a)  }
+        proceedsto += 1 if StartingOf[:message].any? { |a| mbody.include?(a)  }
         proceedsto += 1 if mhead["content-language"]
         return nil if proceedsto < 2
 
