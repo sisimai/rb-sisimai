@@ -505,6 +505,10 @@ module Sisimai
             #   can change this.
             ['5.7.136', 0, 0, 'sender was not authenticated'],
 
+            # - 550 5.7.193 UnifiedGroupAgent; Delivery failed because the sender isn't a group
+            #   member or external senders aren't permitted to send to this group.
+            ["5.7.193", 0, 0, "sender isn't a group member or external senders aren't permitted"],
+
             # - The sending account has been banned due to detected spam activity.
             # - For details, see Fix email delivery issues for error code 451 5.7.500-699 (ASxxx)
             #   in Exchange Online.

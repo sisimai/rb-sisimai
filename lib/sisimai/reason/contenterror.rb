@@ -9,6 +9,7 @@ module Sisimai
     module ContentError
       class << self
         Index = [
+          "charset not supported",
           "executable files are not allowed in compressed files",
           "header error",
           "header size exceeds maximum permitted",

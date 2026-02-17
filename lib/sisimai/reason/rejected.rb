@@ -22,6 +22,7 @@ module Sisimai
           "access denied (in reply to mail from command)",
           "administrative prohibition",
           "all recipient addresses rejected : access denied",
+          "badsendermx", # BadSenderMX
           "backscatter protection detected an invalid or expired email address", # MDaemon
           "by non-member to a members-only list",
           "can't determine purported responsible address",
@@ -34,6 +35,7 @@ module Sisimai
           "empty envelope senders not allowed",
           "from: domain is invalid. please provide a valid from:",
           "fully qualified email address required",   # McAfee
+          "has an outgoing mail suspension",
           "invalid sender",
           "is not a registered gateway user",
           "mail from not owned by user",
@@ -46,8 +48,10 @@ module Sisimai
           "sender domain is empty",
           "sender domain listed at ",
           "sender verify failed",     # Exim callout
+          "sendernoa",                # SenderNoA
           "server does not accept mail from",
           "spam reporting address",   # SendGrid|a message to an address has previously been marked as Spam by the recipient.
+          "too many spam complaints",
           "unroutable sender address",
           "you are not allowed to post to this mailing list",
           "your access to submit messages to this e-mail system has been rejected",

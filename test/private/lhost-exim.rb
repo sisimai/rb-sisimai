@@ -207,6 +207,7 @@ module LhostEngineTest::Private
       '1189'  => [['5.0.0',   '',    'expired',         false, false]],
       '1190'  => [['5.0.0',   '',    'hostunknown',      true,  true]],
       '1191'  => [['5.0.0',   '550', 'suspend',         false,  true]],
+      '1192'  => [['5.0.0',   '',    'rejected',        false, false]],
     }
   end
 end

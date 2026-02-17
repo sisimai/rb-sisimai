@@ -28,10 +28,14 @@ module LhostEngineTest::Private
       '1024'  => [['5.4.318', '550', 'systemerror',     false, false]],
       '1025'  => [['5.1.351', '550', 'userunknown',      true,  true]],
       '1026'  => [['4.2.0',   '',    'systemerror',     false, false]],
-      '1027'  => [['4.4.0',   '451', 'systemerror',     false, false]], # TODO: 5.4.3
+      '1027'  => [['5.4.3',   '550', 'systemerror',     false, false]], # TODO: 5.4.3
       '1028'  => [['5.7.520', '550', 'securityerror',   false, false]],
       '1029'  => [['5.7.1',   '550', 'policyviolation', false, false]],
       '1030'  => [['5.4.317', '550', 'expired',         false, false]],
+      '1031'  => [['5.1.351', '550', 'filtered',        false,  true]],
+      '1032'  => [['5.0.350', '550', 'norelaying',      false,  true]],
+      '1033'  => [['5.0.350', '550', 'norelaying',      false,  true]],
+      '1034'  => [['5.7.193', '550', 'rejected',        false, false]],
     }
   end
 end

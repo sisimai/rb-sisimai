@@ -16,9 +16,10 @@ module Sisimai
           "insecure mail relay",
           "no relaying",
           "not a gateway",
-          "not an open relay, so get lost",
           "not local host",
+          "open relay",
           "relay not permitted",
+          "relay prohibition",
           "relaying denied", # Sendmail
           "relaying mail to ",
           "send to a non-local e-mail address", # MailEnable
@@ -28,7 +29,7 @@ module Sisimai
         ].freeze
         Pairs = [
           ["relay ", "denied"],
-          [" not ", " to relay"],
+          ["n", "t ", "to relay"],
         ].freeze
 
         def text; return 'norelaying'; end
@@ -51,8 +52,8 @@ module Sisimai
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
           r = argvs['reason'] || ''
+          return false if Sisimai::SMTP::Command::BeforeRCPT.include?(argvs['command'])
           return false if r.start_with?('securityerror', 'systemerror', 'undefined')
-          return false if %w[CONN EHLO HELO].include?(argvs['command'])
           return match(argvs['diagnosticcode'].downcase)
         end
 
