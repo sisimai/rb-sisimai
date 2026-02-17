@@ -263,7 +263,7 @@ module Sisimai
       # @return   [String]        Message body
       def makeflat(argv0 = '', argv1 = '')
         return "" if argv0.nil? || argv1.nil?
-        return "" if argv0.index('multipart/') == false || argv0.index('boundary=') == false
+        return "" if argv0.downcase.index('multipart/') == false || argv0.downcase.index('boundary=') == false
 
         # Some bounce messages include lower-cased "content-type:" field such as the followings:
         #   - content-type: message/delivery-status        => Content-Type: message/delivery-status
