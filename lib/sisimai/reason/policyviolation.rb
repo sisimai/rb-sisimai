@@ -27,6 +27,7 @@ module Sisimai
           "message given low priority",
           "message was rejected by organization policy",
           "protocol violation",
+          "support.google.com/a/answer/172179",
           "you're using a mass mailer",
         ].freeze
 
@@ -49,7 +50,11 @@ module Sisimai
         #                                   false: is not policy violation
         # @since 4.22.0
         # @see http://www.ietf.org/rfc/rfc2822.txt
-        def true(_argvs); return false; end
+        def true(argvs)
+          return true  if argvs['reason'] == 'policyviolation'
+          return false if argvs['command'] != '' && argvs['command'] != 'DATA'
+          return match(argvs['diagnosticcode'].downcase)
+        end
 
       end
     end
