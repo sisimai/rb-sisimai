@@ -103,8 +103,10 @@ module Sisimai
           ["unknown e", "mail address"],
           ["unknown local", "part"],
           ["user ", " not exist"],
+          ["user ", "doesn't exist"],
           ["user ", "not found"],
           ["user (", ") unknown"],
+          ["user <", "> unknown"],
         ].freeze
 
         def text; return 'userunknown'; end
