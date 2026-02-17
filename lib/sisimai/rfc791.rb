@@ -12,8 +12,7 @@ module Sisimai
 
         octet.each do |e|
           # Check each octet is between 0 and 255
-          return false unless e =~ /\A[0-9]{1,3}\z/
-          v = e.to_i
+          return false unless e =~ /\A[0-9]{1,3}\z/; v = e.to_i
           return false if v < 0 || v > 255
         end
         return true
@@ -27,42 +26,8 @@ module Sisimai
         return nil if argv0.to_s.empty?
         return []  if argv0.size < 7
 
-        given = argv0.dup
-        ipv4a = []
-        %w|( ) [ ] ,|.each do |e|
-          # Rewrite: "mx.example.jp[192.0.2.1]" => "mx.example.jp 192.0.2.1"
-          p0 = given.index(e); next if p0.nil?
-          given[p0, 1] = ' '
-        end
-
-        given.split(' ').each do |e|
-          # Find string including an IPv4 address
-          next if e.index('.').nil? # IPv4 address must include "." character
-
-          lx = e.size; next if lx < 7 || lx > 17  # 0.0.0.0 = 7, [255.255.255.255] = 17
-          cu = 0  # Cursor for seeking each octet of an IPv4 address
-          as = '' # ASCII Code of each character
-          eo = '' # Buffer of each octet of IPv4 Address
-
-          while cu < lx
-            # Check whether each character is a number or "." or not
-            as  = e[cu, 1].ord
-            cu += 1
-
-            if as < 48 || as > 57
-              # The character is not a number(0-9)
-              break if as      != 46  # The character is not "."
-              next  if eo      == ''  # The current buffer is empty
-              break if eo.to_i > 255  # The current buffer is greater than 255
-              eo = ''
-              next
-            end
-            eo += as.chr
-            break if eo.to_i > 255
-          end
-          ipv4a << e if eo.size > 0 && eo.to_i < 256
-        end
-        return ipv4a
+        given = argv0.dup.tr('()[],', ' ').squeeze(' ')
+        return given.split(' ').select { |e| is_ipv4address(e) }
       end
 
     end
