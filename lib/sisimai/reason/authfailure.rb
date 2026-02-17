@@ -23,8 +23,8 @@ module Sisimai
           "spf check: fail",
         ].freeze
         Pairs = [
-          [" is not allowed to send mail.", "_401"],
-          ["is not allowed to send from <", " per it's spf record"],
+          ["spf: ", " is not allowed to send "],
+          ["is not allowed to send ", " spf "],
         ].freeze
 
         def text; return 'authfailure'; end
