@@ -22,14 +22,7 @@ module Sisimai
         #                                   false: is not syntax error
         # @since 4.1.25
         # @see http://www.ietf.org/rfc/rfc2822.txt
-        def true(argvs)
-          return true if argvs['reason'] == 'syntaxerror'
-
-          reply = argvs['replycode'].to_i
-          return true if reply > 400 && reply < 408 || reply > 500 && reply < 508
-          return false
-        end
-
+        def true(argvs); return false; end
       end
     end
   end
