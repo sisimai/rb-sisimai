@@ -240,6 +240,8 @@ module LhostEngineTest::Private
       '1234'  => [['5.7.1',   '554', 'authfailure',     false, false]],
       '1235'  => [['5.7.509', '550', 'authfailure',     false, false]],
       '1236'  => [['5.4.12',  '554', 'networkerror',    false, false]],
+      '1237'  => [['5.3.0',   '550', 'systemerror',     false, false]],
+      '1238'  => [['5.3.0',   '550', 'systemerror',     false, false]],
     }
   end
 end

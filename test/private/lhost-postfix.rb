@@ -333,7 +333,20 @@ module LhostEngineTest::Private
       '1321'  => [['5.7.1',   '554', 'rejected',        false, false]],
       '1322'  => [['5.4.1',   '',    'rejected',        false, false]],
       '1323'  => [['5.1.1',   '550', 'userunknown',      true,  true]],
-    }
+
+      '1324'  => [['5.0.0',   '550', 'authfailure',     false, false]],
+      '1325'  => [['5.0.0',   '554', 'contenterror',    false, false]],
+      '1326'  => [['5.0.0',   '550', 'norelaying',      false,  true]],
+      '1327'  => [['5.0.0',   '550', 'norelaying',      false,  true]],
+      '1328'  => [['5.0.0',   '550', 'rejected',        false, false]],
+      '1329'  => [['5.7.1',   '554', 'rejected',        false, false]],
+      '1330'  => [['4.1.1',   '450', 'userunknown',      true, false]],
+      '1331'  => [['4.1.1',   '450', 'userunknown',      true, false]],
+      '1332'  => [['5.0.0',   '550', 'userunknown',      true,  true]],
+      '1333'  => [['5.2.2',   '',    'systemerror',     false, false]],
+      '1334'  => [['4.3.0',   '',    'systemerror',     false, false]],
+      '1335'  => [['4.5.0',   '451', 'systemerror',     false, false]],
+      '1336'  => [['5.0.0',   '',    'suspend',         false,  true]],}
   end
 end
 
