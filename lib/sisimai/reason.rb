@@ -45,15 +45,15 @@ module Sisimai
       ModulePath = Sisimai::Reason.path
       GetRetried = Sisimai::Reason.retry
       ClassOrder = [
-        %w[
-          MailboxFull EmailTooLarge Suspend HasMoved NoRelaying AuthFailure UserUnknown Filtered
-          RequirePTR NotCompliantRFC BadReputation ContentError Rejected HostUnknown SpamDetected
-          RateLimited Blocked
+        # 0. true() meethod in the following reasons are called from Reason->find()
+        %w[MailboxFull EmailTooLarge Suspend HasMoved NoRelaying AuthFailure UserUnknown Filtered RequirePTR
+           NotCompliantRFC BadReputation ContentError Rejected HostUnknown SpamDetected RateLimited Blocked
+           FailedSTARTTLS NotAccept VirusDetected PolicyViolation
         ],
+        # 1. match() method in the following reasons are called from Reason->find()
         %w[
-          MailboxFull AuthFailure BadReputation SpamDetected VirusDetected PolicyViolation NoRelaying
-          SystemError NetworkError Suspend ContentError SystemFull NotAccept Expired FailedSTARTTLS
-          SecurityError Suppressed MailerError
+          MailboxFull SpamDetected VirusDetected NoRelaying SystemError NetworkError Suspend SystemFull
+          Suppressed MailerError SecurityError PolicyViolation SyntaxError Expired
         ],
         %w[
           MailboxFull EmailTooLarge Suspend UserUnknown Filtered Rejected HostUnknown SpamDetected
