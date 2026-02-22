@@ -35,36 +35,6 @@ module Sisimai::Lhost
         #   bounce.c/339:
         message: ['    This is the MAILER-DAEMON, please DO NOT REPLY to this '],
       }.freeze
-      MessagesOf = {
-        # smtpd/queue.c:221|  envelope_set_errormsg(&evp, "Envelope expired");
-        'expired' => ['Envelope expired'],
-        # smtpd/mta.c:976|  relay->failstr = "Invalid domain name";
-        # smtpd/mta.c:980|  relay->failstr = "Domain does not exist";
-        'hostunknown' => [
-          'Invalid domain name',
-          'Domain does not exist',
-        ],
-        # smtp/mta.c:1085|  relay->failstr = "Destination seem to reject all mails";
-        'notaccept' => [
-          'Destination seem to reject all mails',
-          'No MX found for domain',
-          'No MX found for destination',
-        ],
-        #  smtpd/mta.c:972|  relay->failstr = "Temporary failure in MX lookup";
-        'networkerror' => [
-          'Address family mismatch on destination MXs',
-          'All routes to destination blocked',
-          'bad DNS lookup error code',
-          'Could not retrieve source address',
-          'Loop detected',
-          'Network error on destination MXs',
-          'No valid route to remote MX',
-          'No valid route to destination',
-          'Temporary failure in MX lookup',
-        ],
-        # smtpd/mta.c:1013|  relay->failstr = "Could not retrieve credentials";
-        'securityerror' => ['Could not retrieve credentials'],
-      }.freeze
 
       # @abstract Decodes the bounce message from OpenSMTPD
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -120,12 +90,6 @@ module Sisimai::Lhost
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-          MessagesOf.each_key do |r|
-            # Verify each regular expression of session errors
-            next if MessagesOf[r].none? { |a| e['diagnosis'].include?(a) }
-            e['reason'] = r
-            break
-          end
         end
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end

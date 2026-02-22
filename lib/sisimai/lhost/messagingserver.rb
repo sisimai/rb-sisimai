@@ -9,7 +9,6 @@ module Sisimai::Lhost
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['Content-Type: message/rfc822', 'Return-path: '].freeze
       StartingOf = {message: ['This report relates to a message you sent with the following header fields:']}.freeze
-      MessagesOf = {'hostunknown' => ['Illegal host/domain name found']}.freeze
 
       # @abstract Decodes the bounce message from MessagingServer
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -138,12 +137,6 @@ module Sisimai::Lhost
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-          MessagesOf.each_key do |r|
-            # Verify each regular expression of session errors
-            next if MessagesOf[r].none? { |a| e['diagnosis'].include?(a) }
-            e['reason'] = r
-            break
-          end
         end
 
         return {"ds" => dscontents, "rfc822" => emailparts[1]}

@@ -30,7 +30,9 @@ module Sisimai
         ].freeze
         Pairs = [
           ["account ", "disabled"],
+          ["account ", "limited"],
           ["has been ", "suspended"],
+          ["mailaddress ", "disabled"],
           ["mailbox ", "disabled"],
           ["not ", "active"],
         ].freeze

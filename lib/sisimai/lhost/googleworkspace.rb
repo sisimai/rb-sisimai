@@ -15,8 +15,6 @@ module Sisimai::Lhost
       }.freeze
       MessagesOf = {
         "userunknown"  => ["because the address couldn't be found. Check for typos or unnecessary spaces and try again."],
-        "notaccept"    => ["Null MX"],
-        "networkerror" => [" had no relevant answers.", " responded with code NXDOMAIN"],
       }.freeze
 
       # @abstract Decodes the bounce message from Google Workspace

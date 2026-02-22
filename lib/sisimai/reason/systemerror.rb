@@ -11,26 +11,41 @@ module Sisimai
       class << self
         Index = [
           "aliasing/forwarding loop broken",
+          "automatic homedir creator crashed", # qmail-ldap-1.03-20040101.patch:19817 - 19866
           "can't create user output file",
           "cannot send e-mail to yourself",
           "could not load ",
+          "delivery to file forbidden", # Exim/deliver.c:5614
+          "delivery to pipe forbidden", # Exim/deliver.c:5624
           "input/output error",
           "interrupted system call",
           "it encountered an error while being processed",
           "it would create a mail loop",
+          "ldap attribute",        # qmail-ldap-1.03-20040101.patch:19817 - 19866
+          "ldap lookup",           # qmail-ldap-1.03-20040101.patch:19817 - 19866
+          "ldap server",           # qmail-ldap-1.03-20040101.patch:19817 - 19866
+          "lmtp error after ",     # Exim/transports/lmtp.c:186
+          "local delivery failed", # Exim/transports/pipe.c:1156
+          "loop back warning:",    # FML
           "loop was found in the mail exchanger",
           "loops back to myself",
           "mail transport unavailable",
+          "may cause mail loop",   # FML
+          "no such file or directory",
+          "error while executing qmail-forward", # qmail-ldap-1.03-20040101.patch:19817 - 19866
           "queue file write error",
           "recipient deferred because there is no mdb",
           "remote server is misconfigured",
           "service currently unavailable",
+          "several matches found in domino directory", # Donimo
           "temporary local problem",
           "timeout waiting for input",
+          "too many results returned but needs to be unique", # qmail-ldap-1.03-20040101.patch:19817 - 19866
           "transaction failed ",
         ].freeze
         Pairs = [
           ["config", " error"],
+          ["fml ", "has detected a loop condition so that"], # FML
           ["internal ", "error"],
           ["local ", "error"],
           ["proxy", "broken pipe"],

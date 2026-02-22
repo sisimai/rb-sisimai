@@ -11,13 +11,24 @@ module Sisimai
     module NetworkError
       class << self
         Index = [
+          "address family mismatch on destination mxs", # OpenSMTPD/smtpd/mta.c
+          "all routes to destination blocked",          # OpenSMTPD/smtpd/mta.c
+          "bad dns lookup error code",                  # OpenSMTPD/smtpd/mta.c
           "could not connect and send the mail to",
+          "could not contact dns servers",
+          "could not retrieve source address",          # OpenSMTPD/smtpd/mta.c
           "dns records for the destination computer could not be found",
+          "establish an smtp connection",
+          "exceeded maximum hop count",                 # Courier
           "host is unreachable",
           "host name lookup failure",
           "host not found, try again",
+          "listed as a best-preference mx",
+          "loop detected",                              # OpenSMTPD/smtpd/mta.c
           "maximum forwarding loop count exceeded",
-          "no route to host",
+          "network error on destination mxs",           # OpenSMTPD/smtpd/mta.c
+          "no relevant answers",
+          "temporary failure in mx lookup",             # OpenSMTPD/smtpd/mta.c
           "too many hops",
           "unable to resolve route ",
           "unrouteable mail domain",
@@ -26,6 +37,7 @@ module Sisimai
           ["malformed", "name server reply"],
           ["mail ", "loop"],
           ["message ", "loop"],
+          ["no ", "route to"],
         ].freeze
 
         def text; return 'networkerror'; end

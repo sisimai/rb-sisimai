@@ -10,22 +10,32 @@ module Sisimai
         Index = [
           "connection timed out",
           "could not find a gateway for",
+          "delay reason: ",    # Exim/deliver.c:7459
           "delivery attempts will continue to be",
+          "envelope expired",  # OpenSMTPD/smtpd/queue.c:221
           "failed to deliver to domain ",
-          "have been failing for a long time",
+          "frozen on arrival", # Exim/receive.c:4022
           "has been delayed",
+          "has been frozen",   # Exim/deliver.c:7586
+          "have been failing for a long time", # Exim/smtp.c:3508
+          "host not reachable",
           "it has not been collected after",
           "message could not be delivered for more than",
           "message expired, ",
           "message has been in the queue too long",
+          "message was not delivered within ",
           "message timed out",
+          "retry timeout exceeded",             # Exim/retry.c:902
+          "server did not accept our requests to connect",
           "server did not respond",
           "unable to deliver message after multiple retries",
         ].freeze
         Pairs = [
           ["could not be delivered for", " days"],
+          ["could not deliver for the last", "second"],
           ["delivery ", "expired"],
-          ["not", "reach", "period"],
+          ["delivery ", "delayed"],
+          ["not", "reach", "period"], # Exim/smtp.c:3508
         ].freeze
 
         def text; return 'expired'; end

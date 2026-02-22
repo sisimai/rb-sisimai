@@ -11,7 +11,6 @@ module Sisimai::Lhost
         message: ['This message was created automatically by mail delivery software'],
         error:   ['For the following reason:'],
       }.freeze
-      MessagesOf = {'emailtoolarge' => ['Mail size limit exceeded']}.freeze
 
       # @abstract Decode the bounce message from 1&1
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -99,13 +98,6 @@ module Sisimai::Lhost
             e['diagnosis'][0, StartingOf[:error][0].size] = ''
           end
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-
-          MessagesOf.each_key do |r|
-            # Verify each regular expression of session errors
-            next if MessagesOf[r].none? { |a| e['diagnosis'].include?(a) }
-            e['reason'] = r
-            break
-          end
         end
 
         return {"ds" => dscontents, "rfc822" => emailparts[1]}

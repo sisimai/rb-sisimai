@@ -60,30 +60,7 @@ module Sisimai::Lhost
       MessagesOf = {
         # find exim/ -type f -exec grep 'message = US' {} /dev/null \;
         # route.c:1158|  DEBUG(D_uid) debug_printf("getpwnam() returned NULL (user not found)\n");
-        # find exim/ -type f -exec grep 'message = US' {} /dev/null \;
-        # route.c:1158|  DEBUG(D_uid) debug_printf("getpwnam() returned NULL (user not found)\n");
         "userunknown" => ["user not found"],
-        # transports/smtp.c:3524|  addr->message = US"all host address lookups failed permanently";
-        # routers/dnslookup.c:331|  addr->message = US"all relevant MX records point to non-existent hosts";
-        # route.c:1826|  uschar *message = US"Unrouteable address";
-        "hostunknown" => [
-          "all host address lookups failed permanently",
-          "all relevant MX records point to non-existent hosts",
-          "Unrouteable address",
-        ],
-        # transports/appendfile.c:2567|  addr->user_message = US"mailbox is full";
-        # transports/appendfile.c:3049|  addr->message = string_sprintf("mailbox is full "
-        # transports/appendfile.c:3050|  "(quota exceeded while writing to file %s)", filename);
-        "mailboxfull" => [
-          "mailbox is full",
-          "error: quota exceed",
-        ],
-        # routers/dnslookup.c:328|  addr->message = US"an MX or SRV record indicated no SMTP service";
-        # transports/smtp.c:3502|  addr->message = US"no host found for existing SMTP connection";
-        "notaccept" => [
-          "an MX or SRV record indicated no SMTP service",
-          "no host found for existing SMTP connection",
-        ],
         # parser.c:666| *errorptr = string_sprintf("%s (expected word or \"<\")", *errorptr);
         # parser.c:701| if(bracket_count++ > 5) FAILED(US"angle-brackets nested too deep");
         # parser.c:738| FAILED(US"domain missing in source-routed address");
@@ -94,35 +71,14 @@ module Sisimai::Lhost
           "domain missing in source-routed address",
           "malformed address:",
         ],
-        # deliver.c:5614|  addr->message = US"delivery to file forbidden";
-        # deliver.c:5624|  addr->message = US"delivery to pipe forbidden";
-        # transports/pipe.c:1156|  addr->user_message = US"local delivery failed";
-        "systemerror" => [
-          "delivery to file forbidden",
-          "delivery to pipe forbidden",
-          "local delivery failed",
-          "LMTP error after ",
-        ],
-        # deliver.c:5425|  new->message = US"Too many \"Received\" headers - suspected mail loop";
-        "contenterror" => ['Too many "Received" headers'],
       }.freeze
       DelayedFor = [
-        # retry.c:902|  addr->message = (addr->message == NULL)? US"retry timeout exceeded" :
-        # deliver.c:7475|  "No action is required on your part. Delivery attempts will continue for\n"
-        # smtp.c:3508|  US"retry time not reached for any host after a long failure period" :
-        # smtp.c:3508|  US"all hosts have been failing for a long time and were last tried "
-        #                 "after this message arrived";
-        # deliver.c:7459|  print_address_error(addr, f, US"Delay reason: ");
-        # deliver.c:7586|  "Message %s has been frozen%s.\nThe sender is <%s>.\n", message_id,
-        # receive.c:4021|  moan_tell_someone(freeze_tell, NULL, US"Message frozen on arrival",
-        # receive.c:4022|  "Message %s was frozen on arrival by %s.\nThe sender is <%s>.\n",
-        "retry timeout exceeded",
+        # deliver.c:7475| "No action is required on your part. Delivery attempts will continue for\n"
+        # smtp.c:3508|    US"retry time not reached for any host after a long failure period" :
+        # deliver.c:7459| print_address_error(addr, f, US"Delay reason: ");
         "No action is required on your part",
         "retry time not reached for any host after a long failure period",
-        "all hosts have been failing for a long time and were last tried",
         "Delay reason: ",
-        "has been frozen",
-        "was frozen on arrival by ",
       ].freeze
 
       # @abstract Decodes the bounce message from Exim
@@ -447,9 +403,7 @@ module Sisimai::Lhost
               end
 
               if e["reason"].empty?
-                # The reason "expired", or "mailererror"
                 e["reason"] = "expired" if DelayedFor.any? { |a| e["diagnosis"].include?(a) }
-                e["reason"] = "mailererror" if e["reason"].empty? && e["diagnosis"].include?("pipe to |")
               end
             end
           end
@@ -468,7 +422,7 @@ module Sisimai::Lhost
           re = e["reason"]
           cv = ""
 
-          if Sisimai::SMTP::Failure.is_temporary(cr) || re == "expired" || re == "mailboxfull"
+          if Sisimai::SMTP::Failure.is_temporary(cr) || re == "expired"
             # Set the pseudo status code as a temporary error
             cv = Sisimai::SMTP::Status.code(re, true) if Sisimai::Reason.is_explicit(re)
           end

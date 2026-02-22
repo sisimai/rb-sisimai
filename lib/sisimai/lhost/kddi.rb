@@ -8,11 +8,6 @@ module Sisimai::Lhost
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['Content-Type: message/rfc822'].freeze
       StartingOf = {message: ['Your mail sent on:', 'Your mail attempted to be delivered on:']}.freeze
-      MessagesOf = {
-        'mailboxfull' => ['As their mailbox is full'],
-        'norelaying'  => ['Due to the following SMTP relay error'],
-        'hostunknown' => ['As the remote domain doesnt exist'],
-      }.freeze
 
       # @abstract Decodes the bounce message from au by KDDI
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -79,18 +74,9 @@ module Sisimai::Lhost
             # Filtered recipient returns message that include 'X-SPASIGN' header
             e['reason'] = 'filtered'
           else
-            if e['command'] == 'RCPT'
-              # set "userunknown" when the remote server rejected after RCPT command.
-              e['reason'] = 'userunknown'
-            else
-              # SMTP command is not RCPT
-              MessagesOf.each_key do |r|
-                # Verify each regular expression of session errors
-                next if MessagesOf[r].none? { |a| e['diagnosis'].include?(a) }
-                e['reason'] = r
-                break
-              end
-            end
+            # There is no X-SPASIGN: header in the bounce message
+            # set "userunknown" when the remote server rejected after RCPT command.
+            e['reason'] = 'userunknown' if e['command'] == 'RCPT'
           end
         end
 

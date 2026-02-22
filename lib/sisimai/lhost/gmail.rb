@@ -11,17 +11,6 @@ module Sisimai::Lhost
         message: ['Delivery to the following recipient'],
         error:   ['The error that the other server returned was:'],
       }.freeze
-      MessagesOf = {
-        'expired' => [
-          'DNS Error: Could not contact DNS servers',
-          'Delivery to the following recipient has been delayed',
-          'The recipient server did not accept our requests to connect',
-        ],
-        'hostunknown' => [
-          'DNS Error: Domain name not found',
-          'DNS Error: DNS server returned answer with no data',
-        ],
-      }.freeze
       StateTable = {
         # Technical details of permanent failure:
         # Google tried to deliver your message, but it was rejected by the recipient domain.
@@ -231,16 +220,6 @@ module Sisimai::Lhost
             e['reason']  = StateTable[cu]['reason']
             e['command'] = StateTable[cu]['command']
             break
-          end
-
-          if e['reason'].empty?
-            # There is no no state code in the error message
-            MessagesOf.each_key do |r|
-              # Verify each regular expression of session errors
-              next if MessagesOf[r].none? { |a| e['diagnosis'].include?(a) }
-              e['reason'] = r
-              break
-            end
           end
           next if e['reason'].empty?
 

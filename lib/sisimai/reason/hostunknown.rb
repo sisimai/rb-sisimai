@@ -7,19 +7,28 @@ module Sisimai
     module HostUnknown
       class << self
         Index = [
+          "all host address lookups failed", # Exim/transports/smtp.c:3524
+          "couldn't find any host ",         # qmail-remote.c:78
+          "dns server returned answer with no data",
           "domain is not reachable",
           "domain mentioned in email address is unknown",
           "domain must exist",
+          "domain name not found",
           "host or domain name not found",
           "host unknown",
           "host unreachable",
+          "illegal host/domain name found",
+          "invalid domain name",                    # OpenSMTPD/smtpd/mta.c:976
+          "mx records point to non-existent hosts", # Exim/routers/dnslookup.c:331
           "name or service not known",
           "no such domain",
           "recipient address rejected: unknown domain name",
+          "responded with code nxdomain",
           "unknown host",
         ].freeze
         Pairs = [
           ["domain ", "not exist"],
+          ["host ", " not found"],
           ["unrout", "able ", "address"],
         ].freeze
 

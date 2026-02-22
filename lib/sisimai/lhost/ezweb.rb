@@ -8,22 +8,12 @@ module Sisimai::Lhost
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ["--------------------------------------------------", "Content-Type: message/rfc822"].freeze
       StartingOf = {message: ['The user(s) ', 'Your message ', 'Each of the following', '<']}.freeze
-      Messagesof = {
-        # notaccept: ['The following recipients did not receive this message:'],
-        'expired' => [
-          # Your message was not delivered within 0 days and 1 hours.
-          # Remote host is not responding.
-          'Your message was not delivered within ',
-        ],
-        'mailboxfull' => ['The user(s) account is temporarily over quota'],
-        'onhold'  => ['Each of the following recipients was rejected by a remote mail server'],
-        'suspend' => [
-          # http://www.naruhodo-au.kddi.com/qa3429203.html
-          # The recipient may be unpaid user...?
-          'The user(s) account is disabled.',
-          'The user(s) account is temporarily limited.',
-        ],
-      }.freeze
+      UnpaidUser = [
+        # http://www.naruhodo-au.kddi.com/qa3429203.html
+        # The recipient may be unpaid user...?
+        'The user(s) account is disabled.',
+        'The user(s) account is temporarily limited.',
+      ].freeze
 
       # @abstract Decodes the bounce message from au EZweb
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -48,7 +38,6 @@ module Sisimai::Lhost
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
-        substrings = []; Messagesof.each_value { |a| substrings << a }; substrings.flatten!
 
         while e = bodyslices.shift do
           # Read error messages and delivery status lines from the head of the email to the previous
@@ -94,26 +83,11 @@ module Sisimai::Lhost
 
           else
             # Other error messages
+            #    >>> RCPT TO:<******@ezweb.ne.jp>
+            #    <<< 550 ...
             next if Sisimai::String.is_8bit(e)
-            if e.include?(" >>> ")
-              #    >>> RCPT TO:<******@ezweb.ne.jp>
-              v["command"]    = Sisimai::SMTP::Command.find(e)
-              v["diagnosis"] += " #{e}"
-
-            elsif e.include?(" <<< ")
-              #    <<< 550 ...
-              v["diagnosis"] += " #{e}"
-
-            else
-              # Check error message
-              isincluded = false
-              if substrings.any? { |a| e.include?(a) }
-                # Check with regular expressions of each error
-                v["diagnosis"] += " #{e}"
-                isincluded = true
-              end
-              v["diagnosis"] += " #{e}" if isincluded
-            end
+            v["command"]    = Sisimai::SMTP::Command.find(e) if e.include?(" >>> ")
+            v["diagnosis"] += " #{e}"
           end
         end
         return nil if recipients == 0
@@ -130,17 +104,7 @@ module Sisimai::Lhost
             e['toxic']  = true
           else
             # There is no X-SPASIGN header or the value of the header is not "NG"
-            catch :FINDREASON do
-              Messagesof.each_key do |r|
-                # Try to match with each session error message
-                Messagesof[r].each do |f|
-                  # Check each error message pattern
-                  next if e['diagnosis'].include?(f) == false
-                  e['reason'] = r
-                  throw :FINDREASON
-                end
-              end
-            end
+            e['reason'] = "suspend" if UnpaidUser.any? { |a| e['diagnosis'].include?(a) }
           end
           next if e['reason'] != ""
           next if e['recipient'].end_with?('@ezweb.ne.jp', '@au.com')
