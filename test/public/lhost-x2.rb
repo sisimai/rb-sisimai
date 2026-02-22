@@ -9,7 +9,7 @@ module LhostEngineTest::Public
       '03' => [['5.9.340', '',    'expired',         false, false]],
       '04' => [['5.9.220', '',    'mailboxfull',     false, false]],
       '05' => [['4.1.9',   '',    'expired',         false, false]],
-      '06' => [['4.4.1',   '',    'expired',         false, false]],
+      '06' => [['4.4.1',   '',    'networkerror',    false, false]],
       '07' => [['5.4.14',  '554', 'networkerror',    false, false]],
     }
   end
