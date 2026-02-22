@@ -9,8 +9,6 @@ module Sisimai::Lhost
       Boundaries = ['Content-Type: message/rfc822'].freeze
       StartingOf = {message: ['Your message']}.freeze
       MessagesOf = {
-        "filtered"    => ["Cannot route mail to user"],
-        "systemerror" => ["Several matches found in Domino Directory"],
         "userunknown" => [
           "not listed in Domino Directory",
           "not listed in public Name & Address Book",
