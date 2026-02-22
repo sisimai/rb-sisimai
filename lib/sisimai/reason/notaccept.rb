@@ -11,11 +11,17 @@ module Sisimai
       class << self
         # Destination mail server does not accept any message
         Index = [
-          "does not accept mail",             # Sendmail, iCloud
+          "destination seem to reject all mails", # OpenSMTPD/smtp/mta.c
+          "does not accept mail",                 # Sendmail, iCloud
           "mail receiving disabled",
-          "name server: .: host not found",   # Sendmail
-          "no mx record found for domain=",   # Oath(Yahoo!)
+          "mx or srv record indicated no smtp ",  # Exim/routers/dnslookup.c:328
+          "name server: .: host not found",       # Sendmail
+          "no host found for existing smtp ",     # Exim/transports/smtp.c:3502
           "no route for current request",
+          "null mx",
+        ].freeze
+        Pairs = [
+          ["no mx ", "found for "], # OpenSMTPD/smtp/mta.c
         ].freeze
 
         def text; return 'notaccept'; end
@@ -27,6 +33,7 @@ module Sisimai
         def match(argv1)
           return false if argv1.nil? || argv1.empty?
           return true  if Index.any? { |a| argv1.include?(a) }
+          return true  if Pairs.any? { |a| Sisimai::String.aligned(argv1, a) }
           return false
         end
 

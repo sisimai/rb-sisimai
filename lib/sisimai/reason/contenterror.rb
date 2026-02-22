@@ -23,6 +23,7 @@ module Sisimai
           "message mime complexity exceeds the policy maximum",
           "message was blocked because its content presents a potential", # https://support.google.com/mail/answer/6590
           "routing loop detected -- too many received: headers",
+          'too many "received" headers', # Exim/deliver.c:5425
           "we do not accept messages containing images or other attachments",
         ].freeze
 

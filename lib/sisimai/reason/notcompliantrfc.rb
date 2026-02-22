@@ -9,6 +9,7 @@ module Sisimai
       class << self
         Index = [
           "duplicate header",
+          "duplicated message-id",
           "message is not rfc 5322 compliant",
           "multiple addresses in from: header are not accepted",
           "rfc 1035 violation",

@@ -7,8 +7,8 @@ module Sisimai
     module EmailTooLarge
       class << self
         Index = [
+          "exceeds the maximum size ",
           "line limit exceeded",
-          "mail file size exceeds the maximum size allowed for mail delivery",
           "message too large",
           "size limit",
           "taille limite du message atteinte",

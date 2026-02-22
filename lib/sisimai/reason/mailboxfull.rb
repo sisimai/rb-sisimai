@@ -13,6 +13,7 @@ module Sisimai
           "boite du destinataire pleine",
           "exceeded storage allocation",
           "full mailbox",
+          "mailbox exceeds allowed size",
           "mailbox size limit exceeded",
           "mailbox would exceed maximum allowed storage",
           "mailfolder is full",
@@ -29,11 +30,11 @@ module Sisimai
           ["disk", "quota"],
           ["enough ", " space"],
           ["mailbox ", "exceeded", " limit"],
-          ["mailbox ", "full"],
+          ["mailbox ", "full"],   # Exim/transports/appendfile.c:2567
           ["mailbox ", "quota"],
           ["maildir ", "quota"],
           ["over ", "quota"],
-          ["quota ", "exceeded"],
+          ["quota ", "exceeded"], # Exim/transports/appendfile.c:3050
         ].freeze
 
         def text; return 'mailboxfull'; end
