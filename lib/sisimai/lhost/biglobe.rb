@@ -11,10 +11,6 @@ module Sisimai::Lhost
         message: ['   ----- The following addresses had delivery problems -----'],
         error:   ['   ----- Non-delivered information -----'],
       }.freeze
-      MessagesOf = {
-        'filtered'    => ['Mail Delivery Failed... User unknown'],
-        'mailboxfull' => ["The number of messages in recipient's mailbox exceeded the local limit."],
-      }.freeze
 
       # @asbtract Decodes the bounce message from Biglobe
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -79,13 +75,6 @@ module Sisimai::Lhost
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-
-          MessagesOf.each_key do |r|
-            # Verify each regular expression of session errors
-            next if MessagesOf[r].none? { |a| e['diagnosis'].include?(a) }
-            e['reason'] = r
-            break
-          end
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
