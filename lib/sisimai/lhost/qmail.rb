@@ -66,59 +66,9 @@ module Sisimai::Lhost
         "DATA" => [" failed on DATA command", " failed after I sent the message"],
       }.freeze
 
-      # qmail-send.c:922| ... (&dline[c],"I'm not going to try again; this message has been in the queue too long.\n")) nomem();
-      # qmail-remote-fallback.patch
-      HasExpired = "this message has been in the queue too long.".freeze
-      OnHoldPair = [" does not like recipient.", "this message has been in the queue too long."].freeze
-      FailOnLDAP = {
-        # qmail-ldap-1.03-20040101.patch:19817 - 19866
-        "emailtoolarge" => ["The message exeeded the maximum size the user accepts"], # 5.2.3
-        "userunknown"   => ["Sorry, no mailbox here by that name"], # 5.1.1
-        "suspend"       => [ # 5.2.1
-          "Mailaddress is administrativly disabled",
-          "Mailaddress is administrativley disabled",
-          "Mailaddress is administratively disabled",
-          "Mailaddress is administrativeley disabled",
-        ],
-        "systemerror" => [
-          "Automatic homedir creator crashed",                # 4.3.0
-          "Illegal value in LDAP attribute",                  # 5.3.5
-          "LDAP attribute is not given but mandatory",        # 5.3.5
-          "Timeout while performing search on LDAP server",   # 4.4.3
-          "Too many results returned but needs to be unique", # 5.3.5
-          "Permanent error while executing qmail-forward",    # 5.4.4
-          "Temporary error in automatic homedir creation",    # 4.3.0 or 5.3.0
-          "Temporary error while executing qmail-forward",    # 4.4.4
-          "Temporary failure in LDAP lookup",                 # 4.4.3
-          "Unable to contact LDAP server",                    # 4.4.3
-          "Unable to login into LDAP server, bad credentials",# 4.4.3
-        ],
-      }.freeze
       MessagesOf = {
-        # qmail-remote.c:68|  Sorry, I couldn't find any host by that name. (#4.1.2)\n"); zerodie();
-        # qmail-remote.c:78|  Sorry, I couldn't find any host named ");
-        "hostunknown" => ["Sorry, I couldn't find any host "],
-        # error_str.c:192|  X(EDQUOT,"disk quota exceeded")
-        "mailboxfull" => ["disk quota exceeded"],
-        # qmail-qmtpd.c:233| ... result = "Dsorry, that message size exceeds my databytes limit (#5.3.4)";
-        # qmail-smtpd.c:391| ... out("552 sorry, that message size exceeds my databytes limit (#5.3.4)\r\n"); return;
-        "emailtoolarge" => ["Message size exceeds fixed maximum message size:"],
-        "networkerror"  => [
-            "Sorry, I wasn't able to establish an SMTP connection",
-            "Sorry. Although I'm listed as a best-preference MX or A for that host",
-        ],
-        "notaccept" => [
-            # notqmail 1.08 returns the following error message when the destination MX is NullMX
-            "Sorry, I couldn't find a mail exchanger or IP address",
-        ],
-        "systemerror" => [
-            "bad interpreter: No such file or directory",
-            "system error",
-            "Unable to",
-        ],
-        "systemfull"  => ["Requested action not taken: mailbox unavailable (not enough free space)"],
-        # qmail-local.c:589|  strerr_die1x(100,"Sorry, no mailbox here by that name. (#5.1.1)");
-        # qmail-remote.c:253|  out("s"); outhost(); out(" does not like recipient.\n");
+        # notqmail 1.08 returns the following error message when the destination MX is NullMX
+        "notaccept"   => ["Sorry, I couldn't find a mail exchanger or IP address"],
         "userunknown" => ["no mailbox here by that name"],
       }.freeze
 
@@ -216,32 +166,18 @@ module Sisimai::Lhost
             e["reason"] = "blocked"
           else
             # Try to match with each error message in the table
-            if Sisimai::String.aligned(e["diagnosis"], OnHoldPair)
-              # To decide the reason require pattern match with Sisimai::Reason::* modules
-              e["reason"] = "onhold"
-            else
-              # Check that the error message includes any of message patterns or not
-              [e["alterrors"], e["diagnosis"]].each do |f|
-                # Try to detect an error reason
-                break if e["reason"] != ""
-                next  if f.nil?
-                MessagesOf.each_key do |r|
-                  # The key is a bounce reason name
-                  next if MessagesOf[r].none? { |a| f.include?(a) }
-                  e["reason"] = r
-                  break
-                end
-                break if e["reason"]
-
-                FailOnLDAP.each_key do |r|
-                  # The key is a bounce reason name
-                  next if FailOnLDAP[r].none? { |a| f.include?(a) }
-                  e["reason"] = r
-                  break
-                end
-                break if e["reason"]
-                e["reason"] = "expired" if e["diagnosis"].include?(HasExpired)
+            # Check that the error message includes any of message patterns or not
+            [e["alterrors"], e["diagnosis"]].each do |f|
+              # Try to detect an error reason
+              break if e["reason"] != ""
+              next  if f.nil?
+              MessagesOf.each_key do |r|
+                # The key is a bounce reason name
+                next if MessagesOf[r].none? { |a| f.include?(a) }
+                e["reason"] = r
+                break
               end
+              break if e["reason"]
             end
           end
 
