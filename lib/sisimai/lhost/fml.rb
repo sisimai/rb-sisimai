@@ -22,21 +22,6 @@ module Sisimai::Lhost
         ],
         'securityerror' => ['Security Alert'],
       }.freeze
-      ErrorTable = {
-        'rejected' => [
-          ' header may cause mail loop',
-          'NOT MEMBER article from ',
-          'reject mail from ',
-          'reject spammers:',
-          'You are not a member of this mailing list',
-        ],
-        'notcompliantrfc' => ['Duplicated Message-ID'],
-        'securityerror' => ['Security alert:'],
-        'systemerror' => [
-          ' has detected a loop condition so that',
-          'Loop Back Warning:',
-        ],
-      }.freeze
 
       # @abstract Decodes the bounce message from fml mailling list server/manager
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -85,21 +70,13 @@ module Sisimai::Lhost
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-          ErrorTable.each_key do |f|
-            # Try to match with error messages defined in ErrorTable
-            next if ErrorTable[f].none? { |a| e['diagnosis'].include?(a) }
+
+          # Error messages in the message body did not matched
+          ErrorTitle.each_key do |f|
+            # Try to match with the Subject string
+            next if ErrorTitle[f].none? { |a| mhead["subject"].include?(a) }
             e['reason'] = f
             break
-          end
-
-          if e['reason'].nil?
-            # Error messages in the message body did not matched
-            ErrorTitle.each_key do |f|
-              # Try to match with the Subject string
-              next if ErrorTitle[f].none? { |a| mhead["subject"].include?(a) }
-              e['reason'] = f
-              break
-            end
           end
         end
 
