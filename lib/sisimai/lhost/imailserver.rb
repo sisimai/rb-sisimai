@@ -9,12 +9,8 @@ module Sisimai::Lhost
       Boundaries = ['Original message follows.'].freeze
       StartingOf = {error: ['Body of message generated response:']}.freeze
       MessagesOf = {
-        'hostunknown'   => ['Unknown host'],
-        'userunknown'   => ['Unknown user', 'Invalid final delivery userid'],
-        'mailboxfull'   => ['User mailbox exceeds allowed size'],
-        'virusdetected' => ['Requested action not taken: virus detected'],
-        'spamdetected'  => ['Blacklisted URL in message'],
-        'expired'       => ['Delivery failed '],
+        'userunknown' => ['Unknown user', 'Invalid final delivery userid'],
+        'expired'     => ['Delivery failed '],
       }.freeze
 
       # @abstract Decodes the bounce message from Progress iMail Server
