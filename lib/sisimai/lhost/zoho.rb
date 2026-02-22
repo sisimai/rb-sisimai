@@ -8,7 +8,6 @@ module Sisimai::Lhost
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['Received: from mail.zoho.com by mx.zohomail.com'].freeze
       StartingOf = {message: ['This message was created automatically by mail delivery']}.freeze
-      MessagesOf = {'expired' => ['Host not reachable']}.freeze
 
       # @abstract Decodes the bounce message from Zoho Mail
       # @param  [Hash] mhead    Message headers of a bounce email
@@ -91,12 +90,6 @@ module Sisimai::Lhost
 
         dscontents.each do |e|
           e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].tr("\n", ' '))
-          MessagesOf.each_key do |r|
-            # Verify each regular expression of session errors
-            next if MessagesOf[r].none? { |a| e['diagnosis'].include?(a) }
-            e['reason'] = r
-            break
-          end
         end
 
         return {"ds" => dscontents, "rfc822" => emailparts[1]}
