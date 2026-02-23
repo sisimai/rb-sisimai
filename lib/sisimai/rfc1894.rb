@@ -157,7 +157,8 @@ module Sisimai
         #   - 4: Comment
         table = [label, "", "", group, ""]
 
-        if group == 'addr' || group == 'code' || group == 'host'
+        case group
+        when "addr", "code", "host"
           # - Final-Recipient: RFC822; kijitora@nyaan.jp
           # - Diagnostic-Code: SMTP; 550 5.1.1 <kijitora@example.jp>... User Unknown
           # - Remote-MTA: DNS; mx.example.jp
@@ -174,7 +175,7 @@ module Sisimai
           table[2] = table[2].downcase if group == "host"
           table[2] = "" if table[2] =~ /\A\s+\z/
 
-        elsif group == "list"
+        when "list"
           # Action: failed
           # Check that the value is an available value defined in "ActionList" or not.
           # When the value is invalid, convert to an available value defined in "Correction"
