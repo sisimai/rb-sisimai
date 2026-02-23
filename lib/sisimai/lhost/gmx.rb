@@ -64,18 +64,14 @@ module Sisimai::Lhost
             end
             v['recipient'] = Sisimai::Address.s3s4(e)
             recipients += 1
-
-          elsif e.start_with?('SMTP error ')
-            # SMTP error from remote server after RCPT command:
-            v['command'] = Sisimai::SMTP::Command.find(e)
-
-          elsif e.start_with?('host:')
-            # host: mx.example.jp
-            v['rhost'] = e[6, e.size]
           else
-            # Get error messages
-            next if e.empty?
-            v['diagnosis'] += "#{e }"
+            # - SMTP error from remote server after RCPT command:
+            # - host: mx.example.jp
+            case
+              when e.start_with?('SMTP error ') then v['command'] = Sisimai::SMTP::Command.find(e)
+              when e.start_with?('host:')       then v['rhost'] = e[6, e.size]
+              else v['diagnosis'] += "#{e }" if e.empty? == false
+            end
           end
         end
         return nil if recipients == 0
