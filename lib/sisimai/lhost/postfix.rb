@@ -63,15 +63,14 @@ module Sisimai::Lhost
             v ||= dscontents[-1]
             p   = e['response']
 
-            if e['command'] == 'HELO' || e['command'] == 'EHLO'
-              # Use the argument of EHLO/HELO command as a value of "lhost"
-              v['lhost'] = e['argument']
-
-            elsif e['command'] == 'MAIL'
+            case e["command"]
+            # Use the argument of EHLO/HELO command as a value of "lhost"
+            when "HELO", "EHLO" then v['lhost'] = e['argument']
+            when "MAIL"
               # Set the argument of "MAIL" command to pseudo To: header of the original message
               emailparts[1] += sprintf("To: %s\n", e['argument']) if emailparts[1].size == 0
 
-            elsif e['command'] == 'RCPT'
+            when "RCPT"
               # RCPT TO: <...>
               if v["recipient"] != ""
                 # There are multiple recipient addresses in the transcript of session
@@ -110,7 +109,8 @@ module Sisimai::Lhost
               next unless o = Sisimai::RFC1894.field(e)
               v = dscontents[-1]
 
-              if o[3] == 'addr'
+              case o[3]
+              when "addr"
                 # Final-Recipient: rfc822; kijitora@example.jp
                 # X-Actual-Recipient: rfc822; kijitora@example.co.jp
                 if Sisimai::Address.is_emailaddress(o[2])
@@ -130,7 +130,7 @@ module Sisimai::Lhost
                     v['alias'] = o[2]
                   end
                 end
-              elsif o[3] == 'code'
+              when "code"
                 # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
                 v['spec'] = o[1]
                 v['spec'] = 'SMTP' if v['spec'].upcase == 'X-POSTFIX'
