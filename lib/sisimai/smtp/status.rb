@@ -820,22 +820,22 @@ module Sisimai
           end
 
           return statuscode if zeroindex2['error'] > 0        # An SMTP status code is "X.0.0"
-          return codeinmesg if statuscode == '4.4.7'          # "4.4.7" is an ambiguous code
-          return codeinmesg if statuscode == '4.7.0'          # "4.7.0" indicates "too many errors"
           return codeinmesg if statuscode.start_with?('5.3.') # "5.3.Z" is an error of a system
-          return codeinmesg if statuscode.end_with?('.5.1')   # "X.5.1" indicates an invalid command
-          return codeinmesg if statuscode.end_with?('.5.2')   # "X.5.2" indicates a syntax error
-          return codeinmesg if statuscode.end_with?('.5.4')   # "X.5.4" indicates an invalid command arguments
-          return codeinmesg if statuscode.end_with?('.5.5')   # "X.5.5" indicates a wrong protocol version
+          return codeinmesg if statuscode.end_with?('.5.1', '.5.2', '.5.4', '.5.5')
 
-          if statuscode == '5.1.1'
+          case statuscode
+            # - "4.4.7" is an ambigous code
+            # - "4.7.0" indicates "too many errors"
+            # - "X.5.1" indicates an invalid command
+            # - "X.5.2" indicates a syntax error
+            # - "X.5.4" indicates an invalid command argument
+            # - "X.5.5" indicates a wrong protocol version
+          when "4.4.7", "4.7.0" then return codeinmesg
+          when "5.1.3"          then return codeinmesg if codeinmesg.start_with?('5.7.')
+          when "5.1.1"
             # "5.1.1" is a code of "userunknown"
             return statuscode if codeinmesg.start_with?('5.5.') || zeroindex1['error'] > 0
             return codeinmesg
-
-          elsif statuscode == '5.1.3'
-            # "5.1.3"
-            return codeinmesg if codeinmesg.start_with?('5.7.')
           end
 
           return statuscode
