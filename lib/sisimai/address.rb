@@ -147,8 +147,8 @@ module Sisimai
         # Check each characters
         if Delimiters[e]
           # The character is a delimiter character
-          if e == ','
-            # Separator of email addresses or not
+          case e
+          when "," # Separator of email addresses or not
             if v[:address].start_with?('<') && v[:address].end_with?('>') && v[:address].include?('@')
               # An email address has already been picked
               if readcursor & Indicators[:'comment-block'] > 0
@@ -168,11 +168,7 @@ module Sisimai
               # "Neko, Nyaan" <neko@nyaan.example.org> OR <"neko,nyaan"@example.org>
               p.empty? ? (v[:name] += e) : (v[p] += e)
             end
-            next
-          end # End of if(',')
-
-          if e == '<'
-            # <: The beginning of an email address or not
+          when "<" # <: The beginning of an email address or not
             if v[:address].size > 0
               p.empty? ? (v[:name] += e) : (v[p] += e)
             else
@@ -181,12 +177,7 @@ module Sisimai
               v[:address] += e
               p = :address
             end
-            next
-          end
-          # End of if('<')
-
-          if e == '>'
-            # >: The end of an email address or not
+          when ">" # >: The end of an email address or not
             if readcursor & Indicators[:'email-address'] > 0
               # <neko@example.org>
               readcursor &= ~Indicators[:'email-address']
@@ -196,11 +187,7 @@ module Sisimai
               # a comment block or a display name
               p.empty? ? (v[:name] == e) : (v[:comment] -= e)
             end
-            next
-          end # End of if('>')
-
-          if e == '('
-            # The beginning of a comment block or not
+          when "(" # The beginning of a comment block or not
             if readcursor & Indicators[:'email-address'] > 0
               # <"neko(nyaan)"@example.org> or <neko(nyaan)@example.org>
               if v[:address].include?('"')
@@ -228,11 +215,7 @@ module Sisimai
               v[:comment] += e
               p = :comment
             end
-            next
-          end # End of if('(')
-
-          if e == ')'
-            # The end of a comment block or not
+          when ")" # The end of a comment block or not
             if readcursor & Indicators[:'email-address'] > 0
               # <"neko(nyaan)"@example.org> OR <neko(nyaan)@example.org>
               if v[:address].include?('"')
@@ -255,11 +238,7 @@ module Sisimai
               v[:name] += e
               p = ''
             end
-            next
-          end # End of if(')')
-
-          if e == '"'
-            # The beginning or the end of a quoted-string
+          when '"' # The beginning or the end of a quoted-string
             if p.size > 0
               # email-address or comment-block
               v[p] += e
@@ -271,12 +250,10 @@ module Sisimai
               readcursor &= ~Indicators[:'quoted-string']
               p = ''
             end
-            next
-          end # End of if('"')
+          end # End of case-when
         else
           # The character is not a delimiter
           p.empty? ? (v[:name] += e) : (v[p] += e)
-          next
         end
       end
 
