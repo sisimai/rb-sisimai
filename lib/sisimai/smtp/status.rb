@@ -680,12 +680,10 @@ module Sisimai
         def find(argv1 = nil, argv2 = '0')
           return "" if argv1.to_s.empty? || argv1.size < 7
 
-          givenclass = argv2[0, 1]
-          eestatuses = if givenclass == '2' || givenclass == '4' || givenclass == '5' 
-                         [givenclass + '.']
-                       else
-                         ['5.', '4.', '2.']
-                       end
+          case argv2[0, 1]
+            when '2', '4', '5' then eestatuses = [argv2[0, 1] + '.']
+            else                    eestatuses = ['5.', '4.', '2.']
+          end
           esmtperror = ' ' + argv1 + '   ' # Why 3 space characters? see https://github.com/sisimai/p5-sisimai/issues/574
           lookingfor = []
 
