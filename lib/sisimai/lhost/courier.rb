@@ -72,7 +72,8 @@ module Sisimai::Lhost
             next unless o = Sisimai::RFC1894.field(e)
             v = dscontents[-1]
 
-            if o[3] == 'addr'
+            case o[3]
+            when "addr"
               # Final-Recipient: rfc822; kijitora@example.jp
               # X-Actual-Recipient: rfc822; kijitora@example.co.jp
               if o[0] == 'final-recipient'
@@ -88,7 +89,7 @@ module Sisimai::Lhost
                 # X-Actual-Recipient: rfc822; kijitora@example.co.jp
                 v['alias'] = o[2]
               end
-            elsif o[3] == 'code'
+            when "code"
               # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
               v['spec'] = o[1]
               v['diagnosis'] = o[2]

@@ -64,16 +64,17 @@ module Sisimai::Lhost
             recipients += 1
           else
             # Detect error message
-            if e.start_with?('SMTP:')
+            case
+            when e.start_with?('SMTP:')
               # SMTP:RCPT host 192.0.2.8: 553 5.3.0 <kijitora@example.com>... No such user here
               v['command'] = Sisimai::SMTP::Command.find(e)
               v['diagnosis'] = e
 
-            elsif e.start_with?('Routing: ')
+            when e.start_with?('Routing: ') 
               # Routing: Could not find a gateway for kijitora@example.co.jp
               v['diagnosis'] = e[9, e.size]
 
-            elsif e.start_with?('Diagnostic-Code: smtp; ')
+            when e.start_with?('Diagnostic-Code: smtp; ')
               # Diagnostic-Code: smtp; 552 5.2.2 Over quota
               v['diagnosis'] = e[e.index(';') + 2, e.size]
             end

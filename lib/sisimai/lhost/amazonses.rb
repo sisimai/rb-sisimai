@@ -124,7 +124,8 @@ module Sisimai::Lhost
         recipients = 0  # (Integer) The number of 'Final-Recipient' header
         whatnotify = jsonobject["notificationType"][0, 1] || ""
 
-        if whatnotify == "B"
+        case whatnotify
+        when "B"
           # "notificationType":"Bounce"
           p = jsonobject["bounce"]
           r = p["bounceType"] == "Permanent" ? "5" : "4"
@@ -152,8 +153,7 @@ module Sisimai::Lhost
             next if ReasonPair[f] != p["bounceSubType"]
             v["reason"] = f; break
           end
-
-        elsif whatnotify == "C"
+        when "C"
           # "notificationType":"Complaint"
           p = jsonobject["complaint"]
           p["complainedRecipients"].each do |e|
@@ -170,8 +170,7 @@ module Sisimai::Lhost
             v["diagnosis"]    = sprintf('"feedbackid":"%s", "useragent":"%s"}', p["feedbackId"], p["userAgent"])
             recipients += 1
           end
-
-        elsif whatnotify == "D"
+        when "D"
           # "notificationType":"Delivery"
           p = jsonobject["delivery"]
           p["recipients"].each do |e|
@@ -192,7 +191,6 @@ module Sisimai::Lhost
             v["replycode"] = Sisimai::SMTP::Reply.find(v["diagnosis"], "2")
             recipients += 1
           end
-
         else
           # Unknown "notificationType" value
           warn sprintf(" ***warning: There is no notificationType field or unknown type of notificationType field")

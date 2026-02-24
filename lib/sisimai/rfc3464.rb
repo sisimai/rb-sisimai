@@ -109,16 +109,12 @@ module Sisimai
               if isboundary.any? { |a| e == a } then goestonext = false; break; end
               if e.start_with?("Content-Type:")
                 # Content-Type: field in multipart/*
-                if e.include?("multipart/")
+                case
                   # Content-Type: multipart/alternative; boundary=aa00220022222222ffeebb
                   # Pick the boundary string and store it into "isboucdary"
-                  isboundary << Sisimai::RFC2045.boundary(e, 0)
-                elsif e.include?("text/plain")
-                  # Content-Type: "text/plain"
-                  goestonext = false
-                else
-                  # Other types: for example, text/html, image/jpg, and so on
-                  goestonext = true
+                  when e.include?("multipart/") then isboundary << Sisimai::RFC2045.boundary(e, 0)
+                  when e.include?("text/plain") then goestonext = false
+                  else goestonext = true # Other types: for example, text/html, image/jpg, and so on
                 end
                 break
               end
@@ -145,7 +141,8 @@ module Sisimai
             next unless o = Sisimai::RFC1894.field(e)
             v = dscontents[-1]
 
-            if o[3] == "addr"
+            case o[3]
+            when "addr"
               # Final-Recipient: rfc822; kijitora@example.jp
               # X-Actual-Recipient: rfc822; kijitora@example.co.jp
               if o[0] == "final-recipient"
@@ -165,7 +162,7 @@ module Sisimai
                 # X-Actual-Recipient: rfc822; kijitora@example.co.jp
                 v["alias"] = o[2]
               end
-            elsif o[3] == "code"
+            when "code"
               # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
               v["spec"]      = o[1]
               v["diagnosis"] = o[2]

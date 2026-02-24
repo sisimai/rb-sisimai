@@ -244,7 +244,8 @@ module Sisimai::Lhost
                 # "e" matched with any field defined in RFC3464
                 next unless o = Sisimai::RFC1894.field(e)
 
-                if o[3] == "addr"
+                case o[3]
+                when "addr"
                   # Final-Recipient: rfc822; kijitora@example.jp
                   # X-Actual-Recipient: rfc822; kijitora@example.co.jp
                   next if o[0] != "final-recipient"
@@ -252,7 +253,7 @@ module Sisimai::Lhost
                     v["spec"] = o[2].include?('@') ? "SMTP" : "X-UNIX"
                   end
 
-                elsif o[3] == "code"
+                when "code"
                   # Diagnostic-Code: SMTP; 550 5.1.1 <userunknown@example.jp>... User Unknown
                   v["spec"] = o[1].upcase
                   v["diagnosis"] = o[2]
@@ -297,24 +298,22 @@ module Sisimai::Lhost
               q["recipient"] = q["alias"]
             end
           end
-        else
+        elsif mhead["x-failed-recipients"]
           # Fallback for getting recipient addresses
-          if mhead["x-failed-recipients"]
-            # X-Failed-Recipients: kijitora@example.jp
-            rcptinhead = mhead["x-failed-recipients"].split(",")
-            rcptinhead.each do |e|
-              # Remove space characters
-              e.lstrip!
-              e.rstrip!
-            end
-            recipients = rcptinhead.size
+          # X-Failed-Recipients: kijitora@example.jp
+          rcptinhead = mhead["x-failed-recipients"].split(",")
+          rcptinhead.each do |e|
+            # Remove space characters
+            e.lstrip!
+            e.rstrip!
+          end
+          recipients = rcptinhead.size
 
-            while e = rcptinhead.shift do
-              # Insert each recipient address into dscontents
-              dscontents[-1]["recipient"] = e
-              next if dscontents.size == recipients
-              dscontents << Sisimai::Lhost.DELIVERYSTATUS
-            end
+          while e = rcptinhead.shift do
+            # Insert each recipient address into dscontents
+            dscontents[-1]["recipient"] = e
+            next if dscontents.size == recipients
+            dscontents << Sisimai::Lhost.DELIVERYSTATUS
           end
         end
         return nil if recipients == 0
@@ -385,14 +384,11 @@ module Sisimai::Lhost
             end
 
             # Detect the reason of bounce
-            if %w[HELO EHLO].index(e["command"])
-              # HELO | Connected to 192.0.2.135 but my name was rejected.
-              e["reason"] = "blocked"
-
-            elsif e["command"] == "MAIL"
-              # MAIL | Connected to 192.0.2.135 but sender was rejected.
-              e["reason"] = "onhold"
-
+            case e["command"]
+              # - HELO | Connected to 192.0.2.135 but my name was rejected.
+              # - MAIL | Connected to 192.0.2.135 but sender was rejected.
+              when "HELO", "EHLO" then e["reason"] = "blocked"
+              when "MAIL"         then e["reason"] = "onhold"
             else
               # Try to match the error message with each message pattern 
               MessagesOf.each_key do |r|

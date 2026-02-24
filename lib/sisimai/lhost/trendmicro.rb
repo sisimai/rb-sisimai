@@ -55,11 +55,12 @@ module Sisimai::Lhost
             recipients = dscontents.size
           end
 
-          if e.start_with?('Sent <<< ')
+          case
+          when e.start_with?('Sent <<< ')
             # Sent <<< RCPT TO:<kijitora@example.co.jp>
             v['command'] = Sisimai::SMTP::Command.find(e)
 
-          elsif e.start_with?('Received >>> ')
+          when e.start_with?('Received >>> ')
             # Received >>> 550 5.1.1 <kijitora@example.co.jp>... user unknown
             v['diagnosis'] = e[e.index(' >>> ') + 4, e.size]
           else

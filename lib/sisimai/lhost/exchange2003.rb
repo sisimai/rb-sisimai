@@ -158,19 +158,20 @@ module Sisimai::Lhost
             #  Subject: ...
             #  Sent:    Thu, 29 Apr 2010 18:14:35 +0000
             #
-            if e.start_with?('  To: ') || e.start_with?('      To: ')
+            case
+            when e.start_with?('  To: ', '      To: ')
               #  To:      shironeko@example.jp
               next if connheader['to'].empty? == false
               connheader['to'] = e[e.rindex(' ') + 1, e.size]
               connvalues += 1
 
-            elsif e.start_with?('      Subject: ') || e.start_with?('  Subject: ')
+            when e.start_with?('      Subject: ', '  Subject: ')
               #  Subject: ...
               next if connheader['subject'].empty? == false
               connheader['subject'] = e[e.rindex(' ') + 1, e.size]
               connvalues += 1
 
-            elsif e.start_with?('  Sent: ') || e.start_with?('      Sent: ')
+            when e.start_with?('  Sent: ', '      Sent: ')
               #  Sent:    Thu, 29 Apr 2010 18:14:35 +0000
               #  Sent:    4/29/99 9:19:59 AM
               next if connheader['date'].empty? == false

@@ -40,7 +40,8 @@ module Sisimai::Lhost
           next if (readcursor & Indicators[:deliverystatus]) == 0 || e.empty?
 
           v = dscontents[-1]
-          if e.include?(' Could not be delivered to: <')
+          case
+          when e.include?(' Could not be delivered to: <')
             # Your mail sent on: Thu, 29 Apr 2010 11:04:47 +0900
             #     Could not be delivered to: <******@**.***.**>
             #     As their mailbox is full.
@@ -54,7 +55,7 @@ module Sisimai::Lhost
             v['recipient'] = r
             recipients += 1
 
-          elsif e.include?('Your mail sent on: ')
+          when e.include?('Your mail sent on: ')
             # Your mail sent on: Thu, 29 Apr 2010 11:04:47 +0900
             v['date'] = e[19, e.size]
           else
