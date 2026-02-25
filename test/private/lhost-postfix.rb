@@ -346,7 +346,8 @@ module LhostEngineTest::Private
       '1333'  => [['5.2.2',   '',    'systemerror',     false, false]],
       '1334'  => [['4.3.0',   '',    'systemerror',     false, false]],
       '1335'  => [['4.5.0',   '451', 'systemerror',     false, false]],
-      '1336'  => [['5.0.0',   '',    'suspend',         false,  true]],}
+      '1336'  => [['5.0.0',   '',    'suspend',         false,  true]],
+      '1337'  => [['5.4.1',   '',    'rejected',        false, false]],}
   end
 end
 
