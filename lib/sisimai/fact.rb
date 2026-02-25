@@ -357,8 +357,12 @@ module Sisimai
           piece["diagnostictype"] = "SMTP" if %w[feedback vacation].include?(piece["reason"]) == false
         end
 
-        # Check the value of SMTP command
+        # When "RCPT first" in the error message, set "RCPT" as the last command.
+        # - <<< 503 RCPT first (#5.5.1)
+        # - <<< 503-5.5.1 RCPT first. A mail transaction protocol command was issued ...
+        # -   RCPT first (in reply to DATA command)
         piece['command'] = '' if Sisimai::SMTP::Command.test(piece['command']) == false
+        piece['command'] = 'RCPT' if piece['diagnosticcode'].include?('RCPT first')
 
         # Create parameters for the constructor
         as = Sisimai::Address.new(piece['addresser'])          || next; next if as.void
