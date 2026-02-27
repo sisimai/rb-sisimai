@@ -15,7 +15,7 @@ v5.?.?
     - Remove error message patterns already defined in `Sisimai::Reason` from some MTA moudles of
       `Sisimai::Lhost`.
     - Move error message patterns from some MTA modules of `Sisimai::Lhost` to `Sisimai::Reason`.
-  - #413 Update remote host names for Zoho.
+  - #413 List all the Zoho domains.
   - #414 Bug fix: The value of command should be `RCPT` when `RCPT first` in the error message.
   - Update the order of `ClassOrder` in `Sisimai::Reason`.
   - #417 Use a switch statement instead of if-else for better readability.
