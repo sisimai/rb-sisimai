@@ -101,7 +101,7 @@ module Sisimai::Lhost
             # Content-Type: text/plain; ..., X-SPASIGN: NG (spamghetti, au by EZweb)
             # Filtered recipient returns message that include 'X-SPASIGN' header
             e['reason'] = 'filtered'
-            e['toxic']  = true
+            e['toxic']  = 1
           else
             # There is no X-SPASIGN header or the value of the header is not "NG"
             e['reason'] = "suspend" if UnpaidUser.any? { |a| e['diagnosis'].include?(a) }
