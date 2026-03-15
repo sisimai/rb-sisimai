@@ -155,6 +155,12 @@
 # X.3.5  ---    System incorrectly configured:(RFC 3463)
 #                 The system is not configured in a manner that will permit it to accept this
 #                 message.
+#
+# X.3.6  250    Requested priority was changed:(RFC 6710)
+#        251      The message was accepted for relay/delivery, but the requested priority (possibly
+#                 the implied default) was not honored. The human readable text after the status
+#                 code contains the new priority, followed by SP (space) and explanatory human
+#                 readable text.
 # -------------------------------------------------------------------------------------------------
 # X.4.0  ---    Other or undefined network or routing status:(RFC 3463)
 #                 Something went wrong with the networking, but it is not clear what the problem is,
@@ -391,7 +397,7 @@
 #        5xx      temporary, for example the server is operating in a mode where only higher
 #                 priority messages below certain size are accepted for transfer and delivery.
 #
-# X.7.17 5xx    Mailbox owner has changed:(RFC 6710)
+# X.7.17 5xx    Mailbox owner has changed:(RFC 7293)
 #                 This status code is returned when a message is received with a
 #                 Require-Recipient-Valid-Since field or RRVS extension and the receiving system is
 #                 able to determine that the intended recipient mailbox has not been under
