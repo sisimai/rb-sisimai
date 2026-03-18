@@ -19,6 +19,8 @@ v5.?.?
   - #414 Bug fix: The value of command should be `RCPT` when `RCPT first` in the error message.
   - Update the order of `ClassOrder` in `Sisimai::Reason`.
   - #417 Use a switch statement instead of if-else for better readability.
+  - #421 Code improvement for detecting bounce messages returned from Google Groups.
+  - #423 Fix and update comments in `Sisimai::SMTP::Status`.
 
 v5.6.0
 ---------------------------------------------------------------------------------------------------
