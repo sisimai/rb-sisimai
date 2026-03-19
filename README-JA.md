@@ -72,7 +72,7 @@ The key features of Sisimai
     * __配信の情報__: `action`, `replycode`, `deliverystatus`, `command`
     * __エラー情報__: `reason`, `diagnosticcode`, `diagnostictype`, `feedbacktype`, `hardbounce`
     * __メール情報__: `subject`, `messageid`, `listid`,
-    * __その他情報__: `decodedby`, `timezoneoffset`, `lhost`, `rhost`, `token`, `catch`
+    * __その他情報__: `decodedby`, `timezoneoffset`, `lhost`, `rhost`, `token`, `catch`, `toxic`
   * __出力可能な形式__
     * Ruby (Hash, Array)
     * JSON 
@@ -333,7 +333,7 @@ Output example
     "timezoneoffset": "+0900",
     "replycode": 550,
     "token": "84656774898baa90660be3e12fe0526e108d4473",
-    "toxic": false,
+    "toxic": 0,
     "diagnostictype": "SMTP",
     "timestamp": 1650119685,
     "diagnosticcode": "host gmail-smtp-in.l.google.com[64.233.187.27] said: This mail has been blocked because the sender is unauthenticated. Gmail requires all senders to authenticate with either SPF or DKIM. Authentication results: DKIM = did not pass SPF [relay3.example.com] with ip: [192.0.2.22] = did not pass For instructions on setting up authentication, go to https://support.google.com/mail/answer/81126#authentication c2-202200202020202020222222cat.127 - gsmtp (in reply to end of DATA command)",
