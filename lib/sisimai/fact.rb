@@ -141,7 +141,6 @@ module Sisimai
           "replycode"      => e["replycode"],
           "rhost"          => e["rhost"],
           "decodedby"      => e["agent"],
-          "toxic"          => e["toxic"],
         }
 
         # EMAILADDRESS: Detect an email address from message/rfc822 part
@@ -386,7 +385,7 @@ module Sisimai
         thing['catch']          = piece['catch'] || nil
         thing["feedbackid"]     = ""
         thing['hardbounce']     = piece['hardbounce']
-        thing['toxic']          = piece['toxic']
+        thing['toxic']          = 0
         thing['replycode']      = Sisimai::SMTP::Reply.find(piece['diagnosticcode']) if thing['replycode'].empty?
         thing['timestamp']      = TimeModule.parse(::Time.at(piece['timestamp']).to_s)
         thing['timezoneoffset'] = piece['timezoneoffset'] || '+0000'
@@ -487,42 +486,10 @@ module Sisimai
 
         # Feedback-ID: 1.us-west-2.QHuyeCQrGtIIMGKQfVdUhP9hCQR2LglVOrRamBc+Prk=:AmazonSES
         thing["feedbackid"] = rfc822data["feedback-id"] || ""
-        thing["toxic"]      = is_toxic(thing) if thing["toxic"] == 0
 
         listoffact << Sisimai::Fact.new(thing)
       end
       return listoffact
-    end
-
-    def self.is_toxic(thing = nil)
-      return 0 unless thing
-      cr = thing['reason']         || 'undefined'
-      cv = thing['replycode']      || ''
-      cw = thing['deliverystatus'] || ''
-
-      # 1. Hard bounces or some soft bounces with a permanent error.
-      #   1-1. Hard bounce: UserUnknown, HostUnknown, HasMoved, NotAccept
-      #   1-2. Almost hard bounce: Suspend, Suppressed
-      return 0 if cv.start_with?('4') || cw.start_with?('4')
-      return 1 if %w[userunknown hostunknown hasmoved notaccept suspend suppressed].any? { |a| cr == a }
-
-      if %w[mailboxfull filtered norelaying].any? { |a| cr == a }
-        # 2. Several softbounces: MailboxFull, Filtered, NoRelaying
-        #   2-1. The SMTP command is "RCPT" except "MailboxFull".
-        #   2-2. The SMTP reply code begins with "5" such as "550".
-        #   2-3. The SMTP status code is explicit code (not empty, not 5.9.***).
-        #   2-4. The SMTP status code begins with "5." such as "5.1.1".
-        return 1 if cr != 'mailboxfull' && thing['command'] == "RCPT"
-        return 1 if cv.start_with?('5')
-        return 0 if Sisimai::SMTP::Status.is_explicit(cw) == false
-        return 1 if cw.start_with?('5.')
-
-      elsif cr == 'feedback'
-        # 3. Feedback Loop
-        #   3-1. The Feedback Type is any of "abuse", "fraud", "opt-out"
-        return 1 if %w[abuse fraud opt-out].any? { |a| thing['feedbacktype'] == a }
-      end
-      return 0
     end
 
     # Create message token from addresser and recipient
