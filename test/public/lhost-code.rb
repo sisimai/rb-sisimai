@@ -453,6 +453,12 @@ class LhostCode < Minitest::Test
           assert_equal 0, cv, sprintf("%s %s", ct, cv.to_s)
 
           # ---------------------------------------------------------------------------------------
+          # BOGUS
+          cv = rr.bogus
+          ct = sprintf("%s [%s-%02d] #bogus =", ce, e, errorindex)
+          assert_equal 0, cv, sprintf("%s %s", ct, cv.to_s)
+
+          # ---------------------------------------------------------------------------------------
           # DUMP(JSON)
           cv = rr.dump('json')
           ct = sprintf("%s [%s-%02d] #dump(json) =", ce, e, errorindex)
