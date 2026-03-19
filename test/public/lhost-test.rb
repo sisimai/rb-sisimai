@@ -51,7 +51,7 @@ class LhostTest < Minitest::Test
   def test_DELIVERYSTATUS
     cv = Sisimai::Lhost.DELIVERYSTATUS
     assert_instance_of Hash, cv
-    assert_equal 15, cv.keys.size
+    assert_equal 14, cv.keys.size
 
     ce = assert_raises ArgumentError do
       Sisimai::Lhost.DELIVERYSTATUS(nil)

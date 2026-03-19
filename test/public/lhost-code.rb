@@ -450,9 +450,7 @@ class LhostCode < Minitest::Test
           # TOXIC
           cv = rr.toxic
           ct = sprintf("%s [%s-%02d] #toxic =", ce, e, errorindex)
-
-          assert_includes [1, 0], cv,             sprintf("%s %s", ct, cv.to_s)
-          assert_equal cx[errorindex - 1][4], cv, sprintf("%s %s", ct, cv.to_s)
+          assert_equal 0, cv, sprintf("%s %s", ct, cv.to_s)
 
           # ---------------------------------------------------------------------------------------
           # DUMP(JSON)
