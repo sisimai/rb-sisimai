@@ -194,8 +194,6 @@ module Sisimai::Lhost
         require 'sisimai/string'
         require 'sisimai/rfc1123'
         dscontents.each do |e|
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-
           if Sisimai::String.aligned(e['diagnosis'], [' by ', '. [', ']. '])
             # Get the value of remote host
             # Google tried to deliver your message, but it was rejected by the server for the recipient
