@@ -193,7 +193,7 @@ module Sisimai
               # X-Apple-Unsubscribe: true
               last if mhead["x-apple-unsubscribe"] != "true" || mhead["from"].include?('@') == false
               dscontents[0]["recipient"]    = mhead["from"]
-              dscontents[0]["diagnosis"]    = Sisimai::String.sweep(emailparts[0])
+              dscontents[0]["diagnosis"]    = emailparts[0]
               dscontents[0]["feedbacktype"] = "opt-out"
 
               # Addpend To: field as a pseudo header
@@ -214,14 +214,12 @@ module Sisimai
           end
           return nil if recipients == 0
 
-          anotherone = ": #{Sisimai::String.sweep(anotherone)}" if anotherone != ""
-          anotherone = anotherone.chop if anotherone[-1, 1] == ","
-
+          anotherone = ": #{anotherone.chop}" if anotherone != ""
           j = -1
           dscontents.each do |e|
             # Tidy up the error message in e.Diagnosis, Try to detect the bounce reason.
             j += 1
-            e["diagnosis"] = Sisimai::String.sweep(e["diagnosis"] + anotherone)
+            e["diagnosis"] = e["diagnosis"] + anotherone
             e["reason"]    = "feedback"
             e["rhost"]     = remotehost
             e["lhost"]     = reportedby
