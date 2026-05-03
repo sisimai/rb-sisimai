@@ -138,7 +138,7 @@ module Sisimai::Lhost
               v = dscontents[-1]
             end
             v["recipient"] = e["emailAddress"]
-            v["diagnosis"] = Sisimai::String.sweep(e["diagnosticCode"])
+            v["diagnosis"] = e["diagnosticCode"]
             v["command"]   = Sisimai::SMTP::Command.find(v["diagnosis"])
             v["action"]    = e["action"]
             v["status"]    = Sisimai::SMTP::Status.find(v["diagnosis"], r)
