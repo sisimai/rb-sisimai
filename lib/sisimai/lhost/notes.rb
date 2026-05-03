@@ -100,7 +100,7 @@ module Sisimai::Lhost
         return nil if recipients == 0
 
         dscontents.each do |e|
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+          e['diagnosis'] = e['diagnosis'].split.join(" ")
           e['recipient'] = Sisimai::Address.s3s4(e['recipient'])
 
           MessagesOf.each_key do |r|
