@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'sisimai/string'
 
 class StringTest < Minitest::Test
-  Methods = { class: %w[is_8bit sweep aligned to_plain to_utf8] }
+  Methods = { class: %w[is_8bit aligned to_plain to_utf8] }
 
   def test_methods
     Methods[:class].each { |e| assert_respond_to Sisimai::String, e }
@@ -16,18 +16,6 @@ class StringTest < Minitest::Test
     ce = assert_raises ArgumentError do
       Sisimai::String.is_8bit()
       Sisimai::String.is_8bit("", "")
-    end
-    assert_match /wrong number of arguments/, ce.to_s
-  end
-
-  def test_sweep
-    assert_nil                 Sisimai::String.sweep(nil)
-    assert_equal 'neko nyaan', Sisimai::String.sweep('   neko nyaan  ')
-    assert_equal 'nekochan !', Sisimai::String.sweep('   nekochan   !')
-
-    ce = assert_raises ArgumentError do
-      Sisimai::String.sweep()
-      Sisimai::String.sweep("", "")
     end
     assert_match /wrong number of arguments/, ce.to_s
   end
