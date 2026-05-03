@@ -345,7 +345,7 @@ module Sisimai
           p1 = dc.index('<html>')
           p2 = dc.index('</html>')
           piece['diagnosticcode'][p1, p2 + 7 - p1] = '' if p1 && p2
-          piece['diagnosticcode'] = Sisimai::String.sweep(piece['diagnosticcode'])
+          piece['diagnosticcode'] = piece['diagnosticcode'].split.join(" ")
         end
 
         if Sisimai::String.is_8bit(piece['diagnosticcode'])
