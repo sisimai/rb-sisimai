@@ -117,7 +117,7 @@ module Sisimai::Lhost
               # Continued line of the value of Diagnostic-Code field
               next if readslices[-2].start_with?('Diagnostic-Code:') == false
               next if e.start_with?(' ') == false
-              v['diagnosis'] += " #{Sisimai::String.sweep(e)}"
+              v['diagnosis'] += " " + e
               readslices[-1]  = "Diagnostic-Code: #{e}"
             end
           end
@@ -128,7 +128,7 @@ module Sisimai::Lhost
           # Set default values if each value is empty.
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
           e['command']   = thecommand if e["command"].empty?
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
+          e['diagnosis'] = e['diagnosis'] || ''
 
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
