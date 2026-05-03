@@ -71,8 +71,6 @@ module Sisimai::Lhost
 
         dscontents[0]["diagnosis"] = entiremesg
         dscontents.each do |e|
-          # Tidy up the error message in e["diagnosis"], Try to detect the bounce reason.
-          e["diagnosis"] = Sisimai::String.sweep(e["diagnosis"])
           MessagesOf.each_key do |r|
             # Guess an reason of the bounce
             next if MessagesOf[r].none? { |a| e["diagnosis"].include?(a) }
