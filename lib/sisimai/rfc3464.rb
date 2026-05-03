@@ -209,7 +209,7 @@ module Sisimai
               # Diagnostic-Code: SMTP; 550-5.7.26 The MAIL FROM domain [email.example.jp]
               #    has an SPF record with a hard fail
               next if e.start_with?(" ") == false
-              v["diagnosis"] += " #{Sisimai::String.sweep(e)}"
+              v["diagnosis"] += " " + e
             end
           end
         end
@@ -239,7 +239,6 @@ module Sisimai
         dscontents.each do |e|
           # Set default values stored in "permessage" if each value in "dscontents" is empty.
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
-          e["diagnosis"] = Sisimai::String.sweep(e["diagnosis"])
           lowercased = e["diagnosis"].downcase
 
           if recipients == 1
@@ -251,7 +250,7 @@ module Sisimai
             else
               # The value of e["diagnosis"] is not contained in $beforemesg
               # There may be an important error message in $beforemesg
-              e["diagnosis"] = Sisimai::String.sweep(sprintf("%s %s", beforemesg, e["diagnosis"]))
+              e["diagnosis"] = sprintf("%s %s", beforemesg, e["diagnosis"])
             end
           end
           e["command"]   = Sisimai::SMTP::Command.find(e["diagnosis"])
