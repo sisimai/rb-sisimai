@@ -67,8 +67,7 @@ module Sisimai::Lhost
         return nil if recipients == 0
 
         dscontents.each do |e|
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-          e['date']      = datestring || ''
+          e['date'] = datestring || ''
         end
 
         return {"ds" => dscontents, "rfc822" => emailparts[1]}
