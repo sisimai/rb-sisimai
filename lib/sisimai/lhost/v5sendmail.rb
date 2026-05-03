@@ -161,7 +161,6 @@ module Sisimai::Lhost
         j = 0; dscontents.each do |e|
           # Tidy up the error message in e.Diagnosis
           e["diagnosis"] = anotherone[j] if e["diagnosis"].empty?
-          e["diagnosis"] = Sisimai::String.sweep(e["diagnosis"])
           e["command"]   = Sisimai::SMTP::Command.find(e["diagnosis"]) if e["command"].empty?
           e["replycode"] = Sisimai::SMTP::Reply.find(e["diagnosis"])
           e["replycode"] = Sisimai::SMTP::Reply.find(anotherone[j]) if e["replycode"].empty?
