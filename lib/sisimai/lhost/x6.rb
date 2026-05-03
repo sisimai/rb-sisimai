@@ -84,7 +84,6 @@ module Sisimai::Lhost
             # ...(Error following RCPT command).
             e['command'] = cv
           end
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
         end
 
         return {"ds" => dscontents, "rfc822" => emailparts[1]}
