@@ -75,11 +75,6 @@ module Sisimai::Lhost
           end
         end
         return nil if recipients == 0
-
-        dscontents.each do |e|
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'].tr("\n", ' '))
-        end
-
         return {"ds" => dscontents, "rfc822" => emailparts[1]}
       end
       def description; return 'GMX: https://www.gmx.net'; end

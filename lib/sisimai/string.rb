@@ -17,18 +17,6 @@ module Sisimai
         return false
       end
 
-      # Clean the string out
-      # @param    [String] argv1  String to be cleaned
-      # @return   [String]        Cleaned out string
-      # @example  Clean up text
-      #   sweep('  neko ') #=> 'neko'
-      def sweep(argv1)
-        return argv1 if argv1.is_a?(::String) == false
-        argv1 = argv1.chomp.squeeze(' ').strip
-        argv1 = argv1.sub(/ [-]{2,}[^ ].+\z/, '')
-        return argv1
-      end
-
       # Check if each element of the 2nd argument is aligned in the 1st argument or not
       # @param    [String] argv1  String to be checked
       # @param    [Array]  argv2  List including the ordered strings

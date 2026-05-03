@@ -116,8 +116,7 @@ module Sisimai
           break if haveloaded >= maxmsgline
         end
         v['diagnosis'] ||= mhead['subject']
-        v['diagnosis'] = Sisimai::String.sweep(v['diagnosis'])
-        v['reason']    = 'vacation'
+        v['reason']      = 'vacation'
 
         cv = v['diagnosis'].downcase
         Suspending.each do |e|
@@ -127,8 +126,8 @@ module Sisimai
           break
         end
 
-        v['date']      = mhead['date']
-        v['status']    = ''
+        v['date']   = mhead['date']
+        v['status'] = ''
 
         if cv = lower['subject'].match(SubjectSet)
           # Get the Subject header from the original message

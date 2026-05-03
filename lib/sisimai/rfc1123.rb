@@ -125,7 +125,7 @@ module Sisimai
         sourcetext = sourcetext.gsub("[", " [").gsub("(", " (").gsub("<", " <") # Prefix a space character before each bracket
         sourcetext = sourcetext.gsub("]", "] ").gsub(")", ") ").gsub(">", "> ") # Suffix a space character behind each bracket
         sourcetext = sourcetext.gsub(":", ": ").gsub(";", "; ")                 # Suffix a space character behind : and ;
-        sourcetext = Sisimai::String.sweep(sourcetext)
+        sourcetext = sourcetext.split.join(" ")
 
         catch :MAKELIST do
           Sandwiched.each do |e|

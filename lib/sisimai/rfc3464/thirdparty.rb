@@ -71,7 +71,7 @@ module Sisimai
             fieldparts = argv1.split(":", 2)
             xfieldname = fieldparts[0].downcase
             xgroupname = FieldGroup[xfieldname]; return [] if xgroupname.nil?
-            xfieldlist = ["", "", Sisimai::String.sweep(fieldparts[1]), xgroupname, "", "PowerMTA"]
+            xfieldlist = ["", "", fieldparts[1].split.join(" "), xgroupname, "", "PowerMTA"]
 
             # - 0: Field-Name
             # - 1: Sub Type: RFC822, DNS, X-Unix, and so on)

@@ -126,7 +126,7 @@ module Sisimai::Lhost
             else
               # Message could not be delivered to mobile.
               # Error: No valid recipients for this MM
-              v['diagnosis'] = Sisimai::String.sweep(e[7, e.size]) if e.start_with?('Error: ')
+              v['diagnosis'] = e[7, e.size] if e.start_with?('Error: ')
             end
           end
         end
@@ -137,7 +137,6 @@ module Sisimai::Lhost
         emailparts[1] += "Subject: #{subjecttxt}\n" if emailparts[1].include?("\nSubject: ") == false
 
         dscontents.each do |e|
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           messagesof.each_key do |r|
             # Verify each regular expression of session errors
             next if messagesof[r].none? { |a| e['diagnosis'].include?(a) }

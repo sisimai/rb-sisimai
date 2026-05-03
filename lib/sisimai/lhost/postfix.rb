@@ -154,7 +154,7 @@ module Sisimai::Lhost
               # 5.1.1 <userunknown@example.co.jp>... User Unknown (in reply to RCPT TO command)
               if readslices[-2].start_with?('Diagnostic-Code:') && e.include?(' ')
                 # Continued line of the value of Diagnostic-Code header
-                v['diagnosis'] += " #{Sisimai::String.sweep(e)}"
+                v['diagnosis'] += " " + e.split.join(" ")
                 readslices[-1]  = "Diagnostic-Code: #{e}"
 
               elsif Sisimai::String.aligned(e, ['X-Postfix-Sender:', 'rfc822;', '@'])
@@ -238,7 +238,7 @@ module Sisimai::Lhost
 
           if anotherset['diagnosis']
             # Copy alternative error message
-            anotherset['diagnosis'] = Sisimai::String.sweep(anotherset['diagnosis'])
+            anotherset['diagnosis'] = anotherset['diagnosis'].split.join(" ")
             e['diagnosis'] = anotherset['diagnosis'] if e['diagnosis'].nil? || e['diagnosis'].empty?
 
             if e['diagnosis'] =~ /\A\d+\z/
@@ -277,7 +277,6 @@ module Sisimai::Lhost
             end
           end
 
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
           e['command']   = commandset.shift || Sisimai::SMTP::Command.find(e['diagnosis'])
           e['command']   = 'HELO' if e["command"].empty? && e['diagnosis'].include?('refused to talk to me:')
           e['spec']      = 'SMTP' if e["spec"].empty?    && Sisimai::String.aligned(e['diagnosis'], ['host ', ' said:'])

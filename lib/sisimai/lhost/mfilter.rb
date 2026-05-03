@@ -98,7 +98,6 @@ module Sisimai::Lhost
         return nil if recipients == 0
 
         dscontents.each do |e|
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           e['agent'] = 'mFILTER'
 
           # Get localhost and remote host name from Received header.

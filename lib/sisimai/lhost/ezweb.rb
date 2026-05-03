@@ -94,7 +94,7 @@ module Sisimai::Lhost
 
         dscontents.each do |e|
           # Check each value of DeliveryMatter{}, try to detect the bounce reason.
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
+          e['diagnosis'] = e['diagnosis'].split.join(" ")
           e["command"]   = Sisimai::SMTP::Command.find(e["diagnosis"]) if e["command"].empty?
 
           if mhead['x-spasign'].to_s == 'NG'

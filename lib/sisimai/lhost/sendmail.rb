@@ -160,7 +160,7 @@ module Sisimai::Lhost
               # Continued line of the value of Diagnostic-Code field
               next if readslices[-2].start_with?('Diagnostic-Code:') == false
               next if e.start_with?(' ') == false
-              v['diagnosis'] += " #{Sisimai::String.sweep(e)}"
+              v['diagnosis'] += " " + e
               readslices[-1]  = "Diagnostic-Code: #{e}"
             end
           end
@@ -187,7 +187,6 @@ module Sisimai::Lhost
             break
           end
 
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
           e["command"]   = thecommand if e["command"].empty?
           e["command"]   = Sisimai::SMTP::Command.find(e['diagnosis']) if e["command"].empty?
           e["command"]   = "EHLO" if e["command"].empty? && esmtpreply.size > 0

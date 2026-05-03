@@ -152,9 +152,6 @@ module Sisimai::Lhost
         return nil if recipients == 0
 
         dscontents.each do |e|
-          # Tidy up the error message in $e->{'diagnosis'}, Try to detect the bounce reason.
-          e["diagnosis"] = Sisimai::String.sweep(e["diagnosis"])
-
           p0 = -1; StartingOf[:error].each do |r|
             # Try to find the NDR subject string such as "RESOLVER.ADR.RecipientNotFound" from the
             # error message

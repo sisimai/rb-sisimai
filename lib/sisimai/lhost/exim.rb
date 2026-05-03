@@ -211,7 +211,7 @@ module Sisimai::Lhost
                 # parser.c:749|   goto PARSE_FAILED;
                 # parser.c:750|   }
                 cv = Sisimai::Address.s3s4(e[p1, p2 - p1 - 1])
-                v["diagnosis"] = Sisimai::String.sweep(e[p2 + 1, e.size])
+                v["diagnosis"] = e[p2 + 1, e.size]
               else
                 # There is an email address only in the line
                 #   kijitora@example.jp
@@ -361,7 +361,7 @@ module Sisimai::Lhost
             end
             e.delete("alterrors")
           end
-          e["diagnosis"] = Sisimai::String.sweep(e["diagnosis"]) || ""; p1 = e["diagnosis"].index("__") || -1
+          p1 = e["diagnosis"].index("__") || -1
           e["diagnosis"] = e["diagnosis"][0, p1] if p1 > 1
 
           if e["rhost"].empty?

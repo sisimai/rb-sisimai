@@ -146,7 +146,7 @@ module Sisimai
         return nil if argv0.empty?
         label = Sisimai::RFC1894.label(argv0)
         group = FieldGroup[label] || ''
-        parts = argv0.split(":", 2); parts[1] = parts[1].nil? ? "" : Sisimai::String.sweep(parts[1])
+        parts = argv0.split(":", 2); parts[1] = parts[1].nil? ? "" : parts[1].split.join(" ")
         return nil if group.empty? || CapturesOn[group].nil?
 
         # Try to match with each pattern of Per-Message field, Per-Recipient field
@@ -165,11 +165,11 @@ module Sisimai
           if parts[1].include?(";")
             # There is a valid sub type (including ";")
             v = parts[1].split(";", 2)
-            table[1] = Sisimai::String.sweep(v[0]).upcase if v.size > 0
-            table[2] = Sisimai::String.sweep(v[1])        if v.size > 1
+            table[1] = v[0].split.join(" ").upcase if v.size > 0
+            table[2] = v[1].split.join(" ")        if v.size > 1
           else
             # There is no sub type like "Diagnostic-Code: 550 5.1.1 <kijitora@example.jp>..."
-            table[2] = Sisimai::String.sweep(parts[1])
+            table[2] = parts[1]
             table[1] = SubtypeSet[group] || ""
           end
           table[2] = table[2].downcase if group == "host"

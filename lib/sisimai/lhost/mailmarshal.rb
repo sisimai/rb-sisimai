@@ -103,15 +103,13 @@ module Sisimai::Lhost
                 p1 = e.index(' From:') || e.index(' Subject:')
                 p2 = e.index(':')
                 cf = e[p1 + 1, p2 - p1 - 1]
-                cv = Sisimai::String.sweep(e[p2 + 1, e.size])
+                cv = e[p2 + 1, e.size]
                 emailparts[1] += sprintf("%s: %s\n", cf, cv)
               end
             end
           end
         end
         return nil if recipients == 0
-
-        dscontents.each { |e| e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) }
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'Trustwave Secure Email Gateway'; end

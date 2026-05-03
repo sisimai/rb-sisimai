@@ -65,8 +65,6 @@ module Sisimai::Lhost
           end
         end
         return nil if recipients == 0
-
-        dscontents.each { |e| e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) }
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end
       def description; return 'MailFoundry'; end

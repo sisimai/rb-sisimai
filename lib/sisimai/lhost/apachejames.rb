@@ -103,7 +103,6 @@ module Sisimai::Lhost
           emailparts[1] += sprintf("Subject: %s\n", alternates[3]) if alternates[3] != ""
         end
 
-        dscontents.each { |e| e["diagnosis"] = Sisimai::String.sweep(e["diagnosis"]) }
         return { "ds" => dscontents, "rfc822" => emailparts[1] }
       end
       def description; return 'Java Apache Mail Enterprise Server'; end
