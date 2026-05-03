@@ -277,7 +277,6 @@ module Sisimai::Lhost
             end
           end
 
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
           e['command']   = commandset.shift || Sisimai::SMTP::Command.find(e['diagnosis'])
           e['command']   = 'HELO' if e["command"].empty? && e['diagnosis'].include?('refused to talk to me:')
           e['spec']      = 'SMTP' if e["spec"].empty?    && Sisimai::String.aligned(e['diagnosis'], ['host ', ' said:'])
