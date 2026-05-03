@@ -69,8 +69,6 @@ module Sisimai::Lhost
         return nil if recipients == 0
 
         dscontents.each do |e|
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-
           # Error messages in the message body did not matched
           ErrorTitle.each_key do |f|
             # Try to match with the Subject string
