@@ -185,7 +185,7 @@ module Sisimai::Lhost
             v["action"]    = "delivered"
             v["date"]      = p["timestamp"]
             v["lhost"]     = Sisimai::RFC1123.find(p["reportingMTA"])
-            v["diagnosis"] = Sisimai::String.sweep(p["smtpResponse"])
+            v["diagnosis"] = p["smtpResponse"]
             v["command"]   = Sisimai::SMTP::Command.find(v["diagnosis"])
             v["status"]    = Sisimai::SMTP::Status.find(v["diagnosis"], "2")
             v["replycode"] = Sisimai::SMTP::Reply.find(v["diagnosis"], "2")
