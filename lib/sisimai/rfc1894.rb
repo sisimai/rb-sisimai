@@ -169,7 +169,7 @@ module Sisimai
             table[2] = Sisimai::String.sweep(v[1])        if v.size > 1
           else
             # There is no sub type like "Diagnostic-Code: 550 5.1.1 <kijitora@example.jp>..."
-            table[2] = Sisimai::String.sweep(parts[1])
+            table[2] = parts[1]
             table[1] = SubtypeSet[group] || ""
           end
           table[2] = table[2].downcase if group == "host"
