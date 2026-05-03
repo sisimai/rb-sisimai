@@ -229,7 +229,7 @@ module Sisimai
 
         if beforemesg != ""
           # Pick some values of $dscontents from the string before StartingOf[:message]
-          beforemesg = Sisimai::String.sweep(beforemesg)
+          beforemesg = beforemesg.split.join(" ")
           alternates["command"]   = Sisimai::SMTP::Command.find(beforemesg)
           alternates["replycode"] = Sisimai::SMTP::Reply.find(beforemesg, dscontents[0]["status"])
           alternates["status"]    = Sisimai::SMTP::Status.find(beforemesg, alternates["replycode"])
