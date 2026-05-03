@@ -93,7 +93,6 @@ module Sisimai::Lhost
         dscontents.each do |e|
           # Set default values if each value is empty.
           permessage.each_key { |a| e[a] ||= permessage[a] || '' }
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
