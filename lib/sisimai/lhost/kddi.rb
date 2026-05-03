@@ -67,7 +67,6 @@ module Sisimai::Lhost
 
         require 'sisimai/smtp/command'
         dscontents.each do |e|
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
           e['command']   = Sisimai::SMTP::Command.find(e['diagnosis'])
 
           if mhead['x-spasign'].to_s == 'NG'
