@@ -81,12 +81,6 @@ module Sisimai::Lhost
           end
         end
         return nil if recipients == 0
-
-        dscontents.each do |e|
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
-          e['status']    = Sisimai::SMTP::Status.find(e['diagnosis'])
-        end
-
         return {"ds" => dscontents, "rfc822" => emailparts[1]}
       end
       def description; return 'Unknown MTA #3'; end
