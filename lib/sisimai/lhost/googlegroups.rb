@@ -46,7 +46,7 @@ module Sisimai::Lhost
         entiremesg = emailparts[0].split(/\n\n/, 5).slice(0, 4).join(' ').tr("\n", ' ');
         receivedby = mhead['received'] || []
         recordwide = {
-          'diagnosis' => Sisimai::String.sweep(entiremesg),
+          'diagnosis' => entiremesg,
           'reason'    => 'onhold',
           'rhost'     => Sisimai::RFC5322.received(receivedby[0])[1],
         }
