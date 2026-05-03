@@ -89,7 +89,7 @@ module Sisimai::Lhost
             p1 = e['diagnosis'].index('host: ')
             p2 = e['diagnosis'].index(' reason:')
 
-            e['rhost']   = Sisimai::String.sweep(e['diagnosis'][p1 + 6, p2 - p1 - 6])
+            e['rhost']   = e['diagnosis'][p1 + 6, p2 - p1 - 6]
             e['command'] = 'DATA' if e['diagnosis'].include?('for TEXT command')
             e['spec']    = 'SMTP' if e['diagnosis'].include?('SMTP error')
             e['status']  = Sisimai::SMTP::Status.find(e['diagnosis'])
@@ -97,7 +97,6 @@ module Sisimai::Lhost
             # For the following reason:
             e['diagnosis'][0, StartingOf[:error][0].size] = ''
           end
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
         end
 
         return {"ds" => dscontents, "rfc822" => emailparts[1]}
