@@ -68,11 +68,9 @@ module Sisimai::Lhost
                              else
                                e['alterrors']
                              end
-            e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
             e.delete('alterrors')
           end
-          e['diagnosis'] = Sisimai::String.sweep(e['diagnosis']) || ''
-          e['command']   = Sisimai::SMTP::Command.find(e['diagnosis'])
+          e['command'] = Sisimai::SMTP::Command.find(e['diagnosis'])
 
           MessagesOf.each_key do |r|
             # Verify each regular expression of session errors
