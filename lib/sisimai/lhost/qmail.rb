@@ -136,7 +136,7 @@ module Sisimai::Lhost
               cm = r.size
               p2 = e.index(" ", p1 + cm + 1) || p2 = e.rindex(".") 
 
-              v["rhost"] = Sisimai::String.sweep(e[p1 + cm, p2 - p1 - cm])
+              v["rhost"] = e[p1 + cm, p2 - p1 - cm]
               break
             end
           end
@@ -144,9 +144,6 @@ module Sisimai::Lhost
         return nil if recipients == 0
 
         dscontents.each do |e|
-          # Tidy up the error message in e['diagnosis'], Try to detect the bounce reason.
-          e["diagnosis"] = Sisimai::String.sweep(e["diagnosis"])
-
           # Get the SMTP command name for the session
           CommandSet.each_key do |r|
             # Get the last SMTP command
