@@ -208,7 +208,6 @@ module Sisimai::Lhost
 
             # Copy alternative error message
             e['diagnosis'] = "#{e['alterrors']} #{e['diagnosis']}"
-            e['diagnosis'] = Sisimai::String.sweep(e['diagnosis'])
             e.delete('alterrors')
           end
         end
