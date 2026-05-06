@@ -9,6 +9,7 @@ v5.?.?
 - release: ""
 - version: ""
 - changes:
+  - #430 Sisimai does not support Ruby 4.0.0 until the end of 2027
   - #410 #412 Improvement in error message patterns.
     - Update error message patterns in `AuthFailure`, `ContentError`, `NoRelaying`, `UserUnknown`,
       `Rejected`, `SystemError`, `Suspend`, and `Sisimai::Rhost::Microsoft`.
@@ -21,6 +22,7 @@ v5.?.?
   - #417 Use a switch statement instead of if-else for better readability.
   - #421 Code improvement for detecting bounce messages returned from Google Groups.
   - #423 Fix and update comments in `Sisimai::SMTP::Status`.
+  - #428 Remove useless code blocks.
 
 v5.6.0
 ---------------------------------------------------------------------------------------------------
