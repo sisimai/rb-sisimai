@@ -156,6 +156,8 @@ I was unable to deliver your message to the following addresses:
 maria@dest.example.net
 
 Reason: 550 maria@dest.example.net... No such user'
+  MP4 = 'Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit'
   def test_haircut
     cv = Sisimai::RFC2045.haircut(MP3)
     assert_instance_of Array, cv
@@ -170,6 +172,13 @@ Reason: 550 maria@dest.example.net... No such user'
     assert_equal 'text/plain; charset="utf-8"', cv[0]
     assert_equal 'quoted-printable',            cv[1]
     assert_nil Sisimai::RFC2045.haircut('')
+
+    # A part with a Content-Type header but no blank line before a body
+    cv = Sisimai::RFC2045.haircut(MP4)
+    assert_instance_of Array, cv
+    assert_equal 3, cv.size
+    assert_equal 'text/plain; charset=us-ascii', cv[0]
+    assert_equal '7bit',                         cv[1]
 
     ce = assert_raises ArgumentError do
       Sisimai::RFC2045.haircut()
