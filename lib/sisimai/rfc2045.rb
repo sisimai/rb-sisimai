@@ -148,6 +148,7 @@ module Sisimai
         (upperchunk, lowerchunk) = block.split("\n\n", 2)
         return ['', ''] if upperchunk.nil? || upperchunk.empty?
         return ['', ''] if upperchunk.index('Content-Type').nil?
+        lowerchunk = '' if lowerchunk.nil?
 
         headerpart = ['', ''] # ["text/plain; charset=iso-2022-jp; ...", "quoted-printable"]
         multipart1 = []       # [headerpart, "body"]
