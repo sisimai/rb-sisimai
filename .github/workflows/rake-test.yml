@@ -15,8 +15,6 @@ jobs:
     steps:
       - name: Checkout the repository(CRuby)
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
       - name: Setup CRuby
         uses: ruby/setup-ruby@v1
         with:
@@ -41,8 +39,6 @@ jobs:
     steps:
       - name: Checkout the repository(JRuby)
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
       - name: Setup JRuby 
         uses: ruby/setup-ruby@v1
         with:
