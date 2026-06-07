@@ -23,6 +23,8 @@ v5.?.?
   - #421 Code improvement for detecting bounce messages returned from Google Groups.
   - #423 Fix and update comments in `Sisimai::SMTP::Status`.
   - #428 Remove useless code blocks.
+  - #433 #434 Check whether `lowerchunk` is nil or not to avoid `NoMethodError` in `haircut` method
+    of `Sisimai::RFC2045`. Thanks to @SAY-5.
 
 v5.6.0
 ---------------------------------------------------------------------------------------------------
