@@ -174,11 +174,13 @@ Content-Transfer-Encoding: 7bit'
     assert_nil Sisimai::RFC2045.haircut('')
 
     # A part with a Content-Type header but no blank line before a body
+    # The function should return ["",""] when lowerchunk is nil to avoid SystemStackError when
+    # decoding set-of-emails/should-not-crash/p5-664-iomart-mail-filter.eml.
     cv = Sisimai::RFC2045.haircut(MP4)
     assert_instance_of Array, cv
-    assert_equal 3, cv.size
-    assert_equal 'text/plain; charset=us-ascii', cv[0]
-    assert_equal '7bit',                         cv[1]
+    assert_equal 2, cv.size
+    assert_equal '', cv[0]
+    assert_equal '', cv[1]
 
     ce = assert_raises ArgumentError do
       Sisimai::RFC2045.haircut()
