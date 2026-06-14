@@ -1,0 +1,68 @@
+Received-SPF: None (no SPF record) identity=helo; client-ip=192.0.2.1; helo=mailout11.t-online.de; envelope-from=<>; receiver=mail.example.com
+Received: from mailout11.t-online.de (mailout11.t-online.de [192.0.2.1])
+	by mail.example.com (Postfix) with ESMTPS id 2A29623F0
+	for <returnpath@mail.example.com>; Wed, 03 Jun 2026 17:30:52 +0000 (UTC)
+Received: from mailin42.aul.t-online.de (mailin42.aul.t-online.de [192.51.100.1])
+	by mailout11.t-online.de (Postfix) with SMTP id 05E5A1CAC0
+	for <returnpath@mail.example.com>; Wed,  3 Jun 2026 19:23:42 +0200 (CEST)
+X-Failed-Recipients: example@t-online.de
+From: Mail Delivery System <Mailer-Daemon@t-online.de>
+To: returnpath@mail.example.com
+Subject: Mail delivery failed: returning message to sender
+Message-Id: <xxxyyyzzzaaabbccc.aul.t-online.de>
+Date: Wed, 3 Jun 2026 19:23:17 +0200
+X-TOI-MSGID: c9412855-531f-497b-b007-5ffc033877a0
+Authentication-Results: mailin42.aul.t-online.de; dkim=none;
+	dkim-atps=neutral
+
+|------------------------- Failed addresses follow: ---------------------|
+ <example1@t-online.de>
+   552 5.2.2 <example1@t-online.de> Quota exceeded (mailbox for user is full)
+ <example2@t-online.de>
+   550 5.1.1 <example2@t-online.de> unknown user
+
+|------------------------- Message header follows: ----------------------|
+Received: from mail.example.com ([152.53.207.210]) by mailin42.t-online.de
+	with (TLSv1.3:TLS_AES_256_GCM_SHA384 encrypted)
+	esmtp id 1wUpJD-0ZWsnR0; Wed, 3 Jun 2026 19:23:15 +0200
+Received: by mail.example.com (Postfix)
+	id AD20B29490; Tue, 02 Jun 2026 20:17:41 +0000 (UTC)
+Date: Tue, 02 Jun 2026 20:17:41 +0000
+From: some corp <somecorp@example.com>
+Reply-To: some corp <somecorp@example.com>
+To: <example1@t-online.de>, <example2@t-online.de>
+Message-ID: <outgoingmessageid>
+Subject: Subject omitted for privacy
+Mime-Version: 1.0
+Content-Type: multipart/mixed;
+ boundary="--==_mimepart_6a1f3a659c89f_79afe920227275f";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+|----------- Message text follows: (body too large, truncated) ----------|
+
+----==_mimepart_6a1f3a659c89f_79afe920227275f
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta content=3D"text/html; charset=3Dutf-8" http-equiv=3D"Content-Type">=
+
+<style>
+  #footer {
+    font-size: 11px;
+    border-top: 1px solid #666;
+    color: #333;
+    margin-top: 1em;
+    padding-top: 1em;
+  }
+</style>
+
+</head>
+<body>
+<p>Hello there, fellow some corp user!</p><p>I would like to inform you a=
+about the upcoming team event next we
+

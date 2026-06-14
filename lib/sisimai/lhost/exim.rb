@@ -89,6 +89,8 @@ module Sisimai::Lhost
       def inquire(mhead, mbody)
         # Message-Id: <E1P1YNN-0003AD-Ga@example.org>
         # X-Failed-Recipients: kijitora@example.ed.jp
+        return nil if Sisimai::Lhost.BannerDTAG.any? { |a| mbody.include?(a) }
+
         thirdparty = false
         proceedsto = 0
         messageidv = mhead["message-id"] || ""
