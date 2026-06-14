@@ -1,0 +1,50 @@
+Return-Path: <kijitora-nyaan@example.org>
+Delivered-To: sironeko@example.jp
+Received: from example.com (unknown [192.0.2.250])
+	by r1.example.co.jp (Postfix) with ESMTP id FFFFFFFF00
+	for <sironeko@example.jp>; Thu, 29 Apr 2006 23:34:45 +0000 (UTC)
+Received: from r2.example.org (r2.example.org [192.0.2.25])
+	by smtp.nyaan.example.net (8.10.1/8.10.1) with ESMTP id k3k000000000
+	for <sironeko@nyaan.example.net>; Thu,29 Apr 2006 23:34:45 +0000
+Received: from [203.0.113.25] (helo=r9.example.net)
+	by r2.example.org with esmtp (Exim 3.21 #1)
+	id AAAAAA-000000-22
+	for kijitora-nyaan@example.org; Thu, 29 Apr 2006 23:34:45 +0000
+Received: from smtp1.r.example.net ([209.196.123.3])
+	by mx7.example.net with smtp (Exim 3.16 #10)
+	id BBBBBB-111111-22
+	for kijitora-nyaan@example.org; Thu, 29 Apr 2006 23:34:45 +0000
+Message-Id: <ffffffffffffffff1@smtp1.r.example.net>
+From: <MAILER-DAEMON@example.net>
+To: kijitora-nyaan@example.org
+Date: Thu, 29 Apr 2006 23:34:45 +0000 (UTC)
+Subject: mail failed, returning to sender
+
+|------------------------- Message log follows: -------------------------|
+ no valid recipients were found for this message
+|------------------------- Failed addresses follow: ---------------------|
+ kijitora@neko.nyaan.example.com ... unknown host
+|------------------------- Message text follows: ------------------------|
+Received: from r2.example.org ([192.0.2.25])
+	by mx1.example.net with esmtp (Exim 3.22 #2)
+	id aaaaaa-444444-22
+	for kijitora@neosoft.com; Thu, 29 Apr 2006 23:34:45 +0000
+Received: from localhost.localdomain ([127.0.0.1] helo=r2.example.org)
+	by r2.example.org with esmtp (Exim 3.22 #2)
+	id 000000-000000-00; Thu, 29 Apr 2006 23:34:45 +0000
+Received: from [203.0.113.1] (helo=[127.0.0.1])
+	by r2.example.org with smtp (Exim 3.22 #2)
+	id eeeeee-rrrrrr-22
+	for neko-nyaan@example.org; Thu, 29 Apr 2006 23:34:45 +0000
+Message-Id: <ffffffffffff000000002222000000000@e3.example.com>
+To: kijitora@neko.nyaan.example.com
+From: Neko <sironeko@example.jp>
+Cc: neko-nyaan@example.org
+Mime-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"; format=flowed
+Date: Thu, 29 Apr 2006 23:34:45 +0000
+Subject: Nyaan
+
+Nyaan
+
+
