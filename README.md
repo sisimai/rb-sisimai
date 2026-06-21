@@ -1,5 +1,5 @@
 ![](https://libsisimai.org/static/images/logo/sisimai-x01.png)
-[![License](https://img.shields.io/badge/license-BSD%202--Clause-orange.svg)](https://github.com/sisimai/rb-sisimai/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-BSD%202--Clause-orange.svg)](https://github.com/sisimai/rb-sisimai/blob/5-stable/LICENSE)
 [![Ruby](https://img.shields.io/badge/ruby-v2.5.0--v3.4.0-red.svg)](https://www.ruby-lang.org/)
 [![Gem Version](https://badge.fury.io/rb/sisimai.svg)](https://badge.fury.io/rb/sisimai)
 [![codecov](https://codecov.io/github/sisimai/rb-sisimai/graph/badge.svg?token=YGkyluNWiZ)](https://codecov.io/github/sisimai/rb-sisimai)
@@ -67,14 +67,15 @@ of Sisimai is ported from [the Perl version of Sisimai](https://github.com/sisim
 The key features of Sisimai
 ---------------------------------------------------------------------------------------------------
 * __Decode email bounces to structured data__
-  * Sisimai provides detailed insights into bounce emails by extracting 27 key data points.[^2]
+  * Sisimai provides detailed insights into bounce emails by extracting 28 key data points.[^2]
     * __Essential information__: `timestamp`, `origin`
     * __Sender information__: `addresser`, `senderdomain`, 
     * __Recipient information__: `recipient`, `destination`, `alias`
     * __Delivery information__: `action`, `replycode`, `deliverystatus`, `command`
     * __Bounce details__: `reason`, `diagnosticcode`, `diagnostictype`, `feedbacktype`, `feedbackid`, `hardbounce`
     * __Message details__: `subject`, `messageid`, `listid`,
-    * __Additional information__: `decodedby`, `timezoneoffset`, `lhost`, `rhost`, `token`, `catch`, `toxic`
+    * __Evaluation metrics (User-calculated)__: `toxic`, `bogus`, `catch`
+    * __Additional information__: `decodedby`, `timezoneoffset`, `lhost`, `rhost`, `token`
   * Output formats
     * Ruby (Hash, Array)
     * JSON 
@@ -85,7 +86,7 @@ The key features of Sisimai
     * `gem install`
     * `git clone && make`
   * __High Precision of Analysis__
-    * Support [60 MTAs/MDAs/ESPs](https://libsisimai.org/en/engine/)
+    * Support [61 MTAs/MDAs/ESPs](https://libsisimai.org/en/engine/)
     * Support Feedback Loop Message(ARF)
     * Can detect [34 bounce reasons](https://libsisimai.org/en/reason/)
 
@@ -114,10 +115,10 @@ Install
 ### From RubyGems
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-5.6.0.gem (100%)
-Successfully installed sisimai-5.6.0
-Parsing documentation for sisimai-5.6.0
-Installing ri documentation for sisimai-5.6.0
+Fetching: sisimai-5.7.0.gem (100%)
+Successfully installed sisimai-5.7.0
+Parsing documentation for sisimai-5.7.0
+Installing ri documentation for sisimai-5.7.0
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -145,13 +146,13 @@ if [ -d "/usr/local/jr" ]; then \
 ...
 3 gems installed
 /opt/local/bin/rake install
-sisimai 5.6.0 built to pkg/sisimai-5.6.0.gem.
-sisimai (5.6.0) installed.
+sisimai 5.7.0 built to pkg/sisimai-5.7.0.gem.
+sisimai (5.7.0) installed.
 if [ -d "/usr/local/jr" ]; then \
 		PATH="/usr/local/jr/bin:$PATH" /usr/local/jr/bin/rake install; \
 	fi
-sisimai 5.6.0 built to pkg/sisimai-5.6.0-java.gem.
-sisimai (5.6.0) installed.
+sisimai 5.7.0 built to pkg/sisimai-5.7.0-java.gem.
+sisimai (5.7.0) installed.
 ```
 
 Usage
@@ -332,7 +333,8 @@ Output example
     "timezoneoffset": "+0900",
     "replycode": 550,
     "token": "84656774898baa90660be3e12fe0526e108d4473",
-    "toxic": 0,
+    "bogus": -1,
+    "toxic": -1,
     "diagnostictype": "SMTP",
     "timestamp": 1650119685,
     "diagnosticcode": "host gmail-smtp-in.l.google.com[64.233.187.27] said: This mail has been blocked because the sender is unauthenticated. Gmail requires all senders to authenticate with either SPF or DKIM. Authentication results: DKIM = did not pass SPF [relay3.example.com] with ip: [192.0.2.22] = did not pass For instructions on setting up authentication, go to https://support.google.com/mail/answer/81126#authentication c2-202200202020202020222222cat.127 - gsmtp (in reply to end of DATA command)",
@@ -356,12 +358,12 @@ Beginning with v5.5.0, Sisimai requires **Ruby 2.5.0 or later.**
 | System requirements (CRuby)                          | 2.1 - 3.3.0        | **2.5** or later    |
 | System requirements (JRuby)                          | 9.0.4.0 - 9.1.17.0 | **9.2** or later    |
 | Callback feature for the original email file         | N/A                | Available[^3]       |
-| The number of MTA/ESP modules                        | 68                 | 60                  |
+| The number of MTA/ESP modules                        | 68                 | 61                  |
 | The number of detectable bounce reasons              | 29                 | 34                  |
 | Dependencies (Except Ruby Standard Gems)             | 1 gem              | 1 gem               |
-| Source lines of code                                 | 10,300 lines       | 9,700 lines         |
+| Source lines of code                                 | 10,300 lines       | 9,500 lines         |
 | Test frameworks                                      | rspec              | minitest            |
-| The number of tests in spec/ or test/ directory      | 311,000 tests      | 240,000 tests       | 
+| The number of tests in spec/ or test/ directory      | 311,000 tests      | 255,000 tests       | 
 | The number of bounce emails decoded/sec (CRuby)[^4]  | 620 emails         | 620 emails          |
 | License                                              | 2 Clause BSD       | 2 Caluse BSD        |
 | Commercial support                                   | Available          | Available           |
@@ -406,6 +408,7 @@ available at [LIBSISIMAI.ORG/EN/ENGINE](https://libsisimai.org/en/engine/)
 | Zoho (added at v5.5.0)                          | None                    | `Rhost::Zoho`       |
 | DragonFly Mail Agent (added at v5.1.0)          | None                    | `Lhost::DragonFly`  |
 | Mimecast (added at v5.5.0)                      | None                    | `Lhost::Mimecast`   |
+| DeutscheTelekom (added at v5.7.0)               | None               | `Lhost::DeutscheTelekom` |
 
 Bounce Reasons
 ---------------------------------------------------------------------------------------------------
@@ -455,7 +458,7 @@ Related Sites
 
 See also
 ---------------------------------------------------------------------------------------------------
-* [README-JA.md - README.md in Japanese(🇯🇵)](https://github.com/sisimai/rb-sisimai/blob/master/README-JA.md)
+* [README-JA.md - README.md in Japanese(🇯🇵)](https://github.com/sisimai/rb-sisimai/blob/5-stable/README-JA.md)
 * [RFC3463 - Enhanced Mail System Status Codes](https://tools.ietf.org/html/rfc3463)
 * [RFC3464 - An Extensible Message Format for Delivery Status Notifications](https://tools.ietf.org/html/rfc3464)
 * [RFC3834 - Recommendations for Automatic Responses to Electronic Mail](https://tools.ietf.org/html/rfc3834)

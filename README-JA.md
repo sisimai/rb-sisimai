@@ -1,5 +1,5 @@
 ![](https://libsisimai.org/static/images/logo/sisimai-x01.png)
-[![License](https://img.shields.io/badge/license-BSD%202--Clause-orange.svg)](https://github.com/sisimai/rb-sisimai/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-BSD%202--Clause-orange.svg)](https://github.com/sisimai/rb-sisimai/blob/5-stable/LICENSE)
 [![Ruby](https://img.shields.io/badge/ruby-v2.5.0--v3.4.0-red.svg)](https://www.ruby-lang.org/)
 [![Gem Version](https://badge.fury.io/rb/sisimai.svg)](https://badge.fury.io/rb/sisimai)
 [![codecov](https://codecov.io/github/sisimai/rb-sisimai/graph/badge.svg?token=YGkyluNWiZ)](https://codecov.io/github/sisimai/rb-sisimai)
@@ -65,14 +65,15 @@ Sisimai(シシマイ)は複雑で多種多様なバウンスメールを解析�
 The key features of Sisimai
 ---------------------------------------------------------------------------------------------------
 * __バウンスメールを構造化したデータに変換__
-  * 以下27項目の情報を含むデータ構造[^2]
+  * 以下28項目の情報を含むデータ構造[^2]
     * __基本的情報__: `timestamp`, `origin`
     * __発信者情報__: `addresser`, `senderdomain`, 
     * __受信者情報__: `recipient`, `destination`, `alias`
     * __配信の情報__: `action`, `replycode`, `deliverystatus`, `command`
     * __エラー情報__: `reason`, `diagnosticcode`, `diagnostictype`, `feedbacktype`, `hardbounce`
     * __メール情報__: `subject`, `messageid`, `listid`,
-    * __その他情報__: `decodedby`, `timezoneoffset`, `lhost`, `rhost`, `token`, `catch`, `toxic`
+    * __評価用項目__: `toxic`, `bogus`, `catch`
+    * __その他情報__: `decodedby`, `timezoneoffset`, `lhost`, `rhost`, `token`
   * __出力可能な形式__
     * Ruby (Hash, Array)
     * JSON 
@@ -83,9 +84,9 @@ The key features of Sisimai
     * `gem install`
     * `git clone && make`
   * __高い解析精度__
-    * [60種類のMTAs/MDAs/ESPs](https://libsisimai.org/en/engine/)に対応
+    * [61種類のMTAs/MDAs/ESPs](https://libsisimai.org/en/engine/)に対応
     * Feedback Loop(ARF)にも対応
-    * [36種類のバウンス理由](https://libsisimai.org/en/reason/)を検出
+    * [34種類のバウンス理由](https://libsisimai.org/en/reason/)を検出
 
 [^2]: コールバック機能を使用すると`catch`アクセサの下に独自のデータを追加できます
 
@@ -115,10 +116,10 @@ Install
 ### From RubyGems.org
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-5.6.0.gem (100%)
-Successfully installed sisimai-5.6.0
-Parsing documentation for sisimai-5.6.0
-Installing ri documentation for sisimai-5.6.0
+Fetching: sisimai-5.7.0.gem (100%)
+Successfully installed sisimai-5.7.0
+Parsing documentation for sisimai-5.7.0
+Installing ri documentation for sisimai-5.7.0
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -146,13 +147,13 @@ if [ -d "/usr/local/jr" ]; then \
 ...
 3 gems installed
 /opt/local/bin/rake install
-sisimai 5.6.0 built to pkg/sisimai-5.6.0.gem.
-sisimai (5.6.0) installed.
+sisimai 5.7.0 built to pkg/sisimai-5.7.0.gem.
+sisimai (5.7.0) installed.
 if [ -d "/usr/local/jr" ]; then \
 		PATH="/usr/local/jr/bin:$PATH" /usr/local/jr/bin/rake install; \
 	fi
-sisimai 5.6.0 built to pkg/sisimai-5.6.0-java.gem.
-sisimai (5.6.0) installed.
+sisimai 5.7.0 built to pkg/sisimai-5.7.0-java.gem.
+sisimai (5.7.0) installed.
 ```
 
 Usage
@@ -333,7 +334,8 @@ Output example
     "timezoneoffset": "+0900",
     "replycode": 550,
     "token": "84656774898baa90660be3e12fe0526e108d4473",
-    "toxic": 0,
+    "bogus": -1,
+    "toxic": -1,
     "diagnostictype": "SMTP",
     "timestamp": 1650119685,
     "diagnosticcode": "host gmail-smtp-in.l.google.com[64.233.187.27] said: This mail has been blocked because the sender is unauthenticated. Gmail requires all senders to authenticate with either SPF or DKIM. Authentication results: DKIM = did not pass SPF [relay3.example.com] with ip: [192.0.2.22] = did not pass For instructions on setting up authentication, go to https://support.google.com/mail/answer/81126#authentication c2-202200202020202020222222cat.127 - gsmtp (in reply to end of DATA command)",
@@ -405,6 +407,7 @@ Sisimai 5で3個のESPモジュール名(解析エンジン)が変更になり�
 | Zoho (added at v5.5.0)                          | なし                    | `Rhost::Zoho`       |
 | DragonFly Mail Agent (added at v5.1.0)          | なし                    | `Lhost::DragonFly`  |
 | Mimecast (added at v5.5.0)                      | なし                    | `Lhost::Mimecast`   |
+| DeutscheTelekom (added at v5.7.0)               | なし               | `Lhost::DeutscheTelekom` |
 
 Bounce Reasons
 ---------------------------------------------------------------------------------------------------
@@ -453,7 +456,7 @@ Related sites
 
 See also
 ---------------------------------------------------------------------------------------------------
-* [README.md - README.md in English(🇬🇧)](https://github.com/sisimai/rb-sisimai/blob/master/README.md)
+* [README.md - README.md in English(🇬🇧)](https://github.com/sisimai/rb-sisimai/blob/5-stable/README.md)
 * [RFC3463 - Enhanced Mail System Status Codes](https://tools.ietf.org/html/rfc3463)
 * [RFC3464 - An Extensible Message Format for Delivery Status Notifications](https://tools.ietf.org/html/rfc3464)
 * [RFC3834 - Recommendations for Automatic Responses to Electronic Mail](https://tools.ietf.org/html/rfc3834)
