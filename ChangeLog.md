@@ -6,7 +6,7 @@ RELEASE NOTES for Ruby version of Sisimai
 
 v5.7.0
 ---------------------------------------------------------------------------------------------------
-- release: ""
+- release: "Mon, 22 Jun 2026 16:22:22 +0900 (JST)"
 - version: "5.7.0"
 - changes:
   - **Bug fixes**
