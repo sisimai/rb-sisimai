@@ -213,14 +213,17 @@ module Sisimai
       # Split argv1: multipart/* blocks by a boundary string in argv0
       # @param    [String] argv0  The value of Content-Type header
       # @param    [String] argv1  A pointer to multipart/* message blocks
+      # @param    [String] depth  Depth of MIME parts
       # @return   [Array]         List of each part of multipart/*
       # @since v5.0.0
-      def levelout(argv0 = '', argv1 = '')
+      def levelout(argv0 = '', argv1 = '', depth = 0)
         return [] if argv0.empty?
         return [] if argv1.empty?
+        return [] if depth > 100
 
         boundary01 = boundary(argv0, 0); return [] if boundary01.empty?
         multiparts = argv1.split(Regexp.new(Regexp.escape(boundary01) + "\n"))
+        partsdepth = depth + 1
         partstable = []
 
         # Remove empty or useless preamble and epilogue of multipart/* block
@@ -237,7 +240,7 @@ module Sisimai
             bodyinside = f[-1].split("\n\n", 2)[-1]
             next if bodyinside.size < 9 || bodyinside.index(boundary02).nil?
 
-            v = levelout(f[0], bodyinside)
+            v = levelout(f[0], bodyinside, partsdepth)
             partstable += v if v.size > 0
           else
             # The part is not a multipart/* block
@@ -271,7 +274,7 @@ module Sisimai
         #   - CHARSET=, BOUNDARY=                          => charset-, boundary=
         #   - message/xdelivery-status                     => message/delivery-status
         iso2022set = %r/charset=["']?(iso-2022-[-a-z0-9]+)['"]?\b/
-        multiparts = levelout(argv0, argv1)
+        multiparts = levelout(argv0, argv1, 0)
         flattenout = ''
         delimiters = ["/delivery-status", "/rfc822", "/feedback-report", "/partial"]
 
