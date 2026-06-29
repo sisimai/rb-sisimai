@@ -223,7 +223,7 @@ Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
 
 '
   def test_levelout
-    cv = Sisimai::RFC2045.levelout(Ct5, MP5)
+    cv = Sisimai::RFC2045.levelout(Ct5, MP5, 1)
     assert_instance_of Array, cv
     assert_equal           2, cv.size
 
@@ -233,12 +233,14 @@ Arrival-Date: Tue, 23 Dec 2014 20:39:34 +0000
       refute_empty e[2]
     end
 
-    assert_instance_of Array, Sisimai::RFC2045.levelout('', 'neko')
-    assert_instance_of Array, Sisimai::RFC2045.levelout('neko', '')
+    assert_instance_of Array, Sisimai::RFC2045.levelout('', 'neko', 2)
+    assert_instance_of Array, Sisimai::RFC2045.levelout('neko', '', 2)
 
     ce = assert_raises ArgumentError do
       Sisimai::RFC2045.levelout()
-      Sisimai::RFC2045.levelout("", "", "")
+      Sisimai::RFC2045.levelout("", "")
+      Sisimai::RFC2045.levelout("", "", 100)
+      Sisimai::RFC2045.levelout("", "", 10, "")
     end
     assert_match /wrong number of arguments/, ce.to_s
   end
