@@ -384,14 +384,14 @@ module Sisimai
         ea.each { |q| thing[q] = piece[q] if thing[q].nil? || thing[q].empty? }
 
         # Other accessors
-        thing['bogus']          = 0
+        thing['bogus']          = -1
         thing['catch']          = piece['catch'] || nil
         thing["feedbackid"]     = ""
         thing['hardbounce']     = piece['hardbounce']
         thing['replycode']      = Sisimai::SMTP::Reply.find(piece['diagnosticcode']) if thing['replycode'].empty?
         thing['timestamp']      = TimeModule.parse(::Time.at(piece['timestamp']).to_s)
         thing['timezoneoffset'] = piece['timezoneoffset'] || '+0000'
-        thing['toxic']          = 0
+        thing['toxic']          = -1
         ea.each { |q| thing[q] = piece[q] if thing[q].empty? }
 
         # ALIAS
