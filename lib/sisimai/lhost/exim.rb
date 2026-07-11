@@ -3,6 +3,7 @@ module Sisimai::Lhost
   # Methods in the module are called from only Sisimai::Message.
   module Exim
     class << self
+      require 'sisimai/eb'
       require 'sisimai/lhost'
       require 'sisimai/rfc1894'
 
@@ -60,12 +61,12 @@ module Sisimai::Lhost
       MessagesOf = {
         # find exim/ -type f -exec grep 'message = US' {} /dev/null \;
         # route.c:1158|  DEBUG(D_uid) debug_printf("getpwnam() returned NULL (user not found)\n");
-        "userunknown" => ["user not found"],
+        Sisimai::Eb::ReUSER => ["user not found"],
         # parser.c:666| *errorptr = string_sprintf("%s (expected word or \"<\")", *errorptr);
         # parser.c:701| if(bracket_count++ > 5) FAILED(US"angle-brackets nested too deep");
         # parser.c:738| FAILED(US"domain missing in source-routed address");
         # parser.c:747| : string_sprintf("malformed address: %.32s may not follow %.*s",
-        "syntaxerror" => [
+        Sisimai::Eb::ReCOMM => [
           "angle-brackets nested too deep",
           'expected word or "<"',
           "domain missing in source-routed address",
@@ -389,8 +390,8 @@ module Sisimai::Lhost
             case e["command"]
               # - HELO | Connected to 192.0.2.135 but my name was rejected.
               # - MAIL | Connected to 192.0.2.135 but sender was rejected.
-              when "HELO", "EHLO" then e["reason"] = "blocked"
-              when "MAIL"         then e["reason"] = "onhold"
+              when "HELO", "EHLO" then e["reason"] = Sisimai::Eb::ReBLOC
+              when "MAIL"         then e["reason"] = Sisimai::Eb::Re___1
             else
               # Try to match the error message with each message pattern 
               MessagesOf.each_key do |r|
@@ -401,7 +402,7 @@ module Sisimai::Lhost
               end
 
               if e["reason"].empty?
-                e["reason"] = "expired" if DelayedFor.any? { |a| e["diagnosis"].include?(a) }
+                e["reason"] = Sisimai::Eb::ReTIME if DelayedFor.any? { |a| e["diagnosis"].include?(a) }
               end
             end
           end
