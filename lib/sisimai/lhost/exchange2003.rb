@@ -4,6 +4,7 @@ module Sisimai::Lhost
   # Methods in the module are called from only Sisimai::Message.
   module Exchange2003
     class << self
+      require 'sisimai/eb'
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
@@ -13,29 +14,29 @@ module Sisimai::Lhost
         error:   ['did not reach the following recipient(s):'],
       }.freeze
       ErrorCodes = {
-        'onhold' => [
+        Sisimai::Eb::Re___1 => [
           '000B099C', # Host Unknown, Message exceeds size limit, ...
           '000B09AA', # Unable to relay for, Message exceeds size limit,...
           '000B09B6', # Error messages by remote MTA
         ],
-        'userunknown' => [
+        Sisimai::Eb::ReUSER => [
           '000C05A6', # Unknown Recipient,
         ],
-        'systemerror' => [
+        Sisimai::Eb::RePROC => [
           '00010256', # Too many recipients.
           '000D06B5', # No proxy for recipient (non-smtp mail?)
         ],
-        'networkerror' => [
+        Sisimai::Eb::ReINET => [
           '00120270', # Too Many Hops
         ],
-        'contenterror' => [
+        Sisimai::Eb::ReBODY => [
           '00050311', # Conversion to Internet format failed
           '000502CC', # Conversion to Internet format failed
         ],
-        'securityerror' => [
+        Sisimai::Eb::ReSAFE => [
           '000B0981', # 502 Server does not support AUTH
         ],
-        'filtered' => [
+        Sisimai::Eb::ReFILT => [
           '000C0595', # Ambiguous Recipient
         ],
       }.freeze
