@@ -3,6 +3,7 @@ module Sisimai::Lhost
   # Methods in the module are called from only Sisimai::Message.
   module Courier
     class << self
+      require 'sisimai/eb'
       require 'sisimai/lhost'
 
       # https://www.courier-mta.org/courierdsn.html
@@ -14,12 +15,12 @@ module Sisimai::Lhost
       }.freeze
       MessagesOf = {
         # courier/module.esmtp/esmtpclient.c:526| hard_error(del, ctf, "No such domain.");
-        'hostunknown'  => ['No such domain.'],
+        Sisimai::Eb::ReHOST => ['No such domain.'],
         # courier/module.esmtp/esmtpclient.c:531| hard_error(del, ctf,
         # courier/module.esmtp/esmtpclient.c:532|  "This domain's DNS violates RFC 1035.");
-        'systemerror'  => ["This domain's DNS violates RFC 1035."],
+        Sisimai::Eb::RePROC => ["This domain's DNS violates RFC 1035."],
         # courier/module.esmtp/esmtpclient.c:535| soft_error(del, ctf, "DNS lookup failed.");
-        'networkerror' => ['DNS lookup failed.'],
+        Sisimai::Eb::ReINET => ['DNS lookup failed.'],
       }.freeze
 
       # @abstract Decodes the bounce message from Courier MTA
