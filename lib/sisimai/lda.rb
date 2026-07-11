@@ -2,6 +2,8 @@ module Sisimai
   # Sisimai::LDA - Error message decoder for LDA
   module LDA
     class << self
+      require 'sisimai/eb'
+
       LocalAgent = {
         # Each error message should be a lower-cased string
         # dovecot/src/deliver/deliver.c
@@ -19,20 +21,20 @@ module Sisimai
         # Each error message should be a lower-cased string
         "dovecot" => {
           # dovecot/src/deliver/mail-send.c:94
-          "mailboxfull" => [
+          Sisimai::Eb::ReFULL => [
             "not enough disk space",
             "quota exceeded",   # Dovecot 1.2 dovecot/src/plugins/quota/quota.c
             "quota exceeded (mailbox for user is full)",    # dovecot/src/plugins/quota/quota.c
           ],
-          "userunknown" => ["mailbox doesn't exist: "],
+          Sisimai::Eb::ReUSER => ["mailbox doesn't exist: "],
         },
         "mail.local" => {
-          "mailboxfull" => [
+          Sisimai::Eb::ReFULL => [
             "disc quota exceeded",
             "mailbox full or quota exceeded",
           ],
-          "systemerror" => ["temporary file write error"],
-          "userunknown" => [
+          Sisimai::Eb::RePROC => ["temporary file write error"],
+          Sisimai::Eb::ReUSER => [
             ": invalid mailbox path",
             ": unknown user:",
             ": user missing home directory",
@@ -40,23 +42,23 @@ module Sisimai
           ],
         },
         "procmail" => {
-          "mailboxfull" => ["quota exceeded while writing", "user over quota"],
-          "systemerror" => ["service unavailable"],
-          "systemfull"  => ["no space left to finish writing"],
+          Sisimai::Eb::ReFULL => ["quota exceeded while writing", "user over quota"],
+          Sisimai::Eb::RePROC => ["service unavailable"],
+          Sisimai::Eb::ReDISK => ["no space left to finish writing"],
         },
         "maildrop" => {
-          "userunknown" => ["cannot find system user", "invalid user specified."],
-          "mailboxfull" => ["maildir over quota."],
+          Sisimai::Eb::ReUSER => ["cannot find system user", "invalid user specified."],
+          Sisimai::Eb::ReFULL => ["maildir over quota."],
         },
         "vpopmail" => {
-          "filtered"    => ["user does not exist, but will deliver to "],
-          "mailboxfull" => ["domain is over quota", "user is over quota"],
-          "suspend"     => ["account is locked email bounced"],
-          "userunknown" => ["sorry, no mailbox here by that name."],
+          Sisimai::Eb::ReFILT => ["user does not exist, but will deliver to "],
+          Sisimai::Eb::ReFULL => ["domain is over quota", "user is over quota"],
+          Sisimai::Eb::ReQUIT => ["account is locked email bounced"],
+          Sisimai::Eb::ReUSER => ["sorry, no mailbox here by that name."],
         },
         "vmailmgr" => {
-          "mailboxfull" => ["delivery failed due to system quota violation"],
-          "userunknown" => [
+          Sisimai::Eb::ReFULL => ["delivery failed due to system quota violation"],
+          Sisimai::Eb::ReUSER => [
             "invalid or unknown base user or domain",
             "invalid or unknown virtual user",
             "user name does not refer to a virtual user",
