@@ -3,6 +3,7 @@ module Sisimai::Lhost
   # Methods in the module are called from only Sisimai::Message.
   module EZweb
     class << self
+      require 'sisimai/eb'
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
@@ -100,14 +101,14 @@ module Sisimai::Lhost
           if mhead['x-spasign'].to_s == 'NG'
             # Content-Type: text/plain; ..., X-SPASIGN: NG (spamghetti, au by EZweb)
             # Filtered recipient returns message that include 'X-SPASIGN' header
-            e['reason'] = 'filtered'
+            e['reason'] = Sisimai::Eb::ReFILT
           else
             # There is no X-SPASIGN header or the value of the header is not "NG"
-            e['reason'] = "suspend" if UnpaidUser.any? { |a| e['diagnosis'].include?(a) }
+            e['reason'] = Sisimai::Eb::ReQUIT if UnpaidUser.any? { |a| e['diagnosis'].include?(a) }
           end
           next if e['reason'] != ""
           next if e['recipient'].end_with?('@ezweb.ne.jp', '@au.com')
-          e["reason"] = "userunknown" if e["diagnosis"].start_with?("<")
+          e["reason"] = Sisimai::Eb::ReUSER if e["diagnosis"].start_with?("<")
         end
 
         return {"ds" => dscontents, "rfc822" => emailparts[1]}
