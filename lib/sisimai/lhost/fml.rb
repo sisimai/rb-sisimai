@@ -3,24 +3,25 @@ module Sisimai::Lhost
   # https://www.fml.org/. Methods in the module are called from only Sisimai::Message.
   module FML
     class << self
+      require 'sisimai/eb'
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['Original mail as follows:'].freeze
       ErrorTitle = {
-        'rejected' => [
+        Sisimai::Eb::ReFROM => [
           ' are not member',
           'NOT MEMBER article from ',
           'reject mail ',
           'Spam mail from a spammer is rejected',
         ],
-        'systemerror' => [
+        Sisimai::Eb::RePROC => [
           'fml system error message',
           'Loop Alert: ',
           'Loop Back Warning: ',
           'WARNING: UNIX FROM Loop',
         ],
-        'securityerror' => ['Security Alert'],
+        Sisimai::Eb::ReSAFE => ['Security Alert'],
       }.freeze
 
       # @abstract Decodes the bounce message from fml mailling list server/manager
