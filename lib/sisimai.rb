@@ -104,12 +104,13 @@ module Sisimai
     # Reason list Sisimai can detect
     # @return   [Hash]     Reason list table
     def reason
+      require 'sisimai/eb'
       require 'sisimai/reason'
       table = {}
       names = Sisimai::Reason.index
 
       # These reasons are not included in the results of Sisimai::Reason.index
-      names += %w[Delivered Feedback Undefined Vacation]
+      names += [Sisimai::Eb::ReSENT, Sisimai::Eb::ReFEED, Sisimai::Eb::Re___0, Sisimai::Eb::ReAWAY]
       while e = names.shift do
         # Call .description() method of Sisimai::Reason::*
         r = "Sisimai::Reason::#{e}"
