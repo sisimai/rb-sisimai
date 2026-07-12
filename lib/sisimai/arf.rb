@@ -2,6 +2,7 @@ module Sisimai
   # Sisimai::ARF is a decoder for the email returned as a FeedBack Loop report message.
   module ARF
     class << self
+      require 'sisimai/eb'
       require 'sisimai/lhost'
       require 'sisimai/rfc5322'
 
