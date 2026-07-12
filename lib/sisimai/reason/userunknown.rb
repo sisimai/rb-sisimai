@@ -1,11 +1,11 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::UserUnknown checks the bounce reason is "userunknown" or not. This class is
+    # Sisimai::Reason::UserUnknown checks the bounce reason is "UserUnknown" or not. This class is
     # called only Sisimai::Reason class.
     #
     # This is the error that a local part (Left hand side of @ sign) of a recipient's email address
     # does not exist. In many case, a user has changed internet service provider, or has quit company,
-    # or the local part is misspelled. Sisimai will set "userunknown" to the reason of email bounce
+    # or the local part is misspelled. Sisimai will set "UserUnknown" to the reason of email bounce
     # if the value of Status: field in a bounce email is "5.1.1", or connection was refused at SMTP
     # RCPT command, or the contents of Diagnostic-Code: field represents that it is unknown user.
     #
@@ -14,7 +14,11 @@ module Sisimai
     #   RCPT TO command)
     module UserUnknown
       class << self
-        PreMatches = %w[NoRelaying Blocked MailboxFull HasMoved Rejected NotAccept]
+        require 'sisimai/eb'
+        PreMatches = [
+          Sisimai::Eb::RePASS, Sisimai::Eb::ReBLOC, Sisimai::Eb::ReFULL,
+          Sisimai::Eb::ReMOVE, Sisimai::Eb::ReFROM, Sisimai::Eb::Re00MX,
+        ]
         ModulePath = {
           'Sisimai::Reason::NoRelaying'  => 'sisimai/reason/norelaying',
           'Sisimai::Reason::Blocked'     => 'sisimai/reason/blocked',
@@ -109,7 +113,7 @@ module Sisimai
           ["user <", "> unknown"],
         ].freeze
 
-        def text; return 'userunknown'; end
+        def text; return Sisimai::Eb::ReUSER; end
         def description; return "Email rejected due to a local part of a recipient's email address does not exist"; end
 
         # Try to match that the given text and regular expressions
@@ -122,20 +126,20 @@ module Sisimai
           return false
         end
 
-        # Whether the address is "userunknown" or not
+        # Whether the address is "UserUnknown" or not
         # @param    [Sisimai::Fact] argvs   Object to be detected the reason
         # @return   [Boolean]               true:  is unknown user
         #                                   false: is not unknown user.
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return true  if argvs['reason'] == 'userunknown'
+          return true  if argvs['reason'] == Sisimai::Eb::ReUSER
           return false if Sisimai::SMTP::Command::BeforeRCPT.include?(argvs['command'])
 
           tempreason = Sisimai::SMTP::Status.name(argvs['deliverystatus'])
-          return false if tempreason == 'suspend'
+          return false if tempreason == Sisimai::Eb::ReQUIT
 
           issuedcode = argvs['diagnosticcode'].downcase
-          if tempreason == 'userunknown'
+          if tempreason == Sisimai::Eb::ReUSER
             # *.1.1 = 'Bad destination mailbox address'
             #   Status: 5.1.1
             #   Diagnostic-Code: SMTP; 550 5.1.1 <***@example.jp>:
