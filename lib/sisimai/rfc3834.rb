@@ -3,6 +3,8 @@ module Sisimai
   module RFC3834
     class << self
       # http://tools.ietf.org/html/rfc3834
+      require 'sisimai/eb'
+
       MarkingsOf = {:boundary => '__SISIMAI_PSEUDO_BOUNDARY__'}
       LowerLabel = %w[from to subject auto-submitted precedence x-apple-action].freeze
       DoNotParse = {
@@ -116,13 +118,13 @@ module Sisimai
           break if haveloaded >= maxmsgline
         end
         v['diagnosis'] ||= mhead['subject']
-        v['reason']      = 'vacation'
+        v['reason']      = Sisimai::Eb::ReAWAY
 
         cv = v['diagnosis'].downcase
         Suspending.each do |e|
           # Check that the auto-replied message indicates the "Suspend" reason or not.
           next unless Sisimai::String.aligned(cv, e)
-          v['reason'] = 'suspend'
+          v['reason'] = Sisimai::Eb::ReQUIT
           break
         end
 
