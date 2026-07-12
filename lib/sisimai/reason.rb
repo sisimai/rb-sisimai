@@ -3,14 +3,18 @@ module Sisimai
   # Sisimai::Fact object as an argument of find() method. This class is called only Sisimai::Fact.
   module Reason
     class << self
+      require 'sisimai/eb'
+
       # All the error reason list Sisimai support
       # @return   [Array] Reason list
       def index
-        return %w[
-          AuthFailure BadReputation Blocked ContentError EmailTooLarge Expired FailedSTARTTLS Filtered
-          HasMoved HostUnknown MailboxFull MailerError NetworkError NotAccept NotCompliantRFC RateLimited
-          OnHold Rejected NoRelaying SpamDetected VirusDetected PolicyViolation SecurityError Suspend
-          RequirePTR SystemError SystemFull Suppressed UserUnknown SyntaxError
+        return [
+          Sisimai::Eb::ReAUTH, Sisimai::Eb::ReFAMA, Sisimai::Eb::ReBLOC, Sisimai::Eb::ReBODY, Sisimai::Eb::ReSIZE,
+          Sisimai::Eb::ReTIME, Sisimai::Eb::ReTTLS, Sisimai::Eb::ReFILT, Sisimai::Eb::ReMOVE, Sisimai::Eb::ReHOST,
+          Sisimai::Eb::ReFULL, Sisimai::Eb::ReUNIX, Sisimai::Eb::ReINET, Sisimai::Eb::Re00MX, Sisimai::Eb::ReNRFC,
+          Sisimai::Eb::ReRATE, Sisimai::Eb::Re___1, Sisimai::Eb::ReFROM, Sisimai::Eb::RePASS, Sisimai::Eb::ReSPAM,
+          Sisimai::Eb::ReEXEC, Sisimai::Eb::ReWONT, Sisimai::Eb::ReSAFE, Sisimai::Eb::ReQUIT, Sisimai::Eb::ReQPTR,
+          Sisimai::Eb::RePROC, Sisimai::Eb::ReDISK, Sisimai::Eb::ReSTOP, Sisimai::Eb::ReUSER, Sisimai::Eb::ReCOMM,
         ]
       end
 
@@ -20,7 +24,7 @@ module Sisimai
       def is_explicit(argv1 = '')
         return false if argv1.nil?
         return false if argv1.empty?
-        return false if argv1 == "undefined" || argv1 == "onhold" || argv1.empty?
+        return false if argv1 == Sisimai::Eb::Re___0 || argv1 == Sisimai::Eb::Re___1 || argv1.empty?
         return true
       end
 
@@ -38,29 +42,29 @@ module Sisimai
       # @return   [Hash] Reason list
       def retry
         return {
-          'undefined' => true, 'onhold' => true, 'systemerror' => true, 'securityerror' => true,
-          'expired' => true, 'networkerror' => true, 'hostunknown' => true, 'userunknown' => true
+          Sisimai::Eb::Re___0 => true, Sisimai::Eb::Re___1 => true, Sisimai::Eb::RePROC => true,
+          Sisimai::Eb::ReSAFE => true, Sisimai::Eb::ReTIME => true, Sisimai::Eb::ReINET => true,
+          Sisimai::Eb::ReHOST => true, Sisimai::Eb::ReUSER => true, 
         }.freeze
       end
       ModulePath = Sisimai::Reason.path
       GetRetried = Sisimai::Reason.retry
       ClassOrder = [
         # 0. true() meethod in the following reasons are called from Reason->find()
-        %w[MailboxFull EmailTooLarge Suspend HasMoved NoRelaying AuthFailure UserUnknown Filtered RequirePTR
-           NotCompliantRFC BadReputation ContentError Rejected HostUnknown SpamDetected RateLimited Blocked
-           FailedSTARTTLS NotAccept VirusDetected PolicyViolation
-        ],
+        [Sisimai::Eb::ReFULL, Sisimai::Eb::ReSIZE, Sisimai::Eb::ReQUIT, Sisimai::Eb::ReMOVE, Sisimai::Eb::RePASS,
+         Sisimai::Eb::ReAUTH, Sisimai::Eb::ReUSER, Sisimai::Eb::ReFILT, Sisimai::Eb::ReQPTR, Sisimai::Eb::ReNRFC,
+         Sisimai::Eb::ReFAMA, Sisimai::Eb::ReBODY, Sisimai::Eb::ReFROM, Sisimai::Eb::ReHOST, Sisimai::Eb::ReSPAM, 
+         Sisimai::Eb::ReBLOC, Sisimai::Eb::ReTTLS, Sisimai::Eb::Re00MX, Sisimai::Eb::ReEXEC, Sisimai::Eb::ReWONT],
+
         # 1. match() method in the following reasons are called from Reason->find()
-        %w[
-          MailboxFull SpamDetected VirusDetected NoRelaying SystemError NetworkError Suspend SystemFull
-          Suppressed MailerError SecurityError PolicyViolation SyntaxError Expired
-        ],
-        %w[
-          MailboxFull EmailTooLarge Suspend UserUnknown Filtered Rejected HostUnknown SpamDetected
-          RateLimited Blocked SpamDetected AuthFailure FailedSTARTTLS SecurityError SystemError
-          NetworkError Suspend Expired ContentError HasMoved SystemFull NotAccept MailerError
-          NoRelaying Suppressed SyntaxError OnHold
-        ]
+        [Sisimai::Eb::ReFULL, Sisimai::Eb::ReSPAM, Sisimai::Eb::ReEXEC, Sisimai::Eb::RePASS, Sisimai::Eb::ReINET,
+         Sisimai::Eb::ReSTOP, Sisimai::Eb::ReUNIX, Sisimai::Eb::ReSAFE, Sisimai::Eb::ReWONT, Sisimai::Eb::ReCOMM,
+         Sisimai::Eb::ReTIME],
+        [Sisimai::Eb::ReFULL, Sisimai::Eb::ReSIZE, Sisimai::Eb::ReQUIT, Sisimai::Eb::ReUSER, Sisimai::Eb::ReFILT,
+         Sisimai::Eb::ReFROM, Sisimai::Eb::ReHOST, Sisimai::Eb::ReSPAM, Sisimai::Eb::ReRATE, Sisimai::Eb::ReBLOC,
+         Sisimai::Eb::ReAUTH, Sisimai::Eb::ReTTLS, Sisimai::Eb::ReSAFE, Sisimai::Eb::RePROC, Sisimai::Eb::ReINET,
+         Sisimai::Eb::ReTIME, Sisimai::Eb::ReBODY, Sisimai::Eb::ReMOVE, Sisimai::Eb::ReDISK, Sisimai::Eb::Re00MX,
+         Sisimai::Eb::ReUNIX, Sisimai::Eb::RePASS, Sisimai::Eb::ReSTOP, Sisimai::Eb::ReCOMM, Sisimai::Eb::Re___1],
       ]
 
       # Detect the bounce reason
@@ -74,7 +78,7 @@ module Sisimai
           # retry() method.
           return argvs['reason'] if argvs['reason'].empty? == false
         end
-        return 'delivered' if argvs['deliverystatus'].start_with?('2.')
+        return Sisimai::Eb::ReSENT if argvs['deliverystatus'].start_with?('2.')
 
         reasontext = ''
         issuedcode = argvs['diagnosticcode'] || ''
@@ -100,11 +104,11 @@ module Sisimai
           end
         end
 
-        if reasontext.empty? || reasontext == 'undefined'
+        if reasontext.empty? || reasontext == Sisimai::Eb::Re___0
           # Bounce reason is not detected yet.
           reasontext = self.anotherone(argvs)
 
-          if reasontext == 'undefined' || reasontext.empty?
+          if reasontext == Sisimai::Eb::Re___0 || reasontext.empty?
             # Action: delayed => "expired"
             reasontext   = nil
             reasontext ||= 'expired' if argvs['action'] == 'delayed'
@@ -112,9 +116,9 @@ module Sisimai
 
             # Try to match with message patterns in Sisimai::Reason::Vacation
             require 'sisimai/reason/vacation'
-            reasontext   = 'vacation' if Sisimai::Reason::Vacation.match(issuedcode.downcase)
-            reasontext ||= 'onhold'   if issuedcode.empty? == false
-            reasontext ||= 'undefined'
+            reasontext   = Sisimai::Eb::ReAWAY if Sisimai::Reason::Vacation.match(issuedcode.downcase)
+            reasontext ||= Sisimai::Eb::Re___1 if issuedcode.empty? == false
+            reasontext ||= Sisimai::Eb::Re___0
           end
         end
         return reasontext
@@ -151,7 +155,7 @@ module Sisimai
             end
 
             next if r.match(issuedcode) == false
-            reasontext = e.downcase
+            reasontext = e
             break
           end
           break if reasontext.empty? == false
@@ -160,15 +164,15 @@ module Sisimai
           code2digit = statuscode[0, 3] || ''
           if code2digit == '5.6' || code2digit == '4.6'
             #  X.6.0   Other or undefined media error
-            reasontext = 'contenterror'
+            reasontext = Sisimai::Eb::ReBODY
 
           elsif code2digit == '5.7' || code2digit == '4.7'
             #  X.7.0   Other or undefined security status
-            reasontext = 'securityerror'
+            reasontext = Sisimai::Eb::ReSAFE
 
           elsif codeformat.start_with?('X-UNIX')
             # Diagnostic-Code: X-UNIX; ...
-            reasontext = 'mailererror'
+            reasontext = Sisimai::Eb::ReUNIX
 
           else
             # 50X Syntax Error?
@@ -180,11 +184,11 @@ module Sisimai
           # Check the value of Action: field, first
           if actiontext.start_with?('delayed', 'expired')
             # Action: delayed, expired
-            reasontext = 'expired'
+            reasontext = Sisimai::Eb::ReTIME
           else
             # Rejected at connection or after EHLO|HELO
             thecommand = argvs['command'] || ''
-            reasontext = 'blocked' if %w[HELO EHLO].index(thecommand)
+            reasontext = Sisimai::Eb::ReBLOC if %w[HELO EHLO].index(thecommand)
           end
           break
         end
