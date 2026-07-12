@@ -4,6 +4,7 @@ module Sisimai
     # from Sisimai.reason method.
     module Vacation
       class << self
+        require 'sisimai/eb'
         Index = [
           'i am away on vacation',
           'i am away until',
@@ -11,7 +12,7 @@ module Sisimai
           'i will be traveling for work on',
         ].freeze
 
-        def text; return 'vacation'; end
+        def text; return Sisimai::Eb::ReAWAY; end
         def description; return 'Email replied automatically due to a recipient is out of office'; end
 
         # Try to match that the given text and regular expressions
