@@ -1,12 +1,13 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::Expired checks the bounce reason is "expired" or not. This class is called only
+    # Sisimai::Reason::Expired checks the bounce reason is "Expired" or not. This class is called only
     # Sisimai::Reason class.
     #
     # This is the error that delivery time has expired due to connection failure or network error and
     # the message you sent has been in the queue for long time.
     module Expired
       class << self
+        require 'sisimai/eb'
         Index = [
           "connection timed out",
           "could not find a gateway for",
@@ -39,7 +40,7 @@ module Sisimai
           ["not", "reach", "period"], # Exim/smtp.c:3508
         ].freeze
 
-        def text; return 'expired'; end
+          def text; return Sisimai::Eb::ReIME; end
         def description; return 'Delivery time has expired due to a connection failure'; end
 
         # Try to match that the given text and regular expressions
