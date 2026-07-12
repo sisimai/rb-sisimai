@@ -1,6 +1,6 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::NoRelaying checks the bounce reason is "norelaying" or not. This class is
+    # Sisimai::Reason::NoRelaying checks the bounce reason is "NoRelaying" or not. This class is
     # called only Sisimai::Reason class.
     #
     #    ... while talking to mailin-01.mx.example.com.:
@@ -9,6 +9,7 @@ module Sisimai
     #    554 5.0.0 Service unavailable
     module NoRelaying
       class << self
+        require 'sisimai/eb'
         Index = [
           "as a relay",
           "domain isn't in my list of allowed rcpthost",
@@ -32,7 +33,7 @@ module Sisimai
           ["n", "t ", "to relay"],
         ].freeze
 
-        def text; return 'norelaying'; end
+        def text; return Sisimai::Eb::RePASS; end
         def description; return 'Email rejected with error message "Relaying Denied"'; end
 
         # Try to match that the given text and regular expressions
@@ -53,7 +54,7 @@ module Sisimai
         def true(argvs)
           r = argvs['reason'] || ''
           return false if Sisimai::SMTP::Command::BeforeRCPT.include?(argvs['command'])
-          return false if r.start_with?('securityerror', 'systemerror', 'undefined')
+          return false if r.start_with?(Sisimai::Eb::ReSAFE, Sisimai::Eb::RePROC, Sisimai::Eb::Re___0)
           return match(argvs['diagnosticcode'].downcase)
         end
 
