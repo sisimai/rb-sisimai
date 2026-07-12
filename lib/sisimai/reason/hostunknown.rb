@@ -2,10 +2,11 @@ module Sisimai
   module Reason
     # This is the error that a domain part ( Right hand side of @ sign ) of a recipient's email
     # address does not exist. In many case, the domain part is misspelled, or the domain name has
-    # been expired. Sisimai will set "hostunknown" to the reason of email bounce if the value of
+    # been expired. Sisimai will set "HostUnknown" to the reason of email bounce if the value of
     # Status: field in a bounce mail is "5.1.2".
     module HostUnknown
       class << self
+        require 'sisimai/eb'
         Index = [
           "all host address lookups failed", # Exim/transports/smtp.c:3524
           "couldn't find any host ",         # qmail-remote.c:78
@@ -32,7 +33,7 @@ module Sisimai
           ["unrout", "able ", "address"],
         ].freeze
 
-        def text; return 'hostunknown'; end
+        def text; return Sisimai::Eb::ReHOST; end
         def description; return "Delivery failed due to a domain part of a recipient's email address does not exist"; end
 
         # Try to match that the given text and regular expressions
@@ -52,13 +53,13 @@ module Sisimai
         #                                   false: is not unknown host.
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return true  if argvs['reason'] == 'hostunknown'
+          return true  if argvs['reason'] == Sisimai::Eb::ReHOST
           return false if Sisimai::SMTP::Command::BeforeRCPT.include?(argvs['command'])
 
           issuedcode = argvs['diagnosticcode'].downcase || ''
           statuscode = argvs['deliverystatus'] || ''
 
-          if Sisimai::SMTP::Status.name(statuscode) == 'hostunknown'
+          if Sisimai::SMTP::Status.name(statuscode) == Sisimai::Eb::ReHOST
             # To prevent classifying DNS errors as "HostUnknown"
             require 'sisimai/reason/networkerror'
             return true if Sisimai::Reason::NetworkError.match(issuedcode) == false
