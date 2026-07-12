@@ -3,13 +3,14 @@ module Sisimai::Lhost
   # (formerly Lotus Notes Server)). Methods in the module are called from only Sisimai::Message.
   module Notes
     class << self
+      require 'sisimai/eb'
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['------- Returned Message --------'].freeze
       StartingOf = {message: ['------- Failure Reasons ']}.freeze
       MessagesOf = {
-        'userunknown' => [
+        Sisimai::Eb::ReUSER => [
           'User not listed in public Name & Address Book',
           'ディレクトリのリストにありません',
         ],
