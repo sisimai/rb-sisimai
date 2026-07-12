@@ -1,12 +1,12 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::SecurityError checks the bounce reason is "securityerror" or not. This class
+    # Sisimai::Reason::SecurityError checks the bounce reason is "SecurityError" or not. This class
     # is called only Sisimai::Reason class.
     #
     # This is the error that a security violation was detected on a destination mail server. Depends
     # on the security policy on the server, a sender's email address is camouflaged address.
     #
-    # Sisimai will set "securityerror" to the reason of email bounce if the value of Status: field
+    # Sisimai will set "SecurityError" to the reason of email bounce if the value of Status: field
     # in a bounce email is "5.7.*".
     #
     #   Action: failed
@@ -17,6 +17,7 @@ module Sisimai
     #
     module SecurityError
       class << self
+        require 'sisimai/eb'
         Index = [
           "account not subscribed to ses",
           "authentication credentials invalid",
@@ -36,7 +37,7 @@ module Sisimai
           ["user ", " is not authorized to perform ses:sendrawemail on resource"],
         ].freeze
 
-        def text; return 'securityerror'; end
+        def text; return Sisimai::Eb::ReSAFE; end
         def description; return 'Email rejected due to security violation was detected on a destination host'; end
 
         # Try to match that the given text and regular expressions
