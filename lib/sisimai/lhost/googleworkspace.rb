@@ -3,6 +3,7 @@ module Sisimai::Lhost
   # Methods in the module are called only from Sisimai::Message.
   module GoogleWorkspace
     class << self
+      require 'sisimai/eb'
       require 'sisimai/lhost'
       require 'sisimai/string'
       require 'sisimai/address'
@@ -14,7 +15,7 @@ module Sisimai::Lhost
         error:   ["The response was:", "The response from the remote server was:"],
       }.freeze
       MessagesOf = {
-        "userunknown"  => ["because the address couldn't be found. Check for typos or unnecessary spaces and try again."],
+        Sisimai::Eb::ReUSER => ["because the address couldn't be found. Check for typos or unnecessary spaces and try again."],
       }.freeze
 
       # @abstract Decodes the bounce message from Google Workspace
