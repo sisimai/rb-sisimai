@@ -1,12 +1,13 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::MailboxFull checks the bounce reason is "mailboxfull" or not. This class is
+    # Sisimai::Reason::MailboxFull checks the bounce reason is "MailboxFull" or not. This class is
     # called only Sisimai::Reason class.
     #
-    # This is the error that a recipient's mailbox is full. Sisimai will set "mailboxfull" to the
+    # This is the error that a recipient's mailbox is full. Sisimai will set "MailboxFull" to the
     # reason of email bounce if the value of Status: field in a bounce email is "4.2.2" or "5.2.2".
     module MailboxFull
       class << self
+        require 'sisimai/eb'
         Index = [
           "452 insufficient disk space",
           "account disabled temporarly for exceeding receiving limits",
@@ -37,7 +38,7 @@ module Sisimai
           ["quota ", "exceeded"], # Exim/transports/appendfile.c:3050
         ].freeze
 
-        def text; return 'mailboxfull'; end
+        def text; return Sisimai::Eb::ReFULL; end
         def description; return "Email rejected due to a recipient's mailbox is full"; end
 
         # Try to match that the given text and regular expressions
@@ -57,12 +58,12 @@ module Sisimai
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
           return false if argvs['deliverystatus'].empty?
-          return true  if argvs['reason'] == 'mailboxfull'
+          return true  if argvs['reason'] == Sisimai::Eb::ReFULL
 
-          # Delivery status code points "mailboxfull".
+          # Delivery status code points "MailboxFull".
           # Status: 4.2.2
           # Diagnostic-Code: SMTP; 450 4.2.2 <***@example.jp>... Mailbox Full
-          return true if Sisimai::SMTP::Status.name(argvs['deliverystatus']) == 'mailboxfull'
+          return true if Sisimai::SMTP::Status.name(argvs['deliverystatus']) == Sisimai::Eb::ReFULL
           return match(argvs['diagnosticcode'].downcase)
         end
 
