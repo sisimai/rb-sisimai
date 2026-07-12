@@ -1,10 +1,10 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::SyntaxError checks the bounce reason is "syntaxerror" or not. This class is
+    # Sisimai::Reason::SyntaxError checks the bounce reason is "SyntaxError" or not. This class is
     # called only Sisimai::Reason class.
     #
     # This is the error that a destination mail server could not recognize SMTP command which is
-    # sent from a sender's MTA. Sisimai will set "syntaxerror" to the reason if the value of
+    # sent from a sender's MTA. Sisimai will set "SyntaxError" to the reason if the value of
     # "replycode" begins with "50" such as 502, or 503.
     #   Action: failed
     #   Status: 5.5.0
@@ -12,7 +12,8 @@ module Sisimai
     #
     module SyntaxError
       class << self
-        def text; return 'syntaxerror'; end
+        require 'sisimai/eb'
+        def text; return Sisimai::Eb::ReCOMM; end
         def description; return 'Email rejected due to syntax error at sent commands in SMTP session'; end
         def match(*); return false; end
 
