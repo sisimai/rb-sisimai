@@ -1,11 +1,11 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::PolicyViolation checks the bounce reason is "policyviolation" or not. This class
+    # Sisimai::Reason::PolicyViolation checks the bounce reason is "PolicyViolation" or not. This class
     # is called only Sisimai::Reason class.
     #
     # This is the error that a policy violation was detected on a destination mail host. When a header
     # content or a format of the original message violates security policies, or multiple addresses
-    # exist in the From: header, Sisimai will set "policyviolation".
+    # exist in the From: header, Sisimai will set "PolicyViolation".
     #
     #   Status: 5.7.0
     #   Remote-MTA: DNS; gmail-smtp-in.l.google.com
@@ -14,6 +14,7 @@ module Sisimai
     #
     module PolicyViolation
       class << self
+        require 'sisimai/eb'
         Index = [
           "because the recipient is not accepting mail with ",    # AOL Phoenix
           "closed mailing list",
@@ -31,7 +32,7 @@ module Sisimai
           "you're using a mass mailer",
         ].freeze
 
-        def text; return 'policyviolation'; end
+        def text; return Sisimai::Eb::ReWONT; end
         def description; return 'Email rejected due to policy violation on a destination host'; end
 
         # Try to match that the given text and regular expressions
@@ -44,14 +45,14 @@ module Sisimai
           return false
         end
 
-        # The bounce reason is "policyviolation" or not
+        # The bounce reason is "PolicyViolation" or not
         # @param    [Sisimai::Fact] argvs   Object to be detected the reason
         # @return   [Boolean]               true:  is policy violation
         #                                   false: is not policy violation
         # @since 4.22.0
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return true  if argvs['reason'] == 'policyviolation'
+          return true  if argvs['reason'] == Sisimai::Eb::ReWONT
           return false if argvs['command'] != '' && argvs['command'] != 'DATA'
           return match(argvs['diagnosticcode'].downcase)
         end
