@@ -1,13 +1,14 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::ContentError checks the bounce reason is "contenterror" or not This class is
+    # Sisimai::Reason::ContentError checks the bounce reason is "ContentError" or not This class is
     # called only Sisimai::Reason class.
     #
     # This is the error that a destination mail server has rejected email due to header format of the
-    # email like the following. Sisimai will set "contenterror" to the reason of email bounce if the
+    # email like the following. Sisimai will set "ContentError" to the reason of email bounce if the
     # value of Status: field in a bounce email is "5.6.*".
     module ContentError
       class << self
+        reuire 'sisimai/eb'
         Index = [
           "charset not supported",
           "executable files are not allowed in compressed files",
@@ -27,7 +28,7 @@ module Sisimai
           "we do not accept messages containing images or other attachments",
         ].freeze
 
-        def text; return 'contenterror'; end
+        def text; return Sisimai::Eb::ReBODY; end
         def description; return 'Email rejected due to a header format of the email'; end
 
         # Try to match that the given text and regular expressions
@@ -46,9 +47,9 @@ module Sisimai
         # @see      http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
           require 'sisimai/reason/spamdetected'
-          return true  if argvs["reason"] == "blocked"
+          return true  if argvs["reason"] == Sisimai::Eb::ReBLOC
           return false if Sisimai::Reason::SpamDetected.true(argvs)
-          return true  if Sisimai::SMTP::Status.name(argvs["deliverystatus"]) == "contenterror"
+          return true  if Sisimai::SMTP::Status.name(argvs["deliverystatus"]) == Sisimai::Eb::ReBODY
           return match(argvs["diagnosticcode"].downcase)
         end
 
