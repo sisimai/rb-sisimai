@@ -1,10 +1,10 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::Rejected checks the bounce reason is "rejected" or not. This class is called
+    # Sisimai::Reason::Rejected checks the bounce reason is "Rejected" or not. This class is called
     # only Sisimai::Reason class.
     #
     # This is the error that a connection to destination server was rejected by a sender's email
-    # address (envelope from). Sisimai set "rejected" to the reason of email bounce if the value of
+    # address (envelope from). Sisimai set "Rejected" to the reason of email bounce if the value of
     # Status: field in a bounce email is "5.1.8" or the connection has been rejected due to the
     # argument of SMTP MAIL command.
     #
@@ -13,6 +13,7 @@ module Sisimai
     #   Remote host said: 550 5.7.1 <root@nijo.example.jp>... Access denied
     module Rejected
       class << self
+        require 'sisimai/eb'
         IsNot = [
           "5.1.0 address rejected",
           "ip address ",
@@ -69,7 +70,7 @@ module Sisimai
           ["sender is", " list"],
         ].freeze
 
-        def text; return 'rejected'; end
+        def text; return Sisimai::Eb::ReFROM; end
         def description; return "Email rejected due to a sender's email address (envelope from)"; end
 
         # Try to match that the given text and regular expressions
@@ -89,9 +90,9 @@ module Sisimai
         #                                   false: is not rejected by the sender
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return true if argvs['reason'] == 'rejected'
+          return true if argvs['reason'] == Sisimai::Eb::ReFROM
           tempreason = Sisimai::SMTP::Status.name(argvs['deliverystatus'])
-          return true if tempreason == 'rejected' # Delivery status code points "rejected".
+          return true if tempreason == Sisimai::Eb::ReFROM # Delivery status code points "Rejected".
 
           # Check the value of Diagnosic-Code: header with patterns
           issuedcode = argvs['diagnosticcode'].downcase
@@ -102,15 +103,18 @@ module Sisimai
 
           elsif thecommand == 'DATA'
             # The session was rejected at 'DATA' command
-            if tempreason != 'userunknown'
-              # Except "userunknown"
+            if tempreason != Sisimai::Eb::ReUSER
+              # Except "UserUnknown"
               return true if match(issuedcode)
             end
-          elsif %w[onhold undefined securityerror systemerror].include?(tempreason) || tempreason == ""
-            # Try to match with message patterns when the temporary reason is "onhold", "undefined",
-            # "securityerror", or "systemerror"
-            return true if match(issuedcode)
-          end
+          else
+            tryto = [Sisimai::Eb::Re___1, Sisimai::Eb::Re___0, Sisimai::Eb::ReSAFE, Sisimai::Eb::RePROC]
+            if tryto.include?(tempreason) || tempreason == ""
+              # Try to match with message patterns when the temporary reason is "OnHold", "Undefined",
+              # "SecurityError", or "SystemError"
+              return true if match(issuedcode)
+            end
+          end 
           return false
         end
 
