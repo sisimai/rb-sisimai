@@ -1,6 +1,6 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::RateLimited checks the bounce reason is "ratelimited" or not. This class is
+    # Sisimai::Reason::RateLimited checks the bounce reason is "RateLimited" or not. This class is
     # called only Sisimai::Reason class.
     #
     # This is the error that SMTP connection was rejected temporarily due to too many recipients or
@@ -10,6 +10,7 @@ module Sisimai
     #     452 4.3.2 Connection rate limit exceeded. (in reply to MAIL FROM command)
     module RateLimited
       class << self
+        require 'sisimai/eb'
         Index = [
           "has exceeded the max emails per hour ",
           "please try again slower",
@@ -29,7 +30,7 @@ module Sisimai
           ["too many con", "s"],
         ].freeze
 
-        def text; return 'ratelimited'; end
+        def text; return Sisimai::Eb::ReRATE; end
         def description; return 'SMTP connection rejected temporarily due to too many concurrency connections to the remote host'; end
 
         # Try to match that the given text and regular expressions
@@ -48,8 +49,8 @@ module Sisimai
         #                                   false: is not rate limited
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return true if argvs['reason'] == 'ratelimited'
-          return true if Sisimai::SMTP::Status.name(argvs['deliverystatus']) == 'ratelimited'
+          return true if argvs['reason'] == Sisimai::Eb::ReRATE
+          return true if Sisimai::SMTP::Status.name(argvs['deliverystatus']) == Sisimai::Eb::ReRATE
           return match(argvs['diagnosticcode'].downcase)
         end
 
