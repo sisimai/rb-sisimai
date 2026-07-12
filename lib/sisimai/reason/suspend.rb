@@ -1,10 +1,11 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::Suspend checks the bounce reason is "suspend" or not. This class is called
+    # Sisimai::Reason::Suspend checks the bounce reason is "Suspend" or not. This class is called
     # only Sisimai::Reason class.  This is the error that a recipient account is being suspended
     # due to unpaid or other reasons.
     module Suspend
       class << self
+        require 'sisimai/eb'
         Index = [
           " currently suspended",
           " temporary locked",
@@ -37,7 +38,7 @@ module Sisimai
           ["not ", "active"],
         ].freeze
 
-        def text; return 'suspend'; end
+        def text; return Sisimai::Eb::ReQUIT; end
         def description; return 'Email rejected due to a recipient account is being suspended'; end
 
         # Try to match that the given text and regular expressions
@@ -56,7 +57,7 @@ module Sisimai
         #                                   false: is not suspended
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return true if argvs['reason'] == 'suspend' || argvs['replycode'].to_i == 525
+          return true if argvs['reason'] == Sisimai::Eb::ReQUIT || argvs['replycode'].to_i == 525
           return match(argvs['diagnosticcode'].downcase)
         end
 
