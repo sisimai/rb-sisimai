@@ -1,6 +1,6 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::SystemError checks the bounce reason is "systemerror" or not. This class is
+    # Sisimai::Reason::SystemError checks the bounce reason is "SystemError" or not. This class is
     # called only Sisimai::Reason class. This is the error that an email has bounced due to system
     # error on the remote host such as LDAP connection failure or other internal system error.
     #
@@ -9,6 +9,7 @@ module Sisimai
     #   message has been in the queue too long.
     module SystemError
       class << self
+        require 'sisimai/eb'
         Index = [
           "aliasing/forwarding loop broken",
           "automatic homedir creator crashed", # qmail-ldap-1.03-20040101.patch:19817 - 19866
@@ -52,7 +53,7 @@ module Sisimai
           ["unable to connect ", "daemon"],
         ].freeze
 
-        def text; return 'systemerror'; end
+        def text; return Sisimai::Eb::RePROC; end
         def description; return 'Email returned due to system error on the remote host'; end
 
         # Try to match that the given text and regular expressions
