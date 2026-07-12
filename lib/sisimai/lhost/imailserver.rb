@@ -4,13 +4,14 @@ module Sisimai::Lhost
   # Methods in the module are called from only Sisimai::Message.
   module IMailServer
     class << self
+      require 'sisimai/eb'
       require 'sisimai/lhost'
 
       Boundaries = ['Original message follows.'].freeze
       StartingOf = {error: ['Body of message generated response:']}.freeze
       MessagesOf = {
-        'userunknown' => ['Unknown user', 'Invalid final delivery userid'],
-        'expired'     => ['Delivery failed '],
+        Sisimai::Eb::ReUSER => ['Unknown user', 'Invalid final delivery userid'],
+        Sisimai::Eb::ReTIME => ['Delivery failed '],
       }.freeze
 
       # @abstract Decodes the bounce message from Progress iMail Server
