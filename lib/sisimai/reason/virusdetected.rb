@@ -4,7 +4,7 @@ module Sisimai
     # is called only Sisimai::Reason class.
     #
     # This is an error that any virus or trojan horse detected in the message by a virus scanner program
-    # at a destination mail server. This reason has been divided from "securityerror" at Sisimai 4.22.0.
+    # at a destination mail server. This reason has been divided from "SecurityError" at Sisimai 4.22.0.
     #
     #   Your message was infected with a virus. You should download a virus
     #   scanner and check your computer for viruses.
