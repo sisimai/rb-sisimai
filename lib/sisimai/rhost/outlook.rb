@@ -5,9 +5,10 @@ module Sisimai
     # only from Sisimai::Fact class.
     module Outlook
       class << self
+        require 'sisimai/eb'
         MessagesOf = {
-          "hostunknown" => ["The mail could not be delivered to the recipient because the domain is not reachable"],
-          "userunknown" => ["Requested action not taken: mailbox unavailable"],
+          Sisimai::Eb::ReHOST => ["The mail could not be delivered to the recipient because the domain is not reachable"],
+          Sisimai::Eb::ReUSER => ["Requested action not taken: mailbox unavailable"],
         }.freeze
 
         # Detect bounce reason from Microsoft Outlook.com: https://www.outlook.com/
