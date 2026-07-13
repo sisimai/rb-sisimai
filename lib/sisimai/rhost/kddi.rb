@@ -5,9 +5,10 @@ module Sisimai
     # This class is called only Sisimai::Fact class.
     module KDDI
       class << self
+        require 'sisimai/eb'
         MessagesOf = {
-          'filtered'    => '550 : user unknown',  # The response was: 550 : User unknown
-          'userunknown' => '>: user unknown',     # The response was: 550 <...>: User unknown
+          Sisimai::Eb::ReFILT => '550 : user unknown',  # The response was: 550 : User unknown
+          Sisimai::Eb::ReUSER => '>: user unknown',     # The response was: 550 <...>: User unknown
         }.freeze
 
         # Detect bounce reason from au (KDDI)
