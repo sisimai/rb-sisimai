@@ -18,7 +18,7 @@ module Sisimai
         ]
       end
 
-      # @abstract is_explicit() returns 0 when the argument is empty or is "undefined" or is "onhold"
+      # @abstract is_explicit() returns 0 when the argument is empty or is "Undefined" or is "OnHold"
       # @param    string argv1  Reason name
       # @return   bool          false: The reaosn is not explicit
       def is_explicit(argv1 = '')
@@ -231,7 +231,7 @@ module Sisimai
           # Detect the bounce reason from "Status:" code
           require 'sisimai/smtp/status'
           reasontext = Sisimai::SMTP::Status.name(Sisimai::SMTP::Status.find(argv1))
-          reasontext = "undefined" if reasontext.empty?
+          reasontext = Sisimai::Eb::Re___0 if reasontext.empty?
         end
         return reasontext
       end
