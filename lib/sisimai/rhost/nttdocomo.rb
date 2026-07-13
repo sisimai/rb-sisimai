@@ -5,11 +5,12 @@ module Sisimai
     # is called only Sisimai::Fact class.
     module NTTDOCOMO
       class << self
+        require 'sisimai/eb'
         MessagesOf = {
-          'mailboxfull' => ['552 too much mail data'],
-          'ratelimited' => ['552 too many recipients'],
-          'syntaxerror' => ['503 bad sequence of commands', '504 command parameter not implemented'],
-          'userunknown' => ['550 unknown user'],
+          Sisimai::Eb::ReFULL => ['552 too much mail data'],
+          Sisimai::Eb::ReRATE => ['552 too many recipients'],
+          Sisimai::Eb::ReCOMM => ['503 bad sequence of commands', '504 command parameter not implemented'],
+          Sisimai::Eb::ReUSER => ['550 unknown user'],
         }.freeze
 
         # Detect bounce reason from NTT DOCOMO
@@ -44,15 +45,15 @@ module Sisimai
           # Final-Recipient: RFC822; ***@docomo.ne.jp
           # Action: failed
           # Status: 5.2.0
-          return 'userunknown' if statuscode == '5.1.1' || statuscode == '5.9.213'
-          return 'filtered'    if statuscode == '5.2.0'
+          return Sisimai::Eb::ReUSER if statuscode == '5.1.1' || statuscode == '5.9.213'
+          return Sisimai::Eb::ReFILT if statuscode == '5.2.0'
 
           MessagesOf.each_key do |e|
             # The value of "Diagnostic-Code:" field is not empty
             # - The key name is a bounce reason name
             # - https://github.com/sisimai/go-sisimai/issues/64
             # - After March 12, 2025, if an error message contains "550 Unknown user", the
-            #   bounce reason will be definitively "userunknown". This is because NTT DOCOMO
+            #   bounce reason will be definitively "UserUnknown". This is because NTT DOCOMO
             #   no longer rejects emails via SMTP for domain-specific rejection or specified
             #   reception filters.
             return e if MessagesOf[e].any? { |a| esmtperror.include?(a) }
@@ -84,8 +85,8 @@ module Sisimai
             # Status: 5.0.0
             # Remote-MTA: dns; mfsmax.docomo.ne.jp
             # Diagnostic-Code: smtp; 550 Unknown user ***@docomo.ne.jp
-            return 'userunknown' if thecommand == 'RCPT'
-            return 'rejected'    if thecommand == 'DATA'
+            return Sisimai::Eb::ReUSER if thecommand == 'RCPT'
+            return Sisimai::Eb::ReFROM if thecommand == 'DATA'
           end
 
           # 1. Rejected by other SMTP commands: AUTH, MAIL,
