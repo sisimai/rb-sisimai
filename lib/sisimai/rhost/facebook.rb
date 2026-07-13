@@ -5,13 +5,14 @@ module Sisimai
     # called only from Sisimai::Fact class.
     module Facebook
       class << self
+        require 'sisimai/eb'
         ErrorCodes = {
           # http://postmaster.facebook.com/response_codes
           # NOT TESTD EXCEPT RCP-P2
-          "authfailure" => [
+          Sisimai::Eb::ReAUTH => [
             "POL-P7",   # The message does not comply with Facebook's Domain Authentication requirements.
           ],
-          "blocked" => [
+          Sisimai::Eb::ReBLOC => [
             "POL-P1",   # Your mail server's IP Address is listed on the Spamhaus PBL.
             "POL-P2",   # Facebook will no longer accept mail from your mail server's IP Address.
             "POL-P3",   # Facebook is not accepting messages from your mail server. This will persist for 4 to 8 hours.
@@ -20,59 +21,59 @@ module Sisimai
             "POL-T2",   # ", but they may be retried later. This will persist for 4 to 8 hours.
             "POL-T3",   # ", but they may be retried later. This will persist for 24 to 48 hours.
           ],
-          "contenterror" => [
+          Sisimai::Eb::ReBODY => [
             "MSG-P2",   # The message contains an attachment type that Facebook does not accept.
           ],
-          "emailtoolarge" => [
+          Sisimai::Eb::ReSIZE => [
             "MSG-P1",   # The message exceeds Facebook's maximum allowed size.
             "INT-P2",   # The message exceeds Facebook's maximum allowed size.
           ],
-          "filtered" => [
+          Sisimai::Eb::ReFILT => [
             "RCP-P2",   # The attempted recipient's preferences prevent messages from being delivered.
             "RCP-P3",   # The attempted recipient's privacy settings blocked the delivery.
           ],
-          "mailboxfull" => [
+          Sisimai::Eb::ReFULL => [
             "INT-P7",   # The attempted recipient has exceeded their storage quota.
           ],
-          "notcompliantrfc" => [
+          Sisimai::Eb::ReNRFC => [
             "MSG-P3",   # The message contains multiple instances of a header field that can only be present once.
           ],
-          "policyviolation" => [
+          Sisimai::Eb::ReWONT => [
             "POL-P8",   # The message does not comply with Facebook's abuse policies and will not be accepted.
           ],
-          "ratelimited" => [
+          Sisimai::Eb::ReRATE => [
             "CON-T1",   # Facebook's mail server currently has too many connections open to allow another one.
             "CON-T2",   # Your mail server currently has too many connections open to Facebook's mail servers.
             "CON-T3",   # Your mail server has opened too many new connections to Facebook's mail servers in a short period of time.
             "CON-T4",   # Your mail server has exceeded the maximum number of recipients for its current connection.
             "MSG-T1",   # The number of recipients on the message exceeds Facebook's allowed maximum.
           ],
-          "rejected" => [
+          Sisimai::Eb::ReFROM => [
             "DNS-P1",   # Your SMTP MAIL FROM domain does not exist.
             "DNS-P2",   # Your SMTP MAIL FROM domain does not have an MX record.
             "DNS-T1",   # Your SMTP MAIL FROM domain exists but does not currently resolve.
           ],
-          "requireptr" => [
+          Sisimai::Eb::ReQPTR => [
             "DNS-P3",   # Your mail server does not have a reverse DNS record.
             "DNS-T2",   # You mail server's reverse DNS record does not currently resolve.
           ],
-          "spamdetected" => [
+          Sisimai::Eb::ReSPAM => [
             "POL-P6",   # The message contains a url that has been blocked by Facebook.
           ],
-          "suspend" => [
+          Sisimai::Eb::ReQUIT => [
             "RCP-T4",   # The attempted recipient address is currently deactivated. The user may or may not reactivate it.
           ],
-          "systemerror" => [
+          Sisimai::Eb::RePROC => [
             "RCP-T1",   # The attempted recipient address is not currently available due to an internal system issue.
             "INT-Tx",   # These codes indicate a temporary issue internal to Facebook's system.
           ],
-          "userunknown" => [
+          Sisimai::Eb::ReUSER => [
             "RCP-P1",   # The attempted recipient address does not exist.
             "INT-P1",   # The attempted recipient address does not exist.
             "INT-P3",   # The attempted recipient group address does not exist.
             "INT-P4",   # The attempted recipient address does not exist.
           ],
-          "virusdetected" => [
+          Sisimai::Eb::ReEXEC => [
             "POL-P5",   # The message contains a virus.
           ],
         }.freeze
