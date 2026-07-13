@@ -5,11 +5,12 @@ module Sisimai
     # called only from Sisimai::Fact class.
     module GSuite
       class << self
+        require 'sisimai/eb'
         MessagesOf = {
-          "hostunknown"  => [" responded with code NXDOMAIN", "Domain name not found"],
-          "networkerror" => [" had no relevant answers.", "responded with code NXDOMAIN", "Domain name not found"],
-          "notaccept"    => ["Null MX"],
-          "userunknown"  => ["because the address couldn't be found. Check for typos or unnecessary spaces and try again."],
+          Sisimai::Eb::ReHOST => [" responded with code NXDOMAIN", "Domain name not found"],
+          Sisimai::Eb::ReINET => [" had no relevant answers.", "responded with code NXDOMAIN", "Domain name not found"],
+          Sisimai::Eb::Re00MX => ["Null MX"],
+          Sisimai::Eb::ReUSER => ["because the address couldn't be found. Check for typos or unnecessary spaces and try again."],
         }.freeze
 
         # Detect bounce reason from Gsuite Mail: https://www.aol.com
@@ -25,9 +26,9 @@ module Sisimai
           MessagesOf.each_key do |e|
             # Try to match the error message with message patterns defined in $MessagesOf
             next if MessagesOf[e].none? { |a| argvs["diagnosticcode"].include?(a) }
-            next if e == "networkerror" && (statuscode == "5" || esmtpreply == "5")
-            next if e == "hostunknown"  && (statuscode == "4" || statuscode == "")
-            next if e == "hostunknown"  && (esmtpreply == "4" || esmtpreply == "")
+            next if e == Sisimai::Eb::ReINET && (statuscode == "5" || esmtpreply == "5")
+            next if e == Sisimai::Eb::ReHOST && (statuscode == "4" || statuscode == "")
+            next if e == Sisimai::Eb::ReHOST && (esmtpreply == "4" || esmtpreply == "")
             reasontext = e
             break
           end
