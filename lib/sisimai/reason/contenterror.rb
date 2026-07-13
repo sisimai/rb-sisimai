@@ -8,7 +8,7 @@ module Sisimai
     # value of Status: field in a bounce email is "5.6.*".
     module ContentError
       class << self
-        reuire 'sisimai/eb'
+        require 'sisimai/eb'
         Index = [
           "charset not supported",
           "executable files are not allowed in compressed files",
