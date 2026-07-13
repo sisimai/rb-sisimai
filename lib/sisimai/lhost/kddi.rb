@@ -76,7 +76,7 @@ module Sisimai::Lhost
             e['reason'] = Sisimai::Eb::ReFILT
           else
             # There is no X-SPASIGN: header in the bounce message
-            # set "userunknown" when the remote server rejected after RCPT command.
+            # set "UserUnknown" when the remote server rejected after RCPT command.
             e['reason'] = Sisimai::Eb::ReUSER if e['command'] == 'RCPT'
           end
         end
