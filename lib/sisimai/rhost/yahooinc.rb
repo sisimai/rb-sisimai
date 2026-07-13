@@ -5,13 +5,14 @@ module Sisimai
     # This class is called only Sisimai::Fact class.
     module YahooInc
       class << self
+        require 'sisimai/eb'
         MessagesOf = {
-          'authfailure' => [
+          Sisimai::Eb::ReAUTH => [
             # - 550 5.7.9 This mail has been blocked because the sender is unauthenticated. Yahoo
             #   requires all senders to authenticate with either SPF or DKIM.
             'yahoo requires all senders to authenticate with either spf or dkim',
           ],
-          'blocked' => [
+          Sisimai::Eb::ReBLOC => [
             # - 553 5.7.1 [BL21] Connections will not be accepted from 192.0.2.25,
             #   because the ip is in Spamhaus's list; see http://postmaster.yahoo.com/550-bl23.html
             # - 553 5.7.1 [BL23] Connections not accepted from IP addresses on Spamhaus XBL;
@@ -19,26 +20,26 @@ module Sisimai
             " because the ip is in spamhaus's list;",
             'not accepted from ip addresses on spamhaus xbl',
           ],
-          'norelaying' => [
+          Sisimai::Eb::RePASS => [
             # - 550 relaying denied for <***@yahoo.com>
             'relaying denied for ',
           ],
-          'notcompliantrfc' => ['headers are not rfc compliant'],
-          'policyviolation' => [
+          Sisimai::Eb::ReNRFC => ['headers are not rfc compliant'],
+          Sisimai::Eb::ReWONT => [
             # - 554 Message not allowed - [PH01] Email not accepted for policy reasons.
             #   Please visit https://postmaster.yahooinc.com/error-codes
             # - 554 5.7.9 Message not accepted for policy reasons. 
             #   See https://postmaster.yahooinc.com/error-codes
             'not accepted for policy reasons',
           ],
-          'ratelimited' => [
+          Sisimai::Eb::ReRATE => [
             # - 421 Max message per connection reached, closing transmission channel
             'max message per connection reached',
 
             # - 450 User is receiving mail too quickly
             'user is receiving mail too quickly',
           ],
-          'rejected' => [
+          Sisimai::Eb::ReFROM => [
             # Observed the following error message since around March 2024:
             #
             # - 421 4.7.0 [TSS04] Messages from 192.0.2.25 temporarily deferred due to unexpected
@@ -60,18 +61,18 @@ module Sisimai
             #   Retrying will NOT succeed. See https://postmaster.yahooinc.com/error-codes
             ' will be permanently deferred',
           ],
-          'suspend' => [
+          Sisimai::Eb::ReQUIT => [
             # - 554 delivery error: dd ****@yahoo.com is no longer valid.
             # - 554 30 Sorry, your message to *****@aol.jp cannot be delivered.
             #   This mailbox is disabled (554.30)
             ' is no longer valid.',
             'this mailbox is disabled',
           ],
-          'syntaxerror' => [
+          Sisimai::Eb::ReCOMM => [
             # - 501 Syntax error in parameters or arguments
             'syntax error in parameters or arguments',
           ],
-          'userunknown' => [
+          Sisimai::Eb::ReUSER => [
             # - 554 delivery error: dd This user doesn't have a yahoo.com account (***@yahoo.com)
             # - 552 1 Requested mail action aborted, mailbox not found (in reply to end of DATA command)
             "dd this user doesn't have a ",
