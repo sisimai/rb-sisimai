@@ -40,7 +40,7 @@ module Sisimai
           ["not", "reach", "period"], # Exim/smtp.c:3508
         ].freeze
 
-          def text; return Sisimai::Eb::ReIME; end
+        def text; return Sisimai::Eb::ReTIME; end
         def description; return 'Delivery time has expired due to a connection failure'; end
 
         # Try to match that the given text and regular expressions
