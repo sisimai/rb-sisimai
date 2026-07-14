@@ -54,12 +54,13 @@ module Sisimai
         [Sisimai::Eb::ReFULL, Sisimai::Eb::ReSIZE, Sisimai::Eb::ReQUIT, Sisimai::Eb::ReMOVE, Sisimai::Eb::RePASS,
          Sisimai::Eb::ReAUTH, Sisimai::Eb::ReUSER, Sisimai::Eb::ReFILT, Sisimai::Eb::ReQPTR, Sisimai::Eb::ReNRFC,
          Sisimai::Eb::ReFAMA, Sisimai::Eb::ReBODY, Sisimai::Eb::ReFROM, Sisimai::Eb::ReHOST, Sisimai::Eb::ReSPAM, 
-         Sisimai::Eb::ReBLOC, Sisimai::Eb::ReTTLS, Sisimai::Eb::Re00MX, Sisimai::Eb::ReEXEC, Sisimai::Eb::ReWONT],
+         Sisimai::Eb::ReRATE, Sisimai::Eb::ReBLOC, Sisimai::Eb::ReTTLS, Sisimai::Eb::Re00MX, Sisimai::Eb::ReEXEC,
+         Sisimai::Eb::ReWONT],
 
         # 1. match() method in the following reasons are called from Reason->find()
-        [Sisimai::Eb::ReFULL, Sisimai::Eb::ReSPAM, Sisimai::Eb::ReEXEC, Sisimai::Eb::RePASS, Sisimai::Eb::ReINET,
-         Sisimai::Eb::ReSTOP, Sisimai::Eb::ReUNIX, Sisimai::Eb::ReSAFE, Sisimai::Eb::ReWONT, Sisimai::Eb::ReCOMM,
-         Sisimai::Eb::ReTIME],
+        [Sisimai::Eb::ReFULL, Sisimai::Eb::ReSPAM, Sisimai::Eb::ReEXEC, Sisimai::Eb::RePASS, Sisimai::Eb::RePROC,
+         Sisimai::Eb::ReINET, Sisimai::Eb::ReQUIT, Sisimai::Eb::ReDISK, Sisimai::Eb::ReSTOP, Sisimai::Eb::ReUNIX,
+         Sisimai::Eb::ReSAFE, Sisimai::Eb::ReWONT, Sisimai::Eb::ReCOMM, Sisimai::Eb::ReTIME],
         [Sisimai::Eb::ReFULL, Sisimai::Eb::ReSIZE, Sisimai::Eb::ReQUIT, Sisimai::Eb::ReUSER, Sisimai::Eb::ReFILT,
          Sisimai::Eb::ReFROM, Sisimai::Eb::ReHOST, Sisimai::Eb::ReSPAM, Sisimai::Eb::ReRATE, Sisimai::Eb::ReBLOC,
          Sisimai::Eb::ReAUTH, Sisimai::Eb::ReTTLS, Sisimai::Eb::ReSAFE, Sisimai::Eb::RePROC, Sisimai::Eb::ReINET,
@@ -111,7 +112,7 @@ module Sisimai
           if reasontext == Sisimai::Eb::Re___0 || reasontext.empty?
             # Action: delayed => "expired"
             reasontext   = nil
-            reasontext ||= 'expired' if argvs['action'] == 'delayed'
+            reasontext ||= Sisimai::Eb::ReTIME if argvs['action'] == 'delayed'
             return reasontext if reasontext
 
             # Try to match with message patterns in Sisimai::Reason::Vacation
@@ -177,7 +178,7 @@ module Sisimai
           else
             # 50X Syntax Error?
             require 'sisimai/reason/syntaxerror'
-            reasontext = 'syntaxerror' if Sisimai::Reason::SyntaxError.true(argvs)
+            reasontext = Sisimai::Eb::ReCOMM if Sisimai::Reason::SyntaxError.true(argvs)
           end
           break if reasontext.empty? == false
 
@@ -226,7 +227,7 @@ module Sisimai
 
         if issuedcode.upcase.include?('X-UNIX; ')
           # X-Unix; ...
-          reasontext = 'mailererror'
+          reasontext = Sisimai::Eb::ReUNIX
         else
           # Detect the bounce reason from "Status:" code
           require 'sisimai/smtp/status'
