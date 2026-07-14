@@ -221,7 +221,7 @@ module Sisimai
             # Tidy up the error message in e.Diagnosis, Try to detect the bounce reason.
             j += 1
             e["diagnosis"] = e["diagnosis"] + anotherone
-            e["reason"]    = "feedback"
+            e["reason"]    = Sisimai::Eb::ReFEED
             e["rhost"]     = remotehost
             e["lhost"]     = reportedby
             e["date"]      = timestamp0
