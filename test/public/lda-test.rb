@@ -6,11 +6,11 @@ require 'sisimai/message'
 class LDATest < Minitest::Test
   Methods = { class: %w[find] }
   Mailset = {
-    "rfc3464-01"       => "mailboxfull",
-    "rfc3464-04"       => "systemerror",
-    "rfc3464-06"       => "userunknown",
-    "lhost-postfix-01" => "mailererror",
-    "lhost-qmail-10"   => "suspend",
+    "rfc3464-01"       => "MailboxFull",
+    "rfc3464-04"       => "SystemError",
+    "rfc3464-06"       => "UserUnknown",
+    "lhost-postfix-01" => "MailerError",
+    "lhost-qmail-10"   => "Suspend",
   }
 
   def test_methods
