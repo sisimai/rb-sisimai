@@ -132,7 +132,7 @@ class ReasonTest < Minitest::Test
     assert_instance_of Hash, cv
 
     cv.each_key do |e|
-      assert_match %r|\A[a-z]+\z|, e
+      assert_match %r|\A[A-Za-z]+\z|, e
       assert_equal true, cv[e]
     end
 
@@ -158,7 +158,7 @@ class ReasonTest < Minitest::Test
   end
 
   def test_match
-    cv = Sisimai.reason.keys.map { |e| e.to_s.downcase }
+    cv = Sisimai.reason.keys.map { |e| e.to_s }
     Message.each do |e|
       ca = Sisimai::Reason.match(e)
       cb = Sisimai.match(e)
@@ -171,17 +171,17 @@ class ReasonTest < Minitest::Test
     end
 
     assert_empty Sisimai::Reason.match(nil)
-    assert_equal 'mailererror', Sisimai::Reason.match('X-Unix; 77')
+    assert_equal 'MailerError', Sisimai::Reason.match('X-Unix; 77')
   end
 
   def test_is_explicit
-    %w[undefined onhold].each do |e|
+    %w[Undefined OnHold].each do |e|
       assert_equal false, Sisimai::Reason.is_explicit(e)
     end
     assert_equal false, Sisimai::Reason.is_explicit("")
 
     Sisimai::Reason.index.each do |e|
-      next if e == "undefined" || e == "onhold"
+      next if e == "Undefined" || e == "OnHold"
       assert_equal true, Sisimai::Reason.is_explicit(e)
     end
 
