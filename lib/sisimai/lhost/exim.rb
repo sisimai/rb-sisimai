@@ -421,7 +421,7 @@ module Sisimai::Lhost
           re = e["reason"]
           cv = ""
 
-          if Sisimai::SMTP::Failure.is_temporary(cr) || re == "expired"
+          if Sisimai::SMTP::Failure.is_temporary(cr) || re == Sisimai::Eb::ReTIME
             # Set the pseudo status code as a temporary error
             cv = Sisimai::SMTP::Status.code(re, true) if Sisimai::Reason.is_explicit(re)
           end
