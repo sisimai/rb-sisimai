@@ -91,7 +91,7 @@ module Sisimai
           reasontext = e; break
         end
 
-        reasontext = "mailererror" if reasontext.empty?
+        reasontext = Sisimai::Eb::ReUNIX if reasontext.empty?
         return reasontext
       end
     end
