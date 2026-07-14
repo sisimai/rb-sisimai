@@ -15,6 +15,7 @@ module Sisimai
     require 'sisimai/string'
     require 'sisimai/rhost'
     require 'sisimai/lda'
+    require 'sisimai/eb'
 
     @@rwaccessors = [
       :action,          # [String] The value of Action: header
@@ -122,7 +123,7 @@ module Sisimai
       while e = deliveries.shift do
         # Create parameters for each Sisimai::Fact object
         next if e['recipient'].size < 5
-        next if ! argvs[:vacation]  && e['reason'] == 'vacation'
+        next if ! argvs[:vacation]  && e['reason'] == Sisimai::Eb::ReAWAY
         next if ! argvs[:delivered] && e['status'].start_with?('2.')
 
         thing = {}  # To be passed to each accessor of Sisimai::Fact
@@ -353,7 +354,7 @@ module Sisimai
           piece['diagnosticcode'] = piece['diagnosticcode'].force_encoding('UTF-8').scrub('?')
         end
 
-        piece["diagnostictype"] = "X-UNIX" if piece["reason"] == "mailererror"
+        piece["diagnostictype"] = "X-UNIX" if piece["reason"] == Sisimai::Eb::ReUNIX
         if piece["diagnostictype"].empty?
           piece["diagnostictype"] = "SMTP" if %w[feedback vacation].include?(piece["reason"]) == false
         end
@@ -422,25 +423,30 @@ module Sisimai
         while true
           if thing["reason"].empty? || RetryIndex[thing["reason"]]
             # The value of "reason" is empty or is needed to check with other values again
-            re = thing["reason"].empty? ? "undefined" : thing["reason"]
+            re = thing["reason"].empty? ? Sisimai::Eb::Re___0 : thing["reason"]
             cr = Sisimai::LDA.find(thing);    if Sisimai::Reason.is_explicit(cr) then thing["reason"] = cr; break; end
             cr = Sisimai::Rhost.find(thing);  if Sisimai::Reason.is_explicit(cr) then thing["reason"] = cr; break; end
             cr = Sisimai::Reason.find(thing); if Sisimai::Reason.is_explicit(cr) then thing["reason"] = cr; break; end
-            thing["reason"] = thing["diagnosticcode"].size > 0 ? "onhold" : re
+            thing["reason"] = thing["diagnosticcode"].size > 0 ? Sisimai::Eb::Re___1 : re
             break
           end
           break
         end
 
-        # HARDBOUNCE: Set the value of "hardbounce", default value of "bouncebounce" is false
-        if thing['reason'] == 'delivered' || thing['reason'] == 'feedback' || thing['reason'] == 'vacation'
-          # Delete the value of ReplyCode when the Reason is "feedback" or "vacation"
-          thing['replycode'] = '' if thing['reason'] != 'delivered'
-        else
-          # The reason is not "delivered", or "feedback", or "vacation"
+        while true
+          # HARDBOUNCE: Set the value of "hardbounce", default value of "bouncebounce" is false
+          break if thing['reason'] == Sisimai::Eb::ReSENT
+          if thing['reason'] == Sisimai::Eb::ReFEED || thing['reason'] == Sisimai::Eb::ReAWAY
+            # Delete the value of ReplyCode when the Reason is "Feedback" or "Vacation"
+            thing['replycode'] = ""
+            break
+          end
+
+          # The reason is not "Delivered", or "Feedback", or "Vacation"
           smtperrors = "#{piece['deliverystatus']} #{piece['diagnosticcode']}"
           smtperrors = '' if smtperrors.size < 4
           thing['hardbounce'] = Sisimai::SMTP::Failure.is_hardbounce(thing['reason'], smtperrors)
+          break
         end
 
         # DELIVERYSTATUS: Set a pseudo status code if the value of "deliverystatus" is empty
@@ -473,8 +479,8 @@ module Sisimai
           end
         end
         thing["action"] = ""          if thing["action"].nil?
-        thing["action"] = "delivered" if thing["action"].empty? && thing["reason"] == "delivered"
-        thing["action"] = "delayed"   if thing["action"].empty? && thing["reason"] == "expired"
+        thing["action"] = "delivered" if thing["action"].empty? && thing["reason"] == Sisimai::Eb::ReSENT
+        thing["action"] = "delayed"   if thing["action"].empty? && thing["reason"] == Sisimai::Eb::ReTIME
         thing["action"] = "failed"    if thing["action"].empty? && cx[0] == "4" || cx[0] == "5"
 
         if thing["replycode"].size > 0
@@ -489,6 +495,7 @@ module Sisimai
 
         # Feedback-ID: 1.us-west-2.QHuyeCQrGtIIMGKQfVdUhP9hCQR2LglVOrRamBc+Prk=:AmazonSES
         thing["feedbackid"] = rfc822data["feedback-id"] || ""
+        thing["reason"]     = thing["reason"].downcase
 
         listoffact << Sisimai::Fact.new(thing)
       end

@@ -1,6 +1,6 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::MailerError checks the bounce reason is "mailererror" or not. This class is
+    # Sisimai::Reason::MailerError checks the bounce reason is "MailerError" or not. This class is
     # called only Sisimai::Reason class.
     #
     # This is the error that a mailer program has not exited successfully or exited unexpectedly on
@@ -10,6 +10,7 @@ module Sisimai
     #   Diagnostic-Code: X-Unix; 255
     module MailerError
       class << self
+        require 'sisimai/eb'
         Index = [
           ' || exit ',
           'procmail: ',
@@ -23,7 +24,7 @@ module Sisimai
           'x-unix; ',
         ].freeze
 
-        def text; return 'mailererror'; end
+        def text; return Sisimai::Eb::ReUNIX; end
         def description; return 'Email returned due to a mailer program has not exited successfully'; end
 
         # Try to match that the given text and regular expressions

@@ -5,13 +5,13 @@ class SMTPFailure < Minitest::Test
   Methods = { class: %w[is_permanent is_temporary is_hardbounce is_softbounce] }
   Bounces = {
     soft: [
-      'blocked', 'contenterror', 'emailtoolarge', 'expired', 'failedstarttls', 'filtered', 'mailboxfull',
-      'mailererror', 'networkerror', 'norelaying', 'rejected', 'securityerror', 'spamdetected',
-      'suppressed', 'suspend', 'systemerror', 'systemfull', 'ratelimited', 'undefined', 'onhold',
+      'Blocked', 'ContentError', 'EmailTooLarge', 'Expired', 'FailedSTARTTLS', 'Filtered', 'MailboxFull',
+      'MailerError', 'NetworkError', 'NoRelaying', 'Rejected', 'SecurityError', 'SpamDetected',
+      'Suppressed', 'Suspend', 'SystemError', 'SystemFull', 'RateLimited', 'Undefined', 'OnHold',
     ],
-    hard: ['userunknown', 'hostunknown', 'hasmoved', 'notaccept'],
+    hard: ['UserUnknown', 'HostUnknown', 'HasMoved', 'NotAccept'],
   }
-  NoError = ['delivered', 'feedback', 'vacation']
+  NoError = ['Delivered', 'Feedback', 'Vacation']
   WasSent = ['smtp; 2.1.5 250 OK']
   TempErr = [
     'smtp; 450 4.0.0 Temporary failure',
@@ -64,8 +64,8 @@ class SMTPFailure < Minitest::Test
     Bounces[:soft].each { |e| assert_equal false, Sisimai::SMTP::Failure.is_hardbounce(e) }
     Bounces[:hard].each do |e|
       assert_equal true,  Sisimai::SMTP::Failure.is_hardbounce(e)
-      assert_equal true,  Sisimai::SMTP::Failure.is_hardbounce(e, '503 Not accept any email') if e == 'notaccept'
-      assert_equal false, Sisimai::SMTP::Failure.is_hardbounce(e, '458 Not accept any email') if e == 'notaccept'
+      assert_equal true,  Sisimai::SMTP::Failure.is_hardbounce(e, '503 Not accept any email') if e == 'NotAccept'
+      assert_equal false, Sisimai::SMTP::Failure.is_hardbounce(e, '458 Not accept any email') if e == 'NotAccept'
     end
 
     ce = assert_raises ArgumentError do
@@ -78,8 +78,8 @@ class SMTPFailure < Minitest::Test
     Bounces[:soft].each { |e| assert_equal true, Sisimai::SMTP::Failure.is_softbounce(e) }
     Bounces[:hard].each do |e|
       assert_equal false, Sisimai::SMTP::Failure.is_softbounce(e)
-      assert_equal false, Sisimai::SMTP::Failure.is_softbounce(e, '503 Not accept any email') if e == 'notaccept'
-      assert_equal true,  Sisimai::SMTP::Failure.is_softbounce(e, '458 Not accept any email') if e == 'notaccept'
+      assert_equal false, Sisimai::SMTP::Failure.is_softbounce(e, '503 Not accept any email') if e == 'NotAccept'
+      assert_equal true,  Sisimai::SMTP::Failure.is_softbounce(e, '458 Not accept any email') if e == 'NotAccept'
     end
 
     ce = assert_raises ArgumentError do

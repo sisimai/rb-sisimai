@@ -5,8 +5,9 @@ module Sisimai
     # This class is called only Sisimai::Fact class.
     module Apple
       class << self
+        require 'sisimai/eb'
         MessagesOf = {
-          'authfailure' => [
+          Sisimai::Eb::ReAUTH => [
             # - 554 5.7.1 Your message was rejected due to example.jp's DMARC policy.
             #   See https://support.apple.com/en-us/HT204137 for
             # - 554 5.7.1 [HME1] This message was blocked for failing both SPF and DKIM authentication
@@ -14,7 +15,7 @@ module Sisimai
             's dmarc policy',
             'blocked for failing both spf and dkim autentication checks',
           ],
-          'blocked' => [
+          Sisimai::Eb::ReBLOC => [
             # - 550 5.7.0 Blocked - see https://support.proofpoint.com/dnsbl-lookup.cgi?ip=192.0.1.2
             # - 550 5.7.1 Your email was rejected due to having a domain present in the Spamhaus
             #   DBL -- see https://www.spamhaus.org/dbl/
@@ -26,39 +27,39 @@ module Sisimai
             'blocked - see https://support.proofpoint.com/dnsbl-lookup',
             'not accepting connections',
           ],
-          'hasmoved' => [
+          Sisimai::Eb::ReMOVE => [
             # - 550 5.1.6 recipient no longer on server: *****@icloud.com
             'recipient no longer on server',
           ],
-          'mailboxfull' => [
+          Sisimai::Eb::ReFULL => [
             # - 552 5.2.2 <****@icloud.com>: user is over quota (in reply to RCPT TO command)
             'user is over quota',
           ],
-          'norelaying' => [
+          Sisimai::Eb::RePASS => [
             # - 554 5.7.1 <*****@icloud.com>: Relay access denied
             'relay access denied',
           ],
-          'notaccept' => ['host/domain does not accept mail'],
-          'policyviolation' => [
+          Sisimai::Eb::Re00MX => ['host/domain does not accept mail'],
+          Sisimai::Eb::ReWONT => [
             # - 550 5.7.1 [CS01] Message rejected due to local policy.
             #   Please visit https://support.apple.com/en-us/HT204137
             'due to local policy',
           ],
-          'ratelimited' => [
+          Sisimai::Eb::ReRATE => [
             # - 421 4.7.1 Messages to ****@icloud.com deferred due to excessive volume.
             #   Try again later - https://support.apple.com/en-us/HT204137
             'due to excessive volume',
           ],
-          'rejected' => [
+          Sisimai::Eb::ReFROM => [
             # - 450 4.1.8 <kijitora@example.jp>: Sender address rejected: Domain not found
             'sender address rejected',
           ],
-          'suspend' => [
+          Sisimai::Eb::ReQUIT => [
             # - https://support.apple.com/guide/icloud/stop-using-or-reactivate-addresses-mm3adb030cbf/icloud
             # - 550 5.1.1 <****@icloud.com>: inactive email address (in reply to RCPT TO command)
             "inactive email address",
           ],
-          'userunknown' => [
+          Sisimai::Eb::ReUSER => [
               # - 550 5.1.1 <****@icloud.com>: inactive email address (in reply to RCPT TO command)
               # - 550 5.1.1 unknown or illegal alias: ****@icloud.com
               'user does not exist',

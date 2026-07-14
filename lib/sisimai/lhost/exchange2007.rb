@@ -4,6 +4,7 @@ module Sisimai::Lhost
   # Methods in the module are called from only Sisimai::Message.
   module Exchange2007
     class << self
+      require 'sisimai/eb'
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
@@ -32,19 +33,19 @@ module Sisimai::Lhost
         ]
       }.freeze
       NDRSubject = {
-        "SMTPSEND.DNS.NonExistentDomain" => "hostunknown",   # 554 5.4.4 SMTPSEND.DNS.NonExistentDomain
-        "SMTPSEND.DNS.MxLoopback"        => "networkerror",  # 554 5.4.4 SMTPSEND.DNS.MxLoopback
-        "RESOLVER.ADR.BadPrimary"        => "systemerror",   # 550 5.2.0 RESOLVER.ADR.BadPrimary
-        "RESOLVER.ADR.RecipNotFound"     => "userunknown",   # 550 5.1.1 RESOLVER.ADR.RecipNotFound
-        "RESOLVER.ADR.RecipientNotFound" => "userunknown",   # 550 5.1.1 RESOLVER.ADR.RecipientNotFound
-        "RESOLVER.ADR.ExRecipNotFound"   => "userunknown",   # 550 5.1.1 RESOLVER.ADR.ExRecipNotFound
-        "RESOLVER.ADR.RecipLimit"        => "ratelimited",   # 550 5.5.3 RESOLVER.ADR.RecipLimit
-        "RESOLVER.ADR.InvalidInSmtp"     => "systemerror",   # 550 5.1.0 RESOLVER.ADR.InvalidInSmtp
-        "RESOLVER.ADR.Ambiguous"         => "systemerror",   # 550 5.1.4 RESOLVER.ADR.Ambiguous, 420 4.2.0 RESOLVER.ADR.Ambiguous
-        "RESOLVER.RST.AuthRequired"      => "securityerror", # 550 5.7.1 RESOLVER.RST.AuthRequired
-        "RESOLVER.RST.NotAuthorized"     => "rejected",      # 550 5.7.1 RESOLVER.RST.NotAuthorized
-        "RESOLVER.RST.RecipSizeLimit"    => "emailtoolarge", # 550 5.2.3 RESOLVER.RST.RecipSizeLimit
-        "QUEUE.Expired"                  => "expired",       # 550 4.4.7 QUEUE.Expired
+        "SMTPSEND.DNS.NonExistentDomain" => Sisimai::Eb::ReHOST, # 554 5.4.4 SMTPSEND.DNS.NonExistentDomain
+        "SMTPSEND.DNS.MxLoopback"        => Sisimai::Eb::ReINET, # 554 5.4.4 SMTPSEND.DNS.MxLoopback
+        "RESOLVER.ADR.BadPrimary"        => Sisimai::Eb::RePROC, # 550 5.2.0 RESOLVER.ADR.BadPrimary
+        "RESOLVER.ADR.RecipNotFound"     => Sisimai::Eb::ReUSER, # 550 5.1.1 RESOLVER.ADR.RecipNotFound
+        "RESOLVER.ADR.RecipientNotFound" => Sisimai::Eb::ReUSER, # 550 5.1.1 RESOLVER.ADR.RecipientNotFound
+        "RESOLVER.ADR.ExRecipNotFound"   => Sisimai::Eb::ReUSER, # 550 5.1.1 RESOLVER.ADR.ExRecipNotFound
+        "RESOLVER.ADR.RecipLimit"        => Sisimai::Eb::ReRATE, # 550 5.5.3 RESOLVER.ADR.RecipLimit
+        "RESOLVER.ADR.InvalidInSmtp"     => Sisimai::Eb::RePROC, # 550 5.1.0 RESOLVER.ADR.InvalidInSmtp
+        "RESOLVER.ADR.Ambiguous"         => Sisimai::Eb::RePROC, # 550 5.1.4 RESOLVER.ADR.Ambiguous, 420 4.2.0 RESOLVER.ADR.Ambiguous
+        "RESOLVER.RST.AuthRequired"      => Sisimai::Eb::ReSAFE, # 550 5.7.1 RESOLVER.RST.AuthRequired
+        "RESOLVER.RST.NotAuthorized"     => Sisimai::Eb::ReFROM, # 550 5.7.1 RESOLVER.RST.NotAuthorized
+        "RESOLVER.RST.RecipSizeLimit"    => Sisimai::Eb::ReSIZE, # 550 5.2.3 RESOLVER.RST.RecipSizeLimit
+        "QUEUE.Expired"                  => Sisimai::Eb::ReTIME, # 550 4.4.7 QUEUE.Expired
       }.freeze
       MailSender = ["postmaster@outlook.com", ".onmicrosoft.com"].freeze
       EmailTitle = [

@@ -2,6 +2,7 @@ module Sisimai
   module RFC3464
     module ThirdParty
       class << self
+        require 'sisimai/eb'
         ThirdParty = {
           #"Aol"     => ["X-Outbound-Mail-Relay-"], # X-Outbound-Mail-Relay-(Queue-ID|Sender)
           "PowerMTA" => ["X-PowerMTA-"],            # X-PowerMTA-(VirtualMTA|BounceCategory)
@@ -50,15 +51,15 @@ module Sisimai
             "x-powermta-bouncecategory" => "text", # X-PowerMTA-BounceCategory: bad-mailbox
           }.freeze
           MessagesOf = {
-            "bad-domain"          => "hostunknown",
-            "bad-mailbox"         => "userunknown",
-            "inactive-mailbox"    => "suspend",
-            "message-expired"     => "expired",
-            "no-answer-from-host" => "networkerror",
-            "policy-related"      => "policyviolation",
-            "quota-issues"        => "mailboxfull",
-            "routing-errors"      => "systemerror",
-            "spam-related"        => "spamdetected",
+            "bad-domain"          => Sisimai::Eb::ReHOST,
+            "bad-mailbox"         => Sisimai::Eb::ReUSER,
+            "inactive-mailbox"    => Sisimai::Eb::ReQUIT,
+            "message-expired"     => Sisimai::Eb::ReTIME,
+            "no-answer-from-host" => Sisimai::Eb::ReINET,
+            "policy-related"      => Sisimai::Eb::ReWONT,
+            "quota-issues"        => Sisimai::Eb::ReFULL,
+            "routing-errors"      => Sisimai::Eb::RePROC,
+            "spam-related"        => Sisimai::Eb::ReSPAM,
           }.freeze
 
           # Returns an array which is compatible with the value returned from Sisimai::RFC1894->field()

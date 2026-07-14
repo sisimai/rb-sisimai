@@ -4,10 +4,10 @@ require 'sisimai/smtp/status'
 class SMTPStatusTest < Minitest::Test
   Methods = { class: %w[code name test find] }
   Reasons = %w[
-      authfailure badreputation blocked contenterror emailtoolarge expired filtered hasmoved
-      hostunknown mailboxfull mailererror networkerror notaccept onhold rejected norelaying
-      spamdetected virusdetected policyviolation securityerror ratelimited suspend requireptr
-      notcompliantrfc systemerror systemfull userunknown syntaxerror
+      AuthFailure BadReputation Blocked ContentError EmailTooLarge Expired Filtered HasMoved
+      HostUnknown MailboxFull MailerError NetworkError NotAccept OnHold Rejected NoRelaying
+      SpamDetected VirusDetected PolicyViolation SecurityError RateLimited Suspend RequirePTR
+      NotCompliantRFC SystemError SystemFull UserUnknown SyntaxError
     ]
   CodeSet = %w[
     2.1.5
@@ -56,7 +56,7 @@ class SMTPStatusTest < Minitest::Test
       assert_instance_of String, cv
       assert_match /\A5[.]9[.]\d+/, cv
 
-      next if e == "userunknown" || e == "hostunknown" || e == "hasmoved"
+      next if e == "UserUnknown" || e == "HostUnknown" || e == "HasMoved"
       cv = Sisimai::SMTP::Status.code(e, true)
       assert_instance_of String, cv
       assert_match /\A[45][.]9[.]\d+/, cv
@@ -73,7 +73,7 @@ class SMTPStatusTest < Minitest::Test
     CodeSet.each do |e|
       cv = Sisimai::SMTP::Status.name(e)
       assert_instance_of String, cv
-      assert_equal 'delivered', cv            if e.start_with?('2')
+      assert_equal 'Delivered', cv            if e.start_with?('2')
       assert_equal true, Reasons.include?(cv) if e.start_with?('4', '5')
     end
 

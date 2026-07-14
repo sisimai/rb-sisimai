@@ -4,6 +4,7 @@ module Sisimai::Lhost
   # Methods in the module are called from only Sisimai::Message.
   module TrendMicro
     class << self
+      require 'sisimai/eb'
       require 'sisimai/lhost'
       Boundaries = ['Content-Type: message/rfc822'].freeze
 
@@ -73,7 +74,7 @@ module Sisimai::Lhost
         return nil if recipients == 0
 
         dscontents.each do |e|
-          e['reason'] = 'userunknown' if e['diagnosis'].include?('Unable to deliver')
+          e['reason'] = Sisimai::Eb::ReUSER if e['diagnosis'].include?('Unable to deliver')
         end
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }
       end

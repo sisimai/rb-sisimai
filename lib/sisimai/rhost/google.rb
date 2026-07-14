@@ -5,8 +5,9 @@ module Sisimai
     # called only Sisimai::Fact class.
     module Google
       class << self
+        require 'sisimai/eb'
         MessagesOf = {
-          'authfailure' => [
+          Sisimai::Eb::ReAUTH => [
             # - 451 4.7.24 The SPF record of the sending domain has one or more suspicious entries.
             #   To protect our users from spam, mail sent from your IP address has been temporarily
             #   rate limited. For more information, go to Email sender guidelines.
@@ -96,7 +97,7 @@ module Sisimai
             ["421", "4.7.40", "to add a dmarc record to "],
             ["550", "5.7.40", "to add a dmarc record to "],
           ],
-          'badreputation' => [
+          Sisimai::Eb::ReFAMA => [
             # - 421 4.7.0 This message is suspicious due to the very low reputation of the sending
             #   IP address/domain. To protect our users from spam, mail sent from your IP address
             #   has been temporarily rate limited. For more information, go to Why has Gmail blocked
@@ -111,7 +112,7 @@ module Sisimai
             ['550', '5.7.1', 'this message is likely suspicious due to the very low reputation of the sending ip address'],
             ['550', '5.7.1', 'this message is likely suspicious due to the very low reputation of the sending domain'],
           ],
-          'blocked' => [
+          Sisimai::Eb::ReBLOC => [
             # - 421 4.7.0 IP not in whitelist for RCPT domain, closing connection.
             #   For more information, go to Allowlists, denylists, and approved senders.
             #   https://support.google.com/a/answer/60752
@@ -150,7 +151,7 @@ module Sisimai
             ['550', '5.7.1',  'an unusual rate of unsolicited mail'],
             ['550', '5.7.28', 'an unusual rate of unsolicited mail'],
           ],
-          'contenterror' => [
+          Sisimai::Eb::ReBODY => [
             # - 552 5.7.0 Our system detected an illegal attachment on your message. Please visit
             #   http://mail.google.com/support/bin/answer.py?answer=6590 to review our attachment
             #   guidelines.
@@ -161,7 +162,7 @@ module Sisimai
             #   our message content and attachment content guidelines.
             ['552', '5.7.0', 'blocked because its content presents a potential security issue'],
           ],
-          'emailtoolarge' => [
+          Sisimai::Eb::ReSIZE => [
             # - 552 5.2.3 Your message exceeded Google's message size limits. For more information,
             #   visit https://support.google.com/mail/answer/6584
             ['552', '5.2.3', "your message exceeded google's message size limits"],
@@ -190,7 +191,7 @@ module Sisimai
             ['552', '5.3.4', "exceeds google's message header size limit"],
             ['552', '5.3.4', "exceeded google's message size limits"],
           ],
-          'expired' => [
+          Sisimai::Eb::ReTIME => [
             # - 421 4.7.0 Connection expired, try reconnecting. For more information, go to About
             # SMTP error messages. https://support.google.com/a/answer/3221692
             ['421', '4.7.0', 'connection expired'],
@@ -199,7 +200,7 @@ module Sisimai
             #   error messages. https://support.google.com/a/answer/3221692
             ['451', '4.4.2', 'timeout - closing connection'],
           ],
-          'failedstarttls' => [
+          Sisimai::Eb::ReTTLS => [
             # - 530 5.7.0 Must issue a STARTTLS command first. For more information, go to About
             #   SMTP error messages and review RFC 3207 specifications.
             ['530', '5.7.0', 'must issue a starttls command first'],
@@ -215,7 +216,7 @@ module Sisimai
             ['421', '4.7.29', 'senders to use tls/ssl for smtp'],
             ['550', '5.7.29', 'senders to use tls/ssl for smtp'],
           ],
-          'mailboxfull' => [
+          Sisimai::Eb::ReFULL => [
             # - 452 4.2.2 The recipient's inbox is out of storage space.
             #   Please direct the recipient to https://support.google.com/mail/?p=OverQuotaTemp
             # - Please direct the recipient to https://support.google.com/mail/?p=OverQuotaPerm
@@ -228,13 +229,13 @@ module Sisimai
             ['552', '5.2.2', 'is over quota'],
             ['550', '5.7.1', 'email quota exceeded'],
           ],
-          'networkerror' => [
+          Sisimai::Eb::ReINET => [
             # - 554 5.4.6 Message exceeded 50 hops, this may indicate a mail loop.
             #   For more information, go to Gmail Help. https://support.google.com/mail/?p=MailLoop
             ['554', '5.4.6', 'message exceeded 50 hops'],
             ['554', '5.6.0', 'message exceeded 50 hops'],
           ],
-          'norelaying' => [
+          Sisimai::Eb::RePASS => [
             # - 550 5.7.0 Mail relay denied <ip-address>. Invalid credentials for relay for one of
             #   the domains in: <domain-name> (as obtained from HELO and MAIL FROM). Email is being
             #   sent from a domain or IP address which isn't registered in your Workspace account.
@@ -260,7 +261,7 @@ module Sisimai
             # - https://support.google.com/mail/?p=NotAuthorizedError
             ['550', '5.7.1', 'is not authorized to send email directly to our servers'],
           ],
-          'notcompliantrfc' => [
+          Sisimai::Eb::ReNRFC => [
             # - 550 5.7.1 Messages missing a valid address in the From: header, or having no From:
             #   header, are not accepted. For more information, go to Email sender guidelines and
             #   review RFC 5322 specifications.
@@ -300,14 +301,14 @@ module Sisimai
             # - https://support.google.com/mail/?p=RfcMessageNonCompliant
             ['554', '5.6.0', 'mail message is malformed'],
           ],
-          'policyviolation' => [
+          Sisimai::Eb::ReWONT => [
             # - 550 5.7.1 The user or domain that you are sending to (or from) has a policy that
             #   prohibited the mail that you sent. Please contact your domain administrator for
             #   further details.
             #   For more information, visit https://support.google.com/a/answer/172179
             ['550', '5.7.1', 'you are sending to (or from) has a policy that prohibited'],
           ],
-          'ratelimited' => [
+          Sisimai::Eb::ReRATE => [
             # - 450 4.2.1 The user you are trying to contact is receiving mail too quickly. Please
             #   resend your message at a later time. If the user is able to receive mail at that
             #   time, your message will be delivered. 
@@ -351,14 +352,14 @@ module Sisimai
             #   https://support.google.com/mail/answer/188131
             ['421', '4.7.28', 'sending messages with the same message-id:'],
           ],
-          'rejected' => [
+          Sisimai::Eb::ReFROM => [
             # - 550 5.7.0, Mail Sending denied. This error occurs if the sender account is disabled
             #   or not registered within your Google Workspace domain.
             # - https://support.google.com/a/answer/6140680#maildenied
             ['550', '5.7.0', 'mail sending denied'],
             ['550', '5.7.1', 'unauthenticated email is not accepted'],
           ],
-          'requireptr' => [
+          Sisimai::Eb::ReQPTR => [
             # - 550 5.7.1 This message does not meet IPv6 sending guidelines regarding PTR records
             #   and authentication. For more information, go to Email sender guidelines.
             #   https://support.google.com/mail/?p=IPv6AuthError
@@ -387,7 +388,7 @@ module Sisimai
             ['550', '5.7.25', 'does not have a ptr record'],
             ['550', '5.7.25', 'does not match the ip address of the hostname'],
           ],
-          'securityerror' => [
+          Sisimai::Eb::ReSAFE => [
             # - 454 4.7.0 Too many login attempts, please try again later. For more information, go
             #   to Add Gmail to another email client. https://support.google.com/mail/answer/7126229
             ['454', '4.7.0', 'too many login attempts'],
@@ -419,7 +420,7 @@ module Sisimai
             ['535', '5.7.1',  'username and password not accepted'],
             ['535', '5.7.80', 'username and password not accepted'],
           ],
-          'spamdetected' => [
+          Sisimai::Eb::ReSPAM => [
             # - 421 4.7.0 This message is suspicious due to the nature of the content or the links
             #   within. To best protect our users from spam, the message has been blocked. For more
             #   information, go to Why has Gmail blocked my messages?.
@@ -432,13 +433,13 @@ module Sisimai
             # - https://support.google.com/mail/?p=UnsolicitedMessageError
             ['550', '5.7.1', 'likely unsolicited mail'],
           ],
-          'suspend' => [
+          Sisimai::Eb::ReQUIT => [
             # - 550 5.2.1 The email account that you tried to reach is inactive.
             #   For more information, go to https://support.google.com/mail/?p=DisabledUser
             ['550', '5.2.1', 'account that you tried to reach is disabled'],
             ['550', '5.2.1', 'account that you tried to reach is inactive'],
           ],
-          'syntaxerror' => [
+          Sisimai::Eb::ReCOMM => [
             # - 523 5.7.10 SMTP protocol violation, no commands allowed to pipeline after STARTTLS.
             #   For more information, go to About SMTP error messages and review RFC 3207
             #   specifications.
@@ -476,7 +477,7 @@ module Sisimai
             ['504', '5.7.40', 'xoauth is no longer supported'],
             ['554', '5.7.0',  'too many unauthenticated commands'],
           ],
-          'systemerror' => [
+          Sisimai::Eb::RePROC => [
             # About SMTP error messages, https://support.google.com/a/answer/3221692
             ['421', '4.3.0', 'temporary system problem'],
             ['421', '4.7.0', 'temporary system problem'],
@@ -500,7 +501,7 @@ module Sisimai
             #   https://support.google.com/a/answer/3221692
             ['454', '4.7.0', 'cannot authenticate due to temporary system problem'],
           ],
-          'userunknown' => [
+          Sisimai::Eb::ReUSER => [
             # - 550 5.1.1 The email account that you tried to reach does not exist. Please try dou-
             #   ble-checking the recipient's email address for typos or unnecessary spaces.
             #   For more information, visit https://support.google.com/mail/answer/6596

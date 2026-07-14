@@ -1,6 +1,6 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::BadReputation checks the bounce reason is "badreputation" or not. This class
+    # Sisimai::Reason::BadReputation checks the bounce reason is "BadReputation" or not. This class
     # is called only Sisimai::Reason class.
     #
     # This is the error that an email rejected due to a reputation score of the sender IP address.
@@ -14,6 +14,7 @@ module Sisimai
     #                    visit https://support.google.com/mail/answer/188131 for more information.
     module BadReputation
       class << self
+        require 'sisimai/eb'
         Index = [
           "has been temporarily rate limited due to ip reputation",
           "ip/domain reputation problems",
@@ -23,7 +24,7 @@ module Sisimai
           "sending mta's poor reputation",
           "temporarily deferred due to unexpected volume or user complaints", # Yahoo Inc.
         ].freeze
-        def text; return 'badreputation'; end
+        def text; return Sisimai::Eb::ReFAMA; end
         def description; return 'Email rejected due to an IP address reputation'; end
 
         # Try to match that the given text and regular expressions
@@ -35,12 +36,12 @@ module Sisimai
           return false
         end
 
-        # The bounce reason is "badreputation" or not
+        # The bounce reason is "BadReputation" or not
         # @param    [Sisimai::Fact] argvs Object to be detected the reason
         # @return   [Boolean]             true: is BadReputation, false: is not BadReputation
         # @see      http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return true if argvs['reason'] == 'badreputation'
+          return true if argvs['reason'] == Sisimai::Eb::ReFAMA
           return match(argvs['diagnosticcode'].downcase)
         end
 

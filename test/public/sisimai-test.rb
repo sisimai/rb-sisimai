@@ -258,7 +258,7 @@ class SisimaiTest < Minitest::Test
   end
 
   def test_match
-    assert_equal 'userunknown', Sisimai.match('550 5.1.1 User unknown')
+    assert_equal 'UserUnknown', Sisimai.match('550 5.1.1 User unknown')
     assert_empty Sisimai.match('')
   end
 

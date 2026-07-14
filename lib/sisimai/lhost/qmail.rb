@@ -4,6 +4,7 @@ module Sisimai::Lhost
   # Methods in the module are called from only Sisimai::Message.
   module Qmail
     class << self
+      require 'sisimai/eb'
       require 'sisimai/lhost'
       require 'sisimai/string'
 
@@ -68,8 +69,8 @@ module Sisimai::Lhost
 
       MessagesOf = {
         # notqmail 1.08 returns the following error message when the destination MX is NullMX
-        "notaccept"   => ["Sorry, I couldn't find a mail exchanger or IP address"],
-        "userunknown" => ["no mailbox here by that name"],
+        Sisimai::Eb::Re00MX => ["Sorry, I couldn't find a mail exchanger or IP address"],
+        Sisimai::Eb::ReUSER => ["no mailbox here by that name"],
       }.freeze
 
       # @abstract Decodes the bounce message from qmail
@@ -160,7 +161,7 @@ module Sisimai::Lhost
           # Detect the reason of bounce
           if %w[HELO EHLO].index(e["command"])
             # HELO | Connected to 192.0.2.135 but my name was rejected.
-            e["reason"] = "blocked"
+            e["reason"] = Sisimai::Eb::ReBLOC
           else
             # Try to match with each error message in the table
             # Check that the error message includes any of message patterns or not

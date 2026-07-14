@@ -3,6 +3,7 @@ module Sisimai::Lhost
   # Methods in the module are called from only Sisimai::Message.
   module KDDI
     class << self
+      require 'sisimai/eb'
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
@@ -72,11 +73,11 @@ module Sisimai::Lhost
           if mhead['x-spasign'].to_s == 'NG'
             # Content-Type: text/plain; ..., X-SPASIGN: NG (spamghetti, au by KDDI)
             # Filtered recipient returns message that include 'X-SPASIGN' header
-            e['reason'] = 'filtered'
+            e['reason'] = Sisimai::Eb::ReFILT
           else
             # There is no X-SPASIGN: header in the bounce message
-            # set "userunknown" when the remote server rejected after RCPT command.
-            e['reason'] = 'userunknown' if e['command'] == 'RCPT'
+            # set "UserUnknown" when the remote server rejected after RCPT command.
+            e['reason'] = Sisimai::Eb::ReUSER if e['command'] == 'RCPT'
           end
         end
 

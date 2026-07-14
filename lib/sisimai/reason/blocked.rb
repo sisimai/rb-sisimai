@@ -1,12 +1,13 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::Blocked checks the bounce reason is "blocked" or not. This class is called
+    # Sisimai::Reason::Blocked checks the bounce reason is "Blocked" or not. This class is called
     # only Sisimai::Reason class.
     #
     # This is the error that SMTP connection was rejected due to a client IP address or a hostname,
     # or the parameter of "HELO/EHLO" command. This reason has added in Sisimai 4.0.0.
     module Blocked
       class << self
+        require 'sisimai/eb'
         Index = [
           "bad sender ip address",
           "banned sending ip", # Office365
@@ -70,7 +71,7 @@ module Sisimai
           ["your sender's ip address is listed at ", ".abuseat.org"],
         ].freeze
 
-        def text; return 'blocked'; end
+        def text; return Sisimai::Eb::ReBLOC; end
         def description; return 'Email rejected due to client IP address or a hostname'; end
 
         # Try to match that the given text and regular expressions
@@ -85,11 +86,11 @@ module Sisimai
 
         # Blocked due to client IP address or hostname
         # @param    [Hash] argvs  Hash to be detected the value of reason
-        # @return   [Boolean]     true: is blocked, false: is not blocked by the client
+        # @return   [Boolean]     true: is Blocked, false: is not Blocked by the client
         # @see      http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return true if argvs['reason'] == 'blocked'
-          return true if Sisimai::SMTP::Status.name(argvs['deliverystatus']) == 'blocked'
+          return true if argvs['reason'] == Sisimai::Eb::ReBLOC
+          return true if Sisimai::SMTP::Status.name(argvs['deliverystatus']) == Sisimai::Eb::ReBLOC
           return match(argvs['diagnosticcode'].downcase)
         end
 

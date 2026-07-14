@@ -1,11 +1,12 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::RequirePTR checks the bounce reason is "requireptr" or not. This class is
+    # Sisimai::Reason::RequirePTR checks the bounce reason is "RequirePTR" or not. This class is
     # called only from Sisimai::Reason class. This is the error that SMTP connection was rejected
     # due to missing PTR record or having invalid PTR record at the source IP address used for the
     # SMTP connection.
     module RequirePTR
       class << self
+        require 'sisimai/eb'
         Index = [
           "cannot find your hostname",
           "cannot resolve your address.",
@@ -25,7 +26,7 @@ module Sisimai
           ["service permits ", " unverifyable sending ips"],
         ].freeze
 
-        def text; return 'requireptr'; end
+        def text; return Sisimai::Eb::ReQPTR; end
         def description; return 'Email rejected due to missing PTR record or having invalid PTR record'; end
 
         # Try to match that the given text and regular expressions
@@ -44,8 +45,8 @@ module Sisimai
         #                         false: is not blocked due to missing PTR record
         # @see      http://www.ietf.org/rfc/rfc5322.txt
         def true(argvs)
-          return true if argvs['reason'] == 'requireptr'
-          return true if Sisimai::SMTP::Status.name(argvs['deliverystatus']) == 'requireptr'
+          return true if argvs['reason'] == Sisimai::Eb::ReQPTR
+          return true if Sisimai::SMTP::Status.name(argvs['deliverystatus']) == Sisimai::Eb::ReQPTR
           return match(argvs['diagnosticcode'].downcase)
         end
 

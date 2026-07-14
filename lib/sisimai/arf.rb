@@ -2,6 +2,7 @@ module Sisimai
   # Sisimai::ARF is a decoder for the email returned as a FeedBack Loop report message.
   module ARF
     class << self
+      require 'sisimai/eb'
       require 'sisimai/lhost'
       require 'sisimai/rfc5322'
 
@@ -220,7 +221,7 @@ module Sisimai
             # Tidy up the error message in e.Diagnosis, Try to detect the bounce reason.
             j += 1
             e["diagnosis"] = e["diagnosis"] + anotherone
-            e["reason"]    = "feedback"
+            e["reason"]    = Sisimai::Eb::ReFEED
             e["rhost"]     = remotehost
             e["lhost"]     = reportedby
             e["date"]      = timestamp0

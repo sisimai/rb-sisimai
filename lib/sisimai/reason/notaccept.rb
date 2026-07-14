@@ -1,13 +1,14 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::NotAccept checks the bounce reason is "notaccept" or not. This class is
+    # Sisimai::Reason::NotAccept checks the bounce reason is "NotAccept" or not. This class is
     # called only Sisimai::Reason class.
     #
     # This is the error that a destination mail server does ( or can ) not accept any email. In
-    # many case, the server is high load or under the maintenance. Sisimai will set "notaccept" to
+    # many case, the server is high load or under the maintenance. Sisimai will set "NotAccept" to
     # the reason of email bounce if the value of Status: field in a bounce email is "5.3.2" or the
     # value of SMTP reply code is 556.
     module NotAccept
+      require 'sisimai/eb'
       class << self
         # Destination mail server does not accept any message
         Index = [
@@ -24,7 +25,7 @@ module Sisimai
           ["no mx ", "found for "], # OpenSMTPD/smtp/mta.c
         ].freeze
 
-        def text; return 'notaccept'; end
+        def text; return Sisimai::Eb::Re00MX; end
         def description; return 'Delivery failed due to a destination mail server does not accept any email'; end
 
         # Try to match that the given text and regular expressions
@@ -43,7 +44,7 @@ module Sisimai
         #                                   false: Accept
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return true  if argvs['reason'] == 'notaccept'
+          return true  if argvs['reason'] == Sisimai::Eb::Re00MX
           return true  if [521, 556].index(argvs['replycode'].to_i) # SMTP Reply Code is 554 or 556
           return false if Sisimai::SMTP::Command::BeforeRCPT.include?(argvs['command'])
           return match(argvs['diagnosticcode'].downcase)

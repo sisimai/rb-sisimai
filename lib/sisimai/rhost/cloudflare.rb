@@ -5,11 +5,12 @@ module Sisimai
     # This class is called only from Sisimai::Fact class.
     module Cloudflare
       class << self
+        require 'sisimai/eb'
         MessagesOf = {
           # - 554 <YOUR_IP_ADDRESS> found on one or more RBLs (abusixip). Refer to
           #   https://developers.cloudflare.com/email-routing/postmaster/#spam-and-abusive-traffic/
-          "blocked"     => ["found on one or more DNSBLs"],
-          "systemerror" => ["Upstream error"],
+          Sisimai::Eb::ReBLOC => ["found on one or more DNSBLs"],
+          Sisimai::Eb::RePROC => ["Upstream error"],
         }.freeze
 
         # Detect bounce reason from Cloudflare Email Routing

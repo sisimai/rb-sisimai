@@ -42,16 +42,17 @@ module Sisimai::Lhost
     # Transient/ContentRejected -- message you sent contains content that the provider doesn't allow
     # Transient/AttachmentRejected the message contained an unacceptable attachment
     class << self
+      require 'sisimai/eb'
       require 'sisimai/lhost'
 
       ReasonPair = {
-        "Suppressed"               => "suppressed",
-        "OnAccountSuppressionList" => "suppressed",
-        "General"                  => "onhold",
-        "MailboxFull"              => "mailboxfull",
-        "MessageTooLarge"          => "emailtoolarge",
-        "ContentRejected"          => "contenterror",
-        "AttachmentRejected"       => "securityerror",
+        "Suppressed"               => Sisimai::Eb::ReSTOP,
+        "OnAccountSuppressionList" => Sisimai::Eb::ReSTOP,
+        "General"                  => Sisimai::Eb::Re___1,
+        "MailboxFull"              => Sisimai::Eb::ReFULL,
+        "MessageTooLarge"          => Sisimai::Eb::ReSIZE,
+        "ContentRejected"          => Sisimai::Eb::ReBODY,
+        "AttachmentRejected"       => Sisimai::Eb::ReSAFE,
       }.freeze
 
       # @abstract Decodes the bounce message from Amazon SES
@@ -164,7 +165,7 @@ module Sisimai::Lhost
               v = dscontents[-1]
             end
             v["recipient"]    = e["emailAddress"]
-            v["reason"]       = "feedback"
+            v["reason"]       = Sisimai::Eb::ReFEED
             v["feedbacktype"] = p["complaintFeedbackType"]
             v["date"]         = p["timestamp"]
             v["diagnosis"]    = sprintf('"feedbackid":"%s", "useragent":"%s"}', p["feedbackId"], p["userAgent"])
@@ -181,7 +182,7 @@ module Sisimai::Lhost
               v = dscontents[-1]
             end
             v["recipient"] = e
-            v["reason"]    = "delivered"
+            v["reason"]    = Sisimai::Eb::ReSENT
             v["action"]    = "delivered"
             v["date"]      = p["timestamp"]
             v["lhost"]     = Sisimai::RFC1123.find(p["reportingMTA"])

@@ -3,8 +3,9 @@ module Sisimai
     # Sisimai::Reason::Undefined is for only returning text and description. This class is called only
     # from Sisimai.reason method.
     module Undefined
+      require 'sisimai/eb'
       class << self
-        def text; return 'undefined'; end
+        def text; return Sisimai::Eb::Re___0; end
         def description; return 'Sisimai could not detect an error reason'; end
         def match;   return false; end
         def true(*); return false; end

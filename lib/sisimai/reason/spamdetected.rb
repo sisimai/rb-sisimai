@@ -1,6 +1,6 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::SpamDetected checks the bounce reason is "spamdetected" due to Spam content
+    # Sisimai::Reason::SpamDetected checks the bounce reason is "SpamDetected" due to Spam content
     # in the message or not. This class is called only Sisimai::Reason class. This is the error that
     # the message you sent was rejected by "spam filter" which is running on the remote host.
     #
@@ -10,6 +10,7 @@ module Sisimai
     #    Last-Attempt-Date: Thu, 9 Apr 2008 23:34:45 +0900 (JST)
     module SpamDetected
       class << self
+        require 'sisimai/eb'
         Index = [
           "blacklisted url in message",
           "block for spam",
@@ -65,7 +66,7 @@ module Sisimai
           ["spam ", "score"],
         ].freeze
 
-        def text; return 'spamdetected'; end
+        def text; return Sisimai::Eb::ReSPAM; end
         def description; return 'Email rejected by spam filter running on the remote host'; end
 
         # Try to match that the given text and regular expressions
@@ -85,10 +86,10 @@ module Sisimai
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
           return false if argvs['deliverystatus'].empty?
-          return true  if argvs['reason'] == 'spamdetected'
-          return true  if Sisimai::SMTP::Status.name(argvs['deliverystatus']) == 'spamdetected'
+          return true  if argvs['reason'] == Sisimai::Eb::ReSPAM
+          return true  if Sisimai::SMTP::Status.name(argvs['deliverystatus']) == Sisimai::Eb::ReSPAM
 
-          # The value of "reason" isn't "spamdetected" when the value of "command" is an SMTP command
+          # The value of "reason" isn't "SpamDetected" when the value of "command" is an SMTP command
           # to be sent before the SMTP DATA command because all the MTAs read the headers and the
           # entire message body after the DATA command.
           return false if Sisimai::SMTP::Command::ExceptDATA.include?(argvs['command'])

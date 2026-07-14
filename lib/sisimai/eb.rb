@@ -1,0 +1,41 @@
+module Sisimai
+  # Sisimai::Eb - Package "eb" provides constants for the email bounce.
+  module Eb
+    # bounce reason names
+    ReAUTH = "AuthFailure"
+    ReFAMA = "BadReputation"
+    ReBLOC = "Blocked"
+    ReBODY = "ContentError"
+    ReSENT = "Delivered"
+    ReSIZE = "EmailTooLarge"
+    ReTIME = "Expired"
+    ReTTLS = "FailedSTARTTLS"
+    ReFEED = "Feedback"
+    ReFILT = "Filtered"
+    ReMOVE = "HasMoved"
+    ReHOST = "HostUnknown"
+    ReFULL = "MailboxFull"
+    ReUNIX = "MailerError"
+    ReINET = "NetworkError"
+    RePASS = "NoRelaying"
+    Re00MX = "NotAccept"
+    ReNRFC = "NotCompliantRFC"
+    Re___1 = "OnHold"
+    ReWONT = "PolicyViolation"
+    ReFROM = "Rejected"
+    ReQPTR = "RequirePTR"
+    ReRATE = "RateLimited"
+    ReSAFE = "SecurityError"
+    ReSPAM = "SpamDetected"
+    ReSTOP = "Suppressed"
+    ReQUIT = "Suspend"
+    ReCOMM = "SyntaxError"
+    RePROC = "SystemError"
+    ReDISK = "SystemFull"
+    Re___0 = "Undefined"
+    ReUSER = "UserUnknown"
+    ReAWAY = "Vacation"
+    ReEXEC = "VirusDetected"
+  end
+end
+

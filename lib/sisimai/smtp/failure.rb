@@ -3,6 +3,7 @@ module Sisimai
     # Sisimai::SMTP::Failure is utilities for checking SMTP Errors from error message text.
     module Failure
       class << self
+        require 'sisimai/eb'
         require 'sisimai/smtp/reply'
         require 'sisimai/smtp/status'
 
@@ -44,10 +45,10 @@ module Sisimai
         # @return   [Boolean]       true: is a hard bounce
         def is_hardbounce(argv1 = '', argv2 = '')
           return false if argv1.to_s == ""
-          return false if argv1 == "undefined" || argv1 == "onhold"
-          return false if argv1 == "delivered" || argv1 == "feedback"    || argv1 == "vacation"
-          return true  if argv1 == "hasmoved"  || argv1 == "userunknown" || argv1 == "hostunknown"
-          return false if argv1 != "notaccept" 
+          return false if argv1 == Sisimai::Eb::Re___0 || argv1 == Sisimai::Eb::Re___1
+          return false if argv1 == Sisimai::Eb::ReSENT || argv1 == Sisimai::Eb::ReFEED || argv1 == Sisimai::Eb::ReAWAY
+          return true  if argv1 == Sisimai::Eb::ReMOVE || argv1 == Sisimai::Eb::ReUSER || argv1 == Sisimai::Eb::ReHOST
+          return false if argv1 != Sisimai::Eb::Re00MX
 
           # NotAccept: 5xx => hard bounce, 4xx => soft bounce
           hardbounce = false
@@ -72,10 +73,10 @@ module Sisimai
         # @return   [Boolean]       true: is a soft bounce
         def is_softbounce(argv1 = '', argv2 = '')
           return false if argv1.to_s == ""
-          return false if argv1 == "delivered" || argv1 == "feedback"    || argv1 == "vacation"
-          return false if argv1 == "hasmoved"  || argv1 == "userunknown" || argv1 == "hostunknown"
-          return true  if argv1 == "undefined" || argv1 == "onhold"
-          return true  if argv1 != "notaccept" 
+          return false if argv1 == Sisimai::Eb::ReSENT || argv1 == Sisimai::Eb::ReFEED || argv1 == Sisimai::Eb::ReAWAY
+          return false if argv1 == Sisimai::Eb::ReMOVE || argv1 == Sisimai::Eb::ReUSER || argv1 == Sisimai::Eb::ReHOST
+          return true  if argv1 == Sisimai::Eb::Re___0 || argv1 == Sisimai::Eb::Re___0
+          return true  if argv1 != Sisimai::Eb::Re00MX
 
           # NotAccept: 5xx => hard bounce, 4xx => soft bounce
           softbounce = false

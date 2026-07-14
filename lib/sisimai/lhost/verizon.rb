@@ -3,6 +3,7 @@ module Sisimai::Lhost
   # Methods in the module are called from only Sisimai::Message.
   module Verizon
     class << self
+      require 'sisimai/eb'
       require 'sisimai/lhost'
       Indicators = Sisimai::Lhost.INDICATORS
 
@@ -37,7 +38,7 @@ module Sisimai::Lhost
           markingsof = {message: ['Error: ']}
           messagesof = {
             # The attempted recipient address does not exist.
-            'userunknown' => ['550 - Requested action not taken: no such user here'],
+            Sisimai::Eb::ReUSER => ['550 - Requested action not taken: no such user here'],
           }
           boundaries = [Sisimai::RFC2045.boundary(mhead['content-type'], 1)]
           emailparts = Sisimai::RFC5322.part(mbody, boundaries)
@@ -85,7 +86,7 @@ module Sisimai::Lhost
         else
           # vzwpix.com
           startingof = {message: ['Message could not be delivered to mobile']}
-          messagesof = {'userunknown' => ['No valid recipients for this MM']}
+          messagesof = {Sisimai::Eb::ReUSER => ['No valid recipients for this MM']}
           boundaries = [Sisimai::RFC2045.boundary(mhead['content-type'], 1)]
           emailparts = Sisimai::RFC5322.part(mbody, boundaries)
           bodyslices = emailparts[0].split("\n")

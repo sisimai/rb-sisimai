@@ -1,12 +1,13 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::NotCompliantRFC checks the bounce reason is "notcompliantrfc" or not. This
+    # Sisimai::Reason::NotCompliantRFC checks the bounce reason is "NotCompliantRFC" or not. This
     # class is called only from Sisimai::Reason class.
     #
     # This is the error that an email is not compliant RFC 5322 or other email related RFCs. For
     # example, there are multiple "Subject" headers in the email.
     module NotCompliantRFC
       class << self
+        require 'sisimai/eb'
         Index = [
           "duplicate header",
           "duplicated message-id",
@@ -16,7 +17,7 @@ module Sisimai
           "https://support.google.com/mail/?p=rfcmessagenoncompliant",
         ].freeze
 
-        def text; return 'notcompliantrfc'; end
+        def text; return Sisimai::Eb::ReNRFC; end
         def description; return 'Email rejected due to non-compliance with RFC'; end
 
         # Try to match that the given text and regular expressions
@@ -34,7 +35,7 @@ module Sisimai
         #                                   false: Is not RFC compliant
         # @see http://www.ietf.org/rfc/rfc5322.txt
         def true(argvs)
-          return true if argvs['reason'] == 'notcompliantrfc'
+          return true if argvs['reason'] == Sisimai::Eb::ReNRFC
           return match(argvs['diagnosticcode'].downcase)
         end
 

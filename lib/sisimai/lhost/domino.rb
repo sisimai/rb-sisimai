@@ -3,13 +3,14 @@ module Sisimai::Lhost
   # Methods in the module are called from only Sisimai::Message.
   module Domino
     class << self
+      require 'sisimai/eb'
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
       Boundaries = ['Content-Type: message/rfc822'].freeze
       StartingOf = {message: ['Your message']}.freeze
       MessagesOf = {
-        "userunknown" => [
+        Sisimai::Eb::ReUSER => [
           "not listed in Domino Directory",
           "not listed in public Name & Address Book",
           "non répertorié dans l'annuaire Domino",

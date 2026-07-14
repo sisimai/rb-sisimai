@@ -1,6 +1,6 @@
 module Sisimai
   module Reason
-    # Sisimai::Reason::NetworkError checks the bounce reason is "networkerror" or not. This class is
+    # Sisimai::Reason::NetworkError checks the bounce reason is "NetworkError" or not. This class is
     # called only Sisimai::Reason class. This is the error that SMTP connection failed due to DNS
     # look up failure or other network problems.
     #
@@ -10,6 +10,7 @@ module Sisimai
     #   kijitora@neko.example.jp: Network error on destination MXs
     module NetworkError
       class << self
+        require 'sisimai/eb'
         Index = [
           "address family mismatch on destination mxs", # OpenSMTPD/smtpd/mta.c
           "all routes to destination blocked",          # OpenSMTPD/smtpd/mta.c
@@ -40,7 +41,7 @@ module Sisimai
           ["no ", "route to"],
         ].freeze
 
-        def text; return 'networkerror'; end
+        def text; return Sisimai::Eb::ReINET; end
         def description; return 'SMTP connection failed due to DNS look up failure or other network problems'; end
 
         # Try to match that the given text and regular expressions

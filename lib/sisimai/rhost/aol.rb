@@ -5,9 +5,10 @@ module Sisimai
     # only from Sisimai::Fact class.
     module Aol
       class << self
+        require 'sisimai/eb'
         MessagesOf = {
-          "hostunknown" => ["Host or domain name not found"],
-          "notaccept"   => ["type=MX: Malformed or unexpected name server reply"],
+          Sisimai::Eb::ReHOST => ["Host or domain name not found"],
+          Sisimai::Eb::Re00MX => ["type=MX: Malformed or unexpected name server reply"],
         }.freeze
 
         # Detect bounce reason from Aol Mail: https://www.aol.com

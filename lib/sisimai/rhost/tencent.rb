@@ -5,20 +5,21 @@ module Sisimai
     # only Sisimai::Fact class.
     module Tencent
       class << self
+        require 'sisimai/eb'
         MessagesOf = {
-          'authfailure' => [
+          Sisimai::Eb::ReAUTH => [
             'spf check failed',         # https://service.mail.qq.com/detail/122/72
             'dmarc check failed',
           ],
-          'blocked' => [
+          Sisimai::Eb::ReBLOC => [
             'suspected bounce attacks', # https://service.mail.qq.com/detail/122/57
             'suspected spam ip',        # https://service.mail.qq.com/detail/122/66
             'connection denied',        # https://service.mail.qq.com/detail/122/170
           ],
-          'emailtoolarge' => [
+          Sisimai::Eb::ReSIZE => [
             'message too large',        # https://service.mail.qq.com/detail/122/168
           ],
-          'ratelimited' => [
+          Sisimai::Eb::ReRATE => [
             'mailbox unavailable or access denined',      # https://service.mail.qq.com/detail/122/166
             'ip frequency limited',                       # https://service.mail.qq.com/detail/122/172
             'domain frequency limited',                   # https://service.mail.qq.com/detail/122/173
@@ -26,21 +27,21 @@ module Sisimai
             'connection frequency limited',               # https://service.mail.qq.com/detail/122/175
             "frequency of receiving messages is limited", # https://service.mail.qq.com/detail/122/1011
           ],
-          'rejected' => [
+          Sisimai::Eb::ReFROM => [
             'suspected spam',                   # https://service.mail.qq.com/detail/122/71
             'mail is rejected by recipients',   # https://service.mail.qq.com/detail/122/92
           ],
-          'spamdetected' => [
+          Sisimai::Eb::ReSPAM => [
             'spam is embedded in the email',    # https://service.mail.qq.com/detail/122/59
             'mail content denied',              # https://service.mail.qq.com/detail/122/171
           ],
-          'suspend' => [
+          Sisimai::Eb::ReQUIT => [
             'is a deactivated mailbox', # http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=20022&&no=1000742
           ],
-          'syntaxerror' => [
+          Sisimai::Eb::ReCOMM => [
             'bad address syntax', # https://service.mail.qq.com/detail/122/167
           ],
-          'userunknown' => [
+          Sisimai::Eb::ReUSER => [
             'mailbox not found',  # https://service.mail.qq.com/detail/122/169
           ],
         }.freeze
