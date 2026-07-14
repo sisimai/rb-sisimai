@@ -47,16 +47,16 @@ class ReasonChildrenTest < Minitest::Test
       cx = Module.const_get(cr)
 
       assert_equal Module, cx.class
-      assert_equal e.downcase, cx.text;
+      assert_equal e, cx.text;
       refute_empty cx.description
       assert_includes [true, false, nil], cx.true(cw)
 
       unless e.match(/\A(?:Content|Expire|Mailer|Network|Policy|Security|System|User|NoRelay|OnHold)/)
         # Skip a class its true() method always return undef
-        cw['reason'] = e.downcase
+        cw['reason'] = e
         assert_equal true, cx.true(cw)
 
-        cw['reason'] = 'undefined'
+        cw['reason'] = 'Undefined'
         cw['diagnosticcode'] = Reasons[e][0]
         cw['command'] = if e == 'Rejected' then 'MAIL' else cv.command end
         assert_equal true, cx.true(cw)
@@ -82,7 +82,7 @@ class ReasonChildrenTest < Minitest::Test
       cx = Module.const_get(cr)
 
       assert_equal Module, cx.class
-      assert_equal e.downcase, cx.text;
+      assert_equal e, cx.text;
       refute_empty cx.description
       assert_includes [false, nil], cx.true(cw)
     end
