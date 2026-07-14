@@ -423,7 +423,7 @@ module Sisimai
         while true
           if thing["reason"].empty? || RetryIndex[thing["reason"]]
             # The value of "reason" is empty or is needed to check with other values again
-            re = thing["reason"].empty? ? "undefined" : thing["reason"]
+            re = thing["reason"].empty? ? Sisimai::Eb::Re___0 : thing["reason"]
             cr = Sisimai::LDA.find(thing);    if Sisimai::Reason.is_explicit(cr) then thing["reason"] = cr; break; end
             cr = Sisimai::Rhost.find(thing);  if Sisimai::Reason.is_explicit(cr) then thing["reason"] = cr; break; end
             cr = Sisimai::Reason.find(thing); if Sisimai::Reason.is_explicit(cr) then thing["reason"] = cr; break; end
