@@ -53,7 +53,7 @@ module Sisimai
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
           return true  if argvs['reason'] == Sisimai::Eb::ReWONT
-          return false if argvs['command'] != '' && argvs['command'] != 'DATA'
+          return false if argvs['command'] != '' && argvs['command'] != Sisimai::Eb::CeDATA
           return match(argvs['diagnosticcode'].downcase)
         end
 
