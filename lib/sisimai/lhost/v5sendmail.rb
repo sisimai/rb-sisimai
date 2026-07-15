@@ -41,6 +41,7 @@ module Sisimai::Lhost
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
         return nil if emailparts[1].size == 0
 
+        require 'sisimai/eb'
         require 'sisimai/rfc1123'
         require 'sisimai/smtp/command'
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
@@ -84,7 +85,7 @@ module Sisimai::Lhost
               next
             end
 
-            if cv == v["recipient"] || (curcommand == "MAIL" && e.start_with?("<<< "))
+            if cv == v["recipient"] || (curcommand == Sisimai::Eb::CeMAIL && e.start_with?("<<< "))
               # The recipient address is the same address with the last appeared address
               # like "550 <mikeneko@example.co.jp>... User unknown"
               # Append this line to the string which is keeping error messages
