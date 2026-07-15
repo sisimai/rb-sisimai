@@ -390,8 +390,8 @@ module Sisimai::Lhost
             case e["command"]
               # - HELO | Connected to 192.0.2.135 but my name was rejected.
               # - MAIL | Connected to 192.0.2.135 but sender was rejected.
-              when "HELO", "EHLO" then e["reason"] = Sisimai::Eb::ReBLOC
-              when "MAIL"         then e["reason"] = Sisimai::Eb::Re___1
+              when Sisimai::Eb::CeHELO, Sisimai::Eb::CeEHLO then e["reason"] = Sisimai::Eb::ReBLOC
+              when Sisimai::Eb::CeMAIL                      then e["reason"] = Sisimai::Eb::Re___1
             else
               # Try to match the error message with each message pattern 
               MessagesOf.each_key do |r|
