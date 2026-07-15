@@ -3,6 +3,7 @@ module Sisimai::Lhost
   # Methods in the module are called from only Sisimai::Message.
   module EinsUndEins
     class << self
+      require 'sisimai/eb'
       require 'sisimai/lhost'
 
       Indicators = Sisimai::Lhost.INDICATORS
@@ -90,8 +91,8 @@ module Sisimai::Lhost
             p2 = e['diagnosis'].index(' reason:')
 
             e['rhost']   = e['diagnosis'][p1 + 6, p2 - p1 - 6]
-            e['command'] = 'DATA' if e['diagnosis'].include?('for TEXT command')
-            e['spec']    = 'SMTP' if e['diagnosis'].include?('SMTP error')
+            e['command'] = Sisimai::Eb::CeDATA if e['diagnosis'].include?('for TEXT command')
+            e['spec']    = 'SMTP'              if e['diagnosis'].include?('SMTP error')
             e['status']  = Sisimai::SMTP::Status.find(e['diagnosis'])
           else
             # For the following reason:
