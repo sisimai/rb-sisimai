@@ -3,6 +3,7 @@ module Sisimai::Lhost
   # Methods in the module are called from only Sisimai::Message.
   module Postfix
     class << self
+      require 'sisimai/eb'
       require 'sisimai/lhost'
       require 'sisimai/rfc1123'
       require 'sisimai/smtp/reply'
@@ -65,12 +66,12 @@ module Sisimai::Lhost
 
             case e["command"]
             # Use the argument of EHLO/HELO command as a value of "lhost"
-            when "HELO", "EHLO" then v['lhost'] = e['argument']
-            when "MAIL"
+            when Sisimai::Eb::CeHELO, Sisimai::Eb::CeEHLO then v['lhost'] = e['argument']
+            when Sisimai::Eb::CeMAIL
               # Set the argument of "MAIL" command to pseudo To: header of the original message
               emailparts[1] += sprintf("To: %s\n", e['argument']) if emailparts[1].size == 0
 
-            when "RCPT"
+            when Sisimai::Eb::CeRCPT
               # RCPT TO: <...>
               if v["recipient"] != ""
                 # There are multiple recipient addresses in the transcript of session
@@ -277,9 +278,9 @@ module Sisimai::Lhost
             end
           end
 
-          e['command']   = commandset.shift || Sisimai::SMTP::Command.find(e['diagnosis'])
-          e['command']   = 'HELO' if e["command"].empty? && e['diagnosis'].include?('refused to talk to me:')
-          e['spec']      = 'SMTP' if e["spec"].empty?    && Sisimai::String.aligned(e['diagnosis'], ['host ', ' said:'])
+          e['command'] = commandset.shift || Sisimai::SMTP::Command.find(e['diagnosis'])
+          e['command'] = Sisimai::Eb::CeHELO if e["command"].empty? && e['diagnosis'].include?('refused to talk to me:')
+          e['spec']    = 'SMTP'              if e["spec"].empty?    && Sisimai::String.aligned(e['diagnosis'], ['host ', ' said:'])
         end
 
         return { 'ds' => dscontents, 'rfc822' => emailparts[1] }

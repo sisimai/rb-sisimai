@@ -3,6 +3,7 @@ module Sisimai
     # Sisimai::SMTP::Transcript is a decoder for the transcript logs of the SMTP session
     module Transcript
       class << self
+        require 'sisimai/eb'
         require 'sisimai/smtp/reply'
         require 'sisimai/smtp/status'
 
@@ -43,7 +44,7 @@ module Sisimai
             # An SMTP server response starting with '<<<' is the first
             esmtp << table.call
             cx = esmtp[-1]
-            cx['command'] = 'CONN'
+            cx['command'] = Sisimai::Eb::CeCONN
             argv0 = argv0[p2, argv0.size] if p2 > -1
           else
             # An SMTP command starting with '>>>' is the first
@@ -68,7 +69,7 @@ module Sisimai
                 cx = esmtp[-1]
                 cx['command'] = thecommand.upcase
 
-                if thecommand =~ /\A(?:MAIL|RCPT|XFORWARD)/
+                if thecommand == Sisimai::Eb::CeMAIL || thecommand == Sisimai::Eb::CeRCPT || thecommand == Sisimai::Eb::CeXFWD
                   # MAIL or RCPT
                   if cv = commandarg.match(/\A(?:FROM|TO):[ ]*<(.+[@].+)>[ ]*(.*)\z/)
                     # >>> MAIL FROM: <neko@example.com> SIZE=65535

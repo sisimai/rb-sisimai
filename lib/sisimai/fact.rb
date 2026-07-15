@@ -364,7 +364,7 @@ module Sisimai
         # - <<< 503-5.5.1 RCPT first. A mail transaction protocol command was issued ...
         # -   RCPT first (in reply to DATA command)
         piece['command'] = '' if Sisimai::SMTP::Command.test(piece['command']) == false
-        piece['command'] = 'RCPT' if piece['diagnosticcode'].include?('RCPT first')
+        piece['command'] = Sisimai::Eb::CeRCPT if piece['diagnosticcode'].include?('RCPT first')
 
         # Create parameters for the constructor
         as = Sisimai::Address.new(piece['addresser'])          || next; next if as.void

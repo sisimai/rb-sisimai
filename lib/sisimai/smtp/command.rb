@@ -2,17 +2,22 @@ module Sisimai
   module SMTP
     # Sisimai::SMTP::Transcript is an SMTP Command related utilities
     module Command
-      ExceptDATA = ["CONN", "EHLO", "HELO", "MAIL", "RCPT"].freeze
-      BeforeRCPT = ["CONN", "EHLO", "EHLO", "MAIL", "AUTH", "STARTTLS"].freeze
+      require 'sisimai/eb'
+      ExceptDATA = [Sisimai::Eb::CeCONN, Sisimai::Eb::CeEHLO, Sisimai::Eb::CeHELO,
+                    Sisimai::Eb::CeMAIL, Sisimai::Eb::CeRCPT].freeze
+      BeforeRCPT = [Sisimai::Eb::CeCONN, Sisimai::Eb::CeEHLO, Sisimai::Eb::CeHELO,
+                    Sisimai::Eb::CeMAIL, Sisimai::Eb::CeAUTH, Sisimai::Eb::CeTTLS].freeze
       class << self
         Availables = [
-          "HELO", "EHLO", "MAIL", "RCPT", "DATA", "QUIT", "RSET", "NOOP", "VRFY", "ETRN", "EXPN",
-          "HELP", "AUTH", "STARTTLS", "XFORWARD",
-          "CONN", # CONN is a pseudo SMTP command used only in Sisimai
+          Sisimai::Eb::CeEHLO, Sisimai::Eb::CeHELO, Sisimai::Eb::CeMAIL, Sisimai::Eb::CeRCPT, Sisimai::Eb::CeDATA,
+          Sisimai::Eb::CeQUIT, Sisimai::Eb::CeRSET, Sisimai::Eb::CeNOOP, Sisimai::Eb::CeVRFY, Sisimai::Eb::CeETRN,
+          Sisimai::Eb::CeEXPN, Sisimai::Eb::CeHELP, Sisimai::Eb::CeAUTH, Sisimai::Eb::CeTTLS, Sisimai::Eb::CeXFWD,
+          Sisimai::Eb::CeCONN, # CONN is a pseudo SMTP command used only in Sisimai
         ].freeze
         Detectable = [
-          "HELO", "EHLO", "STARTTLS", "AUTH PLAIN", "AUTH LOGIN", "AUTH CRAM-", "AUTH DIGEST-",
-          "MAIL F", "RCPT", "RCPT T", "DATA", "QUIT", "XFORWARD",
+          Sisimai::Eb::CeHELO, Sisimai::Eb::CeEHLO, Sisimai::Eb::CeTTLS, "AUTH PLAIN", "AUTH LOGIN",
+          "AUTH CRAM-", "AUTH DIGEST-", "MAIL F", Sisimai::Eb::CeRCPT, "RCPT T", Sisimai::Eb::CeDATA,
+          Sisimai::Eb::CeQUIT, Sisimai::Eb::CeXFWD,
         ].freeze
 
         # Check that an SMTP command in the argument is valid or not
@@ -33,7 +38,7 @@ module Sisimai
           return "" if Sisimai::SMTP::Command.test(argv0) == false
 
           issuedcode = " " + argv0.downcase + " "
-          commandmap = {"STAR" => "STARTTLS", "XFOR" => "XFORWARD"}
+          commandmap = {"STAR" => Sisimai::Eb::CeTTLS, "XFOR" => Sisimai::Eb::CeXFWD}
           commandset = []
 
           Detectable.each do |e|

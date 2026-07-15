@@ -30,7 +30,7 @@ module Sisimai
         #                                   false: Not FailedSTARTTLS
         # @see http://www.ietf.org/rfc/rfc2822.txt
         def true(argvs)
-          return true if argvs["reason"] == Sisimai::Eb::ReTTLS || argvs["command"] == "STARTTLS"
+          return true if argvs["reason"] == Sisimai::Eb::ReTTLS || argvs["command"] == Sisimai::Eb::CeTTLS
           return true if [523, 524, 538].index(argvs["replycode"].to_i)
           return match(argvs["diagnosticcode"].downcase)
         end

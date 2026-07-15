@@ -3,6 +3,7 @@ module Sisimai::Lhost
   # Methods in the module are called from only Sisimai::Message.
   module Sendmail
     class << self
+      require 'sisimai/eb'
       require 'sisimai/lhost'
       require 'sisimai/rfc1123'
       require 'sisimai/smtp/reply'
@@ -187,9 +188,9 @@ module Sisimai::Lhost
             break
           end
 
-          e["command"]   = thecommand if e["command"].empty?
-          e["command"]   = Sisimai::SMTP::Command.find(e['diagnosis']) if e["command"].empty?
-          e["command"]   = "EHLO" if e["command"].empty? && esmtpreply.size > 0
+          e["command"] = thecommand if e["command"].empty?
+          e["command"] = Sisimai::SMTP::Command.find(e['diagnosis']) if e["command"].empty?
+          e["command"] = Sisimai::Eb::CeEHLO if e["command"].empty? && esmtpreply.size > 0
 
           while true
             # Check alternative status code and override it

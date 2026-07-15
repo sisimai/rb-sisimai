@@ -164,7 +164,7 @@ module Sisimai
             end
             return true if matchother == false  # Did not match with other message patterns
 
-          elsif argvs['command'] == 'RCPT'
+          elsif argvs['command'] == Sisimai::Eb::CeRCPT
             # When the SMTP command is not "RCPT", the session rejected by other
             # reason, maybe.
             return true if match(issuedcode)

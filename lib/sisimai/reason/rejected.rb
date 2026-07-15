@@ -97,11 +97,11 @@ module Sisimai
           # Check the value of Diagnosic-Code: header with patterns
           issuedcode = argvs['diagnosticcode'].downcase
           thecommand = argvs['command'] || ''
-          if thecommand == 'MAIL'
+          if thecommand == Sisimai::Eb::CeMAIL
             # The session was rejected at 'MAIL FROM' command
             return true if match(issuedcode)
 
-          elsif thecommand == 'DATA'
+          elsif thecommand == Sisimai::Eb::CeDATA
             # The session was rejected at 'DATA' command
             if tempreason != Sisimai::Eb::ReUSER
               # Except "UserUnknown"

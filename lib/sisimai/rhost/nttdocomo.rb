@@ -85,8 +85,8 @@ module Sisimai
             # Status: 5.0.0
             # Remote-MTA: dns; mfsmax.docomo.ne.jp
             # Diagnostic-Code: smtp; 550 Unknown user ***@docomo.ne.jp
-            return Sisimai::Eb::ReUSER if thecommand == 'RCPT'
-            return Sisimai::Eb::ReFROM if thecommand == 'DATA'
+            return Sisimai::Eb::ReUSER if thecommand == Sisimai::Eb::CeRCPT
+            return Sisimai::Eb::ReFROM if thecommand == Sisimai::Eb::CeDATA
           end
 
           # 1. Rejected by other SMTP commands: AUTH, MAIL,
