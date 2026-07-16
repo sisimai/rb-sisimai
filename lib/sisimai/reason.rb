@@ -112,7 +112,7 @@ module Sisimai
           if reasontext == Sisimai::Eb::Re___0 || reasontext.empty?
             # Action: delayed => "expired"
             reasontext   = nil
-            reasontext ||= Sisimai::Eb::ReTIME if argvs['action'] == 'delayed'
+            reasontext ||= Sisimai::Eb::ReTIME if argvs['action'] == Sisimai::Eb::AeSTAY
             return reasontext if reasontext
 
             # Try to match with message patterns in Sisimai::Reason::Vacation
@@ -183,7 +183,7 @@ module Sisimai
           break if reasontext.empty? == false
 
           # Check the value of Action: field, first
-          if actiontext.start_with?('delayed', 'expired')
+          if actiontext.start_with?(Sisimai::Eb::AeSTAY, 'expired')
             # Action: delayed, expired
             reasontext = Sisimai::Eb::ReTIME
           else

@@ -183,7 +183,7 @@ module Sisimai::Lhost
             end
             v["recipient"] = e
             v["reason"]    = Sisimai::Eb::ReSENT
-            v["action"]    = "delivered"
+            v["action"]    = Sisimai::Eb::AeSENT
             v["date"]      = p["timestamp"]
             v["lhost"]     = Sisimai::RFC1123.find(p["reportingMTA"])
             v["diagnosis"] = p["smtpResponse"]

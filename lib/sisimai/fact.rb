@@ -478,10 +478,10 @@ module Sisimai
             thing['action'] = ox[2]
           end
         end
-        thing["action"] = ""          if thing["action"].nil?
-        thing["action"] = "delivered" if thing["action"].empty? && thing["reason"] == Sisimai::Eb::ReSENT
-        thing["action"] = "delayed"   if thing["action"].empty? && thing["reason"] == Sisimai::Eb::ReTIME
-        thing["action"] = "failed"    if thing["action"].empty? && cx[0] == "4" || cx[0] == "5"
+        thing["action"] = "" if thing["action"].nil?
+        thing["action"] = Sisimai::Eb::AeSENT if thing["action"].empty? && thing["reason"] == Sisimai::Eb::ReSENT
+        thing["action"] = Sisimai::Eb::AeSTAY if thing["action"].empty? && thing["reason"] == Sisimai::Eb::ReTIME
+        thing["action"] = Sisimai::Eb::AeFAIL if thing["action"].empty? && cx[0] == "4" || cx[0] == "5"
 
         if thing["replycode"].size > 0
           # Fill empty values: ["SMTP Command", "DSN", "Reason"]
