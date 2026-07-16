@@ -2,6 +2,7 @@ module Sisimai
   # Sisimai::RFC1894 DSN field defined in RFC3464 (obsoletes RFC1894)
   module RFC1894
     class << self
+      require 'sisimai/eb'
       require 'sisimai/string'
       FieldNames = [
         # https://tools.ietf.org/html/rfc3464#section-2.2
@@ -58,8 +59,13 @@ module Sisimai
       }.freeze
 
       SubtypeSet = {"addr" => "RFC822", "cdoe" => "SMTP", "host" => "DNS"}.freeze
-      ActionList = ["failed", "delayed", "delivered", "relayed", "expanded"].freeze
-      Correction = {'deliverable' => 'delivered', 'expired' => 'failed', 'failure' => 'failed'}
+      ActionList = [Sisimai::Eb::AeFAIL, Sisimai::Eb::AeSTAY, Sisimai::Eb::AeSENT,
+                    Sisimai::Eb::AePASS, Sisimai::Eb::AeEXPN].freeze
+      Correction = {
+        'deliverable' => Sisimai::Eb::AeSENT,
+        'expired'     => Sisimai::Eb::AeFAIL,
+        'failure'     => Sisimai::Eb::AeFAIL,
+      }
       FieldGroup = {
         'original-recipient'    => 'addr',
         'final-recipient'       => 'addr',
