@@ -4,6 +4,21 @@ RELEASE NOTES for Ruby version of Sisimai
 - download: "https://rubygems.org/gems/sisimai"
 - document: "https://libsisimai.org/"
 
+v5.7.1
+---------------------------------------------------------------------------------------------------
+- release: "Fri, 17 Jul 2026 13:22:22 +0900 (JST)"
+- version: "5.7.1"
+- changes:
+  - **Bug fixes**
+    - Fix duplicated SMTP command `HELO` in `Sisimai::SMTP::Command`.
+  - **Mitigation for potential DoS vectors**
+    - #441 Limit the nesting depth of MIME parts in Sisimai::RFC2045 class.
+  - **Code improvements**
+    - New class `Sisimai::Eb` for keeping constants.
+      - #443 `Sisimai::Eb::Re****` Bounce reason names.
+      - #447 `Sisimai::Eb::Ce****` SMTP commands.
+      - #448 `Sisimai::Eb::Ae****` Action field values.
+
 v5.7.0
 ---------------------------------------------------------------------------------------------------
 - release: "Mon, 22 Jun 2026 16:22:22 +0900 (JST)"
