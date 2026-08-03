@@ -15,7 +15,7 @@ jobs:
       - name: Setup CRuby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.4.7"
+          ruby-version: "3.4.10"
       - name: Install minitest
         run: gem install minitest -v 5.15.0
       - name: Install oj
