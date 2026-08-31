@@ -11,12 +11,12 @@
 > ブランチを見てください。また`main`や`master`ブランチはもうこのリポジトリでは使用していません。
 
 > [!CAUTION]
-> **Sisimai 4.25.14p11およびそれ以前のバージョンには 正規表現に関する脆弱性
+> **Sisimai 4.25.17およびそれ以前のバージョンには正規表現に関する複数の脆弱性
 > [ReDoS: CVE-2022-4891](https://jvndb.jvn.jp/ja/contents/2022/JVNDB-2022-005663.html)があります。
-> 該当するバージョンをお使いの場合はv4.25.14p12以降へアップグレードしてください。**
+> 該当するバージョンをお使いの場合はv4.25.18以降へアップグレードしてください。**
 
 > [!WARNING]
-> Sisimai 5はRuby 2.4以上が必要です。インストール/アップグレードを実行する前に`ruby -v`コマンドで
+> Sisimai 5はRuby 2.5以上が必要です。インストール/アップグレードを実行する前に`ruby -v`コマンドで
 > システムに入っているRubyのバージョンを確認してください。
 
 - [**README(English)**](README.md)
@@ -26,7 +26,6 @@
 - [シシマイを使う準備 | Setting Up Sisimai](#setting-up-sisimai)
     - [動作環境 | System requirements](#system-requirements)
     - [インストール | Install](#install)
-        - [RubyGemsから | From RubyGems](#from-rubygems)
         - [GitHubから | From GitHub](#from-github)
 - [使い方 | Usage](#usage)
     - [基本的な使い方 | Basic usage](#basic-usage)
@@ -85,18 +84,6 @@ Sisimaiの動作環境についての詳細は
 
 Install
 -------------------------------------------------------------------------------
-### From RubyGems.org
-
-```shell
-$ sudo gem install sisimai
-Fetching: sisimai-4.25.17.gem (100%)
-Successfully installed sisimai-4.25.17
-Parsing documentation for sisimai-4.25.17
-Installing ri documentation for sisimai-4.25.17
-Done installing documentation for sisimai after 6 seconds
-1 gem installed
-```
-
 ### From GitHub
 
 ```shell
@@ -108,8 +95,8 @@ gem install bundle rake rspec coveralls
 ...
 4 gems installed
 bundle exec rake install
-sisimai 4.25.17 built to pkg/sisimai-4.25.17.gem.
-sisimai (4.25.17) installed.
+sisimai 4.25.18 built to pkg/sisimai-4.25.18.gem.
+sisimai (4.25.18) installed.
 ```
 
 Usage
@@ -290,7 +277,7 @@ Author
 
 Copyright
 ===============================================================================
-Copyright (C) 2015-2025 azumakuniyuki, All Rights Reserved.
+Copyright (C) 2015-2026 azumakuniyuki, All Rights Reserved.
 
 License
 ===============================================================================

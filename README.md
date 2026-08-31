@@ -12,12 +12,12 @@
 > branch instead. We have moved away from using both the `main` and `master` branches in our development process.
 
 > [!CAUTION]
-> **Sisimai versions 4.25.14p11 and earlier contain a regular expression vulnerability 
+> **Sisimai versions 4.25.17 and earlier contain some regular expression vulnerabilities
 > [ReDoS: CVE-2022-4891](https://nvd.nist.gov/vuln/detail/CVE-2022-4891).
-> If you are using one of these versions, please upgrade to v4.25.14p12 or later.**
+> If you are using one of these versions, please upgrade to v4.25.18 or later.**
 
 > [!WARNING]
-> Sisimai 5 requires Ruby 2.4 or later. Check the version of Ruby in your system before installing/upgrading
+> Sisimai 5 requires Ruby 2.5 or later. Check the version of Ruby in your system before installing/upgrading
 > by `ruby -v` command.
 
 - [**README-JA(日本語)**](README-JA.md)
@@ -27,7 +27,6 @@
 - [Setting Up Sisimai](#setting-up-sisimai)
     - [System requirements](#system-requirements)
     - [Install](#install)
-        - [From RubyGems](#from-rubygems)
         - [From GitHub](#from-github)
 - [Usage](#usage)
     - [Basic usage](#basic-usage)
@@ -91,18 +90,6 @@ More details about system requirements are available at
 
 Install
 -------------------------------------------------------------------------------
-### From RubyGems
-
-```shell
-$ sudo gem install sisimai
-Fetching: sisimai-4.25.17.gem (100%)
-Successfully installed sisimai-4.25.17
-Parsing documentation for sisimai-4.25.17
-Installing ri documentation for sisimai-4.25.17
-Done installing documentation for sisimai after 6 seconds
-1 gem installed
-```
-
 ### From GitHub
 
 ```shell
@@ -114,8 +101,8 @@ gem install bundle rake rspec coveralls
 ...
 4 gems installed
 bundle exec rake install
-sisimai 4.25.17 built to pkg/sisimai-4.25.17.gem.
-sisimai (4.25.17) installed.
+sisimai 4.25.18 built to pkg/sisimai-4.25.18.gem.
+sisimai (4.25.18) installed.
 ```
 
 Usage
@@ -298,7 +285,7 @@ Author
 
 Copyright
 ===============================================================================
-Copyright (C) 2015-2025 azumakuniyuki, All Rights Reserved.
+Copyright (C) 2015-2026 azumakuniyuki, All Rights Reserved.
 
 License
 ===============================================================================
