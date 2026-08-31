@@ -3,6 +3,15 @@ RELEASE NOTES for Ruby version of Sisimai
 - releases: "https://github.com/sisimai/rb-sisimai/releases"
 - download: "https://rubygems.org/gems/sisimai"
 
+v4.25.18
+--------------------------------------------------------------------------------
+- release: "Mon, 31 Aug 2026 18:25:22 +0900 (JST)"
+- version: "4.25.18"
+- changes:
+  - Fix ReDoS vulnerability in `Sisimai::String.to_plain` when parsing specific
+    HTML tags (GHSA-692g-7h7r-25xg).
+    Thanks to @arpitjain099 for reporting and testing.
+
 v4.25.17
 --------------------------------------------------------------------------------
 - release: "Wed, 12 Mar 2025 06:40:01 +0900 (JST)"
