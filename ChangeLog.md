@@ -4,6 +4,16 @@ RELEASE NOTES for Ruby version of Sisimai
 - download: "https://rubygems.org/gems/sisimai"
 - document: "https://libsisimai.org/"
 
+v5.7.2
+---------------------------------------------------------------------------------------------------
+- release: "Mon, 31 Aug 2026 18:25:22 +0900 (JST)"
+- version: "5.7.2"
+- changes:
+  - Fix ReDoS vulnerability in `Sisimai::String.to_plain` method when parsing specific HTML tags
+    (GHSA-9j9h-h4vm-p7g4). Thanks to @arpitjain099 for reporting and testing.
+  - #455 Resolved quadratic memory allocation in `Sisimai::Message` to improve parsing performance
+    and reduce memory usage. Thanks to @azranel.
+
 v5.7.1
 ---------------------------------------------------------------------------------------------------
 - release: "Fri, 17 Jul 2026 13:22:22 +0900 (JST)"
