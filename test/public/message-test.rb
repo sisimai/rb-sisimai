@@ -161,5 +161,11 @@ __END_OF_EMAIL_MESSAGE__
 
 
   end
-end
 
+  def test_tidy_with_many_non_header_lines
+    input = (["x" * 75] * 10_000).join("\n")
+    expected = input.dup << "\n\n"
+
+    assert_equal expected, Sisimai::Message.tidy(input)
+  end
+end

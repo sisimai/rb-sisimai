@@ -202,7 +202,7 @@ module Sisimai
       def tidy(argv0 = '')
         return '' if argv0.empty?
 
-        email = ''
+        email = ::String.new(capacity: argv0.bytesize, encoding: Encoding::UTF_8)
         lines = argv0.split("\n")
         index = -1
         lines.each do |e|
@@ -215,7 +215,7 @@ module Sisimai
           index += 1
           if fn == ''
             # There is neither ":" character nor the field listed in $FieldTable
-            email += "#{e}\n"
+            email << e << "\n"
             next
           end
 
@@ -294,12 +294,12 @@ module Sisimai
 
           # 4. Remove redundant space characters
           bf = bf.squeeze(' ').strip
-          email += sprintf("%s: %s\n", fn, bf)
+          email << sprintf("%s: %s\n", fn, bf)
         end
 
         # 5. Convert the lower-cased SMTP command to the upper-cased.
-        email  = email.gsub("after end of data:", "after end of DATA:")
-        email += "\n" if email.end_with?("\n\n") == false
+        email.gsub!("after end of data:", "after end of DATA:")
+        email << "\n" if email.end_with?("\n\n") == false
         return email
       end
 
@@ -428,4 +428,3 @@ module Sisimai
     end
   end
 end
-
