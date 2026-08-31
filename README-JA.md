@@ -11,9 +11,10 @@
 [^1]: 4系を`clone`する場合は`git clone -b 4-stable https://github.com/sisimai/rb-sisimai.git`
 
 > [!CAUTION]
-> **Sisimai 4.25.14p11およびそれ以前のバージョンには 正規表現に関する脆弱性
-> [ReDoS: CVE-2022-4891](https://jvndb.jvn.jp/ja/contents/2022/JVNDB-2022-005663.html)があります。
-> 該当するバージョンをお使いの場合はv4.25.14p12以降へアップグレードしてください。**
+> **Sisimai 4.25.17およびそれ以前の、Sisimai 5.7.1およびそれ以前のバージョンには 正規表現に関する脆弱性
+> [ReDoS: CVE-2022-4891](https://jvndb.jvn.jp/ja/contents/2022/JVNDB-2022-005663.html)と
+> [ReDos: CVE-2026-XXXX/番号の発行待ち]()があります。
+> 該当するバージョンをお使いの場合はv4.25.18またはv5.7.2以降へアップグレードしてください。**
 
 > [!WARNING]
 > Sisimai 5はRuby 2.5以上が必要です。インストール/アップグレードを実行する前に`ruby -v`コマンドで
@@ -116,10 +117,10 @@ Install
 ### From RubyGems.org
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-5.7.1.gem (100%)
-Successfully installed sisimai-5.7.1
-Parsing documentation for sisimai-5.7.1
-Installing ri documentation for sisimai-5.7.1
+Fetching: sisimai-5.7.2.gem (100%)
+Successfully installed sisimai-5.7.2
+Parsing documentation for sisimai-5.7.2
+Installing ri documentation for sisimai-5.7.2
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -147,13 +148,13 @@ if [ -d "/usr/local/jr" ]; then \
 ...
 3 gems installed
 /opt/local/bin/rake install
-sisimai 5.7.1 built to pkg/sisimai-5.7.1.gem.
-sisimai (5.7.1) installed.
+sisimai 5.7.2 built to pkg/sisimai-5.7.2.gem.
+sisimai (5.7.2) installed.
 if [ -d "/usr/local/jr" ]; then \
 		PATH="/usr/local/jr/bin:$PATH" /usr/local/jr/bin/rake install; \
 	fi
-sisimai 5.7.1 built to pkg/sisimai-5.7.1-java.gem.
-sisimai (5.7.1) installed.
+sisimai 5.7.2 built to pkg/sisimai-5.7.2-java.gem.
+sisimai (5.7.2) installed.
 ```
 
 Usage
@@ -362,9 +363,9 @@ Sisimai 5.5.0から**Ruby 2.5以上**が必要になります。
 | 解析エンジン(MTA/ESPモジュール)の数                  | 68                 | 60                  |
 | 検出可能なバウンス理由の数                           | 29                 | 34                  |
 | 依存Gem数(Ruby Standard Gemsを除く)                  | 1 Gem              | 1 Gem               |
-| ソースコードの行数                                   | 10,800 行          | 9,700 行            |
+| ソースコードの行数                                   | 10,800 行          | 9,670 行            |
 | テストフレームワーク                                 | rspec              | minitest            |
-| テスト件数(spec/またはtest/ディレクトリ)             | 311,000 件         | 240,000 件          |
+| テスト件数(spec/またはtest/ディレクトリ)             | 311,000 件         | 255,000 件          |
 | 1秒間に解析できるバウンスメール数[^4]                | 620 通             | 620 通              |
 | ライセンス                                           | 2条項BSD           | 2条項BSD            |
 | 開発会社による商用サポート                           | 提供中             | 提供中              |

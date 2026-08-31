@@ -12,9 +12,9 @@
 [^1]: Specify `-b 4-stable` when you clone Sisimai 4 for example, `git clone -b 4-stable https://github.com/sisimai/rb-sisimai.git`
 
 > [!CAUTION]
-> **Sisimai versions 4.25.14p11 and earlier contain a regular expression vulnerability 
-> [ReDoS: CVE-2022-4891](https://nvd.nist.gov/vuln/detail/CVE-2022-4891).
-> If you are using one of these versions, please upgrade to v4.25.14p12 or later.**
+> **Sisimai versions 4.25.17 and earlier, as well as 5.7.1 and earlier, contain regular expression vulnerabilities
+> ([ReDoS: CVE-2022-4891](https://nvd.nist.gov/vuln/detail/CVE-2022-4891), ReDoS: CVE Pending).
+> If you are using affected versions, please upgrade to v4.25.18 or v5.7.2 or later.**
 
 > [!WARNING]
 > Sisimai 5 requires Ruby 2.5 or later. Check the version of Ruby in your system before installing/upgrading
@@ -115,10 +115,10 @@ Install
 ### From RubyGems
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-5.7.1.gem (100%)
-Successfully installed sisimai-5.7.1
-Parsing documentation for sisimai-5.7.1
-Installing ri documentation for sisimai-5.7.1
+Fetching: sisimai-5.7.2.gem (100%)
+Successfully installed sisimai-5.7.2
+Parsing documentation for sisimai-5.7.2
+Installing ri documentation for sisimai-5.7.2
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -146,13 +146,13 @@ if [ -d "/usr/local/jr" ]; then \
 ...
 3 gems installed
 /opt/local/bin/rake install
-sisimai 5.7.1 built to pkg/sisimai-5.7.1.gem.
-sisimai (5.7.1) installed.
+sisimai 5.7.2 built to pkg/sisimai-5.7.2.gem.
+sisimai (5.7.2) installed.
 if [ -d "/usr/local/jr" ]; then \
 		PATH="/usr/local/jr/bin:$PATH" /usr/local/jr/bin/rake install; \
 	fi
-sisimai 5.7.1 built to pkg/sisimai-5.7.1-java.gem.
-sisimai (5.7.1) installed.
+sisimai 5.7.2 built to pkg/sisimai-5.7.2-java.gem.
+sisimai (5.7.2) installed.
 ```
 
 Usage
@@ -361,7 +361,7 @@ Beginning with v5.5.0, Sisimai requires **Ruby 2.5.0 or later.**
 | The number of MTA/ESP modules                        | 68                 | 61                  |
 | The number of detectable bounce reasons              | 29                 | 34                  |
 | Dependencies (Except Ruby Standard Gems)             | 1 gem              | 1 gem               |
-| Source lines of code                                 | 10,300 lines       | 9,500 lines         |
+| Source lines of code                                 | 10,300 lines       | 9,670 lines         |
 | Test frameworks                                      | rspec              | minitest            |
 | The number of tests in spec/ or test/ directory      | 311,000 tests      | 255,000 tests       | 
 | The number of bounce emails decoded/sec (CRuby)[^4]  | 620 emails         | 620 emails          |
