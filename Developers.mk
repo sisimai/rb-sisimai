@@ -37,8 +37,12 @@ DESCR_LENGTH := 50
 BH_CAN_PARSE := AmazonSES AmazonWorkMail Aol Bigfoot Biglobe Courier EZweb Exim Facebook GSuite \
 				Google KDDI MessageLabs MessagingServer Office365 Postfix SendGrid Sendmail Verizon \
 				X5 Yandex qmail
+INVISIBLES   := '[\x00-\x08\x0B-\x0C\x0E-\x1F\x7F]|\xEF\xBB\xBF|\xE2\x80[\xAA-\xAE]|\xE2\x81[\xA6-\xA9]|\xE2\x80[\x8B-\x8F]'
 # -------------------------------------------------------------------------------------------------
 .PHONY: clean
+
+check-invisibles:
+	@git --no-pager grep -P -I $(INVISIBLES) '*.pm' && exit 1 || true
 
 private-sample:
 	$(RM) -r ./$(PRIVATEMAILS)
