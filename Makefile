@@ -62,6 +62,7 @@ user-test:
 
 author-test:
 	RUBYOPT="$(RUBYARGUMENT)" rake privatetest
+	$(MAKE) -f Developers.mk check-invisibles
 
 check:
 	find lib -type f -exec grep --color -E ' $$' {} /dev/null \;
