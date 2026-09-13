@@ -20,6 +20,7 @@ module Sisimai
           "dmarc policy",
           "doesn't meet the required authentication level",
           "please inspect your spf settings",
+          "rejected due to dmarc", # comcast.net
           "sender policy framework",
           "spf check: fail",
         ].freeze
