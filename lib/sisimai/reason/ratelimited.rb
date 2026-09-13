@@ -18,8 +18,6 @@ module Sisimai
           "temporarily deferred due to unexpected volume or user complaints",
           "throttling failure: ",
           "too many errors from your ip",         # Free.fr
-          "too many recipients",                  # ntt docomo
-          "too many smtp sessions for this host", # Sendmail(daemon.c)
           "trop de connexions, ",
           "we have already made numerous attempts to deliver this message",
         ].freeze
@@ -27,6 +25,9 @@ module Sisimai
           ["exceeded ", "allowable number of posts without solving a captcha"],
           ["connection ", "limit"],
           ["temporarily", "rate limited"],
+          ["throttled ", "postmaster.comcast.net"],
+          ["too many ", "session"],    # Sendmail(daemon.c), comcast.net
+          ["too many ", "recipients"], # nttdocomo, comcast.net
           ["too many con", "s"],
         ].freeze
 
