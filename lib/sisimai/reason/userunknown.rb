@@ -67,6 +67,7 @@ module Sisimai
           "recipient is not accepted",
           "recipient is not in my validrcptto list",
           "recipient is not local",
+          "recipient mailbox unallocated", # comcast.net
           "recipient not ok",
           "recipient refuses to accept your mail",
           "recipient unknown",

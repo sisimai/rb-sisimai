@@ -23,6 +23,7 @@ module Sisimai
           "error: no valid recipients from ",
           "esmtp not accepting connections", # icloud.com
           "extreme bad ip profile",
+          "found on one or more dnsbls",     # comcast.net
           "helo command rejected:",
           "host network not allowed",
           "invalid ip for sending mail of domain",
