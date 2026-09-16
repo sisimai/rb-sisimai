@@ -40,6 +40,7 @@ module Sisimai
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         alternates = Sisimai::Lhost.DELIVERYSTATUS
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        return nil if emailparts.nil?
         readslices = [""]
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
@@ -63,9 +64,12 @@ module Sisimai
           break if p0.nil?
 
           cx = mbody[p1, mbody.size]
+          return nil if cx.nil?
           p2 = cx.index("\n\n")
+          return nil if p2.nil?
           cv = cx[p2 + 2, mbody.size]
           emailparts = Sisimai::RFC5322.part(cv, [ct], 0)
+          return nil if emailparts.nil?
           break
         end
 
@@ -272,4 +276,3 @@ module Sisimai
     end
   end
 end
-
