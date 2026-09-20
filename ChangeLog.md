@@ -10,6 +10,7 @@ v5.?.?
 - version: ""
   - #458 Add invisible/control character check to Makefile to prevent Trojan Source attacks.
   - #460 Add error message patterns for comcast.net.
+  - #462 Avoid RFC3464 crashes on empty or truncated attached messages. Thanks to @azranel.
 
 v5.7.2
 ---------------------------------------------------------------------------------------------------
