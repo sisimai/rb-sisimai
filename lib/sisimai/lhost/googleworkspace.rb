@@ -30,7 +30,7 @@ module Sisimai::Lhost
         return nil if mhead["subject"].include?("Delivery Status Notification") == false
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
-        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
         bodyslices = emailparts[0].split("\n")
         entiremesg = ""
         readcursor = 0      # (Integer) Points the current cursor position
