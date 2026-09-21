@@ -86,7 +86,8 @@ module Sisimai
           #    There is a bounce message inside of mutipart/*, try to sift the first message/rfc822
           #    part as a entire message body again.
           parseagain += 1
-          email = Sisimai::RFC5322.part(aftersplit[2], Boundaries, true).pop.sub(/\A\s+/, '')
+          email = Sisimai::RFC5322.part(aftersplit[2], Boundaries, true); break if email.nil?
+          email = email.pop.sub(/\A\s+/, '')
           break if email.size < 128
         end
         return nil if beforefact.nil? || beforefact.empty?
