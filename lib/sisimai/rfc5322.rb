@@ -202,7 +202,6 @@ module Sisimai
           end
           latterpart << "\n" if latterpart.end_with?("\n") == false
         end
-
         return [formerpart, latterpart]
       end
 
