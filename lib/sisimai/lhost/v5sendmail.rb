@@ -38,7 +38,7 @@ module Sisimai::Lhost
         # :from => %r/\AMail Delivery Subsystem/,
         return nil if mhead['subject'].start_with?('Returned mail: ') == false
 
-        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
         return nil if emailparts[1].size == 0
 
         require 'sisimai/eb'
