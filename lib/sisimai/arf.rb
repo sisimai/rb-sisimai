@@ -69,7 +69,7 @@ module Sisimai
         return nil if self.is_arf(mhead) == false
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = dscontents[-1]
-        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
         bodyslices = emailparts[0].split("\n")
         reportpart = false
         readcursor = 0    # Points the current cursor position

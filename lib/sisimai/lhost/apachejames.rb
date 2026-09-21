@@ -27,7 +27,7 @@ module Sisimai::Lhost
         return nil if match == 0
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = dscontents[-1]
-        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
         bodyslices = emailparts[0].split("\n")
         readcursor = 0                # Points the current cursor position
         recipients = 0                # The number of 'Final-Recipient' header

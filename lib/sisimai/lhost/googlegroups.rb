@@ -37,7 +37,7 @@ module Sisimai::Lhost
         #
         # Google Groups
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = dscontents[-1]
-        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
         recipients = 0
 
         # * You might have spelled or formatted the group name incorrectly.
