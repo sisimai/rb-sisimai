@@ -33,7 +33,7 @@ module Sisimai::Lhost
         #   From: Mail Delivery System <Mailer-Daemon@t-online.de>
         #   X-TOI-MSGID: c9412855-531f-497b-b007-5ffc033877a0
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
-        emailparts = Sisimai::RFC5322.part(mbody, [BannerDTAG[3], BannerDTAG[2]])
+        emailparts = Sisimai::RFC5322.part(mbody, [BannerDTAG[3], BannerDTAG[2]]); return nil if emailparts.nil?
         bodyslices = emailparts[0].split("\n")
         messagelog = ''
         readcursor = 0      # (Integer) Points the current cursor position
