@@ -46,7 +46,7 @@ module Sisimai::Lhost
         permessage = {}     # (Hash) Store values of each Per-Message field
 
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
-        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
         bodyslices = emailparts[0].split("\n")
         readslices = ['']
         readcursor = 0      # (Integer) Points the current cursor position
