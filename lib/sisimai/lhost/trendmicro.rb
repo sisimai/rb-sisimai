@@ -28,7 +28,7 @@ module Sisimai::Lhost
 
         require 'sisimai/smtp/command'
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
-        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
         bodyslices = emailparts[0].split("\n")
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
 
