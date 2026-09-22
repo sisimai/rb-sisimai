@@ -37,12 +37,12 @@ module Sisimai::Lhost
         match ||= true if mhead['subject'].start_with?('Warning: ')
         return nil if match == false
 
-        fieldtable = Sisimai::RFC1894.FIELDTABLE
-        permessage = {}     # (Hash) Store values of each Per-Message field
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
+        fieldtable = Sisimai::RFC1894.FIELDTABLE
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         bodyslices = emailparts[0].split("\n")
         readslices = ['']
+        permessage = {}     # (Hash) Store values of each Per-Message field
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         thecommand = ''     # (String) SMTP Command name begin with the string '>>>'
