@@ -33,9 +33,9 @@ module Sisimai::Lhost
         end
         return nil if match < 2
 
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
         fieldtable = Sisimai::RFC1894.FIELDTABLE
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
-        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
