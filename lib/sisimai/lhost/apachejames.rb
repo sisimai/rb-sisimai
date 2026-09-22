@@ -26,8 +26,8 @@ module Sisimai::Lhost
         match += 1 if mhead["received"].any? { |a| a.include?("JAMES SMTP Server") }
         return nil if match == 0
 
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = dscontents[-1]
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = dscontents[-1]
         bodyslices = emailparts[0].split("\n")
         readcursor = 0                # Points the current cursor position
         recipients = 0                # The number of 'Final-Recipient' header
