@@ -32,8 +32,8 @@ module Sisimai::Lhost
         #     by mailout11.t-online.de (Postfix) with SMTP id 05E5A1CAC0
         #   From: Mail Delivery System <Mailer-Daemon@t-online.de>
         #   X-TOI-MSGID: c9412855-531f-497b-b007-5ffc033877a0
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, [BannerDTAG[3], BannerDTAG[2]]); return nil if emailparts.nil?
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         bodyslices = emailparts[0].split("\n")
         messagelog = ''
         readcursor = 0      # (Integer) Points the current cursor position
