@@ -65,9 +65,10 @@ module Sisimai
           cx = mbody[p1, mbody.size]; return nil if cx.nil?
           p2 = cx.index("\n\n");      return nil if p2.nil?
           cv = cx[p2 + 2, mbody.size]
-          emailparts = Sisimai::RFC5322.part(cv, [ct], 0); return nil if emailparts.nil?
+          emailparts = Sisimai::RFC5322.part(cv, [ct], 0)
           break
         end
+        return nil if emailparts.nil?
 
         if emailparts[0].index(StartingOf[:message][0]) == nil
           # There is no "Content-Type: message/delivery-status" line in the message body
