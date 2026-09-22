@@ -42,11 +42,11 @@ module Sisimai::Lhost
         end
         return nil if match == 0 || mhead['x-aol-ip']
 
-        permessage = {}     # (Hash) Store values of each Per-Message field
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         bodyslices = emailparts[0].split("\n")
         readslices = ['']
+        permessage = {}     # (Hash) Store values of each Per-Message field
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         nomessages = false  # (Boolean) Delivery report unavailable
         commandset = []     # (Array) ``in reply to * command'' list
