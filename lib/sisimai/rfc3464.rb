@@ -35,11 +35,10 @@ module Sisimai
           p0 = mbody.index("\n\nReturn-Path:")
           mbody = sprintf("%s%s%s", mbody[0, p0], Boundaries[0], mbody[p0 + 1, mbody.size]) if p0
         end
-
-        permessage = {}
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         alternates = Sisimai::Lhost.DELIVERYSTATUS
-        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
+        permessage = {}
         readslices = [""]
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
