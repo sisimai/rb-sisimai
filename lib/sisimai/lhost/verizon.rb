@@ -85,10 +85,10 @@ module Sisimai::Lhost
           end
         else
           # vzwpix.com
-          startingof = {message: ['Message could not be delivered to mobile']}
-          messagesof = {Sisimai::Eb::ReUSER => ['No valid recipients for this MM']}
           boundaries = [Sisimai::RFC2045.boundary(mhead['content-type'], 1)]
           emailparts = Sisimai::RFC5322.part(mbody, boundaries); return nil if emailparts.nil?
+          startingof = {message: ['Message could not be delivered to mobile']}
+          messagesof = {Sisimai::Eb::ReUSER => ['No valid recipients for this MM']}
           bodyslices = emailparts[0].split("\n")
 
           while e = bodyslices.shift do
