@@ -74,8 +74,8 @@ module Sisimai::Lhost
         require "sisimai/rfc1123"
         require "sisimai/smtp/reply"
         require "sisimai/smtp/status"
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]
         bodyslices = emailparts[0].split("\n")
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
