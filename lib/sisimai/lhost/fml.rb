@@ -35,8 +35,8 @@ module Sisimai::Lhost
         return nil if mhead['from'].include?('-admin@') == false
         return nil if mhead['message-id'].index('.FML') < 2
 
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         bodyslices = emailparts[0].split("\n")
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
 
