@@ -315,7 +315,7 @@ module Sisimai
       # @param options argvs [Array] tryonfirst  MTA module list to load on first
       # @return              [Hash]          Decoded and structured bounce mails
       def sift(argvs)
-        return nil if argvs['mail'].nil? || argvs['body'].nil?
+        return nil if argvs['mail'].nil? || argvs['body'].nil? || argvs['body'].empty?
 
         mailheader = argvs['mail']['header']
         bodystring = argvs['body']
@@ -357,6 +357,7 @@ module Sisimai
           bodystring = p if p.empty? == false
         end
         bodystring = bodystring.scrub('?').delete("\r").gsub("\t", " ")
+        return nil if bodystring.empty?
 
         haveloaded = {}
         havesifted = nil
