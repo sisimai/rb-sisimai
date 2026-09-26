@@ -41,7 +41,7 @@ module Sisimai::Lhost
             Sisimai::Eb::ReUSER => ['550 - Requested action not taken: no such user here'],
           }
           boundaries = [Sisimai::RFC2045.boundary(mhead['content-type'], 1)]
-          emailparts = Sisimai::RFC5322.part(mbody, boundaries); return nil if emailparts.nil?
+          emailparts = Sisimai::RFC5322.part(mbody, boundaries); return nil if emailparts.nil? || emailparts[0].empty?
           bodyslices = emailparts[0].split("\n")
 
           while e = bodyslices.shift do
@@ -86,10 +86,10 @@ module Sisimai::Lhost
         else
           # vzwpix.com
           boundaries = [Sisimai::RFC2045.boundary(mhead['content-type'], 1)]
-          emailparts = Sisimai::RFC5322.part(mbody, boundaries); return nil if emailparts.nil?
+          emailparts = Sisimai::RFC5322.part(mbody, boundaries); return nil if emailparts.nil? || emailparts[0].empty?
+          bodyslices = emailparts[0].split("\n")
           startingof = {message: ['Message could not be delivered to mobile']}
           messagesof = {Sisimai::Eb::ReUSER => ['No valid recipients for this MM']}
-          bodyslices = emailparts[0].split("\n")
 
           while e = bodyslices.shift do
             # Read error messages and delivery status lines from the head of the email to the previous
