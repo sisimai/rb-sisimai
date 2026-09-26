@@ -24,9 +24,9 @@ module Sisimai::Lhost
         match += 1 if mhead['received'].any? { |a| a.include?('.au.com (') }
         return nil if match == 0
 
-        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil? || emailparts[0].empty?
         bodyslices = emailparts[0].split("\n")
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
 
