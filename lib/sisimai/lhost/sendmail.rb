@@ -37,10 +37,10 @@ module Sisimai::Lhost
         match ||= true if mhead['subject'].start_with?('Warning: ')
         return nil if match == false
 
-        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
-        fieldtable = Sisimai::RFC1894.FIELDTABLE
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil? || emailparts[0].empty?
         bodyslices = emailparts[0].split("\n")
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
+        fieldtable = Sisimai::RFC1894.FIELDTABLE
         readslices = ['']
         permessage = {}     # (Hash) Store values of each Per-Message field
         readcursor = 0      # (Integer) Points the current cursor position
