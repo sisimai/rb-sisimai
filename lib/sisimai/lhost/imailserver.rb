@@ -26,9 +26,9 @@ module Sisimai::Lhost
         match += 1 if mhead['x-mailer'].to_s.start_with?('<SMTP32 v')
         return nil if match == 0
 
-        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil? || emailparts[0].empty?
         bodyslices = emailparts[0].split("\n")
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
 
         while e = bodyslices.shift do
