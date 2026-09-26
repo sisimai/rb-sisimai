@@ -42,9 +42,9 @@ module Sisimai::Lhost
         end
         return nil if match == 0 || mhead['x-aol-ip']
 
-        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil? || emailparts[0].empty?
         bodyslices = emailparts[0].split("\n")
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         readslices = ['']
         permessage = {}     # (Hash) Store values of each Per-Message field
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
