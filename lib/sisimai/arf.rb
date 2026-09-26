@@ -68,7 +68,7 @@ module Sisimai
       def inquire(mhead, mbody)
         return nil if self.is_arf(mhead) == false
 
-        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts[0].empty?
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = dscontents[-1]
         bodyslices = emailparts[0].split("\n")
         reportpart = false

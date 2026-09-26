@@ -129,9 +129,9 @@ module Sisimai::Lhost
         require "sisimai/smtp/command"
         require "sisimai/smtp/failure"
 
-        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil? || emailparts[0].empty?
         bodyslices = emailparts[0].split("\n")
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         readcursor = 0      # (Integer) Points the current cursor position
         nextcursor = false
         recipients = 0      # (Integer) The number of 'Final-Recipient' header

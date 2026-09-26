@@ -38,14 +38,12 @@ module Sisimai::Lhost
         # :from => %r/\AMail Delivery Subsystem/,
         return nil if mhead['subject'].start_with?('Returned mail: ') == false
 
-        emailparts = Sisimai::RFC5322.part(mbody, Boundaries)
-        return nil if emailparts.nil? || emailparts[1].size == 0
-
         require 'sisimai/eb'
         require 'sisimai/rfc1123'
         require 'sisimai/smtp/command'
-        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil? || emailparts[1].empty?
         bodyslices = emailparts[0].split("\n")
+        dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = nil
         readcursor = 0      # (Integer) Points the current cursor position
         recipients = 0      # (Integer) The number of 'Final-Recipient' header
         anotherone = {}     # (Hash) Another error information

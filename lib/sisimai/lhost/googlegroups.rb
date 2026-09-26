@@ -36,7 +36,7 @@ module Sisimai::Lhost
         # Thanks,
         #
         # Google Groups
-        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil?
+        emailparts = Sisimai::RFC5322.part(mbody, Boundaries); return nil if emailparts.nil? || emailparts[0].empty?
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = dscontents[-1]
         recipients = 0
 
