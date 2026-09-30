@@ -4,17 +4,27 @@
 [![Gem Version](https://badge.fury.io/rb/sisimai.svg)](https://badge.fury.io/rb/sisimai)
 [![codecov](https://codecov.io/github/sisimai/rb-sisimai/graph/badge.svg?token=YGkyluNWiZ)](https://codecov.io/github/sisimai/rb-sisimai)
 
+> [!CAUTION]
+> **Sisimai versions 4.25.17 and earlier, as well as 5.7.1 and earlier, contain regular expression vulnerabilities
+> ([ReDoS: CVE-2022-4891](https://nvd.nist.gov/vuln/detail/CVE-2022-4891), ReDoS: CVE Pending).
+> If you are using affected versions, please upgrade to v4.25.18 or v5.7.2 or later.**
+
+> [!IMPORTANT]
+> [Sisimai](https://libsisimai.org/) is available in [Perl](https://github.com/sisimai/p5-sisimai),
+> [Ruby](https://github.com/sisimai/rb-sisimai), and [Go](https://github.com/sisimai/go-sisimai),
+> all designed to produce identical decoding results.
+> As of summer 2025, the [Go version](https://github.com/sisimai/go-sisimai) serves as the primary
+> implementation (Single Source of Truth) due to its strictness, code robustness, and high accuracy,
+> while the Perl and Ruby versions are maintained as ports. Bug reports for specific languages should
+> be submitted to their respective repositories. For overall development status and upcoming features,
+> please refer to the [Go version's Issues](https://github.com/sisimai/go-sisimai/issues).
+
 > [!IMPORTANT]
 > **The default branch of this repository is [5-stable](https://github.com/sisimai/rb-sisimai/tree/5-stable)
 > (Sisimai 5) since 2nd February 2024.**
 > If you want to clone the old version, see the [4-stable](https://github.com/sisimai/rb-sisimai/tree/4-stable)[^1]
 > branch instead. We have moved away from using both the `main` and `master` branches in our development process.
 [^1]: Specify `-b 4-stable` when you clone Sisimai 4 for example, `git clone -b 4-stable https://github.com/sisimai/rb-sisimai.git`
-
-> [!CAUTION]
-> **Sisimai versions 4.25.17 and earlier, as well as 5.7.1 and earlier, contain regular expression vulnerabilities
-> ([ReDoS: CVE-2022-4891](https://nvd.nist.gov/vuln/detail/CVE-2022-4891), ReDoS: CVE Pending).
-> If you are using affected versions, please upgrade to v4.25.18 or v5.7.2 or later.**
 
 > [!WARNING]
 > Sisimai 5 requires Ruby 2.5 or later. Check the version of Ruby in your system before installing/upgrading
