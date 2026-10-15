@@ -123,6 +123,7 @@ module Sisimai::Lhost
         require "sisimai/smtp/command"
         dscontents = [Sisimai::Lhost.DELIVERYSTATUS]; v = dscontents[-1]
         recipients = 0  # (Integer) The number of 'Final-Recipient' header
+        feedbackid = ''
         whatnotify = jsonobject["notificationType"][0, 1] || ""
 
         case whatnotify
@@ -146,6 +147,7 @@ module Sisimai::Lhost
             v["replycode"] = Sisimai::SMTP::Reply.find(v["diagnosis"], v["status"])
             v["date"]      = p["timestamp"]
             v["lhost"]     = Sisimai::RFC1123.find(p["reportingMTA"])
+            feedbackid     = p["feedbackId"]
             recipients += 1
           end
 
@@ -169,6 +171,7 @@ module Sisimai::Lhost
             v["feedbacktype"] = p["complaintFeedbackType"]
             v["date"]         = p["timestamp"]
             v["diagnosis"]    = sprintf('"feedbackid":"%s", "useragent":"%s"}', p["feedbackId"], p["userAgent"])
+            feedbackid        = p["feedbackId"]
             recipients += 1
           end
         when "D"
@@ -203,6 +206,7 @@ module Sisimai::Lhost
         dscontents.each { |e| e["date"] = e["date"].sub("T", " ").sub(/[.]\d{3}Z/, "") }
 
         cv = ""
+        cv = sprintf("Feedback-ID: %s\n", feedbackid) unless feedbackid.empty?
         jsonobject["mail"]["headers"].each do |e|
           cv += sprintf("%s: %s\n", e["name"], e["value"])
         end
