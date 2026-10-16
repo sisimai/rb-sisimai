@@ -12,6 +12,7 @@ v5.?.?
   - #460 Add error message patterns for comcast.net.
   - #462 Avoid RFC3464 crashes on empty or truncated attached messages. Thanks to @azranel.
   - #463 Check that the return value of `Sisimai::RFC5322.part` is an empty array or not.
+  - #467 The value of `feedbackId` returned from Amazon SES is set to the `FeedbackID` field.
 
 v5.7.2
 ---------------------------------------------------------------------------------------------------
