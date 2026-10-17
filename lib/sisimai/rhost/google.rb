@@ -390,9 +390,10 @@ module Sisimai
             ['550', '5.7.25', 'does not match the ip address of the hostname'],
           ],
           Sisimai::Eb::ReSAFE => [
-            # - 454 4.7.0 Too many login attempts, please try again later. For more information, go
-            #   to Add Gmail to another email client. https://support.google.com/mail/answer/7126229
-            ['454', '4.7.0', 'too many login attempts'],
+            # - 454 4.7.0 Too many sign-in attempts, try again later. For details,
+            #   go to SMTP relay service error messages.
+            # - https://support.google.com/mail/answer/7126229
+            ['454', '4.7.0', 'too many sign-in attempts'],
 
             # - 503 5.7.0 No identity changes permitted. For more information, go to About SMTP
             #   error messages.
@@ -497,10 +498,10 @@ module Sisimai
             #   https://support.google.com/a/answer/7282433
             ['452', '4.5.3', 'domain policy size per transaction exceeded'],
 
-            # - 454 4.7.0 Cannot authenticate due to a temporary system problem. Try again later.
-            #   For more information, go to About SMTP error messages.
-            #   https://support.google.com/a/answer/3221692
-            ['454', '4.7.0', 'cannot authenticate due to temporary system problem'],
+            # - 454 4.7.0 Cannot sign in due to a temporary system problem. Try again later.
+            #   For details, go to SMTP relay service error messages.
+            # - https://support.google.com/a/answer/3221692
+            ['454', '4.7.0', 'cannot sign in due to a temporary system problem'],
           ],
           Sisimai::Eb::ReUSER => [
             # - 550 5.1.1 The email account that you tried to reach does not exist. Please try dou-
