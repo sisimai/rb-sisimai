@@ -1,6 +1,8 @@
 module Sisimai
   # Sisimai::Eb - Package "eb" provides constants for the email bounce.
   module Eb
+    XeBYTe = 128 * 1024 * 1024; # 128MB: The maximum size of each email file in Maildir/
+
     #       _       ______
     #   ___| |__   / /  _ \ ___  __ _ ___  ___  _ __
     #  / _ \ '_ \ / /| |_) / _ \/ _` / __|/ _ \| '_ \
