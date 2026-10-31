@@ -7,7 +7,7 @@ on:
 jobs:
   test-cruby:
     name: rake test with CRuby ${{ matrix.cruby }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
