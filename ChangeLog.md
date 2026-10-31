@@ -14,6 +14,7 @@ v5.?.?
   - #463 Check that the return value of `Sisimai::RFC5322.part` is an empty array or not.
   - #467 The value of `feedbackId` returned from Amazon SES is set to the `FeedbackID` field.
   - #468 Update Google SMTP error codes: `454 4.7.0` and `554 5.4.6` as of 15th October 2026.
+  - #469 Limit the max size of each email file in Maildir/.
 
 v5.7.2
 ---------------------------------------------------------------------------------------------------
