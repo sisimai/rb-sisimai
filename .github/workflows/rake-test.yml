@@ -7,11 +7,11 @@ on:
 jobs:
   test-cruby:
     name: rake test with CRuby ${{ matrix.cruby }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
-        cruby: ["2.5.9", "3.3.10", "3.4.10"]
+        cruby: ["2.5.9", "3.3.13", "3.4.10"]
     steps:
       - name: Checkout the repository(CRuby)
         uses: actions/checkout@v4

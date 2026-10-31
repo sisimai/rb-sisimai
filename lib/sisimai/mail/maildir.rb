@@ -34,6 +34,7 @@ module Sisimai
         seekhandle = self.handle
         readbuffer = ''
 
+        require 'sisimai/eb'
         begin
           while r = seekhandle.read do
             # Read each file in the directory
@@ -44,9 +45,10 @@ module Sisimai
             end
 
             emailindir = (self.dir + '/' + r).squeeze('/')
+            emailbytes = File.size(emailindir)
             if File.ftype(emailindir) != 'file' ||
-               File.size(emailindir) == 0 ||
-               File.readable?(emailindir) == false
+               File.readable?(emailindir) == false ||
+               emailbytes < 1 || emailbytes > Sisimai::Eb::XeBYTE
               # The file is not a file, is empty, is not readable
               self.offset += 1
               next
