@@ -22,18 +22,36 @@ module Sisimai
       require 'sisimai/eb'
       require 'sisimai/mail'
       require 'sisimai/fact'
-
       return nil unless mail = Sisimai::Mail.new(argv0)
+
+      maxb = Sisimai::Eb::XeBYTE * 32 # 64MB * 32 = 2GB
+      if (mail.kind == "mailbox" || mail.kind == "memory") && (mail.data.size > maxb || mail.data.size < 1)
+        # Check and limit the max size of entire email data: UNIX mbox and memory: 2GB
+        warn " ***warning: Input email is empty or too large: #{mail.data.size} bytes"
+        return nil
+      end
 
       c___ = argv1[:c___].is_a?(Array) ? argv1[:c___] : [nil, nil]
       sisi = []
-
+      sumb = 0
       while r = mail.data.read do
         # Read and decode each email file
-        # - Check and limit the max size of each email data (64MB)
-        # - Skip to the next email when the size of email is larger than 64MB.
-        size = mail.kind == 'maildir' ? mail.data.size : r.length
-        next if size > Sisimai::Eb::XeBYTE
+        if mail.kind == 'maildir'
+          # - Check and limit the max size of each email file (64MB)
+          # - Skip to the next email when the size of email is larger than 64MB.
+          next if mail.data.size > Sisimai::Eb::XeBYTE
+        else
+          # UNIX mbox, memory, and stdin.
+          next if r.bytesize     > Sisimai::Eb::XeBYTE
+
+          if mail.kind == "stdin"
+            # Check and limit the max size of entire email data read from STDIN: 2GB
+            sumb += r.bytesize; if sumb > maxb
+              warn " ***warning: Input email is too large: #{sumb} bytes" 
+              return nil
+            end
+          end
+        end
 
         path = mail.data.path
         args = {data: r, hook: c___[0], origin: path, delivered: argv1[:delivered], vacation: argv1[:vacation]}
