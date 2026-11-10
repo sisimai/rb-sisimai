@@ -30,7 +30,7 @@ class MailStdinTest < Minitest::Test
   end
 
   def test_size
-    assert_nil Device1.size
+    assert_equal 0, Device1.size
 
     ce = assert_raises ArgumentError do
       Device1.size(nil)
