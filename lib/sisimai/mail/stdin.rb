@@ -6,8 +6,8 @@ module Sisimai
       # :size   [Integer] Data size which has been read
       # :offset [Integer]  The number of emails which have neen read
       # :handle [IO::File] File handle
-      attr_reader :path, :name, :size
-      attr_accessor :offset, :handle
+      attr_reader :path, :name
+      attr_accessor :offset, :handle, :size
 
       # Constructor of Sisimai::Mail::STDIN
       # @param    [IO::STDIN] stdin      Standard-In
@@ -16,7 +16,7 @@ module Sisimai
         raise 'is not an IO object' if stdin.is_a?(IO) == false
 
         @path   = '<STDIN>'
-        @size   = nil
+        @size   = 0
         @offset = 0
         @handle = stdin
       end
