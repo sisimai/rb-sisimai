@@ -4,7 +4,7 @@ RELEASE NOTES for Ruby version of Sisimai
 - download: "https://rubygems.org/gems/sisimai"
 - document: "https://libsisimai.org/"
 
-v5.?.?
+v5.8.0
 ---------------------------------------------------------------------------------------------------
 - release: ""
 - version: ""
