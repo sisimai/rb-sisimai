@@ -19,16 +19,22 @@ module Sisimai
     # @return        [nil]               nil if the argument was wrong or an empty array
     def rise(argv0, **argv1)
       return nil unless argv0
+      require 'sisimai/eb'
       require 'sisimai/mail'
       require 'sisimai/fact'
 
       return nil unless mail = Sisimai::Mail.new(argv0)
-      kind = mail.kind
+
       c___ = argv1[:c___].is_a?(Array) ? argv1[:c___] : [nil, nil]
       sisi = []
 
       while r = mail.data.read do
         # Read and decode each email file
+        # - Check and limit the max size of each email data (64MB)
+        # - Skip to the next email when the size of email is larger than 64MB.
+        size = mail.kind == 'maildir' ? mail.data.size : r.length
+        next if size > Sisimai::Eb::XeBYTE
+
         path = mail.data.path
         args = {data: r, hook: c___[0], origin: path, delivered: argv1[:delivered], vacation: argv1[:vacation]}
         fact = Sisimai::Fact.rise(**args) || []
@@ -36,7 +42,7 @@ module Sisimai
         if c___[1]
           # Run the callback function specified with "c___" parameter of Sisimai.rise after reading
           # each email file in Maildir/ every time
-          args = {'kind' => kind, 'mail' => r, 'path' => path, 'fact' => fact}
+          args = {'kind' => mail.kind, 'mail' => r, 'path' => path, 'fact' => fact}
           begin
             c___[1].call(args) if c___[1].is_a?(Proc)
           rescue StandardError => ce
