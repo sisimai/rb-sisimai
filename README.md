@@ -9,7 +9,12 @@
 > ([ReDoS: CVE-2022-4891](https://nvd.nist.gov/vuln/detail/CVE-2022-4891), ReDoS: CVE Pending).
 > If you are using affected versions, please upgrade to v4.25.18 or v5.7.2 or later.**
 
-> [!IMPORTANT]
+> [!WARNING]
+> To ensure memory protection and system stability, Starting with v5.8.0, Sisimai limits the total
+> size of input data (such as a UNIX mbox, in-memory date from a variable, or STDIN) to **2GB**, and
+> caps the maximum size of each individual email in Maildir/, UNIX mbox, memory, or STDIN at **64MB**.
+
+> [!NOTE]
 > [Sisimai](https://libsisimai.org/) is available in [Perl](https://github.com/sisimai/p5-sisimai),
 > [Ruby](https://github.com/sisimai/rb-sisimai), and [Go](https://github.com/sisimai/go-sisimai),
 > all designed to produce identical decoding results.
@@ -19,14 +24,14 @@
 > be submitted to their respective repositories. For overall development status and upcoming features,
 > please refer to the [Go version's Issues](https://github.com/sisimai/go-sisimai/issues).
 
-> [!IMPORTANT]
+> [!NOTE]
 > **The default branch of this repository is [5-stable](https://github.com/sisimai/rb-sisimai/tree/5-stable)
 > (Sisimai 5) since 2nd February 2024.**
 > If you want to clone the old version, see the [4-stable](https://github.com/sisimai/rb-sisimai/tree/4-stable)[^1]
 > branch instead. We have moved away from using both the `main` and `master` branches in our development process.
 [^1]: Specify `-b 4-stable` when you clone Sisimai 4 for example, `git clone -b 4-stable https://github.com/sisimai/rb-sisimai.git`
 
-> [!WARNING]
+> [!NOTE]
 > Sisimai 5 requires Ruby 2.5 or later. Check the version of Ruby in your system before installing/upgrading
 > by `ruby -v` command.
 
@@ -125,10 +130,10 @@ Install
 ### From RubyGems
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-5.7.2.gem (100%)
-Successfully installed sisimai-5.7.2
-Parsing documentation for sisimai-5.7.2
-Installing ri documentation for sisimai-5.7.2
+Fetching: sisimai-5.8.0.gem (100%)
+Successfully installed sisimai-5.8.0
+Parsing documentation for sisimai-5.8.0
+Installing ri documentation for sisimai-5.8.0
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -156,13 +161,13 @@ if [ -d "/usr/local/jr" ]; then \
 ...
 3 gems installed
 /opt/local/bin/rake install
-sisimai 5.7.2 built to pkg/sisimai-5.7.2.gem.
-sisimai (5.7.2) installed.
+sisimai 5.8.0 built to pkg/sisimai-5.8.0.gem.
+sisimai (5.8.0) installed.
 if [ -d "/usr/local/jr" ]; then \
 		PATH="/usr/local/jr/bin:$PATH" /usr/local/jr/bin/rake install; \
 	fi
-sisimai 5.7.2 built to pkg/sisimai-5.7.2-java.gem.
-sisimai (5.7.2) installed.
+sisimai 5.8.0 built to pkg/sisimai-5.8.0-java.gem.
+sisimai (5.8.0) installed.
 ```
 
 Usage
@@ -371,7 +376,7 @@ Beginning with v5.5.0, Sisimai requires **Ruby 2.5.0 or later.**
 | The number of MTA/ESP modules                        | 68                 | 61                  |
 | The number of detectable bounce reasons              | 29                 | 34                  |
 | Dependencies (Except Ruby Standard Gems)             | 1 gem              | 1 gem               |
-| Source lines of code                                 | 10,300 lines       | 9,670 lines         |
+| Source lines of code                                 | 10,300 lines       | 9,700 lines         |
 | Test frameworks                                      | rspec              | minitest            |
 | The number of tests in spec/ or test/ directory      | 311,000 tests      | 255,000 tests       | 
 | The number of bounce emails decoded/sec (CRuby)[^4]  | 620 emails         | 620 emails          |

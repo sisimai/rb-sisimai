@@ -10,7 +10,12 @@
 > [ReDos: CVE-2026-XXXX/番号の発行待ち]()があります。
 > 該当するバージョンをお使いの場合はv4.25.18またはv5.7.2以降へアップグレードしてください。**
 
-> [!IMPORTANT]
+> [!WARNING]
+> メモリ保護とシステムの安定性を確保するため、Sisimai 5.8.0よりUNIX mboxとメモリ(変数からの入力)と
+> STDINから入るメール全体の容量を**2GB**に、Maildir/の各ファイルを含む個々のメールの最大値を**64MB**
+> に、それぞれ制限するようになりました。
+
+> [!NOTE]
 > 現在の[Sisimai](https://libsisimai.org/ja/)には[Perl版](https://github.com/sisimai/p5-sisimai)と
 > [Ruby版](https://github.com/sisimai/rb-sisimai)と[Go版](https://github.com/sisimai/go-sisimai)が
 > あり、どれを使っても同じ結果が得られるように実装されています。開発体制は2025年の夏から解析精度や
@@ -20,13 +25,13 @@
 > 追加などの開発状況は[Go版のIssues](https://github.com/sisimai/go-sisimai/issues)を参照してください。
 > バグ報告については、それぞれお使いの言語版リポジトリのIssuesに書いてください。
 
-> [!IMPORTANT]
+> [!NOTE]
 > **2024年2月2日の時点でこのリポジトリのデフォルトブランチは[5-stable](https://github.com/sisimai/rb-sisimai/tree/5-stable)
 > (Sisimai 5)になりました。** もし古いバージョンを使いたい場合は[4-stable](https://github.com/sisimai/rb-sisimai/tree/4-stable)[^1]
 > ブランチを見てください。また`main`や`master`ブランチはもうこのリポジトリでは使用していません。
 [^1]: 4系を`clone`する場合は`git clone -b 4-stable https://github.com/sisimai/rb-sisimai.git`
 
-> [!WARNING]
+> [!NOTE]
 > Sisimai 5はRuby 2.5以上が必要です。インストール/アップグレードを実行する前に`ruby -v`コマンドで
 > システムに入っているRubyのバージョンを確認してください。
 
@@ -127,10 +132,10 @@ Install
 ### From RubyGems.org
 ```shell
 $ sudo gem install sisimai
-Fetching: sisimai-5.7.2.gem (100%)
-Successfully installed sisimai-5.7.2
-Parsing documentation for sisimai-5.7.2
-Installing ri documentation for sisimai-5.7.2
+Fetching: sisimai-5.8.0.gem (100%)
+Successfully installed sisimai-5.8.0
+Parsing documentation for sisimai-5.8.0
+Installing ri documentation for sisimai-5.8.0
 Done installing documentation for sisimai after 6 seconds
 1 gem installed
 ```
@@ -158,13 +163,13 @@ if [ -d "/usr/local/jr" ]; then \
 ...
 3 gems installed
 /opt/local/bin/rake install
-sisimai 5.7.2 built to pkg/sisimai-5.7.2.gem.
-sisimai (5.7.2) installed.
+sisimai 5.8.0 built to pkg/sisimai-5.8.0.gem.
+sisimai (5.8.0) installed.
 if [ -d "/usr/local/jr" ]; then \
 		PATH="/usr/local/jr/bin:$PATH" /usr/local/jr/bin/rake install; \
 	fi
-sisimai 5.7.2 built to pkg/sisimai-5.7.2-java.gem.
-sisimai (5.7.2) installed.
+sisimai 5.8.0 built to pkg/sisimai-5.8.0-java.gem.
+sisimai (5.8.0) installed.
 ```
 
 Usage
@@ -373,7 +378,7 @@ Sisimai 5.5.0から**Ruby 2.5以上**が必要になります。
 | 解析エンジン(MTA/ESPモジュール)の数                  | 68                 | 60                  |
 | 検出可能なバウンス理由の数                           | 29                 | 34                  |
 | 依存Gem数(Ruby Standard Gemsを除く)                  | 1 Gem              | 1 Gem               |
-| ソースコードの行数                                   | 10,800 行          | 9,670 行            |
+| ソースコードの行数                                   | 10,800 行          | 9,700 行            |
 | テストフレームワーク                                 | rspec              | minitest            |
 | テスト件数(spec/またはtest/ディレクトリ)             | 311,000 件         | 255,000 件          |
 | 1秒間に解析できるバウンスメール数[^4]                | 620 通             | 620 通              |
