@@ -6,9 +6,9 @@ RELEASE NOTES for Ruby version of Sisimai
 
 v5.8.0
 ---------------------------------------------------------------------------------------------------
-- release: ""
-- version: ""
-  - **LIMIT THE MAXIMUM EMAIL DATA SIZE**
+- release: "Wed, 11 Nov 2026 20:22:22 +0900 (JST)"
+- version: "5.8.0"
+  - **LIMIT THE MAXIMUM EMAIL DATA SIZE FOR MEMORY PROTECTION**
     - The total size of input data (UNIX mbox, memory, or STDIN) is limited to 2GB.
     - Each individual email message (in Maildir/, UNIX mbox, memory, or STDIN) is limited to 64MB.
     - #469 #471
