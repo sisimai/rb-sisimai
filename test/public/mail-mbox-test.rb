@@ -3,7 +3,11 @@ require 'sisimai/mail/mbox'
 
 class MailMboxTest < Minitest::Test
   Methods = { class: %w[new], object: %w[path dir file size handle offset read] }
-  Samples = ['./set-of-emails/mailbox/mbox-0', './set-of-emails/mailbox/mbox-1']
+  Samples = [
+    './set-of-emails/mailbox/mbox-0',
+    './set-of-emails/mailbox/mbox-1',
+    './set-of-emails/mailbox/mbox-2',
+  ]
   Mailbox = Sisimai::Mail::Mbox.new(Samples[0])
 
   def test_methods
